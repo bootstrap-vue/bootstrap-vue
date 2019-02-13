@@ -499,7 +499,7 @@ When using card groups with footers, their content will automatically line up.
 ```html
 <div>
   <b-card-group>
-    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
       <b-card-text>
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This content is a little bit longer.
@@ -507,14 +507,14 @@ When using card groups with footers, their content will automatically line up.
       <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
     </b-card>
 
-    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
       <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
     </b-card>
 
-    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
       <b-card-text>
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first to show that equal height action.
@@ -536,7 +536,7 @@ automatically line up.
 ```html
 <div>
   <b-card-group deck>
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
       <b-card-text>
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This content is a little bit longer.
@@ -544,14 +544,14 @@ automatically line up.
       <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
     </b-card>
 
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
       <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
     </b-card>
 
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
       <b-card-text>
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first to show that equal height action.
@@ -579,8 +579,7 @@ set them to display: inline-block as column-break-inside: avoid isn’t a bullet
     <b-card
       title="Card title that wraps to a new line"
       img-src="https://placekitten.com/g/400/450"
-      img-fluid
-      img-alt="image"
+      img-alt="Image"
       img-top
     >
       <b-card-text>
@@ -601,8 +600,7 @@ set them to display: inline-block as column-break-inside: avoid isn’t a bullet
     <b-card
       title="Title"
       img-src="https://placekitten.com/500/350"
-      img-fluid
-      img-alt="image"
+      img-alt="Image"
       img-top
     >
       <b-card-text>
@@ -628,9 +626,9 @@ set them to display: inline-block as column-break-inside: avoid isn’t a bullet
       <b-card-text class="small text-muted">Last updated 3 mins ago</b-card-text>
     </b-card>
 
-    <b-card img-src="https://picsum.photos/400/400/?image=41" img-fluid img-alt="image" overlay />
+    <b-card img-src="https://picsum.photos/400/400/?image=41" img-alt="Image" overlay />
 
-    <b-card img-src="https://picsum.photos/400/200/?image=41" img-fluid img-alt="image" img-top>
+    <b-card img-src="https://picsum.photos/400/200/?image=41" img-alt="Image" img-top>
       <b-card-text>
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first.
