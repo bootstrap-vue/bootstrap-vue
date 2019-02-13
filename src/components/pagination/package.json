@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Pagination",
-        "component": "bPagination",
+        "component": "BPagination",
         "events": [
             {
                 "event": "input",
