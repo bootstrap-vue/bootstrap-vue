@@ -105,7 +105,7 @@ references will be handy starting points:
 - Article on
   [Integrating and Customising Bootstrap 4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e)
   hosted on medium.com
-- Official Bootstrap [Theming Bootstrap](https://getbootstrap.com/docs/4.2/getting-started/theming/)
+- Official Bootstrap [Theming Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/theming/)
   guide
 
 ## Individual component import

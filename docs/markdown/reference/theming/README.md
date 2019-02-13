@@ -74,4 +74,4 @@ npm install --save-dev node-sass sass-loader
 ## See also
 
 For more details on theming Bootstrap's CSS, refer to the
-[**Official Bootstrap V4 Theming Documentation**](https://getbootstrap.com/docs/4.2/getting-started/theming/).
+[**Official Bootstrap V4 Theming Documentation**](https://getbootstrap.com/docs/4.3/getting-started/theming/).

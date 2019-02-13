@@ -205,7 +205,7 @@ Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was
 the form to trigger validation states
 
 Refer to the
-[Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.2/components/forms/#validation)
+[Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
 for details on the new Bootstrap V4 validation states.
 
 ### Validation mechanisms
@@ -214,7 +214,7 @@ Documentation and examples (hopefully) coming soon.
 
 Please see the following references:
 
-- [Bootstrap V4: Form Validation Documentation](https://getbootstrap.com/docs/4.2/components/forms/#validation)
+- [Bootstrap V4: Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
 - [MDN: Learn Form Validation - Using JavaScript API](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript)
 - [MDN: HTML5 Constraint Validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
 - [MDN: Validity State API](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
