@@ -50,6 +50,8 @@ Released: (2019-02-14)
 - **dependencies:** replace opencollective with opencollective-postintall
   ([#2067](https://github.com/bootstrap-vue/bootstrap-vue/issues/2067))
   ([fa26882](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa26882))
+- **docs:** Updaate links to bootstrap v4.3 docs
+  ([b5d5499](https://github.com/bootstrap-vue/bootstrap-vue/commit/b5d5499))
 - **docs:** Button - fix typo
   ([#1962](https://github.com/bootstrap-vue/bootstrap-vue/issues/1962))
   ([dcbfcf9](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcbfcf9))
