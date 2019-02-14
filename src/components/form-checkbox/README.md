@@ -539,7 +539,7 @@ modifier.
 <!-- b-form-checkbox-indeterminate-multiple.vue -->
 ```
 
-**Note:** indeterminate is not supported in `button` mode, nor in multiple checkbox mode. Also pay attention that plain checkbox (i.e. with prop `plain`) also supports indeterminate state on Windows/Mac/Android, but not on iOS.
+**Note:** indeterminate is not supported in `button` mode, nor in multiple checkbox mode. Also pay attention that plain checkbox (i.e. with prop `plain`) also supports indeterminate state on Windows/Linux/Mac/Android, but not on iOS.
 
 ### Indeterminate state and accessibility
 
