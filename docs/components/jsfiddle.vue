@@ -1,27 +1,23 @@
 <template>
   <div v-if="slug && slug.length">
     <iframe
+      :id="uid"
       width="100%"
       :height="height"
       :allowfullscreen="true"
       :allowtransparency="true"
       frameborder="0"
       :src="src"
-      :id="uid"
     />
     <div
-      v-if="height===0"
-      class="text-center">
-      <img
-        src="//jsfiddle.net/img/embeddable/logo-dark.png"
-        alt="jsfiddle">
+      v-if="height === 0"
+      class="text-center"
+    >
+      <img src="//jsfiddle.net/img/embeddable/logo-dark.png" alt="jsfiddle">
       <br>
       <small class="text-muted mt-1">
         <span> Loading JSFiddle </span>
-        <a
-          :href="url"
-          target="_blank"
-          class="text-muted">(Edit in JSFiddle) </a>
+        <a :href="url" target="_blank" class="text-muted">(Edit in JSFiddle)</a>
       </small>
     </div>
   </div>
@@ -36,7 +32,7 @@ export default {
     },
     uid: {
       type: String,
-      default: () => 'JSFEMB_' + (~~(new Date().getTime() / 86400000))
+      default: () => 'JSFEMB_' + ~~(new Date().getTime() / 86400000)
     },
     tabs: {
       type: String,
@@ -63,37 +59,37 @@ export default {
       default: ''
     }
   },
-  data () {
+  data() {
     return {
       height: 0
     }
   },
   computed: {
-    src () {
-      let url = `//jsfiddle.net/${this.slug}/embedded/${this.tabs}/${this.theme}?`;
-      ['fontColor', 'accentColor', 'bodyColor', 'menuColor'].forEach(attr => {
+    src() {
+      let url = `//jsfiddle.net/${this.slug}/embedded/${this.tabs}/${this.theme}?`
+      ;['fontColor', 'accentColor', 'bodyColor', 'menuColor'].forEach(attr => {
         if (this[attr] && this[attr].length > 0) {
           url += `${attr}=${this[attr]}&`
         }
       })
       return url
     },
-    url () {
+    url() {
       return `//jsfiddle.net/${this.slug}`
     }
   },
-  mounted () {
+  mounted() {
     if (typeof window !== 'undefined') {
       window.addEventListener('message', this.onMessage, false)
     }
   },
-  destroyed () {
+  destroyed() {
     if (typeof window !== 'undefined') {
       window.removeEventListener('message', this.onMessage)
     }
   },
   methods: {
-    setHeight (data) {
+    setHeight(data) {
       let height
       if (this.slug === data.slug) {
         height = data.height <= 0 ? 400 : data.height + 50
@@ -101,7 +97,7 @@ export default {
         return height
       }
     },
-    onMessage (event) {
+    onMessage(event) {
       const eventName = event.data[0]
       const data = event.data[1]
       switch (eventName) {

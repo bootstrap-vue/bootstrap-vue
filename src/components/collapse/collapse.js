@@ -1,5 +1,5 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { hasClass, reflow } from '../../utils/dom'
+import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -7,46 +7,13 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
+// Event Listener options
+const EventOptions = { passive: true, capture: false }
+
+// @vue/component
 export default {
+  name: 'BCollapse',
   mixins: [listenOnRootMixin],
-  render (h) {
-    const content = h(
-      this.tag,
-      {
-        class: this.classObject,
-        directives: [ { name: 'show', value: this.show } ],
-        attrs: { id: this.id || null },
-        on: { click: this.clickHandler }
-      },
-      [ this.$slots.default ]
-    )
-    return h(
-      'transition',
-      {
-        props: {
-          enterClass: '',
-          enterActiveClass: 'collapsing',
-          enterToClass: '',
-          leaveClass: '',
-          leaveActiveClass: 'collapsing',
-          leaveToClass: ''
-        },
-        on: {
-          enter: this.onEnter,
-          afterEnter: this.onAfterEnter,
-          leave: this.onLeave,
-          afterLeave: this.onAfterLeave
-        }
-      },
-      [ content ]
-    )
-  },
-  data () {
-    return {
-      show: this.visible,
-      transitioning: false
-    }
-  },
   model: {
     prop: 'visible',
     event: 'input'
@@ -73,32 +40,62 @@ export default {
       default: 'div'
     }
   },
+  data() {
+    return {
+      show: this.visible,
+      transitioning: false
+    }
+  },
+  computed: {
+    classObject() {
+      return {
+        'navbar-collapse': this.isNav,
+        collapse: !this.transitioning,
+        show: this.show && !this.transitioning
+      }
+    }
+  },
   watch: {
-    visible (newVal) {
+    visible(newVal) {
       if (newVal !== this.show) {
         this.show = newVal
       }
     },
-    show (newVal, oldVal) {
+    show(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.emitState()
       }
     }
   },
-  computed: {
-    classObject () {
-      return {
-        'navbar-collapse': this.isNav,
-        'collapse': !this.transitioning,
-        'show': this.show && !this.transitioning
-      }
+  created() {
+    // Listen for toggle events to open/close us
+    this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
+    // Listen to otehr collapses for accordion events
+    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
+  },
+  mounted() {
+    if (this.isNav && typeof document !== 'undefined') {
+      // Set up handlers
+      eventOn(window, 'resize', this.handleResize, EventOptions)
+      eventOn(window, 'orientationchange', this.handleResize, EventOptions)
+      this.handleResize()
+    }
+    this.emitState()
+  },
+  updated() {
+    this.$root.$emit(EVENT_STATE, this.id, this.show)
+  },
+  beforeDestroy() /* istanbul ignore next */ {
+    if (this.isNav && typeof document !== 'undefined') {
+      eventOff(window, 'resize', this.handleResize, EventOptions)
+      eventOff(window, 'orientationchange', this.handleResize, EventOptions)
     }
   },
   methods: {
-    toggle () {
+    toggle() {
       this.show = !this.show
     },
-    onEnter (el) {
+    onEnter(el) {
       el.style.height = 0
       reflow(el)
       el.style.height = el.scrollHeight + 'px'
@@ -106,27 +103,27 @@ export default {
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
-    onAfterEnter (el) {
+    onAfterEnter(el) {
       el.style.height = null
       this.transitioning = false
       this.$emit('shown')
     },
-    onLeave (el) {
+    onLeave(el) {
       el.style.height = 'auto'
       el.style.display = 'block'
-      el.style.height = el.getBoundingClientRect().height + 'px'
+      el.style.height = getBCR(el).height + 'px'
       reflow(el)
       this.transitioning = true
       el.style.height = 0
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
-    onAfterLeave (el) {
+    onAfterLeave(el) {
       el.style.height = null
       this.transitioning = false
       this.$emit('hidden')
     },
-    emitState () {
+    emitState() {
       this.$emit('input', this.show)
       // Let v-b-toggle know the state of this collapse
       this.$root.$emit(EVENT_STATE, this.id, this.show)
@@ -135,23 +132,23 @@ export default {
         this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion)
       }
     },
-    clickHandler (evt) {
+    clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       const el = evt.target
-      if (!this.isNav || !el || getComputedStyle(this.$el).display !== 'block') {
+      if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
         return
       }
-      if (hasClass(el, 'nav-link') || hasClass(el, 'dropdown-item')) {
+      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
         this.show = false
       }
     },
-    handleToggleEvt (target) {
+    handleToggleEvt(target) {
       if (target !== this.id) {
         return
       }
       this.toggle()
     },
-    handleAccordionEvt (openedId, accordion) {
+    handleAccordionEvt(openedId, accordion) {
       if (!this.accordion || accordion !== this.accordion) {
         return
       }
@@ -167,30 +164,41 @@ export default {
         }
       }
     },
-    handleResize () {
+    handleResize() {
       // Handler for orientation/resize to set collapsed state in nav/navbar
-      this.show = (getComputedStyle(this.$el).display === 'block')
+      this.show = getCS(this.$el).display === 'block'
     }
   },
-  created () {
-    // Listen for toggle events to open/close us
-    this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
-    // Listen to otehr collapses for accordion events
-    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
-  },
-  mounted () {
-    if (this.isNav && typeof document !== 'undefined') {
-      // Set up handlers
-      window.addEventListener('resize', this.handleResize, false)
-      window.addEventListener('orientationchange', this.handleResize, false)
-      this.handleResize()
-    }
-    this.emitState()
-  },
-  beforeDestroy () {
-    if (this.isNav && typeof document !== 'undefined') {
-      window.removeEventListener('resize', this.handleResize, false)
-      window.removeEventListener('orientationchange', this.handleResize, false)
-    }
+  render(h) {
+    const content = h(
+      this.tag,
+      {
+        class: this.classObject,
+        directives: [{ name: 'show', value: this.show }],
+        attrs: { id: this.id || null },
+        on: { click: this.clickHandler }
+      },
+      [this.$slots.default]
+    )
+    return h(
+      'transition',
+      {
+        props: {
+          enterClass: '',
+          enterActiveClass: 'collapsing',
+          enterToClass: '',
+          leaveClass: '',
+          leaveActiveClass: 'collapsing',
+          leaveToClass: ''
+        },
+        on: {
+          enter: this.onEnter,
+          afterEnter: this.onAfterEnter,
+          leave: this.onLeave,
+          afterLeave: this.onAfterLeave
+        }
+      },
+      [content]
+    )
   }
 }

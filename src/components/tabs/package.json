@@ -1,32 +1,55 @@
 {
-    "name": "@bootstrap-vue/tabs",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Tabs",
-        "component": "bTabs",
-        "components": [
-            "bTab"
-        ],
+  "name": "@bootstrap-vue/tabs",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Tabs",
+    "components": [
+      {
+        "component": "BTabs",
         "events": [
-            {
-                "event": "input",
-                "description": "Emits when a tab is shown. Used to update the v-model",
-                "args": [
-                    {
-                        "arg": "tab_index"
-                    }
-                ]
-            }
+          {
+            "event": "input",
+            "description": "Emits when a tab is shown. Used to update the v-model",
+            "args": [
+              { 
+                "arg": "tab_index",
+                "description": "Current selected tab index (0-based index)"
+              }
+            ]
+          }
         ],
         "slots": [
-            {
-                "name": "tabs",
-                "description": "Additional tabs without content"
-            },
-            {
-                "name": "empty",
-                "description": "Renders this slot if no tabs are present"
-            }
+          {
+            "name": "tabs",
+            "description": "Additional tab buttons without tab content"
+          },
+          {
+            "name": "empty",
+            "description": "Renders this slot if no tabs are present"
+          }
         ]
-    }
+      },
+      { 
+        "component": "BTab",
+        "events": [
+          {
+            "event": "click",
+            "description": "Emited when a tab is clicked, or is activated by keyboard navigation",
+            "args": [
+              { 
+                "arg": "evt",
+                "description": "Original event object"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "title",
+            "description": "Slot for custom tab title"
+          }
+        ]
+      }
+    ]
+  }
 }

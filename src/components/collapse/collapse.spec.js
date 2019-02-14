@@ -5,7 +5,9 @@ describe('collapse', async () => {
   testVM()
 
   it('v-b-toggle examples should have aria-controls ID', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const collapse = ['collapse_mod', 'collapse_arg', 'collapse_open']
 
@@ -15,14 +17,22 @@ describe('collapse', async () => {
   })
 
   it('multi example should have aria-controls with two IDs', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
-    expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain($refs.collapse_multi_1.id)
-    expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain($refs.collapse_multi_2.id)
+    expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain(
+      $refs.collapse_multi_1.id
+    )
+    expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain(
+      $refs.collapse_multi_2.id
+    )
   })
 
   it('v-b-toggle non open examples should have attribute aria-expanded="false"', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const buttons = [
       'collapse_mod_btn',
@@ -38,7 +48,9 @@ describe('collapse', async () => {
   })
 
   it('v-b-toggle non open examples should have CSS "display:none"', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const collapse = [
       'collapse_mod',
@@ -55,7 +67,9 @@ describe('collapse', async () => {
   })
 
   it('v-b-toggle open examples should have attribute aria-expanded="true"', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const buttons = ['collapse_open_btn', 'accordion_1_btn']
 
@@ -65,7 +79,9 @@ describe('collapse', async () => {
   })
 
   it('Initially open examples should not have CSS "display:none"', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const collapse = ['collapse_open', 'collapse_vmod', 'accordion_1']
 
@@ -75,7 +91,9 @@ describe('collapse', async () => {
   })
 
   it('Accordion example should have appropriate CSS "display"', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.accordion_1.$el.style.display).toBe('')
     expect($refs.accordion_2.$el.style.display).toBe('none')
@@ -103,7 +121,9 @@ describe('collapse', async () => {
   })
 
   it('basic example should change visibility on click', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const btn = $refs.collapse_mod_btn
     const col = $refs.collapse_mod
@@ -119,7 +139,9 @@ describe('collapse', async () => {
   })
 
   it('accordion example should change visibility on click', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btn1 = $refs.accordion_1_btn
     const col1 = $refs.accordion_1
     const btn2 = $refs.accordion_2_btn

@@ -1,17 +1,8 @@
 window.app = new Vue({
   el: '#app',
-  data () {
+  data() {
     return {
-      variants: [
-        'secondary',
-        'primary',
-        'success',
-        'info',
-        'warning',
-        'danger',
-        'dark',
-        'light'
-      ]
+      variants: ['secondary', 'primary', 'success', 'info', 'warning', 'danger', 'dark', 'light']
     }
   }
 })

@@ -1,25 +1,21 @@
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
-import bInputGroup from './input-group'
-import bInputGroupAddon from './input-group-addon'
-import bInputGroupPrepend from './input-group-prepend'
-import bInputGroupAppend from './input-group-append'
-import bInputGroupText from './input-group-text'
+import BInputGroup from './input-group'
+import BInputGroupAddon from './input-group-addon'
+import BInputGroupPrepend from './input-group-prepend'
+import BInputGroupAppend from './input-group-append'
+import BInputGroupText from './input-group-text'
 
 const components = {
-  bInputGroup,
-  bInputGroupAddon,
-  bInputGroupPrepend,
-  bInputGroupAppend,
-  bInputGroupText
+  BInputGroup,
+  BInputGroupAddon,
+  BInputGroupPrepend,
+  BInputGroupAppend,
+  BInputGroupText
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

@@ -32,11 +32,13 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['class', 'style']
 }
 
+// @vue/component
 export default {
   props: {
     target: {
       // String ID of element, or element/component reference
       type: [String, Object, HTMLElement, Function]
+      // default: undefined
     },
     delay: {
       type: [Number, Object, String],
@@ -58,8 +60,12 @@ export default {
     boundary: {
       // String: scrollParent, window, or viewport
       // Element: element reference
-      type: [String, Object],
+      type: [String, HTMLElement],
       default: 'scrollParent'
+    },
+    boundaryPadding: {
+      type: Number,
+      default: 5
     },
     show: {
       type: Boolean,
@@ -70,27 +76,64 @@ export default {
       default: false
     }
   },
+  computed: {
+    baseConfig() {
+      const cont = this.container
+      let delay = typeof this.delay === 'object' ? this.delay : parseInt(this.delay, 10) || 0
+      return {
+        // Title prop
+        title: (this.title || '').trim() || '',
+        // Contnt prop (if popover)
+        content: (this.content || '').trim() || '',
+        // Tooltip/Popover placement
+        placement: PLACEMENTS[this.placement] || 'auto',
+        // Container curently needs to be an ID with '#' prepended, if null then body is used
+        container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
+        // boundariesElement passed to popper
+        boundary: this.boundary,
+        // boundariesElement padding passed to popper
+        boundaryPadding: this.boundaryPadding,
+        // Show/Hide delay
+        delay: delay || 0,
+        // Offset can be css distance. if no units, pixels are assumed
+        offset: this.offset || 0,
+        // Disable fade Animation?
+        animation: !this.noFade,
+        // Open/Close Trigger(s)
+        trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
+        // Callbacks so we can trigger events on component
+        callbacks: {
+          show: this.onShow,
+          shown: this.onShown,
+          hide: this.onHide,
+          hidden: this.onHidden,
+          enabled: this.onEnabled,
+          disabled: this.onDisabled
+        }
+      }
+    }
+  },
   watch: {
-    show (show, old) {
+    show(show, old) {
       if (show === old) {
         return
       }
       show ? this.onOpen() : this.onClose()
     },
-    disabled (disabled, old) {
+    disabled(disabled, old) {
       if (disabled === old) {
         return
       }
       disabled ? this.onDisable() : this.onEnable()
     }
   },
-  created () {
+  created() {
     // Create non-reactive property
     this._toolpop = null
     this._obs_title = null
     this._obs_content = null
   },
-  mounted () {
+  mounted() {
     // We do this in a next tick to ensure DOM has rendered first
     this.$nextTick(() => {
       // Instantiate ToolTip/PopOver on target
@@ -117,27 +160,27 @@ export default {
       }
     })
   },
-  updated () {
+  updated() {
     // If content/props changes, etc
+    /* istanbul ignore if: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
-  /* istanbul ignore next: not easy to test */
-  activated () {
+  activated() {
     // Called when component is inside a <keep-alive> and component brought offline
+    /* istanbul ignore next: can't test in JSDOM */
     this.setObservers(true)
   },
-  /* istanbul ignore next: not easy to test */
-  deactivated () {
+  deactivated() {
     // Called when component is inside a <keep-alive> and component taken offline
+    /* istanbul ignore if: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
     }
   },
-  /* istanbul ignore next: not easy to test */
-  beforeDestroy () {
+  beforeDestroy() /* istanbul ignore next: not easy to test */ {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
@@ -151,43 +194,8 @@ export default {
       this._toolpop = null
     }
   },
-  computed: {
-    baseConfig () {
-      const cont = this.container
-      let delay = (typeof this.delay === 'object') ? this.delay : (parseInt(this.delay, 10) || 0)
-      return {
-        // Title prop
-        title: (this.title || '').trim() || '',
-        // Contnt prop (if popover)
-        content: (this.content || '').trim() || '',
-        // Tooltip/Popover placement
-        placement: PLACEMENTS[this.placement] || 'auto',
-        // Container curently needs to be an ID with '#' prepended, if null then body is used
-        container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
-        // boundariesElement passed to popper
-        boundary: this.boundary,
-        // Show/Hide delay
-        delay: delay || 0,
-        // Offset can be css distance. if no units, pixels are assumed
-        offset: this.offset || 0,
-        // Disable fade Animation?
-        animation: !this.noFade,
-        // Open/Close Trigger(s)
-        trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
-        // Callbacks so we can trigger events on component
-        callbacks: {
-          show: this.onShow,
-          shown: this.onShown,
-          hide: this.onHide,
-          hidden: this.onHidden,
-          enabled: this.onEnabled,
-          disabled: this.onDisabled
-        }
-      }
-    }
-  },
   methods: {
-    getConfig () {
+    getConfig() {
       const cfg = assign({}, this.baseConfig)
       if (this.$refs.title && this.$refs.title.innerHTML.trim()) {
         // If slot has content, it overrides 'title' prop
@@ -203,35 +211,38 @@ export default {
       }
       return cfg
     },
-    onOpen () {
+    onOpen() {
       if (this._toolpop) {
         this._toolpop.show()
       }
     },
-    onClose (callback) {
+    onClose(callback) {
       if (this._toolpop) {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
         callback()
       }
     },
-    onDisable () {
+    onDisable() {
+      /* istanbul ignore if: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable()
       }
     },
-    onEnable () {
+    onEnable() {
+      /* istanbul ignore if: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable()
       }
     },
-    updatePosition () {
+    updatePosition() {
+      /* istanbul ignore if: can't test in JSDOM */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update()
       }
     },
-    getTarget () {
+    getTarget() {
       let target = this.target
       if (typeof target === 'function') {
         target = target()
@@ -248,18 +259,18 @@ export default {
       }
       return null
     },
-    onShow (evt) {
+    onShow(evt) {
       this.$emit('show', evt)
     },
-    onShown (evt) {
+    onShown(evt) {
       this.setObservers(true)
       this.$emit('update:show', true)
       this.$emit('shown', evt)
     },
-    onHide (evt) {
+    onHide(evt) {
       this.$emit('hide', evt)
     },
-    onHidden (evt) {
+    onHidden(evt) {
       this.setObservers(false)
       // bring our content back if needed to keep Vue happy
       // Tooltip class will move it back to tip when shown again
@@ -267,7 +278,7 @@ export default {
       this.$emit('update:show', false)
       this.$emit('hidden', evt)
     },
-    onEnabled (evt) {
+    onEnabled(evt) {
       if (!evt || evt.type !== 'enabled') {
         // Prevent possible endless loop if user mistakienly fires enabled instead of enable
         return
@@ -275,7 +286,7 @@ export default {
       this.$emit('update:disabled', false)
       this.$emit('disabled')
     },
-    onDisabled (evt) {
+    onDisabled(evt) {
       if (!evt || evt.type !== 'disabled') {
         // Prevent possible endless loop if user mistakienly fires disabled instead of disable
         return
@@ -283,7 +294,7 @@ export default {
       this.$emit('update:disabled', true)
       this.$emit('enabled')
     },
-    bringItBack () {
+    bringItBack() {
       // bring our content back if needed to keep Vue happy
       if (this.$el && this.$refs.title) {
         this.$el.appendChild(this.$refs.title)
@@ -292,14 +303,21 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
-    /* istanbul ignore next: not easy to test */
-    setObservers (on) {
+    setObservers(on) /* istanbul ignore next: can't test in JSDOM */ {
       if (on) {
         if (this.$refs.title) {
-          this._obs_title = observeDom(this.$refs.title, this.updatePosition.bind(this), OBSERVER_CONFIG)
+          this._obs_title = observeDom(
+            this.$refs.title,
+            this.updatePosition.bind(this),
+            OBSERVER_CONFIG
+          )
         }
         if (this.$refs.content) {
-          this._obs_content = observeDom(this.$refs.content, this.updatePosition.bind(this), OBSERVER_CONFIG)
+          this._obs_content = observeDom(
+            this.$refs.content,
+            this.updatePosition.bind(this),
+            OBSERVER_CONFIG
+          )
         }
       } else {
         if (this._obs_title) {

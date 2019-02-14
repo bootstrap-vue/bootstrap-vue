@@ -11,15 +11,17 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BContainer',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
         class: {
-          'container': !props.fluid,
+          container: !props.fluid,
           'container-fluid': props.fluid
         }
       }),

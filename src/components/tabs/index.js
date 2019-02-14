@@ -1,18 +1,14 @@
-import bTabs from './tabs'
-import bTab from './tab'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BTabs from './tabs'
+import BTab from './tab'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bTabs,
-  bTab
+  BTabs,
+  BTab
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

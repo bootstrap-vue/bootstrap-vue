@@ -1,87 +1,14 @@
+import { stripTags } from '../../utils/html'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import bButton from '../button/button'
+import BButton from '../button/button'
 
-import './dropdown.css'
-
+// @vue/component
 export default {
+  name: 'BDropdown',
+  components: { BButton },
   mixins: [idMixin, dropdownMixin],
-  components: { bButton },
-  render (h) {
-    let split = h(false)
-    if (this.split) {
-      split = h(
-        'b-button',
-        {
-          ref: 'button',
-          props: {
-            disabled: this.disabled,
-            variant: this.variant,
-            size: this.size
-          },
-          attrs: {
-            id: this.safeId('_BV_button_')
-          },
-          on: {
-            click: this.click
-          }
-        },
-        [this.$slots['button-content'] || this.$slots.text || this.text]
-      )
-    }
-    const toggle = h(
-      'b-button',
-      {
-        ref: 'toggle',
-        class: this.toggleClasses,
-        props: {
-          variant: this.variant,
-          size: this.size,
-          disabled: this.disabled
-        },
-        attrs: {
-          id: this.safeId('_BV_toggle_'),
-          'aria-haspopup': 'true',
-          'aria-expanded': this.visible ? 'true' : 'false'
-        },
-        on: {
-          click: this.toggle, // click
-          keydown: this.toggle // enter, space, down
-        }
-      },
-      [
-        this.split
-          ? h('span', { class: ['sr-only'] }, [this.toggleText])
-          : this.$slots['button-content'] || this.$slots.text || this.text
-      ]
-    )
-    const menu = h(
-      'div',
-      {
-        ref: 'menu',
-        class: this.menuClasses,
-        attrs: {
-          role: this.role,
-          'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
-        },
-        on: {
-          mouseover: this.onMouseOver,
-          keydown: this.onKeydown // tab, up, down, esc
-        }
-      },
-      [this.$slots.default]
-    )
-    return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
-      split,
-      toggle,
-      menu
-    ])
-  },
   props: {
-    split: {
-      type: Boolean,
-      default: false
-    },
     toggleText: {
       type: String,
       default: 'Toggle Dropdown'
@@ -98,6 +25,10 @@ export default {
       type: [String, Array],
       default: null
     },
+    toggleTag: {
+      type: String,
+      default: 'button'
+    },
     toggleClass: {
       type: [String, Array],
       default: null
@@ -105,6 +36,22 @@ export default {
     noCaret: {
       type: Boolean,
       default: false
+    },
+    split: {
+      type: Boolean,
+      default: false
+    },
+    splitHref: {
+      type: String
+      // default: undefined
+    },
+    splitTo: {
+      type: [String, Object]
+      // default: undefined
+    },
+    splitVariant: {
+      type: String,
+      default: null
     },
     role: {
       type: String,
@@ -118,41 +65,131 @@ export default {
     }
   },
   computed: {
-    dropdownClasses () {
-      let position = ''
+    dropdownClasses() {
       // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
       // when boundary is anything other than `scrollParent`
       // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      if (this.boundary !== 'scrollParent' || !this.boundary) {
-        position = 'position-static'
+      const positionStatic = this.boundary !== 'scrollParent' || !this.boundary
+
+      let direction = ''
+      if (this.dropup) {
+        direction = 'dropup'
+      } else if (this.dropright) {
+        direction = 'dropright'
+      } else if (this.dropleft) {
+        direction = 'dropleft'
       }
+
       return [
         'btn-group',
         'b-dropdown',
         'dropdown',
-        this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : '',
-        position
+        direction,
+        {
+          show: this.visible,
+          'position-static': positionStatic
+        }
       ]
     },
-    menuClasses () {
+    menuClasses() {
       return [
         'dropdown-menu',
         {
           'dropdown-menu-right': this.right,
-          'show': this.visible
+          show: this.visible
         },
         this.menuClass
       ]
     },
-    toggleClasses () {
+    toggleClasses() {
       return [
+        'dropdown-toggle',
         {
-          'dropdown-toggle': !this.noCaret || this.split,
-          'dropdown-toggle-split': this.split
+          'dropdown-toggle-split': this.split,
+          'dropdown-toggle-no-caret': this.noCaret && !this.split
         },
         this.toggleClass
       ]
     }
+  },
+  render(h) {
+    let split = h(false)
+    if (this.split) {
+      const btnProps = {
+        disabled: this.disabled,
+        variant: this.splitVariant || this.variant,
+        size: this.size
+      }
+      // We add these as needed due to router-link issues with defined property with undefined/null values
+      if (this.splitTo) {
+        btnProps.to = this.splitTo
+      }
+      if (this.splitHref) {
+        btnProps.href = this.splitHref
+      }
+      split = h(
+        'b-button',
+        {
+          ref: 'button',
+          props: btnProps,
+          attrs: {
+            id: this.safeId('_BV_button_')
+          },
+          on: {
+            click: this.click
+          }
+        },
+        [this.$slots['button-content'] || this.$slots.text || this.html || stripTags(this.text)]
+      )
+    }
+    const toggle = h(
+      'b-button',
+      {
+        ref: 'toggle',
+        class: this.toggleClasses,
+        props: {
+          variant: this.variant,
+          size: this.size,
+          disabled: this.disabled,
+          tag: this.toggleTag
+        },
+        attrs: {
+          id: this.safeId('_BV_toggle_'),
+          'aria-haspopup': 'true',
+          'aria-expanded': this.visible ? 'true' : 'false'
+        },
+        on: {
+          click: this.toggle, // click
+          keydown: this.toggle // enter, space, down
+        }
+      },
+      [
+        this.split
+          ? h('span', { class: ['sr-only'] }, [this.toggleText])
+          : this.$slots['button-content'] || this.$slots.text || this.html || stripTags(this.text)
+      ]
+    )
+    const menu = h(
+      'div',
+      {
+        ref: 'menu',
+        class: this.menuClasses,
+        attrs: {
+          role: this.role,
+          tabindex: '-1',
+          'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
+        },
+        on: {
+          mouseover: this.onMouseOver,
+          keydown: this.onKeydown // tab, up, down, esc
+        }
+      },
+      [this.$slots.default]
+    )
+    return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
+      split,
+      toggle,
+      menu
+    ])
   }
 }

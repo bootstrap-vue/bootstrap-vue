@@ -7,10 +7,12 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
-  props,
+  name: 'BInputGroupText',
   functional: true,
-  render (h, { props, data, children }) {
+  props,
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {

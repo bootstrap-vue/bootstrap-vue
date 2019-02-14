@@ -1,16 +1,12 @@
-import bTable from './table'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BTable from './table'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bTable
+  BTable
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

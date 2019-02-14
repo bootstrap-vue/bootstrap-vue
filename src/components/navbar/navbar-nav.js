@@ -15,10 +15,12 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BNavbarNav',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {

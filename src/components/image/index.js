@@ -1,18 +1,14 @@
-import bImg from './img'
-import bImgLazy from './img-lazy'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BImg from './img'
+import BImgLazy from './img-lazy'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bImg,
-  bImgLazy
+  BImg,
+  BImgLazy
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

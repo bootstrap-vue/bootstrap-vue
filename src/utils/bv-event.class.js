@@ -1,11 +1,13 @@
 import { assign, defineProperty, defineProperties, readonlyDescriptor } from '../utils/object'
 
 export default class BvEvent {
-  constructor (type, eventInit = {}) {
+  constructor(type, eventInit = {}) {
     // Start by emulating native Event constructor.
     if (!type) {
       throw new TypeError(
-        `Failed to construct '${this.constructor.name}'. 1 argument required, ${arguments.length} given.`
+        `Failed to construct '${this.constructor.name}'. 1 argument required, ${
+          arguments.length
+        } given.`
       )
     }
     // Assign defaults first, the eventInit,
@@ -23,7 +25,7 @@ export default class BvEvent {
     // Create a private variable using closure scoping.
     let defaultPrevented = false
     // Recreate preventDefault method. One way setter.
-    this.preventDefault = function preventDefault () {
+    this.preventDefault = function preventDefault() {
       if (this.cancelable) {
         defaultPrevented = true
       }
@@ -32,13 +34,13 @@ export default class BvEvent {
     // that can only be altered by the preventDefault method.
     defineProperty(this, 'defaultPrevented', {
       enumerable: true,
-      get () {
+      get() {
         return defaultPrevented
       }
     })
   }
 
-  static defaults () {
+  static defaults() {
     return {
       type: '',
       cancelable: true,

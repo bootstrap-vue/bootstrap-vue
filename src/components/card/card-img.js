@@ -18,29 +18,61 @@ export const props = {
     type: Boolean,
     default: false
   },
-  fluid: {
+  left: {
     type: Boolean,
     default: false
+  },
+  start: {
+    type: Boolean,
+    default: false
+    // alias of 'left'
+  },
+  right: {
+    type: Boolean,
+    default: false
+  },
+  end: {
+    type: Boolean,
+    default: false
+    // alias of 'right'
+  },
+  height: {
+    type: String,
+    default: null
+  },
+  width: {
+    type: String,
+    default: null
   }
 }
 
+// @vue/component
 export default {
+  name: 'BCardImg',
   functional: true,
   props,
-  render (h, { props, data, slots }) {
-    let staticClass = 'card-img'
+  render(h, { props, data }) {
+    let baseClass = 'card-img'
     if (props.top) {
-      staticClass += '-top'
+      baseClass += '-top'
+    } else if (props.right || props.end) {
+      baseClass += '-right'
     } else if (props.bottom) {
-      staticClass += '-bottom'
+      baseClass += '-bottom'
+    } else if (props.left || props.start) {
+      baseClass += '-left'
     }
 
     return h(
       'img',
       mergeData(data, {
-        staticClass,
-        class: { 'img-fluid': props.fluid },
-        attrs: { src: props.src, alt: props.alt }
+        class: [baseClass],
+        attrs: {
+          src: props.src,
+          alt: props.alt,
+          height: props.height,
+          width: props.width
+        }
       })
     )
   }

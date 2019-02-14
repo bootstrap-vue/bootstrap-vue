@@ -1,60 +1,39 @@
 <template>
-  <b-collapse
-    tag="nav"
-    is-nav
-    class="bd-links"
-    id="bd-docs-nav">
+  <b-collapse id="bd-docs-nav" tag="nav" is-nav class="bd-links">
     <router-link
-      tag="div"
-      class="bd-toc-item"
       v-for="group in nav"
       :key="group.base"
+      tag="div"
+      class="bd-toc-item"
       :to="'/docs/' + group.base"
       active-class="active"
-      :exact="group.exact">
-
+      :exact="group.exact"
+    >
       <router-link
         class="bd-toc-link"
         :to="'/docs/' + group.base"
-        :exact="group.exact">
+        :exact="group.exact"
+      >
         {{ group.title }}
-        <small
-          class="badge badge-success"
-          v-if="group.new">NEW</small>
-        <small
-          class="badge badge-warning"
-          v-if="group.experimental">BETA</small>
-        <small
-          class="badge badge-danger"
-          v-if="group.breaking">BREAKING CHANGE</small>
+        <small v-if="group.new" class="badge badge-success">NEW</small>
+        <small v-if="group.experimental" class="badge badge-warning">BETA</small>
+        <small v-if="group.breaking" class="badge badge-danger">BREAKING CHANGE</small>
       </router-link>
 
       <b-nav class="bd-sidenav">
         <b-nav-item
           v-for="page in group.pages"
-          :to="('/docs/' + group.base + page.slug).replace(/\/\//g,'/')"
-          :key="page.title
-          ">
+          :key="page.title"
+          :to="('/docs/' + group.base + page.slug).replace(/\/\//g, '/')"
+          active-class="active"
+        >
           {{ page.title }}
-          <b-badge
-            tag="small"
-            variant="success"
-            v-if="page.new">NEW</b-badge>
-          <b-badge
-            tag="small"
-            variant="warning"
-            v-if="page.experimental">BETA</b-badge>
-          <b-badge
-            tag="small"
-            variant="danger"
-            v-if="page.breaking">CHANGE</b-badge>
-          <b-badge
-            tag="small"
-            variant="info"
-            v-if="page.features">ENHANCED</b-badge>
+          <b-badge v-if="page.new" tag="small" variant="success">NEW</b-badge>
+          <b-badge v-if="page.experimental" tag="small" variant="warning">BETA</b-badge>
+          <b-badge v-if="page.breaking" tag="small" variant="danger">CHANGE</b-badge>
+          <b-badge v-if="page.features" tag="small" variant="info">ENHANCED</b-badge>
         </b-nav-item>
       </b-nav>
-
     </router-link>
   </b-collapse>
 </template>

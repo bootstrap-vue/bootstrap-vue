@@ -1,0 +1,29 @@
+$bv-input-group-dropdown-patched: false !default;
+
+@if $bv-input-group-dropdown-patched == false {
+  // Only include this style patch once in final CSS
+  $bv-input-group-dropdown-patched: true;
+
+  /* workaround for https://github.com/bootstrap-vue/bootstrap-vue/issues/1560 */
+  /* workaround for https://github.com/bootstrap-vue/bootstrap-vue/issues/2114 */
+  /* based on: bootstrap/scss/_input-group.scss */
+  .input-group {
+    > .input-group-prepend > .btn-group,
+    > .input-group-append:not(:last-child) > .btn-group,
+    > .input-group-append:last-child > .btn-group:not(:last-child):not(.dropdown-toggle) {
+      > .btn {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    > .input-group-append > .btn-group,
+    > .input-group-prepend:not(:first-child) > .btn-group,
+    > .input-group-prepend:first-child > .btn-group:not(:first-child) {
+      > .btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}

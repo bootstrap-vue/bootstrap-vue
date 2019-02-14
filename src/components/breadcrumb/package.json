@@ -1,13 +1,23 @@
 {
-    "name": "@bootstrap-vue/breadcrumb",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Breadcrumb",
-        "component": "bBreadcrumb",
-        "components": [
-            "bBreadcrumbItem",
-            "bBreadcrumbLink"
-        ],
-        "events": []
-    }
+  "name": "@bootstrap-vue/breadcrumb",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Breadcrumb",
+    "component": "BBreadcrumb",
+    "events": [],
+    "components": [
+      {
+        "component": "BBreadcrumbItem",
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when clicked",
+            "args": [
+              { "name": "event", "description": "Native click event object" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -3,7 +3,10 @@
     "version": "1.0.0",
     "meta": {
         "title": "Popover",
-        "component": "bPopover",
+        "component": "BPopover",
+        "directives": [
+            "vBPopover"
+        ],
         "events": [
             {
                 "event": "show",
@@ -110,6 +113,48 @@
                     {
                         "arg": "bvEvent",
                         "description": "bvEvent object."
+                    }
+                ]
+            }
+        ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::hide::popover",
+                "description": "Close (hide) all or a specific open popover when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), popover id to hide"
+                    }
+                ]
+            },
+            {
+                "event": "bv::show::popover",
+                "description": "Open (show) all or a specific popover when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), popover id to show"
+                    }
+                ]
+            },
+            {
+                "event": "bv::disable::popover",
+                "description": "Disable all or a specific popover when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), popover id to disable"
+                    }
+                ]
+            },
+            {
+                "event": "bv::enable::popover",
+                "description": "Enable all or a specific popover when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), popover id to enable"
                     }
                 ]
             }

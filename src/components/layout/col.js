@@ -8,7 +8,7 @@ import { arrayIncludes } from '../../utils/array'
  * Generates a prop object with a type of
  * [Boolean, String, Number]
  */
-function boolStrNum () {
+function boolStrNum() {
   return {
     type: [Boolean, String, Number],
     default: false
@@ -19,14 +19,14 @@ function boolStrNum () {
  * Generates a prop object with a type of
  * [String, Number]
  */
-function strNum () {
+function strNum() {
   return {
     type: [String, Number],
     default: null
   }
 }
 
-export const computeBkPtClass = memoize(function computeBkPt (type, breakpoint, val) {
+export const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
   let className = type
   if (val === false || val === null || val === undefined) {
     return undefined
@@ -101,10 +101,12 @@ export const props = assign({}, breakpointCol, breakpointOffset, breakpointOrder
  * We need ".col" to default in when no other props are passed,
  * but always render when col=true.
  */
+// @vue/component
 export default {
+  name: 'BCol',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     const classList = []
     // Loop through `col`, `offset`, `order` breakpoint props
     for (const type in breakpointPropMap) {

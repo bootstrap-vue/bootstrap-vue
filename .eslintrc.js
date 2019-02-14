@@ -1,27 +1,25 @@
 module.exports = {
-    env: {
-        browser: true,
-        commonjs: true,
-        es6: true,
-        'jest/globals': true
-    },
-    extends: [
-        'standard',
-        'plugin:vue/recommended'
-    ],
-    plugins: [
-        'jest'
-    ],
-    parserOptions: {
-        ecmaVersion: 8,
-        sourceType: "module"
-    },
-    globals: {
-        Tether: true,
-        Promise: true,
-        Vue: true
+  extends: ['standard', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
+  plugins: ['jest', 'node', 'promise'],
+  parserOptions: {
+    parser: 'babel-eslint',
+    sourceType: 'module'
+  },
+  env: {
+    browser: true,
+    es6: true,
+    'jest/globals': true
+  },
+  globals: {
+    Vue: true
   },
   rules: {
-    "vue/attributes-order": 0
+    'vue/max-attributes-per-line': ['error', { singleline: 4 }],
+    'vue/no-template-shadow': 'off',
+    'vue/no-use-v-if-with-v-for': 'off',
+    'vue/no-v-html': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/require-prop-types': 'off',
+    'vue/singleline-html-element-content-newline': 'off'
   }
 }

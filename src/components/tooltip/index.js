@@ -1,16 +1,14 @@
-import bTooltip from './tooltip'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BTooltip from './tooltip'
+import tooltipDirectivePlugin from '../../directives/tooltip'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bTooltip
+  BTooltip
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
+    Vue.use(tooltipDirectivePlugin)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

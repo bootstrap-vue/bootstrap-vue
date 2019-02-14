@@ -3,8 +3,8 @@
  * @param {string} message
  */
 /* istanbul ignore next */
-function warn (message) {
-  console.warn(`[Bootstrap-Vue warn]: ${message}`)
+function warn(message) {
+  console.warn(`[BootstrapVue warn]: ${message}`)
 }
 
 export default warn

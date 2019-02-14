@@ -76,19 +76,27 @@ const TransitionEndEvents = [
   'oTransitionEnd'
 ]
 
+// Options for events
+const EventOptions = { passive: true, capture: false }
+
 /*
  * Utility Methods
  */
 
 // Better var type detection
-/* istanbul ignore next: not easy to test */
-function toType (obj) {
-  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+function toType(obj) /* istanbul ignore next: not easy to test */ {
+  return {}.toString
+    .call(obj)
+    .match(/\s([a-zA-Z]+)/)[1]
+    .toLowerCase()
 }
 
 // Check config properties for expected types
-/* istanbul ignore next: not easy to test */
-function typeCheckConfig (componentName, config, configTypes) {
+function typeCheckConfig(
+  componentName,
+  config,
+  configTypes
+) /* istanbul ignore next: not easy to test */ {
   for (const property in configTypes) {
     if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
       const expectedTypes = configTypes[property]
@@ -99,8 +107,7 @@ function typeCheckConfig (componentName, config, configTypes) {
 
       if (!new RegExp(expectedTypes).test(valueType)) {
         warn(
-          componentName + ': Option "' + property + '" provided type "' +
-                    valueType + '", but expected type "' + expectedTypes + '"'
+          `${componentName}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}"`
         )
       }
     }
@@ -114,16 +121,12 @@ function typeCheckConfig (componentName, config, configTypes) {
  */
 
 /* istanbul ignore next: not easy to test */
-class ScrollSpy {
-  constructor (element, config, $root) {
+class ScrollSpy /* istanbul ignore next: not easy to test */ {
+  constructor(element, config, $root) {
     // The element we activate links in
     this.$el = element
     this.$scroller = null
-    this.$selector = [
-      Selector.NAV_LINKS,
-      Selector.LIST_ITEMS,
-      Selector.DROPDOWN_ITEMS
-    ].join(',')
+    this.$selector = [Selector.NAV_LINKS, Selector.LIST_ITEMS, Selector.DROPDOWN_ITEMS].join(',')
     this.$offsets = []
     this.$targets = []
     this.$activeTarget = null
@@ -137,19 +140,19 @@ class ScrollSpy {
     this.updateConfig(config)
   }
 
-  static get Name () {
+  static get Name() {
     return NAME
   }
 
-  static get Default () {
+  static get Default() {
     return Default
   }
 
-  static get DefaultType () {
+  static get DefaultType() {
     return DefaultType
   }
 
-  updateConfig (config, $root) {
+  updateConfig(config, $root) {
     if (this.$scroller) {
       // Just in case out scroll element has changed
       this.unlisten()
@@ -172,7 +175,7 @@ class ScrollSpy {
     }
   }
 
-  dispose () {
+  dispose() {
     this.unlisten()
     clearTimeout(this.$resizeTimeout)
     this.$resizeTimeout = null
@@ -186,37 +189,37 @@ class ScrollSpy {
     this.$scrollHeight = null
   }
 
-  listen () {
+  listen() {
     const scroller = this.getScroller()
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOn(scroller, 'scroll', this)
+      eventOn(scroller, 'scroll', this, EventOptions)
     }
-    eventOn(window, 'scroll', this)
-    eventOn(window, 'resize', this)
-    eventOn(window, 'orientationchange', this)
+    eventOn(window, 'scroll', this, EventOptions)
+    eventOn(window, 'resize', this, EventOptions)
+    eventOn(window, 'orientationchange', this, EventOptions)
     TransitionEndEvents.forEach(evtName => {
-      eventOn(window, evtName, this)
+      eventOn(window, evtName, this, EventOptions)
     })
     this.setObservers(true)
     // Scedule a refresh
     this.handleEvent('refresh')
   }
 
-  unlisten () {
+  unlisten() {
     const scroller = this.getScroller()
     this.setObservers(false)
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOff(scroller, 'scroll', this)
+      eventOff(scroller, 'scroll', this, EventOptions)
     }
-    eventOff(window, 'scroll', this)
-    eventOff(window, 'resize', this)
-    eventOff(window, 'orientationchange', this)
+    eventOff(window, 'scroll', this, EventOptions)
+    eventOff(window, 'resize', this, EventOptions)
+    eventOff(window, 'orientationchange', this, EventOptions)
     TransitionEndEvents.forEach(evtName => {
-      eventOff(window, evtName, this)
+      eventOff(window, evtName, this, EventOptions)
     })
   }
 
-  setObservers (on) {
+  setObservers(on) {
     // We observe both the scroller for content changes, and the target links
     if (this.$obs_scroller) {
       this.$obs_scroller.disconnect()
@@ -227,28 +230,40 @@ class ScrollSpy {
       this.$obs_targets = null
     }
     if (on) {
-      this.$obs_targets = observeDom(this.$el, () => { this.handleEvent('mutation') }, {
-        subtree: true,
-        childList: true,
-        attributes: true,
-        attributeFilter: ['href']
-      })
-      this.$obs_scroller = observeDom(this.getScroller(), () => { this.handleEvent('mutation') }, {
-        subtree: true,
-        childList: true,
-        characterData: true,
-        attributes: true,
-        attributeFilter: ['id', 'style', 'class']
-      })
+      this.$obs_targets = observeDom(
+        this.$el,
+        () => {
+          this.handleEvent('mutation')
+        },
+        {
+          subtree: true,
+          childList: true,
+          attributes: true,
+          attributeFilter: ['href']
+        }
+      )
+      this.$obs_scroller = observeDom(
+        this.getScroller(),
+        () => {
+          this.handleEvent('mutation')
+        },
+        {
+          subtree: true,
+          childList: true,
+          characterData: true,
+          attributes: true,
+          attributeFilter: ['id', 'style', 'class']
+        }
+      )
     }
   }
 
   // general event handler
-  handleEvent (evt) {
+  handleEvent(evt) {
     const type = typeof evt === 'string' ? evt : evt.type
 
     const self = this
-    function resizeThrottle () {
+    function resizeThrottle() {
       if (!self.$resizeTimeout) {
         self.$resizeTimeout = setTimeout(() => {
           self.refresh()
@@ -272,7 +287,7 @@ class ScrollSpy {
   }
 
   // Refresh the list of target links on the element we are applied to
-  refresh () {
+  refresh() {
     const scroller = this.getScroller()
     if (!scroller) {
       return
@@ -317,7 +332,7 @@ class ScrollSpy {
   }
 
   // Handle activating/clearing
-  process () {
+  process() {
     const scrollTop = this.getScrollTop() + this.$config.offset
     const scrollHeight = this.getScrollHeight()
     const maxScroll = this.$config.offset + scrollHeight - this.getOffsetHeight()
@@ -340,10 +355,11 @@ class ScrollSpy {
       return
     }
 
-    for (let i = this.$offsets.length; i--;) {
-      const isActiveTarget = this.$activeTarget !== this.$targets[i] &&
-                scrollTop >= this.$offsets[i] &&
-                (typeof this.$offsets[i + 1] === 'undefined' || scrollTop < this.$offsets[i + 1])
+    for (let i = this.$offsets.length; i--; ) {
+      const isActiveTarget =
+        this.$activeTarget !== this.$targets[i] &&
+        scrollTop >= this.$offsets[i] &&
+        (typeof this.$offsets[i + 1] === 'undefined' || scrollTop < this.$offsets[i + 1])
 
       if (isActiveTarget) {
         this.activate(this.$targets[i])
@@ -351,7 +367,7 @@ class ScrollSpy {
     }
   }
 
-  getScroller () {
+  getScroller() {
     if (this.$scroller) {
       return this.$scroller
     }
@@ -370,24 +386,24 @@ class ScrollSpy {
     return this.$scroller
   }
 
-  getScrollTop () {
+  getScrollTop() {
     const scroller = this.getScroller()
     return scroller === window ? scroller.pageYOffset : scroller.scrollTop
   }
 
-  getScrollHeight () {
-    return this.getScroller().scrollHeight || Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight
+  getScrollHeight() {
+    return (
+      this.getScroller().scrollHeight ||
+      Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
     )
   }
 
-  getOffsetHeight () {
+  getOffsetHeight() {
     const scroller = this.getScroller()
     return scroller === window ? window.innerHeight : getBCR(scroller).height
   }
 
-  activate (target) {
+  activate(target) {
     this.$activeTarget = target
     this.clear()
 
@@ -396,8 +412,9 @@ class ScrollSpy {
       this.$selector
         .split(',')
         .map(selector => `${selector}[href="${target}"]`)
-        .join(',')
-      , this.$el)
+        .join(','),
+      this.$el
+    )
 
     links.forEach(link => {
       if (hasClass(link, ClassName.DROPDOWN_ITEM)) {
@@ -440,13 +457,13 @@ class ScrollSpy {
     }
   }
 
-  clear () {
+  clear() {
     selectAll(`${this.$selector}, ${Selector.NAV_ITEMS}`, this.$el)
       .filter(el => hasClass(el, ClassName.ACTIVE))
       .forEach(el => this.setActiveState(el, false))
   }
 
-  setActiveState (el, active) {
+  setActiveState(el, active) {
     if (!el) {
       return
     }

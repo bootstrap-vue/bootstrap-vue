@@ -1,30 +1,51 @@
 {
-    "name": "@bootstrap-vue/form-input",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Form Input",
-        "component": "bFormInput",
-        "events": [
-            {
-                "event": "input",
-                "description": "Emitted when the input receives input from user.",
-                "args": [
-                    {
-                        "arg": "value",
-                        "description": "current value of the input"
-                    }
-                ]
-            },
-            {
-                "event": "change",
-                "description": "Emitted when the input changes.",
-                "args": [
-                    {
-                        "arg": "value",
-                        "description": "current value of the input"
-                    }
-                ]
-            }
+  "name": "@bootstrap-vue/form-input",
+  "version": "1.1.0",
+  "meta": {
+    "title": "Form Input",
+    "component": "BFormInput",
+    "aliases": [ "BInput" ],
+    "events": [
+      {
+        "event": "input",
+        "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
+        "args": [
+          {
+            "arg": "value",
+            "description": "Current value of input"
+          }
         ]
-    }
+      },
+      {
+        "event": "change",
+        "description": "Change event triggerd by user interaction. Emitted after any formatting and after the v-model is updated.",
+        "args": [
+          {
+            "arg": "value",
+            "description": "Current value of input"
+          }
+        ]
+      },
+      {
+        "event": "update",
+        "description": "Emitted to update the v-model",
+        "args": [
+          {
+            "arg": "value",
+            "description": "Value of input, after any formatting. Not emitted if the value does nto change"
+          }
+        ]
+      },
+      {
+        "event": "blur",
+        "description": "Emitted after the input looses focus",
+        "args": [
+          {
+            "arg": "event",
+            "description": "Native blur event (before any formmating)"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -90,4 +90,61 @@
         <b-dropdown-item href="#">Action</b-dropdown-item>
         <b-dropdown-item href="#">Another action</b-dropdown-item>
     </b-dropdown>
+
+    <br><br>
+
+    <b-dropdown ref="dd_10" text="Dropdown" toggle-tag="div">
+        <b-dropdown-item href="#">Action</b-dropdown-item>
+        <b-dropdown-item href="#">Another action</b-dropdown-item>
+    </b-dropdown>
+
+    <br><br>
+
+    <b-dropdown ref="dd_11"
+                text="Drop-Right"
+                dropright
+                variant="primary"
+                class="m-md-2">
+        <b-dropdown-item href="#">Action</b-dropdown-item>
+        <b-dropdown-item href="#">Another action</b-dropdown-item>
+        <b-dropdown-item href="#">Something else here</b-dropdown-item>
+    </b-dropdown>
+
+    <br><br>
+
+    <b-dropdown ref="dd_12"
+                text="Drop-Left"
+                dropleft
+                variant="primary"
+                class="m-md-2">
+        <b-dropdown-item href="#">Action</b-dropdown-item>
+        <b-dropdown-item href="#">Another action</b-dropdown-item>
+        <b-dropdown-item href="#">Something else here</b-dropdown-item>
+    </b-dropdown>
+
+    <br><br>
+
+    <b-dropdown ref="dd_13"
+                text="Split Href"
+                split
+                split-href="#foobar"
+                class="m-md-2">
+        <b-dropdown-item href="#">Action</b-dropdown-item>
+        <b-dropdown-item href="#">Another action</b-dropdown-item>
+        <b-dropdown-item href="#">Something else here</b-dropdown-item>
+    </b-dropdown>
+
+    <br><br>
+
+    <b-dropdown ref="dd_14"
+                text="Split To"
+                split
+                :split-to="{ path: '#foobar' }"
+                split-variant="primary"
+                variant="danger"
+                class="m-md-2">
+        <b-dropdown-item href="#">Action</b-dropdown-item>
+        <b-dropdown-item href="#">Another action</b-dropdown-item>
+        <b-dropdown-item href="#">Something else here</b-dropdown-item>
+    </b-dropdown>
 </div>

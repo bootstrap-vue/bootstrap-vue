@@ -1,25 +1,21 @@
-import bForm from './form'
-import bFormRow from './form-row'
-import bFormText from './form-text'
-import bFormInvalidFeedback from './form-invalid-feedback'
-import bFormValidFeedback from './form-valid-feedback'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BForm from './form'
+import BFormRow from './form-row'
+import BFormText from './form-text'
+import BFormInvalidFeedback from './form-invalid-feedback'
+import BFormValidFeedback from './form-valid-feedback'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bForm,
-  bFormRow,
-  bFormText,
-  bFormInvalidFeedback,
-  bFormFeedback: bFormInvalidFeedback,
-  bFormValidFeedback
+  BForm,
+  BFormRow,
+  BFormText,
+  BFormInvalidFeedback,
+  BFormFeedback: BFormInvalidFeedback,
+  BFormValidFeedback
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

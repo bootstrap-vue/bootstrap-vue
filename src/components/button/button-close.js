@@ -15,10 +15,12 @@ const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BButtonClose',
   functional: true,
   props,
-  render (h, { props, data, listeners, slots }) {
+  render(h, { props, data, listeners, slots }) {
     const componentData = {
       staticClass: 'close',
       class: {
@@ -30,7 +32,7 @@ export default {
         'aria-label': props.ariaLabel ? String(props.ariaLabel) : null
       },
       on: {
-        click (e) {
+        click(e) {
           // Ensure click on button HTML content is also disabled
           if (props.disabled && e instanceof Event) {
             e.stopPropagation()
@@ -39,7 +41,7 @@ export default {
         }
       }
     }
-    // Careful not to override the slot with innerHTML
+    // Careful not to override the default slot with innerHTML
     if (!slots().default) {
       componentData.domProps = { innerHTML: '&times;' }
     }

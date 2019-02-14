@@ -1,7 +1,8 @@
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 // es6-ified by @alexsasharegan
+/* istanbul ignore if */
 if (!Array.from) {
-  Array.from = (function () {
+  Array.from = (function() {
     const toStr = Object.prototype.toString
     const isCallable = fn => typeof fn === 'function' || toStr.call(fn) === '[object Function]'
     const toInteger = value => {
@@ -18,7 +19,7 @@ if (!Array.from) {
     const toLength = value => Math.min(Math.max(toInteger(value), 0), maxSafeInteger)
 
     // The length property of the from method is 1.
-    return function from (arrayLike /*, mapFn, thisArg */) {
+    return function from(arrayLike /*, mapFn, thisArg */) {
       // 1. Let C be the this value.
       const C = this
 
@@ -80,10 +81,11 @@ if (!Array.from) {
 
 // https://tc39.github.io/ecma262/#sec-array.prototype.find
 // Needed for IE support
+/* istanbul ignore if */
 if (!Array.prototype.find) {
   // eslint-disable-next-line no-extend-native
   Object.defineProperty(Array.prototype, 'find', {
-    value: function (predicate) {
+    value: function(predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined')
@@ -125,6 +127,7 @@ if (!Array.prototype.find) {
   })
 }
 
+/* istanbul ignore if */
 if (!Array.isArray) {
   Array.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]'
 }
@@ -135,7 +138,6 @@ export const isArray = Array.isArray
 
 // Instance
 export const arrayIncludes = (array, value) => array.indexOf(value) !== -1
-export const arrayFind = (array, fn, thisArg) => array.find(fn, thisArg)
-export function concat () {
+export function concat() {
   return Array.prototype.concat.apply([], arguments)
 }

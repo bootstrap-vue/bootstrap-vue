@@ -1,17 +1,13 @@
-import bButtonGroup from './button-group'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BButtonGroup from './button-group'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bButtonGroup,
-  bBtnGroup: bButtonGroup
+  BButtonGroup,
+  BBtnGroup: BButtonGroup
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

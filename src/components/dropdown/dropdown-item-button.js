@@ -1,29 +1,49 @@
-import { mergeData } from 'vue-functional-data-merge'
-
 export const props = {
+  active: {
+    type: Boolean,
+    default: false
+  },
+  activeClass: {
+    type: String,
+    default: 'active'
+  },
   disabled: {
     type: Boolean,
     default: false
   }
 }
 
+// @vue/component
 export default {
-  functional: true,
+  name: 'BDropdownItemButton',
+  inject: {
+    dropdown: {
+      from: 'dropdown',
+      default: null
+    }
+  },
   props,
-  render (h, { props, data, parent, children }) {
+  methods: {
+    closeDropdown() {
+      if (this.dropdown) {
+        this.dropdown.hide(true)
+      }
+    },
+    onClick(evt) {
+      this.$emit('click', evt)
+      this.closeDropdown()
+    }
+  },
+  render(h) {
     return h(
       'button',
-      mergeData(data, {
-        props,
+      {
         staticClass: 'dropdown-item',
-        attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
-        on: {
-          click (e) {
-            parent.$root.$emit('clicked::link', e)
-          }
-        }
-      }),
-      children
+        class: { [this.activeClass]: this.active },
+        attrs: { role: 'menuitem', type: 'button', disabled: this.disabled },
+        on: { click: this.onClick }
+      },
+      this.$slots.default
     )
   }
 }

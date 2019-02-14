@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import { isArray } from '../../utils/array'
 import { assign } from '../../utils/object'
-import BreadcrumbItem from './breadcrumb-item'
+import BBreadcrumbItem from './breadcrumb-item'
 
 export const props = {
   items: {
@@ -10,10 +10,12 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BBreadcrumb',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     let childNodes = children
     // Build child nodes from items if given.
     if (isArray(props.items)) {
@@ -32,7 +34,7 @@ export default {
           active = idx + 1 === props.items.length
         }
 
-        return h(BreadcrumbItem, { props: assign({}, item, { active }) })
+        return h(BBreadcrumbItem, { props: assign({}, item, { active }) })
       })
     }
 

@@ -1,18 +1,14 @@
-import bModal from './modal'
-import modalPlugin from '../../directives/modal'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BModal from './modal'
+import modalDirectivePlugin from '../../directives/modal'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bModal
+  BModal
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
-    Vue.use(modalPlugin)
+    Vue.use(modalDirectivePlugin)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

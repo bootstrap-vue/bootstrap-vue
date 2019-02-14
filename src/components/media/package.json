@@ -1,18 +1,18 @@
 {
-    "name": "@bootstrap-vue/media",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Media",
-        "component": "bMedia",
-        "components": [
-            "bMediaAside",
-            "bMediaBody"
-        ],
-        "slots": [
-            {
-                "name": "aside",
-                "description": "Media Aside"
-            }
-        ]
-    }
+  "name": "@bootstrap-vue/media",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Media",
+    "component": "BMedia",
+    "components": [
+      "BMediaAside",
+      "BMediaBody"
+    ],
+    "slots": [
+      {
+        "name": "aside",
+        "description": "Media Aside"
+      }
+    ]
+  }
 }

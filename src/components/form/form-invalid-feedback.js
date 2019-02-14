@@ -9,21 +9,30 @@ export const props = {
     type: String,
     default: 'div'
   },
+  tooltip: {
+    type: Boolean,
+    default: false
+  },
   forceShow: {
     type: Boolean,
     default: false
   }
 }
 
+// @vue/component
 export default {
+  name: 'BFormInvalidFeedback',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'invalid-feedback',
-        class: { 'd-block': props.forceShow },
+        class: {
+          'invalid-feedback': !props.tooltip,
+          'invalid-tooltip': props.tooltip,
+          'd-block': props.forceShow
+        },
         attrs: { id: props.id }
       }),
       children

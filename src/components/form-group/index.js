@@ -1,17 +1,13 @@
-import bFormGroup from './form-group'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BFormGroup from './form-group'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bFormGroup,
-  bFormFieldset: bFormGroup
+  BFormGroup,
+  BFormFieldset: BFormGroup
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

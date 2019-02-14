@@ -1,8 +1,42 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
+// @vue/component
 export default {
+  name: 'BNavbarToggle',
   mixins: [listenOnRootMixin],
-  render (h) {
+  props: {
+    label: {
+      type: String,
+      default: 'Toggle navigation'
+    },
+    target: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      toggleState: false
+    }
+  },
+  created() {
+    this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
+  },
+  methods: {
+    onClick(evt) {
+      this.$emit('click', evt)
+      /* istanbul ignore next */
+      if (!evt.defaultPrevented) {
+        this.$root.$emit('bv::toggle::collapse', this.target)
+      }
+    },
+    handleStateEvt(id, state) {
+      if (id === this.target) {
+        this.toggleState = state
+      }
+    }
+  },
+  render(h) {
     return h(
       'button',
       {
@@ -17,33 +51,5 @@ export default {
       },
       [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
     )
-  },
-  data () {
-    return {
-      toggleState: false
-    }
-  },
-  props: {
-    label: {
-      type: String,
-      default: 'Toggle navigation'
-    },
-    target: {
-      type: String,
-      required: true
-    }
-  },
-  methods: {
-    onClick () {
-      this.$root.$emit('bv::toggle::collapse', this.target)
-    },
-    handleStateEvt (id, state) {
-      if (id === this.target) {
-        this.toggleState = state
-      }
-    }
-  },
-  created () {
-    this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
   }
 }

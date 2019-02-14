@@ -1,20 +1,16 @@
-import bButton from './button'
-import bButtonClose from './button-close'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BButton from './button'
+import BButtonClose from './button-close'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bButton,
-  bBtn: bButton,
-  bButtonClose,
-  bBtnClose: bButtonClose
+  BButton,
+  BBtn: BButton,
+  BButtonClose,
+  BBtnClose: BButtonClose
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

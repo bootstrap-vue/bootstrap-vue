@@ -32,10 +32,12 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BNav',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     if (props.isNavBar) {
       warn("b-nav: Prop 'is-nav-bar' is deprecated. Please use component '<b-navbar-nav>' instead.")
     }
@@ -43,7 +45,7 @@ export default {
       props.tag,
       mergeData(data, {
         class: {
-          'nav': !props.isNavBar,
+          nav: !props.isNavBar,
           'navbar-nav': props.isNavBar,
           'nav-tabs': props.tabs && !props.isNavBar,
           'nav-pills': props.pills && !props.isNavBar,

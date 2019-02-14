@@ -2,10 +2,11 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import formTextMixin from '../../mixins/form-text'
+import formSelectionMixin from '../../mixins/form-selection'
+import formValidityMixin from '../../mixins/form-validity'
 import { arrayIncludes } from '../../utils/array'
-
-// Import styles
-import './form-input.css'
+import { eventOn, eventOff } from '../../utils/dom'
 
 // Valid supported input types
 const TYPES = [
@@ -18,148 +19,140 @@ const TYPES = [
   'search',
   'range',
   'color',
-  `date`,
-  `time`,
-  `datetime`,
-  `datetime-local`,
-  `month`,
-  `week`
+  'date',
+  'time',
+  'datetime',
+  'datetime-local',
+  'month',
+  'week'
 ]
 
+// @vue/component
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
-  render (h) {
-    return h('input', {
-      ref: 'input',
-      class: this.inputClass,
-      attrs: {
-        id: this.safeId(),
-        name: this.name,
-        type: this.localType,
-        disabled: this.disabled,
-        required: this.required,
-        readonly: this.readonly || this.plaintext,
-        placeholder: this.placeholder,
-        autocomplete: this.autocomplete || null,
-        'aria-required': this.required ? 'true' : null,
-        'aria-invalid': this.computedAriaInvalid,
-        value: this.value
-      },
-      on: {
-        input: this.onInput,
-        change: this.onChange
-      }
-    })
-  },
+  name: 'BFormInput',
+  mixins: [
+    idMixin,
+    formMixin,
+    formSizeMixin,
+    formStateMixin,
+    formTextMixin,
+    formSelectionMixin,
+    formValidityMixin
+  ],
   props: {
-    value: {
-      default: null
-    },
     type: {
       type: String,
       default: 'text',
       validator: type => arrayIncludes(TYPES, type)
     },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    readonly: {
+    noWheel: {
+      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
       type: Boolean,
       default: false
     },
-    plaintext: {
-      type: Boolean,
-      default: false
-    },
-    autocomplete: {
-      type: String,
+    min: {
+      type: [String, Number],
       default: null
     },
-    placeholder: {
-      type: String,
+    max: {
+      type: [String, Number],
       default: null
     },
-    formatter: {
-      type: Function
-    },
-    lazyFormatter: {
-      type: Boolean,
-      default: false
+    step: {
+      type: [String, Number],
+      default: null
     }
   },
   computed: {
-    localType () {
+    localType() {
       // We only allow certain types
       return arrayIncludes(TYPES, this.type) ? this.type : 'text'
-    },
-    inputClass () {
-      return [
-        this.plaintext ? 'form-control-plaintext' : 'form-control',
-        this.sizeFormClass,
-        this.stateClass
-      ]
-    },
-    computedAriaInvalid () {
-      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // this.ariaInvalid is null or false or 'false'
-        return this.computedState === false ? 'true' : null
-      }
-      if (this.ariaInvalid === true) {
-        // User wants explicit aria-invalid=true
-        return 'true'
-      }
-      // Most likely a string value (which could be 'true')
-      return this.ariaInvalid
-    }
-  },
-  mounted () {
-    if (this.value) {
-      const fValue = this.format(this.value, null)
-      this.setValue(fValue)
     }
   },
   watch: {
-    value (newVal) {
-      if (this.lazyFormatter) {
-        this.setValue(newVal)
-      } else {
-        const fValue = this.format(newVal, null)
-        this.setValue(fValue)
-      }
+    noWheel(newVal) {
+      this.setWheelStopper(newVal)
     }
   },
+  mounted() {
+    this.setWheelStopper(this.noWheel)
+  },
+  deactivated() {
+    // Turn off listeners when keep-alive component deactivated
+    /* istanbul ignore next */
+    this.setWheelStopper(false)
+  },
+  activated() {
+    // Turn on listeners (if no-wheel) when keep-alive component activated
+    /* istanbul ignore next */
+    this.setWheelStopper(this.noWheel)
+  },
+  beforeDestroy() {
+    /* istanbul ignore next */
+    this.setWheelStopper(false)
+  },
   methods: {
-    format (value, e) {
-      if (this.formatter) {
-        return this.formatter(value, e)
-      }
-      return value
-    },
-    setValue (value) {
-      this.$emit('input', value)
-      // When formatter removes last typed character, value of text input should update to formatted value
-      this.$refs.input.value = value
-    },
-    onInput (evt) {
-      const value = evt.target.value
-
-      if (this.lazyFormatter) {
-        this.setValue(value)
+    setWheelStopper(on) {
+      const input = this.$el
+      // We use native events, so that we don't interfere with propgation
+      if (on) {
+        eventOn(input, 'focus', this.onWheelFocus)
+        eventOn(input, 'blur', this.onWheelBlur)
       } else {
-        const fValue = this.format(value, evt)
-        this.setValue(fValue)
+        eventOff(input, 'focus', this.onWheelFocus)
+        eventOff(input, 'blur', this.onWheelBlur)
+        eventOff(document, 'wheel', this.stopWheel)
       }
     },
-    onChange (evt) {
-      const fValue = this.format(evt.target.value, evt)
-      this.setValue(fValue)
-      this.$emit('change', fValue)
+    onWheelFocus(evt) {
+      eventOn(document, 'wheel', this.stopWheel)
     },
-    focus () {
-      if (!this.disabled) {
-        this.$el.focus()
-      }
+    onWheelBlur(evt) {
+      eventOff(document, 'wheel', this.stopWheel)
+    },
+    stopWheel(evt) {
+      evt.preventDefault()
+      this.$el.blur()
     }
+  },
+  render(h) {
+    var self = this
+    return h('input', {
+      ref: 'input',
+      class: self.computedClass,
+      directives: [
+        {
+          name: 'model',
+          rawName: 'v-model',
+          value: self.localValue,
+          expression: 'localValue'
+        }
+      ],
+      attrs: {
+        id: self.safeId(),
+        name: self.name,
+        form: self.form || null,
+        type: self.localType,
+        disabled: self.disabled,
+        placeholder: self.placeholder,
+        required: self.required,
+        autocomplete: self.autocomplete || null,
+        readonly: self.readonly || self.plaintext,
+        min: self.min,
+        max: self.max,
+        step: self.step,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
+      },
+      domProps: {
+        value: self.localValue
+      },
+      on: {
+        ...self.$listeners,
+        input: self.onInput,
+        change: self.onChange,
+        blur: self.onBlur
+      }
+    })
   }
 }

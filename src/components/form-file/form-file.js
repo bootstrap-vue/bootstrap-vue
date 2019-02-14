@@ -2,77 +2,18 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import { from as arrayFrom } from '../../utils/array'
+import { from as arrayFrom, isArray } from '../../utils/array'
+import looseEqual from '../../utils/loose-equal'
 
+// @vue/component
 export default {
+  name: 'BFormFile',
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
-  render (h) {
-    // Form Input
-    const input = h('input', {
-      ref: 'input',
-      class: [
-        {
-          'form-control-file': this.plain,
-          'custom-file-input': this.custom,
-          focus: this.custom && this.hasFocus
-        },
-        this.stateClass
-      ],
-      attrs: {
-        type: 'file',
-        id: this.safeId(),
-        name: this.name,
-        disabled: this.disabled,
-        required: this.required,
-        capture: this.capture || null,
-        accept: this.accept || null,
-        multiple: this.multiple,
-        webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null,
-        'aria-describedby': this.plain ? null : this.safeId('_BV_file_control_')
-      },
-      on: {
-        change: this.onFileChange,
-        focusin: this.focusHandler,
-        focusout: this.focusHandler
-      }
-    })
-
-    if (this.plain) {
-      return input
-    }
-
-    // Overlay Labels
-    const label = h(
-      'label',
-      {
-        class: ['custom-file-label', this.dragging ? 'dragging' : null],
-        attrs: {
-          id: this.safeId('_BV_file_control_')
-        }
-      },
-      this.selectLabel
-    )
-
-    // Return rendered custom file input
-    return h(
-      'div',
-      {
-        class: ['custom-file', 'b-form-file', this.stateClass],
-        attrs: { id: this.safeId('_BV_file_outer_') },
-        on: { dragover: this.dragover }
-      },
-      [input, label]
-    )
-  },
-  data () {
-    return {
-      selectedFile: null,
-      dragging: false,
-      hasFocus: false
-    }
-  },
   props: {
+    value: {
+      // type: Object,
+      default: null
+    },
     accept: {
       type: String,
       default: ''
@@ -84,7 +25,15 @@ export default {
     },
     placeholder: {
       type: String,
-      default: undefined
+      default: 'No file chosen' // Chrome default file prompt
+    },
+    browseText: {
+      type: String,
+      default: null
+    },
+    dropPlaceholder: {
+      type: String,
+      default: null
     },
     multiple: {
       type: Boolean,
@@ -103,8 +52,20 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      selectedFile: null,
+      dragging: false,
+      hasFocus: false
+    }
+  },
   computed: {
-    selectLabel () {
+    selectLabel() {
+      // Draging active
+      if (this.dragging && this.dropPlaceholder) {
+        return this.dropPlaceholder
+      }
+
       // No file choosen
       if (!this.selectedFile || this.selectedFile.length === 0) {
         return this.placeholder
@@ -123,8 +84,8 @@ export default {
     }
   },
   watch: {
-    selectedFile (newVal, oldVal) {
-      if (newVal === oldVal) {
+    selectedFile(newVal, oldVal) {
+      if (looseEqual(newVal, oldVal)) {
         return
       }
       if (!newVal && this.multiple) {
@@ -132,10 +93,15 @@ export default {
       } else {
         this.$emit('input', newVal)
       }
+    },
+    value(newVal) {
+      if (!newVal || (isArray(newVal) && newVal.length === 0)) {
+        this.reset()
+      }
     }
   },
   methods: {
-    focusHandler (evt) {
+    focusHandler(evt) {
       // Boostrap v4.beta doesn't have focus styling for custom file input
       // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
       // So we add a 'focus' class to get around these "bugs"
@@ -146,7 +112,7 @@ export default {
         this.hasFocus = true
       }
     },
-    reset () {
+    reset() {
       try {
         // Wrapped in try in case IE < 11 craps out
         this.$refs.input.value = ''
@@ -158,7 +124,7 @@ export default {
       this.$refs.input.type = 'file'
       this.selectedFile = this.multiple ? [] : null
     },
-    onFileChange (evt) {
+    onFileChange(evt) {
       // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
@@ -180,25 +146,27 @@ export default {
       // Normal handling
       this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
-    setFiles (files) {
+    setFiles(files) {
       if (!files) {
         this.selectedFile = null
-        return
-      }
-      if (!this.multiple) {
-        this.selectedFile = files[0]
-        return
-      }
-      // Convert files to array
-      const filesArray = []
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].type.match(this.accept)) {
+      } else if (this.multiple) {
+        // Convert files to array
+        const filesArray = []
+        for (let i = 0; i < files.length; i++) {
           filesArray.push(files[i])
         }
+        // Return file(s) as array
+        this.selectedFile = filesArray
+      } else {
+        // Return single file object
+        this.selectedFile = files[0]
       }
-      this.selectedFile = filesArray
     },
-    dragover (evt) {
+    onReset() {
+      // Triggered when the parent form (if any) is reset
+      this.selectedFile = this.multiple ? [] : null
+    },
+    onDragover(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -207,12 +175,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    dragleave (evt) {
+    onDragleave(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    drop (evt) {
+    onDrop(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
@@ -223,7 +191,7 @@ export default {
         this.onFileChange(evt)
       }
     },
-    traverseFileTree (item, path) {
+    traverseFileTree(item, path) {
       // Based on http://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
         path = path || ''
@@ -238,9 +206,7 @@ export default {
           item.createReader().readEntries(entries => {
             const queue = []
             for (let i = 0; i < entries.length; i++) {
-              queue.push(
-                this.traverseFileTree(entries[i], path + item.name + '/')
-              )
+              queue.push(this.traverseFileTree(entries[i], path + item.name + '/'))
             }
             Promise.all(queue).then(filesArr => {
               resolve(arrayFrom(filesArr))
@@ -249,5 +215,70 @@ export default {
         }
       })
     }
+  },
+  render(h) {
+    // Form Input
+    const input = h('input', {
+      ref: 'input',
+      class: [
+        {
+          'form-control-file': this.plain,
+          'custom-file-input': this.custom,
+          focus: this.custom && this.hasFocus
+        },
+        this.stateClass
+      ],
+      attrs: {
+        type: 'file',
+        id: this.safeId(),
+        name: this.name,
+        disabled: this.disabled,
+        required: this.required,
+        form: this.form || null,
+        capture: this.capture || null,
+        accept: this.accept || null,
+        multiple: this.multiple,
+        webkitdirectory: this.directory,
+        'aria-required': this.required ? 'true' : null
+      },
+      on: {
+        change: this.onFileChange,
+        focusin: this.focusHandler,
+        focusout: this.focusHandler,
+        reset: this.onReset
+      }
+    })
+
+    if (this.plain) {
+      return input
+    }
+
+    // Overlay Labels
+    const label = h(
+      'label',
+      {
+        class: ['custom-file-label', this.dragging ? 'dragging' : null],
+        attrs: {
+          for: this.safeId(),
+          'data-browse': this.browseText || null
+        }
+      },
+      this.selectLabel
+    )
+
+    // Return rendered custom file input
+    return h(
+      'div',
+      {
+        class: ['custom-file', 'b-form-file', this.stateClass],
+        attrs: { id: this.safeId('_BV_file_outer_') },
+        on: {
+          dragover: this.onDragover,
+          dragleave: this.onDragleave,
+          drop: this.onDrop
+        }
+      },
+      [input, label]
+    )
   }
 }

@@ -1,17 +1,13 @@
-import bFormTextarea from './form-textarea'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BFormTextarea from './form-textarea'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bFormTextarea,
-  bTextarea: bFormTextarea
+  BFormTextarea,
+  BTextarea: BFormTextarea
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

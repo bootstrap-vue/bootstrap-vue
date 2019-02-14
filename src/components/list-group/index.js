@@ -1,18 +1,14 @@
-import bListGroup from './list-group'
-import bListGroupItem from './list-group-item'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BListGroup from './list-group'
+import BListGroupItem from './list-group-item'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bListGroup,
-  bListGroupItem
+  BListGroup,
+  BListGroupItem
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

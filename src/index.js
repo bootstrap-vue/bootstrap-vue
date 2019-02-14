@@ -1,9 +1,9 @@
-import * as components from './components'
-import * as directives from './directives'
+import * as componentPlugins from './components'
+import * as directivePlugins from './directives'
 import { vueUse } from './utils/plugins'
 
 const VuePlugin = {
-  install: function (Vue) {
+  install: function(Vue) {
     if (Vue._bootstrap_vue_installed) {
       return
     }
@@ -11,13 +11,13 @@ const VuePlugin = {
     Vue._bootstrap_vue_installed = true
 
     // Register component plugins
-    for (let plugin in components) {
-      Vue.use(components[plugin])
+    for (let plugin in componentPlugins) {
+      Vue.use(componentPlugins[plugin])
     }
 
     // Register directive plugins
-    for (let plugin in directives) {
-      Vue.use(directives[plugin])
+    for (let plugin in directivePlugins) {
+      Vue.use(directivePlugins[plugin])
     }
   }
 }

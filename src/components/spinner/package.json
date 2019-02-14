@@ -1,0 +1,15 @@
+{
+  "name": "@bootstrap-vue/spinner",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Spinner",
+    "slug": "spinner",
+    "component": "BSpinner",
+    "slots": [
+      {
+        "name": "label",
+        "description": "Content to place in the sr-only label"
+      }
+    ]
+  }
+}

@@ -23,18 +23,26 @@
 
     <b-table ref="table_responsive" responsive :items="items" :fields="fields"></b-table>
 
+    <b-table ref="table_caption" :items="items" :fields="fields" caption="Table Caption"></b-table>
+
+    <b-table ref="table_caption_slot" :items="items" :fields="fields">
+      <span slot="caption">Table Caption</span>
+    </b-table>
+
+    <b-table ref="table_selectable" selectable :items="items" :fields="fields"></b-table>
+
     <b-table ref="table_no_sort_reset" :items="items" :fields="fields" no-sort-reset></b-table>
 
     <h2>Paginated Table</h2>
     <div class="my-1 row">
         <div class="col-6">
-            <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
+            <b-form-fieldset label="Rows per page" :label-cols-sm="6">
                 <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
                 </b-form-select>
             </b-form-fieldset>
         </div>
         <div class="col-6">
-            <b-form-fieldset horizontal label="Filter" :label-cols="2">
+            <b-form-fieldset label="Filter" :label-cols-sm="2">
                 <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
             </b-form-fieldset>
         </div>
@@ -110,7 +118,7 @@
 
     <h2>Provider Test Table</h2>
     <div class="my-1">
-        <b-form-fieldset horizontal label="Provider" :label-cols="6">
+        <b-form-fieldset label="Provider" :label-cols-sm="6">
             <b-form-select
                  v-model="providerType"
                  :options="[{text:'Array',value:'array'},{text:'Callback',value:'callback'},{text:'Promise',value:'promise'}]"
@@ -135,4 +143,6 @@
             <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>
+
+    <b-table ref="table_style_row" :items="items" :fields="fields" :tbody-tr-class="styleRow"></b-table>
 </div>

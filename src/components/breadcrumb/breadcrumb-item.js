@@ -1,6 +1,6 @@
 import { mergeData } from 'vue-functional-data-merge'
 import { assign } from '../../utils/object'
-import BreadcrumbLink, { props as crumbLinks } from './breadcrumb-link'
+import BBreadcrumbLink, { props as crumbLinks } from './breadcrumb-link'
 
 export const props = assign({}, crumbLinks, {
   text: {
@@ -13,10 +13,12 @@ export const props = assign({}, crumbLinks, {
   }
 })
 
+// @vue/component
 export default {
+  name: 'BBreadcrumbItem',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       'li',
       mergeData(data, {
@@ -24,7 +26,7 @@ export default {
         class: { active: props.active },
         attrs: { role: 'presentation' }
       }),
-      [h(BreadcrumbLink, { props }, children)]
+      [h(BBreadcrumbLink, { props }, children)]
     )
   }
 }

@@ -6,7 +6,7 @@ import { keys } from './object'
  * Objects from primitive values when we know the value
  * is a JSON-compliant type.
  */
-function isObject (obj) {
+function isObject(obj) {
   return obj !== null && typeof obj === 'object'
 }
 
@@ -15,7 +15,7 @@ function isObject (obj) {
  * if they are plain objects, do they have the same shape?
  * Returns boolean true or false
  */
-function looseEqual (a, b) {
+function looseEqual(a, b) {
   if (a === b) return true
   const isObjectA = isObject(a)
   const isObjectB = isObject(b)
@@ -24,19 +24,29 @@ function looseEqual (a, b) {
       const isArrayA = isArray(a)
       const isArrayB = isArray(b)
       if (isArrayA && isArrayB) {
-        return a.length === b.length && a.every((e, i) => {
-          return looseEqual(e, b[i])
-        })
+        return (
+          a.length === b.length &&
+          a.every((e, i) => {
+            return looseEqual(e, b[i])
+          })
+        )
+      } else if (a instanceof Date && b instanceof Date) {
+        return a.getTime() === b.getTime()
       } else if (!isArrayA && !isArrayB) {
         const keysA = keys(a)
         const keysB = keys(b)
-        return keysA.length === keysB.length && keysA.every(key => {
-          return looseEqual(a[key], b[key])
-        })
+        return (
+          keysA.length === keysB.length &&
+          keysA.every(key => {
+            return looseEqual(a[key], b[key])
+          })
+        )
       } else {
+        /* istanbul ignore next */
         return false
       }
     } catch (e) {
+      /* istanbul ignore next */
       return false
     }
   } else if (!isObjectA && !isObjectB) {

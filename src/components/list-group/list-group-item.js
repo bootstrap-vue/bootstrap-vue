@@ -31,30 +31,40 @@ export const props = assign(
   linkProps
 )
 
+// @vue/component
 export default {
+  name: 'BListGroupItem',
   functional: true,
   props,
-  render (h, { props, data, children }) {
-    const tag = props.button
-      ? 'button'
-      : !props.href && !props.to ? props.tag : Link
+  render(h, { props, data, children }) {
+    const tag = props.button ? 'button' : !props.href && !props.to ? props.tag : Link
     const isAction = Boolean(
-      props.href ||
-        props.to ||
-        props.action ||
-        props.button ||
-        arrayIncludes(actionTags, props.tag)
+      props.href || props.to || props.action || props.button || arrayIncludes(actionTags, props.tag)
     )
+    const attrs = {}
+    let itemProps = {}
+    if (tag === 'button') {
+      if (!data.attrs || !data.attrs.type) {
+        // Add a type for button is one not provided in passed attributes
+        attrs.type = 'button'
+      }
+      if (props.disabled) {
+        // Set disabled attribute if button and disabled
+        attrs.disabled = true
+      }
+    } else {
+      itemProps = pluckProps(linkProps, props)
+    }
     const componentData = {
+      attrs,
+      props: itemProps,
       staticClass: 'list-group-item',
       class: {
         [`list-group-item-${props.variant}`]: Boolean(props.variant),
         'list-group-item-action': isAction,
         active: props.active,
         disabled: props.disabled
-      },
-      attrs: tag === 'button' && props.disabled ? { disabled: true } : {},
-      props: props.button ? {} : pluckProps(linkProps, props)
+      }
     }
 
     return h(tag, mergeData(data, componentData), children)

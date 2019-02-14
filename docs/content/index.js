@@ -40,6 +40,4 @@ export const nav = [
   }
 ]
 
-export {
-  version
-}
+export { version }

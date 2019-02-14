@@ -1,77 +1,105 @@
 <template>
   <section
+    v-if="component"
     class="bd-content"
-    v-if="component">
-
-    <b-row
-      tag="header"
-      align-v="center">
-      <b-col sm="9"><h2><code>{{ tag }}</code></h2></b-col>
-      <b-col
-        sm="3"
-        class="text-sm-right">
-        <b-btn
-          variant="outline-secondary"
-          size="sm"
-          :href="githubURL"
-          target="_blank">view source</b-btn>
+  >
+    <b-row tag="header" align-v="center">
+      <b-col sm="9">
+        <h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2>
+      </b-col>
+      <b-col sm="3" class="text-sm-right">
+        <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
+          view source
+        </b-btn>
       </b-col>
     </b-row>
 
+    <article v-if="aliases && aliases.length > 0">
+      <h4 :id="`comp-ref-${componentName}-aliases`">Component aliases</h4>
+      <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
+      <ul>
+        <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
+      </ul>
+    </article>
+
     <article v-if="props_items && props_items.length > 0">
-      <h4>Properties</h4>
+      <h4 :id="`comp-ref-${componentName}-props`">Properties</h4>
       <b-table
         :items="props_items"
         :fields="props_fields"
         small
         head-variant="default"
-        striped>
-        <template
-          slot="default"
-          slot-scope="field">
+        striped
+      >
+        <template slot="default" slot-scope="field">
           <code v-if="field.value">{{ field.value }}</code>
         </template>
       </b-table>
     </article>
 
     <article v-if="slots && slots.length > 0">
-      <h4>Slots</h4>
+      <h4 :id="`comp-ref-${componentName}-slots`">Slots</h4>
       <b-table
         :items="slots"
         :fields="slots_fields"
         small
         head-variant="default"
-        striped/>
+        striped
+      />
     </article>
 
     <article v-if="events && events.length > 0">
-      <h4>Events</h4>
+      <h4 :id="`comp-ref-${componentName}-events`">Events</h4>
       <b-table
         :items="events"
         :fields="events_fields"
         small
         head-variant="default"
-        striped>
-        <template
-          slot="args"
-          slot-scope="field">
+        striped
+      >
+        <template slot="args" slot-scope="field">
           <div
             v-for="arg in field.value"
-            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`">
-            <code v-if="arg.arg">{{ arg.arg }}</code>
-            <span v-html="arg.description"/>
+            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
+          >
+            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
     </article>
 
+    <article v-if="rootEventEmitters && rootEventEmitters.length > 0">
+      <h4 :id="`comp-ref-${componentName}-rootEventEmitters`">$root Event Emitters</h4>
+      <b-table
+        :items="rootEventEmitters"
+        :fields="rootEventEmitters_fields"
+        small
+        head-variant="default"
+        striped
+      >
+        <template slot="args" slot-scope="field">
+          <div
+            v-for="arg in field.value"
+            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
+          >
+            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
+            <span v-html="arg.description" />
+          </div>
+        </template>
+      </b-table>
+    </article>
   </section>
 </template>
 
 <style scoped>
-    h1, h2, h3, h4, h5 {
-        padding: 20px 0;
-    }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 20px 0;
+}
 </style>
 
 <script>
@@ -88,14 +116,22 @@ export default {
     events: {
       type: Array,
       default: () => []
+    },
+    rootEventEmitters: {
+      type: Array,
+      default: () => []
+    },
+    aliases: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
-    componentOptions () {
+    componentOptions() {
       const component = Vue.options.components[this.component]
-      return (component && component.options) ? component.options : {}
+      return component && component.options ? component.options : {}
     },
-    props_fields () {
+    props_fields() {
       const component = Vue.options.components[this.component]
       let props = []
       if (component) {
@@ -104,32 +140,39 @@ export default {
       const hasRequired = props.length > 0 && props.filter(p => p.required).length > 0
 
       const fields = {
-        prop: {label: 'Property'},
-        type: {label: 'Type'},
-        default: {label: 'Default Value'}
+        prop: { label: 'Property' },
+        type: { label: 'Type' },
+        default: { label: 'Default Value' }
       }
 
       // Add the required column if there are required field(s)
       if (hasRequired) {
-        fields.required = {label: 'Required'}
+        fields.required = { label: 'Required' }
       }
 
       return fields
     },
-    events_fields () {
+    events_fields() {
       return {
-        event: {label: 'Event'},
-        args: {label: 'Arguments'},
-        description: {label: 'Description'}
+        event: { label: 'Event' },
+        args: { label: 'Arguments' },
+        description: { label: 'Description' }
       }
     },
-    slots_fields () {
+    rootEventEmitters_fields() {
       return {
-        name: {label: 'Slot'},
-        description: {label: 'Description'}
+        event: { label: 'Event' },
+        args: { label: 'Arguments' },
+        description: { label: 'Description' }
       }
     },
-    props_items () {
+    slots_fields() {
+      return {
+        name: { label: 'Slot' },
+        description: { label: 'Description' }
+      }
+    },
+    props_items() {
       const component = Vue.options.components[this.component]
       if (!component) {
         return {}
@@ -151,21 +194,21 @@ export default {
         }
 
         // Describe value
-        let default_val = p.default
+        let defaultVal = p.default
 
-        if (default_val instanceof Function && !Array.isArray(default_val)) {
-          default_val = default_val()
+        if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
+          defaultVal = defaultVal()
         }
 
-        if (typeof default_val !== 'string') {
-          default_val = JSON.stringify(default_val)
+        if (typeof defaultVal !== 'string') {
+          defaultVal = JSON.stringify(defaultVal)
         }
 
-        if (default_val === '' || default_val === null || default_val === 'null') {
-          default_val = ''
+        if (defaultVal === '' || defaultVal === null || defaultVal === 'null') {
+          defaultVal = ''
         }
 
-        default_val = (default_val || '').replace(/"/g, '\'')
+        defaultVal = (defaultVal || '').replace(/"/g, "'")
 
         // Requied prop?
         const required = p.required ? 'Yes' : ''
@@ -175,23 +218,26 @@ export default {
           type,
           required,
           typeClass,
-          default: default_val
+          default: defaultVal
         }
       })
     },
-    componentName () {
+    componentName() {
       return kebabCase(this.component)
     },
-    tag () {
+    tag() {
       return '<' + this.componentName + '>'
     },
-    githubURL () {
+    githubURL() {
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
       const slug = this.$route.params.slug
       const name = kebabCase(this.component).replace(/^b-/, '')
       // Always point to the .js file (which may import a .vue file)
       return `${base}/${slug}/${name}.js`
     }
+  },
+  methods: {
+    kebabCase
   }
 }
 </script>

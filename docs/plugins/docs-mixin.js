@@ -3,44 +3,45 @@
  */
 import { scrollTo, offsetTop } from '~/utils'
 
+// @vue/component
 export default {
-  data () {
+  data() {
     return {
       scrollTimeout: null
     }
   },
 
   computed: {
-    content () {
+    content() {
       return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
     }
   },
 
-  head () {
+  head() {
     return {
       title: `${(this.meta && this.meta.title) || 'Docs'} - BootstrapVue`
     }
   },
 
-  mounted () {
+  mounted() {
     clearTimeout(this.scrollTimeout)
     this.scrollTimeout = null
     this.focusScroll()
-    this.$root.$emit('setTOC', this.readme)
+    this.$root.$emit('setTOC', this.readme, this.meta || null)
   },
 
-  updated () {
+  updated() {
     clearTimeout(this.scrollTimeout)
     this.scrollTimeout = null
     this.focusScroll()
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.$root.$emit('setTOC', '')
   },
 
   methods: {
-    focusScroll () {
+    focusScroll() {
       let hash = this.$route.hash
       this.$nextTick(() => {
         let el
@@ -59,7 +60,7 @@ export default {
         }
       })
     },
-    scrollIntoView (el) {
+    scrollIntoView(el) {
       if (el) {
         // Get the document scrolling element
         const scroller = document.scrollingElement || document.documentElement || document.body

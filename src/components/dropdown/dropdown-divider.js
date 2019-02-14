@@ -7,10 +7,12 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BDropdownDivider',
   functional: true,
   props,
-  render (h, { props, data }) {
+  render(h, { props, data }) {
     return h(
       props.tag,
       mergeData(data, {

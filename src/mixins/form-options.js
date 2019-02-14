@@ -1,16 +1,17 @@
 import { isArray } from '../utils/array'
 import { keys } from '../utils/object'
+import { stripTags } from '../utils/html'
 
-function isObject (obj) {
-  return obj && ({}).toString.call(obj) === '[object Object]'
+function isObject(obj) {
+  return obj && {}.toString.call(obj) === '[object Object]'
 }
 
+// @vue/component
 export default {
-
   props: {
     options: {
       type: [Array, Object],
-      default () {
+      default() {
         return []
       }
     },
@@ -22,17 +23,22 @@ export default {
       type: String,
       default: 'text'
     },
+    htmlField: {
+      type: String,
+      default: 'html'
+    },
     disabledField: {
       type: String,
       default: 'disabled'
     }
   },
   computed: {
-    formOptions () {
+    formOptions() {
       let options = this.options
 
       const valueField = this.valueField
       const textField = this.textField
+      const htmlField = this.htmlField
       const disabledField = this.disabledField
 
       if (isArray(options)) {
@@ -41,13 +47,14 @@ export default {
           if (isObject(option)) {
             return {
               value: option[valueField],
-              text: String(option[textField]),
+              text: stripTags(String(option[textField])),
+              html: option[htmlField],
               disabled: option[disabledField] || false
             }
           }
           return {
             value: option,
-            text: String(option),
+            text: stripTags(String(option)),
             disabled: false
           }
         })
@@ -61,13 +68,14 @@ export default {
             const text = option[textField]
             return {
               value: typeof value === 'undefined' ? key : value,
-              text: typeof text === 'undefined' ? key : String(text),
+              text: typeof text === 'undefined' ? key : stripTags(String(text)),
+              html: option[htmlField],
               disabled: option[disabledField] || false
             }
           }
           return {
             value: key,
-            text: String(option),
+            text: stripTags(String(option)),
             disabled: false
           }
         })

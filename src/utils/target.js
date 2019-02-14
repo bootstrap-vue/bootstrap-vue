@@ -1,24 +1,24 @@
-import { keys } from '../utils/object'
+import { keys } from './object'
+import { eventOn, eventOff } from './dom'
 
-const allListenTypes = {hover: true, click: true, focus: true}
+const allListenTypes = { hover: true, click: true, focus: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
 const bindTargets = (vnode, binding, listenTypes, fn) => {
-  const targets = keys(binding.modifiers || {})
-    .filter(t => !allListenTypes[t])
+  const targets = keys(binding.modifiers || {}).filter(t => !allListenTypes[t])
 
   if (binding.value) {
     targets.push(binding.value)
   }
 
   const listener = () => {
-    fn({targets, vnode})
+    fn({ targets, vnode })
   }
 
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
-      vnode.elm.addEventListener(type, listener)
+      eventOn(vnode.elm, type, listener)
       const boundListeners = vnode.elm[BVBoundListeners] || {}
       boundListeners[type] = boundListeners[type] || []
       boundListeners[type].push(listener)
@@ -35,16 +35,13 @@ const unbindTargets = (vnode, binding, listenTypes) => {
     if (listenTypes[type] || binding.modifiers[type]) {
       const boundListeners = vnode.elm[BVBoundListeners] && vnode.elm[BVBoundListeners][type]
       if (boundListeners) {
-        boundListeners.forEach(listener => vnode.elm.removeEventListener(type, listener))
+        boundListeners.forEach(listener => eventOff(vnode.elm, type, listener))
         delete vnode.elm[BVBoundListeners][type]
       }
     }
   })
 }
 
-export {
-  bindTargets,
-  unbindTargets
-}
+export { bindTargets, unbindTargets }
 
 export default bindTargets

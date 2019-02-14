@@ -1,0 +1,8 @@
+// Hide the caret for no-caret setting
+// See: https://github.com/bootstrap-vue/bootstrap-vue/issues/1473
+// See: https://github.com/twbs/bootstrap/issues/23724
+.dropdown-toggle {
+  &.dropdown-toggle-no-caret:after {
+    display: none !important;
+  }
+}

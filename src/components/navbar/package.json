@@ -1,18 +1,30 @@
 {
-    "name": "@bootstrap-vue/navbar",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Navbar",
-         "component": "bNavbar",
-        "components": [
-            "bNavbarNav",
-            "bNavbarBrand",
-            "bNavbarToggle"
-        ],
-        "plugins": [
-            "Nav",
-            "Dropdown",
-            "Collapse"
+  "name": "@bootstrap-vue/navbar",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Navbar",
+    "component": "BNavbar",
+    "plugins": [
+      "Nav",
+      "Dropdown",
+      "Collapse"
+    ],
+    "components": [
+      "BNavbarNav",
+      "BNavbarBrand",
+      {
+        "component": "BNavbarToggle",
+        "aliases": [ "BNavToggle" ],
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when the toggle is clicked.",
+            "args": [
+              { "name": "event", "description": "Native click event object" }
+            ]
+          }
         ]
-    }
+      }
+    ]
+  }
 }

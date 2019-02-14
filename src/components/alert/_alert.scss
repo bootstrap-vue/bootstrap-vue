@@ -1,0 +1,11 @@
+.alert {
+  &.fade-enter-active,
+  &.alert.fade-leave-active {
+    transition: $bv-alert-transition;
+  }
+
+  &.fade-enter,
+  &.fade-leave-to {
+    opacity: 0;
+  }
+}

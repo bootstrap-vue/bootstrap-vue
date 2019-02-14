@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Table",
-        "component": "bTable",
+        "component": "BTable",
         "events": [
             {
                 "event": "row-clicked",
@@ -42,6 +42,42 @@
                 ]
             },
             {
+                "event": "row-middle-clicked",
+                "description": "Emitted when a row is middle clicked.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being middle clicked."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being middle clicked."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "row-contextmenu",
+                "description": "Emitted when a row is right clicked.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being right clicked."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being right clicked."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
                 "event": "row-hovered",
                 "description": "Emitted when a row is hovered.",
                 "args": [
@@ -56,6 +92,34 @@
                     {
                         "arg": "event",
                         "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "row-unhovered",
+                "description": "Emitted when a row is unhovered.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being unhovered."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being unhovered."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "row-selected",
+                "description": "Emitted when a row or rows have been selected.",
+                "args": [
+                    {
+                        "arg": "rows",
+                        "description": "Array of the row items that are selected."
                     }
                 ]
             },
@@ -112,6 +176,18 @@
                 "description": "Emitted when the items provider function has returned data."
             }
         ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::refresh::table",
+                "description": "Refresh data of a specific table when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "table id to refresh data"
+                    }
+                ]
+            }
+        ],
         "slots": [
             {
                 "name": "table-caption",
@@ -120,6 +196,10 @@
             {
                 "name": "table-colgroup",
                 "description": "Slot to place custom colgroup and col elements"
+            },
+            {
+                "name": "table-busy",
+                "description": "Optional slot to place loading message when table is in the busy state"
             },
             {
                 "name": "[field]",

@@ -10,16 +10,16 @@ const BVTT = '__BV_ToolTip__'
 
 // Valid event triggers
 const validTriggers = {
-  'focus': true,
-  'hover': true,
-  'click': true,
-  'blur': true
+  focus: true,
+  hover: true,
+  click: true,
+  blur: true
 }
 
 // Build a ToolTip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
-function parseBindings (bindings) {
+function parseBindings(bindings) {
   // We start out with a blank config
   let config = {}
 
@@ -49,7 +49,9 @@ function parseBindings (bindings) {
     } else if (/^nofade$/.test(mod)) {
       // no animation
       config.animation = false
-    } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
+    } else if (
+      /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)
+    ) {
       // placement of tooltip
       config.placement = mod
     } else if (/^(window|viewport)$/.test(mod)) {
@@ -106,7 +108,7 @@ function parseBindings (bindings) {
 // Add or Update tooltip on our element
 //
 /* istanbul ignore next: not easy to test */
-function applyBVTT (el, bindings, vnode) {
+function applyBVTT(el, bindings, vnode) {
   if (!inBrowser) {
     return
   }
@@ -126,7 +128,7 @@ function applyBVTT (el, bindings, vnode) {
 // Remove tooltip on our element
 //
 /* istanbul ignore next: not easy to test */
-function removeBVTT (el) {
+function removeBVTT(el) {
   if (!inBrowser) {
     return
   }
@@ -142,23 +144,23 @@ function removeBVTT (el) {
  */
 /* istanbul ignore next: not easy to test */
 export default {
-  bind (el, bindings, vnode) {
+  bind(el, bindings, vnode) {
     applyBVTT(el, bindings, vnode)
   },
-  inserted (el, bindings, vnode) {
+  inserted(el, bindings, vnode) {
     applyBVTT(el, bindings, vnode)
   },
-  update (el, bindings, vnode) {
+  update(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
       applyBVTT(el, bindings, vnode)
     }
   },
-  componentUpdated (el, bindings, vnode) {
+  componentUpdated(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
       applyBVTT(el, bindings, vnode)
     }
   },
-  unbind (el) {
+  unbind(el) {
     removeBVTT(el)
   }
 }

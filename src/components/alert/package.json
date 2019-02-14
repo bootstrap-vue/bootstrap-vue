@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Alert",
-        "component": "bAlert",
+        "component": "BAlert",
         "events": [
             {
                 "event": "dismissed",

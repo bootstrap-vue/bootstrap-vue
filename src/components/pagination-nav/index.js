@@ -1,16 +1,12 @@
-import bPaginationNav from './pagination-nav'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BPaginationNav from './pagination-nav'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bPaginationNav
+  BPaginationNav
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

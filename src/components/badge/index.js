@@ -1,16 +1,12 @@
-import bBadge from './badge'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BBadge from './badge'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bBadge
+  BBadge
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

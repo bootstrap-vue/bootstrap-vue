@@ -1,9 +1,63 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import { htmlOrText } from '../../utils/html'
 
+// @vue/component
 export default {
+  name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin],
-  render (h) {
+  props: {
+    noCaret: {
+      type: Boolean,
+      default: false
+    },
+    extraToggleClasses: {
+      // Extra Toggle classes
+      type: String,
+      default: ''
+    },
+    extraMenuClasses: {
+      // Extra Menu classes
+      type: String,
+      default: ''
+    },
+    role: {
+      type: String,
+      default: 'menu'
+    }
+  },
+  computed: {
+    isNav() {
+      // Signal to dropdown mixin that we are in a navbar
+      return true
+    },
+    dropdownClasses() {
+      return [
+        'nav-item',
+        'b-nav-dropdown',
+        'dropdown',
+        this.dropup ? 'dropup' : '',
+        this.visible ? 'show' : ''
+      ]
+    },
+    toggleClasses() {
+      return [
+        'nav-link',
+        this.noCaret ? '' : 'dropdown-toggle',
+        this.disabled ? 'disabled' : '',
+        this.extraToggleClasses ? this.extraToggleClasses : ''
+      ]
+    },
+    menuClasses() {
+      return [
+        'dropdown-menu',
+        this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
+        this.visible ? 'show' : '',
+        this.extraMenuClasses ? this.extraMenuClasses : ''
+      ]
+    }
+  },
+  render(h) {
     const button = h(
       'a',
       {
@@ -24,7 +78,7 @@ export default {
       [
         this.$slots['button-content'] ||
           this.$slots.text ||
-          h('span', { domProps: { innerHTML: this.text } })
+          h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
     const menu = h(
@@ -32,7 +86,10 @@ export default {
       {
         class: this.menuClasses,
         ref: 'menu',
-        attrs: { 'aria-labelledby': this.safeId('_BV_button_') },
+        attrs: {
+          tabindex: '-1',
+          'aria-labelledby': this.safeId('_BV_button_')
+        },
         on: {
           mouseover: this.onMouseOver,
           keydown: this.onKeydown // tab, up, down, esc
@@ -40,60 +97,6 @@ export default {
       },
       [this.$slots.default]
     )
-    return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
-      button,
-      menu
-    ])
-  },
-  computed: {
-    isNav () {
-      // Signal to dropdown mixin that we are in a navbar
-      return true
-    },
-    dropdownClasses () {
-      return [
-        'nav-item',
-        'b-nav-dropdown',
-        'dropdown',
-        this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : ''
-      ]
-    },
-    toggleClasses () {
-      return [
-        'nav-link',
-        this.noCaret ? '' : 'dropdown-toggle',
-        this.disabled ? 'disabled' : '',
-        this.extraToggleClasses ? this.extraToggleClasses : ''
-      ]
-    },
-    menuClasses () {
-      return [
-        'dropdown-menu',
-        this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
-        this.visible ? 'show' : '',
-        this.extraMenuClasses ? this.extraMenuClasses : ''
-      ]
-    }
-  },
-  props: {
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    extraToggleClasses: {
-      // Extra Toggle classes
-      type: String,
-      default: ''
-    },
-    extraMenuClasses: {
-      // Extra Menu classes
-      type: String,
-      default: ''
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    }
+    return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [button, menu])
   }
 }

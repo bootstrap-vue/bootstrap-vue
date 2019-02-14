@@ -1,62 +1,103 @@
 {
-    "name": "@bootstrap-vue/dropdown",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Dropdown",
-        "component": "bDropdown",
-        "components": [
-            "bDropdownItem",
-            "bDropdownItemButton",
-            "bDropdownHeader",
-            "bDropdownDivider"
-        ],
+  "name": "@bootstrap-vue/dropdown",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Dropdown",
+    "components": [
+      {
+        "component": "BDropdown",
+        "aliases": [ "BDd" ],
         "events": [
-            {
-                "event": "show",
-                "description": "Emitted just before dropdown is shown. Cancelable.",
-                "args": [
-                    {
-                        "arg": "bvEvt",
-                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
-                    }
-                ]
-            },
-            {
-                "event": "shown",
-                "description": "Emitted when dropdown is shown."
-            },
-            {
-                "event": "hide",
-                "description": "Emitted just before dropdown is hidden. Cancelable.",
-                "args": [
-                    {
-                        "arg": "bvEvt",
-                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
-                    }
-                ]
-            },
-            {
-                "event": "hidden",
-                "description": "Emitted when dropdown is hidden."
-            },
-            {
-                "event": "toggle",
-                "description": "Emitted when toggle button is clicked."
-            },
-            {
-                "event": "click",
-                "description": "Emitted when split button is clicked in split mode."
-            }
+          {
+            "event": "show",
+            "description": "Emitted just before dropdown is shown. Cancelable.",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
+              }
+            ]
+          },
+          {
+            "event": "shown",
+            "description": "Emitted when dropdown is shown."
+          },
+          {
+            "event": "hide",
+            "description": "Emitted just before dropdown is hidden. Cancelable.",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when dropdown is hidden."
+          },
+          {
+            "event": "toggle",
+            "description": "Emitted when toggle button is clicked."
+          },
+          {
+            "event": "click",
+            "description": "Emitted when split button is clicked in split mode."
+          }
         ],
         "slots": [
-            {
-                "name": "button-content",
-                "description": "Can be used to implement custom text with icons and more styling."
-            },
-            {
-                "name": "text",
-                "description": "Deprecated. please use 'button-content' slot instead."
-            }
+          {
+            "name": "button-content",
+            "description": "Can be used to implement custom text with icons and more styling."
+          },
+          {
+            "name": "text",
+            "description": "Deprecated. please use 'button-content' slot instead."
+          }
         ]
-    }
+      },
+      {
+        "component": "BDropdownItem",
+        "aliases": [ "BDdItem" ],
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when item is clicked.",
+            "args": [
+              { "name": "event", "description": "Native click event object" }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "BDropdownItemButton",
+        "aliases": [ "BDropdownItemBtn", "BDdItemButton", "BDdItemBtn" ],
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when button item is clicked.",
+            "args": [
+              { "name": "event", "description": "Native click event object" }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "BDropdownHeader",
+        "aliases": [ "BDdHeader" ]
+      },
+      {
+        "component": "BDropdownDivider",
+        "aliases": [ "BDdDivider" ]
+      },
+      {
+        "component": "BDropdownForm",
+        "aliases": [ "BDdForm" ]
+      },
+      {
+        "component": "BDropdownText",
+        "aliases": [ "BDdText" ]
+      }
+    ]
+  }
 }

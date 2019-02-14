@@ -4,8 +4,10 @@ describe('breadcrumb', async () => {
   beforeEach(loadFixture(__dirname, 'breadcrumb'))
   testVM()
 
-  it('should apply bootstrap breadcrumb classes', async () => {
-    const { app: { $refs } } = window
+  it('should apply Bootstrap breadcrumb classes', async () => {
+    const {
+      app: { $refs }
+    } = window
     const $ol = $refs.breadcrumb1
 
     expect($ol.classList.contains('breadcrumb')).toBe(true)
@@ -18,7 +20,9 @@ describe('breadcrumb', async () => {
   })
 
   it('should apply ARIA roles', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const $ol = $refs.breadcrumb1
 
     Array.from($ol.children).forEach($li => {
@@ -29,7 +33,12 @@ describe('breadcrumb', async () => {
   })
 
   it('should apply active class to active item', async () => {
-    const { app: { $refs: { breadcrumb2: crumb2 }, items2 } } = window
+    const {
+      app: {
+        $refs: { breadcrumb2: crumb2 },
+        items2
+      }
+    } = window
 
     items2.forEach((item, i) => {
       if (item.active) {
@@ -39,7 +48,12 @@ describe('breadcrumb', async () => {
   })
 
   it('should apply aria-current to active class element', async () => {
-    const { app: { $refs: { breadcrumb2: crumb2 }, items2 } } = window
+    const {
+      app: {
+        $refs: { breadcrumb2: crumb2 },
+        items2
+      }
+    } = window
     const $listItems = Array.from(crumb2.children)
 
     items2.forEach((item, i) => {
@@ -52,7 +66,12 @@ describe('breadcrumb', async () => {
   })
 
   it('should default active class to last item only when no true active prop provided', async () => {
-    const { app: { $refs: { breadcrumb1: crumb }, items } } = window
+    const {
+      app: {
+        $refs: { breadcrumb1: crumb },
+        items
+      }
+    } = window
     const $listItems = Array.from(crumb.children)
     const itemsLength = items.length
 

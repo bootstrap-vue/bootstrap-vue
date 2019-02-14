@@ -1,17 +1,13 @@
-import bFormFile from './form-file'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BFormFile from './form-file'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bFormFile,
-  bFile: bFormFile
+  BFormFile,
+  BFile: BFormFile
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

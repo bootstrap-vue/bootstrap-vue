@@ -5,7 +5,7 @@ import { setAttr, addClass, removeClass } from '../../utils/dom'
 const inBrowser = typeof window !== 'undefined'
 
 // target listen types
-const listenTypes = {click: true}
+const listenTypes = { click: true }
 
 // Property key for handler storage
 const BVT = '__BV_toggle__'
@@ -17,9 +17,8 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 const EVENT_STATE = 'bv::collapse::state'
 
 export default {
-
-  bind (el, binding, vnode) {
-    const targets = target(vnode, binding, listenTypes, ({targets, vnode}) => {
+  bind(el, binding, vnode) {
+    const targets = target(vnode, binding, listenTypes, ({ targets, vnode }) => {
       targets.forEach(target => {
         vnode.context.$root.$emit(EVENT_TOGGLE, target)
       })
@@ -35,7 +34,7 @@ export default {
       }
 
       // Toggle state hadnler, stored on element
-      el[BVT] = function toggleDirectiveHandler (id, state) {
+      el[BVT] = function toggleDirectiveHandler(id, state) {
         if (targets.indexOf(id) !== -1) {
           // Set aria-expanded state
           setAttr(el, 'aria-expanded', state ? 'true' : 'false')
@@ -52,7 +51,7 @@ export default {
       vnode.context.$root.$on(EVENT_STATE, el[BVT])
     }
   },
-  unbind (el, binding, vnode) {
+  unbind(el, binding, vnode) {
     if (el[BVT]) {
       // Remove our $root listener
       vnode.context.$root.$off(EVENT_STATE, el[BVT])

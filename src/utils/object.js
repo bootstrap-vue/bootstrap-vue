@@ -7,8 +7,9 @@
  */
 
 // @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+/* istanbul ignore if */
 if (typeof Object.assign !== 'function') {
-  Object.assign = function (target, varArgs) {
+  Object.assign = function(target, varArgs) {
     // .length of function is 2
 
     if (target == null) {
@@ -36,10 +37,12 @@ if (typeof Object.assign !== 'function') {
 }
 
 // @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Polyfill
+/* istanbul ignore if */
 if (!Object.is) {
-  Object.is = function (x, y) {
+  Object.is = function(x, y) {
     // SameValue algorithm
-    if (x === y) { // Steps 1-5, 7-10
+    if (x === y) {
+      // Steps 1-5, 7-10
       // Steps 6.b-6.e: +0 != -0
       return x !== 0 || 1 / x === 1 / y
     } else {
@@ -63,6 +66,6 @@ export const create = Object.create
 export const isFrozen = Object.isFrozen
 export const is = Object.is
 
-export function readonlyDescriptor () {
+export function readonlyDescriptor() {
   return { enumerable: true, configurable: false, writable: false }
 }

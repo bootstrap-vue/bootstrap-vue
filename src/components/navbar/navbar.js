@@ -16,35 +16,45 @@ export const props = {
     type: [Boolean, String],
     default: false
   },
-  toggleBreakpoint: {
-    // Deprecated.  Set toggleable to a string breakpoint
-    type: String,
-    default: null
-  },
   fixed: {
     type: String
   },
   sticky: {
     type: Boolean,
     default: false
+  },
+  print: {
+    type: Boolean,
+    default: false
   }
 }
 
+// @vue/component
 export default {
+  name: 'BNavbar',
   functional: true,
   props,
-  render (h, { props, data, children }) {
-    let breakpoint = props.toggleBreakpoint || (props.toggleable === true ? 'sm' : props.toggleable) || 'sm'
+  render(h, { props, data, children }) {
+    let breakpoint = ''
+    if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== 'xs') {
+      breakpoint = `navbar-expand-${props.toggleable}`
+    } else if (props.toggleable === false) {
+      breakpoint = 'navbar-expand'
+    }
     return h(
       props.tag,
       mergeData(data, {
         staticClass: 'navbar',
         class: {
+          'd-print': props.print,
+          'sticky-top': props.sticky,
           [`navbar-${props.type}`]: Boolean(props.type),
           [`bg-${props.variant}`]: Boolean(props.variant),
           [`fixed-${props.fixed}`]: Boolean(props.fixed),
-          'sticky-top': props.sticky,
-          [`navbar-expand-${breakpoint}`]: props.toggleable !== false
+          [`${breakpoint}`]: Boolean(breakpoint)
+        },
+        attrs: {
+          role: props.tag === 'nav' ? null : 'navigation'
         }
       }),
       children

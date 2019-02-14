@@ -4,12 +4,12 @@
     "meta": {
         "title": "Form",
         "slug": "form",
-        "component": "bForm",
+        "component": "BForm",
         "components": [
-            "bFormText",
-            "bFormInvalidFeedback",
-            "bFormValidFeedback",
-            "bFormRow"
+            "BFormText",
+            "BFormInvalidFeedback",
+            "BFormValidFeedback",
+            "BFormRow"
         ],
         "events": [
             {

@@ -1,0 +1,165 @@
+/* b-table: general styling */
+.b-table.table {
+  // table fixed header width layout
+  &.table-fixed {
+    /* fixed width columns */
+    table-layout: fixed;
+  }
+
+  // Table busy styling
+  &[aria-busy="true"] {
+    opacity: $b-table-busy-opacity;
+  }
+
+  // Details row styling
+  > tbody > tr.b-table-details > td {
+    border-top: none !important;
+  }
+  // captioon positioning
+  > caption {
+    caption-side: bottom;
+
+    &.b-table-caption-top {
+      caption-side: top !important;
+    }
+  }
+
+  // make cells relatively position for thinks like tooltips, etc
+  > thead,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        // So dropdowns, tooltips, sorting, etc, will position properly
+        position: relative;
+      }
+    }
+  }
+}
+
+/* b-table: header sort styling */
+.b-table.table {
+  // Sort Styling
+  > thead,
+  > tfoot {
+    > tr {
+      > th {
+        &[aria-sort] {
+          // &.sorting
+          position: relative;
+          padding-right: 1.125em;
+          cursor: pointer;
+
+          // Up/Down sort=null indicator
+          &::after {
+            position: absolute;
+            display: block;
+            bottom: 0;
+            right: 0.35em;
+            padding-bottom: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            opacity: 0.4;
+            content: "\2195"; // \2195 up-down arrow
+            speak: none;
+          }
+
+          // Ascending indicator
+          &[aria-sort="ascending"]::after {
+            // &.sorting_asc::after.sorting_asc
+            opacity: 1;
+            content: "\2193"; // down arrow
+          }
+
+          // Descending indicator
+          &[aria-sort="descending"]::after {
+            // &.sorting_desc::after
+            opacity: 1;
+            content: "\2191"; // up arrow
+          }
+        }
+      }
+    }
+  }
+}
+
+/* b-table: stackled tables */
+// Generate series of `.table-stacked-*` classes for configuring the screen
+// size of where your table will be stacked.
+.b-table.table.b-table-stacked {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        display: block;
+        width: 100%;
+
+        // Convert to blocks when stacked
+        > caption,
+        > tbody,
+        > tbody > tr,
+        > tbody > tr > td,
+        > tbody > tr > td {
+          display: block;
+        }
+
+        // Hide when stacked
+        > thead,
+        > tfoot {
+          display: none;
+
+          > tr.b-table-top-row,
+          > tr.b-table-bottom-row {
+            display: none;
+          }
+        }
+
+        // Caption positioning
+        > caption {
+          caption-side: top !important;
+        }
+
+        > tbody {
+          > tr {
+            // Turn cells with labels into micro-grids
+            > [data-label] {
+              // convert TD/TH contents to "cells". Caveat: child elements become cells!
+              display: grid;
+              grid-template-columns: 40% auto;
+              grid-gap: 0.25rem 1rem;
+
+              // Add the cell header label pseudo element
+              &::before {
+                content: attr(data-label);
+                display: inline;
+                text-align: right;
+                overflow-wrap: break-word;
+                font-weight: bold;
+                font-style: normal;
+              }
+            }
+
+            // Dont show the fixed top/bottom rows
+            &.top-row,
+            &.bottom-row {
+              display: none;
+            }
+
+            // give the top of each "row" a heavy border
+            > :first-child {
+              border-top-width: (3 * $table-border-width);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* b-table: selectable rows */
+table.b-table.b-table-selectable > tbody > tr {
+  cursor: pointer;
+  user-select: none;
+}

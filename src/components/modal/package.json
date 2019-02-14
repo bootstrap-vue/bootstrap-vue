@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Modal",
-        "component": "bModal",
+        "component": "BModal",
         "directives": [
             "vBModal"
         ],
@@ -75,6 +75,88 @@
                     {
                         "arg": "bvEvt",
                         "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    }
+                ]
+            },
+            {
+                "event": "bv::modal::show",
+                "description": "Emitted on $root when modal is about to be shown",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
+                    }
+                ]
+            },
+            {
+                "event": "bv::modal::shown",
+                "description": "Emitted on $root when modal is shown",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
+                    }
+                ]
+            },
+            {
+                "event": "bv::modal::hide",
+                "description": "Emitted on $root when modal is about to be hidden",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
+                    }
+                ]
+            },
+            {
+                "event": "bv::modal::hidden",
+                "description": "Emitted on $root when modal is hidden",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
+                    }
+                ]
+            }
+        ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::show::modal",
+                "description": "Show modal with specified id when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "modal id to show"
+                    },
+                    {
+                      "arg": "elIDtoFocusOnClose",
+                      "description": "(optional), specify the element to return focus to once the modal is closed"
+                    }
+                ]
+            },
+            {
+                "event": "bv::hide::modal",
+                "description": "Hide modal with specified id when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "modal id to hide"
                     }
                 ]
             }

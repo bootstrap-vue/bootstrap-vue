@@ -1,33 +1,67 @@
 {
-    "name": "@bootstrap-vue/form-checkbox",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Form Checkbox",
-        "component": "bFormCheckboxGroup",
-        "components": [
-            "bFormCheckbox"
+  "name": "@bootstrap-vue/form-checkbox",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Checkbox",
+    "components": [
+      {
+        "component": "BFormCheckboxGroup",
+        "aliases": [ "BCheckboxGroup", "BCheckGroup" ],
+        "slots": [
+          {
+            "name": "first",
+            "description": "Slot to place b-form-checks so that they appear before checks generated from options prop"
+          }
         ],
         "events": [
-            {
-                "event": "input",
-                "description": "Emitted when the selected value(s) is changed",
-                "args": [
-                    {
-                        "arg": "checked",
-                        "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
-                    }
-                ]
-            },
-            {
-                "event": "change",
-                "description": "Emitted when selected value(s) is changed due to user interaction",
-                "args": [
-                    {
-                        "arg": "checked",
-                        "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
-                    }
-                ]
-            }
+          {
+            "event": "input",
+            "description": "Emitted when the checked value is changed",
+            "args": [
+              {
+                "arg": "checked",
+                "description": "Value of checkboxes. Value will be an array."
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "Emitted when selected value(s) is changed due to user interaction",
+            "args": [
+              {
+                "arg": "checked",
+                "description": "Value of checkboxes. Value will be an array."
+              }
+            ]
+          }
         ]
-    }
+      },
+      {
+        "component": "BFormCheckbox",
+        "aliases": [ "BCheckbox", "BCheck" ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted when the selected value(s) is changed",
+            "args": [
+              {
+                "arg": "checked",
+                "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "Emitted when selected value(s) is changed due to user interaction",
+            "args": [
+              {
+                "arg": "checked",
+                "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,7 +1,5 @@
 <template>
-  <textarea
-    ref="textArea"
-    :value="value"/>
+  <textarea ref="textArea" :value="value" />
 </template>
 
 <script>
@@ -44,6 +42,10 @@ export default {
       type: String,
       default: 'indent'
     },
+    tabSize: {
+      type: [Number, String],
+      default: 2
+    },
     lineWrapping: {
       type: Boolean,
       default: true
@@ -57,23 +59,24 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       CM: null
     }
   },
   watch: {
-    value (new_val, old_val) {
-      if (!old_val || old_val === '') {
-        this.CM.setValue(new_val)
+    value(newVal, oldVal) {
+      if (!oldVal || oldVal === '') {
+        this.CM.setValue(newVal)
       }
     }
   },
-  mounted () {
+  mounted() {
     this.CM = CodeMirror.fromTextArea(this.$refs.textArea, {
       mode: this.mode,
       theme: this.theme,
       tabMode: this.tabMode,
+      tabSize: parseInt(this.tabSize, 10) || 2,
       lineWrapping: this.lineWrapping,
       lineNumbers: this.lineNumbers,
       autoCloseTags: true,
@@ -85,7 +88,7 @@ export default {
       this.$emit('input', this.CM.getValue())
     })
   },
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.CM) {
       this.CM.toTextArea()
     }

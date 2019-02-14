@@ -42,7 +42,7 @@ jobs:
           name: Build
           command: yarn build
 
-  test-latest:
+  test:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -51,19 +51,6 @@ jobs:
           name: Test
           command: yarn test --maxWorkers=2 --coverage && yarn codecov
     environment:
-        - VUE_VERSION: "latest"
-        - NODE_ENV: "test"
-
-  test-beta:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: Test
-          command: yarn test --maxWorkers=2 --coverage && yarn codecov
-    environment:
-        - VUE_VERSION: "beta"
         - NODE_ENV: "test"
 
   docs:
@@ -89,11 +76,7 @@ workflows:
           requires:
             - setup
 
-      - test-latest:
-          requires:
-            - setup
-
-      - test-beta:
+      - test:
           requires:
             - setup
 

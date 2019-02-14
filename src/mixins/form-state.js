@@ -7,25 +7,29 @@
  *  - null (or empty string) for no contextual state
  */
 
+// @vue/component
 export default {
   props: {
     state: {
       // true/'valid', false/'invalid', '',null
-      type: [Boolean, String],
+      // The order must be String first, then Boolean!
+      type: [String, Boolean],
       default: null
     }
   },
   computed: {
-    computedState () {
+    computedState() {
       const state = this.state
-      if (state === true || state === 'valid') {
+      if (state === '') {
+        return null
+      } else if (state === true || state === 'valid') {
         return true
       } else if (state === false || state === 'invalid') {
         return false
       }
       return null
     },
-    stateClass () {
+    stateClass() {
       const state = this.computedState
       if (state === true) {
         return 'is-valid'

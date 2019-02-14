@@ -1,4 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { stripTags } from '../../utils/html'
 import Container from '../layout/container'
 
 export const props = {
@@ -14,6 +15,10 @@ export const props = {
     type: String,
     default: null
   },
+  headerHTML: {
+    type: String,
+    default: null
+  },
   headerTag: {
     type: String,
     default: 'h1'
@@ -23,6 +28,10 @@ export const props = {
     default: '3'
   },
   lead: {
+    type: String,
+    default: null
+  },
+  leadHTML: {
     type: String,
     default: null
   },
@@ -48,35 +57,41 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BJumbotron',
   functional: true,
   props,
-  render (h, { props, data, slots }) {
+  render(h, { props, data, slots }) {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
     const $slots = slots()
 
     // Header
-    if (props.header || $slots.header) {
-      childNodes.push(h(
-        props.headerTag,
-        {
-          class: {
-            [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
-          }
-        },
-        $slots.header || props.header
-      ))
+    if (props.header || $slots.header || props.headerHTML) {
+      childNodes.push(
+        h(
+          props.headerTag,
+          {
+            class: {
+              [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
+            }
+          },
+          $slots.header || props.headerHTML || stripTags(props.header)
+        )
+      )
     }
 
     // Lead
-    if (props.lead || $slots.lead) {
-      childNodes.push(h(
-        props.leadTag,
-        { staticClass: 'lead' },
-        $slots.lead || props.lead
-      ))
+    if (props.lead || $slots.lead || props.leadHTML) {
+      childNodes.push(
+        h(
+          props.leadTag,
+          { staticClass: 'lead' },
+          $slots.lead || props.leadHTML || stripTags(props.lead)
+        )
+      )
     }
 
     // Default slot
@@ -87,11 +102,7 @@ export default {
     // If fluid, wrap content in a container/container-fluid
     if (props.fluid) {
       // Children become a child of a container
-      childNodes = [h(
-        Container,
-        { props: { 'fluid': props.containerFluid } },
-        childNodes
-      )]
+      childNodes = [h(Container, { props: { fluid: props.containerFluid } }, childNodes)]
     }
     // Return the jumbotron
     return h(
@@ -103,7 +114,7 @@ export default {
           [`text-${props.textVariant}`]: Boolean(props.textVariant),
           [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
           [`border-${props.borderVariant}`]: Boolean(props.borderVariant),
-          'border': Boolean(props.borderVariant)
+          border: Boolean(props.borderVariant)
         }
       }),
       childNodes

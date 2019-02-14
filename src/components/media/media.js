@@ -1,6 +1,6 @@
 import { mergeData } from 'vue-functional-data-merge'
-import MediaBody from './media-body'
-import MediaAside from './media-aside'
+import BMediaBody from './media-body'
+import BMediaAside from './media-aside'
 
 export const props = {
   tag: {
@@ -21,25 +21,35 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BMedia',
   functional: true,
   props,
-  render (h, { props, data, slots, children }) {
+  render(h, { props, data, slots, children }) {
     let childNodes = props.noBody ? children : []
     const $slots = slots()
 
     if (!props.noBody) {
       if ($slots.aside && !props.rightAlign) {
         childNodes.push(
-          h(MediaAside, { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } }, $slots.aside)
+          h(
+            BMediaAside,
+            { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } },
+            $slots.aside
+          )
         )
       }
 
-      childNodes.push(h(MediaBody, $slots.default))
+      childNodes.push(h(BMediaBody, $slots.default))
 
       if ($slots.aside && props.rightAlign) {
         childNodes.push(
-          h(MediaAside, { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } }, $slots.aside)
+          h(
+            BMediaAside,
+            { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } },
+            $slots.aside
+          )
         )
       }
     }

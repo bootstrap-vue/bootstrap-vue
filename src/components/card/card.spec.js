@@ -5,7 +5,9 @@ describe('card', async () => {
   testVM()
 
   it("should contain '.card-body' class in the default slot", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const refs = ['simple_card', 'standard_card', 'img_card', 'img_overlay_card']
 
@@ -18,14 +20,18 @@ describe('card', async () => {
   })
 
   it("should not contain '.card-body' class if no-body specified", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.no_body.classList.contains('card-body')).toBe(false)
     expect($refs.no_body_default_slot).toEqual($refs.no_body.children[0])
   })
 
   it('should contain class names', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.simple_card).toHaveAllClasses(['card', 'bg-success', 'border-success'])
     expect($refs.standard_card).toHaveClass('card')
@@ -40,7 +46,9 @@ describe('card', async () => {
   })
 
   it('should contain text content', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.simple_card.textContent).toContain('Simple Card')
     expect($refs.standard_card.textContent).toContain('Last updated 3 mins ago')
@@ -59,7 +67,9 @@ describe('card', async () => {
   })
 
   it('standard_card should display card footer', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const childNodes = [...$refs.standard_card.childNodes]
     const footerEl = childNodes.find(el => el.classList && el.classList.contains('card-footer'))
@@ -85,41 +95,63 @@ describe('card', async () => {
     })
   })
 
+  it('should add flex-row to a img-left or img-right image', async () => {
+    const { app } = window
+    const node = app.$refs['img_card']
+    const childNodes = [...node.childNodes]
+    const imgEl = childNodes.find(el => el.tagName && el.tagName === 'IMG')
+
+    expect(imgEl).toBeDefined()
+    expect(imgEl.classList).toEqual(expect.objectContaining(/^flex-row/))
+  })
+
   it("should use the 'tag' for element tag", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const $titleCard = $refs.card_group.querySelector('#title-tag-test')
     // Card ref -> .card-body -> title el
     expect($titleCard).toBeElement('article')
   })
 
   it("should use the 'title-tag' for element tag", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const $titleCard = $refs.card_group.querySelector('#title-tag-test')
     // Card ref -> .card-body -> title el
     expect($titleCard.children[0].children[0]).toBeElement('h1')
   })
 
   it("should use the 'sub-title-tag' for element tag", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const $subtitleCard = $refs.card_group.querySelector('#sub-title-tag-test')
     // Card ref -> .card-body -> subtitle el
     expect($subtitleCard.children[0].children[0]).toBeElement('h2')
   })
 
   it("CardGroup: should apply '.card-group' class", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.card_group.classList.contains('card-group')).toBe(true)
   })
 
   it("CardGroup: should use the 'tag' for element tag", async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.card_group).toBeElement('section')
   })
 
   it('CardBody should have assigned class', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     expect($refs.body).toHaveClass('card-text')
   })
 })

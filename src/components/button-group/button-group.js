@@ -1,5 +1,4 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { arrayIncludes } from '../../utils/array'
 
 export const props = {
   vertical: {
@@ -8,8 +7,7 @@ export const props = {
   },
   size: {
     type: String,
-    default: null,
-    validator: size => arrayIncludes(['sm', '', 'lg'], size)
+    default: null
   },
   tag: {
     type: String,
@@ -21,10 +19,12 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
+  name: 'BButtonGroup',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
@@ -33,7 +33,7 @@ export default {
           'btn-group-vertical': props.vertical,
           [`btn-group-${props.size}`]: Boolean(props.size)
         },
-        attrs: { 'role': props.ariaRole }
+        attrs: { role: props.ariaRole }
       }),
       children
     )

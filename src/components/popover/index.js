@@ -1,16 +1,14 @@
-import bPopover from './popover'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import BPopover from './popover'
+import popoverDirectivePlugin from '../../directives/popover'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
-  bPopover
+  BPopover
 }
 
-const VuePlugin = {
-  install (Vue) {
+export default {
+  install(Vue) {
     registerComponents(Vue, components)
+    Vue.use(popoverDirectivePlugin)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

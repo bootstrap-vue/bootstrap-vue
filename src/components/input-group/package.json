@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "meta": {
     "title": "Input Group",
-    "component": "bInputGroup",
-    "components": ["bInputGroupAddon", "bInputGroupText"],
+    "component": "BInputGroup",
+    "components": [
+      "BInputGroupPrepend",
+      "BInputGroupAppend",
+      "BInputGroupText",
+      "BInputGroupAddon"
+    ],
     "slots": [
       {
-        "name": "prepdend",
+        "name": "prepend",
         "description": "Prepend attachment"
       },
       {

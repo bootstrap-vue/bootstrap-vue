@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import InputGroupText from './input-group-text'
 
-export const propsFactory = append => ({
+export const commonProps = {
   id: {
     type: String,
     default: null
@@ -10,31 +10,36 @@ export const propsFactory = append => ({
     type: String,
     default: 'div'
   },
-  append: {
-    type: Boolean,
-    default: append
-  },
   isText: {
     type: Boolean,
     default: false
   }
-})
+}
 
+// @vue/component
 export default {
+  name: 'BInputGroupAddon',
   functional: true,
-  props: propsFactory(false),
-  render (h, { props, data, children }) {
+  props: {
+    ...commonProps,
+    append: {
+      type: Boolean,
+      default: false
+    }
+  },
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: `input-group-${props.append ? 'append' : 'prepend'}`,
+        class: {
+          'input-group-append': props.append,
+          'input-group-prepend': !props.append
+        },
         attrs: {
           id: props.id
         }
       }),
-      props.isText ? [
-        h(InputGroupText, children)
-      ] : children
+      props.isText ? [h(InputGroupText, children)] : children
     )
   }
 }

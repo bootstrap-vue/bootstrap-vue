@@ -2,25 +2,10 @@ import PopOver from '../../utils/popover.class'
 import warn from '../../utils/warn'
 import toolpopMixin from '../../mixins/toolpop'
 
+// @vue/component
 export default {
+  name: 'BPopover',
   mixins: [toolpopMixin],
-  render (h) {
-    return h(
-      'div',
-      {
-        class: ['d-none'],
-        style: { display: 'none' },
-        attrs: { 'aria-hidden': true }
-      },
-      [
-        h('div', { ref: 'title' }, this.$slots.title),
-        h('div', { ref: 'content' }, this.$slots.default)
-      ]
-    )
-  },
-  data () {
-    return {}
-  },
   props: {
     title: {
       type: String,
@@ -39,8 +24,11 @@ export default {
       default: 'right'
     }
   },
+  data() {
+    return {}
+  },
   methods: {
-    createToolpop () {
+    createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
       if (target) {
@@ -51,5 +39,19 @@ export default {
       }
       return this._toolpop
     }
+  },
+  render(h) {
+    return h(
+      'div',
+      {
+        class: ['d-none'],
+        style: { display: 'none' },
+        attrs: { 'aria-hidden': true }
+      },
+      [
+        h('div', { ref: 'title' }, this.$slots.title),
+        h('div', { ref: 'content' }, this.$slots.default)
+      ]
+    )
   }
 }
