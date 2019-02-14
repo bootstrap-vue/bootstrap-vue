@@ -99,8 +99,8 @@ $grid-breakpoints: (
 );
 
 // Then include the following
-@include 'bootstrap/scss/bootstrap';
-@include 'bootstrap-vue/src/index.scss';
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
 ```
 
 In your app main entry point include the single custom SCSS file (when using `sass-loader`):
