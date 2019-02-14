@@ -24,6 +24,8 @@ renderer.table = function renderTable(header, body) {
 module.exports = {
   srcDir: __dirname,
 
+  modern: 'client',
+
   build: {
     extractCSS: true,
     cssSourceMap: true,

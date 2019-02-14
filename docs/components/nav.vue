@@ -42,11 +42,11 @@
 
       <b-navbar-nav>
         <b-nav-item-dropdown :text="`v${version}`" right>
-          <b-dropdown-item href="http://dev.bootstrap-vue.netlify.com">
-            Development
-          </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
             Latest (v{{ version }})
+          </b-dropdown-item>
+          <b-dropdown-item href="https://bootstrap-vue.netlify.com">
+            Development
           </b-dropdown-item>
         </b-nav-item-dropdown>
 
