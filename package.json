@@ -118,7 +118,7 @@
     "node-sass": "^4.11.0",
     "nuxt": "^2.4.3",
     "postcss-cli": "^6.1.1",
-    "prettier": "1.16.4",
+    "prettier": "1.14.3",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
