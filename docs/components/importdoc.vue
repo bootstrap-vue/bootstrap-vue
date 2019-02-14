@@ -158,7 +158,7 @@ export default {
       return this.directiveName(directive)
     },
     directivePath(directive) {
-      const directiveName = this.directiveName(directive)
+      const directiveName = this.directiveName(directive).replace(/^b-/, '')
       return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
     }
   }
