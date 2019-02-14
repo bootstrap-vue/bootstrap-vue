@@ -496,6 +496,21 @@ The `hide()` method accepts a single boolean argument. If the argument is `true`
 returned to the dropdown toggle button after the menu has closed. Otherwise the document will gain
 focus once the menu is closed.
 
+## Listening to dropdown changes via \$root events
+
+To listen to any dropdown opening, use:
+
+```js
+mounted() {
+  this.$root.$on('bv::dropdown::show', (bvEvent) => {
+    console.log('Dropdown is about to be shown', bvEvent)
+  })
+}
+```
+
+Refer to the [Events](/docs/components/dropdown#component-reference) section of documentation for the
+full list of events.
+
 ## Accessibility
 
 Providing a unique `id` prop ensures ARIA compliance by automatically adding the appropriate
