@@ -1,5 +1,4 @@
 import { isArray } from './array'
-import { assign } from './object'
 import identity from './identity'
 
 /**
