@@ -13,14 +13,6 @@ export const props = assign(linkPropsFactory(), {
     type: String,
     default: null
   },
-  active: {
-    type: Boolean,
-    default: false
-  },
-  href: {
-    type: String,
-    default: '#'
-  },
   ariaCurrent: {
     type: String,
     default: 'location'
@@ -38,8 +30,6 @@ export default {
     let componentData = { props: pluckProps(props, suppliedProps) }
     if (suppliedProps.active) {
       componentData.attrs = { 'aria-current': suppliedProps.ariaCurrent }
-    } else {
-      componentData.attrs = { href: suppliedProps.href }
     }
 
     if (!children) {
