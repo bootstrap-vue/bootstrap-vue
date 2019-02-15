@@ -140,8 +140,8 @@ should return a string.
 
 ## Button Size
 
-Optionally change from the default button size by setting the `size` prop to eiter `'am` for smaller
-buttons or `'lg'` for larger buttons.
+Optionally change from the default button size by setting the `size` prop to either `'am` for
+smaller buttons or `'lg'` for larger buttons.
 
 ```html
 <template>
@@ -289,7 +289,7 @@ technology.
 | `label-page`       | "Go to page", appended with the page number             |
 | `aria-label`       | "Pagination", applied to the outer pagination container |
 
-### Keyboard navigtion support:
+### Keyboard navigation support:
 
 `<b-pagination>` supports keyboard navigation out of the box.
 

@@ -402,7 +402,7 @@ export default {
     // Tab button to allow focusing when no actgive tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
-    // For each b-tab found create teh tab buttons
+    // For each b-tab found create the tab buttons
     const buttons = tabs.map((tab, index) => {
       const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
       let tabIndex = null

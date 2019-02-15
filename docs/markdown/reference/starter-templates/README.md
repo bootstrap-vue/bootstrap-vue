@@ -110,7 +110,7 @@ references will be handy starting points:
 
 ## Individual component import
 
-There are a few methods that you can use to import individual components and directvies.
+There are a few methods that you can use to import individual components and directives.
 
 You will need `vue-loader` configured to handle the compiling any components that are internally
 single file `.vue` components.
