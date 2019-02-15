@@ -907,6 +907,10 @@ export default {
           id: this.safeId('__BV_modal_content_'),
           'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
           'aria-describedby': this.safeId('__BV_modal_body_')
+        },
+        on: {
+          // don't allow event to propagate up to parent, otherwise the modal could potentially be closed
+          click: event => event.stopPropagation()
         }
       },
       [header, body, footer]
