@@ -60,7 +60,7 @@ headings appear.
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
 in the first row, but this may not always be the case depending on the version of browser in use.
 See section [**Fields (column definitions)**](#fields-column-definitions-) below to see how to
-guarantee the order of fields.
+guarantee the order of fields, and to override the headings generated.
 
 Record data may also have additional special reserved name keys for colorizing rows and individual
 cells (variants), and for triggering additional row detail. The supported optional item record
@@ -121,6 +121,10 @@ Provider functions can also be asynchronous:
 
 See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for
 more details.
+
+Avoid manipulating record data in place, as changes to the underlying items data will cause either
+the row or entire table to be re-rendered. See [Primary Key](#primary-key), below, for ways to
+minimize Vue's re-rendering of rows.
 
 ## Fields (column definitions)
 
@@ -355,19 +359,26 @@ const fields = [
 ### Primary key
 
 `<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
-that uniquely identifies the row.
+that _uniquely_ identifies the row.
 
 This value is used by `<b-table>` to help Vue optimize the rendering of table rows. Internally, the
 the value of the field key specified by the `primary-key` prop is used as the Vue `:key` value for
 each rendered item row `<tr>` element. The value specified by the column key **must be** either a
-`string` or `number`, and **must be** unique across all rows in the table.
+`string` or `number`, and **must be unique** across all rows in the table.
 
-If you are seeing rendering issue (i.e. tooltips hiding when item data changes or is
-sorted/filtered), setting the `primary-key` prop (if you have a unique identifier per row) can
+If you are seeing rendering issue (i.e. tooltips hiding when item data changes or data is
+sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row) can
 alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
+
+If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
+the row's data values plus the displayed row's index number. This may cause GUI issues if you are
+modifiying the underlying table data inplace (i.e. via a `<b-form-input>` v-model bound to the row's
+data).  Specifying a `primary-key` column can alleviate this issue.
+
+The primary key column does not need to appear in the displayed fields.
 
 In future releases of BootstrapVue, the `primary-key` may be used for additional features.
 
