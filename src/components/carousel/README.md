@@ -107,7 +107,7 @@ the images. The `img-*` props map to the corresponsing props available to `<b-im
 
 Carousel defaults to an interval of `5000`ms (5 seconds). You can change the interval between slides
 by setting the `interval` prop to the desired number of milliseconds. The smallest supported sliding
-inteval is 1000ms (1 second).
+interval is 1000ms (1 second).
 
 In browsers where the [Page Visibility API](https://www.w3.org/TR/page-visibility/) is supported,
 the carousel will avoid sliding when the webpage is not visible to the user (such as when the
@@ -132,7 +132,7 @@ Both indicators and controls can be set at the same time or independently.
 
 ## Carousel animation
 
-Carousel, by default, uses a sliding animation. You can change teh slide animation to a cross-fade
+Carousel, by default, uses a sliding animation. You can change the slide animation to a cross-fade
 animation, or disable animation completely.
 
 ### Crossfade animation
