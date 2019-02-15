@@ -1468,7 +1468,11 @@ export default {
     }
 
     // Empty Items / Empty Filtered Row slot
-    if (this.showEmpty && (!items || items.length === 0)) {
+    if (
+      this.showEmpty &&
+      (!items || items.length === 0) &&
+      !($slots['table-busy'] && this.computedBusy)
+    ) {
       let empty = this.isFiltered ? $slots['emptyfiltered'] : $slots['empty']
       if (!empty) {
         empty = h('div', {
