@@ -79,7 +79,11 @@ BootstrapVue pre-compiled CSS files by setting the folliwing option(s) to `false
 
 ```js
 {
-  modules: [['bootstrap-vue/nuxt', { bootstrapCss: false, bootstrapVueCss: false }]]
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    bootstrapCSS: false, // or `css`
+    bootstrapVueCSS: false // or `bvCSS`
+  }
 }
 ```
 
