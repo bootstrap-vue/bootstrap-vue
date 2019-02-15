@@ -73,6 +73,7 @@
     "postinstall": "opencollective || exit 0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.3.1",
     "@nuxt/opencollective": "^0.2.1",
     "bootstrap": "^4.3.1",
     "popper.js": "^1.14.7",
@@ -86,7 +87,6 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/standalone": "^7.3.2",
-    "@babel/runtime": "^7.3.1",
     "@nuxtjs/google-analytics": "^2.0.3",
     "@nuxtjs/pwa": "^3.0.0-beta.6",
     "@vue/test-utils": "^1.0.0-beta.29",
