@@ -164,8 +164,8 @@ classes.
 <!-- b-progress-width.vue -->
 ```
 
-The height of the progress bar can be controled with the `height` prop. The height value should be a
-standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
+The height of the progress bar can be controlled with the `height` prop. The height value should be
+a standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
 
 ```html
 <template>
@@ -358,7 +358,7 @@ horizontally stacked set of progress bars.
 <!-- b-progress-multiple.vue -->
 ```
 
-`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you
+`<b-progress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you
 can override any of the props by setting them on the `<b-progress-bar>`
 
 Notes:

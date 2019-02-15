@@ -101,7 +101,7 @@ Note that images will still be responsive and automatically grow or shrink to fi
 of its parent container.
 
 Internally, `<b-carousel-slide>` uses the [`<b-img>`](/docs/components/image) component to render
-the images. The `img-*` props map to the corresponsing props available to `<b-img>`.
+the images. The `img-*` props map to the corresponding props available to `<b-img>`.
 
 ## Interval
 
@@ -190,7 +190,7 @@ disable touch control, set the `no-touch` prop to `true`.
 
 ## `v-model` support
 
-Programmaticaly control which slide is showing via `v-model` (which binds to the `value` prop).
+Programmatically control which slide is showing via `v-model` (which binds to the `value` prop).
 Note, that slides are indexed starting at `0`.
 
 ## Accessibility

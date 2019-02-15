@@ -99,7 +99,7 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move to the previous control on the page              |
 
 **Caution:** If you have text or text-like inputs in your toolbar, leave keyboard navigation off, as
-it is not possble to use key presses to jump out of a text (or test-like) inputs.
+it is not possible to use key presses to jump out of a text (or test-like) inputs.
 
 ## See Also
 

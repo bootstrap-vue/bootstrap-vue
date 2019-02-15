@@ -128,7 +128,7 @@ export default {
           // Reset value and exit if canceled
           this.visibleChangePrevented = true
           this.visible = oldValue
-          // Just in case a child element triggerded this.hide(true)
+          // Just in case a child element triggereded this.hide(true)
           this.$off('hidden', this.focusToggler)
           return
         }

@@ -27,7 +27,7 @@ the maximum native width of the image.
 ```
 
 To make a fluid image that will grow to fill the width of it's container, use the `fluid-grow` prop.
-Note this may cause bluring on small bitmap images.
+Note this may cause blurring on small bitmap images.
 
 ```html
 <div>
@@ -76,13 +76,13 @@ You can control which corners are rounded by setting the rounded prop to one of 
 values:
 
 - `true` (or prop present with no value): round all corners
-- `false` (or prop not present): no explit rounding or corners (default)
+- `false` (or prop not present): no explicit rounding or corners (default)
 - `'top'`: round the top corners
 - `'right'`: round the right corners
 - `'bottom'`: round the bottom corners
 - `'left'`: round the left corners
 - `'circle'`: make a circle (if square image) or oval (if not square) border
-- `'0'`: explicity turn off rounding of corners
+- `'0'`: explicitly turn off rounding of corners
 
 ```html
 <template>
@@ -143,8 +143,8 @@ Note: `left` takes precedence over `right` which takes precedence over `center`.
 
 `<b-img>` provides built-in support for generating blank images (transparent by default) of any
 width and height, by setting the `blank` prop, and specifying `width` and `height` values (in
-pixels). You can apply any of the other `<b-img>` props to change the style/behavior of the generted
-image.
+pixels). You can apply any of the other `<b-img>` props to change the style/behavior of the
+generated image.
 
 Use the `blank-color` prop to set the blank image color. The `blank-color`prop can accept any CSS
 color value:
@@ -205,7 +205,7 @@ loading.
 
 ### Usage
 
-Set the `src` prop to the URL of the image you want loadied lazily, and either specify a placeholder
+Set the `src` prop to the URL of the image you want loaded lazily, and either specify a placeholder
 image URL via the prop `blank-src`, or have a blank placeholder image generated for you by leaving
 `blank-src` as `null`.
 
@@ -215,7 +215,7 @@ applied to the image specified via `src`).
 
 Control the generated blank image color by setting the prop `blank-color`.
 
-Placeholder images (either explicity provided, or dynamicaly generated) should have the same width
+Placeholder images (either explicitly provided, or dynamically generated) should have the same width
 and height values, or at least the same aspect ratio, as the `src` image.
 
 Feel free to use the `fluid`, `fluid-grow`, `thumbnail`, and `rounded` props of `<b-img>`.
