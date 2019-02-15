@@ -651,7 +651,7 @@ class ToolTip {
       title = title.trim()
     }
     if (!title) {
-      // If an explicit title is not given, try element's title atributes
+      // If an explicit title is not given, try element's title attributes
       title = getAttr(this.$element, 'title') || getAttr(this.$element, 'data-original-title') || ''
       title = title.trim()
     }
@@ -760,7 +760,7 @@ class ToolTip {
       }
     } else {
       if (this.$routeWatcher) {
-        // cancel the route watcher by calling hte stored reference
+        // cancel the route watcher by calling the stored reference
         this.$routeWatcher()
         this.$routeWatcher = null
       }

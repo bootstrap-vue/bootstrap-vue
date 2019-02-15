@@ -8,7 +8,7 @@ control and customization. Built with flexbox, they offer easy alignment and mix
 components.
 
 `<b-card>` has no fixed width to start, so they’ll naturally fill the full width of its parent
-element. This is easily customized via styles or standard Bootstrap V4 sizing clases.
+element. This is easily customized via styles or standard Bootstrap V4 sizing classes.
 
 Change the default `div` root tag to any other HTML element by specifying via the `tag` prop
 
@@ -79,7 +79,7 @@ on the `<b-card>`.
 Note that with `no-body` enabled, the content of the `title` and `sub-title` props will not be
 rendered.
 
-Use the `<b-card-body>` sub-componet to place your own card body anywhere in a `<b-card>` component
+Use the `<b-card-body>` sub-component to place your own card body anywhere in a `<b-card>` component
 that has `no-body` set.
 
 #### Titles, text, and links
@@ -89,7 +89,7 @@ The title is rendered using the sub-component `<b-card-title>` while the Sub Tit
 the sub-component `<b-card-sub-title>`.
 
 With sub-component `<b-card-text>`, paragraph text can be added to the card. The last
-`<b-card-text>` in the card body will have it's bottom margin automaticaly remvoed (via CSS). Text
+`<b-card-text>` in the card body will have it's bottom margin automatically removed (via CSS). Text
 within `<b-card-text>` can also be styled with the standard HTML tags.
 
 Links can be added and placed next to each other by adding the `.card-link` class to a `<a>` tag (or
@@ -157,7 +157,7 @@ be responsive and will adjust it's width when the width of the card is changed.
 ```
 
 **Note:** For left and right images, you may need to apply additional styles to classes
-`.card-img-left` and `.card-img-right`, as images will "strech" in height if you have content that
+`.card-img-left` and `.card-img-right`, as images will "stretch" in height if you have content that
 is taller than your image. Note headers and footers are not supported when images are left or right
 aligned. You may find the [Horizontal Card Layout](#horizontal-card-layout) example to be more
 flexible when creating a responsive horizontal card.
@@ -265,8 +265,8 @@ card.
 
 ## Horizontal card layout
 
-Using a combination of grid components, utility classes and idividual card sub-components, cards can
-be made horizontal in a mobile-friendly and responsive way.
+Using a combination of grid components, utility classes and individual card sub-components, cards
+can be made horizontal in a mobile-friendly and responsive way.
 
 In the example below, we remove the row grid gutters with the `no-gutters` prop on `<b-row>` and use
 `md` props on `<b-col>` to make the card horizontal at the `md` breakpoint. Class `rounded-0`

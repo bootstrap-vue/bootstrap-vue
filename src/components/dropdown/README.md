@@ -53,7 +53,7 @@ precedence.
 
 ## Positioning
 
-Dropdown supports various positioning such as left and right aligned, drodown and dropup, and
+Dropdown supports various positioning such as left and right aligned, dropdown and dropup, and
 supports auto-flipping (dropdown to dropup, and vice-versa) when the menu would overflow off of the
 visible screen area.
 
@@ -195,7 +195,7 @@ variants.
 <!-- b-dropdown-variants.vue -->
 ```
 
-You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop
+You can also apply arbitrary classes to the toggle button via the `toggle-class` prop. This prop
 accepts either a string or array of strings.
 
 ## Split button support
@@ -217,7 +217,7 @@ support, while the right hand side is the dropdown menu toggle button.
 
 ### Split button color variant
 
-By default the left split button uses the same `variant` as teh `toggle` button. You can give the
+By default the left split button uses the same `variant` as the `toggle` button. You can give the
 split button its own variant via the `split-variant` prop.
 
 ```html
@@ -242,7 +242,7 @@ split button its own variant via the `split-variant` prop.
 
 The left split button defaults to an element of type `<button>` (a `<b-button>` to be exact). To
 convert this button into a link or `<router-link>`, specify the href via the `split-href` prop or a
-router link `to` value via the `split-to` prop, while manitaining the look of a button.
+router link `to` value via the `split-to` prop, while maintaining the look of a button.
 
 ```html
 <div>
@@ -437,7 +437,7 @@ the `tag` prop to any valid HTML5 tag on the `<b-dropdown-text>` sub-component.
 
 ### `<b-dropdown-form>`
 
-Dropdowns suupport basic forms. Put a `<b-dropdown-form>` within a dropdown menu and place form
+Dropdowns support basic forms. Put a `<b-dropdown-form>` within a dropdown menu and place form
 controls within the `<b-dropdown-form>`. The `<b-dropdown-form>` is based on the
 [`<b-form>`](/docs/components/form) component, and supports the same props and attributes as a
 regular form.

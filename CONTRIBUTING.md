@@ -38,14 +38,14 @@ If you want to see your changes in your project instead of the playground:
 
 ## Pull requests
 
-Please ensure all pull requests are made aganst the `dev` branch on GitHub. See the
+Please ensure all pull requests are made against the `dev` branch on GitHub. See the
 [Conventional Commits](https://conventionalcommits.org/) spec for commit and PR naming guidelines.
 This is very important, as the `CHANGELOG` is generated from these messages.
 
 Examples:
 
 - `fix(modal): fixes some broken modal stuff`
-- `feat(table): add a feature to the table compoment!`
+- `feat(table): add a feature to the table component!`
 
 ## Financial contributions
 

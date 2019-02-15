@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     focusHandler(evt) {
-      // Boostrap v4.beta doesn't have focus styling for custom file input
+      // Bootstrap v4.beta doesn't have focus styling for custom file input
       // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
       // So we add a 'focus' class to get around these "bugs"
       if (this.plain || evt.type === 'focusout') {

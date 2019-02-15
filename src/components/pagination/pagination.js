@@ -52,7 +52,7 @@ export default {
       }
       // Update the v-model
       this.currentPage = num
-      // Emit event triggerd by user interaction
+      // Emit event triggered by user interaction
       this.$emit('change', this.currentPage)
       this.$nextTick(() => {
         // Keep the current button focused if possible
