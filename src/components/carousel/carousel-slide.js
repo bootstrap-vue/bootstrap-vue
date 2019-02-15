@@ -54,7 +54,7 @@ export default {
     caption: {
       type: String
     },
-    captionHTML: {
+    captionHtml: {
       type: String
     },
     captionTag: {
@@ -64,7 +64,7 @@ export default {
     text: {
       type: String
     },
-    textHTML: {
+    textHtml: {
       type: String
     },
     textTag: {
@@ -129,13 +129,13 @@ export default {
       this.contentTag,
       { staticClass: 'carousel-caption', class: this.contentClasses },
       [
-        this.caption || this.captionHTML
+        this.caption || this.captionHtml
           ? h(this.captionTag, {
-              domProps: htmlOrText(this.captionHTML, this.caption)
+              domProps: htmlOrText(this.captionHtml, this.caption)
             })
           : h(false),
-        this.text || this.textHTML
-          ? h(this.textTag, { domProps: htmlOrText(this.textHTML, this.text) })
+        this.text || this.textHtml
+          ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
           : h(false),
         $slots.default
       ]

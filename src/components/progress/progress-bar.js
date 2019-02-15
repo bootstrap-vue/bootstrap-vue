@@ -20,7 +20,7 @@ export default {
       type: String,
       default: null
     },
-    labelHTML: {
+    labelHtml: {
       type: String
     },
     // $parent prop values take precedence over the following props
@@ -106,8 +106,8 @@ export default {
     let childNodes = h(false)
     if (this.$slots.default) {
       childNodes = this.$slots.default
-    } else if (this.label || this.labelHTML) {
-      childNodes = h('span', { domProps: htmlOrText(this.labelHTML, this.label) })
+    } else if (this.label || this.labelHtml) {
+      childNodes = h('span', { domProps: htmlOrText(this.labelHtml, this.label) })
     } else if (this.computedShowProgress) {
       childNodes = this.computedProgress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {
