@@ -6,7 +6,7 @@
         <li><router-link to="/docs/">Documentation</router-link></li>
         <li>
           <a href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">
-            Fork on GitHub
+            GitHub
           </a>
         </li>
       </ul>
@@ -21,7 +21,7 @@
       <p>
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
-        Docs generated with <a href="https://nuxtjs.org/" target="_blank">NUXT.js</a>
+        Docs generated with <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a>
       </p>
     </div>
   </footer>
