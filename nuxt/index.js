@@ -23,6 +23,9 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     this.options.css.unshift('bootstrap/dist/css/bootstrap.css')
   }
 
+  // Transpile src
+  this.options.build.transpile.push('bootstrap-vue/src')
+
   // Register plugin, pasing options to plugin template
   this.addPlugin({
     src: resolve(__dirname, 'plugin.template.js'),
