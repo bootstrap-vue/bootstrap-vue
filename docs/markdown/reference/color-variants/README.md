@@ -1,6 +1,6 @@
 # Color variants and CSS class mapping
 
-> Below are the variants available when using the default Bootstrap V4 CSS. When using Bootstrap-Vue
+> Below are the variants available when using the default Bootstrap V4 CSS. When using BootstrapVue
 > components, the variants are referred to by their variant name, rather than by the underlying CSS
 > classname
 
