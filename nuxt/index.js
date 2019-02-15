@@ -9,7 +9,10 @@ function pickFirst(...args) {
 }
 
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
-  const options = Object.assign({}, this.options.bootstrapVue, moduleOptions)
+  const options = Object.assign({
+    ...this.options.bootstrapVue,
+    ...moduleOptions
+  })
 
   const bootstrapVueCSS = pickFirst(options.bootstrapVueCSS, options.bootstrapCss, options.bvCSS)
   if (bootstrapVueCSS) {
