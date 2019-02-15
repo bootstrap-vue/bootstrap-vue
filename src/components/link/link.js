@@ -227,7 +227,7 @@ export default {
 
     // We want to overwrite any click handler since our callback
     // will invoke the user supplied handler if !props.disabled
-    componentData[eventType] = { ...(componentData[eventType] || {}), handlers }
+    componentData[eventType] = { ...(componentData[eventType] || {}), ...handlers }
 
     return h(tag, componentData, children)
   }
