@@ -1,6 +1,6 @@
 # Form File Input
 
-> Customized, cross-browser consistant, file input control that supports single file, multiple
+> Customized, cross-browser consistent, file input control that supports single file, multiple
 > files, and directory upload (for browsers that support directory mode)
 
 ```html
@@ -116,7 +116,7 @@ stylesheets. Also it is advised to use
 }
 ```
 
-Alternatively you can set the content of the custom file browe button text via the `browse-text`
+Alternatively you can set the content of the custom file browse button text via the `browse-text`
 prop. Note, only plain text is supported. HTML and components are not supported.
 
 ## Non custom file input
@@ -134,7 +134,7 @@ Generally speaking, you’ll want to use a particular state for specific types o
   properly to submit the form.
 - `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
   encourage a user through the rest of the fields.
-- `null` Displayes no validation state
+- `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-file`, set the `state` prop to `'invalid'`
 (or `false`), `'valid'` ( or `true`), or `null`.
@@ -143,8 +143,8 @@ To apply one of the contextual state icons on `<b-form-file`, set the `state` pr
 
 When using the custom version of `<b-form-file>` input which hides the original input, it is
 **highly recommended** that you supply a document unique ID string via the `id` prop. This will
-automatically render the extra ARIA atributes required to improve usability for persons using
-assitive technologies.
+automatically render the extra ARIA attributes required to improve usability for persons using
+assistive technologies.
 
 ## Clearing the file selection
 

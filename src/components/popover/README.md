@@ -31,7 +31,7 @@ Things to know when using popover component:
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
 element at the point in the DOM where the `<b-popover>` component is placed. This may affect layout
 and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and
-`<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>` component
+`<b-input-group>`. To avoid these possible layout issues, place the `<b-popover>` component
 **outside** of these types of components.
 
 The target element **must** exist in the document before `<b-popover>` is mounted. If the target
@@ -42,7 +42,8 @@ component lower in the DOM than your target element.
 > from those slots into the popover's markup when shown, and returns them back to the `<b-popover>`
 > component when hidden. This may cause some issues in rare circumstances, so please test your
 > implementation accordingly! The `title` and `content` props do not have this behavior. For simple
-> popovers, we recommend using the `v-b-popover` directive and enable the `html` modifer if needed._
+> popovers, we recommend using the `v-b-popover` directive and enable the `html` modifier if
+> needed._
 
 ## Positioning
 
@@ -353,7 +354,7 @@ To make the popover shown on initial render, simply add the `show` prop on `<b-p
 ```
 
 A popover which is opened programmatically via the 'show' property or by an event call can only be
-closed programmatically. Built-in triggers will work inadequatly, because trigger event will try to
+closed programmatically. Built-in triggers will work inadequately, because trigger event will try to
 open the popover even though it is already opened.
 
 In the below example, when the first Popover is opened with the 'open' event, it will take two
@@ -422,7 +423,7 @@ and showing popovers via \$root events** section below for details.
 
 ### Programmatically disabling popover
 
-You can disable popover via the syncable Boolean prop `disabled` (default vlaue is `false`) Setting
+You can disable popover via the syncable Boolean prop `disabled` (default value is `false`) Setting
 it to `true` will disable the popover. If the popover is currently visible when disabled is set to
 `false`, it will remain visible until it is enabled or programmatically closed. If the popover is
 disabled/enabled via \$root events (see below), your `disabled` value will be updated as long as you

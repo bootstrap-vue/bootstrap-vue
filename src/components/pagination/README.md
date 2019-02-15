@@ -87,7 +87,7 @@ populate these props, you should use named slots (see below) instead to avoid po
 | `last-text`     | The "goto last page" button text (html/sub-components supported)     |
 | `ellipsis-text` | the `...` indicator text (html/sub-components supported)             |
 
-Ellipsis inidcator(s) will only be ever shown at the front and/or end of the page number buttons.
+Ellipsis indicator(s) will only be ever shown at the front and/or end of the page number buttons.
 For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
 practical display reasons.
 
@@ -149,8 +149,8 @@ The `<b-pagination>` component provides many features to support assistive techn
 
 ### `aria-controls`
 
-When pagination is controling another component on the page (such as `<b-table>`), set the
-`aria-controls` prop to the `id` of the element it is controling. This will help non-sighted users
+When pagination is controlling another component on the page (such as `<b-table>`), set the
+`aria-controls` prop to the `id` of the element it is controlling. This will help non-sighted users
 know what component is being updated/controlled.
 
 ### ARIA labels

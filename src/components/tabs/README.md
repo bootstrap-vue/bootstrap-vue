@@ -28,7 +28,7 @@ attribute, see https://vuejs.org/v2/api/#key).
 
 Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
 it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>`
-component in order to propertly decorate the card header and remove the extra padding introduced by
+component in order to properly decorate the card header and remove the extra padding introduced by
 `card-body`.
 
 ```html
@@ -122,11 +122,11 @@ Visually move the tab controls to the bottom by setting the prop `end`
 **Caveats:**
 
 - Bottom placement visually works best with the `pills` variant. When using the default `tabs`
-  vairiant, you may want to provided your own custom styling classes, as Bootstrap V4 CSS assumes
-  the tabs will always be placed on the top of the tabs content.
-- To provide a better user experience with bottom palced controls, ensure that the content of each
+  variant, you may want to provided your own custom styling classes, as Bootstrap V4 CSS assumes the
+  tabs will always be placed on the top of the tabs content.
+- To provide a better user experience with bottom placed controls, ensure that the content of each
   tab pane is the same height and fits completely within the visible viewport, otherwise the user
-  will need to scroll up to read the start of the tabed content.
+  will need to scroll up to read the start of the tabbed content.
 
 **Note:** _the `bottom` prop has been deprecated in favor of the `end` prop._
 
@@ -185,7 +185,7 @@ column classes such as `col-2`, `col-3`, etc.
 ```
 
 Vertical placement visually works best with the `pills` variant. When using the default `tabs`
-vairiant, you may want to provided your own custom styling classes, as Bootstrap V4 CSS assumes the
+variant, you may want to provided your own custom styling classes, as Bootstrap V4 CSS assumes the
 tab controls will always be placed on the top of the tabs content.
 
 **Note:** _overflowing text may occur if your width is narrower than the tab title. You may need
@@ -247,14 +247,14 @@ which does not support child interactive elements per the HTML5 spec.
 
 ## Apply custom classes to the generated nav-tabs or pills
 
-The tab selectors are based on Boostrap V4's `nav` markup ( i.e.
+The tab selectors are based on Bootstrap V4's `nav` markup ( i.e.
 `ul.nav > li.nav-item > a.nav-link`). In some situations, you may want to add classes to the `<li>`
 (nav-item) and/or the `<a>` (nav-link) on a per tab basis. To do so, simply supply the classname to
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the `<a>`
 element). Value's can be passed as a string or array of strings.
 
 **Note:** _The `active` class is automatically applied to the active tabs `<a>` element. You may
-need to accomodate your custom classes for this._
+need to accommodate your custom classes for this._
 
 ```html
 <template>
@@ -316,7 +316,7 @@ browser navigation with TAB key.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous tab button or control on the page |
 | <kbd>ENTER</kbd>                | Activate current focused button's tab                  |
 
-## Programatically activating and deactivating tabs
+## Programmatically activating and deactivating tabs
 
 Use the `<b-tabs>` `v-model` to control which tab is active by setting the `v-model` to the index
 (zero-based) of the tab to be shown (see example below).
@@ -325,7 +325,7 @@ Alternatively, you can use the `active` prop on each `<b-tab>` with the `.sync` 
 the tab, or to detect if a particular tab is active.
 
 Each `<b-tab>` instance also provides two public methods to activate or deactivate the tab. The
-methods are `.activate()` and `.deactivate()`, respectively. If activation or deactivaton fails
+methods are `.activate()` and `.deactivate()`, respectively. If activation or deactivation fails
 (i.e. a tab is disabled or no tab is available to move activation to), then the currently active tab
 will remain active and the method will return `false`. You will need a reference to the `<b-tab>` in
 order to use these methods.

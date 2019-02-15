@@ -149,7 +149,7 @@ Use both `click` and `blur` if you would like a tooltip that opens only on click
 will close when anything else in the document is clicked or receives focus.
 
 Note that your element **must** be in the document tab sequence for this to work. If your element is
-not tabable, add the `tabindex="0"` attribute to the element.
+not tabbable, add the `tabindex="0"` attribute to the element.
 
 ## Title content
 
@@ -165,7 +165,7 @@ can also be passed as an object to `v-b-tooltip` in the form of
 ```
 
 If your title content has basic HTML markup, then you will also need to set the `html` property to
-true, or use the diretive modifier `html`
+true, or use the directive modifier `html`
 
 ```js
 // Object format with HTML:

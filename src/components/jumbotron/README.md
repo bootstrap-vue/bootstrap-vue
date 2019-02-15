@@ -52,7 +52,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 
 ### Header
 
-Control which tag is rendered for the header by setting the `header-tag` to the approriate HTML
+Control which tag is rendered for the header by setting the `header-tag` to the appropriate HTML
 element. The default is `h1`. Both the prop `header` and slot `header` will be rendered inside this
 tag. If both the prop and the slot are specified, the slot will be shown.
 

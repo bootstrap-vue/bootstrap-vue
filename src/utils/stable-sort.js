@@ -1,9 +1,9 @@
 /*
  * Consitant and stable sort function across JavsaScript platforms
  *
- * Inconsistant sorts can cause SSR problems between client and server
+ * Inconsistent sorts can cause SSR problems between client and server
  * such as in <b-table> if sortBy is applied to the data on server side render.
- * Chrome and V8 native sorts are inconsistant/unstable
+ * Chrome and V8 native sorts are inconsistent/unstable
  *
  * This function uses native sort with fallback to index compare when the a and b
  * compare returns 0
