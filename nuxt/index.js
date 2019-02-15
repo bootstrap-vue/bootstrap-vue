@@ -30,7 +30,7 @@ const PluginDefaluts = {
 // Main module entry point
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   // Merge moduleOptions with default
-  const options = Object.assign({}, PluginDefaluts, moduleOptions)
+  const options = { ...PluginDefaluts, ...moduleOptions }
 
   // Deprecate css option in favour of boostrapCss option
   if (options.css === false) {
