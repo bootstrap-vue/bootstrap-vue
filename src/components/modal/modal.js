@@ -567,7 +567,7 @@ export default {
     // UI Event Handlers
     onClickOut(evt) {
       // If backdrop clicked, hide modal
-      if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
+      if (this.is_visible && !this.noCloseOnBackdrop) {
         this.hide('backdrop')
       }
     },
@@ -937,10 +937,7 @@ export default {
           'aria-hidden': this.is_visible ? null : 'true',
           'aria-modal': this.is_visible ? 'true' : null
         },
-        on: {
-          click: this.onClickOut,
-          keydown: this.onEsc
-        }
+        on: { keydown: this.onEsc }
       },
       [modalDialog]
     )
@@ -973,7 +970,8 @@ export default {
       backdrop = h('div', {
         staticClass: 'modal-backdrop',
         class: this.backdropClasses,
-        attrs: { id: this.safeId('__BV_modal_backdrop_') }
+        attrs: { id: this.safeId('__BV_modal_backdrop_') },
+        on: { click: this.onClickOut }
       })
     }
     // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
