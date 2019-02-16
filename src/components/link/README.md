@@ -46,11 +46,11 @@ Disable link functionality by setting the `disabled` prop to true.
 <!-- b-link-disabled.vue -->
 ```
 
-Disabling a link will set the Bootstrap V4 `.disabled` class on the link as well as handles stoping
-event propagation, preventing the default action from occuring, and removing the link from the
+Disabling a link will set the Bootstrap V4 `.disabled` class on the link as well as handles stopping
+event propagation, preventing the default action from occurring, and removing the link from the
 document tab sequence (`tabindex="-1"`).
 
-**Note:** Boostrap V4 CSS currently does not style disabled links differently than non-disabled
+**Note:** Bootstrap V4 CSS currently does not style disabled links differently than non-disabled
 links. You can use the following custom CSS to style disabled links (by preventing hover style
 changes):
 

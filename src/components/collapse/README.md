@@ -33,7 +33,7 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
 
   <!-- Element to collapse -->
   <b-collapse id="collapse2">
-    <b-card>I am collapsable content!</b-card>
+    <b-card>I am collapsible content!</b-card>
   </b-collapse>
 </div>
 
@@ -61,7 +61,7 @@ The component's collapsed (visible) state can also be set with `v-model` which b
 the `visible` prop.
 
 Note, when using `v-model` to control `<b-collapse>`, the `aria-*` attributes and class `collapsed`
-are not automaticaly placed on the trigger button (as is the case when using the `v-b-toggle`
+are not automatically placed on the trigger button (as is the case when using the `v-b-toggle`
 directive). In this example we must control them ourselves.
 
 ```html
@@ -97,7 +97,7 @@ directive). In this example we must control them ourselves.
 ## Trigger multiple collapse elements
 
 You can even collapse multiple `<b-collapse>` components via a single `v-b-toggle` by providing
-multiple target IDs using modifers:
+multiple target IDs using modifiers:
 
 ```html
 <div>
@@ -106,10 +106,10 @@ multiple target IDs using modifers:
 
   <!-- Elements to collapse -->
   <b-collapse id="collapseA" class="mt-2">
-    <b-card>I am collapsable content A!</b-card>
+    <b-card>I am collapsible content A!</b-card>
   </b-collapse>
   <b-collapse id="collapseB" class="mt-2">
-    <b-card>I am collapsable content B!</b-card>
+    <b-card>I am collapsible content B!</b-card>
   </b-collapse>
 </div>
 
@@ -252,7 +252,7 @@ this.$root.$emit('bv::toggle::collapse', 'my-collapse-id')
 
 The `v-b-toggle` directive will automatically add the ARIA attributes `aria-controls` and
 `aria-expanded` to the component that the directive appears on (as well as add the class `collapsed`
-when not expanded). `aria-expanded` will reflect the state of the tartget `<b-collapse>` component,
+when not expanded). `aria-expanded` will reflect the state of the target `<b-collapse>` component,
 while `aria-controls` will be set to the ID(s) of the target `<b-collapse>` component(s).
 
 If using `v-model` to set the visible state instead of the directive `v-b-toggle`, you will be
@@ -260,7 +260,7 @@ required to, on the toggle element, add the `aria-controls` and other appropriat
 classes yourself.
 
 While the `v-b-toggle` directive can be placed on almost any HTML element or Vue component, it is
-reccomended to use a button or link (or similar component) to act as your toggler. Otherwise your
+recommended to use a button or link (or similar component) to act as your toggler. Otherwise your
 trigger elements may be inaccessible to keyboard or screen reader users. If you do place them on
 something other than a button or link (or similar component), you should add the attributes
 `tabindex="0"` and `role="button"` to allow users of assistive technology to reach your trigger
@@ -268,7 +268,7 @@ element.
 
 When using accordion mode, make sure you place the trigger elements and `<b-collapse>` components
 inside an element with `role="tablist"` and set `role="tab"` on each trigger element's container in
-order to help screen reader users navigate the accordion group. Unfortunately, Boostrap-Vue cannot
-apply those roles for you automaticaly, as it depends on your final document markup.
+order to help screen reader users navigate the accordion group. Unfortunately, BootstrapVue cannot
+apply those roles for you automatically, as it depends on your final document markup.
 
 <!-- Component reference added automatically from component package.json -->

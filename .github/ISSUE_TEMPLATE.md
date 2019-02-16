@@ -15,7 +15,7 @@ When reporting a bug, include:
 
 - Operating system and version (Windows, Mac OS X, Android, iOS, Win10 Mobile)
 - Browser and version (Chrome, Firefox, Safari, IE, MS Edge, Opera 15+, Android Browser)
-- Version of Bootstrap-Vue that you are using
+- Version of BootstrapVue that you are using
 - Reduced test cases and potential fixes using [CodePen](https://codepen.io/),
   [JS Bin](https://jsbin.com/), or [JsFiddle](https://jsfiddle.net/) (You can export markup from the
   [online playground](https://bootstrap-vue.js.org/play) to JS Fiddle)

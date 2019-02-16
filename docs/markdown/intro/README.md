@@ -75,15 +75,19 @@ This will include both `boostrap.css` and `bootstrap-vue.css` default CSS.
 ```
 
 If you are using custom Bootstrap SCSS, you can disable automatic inclusion of Bootstrap and
-BootstrapVue pre-compiled CSS files by setting the folliwing option(s) to `false`:
+BootstrapVue pre-compiled CSS files by setting the following option(s) to `false`:
 
 ```js
 {
-  modules: [['bootstrap-vue/nuxt', { bootstrapCss: false, bootstrapVueCss: false }]]
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    bootstrapCSS: false, // or `css`
+    bootstrapVueCSS: false // or `bvCSS`
+  }
 }
 ```
 
-BootstrapVue's custom CSS relies on some Boostrap SCSS variables. You can include Bootstrap and
+BootstrapVue's custom CSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
 BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss

@@ -92,7 +92,7 @@ prop.
 ```html
 <b-list-group>
   <b-list-group-item>Default list group item</b-list-group-item>
-  <b-list-group-item variant="primary">Pprimary list group item</b-list-group-item>
+  <b-list-group-item variant="primary">Primary list group item</b-list-group-item>
   <b-list-group-item variant="secondary">Secondary list group item</b-list-group-item>
   <b-list-group-item variant="success">Success list group item</b-list-group-item>
   <b-list-group-item variant="danger">Danger list group item</b-list-group-item>

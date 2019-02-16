@@ -177,7 +177,7 @@ export default {
       type: String,
       default: null
     },
-    captionHTML: {
+    captionHtml: {
       type: String
     },
     captionTop: {
@@ -352,14 +352,14 @@ export default {
       type: String,
       default: 'There are no records to show'
     },
-    emptyHTML: {
+    emptyHtml: {
       type: String
     },
     emptyFilteredText: {
       type: String,
       default: 'There are no records matching your request'
     },
-    emptyFilteredHTML: {
+    emptyFilteredHtml: {
       type: String
     },
     apiUrl: {
@@ -1136,7 +1136,7 @@ export default {
     // Build the caption
     let caption = h(false)
     let captionId = null
-    if (this.caption || this.captionHTML || $slots['table-caption']) {
+    if (this.caption || this.captionHtml || $slots['table-caption']) {
       captionId = this.isStacked ? this.safeId('_caption_') : null
       const data = {
         key: 'caption',
@@ -1144,7 +1144,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = htmlOrText(this.captionHTML, this.caption)
+        data.domProps = htmlOrText(this.captionHtml, this.caption)
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1210,7 +1210,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = htmlOrText(field.labelHTML, field.label)
+          data.domProps = htmlOrText(field.labelHtml, field.label)
         }
         return h('th', data, slot)
       })
@@ -1478,8 +1478,8 @@ export default {
         empty = h('div', {
           class: ['text-center', 'my-2'],
           domProps: this.isFiltered
-            ? htmlOrText(this.emptyFilteredHTML, this.emptyFilteredText)
-            : htmlOrText(this.emptyHTML, this.emptyText)
+            ? htmlOrText(this.emptyFilteredHtml, this.emptyFilteredText)
+            : htmlOrText(this.emptyHtml, this.emptyText)
         })
       }
       empty = h(
