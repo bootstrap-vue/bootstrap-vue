@@ -36,7 +36,7 @@ module.exports = {
         }
       },
       plugins: {
-        cssnano: [ 'default', { mergeLonghand: false } ]
+        cssnano: ['default', { mergeLonghand: false, mergeRules: false }]
       }
     },
     extend(config, { loaders }) {
