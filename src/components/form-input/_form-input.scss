@@ -1,5 +1,5 @@
 // Temporary fix for cssnano bug: https://github.com/cssnano/cssnano/issues/712
-// by moving center to last value in background-position proeprty
+// By moving center to last value in background-position property
 // Bug will/may affect Nuxt.JS users https://github.com/bootstrap-vue/bootstrap-vue/issues/2599
 @if $enable-validation-icons {
   .form-control {
