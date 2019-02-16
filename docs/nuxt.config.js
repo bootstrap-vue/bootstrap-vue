@@ -34,9 +34,6 @@ module.exports = {
         autoprefixer: {
           cascade: false
         }
-      },
-      plugins: {
-        cssnano: ['default', { mergeLonghand: false, mergeRules: false }]
       }
     },
     extend(config, { loaders }) {
