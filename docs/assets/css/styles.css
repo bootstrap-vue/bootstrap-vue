@@ -120,3 +120,11 @@ pre.editable.error:after {
 table#table-transition-example .flip-list-move {
   transition: transform 1s;
 }
+
+/* temp fix for weird validation icon position for form input */
+.was-validated .form-control:invalid,
+.form-control.is-invalid,
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  background-position: center right calc(0.375em + 0.1875rem);
+}
