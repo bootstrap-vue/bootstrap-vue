@@ -572,7 +572,7 @@ export default {
         return
       }
       // If backdrop clicked, hide modal
-      if (!contains(this.$refs.content, evt.target))) {
+      if (!contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
     },
