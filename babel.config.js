@@ -8,6 +8,9 @@ module.exports = {
     ]
   ],
   env: {
+    docs: {
+      plugins: ['@babel/plugin-transform-runtime']
+    },
     es: {
       plugins: [['@babel/plugin-transform-modules-commonjs', { noInterop: true, loose: true }]]
     },
