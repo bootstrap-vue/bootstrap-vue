@@ -170,7 +170,7 @@ methods: {
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call the
 `.preventDefault()` method of the event object passed to your `ok` (**OK** button), `cancel`
-(**Cancel** button) and `hide` event handlers. Note that `.preventDevault()`, when used, must be
+(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, must be
 called synchronously, as async is not supported.
 
 ```html
@@ -447,7 +447,7 @@ the `header-border-variant` and `footer-border-variant` props respectively.
 <!-- b-modal-variants.vue -->
 ```
 
-You can also apply abritrary classes to the modal dialog container, content (modal window itself),
+You can also apply arbitrary classes to the modal dialog container, content (modal window itself),
 header, body and footer via the `modal-class`, `content-class`, `header-class`, `body-class` and
 `footer-class` props, respectively. The props accept either a string or array of strings.
 
@@ -464,7 +464,7 @@ on the `<b-modal>` component.
 
 ## Disabling built-in buttons
 
-You can disable the built-in footer buttons programatically.
+You can disable the built-in footer buttons programmatically.
 
 You can disable the **Cancel** and **OK** buttons individually by setting the `cancel-disabled` and
 `ok-disabled` props, respectively, to `true`. Set the prop to `false` to re-enable the button.
@@ -588,7 +588,7 @@ prop to one of the following:
 - A reference to a DOM element that is focusable
 
 If the passed in element is not focusable, then the browser will determine what has focus (usually
-`<body>`, which is not desireable)
+`<body>`, which is not desirable)
 
 This method for returning focus is handy when you use the `<b-modal>` methods `show()` and `hide()`,
 or the `v-model` prop. Note this property takes precedence over other methods of specifying the

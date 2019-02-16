@@ -67,7 +67,7 @@ Or manually provide your options and optgroups:
 <!-- b-form-select-manual.vue -->
 ```
 
-Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manully placed options and
+Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manually placed options and
 optgroups will appear _below_ the options generated via the `options` prop. To place manual options
 and optgroups _above_ the options specified by the `options` prop, use the named slot `first`.
 

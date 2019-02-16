@@ -15,7 +15,7 @@ export const props = {
     type: String,
     default: null
   },
-  headerHTML: {
+  headerHtml: {
     type: String,
     default: null
   },
@@ -31,7 +31,7 @@ export const props = {
     type: String,
     default: null
   },
-  leadHTML: {
+  leadHtml: {
     type: String,
     default: null
   },
@@ -69,7 +69,7 @@ export default {
     const $slots = slots()
 
     // Header
-    if (props.header || $slots.header || props.headerHTML) {
+    if (props.header || $slots.header || props.headerHtml) {
       childNodes.push(
         h(
           props.headerTag,
@@ -78,18 +78,18 @@ export default {
               [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
             }
           },
-          $slots.header || props.headerHTML || stripTags(props.header)
+          $slots.header || props.headerHtml || stripTags(props.header)
         )
       )
     }
 
     // Lead
-    if (props.lead || $slots.lead || props.leadHTML) {
+    if (props.lead || $slots.lead || props.leadHtml) {
       childNodes.push(
         h(
           props.leadTag,
           { staticClass: 'lead' },
-          $slots.lead || props.leadHTML || stripTags(props.lead)
+          $slots.lead || props.leadHtml || stripTags(props.lead)
         )
       )
     }

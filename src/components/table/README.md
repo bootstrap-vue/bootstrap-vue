@@ -99,7 +99,7 @@ modifier properties (make sure your field keys do not conflict with these names)
             isActive: true,
             age: 40,
             first_name: 'Thor',
-            last_name: 'Macdonald',
+            last_name: 'MacDonald',
             _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
           },
           { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
@@ -1093,7 +1093,7 @@ calling the `toggleDetails` function passed to the field's scoped slot variable.
 scoped fields slot variable `detailsShowing` to determine the visibility of the `row-details` slot.
 
 **Note:** If manipulating the `_showDetails` property directly on the item data (i.e. not via the
-`toggleDetails` function reference), the `_showDetails` propertly **must** exist in the items data
+`toggleDetails` function reference), the `_showDetails` properly **must** exist in the items data
 for proper reactive detection of changes to it's value. Read more about
 [Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
@@ -1512,7 +1512,7 @@ function myProvider(ctx, callback) {
     .then(data => {
       // Pluck the array of items off our axios response
       let items = data.items
-      // Provide the array of items to the callabck
+      // Provide the array of items to the callback
       callback(items)
     })
     .catch(error => {
