@@ -36,6 +36,15 @@ module.exports = {
         }
       }
     },
+    optimization: {
+      minimize: false,
+      splitChunks: {
+        chunks: 'all',
+        automaticNameDelimiter: '.',
+        name: undefined,
+        cacheGroups: {}
+      }
+    },
     extend(config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
