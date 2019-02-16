@@ -118,11 +118,11 @@ module.exports = {
   },
 
   css: [
-    'highlightjs/styles/atom-one-light.css',
-    'codemirror/lib/codemirror.css',
     'bootstrap/dist/css/bootstrap.css',
     '../src/index.scss', // BootstrapVue SCSS
     '@assets/css/docs.min.css',
+    'highlightjs/styles/atom-one-light.css',
+    'codemirror/lib/codemirror.css',
     '@assets/css/styles.css'
   ]
 }
