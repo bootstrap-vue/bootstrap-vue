@@ -120,7 +120,7 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.0",
     "node-sass": "^4.11.0",
-    "nuxt": "^2.4.3",
+    "nuxt-edge": "^2.5.0-25836489.9f3c175b",
     "postcss-cli": "^6.1.1",
     "prettier": "1.14.3",
     "rollup": "^1.1.2",
