@@ -27,7 +27,7 @@ module.exports = {
   modern: 'client',
 
   build: {
-    extractCSS: true,
+    // extractCSS: true,
     cssSourceMap: true,
     postcss: {
       preset: {
@@ -36,7 +36,6 @@ module.exports = {
         }
       }
     },
-    optimizeCSS: false,
     extend(config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
@@ -99,7 +98,7 @@ module.exports = {
     '~plugins/bootstrap-vue.js',
     '~plugins/codemirror.js',
     '~plugins/play.js',
-    '~/plugins/docs.js'
+    '~plugins/docs.js'
   ],
 
   modules: ['@nuxtjs/pwa', '@nuxtjs/google-analytics'],
@@ -121,7 +120,7 @@ module.exports = {
   css: [
     'highlightjs/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
-    'bootstrap/scss/bootstrap.scss', // Bootstrap SCSS
+    'bootstrap/dist/css/bootstrap.css',
     '../src/index.scss', // BootstrapVue SCSS
     '@assets/css/docs.min.css',
     '@assets/css/styles.css'
