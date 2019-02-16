@@ -121,10 +121,11 @@ table#table-transition-example .flip-list-move {
   transition: transform 1s;
 }
 
-/* Temp fix for weird validation icon positioning */
+/* Temp fix for weird validation icon positioning due to cssnano */
 .was-validated .form-control:invalid,
 .form-control.is-invalid,
 .was-validated .form-control:valid,
 .form-control.is-valid {
-  background-position: top 50% right calc(0.375em + 0.1875rem);
+  /* background-position: top 50% right calc(0.375em + 0.1875rem); */
+  background-position: right calc(0.375em + 0.1875rem) center;
 }
