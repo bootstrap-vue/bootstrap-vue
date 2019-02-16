@@ -126,5 +126,6 @@ table#table-transition-example .flip-list-move {
 .form-control.is-invalid,
 .was-validated .form-control:valid,
 .form-control.is-valid {
-  background-position: center right calc(0.375em + 0.1875rem);
+  background-position-x: right calc(0.375em + 0.1875rem);
+  background-position-y: center;
 }
