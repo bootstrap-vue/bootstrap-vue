@@ -162,7 +162,7 @@ explicitly set, `<b-form-textarea>` will automatically set the `aria-invalid` at
 
 ## Formatter support
 
-Refer to the (`<b-form-input>`)[../form-input] documentation regarding usage of the optional
+Refer to the [`<b-form-input>`](/docs/components/form-input) documentation regarding usage of the optional
 formatter feature.
 
 ## Readonly plain text
