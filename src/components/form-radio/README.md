@@ -302,7 +302,43 @@ Generally speaking, you’ll want to use a particular state for specific types o
 To apply one of the contextual state icons on `<b-form-radio>`, set the `state` prop to `'invalid'`
 (or `false`), `'valid'` (or `true`), or `null`.
 
-**Note:** contextual state is not supported for radios rendered in buttons mode.
+**Note:** Contextual state is not supported for radios rendered in buttons mode.
+
+### Contextual state with feedback example
+
+```html
+<template>
+  <div>
+    <b-form-radio-group v-model="value" :options="options" :state="state" name="radioValidation">
+      <b-form-invalid-feedback :state="state">Please select one</b-form-invalid-feedback>
+      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feeback>
+    </b-form-radio-group>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: null,
+        options: [
+          { text: 'First radio', value: 'first' },
+          { text: 'Second radio', value: 'second' },
+          { text: 'Third radio', value: 'third' }
+        ]
+      }
+    },
+    computed: {
+      state() {
+        return Boolean(this.value)
+      }
+    }
+  }
+</script>
+
+<!-- b-form-radio-validation.vue -->
+```
+
 
 ### Conveying contextual validation state to assistive technologies and colorblind users:
 
@@ -312,8 +348,8 @@ screen readers - or to colorblind users.
 
 Ensure that an alternative indication of state is also provided. For instance, you could include a
 hint about state in the form control's `<label>` text itself, or by providing an additional help
-text block (i.e. `<b-form-feedback>`). Specifically for assistive technologies, invalid form
-controls can also be assigned an `aria-invalid="true"` attribute (see below).
+text block (i.e. `<b-form-invalid-feedback>`). Specifically for assistive technologies, invalid
+form controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
 ### ARIA `aria-invalid` attribute
 
@@ -325,6 +361,6 @@ Supported `aria-invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
-`aria-invalid` is automatically set to `true` if `state` is `'invalid'` (or `false`).
+`aria-invalid` is automatically set to `true` if the `state` prop is `'invalid'` (or `false`).
 
 <!-- Component reference added automatically from component package.json -->
