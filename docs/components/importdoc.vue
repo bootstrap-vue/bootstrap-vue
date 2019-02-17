@@ -134,7 +134,7 @@ export default {
         `Vue.use(${this.pluginName})`,
         '// or',
         "import BoostrapVue from 'bootstrap-vue'",
-        `Vue.use(BootstrapVue.${pluginDotted}.${this.pluginName}`
+        `Vue.use(BootstrapVue.${pluginDotted}.${this.pluginName})`
       ].join('\n')
     }
   },
