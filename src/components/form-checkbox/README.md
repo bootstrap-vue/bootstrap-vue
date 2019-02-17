@@ -407,6 +407,77 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 
 **Note:** Contextual states are **not** supported when in button mode.
 
+### Contextual state and validation example
+
+```html
+<template>
+  <div>
+    <b-form-checkbox-group v-model="value" :options="options" :state="state" name="radioValidation">
+      <b-form-invalid-feedback :force-show="!state">Please select two</b-form-invalid-feedback>
+      <b-form-valid-feedback :force-show="state">Thank you</b-form-valid-feeback>
+    </b-form-checkbox-group>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: [],
+        options: [
+          { text: 'First radio', value: 'first' },
+          { text: 'Second radio', value: 'second' },
+          { text: 'Third radio', value: 'third' }
+        ]
+      }
+    },
+    computed: {
+      state() {
+        return this.value.length === 2
+      }
+    }
+  }
+</script>
+
+<!-- form-checkbox-validation.vue -->
+```
+
+### Contextual state and validation example
+
+```html
+<template>
+  <div>
+    <b-form-checkbox-group v-model="value" :options="options" :state="state" name="radioValidation">
+      <b-form-invalid-feedback :force-show="!state">Please select two</b-form-invalid-feedback>
+      <b-form-valid-feedback :force-show="state">Thank you</b-form-valid-feeback>
+    </b-form-checkbox-group>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: [],
+        options: [
+          { text: 'First radio', value: 'first' },
+          { text: 'Second radio', value: 'second' },
+          { text: 'Third radio', value: 'third' }
+        ]
+      }
+    },
+    computed: {
+      state() {
+        return this.value.length === 2
+      }
+    }
+  }
+</script>
+
+<!-- form-checkbox-validation.vue -->
+```
+
+
 ## Indeterminate (tri-state) support
 
 Normally a checkbox input can only have two states: _checked_ or _unchecked_. They can have any
