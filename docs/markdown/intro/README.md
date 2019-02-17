@@ -253,6 +253,24 @@ import { Scrollspy } from 'bootstrap-vue/es/directives'
 Vue.use(Scrollspy)
 ```
 
+Alternatively, you can import Plugins as follows:
+
+```js
+import BootstrapVue from 'bootstrap-vue'
+
+// This enables all the layout components such as <b-container>, <b-row>, <b-col>:
+Vue.use(BootstrapVue.components.Layout)
+
+// This enables <b-modal> as well as the v-b-modal directive:
+Vue.use(BootstrapVue.components.Modal)
+
+// This imports <b-card> along with all the <b-card-*> sub-components:
+Vue.use(BootstrapVue.components.Card)
+
+// This enables directive v-b-scrollspy:
+Vue.use(BootstrapVue.directives.Scrollspy)
+```
+
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
 When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
 sub components. Component shorthand aliases (if any) are also included in the plugin.
