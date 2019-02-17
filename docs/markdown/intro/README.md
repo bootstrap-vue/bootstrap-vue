@@ -261,16 +261,16 @@ Alternatively, you can import Plugins as follows:
 import BootstrapVue from 'bootstrap-vue'
 
 // This enables all the layout components such as <b-container>, <b-row>, <b-col>:
-Vue.use(BootstrapVue.components.Layout)
+Vue.use(BootstrapVue.componentPlugins.Layout)
 
 // This enables <b-modal> as well as the v-b-modal directive:
-Vue.use(BootstrapVue.components.Modal)
+Vue.use(BootstrapVue.componentPlugins.Modal)
 
 // This imports <b-card> along with all the <b-card-*> sub-components:
-Vue.use(BootstrapVue.components.Card)
+Vue.use(BootstrapVue.componentPlugins.Card)
 
 // This enables directive v-b-scrollspy:
-Vue.use(BootstrapVue.directives.Scrollspy)
+Vue.use(BootstrapVue.directivePlugins.Scrollspy)
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
