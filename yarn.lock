@@ -1177,60 +1177,60 @@
     webpack-node-externals "^1.7.2"
     webpackbar "^3.1.5"
 
-"@nuxtjs/google-analytics@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/google-analytics/-/google-analytics-2.0.3.tgz#a012dc8522fe9ff65a58e9f4006a9ff11f2ba600"
-  integrity sha512-wL9IgLTmXRoUw+opzh8rKOYusWbqlpvu2BWck++uda4959VyeZoG0PE5Ukg0Tnu0H1effH+e2af5li/6bfT69w==
+"@nuxtjs/google-analytics@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/google-analytics/-/google-analytics-2.1.0.tgz#f00d0429baf149b57477931a4a1860e430376f1d"
+  integrity sha512-JVHcCV2nNuY2bnk3C1C5cGIEWc3YA0pECt5BvbPwa8+ZeY1lxbMskm9xAoKI4V/WyWUDmA2kYtkbERSrifi0mw==
   dependencies:
     vue-analytics "^5.16.2"
 
-"@nuxtjs/icon@3.0.0-beta.6":
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/icon/-/icon-3.0.0-beta.6.tgz#612f67ffe97c185b1813e1c7146ef51394c7ad43"
-  integrity sha512-lUIZg70nzAx1qFtrU7ybnRsVWMmJVj82nipGDBkm1d4Y+1qDFG+qkKmxGC+uroB3Z8zA9YTXb9zZqSfDb7KfnQ==
+"@nuxtjs/icon@3.0.0-beta.7":
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/icon/-/icon-3.0.0-beta.7.tgz#7afae0fc2e32b8efe630c4435f90aba252e59ec3"
+  integrity sha512-a2OJAxQs876Lnre10Yh9vQprZTiW/OTp8A1DVxCnC6dTB8exKlel+49k1vLVw2BZE0KemYsdihZz0PZZVwEQSQ==
   dependencies:
-    "@nuxtjs/pwa-utils" "3.0.0-beta.6"
+    "@nuxtjs/pwa-utils" "3.0.0-beta.7"
     fs-extra "^7.0.1"
     hash-sum "^1.0.2"
     jimp "^0.6.0"
 
-"@nuxtjs/manifest@3.0.0-beta.6":
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/manifest/-/manifest-3.0.0-beta.6.tgz#8a6dc38e3ad80b2f7c4b66a9b4f90058c345fa22"
-  integrity sha512-I6obbdgLaudpb+impgwd8Se68HG47NIvE5ocreOnqdfbPFiVKWMiRMZ5rf5u5qXRNmmvVCbVnz7CgoDI2EqDlQ==
+"@nuxtjs/manifest@3.0.0-beta.7":
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/manifest/-/manifest-3.0.0-beta.7.tgz#910f950d2df7207981f92529d9be20327773113d"
+  integrity sha512-GkrqOvbxe9kqIto24H9aj5+1norUKUdSXS8Atu6GF7/evoY0g7vHw5uDn4HK9I4BEqMW/rJIk9sq1wVmQeGyDw==
   dependencies:
-    "@nuxtjs/pwa-utils" "3.0.0-beta.6"
+    "@nuxtjs/pwa-utils" "3.0.0-beta.7"
     hash-sum "^1.0.2"
 
-"@nuxtjs/meta@3.0.0-beta.6":
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/meta/-/meta-3.0.0-beta.6.tgz#1e76c7320690f96e76fba666be8210e7f8f285b5"
-  integrity sha512-7baFtSGRa10i6X3tdXXzX4YiBpKreKXdvD1AJwaC6dmgt5ddbErj0ITTBBvXShUiTR7WneeusGcQa9rbYpY7zg==
+"@nuxtjs/meta@3.0.0-beta.7":
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/meta/-/meta-3.0.0-beta.7.tgz#791139592526d2a8368995458f5f5f262b2f1cf4"
+  integrity sha512-lgJGLNaXwF2KysDhoBAI2SKaWG/5nI8dQF1aNgk/xw+6TBhQAD/6ycqMfDbCbISBicPxXrg8P3UWDL+kUEdNYg==
   dependencies:
-    "@nuxtjs/pwa-utils" "3.0.0-beta.6"
+    "@nuxtjs/pwa-utils" "3.0.0-beta.7"
 
-"@nuxtjs/pwa-utils@3.0.0-beta.6":
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa-utils/-/pwa-utils-3.0.0-beta.6.tgz#6dd0ad51d47425cac42d07e989d22a1893e170c9"
-  integrity sha512-0Fc/Va1U37/iVqVGFvv33X9obDLK0KqCb+YXLtbElst1s1qI9HgvgimHoQKr6ZMtL2VztEciTvE91ZV2lq3uOw==
+"@nuxtjs/pwa-utils@3.0.0-beta.7":
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa-utils/-/pwa-utils-3.0.0-beta.7.tgz#a6896c6cc9c08bed1bbb8b648eadf3b731d67298"
+  integrity sha512-FHczTgOQUk1JKNLDjRlZKsFn69oDaV7G7vAt21+o0V/sVv18HSyuhwGKk3vTtDELMzrDr/74cDsYvvPkkPwuCQ==
 
-"@nuxtjs/pwa@^3.0.0-beta.6":
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.0.0-beta.6.tgz#ace5c5cc56847b21c9555c57a2ea490fc06d63a2"
-  integrity sha512-HU23pnverZ5yUNEgZj24a33fmYCC+n9FmMc8N7rSyLUd5w0womZKLwsufeOUua81LnS2irbCzGerpQaDMeg5Sw==
+"@nuxtjs/pwa@^3.0.0-beta.7":
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.0.0-beta.7.tgz#9035ad53dd06d90dfc1de2921eab48eb9bdf8eb7"
+  integrity sha512-OXAgxcJbu+Qc5d/hTA3Myx48hXyTbsjscHb/r1FFoFHk7cb/c0yzI2rQcS68NQwfkhB+9VNtb3jg5NYXfYEQZw==
   dependencies:
-    "@nuxtjs/icon" "3.0.0-beta.6"
-    "@nuxtjs/manifest" "3.0.0-beta.6"
-    "@nuxtjs/meta" "3.0.0-beta.6"
-    "@nuxtjs/pwa-utils" "3.0.0-beta.6"
-    "@nuxtjs/workbox" "3.0.0-beta.6"
+    "@nuxtjs/icon" "3.0.0-beta.7"
+    "@nuxtjs/manifest" "3.0.0-beta.7"
+    "@nuxtjs/meta" "3.0.0-beta.7"
+    "@nuxtjs/pwa-utils" "3.0.0-beta.7"
+    "@nuxtjs/workbox" "3.0.0-beta.7"
 
-"@nuxtjs/workbox@3.0.0-beta.6":
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/workbox/-/workbox-3.0.0-beta.6.tgz#96f55e7638be17894619e953736d5201ab962b17"
-  integrity sha512-jAuVUKqRyCsyXqXjhROfp8qoGGszh1uDMwwnIBl9YdDZTvPvS/WMuTJDpZR9qYlBJ08GEmI3g+j1aKib4wzCLQ==
+"@nuxtjs/workbox@3.0.0-beta.7":
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/workbox/-/workbox-3.0.0-beta.7.tgz#03a7230271ef23b336bd90d803087a8c3e256abd"
+  integrity sha512-9WisZJc/GB3L1nChufHgzI7+qNJWd6bmvoNzG7RDS0whbjznK5Pzim+DxlP9TXRWPXkPgninILyHd2gV0RzllA==
   dependencies:
-    "@nuxtjs/pwa-utils" "3.0.0-beta.6"
+    "@nuxtjs/pwa-utils" "3.0.0-beta.7"
 
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
@@ -1565,7 +1565,7 @@ acorn@^5.5.3, acorn@^5.7.3:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
   integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
 
-acorn@^6.0.1, acorn@^6.0.2, acorn@^6.0.5, acorn@^6.0.7:
+acorn@^6.0.1, acorn@^6.0.2, acorn@^6.0.5, acorn@^6.0.7, acorn@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.0.tgz#b0a3be31752c97a0f7013c5f4903b71a05db6818"
   integrity sha512-MW/FjM+IvU9CgBzjO3UIPCE2pyEwUsoFl+VGdczOPEdxfGFjuKny/gN54mOuX7Qxmb9Rg9MCn2oKiSUeW+pjrw==
@@ -9250,14 +9250,14 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.1.2.tgz#8d094b85683b810d0c05a16bd7618cf70d48eba7"
-  integrity sha512-OkdMxqMl8pWoQc5D8y1cIinYQPPLV8ZkfLgCzL6SytXeNA2P7UHynEQXI9tYxuAjAMsSyvRaWnyJDLHMxq0XAg==
+rollup@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.2.0.tgz#4d487f542b16984955409585ff19585fe3cfd6cc"
+  integrity sha512-oHNv2NSX5y/rY6W8MuKW8BVQwpIfwfTNp4PJiQYR7cLcBYeR5wP0LsPqKNw3Heji6hYci5Nd53q/fVfTuNe3GA==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"
-    acorn "^6.0.5"
+    acorn "^6.1.0"
 
 rsvp@^3.3.3:
   version "3.6.2"
