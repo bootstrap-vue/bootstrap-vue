@@ -57,7 +57,7 @@ function renderInvalidFeedback(h, ctx) {
         props: {
           id: ctx.invalidFeedbackId,
           // If state is explicitly false, always show the feedback
-          forceShow: ctx.computedState === false,
+          state: ctx.computedState,
           tooltip: ctx.tooltip
         },
         attrs: {
@@ -83,7 +83,7 @@ function renderValidFeedback(h, ctx) {
         props: {
           id: ctx.validFeedbackId,
           // If state is explicitly true, always show the feedback
-          forceShow: ctx.computedState === true,
+          state: ctx.computedState,
           tooltip: ctx.tooltip
         },
         attrs: {
