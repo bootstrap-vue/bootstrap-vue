@@ -64,7 +64,7 @@ export default {
     }
 
     if (props.noBody) {
-      content = $slots.default
+      content = $slots.default || []
     } else {
       // Wrap content in card-body
       content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, $slots.default)]
