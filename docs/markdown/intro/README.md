@@ -238,19 +238,19 @@ You can also import component groups and directives as Vue plugins by importing 
 or directive directory:
 
 ```js
-// This imports all the layout components such as <b-container>, <b-row>, <b-col>:
+// This imports all the layout components such as <b-container>, <b-row>, <b-col>
 import { Layout } from 'bootstrap-vue/es/components'
 Vue.use(Layout)
 
-// This imports <b-modal> as well as the v-b-modal directive as a plugin:
+// This imports <b-modal> as well as the v-b-modal directive as a plugin
 import { Modal } from 'bootstrap-vue/es/components'
 Vue.use(Modal)
 
-// This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
+// This imports <b-card> along with all the <b-card-*> sub-components as a plugin
 import { Card } from 'bootstrap-vue/es/components'
 Vue.use(Card)
 
-// This imports directive v-b-scrollspy as a plugin:
+// This imports directive v-b-scrollspy as a plugin
 import { Scrollspy } from 'bootstrap-vue/es/directives'
 Vue.use(Scrollspy)
 ```
@@ -260,16 +260,16 @@ Alternatively, you can import Plugins as follows:
 ```js
 import BootstrapVue from 'bootstrap-vue'
 
-// This enables all the layout components such as <b-container>, <b-row>, <b-col>:
+// This enables all the layout components such as <b-container>, <b-row>, <b-col>
 Vue.use(BootstrapVue.componentPlugins.Layout)
 
-// This enables <b-modal> as well as the v-b-modal directive:
+// This enables <b-modal> as well as the v-b-modal directive
 Vue.use(BootstrapVue.componentPlugins.Modal)
 
-// This imports <b-card> along with all the <b-card-*> sub-components:
+// This imports <b-card> along with all the <b-card-*> sub-components
 Vue.use(BootstrapVue.componentPlugins.Card)
 
-// This enables directive v-b-scrollspy:
+// This enables directive v-b-scrollspy
 Vue.use(BootstrapVue.directivePlugins.Scrollspy)
 ```
 
