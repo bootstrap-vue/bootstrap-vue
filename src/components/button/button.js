@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
-import { assign, keys } from '../../utils/object'
+import { keys } from '../../utils/object'
 import { addClass, removeClass } from '../../utils/dom'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
@@ -43,7 +43,7 @@ delete linkProps.href.default
 delete linkProps.to.default
 const linkPropKeys = keys(linkProps)
 
-export const props = assign(linkProps, btnProps)
+export const props = { ...linkProps, ...btnProps }
 
 // Focus handler for toggle buttons.  Needs class of 'focus' when focused.
 function handleFocus(evt) {

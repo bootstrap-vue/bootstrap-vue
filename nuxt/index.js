@@ -9,6 +9,7 @@ function pickFirst(...args) {
 }
 
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
+  // Merge moduleOptions with default
   const options = {
     ...this.options.bootstrapVue,
     ...moduleOptions

@@ -74,7 +74,10 @@ const breakpointPropMap = assign(create(null), {
   order: keys(breakpointOrder)
 })
 
-export const props = assign({}, breakpointCol, breakpointOffset, breakpointOrder, {
+export const props = {
+  ...breakpointCol,
+  ...breakpointOffset,
+  ...breakpointOrder,
   tag: {
     type: String,
     default: 'div'
@@ -95,7 +98,7 @@ export const props = assign({}, breakpointCol, breakpointOffset, breakpointOrder
     default: null,
     validator: str => arrayIncludes(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str)
   }
-})
+}
 
 /**
  * We need ".col" to default in when no other props are passed,

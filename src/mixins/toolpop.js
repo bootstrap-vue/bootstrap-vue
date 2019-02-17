@@ -3,7 +3,6 @@
  * Common props
  */
 import { isArray } from '../utils/array'
-import { assign } from '../utils/object'
 import { isElement, getById } from '../utils/dom'
 import { HTMLElement } from '../utils/ssr'
 import observeDom from '../utils/observe-dom'
@@ -196,7 +195,7 @@ export default {
   },
   methods: {
     getConfig() {
-      const cfg = assign({}, this.baseConfig)
+      const cfg = { ...this.baseConfig }
       if (this.$refs.title && this.$refs.title.innerHTML.trim()) {
         // If slot has content, it overrides 'title' prop
         // We use the DOM node as content to allow components!
