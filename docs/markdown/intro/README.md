@@ -15,7 +15,8 @@ npm i vue bootstrap-vue bootstrap
 yarn add vue bootstrap-vue bootstrap
 ```
 
-Then, register BootstrapVue plugin in your app entry point:
+Then, register BootstrapVue plugin in your app entry point (note that this installs **all**
+BootstrapVue components and directives):
 
 ```js
 // app.js
@@ -66,7 +67,8 @@ yarn add bootstrap-vue
 
 Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**.
 
-This will include both `boostrap.css` and `bootstrap-vue.css` default CSS.
+This will include both `boostrap.css` and `bootstrap-vue.css` default CSS, as well as all
+components and directives.
 
 ```js
 {
