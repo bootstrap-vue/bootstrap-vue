@@ -348,8 +348,8 @@ screen readers - or to colorblind users.
 
 Ensure that an alternative indication of state is also provided. For instance, you could include a
 hint about state in the form control's `<label>` text itself, or by providing an additional help
-text block (i.e. `<b-form-feedback>`). Specifically for assistive technologies, invalid form
-controls can also be assigned an `aria-invalid="true"` attribute (see below).
+text block (i.e. `<b-form-invalid-feedback>`). Specifically for assistive technologies, invalid
+form controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
 ### ARIA `aria-invalid` attribute
 
@@ -361,6 +361,6 @@ Supported `aria-invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
-`aria-invalid` is automatically set to `true` if `state` is `'invalid'` (or `false`).
+`aria-invalid` is automatically set to `true` if the `state` prop is `'invalid'` (or `false`).
 
 <!-- Component reference added automatically from component package.json -->
