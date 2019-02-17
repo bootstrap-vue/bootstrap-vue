@@ -133,7 +133,7 @@ export default {
         `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
         `Vue.use(${this.pluginName})`,
         '// or',
-        'import BoostrapVue from \'bootstrap-vue\'',
+        "import BoostrapVue from 'bootstrap-vue'",
         `Vue.use(BootstrapVue.${pluginDotted}.${this.pluginName}`
       ].join('\n')
     }
