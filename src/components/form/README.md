@@ -178,24 +178,87 @@ See also:
 - `<b-form-invalid-feedback>` Invalid feedback text blocks for input `invalid` states
 - `<b-form-valid-feedback>` Valid feedback text blocks for input `valid` states
 
-### Text helper
+See also: [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups
+that support labels, help text and feedback
+
+### Form Text helper
 
 Display a block of help text below an input with the `<b-form-text>` helper component. text is
 displayed with a muted color and slightly smaller font-size.
 
+**Tip:** Help text should be explicitly associated with the form control it relates to using the
+`aria-describedby` attribute. This will ensure that assistive technologies, such as screen readers,
+will announce this help text when the user focuses or enters the control.
+
+```html
+<div>
+  <b-form  @submit.prevent>
+    <label for="textPassword">Password</label>
+    <b-input type="password" id="textPassword" aria-describedby="passwordHelpBlock" />
+    <b-form-text id="passwordHelpBlock">
+      Your password must be 8-20 characters long, contain letters and numbers, and must not
+      contain spaces, special characters, or emoji.
+    </b-form-text>
+   </b-form>
+</div>
+
+<!-- form-help-text.vue -->
+```
+
 ### Feedback helpers
 
-The valid and invalid feedback helper components will display feedback (based on input state) as a
-block of colored text. They rely on being placed after an input (sibling) and will show based on the
-browser native validation state of the input. To force them to show, set the prop `force-show`, or
-set the `was-validated` class on a parent element (such as a form). See the **Validation** section
-below for additional details.
+The `<b-form-valid-feedback>` and `<b-form-invalid-feedback>` helper components will display
+feedback (based on input state) as a block of colored text. They rely on being placed after an
+input (sibling) and will show based on the browser native validation state of the input. To force
+them to show, set the prop `force-show` to `true`, or bind the controls `state` to the
+`state` prop of the feedback helper, or set the `was-validated` class on a parent element (such
+as a form). See the **Validation** section below for additional details.
 
 Use the optional Boolean prop `tooltip` to change the display from a block to a static tooltip
 style. The feedback will typically appear below the form control. When this mode is enabled, it is
 important that the parent container have a `position: relative:` css style (or `position-relative`
 class). Note that tooltip style feedback may, since it's positioning is static, obscure other
 inputs, labels, etc.
+
+**Note:** Some form controls, such as [`<b-form-radio>`](/docs/components/form-radio#contextual-states)
+and [`<b-form-checkbox>`](/docs/components/form-checkbox#contextual-states) have wrapper elements
+which will prevent the feedback text from automatically showing (as the feeback component is not a
+direct sibling of the form controls input). Use the feedback component's `state` prop (bound to the
+state of the form control) or the `force-show` prop to display the feedback.
+
+```html
+<template>
+  <div>
+    <b-form  @submit.prevent>
+      <label for="feedbackUser">User ID</label>
+      <b-input type="text" v-model="userid" :state="validation" id="feedbackUser" />
+      <b-form-invalid-feedback :state="validation">
+        Your user ID must be 5-12 characters long.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validation">
+        Looks Good.
+      </b-form-valid-feedback>
+     </b-form>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        userid: ''
+      }
+    },
+    computed: {
+      validation() {
+        return this.userid.length > 4 && this.userid.length < 13
+      }
+    }
+  }
+</script>
+
+<!-- form-feedback-example.vue -->
+```
 
 ## Validation
 
