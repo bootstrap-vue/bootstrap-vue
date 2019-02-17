@@ -220,11 +220,12 @@ important that the parent container have a `position: relative:` css style (or `
 class). Note that tooltip style feedback may, since it's positioning is static, obscure other
 inputs, labels, etc.
 
-**Note:** Some form controls, such as [`<b-form-radio>`](/docs/components/form-radio#contextual-states)
-and [`<b-form-checkbox>`](/docs/components/form-checkbox#contextual-states) have wrapper elements
-which will prevent the feedback text from automatically showing (as the feeback component is not a
-direct sibling of the form controls input). Use the feedback component's `state` prop (bound to the
-state of the form control) or the `force-show` prop to display the feedback.
+**Note:** Some form controls, such as [`<b-form-radio>`](/docs/components/form-radio#contextual-states),
+[`<b-form-checkbox>`](/docs/components/form-checkbox#contextual-states), and
+[`<b-form-file>`](/docs/components/form-file) have wrapper elements which will prevent the feedback
+text from automatically showing (as the feeback component is not a direct sibling of the form
+control's input). Use the feedback component's `state` prop (bound to the state of the form control)
+or the `force-show` prop to display the feedback.
 
 ```html
 <template>
@@ -266,6 +267,15 @@ Disable browser native HTML5 validation by setting the `novalidate` prop to true
 
 Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was-validated` class to
 the form to trigger validation states
+
+All of the form controls support a `state` prop, which can be used to set the form control into
+one of three contextual states:
+
+- Setting `state` to `false` (or the string `'invalid'`) is great for when there’s a blocking or
+  required field. A user must fill in this field properly to submit the form.
+- Setting `state` to `true` (or the string `'valid'`) is ideal for situations when you have per-field
+  validation throughout a form and want to encourage a user through the rest of the fields.
+- Setting `state` to `null` Displays no validation state.
 
 Refer to the
 [Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
