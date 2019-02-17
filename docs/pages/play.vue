@@ -132,15 +132,19 @@
               :key="`console-${msg[2]}`"
               class="list-group-item py-2 d-flex"
             >
-              <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">
+              <b-badge
+                :variant="msg[0]"
+                class="mr-1"
+                style="font-size:90%;"
+              >
                 {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
               </b-badge>
+              <!-- prettier-ignore-start -->
               <div
                 :class="[`text-${msg[0]}`, 'text-monospace', 'small']"
                 style="white-space: pre-wrap;"
-              >
-                {{ msg[1] }}
-              </div>
+              >{{ msg[1] }}</div>
+              <!-- prettier-ignore-end -->
             </li>
           </transition-group>
         </div>
