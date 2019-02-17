@@ -412,9 +412,9 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 ```html
 <template>
   <div>
-    <b-form-checkbox-group v-model="value" :options="options" :state="state" name="radioValidation">
-      <b-form-invalid-feedback :force-show="!state">Please select two</b-form-invalid-feedback>
-      <b-form-valid-feedback :force-show="state">Thank you</b-form-valid-feeback>
+    <b-form-checkbox-group v-model="value" :options="options" :state="state" name="checkboxValidation">
+      <b-form-invalid-feedback :state="state">Please select two</b-form-invalid-feedback>
+      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feeback>
     </b-form-checkbox-group>
   </div>
 </template>
@@ -425,9 +425,9 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
       return {
         value: [],
         options: [
-          { text: 'First radio', value: 'first' },
-          { text: 'Second radio', value: 'second' },
-          { text: 'Third radio', value: 'third' }
+          { text: 'First Check', value: 'first' },
+          { text: 'Second Check', value: 'second' },
+          { text: 'Third Check', value: 'third' }
         ]
       }
     },
@@ -441,48 +441,12 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 
 <!-- form-checkbox-validation.vue -->
 ```
-
-### Contextual state and validation example
-
-```html
-<template>
-  <div>
-    <b-form-checkbox-group v-model="value" :options="options" :state="state" name="radioValidation">
-      <b-form-invalid-feedback :force-show="!state">Please select two</b-form-invalid-feedback>
-      <b-form-valid-feedback :force-show="state">Thank you</b-form-valid-feeback>
-    </b-form-checkbox-group>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        value: [],
-        options: [
-          { text: 'First radio', value: 'first' },
-          { text: 'Second radio', value: 'second' },
-          { text: 'Third radio', value: 'third' }
-        ]
-      }
-    },
-    computed: {
-      state() {
-        return this.value.length === 2
-      }
-    }
-  }
-</script>
-
-<!-- form-checkbox-validation.vue -->
-```
-
 
 ## Indeterminate (tri-state) support
 
 Normally a checkbox input can only have two states: _checked_ or _unchecked_. They can have any
 value, but they either submit that value (_checked_) or don't (_unchecked_) with a form submission
-(although BootstrapVue allows a value for the _unchecked_ state)
+(although BootstrapVue allows a value for the _unchecked_ state on a single checkbox)
 
 _Visually_, there are actually three states a checkbox can be in: _checked_, _unchecked_, or
 **_indeterminate_**.
