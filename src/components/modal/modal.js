@@ -566,8 +566,13 @@ export default {
     },
     // UI Event Handlers
     onClickOut(evt) {
+      // Do nothing if not visible, backdrop click disabled, or element that generated
+      // click event is no longer in document
+      if (!this.is_visible || this.noCloseOnBackdrop || !contains(document, evt.target)) {
+        return
+      }
       // If backdrop clicked, hide modal
-      if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
+      if (!contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
     },
@@ -938,8 +943,8 @@ export default {
           'aria-modal': this.is_visible ? 'true' : null
         },
         on: {
-          click: this.onClickOut,
-          keydown: this.onEsc
+          keydown: this.onEsc,
+          click: this.onClickOut
         }
       },
       [modalDialog]

@@ -19,7 +19,9 @@ const VuePlugin = {
     for (let plugin in directivePlugins) {
       Vue.use(directivePlugins[plugin])
     }
-  }
+  },
+  componentPlugins,
+  directivePlugins
 }
 
 vueUse(VuePlugin)

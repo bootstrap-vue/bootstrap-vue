@@ -128,9 +128,13 @@ export default {
     },
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
+      const pluginDotted = this.isComponentRoute ? 'componentPlugins' : 'directivePlugins'
       return [
         `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
-        `Vue.use(${this.pluginName})`
+        `Vue.use(${this.pluginName})`,
+        '// Or',
+        "import BoostrapVue from 'bootstrap-vue'",
+        `Vue.use(BootstrapVue.${pluginDotted}.${this.pluginName})`
       ].join('\n')
     }
   },
