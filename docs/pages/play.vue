@@ -451,24 +451,22 @@ export default {
       try {
         let holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
-        this.playVM = new Vue(
-          Object.assign({}, options, {
-            // set the app mountpoint
-            el: holder,
-            // Router needed for tooltips/popovers so they hide when docs route changes
-            router: this.$router,
-            // We set a fake parent so we can capture most runtime and render errors (error boundary)
-            parent: new Vue({
-              template: '<span />',
-              errorCaptured(err, vm, info) {
-                // pass error to playground error handler
-                playground.errHandler(err, info)
-                // dont propegate to parent/global error handler!
-                return false
-              }
-            })
+        this.playVM = new Vue({
+          ...options,
+          el: holder,
+          // Router needed for tooltips/popovers so they hide when docs route changes
+          router: this.$router,
+          // We set a fake parent so we can capture most runtime and render errors (error boundary)
+          parent: new Vue({
+            template: '<span />',
+            errorCaptured(err, vm, info) {
+              // pass error to playground error handler
+              playground.errHandler(err, info)
+              // dont propegate to parent/global error handler!
+              return false
+            }
           })
-        )
+        })
       } catch (err) {
         this.destroyVM()
         this.errHandler(err, 'app create')

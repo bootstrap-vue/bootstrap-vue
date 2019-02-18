@@ -1,4 +1,3 @@
-import { assign } from './object'
 import { isElement, eventOn, eventOff } from './dom'
 
 // Falback observation for legacy broswers
@@ -74,7 +73,7 @@ export default function observeDOM(
     })
 
     // Have the observer observe foo for changes in children, etc
-    obs.observe(el, assign({ childList: true, subtree: true }, opts))
+    obs.observe(el, { childList: true, subtree: true, ...opts })
   } else if (eventListenerSupported) {
     // Legacy interface. most likely not used in modern browsers
     obs = fakeObserverFactory(el, callback)

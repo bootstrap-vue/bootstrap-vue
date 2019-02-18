@@ -1,6 +1,6 @@
 import Popper from 'popper.js'
 import ToolTip from '../../utils/tooltip.class'
-import { assign, keys } from '../../utils/object'
+import { keys } from '../../utils/object'
 import warn from '../../utils/warn'
 
 const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
@@ -32,7 +32,7 @@ function parseBindings(bindings) {
     config.title = bindings.value
   } else if (typeof bindings.value === 'object') {
     // Value is config object, so merge
-    config = assign(bindings.value)
+    config = { ...config, ...bindings.value }
   }
 
   // If Argument, assume element ID of container element
