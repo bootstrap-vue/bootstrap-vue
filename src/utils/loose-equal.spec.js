@@ -50,6 +50,24 @@ describe('looseEqual', async () => {
     expect(looseEqual(date1, date4)).toBe(false)
   })
 
+  it('compares files correctly', async () => {
+    const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
+    const date2 = new Date(2019, 1, 2, 3, 4, 5, 7)
+    const file1 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
+    const file2 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
+    const file3 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date2 })
+    const file4 = new File([''], 'filename.csv', { type: 'text/csv', lastModified: date1 })
+
+    // Identical file object references
+    expect(looseEqual(file1, file1)).toBe(true)
+    // Different file references with identical values
+    expect(looseEqual(file1, file2)).toBe(false)
+    // Files with slightly different dates
+    expect(looseEqual(file1, file3)).toBe(false)
+    // Two different file types
+    expect(looseEqual(file1, file4)).toBe(false)
+  })
+
   it('compares arrays correctly', async () => {
     const arr1 = [1, 2, 3, 4]
     const arr2 = [1, 2, 3, '4']
