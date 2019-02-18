@@ -13,9 +13,10 @@ function isFile(obj) {
  * Quick object check - this is primarily used to tell
  * Objects from primitive values when we know the value
  * is a JSON-compliant type.
+ * Note object could be a complex type like array, date, etc.
  */
 function isObject(obj) {
-  return obj !== null && typeof obj === 'object' && !isArray(obj) && !isDate(obj)
+  return obj !== null && typeof obj === 'object'
 }
 
 /**
@@ -26,6 +27,9 @@ function isObject(obj) {
 function looseEqual(a, b) {
   if (a === b) {
     return true
+  }
+  if (typeof a !== typeof b) {
+    return false
   }
   if (isDate(a) && isDate(b)) {
     return a.getTime() === b.getTime()
