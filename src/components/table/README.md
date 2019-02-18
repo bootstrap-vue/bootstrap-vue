@@ -1001,10 +1001,10 @@ following properties:
 
 | Property            | Type   | Description                                        |
 | ------------------- | ------ | -------------------------------------------------- |
-| `emptyHtml`         | String | The `emptyHtml` prop                               |
-| `emptyText`         | String | The `emptyText` prop                               |
-| `emptyFilteredHtml` | String | The `emptyFilteredHtml` prop                       |
-| `emptyFilteredText` | String | The `emptyFilteredText` prop                       |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
 | `fields`            | Array  | The `fields` prop                                  |
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
