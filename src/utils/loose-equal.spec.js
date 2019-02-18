@@ -88,6 +88,22 @@ describe('looseEqual', async () => {
     expect(looseEqual(arr1, arr1.slice().reverse())).toBe(false)
   })
 
+  it('compares RegExp correctly', async () => {
+    const rx1 = /^foo$/
+    const rx2 = /^foo$/
+    const rx3 = /^bar$/
+    const rx4 = /^bar$/i
+
+    // Identical regex references
+    expect(looseEqual(rx1, rx1)).toBe(true)
+    // Different regex references with identical values
+    expect(looseEqual(rx1, rx2)).toBe(true)
+    // Different regex
+    expect(looseEqual(rx1, rx3)).toBe(false)
+    // Same regex with different options
+    expect(looseEqual(rx3, rx4)).toBe(false)
+  })
+
   it('compares objects correctly', async () => {
     const obj1 = { foo: 'bar' }
     const obj2 = { foo: 'bar1' }
