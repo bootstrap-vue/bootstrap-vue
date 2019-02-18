@@ -28,21 +28,21 @@ function looseEqual(a, b) {
   if (a === b) {
     return true
   }
-  const validDatesCount = [isDate(a), isDate(b)].filter(v => v === true).length
+  const validDatesCount = [isDate(a), isDate(b)].filter(Boolean).length
   if (validDatesCount > 1) {
     return validDatesCount === 2 ? a.getTime() === b.getTime() : false
   }
-  const validFilesCount = [isFile(a), isFile(b)].filter(v => v === true).length
+  const validFilesCount = [isFile(a), isFile(b)].filter(Boolean).length
   if (validFilesCount > 1) {
     return validFilesCount === 2 ? a === b : false
   }
-  const validArraysCount = [isArray(a), isArray(b)].filter(v => v === true).length
+  const validArraysCount = [isArray(a), isArray(b)].filter(Boolean).length
   if (validArraysCount > 1) {
     return validArraysCount === 2
       ? a.length === b.length && a.every((e, i) => looseEqual(e, b[i]))
       : false
   }
-  const validObjectsCount = [isObject(a), isObject(b)].filter(v => v === true).length
+  const validObjectsCount = [isObject(a), isObject(b)].filter(Boolean).length
   if (validObjectsCount > 1) {
     if (validObjectsCount === 1 || keys(a).length !== keys(b).length) {
       return false
@@ -50,8 +50,7 @@ function looseEqual(a, b) {
     // Using for loop over `Object.keys()` here since some class
     // keys are not handled correctly otherwise
     for (const key in a) {
-      const validKeysCount = [a.hasOwnProperty(key), b.hasOwnProperty(key)].filter(v => v === true)
-        .length
+      const validKeysCount = [a.hasOwnProperty(key), b.hasOwnProperty(key)].filter(Boolean).length
       if (validKeysCount === 1 || !looseEqual(a[key], b[key])) {
         return false
       }
