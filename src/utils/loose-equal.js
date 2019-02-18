@@ -47,6 +47,7 @@ function looseEqual(a, b) {
   }
   validTypesCount = [isObject(a), isObject(b)].filter(Boolean).length
   if (validTypesCount > 0) {
+    /* istanbul ignore if: this if will probably never be called */
     if (validTypesCount === 1) {
       return false
     }
