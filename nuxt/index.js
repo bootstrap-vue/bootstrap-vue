@@ -23,8 +23,8 @@
 const { resolve } = require('path')
 
 const PluginDefaluts = {
-  boostrapCss: true,
-  boostrapVueCss: true
+  bootstrapCss: true,
+  bootstrapVueCss: true
 }
 
 // Main module entry point
@@ -32,7 +32,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   // Merge moduleOptions with default
   const options = Object.assign({}, PluginDefaluts, moduleOptions)
 
-  // Deprecate css option in favour of boostrapCss option
+  // Deprecate css option in favour of bootstrapCss option
   if (options.css === false) {
     options.bootstrapCss = false
     delete options.css
