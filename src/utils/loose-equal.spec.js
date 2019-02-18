@@ -82,7 +82,7 @@ describe('looseEqual', async () => {
     // identical object references
     expect(looseEqual(obj1, obj1)).toBe(true)
     // two objects with identical keys/values
-    expect(looseEqual(obj1, { ...obj1 })).toBe(false)
+    expect(looseEqual(obj1, { ...obj1 })).toBe(true)
     // different key values
     expect(looseEqual(obj1, obj2)).toBe(false)
     // keys in different orders
