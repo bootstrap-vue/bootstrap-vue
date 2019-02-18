@@ -1,4 +1,5 @@
 import { isArray } from './array'
+import { keys } from './object'
 
 function isDate(obj) {
   return obj instanceof Date
@@ -23,6 +24,10 @@ function looseEqual(a, b) {
     return true
   }
   if (isObject(a) && isObject(b)) {
+    if (keys(a).length !== keys(b).length) {
+      return false
+    }
+
     // Using for loop over `Object.keys()` here since some class
     // keys are not handled correctly otherwise
     for (const key in a) {
