@@ -134,8 +134,10 @@ describe('looseEqual', async () => {
   it('compares different types correctly', async () => {
     const obj1 = {}
     const obj2 = { a: 1 }
+    const obj3 = { 0: 0, 1: 1, 2: 2 }
     const arr1 = []
     const arr2 = [1]
+    const arr3 = [0, 1, 2]
     const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
     const file1 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
 
@@ -154,6 +156,8 @@ describe('looseEqual', async () => {
     expect(looseEqual(obj2, file1)).toBe(false)
     expect(looseEqual(arr2, file1)).toBe(false)
     expect(looseEqual(date1, file1)).toBe(false)
+    // Special case where an object's keys are the same as keys (indexes) of an array
+    expect(looseEqual(obj3, arr3)).toBe(false)
   })
 
   it('compares null and undefs correctly', async () => {
