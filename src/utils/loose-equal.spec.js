@@ -79,21 +79,21 @@ describe('looseEqual', async () => {
     const nestedObj1 = { ...obj1, bar: [{ ...obj1 }, { ...obj1 }] }
     const nestedObj2 = { ...obj1, bar: [{ ...obj1 }, { ...obj2 }] }
 
-    // identical object references
+    // Identical object references
     expect(looseEqual(obj1, obj1)).toBe(true)
-    // two objects with identical keys/values
+    // Two objects with identical keys/values
     expect(looseEqual(obj1, { ...obj1 })).toBe(true)
-    // different key values
+    // Different key values
     expect(looseEqual(obj1, obj2)).toBe(false)
-    // keys in different orders
+    // Keys in different orders
     expect(looseEqual(obj3, obj4)).toBe(true)
-    // one object has additional key
+    // One object has additional key
     expect(looseEqual(obj4, obj5)).toBe(false)
-    // identical object references with nested array
+    // Identical object references with nested array
     expect(looseEqual(nestedObj1, nestedObj1)).toBe(true)
-    // identical object definitions with nested array
-    expect(looseEqual(nestedObj1, { ...nestedObj1 })).toBe(false)
-    // Object definitions with nested array in different order
+    // Identical object definitions with nested array
+    expect(looseEqual(nestedObj1, { ...nestedObj1 })).toBe(true)
+    // Object definitions with nested array (which has different order)
     expect(looseEqual(nestedObj1, nestedObj2)).toBe(false)
   })
 })
