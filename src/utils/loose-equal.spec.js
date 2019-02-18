@@ -130,4 +130,16 @@ describe('looseEqual', async () => {
     // Object definitions with nested array (which has different order)
     expect(looseEqual(nestedObj1, nestedObj2)).toBe(false)
   })
+
+  it('compares different types correctly', async () => {
+    const obj1 = {}
+    const obj2 = { a: 1 }
+    const arr1 = []
+    const arr2 = [ 1 ]
+    
+    expect(looseEqual(obj1, arr1)).toBe(false)
+    expect(looseEqual(obj2, arr2)).toBe(false)
+    expect(looseEqual(obj1, '[ object Object ]')).toBe(false)
+    expect(looseEqual(arr1, '[ object Array ]')).toBe(false)
+  })
 })
