@@ -4,7 +4,7 @@ import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import { keys, assign } from '../../utils/object'
+import { keys } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
@@ -87,7 +87,7 @@ function processField(key, value) {
     // Formatter shortcut
     field = { key, formatter: value }
   } else if (typeof value === 'object') {
-    field = assign({}, value)
+    field = { ...value }
     field.key = field.key || key
   } else if (value !== false) {
     // Fallback to just key
@@ -496,7 +496,7 @@ export default {
             fields.push({ key: f, label: startCase(f) })
           } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
             // Full object definition. We use assign so that we don't mutate the original
-            fields.push(assign({}, f))
+            fields.push({ ...f })
           } else if (typeof f === 'object' && keys(f).length === 1) {
             // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
             const key = keys(f)[0]
@@ -802,7 +802,7 @@ export default {
           attrs['role'] = 'cell'
         }
       }
-      return assign({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}))
+      return { ...attrs, ...this.getTdValues(item, field.key, field.tdAttr, {}) }
     },
     rowClasses(item) {
       return [
@@ -1540,12 +1540,10 @@ export default {
     let tbodyOn = {}
     if (isTransGroup) {
       tbodyOn = this.tbodyTransitionHandlers || {}
-      tbodyProps = assign(
-        {},
-        this.tbodyTransitionProps || {},
-        // Always use tbody element as tag. Users can't override this.
-        { tag: 'tbody' }
-      )
+      tbodyProps = {
+        ...(this.tbodyTransitionProps || {}),
+        tag: 'tbody'
+      }
     }
 
     // Assemble the rows into the tbody
