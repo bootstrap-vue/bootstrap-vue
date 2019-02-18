@@ -129,8 +129,8 @@ more details.
   minimize Vue's re-rendering of rows.
 - `items` array records should be a simple object and **must** avoid placing data that may have
   circular references in the values within a row. `<b-table>` serializes the row data into strings
-  for sorting and filtering, and circular references will cause stack overflows to occur and your app
-  to crash!
+  for sorting and filtering, and circular references will cause stack overflows to occur and your
+  app to crash!
 
 ## Fields (column definitions)
 
@@ -373,8 +373,8 @@ each rendered item row `<tr>` element. The value specified by the column key **m
 `string` or `number`, and **must be unique** across all rows in the table.
 
 If you are seeing rendering issue (i.e. tooltips hiding when item data changes or data is
-sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row) can
-alleviate these issues.
+sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row)
+can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
@@ -382,7 +382,7 @@ and drop plugins, as they rely on having a consistent and unique per row `:key` 
 If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
 the row's data values plus the displayed row's index number. This may cause GUI issues if you are
 modifiying the underlying table data inplace (i.e. via a `<b-form-input>` v-model bound to the row's
-data).  Specifying a `primary-key` column can alleviate this issue.
+data). Specifying a `primary-key` column can alleviate this issue.
 
 The primary key column does not need to appear in the displayed fields.
 
@@ -972,6 +972,39 @@ formatted value as a string (HTML strings are not supported)
 
 <!-- b-table-data-formatter.vue -->
 ```
+
+## Custom empty/emptyfiltered rendering via slots
+
+Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
+also possible to provide custom rendering for tables that have no data to display using named slots.
+
+In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
+either falsy or an array of length 0.
+
+```html
+<div>
+  <b-table :fields="fields" :items="items" show-empty>
+    <template slot="empty" slot-scope="scope">
+      <h4>{{ scope.emptyText }}</h4>
+    </template>
+    <template slot="emptyfiltered" slot-scope="scope">
+      <h4>{{ scope.emptyFilteredText }}</h4>
+    </template>
+  </b-table>
+</div>
+```
+
+The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
+following properties:
+
+| Property            | Type   | Description                                        |
+| ------------------- | ------ | -------------------------------------------------- |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
+| `fields`            | Array  | The `fields` prop                                  |
+| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
 ## Header/Footer custom rendering via scoped slots
 

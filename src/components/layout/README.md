@@ -115,15 +115,79 @@ and container widths. This is because the viewport width is in pixels and does n
 
 See how aspects of the Bootstrap grid system work across multiple devices with a handy table.
 
-|                                                                            | **Extra small** <br> `<576px` | **Small** <br> `≥576px` | **Medium** <br> `≥768px` | **Large** <br> `≥992px` | **Extra large** <br> `≥1200px` |
-| -------------------------------------------------------------------------- | ----------------------------- | ----------------------- | ------------------------ | ----------------------- | ------------------------------ |
-| **Max container width**                                                    | None (auto)                   | 540px                   | 720px                    | 960px                   | 1140px                         |
-| **Prop**                                                                   | `cols="*"`                    | `sm="*"`                | `md="*"`                 | `lg="*"`                | `xl="*"`                       |
-| **# of columns** <td colspan="5">12</td>                                   |
-| **Gutter width** <td colspan="5">30px (15px on each side of a column)</td> |
-| **Nestable** <td colspan="5">Yes</td>                                      |
-| **Offset**                                                                 | `offset="*"`                  | `offset-sm="*"`         | `offset-md="*"`          | `offset-lg="*"`         | `offset-xl="*"`                |
-| **Order**                                                                  | `order="*"`                   | `order-sm="*"`          | `order-md="*"`           | `order-lg="*"`          | `order-xl="*"`                 |
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        <strong>Extra small</strong><br>
+        <code>&lt;576px</code>
+      </th>
+      <th>
+        <strong>Small</strong><br>
+        <code>≥576px</code>
+      </th>
+      <th>
+        <strong>Medium</strong><br>
+        <code>≥768px</code>
+      </th>
+      <th>
+        <strong>Large</strong><br>
+        <code>≥992px</code>
+      </th>
+      <th>
+        <strong>Extra large</strong><br>
+        <code>≥1200px</code>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Max container width</strong></td>
+      <td>None (auto)</td>
+      <td>540px</td>
+      <td>720px</td>
+      <td>960px</td>
+      <td>1140px</td>
+    </tr>
+    <tr>
+      <td><strong>Prop</strong></td>
+      <td><code>cols="*"</code></td>
+      <td><code>sm="*"</code></td>
+      <td><code>md="*"</code></td>
+      <td><code>lg="*"</code></td>
+      <td><code>xl="*"</code></td>
+    </tr>
+    <tr>
+      <td><strong># of columns</strong>
+      <td colspan="5">12</td>
+    </tr>
+    <tr>
+      <td><strong>Gutter width</strong>
+      <td colspan="5">30px (15px on each side of a column)</td>
+    </tr>
+    <tr>
+      <td><strong>Nestable</strong>
+      <td colspan="5">Yes</td>
+    </tr>
+    <tr>
+      <td><strong>Offset</strong></td>
+      <td><code>offset="*"</code></td>
+      <td><code>offset-sm="*"</code></td>
+      <td><code>offset-md="*"</code></td>
+      <td><code>offset-lg="*"</code></td>
+      <td><code>offset-xl="*"</code></td>
+    </tr>
+    <tr>
+      <td><strong>Order</strong></td>
+      <td><code>order="*"</code></td>
+      <td><code>order-sm="*"</code></td>
+      <td><code>order-md="*"</code></td>
+      <td><code>order-lg="*"</code></td>
+      <td><code>order-xl="*"</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Auto-layout columns
 
