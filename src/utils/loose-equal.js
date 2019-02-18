@@ -47,8 +47,16 @@ function looseEqual(a, b) {
   }
   validTypesCount = [isObject(a), isObject(b)].filter(Boolean).length
   if (validTypesCount > 0) {
-    if (validTypesCount === 1 || keys(a).length !== keys(b).length) {
+    if (validTypesCount === 1) {
       return false
+    }
+    const aKeysCount = keys(a).length
+    const bKeysCount = keys(b).length
+    if (aKeysCount !== bKeysCount) {
+      return false
+    }
+    if (aKeysCount === 0 && bKeysCount === 0) {
+      return String(a) === String(b)
     }
     // Using for loop over `Object.keys()` here since some class
     // keys are not handled correctly otherwise
