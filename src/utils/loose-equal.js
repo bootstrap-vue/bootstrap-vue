@@ -28,6 +28,9 @@ function looseEqual(a, b) {
   if (a === b) {
     return true
   }
+  if (typeof a !== typeof b) {
+    return false
+  }
   const validDatesCount = [isDate(a), isDate(b)].filter(Boolean).length
   if (validDatesCount > 0) {
     return validDatesCount === 2 ? a.getTime() === b.getTime() : false
