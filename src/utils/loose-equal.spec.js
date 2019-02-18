@@ -155,4 +155,15 @@ describe('looseEqual', async () => {
     expect(looseEqual(arr2, file1)).toBe(false)
     expect(looseEqual(date1, file1)).toBe(false)
   })
+
+  it('compares null and undefs correctly', async () => {
+    expect(looseEqual(null, null)).toBe(true)
+    expect(looseEqual(undefined, undefined)).toBe(true)
+    expect(looseEqual(void 0, undefined)).toBe(true)
+    expect(looseEqual(null, undefined)).toBe(false)
+    expect(looseEqual(null, void 0)).toBe(false)
+    expect(looseEqual(null, '')).toBe(false)
+    expect(looseEqual(null, false)).toBe(false)
+    expect(looseEqual(undefined, false)).toBe(false)
+  })
 })
