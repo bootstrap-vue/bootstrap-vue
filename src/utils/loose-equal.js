@@ -28,39 +28,35 @@ function looseEqual(a, b) {
   if (a === b) {
     return true
   }
-  if (typeof a !== typeof b) {
-    return false
+  const validDatesCount = [isDate(a), isDate(b)].filter(v => v === true).length
+  if (validDatesCount > 1) {
+    return validDatesCount === 2 ? a.getTime() === b.getTime() : false
   }
-  if (isDate(a) && isDate(b)) {
-    return a.getTime() === b.getTime()
+  const validFilesCount = [isFile(a), isFile(b)].filter(v => v === true).length
+  if (validFilesCount > 1) {
+    return validFilesCount === 2 ? a === b : false
   }
-  if (isFile(a) && isFile(b)) {
-    return a === b
+  const validArraysCount = [isArray(a), isArray(b)].filter(v => v === true).length
+  if (validArraysCount > 1) {
+    return validArraysCount === 2
+      ? a.length === b.length && a.every((e, i) => looseEqual(e, b[i]))
+      : false
   }
-  if (isArray(a) && isArray(b)) {
-    return a.length === b.length && a.every((e, i) => looseEqual(e, b[i]))
-  }
-  if (isObject(a) && isObject(b)) {
-    if (keys(a).length !== keys(b).length) {
+  const validObjectsCount = [isObject(a), isObject(b)].filter(v => v === true).length
+  if (validObjectsCount > 1) {
+    if (validObjectsCount === 1 || keys(a).length !== keys(b).length) {
       return false
     }
-
     // Using for loop over `Object.keys()` here since some class
     // keys are not handled correctly otherwise
-    let result = true
     for (const key in a) {
-      const aHasKey = a.hasOwnProperty(key)
-      const bHasKey = b.hasOwnProperty(key)
-      if ((aHasKey && !bHasKey) || (!aHasKey && bHasKey) || !looseEqual(a[key], b[key])) {
-        result = false
-        break
+      const validKeysCount = [a.hasOwnProperty(key), b.hasOwnProperty(key)].filter(v => v === true)
+        .length
+      if (validKeysCount === 1 || !looseEqual(a[key], b[key])) {
+        return false
       }
     }
-    return result
-  }
-  if (!isObject(a) && !isObject(b)) {
-    // Handle other cases
-    return String(a) === String(b)
+    return true
   }
   return false
 }
