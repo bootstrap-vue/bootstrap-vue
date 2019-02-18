@@ -225,7 +225,10 @@ called synchronously, as async is not supported.
       handleSubmit() {
         this.names.push(this.name)
         this.clearName()
-        this.$refs.modal.hide()
+        this.$nextTick(() => {
+          // Wrapped in $nextTick to ensure DOM is rendered before closing
+          this.$refs.modal.hide()
+        })
       }
     }
   }

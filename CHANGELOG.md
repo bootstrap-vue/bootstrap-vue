@@ -1019,7 +1019,7 @@ Released: 2017-12-15
   ([#1404](https://github.com/bootstrap-vue/bootstrap-vue/issues/1404))
   ([e02fa49](https://github.com/bootstrap-vue/bootstrap-vue/commit/e02fa49))
 - **tabs:** add name to helper component for better debugging
-  ([e436a1d](https://github.com/bootstrap-vue/bootstrap-vue/commit/e436a1d))
+  ([51ef9e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/51ef9e3))
 - **tabs:** add no-body prop to b-tab
   ([#1385](https://github.com/bootstrap-vue/bootstrap-vue/issues/1385))
   ([af36c0e](https://github.com/bootstrap-vue/bootstrap-vue/commit/af36c0e))
@@ -1331,8 +1331,8 @@ Notable changes:
 
 v1.0.0 introduces a new source code structure. For those users that are importing individual
 components, the path to the individual components has changed. Please reference the
-[GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/src) and
-[docsumentation](https://bootstrap-vue.js.org/docs) for the new structure and information on
+[GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/) and
+[documentation](https://bootstrap-vue.js.org/docs) for the new structure and information on
 importing.
 
 ### Bug Fixes v1.0.0
@@ -1934,7 +1934,7 @@ Released: 2017-08-21
   ([0cbbfb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/0cbbfb5))
 - **dropdown:** focus on first item on show
   ([40a1347](https://github.com/bootstrap-vue/bootstrap-vue/commit/40a1347))
-- **dropdown:** twbs/bootstrap[#23329](https://github.com/bootstrap-vue/bootstrap-vue/issues/23329)
+- **dropdown:** twbs/bootstrap[#23329](https://github.com/twbs/bootstrap/issues/23329)
   ([fab5d22](https://github.com/bootstrap-vue/bootstrap-vue/commit/fab5d22))
 - **dropdown.js:** import clickout as a mixin
   ([#896](https://github.com/bootstrap-vue/bootstrap-vue/issues/896))
@@ -2425,7 +2425,7 @@ Released: 2017-07-04
   ([#581](https://github.com/bootstrap-vue/bootstrap-vue/issues/581))
   ([be5f834](https://github.com/bootstrap-vue/bootstrap-vue/commit/be5f834))
 
-## [v0.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/0.17.0...0.17.1)
+## [v0.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.17.0...v0.17.1)
 
 Released: 2017-06-30
 

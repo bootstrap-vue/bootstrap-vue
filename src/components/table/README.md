@@ -122,9 +122,15 @@ Provider functions can also be asynchronous:
 See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for
 more details.
 
-Avoid manipulating record data in place, as changes to the underlying items data will cause either
-the row or entire table to be re-rendered. See [Primary Key](#primary-key), below, for ways to
-minimize Vue's re-rendering of rows.
+### Table item notes and warnings
+
+- Avoid manipulating record data in place, as changes to the underlying items data will cause either
+  the row or entire table to be re-rendered. See [Primary Key](#primary-key), below, for ways to
+  minimize Vue's re-rendering of rows.
+- `items` array records should be a simple object and **must** avoid placing data that may have
+  circular references in the values within a row. `<b-table>` serializes the row data into strings
+  for sorting and filtering, and circular references will cause stack overflows to occur and your app
+  to crash!
 
 ## Fields (column definitions)
 
