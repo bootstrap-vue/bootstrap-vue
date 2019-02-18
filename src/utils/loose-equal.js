@@ -29,21 +29,21 @@ function looseEqual(a, b) {
     return true
   }
   const validDatesCount = [isDate(a), isDate(b)].filter(Boolean).length
-  if (validDatesCount > 1) {
+  if (validDatesCount > 0) {
     return validDatesCount === 2 ? a.getTime() === b.getTime() : false
   }
   const validFilesCount = [isFile(a), isFile(b)].filter(Boolean).length
-  if (validFilesCount > 1) {
+  if (validFilesCount > 0) {
     return validFilesCount === 2 ? a === b : false
   }
   const validArraysCount = [isArray(a), isArray(b)].filter(Boolean).length
-  if (validArraysCount > 1) {
+  if (validArraysCount > 0) {
     return validArraysCount === 2
       ? a.length === b.length && a.every((e, i) => looseEqual(e, b[i]))
       : false
   }
   const validObjectsCount = [isObject(a), isObject(b)].filter(Boolean).length
-  if (validObjectsCount > 1) {
+  if (validObjectsCount > 0) {
     if (validObjectsCount === 1 || keys(a).length !== keys(b).length) {
       return false
     }
