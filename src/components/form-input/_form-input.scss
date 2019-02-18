@@ -6,7 +6,7 @@
     .was-validated &:invalid,
     .was-validated &:valid,
     &.is-invalid,
-    &.is-valid, {
+    &.is-valid {
       background-position: right $input-height-inner-quarter center;
     }
   }

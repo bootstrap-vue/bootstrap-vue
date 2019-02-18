@@ -339,7 +339,6 @@ To apply one of the contextual state icons on `<b-form-radio>`, set the `state` 
 <!-- b-form-radio-validation.vue -->
 ```
 
-
 ### Conveying contextual validation state to assistive technologies and colorblind users:
 
 Using these contextual states to denote the state of a form control only provides a visual,
@@ -348,8 +347,8 @@ screen readers - or to colorblind users.
 
 Ensure that an alternative indication of state is also provided. For instance, you could include a
 hint about state in the form control's `<label>` text itself, or by providing an additional help
-text block (i.e. `<b-form-invalid-feedback>`). Specifically for assistive technologies, invalid
-form controls can also be assigned an `aria-invalid="true"` attribute (see below).
+text block (i.e. `<b-form-invalid-feedback>`). Specifically for assistive technologies, invalid form
+controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
 ### ARIA `aria-invalid` attribute
 

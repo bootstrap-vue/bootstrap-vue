@@ -1,9 +1,9 @@
 # Spinners
 
 > The `<b-spinner>` component can be used to show the loading state in your projects. They're
-> rendered only with basic HTML and CSS as a lightweight Vue functional component. Their
-> appearance, alignment, and sizing can be easily customized with a few built-in props and/or
-> Bootstrap V4 utility classes.
+> rendered only with basic HTML and CSS as a lightweight Vue functional component. Their appearance,
+> alignment, and sizing can be easily customized with a few built-in props and/or Bootstrap V4
+> utility classes.
 
 Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s
 busy slot.
