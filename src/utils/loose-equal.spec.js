@@ -142,7 +142,7 @@ describe('looseEqual', async () => {
     expect(looseEqual(123, '123')).toBe(false)
     expect(looseEqual(123, new Date(123))).toBe(false)
     expect(looseEqual(`123`, new Date(123))).toBe(false)
-    expect(looseEqual([1,2,3], '1,2,3')).toBe(false)
+    expect(looseEqual([1, 2, 3], '1,2,3')).toBe(false)
     expect(looseEqual(obj1, arr1)).toBe(false)
     expect(looseEqual(obj2, arr2)).toBe(false)
     expect(looseEqual(obj1, '[object Object]')).toBe(false)
