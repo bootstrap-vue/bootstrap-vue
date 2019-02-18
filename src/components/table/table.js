@@ -1154,6 +1154,12 @@ export default {
       ? h('colgroup', { key: 'colgroup' }, $slots['table-colgroup'])
       : h(false)
 
+    // Support scoped and unscoped slots when needed
+    const normalizeSlot = (slotName, slotScope = {}) => {
+      const slot = $scoped[slotName] || $slots[slotName]
+      return typeof slot === 'function' ? slot(slotScope) : slot
+    }
+
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
       return fields.map((field, colIndex) => {
@@ -1473,7 +1479,14 @@ export default {
       (!items || items.length === 0) &&
       !($slots['table-busy'] && this.computedBusy)
     ) {
-      let empty = this.isFiltered ? $slots['emptyfiltered'] : $slots['empty']
+      let empty = normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+        emptyFilteredHtml: this.emptyFilteredHtml,
+        emptyFilteredText: this.emptyFilteredText,
+        emptyHtml: this.emptyHtml,
+        emptyText: this.emptyText,
+        fields: fields,
+        items: items
+      })
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],

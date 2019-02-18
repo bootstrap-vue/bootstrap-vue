@@ -973,6 +973,42 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
+## Custom empty/emptyfiltered rendering via slots
+
+Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
+also possible to provide custom rendering for tables that have no data to display using named slots.
+
+In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
+either falsy or an array of length 0.
+
+
+```html
+<div>
+  <b-table :fields="fields" :items="items" show-empty>
+    <template slot="empty" slot-scope="scope">
+      <h4>{{ scope.emptyText }}</h4>
+    </template>
+    <template slot="emptyfiltered" slot-scope="scope">
+      <h4>{{ scope.emptyFilteredText }}</h4>
+    </template>
+  </b-table>
+</div>
+
+```
+
+The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
+following properties:
+
+| Property            | Type   | Description                                        |
+| ------------------- | ------ | -------------------------------------------------- |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
+| `fields`            | Array  | The `fields` prop                                  |
+| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
+
+
 ## Header/Footer custom rendering via scoped slots
 
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
