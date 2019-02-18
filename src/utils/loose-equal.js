@@ -9,7 +9,6 @@ function isFile(obj) {
   return obj instanceof File
 }
 
-
 /**
  * Quick object check - this is primarily used to tell
  * Objects from primitive values when we know the value
@@ -55,8 +54,11 @@ function looseEqual(a, b) {
     }
     return result
   }
-  // Handle other cases
-  return String(a) === String(b)
+  if (!isObject(a) && !isObject(b)) {
+    // Handle other cases
+    return String(a) === String(b)
+  }
+  return false
 }
 
 export default looseEqual
