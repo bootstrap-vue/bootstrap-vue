@@ -5,7 +5,7 @@
     "title": "Nav",
     "component": "BNav",
     "plugins": [
-        "Dropdown"
+      "Dropdown"
     ],
     "components": [
       "BNavItem",
@@ -13,7 +13,11 @@
       "BNavForm",
       {
         "component": "BNavItemDropdown",
-        "aliases": [ "BNavItemDd", "BNavDropdown", "BNavDd" ],
+        "aliases": [
+          "BNavItemDd",
+          "BNavDropdown",
+          "BNavDd"
+        ],
         "slots": [
           {
             "name": "button-content",

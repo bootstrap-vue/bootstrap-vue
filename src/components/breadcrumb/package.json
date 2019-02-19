@@ -13,7 +13,10 @@
             "event": "click",
             "description": "Emitted when clicked",
             "args": [
-              { "name": "event", "description": "Native click event object" }
+              {
+                "name": "event",
+                "description": "Native click event object"
+              }
             ]
           }
         ]

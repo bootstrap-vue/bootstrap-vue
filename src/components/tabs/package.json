@@ -3,40 +3,38 @@
   "version": "1.0.0",
   "meta": {
     "title": "Tabs",
-    "components": [
+    "component": "BTabs",
+    "events": [
       {
-        "component": "BTabs",
-        "events": [
+        "event": "input",
+        "description": "Emits when a tab is shown. Used to update the v-model",
+        "args": [
           {
-            "event": "input",
-            "description": "Emits when a tab is shown. Used to update the v-model",
-            "args": [
-              { 
-                "arg": "tab_index",
-                "description": "Current selected tab index (0-based index)"
-              }
-            ]
-          }
-        ],
-        "slots": [
-          {
-            "name": "tabs",
-            "description": "Additional tab buttons without tab content"
-          },
-          {
-            "name": "empty",
-            "description": "Renders this slot if no tabs are present"
+            "arg": "tabIndex",
+            "description": "Current selected tab index (0-based index)"
           }
         ]
+      }
+    ],
+    "slots": [
+      {
+        "name": "tabs",
+        "description": "Additional tab buttons without tab content"
       },
-      { 
+      {
+        "name": "empty",
+        "description": "Renders this slot if no tabs are present"
+      }
+    ],
+    "components": [
+      {
         "component": "BTab",
         "events": [
           {
             "event": "click",
-            "description": "Emited when a tab is clicked, or is activated by keyboard navigation",
+            "description": "Emitted when a tab is clicked, or is activated by keyboard navigation",
             "args": [
-              { 
+              {
                 "arg": "evt",
                 "description": "Original event object"
               }

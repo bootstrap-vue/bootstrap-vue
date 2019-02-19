@@ -4,7 +4,9 @@
   "meta": {
     "title": "Form Group",
     "component": "BFormGroup",
-    "alias": [ "BFormFieldset" ],
+    "alias": [
+      "BFormFieldset"
+    ],
     "slots": [
       {
         "name": "label",

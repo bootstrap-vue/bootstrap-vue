@@ -4,7 +4,9 @@
   "meta": {
     "title": "Form Input",
     "component": "BFormInput",
-    "aliases": [ "BInput" ],
+    "aliases": [
+      "BInput"
+    ],
     "events": [
       {
         "event": "input",

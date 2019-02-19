@@ -4,7 +4,9 @@
   "meta": {
     "title": "Form File",
     "component": "BFormFile",
-    "aliases": [ "BFile" ],
+    "aliases": [
+      "BFile"
+    ],
     "events": [
       {
         "event": "change",
