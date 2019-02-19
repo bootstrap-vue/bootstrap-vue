@@ -69,7 +69,7 @@
     "docs-dev": "cross-env NODE_ENV=docs nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "cross-env NODE_ENV=docs nuxt generate -c docs/nuxt.config.js",
     "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
-    "docs-publish": "scripts/docs-publish",
+    "docs-publish": "scripts/docs-publish.sh",
     "test": "jest",
     "lint": "eslint --ext .js,.vue ./",
     "prettify": "prettier --write '**/*.{js,md,scss,ts,vue}'",
