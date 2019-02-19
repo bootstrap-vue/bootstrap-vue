@@ -2,8 +2,11 @@
 set -e
 
 # Enforce correct meta data before build
+echo 'Checking plugin meta data'
 scriptsDir=`dirname $0`
-$scriptsDir/check-plugin-meta.js || exit 1
+node -r esm $scriptsDir/check-plugin-meta.js || exit 1
+echo 'Done.'
+echo ''
 
 # Cleanup
 rm -rf dist es
