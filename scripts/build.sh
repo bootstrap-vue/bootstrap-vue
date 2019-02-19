@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+# Enforce correct meta data before build
+scriptsDir=`dirname $0`
+$scriptsDir/check-plugin-meta.js || exit 1
+
 # Cleanup
 rm -rf dist es
 

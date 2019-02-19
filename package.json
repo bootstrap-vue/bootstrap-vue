@@ -64,7 +64,7 @@
     "./docs"
   ],
   "scripts": {
-    "build": "scripts/build",
+    "build": "scripts/build.sh",
     "watch": "rollup -c scripts/rollup.config.js --watch",
     "docs-dev": "cross-env NODE_ENV=docs nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "cross-env NODE_ENV=docs nuxt generate -c docs/nuxt.config.js",
