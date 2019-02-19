@@ -1,8 +1,20 @@
 import BImgLazy from '../image/img-lazy'
+import pluckProps from '../../utils/pluck-props'
 import { mergeData } from 'vue-functional-data-merge'
 
+// Copy of b-img-lazy props, and remove conflicting/non-applicable props
+const lazyProps = { ...BImgLazy.props }
+delete lazyProps.left
+delete lazyProps.right
+delete lazyProps.center
+delete lazyProps.block
+delete lazyProps.rounded
+delete lazyProps.thumbnail
+delete lazyProps.fluid
+delete lazyProps.fluidGrow
+
 export const props = {
-  ...BImgLazy.props,
+  ...lazyProps,
   top: {
     type: Boolean,
     default: false
@@ -48,11 +60,16 @@ export default {
       baseClass += '-left'
     }
 
+    // Remove the left/center/right props before passing to b-img-lazy
+    const lazyProps = { ...props }
+    delete lazyProps.left
+    delete lazyProps.right
+    delete lazyProps.center
     return h(
       BImgLazy,
       mergeData(data, {
         class: [baseClass],
-        props
+        props: lazyProps
       })
     )
   }
