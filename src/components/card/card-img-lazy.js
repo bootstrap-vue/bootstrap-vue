@@ -4,7 +4,7 @@ import { mergeData } from 'vue-functional-data-merge'
 // Copy of b-img-lazy props, and remove conflicting/non-applicable props
 const lazyProps = { ...BImgLazy.props }
 
-['left', 'right', 'center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow'].forEach(
+;['left', 'right', 'center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow'].forEach(
   prop => { delete lazyProps[prop] }
 )
 
