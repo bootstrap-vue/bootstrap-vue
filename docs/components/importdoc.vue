@@ -132,7 +132,7 @@ export default {
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
-        `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${pluginDir}'`,
+        `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
     }
@@ -151,9 +151,8 @@ export default {
       return `<${this.componentName(component)}>`
     },
     componentPath(component) {
-      const pluginDir = this.pluginDir
       const componentName = this.componentName(component).replace(/^b-/, '')
-      return `bootstrap-vue/es/components/${pluginDir}/${componentName}`
+      return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
     },
     directiveName(directive) {
       return kebabCase(directive).replace(/^v-/, '')
