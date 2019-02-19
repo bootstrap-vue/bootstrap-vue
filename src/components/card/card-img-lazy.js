@@ -1,5 +1,4 @@
 import BImgLazy from '../image/img-lazy'
-import pluckProps from '../../utils/pluck-props'
 import { mergeData } from 'vue-functional-data-merge'
 
 // Copy of b-img-lazy props, and remove conflicting/non-applicable props
