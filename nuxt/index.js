@@ -45,20 +45,18 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     const templateOptions = {}
 
     // TODO: also add support for individual components & directives
-    for (const type of ['plugins']) {
+    for (const type of ['componentPlugins', 'directivePlugins']) {
       const bvPlugins = Array.isArray(options[type]) ? options[type] : []
 
-      if (bvPlugins.length) {
-        templateOptions[type] = bvPlugins
-          // convert everything to kebab
-          .map(p => kebabCase(p))
-          // remove duplicate items
-          .filter((p, i, arr) => arr.indexOf(p) === i)
-          .map(pluginDir => {
-            const moduleName = pascalCase(pluginDir)
-            return [moduleName, pluginDir]
-          })
-      }
+      templateOptions[type] = bvPlugins
+        // convert everything to kebab
+        .map(p => kebabCase(p))
+        // remove duplicate items
+        .filter((p, i, arr) => arr.indexOf(p) === i)
+        .map(pluginDir => {
+          const moduleName = (type === 'directivePlugins' ? 'v' : '') + pascalCase(pluginDir)
+          return [moduleName, pluginDir]
+        })
     }
 
     // Register plugin, pasing options to plugin template
