@@ -5,7 +5,7 @@
         "title": "List group",
         "component": "BListGroup",
         "components": [
-            "bListGroupItem"
+            "BListGroupItem"
         ]
     }
 }
