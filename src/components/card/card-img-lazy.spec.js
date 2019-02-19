@@ -13,7 +13,7 @@ describe('card-image', async () => {
     expect(wrapper.is('img')).toBe(true)
   })
 
-  it('default has src attribute', async () => {
+  it('default has data src attribute', async () => {
     const wrapper = mount(CardImgLazy, {
       context: {
         props: {
@@ -21,10 +21,10 @@ describe('card-image', async () => {
         }
       }
     })
-    expect(wrapper.attributes('src')).toBe('https://picsum.photos/600/300/?image=25')
+    expect(wrapper.attributes('src')).toContain('data:image/svg+xml')
   })
 
-  it('default does not have attributes alt, width, or height', async () => {
+  it('default does not have alt attribute', async () => {
     const wrapper = mount(CardImgLazy, {
       context: {
         props: {
@@ -33,8 +33,20 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.attributes('alt')).not.toBeDefined()
-    expect(wrapper.attributes('width')).not.toBeDefined()
-    expect(wrapper.attributes('height')).not.toBeDefined()
+  })
+
+  it('default has attributes width and height set to 1', async () => {
+    const wrapper = mount(CardImgLazy, {
+      context: {
+        props: {
+          src: 'https://picsum.photos/600/300/?image=25'
+        }
+      }
+    })
+    expect(wrapper.attributes('width')).toBeDefined()
+    expect(wrapper.attributes('width')).toBe('1')
+    expect(wrapper.attributes('height')).toBeDefined()
+    expect(wrapper.attributes('height')).toBe('1')
   })
 
   it('default has class "card-img"', async () => {
@@ -46,7 +58,6 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.classes()).toContain('card-img')
-    expect(wrapper.classes().length).toBe(1)
   })
 
   it('has class "card-img-top" when prop top=true', async () => {
@@ -59,7 +70,6 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.classes()).toContain('card-img-top')
-    expect(wrapper.classes().length).toBe(1)
   })
 
   it('has class "card-img-bottom" when prop bottom=true', async () => {
@@ -72,7 +82,6 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.classes()).toContain('card-img-bottom')
-    expect(wrapper.classes().length).toBe(1)
   })
 
   it('has class "card-img-top" when props top=true and bottom=true', async () => {
@@ -86,7 +95,6 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.classes()).toContain('card-img-top')
-    expect(wrapper.classes().length).toBe(1)
   })
 
   it('has class "card-img-left" when prop left=true', async () => {
@@ -99,7 +107,6 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.classes()).toContain('card-img-left')
-    expect(wrapper.classes().length).toBe(1)
   })
 
   it('has class "card-img-right" when prop right=true', async () => {
@@ -112,7 +119,6 @@ describe('card-image', async () => {
       }
     })
     expect(wrapper.classes()).toContain('card-img-right')
-    expect(wrapper.classes().length).toBe(1)
   })
 
   it('has attribute alt when prop alt set', async () => {
