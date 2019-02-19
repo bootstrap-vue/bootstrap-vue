@@ -3,14 +3,18 @@ import { mergeData } from 'vue-functional-data-merge'
 
 // Copy of b-img-lazy props, and remove conflicting/non-applicable props
 const lazyProps = { ...BImgLazy.props }
-delete lazyProps.left
-delete lazyProps.right
-delete lazyProps.center
-delete lazyProps.block
-delete lazyProps.rounded
-delete lazyProps.thumbnail
-delete lazyProps.fluid
-delete lazyProps.fluidGrow
+[
+  'left',
+  'right',
+  'center',
+  'block',
+  'rounded',
+  'thumbnail',
+  'fluid',
+  'fluidGrow'
+].forEach(prop => {
+  delete lazyProps[prop]
+})
 
 export const props = {
   ...lazyProps,
@@ -59,11 +63,8 @@ export default {
       baseClass += '-left'
     }
 
-    // Remove the left/center/right props before passing to b-img-lazy
-    const lazyProps = { ...props }
-    delete lazyProps.left
-    delete lazyProps.right
-    delete lazyProps.center
+    // False out the left/center/right props before passing to b-img-lazy
+    const lazyProps = { ...props, left: false, right: false, center: false }
     return h(
       BImgLazy,
       mergeData(data, {
