@@ -10,7 +10,11 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       }
     }
 
-    const kebabCase = str => str.replace(/([_\s]+([a-zA-Z])|([A-Z]))/g, (m, $1, $2, $3, o) => (o ? '-' : '') + ($2 || $3 || '').toLowerCase())
+    const kebabCase = str =>
+      str.replace(
+        /([_\s]+([a-zA-Z])|([A-Z]))/g,
+        (m, $1, $2, $3, o) => (o ? '-' : '') + ($2 || $3 || '').toLowerCase()
+      )
     const pascalCase = str => str.replace(/(^|[-_\s]+)(.)/g, (m, $1, $2) => $2.toUpperCase())
 
     // Merge moduleOptions with default
@@ -19,7 +23,11 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       ...moduleOptions
     }
 
-    const bootstrapVueCSS = pickFirst(options.bootstrapVueCSS, options.bootstrapVueCss, options.bvCSS)
+    const bootstrapVueCSS = pickFirst(
+      options.bootstrapVueCSS,
+      options.bootstrapVueCss,
+      options.bvCSS
+    )
     if (bootstrapVueCSS) {
       // Add BootstrapVue CSS
       this.options.css.unshift('bootstrap-vue/dist/bootstrap-vue.css')
@@ -48,7 +56,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
           .filter((p, i, arr) => arr.indexOf(p) === i)
           .map(pluginDir => {
             const moduleName = pascalCase(pluginDir)
-            return [ moduleName, pluginDir ]
+            return [moduleName, pluginDir]
           })
       }
     }
