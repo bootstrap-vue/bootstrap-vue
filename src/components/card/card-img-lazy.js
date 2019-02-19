@@ -1,13 +1,19 @@
 import BImgLazy from '../image/img-lazy'
+import { omit } from '../../utils/object'
 import { mergeData } from 'vue-functional-data-merge'
 
-// Copy of b-img-lazy props, and remove conflicting/non-applicable props
-const lazyProps = { ...BImgLazy.props }
-;['left', 'right', 'center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow'].forEach(
-  prop => {
-    delete lazyProps[prop]
-  }
-)
+// Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
+// The `omit()` util creates a new object, so we can just pass the original props
+const lazyProps = omit(BImgLazy.props, [
+  'left',
+  'right',
+  'center',
+  'block',
+  'rounded',
+  'thumbnail',
+  'fluid',
+  'fluidGrow'
+])
 
 export const props = {
   ...lazyProps,
