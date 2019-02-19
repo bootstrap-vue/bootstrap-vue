@@ -119,8 +119,8 @@ The `<b-card>` prop `img-src` places an image on the top of the card, and use th
 specify a string to be placed in the image's `alt` attribute. The image specified by the `img-src`
 prop will be responsive and will adjust it's width when the width of the card is changed.
 
-Alternatively you can manually place images inside `<b-card>` using the sub-component `<b-card-img>`.
-See the kitchen sink example below for usage.
+Alternatively you can manually place images inside `<b-card>` using the sub-component
+`<b-card-img>`. See the kitchen sink example below for usage.
 
 ```html
 <div>
@@ -191,8 +191,8 @@ Place the image in the background of the card by setting the boolean prop `overl
 #### Lazy loaded images
 
 Use the `<b-card-img-lazy>` sub-component to lazy load images as they scroll into view.
-`<b-card-img-lazy>` supports the same props as `<b-card-img>` as well as many of the props of
-the [`<b-img-lazy>`](/docs/components/image#lazy-loaded-images) component.
+`<b-card-img-lazy>` supports the same props as `<b-card-img>` as well as many of the props of the
+[`<b-img-lazy>`](/docs/components/image#lazy-loaded-images) component.
 
 ### Header and footer
 
