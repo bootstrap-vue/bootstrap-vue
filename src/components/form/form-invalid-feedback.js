@@ -16,6 +16,10 @@ export const props = {
   forceShow: {
     type: Boolean,
     default: false
+  },
+  state: {
+    type: [Boolean, String],
+    default: null
   }
 }
 
@@ -25,13 +29,14 @@ export default {
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const show = props.forceShow === true || props.state === false || props.state === 'invalid'
     return h(
       props.tag,
       mergeData(data, {
         class: {
           'invalid-feedback': !props.tooltip,
           'invalid-tooltip': props.tooltip,
-          'd-block': props.forceShow
+          'd-block': show
         },
         attrs: { id: props.id }
       }),

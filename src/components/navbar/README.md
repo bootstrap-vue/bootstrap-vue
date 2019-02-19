@@ -283,7 +283,7 @@ See the first example on this page for reference, and also refer to
 
 ## Printing
 
-Navbars are hidden by deafult when printing. Force them to be printed by setting the `print` prop.
+Navbars are hidden by default when printing. Force them to be printed by setting the `print` prop.
 
 ## See also
 

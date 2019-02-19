@@ -132,15 +132,19 @@
               :key="`console-${msg[2]}`"
               class="list-group-item py-2 d-flex"
             >
-              <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">
+              <b-badge
+                :variant="msg[0]"
+                class="mr-1"
+                style="font-size:90%;"
+              >
                 {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
               </b-badge>
+              <!-- prettier-ignore-start -->
               <div
                 :class="[`text-${msg[0]}`, 'text-monospace', 'small']"
                 style="white-space: pre-wrap;"
-              >
-                {{ msg[1] }}
-              </div>
+              >{{ msg[1] }}</div>
+              <!-- prettier-ignore-end -->
             </li>
           </transition-group>
         </div>
@@ -447,24 +451,22 @@ export default {
       try {
         let holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
-        this.playVM = new Vue(
-          Object.assign({}, options, {
-            // set the app mountpoint
-            el: holder,
-            // Router needed for tooltips/popovers so they hide when docs route changes
-            router: this.$router,
-            // We set a fake parent so we can capture most runtime and render errors (error boundary)
-            parent: new Vue({
-              template: '<span />',
-              errorCaptured(err, vm, info) {
-                // pass error to playground error handler
-                playground.errHandler(err, info)
-                // dont propegate to parent/global error handler!
-                return false
-              }
-            })
+        this.playVM = new Vue({
+          ...options,
+          el: holder,
+          // Router needed for tooltips/popovers so they hide when docs route changes
+          router: this.$router,
+          // We set a fake parent so we can capture most runtime and render errors (error boundary)
+          parent: new Vue({
+            template: '<span />',
+            errorCaptured(err, vm, info) {
+              // pass error to playground error handler
+              playground.errHandler(err, info)
+              // dont propegate to parent/global error handler!
+              return false
+            }
           })
-        )
+        })
       } catch (err) {
         this.destroyVM()
         this.errHandler(err, 'app create')

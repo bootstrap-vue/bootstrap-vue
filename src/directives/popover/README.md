@@ -31,8 +31,8 @@ Things to know when using popovers:
 - Popovers must be hidden before their corresponding elements have been removed from the DOM.
 - When using a client side router, popovers will listen to changes in `$route` and automatically
   hide.
-- Elements that trigger popovers should be in the document tab sequence. Add `tabinded="0"` if
-  rquired.
+- Elements that trigger popovers should be in the document tab sequence. Add `tabindex="0"` if
+  required.
 
 ## Positioning
 
@@ -205,21 +205,21 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <!-- b-popover-triggers.vue -->
 ```
 
-### Dismiss on next click (self dimissing)
+### Dismiss on next click (self dismissing)
 
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
 also makes the popover activate on both `focus` and `click` (as a click makes the element receive
 focus, assuming it is in the tab sequence of the page).
 
 You can, however, specify your trigger as `click blur`, which will make only a click activate the
-popover, and either a click on the element - _or losing foucus to another element or part of the
+popover, and either a click on the element - _or losing focus to another element or part of the
 document_ - will close the popover.
 
 This `blur` trigger must be used in combination with the `click` trigger.
 
 Th following example shows the `click blur` use case. Popovers will only open on click of the
 button, and will close either on click of the button, or a click anywhere else (or a focus change
-via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
+via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismissing_.
 
 ```html
 <div>
@@ -246,7 +246,7 @@ via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
 
 ## Heading and content
 
-There are several options for provising the title and content of a popover.
+There are several options for provisioning the title and content of a popover.
 
 By default, popover will use the `title` attribute of the element as the popover heading, and the
 content is passed as a string to the `v-b-popover` directive. The title and content can also be
@@ -356,7 +356,7 @@ Where `<value>` can be (optional):
 
 - A string containing the **content** of the popover
 - A function reference to generate the **content** of the popover (receives one argument which is a
-  refernce to the DOM element triggering the popover)
+  reference to the DOM element triggering the popover)
 - An object containing more complex configuration of popover, See Bootstrap docs for possible
   values/structure)
 

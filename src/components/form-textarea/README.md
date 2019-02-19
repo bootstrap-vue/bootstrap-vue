@@ -150,20 +150,20 @@ text block.
 ### ARIA `aria-invalid` attribute
 
 When `<b-form-textarea>` has an invalid contextual state (i.e. `'invalid'` or `false`) you may also
-want to set the prop `aria-invalid` to `true`, or one of hte supported values:
+want to set the prop `aria-invalid` to `true`, or one of the supported values:
 
 - `false`: No errors (default)
 - `true` or `'true'`: The value has failed validation.
 - `'grammar'`: A grammatical error has been detected.
 - `'spelling'` A spelling error has been detected.
 
-If the `state` prop is set to `false` (or `'invalid'`), and the `aria-invalid` prop is not explicity
-set, `<b-form-textarea>` will automatically set the `aria-invalid` attribute to `'true'`.
+If the `state` prop is set to `false` (or `'invalid'`), and the `aria-invalid` prop is not
+explicitly set, `<b-form-textarea>` will automatically set the `aria-invalid` attribute to `'true'`.
 
 ## Formatter support
 
-Refer to the (`<b-form-input>`)[../form-input] documentation regarding usage of the optional
-formatter feature.
+Refer to the [`<b-form-input>`](/docs/components/form-input) documentation regarding usage of the
+optional formatter feature.
 
 ## Readonly plain text
 
@@ -197,7 +197,7 @@ Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
 To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and
-`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectivley.
+`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectively.
 Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
 
 **Notes:**
@@ -208,7 +208,7 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
   will return a value of type `Number` to the `v-model`, otherwise the original input value is
   returned as type `String`. This is the same behaviour as the native `.number` modifier.
 - The `trim` and `number` modifier props do not affect the value returned by the `input` or `change`
-  events. These events will aways return the string value of the content of `<textarea>` after
+  events. These events will always return the string value of the content of `<textarea>` after
   optional formatting (which may not match the value returned via the `v-model` `update` event,
   which handles the modifiers).
 
@@ -218,9 +218,9 @@ All native events (other than the custom `input` and `change` events) are suppor
 need for the `.native` modifier.
 
 The custom `input` and `change` events receive a single argument of the current `value` (after any
-formatting has been applied), and are triggerd by user interaction.
+formatting has been applied), and are triggered by user interaction.
 
-The custom `update` event is passed the input value, and is emitted wehenever the `v-model` needs
+The custom `update` event is passed the input value, and is emitted whenever the `v-model` needs
 updating (it is emitted before `input`, `change`. and `blur` as needed).
 
 You can always access the native `input` and `change` events by using the `.native` modifier.

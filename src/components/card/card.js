@@ -4,7 +4,6 @@ import prefixPropName from '../../utils/prefix-prop-name'
 import unPrefixPropName from '../../utils/unprefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import pluckProps from '../../utils/pluck-props'
-import { assign } from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'
 import BCardBody, { props as bodyProps } from './card-body'
 import BCardHeader, { props as headerProps } from './card-header'
@@ -14,24 +13,21 @@ import BCardImg, { props as imgProps } from './card-img'
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
 
-export const props = assign(
-  {},
-  bodyProps,
-  headerProps,
-  footerProps,
-  cardImgProps,
-  copyProps(cardMixin.props),
-  {
-    align: {
-      type: String,
-      default: null
-    },
-    noBody: {
-      type: Boolean,
-      default: false
-    }
+export const props = {
+  ...bodyProps,
+  ...headerProps,
+  ...footerProps,
+  ...cardImgProps,
+  ...copyProps(cardMixin.props),
+  align: {
+    type: String,
+    default: null
+  },
+  noBody: {
+    type: Boolean,
+    default: false
   }
-)
+}
 
 // @vue/component
 export default {
@@ -64,7 +60,7 @@ export default {
     }
 
     if (props.noBody) {
-      content = $slots.default
+      content = $slots.default || []
     } else {
       // Wrap content in card-body
       content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, $slots.default)]

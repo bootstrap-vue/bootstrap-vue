@@ -4,6 +4,86 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.0.0-rc.13"></a>
+
+## [v2.0.0-rc.13](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.12...v2.0.0-rc.13)
+
+Released: 2019-02-18
+
+### Bug Fixes v2.0.0-rc.13
+
+- **breadcrumb-item:** Fix `to` prop handling
+  ([#2578](https://github.com/bootstrap-vue/bootstrap-vue/issues/2578))
+  ([fba9df3](https://github.com/bootstrap-vue/bootstrap-vue/commit/fba9df3))
+- **build:** don't include babel runtime
+  ([#2590](https://github.com/bootstrap-vue/bootstrap-vue/issues/2590))
+  ([20828fa](https://github.com/bootstrap-vue/bootstrap-vue/commit/20828fa))
+- **build:** Add [@babel](https://github.com/babel)/runtime to devDependencies
+  ([#2569](https://github.com/bootstrap-vue/bootstrap-vue/issues/2569))
+  ([83a253b](https://github.com/bootstrap-vue/bootstrap-vue/commit/83a253b))
+- **card:** fix array spread error when no-body is set and no content
+  ([5040566](https://github.com/bootstrap-vue/bootstrap-vue/commit/5040566)
+- **docs:** change \@include to \@import in the Nuxt plugin module section
+  ([4fad60a](https://github.com/bootstrap-vue/bootstrap-vue/commit/4fad60a))
+- **docs:** correct typos ([#2592](https://github.com/bootstrap-vue/bootstrap-vue/issues/2592))
+  ([9883f8f](https://github.com/bootstrap-vue/bootstrap-vue/commit/9883f8f))
+- **docs:** Correct typos in carousel docs
+  ([#2585](https://github.com/bootstrap-vue/bootstrap-vue/issues/2585))
+  ([87a721f](https://github.com/bootstrap-vue/bootstrap-vue/commit/87a721f))
+- **docs:** fix broken link in form-textarea docs
+  ([#2598](https://github.com/bootstrap-vue/bootstrap-vue/issues/2598))
+  ([07162e1](https://github.com/bootstrap-vue/bootstrap-vue/commit/07162e1))
+- **docs:** fix broken links ([#2635](https://github.com/bootstrap-vue/bootstrap-vue/issues/2635))
+  ([fa90f3e](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa90f3e))
+- **docs:** Fix directive import paths
+  ([#2570](https://github.com/bootstrap-vue/bootstrap-vue/issues/2570))
+  ([2475542](https://github.com/bootstrap-vue/bootstrap-vue/commit/2475542))
+- **docs:** fix grid options table layout issue
+  ([#2630](https://github.com/bootstrap-vue/bootstrap-vue/issues/2630))
+  ([86a882f](https://github.com/bootstrap-vue/bootstrap-vue/commit/86a882f))
+- **docs:** Improve wording in footer
+  ([#2576](https://github.com/bootstrap-vue/bootstrap-vue/issues/2576))
+  ([af7e36e](https://github.com/bootstrap-vue/bootstrap-vue/commit/af7e36e))
+- **form-input:** Allow number as value type
+  ([#2583](https://github.com/bootstrap-vue/bootstrap-vue/issues/2583))
+  ([dfaf34e](https://github.com/bootstrap-vue/bootstrap-vue/commit/dfaf34e))
+- **modal:** better backdrop clickout handling
+  ([#2597](https://github.com/bootstrap-vue/bootstrap-vue/issues/2597))
+  ([#2608](https://github.com/bootstrap-vue/bootstrap-vue/issues/2608))
+  ([11c7524](https://github.com/bootstrap-vue/bootstrap-vue/commit/11c7524))
+- **nuxt plugin:** fix typo with bootstrap vue css import properties
+  ([#2618](https://github.com/bootstrap-vue/bootstrap-vue/issues/2618))
+  ([8581090](https://github.com/bootstrap-vue/bootstrap-vue/commit/8581090))
+- **utils/get:** handle case where passed object is undefined
+  ([#2623](https://github.com/bootstrap-vue/bootstrap-vue/issues/2623))
+  ([#2624](https://github.com/bootstrap-vue/bootstrap-vue/issues/2624))
+  ([eb07b19](https://github.com/bootstrap-vue/bootstrap-vue/commit/eb07b19))
+- **utils/loose-equal:** Make `looseEqual()` util handle File object comparison correctly
+  ([#2640](https://github.com/bootstrap-vue/bootstrap-vue/issues/2640))
+  ([401d3e9](https://github.com/bootstrap-vue/bootstrap-vue/commit/401d3e9))
+- Fix Html casing for props ([#2594](https://github.com/bootstrap-vue/bootstrap-vue/issues/2594))
+  ([3772bf5](https://github.com/bootstrap-vue/bootstrap-vue/commit/3772bf5))
+- Temporary fix for validation icon positioning
+  ([#2599](https://github.com/bootstrap-vue/bootstrap-vue/issues/2599))
+  ([#2607](https://github.com/bootstrap-vue/bootstrap-vue/issues/2607))
+  ([7168989](https://github.com/bootstrap-vue/bootstrap-vue/commit/7168989))
+
+### Features v2.0.0-rc.13
+
+- **forms:** add state prop to invalid and valid feedback + docs update
+  ([#2611](https://github.com/bootstrap-vue/bootstrap-vue/issues/2611))
+  ([9df8dac](https://github.com/bootstrap-vue/bootstrap-vue/commit/9df8dac))
+- **nuxt:** module improvements
+  ([#2593](https://github.com/bootstrap-vue/bootstrap-vue/issues/2593))
+  ([0795fea](https://github.com/bootstrap-vue/bootstrap-vue/commit/0795fea))
+- **table:** add support for scoped empty slots
+  ([#2641](https://github.com/bootstrap-vue/bootstrap-vue/issues/2641))
+  ([7917557](https://github.com/bootstrap-vue/bootstrap-vue/commit/7917557))
+- **table:** don't show empty row slot if table busy and busy slot provided
+  ([#2565](https://github.com/bootstrap-vue/bootstrap-vue/issues/2565))
+  ([#2572](https://github.com/bootstrap-vue/bootstrap-vue/issues/2572))
+  ([6fd31a4](https://github.com/bootstrap-vue/bootstrap-vue/commit/6fd31a4))
+
 <a name="2.0.0-rc.12"></a>
 
 ## [v2.0.0-rc.12](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.11...v2.0.0-rc.12)
@@ -13,8 +93,8 @@ Released: (2019-02-14)
 ### Bug Fixes v2.0.0-rc.12
 
 - **alert:** target custom transition CSS to the alert component
- ([#2205](https://github.com/bootstrap-vue/bootstrap-vue/issues/2205))
- ([0a48268](https://github.com/bootstrap-vue/bootstrap-vue/commit/0a48268))
+  ([#2205](https://github.com/bootstrap-vue/bootstrap-vue/issues/2205))
+  ([0a48268](https://github.com/bootstrap-vue/bootstrap-vue/commit/0a48268))
 - **b-img-lazy:** better initial inView check + new show prop
   ([#1755](https://github.com/bootstrap-vue/bootstrap-vue/issues/1755))
   ([#2382](https://github.com/bootstrap-vue/bootstrap-vue/issues/2382))
@@ -38,7 +118,7 @@ Released: (2019-02-14)
 - **ci:** remove test-beta
   ([0fec992](https://github.com/bootstrap-vue/bootstrap-vue/commit/0fec992))
 - **ci:** test on current vue
- ([e3282bd](https://github.com/bootstrap-vue/bootstrap-vue/commit/e3282bd))
+  ([e3282bd](https://github.com/bootstrap-vue/bootstrap-vue/commit/e3282bd))
 - **collapse:** when is-nav, do better checking of click events
   ([#2222](https://github.com/bootstrap-vue/bootstrap-vue/issues/2222))
   ([#2225](https://github.com/bootstrap-vue/bootstrap-vue/issues/2225))
@@ -52,8 +132,7 @@ Released: (2019-02-14)
   ([fa26882](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa26882))
 - **docs:** Updaate links to bootstrap v4.3 docs
   ([b5d5499](https://github.com/bootstrap-vue/bootstrap-vue/commit/b5d5499))
-- **docs:** Button - fix typo
-  ([#1962](https://github.com/bootstrap-vue/bootstrap-vue/issues/1962))
+- **docs:** Button - fix typo ([#1962](https://github.com/bootstrap-vue/bootstrap-vue/issues/1962))
   ([dcbfcf9](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcbfcf9))
 - **docs:** change b-input-group attribute 'left' to 'prepend'
   ([#2017](https://github.com/bootstrap-vue/bootstrap-vue/issues/2017))
@@ -64,13 +143,11 @@ Released: (2019-02-14)
 - **docs:** create local marked-loader.js
   ([#2380](https://github.com/bootstrap-vue/bootstrap-vue/issues/2380))
   ([06cfb47](https://github.com/bootstrap-vue/bootstrap-vue/commit/06cfb47))
-- **docs:** Embed - fix typos
-  ([#1965](https://github.com/bootstrap-vue/bootstrap-vue/issues/1965))
+- **docs:** Embed - fix typos ([#1965](https://github.com/bootstrap-vue/bootstrap-vue/issues/1965))
   ([ae7101e](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae7101e))
 - **docs:** Fix broken examples
   ([1d599a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/1d599a5))
-- **docs:** Fix broken links.
-  ([#2517](https://github.com/bootstrap-vue/bootstrap-vue/issues/2517))
+- **docs:** Fix broken links. ([#2517](https://github.com/bootstrap-vue/bootstrap-vue/issues/2517))
   ([#2528](https://github.com/bootstrap-vue/bootstrap-vue/issues/2528))
   ([c4b7e1e](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4b7e1e))
 - **docs:** Fix console errors and improve `play` directive
@@ -100,14 +177,12 @@ Released: (2019-02-14)
 - **docs:** fix input group prepend slot typo
   ([#2059](https://github.com/bootstrap-vue/bootstrap-vue/issues/2059))
   ([3c3cd8d](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c3cd8d))
-- **docs:** Layout - fix typo
-  ([#1966](https://github.com/bootstrap-vue/bootstrap-vue/issues/1966))
+- **docs:** Layout - fix typo ([#1966](https://github.com/bootstrap-vue/bootstrap-vue/issues/1966))
   ([c5a37d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/c5a37d3))
 - **docs:** missing dash and typo fix
   ([#1850](https://github.com/bootstrap-vue/bootstrap-vue/issues/1850))
   ([7b5fde8](https://github.com/bootstrap-vue/bootstrap-vue/commit/7b5fde8))
-- **docs:** typo fix
-  ([#2009](https://github.com/bootstrap-vue/bootstrap-vue/issues/2009))
+- **docs:** typo fix ([#2009](https://github.com/bootstrap-vue/bootstrap-vue/issues/2009))
   ([9e0eb67](https://github.com/bootstrap-vue/bootstrap-vue/commit/9e0eb67))
 - **docs:** Update links to Bootstrap V4.2
   ([#2370](https://github.com/bootstrap-vue/bootstrap-vue/issues/2370))
@@ -296,8 +371,8 @@ Released: (2019-02-14)
   ([#2231](https://github.com/bootstrap-vue/bootstrap-vue/issues/2231))
   ([#2254](https://github.com/bootstrap-vue/bootstrap-vue/issues/2254))
   ([f0fb9af](https://github.com/bootstrap-vue/bootstrap-vue/commit/f0fb9af))
-- **table:** fix filtered event, fix emptyFilter message w/filter function, fix
-  reactivity of filter sub routines, fix empty header label accessibility issue
+- **table:** fix filtered event, fix emptyFilter message w/filter function, fix reactivity of filter
+  sub routines, fix empty header label accessibility issue
   ([#1989](https://github.com/bootstrap-vue/bootstrap-vue/issues/1989))
   ([#1517](https://github.com/bootstrap-vue/bootstrap-vue/issues/1517))
   ([#2149](https://github.com/bootstrap-vue/bootstrap-vue/issues/2149))
@@ -353,8 +428,7 @@ Released: (2019-02-14)
   ([8a8d0f0](https://github.com/bootstrap-vue/bootstrap-vue/commit/8a8d0f0))
 - relax prop type checks to prevent vue warns
   ([835eccf](https://github.com/bootstrap-vue/bootstrap-vue/commit/835eccf))
-- typo in form-radio watcher
-  ([#1943](https://github.com/bootstrap-vue/bootstrap-vue/issues/1943))
+- typo in form-radio watcher ([#1943](https://github.com/bootstrap-vue/bootstrap-vue/issues/1943))
   ([9ab23ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ab23ef))
 - use stable nuxt opencollective
   ([#1885](https://github.com/bootstrap-vue/bootstrap-vue/issues/1885))
@@ -392,8 +466,7 @@ Released: (2019-02-14)
 - **css:** create SCSS versions of CSS
   ([#2218](https://github.com/bootstrap-vue/bootstrap-vue/issues/2218))
   ([d6ba6db](https://github.com/bootstrap-vue/bootstrap-vue/commit/d6ba6db))
-- **css:** Add SCSS support
-  ([#2201](https://github.com/bootstrap-vue/bootstrap-vue/issues/2201))
+- **css:** Add SCSS support ([#2201](https://github.com/bootstrap-vue/bootstrap-vue/issues/2201))
   ([#2221](https://github.com/bootstrap-vue/bootstrap-vue/issues/2221))
   ([f8326a2](https://github.com/bootstrap-vue/bootstrap-vue/commit/f8326a2))
 - **docs:** Allow sub-components to show reference info for slots and events
@@ -428,7 +501,7 @@ Released: (2019-02-14)
 - **form-checkbox:** support custom switch styling
   ([#2293](https://github.com/bootstrap-vue/bootstrap-vue/issues/2293))
   ([3508ea2](https://github.com/bootstrap-vue/bootstrap-vue/commit/3508ea2))
-- **form-file:** reset file input when value  set to null or empty string
+- **form-file:** reset file input when value set to null or empty string
   ([#2170](https://github.com/bootstrap-vue/bootstrap-vue/issues/2170))
   ([ab44375](https://github.com/bootstrap-vue/bootstrap-vue/commit/ab44375))
 - **form-group:** Add multiple breakpoint support for label
@@ -1026,7 +1099,7 @@ Released: 2017-12-15
   ([#1404](https://github.com/bootstrap-vue/bootstrap-vue/issues/1404))
   ([e02fa49](https://github.com/bootstrap-vue/bootstrap-vue/commit/e02fa49))
 - **tabs:** add name to helper component for better debugging
-  ([e436a1d](https://github.com/bootstrap-vue/bootstrap-vue/commit/e436a1d))
+  ([51ef9e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/51ef9e3))
 - **tabs:** add no-body prop to b-tab
   ([#1385](https://github.com/bootstrap-vue/bootstrap-vue/issues/1385))
   ([af36c0e](https://github.com/bootstrap-vue/bootstrap-vue/commit/af36c0e))
@@ -1338,8 +1411,8 @@ Notable changes:
 
 v1.0.0 introduces a new source code structure. For those users that are importing individual
 components, the path to the individual components has changed. Please reference the
-[GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/src) and
-[docsumentation](https://bootstrap-vue.js.org/docs) for the new structure and information on
+[GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/) and
+[documentation](https://bootstrap-vue.js.org/docs) for the new structure and information on
 importing.
 
 ### Bug Fixes v1.0.0
@@ -1941,7 +2014,7 @@ Released: 2017-08-21
   ([0cbbfb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/0cbbfb5))
 - **dropdown:** focus on first item on show
   ([40a1347](https://github.com/bootstrap-vue/bootstrap-vue/commit/40a1347))
-- **dropdown:** twbs/bootstrap[#23329](https://github.com/bootstrap-vue/bootstrap-vue/issues/23329)
+- **dropdown:** twbs/bootstrap[#23329](https://github.com/twbs/bootstrap/issues/23329)
   ([fab5d22](https://github.com/bootstrap-vue/bootstrap-vue/commit/fab5d22))
 - **dropdown.js:** import clickout as a mixin
   ([#896](https://github.com/bootstrap-vue/bootstrap-vue/issues/896))
@@ -2432,7 +2505,7 @@ Released: 2017-07-04
   ([#581](https://github.com/bootstrap-vue/bootstrap-vue/issues/581))
   ([be5f834](https://github.com/bootstrap-vue/bootstrap-vue/commit/be5f834))
 
-## [v0.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/0.17.0...0.17.1)
+## [v0.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.17.0...v0.17.1)
 
 Released: 2017-06-30
 

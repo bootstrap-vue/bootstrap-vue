@@ -1,6 +1,5 @@
 import Popper from 'popper.js'
 import BvEvent from './bv-event.class'
-import { assign } from './object'
 import { from as arrayFrom } from './array'
 import {
   closest,
@@ -166,7 +165,7 @@ class ToolTip {
   // Update config
   updateConfig(config) {
     // Merge config into defaults. We use "this" here because PopOver overrides Default
-    let updatedConfig = assign({}, this.constructor.Default, config)
+    let updatedConfig = { ...this.constructor.Default, ...config }
 
     // Sanitize delay
     if (config.delay && typeof config.delay === 'number') {
@@ -651,7 +650,7 @@ class ToolTip {
       title = title.trim()
     }
     if (!title) {
-      // If an explicit title is not given, try element's title atributes
+      // If an explicit title is not given, try element's title attributes
       title = getAttr(this.$element, 'title') || getAttr(this.$element, 'data-original-title') || ''
       title = title.trim()
     }
@@ -760,7 +759,7 @@ class ToolTip {
       }
     } else {
       if (this.$routeWatcher) {
-        // cancel the route watcher by calling hte stored reference
+        // cancel the route watcher by calling the stored reference
         this.$routeWatcher()
         this.$routeWatcher = null
       }

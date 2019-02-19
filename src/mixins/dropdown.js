@@ -1,7 +1,6 @@
 import Popper from 'popper.js'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
-import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
 import BvEvent from '../utils/bv-event.class'
 import warn from '../utils/warn'
@@ -128,7 +127,7 @@ export default {
           // Reset value and exit if canceled
           this.visibleChangePrevented = true
           this.visible = oldValue
-          // Just in case a child element triggerded this.hide(true)
+          // Just in case a child element triggereded this.hide(true)
           this.$off('hidden', this.focusToggler)
           return
         }
@@ -243,7 +242,7 @@ export default {
       if (this.boundary) {
         popperConfig.modifiers.preventOverflow = { boundariesElement: this.boundary }
       }
-      return assign(popperConfig, this.popperOpts || {})
+      return { ...popperConfig, ...(this.popperOpts || {}) }
     },
     whileOpenListen(open) {
       // turn listeners on/off while open

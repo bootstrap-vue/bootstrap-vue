@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
-import { assign, keys } from '../../utils/object'
+import { keys } from '../../utils/object'
 import { addClass, removeClass } from '../../utils/dom'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
@@ -43,7 +43,7 @@ delete linkProps.href.default
 delete linkProps.to.default
 const linkPropKeys = keys(linkProps)
 
-export const props = assign(linkProps, btnProps)
+export const props = { ...linkProps, ...btnProps }
 
 // Focus handler for toggle buttons.  Needs class of 'focus' when focused.
 function handleFocus(evt) {
@@ -127,8 +127,8 @@ function computeAttrs(props, data) {
     // remembering the previous setting when using the back button.
     autocomplete: toggle ? 'off' : null,
     // Tab index is used when the component is not a button.
-    // Links are tabable, but don't allow disabled, while non buttons or links
-    // are not tabable, so we mimic that functionality by disabling tabbing
+    // Links are tabbable, but don't allow disabled, while non buttons or links
+    // are not tabbable, so we mimic that functionality by disabling tabbing
     // when disabled, and adding a tabindex of '0' to non buttons or non links.
     tabindex: props.disabled && !button ? '-1' : tabindex
   }

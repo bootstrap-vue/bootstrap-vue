@@ -94,7 +94,7 @@ export default {
       type: String,
       default: ''
     },
-    titleHTML: {
+    titleHtml: {
       type: String
     },
     titleTag: {
@@ -237,14 +237,14 @@ export default {
       type: String,
       default: 'Cancel'
     },
-    cancelTitleHTML: {
+    cancelTitleHtml: {
       type: String
     },
     okTitle: {
       type: String,
       default: 'OK'
     },
-    okTitleHTML: {
+    okTitleHtml: {
       type: String
     },
     cancelVariant: {
@@ -566,8 +566,13 @@ export default {
     },
     // UI Event Handlers
     onClickOut(evt) {
+      // Do nothing if not visible, backdrop click disabled, or element that generated
+      // click event is no longer in document
+      if (!this.is_visible || this.noCloseOnBackdrop || !contains(document, evt.target)) {
+        return
+      }
       // If backdrop clicked, hide modal
-      if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
+      if (!contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
     },
@@ -816,7 +821,7 @@ export default {
         }
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || this.titleHTML || stripTags(this.title)
+            $slots['modal-title'] || this.titleHtml || stripTags(this.title)
           ]),
           closeButton
         ]
@@ -864,7 +869,7 @@ export default {
                 }
               }
             },
-            [$slots['modal-cancel'] || this.cancelTitleHTML || stripTags(this.cancelTitle)]
+            [$slots['modal-cancel'] || this.cancelTitleHtml || stripTags(this.cancelTitle)]
           )
         }
         const okButton = h(
@@ -881,7 +886,7 @@ export default {
               }
             }
           },
-          [$slots['modal-ok'] || this.okTitleHTML || stripTags(this.okTitle)]
+          [$slots['modal-ok'] || this.okTitleHtml || stripTags(this.okTitle)]
         )
         modalFooter = [cancelButton, okButton]
       }
@@ -938,8 +943,8 @@ export default {
           'aria-modal': this.is_visible ? 'true' : null
         },
         on: {
-          click: this.onClickOut,
-          keydown: this.onEsc
+          keydown: this.onEsc,
+          click: this.onClickOut
         }
       },
       [modalDialog]

@@ -40,6 +40,10 @@ export default {
     formValidityMixin
   ],
   props: {
+    value: {
+      type: [String, Number],
+      default: null
+    },
     type: {
       type: String,
       default: 'text',

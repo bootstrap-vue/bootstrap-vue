@@ -17,7 +17,12 @@ export default function get(holder, propName) {
   let result = holder
   let lastPropName
 
-  while ((lastPropName = propParts.shift()) !== undefined) {
+  while (
+    (lastPropName = propParts.shift()) !== undefined &&
+    // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/2623
+    result !== undefined &&
+    result !== null
+  ) {
     if (result[lastPropName] === undefined) return undefined
     result = result[lastPropName]
   }

@@ -60,7 +60,7 @@ headings appear.
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
 in the first row, but this may not always be the case depending on the version of browser in use.
 See section [**Fields (column definitions)**](#fields-column-definitions-) below to see how to
-guarantee the order of fields.
+guarantee the order of fields, and to override the headings generated.
 
 Record data may also have additional special reserved name keys for colorizing rows and individual
 cells (variants), and for triggering additional row detail. The supported optional item record
@@ -99,7 +99,7 @@ modifier properties (make sure your field keys do not conflict with these names)
             isActive: true,
             age: 40,
             first_name: 'Thor',
-            last_name: 'Macdonald',
+            last_name: 'MacDonald',
             _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
           },
           { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
@@ -121,6 +121,16 @@ Provider functions can also be asynchronous:
 
 See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for
 more details.
+
+### Table item notes and warnings
+
+- Avoid manipulating record data in place, as changes to the underlying items data will cause either
+  the row or entire table to be re-rendered. See [Primary Key](#primary-key), below, for ways to
+  minimize Vue's re-rendering of rows.
+- `items` array records should be a simple object and **must** avoid placing data that may have
+  circular references in the values within a row. `<b-table>` serializes the row data into strings
+  for sorting and filtering, and circular references will cause stack overflows to occur and your
+  app to crash!
 
 ## Fields (column definitions)
 
@@ -355,19 +365,26 @@ const fields = [
 ### Primary key
 
 `<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
-that uniquely identifies the row.
+that _uniquely_ identifies the row.
 
 This value is used by `<b-table>` to help Vue optimize the rendering of table rows. Internally, the
 the value of the field key specified by the `primary-key` prop is used as the Vue `:key` value for
 each rendered item row `<tr>` element. The value specified by the column key **must be** either a
-`string` or `number`, and **must be** unique across all rows in the table.
+`string` or `number`, and **must be unique** across all rows in the table.
 
-If you are seeing rendering issue (i.e. tooltips hiding when item data changes or is
-sorted/filtered), setting the `primary-key` prop (if you have a unique identifier per row) can
-alleviate these issues.
+If you are seeing rendering issue (i.e. tooltips hiding when item data changes or data is
+sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row)
+can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
+
+If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
+the row's data values plus the displayed row's index number. This may cause GUI issues if you are
+modifiying the underlying table data inplace (i.e. via a `<b-form-input>` v-model bound to the row's
+data). Specifying a `primary-key` column can alleviate this issue.
+
+The primary key column does not need to appear in the displayed fields.
 
 In future releases of BootstrapVue, the `primary-key` may be used for additional features.
 
@@ -956,6 +973,39 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
+## Custom empty/emptyfiltered rendering via slots
+
+Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
+also possible to provide custom rendering for tables that have no data to display using named slots.
+
+In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
+either falsy or an array of length 0.
+
+```html
+<div>
+  <b-table :fields="fields" :items="items" show-empty>
+    <template slot="empty" slot-scope="scope">
+      <h4>{{ scope.emptyText }}</h4>
+    </template>
+    <template slot="emptyfiltered" slot-scope="scope">
+      <h4>{{ scope.emptyFilteredText }}</h4>
+    </template>
+  </b-table>
+</div>
+```
+
+The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
+following properties:
+
+| Property            | Type   | Description                                        |
+| ------------------- | ------ | -------------------------------------------------- |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
+| `fields`            | Array  | The `fields` prop                                  |
+| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
+
 ## Header/Footer custom rendering via scoped slots
 
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
@@ -1082,7 +1132,7 @@ calling the `toggleDetails` function passed to the field's scoped slot variable.
 scoped fields slot variable `detailsShowing` to determine the visibility of the `row-details` slot.
 
 **Note:** If manipulating the `_showDetails` property directly on the item data (i.e. not via the
-`toggleDetails` function reference), the `_showDetails` propertly **must** exist in the items data
+`toggleDetails` function reference), the `_showDetails` properly **must** exist in the items data
 for proper reactive detection of changes to it's value. Read more about
 [Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
@@ -1501,7 +1551,7 @@ function myProvider(ctx, callback) {
     .then(data => {
       // Pluck the array of items off our axios response
       let items = data.items
-      // Provide the array of items to the callabck
+      // Provide the array of items to the callback
       callback(items)
     })
     .catch(error => {

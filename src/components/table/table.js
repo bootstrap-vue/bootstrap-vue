@@ -4,7 +4,7 @@ import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import { keys, assign } from '../../utils/object'
+import { keys } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
@@ -87,7 +87,7 @@ function processField(key, value) {
     // Formatter shortcut
     field = { key, formatter: value }
   } else if (typeof value === 'object') {
-    field = assign({}, value)
+    field = { ...value }
     field.key = field.key || key
   } else if (value !== false) {
     // Fallback to just key
@@ -177,7 +177,7 @@ export default {
       type: String,
       default: null
     },
-    captionHTML: {
+    captionHtml: {
       type: String
     },
     captionTop: {
@@ -352,14 +352,14 @@ export default {
       type: String,
       default: 'There are no records to show'
     },
-    emptyHTML: {
+    emptyHtml: {
       type: String
     },
     emptyFilteredText: {
       type: String,
       default: 'There are no records matching your request'
     },
-    emptyFilteredHTML: {
+    emptyFilteredHtml: {
       type: String
     },
     apiUrl: {
@@ -496,7 +496,7 @@ export default {
             fields.push({ key: f, label: startCase(f) })
           } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
             // Full object definition. We use assign so that we don't mutate the original
-            fields.push(assign({}, f))
+            fields.push({ ...f })
           } else if (typeof f === 'object' && keys(f).length === 1) {
             // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
             const key = keys(f)[0]
@@ -802,7 +802,7 @@ export default {
           attrs['role'] = 'cell'
         }
       }
-      return assign({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}))
+      return { ...attrs, ...this.getTdValues(item, field.key, field.tdAttr, {}) }
     },
     rowClasses(item) {
       return [
@@ -1136,7 +1136,7 @@ export default {
     // Build the caption
     let caption = h(false)
     let captionId = null
-    if (this.caption || this.captionHTML || $slots['table-caption']) {
+    if (this.caption || this.captionHtml || $slots['table-caption']) {
       captionId = this.isStacked ? this.safeId('_caption_') : null
       const data = {
         key: 'caption',
@@ -1144,7 +1144,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = htmlOrText(this.captionHTML, this.caption)
+        data.domProps = htmlOrText(this.captionHtml, this.caption)
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1153,6 +1153,12 @@ export default {
     const colgroup = $slots['table-colgroup']
       ? h('colgroup', { key: 'colgroup' }, $slots['table-colgroup'])
       : h(false)
+
+    // Support scoped and unscoped slots when needed
+    const normalizeSlot = (slotName, slotScope = {}) => {
+      const slot = $scoped[slotName] || $slots[slotName]
+      return typeof slot === 'function' ? slot(slotScope) : slot
+    }
 
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
@@ -1210,7 +1216,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = htmlOrText(field.labelHTML, field.label)
+          data.domProps = htmlOrText(field.labelHtml, field.label)
         }
         return h('th', data, slot)
       })
@@ -1468,14 +1474,25 @@ export default {
     }
 
     // Empty Items / Empty Filtered Row slot
-    if (this.showEmpty && (!items || items.length === 0)) {
-      let empty = this.isFiltered ? $slots['emptyfiltered'] : $slots['empty']
+    if (
+      this.showEmpty &&
+      (!items || items.length === 0) &&
+      !($slots['table-busy'] && this.computedBusy)
+    ) {
+      let empty = normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+        emptyFilteredHtml: this.emptyFilteredHtml,
+        emptyFilteredText: this.emptyFilteredText,
+        emptyHtml: this.emptyHtml,
+        emptyText: this.emptyText,
+        fields: fields,
+        items: items
+      })
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
           domProps: this.isFiltered
-            ? htmlOrText(this.emptyFilteredHTML, this.emptyFilteredText)
-            : htmlOrText(this.emptyHTML, this.emptyText)
+            ? htmlOrText(this.emptyFilteredHtml, this.emptyFilteredText)
+            : htmlOrText(this.emptyHtml, this.emptyText)
         })
       }
       empty = h(
@@ -1536,12 +1553,10 @@ export default {
     let tbodyOn = {}
     if (isTransGroup) {
       tbodyOn = this.tbodyTransitionHandlers || {}
-      tbodyProps = assign(
-        {},
-        this.tbodyTransitionProps || {},
-        // Always use tbody element as tag. Users can't override this.
-        { tag: 'tbody' }
-      )
+      tbodyProps = {
+        ...(this.tbodyTransitionProps || {}),
+        tag: 'tbody'
+      }
     }
 
     // Assemble the rows into the tbody

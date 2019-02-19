@@ -101,13 +101,13 @@ Note that images will still be responsive and automatically grow or shrink to fi
 of its parent container.
 
 Internally, `<b-carousel-slide>` uses the [`<b-img>`](/docs/components/image) component to render
-the images. The `img-*` props map to the corresponsing props available to `<b-img>`.
+the images. The `img-*` props map to the corresponding props available to `<b-img>`.
 
 ## Interval
 
 Carousel defaults to an interval of `5000`ms (5 seconds). You can change the interval between slides
 by setting the `interval` prop to the desired number of milliseconds. The smallest supported sliding
-inteval is 1000ms (1 second).
+interval is 1000ms (1 second).
 
 In browsers where the [Page Visibility API](https://www.w3.org/TR/page-visibility/) is supported,
 the carousel will avoid sliding when the webpage is not visible to the user (such as when the
@@ -132,7 +132,7 @@ Both indicators and controls can be set at the same time or independently.
 
 ## Carousel animation
 
-Carousel, by default, uses a sliding animation. You can change teh slide animation to a cross-fade
+Carousel, by default, uses a sliding animation. You can change the slide animation to a cross-fade
 animation, or disable animation completely.
 
 ### Crossfade animation
@@ -190,7 +190,7 @@ disable touch control, set the `no-touch` prop to `true`.
 
 ## `v-model` support
 
-Programmaticaly control which slide is showing via `v-model` (which binds to the `value` prop).
+Programmatically control which slide is showing via `v-model` (which binds to the `value` prop).
 Note, that slides are indexed starting at `0`.
 
 ## Accessibility

@@ -171,7 +171,7 @@ also be active. Scroll the area next to the navbar and watch the active class ch
 
 ### Example using list group
 
-Scrollspy also works with `<b-list-group>` when it contains `<b-list-grouop-item>`s that have a
+Scrollspy also works with `<b-list-group>` when it contains `<b-list-group-item>`s that have a
 _local_ `href` . Scroll the area next to the list group and watch the active state change.
 
 ```html
@@ -248,7 +248,7 @@ the `v-b-scrollspy` directive is applied to the target element that has the link
 and the arg or option specifies which element to monitor (spy) scrolling on.
 
 The directive an be applied to any containing element or component that has `<nav-item>`,
-`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes), a long as
+`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the appropriate classes), a long as
 they have `href` attributes that point to elements with the respective `id`s in the scrolling
 element.
 
