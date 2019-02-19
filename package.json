@@ -118,7 +118,7 @@
     "jest": "^24.1.0",
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.11",
-    "marked": "^0.6.0",
+    "marked": "^0.6.1",
     "node-sass": "^4.11.0",
     "nuxt": "^2.4.3",
     "postcss-cli": "^6.1.1",
