@@ -47,7 +47,7 @@ export default {
   computed: {
     computedStyle() {
       return {
-        // setting noResize to true will disable the ability for the user to
+        // Setting `noResize` to true will disable the ability for the user to
         // resize the textarea. We also disable when in auto resize mode
         resize: !this.computedRows || this.noResize ? 'none' : null,
         // The computed height for auto resize
@@ -65,17 +65,21 @@ export default {
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
     computedHeight() /* istanbul ignore next: can't test getComputedProperties */ {
+      // We compare `computedRows` and `localValue` to `true`, a value
+      // they both can't have at any time, to ensure reactivity
+      if (
+        this.$isServer ||
+        this.dontResize ||
+        this.computedRows === true ||
+        this.localValue === true
+      ) {
+        return null
+      }
+
       const el = this.$el
 
-      if (this.isServer) {
-        return null
-      }
-      // We compare this.localValue to null to ensure reactivity of content changes.
-      if (this.localValue === null || this.computedRows || this.dontResize || this.$isServer) {
-        return null
-      }
-
-      // Element must be visible (not hidden) and in document. *Must* be checked after above.
+      // Element must be visible (not hidden) and in document
+      // *Must* be checked after above
       if (!isVisible(el)) {
         return null
       }
@@ -98,14 +102,19 @@ export default {
         (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate content height in "rows"
       const contentRows = (el.scrollHeight - offset) / lineHeight
-      // Put the old height back (needed when new height is equal to old height!)
-      el.style.height = oldHeight
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
-      // Calulate the required height of the textarea including border and padding (in pixels)
+      // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // return the new computed height in px units
+      // Put the old height back when new height is equal or less
+      const oldHeightPx = parseFloat(oldHeight) || 0
+      if (oldHeightPx >= height) {
+        el.style.height = oldHeight
+        return oldHeight
+      }
+
+      // Return the new computed height in px units
       return `${height}px`
     }
   },
