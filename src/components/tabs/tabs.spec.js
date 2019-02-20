@@ -2,8 +2,6 @@ import Tab from './tab'
 import Tabs from './tabs'
 import { mount } from '@vue/test-utils'
 
-jest.useFakeTimers()
-
 describe('tabs', async () => {
   it('default has expected classes and structure', async () => {
     const wrapper = mount(Tabs)
