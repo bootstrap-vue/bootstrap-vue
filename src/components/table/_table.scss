@@ -1,7 +1,7 @@
 /* b-table: general styling */
 .b-table.table {
   // table fixed header width layout
-  &.table-fixed {
+  &.b-table-fixed {
     /* fixed width columns */
     table-layout: fixed;
   }
