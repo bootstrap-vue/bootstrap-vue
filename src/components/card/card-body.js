@@ -2,30 +2,24 @@ import { mergeData } from 'vue-functional-data-merge'
 import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import pluckProps from '../../utils/pluck-props'
-import { assign } from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'
 import BCardTitle, { props as titleProps } from './card-title'
 import BCardSubTitle, { props as subTitleProps } from './card-sub-title'
 
-export const props = assign(
-  {},
+export const props = {
   // Import common card props and prefix them with `body-`
-  copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
-  {
-    bodyClass: {
-      type: [String, Object, Array],
-      default: null
-    }
+  ...copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
+  bodyClass: {
+    type: [String, Object, Array],
+    default: null
   },
-  titleProps,
-  subTitleProps,
-  {
-    overlay: {
-      type: Boolean,
-      default: false
-    }
+  ...titleProps,
+  ...subTitleProps,
+  overlay: {
+    type: Boolean,
+    default: false
   }
-)
+}
 
 // @vue/component
 export default {

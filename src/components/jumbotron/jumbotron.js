@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import stripScripts from '../../utils/strip-scripts'
+import { stripTags } from '../../utils/html'
 import Container from '../layout/container'
 
 export const props = {
@@ -15,6 +15,10 @@ export const props = {
     type: String,
     default: null
   },
+  headerHtml: {
+    type: String,
+    default: null
+  },
   headerTag: {
     type: String,
     default: 'h1'
@@ -24,6 +28,10 @@ export const props = {
     default: '3'
   },
   lead: {
+    type: String,
+    default: null
+  },
+  leadHtml: {
     type: String,
     default: null
   },
@@ -61,7 +69,7 @@ export default {
     const $slots = slots()
 
     // Header
-    if (props.header || $slots.header) {
+    if (props.header || $slots.header || props.headerHtml) {
       childNodes.push(
         h(
           props.headerTag,
@@ -70,15 +78,19 @@ export default {
               [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
             }
           },
-          $slots.header || stripScripts(props.header)
+          $slots.header || props.headerHtml || stripTags(props.header)
         )
       )
     }
 
     // Lead
-    if (props.lead || $slots.lead) {
+    if (props.lead || $slots.lead || props.leadHtml) {
       childNodes.push(
-        h(props.leadTag, { staticClass: 'lead' }, $slots.lead || stripScripts(props.lead))
+        h(
+          props.leadTag,
+          { staticClass: 'lead' },
+          $slots.lead || props.leadHtml || stripTags(props.lead)
+        )
       )
     }
 

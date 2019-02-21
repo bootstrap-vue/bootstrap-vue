@@ -115,20 +115,6 @@ describe('card-image', async () => {
     expect(wrapper.classes().length).toBe(1)
   })
 
-  it('has class "img-fluid" when fluid=true', async () => {
-    const wrapper = mount(CardImg, {
-      context: {
-        props: {
-          src: 'https://picsum.photos/600/300/?image=25',
-          fluid: true
-        }
-      }
-    })
-    expect(wrapper.classes()).toContain('card-img')
-    expect(wrapper.classes()).toContain('img-fluid')
-    expect(wrapper.classes().length).toBe(2)
-  })
-
   it('has attribute alt when prop alt set', async () => {
     const wrapper = mount(CardImg, {
       context: {

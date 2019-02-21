@@ -67,7 +67,7 @@ export default {
       this.currentPage = pageNum
       this.$nextTick(() => {
         try {
-          // Emulate native link click page reloading behaviour by bluring the
+          // Emulate native link click page reloading behaviour by  blurring the
           // paginator and returing focus to the document
           const target = evt.currentTarget || evt.target
           target.blur()

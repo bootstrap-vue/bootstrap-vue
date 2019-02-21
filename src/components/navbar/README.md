@@ -7,44 +7,44 @@
 **Example:**
 
 ```html
-<b-navbar toggleable="lg" type="dark" variant="info">
-  <b-navbar-brand href="#">NavBar</b-navbar-brand>
+<div>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
-  <b-navbar-toggle target="nav_collapse" />
+    <b-navbar-toggle target="nav_collapse" />
 
-  <b-collapse is-nav id="nav_collapse">
-    <b-navbar-nav>
-      <b-nav-item href="#">Link</b-nav-item>
-      <b-nav-item href="#" disabled>Disabled</b-nav-item>
-    </b-navbar-nav>
+    <b-collapse is-nav id="nav_collapse">
+      <b-navbar-nav>
+        <b-nav-item href="#">Link</b-nav-item>
+        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+      </b-navbar-nav>
 
-    <!-- Right aligned nav items -->
-    <b-navbar-nav class="ml-auto">
-      <b-nav-form>
-        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search" />
-        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-      </b-nav-form>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-form>
+          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search" />
+          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        </b-nav-form>
 
-      <b-nav-item-dropdown text="Lang" right>
-        <b-dropdown-item href="#">EN</b-dropdown-item>
-        <b-dropdown-item href="#">ES</b-dropdown-item>
-        <b-dropdown-item href="#">RU</b-dropdown-item>
-        <b-dropdown-item href="#">FA</b-dropdown-item>
-      </b-nav-item-dropdown>
+        <b-nav-item-dropdown text="Lang" right>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown>
 
-      <b-nav-item-dropdown right>
-        <!-- Using button-content slot -->
-        <template slot="button-content">
-          <em>User</em>
-        </template>
-        <b-dropdown-item href="#">Profile</b-dropdown-item>
-        <b-dropdown-item href="#">Signout</b-dropdown-item>
-      </b-nav-item-dropdown>
-    </b-navbar-nav>
-  </b-collapse>
-</b-navbar>
+        <b-nav-item-dropdown right>
+          <!-- Using button-content slot -->
+          <template slot="button-content"><em>User</em></template>
+          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item href="#">Signout</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 
-<!-- navbar-1.vue -->
+<!-- b-navbar.vue -->
 ```
 
 ## Color schemes
@@ -100,7 +100,7 @@ the `tag` prop to the element you would like rendered:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-1.vue -->
+<!-- b-navbar-brand-link.vue -->
 ```
 
 ```html
@@ -111,7 +111,7 @@ the `tag` prop to the element you would like rendered:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-2.vue -->
+<!-- b-navbar-brand-heading.vue -->
 ```
 
 Adding images to the `<b-navbar-brand>` will likely always require custom styles or utilities to
@@ -127,7 +127,7 @@ properly size. Here are some examples to demonstrate:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-3.vue -->
+<!-- b-navbar-brand-image.vue -->
 ```
 
 ```html
@@ -141,7 +141,7 @@ properly size. Here are some examples to demonstrate:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-4.vue -->
+<!-- b-navbar-brand-image-and-text.vue -->
 ```
 
 ### `<b-navbar-nav>`
@@ -180,14 +180,18 @@ alignment and horizontal spacing for strings of text.
 <div>
   <b-navbar toggleable type="light" variant="light">
     <b-navbar-toggle target="nav_text_collapse" />
+
     <b-navbar-brand>BootstrapVue</b-navbar-brand>
+
     <b-collapse is-nav id="nav_text_collapse">
-      <b-navbar-nav><b-nav-text>Navbar text</b-nav-text></b-navbar-nav>
+      <b-navbar-nav>
+        <b-nav-text>Navbar text</b-nav-text>
+      </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </div>
 
-<!-- navbar-text-1.vue -->
+<!-- b-navbar-text.vue -->
 ```
 
 ### `<b-nav-item-dropdown>`
@@ -200,6 +204,7 @@ split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
   <b-navbar type="dark" variant="dark">
     <b-navbar-nav>
       <b-nav-item href="#">Home</b-nav-item>
+
       <!-- Navbar dropdowns -->
       <b-nav-item-dropdown text="Lang" right>
         <b-dropdown-item href="#">EN</b-dropdown-item>
@@ -207,6 +212,7 @@ split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
         <b-dropdown-item href="#">RU</b-dropdown-item>
         <b-dropdown-item href="#">FA</b-dropdown-item>
       </b-nav-item-dropdown>
+
       <b-nav-item-dropdown text="User" right>
         <b-dropdown-item href="#">Account</b-dropdown-item>
         <b-dropdown-item href="#">Settings</b-dropdown-item>
@@ -215,7 +221,7 @@ split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
   </b-navbar>
 </div>
 
-<!-- navbar-dropdown-1.vue -->
+<!-- b-navbar-dropdown.vue -->
 ```
 
 ### `<b-nav-form>`
@@ -232,7 +238,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
   </b-navbar>
 </div>
 
-<!-- navbar-form-1.vue -->
+<!-- b-navbar-form.vue -->
 ```
 
 Input groups work as well:
@@ -248,7 +254,7 @@ Input groups work as well:
   </b-navbar>
 </div>
 
-<!-- navbar-form-2.vue -->
+<!-- b-navbar-form-inputs.vue -->
 ```
 
 ### `<b-navbar-toggle>` and `<b-collapse is-nav>`
@@ -277,7 +283,7 @@ See the first example on this page for reference, and also refer to
 
 ## Printing
 
-Navbars are hidden by deafult when printing. Force them to be printed by setting the `print` prop.
+Navbars are hidden by default when printing. Force them to be printed by setting the `print` prop.
 
 ## See also
 

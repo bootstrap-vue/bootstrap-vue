@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="container bd-content"
-    v-html="readme"
-  />
+  <div class="container bd-content" v-html="readme" />
 </template>
 
 <script>

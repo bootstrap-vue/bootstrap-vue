@@ -343,11 +343,23 @@ export default {
         }
       })
     },
+    // Emit a click event on a specified b-tab component instance
+    emitTabClick(tab, evt) {
+      if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
+        tab.$emit('click', evt)
+      }
+    },
+    // Click Handler
+    clickTab(tab, evt) {
+      this.activateTab(tab)
+      this.emitTabClick(tab, evt)
+    },
     // Move to first non-disabled tab
     firstTab(focus) {
       const tab = this.tabs.find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
+        this.emitTabClick(tab, focus)
       }
     },
     // Move to previous non-disabled tab
@@ -359,6 +371,7 @@ export default {
         .find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
+        this.emitTabClick(tab, focus)
       }
     },
     // Move to next non-disabled tab
@@ -367,6 +380,7 @@ export default {
       const tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
+        this.emitTabClick(tab, focus)
       }
     },
     // Move to last non-disabled tab
@@ -377,6 +391,7 @@ export default {
         .find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
+        this.emitTabClick(tab, focus)
       }
     }
   },
@@ -387,7 +402,7 @@ export default {
     // Tab button to allow focusing when no actgive tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
-    // For each b-tab found create teh tab buttons
+    // For each b-tab found create the tab buttons
     const buttons = tabs.map((tab, index) => {
       const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
       let tabIndex = null
@@ -416,7 +431,7 @@ export default {
         },
         on: {
           click: evt => {
-            this.activateTab(tab)
+            this.clickTab(tab, evt)
           },
           first: this.firstTab,
           prev: this.previousTab,

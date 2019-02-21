@@ -2,7 +2,6 @@
  * ScrollSpy class definition
  */
 
-import { assign } from '../../utils/object'
 import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import {
@@ -158,7 +157,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       this.unlisten()
       this.$scroller = null
     }
-    const cfg = assign({}, this.constructor.Default, config)
+    const cfg = { ...this.constructor.Default, ...config }
     if ($root) {
       this.$root = $root
     }

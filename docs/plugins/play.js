@@ -59,13 +59,12 @@ const createVM = (name, node, vnode) => {
     node.parentNode.insertBefore(holder, node)
 
     // Create VM
-    return new Vue(
-      Object.assign({}, options, {
-        template: `<div class='bd-example vue-example vue-example-${name}'>${template}</div>`,
-        router: vnode.context.$router,
-        el: holder
-      })
-    )
+    return new Vue({
+      ...options,
+      el: holder,
+      template: `<div class='bd-example vue-example vue-example-${name}'>${template}</div>`,
+      router: vnode.context.$router
+    })
   } catch (e) {
     console.error('[v-play]', e)
   }

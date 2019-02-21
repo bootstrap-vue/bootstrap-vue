@@ -1,6 +1,6 @@
 import BFormCheckbox from './form-checkbox'
 import BFormCheckboxGroup from './form-checkbox-group'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BFormCheckbox,
@@ -11,12 +11,8 @@ const components = {
   BCheckGroup: BFormCheckboxGroup
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

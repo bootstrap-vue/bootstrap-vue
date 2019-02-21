@@ -1,6 +1,7 @@
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 import { hasTouchSupport } from '../../utils/env'
+import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default {
@@ -45,7 +46,6 @@ export default {
     },
     contentVisibleUp: {
       type: String
-      // default: undefined
     },
     contentTag: {
       type: String,
@@ -53,7 +53,9 @@ export default {
     },
     caption: {
       type: String
-      // default: undefined
+    },
+    captionHtml: {
+      type: String
     },
     captionTag: {
       type: String,
@@ -61,7 +63,9 @@ export default {
     },
     text: {
       type: String
-      // default: undefined
+    },
+    textHtml: {
+      type: String
     },
     textTag: {
       type: String,
@@ -69,7 +73,6 @@ export default {
     },
     background: {
       type: String
-      // default: undefined
     }
   },
   data() {
@@ -126,8 +129,14 @@ export default {
       this.contentTag,
       { staticClass: 'carousel-caption', class: this.contentClasses },
       [
-        this.caption ? h(this.captionTag, { domProps: { innerHTML: this.caption } }) : h(false),
-        this.text ? h(this.textTag, { domProps: { innerHTML: this.text } }) : h(false),
+        this.caption || this.captionHtml
+          ? h(this.captionTag, {
+              domProps: htmlOrText(this.captionHtml, this.caption)
+            })
+          : h(false),
+        this.text || this.textHtml
+          ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
+          : h(false),
         $slots.default
       ]
     )

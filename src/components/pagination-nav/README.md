@@ -9,15 +9,18 @@ pagination (such as table or list pagination), use the
 
 ```html
 <template>
-  <div style="overflow-x:auto;">
-    <h6>Default</h6>
-    <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
+  <div class="overflow-auto">
+    <div>
+      <h6>Default</h6>
+      <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
+    </div>
 
-    <h6 class="mt-4">With link generator function</h6>
-    <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
-    <br />
+    <div class="mt-3">
+      <h6 class="mt-4">With link generator function</h6>
+      <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
+    </div>
 
-    <p class="mt-4">currentPage: {{ currentPage }}</p>
+    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -36,7 +39,7 @@ pagination (such as table or list pagination), use the
   }
 </script>
 
-<!-- pagination-1.vue -->
+<!-- b-pagination-nav.vue -->
 ```
 
 `<b-pagination-nav>` is a custom input component that provides navigational pagination. The current
@@ -93,18 +96,18 @@ should return a string.
 
 ```html
 <template>
-  <div style="overflow-x:auto;">
+  <div class="overflow-auto">
     <b-pagination-nav
       :link-gen="linkGen"
       :page-gen="pageGen"
       :number-of-pages="links.length"
       v-model="currentPage"
     />
-    <br />
-    <p>
-      Page #: {{ currentPage }}<br />
+
+    <div class="mt-3">
+      Page: {{ currentPage }}<br />
       Page Link: {{ pageLink }}
-    </p>
+    </div>
   </div>
 </template>
 
@@ -132,25 +135,33 @@ should return a string.
   }
 </script>
 
-<!-- pagination-nav-links.vue -->
+<!-- b-pagination-nav-links.vue -->
 ```
 
 ## Button Size
 
-Optionally change from the default button size by setting the `size` prop to eiter `'am` for smaller
-buttons or `'lg'` for larger buttons.
+Optionally change from the default button size by setting the `size` prop to either `'am` for
+smaller buttons or `'lg'` for larger buttons.
 
 ```html
 <template>
-  <div style="overflow-x:auto;">
-    <h6>Small</h6>
-    <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
+  <div class="overflow-auto">
+    <div>
+      <h6>Small</h6>
+      <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
+    </div>
 
-    <h6>Default</h6>
-    <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
+    <div class="mt-3">
+      <h6>Default</h6>
+      <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
+    </div>
 
-    <h6>Large</h6>
-    <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
+    <div class="mt-3">
+      <h6>Large</h6>
+      <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
+    </div>
+
+    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -164,7 +175,7 @@ buttons or `'lg'` for larger buttons.
   }
 </script>
 
-<!-- pagination-size.vue -->
+<!-- b-pagination-nav-size.vue -->
 ```
 
 ## Customizing
@@ -214,20 +225,23 @@ By default the pagination component is left aligned. Change the alignment to `ce
 
 ```html
 <template>
-  <div>
-    <h6>Left alignment (default)</h6>
-    <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
-    <br />
+  <div class="overflow-auto">
+    <div>
+      <h6>Left alignment (default)</h6>
+      <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
+    </div>
 
-    <h6>Center alignment</h6>
-    <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
-    <br />
+    <div class="mt-3 text-center">
+      <h6>Center alignment</h6>
+      <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
+    </div>
 
-    <h6>Right (end) alignment</h6>
-    <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
-    <br />
+    <div class="mt-3 text-right">
+      <h6>Right (end) alignment</h6>
+      <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
+    </div>
 
-    <div>currentPage: {{ currentPage }}</div>
+    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -241,7 +255,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
   }
 </script>
 
-<!-- pagination-align.vue -->
+<!-- b-pagination-nav-alignment.vue -->
 ```
 
 ## Small screen support
@@ -275,7 +289,7 @@ technology.
 | `label-page`       | "Go to page", appended with the page number             |
 | `aria-label`       | "Pagination", applied to the outer pagination container |
 
-### Keyboard navigtion support:
+### Keyboard navigation support:
 
 `<b-pagination>` supports keyboard navigation out of the box.
 

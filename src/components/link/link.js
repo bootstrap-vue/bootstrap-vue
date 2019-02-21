@@ -1,4 +1,4 @@
-import { assign, keys } from '../../utils/object'
+import { keys } from '../../utils/object'
 import { arrayIncludes, concat } from '../../utils/array'
 import { mergeData } from 'vue-functional-data-merge'
 
@@ -216,7 +216,7 @@ export default {
         tabindex: props.disabled ? '-1' : data.attrs ? data.attrs.tabindex : null,
         'aria-disabled': props.disabled ? 'true' : null
       },
-      props: assign(props, { tag: props.routerTag })
+      props: { ...props, tag: props.routerTag }
     })
 
     // If href attribute exists on router-link (even undefined or null) it fails working on SSR
@@ -227,7 +227,7 @@ export default {
 
     // We want to overwrite any click handler since our callback
     // will invoke the user supplied handler if !props.disabled
-    componentData[eventType] = assign(componentData[eventType] || {}, handlers)
+    componentData[eventType] = { ...(componentData[eventType] || {}), ...handlers }
 
     return h(tag, componentData, children)
   }

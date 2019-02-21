@@ -3,7 +3,6 @@
  * Common props
  */
 import { isArray } from '../utils/array'
-import { assign } from '../utils/object'
 import { isElement, getById } from '../utils/dom'
 import { HTMLElement } from '../utils/ssr'
 import observeDom from '../utils/observe-dom'
@@ -63,6 +62,10 @@ export default {
       type: [String, HTMLElement],
       default: 'scrollParent'
     },
+    boundaryPadding: {
+      type: Number,
+      default: 5
+    },
     show: {
       type: Boolean,
       default: false
@@ -87,6 +90,8 @@ export default {
         container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
         // boundariesElement passed to popper
         boundary: this.boundary,
+        // boundariesElement padding passed to popper
+        boundaryPadding: this.boundaryPadding,
         // Show/Hide delay
         delay: delay || 0,
         // Offset can be css distance. if no units, pixels are assumed
@@ -190,7 +195,7 @@ export default {
   },
   methods: {
     getConfig() {
-      const cfg = assign({}, this.baseConfig)
+      const cfg = { ...this.baseConfig }
       if (this.$refs.title && this.$refs.title.innerHTML.trim()) {
         // If slot has content, it overrides 'title' prop
         // We use the DOM node as content to allow components!

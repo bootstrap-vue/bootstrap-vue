@@ -1,18 +1,18 @@
 import BLink, { propsFactory } from '../link/link'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
-import { assign } from '../../utils/object'
 
 const linkProps = propsFactory()
 linkProps.href.default = undefined
 linkProps.to.default = undefined
 
-export const props = assign(linkProps, {
+export const props = {
+  ...linkProps,
   tag: {
     type: String,
     default: 'div'
   }
-})
+}
 
 // @vue/component
 export default {

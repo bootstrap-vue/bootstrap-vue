@@ -8,10 +8,10 @@ appear.
 
 ```html
 <div class="text-center my-3">
-  <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
+  <b-button v-b-tooltip.hover title="Tooltip content">Hover Me</b-button>
 </div>
 
-<!-- tooltip-example-sample.vue -->
+<!-- b-tooltip.vue -->
 ```
 
 ## Overview
@@ -38,100 +38,77 @@ The default position is `top`. Positioning is relative to the trigger element.
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the top
-    </div>
+    <div class="tooltip-inner">Tooltip on the top</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="right: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the topleft
-    </div>
+    <div class="tooltip-inner">Tooltip on the topleft</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the topright
-    </div>
+    <div class="tooltip-inner">Tooltip on the topright</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the right
-    </div>
+    <div class="tooltip-inner">Tooltip on the right</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="bottom: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the righttop
-    </div>
+    <div class="tooltip-inner">Tooltip on the righttop</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the rightbottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the rightbottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="right: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottomleft
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottomleft</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottomright
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottomright</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the left
-    </div>
+    <div class="tooltip-inner">Tooltip on the left</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="bottom: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the lefttop
-    </div>
+    <div class="tooltip-inner">Tooltip on the lefttop</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the leftbottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the leftbottom</div>
   </div>
 </div>
 
 **Live example**
 
 ```html
-<template>
+<div>
+  <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-btn>
+        <b-button v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-btn>
+        <b-button v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-btn>
+        <b-button v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+        <b-button v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
-<!-- tooltip-positioning.vue -->
+<!-- b-tooltip-positioning.vue -->
 ```
 
 ## Triggers
@@ -144,26 +121,26 @@ close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `fo
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
 ```html
-<template>
+<div>
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-btn>
+        <b-button v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-btn>
+        <b-button v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-btn>
+        <b-button v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-btn>
+        <b-button v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-button>
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
-<!-- tooltip-triggers.vue -->
+<!-- b-tooltip-triggers.vue -->
 ```
 
 ### Dismiss on next click
@@ -172,7 +149,7 @@ Use both `click` and `blur` if you would like a tooltip that opens only on click
 will close when anything else in the document is clicked or receives focus.
 
 Note that your element **must** be in the document tab sequence for this to work. If your element is
-not tabable, add the `tabindex="0"` attribute to the element.
+not tabbable, add the `tabindex="0"` attribute to the element.
 
 ## Title content
 
@@ -188,7 +165,7 @@ can also be passed as an object to `v-b-tooltip` in the form of
 ```
 
 If your title content has basic HTML markup, then you will also need to set the `html` property to
-true, or use the diretive modifier `html`
+true, or use the directive modifier `html`
 
 ```js
 // Object format with HTML:
@@ -205,16 +182,16 @@ Title can also be a function reference, which is called each time the tooltip is
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-btn>
+        <b-button v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover="'String Tip'" variant="success">String</b-btn>
+        <b-button v-b-tooltip.hover="'String Tip'" variant="success">String</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.html="tipData" variant="success">Data</b-btn>
+        <b-button v-b-tooltip.hover.html="tipData" variant="success">Data</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.html="tipMethod" variant="success">Method</b-btn>
+        <b-button v-b-tooltip.hover.html="tipMethod" variant="success">Method</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -235,7 +212,7 @@ Title can also be a function reference, which is called each time the tooltip is
   }
 </script>
 
-<!-- tooltip-content.vue -->
+<!-- b-tooltip-content.vue -->
 ```
 
 ## Directive syntax and usage
@@ -289,6 +266,7 @@ Where `<value>` can be (optional):
 | `offset`            | Number or String                | `0`                                                                                                      | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.                                                                                                                                                                                                                                                                                                                                                                       |
 | `fallbackPlacement` | String or Array                 | `'flip'`                                                                                                 | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                                                                                                      |
 | `boundary`          | String or HTMLElement reference | `'scrollParent'`                                                                                         | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                     |
+| `boundaryPadding`   | Number                          | `5`                                                                                                      | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                                                                                                                                                                                                                                                                                      |
 
 ### Usage
 

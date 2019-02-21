@@ -57,7 +57,7 @@ function renderInvalidFeedback(h, ctx) {
         props: {
           id: ctx.invalidFeedbackId,
           // If state is explicitly false, always show the feedback
-          forceShow: ctx.computedState === false,
+          state: ctx.computedState,
           tooltip: ctx.tooltip
         },
         attrs: {
@@ -83,7 +83,7 @@ function renderValidFeedback(h, ctx) {
         props: {
           id: ctx.validFeedbackId,
           // If state is explicitly true, always show the feedback
-          forceShow: ctx.computedState === true,
+          state: ctx.computedState,
           tooltip: ctx.tooltip
         },
         attrs: {
@@ -156,7 +156,7 @@ function renderLabel(h, ctx) {
         },
         class: [
           // When horizontal or if a legend is rendered, add col-form-label for correct sizing
-          // as Boostrap has inconsitent font styling for legend in non-horiontal form-groups.
+          // as Bootstrap has inconsitent font styling for legend in non-horiontal form-groups.
           // See: https://github.com/twbs/bootstrap/issues/27805
           isHorizontal || isLegend ? 'col-form-label' : '',
           // Emulate label padding top of 0 on legend when not horizontal

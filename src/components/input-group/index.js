@@ -1,4 +1,4 @@
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 import BInputGroup from './input-group'
 import BInputGroupAddon from './input-group-addon'
@@ -14,12 +14,8 @@ const components = {
   BInputGroupText
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

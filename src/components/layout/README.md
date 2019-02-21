@@ -4,7 +4,7 @@
 > `<b-col>` components) to build layouts of all shapes and sizes thanks to a twelve column system,
 > five default responsive tiers, CSS Sass variables and mixins, and dozens of predefined classes.
 
-Boostrap-Vue provides several convenient _functional_ components tailored for layout, which can
+BootstrapVue provides several convenient _functional_ components tailored for layout, which can
 simplify your complex page markup compared to traditional Bootstrap V4 markup. Feel free to switch
 back and forth between traditional Bootstrap V4 markup (i.e. `<div>`s and classes) and BootstrapVue
 functional layout components.
@@ -24,7 +24,7 @@ grid comes together.
   </b-row>
 </b-container>
 
-<!-- how-it-works.vue -->
+<!-- b-grid-how-it-works.vue -->
 ```
 
 The above example creates three equal-width columns on small, medium, large, and extra large devices
@@ -77,13 +77,17 @@ While containers can be nested, most layouts do not require a nested container.
 **Fixed width container, based on viewport breakpoints:**
 
 ```html
-<b-container><!-- Content here --></b-container>
+<b-container>
+  <!-- Content here -->
+</b-container>
 ```
 
 **Fluid container which is always 100% width, regardless of viewport breakpoint:**
 
 ```html
-<b-container fluid><!-- Content here --></b-container>
+<b-container fluid>
+  <!-- Content here -->
+</b-container>
 ```
 
 ## Rows `<b-row>` and `<b-form-row>`
@@ -111,15 +115,79 @@ and container widths. This is because the viewport width is in pixels and does n
 
 See how aspects of the Bootstrap grid system work across multiple devices with a handy table.
 
-|                                                                            | **Extra small** <br> `<576px` | **Small** <br> `≥576px` | **Medium** <br> `≥768px` | **Large** <br> `≥992px` | **Extra large** <br> `≥1200px` |
-| -------------------------------------------------------------------------- | ----------------------------- | ----------------------- | ------------------------ | ----------------------- | ------------------------------ |
-| **Max container width**                                                    | None (auto)                   | 540px                   | 720px                    | 960px                   | 1140px                         |
-| **Prop**                                                                   | `cols="*"`                    | `sm="*"`                | `md="*"`                 | `lg="*"`                | `xl="*"`                       |
-| **# of columns** <td colspan="5">12</td>                                   |
-| **Gutter width** <td colspan="5">30px (15px on each side of a column)</td> |
-| **Nestable** <td colspan="5">Yes</td>                                      |
-| **Offset**                                                                 | `offset="*"`                  | `offset-sm="*"`         | `offset-md="*"`          | `offset-lg="*"`         | `offset-xl="*"`                |
-| **Order**                                                                  | `order="*"`                   | `order-sm="*"`          | `order-md="*"`           | `order-lg="*"`          | `order-xl="*"`                 |
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        <strong>Extra small</strong><br>
+        <code>&lt;576px</code>
+      </th>
+      <th>
+        <strong>Small</strong><br>
+        <code>≥576px</code>
+      </th>
+      <th>
+        <strong>Medium</strong><br>
+        <code>≥768px</code>
+      </th>
+      <th>
+        <strong>Large</strong><br>
+        <code>≥992px</code>
+      </th>
+      <th>
+        <strong>Extra large</strong><br>
+        <code>≥1200px</code>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Max container width</strong></td>
+      <td>None (auto)</td>
+      <td>540px</td>
+      <td>720px</td>
+      <td>960px</td>
+      <td>1140px</td>
+    </tr>
+    <tr>
+      <td><strong>Prop</strong></td>
+      <td><code>cols="*"</code></td>
+      <td><code>sm="*"</code></td>
+      <td><code>md="*"</code></td>
+      <td><code>lg="*"</code></td>
+      <td><code>xl="*"</code></td>
+    </tr>
+    <tr>
+      <td><strong># of columns</strong>
+      <td colspan="5">12</td>
+    </tr>
+    <tr>
+      <td><strong>Gutter width</strong>
+      <td colspan="5">30px (15px on each side of a column)</td>
+    </tr>
+    <tr>
+      <td><strong>Nestable</strong>
+      <td colspan="5">Yes</td>
+    </tr>
+    <tr>
+      <td><strong>Offset</strong></td>
+      <td><code>offset="*"</code></td>
+      <td><code>offset-sm="*"</code></td>
+      <td><code>offset-md="*"</code></td>
+      <td><code>offset-lg="*"</code></td>
+      <td><code>offset-xl="*"</code></td>
+    </tr>
+    <tr>
+      <td><strong>Order</strong></td>
+      <td><code>order="*"</code></td>
+      <td><code>order-sm="*"</code></td>
+      <td><code>order-md="*"</code></td>
+      <td><code>order-lg="*"</code></td>
+      <td><code>order-xl="*"</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Auto-layout columns
 
@@ -138,6 +206,7 @@ width.
     <b-col>1 of 2</b-col>
     <b-col>2 of 2</b-col>
   </b-row>
+
   <b-row>
     <b-col>1 of 3</b-col>
     <b-col>2 of 3</b-col>
@@ -145,7 +214,7 @@ width.
   </b-row>
 </b-container>
 
-<!-- col-1.vue -->
+<!-- b-grid-equal-width.vue -->
 ```
 
 Equal-width columns can be broken into multiple lines, but there is a
@@ -169,7 +238,7 @@ Both these fixes have been documented in a
   </b-row>
 </b-container>
 
-<!-- col-2.vue -->
+<!-- b-grid-equal-width-multiple-lines.vue -->
 ```
 
 ### Setting one column width
@@ -186,6 +255,7 @@ of the center column.
     <b-col cols="8">2 of 3 (wider)</b-col>
     <b-col>3 of 3</b-col>
   </b-row>
+
   <b-row class="text-center">
     <b-col>1 of 3</b-col>
     <b-col cols="5">2 of 3 (wider)</b-col>
@@ -193,7 +263,7 @@ of the center column.
   </b-row>
 </b-container>
 
-<!-- b-col-3.vue -->
+<!-- b-grid-one-width.vue -->
 ```
 
 ### Variable width content
@@ -207,6 +277,7 @@ Use `${breakpoint}-auto` props to size columns based on the natural width of the
     <b-col cols="12" md="auto">Variable width content</b-col>
     <b-col col lg="2">3 of 3</b-col>
   </b-row>
+
   <b-row>
     <b-col>1 of 3</b-col>
     <b-col cols="12" md="auto">Variable width content</b-col>
@@ -214,27 +285,7 @@ Use `${breakpoint}-auto` props to size columns based on the natural width of the
   </b-row>
 </b-container>
 
-<!-- b-col-4.vue -->
-```
-
-### Equal-width multi-row
-
-Create equal-width columns that span multiple rows by inserting a `.w-100` where you want the
-columns to break to a new line. Make the breaks responsive by mixing the `.w-100` with some
-[responsive display utilities](https://getbootstrap.com/docs/4.0/utilities/display/).
-
-```html
-<b-container class="bv-example-row">
-  <b-row>
-    <b-col>col</b-col>
-    <b-col>col</b-col>
-    <div class="w-100" />
-    <b-col>col</b-col>
-    <b-col>col</b-col>
-  </b-row>
-</b-container>
-
-<!-- b-col-5.vue -->
+<!-- b-grid-variable-width.vue -->
 ```
 
 ## Responsive classes
@@ -257,13 +308,14 @@ feel free to stick to `col` (which is applied automatically if no `cols` are spe
     <b-col>col</b-col>
     <b-col>col</b-col>
   </b-row>
+
   <b-row>
     <b-col cols="8">col-8</b-col>
     <b-col cols="4">col-4</b-col>
   </b-row>
 </b-container>
 
-<!-- b-col-5.vue -->
+<!-- b-grid-size-all-breakpoints.vue -->
 ```
 
 ### Stacked to horizontal
@@ -278,6 +330,7 @@ grid system that starts out stacked on extra small devices before becoming horiz
     <b-col sm="8">col-sm-8</b-col>
     <b-col sm="4">col-sm-4</b-col>
   </b-row>
+
   <b-row>
     <b-col sm>col-sm</b-col>
     <b-col sm>col-sm</b-col>
@@ -285,7 +338,7 @@ grid system that starts out stacked on extra small devices before becoming horiz
   </b-row>
 </b-container>
 
-<!-- b-col-6.vue -->
+<!-- b-grid-horizontal-stacked.vue -->
 ```
 
 ### Mix and match
@@ -315,7 +368,7 @@ each tier as needed. See the example below for a better idea of how it all works
   </b-row>
 </b-container>
 
-<!-- b-col-7.vue -->
+<!-- b-grid-mix-and-match.vue -->
 ```
 
 ## Alignment
@@ -331,11 +384,13 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
     <b-col>One of three columns</b-col>
     <b-col>One of three columns</b-col>
   </b-row>
+
   <b-row align-v="center">
     <b-col>One of three columns</b-col>
     <b-col>One of three columns</b-col>
     <b-col>One of three columns</b-col>
   </b-row>
+
   <b-row align-v="end">
     <b-col>One of three columns</b-col>
     <b-col>One of three columns</b-col>
@@ -343,7 +398,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
   </b-row>
 </b-container>
 
-<!-- b-col-8.vue -->
+<!-- b-grid-vertical-alignment.vue -->
 ```
 
 ```html
@@ -355,7 +410,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
   </b-row>
 </b-container>
 
-<!-- b-col-9.vue -->
+<!-- b-grid-align-self.vue -->
 ```
 
 ### Horizontal Alignment
@@ -366,25 +421,29 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
     <b-col cols="4">One of two columns</b-col>
     <b-col cols="4">One of two columns</b-col>
   </b-row>
+
   <b-row align-h="center">
     <b-col cols="4">One of two columns</b-col>
     <b-col cols="4">One of two columns</b-col>
   </b-row>
+
   <b-row align-h="end">
     <b-col cols="4">One of two columns</b-col>
     <b-col cols="4">One of two columns</b-col>
   </b-row>
+
   <b-row align-h="around">
     <b-col cols="4">One of two columns</b-col>
     <b-col cols="4">One of two columns</b-col>
   </b-row>
+
   <b-row align-h="between">
     <b-col cols="4">One of two columns</b-col>
     <b-col cols="4">One of two columns</b-col>
   </b-row>
 </b-container>
 
-<!-- b-col-10.vue -->
+<!-- b-grid-horizontal-alignment.vue -->
 ```
 
 ## Reordering
@@ -404,7 +463,7 @@ you can set the order by breakpoint (e.g., `order="1" order-md="2"`). Includes s
   </b-row>
 </b-container>
 
-<!-- grid-order.vue -->
+<!-- b-grid-order.vue -->
 ```
 
 ### Offsetting columns
@@ -420,14 +479,18 @@ offset is variable.
     <b-col md="4">md="4"</b-col>
     <b-col md="4" offset-md="4">md="4" offset-md="4"</b-col>
   </b-row>
+
   <b-row>
     <b-col md="3" offset-md="3">md="3" offset-md="3"</b-col>
     <b-col md="3" offset-md="3">md="3" offset-md="3"</b-col>
   </b-row>
-  <b-row><b-col md="6" offset-md="3">md="6" offset-md="3"</b-col></b-row>
+
+  <b-row>
+    <b-col md="6" offset-md="3">md="6" offset-md="3"</b-col>
+  </b-row>
 </b-container>
 
-<!-- grid-offset.vue -->
+<!-- b-grid-offset.vue -->
 ```
 
 In addition to column clearing at responsive breakpoints, you may need to reset offsets by setting
@@ -437,19 +500,16 @@ the offset to `0` at a larger breakpoint:
 <b-container fluid class="bv-example-row">
   <b-row>
     <b-col sm="5" md="6">sm="5" md="6"</b-col>
-    <b-col sm="5" offset-sm="2" md="6" offset-md="0">
-      sm="5" offset-sm="2" md="6" offset-md="0"
-    </b-col>
+    <b-col sm="5" offset-sm="2" md="6" offset-md="0">sm="5" offset-sm="2" md="6" offset-md="0"</b-col>
   </b-row>
+
   <b-row>
     <b-col sm="6" md="5" lg="6">sm="6" md="5" lg="6"</b-col>
-    <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="0">
-      sm="6" md="5" offset-md="2" col-lg="6" offset-lg="0"
-    </b-col>
+    <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="0">sm="6" md="5" offset-md="2" col-lg="6" offset-lg="0"</b-col>
   </b-row>
 </b-container>
 
-<!-- grid-offset-reset.vue -->
+<!-- b-grid-offset-reset.vue -->
 ```
 
 ### Margin utilities on columns
@@ -464,17 +524,19 @@ sibling columns away from one another.
     <b-col md="4" class="p-3 bg-info">md="4"</b-col>
     <b-col md="4" class="ml-auto p-3 bg-info">md="4" .ml-auto</b-col>
   </b-row>
+
   <b-row class="mb-3">
     <b-col md="3" class="ml-md-auto p-3 bg-info">md="3" .ml-md-auto</b-col>
     <b-col md="3" class="ml-md-auto p-3 bg-info">md="3" .ml-md-auto</b-col>
   </b-row>
+
   <b-row>
     <b-col cols="auto" class="mr-auto p-3 bg-info">cols="auto" .mr-auto</b-col>
     <b-col cols="auto" class="p-3 bg-info">cols="auto"</b-col>
   </b-row>
 </b-container>
 
-<!-- grid-margins.vue -->
+<!-- b-grid-margins.vue -->
 ```
 
 ## Nesting grids
@@ -496,7 +558,7 @@ within an existing `<b-col>` component. Nested rows should include a set of colu
   </b-row>
 </b-container>
 
-<!-- grid-nesting.vue -->
+<!-- b-grid-nesting.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

@@ -70,7 +70,7 @@ export default {
   created() {
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
-    // Listen to otehr collapses for accordion events
+    // Listen to other collapses for accordion events
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
   },
   mounted() {

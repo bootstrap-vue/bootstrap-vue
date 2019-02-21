@@ -1,12 +1,12 @@
-import _startCase from 'lodash.startcase'
-import _get from 'lodash.get'
+import startCase from '../../utils/startcase'
+import get from '../../utils/get'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
-import { keys, assign } from '../../utils/object'
+import { keys } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
+import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -35,11 +35,12 @@ function sanitizeRow(row) {
 // becomes
 //   'one 3 2 zzz 10 12 11'
 function toString(v) {
-  if (!v) {
+  if (typeof v === 'undefined' || v === null) {
     return ''
   }
-  if (v instanceof Object) {
+  if (v instanceof Object && !(v instanceof Date)) {
     // Arrays are also object, and keys just returns the array indexes
+    // Date objects we convert to strings
     return keys(v)
       .sort() /* sort to prevent SSR issues on pre-rendered sorted tables */
       .map(k => toString(v[k]))
@@ -62,9 +63,13 @@ function recToString(row) {
 //  where sprtBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
 //  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
 function defaultSortCompare(a, b, sortBy) {
-  a = _get(a, sortBy, '')
-  b = _get(b, sortBy, '')
-  if (typeof a === 'number' && typeof b === 'number') {
+  a = get(a, sortBy, '')
+  b = get(b, sortBy, '')
+  if (
+    (a instanceof Date && b instanceof Date) ||
+    (typeof a === 'number' && typeof b === 'number')
+  ) {
+    // Special case for comparing Dates and Numbers
     return (a < b && -1) || (a > b && 1) || 0
   }
   return toString(a).localeCompare(toString(b), undefined, {
@@ -82,7 +87,7 @@ function processField(key, value) {
     // Formatter shortcut
     field = { key, formatter: value }
   } else if (typeof value === 'object') {
-    field = assign({}, value)
+    field = { ...value }
     field.key = field.key || key
   } else if (value !== false) {
     // Fallback to just key
@@ -171,6 +176,9 @@ export default {
     caption: {
       type: String,
       default: null
+    },
+    captionHtml: {
+      type: String
     },
     captionTop: {
       type: Boolean,
@@ -344,9 +352,15 @@ export default {
       type: String,
       default: 'There are no records to show'
     },
+    emptyHtml: {
+      type: String
+    },
     emptyFilteredText: {
       type: String,
       default: 'There are no records matching your request'
+    },
+    emptyFilteredHtml: {
+      type: String
     },
     apiUrl: {
       // Passthrough prop. Passed to the context object. Not used by b-table directly
@@ -479,10 +493,10 @@ export default {
         // Normalize array Form
         this.fields.filter(f => f).forEach(f => {
           if (typeof f === 'string') {
-            fields.push({ key: f, label: _startCase(f) })
+            fields.push({ key: f, label: startCase(f) })
           } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
             // Full object definition. We use assign so that we don't mutate the original
-            fields.push(assign({}, f))
+            fields.push({ ...f })
           } else if (typeof f === 'object' && keys(f).length === 1) {
             // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
             const key = keys(f)[0]
@@ -506,7 +520,7 @@ export default {
         const sample = this.localItems[0]
         keys(sample).forEach(k => {
           if (!IGNORED_FIELD_KEYS[k]) {
-            fields.push({ key: k, label: _startCase(k) })
+            fields.push({ key: k, label: startCase(k) })
           }
         })
       }
@@ -515,7 +529,7 @@ export default {
       return fields.filter(f => {
         if (!memo[f.key]) {
           memo[f.key] = true
-          f.label = typeof f.label === 'string' ? f.label : _startCase(f.key)
+          f.label = typeof f.label === 'string' ? f.label : startCase(f.key)
           return true
         }
         return false
@@ -788,7 +802,7 @@ export default {
           attrs['role'] = 'cell'
         }
       }
-      return assign({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}))
+      return { ...attrs, ...this.getTdValues(item, field.key, field.tdAttr, {}) }
     },
     rowClasses(item) {
       return [
@@ -799,7 +813,7 @@ export default {
     getTdValues(item, key, tdValue, defValue) {
       const parent = this.$parent
       if (tdValue) {
-        const value = _get(item, key, '')
+        const value = get(item, key, '')
         if (typeof tdValue === 'function') {
           return tdValue(value, key, item)
         } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
@@ -814,7 +828,7 @@ export default {
       const key = field.key
       const formatter = field.formatter
       const parent = this.$parent
-      let value = _get(item, key, null)
+      let value = get(item, key, null)
       if (formatter) {
         if (typeof formatter === 'function') {
           value = formatter(value, key, item)
@@ -1122,7 +1136,7 @@ export default {
     // Build the caption
     let caption = h(false)
     let captionId = null
-    if (this.caption || $slots['table-caption']) {
+    if (this.caption || this.captionHtml || $slots['table-caption']) {
       captionId = this.isStacked ? this.safeId('_caption_') : null
       const data = {
         key: 'caption',
@@ -1130,7 +1144,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: stripScripts(this.caption) }
+        data.domProps = htmlOrText(this.captionHtml, this.caption)
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1140,6 +1154,12 @@ export default {
       ? h('colgroup', { key: 'colgroup' }, $slots['table-colgroup'])
       : h(false)
 
+    // Support scoped and unscoped slots when needed
+    const normalizeSlot = (slotName, slotScope = {}) => {
+      const slot = $scoped[slotName] || $slots[slotName]
+      return typeof slot === 'function' ? slot(slotScope) : slot
+    }
+
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
       return fields.map((field, colIndex) => {
@@ -1147,7 +1167,7 @@ export default {
         if (!field.label.trim() && !field.headerTitle) {
           // In case field's label and title are empty/blank
           // We need to add a hint about what the column is about for non-dighted users
-          ariaLabel = _startCase(field.key)
+          ariaLabel = startCase(field.key)
         }
         const ariaLabelSorting = field.sortable
           ? this.localSortDesc && this.localSortBy === field.key
@@ -1196,7 +1216,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { innerHTML: stripScripts(field.label) }
+          data.domProps = htmlOrText(field.labelHtml, field.label)
         }
         return h('th', data, slot)
       })
@@ -1301,7 +1321,7 @@ export default {
                 item: item,
                 index: rowIndex,
                 field: field,
-                unformatted: _get(item, field.key, ''),
+                unformatted: get(item, field.key, ''),
                 value: formatted,
                 toggleDetails: toggleDetailsFn,
                 detailsShowing: Boolean(item._showDetails),
@@ -1454,14 +1474,25 @@ export default {
     }
 
     // Empty Items / Empty Filtered Row slot
-    if (this.showEmpty && (!items || items.length === 0)) {
-      let empty = this.isFiltered ? $slots['emptyfiltered'] : $slots['empty']
+    if (
+      this.showEmpty &&
+      (!items || items.length === 0) &&
+      !($slots['table-busy'] && this.computedBusy)
+    ) {
+      let empty = normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+        emptyFilteredHtml: this.emptyFilteredHtml,
+        emptyFilteredText: this.emptyFilteredText,
+        emptyHtml: this.emptyHtml,
+        emptyText: this.emptyText,
+        fields: fields,
+        items: items
+      })
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: {
-            innerHTML: stripScripts(this.isFiltered ? this.emptyFilteredText : this.emptyText)
-          }
+          domProps: this.isFiltered
+            ? htmlOrText(this.emptyFilteredHtml, this.emptyFilteredText)
+            : htmlOrText(this.emptyHtml, this.emptyText)
         })
       }
       empty = h(
@@ -1522,12 +1553,10 @@ export default {
     let tbodyOn = {}
     if (isTransGroup) {
       tbodyOn = this.tbodyTransitionHandlers || {}
-      tbodyProps = assign(
-        {},
-        this.tbodyTransitionProps || {},
-        // Always use tbody element as tag. Users can't override this.
-        { tag: 'tbody' }
-      )
+      tbodyProps = {
+        ...(this.tbodyTransitionProps || {}),
+        tag: 'tbody'
+      }
     }
 
     // Assemble the rows into the tbody

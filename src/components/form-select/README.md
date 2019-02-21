@@ -8,9 +8,10 @@ Generate your select options by passing an array or object to the `options` prop
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3" />
-    <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" />
-    <div>Selected: <strong>{{ selected }}</strong></div>
+    <b-form-select v-model="selected" :options="options" />
+    <b-form-select v-model="selected" :options="options" size="sm" class="mt-3" />
+
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
@@ -31,7 +32,7 @@ Generate your select options by passing an array or object to the `options` prop
   }
 </script>
 
-<!-- form-select-options.vue -->
+<!-- b-form-select-options.vue -->
 ```
 
 Or manually provide your options and optgroups:
@@ -40,14 +41,16 @@ Or manually provide your options and optgroups:
 <template>
   <div>
     <b-form-select v-model="selected" class="mb-3">
-      <option :value="null">Please select an option</option> <option value="a">Option A</option>
+      <option :value="null">Please select an option</option>
+      <option value="a">Option A</option>
       <option value="b" disabled>Option B (disabled)</option>
       <optgroup label="Grouped Options">
         <option :value="{ C: '3PO' }">Option with object value</option>
         <option :value="{ R: '2D2' }">Another option with object value</option>
       </optgroup>
     </b-form-select>
-    <div>Selected: <strong>{{ selected }}</strong></div>
+
+    <div class="mt-2">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
@@ -61,10 +64,10 @@ Or manually provide your options and optgroups:
   }
 </script>
 
-<!-- form-select-manual.vue -->
+<!-- b-form-select-manual.vue -->
 ```
 
-Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manully placed options and
+Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manually placed options and
 optgroups will appear _below_ the options generated via the `options` prop. To place manual options
 and optgroups _above_ the options specified by the `options` prop, use the named slot `first`.
 
@@ -72,14 +75,16 @@ and optgroups _above_ the options specified by the `options` prop, use the named
 <template>
   <div>
     <b-form-select v-model="selected" :options="options" class="mb-3">
+      <!-- This slot appears above the options from 'options' prop -->
       <template slot="first">
-        <!-- this slot appears above the options from 'options' prop -->
         <option :value="null" disabled>-- Please select an option --</option>
       </template>
-      <!-- these options will appear after the ones from 'options' prop -->
+
+      <!-- These options will appear after the ones from 'options' prop -->
       <option value="C">Option C</option> <option value="D">Option D</option>
     </b-form-select>
-    <div>Selected: <strong>{{ selected }}</strong></div>
+
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
@@ -97,7 +102,7 @@ and optgroups _above_ the options specified by the `options` prop, use the named
   }
 </script>
 
-<!-- form-select-both.vue -->
+<!-- b-form-select-both.vue -->
 ```
 
 ## Options property
@@ -154,8 +159,8 @@ option.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3" />
-    <div>Selected: <strong>{{ selected }}</strong></div>
+    <b-form-select v-model="selected" :options="options" />
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
@@ -176,7 +181,7 @@ option.
   }
 </script>
 
-<!-- form-select-3.vue -->
+<!-- b-form-select-single.vue -->
 ```
 
 ### Select sizing (displayed rows)
@@ -193,8 +198,8 @@ Note: not all mobile browsers will show a the select as a list-box.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3" :select-size="4" />
-    <div>Selected: <strong>{{ selected }}</strong></div>
+    <b-form-select v-model="selected" :options="options" :select-size="4" />
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
@@ -217,7 +222,7 @@ Note: not all mobile browsers will show a the select as a list-box.
   }
 </script>
 
-<!-- form-select-4.vue -->
+<!-- b-form-select-size.vue -->
 ```
 
 ## Multiple select support
@@ -234,8 +239,8 @@ an array reference as your `v-model` when in `multiple` mode.
 ```html
 <template>
   <div>
-    <b-form-select multiple :select-size="4" v-model="selected" :options="options" class="mb-3" />
-    <div>Selected: <strong>{{ selected }}</strong></div>
+    <b-form-select multiple :select-size="4" v-model="selected" :options="options" />
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
@@ -258,7 +263,7 @@ an array reference as your `v-model` when in `multiple` mode.
   }
 </script>
 
-<!-- form-select-5.vue -->
+<!-- b-form-select-multiple-mode.vue -->
 ```
 
 ## Control sizing

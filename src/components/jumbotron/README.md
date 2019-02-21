@@ -11,42 +11,48 @@ Anything else between the opening and closing tags will be rendered at the botto
 **Usage with props:**
 
 ```html
-<b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2">
-  <p>For more information visit website</p>
-  <b-btn variant="primary" href="#">More Info</b-btn>
-</b-jumbotron>
+<div>
+  <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2">
+    <p>For more information visit website</p>
+    <b-button variant="primary" href="#">More Info</b-button>
+  </b-jumbotron>
+</div>
 
-<!-- jumbotron-1.vue -->
+<!-- b-jumbotron.vue -->
 ```
 
 **Usage with slots:**
 
 ```html
-<b-jumbotron>
-  <template slot="header">
-    Bootstrap Vue
-  </template>
-  <template slot="lead">
-    This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-    featured content or information.
-  </template>
-  <hr class="my-4" />
-  <p>
-    It uses utility classes for typography and spacing to space content out within the larger
-    container.
-  </p>
-  <b-btn variant="primary" href="#">Do Something</b-btn>
-  <b-btn variant="success" href="#">Do Something Else</b-btn>
-</b-jumbotron>
+<div>
+  <b-jumbotron>
+    <template slot="header">Bootstrap Vue</template>
 
-<!-- jumbotron-2.vue -->
+    <template slot="lead">
+      This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.
+    </template>
+
+    <hr class="my-4" />
+
+    <p>
+      It uses utility classes for typography and spacing to space content out within the larger
+      container.
+    </p>
+
+    <b-button variant="primary" href="#">Do Something</b-button>
+    <b-button variant="success" href="#">Do Something Else</b-button>
+  </b-jumbotron>
+</div>
+
+<!-- b-jumbotron-using-slots.vue -->
 ```
 
 ## Options
 
 ### Header
 
-Control which tag is rendered for the header by setting the `header-tag` to the approriate HTML
+Control which tag is rendered for the header by setting the `header-tag` to the appropriate HTML
 element. The default is `h1`. Both the prop `header` and slot `header` will be rendered inside this
 tag. If both the prop and the slot are specified, the slot will be shown.
 
@@ -79,22 +85,25 @@ variant with `text-variant` prop. All three props default to `null`, which will 
 jumbotron to use the default styling.
 
 ```html
-<b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
-  <template slot="header">
-    Bootstrap Vue
-  </template>
-  <template slot="lead">
-    This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-    featured content or information.
-  </template>
-  <hr class="my-4" />
-  <p>
-    It uses utility classes for typography and spacing to space content out within the larger
-    container.
-  </p>
-</b-jumbotron>
+<div>
+  <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
+    <template slot="header">Bootstrap Vue</template>
 
-<!-- jumbotron-3.vue -->
+    <template slot="lead">
+      This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.
+    </template>
+
+    <hr class="my-4" />
+
+    <p>
+      It uses utility classes for typography and spacing to space content out within the larger
+      container.
+    </p>
+  </b-jumbotron>
+</div>
+
+<!-- b-jumbotron-variants.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

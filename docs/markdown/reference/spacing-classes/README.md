@@ -76,5 +76,5 @@ horizontal margins to `auto`.
 ```html
 <div class="mx-auto bg-info" style="width: 200px;">Centered element</div>
 
-<!-- horizontal-cetering.vue -->
+<!-- horizontal-centering.vue -->
 ```

@@ -44,12 +44,6 @@ export default {
   components: { componentdoc, importdoc },
   mixins: [docsMixin],
   layout: 'docs',
-  methods: {
-    startCase
-  },
-  validate({ params }) {
-    return Boolean(_meta[params.slug])
-  },
   async asyncData({ params }) {
     const readme = await getReadMe(params.slug)
     const meta = _meta[params.slug]
@@ -58,6 +52,12 @@ export default {
       readme: readme.default,
       meta
     }
+  },
+  methods: {
+    startCase
+  },
+  validate({ params }) {
+    return Boolean(_meta[params.slug])
   }
 }
 </script>

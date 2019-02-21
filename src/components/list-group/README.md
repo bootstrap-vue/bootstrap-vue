@@ -13,7 +13,7 @@
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group.vue -->
+<!-- b-list-group.vue -->
 ```
 
 ## Active items
@@ -29,7 +29,7 @@ Set the `active` prop on a `<b-list-group-item>` to indicate the current active 
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-active.vue -->
+<!-- b-list-group-active.vue -->
 ```
 
 ## Disabled items
@@ -46,7 +46,7 @@ actionalable items. see below).
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-disabled.vue -->
+<!-- b-list-group-disabled.vue -->
 ```
 
 ## Actionable list group items
@@ -62,7 +62,7 @@ Turn a `<b-list-group-item>` into an actionable link by specifying either an `hr
   <b-list-group-item href="#foobar" disabled>Disabled link</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-link.vue -->
+<!-- b-list-group-link.vue -->
 ```
 
 Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
@@ -75,7 +75,7 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
   <b-list-group-item button>This is a button too</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-button.vue -->
+<!-- b-list-group-button.vue -->
 ```
 
 **Notes:**
@@ -91,18 +91,18 @@ prop.
 
 ```html
 <b-list-group>
-  <b-list-group-item>This is a default list group item</b-list-group-item>
-  <b-list-group-item variant="primary">This is a primary list group item</b-list-group-item>
-  <b-list-group-item variant="secondary">This is a secondary list group item</b-list-group-item>
-  <b-list-group-item variant="success">This is a success list group item</b-list-group-item>
-  <b-list-group-item variant="danger">This is a danger list group item</b-list-group-item>
-  <b-list-group-item variant="warning">This is a warning list group item</b-list-group-item>
-  <b-list-group-item variant="info">This is a info list group item</b-list-group-item>
-  <b-list-group-item variant="light">This is a light list group item</b-list-group-item>
-  <b-list-group-item variant="dark">This is a dark list group item</b-list-group-item>
+  <b-list-group-item>Default list group item</b-list-group-item>
+  <b-list-group-item variant="primary">Primary list group item</b-list-group-item>
+  <b-list-group-item variant="secondary">Secondary list group item</b-list-group-item>
+  <b-list-group-item variant="success">Success list group item</b-list-group-item>
+  <b-list-group-item variant="danger">Danger list group item</b-list-group-item>
+  <b-list-group-item variant="warning">Warning list group item</b-list-group-item>
+  <b-list-group-item variant="info">Info list group item</b-list-group-item>
+  <b-list-group-item variant="light">Light list group item</b-list-group-item>
+  <b-list-group-item variant="dark">Dark list group item</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-variant.vue -->
+<!-- b-list-group-variant.vue -->
 ```
 
 Contextual variants also work with action items. Note the addition of the hover styling here not
@@ -111,26 +111,18 @@ selection on a contextual list group item.
 
 ```html
 <b-list-group>
-  <b-list-group-item href="#">This is a default list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="primary"
-    >This is a primary list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="secondary"
-    >This is a secondary list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="success"
-    >This is a success list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="danger">This is a danger list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="warning"
-    >This is a warning list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="info">This is a info list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="light">This is a light list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="dark">This is a dark list group item</b-list-group-item>
+  <b-list-group-item href="#">Default list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="primary">Primary list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="secondary">Secondary list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="success">Success list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="danger">Danger list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="warning">Warning list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="info">Info list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="light">Light list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="dark">Dark list group item</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-variant-action.vue -->
+<!-- b-list-group-variant-action.vue -->
 ```
 
 ### Conveying meaning to assistive technologies
@@ -139,25 +131,6 @@ Using color to add meaning only provides a visual indication, which will not be 
 assistive technologies – such as screen readers. Ensure that information denoted by the color is
 either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden using the `.sr-only` class.
-
-## Striped
-
-Alternate the background colors of list items with by adding the prop `striped`.
-
-```html
-<b-list-group striped>
-  <b-list-group-item>Cras justo odio</b-list-group-item>
-  <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
-  <b-list-group-item>Morbi leo risus</b-list-group-item>
-  <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
-  <b-list-group-item>Vestibulum at eros</b-list-group-item>
-</b-list-group>
-
-<!-- list-group-striped.vue -->
-```
-
-**Note:** currently, the `striped` option will not work well with list group items which are
-`active`, or have a `variant` set.
 
 ## With badges
 
@@ -170,17 +143,19 @@ more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/ut
     Cras justo odio
     <b-badge variant="primary" pill>14</b-badge>
   </b-list-group-item>
+
   <b-list-group-item class="d-flex justify-content-between align-items-center">
     Dapibus ac facilisis in
     <b-badge variant="primary" pill>2</b-badge>
   </b-list-group-item>
+
   <b-list-group-item class="d-flex justify-content-between align-items-center">
     Morbi leo risus
     <b-badge variant="primary" pill>1</b-badge>
   </b-list-group-item>
 </b-list-group>
 
-<!-- list-group-badges.vue -->
+<!-- b-list-group-badges.vue -->
 ```
 
 ## List groups inside cards
@@ -196,18 +171,21 @@ prop when using cards with `no-body` to make the sides of the list group flush w
       <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
       <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
     </b-list-group>
+
     <p class="card-text mt-2">
       Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
       consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
       mollit voluptate est in duis laboris ad sit ipsum anim Lorem.
     </p>
   </b-card>
+
   <b-card no-body header="<b>Card with flush list group</b>">
     <b-list-group flush>
       <b-list-group-item href="#">Cras justo odio</b-list-group-item>
       <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
       <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
     </b-list-group>
+
     <b-card-body>
       Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
       consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
@@ -216,7 +194,45 @@ prop when using cards with `no-body` to make the sides of the list group flush w
   </b-card>
 </b-card-group>
 
-<!-- list-group-card.vue -->
+<!-- b-list-group-card.vue -->
+```
+
+## Horizontal list groups
+
+Set the prop `horizontal` to `true` to change the layout of list group items from vertical to
+horizontal across all breakpoints. Alternatively, set `horizontal` to a responsive breakpoint (`sm`,
+`md`, `lg` or `xl`) to make a list group horizontal starting at that breakpoint’s min-width.
+Currently horizontal list groups cannot be combined with `flush` list groups.
+
+**ProTip:** Want equal-width list group items when horizontal? Add the class `flex-fill` to each
+list group item.
+
+**Always horizontal:**
+
+```html
+<div>
+  <b-list-group horizontal>
+    <b-list-group-item>Cras justo odio</b-list-group-item>
+    <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+    <b-list-group-item>Morbi leo risus</b-list-group-item>
+  </b-list-group>
+</div>
+
+<!-- b-list-group-horizontal.vue -->
+```
+
+**Horizontal at breakpoint md and above:**
+
+```html
+<div>
+  <b-list-group horizontal="md">
+    <b-list-group-item>Cras justo odio</b-list-group-item>
+    <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+    <b-list-group-item>Morbi leo risus</b-list-group-item>
+  </b-list-group>
+</div>
+
+<!-- b-list-group-horizontal-md.vue -->
 ```
 
 ## Custom content
@@ -231,34 +247,42 @@ help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities/fle
       <h5 class="mb-1">List group item heading</h5>
       <small>3 days ago</small>
     </div>
+
     <p class="mb-1">
       Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
+
     <small>Donec id elit non mi porta.</small>
   </b-list-group-item>
+
   <b-list-group-item href="#" class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">List group item heading</h5>
       <small class="text-muted">3 days ago</small>
     </div>
+
     <p class="mb-1">
       Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
+
     <small class="text-muted">Donec id elit non mi porta.</small>
   </b-list-group-item>
+
   <b-list-group-item href="#" disabled class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">Disabled List group item</h5>
       <small class="text-muted">3 days ago</small>
     </div>
+
     <p class="mb-1">
       Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
+
     <small class="text-muted">Donec id elit non mi porta.</small>
   </b-list-group-item>
 </b-list-group>
 
-<!-- list-group-content.vue -->
+<!-- b-list-group-content.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

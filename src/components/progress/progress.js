@@ -4,6 +4,9 @@ import BProgressBar from './progress-bar'
 export default {
   name: 'BProgress',
   components: { BProgressBar },
+  provide() {
+    return { progress: this }
+  },
   props: {
     // These props can be inherited via the child b-progress-bar(s)
     variant: {

@@ -5,9 +5,10 @@ import BCardTitle from './card-title'
 import BCardSubTitle from './card-sub-title'
 import BCardFooter from './card-footer'
 import BCardImg from './card-img'
+import BCardImgLazy from './card-img-lazy'
 import BCardText from './card-text'
 import BCardGroup from './card-group'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BCard,
@@ -17,16 +18,13 @@ const components = {
   BCardSubTitle,
   BCardFooter,
   BCardImg,
+  BCardImgLazy,
   BCardText,
   BCardGroup
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

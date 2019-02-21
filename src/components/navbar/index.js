@@ -5,7 +5,7 @@ import BNavbarToggle from './navbar-toggle'
 import navPlugin from '../nav'
 import collapsePlugin from '../collapse'
 import dropdownPlugin from '../dropdown'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BNavbar,
@@ -15,7 +15,7 @@ const components = {
   BNavToggle: BNavbarToggle
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
     Vue.use(navPlugin)
@@ -23,7 +23,3 @@ const VuePlugin = {
     Vue.use(dropdownPlugin)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

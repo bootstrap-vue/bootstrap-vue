@@ -53,8 +53,8 @@ describe('tab', async () => {
     })
 
     expect(wrapper.classes()).toContain('active')
+    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
   })

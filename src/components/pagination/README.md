@@ -8,20 +8,23 @@ For pagination that navigates to a new URL, use the
 
 ```html
 <template>
-  <div style="overflow-x:auto;">
-    <h6>Default</h6>
-    <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10" />
-    <br />
+  <div class="overflow-auto">
+    <div>
+      <h6>Default</h6>
+      <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10" />
+    </div>
 
-    <h6>Small</h6>
-    <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10" />
-    <br />
+    <div class="mt-3">
+      <h6>Small</h6>
+      <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10" />
+    </div>
 
-    <h6>Large</h6>
-    <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10" />
-    <br />
+    <div class="mt-3">
+      <h6>Large</h6>
+      <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10" />
+    </div>
 
-    <div>currentPage: {{ currentPage }}</div>
+    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -35,7 +38,7 @@ For pagination that navigates to a new URL, use the
   }
 </script>
 
-<!-- pagination-1.vue -->
+<!-- b-pagination.vue -->
 ```
 
 ## Overview
@@ -84,7 +87,7 @@ populate these props, you should use named slots (see below) instead to avoid po
 | `last-text`     | The "goto last page" button text (html/sub-components supported)     |
 | `ellipsis-text` | the `...` indicator text (html/sub-components supported)             |
 
-Ellipsis inidcator(s) will only be ever shown at the front and/or end of the page number buttons.
+Ellipsis indicator(s) will only be ever shown at the front and/or end of the page number buttons.
 For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
 practical display reasons.
 
@@ -95,22 +98,23 @@ By default the pagination component is left aligned. Change the alignment to `ce
 
 ```html
 <template>
-  <div>
-    <h6>Left alignment (default)</h6>
-    <b-pagination :total-rows="100" v-model="currentPage" :per-page="10" />
-    <br />
+  <div class="overflow-auto">
+    <div>
+      <h6>Left alignment (default)</h6>
+      <b-pagination :total-rows="100" v-model="currentPage" :per-page="10" />
+    </div>
 
-    <h6>Center alignment</h6>
-    <b-pagination align="center" :total-rows="100" v-model="currentPage" :per-page="10">
-    </b-pagination>
-    <br />
+    <div class="mt-3 text-center">
+      <h6>Center alignment</h6>
+      <b-pagination align="center" :total-rows="100" v-model="currentPage" :per-page="10" />
+    </div>
 
-    <h6>Right (end) alignment</h6>
-    <b-pagination align="right" :total-rows="100" v-model="currentPage" :per-page="10">
-    </b-pagination>
-    <br />
+    <div class="mt-3 text-right">
+      <h6>Right (end) alignment</h6>
+      <b-pagination align="right" :total-rows="100" v-model="currentPage" :per-page="10" />
+    </div>
 
-    <div>currentPage: {{ currentPage }}</div>
+    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -124,7 +128,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
   }
 </script>
 
-<!-- pagination-2.vue -->
+<!-- b-pagination-alignment.vue -->
 ```
 
 ## Small screen support
@@ -145,8 +149,8 @@ The `<b-pagination>` component provides many features to support assistive techn
 
 ### `aria-controls`
 
-When pagination is controling another component on the page (such as `<b-table>`), set the
-`aria-controls` prop to the `id` of the element it is controling. This will help non-sighted users
+When pagination is controlling another component on the page (such as `<b-table>`), set the
+`aria-controls` prop to the `id` of the element it is controlling. This will help non-sighted users
 know what component is being updated/controlled.
 
 ### ARIA labels

@@ -1,9 +1,9 @@
 # Spinners
 
 > The `<b-spinner>` component can be used to show the loading state in your projects. They're
-> rendered only with basical HTML and CSS as a lightweight Vue functional component. Their
-> appearance, alignment, and sizing can be easily customized with a few built-in props and/or
-> Bootstrap V4 utility classes.
+> rendered only with basic HTML and CSS as a lightweight Vue functional component. Their appearance,
+> alignment, and sizing can be easily customized with a few built-in props and/or Bootstrap V4
+> utility classes.
 
 Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s
 busy slot.
@@ -18,7 +18,7 @@ busy slot.
   <b-spinner variant="success" type="grow" label="Spinning" />
 </div>
 
-<!-- spinners.vue -->
+<!-- b-spinners.vue -->
 ```
 
 ## Spinner types
@@ -31,9 +31,11 @@ circle border), and the optional type `grow` (a throbber style indicator).
 Use the default `border` type spinners for a lightweight loading indicator.
 
 ```html
-<b-spinner label="Loading..." />
+<div>
+  <b-spinner label="Loading..." />
+</div>
 
-<!-- spinner-border.vue -->
+<!-- b-spinner-border.vue -->
 ```
 
 ### Grow spinner
@@ -42,9 +44,11 @@ If you don't fancy a `border` spinner, switch to the `grow` spinner by setting t
 `'grow'`. While it doesn't technically spin, it does repeatedly grow!
 
 ```html
-<b-spinner type="grow" label="Loading..." />
+<div>
+  <b-spinner type="grow" label="Loading..." />
+</div>
 
-<!-- spinner-grow.vue -->
+<!-- b-spinner-grow.vue -->
 ```
 
 ## Spinner color variants
@@ -59,9 +63,10 @@ you have custom defined text color variants, feel free to use them via the `vari
 ```html
 <template>
   <div>
-    <div class="text-center mb-2 d-flex justify-content-between">
+    <div class="text-center mb-3 d-flex justify-content-between">
       <b-spinner v-for="variant in variants" :variant="variant" :key="variant" />
     </div>
+
     <div class="text-center d-flex justify-content-between">
       <b-spinner v-for="variant in variants" :variant="variant" type="grow" :key="variant" />
     </div>
@@ -78,7 +83,7 @@ you have custom defined text color variants, feel free to use them via the `vari
   }
 </script>
 
-<!-- spinner-variants.vue -->
+<!-- b-spinner-variants.vue -->
 ```
 
 **Why not use `border-color` utilities?** Each `border` spinner specifies a `transparent` border for
@@ -95,7 +100,7 @@ components.
   <b-spinner small type="grow" label="Small Spinner" />
 </div>
 
-<!-- spinner-sizes.vue -->
+<!-- b-spinner-sizes.vue -->
 ```
 
 Or, use custom CSS or inline styles to change the dimensions as needed.
@@ -106,7 +111,7 @@ Or, use custom CSS or inline styles to change the dimensions as needed.
   <b-spinner style="width: 3rem; height: 3rem;" type="grow" label="Large Spinner" />
 </div>
 
-<!-- spinner-sizes-custom.vue -->
+<!-- b-spinner-sizes-custom.vue -->
 ```
 
 ## Alignment
@@ -119,9 +124,11 @@ they can easily be resized, recolored, and quickly aligned.
 Use margin utilities like `.m-5` for easy spacing.
 
 ```html
-<b-spinner class="m-5" label="Busy" />
+<div>
+  <b-spinner class="m-5" label="Busy" />
+</div>
 
-<!-- spinner-margin.vue -->
+<!-- b-spinner-margin.vue -->
 ```
 
 ## Placement
@@ -135,14 +142,17 @@ Using flex utility classes:
 
 ```html
 <div>
-  <div class="d-flex justify-content-center mb-3"><b-spinner label="Loading..." /></div>
+  <div class="d-flex justify-content-center mb-3">
+    <b-spinner label="Loading..." />
+  </div>
+
   <div class="d-flex align-items-center">
     <strong>Loading...</strong>
     <b-spinner class="ml-auto" />
   </div>
 </div>
 
-<!-- spinner-flex.vue -->
+<!-- b-spinner-flex.vue -->
 ```
 
 ### Floats
@@ -150,9 +160,11 @@ Using flex utility classes:
 Using float utility classes:
 
 ```html
-<div class="clearfix"><b-spinner class="float-right" label="Floated Right" /></div>
+<div class="clearfix">
+  <b-spinner class="float-right" label="Floated Right" />
+</div>
 
-<!-- spinner-floats.vue -->
+<!-- b-spinner-floats.vue -->
 ```
 
 ### Text align
@@ -160,9 +172,11 @@ Using float utility classes:
 Using text alignment utility classes:
 
 ```html
-<div class="text-center"><b-spinner variant="primary" label="Text Centered" /></div>
+<div class="text-center">
+  <b-spinner variant="primary" label="Text Centered" />
+</div>
 
-<!-- spinner-text-align.vue -->
+<!-- b-spinner-text-align.vue -->
 ```
 
 ## Spinners in buttons
@@ -176,13 +190,14 @@ also swap the label text out of the spinner element and utilize button text as n
     <b-spinner small />
     <span class="sr-only">Loading...</span>
   </b-button>
+
   <b-button variant="primary" disabled>
     <b-spinner small type="grow" />
     Loading...
   </b-button>
 </div>
 
-<!-- spinner-buttons.vue -->
+<!-- b-spinner-buttons.vue -->
 ```
 
 ## Spinner accessibility
@@ -197,3 +212,5 @@ label is provided. You can easily customize the role if required via prop `role`
 
 As well, when no label is provided, the spinner will automatically have the attribute
 `aria-hidden="true"` to hide the spinner from screen reader users.
+
+<!-- Component reference added automatically from component package.json -->

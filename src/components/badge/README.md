@@ -14,7 +14,7 @@ Badges scale to match the size of the immediate parent element by using relative
   <h6>Example heading <b-badge>New</b-badge></h6>
 </div>
 
-<!-- badges.vue -->
+<!-- b-badges.vue -->
 ```
 
 Badges can be used as part of links or buttons to provide a counter (or similar flag).
@@ -24,7 +24,7 @@ Badges can be used as part of links or buttons to provide a counter (or similar 
   <b-button variant="primary">Notifications <b-badge variant="light">4</b-badge></b-button>
 </div>
 
-<!-- badge-button-1.vue -->
+<!-- b-badge-button.vue -->
 ```
 
 Note that depending on how they are used, badges may be confusing for users of screen readers and
@@ -45,7 +45,7 @@ piece of additional text.
   </b-button>
 </div>
 
-<!-- badge-button-aria.vue -->
+<!-- b-badge-button-aria.vue -->
 ```
 
 ## Contextual variations
@@ -66,7 +66,7 @@ Add any of the following variants via the `variant` prop to change the appearanc
   <b-badge variant="dark">Dark</b-badge>
 </div>
 
-<!-- badge-variants.vue -->
+<!-- b-badge-variants.vue -->
 ```
 
 ### Conveying meaning to assistive technologies:
@@ -93,7 +93,7 @@ horizontal padding). Useful if you miss the badges from Bootstrap v3.
   <b-badge pill variant="dark">Dark</b-badge>
 </div>
 
-<!-- badge-pill.vue -->
+<!-- b-badge-pill.vue -->
 ```
 
 ## Actionable badges
@@ -113,7 +113,7 @@ Quickly provide actionable badges with hover and focus states by specifying eith
   <b-badge href="#" variant="dark">Dark</b-badge>
 </div>
 
-<!-- badge-action.vue -->
+<!-- b-badge-action.vue -->
 ```
 
 Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific

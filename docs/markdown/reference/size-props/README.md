@@ -6,14 +6,14 @@
 ## Component `size` prop
 
 Various components allow for an optional size (via the `size` prop). Below are the sizes supported
-via the default Bootsrap V4 CSS.
+via the default Bootstrap V4 CSS.
 
 Available Sizes:
 
 - `sm` small
 - `lg` large
 
-When no size is specified, this results in normal sized appearance (usually referend to as `md`).
+When no size is specified, this results in normal sized appearance (usually referred to as `md`).
 
 These size values will be translated into the appropriate Bootstrap CSS class, depending on the
 component used on, such as `.btn-<size>` for buttons, `.modal-<size>` for modal,
@@ -76,4 +76,4 @@ needed.
 
 ## Additional Resources
 
-Refer to [Bootstrap V4](http://getbootstrap.com/) official documentation site for more information.
+Refer to [Bootstrap V4](https://getbootstrap.com/) official documentation site for more information.

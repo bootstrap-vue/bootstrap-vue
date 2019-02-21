@@ -43,10 +43,6 @@ export const props = {
   width: {
     type: String,
     default: null
-  },
-  fluid: {
-    type: Boolean,
-    default: false
   }
 }
 
@@ -70,7 +66,7 @@ export default {
     return h(
       'img',
       mergeData(data, {
-        class: [baseClass, props.fluid ? 'img-fluid' : null],
+        class: [baseClass],
         attrs: {
           src: props.src,
           alt: props.alt,

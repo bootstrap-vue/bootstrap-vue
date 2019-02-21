@@ -1,17 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { assign } from '../../utils/object'
-import BBreadcrumbLink, { props as crumbLinks } from './breadcrumb-link'
-
-export const props = assign({}, crumbLinks, {
-  text: {
-    type: String,
-    default: null
-  },
-  href: {
-    type: String,
-    default: null
-  }
-})
+import BBreadcrumbLink, { props } from './breadcrumb-link'
 
 // @vue/component
 export default {

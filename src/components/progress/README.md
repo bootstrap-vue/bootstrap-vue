@@ -7,12 +7,13 @@
 <template>
   <div>
     <b-progress :value="counter" :max="max" show-progress animated />
-    <b-progress class="mt-1" :max="max" show-value>
+    <b-progress class="mt-2" :max="max" show-value>
       <b-progress-bar :value="counter*(6/10)" variant="success" />
       <b-progress-bar :value="counter*(2.5/10)" variant="warning" />
       <b-progress-bar :value="counter*(1.5/10)" variant="danger" />
     </b-progress>
-    <b-btn class="mt-4" @click="clicked">Click me</b-btn>
+
+    <b-button class="mt-3" @click="clicked">Click me</b-button>
   </div>
 </template>
 
@@ -33,7 +34,7 @@
   }
 </script>
 
-<!-- progress-1.vue -->
+<!-- b-progress.vue -->
 ```
 
 ## Value
@@ -55,12 +56,16 @@ the decimal) via the `precision` prop (default is `0`digits after the decimal).
   <div>
     <h5>No label</h5>
     <b-progress :value="value" :max="max" class="mb-3" />
+
     <h5>Value label</h5>
     <b-progress :value="value" :max="max" show-value class="mb-3" />
+
     <h5>Progress label</h5>
     <b-progress :value="value" :max="max" show-progress class="mb-3" />
+
     <h5>Value label with precision</h5>
     <b-progress :value="value" :max="max" :precision="2" show-value class="mb-3" />
+
     <h5>Progress label with precision</h5>
     <b-progress :value="value" :max="max" :precision="2" show-progress class="mb-3" />
   </div>
@@ -77,7 +82,7 @@ the decimal) via the `precision` prop (default is `0`digits after the decimal).
   }
 </script>
 
-<!-- progress-labels.vue -->
+<!-- b-progress-labels.vue -->
 ```
 
 ### Custom progress label
@@ -98,7 +103,7 @@ supported):
 
     <h5 class="mt-3">Custom Label via Prop</h5>
     <b-progress :max="max">
-      <b-progress-bar :value="value" :label="'&lt;'+value.toFixed(0)+'&gt;'" />
+      <b-progress-bar :value="value" :label="'&lt;' + value.toFixed(0) + '&gt;'" />
     </b-progress>
   </div>
 </template>
@@ -114,7 +119,7 @@ supported):
   }
 </script>
 
-<!-- progress-custom-labels.vue -->
+<!-- b-progress-custom-labels.vue -->
 ```
 
 Precedence order for label methods (top-most has precedence):
@@ -138,6 +143,7 @@ classes.
   <div>
     <h5>Default width</h5>
     <b-progress :value="value" class="mb-3" />
+
     <h5>Custom widths</h5>
     <b-progress :value="value" class="w-75 mb-2" />
     <b-progress :value="value" class="w-50 mb-2" />
@@ -155,17 +161,18 @@ classes.
   }
 </script>
 
-<!-- progress-width.vue -->
+<!-- b-progress-width.vue -->
 ```
 
-The height of the progress bar can be controled with the `height` prop. The height value should be a
-standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
+The height of the progress bar can be controlled with the `height` prop. The height value should be
+a standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
 
 ```html
 <template>
   <div>
     <h5>Default height</h5>
     <b-progress :value="value" show-progress class="mb-3" />
+
     <h5>Custom heights</h5>
     <b-progress height="2rem" :value="value" show-progress class="mb-2" />
     <b-progress height="20px" :value="value" show-progress class="mb-2" />
@@ -183,7 +190,7 @@ standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
   }
 </script>
 
-<!-- progress-height.vue -->
+<!-- b-progress-height.vue -->
 ```
 
 ## Backgrounds
@@ -233,7 +240,7 @@ Use background variants to change the appearance of individual progress bars. Th
   }
 </script>
 
-<!-- progress-backgrounds.vue -->
+<!-- b-progress-backgrounds.vue -->
 ```
 
 ### Striped backgrounds
@@ -243,11 +250,12 @@ Set `striped` to apply a stripe via CSS gradient over the progress bar’s backg
 ```html
 <template>
   <div>
-    <b-progress :value="25" variant="success" :striped="striped" class="mb-2" />
-    <b-progress :value="50" variant="info" :striped="striped" class="mb-2" />
-    <b-progress :value="75" variant="warning" :striped="striped" class="mb-2" />
-    <b-progress :value="100" variant="danger" :striped="striped" class="mb-2" />
-    <b-button variant="secondary" @click="striped = !striped">
+    <b-progress :value="25" variant="success" :striped="striped" />
+    <b-progress :value="50" variant="info" :striped="striped" class="mt-2" />
+    <b-progress :value="75" variant="warning" :striped="striped" class="mt-2" />
+    <b-progress :value="100" variant="danger" :striped="striped" class="mt-2" />
+
+    <b-button variant="secondary" @click="striped = !striped" class="mt-3">
       {{ striped ? 'Remove' : 'Add' }} Striped
     </b-button>
   </div>
@@ -263,7 +271,7 @@ Set `striped` to apply a stripe via CSS gradient over the progress bar’s backg
   }
 </script>
 
-<!-- progress-striped.vue -->
+<!-- b-progress-striped.vue -->
 ```
 
 ### Animated backgrounds
@@ -273,11 +281,12 @@ The striped gradient can also be animated by setting the `animated`prop.
 ```html
 <template>
   <div>
-    <b-progress :value="25" variant="success" striped :animated="animate" class="mb-2" />
-    <b-progress :value="50" variant="info" striped :animated="animate" class="mb-2" />
-    <b-progress :value="75" variant="warning" striped :animated="animate" class="mb-2" />
-    <b-progress :value="100" variant="danger" :animated="animate" class="mb-3" />
-    <b-button variant="secondary" @click="animate = !animate">
+    <b-progress :value="25" variant="success" striped :animated="animate" />
+    <b-progress :value="50" variant="info" striped :animated="animate" class="mt-2" />
+    <b-progress :value="75" variant="warning" striped :animated="animate" class="mt-2" />
+    <b-progress :value="100" variant="danger" :animated="animate" class="mt-3" />
+
+    <b-button variant="secondary" @click="animate = !animate" class="mt-3">
       {{ animate ? 'Stop' : 'Start' }} Animation
     </b-button>
   </div>
@@ -293,7 +302,7 @@ The striped gradient can also be animated by setting the `animated`prop.
   }
 </script>
 
-<!-- progress-animated.vue -->
+<!-- b-progress-animated.vue -->
 ```
 
 Notes:
@@ -314,17 +323,20 @@ horizontally stacked set of progress bars.
       <b-progress-bar variant="success" :value="values[1]" />
       <b-progress-bar variant="info" :value="values[2]" />
     </b-progress>
-    <b-progress show-progress :max="max" class="mb-3" />
+
+    <b-progress show-progress :max="max" class="mb-3">
       <b-progress-bar variant="primary" :value="values[0]" />
       <b-progress-bar variant="success" :value="values[1]" />
       <b-progress-bar variant="info" :value="values[2]" />
     </b-progress>
-    <b-progress show-value striped :max="max" class="mb-3" />
+
+    <b-progress show-value striped :max="max" class="mb-3">
       <b-progress-bar variant="primary" :value="values[0]" />
       <b-progress-bar variant="success" :value="values[1]" />
       <b-progress-bar variant="info" :value="values[2]" />
     </b-progress>
-    <b-progress :max="max" class="mb-3">
+
+    <b-progress :max="max">
       <b-progress-bar variant="primary" :value="values[0]" show-progress />
       <b-progress-bar variant="success" :value="values[1]" animated show-progress />
       <b-progress-bar variant="info" :value="values[2]" striped show-progress />
@@ -333,20 +345,20 @@ horizontally stacked set of progress bars.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      max: 100,
-      values: [ 15, 30, 20 ]
+  export default {
+    data() {
+      return {
+        max: 100,
+        values: [15, 30, 20]
+      }
     }
   }
-}
 </script>
 
-<!-- progress-multiple.vue -->
+<!-- b-progress-multiple.vue -->
 ```
 
-`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you
+`<b-progress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you
 can override any of the props by setting them on the `<b-progress-bar>`
 
 Notes:

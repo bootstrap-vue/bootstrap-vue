@@ -24,6 +24,8 @@ renderer.table = function renderTable(header, body) {
 module.exports = {
   srcDir: __dirname,
 
+  modern: 'client',
+
   build: {
     extractCSS: true,
     cssSourceMap: true,
@@ -69,6 +71,7 @@ module.exports = {
 
   manifest: {
     name: 'BootstrapVue',
+    short_name: 'BootstrapVue',
     description: 'Quickly integrate Bootstrap 4 components with Vue.js',
     theme_color: '#563d7c'
   },
@@ -118,7 +121,7 @@ module.exports = {
     'highlightjs/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
     'bootstrap/dist/css/bootstrap.css',
-    '../src/index.scss', // Boostrap-Vue SCSS
+    '../src/index.scss', // BootstrapVue SCSS
     '@assets/css/docs.min.css',
     '@assets/css/styles.css'
   ]

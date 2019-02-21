@@ -9,22 +9,22 @@
 <div>
   <b-button-toolbar key-nav aria-label="Toolbar with button groups">
     <b-button-group class="mx-1">
-      <b-btn>&laquo;</b-btn>
-      <b-btn>&lsaquo;</b-btn>
+      <b-button>&laquo;</b-button>
+      <b-button>&lsaquo;</b-button>
     </b-button-group>
     <b-button-group class="mx-1">
-      <b-btn>Edit</b-btn>
-      <b-btn>Undo</b-btn>
-      <b-btn>Redo</b-btn>
+      <b-button>Edit</b-button>
+      <b-button>Undo</b-button>
+      <b-button>Redo</b-button>
     </b-button-group>
     <b-button-group class="mx-1">
-      <b-btn>&rsaquo;</b-btn>
-      <b-btn>&raquo;</b-btn>
+      <b-button>&rsaquo;</b-button>
+      <b-button>&raquo;</b-button>
     </b-button-group>
   </b-button-toolbar>
 </div>
 
-<!-- button-toolbar-1.vue -->
+<!-- b-button-toolbar.vue -->
 ```
 
 **Example 2:** with mixture of small button group and small input group
@@ -33,8 +33,8 @@
 <div>
   <b-button-toolbar aria-label="Toolbar with button groups and input groups">
     <b-button-group size="sm" class="mr-1">
-      <b-btn>Save</b-btn>
-      <b-btn>Cancel</b-btn>
+      <b-button>Save</b-button>
+      <b-button>Cancel</b-button>
     </b-button-group>
     <b-input-group size="sm" prepend="$" append=".00">
       <b-form-input value="100" class="text-right" />
@@ -42,7 +42,7 @@
   </b-button-toolbar>
 </div>
 
-<!-- button-toolbar-2.vue -->
+<!-- b-button-toolbar-input.vue -->
 ```
 
 **Example 3:** with button groups and dropdown menu
@@ -51,9 +51,9 @@
 <div>
   <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
     <b-button-group class="mx-1">
-      <b-btn>New</b-btn>
-      <b-btn>Edit</b-btn>
-      <b-btn>Undo</b-btn>
+      <b-button>New</b-button>
+      <b-button>Edit</b-button>
+      <b-button>Undo</b-button>
     </b-button-group>
     <b-dropdown class="mx-1" right text="menu">
       <b-dropdown-item>Item 1</b-dropdown-item>
@@ -61,13 +61,13 @@
       <b-dropdown-item>Item 3</b-dropdown-item>
     </b-dropdown>
     <b-button-group class="mx-1">
-      <b-btn>Save</b-btn>
-      <b-btn>Cancel</b-btn>
+      <b-button>Save</b-button>
+      <b-button>Cancel</b-button>
     </b-button-group>
   </b-button-toolbar>
 </div>
 
-<!-- button-toolbar-3.vue -->
+<!-- b-button-toolbar-dropdown.vue -->
 ```
 
 ## Usage
@@ -99,11 +99,11 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move to the previous control on the page              |
 
 **Caution:** If you have text or text-like inputs in your toolbar, leave keyboard navigation off, as
-it is not possble to use key presses to jump out of a text (or test-like) inputs.
+it is not possible to use key presses to jump out of a text (or test-like) inputs.
 
 ## See Also
 
-- [`<b-button-group>`](./button-group)
-- [`<b-dropdown>`](./dropdown)
+- [`<b-button-group>`](/docs/components/button-group)
+- [`<b-dropdown>`](/docs/components/dropdown)
 
 <!-- Component reference added automatically from component package.json -->

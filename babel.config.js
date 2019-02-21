@@ -7,8 +7,13 @@ module.exports = {
       }
     ]
   ],
-  plugins: ['@babel/proposal-object-rest-spread', '@babel/transform-runtime'],
   env: {
+    docs: {
+      plugins: ['@babel/plugin-transform-runtime']
+    },
+    es: {
+      plugins: [['@babel/plugin-transform-modules-commonjs', { noInterop: true, loose: true }]]
+    },
     test: {
       presets: [
         [

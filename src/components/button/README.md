@@ -11,7 +11,7 @@
   <b-button variant="outline-primary">Button</b-button>
 </div>
 
-<!-- button-1.vue -->
+<!-- b-button.vue -->
 ```
 
 ## Button element type
@@ -26,7 +26,7 @@ when providing a value for the `to` prop (`vue-router` is required).
   <b-button href="#">I am a Link</b-button>
 </div>
 
-<!-- button-element.vue -->
+<!-- b-button-types.vue -->
 ```
 
 ## Button type
@@ -47,7 +47,7 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
   <b-col lg="4" class="pb-2"><b-button size="lg">Large Button</b-button></b-col>
 </b-row>
 
-<!-- button-sizes.vue -->
+<!-- b-button-sizes.vue -->
 ```
 
 ### Block level buttons
@@ -56,9 +56,11 @@ Create block level buttons — those that span the full width of a parent — by
 prop.
 
 ```html
-<b-button block variant="primary">Block Level Button</b-button>
+<div>
+  <b-button block variant="primary">Block Level Button</b-button>
+</div>
 
-<!-- button-block.vue -->
+<!-- b-button-block.vue -->
 ```
 
 ## Button contextual variants
@@ -83,7 +85,7 @@ By default `<b-button>` will render with the `secondary` variant.
   <b-button variant="dark">Dark</b-button>
 </div>
 
-<!-- button-solid.vue -->
+<!-- b-button-solid.vue -->
 ```
 
 ### Outline color variants
@@ -106,7 +108,7 @@ remove all background images and colors on any `<b-button>`:
   <b-button variant="outline-dark">Dark</b-button>
 </div>
 
-<!-- button-outline.vue -->
+<!-- b-button-outline.vue -->
 ```
 
 ### Link variant
@@ -115,9 +117,11 @@ Variant `link` will render a button with the appearance of a link while maintain
 padding and size of a button.
 
 ```html
-<b-button variant="link">Link</b-button>
+<div>
+  <b-button variant="link">Link</b-button>
+</div>
 
-<!-- button-link.vue -->
+<!-- b-button-link.vue -->
 ```
 
 ## Disabled state
@@ -131,7 +135,7 @@ rendered as `<a>` elements and `<router-link>`.
   <b-button disabled size="lg">Also Disabled</b-button>
 </div>
 
-<!-- button-disabled.vue -->
+<!-- b-button-disabled.vue -->
 ```
 
 ## Button Pressed state and toggling
@@ -195,12 +199,12 @@ modifier (available in Vue 2.3+) on the `pressed` property
   }
 </script>
 
-<!-- button-toggles.vue -->
+<!-- b-button-toggles.vue -->
 ```
 
 If using toggle button style for a radio or checkbox style interface, it is best to use the built-in
 `button` style support of [`<b-form-radio-group>`](/docs/components/form-radio) and
-[`<b-checkbox-group>`](/docs/components/form-checkbox).
+[`<b-form-checkbox-group>`](/docs/components/form-checkbox).
 
 ## Router link support
 

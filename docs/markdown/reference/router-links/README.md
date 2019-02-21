@@ -25,28 +25,30 @@ Denotes the target route of the link. When clicked, the value of the `to` prop w
 `router.push()` internally, so the value can be either a string or a location descriptor object.
 
 ```html
-<!-- literal string -->
-<b-link to="home">Home</b-link>
-<!-- renders to -->
-<a href="home">Home</a>
+<div>
+  <!-- Literal string -->
+  <b-link to="home">Home</b-link>
+  <!-- Renders to -->
+  <a href="home">Home</a>
 
-<!-- javascript expression using `v-bind` -->
-<b-link v-bind:to="'home'">Home</b-link>
+  <!-- JavaScript expression using `v-bind` -->
+  <b-link v-bind:to="'home'">Home</b-link>
 
-<!-- Omitting `v-bind` is fine, just as binding any other prop -->
-<b-link :to="'home'">Home</b-link>
+  <!-- Omitting `v-bind` is fine, just as binding any other prop -->
+  <b-link :to="'home'">Home</b-link>
 
-<!-- same as above -->
-<b-link :to="{ path: 'home' }">Home</b-link>
+  <!-- Same as above -->
+  <b-link :to="{ path: 'home' }">Home</b-link>
 
-<!-- named route -->
-<b-link :to="{ name: 'user', params: { userId: 123 }}">User</b-link>
+  <!-- Named route -->
+  <b-link :to="{ name: 'user', params: { userId: 123 } }">User</b-link>
 
-<!-- with query, resulting in `/register?plan=private` -->
-<b-link :to="{path:'register', query:{ plan:'private'}}">Register</b-link>
+  <!-- With query, resulting in `/register?plan=private` -->
+  <b-link :to="{ path: 'register', query: { plan: 'private' } }">Register</b-link>
 
-<!-- render a non-router link iby omitting 'to'and specifying an href -->
-<b-link href="/home">Home</b-link>
+  <!-- Render a non-router link by omitting `to` and specifying an `href` -->
+  <b-link href="/home">Home</b-link>
+</div>
 ```
 
 ### `replace`
@@ -58,7 +60,9 @@ Setting `replace` prop will call `router.replace()` instead of `router.push()` w
 navigation will not leave a history record.
 
 ```html
-<b-link :to="{ path: '/abc'}" replace></b-link>
+<div>
+  <b-link :to="{ path: '/abc'}" replace />
+</div>
 ```
 
 ### `append`
@@ -71,7 +75,9 @@ are navigating from `/a` to a relative link `b`, without `append` we will end up
 `append` we will end up at `/a/b`.
 
 ```html
-<b-link :to="{ path: 'relative/path'}" append></b-link>
+<div>
+  <b-link :to="{ path: 'relative/path'}" append />
+</div>
 ```
 
 ### `router-tag`
@@ -84,9 +90,12 @@ prop to specify which tag to render to, and it will still listen to click events
 `router-tag` translates to the `tag` prop on the final rendered `<router-link>`.
 
 ```html
-<b-link to="/foo" router-tag="li">foo</b-link>
-<!-- renders as -->
-<li>foo</li>
+<div>
+  <b-link to="/foo" router-tag="li">foo</b-link>
+
+  <!-- Renders as -->
+  <li>foo</li>
+</div>
 ```
 
 **Note:** Changing the tag from anything other than `<a>` is discouraged, as it hinders
@@ -112,8 +121,10 @@ One consequence of this is that `<b-link to="/">` will be active for every route
 into "exact match mode", use the `exact` prop:
 
 ```html
-<!-- this link will only be active at `/` -->
-<b-link to="/" exact></b-link>
+<div>
+  <!-- This link will only be active at `/` -->
+  <b-link to="/" exact />
+</div>
 ```
 
 Check out more examples explaining active link class [live](https://jsfiddle.net/8xrk1n9f/).
@@ -122,7 +133,7 @@ Check out more examples explaining active link class [live](https://jsfiddle.net
 
 - type: `string`
 - default: `'router-link-exact-active'` (`'nuxt-link-exact-active'` when using Nuxt.js)
-- availablity: Vue-Router 2.5.0+
+- availability: Vue-Router 2.5.0+
 
 Configure the active CSS class applied when the link is active with exact match. Note the default
 value can also be configured globally via the `linkExactActiveClass` router constructor option.
@@ -138,7 +149,7 @@ additional Nuxt specific props.
 
 - type: `boolean`
 - default: `false`
-- availablity: Nuxt 2.4.0+
+- availability: Nuxt 2.4.0+
 
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
 the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will

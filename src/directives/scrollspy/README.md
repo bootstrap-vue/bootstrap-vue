@@ -26,38 +26,41 @@ as well.
 
 ```html
 <template>
-  <b-card no-body>
-    <b-nav pills slot="header" v-b-scrollspy:nav-scroller>
-      <b-nav-item href="#fat" @click="scrollIntoView">@fat</b-nav-item>
-      <b-nav-item href="#mdo" @click="scrollIntoView">@mdo</b-nav-item>
-      <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
-        <b-dropdown-item href="#one" @click="scrollIntoView">one</b-dropdown-item>
-        <b-dropdown-item href="#two" @click="scrollIntoView">two</b-dropdown-item>
-        <b-dropdown-divider />
-        <b-dropdown-item href="#three" @click="scrollIntoView">three</b-dropdown-item>
-      </b-nav-item-dropdown>
-      <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>
-    </b-nav>
-    <b-card-body
-      id="nav-scroller"
-      ref="content"
-      style="position:relative; height:300px; overflow-y:scroll;"
-    >
-      <p>{{ text }}</p>
-      <h4 id="fat">@fat</h4>
-      <p v-for="i in 3">{{ text }}</p>
-      <h4 id="mdo">@mdo</h4>
-      <p v-for="i in 3">{{ text }}</p>
-      <h4 id="one">one</h4>
-      <p v-for="i in 2">{{ text }}</p>
-      <h4 id="two">two</h4>
-      <p>{{ text }}</p>
-      <h4 id="three">three</h4>
-      <p v-for="i in 2">{{ text }}</p>
-      <h4 id="pi0">@pi0</h4>
-      <p v-for="i in 3">{{ text }}</p>
-    </b-card-body>
-  </b-card>
+  <div>
+    <b-card no-body>
+      <b-nav pills slot="header" v-b-scrollspy:nav-scroller>
+        <b-nav-item href="#fat" @click="scrollIntoView">@fat</b-nav-item>
+        <b-nav-item href="#mdo" @click="scrollIntoView">@mdo</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
+          <b-dropdown-item href="#one" @click="scrollIntoView">one</b-dropdown-item>
+          <b-dropdown-item href="#two" @click="scrollIntoView">two</b-dropdown-item>
+          <b-dropdown-divider />
+          <b-dropdown-item href="#three" @click="scrollIntoView">three</b-dropdown-item>
+        </b-nav-item-dropdown>
+        <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>
+      </b-nav>
+
+      <b-card-body
+        id="nav-scroller"
+        ref="content"
+        style="position:relative; height:300px; overflow-y:scroll;"
+      >
+        <p>{{ text }}</p>
+        <h4 id="fat">@fat</h4>
+        <p v-for="i in 3">{{ text }}</p>
+        <h4 id="mdo">@mdo</h4>
+        <p v-for="i in 3">{{ text }}</p>
+        <h4 id="one">one</h4>
+        <p v-for="i in 2">{{ text }}</p>
+        <h4 id="two">two</h4>
+        <p>{{ text }}</p>
+        <h4 id="three">three</h4>
+        <p v-for="i in 2">{{ text }}</p>
+        <h4 id="pi0">@pi0</h4>
+        <p v-for="i in 3">{{ text }}</p>
+      </b-card-body>
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -77,21 +80,21 @@ as well.
     data() {
       return {
         text: `
-        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-        tempor. Laborum consequat non elit enim exercitation cillum aliqua
-        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-        nisi sit est tempor laborum mollit labore officia laborum excepteur
-        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-        ipsum commodo tempor sunt in proident.
-      `
+          Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+          tempor. Laborum consequat non elit enim exercitation cillum aliqua
+          consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+          laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+          Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+          nisi sit est tempor laborum mollit labore officia laborum excepteur
+          commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+          ipsum commodo tempor sunt in proident.
+        `
       }
     }
   }
 </script>
 
-<!-- scrollspy-nav-1.vue -->
+<!-- b-scrollspy-nav.vue -->
 ```
 
 ### Example using nested navs
@@ -121,8 +124,9 @@ also be active. Scroll the area next to the navbar and watch the active class ch
           </b-nav>
         </b-navbar>
       </b-col>
+
       <b-col cols="8">
-        <div id="scrollspy-nested" style="position:relative;height:350px;overflow-y:auto">
+        <div id="scrollspy-nested" style="position:relative; height:350px; overflow-y:auto">
           <h4 id="item-1" style="">Item 1</h4>
           <p>{{ text }}</p>
           <h5 id="item-1-1" style="">Item 1-1</h5>
@@ -148,25 +152,26 @@ also be active. Scroll the area next to the navbar and watch the active class ch
     data() {
       return {
         text: `
-        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-        tempor. Laborum consequat non elit enim exercitation cillum aliqua
-        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-        nisi sit est tempor laborum mollit labore officia laborum excepteur
-        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-        ipsum commodo tempor sunt in proident.
-      `
+          Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+          tempor. Laborum consequat non elit enim exercitation cillum aliqua
+          consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+          laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+          Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+          nisi sit est tempor laborum mollit labore officia laborum excepteur
+          commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+          ipsum commodo tempor sunt in proident.
+        `
       }
     }
   }
 </script>
-<!-- scrollspy-nested-1.vue -->
+
+<!-- b-scrollspy-nested.vue -->
 ```
 
 ### Example using list group
 
-Scrollspy also works with `<b-list-group>` when it contains `<b-list-grouop-item>`s that have a
+Scrollspy also works with `<b-list-group>` when it contains `<b-list-group-item>`s that have a
 _local_ `href` . Scroll the area next to the list group and watch the active state change.
 
 ```html
@@ -182,8 +187,9 @@ _local_ `href` . Scroll the area next to the list group and watch the active sta
           <b-list-group-item href="#list-item-5">Item 5</b-list-group-item>
         </b-list-group>
       </b-col>
+
       <b-col cols="8">
-        <div id="listgroup-ex" style="position:relative;overflow-y:auto;height:300px">
+        <div id="listgroup-ex" style="position:relative; overflow-y:auto; height:300px">
           <h4 id="list-item-1">Item 1</h4>
           <p>{{ text }}</p>
           <h4 id="list-item-2">Item 2</h4>
@@ -205,20 +211,21 @@ _local_ `href` . Scroll the area next to the list group and watch the active sta
     data() {
       return {
         text: `
-        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-        tempor. Laborum consequat non elit enim exercitation cillum aliqua
-        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-        nisi sit est tempor laborum mollit labore officia laborum excepteur
-        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-        ipsum commodo tempor sunt in proident.
-      `
+          Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+          tempor. Laborum consequat non elit enim exercitation cillum aliqua
+          consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+          laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+          Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+          nisi sit est tempor laborum mollit labore officia laborum excepteur
+          commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+          ipsum commodo tempor sunt in proident.
+        `
       }
     }
   }
 </script>
-<!-- scrollspy-listgroup-1.vue -->
+
+<!-- b-scrollspy-listgroup.vue -->
 ```
 
 ## Directive syntax and usage
@@ -241,18 +248,18 @@ the `v-b-scrollspy` directive is applied to the target element that has the link
 and the arg or option specifies which element to monitor (spy) scrolling on.
 
 The directive an be applied to any containing element or component that has `<nav-item>`,
-`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes), a long as
+`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the appropriate classes), a long as
 they have `href` attributes that point to elements with the respective `id`s in the scrolling
 element.
 
 ### Config object properties
 
-```
+```js
 config = {
-  element: <css-string|element-ref|component-ref>,
-  offset: <number>,
-  method: <string: auto|position|offset>,
-  throttle: <number>
+  element: 'body',
+  offset: 10,
+  method: 'auto',
+  throttle: 100
 }
 ```
 
@@ -260,7 +267,7 @@ config = {
 | ---------- | ------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `element`  | String or Reference | `'body'` | Element to be monitored for scrolling. Can be an ID (`#foo`), a css Selector (`#foo div`), or a reference to an element/component node. If a CSS string, then the first matching element is used. If an ID is used it must start with `#`.                |
 | `offset`   | Number              | `10`     | offset (in pixels) from top of scrolling viewport before triggering active state.                                                                                                                                                                         |
-| `method`   | String              | `auto`   | `position` will calculate target offsets relative to the scroll container. `offset` will calculate the target offsets relative to the top of the window/viewport. `auto` will choose `offset` if scroll element is `body`, else the method is `position`. |
+| `method`   | String              | `'auto'` | `position` will calculate target offsets relative to the scroll container. `offset` will calculate the target offsets relative to the top of the window/viewport. `auto` will choose `offset` if scroll element is `body`, else the method is `position`. |
 | `throttle` | Number              | `100`    | Timeout in `ms` for resize events to stop firing before recalculating offsets.                                                                                                                                                                            |
 
 If args/modifiers and a value (object or number) is passed, the value takes precedence over the arg
@@ -284,66 +291,80 @@ and `overflow-y: scroll;` applied.
 Assume `<body>` is the scroll element, and use default offset of 10 pixels
 
 ```html
-<b-nav v-b-scrollspy>
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy>
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 Assume `<body>` is the scroll element, and use offset of 20 pixels
 
 ```html
-<b-nav v-b-scrollspy="20">
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy="20">
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 Element with ID `#foo` is the scroll element, and use default offset of 10 pixels
 
 ```html
-<b-nav v-b-scrollspy:foo>
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy:foo>
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 Element `#foo` is the scroll element, and use offset of 20 pixels
 
 ```html
-<b-nav v-b-scrollspy:foo="20">
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy:foo="20">
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 Element `#foo` is the scroll element, and use offset of 25 pixels
 
 ```html
-<b-nav v-b-scrollspy:foo.25>
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy:foo.25>
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 Element `#foo` is the scroll element, and use default offset of 10 pixels (note single quotes around
 value)
 
 ```html
-<b-nav v-b-scrollspy="'#foo'">
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy="'#foo'">
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 Pass object as config. `element` can be a CSS ID (i.e `#foo`), a CSS selector (i.e. `body`), or a
 node reference
 
 ```html
-<b-nav v-b-scrollspy="{element: '#id', offset: 50}">
-  <b-nav-item href="#bar">Foo</b-nav-item>
-  <b-nav-item href="#baz">Bar</b-nav-item>
-</b-nav>
+<div>
+  <b-nav v-b-scrollspy="{element: '#id', offset: 50}">
+    <b-nav-item href="#bar">Foo</b-nav-item>
+    <b-nav-item href="#baz">Bar</b-nav-item>
+  </b-nav>
+</div>
 ```
 
 ## Events

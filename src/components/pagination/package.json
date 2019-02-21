@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Pagination",
-        "component": "bPagination",
+        "component": "BPagination",
         "events": [
             {
                 "event": "input",
@@ -29,23 +29,23 @@
         "slots": [
             {
                 "name": "first-text",
-                "description": "The \"goto first page\" button content (html/sub-components supported)"
+                "description": "The \"go to first page\" button content (html/sub-components supported)"
             },
             {
                 "name": "prev-text",
-                "description": "The \"goto previous page\" button content (html/sub-components supported)"
+                "description": "The \"go to previous page\" button content (html/sub-components supported)"
             },
             {
                 "name": "next-text",
-                "description": "The \"goto next page\" button content (html/sub-components supported)"
+                "description": "The \"go to next page\" button content (html/sub-components supported)"
             },
             {
                 "name": "last-text",
-                "description": "The \"goto last page\" button content (html/sub-components supported)"
+                "description": "The \"go to last page\" button content (html/sub-components supported)"
             },
             {
                 "name": "ellipsis-text",
-                "description": " | the '...' indicator content (html/sub-components supported)"
+                "description": "The '...' indicator content (html/sub-components supported)"
             }
         ]
     }

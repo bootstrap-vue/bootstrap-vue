@@ -134,7 +134,7 @@ describe('b-table provider functions', async () => {
 
   it('callback items provider expects 2 arguments', async () => {
     function provider(ctx) {
-      return null
+      return Promise.resolve(null)
     }
     const wrapper = mount(Table, {
       propsData: {

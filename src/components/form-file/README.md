@@ -1,6 +1,6 @@
 # Form File Input
 
-> Customized, cross-browser consistant, file input control that supports single file, multiple
+> Customized, cross-browser consistent, file input control that supports single file, multiple
 > files, and directory upload (for browsers that support directory mode)
 
 ```html
@@ -32,7 +32,7 @@
   }
 </script>
 
-<!-- form-file.vue -->
+<!-- b-form-file.vue -->
 ```
 
 For cross browser consistency, Form file defaults to the Bootstrap custom file input to replace the
@@ -42,14 +42,14 @@ replacement for the default file input.
 ## Single file (default)
 
 On single file mode, when no file is selected or user cancels Browse dialog, `v-model` is `null`
-indicating no file selected. When a file is selected the return value will be a javascript
+indicating no file selected. When a file is selected the return value will be a JavaScript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instance.
 
 ## Multiple files
 
 Multiple file uploading is supported by adding `multiple` prop to component. In this case `v-model`
 is _always_ an `Array`. When no files are selected, an empty array will be returned. When a file or
-files are selected the return value will be an array of javascript
+files are selected the return value will be an array of JavaScript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instances.
 
 ## Directory mode
@@ -79,14 +79,16 @@ You can limit the file types by setting the `accept` prop to a string containing
 type(s). To specify more than one type, separate the values with a comma.
 
 ```html
-<!-- Accept all image formats by IANA media type wildcard-->
-<b-form-file accept="image/*" />
+<div>
+  <!-- Accept all image formats by IANA media type wildcard-->
+  <b-form-file accept="image/*" />
 
-<!-- Accept specific image formats by IANA type -->
-<b-form-file accept="image/jpeg, image/png, image/gif" />
+  <!-- Accept specific image formats by IANA type -->
+  <b-form-file accept="image/jpeg, image/png, image/gif" />
 
-<!-- Accept specific image formats by extension -->
-<b-form-file accept=".jpg, .png, .gif" />
+  <!-- Accept specific image formats by extension -->
+  <b-form-file accept=".jpg, .png, .gif" />
+</div>
 ```
 
 To accept any file type, leave `accept` as null (default). You can mix and match IANA media types
@@ -114,7 +116,7 @@ stylesheets. Also it is advised to use
 }
 ```
 
-Alternatively you can set the content of the custom file browe button text via the `browse-text`
+Alternatively you can set the content of the custom file browse button text via the `browse-text`
 prop. Note, only plain text is supported. HTML and components are not supported.
 
 ## Non custom file input
@@ -132,7 +134,7 @@ Generally speaking, you’ll want to use a particular state for specific types o
   properly to submit the form.
 - `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
   encourage a user through the rest of the fields.
-- `null` Displayes no validation state
+- `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-file`, set the `state` prop to `'invalid'`
 (or `false`), `'valid'` ( or `true`), or `null`.
@@ -141,8 +143,8 @@ To apply one of the contextual state icons on `<b-form-file`, set the `state` pr
 
 When using the custom version of `<b-form-file>` input which hides the original input, it is
 **highly recommended** that you supply a document unique ID string via the `id` prop. This will
-automatically render the extra ARIA atributes required to improve usability for persons using
-assitive technologies.
+automatically render the extra ARIA attributes required to improve usability for persons using
+assistive technologies.
 
 ## Clearing the file selection
 
@@ -158,8 +160,10 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
 <template>
   <div>
     <b-form-file v-model="file" ref="fileinput" class="mb-2" />
+
     <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
     <b-button @click="file = null">Reset via v-model</b-button>
+
     <p class="mt-2">Selected file: <b>{{ file ? file.name : '' }}</b></p>
   </div>
 </template>
@@ -179,7 +183,7 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
   }
 </script>
 
-<!-- form-file-reset.vue -->
+<!-- b-form-file-reset.vue -->
 ```
 
 **Implementation note:** As not all browsers allow setting a value of a file input (even to null or

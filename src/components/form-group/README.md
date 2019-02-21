@@ -6,17 +6,19 @@
 
 ```html
 <template>
-  <b-form-group
-    id="fieldset1"
-    description="Let us know your name."
-    label="Enter your name"
-    label-for="input1"
-    :invalid-feedback="invalidFeedback"
-    :valid-feedback="validFeedback"
-    :state="state"
-  >
-    <b-form-input id="input1" :state="state" v-model="name" trim />
-  </b-form-group>
+  <div>
+    <b-form-group
+      id="fieldset1"
+      description="Let us know your name."
+      label="Enter your name"
+      label-for="input1"
+      :invalid-feedback="invalidFeedback"
+      :valid-feedback="validFeedback"
+      :state="state"
+    >
+      <b-form-input id="input1" :state="state" v-model="name" trim />
+    </b-form-group>
+  </div>
 </template>
 
 <script>
@@ -46,7 +48,7 @@
   }
 </script>
 
-<!-- form-group-1.vue -->
+<!-- b-form-group.vue -->
 ```
 
 ## Label
@@ -91,19 +93,21 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
 
 ```html
 <div>
-  <b-form-group
-    id="fieldsetHorizontal"
-    label-cols-sm="4"
-    label-cols-lg="3"
-    description="Let us know your name."
-    label="Enter your name"
-    label-for="inputHorizontal"
-  >
-    <b-form-input id="inputHorizontal" />
-  </b-form-group>
+  <div>
+    <b-form-group
+      id="fieldsetHorizontal"
+      label-cols-sm="4"
+      label-cols-lg="3"
+      description="Let us know your name."
+      label="Enter your name"
+      label-for="inputHorizontal"
+    >
+      <b-form-input id="inputHorizontal" />
+    </b-form-group>
+  </div>
 </div>
 
-<!-- form-group-horizontal.vue -->
+<!-- b-form-group-horizontal.vue -->
 ```
 
 **Deprecation warning:** The props `horizontal` and `breakpoint` have been deprecated in favour of
@@ -120,15 +124,17 @@ for both `horizontal` and non-horizontal form groups.
   <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Small" label-for="input_sm">
     <b-form-input id="input_sm" size="sm" />
   </b-form-group>
+
   <b-form-group label-cols="4" label-cols-lg="2" label="Default" label-for="input_default">
     <b-form-input id="input_default" />
   </b-form-group>
+
   <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Large" label-for="input_lg">
     <b-form-input id="input_lg" size="lg" />
   </b-form-group>
 </div>
 
-<!-- form-group-label-size.vue -->
+<!-- b-form-group-label-size.vue -->
 ```
 
 ### Label text alignment
@@ -158,38 +164,49 @@ Feel free to nest `<b-form-group>` components to produce advanced form layouts a
 of related form controls:
 
 ```html
-<b-card bg-variant="light">
-  <b-form-group
-    label-cols-lg="3"
-    label="Shipping Address"
-    label-size="lg"
-    label-class="font-weight-bold pt-0"
-    class="mb-0"
-  >
-    <b-form-group label-cols-sm="3" label="Street:" label-align-sm="right" label-for="nestedStreet">
-      <b-form-input id="nestedStreet" />
-    </b-form-group>
-    <b-form-group label-cols-sm="3" label="City:" label-align-sm="right" label-for="nestedCity">
-      <b-form-input id="nestedCity" />
-    </b-form-group>
-    <b-form-group label-cols-sm="3" label="State:" label-align-sm="right" label-for="nestedState">
-      <b-form-input id="nestedState" />
-    </b-form-group>
+<div>
+  <b-card bg-variant="light">
     <b-form-group
-      label-cols-sm="3"
-      label="Country:"
-      label-align-sm="right"
-      label-for="nestedCountry"
+      label-cols-lg="3"
+      label="Shipping Address"
+      label-size="lg"
+      label-class="font-weight-bold pt-0"
+      class="mb-0"
     >
-      <b-form-input id="nestedCountry" />
-    </b-form-group>
-    <b-form-group label-cols-sm="3" label="Ship via:" label-align-sm="right" class="mb-0">
-      <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']" />
-    </b-form-group>
-  </b-form-group>
-</b-card>
+      <b-form-group
+        label-cols-sm="3"
+        label="Street:"
+        label-align-sm="right"
+        label-for="nestedStreet"
+      >
+        <b-form-input id="nestedStreet" />
+      </b-form-group>
 
-<!-- form-group-nested.vue -->
+      <b-form-group label-cols-sm="3" label="City:" label-align-sm="right" label-for="nestedCity">
+        <b-form-input id="nestedCity" />
+      </b-form-group>
+
+      <b-form-group label-cols-sm="3" label="State:" label-align-sm="right" label-for="nestedState">
+        <b-form-input id="nestedState" />
+      </b-form-group>
+
+      <b-form-group
+        label-cols-sm="3"
+        label="Country:"
+        label-align-sm="right"
+        label-for="nestedCountry"
+      >
+        <b-form-input id="nestedCountry" />
+      </b-form-group>
+
+      <b-form-group label-cols-sm="3" label="Ship via:" label-align-sm="right" class="mb-0">
+        <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']" />
+      </b-form-group>
+    </b-form-group>
+  </b-card>
+</div>
+
+<!-- b-form-group-nested.vue -->
 ```
 
 ## Disabled form-group
@@ -212,10 +229,10 @@ Generally speaking, you’ll want to use a particular state for specific types o
 - `null` Displays no validation state
 
 To apply one of the contextual states on `<b-form-group>`, set the `state` prop to `'invalid'` (or
-`false`), `'valid'` (or `true`), or `null`. This will programmatically show the apropriate feedback
+`false`), `'valid'` (or `true`), or `null`. This will programmatically show the appropriate feedback
 text.
 
-Boostrap V4 uses sibling CSS slectors of `:invalid` or `:valid` inputs to show the feedback text.
+Bootstrap V4 uses sibling CSS selectors of `:invalid` or `:valid` inputs to show the feedback text.
 Some form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
 wrapped in additional markup that will no longer make the feedback text a sibling of the input, and
 hence the feedback will not show. In these situations you will need to set the validity `state` on
@@ -236,7 +253,7 @@ Show optional invalid state feedback text to provide textual state feedback (htm
 setting the prop `invalid-feedback` or using the named slot `invalid-feedback`.
 
 Invalid feedback is rendered using the
-[`<b-form-invalid-feedback>`](/docs/components/form#helper-components) form sub-componment.
+[`<b-form-invalid-feedback>`](/docs/components/form#helper-components) form sub-component.
 
 **Note:** The prop `feedback` has been deprecated in favor of the `invalid-feedback` prop.
 
@@ -246,7 +263,7 @@ Show optional valid state feedback text to provide textual state feedback (html 
 setting the prop `valid-feedback` or using the named slot `valid-feedback`.
 
 Valid feedback is rendered using the
-[`<b-form-valid-feedback>`](/docs/components/form#helper-components) form sub-componment.
+[`<b-form-valid-feedback>`](/docs/components/form#helper-components) form sub-component.
 
 ### Feedback style
 
@@ -259,9 +276,9 @@ the feedback so that it shows as a static tooltip when visible, by setting the p
 **Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`, `<b-form-radio>`,
 `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a `<b-form-group>`, setting an invalid (or
 valid) `state` on the `input` alone will **not** trigger the invalid (or valid) feedback to show
-(due to limitations with the new Bootsrap V4 validation CSS). To get around this, **you must also**
+(due to limitations with the new Bootstrap V4 validation CSS). To get around this, **you must also**
 set the invalid/valid `state` on `<b-form-group>`. Native browser validation will **not** trigger
-the invalid feedback to show when using one of the above mentiond form controls.
+the invalid feedback to show when using one of the above mentioned form controls.
 
 ## Accessibility
 

@@ -1,6 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
 import { isArray } from '../../utils/array'
-import { assign } from '../../utils/object'
 import BBreadcrumbItem from './breadcrumb-item'
 
 export const props = {
@@ -34,7 +33,7 @@ export default {
           active = idx + 1 === props.items.length
         }
 
-        return h(BBreadcrumbItem, { props: assign({}, item, { active }) })
+        return h(BBreadcrumbItem, { props: { ...item, active } })
       })
     }
 

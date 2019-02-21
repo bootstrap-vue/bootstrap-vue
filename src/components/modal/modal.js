@@ -6,7 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
-import stripScripts from '../../utils/strip-scripts'
+import { stripTags } from '../../utils/html'
 
 import {
   addClass,
@@ -94,6 +94,9 @@ export default {
       type: String,
       default: ''
     },
+    titleHtml: {
+      type: String
+    },
     titleTag: {
       type: String,
       default: 'h5'
@@ -103,6 +106,10 @@ export default {
       default: 'md'
     },
     centered: {
+      type: Boolean,
+      default: false
+    },
+    scrollable: {
       type: Boolean,
       default: false
     },
@@ -230,9 +237,15 @@ export default {
       type: String,
       default: 'Cancel'
     },
+    cancelTitleHtml: {
+      type: String
+    },
     okTitle: {
       type: String,
       default: 'OK'
+    },
+    okTitleHtml: {
+      type: String
     },
     cancelVariant: {
       type: String,
@@ -285,7 +298,8 @@ export default {
       return [
         {
           [`modal-${this.size}`]: Boolean(this.size),
-          'modal-dialog-centered': this.centered
+          'modal-dialog-centered': this.centered,
+          'modal-dialog-scrollable': this.scrollable
         },
         this.dialogClass
       ]
@@ -552,8 +566,13 @@ export default {
     },
     // UI Event Handlers
     onClickOut(evt) {
+      // Do nothing if not visible, backdrop click disabled, or element that generated
+      // click event is no longer in document
+      if (!this.is_visible || this.noCloseOnBackdrop || !contains(document, evt.target)) {
+        return
+      }
       // If backdrop clicked, hide modal
-      if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
+      if (!contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
     },
@@ -802,7 +821,7 @@ export default {
         }
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || stripScripts(this.title)
+            $slots['modal-title'] || this.titleHtml || stripTags(this.title)
           ]),
           closeButton
         ]
@@ -850,7 +869,7 @@ export default {
                 }
               }
             },
-            [$slots['modal-cancel'] || stripScripts(this.cancelTitle)]
+            [$slots['modal-cancel'] || this.cancelTitleHtml || stripTags(this.cancelTitle)]
           )
         }
         const okButton = h(
@@ -867,7 +886,7 @@ export default {
               }
             }
           },
-          [$slots['modal-ok'] || stripScripts(this.okTitle)]
+          [$slots['modal-ok'] || this.okTitleHtml || stripTags(this.okTitle)]
         )
         modalFooter = [cancelButton, okButton]
       }
@@ -924,8 +943,8 @@ export default {
           'aria-modal': this.is_visible ? 'true' : null
         },
         on: {
-          click: this.onClickOut,
-          keydown: this.onEsc
+          keydown: this.onEsc,
+          click: this.onClickOut
         }
       },
       [modalDialog]

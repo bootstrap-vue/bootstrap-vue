@@ -8,23 +8,11 @@
         Importing individual {{ pluginTitle }} Components
       </h3>
 
-      <b-table
-        :items="componentImports"
-        small
-        head-variant="default"
-        striped
-      >
-        <template
-          slot="component"
-          slot-scope="field"
-        >
+      <b-table :items="componentImports" small head-variant="default" striped>
+        <template slot="component" slot-scope="field">
           <code>{{ field.value }}</code>
         </template>
-
-        <template
-          slot="importPath"
-          slot-scope="field"
-        >
+        <template slot="importPath" slot-scope="field">
           <code>{{ field.value }}</code>
         </template>
       </b-table>
@@ -39,23 +27,11 @@
         Importing individual {{ pluginTitle }} Directives
       </h3>
 
-      <b-table
-        :items="directiveImports"
-        small
-        head-variant="default"
-        striped
-      >
-        <template
-          slot="directive"
-          slot-scope="field"
-        >
+      <b-table :items="directiveImports" small head-variant="default" striped>
+        <template slot="directive" slot-scope="field">
           <code>{{ field.value }}</code>
         </template>
-
-        <template
-          slot="importPath"
-          slot-scope="field"
-        >
+        <template slot="importPath" slot-scope="field">
           <code>{{ field.value }}</code>
         </template>
       </b-table>
@@ -65,9 +41,7 @@
       <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
     </template>
 
-    <h3 id="importing-as-a-plugin">
-      Importing {{ pluginTitle }} as a Vue plugin
-    </h3>
+    <h3 id="importing-as-a-plugin">Importing {{ pluginTitle }} as a Vue plugin</h3>
 
     <p v-if="isComponentRoute">
       This plugin includes all of the above listed individual
@@ -83,12 +57,7 @@
     <template v-if="meta.plugins && meta.plugins.length > 0">
       <p>This plugin also automatically includes the following plugins:</p>
       <ul>
-        <li
-          v-for="plugin in meta.plugins"
-          :key="plugin"
-        >
-          <code>{{ plugin }}</code>
-        </li>
+        <li v-for="plugin in meta.plugins" :key="plugin"><code>{{ plugin }}</code></li>
       </ul>
     </template>
   </section>
@@ -189,7 +158,7 @@ export default {
       return this.directiveName(directive)
     },
     directivePath(directive) {
-      const directiveName = this.directiveName(directive)
+      const directiveName = this.directiveName(directive).replace(/^b-/, '')
       return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
     }
   }

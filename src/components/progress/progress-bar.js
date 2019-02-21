@@ -1,8 +1,16 @@
-import stripScripts from '../../utils/strip-scripts'
+import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default {
   name: 'BProgressBar',
+  inject: {
+    progress: {
+      from: 'progress',
+      default: function() {
+        return {}
+      }
+    }
+  },
   props: {
     value: {
       type: Number,
@@ -11,6 +19,9 @@ export default {
     label: {
       type: String,
       default: null
+    },
+    labelHtml: {
+      type: String
     },
     // $parent prop values take precedence over the following props
     // Which is why they are defaulted to null
@@ -46,7 +57,6 @@ export default {
   computed: {
     progressBarClasses() {
       return [
-        'progress-bar',
         this.computedVariant ? `bg-${this.computedVariant}` : '',
         this.computedStriped || this.computedAnimated ? 'progress-bar-striped' : '',
         this.computedAnimated ? 'progress-bar-animated' : ''
@@ -57,55 +67,56 @@ export default {
         width: 100 * (this.value / this.computedMax) + '%'
       }
     },
-    progress() {
+    computedProgress() {
       const p = Math.pow(10, this.computedPrecision)
       return Math.round((100 * p * this.value) / this.computedMax) / p
     },
     computedMax() {
       // Prefer our max over parent setting
-      return typeof this.max === 'number' ? this.max : this.$parent.max || 100
+      return typeof this.max === 'number' ? this.max : this.progress.max || 100
     },
     computedVariant() {
       // Prefer our variant over parent setting
-      return this.variant || this.$parent.variant
+      return this.variant || this.progress.variant
     },
     computedPrecision() {
       // Prefer our precision over parent setting
-      return typeof this.precision === 'number' ? this.precision : this.$parent.precision || 0
+      return typeof this.precision === 'number' ? this.precision : this.progress.precision || 0
     },
     computedStriped() {
       // Prefer our striped over parent setting
-      return typeof this.striped === 'boolean' ? this.striped : this.$parent.striped || false
+      return typeof this.striped === 'boolean' ? this.striped : this.progress.striped || false
     },
     computedAnimated() {
       // Prefer our animated over parent setting
-      return typeof this.animated === 'boolean' ? this.animated : this.$parent.animated || false
+      return typeof this.animated === 'boolean' ? this.animated : this.progress.animated || false
     },
     computedShowProgress() {
       // Prefer our showProgress over parent setting
       return typeof this.showProgress === 'boolean'
         ? this.showProgress
-        : this.$parent.showProgress || false
+        : this.progress.showProgress || false
     },
     computedShowValue() {
       // Prefer our showValue over parent setting
-      return typeof this.showValue === 'boolean' ? this.showValue : this.$parent.showValue || false
+      return typeof this.showValue === 'boolean' ? this.showValue : this.progress.showValue || false
     }
   },
   render(h) {
     let childNodes = h(false)
     if (this.$slots.default) {
       childNodes = this.$slots.default
-    } else if (this.label) {
-      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
+    } else if (this.label || this.labelHtml) {
+      childNodes = h('span', { domProps: htmlOrText(this.labelHtml, this.label) })
     } else if (this.computedShowProgress) {
-      childNodes = this.progress.toFixed(this.computedPrecision)
+      childNodes = this.computedProgress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {
       childNodes = this.value.toFixed(this.computedPrecision)
     }
     return h(
       'div',
       {
+        staticClass: 'progress-bar',
         class: this.progressBarClasses,
         style: this.progressBarStyles,
         attrs: {

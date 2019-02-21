@@ -128,14 +128,10 @@ export function importAll(r) {
   r.keys()
     .map(r)
     .map(m => m.meta || m)
-    .map(m =>
-      Object.assign(
-        {
-          slug: m.slug || (m.title || '').replace(' ', '-').toLowerCase()
-        },
-        m
-      )
-    )
+    .map(m => ({
+      slug: m.slug || (m.title || '').replace(' ', '-').toLowerCase(),
+      ...m
+    }))
     .sort((a, b) => {
       if (a.slug < b.slug) return -1
       else if (a.slug > b.slug) return 1

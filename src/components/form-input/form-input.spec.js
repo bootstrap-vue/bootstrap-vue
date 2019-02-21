@@ -1,5 +1,6 @@
 import Input from './form-input'
 import { mount } from '@vue/test-utils'
+import Vue from 'vue'
 
 describe('form-input', async () => {
   it('has class form-control', async () => {
@@ -140,13 +141,21 @@ describe('form-input', async () => {
   })
 
   it('renders text input when type not supported', async () => {
+    const { warnHandler } = Vue.config
+    Vue.config.warnHandler = jest.fn()
+
     const wrapper = mount(Input, {
       propsData: {
         type: 'foobar'
       }
     })
+
     const input = wrapper.find('input')
+
     expect(input.attributes('type')).toBe('text')
+
+    expect(Vue.config.warnHandler).toHaveBeenCalled()
+    Vue.config.warnHandler = warnHandler
   })
 
   it('does not have is-valid or is-invalid classes when state is default', async () => {

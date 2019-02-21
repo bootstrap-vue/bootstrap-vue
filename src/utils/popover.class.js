@@ -1,12 +1,12 @@
 import ToolTip from './tooltip.class'
-import { assign } from './object'
 import { select, addClass, removeClass, getAttr } from './dom'
 
 const NAME = 'popover'
 const CLASS_PREFIX = 'bs-popover'
 const BSCLS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
-const Defaults = assign({}, ToolTip.Default, {
+const Defaults = {
+  ...ToolTip.Default,
   placement: 'right',
   trigger: 'click',
   content: '',
@@ -15,7 +15,7 @@ const Defaults = assign({}, ToolTip.Default, {
     '<div class="arrow"></div>' +
     '<h3 class="popover-header"></h3>' +
     '<div class="popover-body"></div></div>'
-})
+}
 
 const ClassName = {
   FADE: 'fade',

@@ -3,21 +3,12 @@
     v-if="component"
     class="bd-content"
   >
-    <b-row
-      tag="header"
-      align-v="center"
-    >
-      <b-col sm="9"><h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2></b-col>
-      <b-col
-        sm="3"
-        class="text-sm-right"
-      >
-        <b-btn
-          variant="outline-secondary"
-          size="sm"
-          :href="githubURL"
-          target="_blank"
-        >
+    <b-row tag="header" align-v="center">
+      <b-col sm="9">
+        <h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2>
+      </b-col>
+      <b-col sm="3" class="text-sm-right">
+        <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
           view source
         </b-btn>
       </b-col>
@@ -40,10 +31,7 @@
         head-variant="default"
         striped
       >
-        <template
-          slot="default"
-          slot-scope="field"
-        >
+        <template slot="default" slot-scope="field">
           <code v-if="field.value">{{ field.value }}</code>
         </template>
       </b-table>
@@ -69,15 +57,12 @@
         head-variant="default"
         striped
       >
-        <template
-          slot="args"
-          slot-scope="field"
-        >
+        <template slot="args" slot-scope="field">
           <div
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> -
+            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
             <span v-html="arg.description" />
           </div>
         </template>
@@ -93,15 +78,12 @@
         head-variant="default"
         striped
       >
-        <template
-          slot="args"
-          slot-scope="field"
-        >
+        <template slot="args" slot-scope="field">
           <div
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> -
+            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
             <span v-html="arg.description" />
           </div>
         </template>
