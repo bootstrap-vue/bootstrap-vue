@@ -980,8 +980,8 @@ export default {
         {
           staticClass: 'modal-backdrop',
           class: this.backdropClasses,
-          attrs: { 
-            id: this.safeId('__BV_modal_backdrop_') 
+          attrs: {
+            id: this.safeId('__BV_modal_backdrop_')
           }
         },
         [$slots['modal-backdrop']]
