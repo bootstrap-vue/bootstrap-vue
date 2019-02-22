@@ -121,7 +121,7 @@
     "marked": "^0.6.1",
     "node-sass": "^4.11.0",
     "nuxt": "^2.4.3",
-    "postcss-cli": "^6.1.1",
+    "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
     "rollup": "^1.2.2",
     "rollup-plugin-babel": "^4.3.2",
