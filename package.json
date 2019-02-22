@@ -126,15 +126,15 @@
     "rollup": "^1.2.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
     "standard-version": "^5.0.0",
     "terser": "^3.16.1",
-    "vue": "^2.6.6",
+    "vue": "^2.6.7",
     "vue-jest": "^3.0.3",
-    "vue-server-renderer": "^2.6.6",
-    "vue-template-compiler": "^2.6.6"
+    "vue-server-renderer": "^2.6.7",
+    "vue-template-compiler": "^2.6.7"
   },
   "jest": {
     "testRegex": "spec.js$",
