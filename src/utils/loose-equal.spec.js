@@ -57,6 +57,8 @@ describe('looseEqual', () => {
     const file2 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
     const file3 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date2 })
     const file4 = new File([''], 'filename.csv', { type: 'text/csv', lastModified: date1 })
+    const file5 = new File(['abcdef'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
+    const file6 = new File(['123456'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
 
     // Identical file object references
     expect(looseEqual(file1, file1)).toBe(true)
@@ -66,6 +68,8 @@ describe('looseEqual', () => {
     expect(looseEqual(file1, file3)).toBe(false)
     // Two different file types
     expect(looseEqual(file1, file4)).toBe(false)
+    // Two files with same name, size, modified date, but different content
+    expect(looseEqual(file5, file6)).toBe(false)
   })
 
   it('compares arrays correctly', () => {
