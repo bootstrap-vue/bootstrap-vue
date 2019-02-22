@@ -58,7 +58,7 @@ describe('looseEqual', () => {
     const file3 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date2 })
     const file4 = new File([''], 'filename.csv', { type: 'text/csv', lastModified: date1 })
     const file5 = new File(['abcdef'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
-    const file6 = new File(['123456'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
+    const file6 = new File(['12345'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
 
     // Identical file object references
     expect(looseEqual(file1, file1)).toBe(true)
@@ -165,7 +165,7 @@ describe('looseEqual', () => {
     expect(looseEqual(obj3, arr3)).toBe(false)
   })
 
-  it('compares null and undefs correctly', () => {
+  it('compares null and undefined values correctly', () => {
     expect(looseEqual(null, null)).toBe(true)
     expect(looseEqual(undefined, undefined)).toBe(true)
     expect(looseEqual(void 0, undefined)).toBe(true)
