@@ -37,6 +37,11 @@ export default {
       // Disable the resize handle of textarea
       type: Boolean,
       default: false
+    },
+    noAutoShrink: {
+      // When in auto resize mode, disable shrinking to content height
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -55,13 +60,17 @@ export default {
       }
     },
     computedMinRows() {
-      // Ensure rows is at least 2 and positive (2 is the native textarea value)
+      // Ensure rows is at least 2 and positive (2 is the native textarea value).
+      // A value of 1 can cause issues in some browsers, and most browsers only support
+      // 2 as the smallest value.
       return Math.max(parseInt(this.rows, 10) || 2, 2)
     },
     computedMaxRows() {
       return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
     },
     computedRows() {
+      // This is used to set the attribute 'rows' on the textarea.
+      // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
     computedHeight() /* istanbul ignore next: can't test getComputedProperties */ {
@@ -79,12 +88,12 @@ export default {
       const el = this.$el
 
       // Element must be visible (not hidden) and in document
-      // *Must* be checked after above
+      // *Must* be checked after above checks
       if (!isVisible(el)) {
         return null
       }
 
-      // Remember old height and reset it temporarily
+      // Remember old height (includes `px` units) and reset it temporarily to `auto`
       const oldHeight = el.style.height
       el.style.height = 'auto'
 
@@ -101,16 +110,21 @@ export default {
         (parseFloat(computedStyle.paddingTop) || 0) +
         (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate content height in "rows"
-      const contentRows = (el.scrollHeight - offset) / lineHeight
+      const contentRows = Math.max((el.scrollHeight - offset) / lineHeight, 2)
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // Put the old height back when new height is equal or less
+      // Place oldHight back on element, just in case this computed prop returns the same value
+      el.style.height = oldHeight
+
+      // value of previous height (without px units appended)
       const oldHeightPx = parseFloat(oldHeight) || 0
-      if (oldHeightPx >= height) {
-        el.style.height = oldHeight
+
+      if (!this.noAutoShrink && oldHeightPx > height) {
+        // Height remains the larger of oldHeight and new height
+        // When height is `sticky` (no-auto-shrink is true)
         return oldHeight
       }
 
