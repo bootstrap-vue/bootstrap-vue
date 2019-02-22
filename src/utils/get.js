@@ -1,31 +1,35 @@
+import { isArray } from './array'
+import { isInteger } from './number'
+import { isObject } from './object'
+
 /**
  * Get property defined by dot notation in string.
  *
- * Copyright (C) 2014 (UNLICENSE)
- * @author Dmitry Yv <https://github.com/dy>
+ * @link https://gist.github.com/jeneg/9767afdcca45601ea44930ea03e0febf#gistcomment-1935901
  *
- * @param  {Object} holder   Target object where to look property up
- * @param  {string} propName Dot notation, like 'this.a.b.c'
- * @return {*}          A property value
+ * @param {Object} obj
+ * @param {string|Array} path
+ * @param {*} defaultValue
+ * @return {*}
  */
-export default function get(holder, propName) {
-  if (propName === undefined) {
-    return holder
+export default (obj, path, defaultValue = null) => {
+  if (!path || !isObject(obj)) {
+    return defaultValue
   }
 
-  const propParts = (propName + '').split('.')
-  let result = holder
-  let lastPropName
-
-  while (
-    (lastPropName = propParts.shift()) !== undefined &&
-    // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/2623
-    result !== undefined &&
-    result !== null
-  ) {
-    if (result[lastPropName] === undefined) return undefined
-    result = result[lastPropName]
+  if (isArray(path)) {
+    path = path.reduce(
+      (result, v) => `${result}${v ? (isInteger(v) ? `[${v}]` : `.${v}`) : ''}`,
+      ''
+    )
+  } else {
+    path = String(path).replace(/\[(\d+)]/g, '.$1')
   }
 
-  return result
+  return path
+    .split('.')
+    .filter(Boolean)
+    .every(step => (obj = obj[step]) !== undefined)
+    ? obj
+    : defaultValue
 }
