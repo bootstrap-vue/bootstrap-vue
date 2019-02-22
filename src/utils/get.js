@@ -18,10 +18,10 @@ export default (obj, path, defaultValue = null) => {
 
   path = isArray(path) ? path.join('.') : String(path).replace(/\[(\d+)]/g, '.$1')
 
-  const parts = path.split('.').filter(Boolean)
-  if (parts.length === 0) {
+  const steps = path.split('.').filter(Boolean)
+  if (steps.length === 0) {
     return defaultValue
   }
 
-  return parts.every(step => (obj = obj[step]) !== undefined) ? obj : defaultValue
+  return steps.every(step => (obj = obj[step]) !== undefined) ? obj : defaultValue
 }
