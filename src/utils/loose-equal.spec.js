@@ -68,7 +68,7 @@ describe('looseEqual', () => {
     expect(looseEqual(file1, file3)).toBe(false)
     // Two different file types
     expect(looseEqual(file1, file4)).toBe(false)
-    // Two files with same name, size, modified date, but different content
+    // Two files with same name, modified date, but different content
     expect(looseEqual(file5, file6)).toBe(false)
   })
 
