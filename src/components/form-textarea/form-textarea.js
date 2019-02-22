@@ -116,10 +116,10 @@ export default {
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // Place oldHight back on element, just in case this computed prop returns the same value
+      // Place old height back on element, just in case this computed prop returns the same value
       el.style.height = oldHeight
 
-      // value of previous height (without px units appended)
+      // Value of previous height (without px units appended)
       const oldHeightPx = parseFloat(oldHeight) || 0
 
       if (!this.noAutoShrink && oldHeightPx > height) {
