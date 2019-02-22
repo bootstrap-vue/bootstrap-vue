@@ -3,23 +3,27 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form File",
-    "component": "BFormFile",
-    "aliases": [
-      "BFile"
-    ],
-    "events": [
+    "components": [
       {
-        "event": "change",
-        "description": "original native change event on input",
-        "args": [
+        "component": "BFormFile",
+        "aliases": [
+          "BFile"
+        ],
+        "events": [
           {
-            "arg": "event"
+            "event": "change",
+            "description": "original native change event on input",
+            "args": [
+              {
+                "arg": "event"
+              }
+            ]
+          },
+          {
+            "event": "input",
+            "description": "[see above docs]"
           }
         ]
-      },
-      {
-        "event": "input",
-        "description": "[see above docs]"
       }
     ]
   }

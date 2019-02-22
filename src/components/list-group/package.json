@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "meta": {
     "title": "List group",
-    "component": "BListGroup",
     "components": [
-      "BListGroupItem"
+      {
+        "component": "BListGroup",
+        "components": [
+          "BListGroupItem"
+        ]
+      }
     ]
   }
 }

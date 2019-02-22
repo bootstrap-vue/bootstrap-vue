@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Progress",
-    "component": "BProgress",
     "components": [
+      "BProgress",
       "BProgressBar"
     ]
   }

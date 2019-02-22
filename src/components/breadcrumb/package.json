@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Breadcrumb",
-    "component": "BBreadcrumb",
-    "events": [],
     "components": [
+      "BBreadcrumb",
       {
         "component": "BBreadcrumbItem",
         "events": [

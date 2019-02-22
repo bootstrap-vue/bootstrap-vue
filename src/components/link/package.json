@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "meta": {
     "title": "Link",
-    "component": "BLink",
-    "events": [
+    "components": [
       {
-        "event": "click",
-        "description": "when link clicked"
+        "component": "BLink",
+        "events": [
+          {
+            "event": "click",
+            "description": "when link clicked"
+          }
+        ]
       }
     ]
   }

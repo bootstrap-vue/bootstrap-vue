@@ -3,48 +3,52 @@
   "version": "1.1.0",
   "meta": {
     "title": "Form Input",
-    "component": "BFormInput",
-    "aliases": [
-      "BInput"
-    ],
-    "events": [
+    "components": [
       {
-        "event": "input",
-        "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
-        "args": [
+        "component": "BFormInput",
+        "aliases": [
+          "BInput"
+        ],
+        "events": [
           {
-            "arg": "value",
-            "description": "Current value of input"
-          }
-        ]
-      },
-      {
-        "event": "change",
-        "description": "Change event triggered by user interaction. Emitted after any formatting and after the v-model is updated.",
-        "args": [
+            "event": "input",
+            "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
+            "args": [
+              {
+                "arg": "value",
+                "description": "Current value of input"
+              }
+            ]
+          },
           {
-            "arg": "value",
-            "description": "Current value of input"
-          }
-        ]
-      },
-      {
-        "event": "update",
-        "description": "Emitted to update the v-model",
-        "args": [
+            "event": "change",
+            "description": "Change event triggered by user interaction. Emitted after any formatting and after the v-model is updated.",
+            "args": [
+              {
+                "arg": "value",
+                "description": "Current value of input"
+              }
+            ]
+          },
           {
-            "arg": "value",
-            "description": "Value of input, after any formatting. Not emitted if the value does nto change"
-          }
-        ]
-      },
-      {
-        "event": "blur",
-        "description": "Emitted after the input looses focus",
-        "args": [
+            "event": "update",
+            "description": "Emitted to update the v-model",
+            "args": [
+              {
+                "arg": "value",
+                "description": "Value of input, after any formatting. Not emitted if the value does nto change"
+              }
+            ]
+          },
           {
-            "arg": "event",
-            "description": "Native blur event (before any formmating)"
+            "event": "blur",
+            "description": "Emitted after the input looses focus",
+            "args": [
+              {
+                "arg": "event",
+                "description": "Native blur event (before any formmating)"
+              }
+            ]
           }
         ]
       }

@@ -3,49 +3,53 @@
   "version": "1.0.0",
   "meta": {
     "title": "Pagination",
-    "component": "BPagination",
-    "events": [
+    "components": [
       {
-        "event": "input",
-        "description": "when page changes via user interaction or programmatically",
-        "args": [
+        "component": "BPagination",
+        "events": [
           {
-            "arg": "page",
-            "description": "Selected page number (starting with 1)"
+            "event": "input",
+            "description": "when page changes via user interaction or programmatically",
+            "args": [
+              {
+                "arg": "page",
+                "description": "Selected page number (starting with 1)"
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "when page changes via user interaction",
+            "args": [
+              {
+                "arg": "page",
+                "description": "Selected page number (starting with 1)"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "first-text",
+            "description": "The \"go to first page\" button content (html/sub-components supported)"
+          },
+          {
+            "name": "prev-text",
+            "description": "The \"go to previous page\" button content (html/sub-components supported)"
+          },
+          {
+            "name": "next-text",
+            "description": "The \"go to next page\" button content (html/sub-components supported)"
+          },
+          {
+            "name": "last-text",
+            "description": "The \"go to last page\" button content (html/sub-components supported)"
+          },
+          {
+            "name": "ellipsis-text",
+            "description": "The '...' indicator content (html/sub-components supported)"
           }
         ]
-      },
-      {
-        "event": "change",
-        "description": "when page changes via user interaction",
-        "args": [
-          {
-            "arg": "page",
-            "description": "Selected page number (starting with 1)"
-          }
-        ]
-      }
-    ],
-    "slots": [
-      {
-        "name": "first-text",
-        "description": "The \"go to first page\" button content (html/sub-components supported)"
-      },
-      {
-        "name": "prev-text",
-        "description": "The \"go to previous page\" button content (html/sub-components supported)"
-      },
-      {
-        "name": "next-text",
-        "description": "The \"go to next page\" button content (html/sub-components supported)"
-      },
-      {
-        "name": "last-text",
-        "description": "The \"go to last page\" button content (html/sub-components supported)"
-      },
-      {
-        "name": "ellipsis-text",
-        "description": "The '...' indicator content (html/sub-components supported)"
       }
     ]
   }

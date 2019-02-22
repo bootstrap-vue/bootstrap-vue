@@ -4,24 +4,26 @@
   "meta": {
     "title": "Form",
     "slug": "form",
-    "component": "BForm",
     "components": [
+      {
+        "component": "BForm",
+        "events": [
+          {
+            "event": "submit",
+            "description": "Emitted when the form is being submitted",
+            "args": [
+              {
+                "arg": "event",
+                "description": "Native submit event."
+              }
+            ]
+          }
+        ]
+      },
       "BFormText",
       "BFormInvalidFeedback",
       "BFormValidFeedback",
       "BFormRow"
-    ],
-    "events": [
-      {
-        "event": "submit",
-        "description": "Emitted when the form is being submitted",
-        "args": [
-          {
-            "arg": "event",
-            "description": "Native submit event."
-          }
-        ]
-      }
     ]
   }
 }

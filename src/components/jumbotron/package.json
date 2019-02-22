@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "meta": {
     "title": "Jumbotron",
-    "component": "BJumbotron",
-    "slots": [
+    "components": [
       {
-        "name": "header",
-        "description": "Slot for custom header content. Placed inside 'header-tag'"
-      },
-      {
-        "name": "lead",
-        "description": "For custom rendering of lead text content. Placed inside 'lead-tag'"
+        "component": "BJumbotron",
+        "slots": [
+          {
+            "name": "header",
+            "description": "Slot for custom header content. Placed inside 'header-tag'"
+          },
+          {
+            "name": "lead",
+            "description": "For custom rendering of lead text content. Placed inside 'lead-tag'"
+          }
+        ]
       }
     ]
   }

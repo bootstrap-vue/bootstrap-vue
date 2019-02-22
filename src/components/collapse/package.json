@@ -3,50 +3,54 @@
   "version": "1.0.0",
   "meta": {
     "title": "Collapse",
-    "component": "BCollapse",
-    "directives": [
-      "vBToggle"
-    ],
-    "events": [
+    "components": [
       {
-        "event": "show",
-        "description": "Emitted when collapse has started to open"
-      },
-      {
-        "event": "shown",
-        "description": "Emitted when collapse has finished opening"
-      },
-      {
-        "event": "hide",
-        "description": "Emitted when collapse has started to close"
-      },
-      {
-        "event": "hidden",
-        "description": "Emitted when collapse has finished closing"
-      },
-      {
-        "event": "bv::collapse::state",
-        "description": "Emitted on $root when collapse has changed its state",
-        "args": [
+        "component": "BCollapse",
+        "directives": [
+          "vBToggle"
+        ],
+        "events": [
           {
-            "arg": "id",
-            "description": "changed state collapse id"
+            "event": "show",
+            "description": "Emitted when collapse has started to open"
           },
           {
-            "arg": "state",
-            "description": "true/false, i.e. opened/closed"
-          }
-        ]
-      }
-    ],
-    "rootEventEmitters": [
-      {
-        "event": "bv::toggle::collapse",
-        "description": "Toggles visible state of collapse with specified id when this event is emitted on $root",
-        "args": [
+            "event": "shown",
+            "description": "Emitted when collapse has finished opening"
+          },
           {
-            "arg": "id",
-            "description": "collapse id to toggle"
+            "event": "hide",
+            "description": "Emitted when collapse has started to close"
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when collapse has finished closing"
+          },
+          {
+            "event": "bv::collapse::state",
+            "description": "Emitted on $root when collapse has changed its state",
+            "args": [
+              {
+                "arg": "id",
+                "description": "changed state collapse id"
+              },
+              {
+                "arg": "state",
+                "description": "true/false, i.e. opened/closed"
+              }
+            ]
+          }
+        ],
+        "rootEventEmitters": [
+          {
+            "event": "bv::toggle::collapse",
+            "description": "Toggles visible state of collapse with specified id when this event is emitted on $root",
+            "args": [
+              {
+                "arg": "id",
+                "description": "collapse id to toggle"
+              }
+            ]
           }
         ]
       }

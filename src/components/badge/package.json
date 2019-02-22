@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Badge",
-    "component": "BBadge"
+    "components": [
+      "BBadge"
+    ]
   }
 }

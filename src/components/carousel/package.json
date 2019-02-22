@@ -3,30 +3,32 @@
   "version": "1.0.0",
   "meta": {
     "title": "Carousel",
-    "component": "BCarousel",
-    "events": [
+    "components": [
       {
-        "event": "sliding-start",
-        "description": "Emitted when transitioning to a new slide has started.",
-        "args": [
+        "component": "BCarousel",
+        "events": [
           {
-            "arg": "slide",
-            "description": "Slide number that is being slid to."
+            "event": "sliding-start",
+            "description": "Emitted when transitioning to a new slide has started.",
+            "args": [
+              {
+                "arg": "slide",
+                "description": "Slide number that is being slid to."
+              }
+            ]
+          },
+          {
+            "event": "sliding-end",
+            "description": "Emitted when transitioning to a new slide has ended.",
+            "args": [
+              {
+                "arg": "slide",
+                "description": "Slide number that was slid to."
+              }
+            ]
           }
         ]
       },
-      {
-        "event": "sliding-end",
-        "description": "Emitted when transitioning to a new slide has ended.",
-        "args": [
-          {
-            "arg": "slide",
-            "description": "Slide number that was slid to."
-          }
-        ]
-      }
-    ],
-    "components": [
       {
         "component": "BCarouselSlide",
         "slots": [

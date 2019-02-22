@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "meta": {
     "title": "Navbar",
-    "component": "BNavbar",
-    "plugins": [
-      "Nav",
-      "Dropdown",
-      "Collapse"
-    ],
     "components": [
+      {
+        "component": "BNavbar",
+        "plugins": [
+          "Nav",
+          "Dropdown",
+          "Collapse"
+        ]
+      },
       "BNavbarNav",
       "BNavbarBrand",
       {
