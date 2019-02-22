@@ -84,11 +84,15 @@ feature, set the `no-resize` prop to `true`.
 ### Auto height
 
 `<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content, even as
-the user enters text.
+the user enters or deletes text. The height of the textarea will either grow or shirnk to fit the
+content (grow to a maximum of `max-rows` or shrink to a minimum of `rows`).
 
 To set the initial minimum height (in rows), set the `rows` prop to the desired number of lines (or
 leave it at the default of `2`), And then set maximum rows that the text area will grow to (before
 showing a scrollbar) by setting the `max-rows` prop to the maximum number of lines of text.
+
+To make the height `sticky` (i.e. never shrink), set the `no-auto-shrink` prop to `true`. The
+`no-auto-shrink` props has no effect if `max-rows` is not set or is equal to or less than `rows`.
 
 Note that the resize handle of the textarea (if supported by the browser) will automatically be
 disabled in auto-height mode.
