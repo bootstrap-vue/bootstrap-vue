@@ -44,7 +44,7 @@ following are examples of what’s supported inside a `<b-card>`
 The building block of a `<b-card>` is the `<b-card-body>` section which provides a padded section
 within a card.
 
-By default the `<b-card>` content is automatically placed in a`<b-card-body>` section:
+By default the `<b-card>` content is automatically placed in a `<b-card-body>` section:
 
 ```html
 <div>
@@ -115,9 +115,12 @@ Links can be added and placed next to each other by adding the `.card-link` clas
 
 ### Images
 
-The prop `img-src` places an image on the top of the card, and use the `img-alt` prop to specify a
-string to be placed in the image's `alt` attribute. The image specified by the `img-src` prop will
-be responsive and will adjust it's width when the width of the card is changed.
+The `<b-card>` prop `img-src` places an image on the top of the card, and use the `img-alt` prop to
+specify a string to be placed in the image's `alt` attribute. The image specified by the `img-src`
+prop will be responsive and will adjust it's width when the width of the card is changed.
+
+Alternatively you can manually place images inside `<b-card>` using the sub-component
+`<b-card-img>`. See the kitchen sink example below for usage.
 
 ```html
 <div>
@@ -184,6 +187,12 @@ Place the image in the background of the card by setting the boolean prop `overl
 
 <!-- b-card-overlay-img-.vue -->
 ```
+
+#### Lazy loaded images
+
+Use the `<b-card-img-lazy>` sub-component to lazy load images as they scroll into view.
+`<b-card-img-lazy>` supports the same props as `<b-card-img>` as well as many of the props of the
+[`<b-img-lazy>`](/docs/components/image#lazy-loaded-images) component.
 
 ### Header and footer
 
