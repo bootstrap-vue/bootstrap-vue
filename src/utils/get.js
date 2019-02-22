@@ -1,5 +1,4 @@
 import { isArray } from './array'
-import { isInteger } from './number'
 import { isObject } from './object'
 
 /**
@@ -9,7 +8,7 @@ import { isObject } from './object'
  *
  * @param {Object} obj
  * @param {string|Array} path
- * @param {*} defaultValue
+ * @param {*} defaultValue (optional)
  * @return {*}
  */
 export default (obj, path, defaultValue = null) => {
@@ -17,19 +16,12 @@ export default (obj, path, defaultValue = null) => {
     return defaultValue
   }
 
-  if (isArray(path)) {
-    path = path.reduce(
-      (result, v) => `${result}${v ? (isInteger(v) ? `[${v}]` : `.${v}`) : ''}`,
-      ''
-    )
-  } else {
-    path = String(path).replace(/\[(\d+)]/g, '.$1')
+  path = isArray(path) ? path.join('.') : String(path).replace(/\[(\d+)]/g, '.$1')
+
+  const parts = path.split('.').filter(Boolean)
+  if (parts.length === 0) {
+    return defaultValue
   }
 
-  return path
-    .split('.')
-    .filter(Boolean)
-    .every(step => (obj = obj[step]) !== undefined)
-    ? obj
-    : defaultValue
+  return parts.every(step => (obj = obj[step]) !== undefined) ? obj : defaultValue
 }
