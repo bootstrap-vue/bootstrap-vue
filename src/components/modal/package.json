@@ -185,6 +185,10 @@
             {
                 "name": "modal-cancel",
                 "description": "Modal CANCEL button content."
+            },
+            {
+                "name": "modal-backdrop",
+                "description": "Modal Backdrop content."
             }
         ]
     }
