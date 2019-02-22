@@ -66,6 +66,14 @@ export const create = Object.create
 export const isFrozen = Object.isFrozen
 export const is = Object.is
 
+/**
+ * Quick object check - this is primarily used to tell
+ * Objects from primitive values when we know the value
+ * is a JSON-compliant type.
+ * Note object could be a complex type like array, date, etc.
+ */
+export const isObject = obj => obj !== null && typeof obj === 'object'
+
 // @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
 export const omit = (obj, props) =>
   Object.keys(obj)
