@@ -11,6 +11,7 @@
       "BCardTitle",
       "BCardSubTitle",
       "BCardImg",
+      "BCardImgLazy",
       "BCardText",
       "BCardGroup"
     ],
