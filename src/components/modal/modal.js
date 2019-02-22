@@ -979,7 +979,7 @@ export default {
         staticClass: 'modal-backdrop',
         class: this.backdropClasses,
         attrs: { id: this.safeId('__BV_modal_backdrop_') }
-      })
+      }, [$slots['modal-backdrop']])
     }
     // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
     let tabTrap = h(false)
