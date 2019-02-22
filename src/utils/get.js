@@ -16,7 +16,8 @@ export default (obj, path, defaultValue = null) => {
     return defaultValue
   }
 
-  path = isArray(path) ? path.join('.') : String(path).replace(/\[(\d+)]/g, '.$1')
+  path = isArray(path) ? path.join('.') : path
+  path = String(path).replace(/\[(\d+)]/g, '.$1')
 
   const steps = path.split('.').filter(Boolean)
   if (steps.length === 0) {

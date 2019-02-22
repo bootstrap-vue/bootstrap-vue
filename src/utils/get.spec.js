@@ -35,5 +35,6 @@ describe('get', async () => {
     expect(get(obj3, ['a', 0, 'b'])).toBe('c')
     expect(get(obj4, 'a[1][0].d.e[0]')).toBe('f')
     expect(get(obj4, ['a', 1, 0, 'd', 'e', 0])).toBe('f')
+    expect(get(obj4, ['a[1]', 0, 'd', 'e[0]'])).toBe('f')
   })
 })
