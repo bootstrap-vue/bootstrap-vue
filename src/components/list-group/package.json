@@ -4,12 +4,8 @@
   "meta": {
     "title": "List group",
     "components": [
-      {
-        "component": "BListGroup",
-        "components": [
-          "BListGroupItem"
-        ]
-      }
+      "BListGroup",
+      "BListGroupItem"
     ]
   }
 }

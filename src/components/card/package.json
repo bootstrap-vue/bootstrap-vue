@@ -6,17 +6,6 @@
     "components": [
       {
         "component": "BCard",
-        "components": [
-          "BCardHeader",
-          "BCardFooter",
-          "BCardBody",
-          "BCardTitle",
-          "BCardSubTitle",
-          "BCardImg",
-          "BCardImgLazy",
-          "BCardText",
-          "BCardGroup"
-        ],
         "slots": [
           {
             "name": "header",
@@ -27,7 +16,16 @@
             "description": "For custom rendering of footer content"
           }
         ]
-      }
+      },
+      "BCardHeader",
+      "BCardFooter",
+      "BCardBody",
+      "BCardTitle",
+      "BCardSubTitle",
+      "BCardImg",
+      "BCardImgLazy",
+      "BCardText",
+      "BCardGroup"
     ]
   }
 }

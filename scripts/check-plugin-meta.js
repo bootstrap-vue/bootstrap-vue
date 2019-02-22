@@ -49,20 +49,6 @@ const checkPluginMeta = async plugin => {
     return
   }
 
-  const componentName = getComponentName(pluginName)
-
-  if (meta.component) {
-    assert.strictEqual(
-      meta.component,
-      componentName,
-      `Expected the main component for plugin '${plugin}' to be named ${componentName} but it was ${
-        meta.component
-      }`
-    )
-  } else if (verbose) {
-    console.info(`Plugin ${plugin} does not have a main component defined`)
-  }
-
   // Check if all component modules are defined in the meta section
   // of the plugin's package.json
   const components = meta.components || []
