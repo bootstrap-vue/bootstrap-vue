@@ -125,8 +125,8 @@ export default {
       // Value of previous height (without px units appended)
       const oldHeightPx = parseFloat(oldHeight) || 0
 
-      if (!this.noAutoShrink && oldHeightPx > height) {
-        // Height remains the larger of oldHeight and new height
+      if (this.noAutoShrink && oldHeightPx > height) {
+        // Computed height remains the larger of oldHeight and new height
         // When height is `sticky` (no-auto-shrink is true)
         return oldHeight
       }
