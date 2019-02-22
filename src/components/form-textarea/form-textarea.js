@@ -51,13 +51,16 @@ export default {
   },
   computed: {
     computedStyle() {
-      return {
+      const styles = {
         // Setting `noResize` to true will disable the ability for the user to
-        // resize the textarea. We also disable when in auto resize mode
+        // manually resize the textarea. We also disable when in auto resize mode
         resize: !this.computedRows || this.noResize ? 'none' : null,
-        // The computed height for auto resize
-        height: this.computedHeight
       }
+      if (!this.computedRows) {
+        // The computed height for auto resize
+        styles.height = this.computedHeight
+      }
+      return styles
     },
     computedMinRows() {
       // Ensure rows is at least 2 and positive (2 is the native textarea value).
