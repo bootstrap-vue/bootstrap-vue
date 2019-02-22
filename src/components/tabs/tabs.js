@@ -35,11 +35,11 @@ const BTabButtonHelper = {
       const shift = evt.shiftKey
       if (type === 'click') {
         stop()
-        this.$emit('click', evt) // Could call this.tab.activate() instead
+        this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav && key === KeyCodes.SPACE) {
         // In keynav mode, SPACE press will also trigger a click/select
         stop()
-        this.$emit('click', evt) // Could call this.tab.activate() instead
+        this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
@@ -402,7 +402,7 @@ export default {
     const tabs = this.tabs
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
-    // Tab button to allow focusing when no activate tab found (keynav only)
+    // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
     // For each <b-tab> found create the tab buttons
