@@ -57,7 +57,8 @@ export default {
         resize: !this.computedRows || this.noResize ? 'none' : null
       }
       if (!this.computedRows) {
-        // The computed height for auto resize
+        // The computed height for auto resize.
+        // We avoid setting the style to null, which can override user manual resize.
         styles.height = this.computedHeight
       }
       return styles
