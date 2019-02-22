@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "meta": {
     "title": "Button Toolbar",
-    "component": "BButtonToolbar",
-    "aliases": [
-      "BBtnToolbar"
+    "components": [
+      {
+        "component": "BButtonToolbar",
+        "aliases": [
+          "BBtnToolbar"
+        ]
+      }
     ]
   }
 }
