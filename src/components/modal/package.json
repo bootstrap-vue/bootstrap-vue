@@ -187,8 +187,8 @@
                 "description": "Modal CANCEL button content."
             },
             {
-              "name": "modal-backdrop",
-              "description": "Modal Backdrop content."
+                "name": "modal-backdrop",
+                "description": "Modal Backdrop content."
             }
         ]
     }
