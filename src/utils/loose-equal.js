@@ -1,5 +1,5 @@
 import { isArray } from './array'
-import { keys } from './object'
+import { isObject, keys } from './object'
 
 function isDate(obj) {
   return obj instanceof Date
@@ -7,16 +7,6 @@ function isDate(obj) {
 
 function isFile(obj) {
   return obj instanceof File
-}
-
-/**
- * Quick object check - this is primarily used to tell
- * Objects from primitive values when we know the value
- * is a JSON-compliant type.
- * Note object could be a complex type like array, date, etc.
- */
-function isObject(obj) {
-  return obj !== null && typeof obj === 'object'
 }
 
 /**

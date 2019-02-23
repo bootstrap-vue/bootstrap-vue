@@ -5,16 +5,7 @@
     <section class="bd-content">
       <h2 id="component-reference">{{ startCase(meta.title) }} Component Reference</h2>
 
-      <!-- main component reference information -->
-      <componentdoc
-        :component="meta.component"
-        :events="meta.events"
-        :root-event-emitters="meta.rootEventEmitters"
-        :slots="meta.slots"
-        :aliases="meta.aliases"
-      />
-
-      <!-- sub-component reference information -->
+      <!-- Component reference information -->
       <componentdoc
         v-for="meta in meta.components"
         :key="meta.component"

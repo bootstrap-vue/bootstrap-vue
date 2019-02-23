@@ -3,27 +3,39 @@
   "version": "1.0.0",
   "meta": {
     "title": "Button",
-    "component": "BButton",
-    "aliases": [ "BBtn" ],
-    "events": [
-      {
-        "event": "click",
-        "description": "Emitted when non-disabled button clicked",
-        "args": [ 
-          { "name": "event", "description": "Native click event object" }
-        ]
-      }
-    ],
     "components": [
-      { 
-        "component": "BButtonClose",
-        "aliases": [ "BBtnClose" ],
+      {
+        "component": "BButton",
+        "aliases": [
+          "BBtn"
+        ],
         "events": [
           {
             "event": "click",
             "description": "Emitted when non-disabled button clicked",
-            "args": [ 
-              { "name": "event", "description": "Native click event object" }
+            "args": [
+              {
+                "name": "event",
+                "description": "Native click event object"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "BButtonClose",
+        "aliases": [
+          "BBtnClose"
+        ],
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when non-disabled button clicked",
+            "args": [
+              {
+                "name": "event",
+                "description": "Native click event object"
+              }
             ]
           }
         ]

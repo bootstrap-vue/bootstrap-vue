@@ -3,24 +3,31 @@
   "version": "1.0.0",
   "meta": {
     "title": "Navbar",
-    "component": "BNavbar",
-    "plugins": [
-      "Nav",
-      "Dropdown",
-      "Collapse"
-    ],
     "components": [
+      {
+        "component": "BNavbar",
+        "plugins": [
+          "Nav",
+          "Dropdown",
+          "Collapse"
+        ]
+      },
       "BNavbarNav",
       "BNavbarBrand",
       {
         "component": "BNavbarToggle",
-        "aliases": [ "BNavToggle" ],
+        "aliases": [
+          "BNavToggle"
+        ],
         "events": [
           {
             "event": "click",
             "description": "Emitted when the toggle is clicked.",
             "args": [
-              { "name": "event", "description": "Native click event object" }
+              {
+                "name": "event",
+                "description": "Native click event object"
+              }
             ]
           }
         ]

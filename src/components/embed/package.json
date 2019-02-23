@@ -1,8 +1,10 @@
 {
-    "name": "@bootstrap-vue/embed",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Embed",
-        "component": "BEmbed"
-    }
+  "name": "@bootstrap-vue/embed",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Embed",
+    "components": [
+      "BEmbed"
+    ]
+  }
 }
