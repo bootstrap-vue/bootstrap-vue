@@ -122,7 +122,6 @@
     "marked": "^0.6.1",
     "node-sass": "^4.11.0",
     "nuxt": "^2.4.3",
-    "octicons": "^8.4.2",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
     "rollup": "^1.2.3",

@@ -7441,13 +7441,6 @@ object.values@^1.0.4:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-octicons@^8.4.2:
-  version "8.4.2"
-  resolved "https://registry.yarnpkg.com/octicons/-/octicons-8.4.2.tgz#1867cb5157b9f928ef80f284543d04d11514789a"
-  integrity sha512-rl6FPFU8rWP7PUP6aoyBjm/VXhshWV0QglEMCHglyh5gCHQZozioq61bM40bvtxKJ910iqwANuuXT039Ke6I+Q==
-  dependencies:
-    object-assign "^4.1.1"
-
 omggif@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/omggif/-/omggif-1.0.9.tgz#dcb7024dacd50c52b4d303f04802c91c057c765f"

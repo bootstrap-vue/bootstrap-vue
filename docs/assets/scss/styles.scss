@@ -52,33 +52,32 @@ blockquote {
   font-weight: 300;
 }
 
+/* https://github.com/bryanbraun/anchorjs/blob/e9c248ac82cfa905ed00e804a2a1c64296b342d1/anchor.js#L306 */
+.anchorjs-link {
+  padding-left: 0.375em;
+  opacity: 0;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:after {
+    content: "#";
+  }
+}
+
+*:hover > .anchorjs-link,
+.anchorjs-link:focus {
+  opacity: 1;
+}
+
 .bd-content {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5 {
     padding-top: 25px;
     padding-bottom: 15px;
-
-    a.anchor {
-      float: left;
-      padding-right: 4px;
-      margin-left: -20px;
-      line-height: 1;
-
-      svg {
-        color: #1b1f23;
-        vertical-align: middle;
-        visibility: hidden;
-      }
-    }
-
-    &:hover {
-      a.anchor svg {
-        visibility: visible;
-      }
-    }
   }
 }
 
