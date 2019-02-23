@@ -321,8 +321,10 @@ export default {
           this.currentTab = index
         }
       }
-      // Should we be emitting this here ????
-      this.$emit('input', this.currentTab)
+      if (!result) {
+        // Couldn't set tab, so ensure v-model is set to this.currentTab
+        this.$emit('input', this.currentTab)
+      }
       return result
     },
     // Deactivate a tab given a b-tab instance
