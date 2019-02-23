@@ -209,6 +209,7 @@ describe('form-file', async () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
+    expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
@@ -216,6 +217,7 @@ describe('form-file', async () => {
     const input = wrapper.find('input')
     input.element.value = ''
     input.trigger('change')
+    expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
   })
