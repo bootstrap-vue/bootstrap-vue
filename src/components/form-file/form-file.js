@@ -95,8 +95,8 @@ export default {
       ) {
         return
       }
-      if (!newVal) {
-        return this.multiple ? [] : null
+      if (!newVal && this.multiple) {
+        this.$emit('input', [])
       } else {
         this.$emit('input', newVal)
       }
