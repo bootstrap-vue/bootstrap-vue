@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const hljs = require('highlightjs')
 const marked = require('marked')
+const octicons = require('octicons')
+const slug = require('slug')
 
 const renderer = new marked.Renderer()
 
@@ -10,6 +12,25 @@ renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
   return `<pre class="hljs ${language} text-monospace p-2">${highlighted}</pre>`
+}
+
+// Custom heading implementation for markdown renderer
+// @link: https://github.com/nuxt/docs/blob/master/api.js#L27
+renderer.heading = (text, level) => {
+  const pattern = /\s?{([^}]+)}$/
+  let link = pattern.exec(text)
+
+  if (link && link.length && link[1]) {
+    text = text.replace(pattern, '')
+    link = link[1]
+  } else {
+    link = slug(text, { lower: true })
+  }
+
+  const icon = octicons.link.toSVG()
+  const anchor = `<a id="${link}" class="anchor" aria-hidden="true" href="#${link}">${icon}</a>`
+
+  return `<h${level}>${anchor}${text}</h${level}>`
 }
 
 // BS4 table support for markdown renderer
@@ -123,6 +144,6 @@ module.exports = {
     'bootstrap/dist/css/bootstrap.css',
     '../src/index.scss', // BootstrapVue SCSS
     '@assets/css/docs.min.css',
-    '@assets/css/styles.css'
+    '@assets/scss/styles.scss'
   ]
 }
