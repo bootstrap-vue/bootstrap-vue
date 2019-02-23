@@ -50,14 +50,11 @@ describe('tabs', async () => {
       }
     })
     const wrapper = mount(App)
-
     expect(wrapper).toBeDefined()
 
     await wrapper.vm.$nextTick()
-
     const tabs = wrapper.find(Tabs)
     expect(tabs).toBeDefined()
-
     expect(tabs.findAll(Tab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
@@ -68,5 +65,45 @@ describe('tabs', async () => {
     expect(tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
     expect(tabs.emitted('input')[0][0]).toBe(1)
+  })
+
+  it('v-model works', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(Tabs, { props: { value: 0 } }, [
+          h(Tab, { props: {} }, 'tab 0'),
+          h(Tab, { props: {} }, 'tab 1'),
+          h(Tab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect(tabs.emitted('input')).not.toBeDefined()
+
+    // Set 2nd Tab to be active
+    tabs.setProps({ value: 1 })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tabs.emitted('input').length).toBe(1)
+    // Should emit index of 1 (2nd tab)
+    expect(tabs.emitted('input')[0][0]).toBe(1)
+
+    // Set 3rd Tab to be active
+    tabs.setProps({ value: 2 })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tabs.emitted('input').length).toBe(2)
+    // Should emit index of 2 (3rd tab)
+    expect(tabs.emitted('input')[1][0]).toBe(2)
   })
 })
