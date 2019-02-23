@@ -50,7 +50,7 @@ describe('tabs', async () => {
             h(Tab, { props: {} }, 'tab 0'),
             h(Tab, { props: {} }, 'tab 0')
           ]
-          )
+        )
       }
     })
     const wrapper = mount(App)
