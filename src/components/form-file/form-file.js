@@ -3,7 +3,6 @@ import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom, isArray } from '../../utils/array'
-import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
 export default {
@@ -85,8 +84,16 @@ export default {
   },
   watch: {
     selectedFile(newVal, oldVal) {
-      if (looseEqual(newVal, oldVal)) {
+      if (newVal === oldVal) {
         return
+      }
+      if (
+        isArray(newVal) &&
+        isArray(oldVal) &&
+        newVal.length === oldVal.length &&
+        newVal.every((v, i) => v === oldVal[i])
+      ) {
+       return
       }
       if (!newVal && this.multiple) {
         this.$emit('input', [])
