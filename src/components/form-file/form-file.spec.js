@@ -82,7 +82,7 @@ describe('form-file', async () => {
     expect(input.attributes('capture')).toBeDefined()
   })
 
-  it('default has input attribute accpet when accept is set', async () => {
+  it('default has input attribute accept when accept is set', async () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
@@ -166,6 +166,11 @@ describe('form-file', async () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
+
+    // Setting to same array of files should not emit event
+    wrapper.vm.setFiles([file])
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
   })
 
   it('emits input event when files changed in multiple mode', async () => {

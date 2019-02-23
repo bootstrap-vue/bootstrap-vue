@@ -65,7 +65,7 @@ export default {
         return this.dropPlaceholder
       }
 
-      // No file choosen
+      // No file chosen
       if (!this.selectedFile || this.selectedFile.length === 0) {
         return this.placeholder
       }
@@ -81,17 +81,16 @@ export default {
   },
   watch: {
     selectedFile(newVal, oldVal) {
-      if (newVal === oldVal) {
-        /* istanbul ignore next: this may never happen */
-        return
-      }
-      // The following test is needed when the file input is "reset" to prevent
-      // infinite loops as javascript treats [] !== []
+      // The following test is needed when the file input is "reset" or the
+      // exact same file(s) are selected to prevent an infinite loop.
+      // When in `multiple` mode we need to check for two empty arrays or
+      // two arrays with identical files
       if (
-        isArray(newVal) &&
-        isArray(oldVal) &&
-        newVal.length === oldVal.length &&
-        newVal.every((v, i) => v === oldVal[i])
+        newVal === oldVal ||
+        (isArray(newVal) &&
+          isArray(oldVal) &&
+          newVal.length === oldVal.length &&
+          newVal.every((v, i) => v === oldVal[i]))
       ) {
         return
       }
@@ -109,9 +108,9 @@ export default {
   },
   methods: {
     focusHandler(evt) {
-      // Bootstrap v4.beta doesn't have focus styling for custom file input
-      // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
-      // So we add a 'focus' class to get around these "bugs"
+      // Bootstrap v4 doesn't have focus styling for custom file input
+      // Firefox has a '[type=file]:focus ~ sibling' selector issue,
+      // so we add a 'focus' class to get around these bugs
       if (this.plain || evt.type === 'focusout') {
         this.hasFocus = false
       } else {
@@ -121,10 +120,10 @@ export default {
     },
     reset() {
       try {
-        // Wrapped in try in case IE < 11 craps out
+        // Wrapped in try in case IE 11 craps out
         this.$refs.input.value = ''
       } catch (e) {}
-      // IE < 11 doesn't support setting input.value to '' or null
+      // IE 11 doesn't support setting `input.value` to '' or null
       // So we use this little extra hack to reset the value, just in case.
       // This also appears to work on modern browsers as well.
       this.$refs.input.type = ''
