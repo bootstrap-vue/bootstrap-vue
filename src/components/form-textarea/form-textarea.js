@@ -37,6 +37,11 @@ export default {
       // Disable the resize handle of textarea
       type: Boolean,
       default: false
+    },
+    noAutoShrink: {
+      // When in auto resize mode, disable shrinking to content height
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -46,41 +51,53 @@ export default {
   },
   computed: {
     computedStyle() {
-      return {
-        // setting noResize to true will disable the ability for the user to
-        // resize the textarea. We also disable when in auto resize mode
-        resize: !this.computedRows || this.noResize ? 'none' : null,
-        // The computed height for auto resize
-        height: this.computedHeight
+      const styles = {
+        // Setting `noResize` to true will disable the ability for the user to
+        // manually resize the textarea. We also disable when in auto resize mode
+        resize: !this.computedRows || this.noResize ? 'none' : null
       }
+      if (!this.computedRows) {
+        // The computed height for auto resize.
+        // We avoid setting the style to null, which can override user manual resize.
+        styles.height = this.computedHeight
+      }
+      return styles
     },
     computedMinRows() {
-      // Ensure rows is at least 2 and positive (2 is the native textarea value)
+      // Ensure rows is at least 2 and positive (2 is the native textarea value).
+      // A value of 1 can cause issues in some browsers, and most browsers only support
+      // 2 as the smallest value.
       return Math.max(parseInt(this.rows, 10) || 2, 2)
     },
     computedMaxRows() {
       return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
     },
     computedRows() {
+      // This is used to set the attribute 'rows' on the textarea.
+      // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
     computedHeight() /* istanbul ignore next: can't test getComputedProperties */ {
+      // We compare `computedRows` and `localValue` to `true`, a value
+      // they both can't have at any time, to ensure reactivity
+      if (
+        this.$isServer ||
+        this.dontResize ||
+        this.computedRows === true ||
+        this.localValue === true
+      ) {
+        return null
+      }
+
       const el = this.$el
 
-      if (this.isServer) {
-        return null
-      }
-      // We compare this.localValue to null to ensure reactivity of content changes.
-      if (this.localValue === null || this.computedRows || this.dontResize || this.$isServer) {
-        return null
-      }
-
-      // Element must be visible (not hidden) and in document. *Must* be checked after above.
+      // Element must be visible (not hidden) and in document
+      // *Must* be checked after above checks
       if (!isVisible(el)) {
         return null
       }
 
-      // Remember old height and reset it temporarily
+      // Remember old height (includes `px` units) and reset it temporarily to `auto`
       const oldHeight = el.style.height
       el.style.height = 'auto'
 
@@ -97,15 +114,25 @@ export default {
         (parseFloat(computedStyle.paddingTop) || 0) +
         (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate content height in "rows"
-      const contentRows = (el.scrollHeight - offset) / lineHeight
-      // Put the old height back (needed when new height is equal to old height!)
-      el.style.height = oldHeight
+      const contentRows = Math.max((el.scrollHeight - offset) / lineHeight, 2)
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
-      // Calulate the required height of the textarea including border and padding (in pixels)
+      // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // return the new computed height in px units
+      // Place old height back on element, just in case this computed prop returns the same value
+      el.style.height = oldHeight
+
+      // Value of previous height (without px units appended)
+      const oldHeightPx = parseFloat(oldHeight) || 0
+
+      if (this.noAutoShrink && oldHeightPx > height) {
+        // Computed height remains the larger of oldHeight and new height
+        // When height is `sticky` (no-auto-shrink is true)
+        return oldHeight
+      }
+
+      // Return the new computed height in px units
       return `${height}px`
     }
   },

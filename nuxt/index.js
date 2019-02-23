@@ -27,13 +27,21 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       options.bootstrapVueCSS,
       options.bootstrapVueCss,
       options.bvCSS
+      // Defaults to `true` if no other options provided
+      true
     )
     if (bootstrapVueCSS) {
       // Add BootstrapVue CSS
       this.options.css.unshift('bootstrap-vue/dist/bootstrap-vue.css')
     }
 
-    const bootstrapCSS = pickFirst(options.bootstrapCSS, options.bootstrapCss, options.css)
+    const bootstrapCSS = pickFirst(
+      options.bootstrapCSS,
+      options.bootstrapCss,
+      options.css
+      // Defaults to `true` if no other options provided
+      true
+    )
     if (bootstrapCSS) {
       // Add Bootstrap CSS
       this.options.css.unshift('bootstrap/dist/css/bootstrap.css')
