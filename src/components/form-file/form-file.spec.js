@@ -112,15 +112,38 @@ describe('form-file', async () => {
     wrapper.vm.setFiles([file1, file2])
     expect(wrapper.emitted('input').length).toEqual(1)
 
-    // Setting to array of new files should not emit event
+    // Setting to array of new files should emit event
     wrapper.vm.setFiles(files.slice().reverse())
     expect(wrapper.emitted('input').length).toEqual(2)
+  })
+
+  it('reset() method works', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo',
+        multiple: true
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt')
+    const file2 = new File(['bar'], 'bar.txt')
+    const files = [file1, file2]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+
+    wrapper.vm.reset()
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual([])
   })
 
   it('reset works in single mode by setting value', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        id: 'foo'
+        id: 'foo',
+        value: ''
       }
     })
     const file1 = new File(['foo'], 'foo.txt')
@@ -142,6 +165,7 @@ describe('form-file', async () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
+        value: '',
         multiple: true
       }
     })
@@ -166,27 +190,5 @@ describe('form-file', async () => {
     wrapper.setProps({ value: [] })
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
-  })
-
-  it('reset() method works', async () => {
-    const wrapper = mount(Input, {
-      propsData: {
-        id: 'foo',
-        multiple: true
-      }
-    })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
-    const files = [file1, file2]
-
-    // Emulate the files array
-    wrapper.vm.setFiles(files)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(files)
-
-    wrapper.vm.reset()
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual([])
   })
 })
