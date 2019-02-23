@@ -201,7 +201,7 @@ describe('form-file', async () => {
     const file1 = new File(['foo'], 'foo.txt')
 
     // Emulate the files array
-    wrapper.vm.setFiles(file1)
+    wrapper.vm.setFiles([file1])
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
