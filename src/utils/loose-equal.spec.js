@@ -1,7 +1,7 @@
 import looseEqual from './loose-equal'
 
-describe('looseEqual', async () => {
-  it('compares booleans correctly', async () => {
+describe('looseEqual', () => {
+  it('compares booleans correctly', () => {
     expect(looseEqual(true, true)).toBe(true)
     expect(looseEqual(false, false)).toBe(true)
     expect(looseEqual(true, false)).toBe(false)
@@ -10,18 +10,18 @@ describe('looseEqual', async () => {
     expect(looseEqual(false, 0)).toBe(false)
   })
 
-  it('compares strings correctly', async () => {
+  it('compares strings correctly', () => {
     const text = 'Lorem ipsum'
     const number = 1
     const bool = true
 
     expect(looseEqual(text, text)).toBe(true)
     expect(looseEqual(text, text.slice(0, -1))).toBe(false)
-    expect(looseEqual(String(number), number)).toBe(false)
-    expect(looseEqual(String(bool), bool)).toBe(false)
+    expect(looseEqual(String(number), number)).toBe(true)
+    expect(looseEqual(String(bool), bool)).toBe(true)
   })
 
-  it('compares numbers correctly', async () => {
+  it('compares numbers correctly', () => {
     const number = 100
     const decimal = 2.5
     const multiplier = 1.0000001
@@ -34,7 +34,7 @@ describe('looseEqual', async () => {
     expect(looseEqual(multiplier, multiplier)).toBe(true)
   })
 
-  it('compares dates correctly', async () => {
+  it('compares dates correctly', () => {
     const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
     const date2 = new Date(2019, 1, 2, 3, 4, 5, 6)
     const date3 = new Date(2019, 1, 2, 3, 4, 5, 7)
@@ -50,25 +50,29 @@ describe('looseEqual', async () => {
     expect(looseEqual(date1, date4)).toBe(false)
   })
 
-  it('compares files correctly', async () => {
+  it('compares files correctly', () => {
     const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
     const date2 = new Date(2019, 1, 2, 3, 4, 5, 7)
     const file1 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
     const file2 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
     const file3 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date2 })
     const file4 = new File([''], 'filename.csv', { type: 'text/csv', lastModified: date1 })
+    const file5 = new File(['abcdef'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
+    const file6 = new File(['12345'], 'filename.txt', { type: 'text/plain', lastModified: date1 })
 
     // Identical file object references
     expect(looseEqual(file1, file1)).toBe(true)
     // Different file references with identical values
-    expect(looseEqual(file1, file2)).toBe(false)
+    expect(looseEqual(file1, file2)).toBe(true)
     // Files with slightly different dates
     expect(looseEqual(file1, file3)).toBe(false)
     // Two different file types
     expect(looseEqual(file1, file4)).toBe(false)
+    // Two files with same name, modified date, but different content
+    expect(looseEqual(file5, file6)).toBe(false)
   })
 
-  it('compares arrays correctly', async () => {
+  it('compares arrays correctly', () => {
     const arr1 = [1, 2, 3, 4]
     const arr2 = [1, 2, 3, '4']
     const arr3 = [1, 2, 3, 4, 5]
@@ -79,8 +83,9 @@ describe('looseEqual', async () => {
     // Different array references with identical values
     expect(looseEqual(arr1, arr1.slice())).toBe(true)
     expect(looseEqual(arr4, arr4.slice())).toBe(true)
+    // Array with one value different (loose)
+    expect(looseEqual(arr1, arr2)).toBe(true)
     // Array with one value different
-    expect(looseEqual(arr1, arr2)).toBe(false)
     expect(looseEqual(arr3, arr4)).toBe(false)
     // Arrays with different lengths
     expect(looseEqual(arr1, arr3)).toBe(false)
@@ -88,7 +93,7 @@ describe('looseEqual', async () => {
     expect(looseEqual(arr1, arr1.slice().reverse())).toBe(false)
   })
 
-  it('compares RegExp correctly', async () => {
+  it('compares RegExp correctly', () => {
     const rx1 = /^foo$/
     const rx2 = /^foo$/
     const rx3 = /^bar$/
@@ -104,7 +109,7 @@ describe('looseEqual', async () => {
     expect(looseEqual(rx3, rx4)).toBe(false)
   })
 
-  it('compares objects correctly', async () => {
+  it('compares objects correctly', () => {
     const obj1 = { foo: 'bar' }
     const obj2 = { foo: 'bar1' }
     const obj3 = { a: 1, b: 2, c: 3 }
@@ -131,7 +136,7 @@ describe('looseEqual', async () => {
     expect(looseEqual(nestedObj1, nestedObj2)).toBe(false)
   })
 
-  it('compares different types correctly', async () => {
+  it('compares different types correctly', () => {
     const obj1 = {}
     const obj2 = { a: 1 }
     const obj3 = { 0: 0, 1: 1, 2: 2 }
@@ -141,7 +146,7 @@ describe('looseEqual', async () => {
     const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
     const file1 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
 
-    expect(looseEqual(123, '123')).toBe(false)
+    expect(looseEqual(123, '123')).toBe(true)
     expect(looseEqual(123, new Date(123))).toBe(false)
     expect(looseEqual(`123`, new Date(123))).toBe(false)
     expect(looseEqual([1, 2, 3], '1,2,3')).toBe(false)
@@ -160,7 +165,7 @@ describe('looseEqual', async () => {
     expect(looseEqual(obj3, arr3)).toBe(false)
   })
 
-  it('compares null and undefs correctly', async () => {
+  it('compares null and undefined values correctly', () => {
     expect(looseEqual(null, null)).toBe(true)
     expect(looseEqual(undefined, undefined)).toBe(true)
     expect(looseEqual(void 0, undefined)).toBe(true)
