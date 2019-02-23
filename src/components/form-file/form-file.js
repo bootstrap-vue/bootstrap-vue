@@ -82,6 +82,7 @@ export default {
   watch: {
     selectedFile(newVal, oldVal) {
       if (newVal === oldVal) {
+        /* istanbul ignore next: this may never happen */
         return
       }
       // The following test is needed when the file input is "reset" to prevent
