@@ -3,7 +3,6 @@ const path = require('path')
 const hljs = require('highlightjs')
 const marked = require('marked')
 const octicons = require('octicons')
-const slug = require('slug')
 
 const renderer = new marked.Renderer()
 
@@ -16,26 +15,29 @@ renderer.code = (code, language) => {
 
 // Custom heading implementation for markdown renderer
 // @link: https://github.com/nuxt/docs/blob/master/api.js#L27
-renderer.heading = (text, level) => {
-  const pattern = /\s?{([^}]+)}$/
-  let link = pattern.exec(text)
+renderer.heading = function(text, level, raw, slugger) {
+  let anchor = ''
+  if (this.options.headerIds) {
+    const pattern = /\s?{([^}]+)}$/
+    let link = pattern.exec(text)
 
-  if (link && link.length && link[1]) {
-    text = text.replace(pattern, '')
-    link = link[1]
-  } else {
-    link = slug(text, { lower: true })
+    if (link && link.length && link[1]) {
+      text = text.replace(pattern, '')
+      link = link[1]
+    } else {
+      link = this.options.headerPrefix + slugger.slug(raw)
+    }
+
+    const icon = octicons.link.toSVG()
+    anchor = `<a id="${link}" class="anchor" aria-hidden="true" href="#${link}">${icon}</a>`
   }
 
-  const icon = octicons.link.toSVG()
-  const anchor = `<a id="${link}" class="anchor" aria-hidden="true" href="#${link}">${icon}</a>`
-
-  return `<h${level}>${anchor}${text}</h${level}>`
+  return `<h${level}>${anchor}${text}</h${level}>\n`
 }
 
 // BS4 table support for markdown renderer
 const originalTable = renderer.table
-renderer.table = function renderTable(header, body) {
+renderer.table = function(header, body) {
   let r = originalTable.apply(this, arguments)
   return r
     .replace('<table>', '<table class="table b-table table-striped">')
