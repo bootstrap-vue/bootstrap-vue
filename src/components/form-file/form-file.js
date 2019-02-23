@@ -152,7 +152,7 @@ export default {
         return
       }
       // Normal handling
-      this.setFiles(evt.target.files || evt.dataTransfer.files)
+      this.setFiles(evt.target.files || evt.dataTransfer.files || [])
     },
     setFiles(files) {
       if (!files) {
