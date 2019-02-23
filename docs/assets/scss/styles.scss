@@ -1,5 +1,9 @@
 /*! BootstrapVue Docs Additional Styles */
-@import './fonts.css';
+@import "./fonts.scss";
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
 
 .nuxt-progress {
   position: fixed;
@@ -8,23 +12,23 @@
   width: 0;
   height: 3px;
   background-color: #59cc93;
-  transition: width .2s,opacity .4s;
+  transition: width 0.2s, opacity 0.4s;
   opacity: 1;
   z-index: 999999;
 }
 
-* {
-    -webkit-font-smoothing: antialiased;
-}
-
-.bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
+.bd-toc-link,
+.bd-navbar .navbar-nav .nav-link.active {
   font-weight: normal;
 }
 
-.bd-toc-link .badge, .bd-sidenav .badge {
-  font-size: 70%;
-  position: relative;
-  bottom: 0.1rem;
+.bd-toc-link,
+.bd-sidenav {
+  .badge {
+    font-size: 70%;
+    position: relative;
+    bottom: 0.1rem;
+  }
 }
 
 .hljs {
@@ -48,23 +52,43 @@ blockquote {
   font-weight: 300;
 }
 
-.bd-content > h1,
-.bd-content > h2,
-.bd-content > h3,
-.bd-content > h4,
-.bd-content > h5 {
-  padding-top: 25px;
-  padding-bottom: 15px;
+/* https://github.com/bryanbraun/anchorjs/blob/e9c248ac82cfa905ed00e804a2a1c64296b342d1/anchor.js#L306 */
+.anchorjs-link {
+  padding-left: 0.375em;
+  opacity: 0;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:after {
+    content: "#";
+  }
+}
+
+*:hover > .anchorjs-link,
+.anchorjs-link:focus {
+  opacity: 1;
+}
+
+.bd-content {
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5 {
+    padding-top: 25px;
+    padding-bottom: 15px;
+  }
 }
 
 pre.editable:after {
-  content: '(double click to edit)';
+  content: "(double click to edit)";
   position: absolute;
   top: 0;
   right: 0;
   color: #aaa;
   text-align: right;
-  font-size: .75em;
+  font-size: 0.75em;
   padding: 5px 10px 0;
   line-height: 15px;
   height: 15px;
@@ -72,13 +96,13 @@ pre.editable:after {
 }
 
 pre.editable:hover:after {
-  font-size: .9em;
+  font-size: 0.9em;
   color: #444;
   cursor: pointer;
 }
 
 pre.editable.live:after {
-  content: 'Live';
+  content: "Live";
 }
 
 pre.editable.error {
@@ -87,7 +111,7 @@ pre.editable.error {
 }
 
 pre.editable.error:after {
-  content: 'JavaScript compile error!';
+  content: "JavaScript compile error!";
   color: #dc3545;
 }
 
@@ -104,19 +128,21 @@ pre.editable.error:after {
 }
 
 .bv-example-row .row > .col:not(.header),
-.bv-example-row .row > [class^=col-] {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  background-color: rgba(86, 61, 124, .15);
-  border: 1px solid rgba(86, 61, 124, .2);
+.bv-example-row .row > [class^="col-"] {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: rgba(86, 61, 124, 0.15);
+  border: 1px solid rgba(86, 61, 124, 0.2);
 }
 
 .bv-example-row-flex-cols .row {
   min-height: 10rem;
-  background-color: rgba(255, 0, 0, .1);
+  background-color: rgba(255, 0, 0, 0.1);
 }
 
-/* CSS for table transtion example */
-table#table-transition-example .flip-list-move {
-  transition: transform 1s;
+/* CSS for table transition example */
+table#table-transition-example {
+  .flip-list-move {
+    transition: transform 1s;
+  }
 }
