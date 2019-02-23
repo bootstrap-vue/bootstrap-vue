@@ -342,7 +342,7 @@ export default {
     modalOuterStyle() {
       return {
         // We only set these styles on the stacked modals (ones with next z-index > 0).
-        position: 'relative',
+        position: 'absolute',
         zIndex: this.zIndex
       }
     }
