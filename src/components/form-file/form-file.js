@@ -3,7 +3,6 @@ import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom, isArray } from '../../utils/array'
-import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
 export default {
@@ -66,16 +65,13 @@ export default {
         return this.dropPlaceholder
       }
 
-      // No file choosen
+      // No file chosen
       if (!this.selectedFile || this.selectedFile.length === 0) {
         return this.placeholder
       }
 
       // Multiple files
       if (this.multiple) {
-        if (this.selectedFile.length === 1) {
-          return this.selectedFile[0].name
-        }
         return this.selectedFile.map(file => file.name).join(', ')
       }
 
@@ -85,7 +81,17 @@ export default {
   },
   watch: {
     selectedFile(newVal, oldVal) {
-      if (looseEqual(newVal, oldVal)) {
+      // The following test is needed when the file input is "reset" or the
+      // exact same file(s) are selected to prevent an infinite loop.
+      // When in `multiple` mode we need to check for two empty arrays or
+      // two arrays with identical files
+      if (
+        newVal === oldVal ||
+        (isArray(newVal) &&
+          isArray(oldVal) &&
+          newVal.length === oldVal.length &&
+          newVal.every((v, i) => v === oldVal[i]))
+      ) {
         return
       }
       if (!newVal && this.multiple) {
@@ -102,9 +108,9 @@ export default {
   },
   methods: {
     focusHandler(evt) {
-      // Bootstrap v4.beta doesn't have focus styling for custom file input
-      // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
-      // So we add a 'focus' class to get around these "bugs"
+      // Bootstrap v4 doesn't have focus styling for custom file input
+      // Firefox has a '[type=file]:focus ~ sibling' selector issue,
+      // so we add a 'focus' class to get around these bugs
       if (this.plain || evt.type === 'focusout') {
         this.hasFocus = false
       } else {
@@ -114,11 +120,11 @@ export default {
     },
     reset() {
       try {
-        // Wrapped in try in case IE < 11 craps out
+        // Wrapped in try in case IE 11 craps out
         this.$refs.input.value = ''
       } catch (e) {}
-      // IE < 11 doesn't support setting input.value to '' or null
-      // So we use this little extra hack to reset the value, just in case
+      // IE 11 doesn't support setting `input.value` to '' or null
+      // So we use this little extra hack to reset the value, just in case.
       // This also appears to work on modern browsers as well.
       this.$refs.input.type = ''
       this.$refs.input.type = 'file'
@@ -146,8 +152,9 @@ export default {
       // Normal handling
       this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
-    setFiles(files) {
+    setFiles(files = []) {
       if (!files) {
+        /* istanbul ignore next: this will probably not happen */
         this.selectedFile = null
       } else if (this.multiple) {
         // Convert files to array
@@ -159,7 +166,7 @@ export default {
         this.selectedFile = filesArray
       } else {
         // Return single file object
-        this.selectedFile = files[0]
+        this.selectedFile = files[0] || null
       }
     },
     onReset() {
