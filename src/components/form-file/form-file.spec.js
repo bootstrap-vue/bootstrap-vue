@@ -116,4 +116,76 @@ describe('form-file', async () => {
     wrapper.vm.setFiles(files.slice().reverse())
     expect(wrapper.emitted('input').length).toEqual(2)
   })
+
+  it('reset works in single mode by setting value', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo'
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt')
+    const file2 = new File(['bar'], 'bar.txt')
+
+    // Emulate the files array
+    wrapper.vm.setFiles([file1])
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+
+    wrapper.setProps({ value: null })
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+  })
+
+  it('reset works in multiple mode by setting value', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo',
+        multiple: true
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt')
+    const file2 = new File(['bar'], 'bar.txt')
+    const files = [file1, file2]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+
+    wrapper.setProps({ value: null })
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual([])
+
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input').length).toEqual(3)
+    expect(wrapper.emitted('input')[2][0]).toEqual(files)
+
+    wrapper.setProps({ value: [] })
+    expect(wrapper.emitted('input').length).toEqual(4)
+    expect(wrapper.emitted('input')[3][0]).toEqual([])
+  })
+
+  it('reset() method works', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo',
+        multiple: true
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt')
+    const file2 = new File(['bar'], 'bar.txt')
+    const files = [file1, file2]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+
+    wrapper.vm.reset()
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual([])
+  })
 })
