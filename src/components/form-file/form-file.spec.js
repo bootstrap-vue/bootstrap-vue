@@ -26,8 +26,8 @@ describe('form-file', async () => {
     const label = wrapper.find('label')
     expect(label).toBeDefined()
     expect(label.classes()).toContain('custom-file-label')
-    expect(input.attributes('for')).toBeDefined()
-    expect(input.attributes('for')).toBe('foo')
+    expect(label.attributes('for')).toBeDefined()
+    expect(label.attributes('for')).toBe('foo')
   })
 
   it('default has input attribute multiple when multiple=true', async () => {
@@ -52,11 +52,11 @@ describe('form-file', async () => {
 
     expect(input.classes()).not.toContain('focus')
 
-    input.element.focus()
+    input.trigger('focusin')
     await wrapper.vm.$nextTick()
     expect(input.classes()).toContain('focus')
 
-    input.element.blur()
+    input.trigger('focusout')
     await wrapper.vm.$nextTick()
     expect(input.classes()).not.toContain('focus')
   })
