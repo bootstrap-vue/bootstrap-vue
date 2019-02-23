@@ -76,8 +76,11 @@ export default {
     isComponentRoute() {
       return this.$route.name === 'docs-components-slug'
     },
+    pluginDir() {
+      return this.$route.params.slug
+    },
     pluginName() {
-      return startCase(this.$route.params.slug).replace(/\s+/g, '')
+      return startCase(this.pluginDir).replace(/\s+/g, '')
     },
     pluginTitle() {
       return startCase(this.meta.title)
@@ -129,7 +132,7 @@ export default {
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
-        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
+        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
     }
@@ -149,7 +152,7 @@ export default {
     },
     componentPath(component) {
       const componentName = this.componentName(component).replace(/^b-/, '')
-      return `bootstrap-vue/es/components/${componentName}/${componentName}`
+      return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
     },
     directiveName(directive) {
       return kebabCase(directive).replace(/^v-/, '')

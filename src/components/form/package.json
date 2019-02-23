@@ -1,27 +1,29 @@
 {
-    "name": "@bootstrap-vue/form",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Form",
-        "slug": "form",
+  "name": "@bootstrap-vue/form",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form",
+    "slug": "form",
+    "components": [
+      {
         "component": "BForm",
-        "components": [
-            "BFormText",
-            "BFormInvalidFeedback",
-            "BFormValidFeedback",
-            "BFormRow"
-        ],
         "events": [
-            {
-                "event": "submit",
-                "description": "Emitted when the form is being submitted",
-                "args": [
-                    {
-                        "arg": "event",
-                        "description": "Native submit event."
-                    }
-                ]
-            }
+          {
+            "event": "submit",
+            "description": "Emitted when the form is being submitted",
+            "args": [
+              {
+                "arg": "event",
+                "description": "Native submit event."
+              }
+            ]
+          }
         ]
-    }
+      },
+      "BFormText",
+      "BFormInvalidFeedback",
+      "BFormValidFeedback",
+      "BFormRow"
+    ]
+  }
 }

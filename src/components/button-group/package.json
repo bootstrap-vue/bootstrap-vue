@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "meta": {
     "title": "Button Group",
-    "component": "BButtonGroup",
-    "aliases": [
-      "BBtnGroup"
+    "components": [
+      {
+        "component": "BButtonGroup",
+        "aliases": [
+          "BBtnGroup"
+        ]
+      }
     ]
   }
 }

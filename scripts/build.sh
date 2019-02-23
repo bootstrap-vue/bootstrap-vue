@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+echo 'Checking plugin metadata...'
+node -r esm scripts/check-plugin-meta.js || exit 1
+echo 'Done.'
+echo ''
+
 # Cleanup
 rm -rf dist es
 

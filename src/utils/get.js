@@ -1,31 +1,28 @@
+import { isArray } from './array'
+import { isObject } from './object'
+
 /**
  * Get property defined by dot notation in string.
  *
- * Copyright (C) 2014 (UNLICENSE)
- * @author Dmitry Yv <https://github.com/dy>
+ * @link https://gist.github.com/jeneg/9767afdcca45601ea44930ea03e0febf#gistcomment-1935901
  *
- * @param  {Object} holder   Target object where to look property up
- * @param  {string} propName Dot notation, like 'this.a.b.c'
- * @return {*}          A property value
+ * @param {Object} obj
+ * @param {string|Array} path
+ * @param {*} defaultValue (optional)
+ * @return {*}
  */
-export default function get(holder, propName) {
-  if (propName === undefined) {
-    return holder
+export default (obj, path, defaultValue = null) => {
+  if (!path || !isObject(obj)) {
+    return defaultValue
   }
 
-  const propParts = (propName + '').split('.')
-  let result = holder
-  let lastPropName
+  path = isArray(path) ? path.join('.') : path
+  path = String(path).replace(/\[(\d+)]/g, '.$1')
 
-  while (
-    (lastPropName = propParts.shift()) !== undefined &&
-    // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/2623
-    result !== undefined &&
-    result !== null
-  ) {
-    if (result[lastPropName] === undefined) return undefined
-    result = result[lastPropName]
+  const steps = path.split('.').filter(Boolean)
+  if (steps.length === 0) {
+    return defaultValue
   }
 
-  return result
+  return steps.every(step => (obj = obj[step]) !== undefined) ? obj : defaultValue
 }

@@ -3,24 +3,30 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Group",
-    "component": "BFormGroup",
-    "alias": [ "BFormFieldset" ],
-    "slots": [
+    "components": [
       {
-        "name": "label",
-        "description": "Content to place inside the <label> element."
-      },
-      {
-        "name": "description",
-        "description": "Content to place in the description area."
-      },
-      {
-        "name": "invalid-feedback",
-        "description": "Content to place in the invalid feedback area"
-      },
-      {
-        "name": "valid-feedback",
-        "description": "Content to place in the valid feedback area"
+        "component": "BFormGroup",
+        "alias": [
+          "BFormFieldset"
+        ],
+        "slots": [
+          {
+            "name": "label",
+            "description": "Content to place inside the <label> element."
+          },
+          {
+            "name": "description",
+            "description": "Content to place in the description area."
+          },
+          {
+            "name": "invalid-feedback",
+            "description": "Content to place in the invalid feedback area"
+          },
+          {
+            "name": "valid-feedback",
+            "description": "Content to place in the valid feedback area"
+          }
+        ]
       }
     ]
   }
