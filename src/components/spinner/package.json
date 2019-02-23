@@ -4,11 +4,15 @@
   "meta": {
     "title": "Spinner",
     "slug": "spinner",
-    "component": "BSpinner",
-    "slots": [
+    "components": [
       {
-        "name": "label",
-        "description": "Content to place in the sr-only label"
+        "component": "BSpinner",
+        "slots": [
+          {
+            "name": "label",
+            "description": "Content to place in the sr-only label"
+          }
+        ]
       }
     ]
   }
