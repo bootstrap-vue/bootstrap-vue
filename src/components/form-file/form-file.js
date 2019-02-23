@@ -95,9 +95,8 @@ export default {
       ) {
         return
       }
-      if (!newVal && this.multiple) {
-        // Always ensure v-model is an array in multiple mode when no file(s) selected
-        this.$emit('input', [])
+      if (!newVal) {
+        return this.multiple ? [] : null
       } else {
         this.$emit('input', newVal)
       }
@@ -154,7 +153,7 @@ export default {
       // Normal handling
       this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
-    setFiles(files = []) {
+    setFiles(files) {
       if (!files) {
         this.selectedFile = null
       } else if (this.multiple) {
@@ -167,7 +166,7 @@ export default {
         this.selectedFile = filesArray
       } else {
         // Return single file object
-        this.selectedFile = files[0] || null
+        this.selectedFile = files[0]
       }
     },
     onReset() {
