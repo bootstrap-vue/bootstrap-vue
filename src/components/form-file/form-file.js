@@ -152,9 +152,9 @@ export default {
         return
       }
       // Normal handling
-      this.setFiles(evt.target.files || evt.dataTransfer.files || [])
+      this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
-    setFiles(files) {
+    setFiles(files = []) {
       if (!files) {
         this.selectedFile = null
       } else if (this.multiple) {
@@ -167,7 +167,7 @@ export default {
         this.selectedFile = filesArray
       } else {
         // Return single file object
-        this.selectedFile = files[0]
+        this.selectedFile = files[0] || null
       }
     },
     onReset() {
