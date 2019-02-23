@@ -132,7 +132,8 @@ disabled in auto-height mode.
       <b-form-textarea
         id="textarea-auto-height"
         placeholder="Auto height Textarea"
-        rows="4" />
+        rows="3"
+        max-rows="8" />
     </b-col>
   </b-row>
 
@@ -144,7 +145,8 @@ disabled in auto-height mode.
       <b-form-textarea
         id="textarea-no-auto-shrink"
         placeholder="Auto height (no-shrink) Textarea"
-        rows="4"
+        rows="3"
+        max-rows="8"
         no-auto-shrink />
     </b-col>
   </b-row>
