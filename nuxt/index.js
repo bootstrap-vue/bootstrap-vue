@@ -26,7 +26,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     const bootstrapVueCSS = pickFirst(
       options.bootstrapVueCSS,
       options.bootstrapVueCss,
-      options.bvCSS
+      options.bvCSS,
       // Defaults to `true` if no other options provided
       true
     )
@@ -38,7 +38,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     const bootstrapCSS = pickFirst(
       options.bootstrapCSS,
       options.bootstrapCss,
-      options.css
+      options.css,
       // Defaults to `true` if no other options provided
       true
     )
