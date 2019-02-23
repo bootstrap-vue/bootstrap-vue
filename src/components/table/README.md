@@ -375,7 +375,7 @@ The primary key column does not need to appear in the displayed fields.
 ### Table row ID generation
 
 When provided, the `primary-key` will generate a unique ID for each item row `<tr>` element. The ID
-will be in the format of `{table-id}_row_{primary-key-value}`, where `table-id` is the unique ID of
+will be in the format of `{table-id}__row_{primary-key-value}`, where `table-id` is the unique ID of
 the `<b-table>` and `primary-key-value` is the value of the item's field value for the field
 specified by `primary-key`.
 
