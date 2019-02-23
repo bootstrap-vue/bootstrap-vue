@@ -6,7 +6,9 @@
     "components": [
       {
         "component": "BFormRadioGroup",
-        "aliases": [ "BRadioGroup" ],
+        "aliases": [
+          "BRadioGroup"
+        ],
         "slots": [
           {
             "name": "first",
@@ -18,7 +20,10 @@
             "event": "input",
             "description": "Emitted when the selected value is changed",
             "args": [
-              { "arg": "checked", "description": "current selected Value of radio group." }
+              {
+                "arg": "checked",
+                "description": "current selected Value of radio group."
+              }
             ]
           },
           {
@@ -26,20 +31,27 @@
             "description": "Emitted when selected value is changed due to user interaction",
             "args": [
               {
-                "arg": "checked",  "description": "current selected Value of radio group." }
+                "arg": "checked",
+                "description": "current selected Value of radio group."
+              }
             ]
           }
         ]
       },
       {
         "component": "BFormRadio",
-        "aliases": [ "BRadio" ],
+        "aliases": [
+          "BRadio"
+        ],
         "events": [
           {
             "event": "input",
             "description": "Emitted when the selected value is changed",
             "args": [
-              { "arg": "checked", "description": "current selected Value of radio group." }
+              {
+                "arg": "checked",
+                "description": "current selected Value of radio group."
+              }
             ]
           },
           {
@@ -47,7 +59,9 @@
             "description": "Emitted when selected value is changed due to user interaction",
             "args": [
               {
-                "arg": "checked",  "description": "current selected Value of radio group." }
+                "arg": "checked",
+                "description": "current selected Value of radio group."
+              }
             ]
           }
         ]

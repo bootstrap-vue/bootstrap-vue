@@ -7,14 +7,14 @@
 <template>
   <div>
     <b-form-textarea
-      id="textarea1"
+      id="textarea"
       v-model="text"
-      placeholder="Enter something"
+      placeholder="Enter something..."
       rows="3"
       max-rows="6"
     />
 
-    <pre class="mt-3">{{ text }}</pre>
+    <pre class="mt-3 mb-0">{{ text }}</pre>
   </div>
 </template>
 
@@ -39,30 +39,30 @@ To control width, place the input inside standard Bootstrap grid column.
 
 ```html
 <b-container fluid>
-  <b-row class="my-1">
+  <b-row>
     <b-col sm="2">
-      <label for="input-small">Small:</label>
+      <label for="textarea-small">Small:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-textarea id="input-small" size="sm" type="text" placeholder="Small Textarea" />
+      <b-form-textarea id="textarea-small" size="sm" placeholder="Small textarea" />
     </b-col>
   </b-row>
 
-  <b-row class="my-1">
+  <b-row class="mt-2">
     <b-col sm="2">
-      <label for="input-default">Default:</label>
+      <label for="textarea-default">Default:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-textarea id="input-default" type="text" placeholder="Default Textarea" />
+      <b-form-textarea id="textarea-default" placeholder="Default textarea" />
     </b-col>
   </b-row>
 
-  <b-row class="my-1">
+  <b-row class="mt-2">
     <b-col sm="2">
-      <label for="input-large">Large:</label>
+      <label for="textarea-large">Large:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-textarea id="input-large" size="lg" type="text" placeholder="Large Textarea" />
+      <b-form-textarea id="textarea-large" size="lg" placeholder="Large textarea" />
     </b-col>
   </b-row>
 </b-container>
@@ -76,24 +76,86 @@ To set the height of `<b-form-textarea>`, set the `rows` prop to the desired num
 value is provided to `rows`, then it will default to `2` (the browser default and minimum acceptable
 value). Setting it to null or a value below 2 will result in the default of `2` being used.
 
+```html
+<div>
+  <b-form-textarea
+    id="textarea-rows"
+    placeholder="Tall textarea"
+    rows="8"
+  />
+</div>
+
+<!-- b-form-textarea-rows.vue -->
+```
+
 ### Disable resize handle
 
 Some web browsers will allow the user to re-size the height of the textarea. To disable this
 feature, set the `no-resize` prop to `true`.
 
+```html
+<div>
+  <b-form-textarea
+    id="textarea-no-resize"
+    placeholder="Fixed height textarea"
+    rows="3"
+    no-resize
+  />
+</div>
+
+<!-- b-form-textarea-no-resize.vue -->
+```
+
 ### Auto height
 
 `<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content, even as
-the user enters text.
+the user enters or deletes text. The height of the textarea will either grow or shrink to fit the
+content (grow to a maximum of `max-rows` or shrink to a minimum of `rows`).
 
 To set the initial minimum height (in rows), set the `rows` prop to the desired number of lines (or
 leave it at the default of `2`), And then set maximum rows that the text area will grow to (before
 showing a scrollbar) by setting the `max-rows` prop to the maximum number of lines of text.
 
+To make the height `sticky` (i.e. never shrink), set the `no-auto-shrink` prop to `true`. The
+`no-auto-shrink` props has no effect if `max-rows` is not set or is equal to or less than `rows`.
+
 Note that the resize handle of the textarea (if supported by the browser) will automatically be
 disabled in auto-height mode.
 
-## Textarea contextual states
+```html
+<b-container fluid>
+  <b-row>
+    <b-col sm="2">
+      <label for="textarea-auto-height">Auto height:</label>
+    </b-col>
+    <b-col sm="10">
+      <b-form-textarea
+        id="textarea-auto-height"
+        placeholder="Auto height textarea"
+        rows="3"
+        max-rows="8" />
+    </b-col>
+  </b-row>
+
+  <b-row class="mt-2">
+    <b-col sm="2">
+      <label for="textarea-no-auto-shrink">No auto-shrink:</label>
+    </b-col>
+    <b-col sm="10">
+      <b-form-textarea
+        id="textarea-no-auto-shrink"
+        placeholder="Auto height (no-shrink) textarea"
+        rows="3"
+        max-rows="8"
+        no-auto-shrink />
+    </b-col>
+  </b-row>
+</b-container>
+
+<!-- b-form-textarea-auto-height.vue -->
+```
+
+## Contextual states
 
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
@@ -115,9 +177,9 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
 <template>
   <div>
     <b-form-textarea
-      id="textarea2"
-      :state="text.length >= 10"
+      id="textarea-state"
       v-model="text"
+      :state="text.length >= 10"
       placeholder="Enter at least 10 characters"
       rows="3"
     />
@@ -147,7 +209,7 @@ Ensure that an alternative indication of state is also provided. For instance, y
 hint about state in the form control's `<label>` text itself, or by providing an additional help
 text block.
 
-### ARIA `aria-invalid` attribute
+### `aria-invalid` attribute
 
 When `<b-form-textarea>` has an invalid contextual state (i.e. `'invalid'` or `false`) you may also
 want to set the prop `aria-invalid` to `true`, or one of the supported values:
@@ -174,7 +236,7 @@ form field styling and preserve the correct text size, margin, padding and heigh
 ```html
 <template>
   <div>
-    <b-form-textarea id="textarea3" plaintext :value="text" />
+    <b-form-textarea id="textarea-plaintext" plaintext :value="text" />
   </div>
 </template>
 
