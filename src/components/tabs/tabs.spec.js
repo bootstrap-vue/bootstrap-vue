@@ -109,4 +109,49 @@ describe('tabs', async () => {
     // Should emit index of 2 (3rd tab)
     expect(tabs.emitted('input')[2][0]).toBe(2)
   })
+
+  it('v-model works when trying to activate a disabled tab', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(Tabs, { props: { value: 0 } }, [
+          h(Tab, { props: {} }, 'tab 0'),
+          h(Tab, { props: { disabled: true } }, 'tab 1'),
+          h(Tab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect(tabs.emitted('input')).toBeDefined()
+    expect(tabs.emitted('input').length).toBe(1)
+    // Should emit index of 0 (1st tab)
+    expect(tabs.emitted('input')[0][0]).toBe(0)
+
+    // Try to set 2nd (disabled) Tab to be active
+    tabs.setProps({ value: 1 })
+    await wrapper.vm.$nextTick()
+    // Will try activate next non-disabled tab instead (3rd tab, index 2)
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tabs.emitted('input').length).toBe(2)
+    // Should emit index of 2 (3rd tab)
+    expect(tabs.emitted('input')[1][0]).toBe(2)
+
+    // Try and set 2nd Tab to be active
+    tabs.setProps({ value: 1 })
+    await wrapper.vm.$nextTick()
+    // Will find the previous non-disabled tab
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tabs.emitted('input').length).toBe(3)
+    // Should emit index of 1 (1st tab)
+    expect(tabs.emitted('input')[2][0]).toBe(1)
+  })
 })
