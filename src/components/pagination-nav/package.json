@@ -1,30 +1,34 @@
 {
-    "name": "@bootstrapvue/pagination",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Pagination Nav",
+  "name": "@bootstrap-vue/popover",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Pagination Nav",
+    "components": [
+      {
         "component": "BPaginationNav",
         "slots": [
-            {
-              "name": "first-text",
-              "description": "The \"go to first page\" button text (html/sub-components supported)"
-            },
-            {
-              "name": "prev-text",
-              "description": "The \"go to previous page\" button text (html/sub-components supported)"
-            },
-            {
-              "name": "next-text",
-              "description": "The \"go to next page\" button text (html/sub-components supported)"
-            },
-            {
-              "name": "last-text",
-              "description": "The \"go to last page\" button text (html/sub-components supported)"
-            },
-            {
-              "name": "ellipsis-text",
-              "description": "The '...' indicator text (html/sub-components supported)"
-            }
+          {
+            "name": "first-text",
+            "description": "The \"go to first page\" button text (html/sub-components supported)"
+          },
+          {
+            "name": "prev-text",
+            "description": "The \"go to previous page\" button text (html/sub-components supported)"
+          },
+          {
+            "name": "next-text",
+            "description": "The \"go to next page\" button text (html/sub-components supported)"
+          },
+          {
+            "name": "last-text",
+            "description": "The \"go to last page\" button text (html/sub-components supported)"
+          },
+          {
+            "name": "ellipsis-text",
+            "description": "The '...' indicator text (html/sub-components supported)"
+          }
         ]
-    }
+      }
+    ]
+  }
 }

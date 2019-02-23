@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "meta": {
     "title": "Media",
-    "component": "BMedia",
     "components": [
+      {
+        "component": "BMedia",
+        "slots": [
+          {
+            "name": "aside",
+            "description": "Media Aside"
+          }
+        ]
+      },
       "BMediaAside",
       "BMediaBody"
-    ],
-    "slots": [
-      {
-        "name": "aside",
-        "description": "Media Aside"
-      }
     ]
   }
 }
