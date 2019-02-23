@@ -1230,6 +1230,8 @@ export default {
 
       if ($scoped['thead-top']) {
         theadChildren.push($scoped['thead-top']({ columns: fields.length, fields: fields }))
+      } else {
+        theadChildren.push(h(false))
       }
 
       theadChildren.push(h('tr', { class: this.theadTrClass }, makeHeadCells(false)))
