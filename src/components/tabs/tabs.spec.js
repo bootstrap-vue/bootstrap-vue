@@ -42,15 +42,11 @@ describe('tabs', async () => {
   it('sets correct tab active when first tab is disabled', async () => {
     const App = Vue.extend({
       render(h) {
-        return h(
-          Tabs,
-          {},
-          [
-            h(Tab, { props: { disabled: true } }, 'tab 0'),
-            h(Tab, { props: {} }, 'tab 0'),
-            h(Tab, { props: {} }, 'tab 0')
-          ]
-        )
+        return h(Tabs, {}, [
+          h(Tab, { props: { disabled: true } }, 'tab 0'),
+          h(Tab, { props: {} }, 'tab 1'),
+          h(Tab, { props: {} }, 'tab 2')
+        ])
       }
     })
     const wrapper = mount(App)
