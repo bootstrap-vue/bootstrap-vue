@@ -108,7 +108,12 @@ describe('form-file', async () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
-    // Setting to array of same files should not emit event
+    // Setting to same array of files should not emit event
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+
+    // Setting to new array of same files should not emit event
     wrapper.vm.setFiles([file1, file2])
     expect(wrapper.emitted('input').length).toEqual(1)
 
