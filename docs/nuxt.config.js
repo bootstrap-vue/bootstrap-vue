@@ -5,7 +5,7 @@ const marked = require('marked')
 
 const renderer = new marked.Renderer()
 
-const ANCHOR_LINK_HEADING_LEVELS = [1, 2, 3, 4, 5]
+const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
 
 // Custom "highlightjs" implementation for markdown renderer
 renderer.code = (code, language) => {
@@ -20,7 +20,7 @@ renderer.code = (code, language) => {
 renderer.heading = function(text, level, raw, slugger) {
   const getTextMarkup = text => `<span class="bd-content-title">${text}</span>`
 
-  if (!this.options.headerIds || ANCHOR_LINK_HEADING_LEVELS.indexOf(level) === -1) {
+  if (!this.options.headerIds) {
     return `<h${level}>${getTextMarkup(text)}</h${level}>\n`
   }
 
@@ -34,7 +34,10 @@ renderer.heading = function(text, level, raw, slugger) {
     link = this.options.headerPrefix + slugger.slug(raw)
   }
 
-  const anchor = `<a class="anchorjs-link" href="#${link}" aria-label="Anchor"></a>`
+  const anchor =
+    ANCHOR_LINK_HEADING_LEVELS.indexOf(level) !== -1
+      ? `<a class="anchorjs-link" href="#${link}" aria-label="Anchor"></a>`
+      : ''
 
   return `<h${level} id="${link}">${getTextMarkup(text + anchor)}</h${level}>\n`
 }
