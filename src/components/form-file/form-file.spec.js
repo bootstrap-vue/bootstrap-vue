@@ -1,6 +1,5 @@
 import Input from './form-file'
 import { mount } from '@vue/test-utils'
-import Vue from 'vue'
 
 describe('form-file', async () => {
   it('default has expected structure, classes and attributes', async () => {
