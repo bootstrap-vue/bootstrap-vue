@@ -47,50 +47,6 @@ For pagination that navigates to a new URL, use the
 value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number of
 pages is computed from the provided prop values for `total-rows` and `per-page`.
 
-## Customizing
-
-`<b-pagination>` supports several props that allow you to customize the appearance.
-
-### Props
-
-| Prop                    | Description                                                                                                                    |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `limit`                 | Limit the maximum number of displayed page buttons (including ellipsis if present, and excluding first/prev/next/last buttons) |
-| `number-of-pages`       | The total number of pages                                                                                                      |
-| `hide-ellipsis`         | never show ellipsis indicators                                                                                                 |
-| `hide-goto-end-buttons` | never display goto first/last buttons                                                                                          |
-
-And provides several props for setting the content of the bookend buttons:
-
-| Prop            | Description                                                 |
-| --------------- | ----------------------------------------------------------- |
-| `first-text`    | The "goto first page" button text (plain html supported)    |
-| `prev-text`     | The "goto previous page" button text (plain html supported) |
-| `next-text`     | The "goto next page" button text (plain html supported)     |
-| `last-text`     | The "goto last page" button text (plain html supported)     |
-| `ellipsis-text` | the `...` indicator text (plain html supported)             |
-
-Ellipsis indicator(s) will only be ever shown at the front and/or end of the page number buttons.
-For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
-practical display reasons.
-
-**Note:** HTML is supported via the bookend content props. If allowing user supplied content to
-populate these props, you should use named slots (see below) instead to avoid possible XSS attacks.
-
-### Named slots
-
-| Slot            | Description                                                          |
-| --------------- | -------------------------------------------------------------------- |
-| `first-text`    | The "goto first page" button text (html/sub-components supported)    |
-| `prev-text`     | The "goto previous page" button text (html/sub-components supported) |
-| `next-text`     | The "goto next page" button text (html/sub-components supported)     |
-| `last-text`     | The "goto last page" button text (html/sub-components supported)     |
-| `ellipsis-text` | the `...` indicator text (html/sub-components supported)             |
-
-Ellipsis indicator(s) will only be ever shown at the front and/or end of the page number buttons.
-For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
-practical display reasons.
-
 ## Alignment
 
 By default the pagination component is left aligned. Change the alignment to `center` or `right`
@@ -176,16 +132,6 @@ technology.
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the
   page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
   focused page button
-
-## Events
-
-`<b-pagination>` provides two events that are emitted on the component:
-
-- `input` is emitted anytime the current page changes (either programmatically or via user
-  interaction)
-- `change` is emitted only when the current page changes based on user interaction
-
-Both events provide the single argument of the current page number (starting from 1)
 
 ## See Also
 
