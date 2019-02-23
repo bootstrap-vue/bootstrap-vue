@@ -321,6 +321,7 @@ export default {
           this.currentTab = index
         }
       }
+      // Should we be emitting this here ????
       this.$emit('input', this.currentTab)
       return result
     },
