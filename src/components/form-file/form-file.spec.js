@@ -124,7 +124,6 @@ describe('form-file', async () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
@@ -133,6 +132,8 @@ describe('form-file', async () => {
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.setProps({ value: null })
+    await wrapper.vm.$nextTick()
+
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
   })
