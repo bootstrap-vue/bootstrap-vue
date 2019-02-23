@@ -14,7 +14,8 @@ renderer.code = (code, language) => {
 }
 
 // Custom heading implementation for markdown renderer
-// @link: https://github.com/nuxt/docs/blob/master/api.js#L27
+// @link: https://github.com/nuxt/docs/blob/967fc39b4dc0712d2d5089014eddc7e7a2e65422/api.js#L27
+// @link: https://github.com/markedjs/marked/blob/1f5b9a19f532e2e1e3e63ae5efd81af75acf572f/lib/marked.js#L962
 renderer.heading = function(text, level, raw, slugger) {
   let anchor = ''
   if (this.options.headerIds) {
