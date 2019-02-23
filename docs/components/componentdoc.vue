@@ -22,11 +22,11 @@
       </ul>
     </article>
 
-    <article v-if="props_items && props_items.length > 0">
+    <article v-if="propsItems && propsItems.length > 0">
       <h4 :id="`comp-ref-${componentName}-props`">Properties</h4>
       <b-table
-        :items="props_items"
-        :fields="props_fields"
+        :items="propsItems"
+        :fields="propsFields"
         small
         head-variant="default"
         striped
@@ -41,7 +41,7 @@
       <h4 :id="`comp-ref-${componentName}-slots`">Slots</h4>
       <b-table
         :items="slots"
-        :fields="slots_fields"
+        :fields="slotsFields"
         small
         head-variant="default"
         striped
@@ -52,7 +52,7 @@
       <h4 :id="`comp-ref-${componentName}-events`">Events</h4>
       <b-table
         :items="events"
-        :fields="events_fields"
+        :fields="eventsFields"
         small
         head-variant="default"
         striped
@@ -73,7 +73,7 @@
       <h4 :id="`comp-ref-${componentName}-rootEventEmitters`">$root Event Emitters</h4>
       <b-table
         :items="rootEventEmitters"
-        :fields="rootEventEmitters_fields"
+        :fields="rootEventEmittersFields"
         small
         head-variant="default"
         striped
@@ -131,7 +131,7 @@ export default {
       const component = Vue.options.components[this.component]
       return component && component.options ? component.options : {}
     },
-    props_fields() {
+    propsFields() {
       const component = Vue.options.components[this.component]
       let props = []
       if (component) {
@@ -152,27 +152,27 @@ export default {
 
       return fields
     },
-    events_fields() {
+    eventsFields() {
       return {
         event: { label: 'Event' },
         args: { label: 'Arguments' },
         description: { label: 'Description' }
       }
     },
-    rootEventEmitters_fields() {
+    rootEventEmittersFields() {
       return {
         event: { label: 'Event' },
         args: { label: 'Arguments' },
         description: { label: 'Description' }
       }
     },
-    slots_fields() {
+    slotsFields() {
       return {
         name: { label: 'Slot' },
         description: { label: 'Description' }
       }
     },
-    props_items() {
+    propsItems() {
       const component = Vue.options.components[this.component]
       if (!component) {
         return {}
