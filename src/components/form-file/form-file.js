@@ -72,9 +72,6 @@ export default {
 
       // Multiple files
       if (this.multiple) {
-        if (this.selectedFile.length === 1) {
-          return this.selectedFile[0].name
-        }
         return this.selectedFile.map(file => file.name).join(', ')
       }
 
