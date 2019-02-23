@@ -114,6 +114,30 @@ In your app main entry point include the single custom SCSS file (when using `sa
 import 'custom.scss'
 ```
 
+### Tree shaking with Nuxt.js
+
+If you wish to reduce your bundle size because you only use a subset of the available
+BootstrapVue plugins, you can configure the list of BootstrapVue
+`componentPlugins` or `directivePlugins` you want to globally install in
+your Nuxt.js project.
+
+```js
+{
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    componentPlugins: [
+      'Form',
+      'FormCheckbox',
+      'FormInput',
+      'FormRadio'
+    ],
+    directivePlugins: [
+      'Popover'
+    ]
+  }
+}
+```
+
 ## Vue CLI 2
 
 BootstrapVue has two Vue CLI templates available:
