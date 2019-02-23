@@ -145,6 +145,9 @@ describe('tabs', async () => {
     // Should emit index of 2 (3rd tab)
     expect(tabs.emitted('input')[1][0]).toBe(2)
 
+    // Needed for test since value not bound to actual v-model
+    tabs.setProps({ value: 2 })
+    await wrapper.vm.$nextTick()
     // Try and set 2nd Tab to be active
     tabs.setProps({ value: 1 })
     await wrapper.vm.$nextTick()
