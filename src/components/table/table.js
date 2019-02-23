@@ -1353,16 +1353,16 @@ export default {
         // re-rendered rather than re-used, which can cause issues. If a primary key is not provided
         // we concatinate the row number and stringified record (in case there are duplicate records).
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
-        const primaryKey = item[this.primaryKey] || null
+        const primaryKey = this.primaryKey
         const rowKey =
           primaryKey && item[primaryKey] !== undefined
             ? toString(item[primaryKey])
             : `${rowIndex}__${recToString(item)}`
         // If primary key is provided, use it to generate a unique ID on each tbody > tr
-        // In the format of '{tableId}_row_{primaryKey}'
+        // In the format of '{tableId}_row_{primaryKeyValue}'
         const rowId =
-          primaryKey && item[this.primaryKey] !== undefined
-            ? this.safeId(`_row_${item[this.primaryKey]`)
+          primaryKey && item[primaryKey] !== undefined
+            ? this.safeId(`_row_${item[primaryKey]}`)
             : null
         // Assemble and add the row
         rows.push(
