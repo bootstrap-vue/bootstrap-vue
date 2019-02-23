@@ -71,6 +71,6 @@ describe('tabs', async () => {
     expect(tabs.emitted('input')).toBeDefined()
     expect(tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
-    expect(tabs.emitted('input'][0][0]).toBe(1)
+    expect(tabs.emitted('input')[0][0]).toBe(1)
   })
 })
