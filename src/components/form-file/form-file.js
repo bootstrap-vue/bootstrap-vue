@@ -155,6 +155,7 @@ export default {
     },
     setFiles(files = []) {
       if (!files) {
+        /* istanbul ignore next: this will probably not happen */
         this.selectedFile = null
       } else if (this.multiple) {
         // Convert files to array
