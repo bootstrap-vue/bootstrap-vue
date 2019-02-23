@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Breadcrumb",
-    "component": "BBreadcrumb",
-    "events": [],
     "components": [
+      "BBreadcrumb",
       {
         "component": "BBreadcrumbItem",
         "events": [
@@ -13,7 +12,10 @@
             "event": "click",
             "description": "Emitted when clicked",
             "args": [
-              { "name": "event", "description": "Native click event object" }
+              {
+                "name": "event",
+                "description": "Native click event object"
+              }
             ]
           }
         ]
