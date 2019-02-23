@@ -81,8 +81,11 @@ module.exports = {
           {
             loader: 'marked-loader',
             options: {
+              // Our customized renderer
               renderer,
+              // headerIds must always be true, since Search and Table of Contents rely on the IDs
               headerIds: true,
+              // Handle GitHub falvoured markdown
               gfm: true
             }
           }
