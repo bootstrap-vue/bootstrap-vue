@@ -87,15 +87,18 @@ export default {
       if (newVal === oldVal) {
         return
       }
+      // The following test is needed when the file input is "reset" to prevent
+      // infinite loops as javascript treats [] !== []
       if (
         isArray(newVal) &&
         isArray(oldVal) &&
         newVal.length === oldVal.length &&
         newVal.every((v, i) => v === oldVal[i])
       ) {
-       return
+        return
       }
       if (!newVal && this.multiple) {
+        // Always ensure v-model is an array in multiple mode when no file(s) selected
         this.$emit('input', [])
       } else {
         this.$emit('input', newVal)
@@ -125,7 +128,7 @@ export default {
         this.$refs.input.value = ''
       } catch (e) {}
       // IE < 11 doesn't support setting input.value to '' or null
-      // So we use this little extra hack to reset the value, just in case
+      // So we use this little extra hack to reset the value, just in case.
       // This also appears to work on modern browsers as well.
       this.$refs.input.type = ''
       this.$refs.input.type = 'file'
