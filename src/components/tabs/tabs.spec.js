@@ -189,24 +189,27 @@ describe('tabs', async () => {
     expect(tabs.vm.tabs[0].localActive).toBe(true)
 
     // Try to set 2nd Tab to be active via click
-    expect(tab2.emitted('click').not.toBeDefined()
+    expect(tab2.emitted('click')).not.toBeDefined()
     buttons[1].element.trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(1)
-    expect(tab2.emitted('click').toBeDefined()
+    expect(tab2.vm.localActive).toBe(true)
+    expect(tab2.emitted('click')).toBeDefined()
 
     // Try to set 3rd Tab to be active via click
-    expect(tab3.emitted('click').not.toBeDefined()
+    expect(tab3.emitted('click')).not.toBeDefined()
     buttons[2].element.trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(2)
-    expect(tab3.emitted('click').toBeDefined()
+    expect(tab3.vm.localActive).toBe(true)
+    expect(tab3.emitted('click')).toBeDefined()
 
     // Try to set 1st Tab to be active via click
-    expect(tab1.emitted('click').not.toBeDefined()
+    expect(tab1.emitted('click')).not.toBeDefined()
     buttons[1].element.trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(0)
-    expect(tab1.emitted('click').toBeDefined()
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab1.emitted('click')).toBeDefined()
   })
 })
