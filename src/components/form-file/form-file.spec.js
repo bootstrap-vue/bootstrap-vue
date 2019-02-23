@@ -191,4 +191,23 @@ describe('form-file', async () => {
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
   })
+
+  it('native reset event works', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo'
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt')
+
+    // Emulate the files array
+    wrapper.vm.setFiles(file1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+
+    wrapper.find('input').trigger('reset')
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+  })
 })
