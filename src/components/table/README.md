@@ -362,15 +362,28 @@ const fields = [
 ]
 ```
 
-### Primary key
+## Primary key
 
 `<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
 that _uniquely_ identifies the row.
 
-This value is used by `<b-table>` to help Vue optimize the rendering of table rows. Internally, the
-the value of the field key specified by the `primary-key` prop is used as the Vue `:key` value for
-each rendered item row `<tr>` element. The value specified by the column key **must be** either a
-`string` or `number`, and **must be unique** across all rows in the table.
+The value specified by the primary column key **must be** either a `string` or `number`, and **must
+be unique** across all rows in the table.
+
+The primary key column does not need to appear in the displayed fields.
+
+### Table row ID generation
+
+When provided, the `primary-key` will generate a unique ID for each item row `<tr>` element. The ID
+will be in the format of `{table-id}_row_{primary-key-value}`, where `table-id` is the unique ID of
+the `<b-table>` and `primary-key-value` is the value of the item's field value for the field
+specified by `primary-key`.
+
+### Table render and transition optimization
+
+The `primary-key` is also used by `<b-table>` to help Vue optimize the rendering of table rows.
+Internally, the value of the field key specified by the `primary-key` prop is used as the Vue `:key`
+value for each rendered item row `<tr>` element.
 
 If you are seeing rendering issue (i.e. tooltips hiding when item data changes or data is
 sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row)
@@ -381,12 +394,8 @@ and drop plugins, as they rely on having a consistent and unique per row `:key` 
 
 If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
 the row's data values plus the displayed row's index number. This may cause GUI issues if you are
-modifiying the underlying table data inplace (i.e. via a `<b-form-input>` v-model bound to the row's
+modifiying the underlying table data in-place (i.e. via a `<b-form-input>` v-model bound to the row's
 data). Specifying a `primary-key` column can alleviate this issue.
-
-The primary key column does not need to appear in the displayed fields.
-
-In future releases of BootstrapVue, the `primary-key` may be used for additional features.
 
 ## Table style options
 
