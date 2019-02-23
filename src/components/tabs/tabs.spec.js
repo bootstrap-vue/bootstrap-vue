@@ -145,16 +145,16 @@ describe('tabs', async () => {
     // Should emit index of 2 (3rd tab)
     expect(tabs.emitted('input')[1][0]).toBe(2)
 
-    // Needed for test since value not bound to actual v-model
+    // Needed for test since value not bound to actual v-model on App
     tabs.setProps({ value: 2 })
     await wrapper.vm.$nextTick()
     // Try and set 2nd Tab to be active
     tabs.setProps({ value: 1 })
     await wrapper.vm.$nextTick()
-    // Will find the previous non-disabled tab
-    expect(tabs.vm.currentTab).toBe(1)
+    // Will find the previous non-disabled tab (1st tab, index 0)
+    expect(tabs.vm.currentTab).toBe(0)
     expect(tabs.emitted('input').length).toBe(3)
-    // Should emit index of 1 (1st tab)
-    expect(tabs.emitted('input')[2][0]).toBe(1)
+    // Should emit index of 0 (1st tab)
+    expect(tabs.emitted('input')[2][0]).toBe(0)
   })
 })
