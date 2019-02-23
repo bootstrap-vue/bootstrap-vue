@@ -5,7 +5,7 @@ const marked = require('marked')
 
 const renderer = new marked.Renderer()
 
-const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
+const ANCHOR_LINK_HEADING_LEVELS = [1, 2, 3, 4, 5]
 
 // Custom "highlightjs" implementation for markdown renderer
 renderer.code = (code, language) => {
