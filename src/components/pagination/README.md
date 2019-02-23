@@ -47,6 +47,46 @@ For pagination that navigates to a new URL, use the
 value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number of
 pages is computed from the provided prop values for `total-rows` and `per-page`.
 
+## Button Size
+
+Optionally change from the default button size by setting the `size` prop to either `'am` for
+smaller buttons or `'lg'` for larger buttons.
+
+```html
+<template>
+  <div class="overflow-auto">
+    <div>
+      <h6>Small</h6>
+      <b-pagination size="sm" :number-of-pages="5" v-model="currentPage" />
+    </div>
+
+    <div class="mt-3">
+      <h6>Default</h6>
+      <b-pagination :number-of-pages="5" v-model="currentPage" />
+    </div>
+
+    <div class="mt-3">
+      <h6>Large</h6>
+      <b-pagination size="lg" :number-of-pages="5" v-model="currentPage" />
+    </div>
+
+    <div class="mt-3">Current Page: {{ currentPage }}</div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        currentPage: 1
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-size.vue -->
+```
+
 ## Alignment
 
 By default the pagination component is left aligned. Change the alignment to `center` or `right`
