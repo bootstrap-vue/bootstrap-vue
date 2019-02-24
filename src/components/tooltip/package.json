@@ -119,7 +119,7 @@
             ]
           }
         ],
-        "rootEventEmitters": [
+        "rootEventListeners": [
           {
             "event": "bv::hide::tooltip",
             "description": "Close (hide) all or a specific open tooltip when this event is emitted on $root",

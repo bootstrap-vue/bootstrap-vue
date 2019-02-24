@@ -178,7 +178,7 @@
             "description": "Emitted when the items provider function has returned data."
           }
         ],
-        "rootEventEmitters": [
+        "rootEventListeners": [
           {
             "event": "bv::refresh::table",
             "description": "Refresh data of a specific table when this event is emitted on $root",
