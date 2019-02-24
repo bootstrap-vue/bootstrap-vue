@@ -138,6 +138,73 @@ should return a string.
 <!-- b-pagination-nav-links.vue -->
 ```
 
+## Customizing appearance
+
+`<b-pagination-nav>` supports several props/slots that allow you to customize the appearance. All
+`*-text` props are text-only and strip out HTML but you can use their equally named slot
+counterparts for that.
+
+For a full list of all available slots see the [Slots](#comp-ref-b-pagination-nav-slots) section
+below.
+
+```html
+<template>
+  <div>
+    <!-- Use text in props -->
+    <b-pagination-nav
+      v-model="currentPage"
+      :number-of-pages="pagesCount"
+      base-url="#"
+      first-text="First"
+      prev-text="Prev"
+      next-text="Next"
+      last-text="Last" />
+
+    <!-- Use emojis in props -->
+    <b-pagination-nav
+      v-model="currentPage"
+      :number-of-pages="pagesCount"
+      base-url="#"
+      first-text="⏮"
+      prev-text="⏪"
+      next-text="⏩"
+      last-text="⏭"
+      class="mt-4" />
+
+    <!-- Use HTML and sub-components in slots -->
+    <b-pagination-nav
+      v-model="currentPage"
+      :number-of-pages="pagesCount"
+      base-url="#"
+      class="mt-4"
+    >
+      <span class="text-success" slot="first-text">First</span>
+      <span class="text-danger" slot="prev-text">Prev</span>
+      <span class="text-warning" slot="next-text">Next</span>
+      <span class="text-info" slot="last-text">Last</span>
+      <div class="d-flex align-items-center h-100" slot="ellipsis-text">
+        <b-spinner small type="grow" />
+        <b-spinner small type="grow" />
+        <b-spinner small type="grow" />
+      </div>
+    </b-pagination-nav>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        pagesCount: 50,
+        currentPage: 1
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-nav-appearance.vue -->
+```
+
 ## Button Size
 
 Optionally change from the default button size by setting the `size` prop to either `'am` for
@@ -148,20 +215,32 @@ smaller buttons or `'lg'` for larger buttons.
   <div class="overflow-auto">
     <div>
       <h6>Small</h6>
-      <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        size="sm"
+      />
     </div>
 
     <div class="mt-3">
       <h6>Default</h6>
-      <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+      />
     </div>
 
     <div class="mt-3">
       <h6>Large</h6>
-      <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        size="lg"
+      />
     </div>
-
-    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -169,6 +248,7 @@ smaller buttons or `'lg'` for larger buttons.
   export default {
     data() {
       return {
+        pagesCount: 5,
         currentPage: 1
       }
     }
@@ -177,46 +257,6 @@ smaller buttons or `'lg'` for larger buttons.
 
 <!-- b-pagination-nav-size.vue -->
 ```
-
-## Customizing
-
-`<b-pagination-nav>` supports several props that allow you to customize the appearance.
-
-| Prop                    | Description                                                                                                                    |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `limit`                 | Limit the maximum number of displayed page buttons (including ellipsis if present, and excluding first/prev/next/last buttons) |
-| `number-of-pages`       | The total number of pages                                                                                                      |
-| `hide-ellipsis`         | never show ellipsis indicators                                                                                                 |
-| `hide-goto-end-buttons` | never display goto first/last buttons                                                                                          |
-
-And provides several props for setting the content of the bookend buttons:
-
-| Prop            | Description                                                 |
-| --------------- | ----------------------------------------------------------- |
-| `first-text`    | The "goto first page" button text (plain html supported)    |
-| `prev-text`     | The "goto previous page" button text (plain html supported) |
-| `next-text`     | The "goto next page" button text (plain html supported)     |
-| `last-text`     | The "goto last page" button text (plain html supported)     |
-| `ellipsis-text` | the `...` indicator text (plain html supported)             |
-
-Ellipsis indicator(s) will only be ever shown at the front and/or end of the page number buttons.
-For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
-practical display reasons.
-
-**Note:** HTML is supported via the bookend content props. If allowing user supplied content to
-populate these props, you should use named slots (see below) instead to avoid possible XSS attacks.
-
-### Named slots
-
-`<b-pagination-nav>` supports several slots that allow you to customize the appearance.
-
-| Slot            | Description                                                          |
-| --------------- | -------------------------------------------------------------------- |
-| `first-text`    | The "goto first page" button text (html/sub-components supported)    |
-| `prev-text`     | The "goto previous page" button text (html/sub-components supported) |
-| `next-text`     | The "goto next page" button text (html/sub-components supported)     |
-| `last-text`     | The "goto last page" button text (html/sub-components supported)     |
-| `ellipsis-text` | the `...` indicator text (html/sub-components supported)             |
 
 ## Alignment
 
@@ -228,20 +268,32 @@ By default the pagination component is left aligned. Change the alignment to `ce
   <div class="overflow-auto">
     <div>
       <h6>Left alignment (default)</h6>
-      <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+      />
     </div>
 
     <div class="mt-3 text-center">
       <h6>Center alignment</h6>
-      <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        align="center"
+      />
     </div>
 
     <div class="mt-3 text-right">
       <h6>Right (end) alignment</h6>
-      <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        align="right"
+      />
     </div>
-
-    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -249,7 +301,8 @@ By default the pagination component is left aligned. Change the alignment to `ce
   export default {
     data() {
       return {
-        currentPage: 1
+        pagesCount: 5,
+        currentPage: 3
       }
     }
   }
@@ -260,8 +313,8 @@ By default the pagination component is left aligned. Change the alignment to `ce
 
 ## Small screen support
 
-On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to minimize
-the potential of the pagination interface wrapping onto multiple lines:
+On smaller screens (i.e. mobile), some of the `<b-pagination-nav>` buttons will be hidden to
+minimize the potential of the pagination interface wrapping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limited to a maximum of 3 visible on `xs` screens and smaller.
@@ -271,29 +324,29 @@ _prev_, _next_, and _last_ buttons.
 
 ## Accessibility
 
-The `<b-pagination>` component provides many features to support assistive technology users, such as
-`aria-` attributes and keyboard navigation.
+The `<b-pagination-nav>` component provides many features to support assistive technology users,
+such as `aria-` attributes and keyboard navigation.
 
-### ARIA labels:
+### ARIA labels
 
-`<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
+`<b-pagination-nav>` provides various `*-label-*` props which are used to set the `aria-label`
 attributes on the various elements within the component, which will help users of assistive
 technology.
 
 | Prop               | `aria-label` content default                            |
 | ------------------ | ------------------------------------------------------- |
-| `label-first-page` | "Go to first page"                                      |
-| `label-prev-page`  | "Go to previous page"                                   |
-| `label-next-page`  | "Go to next page"                                       |
-| `label-last-page`  | "Go to last page"                                       |
-| `label-page`       | "Go to page", appended with the page number             |
+| `label-first-page` | "Goto first page"                                       |
+| `label-prev-page`  | "Goto previous page"                                    |
+| `label-next-page`  | "Goto next page"                                        |
+| `label-last-page`  | "Goto last page"                                        |
+| `label-page`       | "Goto page", appended with the page number              |
 | `aria-label`       | "Pagination", applied to the outer pagination container |
 
-### Keyboard navigation support:
+### Keyboard navigation support
 
-`<b-pagination>` supports keyboard navigation out of the box.
+`<b-pagination-nav>` supports keyboard navigation out of the box.
 
-- Tabbing into the pagination component will auto-focus the current page button
+- Tabbing into the pagination component will autofocus the current page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the
   page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
   focused page button

@@ -67,20 +67,23 @@ additional code to implement this accessibility feature.
 
 See the **Accessibility** section below for details.
 
-### Using `show()` and `hide()` component methods
+### Using `show()`, `hide()`, and `toggle()` component methods
 
-You can access modal using `ref` attribute and then call the `show()` or `hide()` methods.
+You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()`
+methods.
 
 ```html
 <template>
   <div>
-    <b-button @click="showModal">Open Modal</b-button>
+    <b-button @click="showModal" id="showBtn">Open Modal</b-button>
+    <b-button @click="toggleModal" id="toggleBtn">Toggle Modal</b-button>
 
     <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
       <div class="d-block text-center">
         <h3>Hello From My Modal!</h3>
       </div>
       <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>
+      <b-button class="mt-2" variant="outline-warning" block @click="toggleModal">Toggle Me</b-button>
     </b-modal>
   </div>
 </template>
@@ -93,6 +96,11 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
       },
       hideModal() {
         this.$refs.myModalRef.hide()
+      },
+      toggleModal() {
+        // We pass the ID of the button that we want to return focus to when
+        // the modal has hidden
+        this.$refs.myModalRef.toggle('#toggleBtn')
       }
     }
   }
@@ -134,18 +142,20 @@ When using the `v-model` property, do not use the `visible` property at the same
 
 ### Emitting Events on \$root
 
-You can emit `bv::show::modal` and `bv::hide::modal` event on `$root` with the first argument set to
-the modal's id. An optional second argument can specify the element to return focus to once the
-modal is closed. The second argument can be a CSS selector, an element reference, or a component
-reference.
+You can emit `bv::show::modal`, `bv::hide::modal`, and  `bv::toggle::modal` events on `$root`
+with the first argument set to the modal's id. An optional second argument can specify the element
+to return focus to once the modal is closed. The second argument can be a CSS selector, an element
+reference, or a component reference (the root element of the component will be focused).
 
 ```html
 <div>
   <b-button @click="showModal" ref="btnShow">Open Modal</b-button>
+  <b-button @click="toggleModal" ref="btnToggle">Toggle Modal</b-button>
 
-  <b-modal id="modal1" @hidden="onHidden">
+  <b-modal id="modal1">
     <div class="d-block">Hello From My Modal!</div>
     <b-button @click="hideModal">Close Me</b-button>
+    <b-button @click="toggleModal">Toggle Me</b-button>
   </b-modal>
 </div>
 ```
@@ -153,15 +163,13 @@ reference.
 ```js
 methods: {
   showModal () {
-    this.$root.$emit('bv::show::modal','modal1')
+    this.$root.$emit('bv::show::modal','modal1', '#btnShow')
   },
   hideModal () {
-    this.$root.$emit('bv::hide::modal','modal1')
+    this.$root.$emit('bv::hide::modal','modal1', '#btnShow')
   },
-  onHidden (evt) {
-    // Return focus to our Open Modal button
-    // See accessibility below for additional return-focus methods
-    this.$refs.btnShow.$el.focus()
+  toggleModal () {
+    this.$root.$emit('bv::toggle::modal','modal1', '#btnToggle')
   }
 }
 ```

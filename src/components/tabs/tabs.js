@@ -35,11 +35,11 @@ const BTabButtonHelper = {
       const shift = evt.shiftKey
       if (type === 'click') {
         stop()
-        this.$emit('click', evt) // Could call this.tab.activate() instead
+        this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav && key === KeyCodes.SPACE) {
-        // In keyNav mode, SAPCE press will also trigger a click/select
+        // In keynav mode, SPACE press will also trigger a click/select
         stop()
-        this.$emit('click', evt) // Could call this.tab.activate() instead
+        this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
@@ -212,7 +212,7 @@ export default {
           tab.localActive = false
         }
       })
-      // update the v-model
+      // Update the v-model
       this.$emit('input', index)
     },
     value(val, old) {
@@ -235,7 +235,10 @@ export default {
   },
   created() {
     // For SSR and to make sure only a single tab is shown on mount
-    this.updateTabs()
+    // We wrap this in a `$nextTick()` to ensure the tabs have been created
+    this.$nextTick(() => {
+      this.updateTabs()
+    })
   },
   mounted() {
     // In case tabs have changed before mount
@@ -274,7 +277,7 @@ export default {
               .find(notDisabled)
           )
         } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
-          // current tab is not disabled
+          // Current tab is not disabled
           tabIndex = currentTab
         }
       }
@@ -294,7 +297,7 @@ export default {
       // Set the currentTab index (can be -1 if no non-disabled tabs)
       this.currentTab = tabIndex
     },
-    // Find a button taht controls a tab, given the tab reference
+    // Find a button that controls a tab, given the tab reference
     // Returns the button vm instance
     getButtonForTab(tab) {
       return (this.$refs.buttons || []).find(btn => btn.tab === tab)
@@ -318,7 +321,10 @@ export default {
           this.currentTab = index
         }
       }
-      this.$emit('input', this.currentTab)
+      if (!result) {
+        // Couldn't set tab, so ensure v-model is set to this.currentTab
+        this.$emit('input', this.currentTab)
+      }
       return result
     },
     // Deactivate a tab given a b-tab instance
@@ -399,10 +405,10 @@ export default {
     const tabs = this.tabs
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
-    // Tab button to allow focusing when no actgive tab found (keynav only)
+    // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
-    // For each b-tab found create the tab buttons
+    // For each <b-tab> found create the tab buttons
     const buttons = tabs.map((tab, index) => {
       const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
       let tabIndex = null
@@ -481,10 +487,8 @@ export default {
       [navs]
     )
 
-    let empty
-    if (tabs && tabs.length) {
-      empty = h(false)
-    } else {
+    let empty = h(false)
+    if (!tabs || tabs.length === 0) {
       empty = h(
         'div',
         { key: 'empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
