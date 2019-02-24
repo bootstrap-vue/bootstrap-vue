@@ -96,7 +96,6 @@ describe('tabs', async () => {
     expect(tabs.emitted('input')[0][0]).toBe(1)
   })
 
-
   it('selectes first non-ditabled tabl when active tab disabled', async () => {
     const App = Vue.extend({
       render(h) {
@@ -127,7 +126,10 @@ describe('tabs', async () => {
     expect(tabs.emitted('input')[0][0]).toBe(1)
 
     // Deactivate current tab (Tab 2, index 1)
-    tabs.findAll(Tab).at(1).setProps({ active: false })
+    tabs
+      .findAll(Tab)
+      .at(1)
+      .setProps({ active: false })
     await wrapper.vm.$nextTick()
 
     // Expect last tab (index 2) to be active
