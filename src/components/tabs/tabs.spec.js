@@ -264,7 +264,7 @@ describe('tabs', async () => {
     // RIGHT moves to next tab
     wrapper
       .findAll('.nav-link')
-      .at(1)
+      .at(0)
       .trigger('keydown', { keyCode: KeyCodes.RIGHT })
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(1)
@@ -276,7 +276,7 @@ describe('tabs', async () => {
     // END key moves to last tab
     wrapper
       .findAll('.nav-link')
-      .at(2)
+      .at(1)
       .trigger('keydown', { keyCode: KeyCodes.END })
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(2)
