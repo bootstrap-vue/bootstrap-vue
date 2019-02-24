@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Tab from './tab'
 import Tabs from './tabs'
 import { mount } from '@vue/test-utils'
+import KeyCodes from '../../utils/key-codes'
 
 describe('tabs', async () => {
   it('default has expected classes and structure', async () => {
@@ -162,9 +163,9 @@ describe('tabs', async () => {
     const App = Vue.extend({
       render(h) {
         return h(Tabs, { props: { value: 0 } }, [
-          h(Tab, { props: {} }, 'tab 0'),
-          h(Tab, { props: {} }, 'tab 1'),
-          h(Tab, { props: {} }, 'tab 2')
+          h(Tab, { props: { title: 'one' } }, 'tab 0'),
+          h(Tab, { props: { title: 'two' } }, 'tab 1'),
+          h(Tab, { props: { title: 'three' } }, 'tab 2')
         ])
       }
     })
@@ -227,5 +228,82 @@ describe('tabs', async () => {
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
     expect(tab1.emitted('click')).toBeDefined()
+  })
+
+  it('key nav works', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(Tabs, { props: { value: 0 } }, [
+          h(Tab, { props: { title: 'one' } }, 'tab 0'),
+          h(Tab, { props: { title: 'two' } }, 'tab 1'),
+          h(Tab, { props: { title: 'three' } }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(3)
+
+    const tab1 = tabs.findAll(Tab).at(0)
+    const tab2 = tabs.findAll(Tab).at(1)
+    const tab3 = tabs.findAll(Tab).at(2)
+
+    expect(wrapper.findAll('.nav-link')).toBeDefined()
+    expect(wrapper.findAll('.nav-link').length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
+
+    // RIGHT moves to next tab
+    wrapper
+      .findAll('.nav-link')
+      .at(1)
+      .trigger('keydown', { keyCode: KeyCodes.RIGHT })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(true)
+    expect(tab3.vm.localActive).toBe(false)
+    expect(tab2.emitted('click')).toBeDefined()
+
+    // END key moves to last tab
+    wrapper
+      .findAll('.nav-link')
+      .at(2)
+      .trigger('keydown', { keyCode: KeyCodes.END })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(true)
+
+    // LEFT moves to previous tab
+    wrapper
+      .findAll('.nav-link')
+      .at(2)
+      .trigger('keydown', { keyCode: KeyCodes.LEFT })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(true)
+    expect(tab3.vm.localActive).toBe(false)
+
+    // HOME moves to first tab
+    wrapper
+      .findAll('.nav-link')
+      .at(1)
+      .trigger('keydown', { keyCode: KeyCodes.HOME })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
   })
 })
