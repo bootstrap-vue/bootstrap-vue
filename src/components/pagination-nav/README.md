@@ -138,6 +138,73 @@ should return a string.
 <!-- b-pagination-nav-links.vue -->
 ```
 
+## Customizing appearance
+
+`<b-pagination-nav>` supports several props/slots that allow you to customize the appearance. All
+`*-text` props are text-only and strip out HTML but you can use their equally named slot
+counterparts for that.
+
+For a full list of all available slots see the [Slots](#comp-ref-b-pagination-nav-slots) section
+below.
+
+```html
+<template>
+  <div>
+    <!-- Use text in props -->
+    <b-pagination-nav
+      v-model="currentPage"
+      :number-of-pages="pagesCount"
+      base-url="#"
+      first-text="First"
+      prev-text="Prev"
+      next-text="Next"
+      last-text="Last" />
+
+    <!-- Use emojis in props -->
+    <b-pagination-nav
+      v-model="currentPage"
+      :number-of-pages="pagesCount"
+      base-url="#"
+      first-text="⏮"
+      prev-text="⏪"
+      next-text="⏩"
+      last-text="⏭"
+      class="mt-4" />
+
+    <!-- Use HTML and sub-components in slots -->
+    <b-pagination-nav
+      v-model="currentPage"
+      :number-of-pages="pagesCount"
+      base-url="#"
+      class="mt-4"
+    >
+      <span class="text-success" slot="first-text">First</span>
+      <span class="text-danger" slot="prev-text">Prev</span>
+      <span class="text-warning" slot="next-text">Next</span>
+      <span class="text-info" slot="last-text">Last</span>
+      <div class="d-flex align-items-center" slot="ellipsis-text">
+        <b-spinner small type="grow" />
+        <b-spinner small type="grow" />
+        <b-spinner small type="grow" />
+      </div>
+    </b-pagination-nav>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        pagesCount: 50,
+        currentPage: 1
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-nav-appearance.vue -->
+```
+
 ## Button Size
 
 Optionally change from the default button size by setting the `size` prop to either `'am` for
@@ -148,20 +215,32 @@ smaller buttons or `'lg'` for larger buttons.
   <div class="overflow-auto">
     <div>
       <h6>Small</h6>
-      <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        size="sm"
+      />
     </div>
 
     <div class="mt-3">
       <h6>Default</h6>
-      <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+      />
     </div>
 
     <div class="mt-3">
       <h6>Large</h6>
-      <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        size="lg"
+      />
     </div>
-
-    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -169,6 +248,7 @@ smaller buttons or `'lg'` for larger buttons.
   export default {
     data() {
       return {
+        pagesCount: 5,
         currentPage: 1
       }
     }
@@ -188,20 +268,32 @@ By default the pagination component is left aligned. Change the alignment to `ce
   <div class="overflow-auto">
     <div>
       <h6>Left alignment (default)</h6>
-      <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+      />
     </div>
 
     <div class="mt-3 text-center">
       <h6>Center alignment</h6>
-      <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        align="center"
+      />
     </div>
 
     <div class="mt-3 text-right">
       <h6>Right (end) alignment</h6>
-      <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pagesCount"
+        base-url="#"
+        align="right"
+      />
     </div>
-
-    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -209,7 +301,8 @@ By default the pagination component is left aligned. Change the alignment to `ce
   export default {
     data() {
       return {
-        currentPage: 1
+        pagesCount: 5,
+        currentPage: 3
       }
     }
   }
