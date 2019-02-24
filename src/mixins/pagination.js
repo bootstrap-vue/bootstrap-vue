@@ -401,11 +401,9 @@ export default {
           attrs: { role: 'separator' }
         },
         [
-          h(
-            'div',
-            { staticClass: 'page-link' },
-            [this.$slots['ellipsis-text'] || this.ellipsisText]
-          )
+          h('div', { staticClass: 'page-link' }, [
+            this.$slots['ellipsis-text'] || this.ellipsisText || h(false)
+          ])
         ]
       )
     }
