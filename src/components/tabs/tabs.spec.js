@@ -116,9 +116,9 @@ describe('tabs', async () => {
 
     // Expect 2nd tab (index 1) to be active
     expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.findAll(Tab).at(0).localActive).toBe(false)
-    expect(tabs.findAll(Tab).at(1).localActive).toBe(true)
-    expect(tabs.findAll(Tab).at(2).localActive).toBe(false)
+    expect(tabs.findAll(Tab).at(0).vm.localActive).toBe(false)
+    expect(tabs.findAll(Tab).at(1).vm.localActive).toBe(true)
+    expect(tabs.findAll(Tab).at(2).vm.localActive).toBe(false)
 
     expect(tabs.emitted('input')).toBeDefined()
     expect(tabs.emitted('input').length).toBe(1)
@@ -134,9 +134,9 @@ describe('tabs', async () => {
 
     // Expect last tab (index 2) to be active
     expect(tabs.vm.currentTab).toBe(2)
-    expect(tabs.findAll(Tab).at(0).localActive).toBe(false)
-    expect(tabs.findAll(Tab).at(1).localActive).toBe(false)
-    expect(tabs.findAll(Tab).at(2).localActive).toBe(true)
+    expect(tabs.findAll(Tab).at(0).vm.localActive).toBe(false)
+    expect(tabs.findAll(Tab).at(1).vm.localActive).toBe(false)
+    expect(tabs.findAll(Tab).at(2).vm.localActive).toBe(true)
     expect(tabs.emitted('input').length).toBe(2)
     expect(tabs.emitted('input')[1][0]).toBe(2)
   })
