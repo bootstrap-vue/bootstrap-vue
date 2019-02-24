@@ -423,7 +423,7 @@ export default {
     },
     setModalListener(on) /* istanbul ignore next */ {
       if (on) {
-        if (closest(MODAL_CLASS, this.$element)) {
+        if (closest(MODAL_CLASS, this.$el)) {
           // We can listen for modal shown events on $root
           this.$root.$on(MODAL_SHOWN_EVENT, this.updateTabs)
         }
