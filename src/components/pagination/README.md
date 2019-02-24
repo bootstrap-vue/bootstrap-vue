@@ -11,17 +11,17 @@ For pagination that navigates to a new URL, use the
   <div class="overflow-auto">
     <div>
       <h6>Default</h6>
-      <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10" />
+      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" size="md" />
     </div>
 
     <div class="mt-3">
       <h6>Small</h6>
-      <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10" />
+      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" size="sm" />
     </div>
 
     <div class="mt-3">
       <h6>Large</h6>
-      <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10" />
+      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" size="lg" />
     </div>
 
     <div class="mt-3">Current Page: {{ currentPage }}</div>
@@ -32,6 +32,8 @@ For pagination that navigates to a new URL, use the
   export default {
     data() {
       return {
+        rows: 100,
+        perPage: 10,
         currentPage: 3
       }
     }
@@ -47,6 +49,73 @@ For pagination that navigates to a new URL, use the
 value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number of
 pages is computed from the provided prop values for `total-rows` and `per-page`.
 
+## Customizing appearance
+
+`<b-pagination>` supports several props/slots that allow you to customize the appearance. All
+`*-text` props are text-only and strip out HTML but you can use their equally named slot
+counterparts for that.
+
+For a full list of all available slots see the [Slots](#comp-ref-b-pagination-slots) section below.
+
+```html
+<template>
+  <div>
+    <!-- Use text in props -->
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      first-text="First"
+      prev-text="Prev"
+      next-text="Next"
+      last-text="Last" />
+
+    <!-- Use emojis in props -->
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      first-text="⏮"
+      prev-text="⏪"
+      next-text="⏩"
+      last-text="⏭"
+      class="mt-4" />
+
+    <!-- Use HTML and sub-components in slots -->
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      class="mt-4"
+    >
+      <span class="text-success" slot="first-text">First</span>
+      <span class="text-danger" slot="prev-text">Prev</span>
+      <span class="text-warning" slot="next-text">Next</span>
+      <span class="text-info" slot="last-text">Last</span>
+      <div class="d-flex align-items-center" slot="ellipsis-text">
+        <b-spinner small type="grow" />
+        <b-spinner small type="grow" />
+        <b-spinner small type="grow" />
+      </div>
+    </b-pagination>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        rows: 100,
+        perPage: 10,
+        currentPage: 1
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-appearance.vue -->
+```
+
 ## Button Size
 
 Optionally change from the default button size by setting the `size` prop to either `'am` for
@@ -57,20 +126,18 @@ smaller buttons or `'lg'` for larger buttons.
   <div class="overflow-auto">
     <div>
       <h6>Small</h6>
-      <b-pagination size="sm" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination v-model="currentPage" :total-rows="rows" size="sm" />
     </div>
 
     <div class="mt-3">
       <h6>Default</h6>
-      <b-pagination :number-of-pages="5" v-model="currentPage" />
+      <b-pagination v-model="currentPage" :total-rows="rows" />
     </div>
 
     <div class="mt-3">
       <h6>Large</h6>
-      <b-pagination size="lg" :number-of-pages="5" v-model="currentPage" />
+      <b-pagination v-model="currentPage" :total-rows="rows" size="lg" />
     </div>
-
-    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -78,6 +145,7 @@ smaller buttons or `'lg'` for larger buttons.
   export default {
     data() {
       return {
+        rows: 100,
         currentPage: 1
       }
     }
@@ -97,20 +165,18 @@ By default the pagination component is left aligned. Change the alignment to `ce
   <div class="overflow-auto">
     <div>
       <h6>Left alignment (default)</h6>
-      <b-pagination :total-rows="100" v-model="currentPage" :per-page="10" />
+      <b-pagination v-model="currentPage" :total-rows="rows" />
     </div>
 
     <div class="mt-3 text-center">
       <h6>Center alignment</h6>
-      <b-pagination align="center" :total-rows="100" v-model="currentPage" :per-page="10" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="center" />
     </div>
 
     <div class="mt-3 text-right">
       <h6>Right (end) alignment</h6>
-      <b-pagination align="right" :total-rows="100" v-model="currentPage" :per-page="10" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="right" />
     </div>
-
-    <div class="mt-3">Current Page: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -118,6 +184,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
   export default {
     data() {
       return {
+        rows: 100,
         currentPage: 3
       }
     }
