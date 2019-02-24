@@ -267,11 +267,11 @@ describe('tabs', async () => {
       .at(0)
       .trigger('keydown', { keyCode: KeyCodes.RIGHT })
     await wrapper.vm.$nextTick()
+    await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
-    expect(tab2.emitted('click')).toBeDefined()
 
     // END key moves to last tab
     wrapper
