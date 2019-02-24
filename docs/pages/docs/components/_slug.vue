@@ -11,7 +11,7 @@
         :key="meta.component"
         :component="meta.component"
         :events="meta.events"
-        :root-event-emitters="meta.rootEventListeners"
+        :root-event-listeners="meta.rootEventListeners"
         :slots="meta.slots"
         :aliases="meta.aliases"
       />
