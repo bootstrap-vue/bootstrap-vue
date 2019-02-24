@@ -1,7 +1,13 @@
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
+import { closest } from '../../utils/dom'
 import idMixin from '../../mixins/id'
+
+// Modal $root hidden event
+const MODAL_SHOWN_EVENT = 'bv::modal::shown'
+// Modal class selector
+const MODAL_CLASS = '.modal'
 
 // Private Helper component
 // @vue/component
@@ -245,9 +251,23 @@ export default {
     // In case tabs have changed before mount
     this.$nextTick(this.updateTabs)
     // Observe Child changes so we can update list of tabs
-    observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
-      subtree: false
-    })
+    this.setObserver(true)
+    this.setModalListener(true)
+  },
+  activated() {
+    // If inside a keep-alive
+    this.$nextTick(this.updateTabs)
+    this.setModalListener(true)
+    this.setObserver(true)
+  },
+  deactivated() {
+    // If inside a keep-alive
+    this.setObserver(false)
+    this.setModalListener(false)
+  },
+  beforeDestroy() {
+    this.setObserver(false)
+    this.setModalListener(false)
   },
   methods: {
     // Update list of b-tab children
@@ -399,6 +419,28 @@ export default {
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
         this.emitTabClick(tab, focus)
+      }
+    },
+    setModalListener(on) /* istanbul ignore next */ {
+      if (on) {
+        if(closest(MODAL_CLASS, this.$element)) {
+          // We can listen for modal shown events on $root
+          this.$root.$on(MODAL_SHOWN_EVENT, this.updateTabs)
+        }
+      } else {
+        this.$root.$off(MODAL_SHOWN_EVENT, this.updateTabs)
+      }
+    },
+    setObserver(on) /* istanbul ignore next */ {
+      if (on) {
+        this._observer = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+          subtree: false
+        })
+      } else {
+        if (this._observer && this._observer.disconnect) {
+          this._observer.disconnect()
+        }
+        this._observer = null
       }
     }
   },
