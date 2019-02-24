@@ -254,18 +254,18 @@ export default {
     this.setObserver(true)
     this.setModalListener(true)
   },
-  activated() {
+  activated() /* istanbul ignore next */ {
     // If inside a keep-alive
     this.$nextTick(this.updateTabs)
     this.setModalListener(true)
     this.setObserver(true)
   },
-  deactivated() {
+  deactivated() /* istanbul ignore next */ {
     // If inside a keep-alive
     this.setObserver(false)
     this.setModalListener(false)
   },
-  beforeDestroy() {
+  beforeDestroy() /* istanbul ignore next */ {
     this.setObserver(false)
     this.setModalListener(false)
   },
@@ -433,6 +433,9 @@ export default {
     },
     setObserver(on) /* istanbul ignore next */ {
       if (on) {
+        // Make sure no existing observer running
+        this.setObserver(false)
+        // Watch for changes to b-tab sub components
         this._observer = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
           subtree: false
         })
