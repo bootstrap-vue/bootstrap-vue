@@ -180,7 +180,7 @@ describe('tabs', async () => {
     const tab2 = tabs.findAll(Tab).at(1)
     const tab3 = tabs.findAll(Tab).at(2)
 
-    const buttons = wrapper.find('.nav-link')
+    const buttons = wrapper.findAll('.nav-link')
     expect(buttons).toBeDefined()
     expect(buttons.length).toBe(3)
 
