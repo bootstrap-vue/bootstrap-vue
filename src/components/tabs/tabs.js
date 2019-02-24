@@ -242,19 +242,18 @@ export default {
   },
   created() {
     // For SSR and to make sure only a single tab is shown on mount
-    // We wrap this in a `$nextTick()` to ensure the tabs have been created
-    this.$nextTick(this.updateTabs)
+    this.updateTabs()
   },
   mounted() {
     // In case tabs have changed before mount
-    this.$nextTick(this.updateTabs)
+    this.updateTabs()
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
     this.setModalListener(true)
   },
   activated() /* istanbul ignore next */ {
     // If inside a keep-alive
-    this.$nextTick(this.updateTabs)
+    this.updateTabs()
     this.setModalListener(true)
     this.setObserver(true)
   },
@@ -270,51 +269,53 @@ export default {
   methods: {
     // Update list of b-tab children
     updateTabs() {
-      // Probe tabs
-      const tabs = (this.$slots.default || [])
-        .map(vnode => vnode.componentInstance)
-        .filter(tab => tab && tab._isTab)
+      this.$nextTick(() => {
+        // Probe tabs
+        const tabs = (this.$slots.default || [])
+          .map(vnode => vnode.componentInstance)
+          .filter(tab => tab && tab._isTab)
 
-      // Find *last* active non-disabled tab in current tabs
-      // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
-      let tabIndex = tabs.indexOf(
-        tabs
-          .slice()
-          .reverse()
-          .find(tab => tab.localActive && !tab.disabled)
-      )
+        // Find *last* active non-disabled tab in current tabs
+        // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
+        let tabIndex = tabs.indexOf(
+          tabs
+            .slice()
+            .reverse()
+            .find(tab => tab.localActive && !tab.disabled)
+        )
 
-      // Else try setting to currentTab
-      if (tabIndex < 0) {
-        const currentTab = this.currentTab
-        if (currentTab >= tabs.length) {
-          // Handle last tab being removed, so find the last non-disabled tab
-          tabIndex = tabs.indexOf(
-            tabs
-              .slice()
-              .reverse()
-              .find(notDisabled)
-          )
-        } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
-          // Current tab is not disabled
-          tabIndex = currentTab
+        // Else try setting to currentTab
+        if (tabIndex < 0) {
+          const currentTab = this.currentTab
+          if (currentTab >= tabs.length) {
+            // Handle last tab being removed, so find the last non-disabled tab
+            tabIndex = tabs.indexOf(
+              tabs
+                .slice()
+                .reverse()
+                .find(notDisabled)
+            )
+          } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
+            // Current tab is not disabled
+            tabIndex = currentTab
+          }
         }
-      }
 
-      // Else find *first* non-disabled tab in current tabs
-      if (tabIndex < 0) {
-        tabIndex = tabs.indexOf(tabs.find(notDisabled))
-      }
+        // Else find *first* non-disabled tab in current tabs
+        if (tabIndex < 0) {
+          tabIndex = tabs.indexOf(tabs.find(notDisabled))
+        }
 
-      // Set the current tab state to active
-      tabs.forEach((tab, idx) => {
-        tab.localActive = idx === tabIndex && !tab.disabled
+        // Set the current tab state to active
+        tabs.forEach((tab, idx) => {
+          tab.localActive = idx === tabIndex && !tab.disabled
+        })
+
+        // Update the array of tab children
+        this.tabs = tabs
+        // Set the currentTab index (can be -1 if no non-disabled tabs)
+        this.currentTab = tabIndex
       })
-
-      // Update the array of tab children
-      this.tabs = tabs
-      // Set the currentTab index (can be -1 if no non-disabled tabs)
-      this.currentTab = tabIndex
     },
     // Find a button that controls a tab, given the tab reference
     // Returns the button vm instance
