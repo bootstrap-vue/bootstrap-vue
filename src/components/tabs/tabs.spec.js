@@ -305,4 +305,55 @@ describe('tabs', async () => {
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
   })
+
+  it('disabling active tab selects first non-disabled tab', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(Tabs, { props: { value: 2 } }, [
+          h(Tab, { props: { title: 'one' } }, 'tab 0'),
+          h(Tab, { props: { title: 'two' } }, 'tab 1'),
+          h(Tab, { props: { title: 'three', disabled: false } }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(3)
+
+    const tab1 = tabs.findAll(Tab).at(0)
+    const tab2 = tabs.findAll(Tab).at(1)
+    const tab3 = tabs.findAll(Tab).at(2)
+
+
+    // Expect 3rd tab (index 2) to be active
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(true)
+
+    // Disable 3rd tab
+    tab3.setProps({ disabled: true })
+    await wrapper.vm.$nextTick()
+
+    // Expect 1st tab to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
+
+    // Enable 3rd tab and Disable 1st tab
+    tab3.setProps({ disabled: false })
+    tab1.setProps({ disabled: true })
+    await wrapper.vm.$nextTick()
+
+    // Expect 2nd tab to be active
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(true)
+    expect(tab3.vm.localActive).toBe(false)
+  })
 })
