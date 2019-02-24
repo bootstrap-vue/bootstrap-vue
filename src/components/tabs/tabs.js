@@ -4,6 +4,7 @@ import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
+// @vue/component
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
   props: {
@@ -242,7 +243,7 @@ export default {
   },
   mounted() {
     // In case tabs have changed before mount
-    this.updateTabs()
+    this.$nextTick(this.updateTabs)
     // Observe Child changes so we can update list of tabs
     observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
       subtree: false
