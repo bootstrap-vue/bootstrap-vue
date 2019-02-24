@@ -396,15 +396,16 @@ export default {
         'li',
         {
           key: `elipsis-${isLast ? 'last' : 'first'}`,
-          class: ['page-item', 'disabled', 'd-none', 'd-sm-flex'],
+          staticClass: 'page-item',
+          class: ['disabled', 'd-none', 'd-sm-flex'],
           attrs: { role: 'separator' }
         },
         [
-          this.$slots['ellipsis-text'] ||
-            h('span', {
-              class: ['page-link'],
-              domProps: { textContent: this.ellipsisText }
-            })
+          h(
+            'div',
+            { staticClass: 'page-link' },
+            [this.$slots['ellipsis-text'] || this.ellipsisText]
+          )
         ]
       )
     }
