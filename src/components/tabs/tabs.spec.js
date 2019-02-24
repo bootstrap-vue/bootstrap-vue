@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Tab from './tab'
 import Tabs from './tabs'
+import Link from '../link/link'
 import { mount } from '@vue/test-utils'
-import KeyCodes from '../../utils/key-codes'
 
 describe('tabs', async () => {
   it('default has expected classes and structure', async () => {
@@ -262,45 +262,52 @@ describe('tabs', async () => {
     expect(tab3.vm.localActive).toBe(false)
 
     // RIGHT moves to next tab
+    expect(tab1.emitted('next')).not.toBeDefined()
     wrapper
-      .findAll('.nav-link')
+      .findAll(Link)
       .at(0)
-      .trigger('keydown', { keyCode: KeyCodes.RIGHT })
+      .trigger('keydown.right')
     await wrapper.vm.$nextTick()
-    await wrapper.vm.$nextTick()
+    expect(tab1.emitted('next')).toBeDefined()
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
 
     // END key moves to last tab
+    expect(tab2.emitted('last')).not.toBeDefined()
     wrapper
-      .findAll('.nav-link')
+      .findAll(Link)
       .at(1)
-      .trigger('keydown', { keyCode: KeyCodes.END })
+      .trigger('keydown.end')
     await wrapper.vm.$nextTick()
+    expect(tab2.emitted('last')).toBeDefined()
     expect(tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(true)
 
     // LEFT moves to previous tab
+    expect(tab3.emitted('prev')).not.toBeDefined()
     wrapper
-      .findAll('.nav-link')
+      .findAll(Link)
       .at(2)
-      .trigger('keydown', { keyCode: KeyCodes.LEFT })
+      .trigger('keydown.left')
     await wrapper.vm.$nextTick()
+    expect(tab3.emitted('prev')).toBeDefined()
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
 
     // HOME moves to first tab
+    expect(tab1.emitted('first')).not.toBeDefined()
     wrapper
-      .findAll('.nav-link')
+      .findAll(Link)
       .at(1)
-      .trigger('keydown', { keyCode: KeyCodes.HOME })
+      .trigger('keydown.home')
     await wrapper.vm.$nextTick()
+    expect(tab1.emitted('first')).toBeDefined()
     expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
