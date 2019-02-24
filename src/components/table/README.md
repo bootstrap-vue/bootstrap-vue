@@ -394,8 +394,8 @@ and drop plugins, as they rely on having a consistent and unique per row `:key` 
 
 If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
 the row's data values plus the displayed row's index number. This may cause GUI issues if you are
-modifiying the underlying table data in-place (i.e. via a `<b-form-input>` v-model bound to the
-row's data). Specifying a `primary-key` column can alleviate this issue.
+modifiying the underlying table data in-place (i.e. via a `<b-form-input>` v-model bound to the row's
+data). Specifying a `primary-key` column can alleviate this issue.
 
 ## Table style options
 

@@ -116,9 +116,10 @@ import 'custom.scss'
 
 ### Tree shaking with Nuxt.js
 
-If you wish to reduce your bundle size because you only use a subset of the available BootstrapVue
-plugins, you can configure the list of BootstrapVue `componentPlugins` or `directivePlugins` you
-want to globally install in your Nuxt.js project.
+If you wish to reduce your bundle size because you only use a subset of the available
+BootstrapVue plugins, you can configure the list of BootstrapVue
+`componentPlugins` or `directivePlugins` you want to globally install in
+your Nuxt.js project.
 
 ```js
 {
