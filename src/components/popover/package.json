@@ -119,7 +119,7 @@
             ]
           }
         ],
-        "rootEventEmitters": [
+        "rootEventListeners": [
           {
             "event": "bv::hide::popover",
             "description": "Close (hide) all or a specific open popover when this event is emitted on $root",
