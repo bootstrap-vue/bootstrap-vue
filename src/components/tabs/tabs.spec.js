@@ -328,7 +328,6 @@ describe('tabs', async () => {
     const tab2 = tabs.findAll(Tab).at(1)
     const tab3 = tabs.findAll(Tab).at(2)
 
-
     // Expect 3rd tab (index 2) to be active
     expect(tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
