@@ -191,7 +191,10 @@ describe('tabs', async () => {
 
     // Try to set 2nd Tab to be active via click
     expect(tab2.emitted('click')).not.toBeDefined()
-    wrapper.findAll('.nav-link').at(1).trigger('click')
+    wrapper
+      .findAll('.nav-link')
+      .at(1)
+      .trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
@@ -201,7 +204,10 @@ describe('tabs', async () => {
 
     // Try to set 3rd Tab to be active via click
     expect(tab3.emitted('click')).not.toBeDefined()
-    wrapper.findAll('.nav-link').at(2).trigger('click')
+    wrapper
+      .findAll('.nav-link')
+      .at(2)
+      .trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
@@ -211,7 +217,10 @@ describe('tabs', async () => {
 
     // Try to set 1st Tab to be active via click
     expect(tab1.emitted('click')).not.toBeDefined()
-    wrapper.findAll('.nav-link').at(0).trigger('click')
+    wrapper
+      .findAll('.nav-link')
+      .at(0)
+      .trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
