@@ -90,7 +90,7 @@
               },
               {
                 "arg": "modalId",
-                "description": "modal id"
+                "description": "modal ID"
               }
             ]
           },
@@ -104,7 +104,7 @@
               },
               {
                 "arg": "modalId",
-                "description": "modal id"
+                "description": "modal ID"
               }
             ]
           },
@@ -118,7 +118,7 @@
               },
               {
                 "arg": "modalId",
-                "description": "modal id"
+                "description": "modal ID"
               }
             ]
           },
@@ -132,33 +132,47 @@
               },
               {
                 "arg": "modalId",
-                "description": "modal id"
+                "description": "modal ID"
               }
             ]
           }
         ],
-        "rootEventEmitters": [
+        "rootEventListeners": [
           {
             "event": "bv::show::modal",
-            "description": "Show modal with specified id when this event is emitted on $root",
+            "description": "Show modal with specified ID when this event is emitted on $root",
             "args": [
               {
-                "arg": "id",
-                "description": "modal id to show"
+                "arg": "modalId",
+                "description": "modal ID to show"
               },
               {
                 "arg": "elIDtoFocusOnClose",
-                "description": "(optional), specify the element to return focus to once the modal is closed"
+                "description": "(optional), specify the element reference, or CSS selector, to return focus to once the modal is closed"
               }
             ]
           },
           {
             "event": "bv::hide::modal",
-            "description": "Hide modal with specified id when this event is emitted on $root",
+            "description": "Hide modal with specified ID when this event is emitted on $root",
             "args": [
               {
-                "arg": "id",
-                "description": "modal id to hide"
+                "arg": "modalId",
+                "description": "ID of modal to hide"
+              }
+            ]
+          },
+          {
+            "event": "bv::toggle::modal",
+            "description": "Toggle a modal's visibility given it's ID",
+            "args": [
+              {
+                "arg": "modalId",
+                "description": "ID of modal to toggle visibility"
+              },
+              {
+                "arg": "elIDtoFocusOnClose",
+                "description": "(optional), specify the element reference, or CSS selector, to return focus to once the modal is closed"
               }
             ]
           }

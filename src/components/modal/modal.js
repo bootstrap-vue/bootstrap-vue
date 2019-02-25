@@ -366,6 +366,7 @@ export default {
     this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
     this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
+    this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
     // Listen for bv:modal::show events, and close ourselves if the opening modal not us
     this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
@@ -475,6 +476,17 @@ export default {
       }
       this.is_visible = false
       this.$emit('change', false)
+    },
+    // Public method to toggle modal visibility
+    toggle(triggerEl) {
+      if (triggerEl) {
+        this.return_focus = triggerEl
+      }
+      if (this.is_visible) {
+        this.hide('toggle')
+      } else {
+        this.show()
+      }
     },
     // Private method to finish showing modal
     doShow() {
@@ -626,7 +638,12 @@ export default {
     },
     hideHandler(id) {
       if (id === this.id) {
-        this.hide()
+        this.hide('event')
+      }
+    },
+    toggleHandler(id, triggerEl) {
+      if (id === this.id) {
+        this.toggle(triggerEl)
       }
     },
     shownHandler() {

@@ -41,7 +41,7 @@
             ]
           }
         ],
-        "rootEventEmitters": [
+        "rootEventListeners": [
           {
             "event": "bv::toggle::collapse",
             "description": "Toggles visible state of collapse with specified id when this event is emitted on $root",
