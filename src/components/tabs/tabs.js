@@ -227,6 +227,7 @@ export default {
     value(val, old) {
       if (val !== old) {
         val = parseInt(val, 10)
+        val = isNaN(val) ? -1 : val
         old = parseInt(old, 10) || 0
         const tabs = this.tabs
         if (tabs[val] && !tabs[val].disabled) {
