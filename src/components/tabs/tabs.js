@@ -217,9 +217,6 @@ export default {
     }
   },
   watch: {
-    '$slots.default': function(newVal, oldVal) {
-      this.updateTabs()
-    },
     currentTab(val, old) {
       let index = -1
       // Ensure only one tab is active at most
@@ -236,6 +233,7 @@ export default {
     },
     value(val, old) {
       if (val !== old) {
+        this.updateTabs()
         val = parseInt(val, 10)
         val = isNaN(val) ? -1 : val
         old = parseInt(old, 10) || 0
