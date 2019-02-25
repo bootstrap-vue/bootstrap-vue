@@ -54,8 +54,7 @@ export const isElement = el => {
 }
 
 // Determine if an HTML element is visible - Faster than CSS check
-/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
-export const isVisible = el => {
+export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */ {
   if (!isElement(el) || !contains(document.body, el)) {
     return false
   }
@@ -230,21 +229,20 @@ export const hasAttr = (el, attr) => {
 }
 
 // Return the Bounding Client Rect of an element. Returns `null` if not an element
-/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
 export const getBCR = el => {
+  /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
   return isElement(el) ? el.getBoundingClientRect() : null
 }
 
 // Get computed style object for an element
-/* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
 export const getCS = el => {
+  /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
   return isElement(el) ? window.getComputedStyle(el) : {}
 }
 
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
-/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */
-export const offset = el => {
+export const offset = el => /* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */ {
   let offset = { top: 0, left: 0 }
   if (!isElement(el) || el.getClientRects().length === 0) {
     return offset
@@ -260,8 +258,7 @@ export const offset = el => {
 
 // Return an element's offset with respect to to it's offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
-/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
-export const position = el => {
+export const position = el => /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */ {
   let offset = { top: 0, left: 0 }
   if (!isElement(el)) {
     return offset
