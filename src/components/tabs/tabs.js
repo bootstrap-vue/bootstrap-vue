@@ -422,8 +422,9 @@ export default {
       }
     },
     modalListener() {
-      console.log('Modal Shown Event happened. Updating tabs')
-      this.$nextTick(this.updateTabs)
+      this.$nextTick(() => {
+        this.nextTick(this.updateTabs)
+      }
     },
     setModalListener(on) {
       if (on) {
