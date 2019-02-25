@@ -193,7 +193,7 @@ export default {
   data() {
     return {
       // Index of current tab
-      currentTab: parseInt(this.value, 10) || -1,
+      currentTab: parseInt(this.value, 10) || 0,
       // Array of direct child b-tab instances
       tabs: []
     }
