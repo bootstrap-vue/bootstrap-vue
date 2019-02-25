@@ -253,7 +253,7 @@ export default {
   created() {
     // For SSR and to make sure only a single tab is shown on mount
     this.$nextTick(() => {
-      this.updateTabs
+      this.updateTabs()
     })
   },
   mounted() {
