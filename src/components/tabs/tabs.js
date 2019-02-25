@@ -424,7 +424,7 @@ export default {
     modalListener() {
       this.$nextTick(() => {
         this.nextTick(this.updateTabs)
-      }
+      })
     },
     setModalListener(on) {
       if (on) {
