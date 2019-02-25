@@ -435,7 +435,7 @@ describe('tabs', async () => {
           h(Tab, {}, [
             h('span', { attrs: { slot: 'title' } }, this.title ),
             h('p', {}, 'tab content')
-          ]
+          ])
         ])
       }
     })
