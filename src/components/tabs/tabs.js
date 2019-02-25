@@ -429,10 +429,10 @@ export default {
         this.setModalListener(false)
         if (closest(MODAL_CLASS, this.$el)) {
           // We can listen for modal shown events on $root
-          this.$root.$on(MODAL_SHOWN_EVENT, this.modalLstener)
+          this.$root.$on(MODAL_SHOWN_EVENT, this.modalListener)
         }
       } else {
-        this.$root.$off(MODAL_SHOWN_EVENT, this.updateListener)
+        this.$root.$off(MODAL_SHOWN_EVENT, this.modalListener)
       }
     },
     setObserver(on) {
