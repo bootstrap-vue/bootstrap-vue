@@ -230,6 +230,7 @@ export default {
       })
       // Update the v-model
       this.$emit('input', index)
+      this.updateTabs()
     },
     value(val, old) {
       if (val !== old) {
@@ -251,16 +252,10 @@ export default {
     }
   },
   created() {
-    let tabIdx = parseInt(this.value, 10)
-    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     // For SSR and to make sure only a single tab is shown on mount
     this.$nextTick(() => {
       this.updateTabs()
     })
-  },
-  beforeMount() {
-    let tabIdx = parseInt(this.value, 10)
-    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
   },
   mounted() {
     // Observe Child changes so we can update list of tabs
