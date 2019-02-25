@@ -422,4 +422,40 @@ describe('tabs', async () => {
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
   })
+
+  it('tab title slots are reactive', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(Tabs, { props: { value: 2 } }, [h(Tab, {}, 'tab content')])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(1)
+
+    // Expect tab button content to be ``
+    expect(wrapper.find('.nav-link').text()).toBe('')
+
+    // Get the Tab's instance
+    const tabVm = wrapper.find(Tab).vm
+    expect(tabVm).toBeDefined()
+    
+    // Change title slot content
+    tabVm.$slots.title = [tabVm.$createElement('span', {}, 'foobar')]
+    await wrapper.vm.$nextTick()
+
+    // Expect tab button content to be `foobar`
+    expect(wrapper.find('.nav-link').text()).toBe('foobar')
+
+    // Change title slot content
+    tabVm.$slots.title = [tabVm.$createElement('span', {}, 'baz')]
+    await wrapper.vm.$nextTick()
+
+    // Expect tab button content to be `foobar`
+    expect(wrapper.find('.nav-link').text()).toBe('baz')
+  })
 })
