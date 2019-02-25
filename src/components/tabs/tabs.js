@@ -430,7 +430,10 @@ export default {
     },
     modalListener() {
       this.$nextTick(() => {
-        this.$nextTick(this.updateTabs)
+        this.$nextTick(() => {
+          console.log('Modal Shown... Updating Tabs')
+          this.updateTabs()
+        })
       })
     },
     setModalListener(on) {
