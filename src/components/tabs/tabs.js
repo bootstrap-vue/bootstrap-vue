@@ -257,6 +257,8 @@ export default {
     })
   },
   mounted() {
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
     this.setModalListener(true)
