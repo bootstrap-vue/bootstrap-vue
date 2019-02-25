@@ -54,14 +54,13 @@ export const isElement = el => {
 }
 
 // Determine if an HTML element is visible - Faster than CSS check
+/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
 export const isVisible = el => {
-  /* istanbul ignore next: getBoundingClientRect not available in JSDOM */
-  return (
-    isElement(el) &&
-    contains(document.body, el) &&
-    el.getBoundingClientRect().height > 0 &&
-    el.getBoundingClientRect().width > 0
-  )
+  if (!isElement(el) || !contains(document.body, el)) {
+    return false
+  }
+  const bcr = getBCR(el)
+  return bcr && bcr.height > 0 && bcr.width > 0
 }
 
 // Determine if an element is disabled
@@ -243,35 +242,35 @@ export const getCS = el => {
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
 /* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */
 export const offset = el => {
-  if (isElement(el)) {
-    if (!el.getClientRects().length) {
-      return { top: 0, left: 0 }
-    }
-    const bcr = getBCR(el)
-    const win = el.ownerDocument.defaultView
-    return {
-      top: bcr.top + win.pageYOffset,
-      left: bcr.left + win.pageXOffset
-    }
+  let offset = { top: 0, left: 0 }
+  if (!isElement(el) || el.getClientRects().length === 0) {
+    return offset
   }
+  const bcr = getBCR(el)
+  if (bcr) {
+    const win = el.ownerDocument.defaultView
+    offset.top = bcr.top + win.pageYOffset
+    offset.left = bcr.left + win.pageXOffset
+  }
+  return offset
 }
 
 // Return an element's offset with respect to to it's offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
-/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */
+/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
 export const position = el => {
+  let offset = { top: 0, left: 0 }
   if (!isElement(el)) {
-    return
+    return offset
   }
   let parentOffset = { top: 0, left: 0 }
-  let offsetSelf
-  let offsetParent
-  if (getCS(el).position === 'fixed') {
-    offsetSelf = getBCR(el)
+  const elStyles = getCS(el)
+  if (elStyles.position === 'fixed') {
+    offset = getBCR(el) || offset
   } else {
-    offsetSelf = offset(el)
+    offset = offset(el)
     const doc = el.ownerDocument
-    offsetParent = el.offsetParent || doc.documentElement
+    let offsetParent = el.offsetParent || doc.documentElement
     while (
       offsetParent &&
       (offsetParent === doc.body || offsetParent === doc.documentElement) &&
@@ -281,12 +280,13 @@ export const position = el => {
     }
     if (offsetParent && offsetParent !== el && offsetParent.nodeType === Node.ELEMENT_NODE) {
       parentOffset = offset(offsetParent)
-      parentOffset.top += parseFloat(getCS(offsetParent).borderTopWidth)
-      parentOffset.left += parseFloat(getCS(offsetParent).borderLeftWidth)
+      const offsetParentStyles = getCS(offsetParent)
+      parentOffset.top += parseFloat(offsetParentStyles.borderTopWidth)
+      parentOffset.left += parseFloat(offsetParentStyles.borderLeftWidth)
     }
   }
   return {
-    top: offsetSelf.top - parentOffset.top - parseFloat(getCS(el).marginTop),
-    left: offsetSelf.left - parentOffset.left - parseFloat(getCS(el).marginLeft)
+    top: offset.top - parentOffset.top - parseFloat(elStyles.marginTop),
+    left: offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
   }
 }
