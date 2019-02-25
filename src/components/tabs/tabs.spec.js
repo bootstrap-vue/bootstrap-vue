@@ -432,7 +432,7 @@ describe('tabs', async () => {
       },
       render(h) {
         return h(Tabs, { props: { value: 2 } }, [
-          h(Tab, { slots: { title: [this.title] } }, 'tab content')
+          h(Tab, {}, `<span slot="title">${this.title}<span><p>tab content</p>`)
         ])
       }
     })
