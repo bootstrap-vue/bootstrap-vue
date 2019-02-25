@@ -4,7 +4,7 @@ import observeDom from '../../utils/observe-dom'
 import { closest } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 
-// Modal $root hidden event
+// Modal $root shown event
 const MODAL_SHOWN_EVENT = 'bv::modal::shown'
 // Modal class selector
 const MODAL_CLASS = '.modal'
