@@ -575,8 +575,6 @@ export default {
       [this.$slots.default, empty]
     )
 
-    this.$nextTick(this.updateTabs)
-
     // Render final output
     return h(
       this.tag,
