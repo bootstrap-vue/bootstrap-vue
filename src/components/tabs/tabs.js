@@ -287,30 +287,32 @@ export default {
       // Probe tabs
       const tabs = this.probeVnodes(this.$slots.default)
 
-      // Find *last* active non-disabled tab in current tabs
-      // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
-      let tabIndex = tabs.indexOf(
-        tabs
-          .slice()
-          .reverse()
-          .find(tab => tab.localActive && !tab.disabled)
-      )
+      // Use internal tab state as starting index
+      let tabIndex = this.currentTab
+      
+      // Handle last tab being removed, so find the last non-disabled tab
+      if (tabIndex >= tabs.length) {
+        tabIndex = tabs.indexOf(
+          tabs
+            .slice()
+            .reverse()
+            .find(notDisabled)
+        )
+      }
+      
+      // If selected tab is disabled, reset tabIndex to -1
+      if (tabIndex >= 0 && tabs[tabIndex] && tabs[tabIndex].disabled) {
+        tabIndex = -1
+      }
 
-      // Else try setting to currentTab
+      // Else find *last* active non-disabled tab in current tabs
       if (tabIndex < 0) {
-        const currentTab = this.currentTab
-        if (currentTab >= tabs.length) {
-          // Handle last tab being removed, so find the last non-disabled tab
-          tabIndex = tabs.indexOf(
-            tabs
-              .slice()
-              .reverse()
-              .find(notDisabled)
-          )
-        } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
-          // Current tab is not disabled
-          tabIndex = currentTab
-        }
+        tabIndex = tabs.indexOf(
+          tabs
+            .slice()
+            .reverse()
+            .find(tab => tab.localActive && !tab.disabled)
+        )
       }
 
       // Else find *first* non-disabled tab in current tabs
@@ -320,7 +322,7 @@ export default {
 
       // Set the current tab state to active
       tabs.forEach((tab, idx) => {
-        tab.localActive = idx === tabIndex && !tab.disabled
+        tab.localActive = idx === tabIndex
       })
 
       // Update the array of tab children
