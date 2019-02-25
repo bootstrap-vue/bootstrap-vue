@@ -191,9 +191,11 @@ export default {
     }
   },
   data() {
+    const tabIdx = parseInt(this.value, 10)
+    tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
-      currentTab: parseInt(this.value, 10) || 0,
+      currentTab: tabIdx
       // Array of direct child b-tab instances
       tabs: []
     }
@@ -242,12 +244,10 @@ export default {
   },
   created() {
     // For SSR and to make sure only a single tab is shown on mount
-    this.currentTab = parseInt(this.value, 10) || 0
     this.updateTabs()
   },
   mounted() {
     // In case tabs have changed before mount
-    this.currentTab = parseInt(this.value, 10) || 0
     this.updateTabs()
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
@@ -422,9 +422,11 @@ export default {
         this.emitTabClick(tab, focus)
       }
     },
-    setModalListener(on) /* istanbul ignore next */ {
+    setModalListener(on) {
       if (on) {
+        this.setModalListener(false)
         if (closest(MODAL_CLASS, this.$el)) {
+          console.log('Tabs inside modal..')
           // We can listen for modal shown events on $root
           this.$root.$on(MODAL_SHOWN_EVENT, this.updateTabs)
         }
@@ -432,7 +434,7 @@ export default {
         this.$root.$off(MODAL_SHOWN_EVENT, this.updateTabs)
       }
     },
-    setObserver(on) /* istanbul ignore next */ {
+    setObserver(on) {
       if (on) {
         // Make sure no existing observer running
         this.setObserver(false)
