@@ -212,7 +212,6 @@ export default {
   },
   watch: {
     currentTab(val, old) {
-      /*
       let index = -1
       // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
@@ -225,9 +224,9 @@ export default {
       })
       // Update the v-model
       this.$emit('input', index)
-      this.updateTabs()
-      */
-      this.$emit('input', val)
+      this.$nextTick(() => {
+        this.updateTabs()
+      })
     },
     value(val, old) {
       if (val !== old) {
