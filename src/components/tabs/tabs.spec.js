@@ -96,7 +96,7 @@ describe('tabs', async () => {
     expect(tabs.emitted('input')[0][0]).toBe(1)
   })
 
-  it('selectes first non-ditabled tabl when active tab disabled', async () => {
+  it('selects first non-ditabled tab when active tab disabled', async () => {
     const App = Vue.extend({
       render(h) {
         return h(Tabs, {}, [
@@ -426,7 +426,9 @@ describe('tabs', async () => {
   it('tab title slots are reactive', async () => {
     const App = Vue.extend({
       render(h) {
-        return h(Tabs, { props: { value: 2 } }, [h(Tab, {}, 'tab content')])
+        return h(Tabs, { props: { value: 2 } }, [
+          h(Tab, { slots: { title: 'original', default: 'tab content' } })
+        ])
       }
     })
     const wrapper = mount(App)
@@ -437,8 +439,8 @@ describe('tabs', async () => {
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(1)
 
-    // Expect tab button content to be ``
-    expect(wrapper.find('.nav-link').text()).toBe('')
+    // Expect tab button content to be `original`
+    expect(wrapper.find('.nav-link').text()).toBe('original')
 
     // Get the Tab's instance
     const tabVm = wrapper.find(Tab).vm
@@ -450,12 +452,5 @@ describe('tabs', async () => {
 
     // Expect tab button content to be `foobar`
     expect(wrapper.find('.nav-link').text()).toBe('foobar')
-
-    // Change title slot content
-    tabVm.$slots.title = [tabVm.$createElement('span', {}, 'baz')]
-    await wrapper.vm.$nextTick()
-
-    // Expect tab button content to be `foobar`
-    expect(wrapper.find('.nav-link').text()).toBe('baz')
   })
 })
