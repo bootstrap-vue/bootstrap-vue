@@ -468,8 +468,8 @@ export default {
     }
   },
   render(h) {
-    // const tabs = this.tabs
-    const tabs = this.probeVnodes(this.$slots.default)
+    const tabs = this.tabs
+
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
     // Tab button to allow focusing when no active tab found (keynav only)
@@ -574,6 +574,8 @@ export default {
       },
       [this.$slots.default, empty]
     )
+
+    this.$nextTick(this.updateTabs)
 
     // Render final output
     return h(
