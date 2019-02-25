@@ -130,10 +130,9 @@ export const closest = (selector, root) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
   // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
   // Prefer native implementation over polyfill function
-  /* istanbul ignore next */
   const Closest =
     Element.prototype.closest ||
-    function(sel) {
+    function(sel) /* istanbul ignore next */ {
       let element = this
       if (!contains(document.documentElement, element)) {
         return null
