@@ -224,6 +224,10 @@ export default {
       })
       // Update the v-model
       this.$emit('input', index)
+      this.$nextTick(() => {
+        // Ensure active tab is in sync with buttons
+        this.updateTabs()
+      })
     },
     value(val, old) {
       if (val !== old) {
@@ -253,8 +257,6 @@ export default {
     })
   },
   mounted() {
-    let tabIdx = parseInt(this.value, 10)
-    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
     // In case tabs have changed before mount
@@ -307,6 +309,7 @@ export default {
       }
 
       // Else find *last* active non-disabled tab in current tabs
+      // Look for tabs that have truthy `active` prop
       if (tabIndex < 0) {
         tabIndex = tabs.indexOf(
           tabs
