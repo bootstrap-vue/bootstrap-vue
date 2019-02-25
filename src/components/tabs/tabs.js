@@ -255,10 +255,12 @@ export default {
   mounted() {
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
-    // In case tabs have changed before mount
-    this.updateTabs()
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
+    // In case tabs have changed before mount
+    this.$nextTick(() => {
+      this.updateTabs()
+    })
   },
   activated() /* istanbul ignore next */ {
     // If inside a keep-alive
