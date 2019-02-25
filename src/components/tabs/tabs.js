@@ -242,10 +242,12 @@ export default {
   },
   created() {
     // For SSR and to make sure only a single tab is shown on mount
+    this.currentTab = parseInt(this.value, 10) || 0
     this.updateTabs()
   },
   mounted() {
     // In case tabs have changed before mount
+    this.currentTab = parseInt(this.value, 10) || 0
     this.updateTabs()
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
