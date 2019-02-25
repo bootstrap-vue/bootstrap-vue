@@ -13,6 +13,13 @@ const MODAL_CLASS = '.modal'
 // @vue/component
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
+  inject: {
+    bTabs: {
+      default() {
+        return {}
+      }
+    }
+  },
   props: {
     // Reference to the child b-tab instance
     tab: { default: null, required: true },
