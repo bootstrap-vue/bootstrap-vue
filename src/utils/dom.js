@@ -55,10 +55,10 @@ export const isElement = el => {
 
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
-  /* istanbul ignore next: getBoundingClientRect not avaiable in JSDOM */
+  /* istanbul ignore next: getBoundingClientRect not available in JSDOM */
   return (
     isElement(el) &&
-    document.body.contains(el) &&
+    contains(document.body, el) &&
     el.getBoundingClientRect().height > 0 &&
     el.getBoundingClientRect().width > 0
   )
@@ -67,21 +67,18 @@ export const isVisible = el => {
 // Determine if an element is disabled
 export const isDisabled = el => {
   return (
-    !isElement(el) ||
-    el.disabled ||
-    el.classList.contains('disabled') ||
-    Boolean(el.getAttribute('disabled'))
+    !isElement(el) || el.disabled || hasClass(el, 'disabled') || Boolean(getAttr(el, 'disabled'))
   )
 }
 
 // Cause/wait-for an element to reflow it's content (adjusting it's height/width)
 export const reflow = el => {
-  // requsting an elements offsetHight will trigger a reflow of the element content
-  /* istanbul ignore next: reflow doesnt happen in JSDOM */
+  // Requesting an elements offsetHight will trigger a reflow of the element content
+  /* istanbul ignore next: reflow doesn't happen in JSDOM */
   return isElement(el) && el.offsetHeight
 }
 
-// Select all elements matching selector. Returns [] if none found
+// Select all elements matching selector. Returns `[]` if none found
 export const selectAll = (selector, root) => {
   if (!isElement(root)) {
     root = document
@@ -89,7 +86,7 @@ export const selectAll = (selector, root) => {
   return arrayFrom(root.querySelectorAll(selector))
 }
 
-// Select a single element, returns null if not found
+// Select a single element, returns `null` if not found
 export const select = (selector, root) => {
   if (!isElement(root)) {
     root = document
@@ -126,7 +123,7 @@ export const matches = (el, selector) => {
   return Matches.call(el, selector)
 }
 
-// Finds closest element matching selector. Returns null if not found
+// Finds closest element matching selector. Returns `null` if not found
 export const closest = (selector, root) => {
   if (!isElement(root)) {
     return null
@@ -140,7 +137,7 @@ export const closest = (selector, root) => {
     Element.prototype.closest ||
     function(sel) {
       let element = this
-      if (!document.documentElement.contains(element)) {
+      if (!contains(document.documentElement, element)) {
         return null
       }
       do {
@@ -154,7 +151,7 @@ export const closest = (selector, root) => {
     }
 
   const el = Closest.call(root, selector)
-  // Emulate jQuery closest and return null if match is the passed in element (root)
+  // Emulate jQuery closest and return `null` if match is the passed in element (root)
   return el === root ? null : el
 }
 
@@ -173,21 +170,27 @@ export const getById = id => {
 
 // Add a class to an element
 export const addClass = (el, className) => {
-  if (className && isElement(el)) {
+  // We are checking for `el.classList` existence here since IE 11
+  // returns `undefined` for some elements (e.g. SVG elements)
+  if (className && isElement(el) && el.classList) {
     el.classList.add(className)
   }
 }
 
 // Remove a class from an element
 export const removeClass = (el, className) => {
-  if (className && isElement(el)) {
+  // We are checking for `el.classList` existence here since IE 11
+  // returns `undefined` for some elements (e.g. SVG elements)
+  if (className && isElement(el) && el.classList) {
     el.classList.remove(className)
   }
 }
 
 // Test if an element has a class
 export const hasClass = (el, className) => {
-  if (className && isElement(el)) {
+  // We are checking for `el.classList` existence here since IE 11
+  // returns `undefined` for some elements (e.g. SVG elements)
+  if (className && isElement(el) && el.classList) {
     return el.classList.contains(className)
   }
   return false
@@ -207,7 +210,7 @@ export const removeAttr = (el, attr) => {
   }
 }
 
-// Get an attribute value from an element (returns null if not found)
+// Get an attribute value from an element (returns `null` if not found)
 export const getAttr = (el, attr) => {
   if (attr && isElement(el)) {
     return el.getAttribute(attr)
@@ -215,7 +218,8 @@ export const getAttr = (el, attr) => {
   return null
 }
 
-// Determine if an attribute exists on an element (returns true or false, or null if element not found)
+// Determine if an attribute exists on an element (returns `true`
+// or `false`, or `null` if element not found)
 export const hasAttr = (el, attr) => {
   if (attr && isElement(el)) {
     return el.hasAttribute(attr)
@@ -223,21 +227,21 @@ export const hasAttr = (el, attr) => {
   return null
 }
 
-// Return the Bounding Client Rec of an element. Retruns null if not an element
-/* istanbul ignore next: getBoundingClientRect() doesnt work in JSDOM */
+// Return the Bounding Client Rect of an element. Returns `null` if not an element
+/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
 export const getBCR = el => {
   return isElement(el) ? el.getBoundingClientRect() : null
 }
 
 // Get computed style object for an element
-/* istanbul ignore next: getComputedStyle() doesnt work in JSDOM */
+/* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
 export const getCS = el => {
   return isElement(el) ? window.getComputedStyle(el) : {}
 }
 
-// Return an element's offset wrt document element
+// Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
-/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesnt work in JSDOM */
+/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */
 export const offset = el => {
   if (isElement(el)) {
     if (!el.getClientRects().length) {
@@ -252,9 +256,9 @@ export const offset = el => {
   }
 }
 
-// Return an element's offset wrt to it's offsetParent
+// Return an element's offset with respect to to it's offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
-/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesnt work in JSDOM */
+/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */
 export const position = el => {
   if (!isElement(el)) {
     return
