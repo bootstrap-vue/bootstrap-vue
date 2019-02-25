@@ -233,7 +233,6 @@ export default {
     },
     value(val, old) {
       if (val !== old) {
-        this.updateTabs()
         val = parseInt(val, 10)
         val = isNaN(val) ? -1 : val
         old = parseInt(old, 10) || 0
