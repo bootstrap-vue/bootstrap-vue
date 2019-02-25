@@ -289,7 +289,7 @@ export default {
 
       // Use internal tab state as starting index
       let tabIndex = this.currentTab
-      
+
       // Handle last tab being removed, so find the last non-disabled tab
       if (tabIndex >= tabs.length) {
         tabIndex = tabs.indexOf(
@@ -299,7 +299,7 @@ export default {
             .find(notDisabled)
         )
       }
-      
+
       // If selected tab is disabled, reset tabIndex to -1
       if (tabIndex >= 0 && tabs[tabIndex] && tabs[tabIndex].disabled) {
         tabIndex = -1
