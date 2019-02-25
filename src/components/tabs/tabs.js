@@ -15,7 +15,7 @@ const BTabButtonHelper = {
   name: 'BTabButtonHelper',
   inject: {
     bTabs: {
-      default() {
+      default() /* istanbul ignore next */ {
         return {}
       }
     }
