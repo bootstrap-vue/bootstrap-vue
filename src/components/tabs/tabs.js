@@ -262,6 +262,10 @@ export default {
     // In case tabs have changed before mount
     this.$nextTick(() => {
       this.updateTabs()
+      (this.tabs || []).forEach(tab => {
+        // Ensure b-tab's are rendered with correct state
+        tab.$forceUpdate()
+      })
     })
   },
   activated() /* istanbul ignore next */ {
@@ -289,15 +293,14 @@ export default {
     updateTabs() {
       // Probe tabs
       const tabs = this.probeVnodes(this.$slots.default)
+      // Use internal tab state as starting index
+      let tabIndex = this.currentTab
 
       if (tabs.length === 0) {
         this.tabs = []
         this.currentTab = -1
         return
       }
-
-      // Use internal tab state as starting index
-      let tabIndex = this.currentTab
 
       // Handle last tab being removed, so find the last non-disabled tab
       if (tabIndex >= tabs.length) {
@@ -310,7 +313,7 @@ export default {
       }
 
       // If selected tab is disabled, reset tabIndex to -1
-      if (tabIndex > -1 && tabs[tabIndex] && tabs[tabIndex].disabled) {
+      if (tabIndex > -1 && tabs[tabIndex] && !notDisabled(tabs[tabIndex])) {
         tabIndex = -1
       }
 
@@ -321,7 +324,7 @@ export default {
           tabs
             .slice()
             .reverse()
-            .find(tab => tab.localActive && !tab.disabled)
+            .find(tab => tab.localActive && notDisabled(tab))
         )
       }
 
