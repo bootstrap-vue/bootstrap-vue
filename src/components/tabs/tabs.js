@@ -221,6 +221,7 @@ export default {
         } else {
           tab.localActive = false
         }
+        tab.$forceUpdate()
       })
       // Update the v-model
       this.$emit('input', index)
@@ -262,10 +263,6 @@ export default {
     // In case tabs have changed before mount
     this.$nextTick(() => {
       this.updateTabs()
-      this.tabs.forEach(tab => {
-        // Ensure b-tab's are rendered with correct state
-        tab.$forceUpdate()
-      })
     })
   },
   activated() /* istanbul ignore next */ {
