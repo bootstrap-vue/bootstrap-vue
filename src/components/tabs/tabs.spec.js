@@ -427,7 +427,7 @@ describe('tabs', async () => {
     const App = Vue.extend({
       render(h) {
         return h(Tabs, { props: { value: 2 } }, [
-          h(Tab, { slots: { title: 'original', default: 'tab content' } })
+          h(Tab, { props: { title: 'original' } }, 'tab content')
         ])
       }
     })
@@ -445,9 +445,10 @@ describe('tabs', async () => {
     // Get the Tab's instance
     const tabVm = wrapper.find(Tab).vm
     expect(tabVm).toBeDefined()
-    
+
     // Change title slot content
     tabVm.$slots.title = [tabVm.$createElement('span', {}, 'foobar')]
+    tabVm.$forceUpdate()
     await wrapper.vm.$nextTick()
 
     // Expect tab button content to be `foobar`
