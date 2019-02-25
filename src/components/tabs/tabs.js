@@ -195,7 +195,7 @@ export default {
     tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
-      currentTab: tabIdx
+      currentTab: tabIdx,
       // Array of direct child b-tab instances
       tabs: []
     }
