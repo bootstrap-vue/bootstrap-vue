@@ -191,7 +191,7 @@ export default {
     }
   },
   data() {
-    const tabIdx = parseInt(this.value, 10)
+    let tabIdx = parseInt(this.value, 10)
     tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
