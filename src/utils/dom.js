@@ -132,10 +132,9 @@ export const closest = (selector, root) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
   // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
   // Prefer native implementation over polyfill function
-  /* istanbul ignore next */
   const Closest =
     Element.prototype.closest ||
-    function(sel) {
+    function(sel) /* istanbul ignore next */ {
       let element = this
       if (!contains(document.documentElement, element)) {
         return null
@@ -172,6 +171,7 @@ export const getById = id => {
 export const addClass = (el, className) => {
   // We are checking for `el.classList` existence here since IE 11
   // returns `undefined` for some elements (e.g. SVG elements)
+  // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2713
   if (className && isElement(el) && el.classList) {
     el.classList.add(className)
   }
@@ -181,6 +181,7 @@ export const addClass = (el, className) => {
 export const removeClass = (el, className) => {
   // We are checking for `el.classList` existence here since IE 11
   // returns `undefined` for some elements (e.g. SVG elements)
+  // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2713
   if (className && isElement(el) && el.classList) {
     el.classList.remove(className)
   }
@@ -190,6 +191,7 @@ export const removeClass = (el, className) => {
 export const hasClass = (el, className) => {
   // We are checking for `el.classList` existence here since IE 11
   // returns `undefined` for some elements (e.g. SVG elements)
+  // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2713
   if (className && isElement(el) && el.classList) {
     return el.classList.contains(className)
   }
