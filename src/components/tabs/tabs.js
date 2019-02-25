@@ -261,13 +261,17 @@ export default {
     this.setObserver(true)
     this.setModalListener(true)
     // In case tabs have changed before mount
-    this.updateTabs()
+    this.$nextTick(() => {
+      this.updateTabs()
+    })
   },
   activated() /* istanbul ignore next */ {
     // If inside a keep-alive
-    this.$nextTick(this.updateTabs)
     this.setModalListener(true)
     this.setObserver(true)
+    this.$nextTick(() => {
+      this.updateTabs()
+    })
   },
   deactivated() /* istanbul ignore next */ {
     // If inside a keep-alive
