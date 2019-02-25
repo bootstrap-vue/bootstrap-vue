@@ -1,7 +1,6 @@
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import { closest } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
