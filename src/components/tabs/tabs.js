@@ -4,11 +4,6 @@ import observeDom from '../../utils/observe-dom'
 import { closest } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 
-// Modal $root shown event
-const MODAL_SHOWN_EVENT = 'bv::modal::shown'
-// Modal class selector
-const MODAL_CLASS = '.modal'
-
 // Private Helper component
 // @vue/component
 const BTabButtonHelper = {
@@ -260,7 +255,6 @@ export default {
   mounted() {
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
-    this.setModalListener(true)
     // In case tabs have changed before mount
     this.$nextTick(() => {
       this.updateTabs()
@@ -268,7 +262,6 @@ export default {
   },
   activated() /* istanbul ignore next */ {
     // If inside a keep-alive
-    this.setModalListener(true)
     this.setObserver(true)
     this.$nextTick(() => {
       this.updateTabs()
@@ -277,11 +270,9 @@ export default {
   deactivated() /* istanbul ignore next */ {
     // If inside a keep-alive
     this.setObserver(false)
-    this.setModalListener(false)
   },
   beforeDestroy() /* istanbul ignore next */ {
     this.setObserver(false)
-    this.setModalListener(false)
   },
   methods: {
     probeVnodes(vnodeArray) {
@@ -437,22 +428,6 @@ export default {
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
         this.emitTabClick(tab, focus)
-      }
-    },
-    modalListener() {
-      this.$nextTick(() => {
-        this.updateTabs()
-      })
-    },
-    setModalListener(on) {
-      if (on) {
-        this.setModalListener(false)
-        if (closest(MODAL_CLASS, this.$el)) {
-          // We can listen for modal shown events on $root
-          this.$root.$on(MODAL_SHOWN_EVENT, this.modalListener)
-        }
-      } else {
-        this.$root.$off(MODAL_SHOWN_EVENT, this.modalListener)
       }
     },
     setObserver(on) {
