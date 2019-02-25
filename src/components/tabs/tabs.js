@@ -277,12 +277,16 @@ export default {
     this.setModalListener(false)
   },
   methods: {
+    probeVnodes(vnodeArray) {
+      const tabs = (vnodeArray || [])
+        .map(vnode => vnode.componentInstance)
+        .filter(tab => tab && tab._isTab)
+      return tabs
+    },
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
-      const tabs = (this.$slots.default || [])
-        .map(vnode => vnode.componentInstance)
-        .filter(tab => tab && tab._isTab)
+      const tabs = this.probeVnodes(this.$slots.default)
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
@@ -464,7 +468,8 @@ export default {
     }
   },
   render(h) {
-    const tabs = this.tabs
+    // const tabs = this.tabs
+    const tabs = this.probeVnodes(this.$slots.default)
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
     // Tab button to allow focusing when no active tab found (keynav only)
