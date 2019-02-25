@@ -262,7 +262,7 @@ export default {
     // In case tabs have changed before mount
     this.$nextTick(() => {
       this.updateTabs()
-      (this.tabs || []).forEach(tab => {
+      this.tabs.forEach(tab => {
         // Ensure b-tab's are rendered with correct state
         tab.$forceUpdate()
       })
