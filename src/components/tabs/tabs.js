@@ -217,6 +217,9 @@ export default {
     }
   },
   watch: {
+    '$slots.default': function(newVal, oldVal) {
+      this.updateTabs()
+    },
     currentTab(val, old) {
       let index = -1
       // Ensure only one tab is active at most
