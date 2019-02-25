@@ -259,16 +259,16 @@ export const offset = el => /* istanbul ignore next: getBoundingClientRect(), ge
 // Return an element's offset with respect to to it's offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
 export const position = el => /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */ {
-  let offset = { top: 0, left: 0 }
+  let _offset = { top: 0, left: 0 }
   if (!isElement(el)) {
-    return offset
+    return _offset
   }
   let parentOffset = { top: 0, left: 0 }
   const elStyles = getCS(el)
   if (elStyles.position === 'fixed') {
-    offset = getBCR(el) || offset
+    _offset = getBCR(el) || offset
   } else {
-    offset = offset(el)
+    _offset = offset(el)
     const doc = el.ownerDocument
     let offsetParent = el.offsetParent || doc.documentElement
     while (
@@ -286,7 +286,7 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
     }
   }
   return {
-    top: offset.top - parentOffset.top - parseFloat(elStyles.marginTop),
-    left: offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
+    top: _offset.top - parentOffset.top - parseFloat(elStyles.marginTop),
+    left: _offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
   }
 }
