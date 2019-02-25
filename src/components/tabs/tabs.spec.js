@@ -431,9 +431,7 @@ describe('tabs', async () => {
         }
       },
       render(h) {
-        return h(Tabs, { props: { value: 2 } }, [
-          h(Tab, { props: { title: 'one' } }, this.title)
-        ])
+        return h(Tabs, { props: { value: 2 } }, [h(Tab, { props: {} }, this.title)])
       }
     })
     const wrapper = mount(App)
