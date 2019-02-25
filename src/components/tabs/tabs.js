@@ -252,14 +252,14 @@ export default {
   },
   created() {
     // For SSR and to make sure only a single tab is shown on mount
-    this.$nextTick(this.updateTabs)
+    this.$nextTick(() => { this.updateTabs })
   },
   mounted() {
-    // In case tabs have changed before mount
-    this.$nextTick(this.updateTabs)
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
     this.setModalListener(true)
+    // In case tabs have changed before mount
+    this.updateTabs()
   },
   activated() /* istanbul ignore next */ {
     // If inside a keep-alive
@@ -435,9 +435,6 @@ export default {
     modalListener() {
       this.$nextTick(() => {
         this.updateTabs()
-        this.$nextTick(() => {
-          this.updateTabs()
-        })
       })
     },
     setModalListener(on) {
@@ -457,7 +454,10 @@ export default {
         this.setObserver(false)
         // Watch for changes to b-tab sub components
         this._observer = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
-          subtree: false
+          childList: true,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['style', 'class']
         })
       } else {
         if (this._observer && this._observer.disconnect) {
