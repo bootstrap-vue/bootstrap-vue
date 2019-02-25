@@ -290,6 +290,12 @@ export default {
       // Probe tabs
       const tabs = this.probeVnodes(this.$slots.default)
 
+      if (tabs.length === 0) {
+        this.tabs = []
+        this.currentTab = -1
+        return
+      }
+
       // Use internal tab state as starting index
       let tabIndex = this.currentTab
 
@@ -304,7 +310,7 @@ export default {
       }
 
       // If selected tab is disabled, reset tabIndex to -1
-      if (tabIndex >= 0 && tabs[tabIndex] && tabs[tabIndex].disabled) {
+      if (tabIndex > -1 && tabs[tabIndex] && tabs[tabIndex].disabled) {
         tabIndex = -1
       }
 
