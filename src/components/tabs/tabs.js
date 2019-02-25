@@ -251,14 +251,18 @@ export default {
     }
   },
   created() {
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     // For SSR and to make sure only a single tab is shown on mount
     this.$nextTick(() => {
       this.updateTabs()
     })
   },
-  mounted() {
+  beforeMount() {
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+  },
+  mounted() {
     // Observe Child changes so we can update list of tabs
     this.setObserver(true)
     this.setModalListener(true)
