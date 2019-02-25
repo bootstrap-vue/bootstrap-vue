@@ -422,4 +422,38 @@ describe('tabs', async () => {
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
   })
+
+  it('tab title slots are reactive', async () => {
+    const App = Vue.extend({
+      data() {
+        return {
+          title: 'tab 0'
+        }
+      },
+      render(h) {
+        return h(Tabs, { props: { value: 2 } }, [
+          h(Tab, { props: { title: 'one' } }, this.title),
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(1)
+
+    // Expect tab button content to be `tab 0`
+    expect(wrapper.find('.nav-link').text()).toBe('tab 0')
+
+    // Change title slot content
+    wrapper.setData({
+      title: 'foobar'
+    })
+    await wrapper.vm.$nextTick()
+
+    // Expect tab button content to be `foobar`
+    expect(wrapper.find('.nav-link').text()).toBe('foobar')
+  })
 })
