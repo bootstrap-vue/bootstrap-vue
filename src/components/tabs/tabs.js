@@ -1,6 +1,8 @@
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
+import { selectAll } from '../../utils/dom'
+import { arrayFrom } from '../../utils/array'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
@@ -275,16 +277,23 @@ export default {
     this.setObserver(false)
   },
   methods: {
-    probeVnodes(vnodeArray) {
-      const tabs = (vnodeArray || [])
-        .map(vnode => vnode.componentInstance)
-        .filter(tab => tab && tab._isTab)
-      return tabs
+    getTabs() {
+      if (this._isMounted) {
+        // We use DOM for a more accurate list
+        return arrayFrom(this.$refs.tabsContainer.children)
+          .map(el => el.__vue__)
+          .filter(tab => tab && tab._isTab)
+      } else {
+        // We use the vnodes from default slot when not mounted
+        return (this.$slots.default || [])
+          .map(vnode => vnode.componentInstance)
+          .filter(tab => tab && tab._isTab)
+      }
     },
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
-      const tabs = this.probeVnodes(this.$slots.default)
+      const tabs = this.getTabs()
       // Use internal tab state as starting index
       let tabIndex = this.currentTab
 
