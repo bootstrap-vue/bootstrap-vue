@@ -131,6 +131,10 @@ export default {
   mounted() {
     // Initially show on mount if active and not disabled
     // this.show = this.localActive
+    // Tell our parent to check for us
+    if (this.bTabs && this.bTabs.updateTabs) {
+      this.bTabs.updateTabs()
+    }
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
