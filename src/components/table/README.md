@@ -1072,10 +1072,10 @@ This slot is inserted before the header cells row, and is not encapsulated by `<
     >
       <template slot="thead-top" slot-scope="data">
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td>Type 1</td>
-          <td colspan="3">Type 2</td>
-          <td>Type 3</td>
+          <th colspan="2">&nbsp;</th>
+          <th>Type 1</th>
+          <th colspan="3">Type 2</th>
+          <th>Type 3</th>
         </tr>
       </template>
     </b-table>
