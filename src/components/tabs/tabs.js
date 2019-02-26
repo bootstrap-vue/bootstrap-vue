@@ -1,8 +1,7 @@
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import { selectAll } from '../../utils/dom'
-import { arrayFrom } from '../../utils/array'
+import { from as arrayFrom } from '../../utils/array'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
