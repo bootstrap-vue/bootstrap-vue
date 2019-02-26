@@ -4318,10 +4318,15 @@ eslint@^5.14.1:
     table "^5.2.3"
     text-table "^0.2.0"
 
-esm@^3.2.3, esm@^3.2.6:
+esm@^3.2.3:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.6.tgz#879e4888e631a6893f2afc24adb23d4dbe8fad30"
   integrity sha512-3wWjSurKSczMzYyHiBih3VVEQYCoZa6nfsqqcM2Tx6KBAQAeor0SZUfAol+zeVUtESLygayOi2ZcMfYZy7MCsg==
+
+esm@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.7.tgz#5fcb7649cce55323bce9ac02496e89339df86f9f"
+  integrity sha512-zsyD5gO8CY9dpK3IrdC4WHtvtHGXEFOpYA4zB+6p+Kygf3vv/6kF3YMEQLOArwKPPNvKt8gjI8UYhQW8bXM/YQ==
 
 espree@^4.1.0:
   version "4.1.0"
