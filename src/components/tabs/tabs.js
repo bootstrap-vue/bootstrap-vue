@@ -212,18 +212,11 @@ export default {
   },
   watch: {
     currentTab(val, old) {
-      let index = -1
-      // Ensure only one tab is active at most
-      this.tabs.forEach((tab, idx) => {
-        if (val === idx && !tab.disabled) {
-          tab.localActive = true
-          index = idx
-        } else {
-          tab.localActive = false
-        }
-      })
       // Update the v-model
-      this.$emit('input', index)
+      this.$emit('input', val)
+      this.$nextTick(() => {
+        this.updateTabs()
+      })
     },
     value(val, old) {
       if (val !== old) {
