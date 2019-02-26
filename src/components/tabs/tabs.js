@@ -277,7 +277,7 @@ export default {
   },
   methods: {
     getTabs() {
-      if (this._isMounted) {
+      if (this._isMounted && this.$refs.tabsContainer && this.$refs.tabsContainer.children) {
         // We use DOM for a more accurate list
         return arrayFrom(this.$refs.tabsContainer.children)
           .map(el => el.__vue__)
