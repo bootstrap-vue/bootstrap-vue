@@ -124,9 +124,13 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
+  },
+  mounted() {
+    // Initially show on mount if active and not disabled
+    // this.show = this.localActive
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
@@ -185,7 +189,12 @@ export default {
         ref: 'panel',
         staticClass: 'tab-pane',
         class: this.tabClasses,
-        directives: [{ name: 'show', value: this.localActive }],
+        directives: [{
+          name: 'show',
+          rawName:"v-show",
+          value: this.localActive,
+          expression:"localActive"
+        }],
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
@@ -201,7 +210,15 @@ export default {
     return h(
       'transition',
       {
-        props: { mode: 'out-in' },
+        props: { 
+          mode: 'out-in',
+          'enter-class': '',
+          'enter-active-class': '',
+          'enter-to-class': '',
+          'leave-class': '',
+          'leave-active-class': '',
+          'leave-to-class': ''
+        },
         on: {
           beforeEnter: this.beforeEnter,
           beforeLeave: this.beforeLeave
