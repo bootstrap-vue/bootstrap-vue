@@ -254,11 +254,6 @@ export default {
       this.updateTabs()
     })
   },
-  updated() {
-    this.$nextTick(() => {
-      this.updateTabs()
-    })
-  },
   activated() /* istanbul ignore next */ {
     // If inside a keep-alive
     this.setObserver(true)
