@@ -246,9 +246,15 @@ export default {
     })
   },
   mounted() {
-    // Observe Child changes so we can update list of tabs
     this.setObserver(true)
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     // In case tabs have changed before mount
+    this.$nextTick(() => {
+      this.updateTabs()
+    })
+  },
+  updated() {
     this.$nextTick(() => {
       this.updateTabs()
     })
@@ -318,9 +324,12 @@ export default {
       }
 
       // Set the current tab state to active
-      tabs.forEach((tab, idx) => {
-        tab.localActive = idx === tabIndex
+      tabs.forEach((tab) => {
+        tab.localActive = false
       })
+      if (tabs[tabIndex]) {
+        tabs[tabIndex].localActive = true
+      }
 
       // Update the array of tab children
       this.tabs = tabs
@@ -350,6 +359,8 @@ export default {
           result = true
           this.currentTab = index
         }
+      } else {
+        this.updateTabs()
       }
       if (!result) {
         // Couldn't set tab, so ensure v-model is set to this.currentTab
@@ -365,6 +376,7 @@ export default {
         // If no available tabs, then don't deactivate current tab
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
+        this.updateTabs()
         // No tab specified
         return false
       }
