@@ -354,8 +354,6 @@ export default {
           result = true
           this.currentTab = index
         }
-      } else {
-        this.updateTabs()
       }
       if (!result) {
         // Couldn't set tab, so ensure v-model is set to this.currentTab
@@ -371,7 +369,6 @@ export default {
         // If no available tabs, then don't deactivate current tab
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
-        this.updateTabs()
         // No tab specified
         return false
       }
