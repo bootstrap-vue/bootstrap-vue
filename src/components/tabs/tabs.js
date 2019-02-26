@@ -1,7 +1,6 @@
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import { from as arrayFrom } from '../../utils/array'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
@@ -44,26 +43,26 @@ const BTabButtonHelper = {
       const shift = evt.shiftKey
       if (type === 'click') {
         stop()
-        this.$emit('click', evt)
+        this.bTabs.clickTab(this.tab, evt)
       } else if (type === 'keydown' && !this.noKeyNav && key === KeyCodes.SPACE) {
         // In keynav mode, SPACE press will also trigger a click/select
         stop()
-        this.$emit('click', evt)
+        this.bTabs.clickTab(this.tab, evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
           stop()
           if (shift || key === KeyCodes.HOME) {
-            this.$emit('first', evt)
+            this.bTabs.firstTab(evt)
           } else {
-            this.$emit('prev', evt)
+            this.bTabs.previousTab(evt)
           }
         } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
           stop()
           if (shift || key === KeyCodes.END) {
-            this.$emit('last', evt)
+            this.bTabs.lastTab(evt)
           } else {
-            this.$emit('next', evt)
+            this.bTabs.nextTab(evt)
           }
         }
       }
@@ -277,15 +276,14 @@ export default {
   },
   methods: {
     getTabs() {
-      this.tabs = (this.$slots.default || [])
+      return (this.$slots.default || [])
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
     },
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
-      this.getTabs()
-      const tabs = this.tabs
+      const tabs = this.getTabs()
       // Use internal tab state as starting index
       let tabIndex = this.currentTab
 
@@ -462,8 +460,9 @@ export default {
     const tabs = this.tabs
 
     // Currently active tab
-    let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
-    // Tab button to allow focusing when no active tab found (keynav only)
+    // let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+    let activeTab = tabs[this.currentTab]
+    // Tab button to allow focusing when no active tab found (keynav only, safety feature)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
     // For each <b-tab> found create the tab buttons
@@ -492,15 +491,6 @@ export default {
           setSize: tabs.length,
           posInSet: index + 1,
           noKeyNav: this.noKeyNav
-        },
-        on: {
-          click: evt => {
-            this.clickTab(tab, evt)
-          },
-          first: this.firstTab,
-          prev: this.previousTab,
-          next: this.nextTab,
-          last: this.lastTab
         }
       })
     })
