@@ -43,26 +43,26 @@ const BTabButtonHelper = {
       const shift = evt.shiftKey
       if (type === 'click') {
         stop()
-        this.bTabs.clickTab(this.tab, evt)
+        this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav && key === KeyCodes.SPACE) {
         // In keynav mode, SPACE press will also trigger a click/select
         stop()
-        this.bTabs.clickTab(this.tab, evt)
+        this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
           stop()
           if (shift || key === KeyCodes.HOME) {
-            this.bTabs.firstTab(evt)
+            this.$emit('first', evt)
           } else {
-            this.bTabs.previousTab(evt)
+            this.$emit('prev', evt)
           }
         } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
           stop()
           if (shift || key === KeyCodes.END) {
-            this.bTabs.lastTab(evt)
+            this.$emit('last', evt)
           } else {
-            this.bTabs.nextTab(evt)
+            this.$emit('next', evt)
           }
         }
       }
@@ -491,6 +491,15 @@ export default {
           setSize: tabs.length,
           posInSet: index + 1,
           noKeyNav: this.noKeyNav
+        },
+        on: {
+          click: evt => {
+            this.clickTab(tab, evt)
+          },
+          first: this.firstTab,
+          prev: this.previousTab,
+          next: this.nextTab,
+          last: this.lastTab
         }
       })
     })
