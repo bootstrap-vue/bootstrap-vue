@@ -214,6 +214,7 @@ export default {
       {
         props: { 
           mode: 'out-in',
+          // Disable use of built-in transition classes
           'enter-class': '',
           'enter-active-class': '',
           'enter-to-class': '',
