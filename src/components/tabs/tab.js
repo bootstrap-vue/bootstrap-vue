@@ -189,12 +189,14 @@ export default {
         ref: 'panel',
         staticClass: 'tab-pane',
         class: this.tabClasses,
-        directives: [{
-          name: 'show',
-          rawName:"v-show",
-          value: this.localActive,
-          expression:"localActive"
-        }],
+        directives: [
+          {
+            name: 'show',
+            rawName:"v-show",
+            value: this.localActive,
+            expression:"localActive"
+          }
+        ],
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
