@@ -69,11 +69,12 @@
       </b-table>
     </article>
 
-    <article v-if="rootEventEmitters && rootEventEmitters.length > 0">
-      <h4 :id="`comp-ref-${componentName}-rootEventEmitters`">$root Event Emitters</h4>
+    <article v-if="rootEventListeners && rootEventListeners.length > 0">
+      <h4 :id="`comp-ref-${componentName}-rootEventListeners`">$root Event Listeners</h4>
+      <p>You can control <code>{{ tag }}</code> by emitting the following events on <samp>$root</samp>:</p>
       <b-table
-        :items="rootEventEmitters"
-        :fields="rootEventEmittersFields"
+        :items="rootEventListeners"
+        :fields="rootEventListenersFields"
         small
         head-variant="default"
         striped
@@ -117,7 +118,7 @@ export default {
       type: Array,
       default: () => []
     },
-    rootEventEmitters: {
+    rootEventListeners: {
       type: Array,
       default: () => []
     },
@@ -159,7 +160,7 @@ export default {
         description: { label: 'Description' }
       }
     },
-    rootEventEmittersFields() {
+    rootEventListenersFields() {
       return {
         event: { label: 'Event' },
         args: { label: 'Arguments' },

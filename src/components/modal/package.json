@@ -137,7 +137,7 @@
             ]
           }
         ],
-        "rootEventEmitters": [
+        "rootEventListeners": [
           {
             "event": "bv::show::modal",
             "description": "Show modal with specified ID when this event is emitted on $root",
