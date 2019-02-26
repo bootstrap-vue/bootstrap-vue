@@ -11,7 +11,7 @@ import looseIndexOf from '../../utils/loose-index-of'
 export default {
   name: 'BFormCheckbox',
   mixins: [
-    formRadioCheckMixin, // includes shared render function
+    formRadioCheckMixin, // Includes shared render function
     idMixin,
     formMixin,
     formSizeMixin,
@@ -93,10 +93,10 @@ export default {
       if (isArr) {
         const idx = looseIndexOf(localChecked, value)
         if (checked && idx < 0) {
-          // add value to array
+          // Add value to array
           localChecked = localChecked.concat(value)
         } else if (!checked && idx > -1) {
-          // remove value from array
+          // Remove value from array
           localChecked = localChecked.slice(0, idx).concat(localChecked.slice(idx + 1))
         }
       } else {

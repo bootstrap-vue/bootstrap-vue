@@ -6,7 +6,7 @@ export default {
   },
   props: {
     value: {
-      // value when checked
+      // Value when checked
       // type: Object,
       // default: undefined
     },
@@ -24,7 +24,7 @@ export default {
       default: false
     },
     button: {
-      // only aplicable in standalone mode (non group)
+      // Only applicable in standalone mode (non group)
       type: Boolean,
       default: false
     },
@@ -38,7 +38,7 @@ export default {
     return {
       localChecked: this.bvGroup.checked,
       hasFocus: false,
-      // Surrogate value when not a childe of group
+      // Surrogate value when not a child of group
       buttons: false
     }
   },
@@ -82,7 +82,8 @@ export default {
     },
     is_Required() {
       // Required only works when a name is provided for the input(s)
-      return Boolean(this.get_Name && this.bvGroup.required)
+      // Child can be required while parent isn't, but is always disabled if group is
+      return Boolean(this.get_Name && (this.bvGroup.required || this.required))
     },
     get_Name() {
       // Group name preferred over local name
@@ -146,7 +147,7 @@ export default {
     // Generate the input element
     const on = { change: this.handleChange }
     if (this.is_BtnMode) {
-      // handlers for focus styling when in button mode
+      // Handlers for focus styling when in button mode
       on.focus = on.blur = this.handleFocus
     }
     const input = h('input', {
@@ -217,7 +218,7 @@ export default {
             'custom-checkbox': this.is_Custom && this.is_Check && !this.is_Switch,
             'custom-switch': this.is_Switch,
             'custom-radio': this.is_Custom && this.is_Radio,
-            // Temprary until BS V4 supports sizing
+            // Temporary until BS V4 supports sizing
             [`form-control-${this.get_Size}`]: Boolean(this.get_Size && !this.is_BtnMode)
           }
         },

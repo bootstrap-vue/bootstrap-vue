@@ -10,7 +10,7 @@ export default {
   name: 'BFormRadio',
   mixins: [
     idMixin,
-    formRadioCheckMixin, // includes shared render function
+    formRadioCheckMixin, // Includes shared render function
     formMixin,
     formSizeMixin,
     formStateMixin

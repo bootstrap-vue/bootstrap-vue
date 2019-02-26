@@ -39,7 +39,7 @@ export default {
       return !this.stacked
     },
     groupName() {
-      // checks/radios tied to the same model must have the sanme name,
+      // Checks/Radios tied to the same model must have the same name,
       // especially for ARIA accessibility.
       return this.name || this.safeId()
     },
@@ -53,7 +53,7 @@ export default {
         ]
       }
       return [
-        // is this needed since children will pick up on size?
+        // Is this needed since children will pick up on size?
         this.sizeFormClass,
         this.validated ? `was-validated` : ''
       ]
@@ -85,12 +85,12 @@ export default {
           key: uid,
           props: {
             id: this.safeId(uid),
-            value: option.value,
-            disabled: option.disabled || null
-            // Do we need to do these, since radio's will know they are inside here?
+            value: option.value
+            // We don't need to include these, since the input's will know they are inside here
+            // disabled: option.disabled || null,
             // name: this.groupName,
             // form: this.form || null,
-            // required: Boolean(this.name && this.required),
+            // required: Boolean(this.name && this.required)
           }
         },
         [h('span', { domProps: htmlOrText(option.html, option.text) })]
