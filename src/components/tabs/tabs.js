@@ -212,8 +212,6 @@ export default {
   },
   watch: {
     currentTab(val, old) {
-      // Make sure we have the most recent interations of b-tab instances
-      this.updateTabs()
       let index = -1
       // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
