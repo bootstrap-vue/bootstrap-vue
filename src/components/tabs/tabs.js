@@ -324,7 +324,7 @@ export default {
       }
 
       // Set the current tab state to active
-      tabs.forEach((tab) => {
+      tabs.forEach(tab => {
         tab.localActive = false
       })
       if (tabs[tabIndex]) {
