@@ -277,24 +277,15 @@ export default {
   },
   methods: {
     getTabs() {
-      if (this._isMounted && this.$refs && this.$refs.tabsContainer) {
-        // We use DOM for a more accurate list
-        return arrayFrom(this.$refs.tabsContainer.children)
-          .map(el => el.__vue__)
-          .filter(Boolean)
-          .map(vm => vm.$parent) // handle transition as root element
-          .filter(tab => tab._isTab)
-      } else {
-        // We use the vnodes from default slot when not mounted
-        return (this.$slots.default || [])
-          .map(vnode => vnode.componentInstance)
-          .filter(tab => tab && tab._isTab)
-      }
+      this.tabs = (this.$slots.default || [])
+        .map(vnode => vnode.componentInstance)
+        .filter(tab => tab && tab._isTab)
     },
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
-      const tabs = this.getTabs()
+      this.getTabs()
+      const tabs = this.tabs
       // Use internal tab state as starting index
       let tabIndex = this.currentTab
 
