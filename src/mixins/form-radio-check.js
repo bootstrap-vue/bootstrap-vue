@@ -84,7 +84,7 @@ export default {
       // Required only works when a name is provided for the input(s)
       // Child can only be required when parent is
       return Boolean(
-        this.get_Name && (this.bvGroup.is_Group() ? this.bvGroup.required : this.required)
+        this.get_Name && (this.bvGroup.is_Group ? this.bvGroup.required : this.required)
       )
     },
     get_Name() {
