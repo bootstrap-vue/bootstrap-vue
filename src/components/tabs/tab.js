@@ -192,9 +192,9 @@ export default {
         directives: [
           {
             name: 'show',
-            rawName: "v-show",
+            rawName: 'v-show',
             value: this.localActive,
-            expression: "localActive"
+            expression: 'localActive'
           }
         ],
         attrs: {
