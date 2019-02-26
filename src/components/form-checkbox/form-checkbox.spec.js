@@ -83,8 +83,7 @@ describe('form-checkbox', async () => {
   it('has default slot content in label', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a'
+        checked: false
       },
       slots: {
         default: 'foobar'
@@ -97,8 +96,7 @@ describe('form-checkbox', async () => {
   it('default has no disabled attribute on input', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a'
+        checked: false
       },
       slots: {
         default: 'foobar'
@@ -111,8 +109,7 @@ describe('form-checkbox', async () => {
   it('has disabled attribute on input when prop disabled set', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a',
+        checked: false,
         disabled: true
       },
       slots: {
@@ -126,8 +123,7 @@ describe('form-checkbox', async () => {
   it('default has no required attribute on input', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a'
+        checked: false
       },
       slots: {
         default: 'foobar'
@@ -140,8 +136,7 @@ describe('form-checkbox', async () => {
   it('does not have required attribute on input when prop required set and name prop not provided', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a',
+        checked: false,
         required: true
       },
       slots: {
@@ -155,8 +150,7 @@ describe('form-checkbox', async () => {
   it('has required attribute on input when prop required and name set', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a',
+        checked: false,
         name: 'test',
         required: true
       },
@@ -171,8 +165,7 @@ describe('form-checkbox', async () => {
   it('default has no name attribute on input', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a'
+        checked: false
       },
       slots: {
         default: 'foobar'
@@ -185,8 +178,7 @@ describe('form-checkbox', async () => {
   it('has name attribute on input when name prop set', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a',
+        checked: false,
         name: 'test'
       },
       slots: {
@@ -201,8 +193,7 @@ describe('form-checkbox', async () => {
   it('default has no form attribute on input', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a'
+        checked: false
       },
       slots: {
         default: 'foobar'
@@ -215,8 +206,7 @@ describe('form-checkbox', async () => {
   it('has form attribute on input when form prop set', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        checked: '',
-        value: 'a',
+        checked: false,
         form: 'test'
       },
       slots: {
