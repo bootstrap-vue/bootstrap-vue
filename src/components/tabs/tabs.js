@@ -212,6 +212,8 @@ export default {
   },
   watch: {
     currentTab(val, old) {
+      // Make sure we have the most recent interations of b-tab instances
+      this.updateTabs()
       let index = -1
       // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
@@ -221,14 +223,9 @@ export default {
         } else {
           tab.localActive = false
         }
-        tab.$forceUpdate()
       })
       // Update the v-model
       this.$emit('input', index)
-      this.$nextTick(() => {
-        // Ensure active tab is in sync with buttons
-        this.updateTabs()
-      })
     },
     value(val, old) {
       if (val !== old) {
