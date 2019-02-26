@@ -281,7 +281,9 @@ export default {
         // We use DOM for a more accurate list
         return arrayFrom(this.$refs.tabsContainer.children)
           .map(el => el.__vue__)
-          .filter(tab => tab && tab._isTab)
+          .filter(Boolean)
+          .map(vm => vm._isTab || vm.$parent._isTab) // handle transition as root element
+          .filter(Boolean)
       } else {
         // We use the vnodes from default slot when not mounted
         return (this.$slots.default || [])
