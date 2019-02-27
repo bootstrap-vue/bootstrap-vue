@@ -222,7 +222,7 @@ describe('form-radio-group', async () => {
     })
     expect(wrapper.classes()).toBeDefined()
     const radios = wrapper.findAll('input')
-    expect(checks.length).toBe(3)
+    expect(radios.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual('')
     expect(radios.is('input[type=checkbox]')).toBe(true)
     expect(radios.at(0).attributes('disabled')).not.toBeDefined()
