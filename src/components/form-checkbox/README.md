@@ -452,7 +452,7 @@ you want the checkbox(es) to be `required` in your form, you **must** provide a 
 components tied to the same `v-model` **must** have the same `name`.
 
 The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
-only users) to know which checkboxes being to the same form variable (the name also
+only users) to know which checkboxes belong to the same form variable (the name also
 automatically enables native browser keyboard navigation), hence `required` will only work if
 `name` is set.  `<b-form-checkbox-group>` will automatically generate a unique input name if one
 is not provied on the group.
