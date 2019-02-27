@@ -212,6 +212,24 @@ describe('form-radio-group', async () => {
     expect(radios.is('input[type=radio]')).toBe(true)
   })
 
+  it('has radios via options array which respect disabled', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: [{ text: 'one' }, { text: 'two' }, { text: 'three', disabled: true }],
+        checked: ''
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const radios = wrapper.findAll('input')
+    expect(radios.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual('')
+    expect(radios.is('input[type=radio]')).toBe(true)
+    expect(radios.at(0).attributes('disabled')).not.toBeDefined()
+    expect(radios.at(1).attributes('disabled')).not.toBeDefined()
+    expect(radios.at(2).attributes('disabled')).toBeDefined()
+  })
+
   it('emits change event when radio clicked', async () => {
     const wrapper = mount(Group, {
       attachToDocument: true,
