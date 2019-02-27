@@ -46,10 +46,10 @@ export default {
         return options.map(option => {
           if (isObject(option)) {
             return {
-              value: option[valueField],
+              value: option[valueField] || String(option[textField]),
               text: stripTags(String(option[textField])),
               html: option[htmlField],
-              disabled: option[disabledField] || false
+              disabled: Boolean(option[disabledField])
             }
           }
           return {
@@ -70,7 +70,7 @@ export default {
               value: typeof value === 'undefined' ? key : value,
               text: typeof text === 'undefined' ? key : stripTags(String(text)),
               html: option[htmlField],
-              disabled: option[disabledField] || false
+              disabled: Boolean(option[disabledField])
             }
           }
           return {
