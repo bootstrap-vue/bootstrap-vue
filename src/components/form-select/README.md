@@ -113,12 +113,18 @@ and optgroups _above_ the options specified by the `options` prop, use the named
 - **`disabled`** Disables item for selection
 - **`text`** Display text, or **`html`** Display html
 
-If both `html` and `text` are provided, `html` will take precidence. Be cautious of placing user
-supplied content in the `html` field, as it may make you vulnerable to
-[<abbr title="Cross Site Scripting">XSS</abbr>](https://en.wikipedia.org/wiki/Cross-site_scripting)
-attacks.
-
 `value` can be a string, number, or simple object.  Avoid using complex types in values.
+
+If both `html` and `text` are provided, `html` will take precidence. Only basic/native HTML is
+supported in the `html` field (components will not work).
+
+<p class="alert alert-danger">
+  **Be cautious** of placing user supplied content in the `html` field, as it may make you
+  vulnerable to <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
+  user supplied string.
+</p>
 
 If you want to customize fields (for example using `name` field for display text) you can easily
 change them using `text-field`, `html-field`, `value-field`, and `disabled-field` props.
@@ -178,7 +184,7 @@ Internally, BootstrapVue will convert the above array to the following array (th
 
 ### Object
 
-Keys are mapped to value and values are mapped to option object.
+Keys are mapped to `value` and values are mapped to option `text`.
 
 ```js
 const options = {
