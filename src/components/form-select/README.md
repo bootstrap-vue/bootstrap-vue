@@ -119,8 +119,9 @@ If both `html` and `text` are provided, `html` will take precidence. Only basic/
 supported in the `html` field (components will not work).
 
 <p class="alert alert-danger">
-  **Be cautious** of placing user supplied content in the `html` field, as it may make you
-  vulnerable to <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <strong>Be cautious</strong> of placing user supplied content in the <code>html</code> field,
+  as it may make you vulnerable to
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
   <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
   <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
   user supplied string.
