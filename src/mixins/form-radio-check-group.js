@@ -87,7 +87,7 @@ export default {
             id: this.safeId(uid),
             value: option.value,
             // Individual radios or checks can be disabled in a group
-            disabled: option.disabled || null,
+            disabled: option.disabled || false
             // We don't need to include these, since the input's will know they are inside here
             // name: this.groupName,
             // form: this.form || null,
