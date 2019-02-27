@@ -85,9 +85,10 @@ export default {
           key: uid,
           props: {
             id: this.safeId(uid),
-            value: option.value
+            value: option.value,
+            // Individual radios or checks can be disabled in a group
+            disabled: option.disabled || null,
             // We don't need to include these, since the input's will know they are inside here
-            // disabled: option.disabled || null,
             // name: this.groupName,
             // form: this.form || null,
             // required: Boolean(this.name && this.required)
