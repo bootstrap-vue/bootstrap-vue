@@ -11,6 +11,7 @@
   <div>
     <b-form-checkbox
       id="checkbox1"
+      name="checkbox1"
       v-model="status"
       value="accepted"
       unchecked-value="not_accepted"
@@ -89,7 +90,7 @@ named slot `first`.
 ## Checkbox group options array
 
 Please see options in [`<b-form-select>`](/docs/components/form-select) docs for details on passing
-options (value array) to `<b-form-checkbox-group>`.
+`options` (value array) to `<b-form-checkbox-group>`.
 
 ## Inline and Stacked checkboxes
 
@@ -104,11 +105,11 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 <template>
   <div>
     <b-form-group label="Form-checkbox-group inline checkboxes (default)">
-      <b-form-checkbox-group v-model="selected" name="flavour1" :options="options" />
+      <b-form-checkbox-group v-model="selected" name="flavour1a" :options="options" />
     </b-form-group>
 
     <b-form-group label="Form-checkbox-group stacked checkboxes">
-      <b-form-checkbox-group stacked v-model="selected" name="flavour2" :options="options" />
+      <b-form-checkbox-group stacked v-model="selected" name="flavour2a" :options="options" />
     </b-form-group>
 
     <b-form-group label="Individual stacked checkboxes (default)">
@@ -117,7 +118,7 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
         v-model="selected"
         :key="option.value"
         :value="option.value"
-        name="flavour3"
+        name="flavour3a"
       >
         {{ option.text }}
       </b-form-checkbox>
@@ -129,7 +130,7 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
         v-model="selected"
         :key="option.value"
         :value="option.value"
-        name="flavour4"
+        name="flavour4a"
         inline
       >
         {{ option.text }}
@@ -180,9 +181,10 @@ props and the `v-model` are inherited from the `<b-form-checkbox-group>`.
 
 ### Multiple checkboxes and accessibility
 
-When binding multiple checkboxes together, you should set the `name` prop to the same value for all
+When binding multiple checkboxes together, you must set the `name` prop to the same value for all
 `<b-form-checkbox>`s in the group individually or via the `name` prop of `<b-form-checkbox-group>`.
-This will inform users of assistive technologies that the checkboxes are related.
+This will inform users of assistive technologies that the checkboxes are related and enables
+native browser keyboard navigation.
 
 Whenever using multiple checkboxes, it is recommended that the checkboxes be placed in a
 [`<b-form-group>`](/docs/components/form-group) component to associate a label with the entire group
@@ -441,6 +443,19 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 
 <!-- form-checkbox-validation.vue -->
 ```
+
+### Required constraint
+
+When using individual `<b-form-checkbox>` components (not in a `<b-form-checkbox-group>`), and
+you want the checkbox(es) to be `required` in your form, you **must** provide a `name` on each
+`<b-form-checkbox>` in order for the required constraint to work. All `<b-form-checkbox>`
+components tied to the same `v-model` **must** have the same `name`.
+
+The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
+only users) to know which checkboxes being to the same form variable (the name also
+automatically enables native browser keyboard navigation), hence `required` will only work if
+`name` is set.  `<b-form-checkbox-group>` will automatically generate a unique input name if one
+is not provied on the group.
 
 ## Indeterminate (tri-state) support
 
