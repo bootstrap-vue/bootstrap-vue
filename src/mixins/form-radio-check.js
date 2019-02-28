@@ -147,12 +147,12 @@ export default {
       }
     },
     // Convenience methods for focusing the input
-    focus() /* istanbul ignore next: no need for testing */ {
+    focus() /* istanbul ignore next */ {
       if (!this.is_Disabled && this.$refs.input && this.$refs.input.focus) {
         this.$refs.input.focus()
       }
     },
-    blur() /* istanbul ignore next: no need for testing*/ {
+    blur() /* istanbul ignore next */ {
       if (!this.is_Disabled && this.$refs.input && this.$refs.input.blur) {
         this.$refs.input.blur()
       }
