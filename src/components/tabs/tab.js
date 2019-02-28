@@ -6,10 +6,12 @@ export default {
   mixins: [idMixin],
   inject: {
     bTabs: {
-      default: () => ({
-        // Don't set a tab index if not rendered inside `<b-tabs>`
-        noKeyNav: true
-      })
+      default() {
+        return {
+          // Don't set a tab index if not rendered inside `<b-tabs>`
+          noKeyNav: true
+        }
+      }
     }
   },
   props: {
