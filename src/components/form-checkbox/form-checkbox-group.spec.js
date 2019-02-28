@@ -205,6 +205,7 @@ describe('form-checkbox-group', async () => {
           {
             props: {
               checked: [],
+              buttons: true,
               buttonVariant: 'primary'
             }
           },
