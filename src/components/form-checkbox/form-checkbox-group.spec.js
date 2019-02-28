@@ -1,5 +1,6 @@
 import Group from './form-checkbox-group'
 import Check from './form-checkbox'
+import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 
 describe('form-checkbox-group', async () => {
