@@ -5,7 +5,7 @@ export default {
   name: 'BProgress',
   components: { BProgressBar },
   provide() {
-    return { progress: this }
+    return { bvProgress: this }
   },
   props: {
     // These props can be inherited via the child b-progress-bar(s)
