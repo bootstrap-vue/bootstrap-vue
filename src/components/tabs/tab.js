@@ -7,7 +7,7 @@ export default {
   inject: {
     bTabs: {
       default: () => ({
-        // Dont set a tab index if not rendered inside b-tabs
+        // Don't set a tab index if not rendered inside `<b-tabs>`
         noKeyNav: true
       })
     }
