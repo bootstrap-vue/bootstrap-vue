@@ -228,6 +228,10 @@
             "description": "Content to display when no items are present in the filtered `items` array"
           },
           {
+            "name": "thead-top",
+            "description": "Slot above the column headers in the `thead` element for user-supplied rows (ex: in the case of extra header labels / group labels). Scoped data: columns - number of TDs to provide, fields - fields object"
+          },
+          {
             "name": "top-row",
             "description": "Fixed top row slot for user supplied TD cells. Scoped data: columns - number of TDs to provide, fields - fields object"
           },
