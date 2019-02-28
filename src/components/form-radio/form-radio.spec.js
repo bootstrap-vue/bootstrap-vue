@@ -809,4 +809,36 @@ describe('form-radio', async () => {
     input.trigger('click')
     expect(wrapper.vm.localChecked).toEqual({ bar: 1, baz: 2 })
   })
+
+  it('focus() and blur() methods work', async () => {
+    const wrapper = mount(Input, {
+      mountToDocument: true,
+      propsData: {
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(document).toBeDefined()
+
+    expect(wrapper.vm.focus).toBeDefined()
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(wrapper.vm.blur).toBeDefined()
+    expect(typeof wrapper.vm.blur).toBe('function')
+
+    expect(input.element).not.toBe(document.activeElement)
+
+    wrapper.vm.focus()
+    wrapper.vm.$nextTick()
+    expect(input.element).toBe(document.activeElement)
+
+    wrapper.vm.blur()
+    wrapper.vm.$nextTick()
+    expect(input.element).not.toBe(document.activeElement)
+  })
 })
