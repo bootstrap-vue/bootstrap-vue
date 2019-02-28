@@ -98,7 +98,9 @@ export default {
     },
     computedShowValue() {
       // Prefer our showValue over parent setting
-      return typeof this.showValue === 'boolean' ? this.showValue : this.bvProgress.showValue || false
+      return typeof this.showValue === 'boolean'
+        ? this.showValue
+        : this.bvProgress.showValue || false
     }
   },
   render(h) {
