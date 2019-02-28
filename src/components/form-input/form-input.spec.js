@@ -596,8 +596,9 @@ describe('form-input', async () => {
     await wrapper.vm.$nextTick()
 
     expect(input.element.value).toBe('123.4500')
-    // Should not emit a new input event
-    expect(wrapper.emitted('input').length).toEqual(1)
+    // Should emit a new input event
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
     // Should not emit a new update event
     expect(wrapper.emitted('update').length).toBe(1)
 
