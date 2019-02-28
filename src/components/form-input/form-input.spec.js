@@ -480,6 +480,25 @@ describe('form-input', async () => {
     expect(wrapper.emitted('blur')).not.toBeDefined()
   })
 
+  it('does not update value when non-lazy formatter returns false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: 'abc',
+        formatter(value) {
+          return false
+        }
+      },
+      attachToDocument: true
+    })
+    const input = wrapper.find('input')
+    input.element.value = 'TEST'
+    input.trigger('input')
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    // value should remain the same
+    expect(input.element.value).toEqual('abc')
+  })
+
   it('focused number input with no-wheel set to true works', async () => {
     const spy = jest.fn()
     const wrapper = mount(Input, {
