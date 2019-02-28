@@ -116,7 +116,9 @@ export default {
   name: 'BTabs',
   mixins: [idMixin],
   provide() {
-    return { bTabs: this }
+    return {
+      bvTabs: this
+    }
   },
   props: {
     tag: {
