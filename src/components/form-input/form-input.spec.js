@@ -564,4 +564,48 @@ describe('form-input', async () => {
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
   })
+
+  it('"number" modifier prop works', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'text',
+        number: true
+      }
+    })
+
+    const input = wrapper.find('input')
+    input.element.value = '123.450'
+    input.trigger('input')
+
+    expect(input.element.value).toBe('123.450')
+    // Pre converted value as string
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0].length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
+    // v-model update event (should emit a numberical value)
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toBe(1)
+    expect(wrapper.emitted('update')[0].length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
+
+    // Updating the v-model to same numeric value
+    wrapper.setProps({
+      value: 123.45
+    })
+    await wrapper.vm.$nextTick()
+    // Should not emit a new input event
+    expect(wrapper.emitted('input').length).toEqual(1)
+    // Should not emit a new update event
+    expect(wrapper.emitted('update').length).toBe(1)
+    // Should leave the text string alone if the values (when converted to numbers) are equal
+    expect(input.element.value).toBe('123.450')
+
+    // Updating the v-model to new numeric value
+    wrapper.setProps({
+      value: 45.6
+    })
+    await wrapper.vm.$nextTick()
+    expect(input.element.value).toBe('45.6')
+  })
 })
