@@ -21,7 +21,7 @@ export default {
     bvGroup: {
       from: 'bvCheckGroup',
       default: function() {
-        return this
+        return false
       }
     }
   },
