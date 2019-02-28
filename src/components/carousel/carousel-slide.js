@@ -9,8 +9,7 @@ export default {
   components: { BImg },
   mixins: [idMixin],
   inject: {
-    carousel: {
-      from: 'carousel',
+    bvCarousel: {
       default() {
         return {
           // Explicitly disable touch if not a child of carousel
@@ -87,16 +86,16 @@ export default {
     },
     computedWidth() {
       // Use local width, or try parent width
-      return this.imgWidth || this.carousel.imgWidth || null
+      return this.imgWidth || this.bvCarousel.imgWidth || null
     },
     computedHeight() {
       // Use local height, or try parent height
-      return this.imgHeight || this.carousel.imgHeight || null
+      return this.imgHeight || this.bvCarousel.imgHeight || null
     }
   },
   render(h) {
     const $slots = this.$slots
-    const noDrag = !this.carousel.noTouch && hasTouchSupport
+    const noDrag = !this.bvCarousel.noTouch && hasTouchSupport
 
     let img = $slots.img
     if (!img && (this.imgSrc || this.imgBlank)) {
@@ -145,7 +144,7 @@ export default {
       'div',
       {
         staticClass: 'carousel-item',
-        style: { background: this.background || this.carousel.background || null },
+        style: { background: this.background || this.bvCarousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' }
       },
       [img, content]
