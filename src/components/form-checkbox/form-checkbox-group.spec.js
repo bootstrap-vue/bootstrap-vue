@@ -212,6 +212,24 @@ describe('form-checkbox-group', async () => {
     expect(checks.is('input[type=checkbox]')).toBe(true)
   })
 
+  it('has checkboxes via options array which respect disabled', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: [{ text: 'one' }, { text: 'two' }, { text: 'three', disabled: true }],
+        checked: []
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.at(0).attributes('disabled')).not.toBeDefined()
+    expect(checks.at(1).attributes('disabled')).not.toBeDefined()
+    expect(checks.at(2).attributes('disabled')).toBeDefined()
+  })
+
   it('emits change event when checkbox clicked', async () => {
     const wrapper = mount(Group, {
       attachToDocument: true,

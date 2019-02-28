@@ -45,11 +45,13 @@ export default {
         // Normalize flat-ish arrays to Array of Objects
         return options.map(option => {
           if (isObject(option)) {
+            const value = option[valueField]
+            const text = String(option[textField])
             return {
-              value: option[valueField],
-              text: stripTags(String(option[textField])),
+              value: typeof value === 'undefined' ? text : value,
+              text: stripTags(text),
               html: option[htmlField],
-              disabled: option[disabledField] || false
+              disabled: Boolean(option[disabledField])
             }
           }
           return {
@@ -68,9 +70,9 @@ export default {
             const text = option[textField]
             return {
               value: typeof value === 'undefined' ? key : value,
-              text: typeof text === 'undefined' ? key : stripTags(String(text)),
+              text: typeof text === 'undefined' ? stripTags(String(key)) : stripTags(String(text)),
               html: option[htmlField],
-              disabled: option[disabledField] || false
+              disabled: Boolean(option[disabledField])
             }
           }
           return {
