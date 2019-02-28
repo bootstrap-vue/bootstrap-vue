@@ -610,4 +610,20 @@ describe('form-input', async () => {
     await wrapper.vm.$nextTick()
     expect(input.element.value).toBe('45.6')
   })
+
+  it('focus() and blur() methods work', async () => {
+    const wrapper = mount(Input, {
+      mountToDocument: true
+    })
+    const input = wrapper.find('input')
+
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(typeof wrapper.vm.blur).toBe('function')
+
+    expect(document.activeElement).not.toBe(input.element)
+    wrapper.vm.focus()
+    expect(document.activeElement).toBe(input.element)
+    wrapper.vm.blur()
+    expect(document.activeElement).not.toBe(input.element)
+  })
 })
