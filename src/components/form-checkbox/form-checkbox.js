@@ -20,9 +20,7 @@ export default {
   inject: {
     bvGroup: {
       from: 'bvCheckGroup',
-      default: function() {
-        return false
-      }
+      default: false
     }
   },
   props: {

@@ -4,9 +4,8 @@ import { htmlOrText } from '../../utils/html'
 export default {
   name: 'BProgressBar',
   inject: {
-    progress: {
-      from: 'progress',
-      default: function() {
+    bvProgress: {
+      default() /* istanbul ignore next */ {
         return {}
       }
     }
@@ -23,7 +22,7 @@ export default {
     labelHtml: {
       type: String
     },
-    // $parent prop values take precedence over the following props
+    // $parent (this.bvProgress) prop values may take precedence over the following props
     // Which is why they are defaulted to null
     max: {
       type: Number,
@@ -73,33 +72,35 @@ export default {
     },
     computedMax() {
       // Prefer our max over parent setting
-      return typeof this.max === 'number' ? this.max : this.progress.max || 100
+      return typeof this.max === 'number' ? this.max : this.bvProgress.max || 100
     },
     computedVariant() {
       // Prefer our variant over parent setting
-      return this.variant || this.progress.variant
+      return this.variant || this.bvProgress.variant
     },
     computedPrecision() {
       // Prefer our precision over parent setting
-      return typeof this.precision === 'number' ? this.precision : this.progress.precision || 0
+      return typeof this.precision === 'number' ? this.precision : this.bvProgress.precision || 0
     },
     computedStriped() {
       // Prefer our striped over parent setting
-      return typeof this.striped === 'boolean' ? this.striped : this.progress.striped || false
+      return typeof this.striped === 'boolean' ? this.striped : this.bvProgress.striped || false
     },
     computedAnimated() {
       // Prefer our animated over parent setting
-      return typeof this.animated === 'boolean' ? this.animated : this.progress.animated || false
+      return typeof this.animated === 'boolean' ? this.animated : this.bvProgress.animated || false
     },
     computedShowProgress() {
       // Prefer our showProgress over parent setting
       return typeof this.showProgress === 'boolean'
         ? this.showProgress
-        : this.progress.showProgress || false
+        : this.bvProgress.showProgress || false
     },
     computedShowValue() {
       // Prefer our showValue over parent setting
-      return typeof this.showValue === 'boolean' ? this.showValue : this.progress.showValue || false
+      return typeof this.showValue === 'boolean'
+        ? this.showValue
+        : this.bvProgress.showValue || false
     }
   },
   render(h) {

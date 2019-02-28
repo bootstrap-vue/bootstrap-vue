@@ -66,7 +66,7 @@ export default {
   name: 'BCarousel',
   mixins: [idMixin],
   provide() {
-    return { carousel: this }
+    return { bvCarousel: this }
   },
   props: {
     labelPrev: {

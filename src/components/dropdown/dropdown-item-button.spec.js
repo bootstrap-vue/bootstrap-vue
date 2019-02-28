@@ -34,7 +34,7 @@ describe('dropdown-item-button', async () => {
     let refocus = null
     const wrapper = mount(DropdownItemBtn, {
       provide: {
-        dropdown: {
+        bvDropdown: {
           hide(arg) {
             called = true
             refocus = arg
@@ -55,7 +55,7 @@ describe('dropdown-item-button', async () => {
     let refocus = null
     const wrapper = mount(DropdownItemBtn, {
       provide: {
-        dropdown: {
+        bvDropdown: {
           hide(arg) {
             called = true
             refocus = arg

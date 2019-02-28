@@ -18,9 +18,7 @@ export default {
   inject: {
     bvGroup: {
       from: 'bvRadioGroup',
-      default: function() {
-        return false
-      }
+      default: false
     }
   },
   props: {
