@@ -6,7 +6,7 @@ export default {
   inject: {
     progress: {
       from: 'progress',
-      default: () => {}
+      default: () => ({})
     }
   },
   props: {
