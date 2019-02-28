@@ -10,7 +10,7 @@ export default {
   name: 'BFormRadio',
   mixins: [
     idMixin,
-    formRadioCheckMixin, // includes shared render function
+    formRadioCheckMixin, // Includes shared render function
     formMixin,
     formSizeMixin,
     formStateMixin
@@ -19,7 +19,7 @@ export default {
     bvGroup: {
       from: 'bvRadioGroup',
       default: function() {
-        return this
+        return false
       }
     }
   },
@@ -35,6 +35,7 @@ export default {
     is_Checked() {
       return looseEqual(this.value, this.computedLocalChecked)
     },
+    // Flags for form-radio-check mixin
     is_Radio() {
       return true
     },

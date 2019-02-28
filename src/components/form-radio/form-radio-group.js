@@ -14,7 +14,7 @@ export default {
   mixins: [
     idMixin,
     formMixin,
-    formRadioCheckGroupMixin, // includes render function
+    formRadioCheckGroupMixin, // Includes render function
     formOptionsMixin,
     formSizeMixin,
     formStateMixin
