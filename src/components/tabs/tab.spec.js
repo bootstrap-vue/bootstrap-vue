@@ -116,7 +116,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: true,
             lazy: false,
             card: false,
@@ -138,7 +138,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: true,
@@ -161,7 +161,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: true,
@@ -187,7 +187,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: false,
@@ -208,7 +208,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: false,
@@ -241,7 +241,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: false,
@@ -295,7 +295,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: false,
@@ -328,7 +328,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       provide() {
         return {
-          bTabs: {
+          bvTabs: {
             fade: false,
             lazy: false,
             card: false,
