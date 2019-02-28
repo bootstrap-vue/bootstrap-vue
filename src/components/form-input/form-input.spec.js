@@ -599,8 +599,9 @@ describe('form-input', async () => {
     // Should emit a new input event
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
-    // Should not emit a new update event
-    expect(wrapper.emitted('update').length).toBe(1)
+    // Should emit a new update event
+    expect(wrapper.emitted('update').length).toBe(2)
+    expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
     // Updating the v-model to new numeric value
     wrapper.setProps({
