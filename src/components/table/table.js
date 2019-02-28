@@ -53,6 +53,7 @@ function toString(v) {
 // Stringifies the values of a record, ignoring any special top level field keys
 // TODO: add option to strigify formatted/scopedSlot items, and only specific fields
 function recToString(row) {
+  /* istanbul ignore if */
   if (!(row instanceof Object)) {
     return ''
   }
@@ -117,6 +118,7 @@ const EVENT_FILTER = [
 // Returns true of we should ignore the click/dbclick/keypress event
 // Avoids having the user need to use @click.stop on the form control
 function filterEvent(evt) {
+  /* istanbul ignore if */
   if (!evt || !evt.target) {
     return
   }
@@ -147,7 +149,7 @@ export default {
   props: {
     items: {
       type: [Array, Function],
-      default() {
+      default() /* istanbul ignore next */ {
         return []
       }
     },
@@ -533,6 +535,7 @@ export default {
           f.label = typeof f.label === 'string' ? f.label : startCase(f.key)
           return true
         }
+        /* istanbul ignore next */
         return false
       })
     },
@@ -569,6 +572,7 @@ export default {
         return filterFn
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
+        /* istanbul ignore next */
         return filter
       } else {
         // no filterFunction, so signal to use internal filter function
@@ -646,6 +650,7 @@ export default {
     },
     sortDesc(newVal, oldVal) {
       if (newVal === this.localSortDesc) {
+        /* istanbul ignore next */
         return
       }
       this.localSortDesc = newVal || false
