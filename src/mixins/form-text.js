@@ -89,6 +89,7 @@ export default {
   },
   mounted() {
     const value = this.stringifyValue(this.value)
+    /* istanbul ignore if: this should never happen, but just in case */
     if (value !== this.localValue) {
       this.localValue = value
     }
@@ -124,11 +125,13 @@ export default {
     onInput(evt) {
       // evt.target.composing is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+      /* istanbul ignore if: hard to test composition events */
       if (evt.target.composing) {
         return
       }
       const formatted = this.getFormatted(evt.target.value, evt)
       if (formatted === false || evt.defaultPrevented) {
+        evt.preventDefault()
         return
       }
       this.updateValue(formatted)
@@ -137,6 +140,7 @@ export default {
     onChange(evt) {
       // evt.target.composing is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+      /* istanbul ignore if: hard to test composition events */
       if (evt.target.composing) {
         return
       }
