@@ -6,7 +6,9 @@ export default {
   inject: {
     progress: {
       from: 'progress',
-      default: () => ({})
+      default() /* istanbul ignore next */ {
+        return {}
+      }
     }
   },
   props: {
