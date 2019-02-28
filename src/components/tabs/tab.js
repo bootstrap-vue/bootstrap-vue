@@ -5,7 +5,7 @@ export default {
   name: 'BTab',
   mixins: [idMixin],
   inject: {
-    bTabs: {
+    bvTabs: {
       default() {
         return {
           // Don't set a tab index if not rendered inside `<b-tabs>`
@@ -75,7 +75,7 @@ export default {
   computed: {
     tabClasses() {
       return [
-        this.bTabs.card && !this.noBody ? 'card-body' : '',
+        this.bvTabs.card && !this.noBody ? 'card-body' : '',
         this.show ? 'show' : '',
         this.computedFade ? 'fade' : '',
         this.disabled ? 'disabled' : '',
@@ -86,10 +86,10 @@ export default {
       return this.buttonId || this.safeId('__BV_tab_button__')
     },
     computedFade() {
-      return this.bTabs.fade || false
+      return this.bvTabs.fade || false
     },
     computedLazy() {
-      return this.bTabs.lazy || this.lazy
+      return this.bvTabs.lazy || this.lazy
     },
     _isTab() {
       // For parent sniffing of child
@@ -117,9 +117,9 @@ export default {
     },
     disabled(newVal, oldVal) {
       if (newVal !== oldVal) {
-        if (newVal && this.localActive && this.bTabs.firstTab) {
+        if (newVal && this.localActive && this.bvTabs.firstTab) {
           this.localActive = false
-          this.bTabs.firstTab()
+          this.bvTabs.firstTab()
         }
       }
     }
@@ -131,8 +131,8 @@ export default {
   updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
-    if (this.$slots.title && this.bTabs.updateButton) {
-      this.bTabs.updateButton(this)
+    if (this.$slots.title && this.bvTabs.updateButton) {
+      this.bvTabs.updateButton(this)
     }
   },
   methods: {
@@ -162,16 +162,16 @@ export default {
     },
     // Public methods
     activate() {
-      if (this.bTabs.activateTab && !this.disabled) {
-        return this.bTabs.activateTab(this)
+      if (this.bvTabs.activateTab && !this.disabled) {
+        return this.bvTabs.activateTab(this)
       } else {
         // Not inside a b-tabs component or tab is disabled
         return false
       }
     },
     deactivate() {
-      if (this.bTabs.deactivateTab && this.localActive) {
-        return this.bTabs.deactivateTab(this)
+      if (this.bvTabs.deactivateTab && this.localActive) {
+        return this.bvTabs.deactivateTab(this)
       } else {
         // Not inside a b-tabs component or not active to begin with
         return false
@@ -189,7 +189,7 @@ export default {
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
-          tabindex: this.localActive && !this.bTabs.noKeyNav ? '0' : null,
+          tabindex: this.localActive && !this.bvTabs.noKeyNav ? '0' : null,
           'aria-hidden': this.localActive ? 'false' : 'true',
           'aria-expanded': this.localActive ? 'true' : 'false',
           'aria-labelledby': this.controlledBy || null
