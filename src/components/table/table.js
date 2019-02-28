@@ -8,6 +8,7 @@ import { keys } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
+import fieldToString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
@@ -1335,10 +1336,10 @@ export default {
           } else {
             if (this.isStacked) {
               // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-              childNodes = [h('div', formatted)]
+              childNodes = [h('div', fieldToString(formatted))]
             } else {
               // Non stacked
-              childNodes = formatted
+              childNodes = fieldToString(formatted)
             }
           }
           // Render either a td or th cell
