@@ -81,7 +81,7 @@ export default {
     },
     is_Disabled() {
       // Child can be disabled while parent isn't, but is always disabled if group is
-      return this.is_Group ? (this.bvGroup.disabled || this.disabled) : this.disabled
+      return this.is_Group ? this.bvGroup.disabled || this.disabled : this.disabled
     },
     is_Required() {
       // Required only works when a name is provided for the input(s)
