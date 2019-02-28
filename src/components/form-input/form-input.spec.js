@@ -576,6 +576,7 @@ describe('form-input', async () => {
     const input = wrapper.find('input')
     input.element.value = '123.450'
     input.trigger('input')
+    await wrapper.vm.$nextTick()
 
     expect(input.element.value).toBe('123.450')
     // Pre converted value as string
@@ -583,23 +584,22 @@ describe('form-input', async () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0].length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
-    // v-model update event (should emit a numberical value)
+    // v-model update event (should emit a numerical value)
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0].length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
-    // Updating the v-model to same numeric value
-    wrapper.setProps({
-      value: 123.45
-    })
+    // Update the input to be different string-wise, but same numerically
+    input.element.value = '123.4500'
+    input.trigger('input')
     await wrapper.vm.$nextTick()
+
+    expect(input.element.value).toBe('123.4500')
     // Should not emit a new input event
     expect(wrapper.emitted('input').length).toEqual(1)
     // Should not emit a new update event
     expect(wrapper.emitted('update').length).toBe(1)
-    // Should leave the text string alone if the values (when converted to numbers) are equal
-    expect(input.element.value).toBe('123.450')
 
     // Updating the v-model to new numeric value
     wrapper.setProps({
