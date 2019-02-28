@@ -230,8 +230,8 @@ describe('form-checkbox-group', async () => {
     expect(btns.length).toBe(3)
     // Expect them to have the correct variant classes
     expect(btns.at(0).classes()).toContain('btn-primary')
-    expect(btns.at(0).classes()).toContain('btn-primary')
-    expect(btns.at(0).classes()).toContain('btn-danger')
+    expect(btns.at(1).classes()).toContain('btn-primary')
+    expect(btns.at(2).classes()).toContain('btn-danger')
   })
 
   /* functionality testing */
