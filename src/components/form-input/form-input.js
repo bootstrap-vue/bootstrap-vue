@@ -40,10 +40,8 @@ export default {
     formValidityMixin
   ],
   props: {
-    value: {
-      type: [String, Number],
-      default: null
-    },
+    // value prop defined in form-text mixin
+    // value: { },
     type: {
       type: String,
       default: 'text',
