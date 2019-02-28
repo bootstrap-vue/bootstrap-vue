@@ -55,8 +55,7 @@ export default {
     },
     is_Group() {
       // Is this check/radio a child of check-group or radio-group?
-      // TODO: change to: return Boolean(this.bgGroup), and set default inject === false or null
-      return this.bvGroup !== false && this.bvGroup !== this
+      return Boolean(this.bvGroup)
     },
     is_BtnMode() {
       // Support button style in single input mode
