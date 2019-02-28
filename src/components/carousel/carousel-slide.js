@@ -11,10 +11,12 @@ export default {
   inject: {
     carousel: {
       from: 'carousel',
-      default: () => ({
-        // Explicitly disable touch if not a child of carousel
-        noTouch: true
-      })
+      default() {
+        return {
+          // Explicitly disable touch if not a child of carousel
+          noTouch: true
+        }
+      }
     }
   },
   props: {
