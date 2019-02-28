@@ -77,7 +77,7 @@ export default {
           : this.switch
     },
     is_Inline() {
-      return this.is_Group : this.bvGroup.inline : this.inline
+      return this.is_Group ? this.bvGroup.inline : this.inline
     },
     is_Disabled() {
       // Child can be disabled while parent isn't, but is always disabled if group is
