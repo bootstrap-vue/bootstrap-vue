@@ -495,8 +495,9 @@ describe('form-input', async () => {
     input.trigger('input')
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
-    // value should remain the same
-    expect(input.element.value).toEqual('abc')
+    // value in input should remain the same as entered
+    expect(input.element.value).toEqual('TEST')
+    expect(wrapper.vm.localValue).toBe('abc')
   })
 
   it('focused number input with no-wheel set to true works', async () => {
