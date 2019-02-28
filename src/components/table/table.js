@@ -1226,9 +1226,17 @@ export default {
     let thead = h(false)
     if (this.isStacked !== true) {
       // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
-      thead = h('thead', { key: 'thead', class: this.headClasses }, [
-        h('tr', { class: this.theadTrClass }, makeHeadCells(false))
-      ])
+      const theadChildren = []
+
+      if ($scoped['thead-top']) {
+        theadChildren.push($scoped['thead-top']({ columns: fields.length, fields: fields }))
+      } else {
+        theadChildren.push(h(false))
+      }
+
+      theadChildren.push(h('tr', { class: this.theadTrClass }, makeHeadCells(false)))
+
+      thead = h('thead', { key: 'thead', class: this.headClasses }, theadChildren)
     }
 
     // Build the tfoot
