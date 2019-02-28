@@ -1040,22 +1040,21 @@ describe('form-checkbox', async () => {
 
     const input = wrapper.find('input')
     expect(input).toBeDefined()
-    const doc = wrapper.element.documentElement
-    expect(doc).toBeDefined()
+    expect(document).toBeDefined()
 
     expect(wrapper.vm.focus).toBeDefined()
     expect(typeof wrapper.vm.focus).toBe('function')
     expect(wrapper.vm.blur).toBeDefined()
     expect(typeof wrapper.vm.blur).toBe('function')
 
-    expect(doc.activeElement !== input.element)
+    expect(input.element).not.toBe(document.activeElement)
 
     wrapper.vm.focus()
     wrapper.vm.$nextTick()
-    expect(doc.activeElement === input.element)
+    expect(input.element).toBe(document.activeElement)
 
     wrapper.vm.blur()
     wrapper.vm.$nextTick()
-    expect(doc.activeElement !== input.element)
+    expect(input.element).not.toBe(document.activeElement)
   })
 })
