@@ -197,7 +197,6 @@ describe('form-checkbox-group', async () => {
   })
 
   it('button mode button variant works', async () => {
-    // Note this also checks if form-radio-group works (same render function)
     const App = Vue.extend({
       render(h) {
         return h(
