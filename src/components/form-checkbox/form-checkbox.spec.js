@@ -1025,4 +1025,37 @@ describe('form-checkbox', async () => {
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
   })
+
+  it('focus() and blur() methods work', async () => {
+    const wrapper = mount(Input, {
+      mountToDocument: true,
+      propsData: {
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    const doc = wrapper.element.documentElement
+    expect(doc).toBeDefined()
+
+    expect(wrapper.vm.focus).toBeDefined()
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(wrapper.vm.blur).toBeDefined()
+    expect(typeof wrapper.vm.blur).toBe('function')
+
+    expect(doc.activeElement !== input.element)
+
+    wrapper.vm.focus()
+    wrapper.vm.$nextTick()
+    expect(doc.activeElement === input.element)
+
+    wrapper.vm.blur()
+    wrapper.vm.$nextTick()
+    expect(doc.activeElement !== input.element)
+  })
 })
