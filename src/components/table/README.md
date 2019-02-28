@@ -1058,7 +1058,7 @@ When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot,
 are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
 scoped slots (even when disabled)
 
-## Adding additional rows to the header
+### Adding additional rows to the header
 
 If you wish to add additional rows to the header you may do so via the `thead-top` slot.
 This slot is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
