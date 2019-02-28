@@ -89,8 +89,7 @@ export default {
   },
   mounted() {
     const value = this.stringifyValue(this.value)
-    /* istanbul ignore if: this should never happen, but just in case */
-    if (value !== this.localValue) {
+    if (value !== this.localValue) /* istanbul ignore next */ {
       this.localValue = value
     }
   },
