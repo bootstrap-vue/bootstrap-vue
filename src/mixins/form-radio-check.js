@@ -6,7 +6,7 @@ export default {
   },
   props: {
     value: {
-      // value when checked
+      // Value when checked
       // type: Object,
       // default: undefined
     },
@@ -24,7 +24,7 @@ export default {
       default: false
     },
     button: {
-      // only aplicable in standalone mode (non group)
+      // Only applicable in standalone mode (non group)
       type: Boolean,
       default: false
     },
@@ -36,34 +36,36 @@ export default {
   },
   data() {
     return {
-      localChecked: this.bvGroup.checked,
-      hasFocus: false,
-      // Surrogate value when not a childe of group
-      buttons: false
+      localChecked: this.is_Group ? this.bvGroup.checked : this.checked,
+      hasFocus: false
     }
   },
   computed: {
     computedLocalChecked: {
       get() {
-        return this.bvGroup.localChecked
+        return this.is_Group ? this.bvGroup.localChecked : this.localChecked
       },
       set(val) {
-        this.bvGroup.localChecked = val
+        if (this.is_Group) {
+          this.bvGroup.localChecked = val
+        } else {
+          this.localChecked = val
+        }
       }
     },
     is_Group() {
       // Is this check/radio a child of check-group or radio-group?
-      return this.bvGroup !== this
+      return Boolean(this.bvGroup)
     },
     is_BtnMode() {
       // Support button style in single input mode
       return this.is_Group ? this.bvGroup.buttons : this.button
     },
     is_Plain() {
-      return this.is_BtnMode ? false : this.bvGroup.plain
+      return this.is_BtnMode ? false : this.is_Group ? this.bvGroup.plain : this.plain
     },
     is_Custom() {
-      return this.is_BtnMode ? false : !this.bvGroup.plain
+      return this.is_BtnMode ? false : !this.is_Plain
     },
     is_Switch() {
       // Custom switch styling (checkboxes only)
@@ -74,39 +76,42 @@ export default {
           : this.switch
     },
     is_Inline() {
-      return this.bvGroup.inline
+      return this.is_Group ? this.bvGroup.inline : this.inline
     },
     is_Disabled() {
       // Child can be disabled while parent isn't, but is always disabled if group is
-      return this.bvGroup.disabled || this.disabled
+      return this.is_Group ? this.bvGroup.disabled || this.disabled : this.disabled
     },
     is_Required() {
       // Required only works when a name is provided for the input(s)
-      return Boolean(this.get_Name && this.bvGroup.required)
+      // Child can only be required when parent is
+      // Groups will always have a name (either user supplied or auto generated)
+      return Boolean(
+        this.get_Name && (this.bvGroup.is_Group ? this.bvGroup.required : this.required)
+      )
     },
     get_Name() {
       // Group name preferred over local name
-      return this.bvGroup.groupName || this.name || null
+      return (this.is_Group ? this.bvGroup.groupName : this.name) || null
     },
     get_Form() {
-      return this.bvGroup.form || null
+      return (this.is_Group ? this.bvGroup.form : this.form) || null
     },
     get_Size() {
-      return this.bvGroup.size || ''
+      return (this.is_Group ? this.bvGroup.size : this.size) || ''
     },
     get_State() {
-      // local state preferred over group state (except when null)
-      if (typeof this.computedState === 'boolean') {
-        return this.computedState
-      } else if (typeof this.bvGroup.computedState === 'boolean') {
-        return this.bvGroup.computedState
-      } else {
-        return null
-      }
+      return this.is_Group ? this.bvGroup.computedState : this.computedState
     },
     get_ButtonVariant() {
       // Local variant preferred over group variant
-      return this.buttonVariant || this.bvGroup.buttonVariant || 'secondary'
+      if (this.buttonVariant) {
+        return this.buttonVariant
+      } else if (this.is_Group && this.bvGroup.buttonVariant) {
+        return this.bvGroup.buttonVariant
+      }
+      // default variant
+      return 'secondary'
     },
     buttonClasses() {
       // Same for radio & check
@@ -131,12 +136,24 @@ export default {
   methods: {
     handleFocus(evt) {
       // When in buttons mode, we need to add 'focus' class to label when input focused
+      // As it is the hidden input which has actual focus
       if (evt.target) {
         if (evt.type === 'focus') {
           this.hasFocus = true
         } else if (evt.type === 'blur') {
           this.hasFocus = false
         }
+      }
+    },
+    // Convenience methods for focusing the input
+    focus() {
+      if (!this.is_Disabled && this.$refs.input && this.$refs.input.focus) {
+        this.$refs.input.focus()
+      }
+    },
+    blur() {
+      if (!this.is_Disabled && this.$refs.input && this.$refs.input.blur) {
+        this.$refs.input.blur()
       }
     }
   },
@@ -146,7 +163,7 @@ export default {
     // Generate the input element
     const on = { change: this.handleChange }
     if (this.is_BtnMode) {
-      // handlers for focus styling when in button mode
+      // Handlers for focus styling when in button mode
       on.focus = on.blur = this.handleFocus
     }
     const input = h('input', {
@@ -217,7 +234,7 @@ export default {
             'custom-checkbox': this.is_Custom && this.is_Check && !this.is_Switch,
             'custom-switch': this.is_Switch,
             'custom-radio': this.is_Custom && this.is_Radio,
-            // Temprary until BS V4 supports sizing
+            // Temporary until BS V4 supports sizing (most likely in V5)
             [`form-control-${this.get_Size}`]: Boolean(this.get_Size && !this.is_BtnMode)
           }
         },

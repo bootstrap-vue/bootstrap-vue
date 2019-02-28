@@ -82,7 +82,7 @@ describe('form-radio', async () => {
     expect(input.classes()).toContain('custom-control-label')
   })
 
-  it('default has default slot content in label', async () => {
+  it('has default slot content in label', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -110,7 +110,7 @@ describe('form-radio', async () => {
     expect(input.attributes('disabled')).not.toBeDefined()
   })
 
-  it('default has disabled attribute on input when prop disabled set', async () => {
+  it('has disabled attribute on input when prop disabled set', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -139,7 +139,7 @@ describe('form-radio', async () => {
     expect(input.attributes('required')).not.toBeDefined()
   })
 
-  it('default does not have required attribute on input when prop required set and name prop not provided', async () => {
+  it('does not have required attribute on input when prop required set and name prop not provided', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -152,6 +152,22 @@ describe('form-radio', async () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('required')).not.toBeDefined()
+  })
+
+  it('has required attribute on input when prop required and name set', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: '',
+        value: 'a',
+        name: 'test',
+        required: true
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('required')).toBeDefined()
   })
 
   it('default has no name attribute on input', async () => {
@@ -168,7 +184,7 @@ describe('form-radio', async () => {
     expect(input.attributes('name')).not.toBeDefined()
   })
 
-  it('default has name attribute on input when name prop set', async () => {
+  it('has name attribute on input when name prop set', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -182,22 +198,6 @@ describe('form-radio', async () => {
     const input = wrapper.find('input')
     expect(input.attributes('name')).toBeDefined()
     expect(input.attributes('name')).toEqual('test')
-  })
-
-  it('default has required attribute on input when prop required set and prop name set', async () => {
-    const wrapper = mount(Input, {
-      propsData: {
-        checked: '',
-        value: 'a',
-        required: true,
-        name: 'test'
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.attributes('required')).toBeDefined()
   })
 
   it('default has no form attribute on input', async () => {
@@ -214,7 +214,7 @@ describe('form-radio', async () => {
     expect(input.attributes('form')).not.toBeDefined()
   })
 
-  it('default has form attribute on input when form prop set', async () => {
+  it('has form attribute on input when form prop set', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -228,20 +228,6 @@ describe('form-radio', async () => {
     const input = wrapper.find('input')
     expect(input.attributes('form')).toBeDefined()
     expect(input.attributes('form')).toEqual('test')
-  })
-
-  it('default has default slot content in label', async () => {
-    const wrapper = mount(Input, {
-      propsData: {
-        checked: '',
-        value: 'a'
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const label = wrapper.find('label')
-    expect(label.text()).toEqual('foobar')
   })
 
   it('default has class custom-control-inline when prop inline=true', async () => {
@@ -822,5 +808,37 @@ describe('form-radio', async () => {
 
     input.trigger('click')
     expect(wrapper.vm.localChecked).toEqual({ bar: 1, baz: 2 })
+  })
+
+  it('focus() and blur() methods work', async () => {
+    const wrapper = mount(Input, {
+      mountToDocument: true,
+      propsData: {
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(document).toBeDefined()
+
+    expect(wrapper.vm.focus).toBeDefined()
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(wrapper.vm.blur).toBeDefined()
+    expect(typeof wrapper.vm.blur).toBe('function')
+
+    expect(input.element).not.toBe(document.activeElement)
+
+    wrapper.vm.focus()
+    wrapper.vm.$nextTick()
+    expect(input.element).toBe(document.activeElement)
+
+    wrapper.vm.blur()
+    wrapper.vm.$nextTick()
+    expect(input.element).not.toBe(document.activeElement)
   })
 })
