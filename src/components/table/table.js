@@ -11,6 +11,7 @@ import { closest, matches } from '../../utils/dom'
 import fieldToString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // Object of item keys that should be ignored for headers and stringification and filter events
 const IGNORED_FIELD_KEYS = {
@@ -1156,14 +1157,11 @@ export default {
     }
 
     // Build the colgroup
-    const colgroup = $slots['table-colgroup']
-      ? h('colgroup', { key: 'colgroup' }, $slots['table-colgroup'])
-      : h(false)
-
-    // Support scoped and unscoped slots when needed
-    const normalizeSlot = (slotName, slotScope = {}) => {
-      const slot = $scoped[slotName] || $slots[slotName]
-      return typeof slot === 'function' ? slot(slotScope) : slot
+    let colgroup = h(false)
+    if ($scoped['table-colgroup'] || $slots['table-colgroup']) {
+      colgroup = h('colgroup', { key: 'colgroup' },
+        this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })
+      )
     }
 
     // factory function for thead and tfoot cells (th's)
@@ -1215,12 +1213,13 @@ export default {
             }
           }
         }
+        let fieldScope = { label: field.label, column: field.key, field: field }
         let slot =
-          isFoot && $scoped[`FOOT_${field.key}`]
-            ? $scoped[`FOOT_${field.key}`]
-            : $scoped[`HEAD_${field.key}`]
+          isFoot && ($scoped[`FOOT_${field.key}`] || $slots[`FOOT_${field.key}`])
+            ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
+            : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
         if (slot) {
-          slot = [slot({ label: field.label, column: field.key, field: field })]
+          slot = [slot]
         } else {
           data.domProps = htmlOrText(field.labelHtml, field.label)
         }
@@ -1234,8 +1233,8 @@ export default {
       // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
       const theadChildren = []
 
-      if ($scoped['thead-top']) {
-        theadChildren.push($scoped['thead-top']({ columns: fields.length, fields: fields }))
+      if ($scoped['thead-top'] || $slots['thead-top']) {
+        theadChildren.push(this.normalizeSlot('thead-top', { columns: fields.length, fields: fields }))
       } else {
         theadChildren.push(h(false))
       }
@@ -1259,7 +1258,7 @@ export default {
 
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if ($scoped['top-row'] && this.isStacked !== true) {
+    if (($scoped['top-row'] || $slots['top-row']) && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
@@ -1272,7 +1271,7 @@ export default {
                 : this.tbodyTrClass
             ]
           },
-          [$scoped['top-row']({ columns: fields.length, fields: fields })]
+          [this.normalizeSlot('top-row', { columns: fields.length, fields: fields })]
         )
       )
     } else {
@@ -1501,7 +1500,7 @@ export default {
       (!items || items.length === 0) &&
       !($slots['table-busy'] && this.computedBusy)
     ) {
-      let empty = normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+      let empty = this.normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
         emptyFilteredHtml: this.emptyFilteredHtml,
         emptyFilteredText: this.emptyFilteredText,
         emptyHtml: this.emptyHtml,
@@ -1549,7 +1548,7 @@ export default {
 
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if ($scoped['bottom-row'] && this.isStacked !== true) {
+    if (($scoped['bottom-row'] || $slots['bottom-row']) && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
@@ -1562,7 +1561,7 @@ export default {
                 : this.tbodyTrClass
             ]
           },
-          [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
+          [this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })]
         )
       )
     } else {
