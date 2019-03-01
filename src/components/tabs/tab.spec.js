@@ -1,12 +1,11 @@
-// Loaded before the below imports to ensure window.rAF is overritten
-// eslint-disable-next-line
+// Loaded before the below imports to ensure window.rAF is overwritten
 jest.useFakeTimers()
-// eslint-disable-next-line
-window.requestAnimationFrame = cb => setTimeout(cb(), 0)
-// eslint-disable-next-line
-window.cancelAnimationFrame = id => clearTimeout(id)
+window.requestAnimationFrame = cb => cb()
+window.cancelAnimationFrame = id => {}
 
+// eslint-disable-next-line import/first
 import Tab from './tab'
+// eslint-disable-next-line import/first
 import { mount } from '@vue/test-utils'
 
 describe('tab', async () => {
