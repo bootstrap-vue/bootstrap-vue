@@ -81,7 +81,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
   })
 
-  it('has class active and show when localActive becomes true', () => {
+  it('has class active and show when localActive becomes true', async () => {
     const wrapper = mount(Tab, {
       mountToDocument: true
     })
@@ -93,6 +93,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
+    await wrapper.vm.$nextTick()
     jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
