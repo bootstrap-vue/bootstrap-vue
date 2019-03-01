@@ -1,6 +1,9 @@
 // Loaded before the below imports to ensure window.rAF is overritten
+// eslint-disable-next-line
 jest.useFakeTimers()
+// eslint-disable-next-line
 window.requestAnimationFrame = cb => setTimeout(cb(), 0)
+// eslint-disable-next-line
 window.cancelAnimationFrame = id => clearTimeout(id)
 
 import Tab from './tab'
@@ -78,7 +81,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
   })
 
-  it('has class active and show when localActive becomes true', async () => {
+  it('has class active and show when localActive becomes true', () => {
     const wrapper = mount(Tab, {
       mountToDocument: true
     })
@@ -90,7 +93,6 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
-    await new Promise(resolve => setTimeout(resolve, 24))
     jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
