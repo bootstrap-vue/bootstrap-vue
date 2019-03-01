@@ -132,10 +132,10 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^5.0.1",
     "terser": "^3.16.1",
-    "vue": "^2.6.7",
+    "vue": "^2.6.8",
     "vue-jest": "^3.0.3",
-    "vue-server-renderer": "^2.6.7",
-    "vue-template-compiler": "^2.6.7"
+    "vue-server-renderer": "^2.6.8",
+    "vue-template-compiler": "^2.6.8"
   },
   "jest": {
     "testRegex": "spec.js$",
