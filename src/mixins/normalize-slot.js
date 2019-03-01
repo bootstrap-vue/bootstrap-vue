@@ -4,7 +4,7 @@ import { concat } from '../utils/array'
 export default {
   methods: {
     hasNormalizedSlot(name) {
-      // Returns true if the eitehr a $scopedSlot or $slot exists with the specified name
+      // Returns true if the either a $scopedSlot or $slot exists with the specified name
       return Boolean(this.$scopedSlots[name] || this.$slots[name])
     },
     normalizeSlot(name, scope = {}) {
