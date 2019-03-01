@@ -3,6 +3,14 @@ import { mount } from '@vue/test-utils'
 
 jest.useFakeTimers()
 
+beforeEach(() => {
+  jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
+})
+
+afterEach(() => {
+  window.requestAnimationFrame.mockRestore()
+})
+
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
@@ -76,6 +84,7 @@ describe('tab', async () => {
   })
 
   it('has class active when localActive becomes true', async () => {
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
     const wrapper = mount(Tab, {
       mountToDocument: true
     })
