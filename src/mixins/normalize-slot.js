@@ -1,5 +1,5 @@
 import normalizeSlot from '../utils/normalize-slot'
-import { concat } from './array'
+import { concat } from '../utils/array'
 
 export default {
   methods: {
