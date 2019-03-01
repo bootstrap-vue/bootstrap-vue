@@ -289,3 +289,23 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
     left: _offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
   }
 }
+
+// requestAnimationFrame convenience method
+let rAF = (cb) => {
+  // Fallback, but not a true polyfill.
+  // But all browsers we support (other than Opera Mini) support rAF
+  // without a polyfil
+  /* istanbul ignore next */
+  return setTimeout(cb, 16)
+}
+if (inBrowser) {
+  /* istanbul ignore next */
+  rAF =
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    rAF
+}
+export const requestAF = rAF
