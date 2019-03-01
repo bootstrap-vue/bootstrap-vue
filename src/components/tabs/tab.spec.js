@@ -3,17 +3,6 @@ import { mount } from '@vue/test-utils'
 
 jest.useFakeTimers()
 
-let rAF
-
-beforeEach(() => {
-  rAF = window.requestAnimationFrame
-  window.requestAnimationFrame = cb => cb()
-})
-
-afterEach(() => {
-  window.requestAnimationFrame = rAF
-})
-
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
@@ -87,7 +76,6 @@ describe('tab', async () => {
   })
 
   it('has class active and show when localActive becomes true', async () => {
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
     const wrapper = mount(Tab, {
       mountToDocument: true
     })
@@ -99,8 +87,8 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
+    await new Promise(resolve => setTimeout(resolve, 24))
     jest.runAllTimers()
-    await wrapper.vm.$nextTick()
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toContain('active')
