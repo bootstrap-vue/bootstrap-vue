@@ -1218,10 +1218,9 @@ export default {
           }
         }
         let fieldScope = { label: field.label, column: field.key, field: field }
-        let slot =
-          isFoot && (this.hasNormalizedSlot(`FOOT_${field.key}`))
-            ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
-            : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
+        let slot = isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
+          ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
+          : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
         if (slot) {
           slot = [slot]
         } else {
