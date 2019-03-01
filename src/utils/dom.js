@@ -291,7 +291,7 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
 }
 
 // requestAnimationFrame convenience method
-let rAF = (cb) => {
+let rAF = cb => {
   // Fallback, but not a true polyfill.
   // But all browsers we support (other than Opera Mini) support rAF
   // without a polyfil
