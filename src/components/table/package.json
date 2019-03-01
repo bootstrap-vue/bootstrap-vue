@@ -197,7 +197,7 @@
           },
           {
             "name": "table-colgroup",
-            "description": "Slot to place custom colgroup and col elements"
+            "description": "Slot to place custom colgroup and col elements (optionally scoped: columns - number of columns, fields - array of field definition objects)"
           },
           {
             "name": "table-busy",
@@ -221,23 +221,23 @@
           },
           {
             "name": "empty",
-            "description": "Content to display when no items are present in the `items` array"
+            "description": "Content to display when no items are present in the `items` array (optionally scoped: see docs for details)"
           },
           {
             "name": "emptyfiltered",
-            "description": "Content to display when no items are present in the filtered `items` array"
+            "description": "Content to display when no items are present in the filtered `items` array (optionally scoped: see docs for details)"
           },
           {
             "name": "thead-top",
-            "description": "Slot above the column headers in the `thead` element for user-supplied rows (ex: in the case of extra header labels / group labels). Scoped data: columns - number of TDs to provide, fields - fields object"
+            "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
           },
           {
             "name": "top-row",
-            "description": "Fixed top row slot for user supplied TD cells. Scoped data: columns - number of TDs to provide, fields - fields object"
+            "description": "Fixed top row slot for user supplied TD cells (Optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
           },
           {
             "name": "bottom-row",
-            "description": "Fixed bottom row slot for user supplied TD cells. Scoped data: columns - number of TDs to provide, fields - fields object"
+            "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
           }
         ]
       }
