@@ -17,7 +17,7 @@ describe('util/normalize-slot', async () => {
     expect(result).toBe('foo')
 
     // Passes slot scope to scopedSlot
-    let result = normalizeSlot('default', { a: ' foo' }, $scoped, $slots)
+    result = normalizeSlot('default', { a: ' foo' }, $scoped, $slots)
     expect(result).toBe('foo foo')
 
     // Uses named slot if scopedSlot not found
@@ -25,11 +25,11 @@ describe('util/normalize-slot', async () => {
     expect(result).toBe('bar')
 
     // Works if only named slot found
-    result = normalizeSlot('default', { a: ' foo'}, {}, $slots)
+    result = normalizeSlot('default', { a: ' foo' }, {}, $slots)
     expect(result).toBe('bar')
 
     // Works if only scoped slot found
-    result = normalizeSlot('default', { a: ' bar'}, $scoped, {})
+    result = normalizeSlot('default', { a: ' bar' }, $scoped, {})
     expect(result).toBe('foo bar')
 
     // Returns undefined if slot name not found
@@ -37,7 +37,7 @@ describe('util/normalize-slot', async () => {
     expect(result).not.toBeDefined()
 
     // Returns undefined if slot name not found
-    let result = normalizeSlot('baz', {}, $scoped, $slots)
+    result = normalizeSlot('baz', {}, $scoped, $slots)
     expect(result).not.toBeDefined()
   })
 })
