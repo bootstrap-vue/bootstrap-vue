@@ -85,10 +85,12 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
+    jest.runOnlyPendingTimers();
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toContain('active')
+    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
   })
