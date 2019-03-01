@@ -3,9 +3,10 @@ import { mount } from '@vue/test-utils'
 
 jest.useFakeTimers()
 
-const rAF = window.requestAnimationFrame
+let rAF
 
 beforeEach(() => {
+  rAF = window.requestAnimationFrame
   window.requestAnimationFrame = cb => cb()
 })
 
@@ -85,7 +86,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
   })
 
-  it('has class active when localActive becomes true', async () => {
+  it('has class active and show when localActive becomes true', async () => {
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
     const wrapper = mount(Tab, {
       mountToDocument: true
@@ -99,6 +100,7 @@ describe('tab', async () => {
 
     wrapper.setData({ localActive: true })
     jest.runAllTimers()
+    await wrapper.vm.$nextTick()
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toContain('active')
