@@ -4,8 +4,16 @@ import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
+// @vue/component
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
+  inject: {
+    bvTabs: {
+      default() /* istanbul ignore next */ {
+        return {}
+      }
+    }
+  },
   props: {
     // Reference to the child b-tab instance
     tab: { default: null, required: true },
@@ -186,9 +194,11 @@ export default {
     }
   },
   data() {
+    let tabIdx = parseInt(this.value, 10)
+    tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
-      currentTab: parseInt(this.value, 10) || -1,
+      currentTab: tabIdx,
       // Array of direct child b-tab instances
       tabs: []
     }
@@ -220,6 +230,7 @@ export default {
     value(val, old) {
       if (val !== old) {
         val = parseInt(val, 10)
+        val = isNaN(val) ? -1 : val
         old = parseInt(old, 10) || 0
         const tabs = this.tabs
         if (tabs[val] && !tabs[val].disabled) {
@@ -236,6 +247,8 @@ export default {
     }
   },
   created() {
+    // Create private non-reactive prop
+    this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the tabs have been created
     this.$nextTick(() => {
@@ -246,11 +259,39 @@ export default {
     // In case tabs have changed before mount
     this.updateTabs()
     // Observe Child changes so we can update list of tabs
-    observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
-      subtree: false
+    this.setObserver(true)
+  },
+  deactivated() /* istanbul ignore next */ {
+    this.setObserver(false)
+  },
+  activated()  /* istanbul ignore next */ {
+    this.setObserver(true)
+    this.$nextTick(() => {
+      this.updateTabs()
     })
   },
+  beforeDestroy() /* istanbul ignore next */ {
+    this.setObserver(false)
+  },
   methods: {
+    setObserver(on) {
+      if (on) {
+        // Make sure no existing observer running
+        this.setObserver(false)
+        // Watch for changes to b-tab sub components
+        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+          childList: true,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['style', 'class']
+        })
+      } else {
+        if (this._bvObserver && this._bvObserver.disconnect) {
+          this._bvObserver.disconnect()
+        }
+        this._bvObserver = null
+      }
+    },
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
