@@ -3,12 +3,14 @@ import { mount } from '@vue/test-utils'
 
 jest.useFakeTimers()
 
+const rAF = window.requestAnimationFrame
+
 beforeEach(() => {
-  jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
+  window.requestAnimationFrame = cb => cb()
 })
 
 afterEach(() => {
-  window.requestAnimationFrame.mockRestore()
+  window.requestAnimationFrame = rAF
 })
 
 describe('tab', async () => {
