@@ -375,8 +375,8 @@ The primary key column does not need to appear in the displayed fields.
 ### Table row ID generation
 
 When provided, the `primary-key` will generate a unique ID for each item row `<tr>` element. The ID
-will be in the format of `{table-id}__row_{primary-key-value}`, where `table-id` is the unique ID of
-the `<b-table>` and `primary-key-value` is the value of the item's field value for the field
+will be in the format of `{table-id}__row_{primary-key-value}`, where `{table-id}` is the unique ID
+of the `<b-table>` and `{primary-key-value}` is the value of the item's field value for the field
 specified by `primary-key`.
 
 ### Table render and transition optimization
@@ -385,17 +385,18 @@ The `primary-key` is also used by `<b-table>` to help Vue optimize the rendering
 Internally, the value of the field key specified by the `primary-key` prop is used as the Vue `:key`
 value for each rendered item row `<tr>` element.
 
-If you are seeing rendering issue (i.e. tooltips hiding when item data changes or data is
-sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row)
-can alleviate these issues.
+If you are seeing rendering issue (i.e. tooltips hiding or unexpected subcomponent re-usage when
+item data changes or data is sorted/filtered/edited), setting the `primary-key` prop (if you have
+a unique identifier per row) can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
 
-If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
-the row's data values plus the displayed row's index number. This may cause GUI issues if you are
-modifiying the underlying table data in-place (i.e. via a `<b-form-input>` v-model bound to the
-row's data). Specifying a `primary-key` column can alleviate this issue.
+If `primary-key` is not provided, `<b-table>` will auto-generate keys based on the displayed row's
+index number (i.e. position in the _displayed_ table rows). This may cause GUI issues such as sub
+components/elements that are rendering with previous results (i.e. being re-used by Vue's render
+patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you
+can place a unique `:key` on your element/components in your custom formatted field slots).
 
 ## Table style options
 
