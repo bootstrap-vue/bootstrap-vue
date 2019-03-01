@@ -264,7 +264,7 @@ export default {
   deactivated() /* istanbul ignore next */ {
     this.setObserver(false)
   },
-  activated()  /* istanbul ignore next */ {
+  activated() /* istanbul ignore next */ {
     this.setObserver(true)
     this.$nextTick(() => {
       this.updateTabs()
