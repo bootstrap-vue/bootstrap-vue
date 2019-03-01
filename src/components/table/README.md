@@ -717,6 +717,13 @@ grouping and styling of table columns. Note the styles available via `<col>` ele
 Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup) for details and
 usage of `<colgroup>`
 
+Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                  |
+| --------- | ------ | ---------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                  |
+| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+
 ## Table busy state
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
@@ -1045,7 +1052,8 @@ slot is provided, then the footer will use the `HEAD_` slot content.
 </div>
 ```
 
-The slot's scope variable (`data` in the above example) will have the following properties:
+The slots can be optionally scoped (`data` in the above example), and will have the following
+properties:
 
 | Property | Type   | Description                                                   |
 | -------- | ------ | ------------------------------------------------------------- |
@@ -1109,6 +1117,14 @@ This slot is inserted before the header cells row, and is not encapsulated by `<
 
 <!-- b-table-thead-top-slot.vue -->
 ```
+
+Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                  |
+| --------- | ------ | ---------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                  |
+| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+
 
 ## Row select support
 
