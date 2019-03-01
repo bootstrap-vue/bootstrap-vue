@@ -758,6 +758,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
       <div slot="table-busy" class="text-center text-danger my-2">
+        <b-spinner class="align-middle" />
         <strong>Loading...</strong>
       </div>
     </b-table>
