@@ -1369,13 +1369,13 @@ export default {
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
         const primaryKey = this.primaryKey
         const rowKey =
-          primaryKey && item[primaryKey] !== undefined
+          primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null
             ? toString(item[primaryKey])
-            : `${rowIndex}__${recToString(item)}`
+            : String(rowIndex)
         // If primary key is provided, use it to generate a unique ID on each tbody > tr
-        // In the format of '{tableId}_row_{primaryKeyValue}'
+        // In the format of '{tableId}__row_{primaryKeyValue}'
         const rowId =
-          primaryKey && item[primaryKey] !== undefined
+          primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null
             ? this.safeId(`_row_${item[primaryKey]}`)
             : null
         // Assemble and add the row
@@ -1396,6 +1396,7 @@ export default {
               attrs: {
                 id: rowId,
                 tabindex: hasRowClickHandler ? '0' : null,
+                'data-pk': rowId ? String(item[primaryKey]) : null,
                 'aria-describedby': detailsId,
                 'aria-owns': detailsId,
                 'aria-rowindex': ariaRowIndex,
