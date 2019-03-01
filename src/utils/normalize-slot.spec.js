@@ -3,32 +3,41 @@ import normalizeSlot from './normalize-slot'
 describe('util/normalize-slot', async () => {
   if('works', async () => {
     const $scoped = {
-      default(slotScope) { return 'foo' + (slotScope.a || '')  }
+      default(slotScope) {
+        return 'foo' + (slotScope.a || '')
+      }
     }
     const $slots = {
       default: 'bar'
     }
     expect(typeof normalizeSlot).toBe('function')
 
-    let result = normalizeSlot('default', {}, $scoped, $slot)
+    // Prefers scopedSlots over slots
+    let result = normalizeSlot('default', {}, $scoped, $slots)
     expect(result).toBe('foo')
 
-    let result = normalizeSlot('default', { a: ' foo' }, $scoped, $slot)
+    // Passes slot scope to scopedSlot
+    let result = normalizeSlot('default', { a: ' foo' }, $scoped, $slots)
     expect(result).toBe('foo foo')
 
-    result = normalizeSlot('default', {}, {}, $slot)
+    // Uses named slot if scopedSlot not found
+    result = normalizeSlot('default', {}, {}, $slots)
     expect(result).toBe('bar')
 
-    result = normalizeSlot('default', { a: ' foo'}, {}, $slot)
+    // Works if only named slot found
+    result = normalizeSlot('default', { a: ' foo'}, {}, $slots)
     expect(result).toBe('bar')
 
+    // Works if only scoped slot found
     result = normalizeSlot('default', { a: ' bar'}, $scoped, {})
     expect(result).toBe('foo bar')
 
+    // Returns undefined if slot name not found
     result = normalizeSlot('default', {}, {}, {})
     expect(result).not.toBeDefined()
 
-    let result = normalizeSlot('baz', {}, $scoped, $slot)
+    // Returns undefined if slot name not found
+    let result = normalizeSlot('baz', {}, $scoped, $slots)
     expect(result).not.toBeDefined()
   })
 })
