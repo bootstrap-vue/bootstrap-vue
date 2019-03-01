@@ -96,7 +96,7 @@ describe('tabs', async () => {
     expect(tabs.emitted('input')[0][0]).toBe(1)
   })
 
-  it('selectes first non-ditabled tabl when active tab disabled', async () => {
+  it('selects first non-ditabled tab when active tab disabled', async () => {
     const App = Vue.extend({
       render(h) {
         return h(Tabs, {}, [
@@ -284,12 +284,12 @@ describe('tabs', async () => {
     expect(tab3.vm.localActive).toBe(true)
     expect(tab3.emitted('click')).toBeDefined()
 
-    // Try to set 1st Tab to be active via click
+    // Try to set 1st Tab to be active via click (space === click in keynav mode)
     expect(tab1.emitted('click')).not.toBeDefined()
     wrapper
       .findAll('.nav-link')
       .at(0)
-      .trigger('click')
+      .trigger('keydown.space')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
@@ -422,5 +422,37 @@ describe('tabs', async () => {
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
+  })
+
+  it('tab title slots are reactive', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(Tabs, { props: { value: 2 } }, [
+          h(Tab, { props: { title: 'original' } }, 'tab content')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(1)
+
+    // Expect tab button content to be `original`
+    expect(wrapper.find('.nav-link').text()).toBe('original')
+
+    // Get the Tab's instance
+    const tabVm = wrapper.find(Tab).vm
+    expect(tabVm).toBeDefined()
+
+    // Change title slot content
+    tabVm.$slots.title = [tabVm.$createElement('span', {}, 'foobar')]
+    tabVm.$forceUpdate()
+    await wrapper.vm.$nextTick()
+
+    // Expect tab button content to be `foobar`
+    expect(wrapper.find('.nav-link').text()).toBe('foobar')
   })
 })
