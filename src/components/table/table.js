@@ -1159,7 +1159,9 @@ export default {
     // Build the colgroup
     let colgroup = h(false)
     if ($scoped['table-colgroup'] || $slots['table-colgroup']) {
-      colgroup = h('colgroup', { key: 'colgroup' },
+      colgroup = h(
+        'colgroup',
+        { key: 'colgroup' },
         this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })
       )
     }
@@ -1234,7 +1236,9 @@ export default {
       const theadChildren = []
 
       if ($scoped['thead-top'] || $slots['thead-top']) {
-        theadChildren.push(this.normalizeSlot('thead-top', { columns: fields.length, fields: fields }))
+        theadChildren.push(
+          this.normalizeSlot('thead-top', { columns: fields.length, fields: fields })
+        )
       } else {
         theadChildren.push(h(false))
       }
