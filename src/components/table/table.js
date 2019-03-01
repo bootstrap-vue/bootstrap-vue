@@ -1160,7 +1160,7 @@ export default {
 
     // Build the colgroup
     let colgroup = h(false)
-    if ($scoped['table-colgroup'] || $slots['table-colgroup']) {
+    if (this.hasNormalizedSlot('table-colgroup')) {
       colgroup = h(
         'colgroup',
         { key: 'colgroup' },
@@ -1219,7 +1219,7 @@ export default {
         }
         let fieldScope = { label: field.label, column: field.key, field: field }
         let slot =
-          isFoot && ($scoped[`FOOT_${field.key}`] || $slots[`FOOT_${field.key}`])
+          isFoot && (this.hasNormalizedSlot(`FOOT_${field.key}`))
             ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
             : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
         if (slot) {
@@ -1237,7 +1237,7 @@ export default {
       // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
       const theadChildren = []
 
-      if ($scoped['thead-top'] || $slots['thead-top']) {
+      if (this.hasNormalizedSlot('thead-top')) {
         theadChildren.push(
           this.normalizeSlot('thead-top', { columns: fields.length, fields: fields })
         )
@@ -1264,7 +1264,7 @@ export default {
 
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if (($scoped['top-row'] || $slots['top-row']) && this.isStacked !== true) {
+    if (this.hasNormalizedSlot('top-row') && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
@@ -1368,9 +1368,9 @@ export default {
         if (this.currentPage && this.perPage && this.perPage > 0) {
           ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1)
         }
-        // Create a unique key based on the record content, to ensure that sub components are
-        // re-rendered rather than re-used, which can cause issues. If a primary key is not provided
-        // we concatinate the row number and stringified record (in case there are duplicate records).
+        // Create a unique :key to help ensure that sub components are re-rendered rather than
+        // re-used, which can cause issues. If a primary key is not provided we use the rendered
+        // rows index within the tbody.
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
         const primaryKey = this.primaryKey
         const rowKey =
@@ -1554,7 +1554,7 @@ export default {
 
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if (($scoped['bottom-row'] || $slots['bottom-row']) && this.isStacked !== true) {
+    if (this.hasNormalizedSlot('bottom-row') && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
@@ -1567,7 +1567,7 @@ export default {
                 : this.tbodyTrClass
             ]
           },
-          [this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })]
+          this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })
         )
       )
     } else {
