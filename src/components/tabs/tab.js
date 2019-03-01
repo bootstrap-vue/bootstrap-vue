@@ -1,4 +1,5 @@
 import idMixin from '../../mixins/id'
+import { requestAF } from '../../utils/dom'
 
 // @vue/component
 export default {
@@ -140,19 +141,7 @@ export default {
     beforeEnter() /* instanbul ignore next: difficult to test rAF in JSDOM */ {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
-      // TODO: Move raf method into utils/dom.js
-      const raf =
-        window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        /* istanbul ignore next */
-        function(cb) {
-          setTimeout(cb, 16)
-        }
-
-      raf(() => {
+      requestAF(() => {
         this.show = true
       })
     },
