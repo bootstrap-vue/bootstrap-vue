@@ -11,6 +11,7 @@ import { closest, matches } from '../../utils/dom'
 import fieldToString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // Object of item keys that should be ignored for headers and stringification and filter events
 const IGNORED_FIELD_KEYS = {
@@ -143,7 +144,7 @@ function filterEvent(evt) {
 // @vue/component
 export default {
   name: 'BTable',
-  mixins: [idMixin, listenOnRootMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
   props: {
@@ -1117,9 +1118,11 @@ export default {
             // Check number of arguments provider function requested
             // Provider not using callback (didn't request second argument), so we clear
             // busy state as most likely there was an error in the provider function
+            /* istanbul ignore next */
             warn(
               "b-table provider function didn't request calback and did not return a promise or data"
             )
+            /* istanbul ignore next */
             this.localBusy = false
           }
         } catch (e) /* istanbul ignore next */ {
@@ -1156,14 +1159,13 @@ export default {
     }
 
     // Build the colgroup
-    const colgroup = $slots['table-colgroup']
-      ? h('colgroup', { key: 'colgroup' }, $slots['table-colgroup'])
-      : h(false)
-
-    // Support scoped and unscoped slots when needed
-    const normalizeSlot = (slotName, slotScope = {}) => {
-      const slot = $scoped[slotName] || $slots[slotName]
-      return typeof slot === 'function' ? slot(slotScope) : slot
+    let colgroup = h(false)
+    if (this.hasNormalizedSlot('table-colgroup')) {
+      colgroup = h(
+        'colgroup',
+        { key: 'colgroup' },
+        this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })
+      )
     }
 
     // factory function for thead and tfoot cells (th's)
@@ -1215,12 +1217,13 @@ export default {
             }
           }
         }
+        let fieldScope = { label: field.label, column: field.key, field: field }
         let slot =
-          isFoot && $scoped[`FOOT_${field.key}`]
-            ? $scoped[`FOOT_${field.key}`]
-            : $scoped[`HEAD_${field.key}`]
+          isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
+            ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
+            : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
         if (slot) {
-          slot = [slot({ label: field.label, column: field.key, field: field })]
+          slot = [slot]
         } else {
           data.domProps = htmlOrText(field.labelHtml, field.label)
         }
@@ -1234,8 +1237,10 @@ export default {
       // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
       const theadChildren = []
 
-      if ($scoped['thead-top']) {
-        theadChildren.push($scoped['thead-top']({ columns: fields.length, fields: fields }))
+      if (this.hasNormalizedSlot('thead-top')) {
+        theadChildren.push(
+          this.normalizeSlot('thead-top', { columns: fields.length, fields: fields })
+        )
       } else {
         theadChildren.push(h(false))
       }
@@ -1259,7 +1264,7 @@ export default {
 
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if ($scoped['top-row'] && this.isStacked !== true) {
+    if (this.hasNormalizedSlot('top-row') && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
@@ -1272,7 +1277,7 @@ export default {
                 : this.tbodyTrClass
             ]
           },
-          [$scoped['top-row']({ columns: fields.length, fields: fields })]
+          [this.normalizeSlot('top-row', { columns: fields.length, fields: fields })]
         )
       )
     } else {
@@ -1363,9 +1368,9 @@ export default {
         if (this.currentPage && this.perPage && this.perPage > 0) {
           ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1)
         }
-        // Create a unique key based on the record content, to ensure that sub components are
-        // re-rendered rather than re-used, which can cause issues. If a primary key is not provided
-        // we concatinate the row number and stringified record (in case there are duplicate records).
+        // Create a unique :key to help ensure that sub components are re-rendered rather than
+        // re-used, which can cause issues. If a primary key is not provided we use the rendered
+        // rows index within the tbody.
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
         const primaryKey = this.primaryKey
         const rowKey =
@@ -1502,7 +1507,7 @@ export default {
       (!items || items.length === 0) &&
       !($slots['table-busy'] && this.computedBusy)
     ) {
-      let empty = normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+      let empty = this.normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
         emptyFilteredHtml: this.emptyFilteredHtml,
         emptyFilteredText: this.emptyFilteredText,
         emptyHtml: this.emptyHtml,
@@ -1550,7 +1555,7 @@ export default {
 
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if ($scoped['bottom-row'] && this.isStacked !== true) {
+    if (this.hasNormalizedSlot('bottom-row') && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
@@ -1563,7 +1568,7 @@ export default {
                 : this.tbodyTrClass
             ]
           },
-          [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
+          this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })
         )
       )
     } else {

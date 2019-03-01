@@ -203,7 +203,7 @@ describe('form-radio-group', async () => {
           Group,
           {
             props: {
-              checked: [],
+              checked: '',
               buttons: true,
               buttonVariant: 'primary'
             }
