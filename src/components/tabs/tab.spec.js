@@ -1,7 +1,10 @@
+// Loaded before the below imports to ensure window.rAF is overritten
+jest.useFakeTimers()
+window.requestAnimationFrame = cb => setTimeout(cb(), 0)
+window.cancelAnimationFrame = id => clearTimeout(id)
+
 import Tab from './tab'
 import { mount } from '@vue/test-utils'
-
-jest.useFakeTimers()
 
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
