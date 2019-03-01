@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     // Transition handlers
-    beforeEnter() /* instanbul ignore next: difficult to test rAF in JSDOM */ {
+    beforeEnter() {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
       requestAF(() => {
