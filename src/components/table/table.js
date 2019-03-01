@@ -144,7 +144,7 @@ function filterEvent(evt) {
 // @vue/component
 export default {
   name: 'BTable',
-  mixins: [idMixin, listenOnRootMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
   props: {
