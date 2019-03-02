@@ -301,9 +301,9 @@ export default {
         .filter(tab => tab && tab._isTab)
     },
     // Update list of b-tab children
-    updateTabs(tabs) {
+    updateTabs() {
       // Probe tabs
-      tabs = tabs || this.getTabs()
+      const this.getTabs()
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
@@ -453,13 +453,10 @@ export default {
     }
   },
   render(h) {
-    const tabs = this.getTabs()
+    const tabs = this.tabs
 
     // Currently active tab
-    let activeTab = tabs
-      .slice()
-      .reverse()
-      .find(tab => tab.localActive && !tab.disabled)
+    let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
 
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
