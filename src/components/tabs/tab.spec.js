@@ -1,23 +1,6 @@
 import Tab from './tab'
 import { mount } from '@vue/test-utils'
 
-jest.useFakeTimers()
-
-/*
-// JSDOM always returns and empty object for getComputedStyle
-// This patches it so that it returns empty transition values
-const { getComputedStyle } = window
-window.getComputedStyle = function getComputedStyleStub(el) {
-  return {
-    ...getComputedStyle(el),
-    transitionDelay: '',
-    transitionDuration: '',
-    animationDelay: '',
-    animationDuration: ''
-  }
-}
-*/
-
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
@@ -112,6 +95,16 @@ describe('tab', async () => {
 
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('show')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('card-body')
+
+    wrapper.setData({ localActive: false })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
