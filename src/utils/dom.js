@@ -301,10 +301,11 @@ export const requestAF = cb => {
     w.msRequestAnimationFrame ||
     w.oRequestAnimationFrame ||
     function(cb) {
-      // Fallback, but not a true polyfill (Mainly for Jest/JSDOM).
+      // Fallback, but not a true polyfill.
       // But all browsers we support (other than Opera Mini) support rAF
       // without a polyfill.
-      return setTimeout(cb, 0)
+      /* istanbul ignore next */
+      return setTimeout(cb, 16)
     }
   return rAF(cb)
 }
