@@ -2,6 +2,7 @@ import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
+import { requestAF } from '../../utils/dom'
 
 // Private Helper component
 // @vue/component
@@ -259,7 +260,9 @@ export default {
   mounted() {
     // In case tabs have changed before mount
     this.$nextTick(() => {
-      this.updateTabs()
+      requestAF(() => {
+        this.updateTabs()
+      })
       // Observe Child changes so we can update list of tabs
       this.setObserver(true)
     })
