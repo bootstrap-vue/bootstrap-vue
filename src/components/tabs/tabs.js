@@ -495,7 +495,7 @@ export default {
         props: {
           tab: tab,
           tabs: tabs,
-          id: tab.controlledBy || this.safeId(`_BV_tab_${index}_`),
+          id: tab.controlledBy || this.tab.safeId(`_BV_tab_${index}_`),
           controls: this.tab.safeId(),
           tabIndex,
           setSize: tabs.length,
