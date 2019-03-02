@@ -16,12 +16,12 @@ const BTabButtonHelper = {
   },
   props: {
     // Reference to the child b-tab instance
-    tab: { default: null, required: true },
+    tab: { default: null },
     tabs: {
+      type: Array,
       default() {
         return []
-      },
-      required: true
+      }
     },
     id: { type: String, default: null },
     controls: { type: String, default: null },
@@ -495,8 +495,8 @@ export default {
         props: {
           tab: tab,
           tabs: tabs,
-          id: tab.controlledBy || this.tab.safeId(`_BV_tab_button_`),
-          controls: this.tab.safeId(),
+          id: tab.controlledBy || this.tab.safeId ? this.tab.safeId(`_BV_tab_button_`) : null,
+          controls: this.tab.safeId ? this.tab.safeId() : null,
           tabIndex,
           setSize: tabs.length,
           posInSet: index + 1,
