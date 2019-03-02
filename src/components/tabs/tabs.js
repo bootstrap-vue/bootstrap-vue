@@ -257,9 +257,11 @@ export default {
   },
   mounted() {
     // In case tabs have changed before mount
-    this.updateTabs()
-    // Observe Child changes so we can update list of tabs
-    this.setObserver(true)
+    this.$nextTick(() => {
+      this.updateTabs()
+      // Observe Child changes so we can update list of tabs
+      this.setObserver(true)
+    })
   },
   deactivated() /* istanbul ignore next */ {
     this.setObserver(false)
@@ -268,6 +270,7 @@ export default {
     this.setObserver(true)
     this.$nextTick(() => {
       this.updateTabs()
+      this.setObserver(true)
     })
   },
   beforeDestroy() /* istanbul ignore next */ {
