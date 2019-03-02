@@ -303,7 +303,7 @@ export default {
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
-      const this.getTabs()
+      const tabs = this.getTabs()
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
