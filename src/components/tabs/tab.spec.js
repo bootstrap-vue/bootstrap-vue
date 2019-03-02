@@ -90,7 +90,12 @@ describe('tab', async () => {
 
   it('has class active and show when localActive becomes true', async () => {
     const wrapper = mount(Tab, {
-      mountToDocument: true
+      mountToDocument: true,
+      stubs: {
+        // the builtin stub doesn't execute the transition hooks
+        // so we let it use the real transition component
+        transition: false
+      }
     })
 
     expect(wrapper.classes()).not.toContain('active')
@@ -103,6 +108,7 @@ describe('tab', async () => {
     await wrapper.vm.$nextTick()
     jest.runAllTimers()
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
 
     expect(wrapper.classes()).toContain('active')
     // requestAnimationFrame does not apepar to envoke callback
