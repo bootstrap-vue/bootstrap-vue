@@ -17,6 +17,7 @@ const BTabButtonHelper = {
   props: {
     // Reference to the child b-tab instance
     tab: { default: null, required: true },
+    tabs: { default() { return [] }, required: true },
     id: { type: String, default: null },
     controls: { type: String, default: null },
     tabIndex: { type: Number, default: null },
@@ -88,7 +89,7 @@ const BTabButtonHelper = {
         },
         attrs: {
           role: 'tab',
-          id: this.id,
+          id: this.id || this.tab.safeId('_tab_button_'),
           // Roving tab index when keynav enabled
           tabindex: this.tabIndex,
           'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
@@ -253,15 +254,15 @@ export default {
     // Create private non-reactive prop
     this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
-    // We wrap this in a `$nextTick()` to ensure the tabs have been created
+    // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
       this.updateTabs()
     })
   },
   mounted() {
-    // Call updateTabs jsut in case....
-    this.updateTabs()
     this.$nextTick(() => {
+      // Call updateTabs jsut in case....
+      this.updateTabs()
       // Observe Child changes so we can update list of tabs
       this.setObserver(true)
     })
@@ -272,8 +273,8 @@ export default {
   activated() /* istanbul ignore next */ {
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
-    this.updateTabs()
     this.$nextTick(() => {
+      this.updateTabs()
       this.setObserver(true)
     })
   },
@@ -471,7 +472,6 @@ export default {
 
     // For each <b-tab> found create the tab buttons
     const buttons = tabs.map((tab, index) => {
-      const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
       let tabIndex = null
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
       if (!this.noKeyNav) {
@@ -489,8 +489,9 @@ export default {
         refInFor: true,
         props: {
           tab: tab,
-          id: buttonId,
-          controls: this.safeId('_BV_tab_container_'),
+          tabs: tabs,
+          id: tab.controlledBy || this.safeId(`_BV_tab_${index}_`),
+          controls: this.tab.safeId(),
           tabIndex,
           setSize: tabs.length,
           posInSet: index + 1,
@@ -512,6 +513,7 @@ export default {
     let navs = h(
       'ul',
       {
+        ref: 'navs',
         class: [
           'nav',
           {
