@@ -36,6 +36,7 @@ const BTabButtonHelper = {
         evt.stopPropagation()
       }
       if (this.tab.disabled) {
+        /* istanbul ignore next */
         return
       }
       const type = evt.type
@@ -369,6 +370,7 @@ export default {
       }
       if (!result) {
         // Couldn't set tab, so ensure v-model is set to this.currentTab
+        /* istanbul ignore next: should rarely happen */
         this.$emit('input', this.currentTab)
       }
       return result
@@ -382,6 +384,7 @@ export default {
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
         // No tab specified
+        /* istanbull ignore next: should never happen */
         return false
       }
     },
