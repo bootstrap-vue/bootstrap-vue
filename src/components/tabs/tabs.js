@@ -248,6 +248,8 @@ export default {
     }
   },
   created() {
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     // Create private non-reactive prop
     this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
@@ -268,6 +270,8 @@ export default {
     this.setObserver(false)
   },
   activated() /* istanbul ignore next */ {
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.updateTabs()
     this.$nextTick(() => {
       this.setObserver(true)
@@ -338,8 +342,12 @@ export default {
 
       // Set the current tab state to active
       tabs.forEach((tab, idx) => {
-        tab.localActive = idx === tabIndex && !tab.disabled
+        // tab.localActive = idx === tabIndex && !tab.disabled
+        tab.localActive = false
       })
+      if (tabs[tabIndex]) {
+        tabs[tabIndex].localActive = true
+      }
 
       // Update the array of tab children
       this.tabs = tabs
