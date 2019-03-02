@@ -7,13 +7,13 @@ jest.useFakeTimers()
 // tHis patches it so that it returns empty transition values
 const { getComputedStyle } = window
 window.getComputedStyle = function getComputedStyleStub(el) {
-	return {
-		...getComputedStyle(el),
-		transitionDelay: '',
-		transitionDuration: '',
-		animationDelay: '',
-		animationDuration: ''
-	}
+  return {
+    ...getComputedStyle(el),
+    transitionDelay: '',
+    transitionDuration: '',
+    animationDelay: '',
+    animationDuration: ''
+  }
 }
 
 describe('tab', async () => {
