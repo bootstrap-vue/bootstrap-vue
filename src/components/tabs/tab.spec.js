@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 
 jest.useFakeTimers()
 
+/*
 // JSDOM always returns and empty object for getComputedStyle
 // This patches it so that it returns empty transition values
 const { getComputedStyle } = window
@@ -15,6 +16,7 @@ window.getComputedStyle = function getComputedStyleStub(el) {
     animationDuration: ''
   }
 }
+*/
 
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
@@ -106,14 +108,10 @@ describe('tab', async () => {
 
     wrapper.setData({ localActive: true })
     await wrapper.vm.$nextTick()
-    jest.runAllTimers()
-    await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
 
     expect(wrapper.classes()).toContain('active')
-    // requestAnimationFrame does not apepar to envoke callback
-    // so we can't test for the `show` class :(
-    // expect(wrapper.classes()).toContain('show')
+    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
