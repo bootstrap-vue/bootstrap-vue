@@ -257,9 +257,6 @@ export default {
       this.updateTabs()
     })
   },
-  beforeMount() {
-    this.updateTabs()
-  },
   mounted() {
     this.$nextTick(() => {
       // Observe Child changes so we can update list of tabs
