@@ -128,14 +128,6 @@ export default {
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
-    this.$nextTick(() => {
-      // let b-tabs know we are here
-      requestAF(() => {
-        if (this.bvTabs.updateTabs) {
-          this.bvTabs.updateTabs()
-        }
-      })
-    })
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
