@@ -147,14 +147,12 @@ export default {
     beforeEnter() {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
-      /* instanbul ignore next: difficult to test rAF in JSDOM */
       requestAF(() => {
         this.show = true
       })
     },
     beforeLeave() {
       // Remove the 'show' class
-      /* instanbul ignore next */
       this.show = false
     },
     // Public methods
