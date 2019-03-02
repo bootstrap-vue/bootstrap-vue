@@ -295,12 +295,15 @@ export default {
         this._bvObserver = null
       }
     },
-    // Update list of b-tab children
-    updateTabs() {
-      // Probe tabs
+    getTabs() {
       const tabs = (this.$slots.default || [])
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
+    },
+    // Update list of b-tab children
+    updateTabs() {
+      // Probe tabs
+      const tabs = this.getTabs()
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
@@ -450,9 +453,14 @@ export default {
     }
   },
   render(h) {
-    const tabs = this.tabs
+    const tabs = this.getTabs()
+
     // Currently active tab
-    let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+    let activeTab = tabs
+      .slice()
+      .reverse()
+      .find(tab => tab.localActive && !tab.disabled)
+
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
