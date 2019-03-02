@@ -10,7 +10,9 @@ export default {
       default() {
         return {
           // Don't set a tab index if not rendered inside `<b-tabs>`
-          noKeyNav: true
+          noKeyNav: true,
+          // Fake updateTabs method
+          updateTabs() {}
         }
       }
     }
@@ -128,6 +130,10 @@ export default {
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
+    this.$nextTick(() => {
+      // Make sure b-tabs know we are here
+      this.bvTabs.updateTabs()
+    })
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
