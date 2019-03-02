@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 jest.useFakeTimers()
 
 // JSDOM always returns and empty object for getComputedStyle
-// tHis patches it so that it returns empty transition values
+// This patches it so that it returns empty transition values
 const { getComputedStyle } = window
 window.getComputedStyle = function getComputedStyleStub(el) {
   return {
