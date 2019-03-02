@@ -130,9 +130,11 @@ export default {
     this.show = this.localActive
     this.$nextTick(() => {
       // let b-tabs know we are here
-      if (this.bvTabs.updateTabs) {
-        this.bvTabs.updateTabs()
-      }
+      requestAF(() => {
+        if (this.bvTabs.updateTabs) {
+          this.bvTabs.updateTabs()
+        }
+      })
     })
   },
   updated() {
