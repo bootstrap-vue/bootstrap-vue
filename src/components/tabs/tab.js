@@ -10,11 +10,7 @@ export default {
       default() {
         return {
           // Don't set a tab index if not rendered inside `<b-tabs>`
-          noKeyNav: true,
-          // Fake updateTabs method
-          updateTabs() {
-            return null
-          }
+          noKeyNav: true
         }
       }
     }
@@ -132,10 +128,11 @@ export default {
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
-    const bvTabs = this.bvTabs
     this.$nextTick(() => {
-      // Make sure b-tabs know we are here
-      bvTabs.updateTabs()
+      // let b-tabs know we are here
+      if (this.bvTabs.updateTabs) {
+        this.bvTabs.updateTabs()
+      }
     })
   },
   updated() {
