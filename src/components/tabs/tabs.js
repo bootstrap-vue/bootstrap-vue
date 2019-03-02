@@ -17,7 +17,12 @@ const BTabButtonHelper = {
   props: {
     // Reference to the child b-tab instance
     tab: { default: null, required: true },
-    tabs: { default() { return [] }, required: true },
+    tabs: {
+      default() {
+        return []
+      },
+      required: true
+    },
     id: { type: String, default: null },
     controls: { type: String, default: null },
     tabIndex: { type: Number, default: null },
@@ -483,7 +488,7 @@ export default {
         }
       }
       return h(BTabButtonHelper, {
-        key: tab._uid || buttonId || index,
+        key: tab._uid || index,
         ref: 'buttons',
         // Needed to make this.$refs.buttons an array
         refInFor: true,
