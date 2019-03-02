@@ -558,7 +558,7 @@ export default {
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      [tabs, empty]
+      [this.slots.default, empty]
     )
 
     // Render final output
