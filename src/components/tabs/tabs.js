@@ -94,7 +94,7 @@ const BTabButtonHelper = {
         },
         attrs: {
           role: 'tab',
-          id: this.id || this.tab.safeId('_tab_button_'),
+          id: this.id,
           // Roving tab index when keynav enabled
           tabindex: this.tabIndex,
           'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
@@ -495,7 +495,7 @@ export default {
         props: {
           tab: tab,
           tabs: tabs,
-          id: tab.controlledBy || this.tab.safeId(`_BV_tab_${index}_`),
+          id: tab.controlledBy || this.tab.safeId(`_BV_tab_button_`),
           controls: this.tab.safeId(),
           tabIndex,
           setSize: tabs.length,
@@ -543,6 +543,7 @@ export default {
     navs = h(
       'div',
       {
+        key: 'bv-tabs-navs',
         class: [
           {
             'card-header': this.card && !this.vertical && !(this.end || this.bottom),
@@ -565,10 +566,12 @@ export default {
     }
 
     // Main content section
+    // TODO: This container should be a helper component
     const content = h(
       'div',
       {
         ref: 'tabsContainer',
+        key: 'bv-tabs-container',
         staticClass: 'tab-content',
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
