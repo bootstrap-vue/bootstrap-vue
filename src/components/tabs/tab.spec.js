@@ -3,6 +3,19 @@ import { mount } from '@vue/test-utils'
 
 jest.useFakeTimers()
 
+// JSDOM always returns and empty object for getComputedStyle
+// tHis patches it so that it returns empty transition values
+const { getComputedStyle } = window
+window.getComputedStyle = function getComputedStyleStub(el) {
+	return {
+		...getComputedStyle(el),
+		transitionDelay: '',
+		transitionDuration: '',
+		animationDelay: '',
+		animationDuration: ''
+	}
+}
+
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
