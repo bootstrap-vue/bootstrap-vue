@@ -77,7 +77,10 @@ describe('tab', async () => {
 
   it('has class active and show when localActive becomes true', async () => {
     const wrapper = mount(Tab, {
-      mountToDocument: true
+      mountToDocument: true,
+      stubs: {
+        transition: false
+      }
     })
 
     expect(wrapper.classes()).not.toContain('active')
@@ -94,7 +97,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).toContain('active')
     // requestAnimationFrame does not apepar to envoke callback
     // so we can't test for the `show` class :(
-    // expect(wrapper.classes()).toContain('show')
+    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
