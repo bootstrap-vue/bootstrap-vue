@@ -12,7 +12,9 @@ export default {
           // Don't set a tab index if not rendered inside `<b-tabs>`
           noKeyNav: true,
           // Fake updateTabs method
-          updateTabs() {}
+          updateTabs() {
+            return null
+          }
         }
       }
     }
