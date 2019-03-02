@@ -257,14 +257,17 @@ export default {
       this.updateTabs()
     })
   },
+  beforeMount() {
+    this.updateTabs()
+  },
   mounted() {
-    // In case tabs have changed before mount
     this.$nextTick(() => {
+      // Observe Child changes so we can update list of tabs
+      this.setObserver(true)
+      // Call updateTabs jsut in case....
       requestAF(() => {
         this.updateTabs()
       })
-      // Observe Child changes so we can update list of tabs
-      this.setObserver(true)
     })
   },
   deactivated() /* istanbul ignore next */ {
