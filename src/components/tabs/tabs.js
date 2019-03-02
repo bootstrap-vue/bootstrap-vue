@@ -296,14 +296,14 @@ export default {
       }
     },
     getTabs() {
-      const tabs = (this.$slots.default || [])
+      return (this.$slots.default || [])
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
     },
     // Update list of b-tab children
-    updateTabs() {
+    updateTabs(tabs) {
       // Probe tabs
-      const tabs = this.getTabs()
+      tabs = tabs || this.getTabs()
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
