@@ -147,7 +147,10 @@
       "^.+\\.js$": "babel-jest",
       ".*\\.(vue)$": "vue-jest"
     },
-    "coverageDirectory": "./coverage/"
+    "coverageDirectory": "./coverage/",
+    "testEnvironmentOptions": {
+      "pretendToBeVisual": true
+    }
   },
   "keywords": [
     "Bootstrap",
