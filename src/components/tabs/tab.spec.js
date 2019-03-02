@@ -90,10 +90,7 @@ describe('tab', async () => {
 
   it('has class active and show when localActive becomes true', async () => {
     const wrapper = mount(Tab, {
-      mountToDocument: true,
-      stubs: {
-        transition: false
-      }
+      mountToDocument: true
     })
 
     expect(wrapper.classes()).not.toContain('active')
