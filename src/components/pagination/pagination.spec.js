@@ -6,7 +6,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       props: {
         totlaRows: 1,
-        perPage: 1,
+        perPage: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -27,15 +27,15 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       props: {
         totlaRows: 1,
-        perPage: 1,
+        perPage: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     expect(lis.length).toBe(5)
-    
-    lis.forEach((li, index) => {
+
+    lis.wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
       expect(li.attributes('role')).toContain('presentation')
