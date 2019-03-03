@@ -21,7 +21,6 @@ export default {
     }
   },
   render(h, { props, data, listeners, children }) {
-    const linkAttrs = props.linkAttrs
     // We transfer the listeners to the link
     delete data.on
     return h(
