@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 describe('pagination', async () => {
   it('renders with correct basic structure for root element', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         totlaRows: 1,
         perPage: 1
       }
@@ -25,7 +25,7 @@ describe('pagination', async () => {
 
   it('renders with correct basic inner structure', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         totlaRows: 1,
         perPage: 1
       }
@@ -78,7 +78,7 @@ describe('pagination', async () => {
 
   it('has class "pagination-sm" when prop size="sm"', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         size: 'sm',
         totlaRows: 1,
         perPage: 1
@@ -100,7 +100,7 @@ describe('pagination', async () => {
 
   it('has class "pagination-lg" when prop size="lg"', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         size: 'lg',
         totlaRows: 1,
         perPage: 1
@@ -122,7 +122,7 @@ describe('pagination', async () => {
 
   it('has class "pagination-foo" when prop size="foo"', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         size: 'foo',
         totlaRows: 1,
         perPage: 1
@@ -145,7 +145,7 @@ describe('pagination', async () => {
 
   it('has class "justify-content-center" when prop align="center"', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         align: 'center',
         totlaRows: 1,
         perPage: 1
@@ -167,7 +167,7 @@ describe('pagination', async () => {
 
   it('has class "justify-content-end" when prop align="right"', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         align: 'right',
         totlaRows: 1,
         perPage: 1
@@ -189,7 +189,7 @@ describe('pagination', async () => {
 
   it('has class "justify-content-end" when prop align="end"', async () => {
     const wrapper = mount(Pagination, {
-      props: {
+      propsData: {
         align: 'end',
         totlaRows: 1,
         perPage: 1
