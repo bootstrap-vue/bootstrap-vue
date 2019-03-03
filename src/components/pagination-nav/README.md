@@ -149,7 +149,7 @@ below.
 
 ```html
 <template>
-  <div>
+  <div class="overflow-auto">
     <!-- Use text in props -->
     <b-pagination-nav
       v-model="currentPage"
