@@ -38,10 +38,7 @@ describe('nav-item', async () => {
     const wrapper = mount(NavItem, {
       context: {
         propsData: {
-          linkClasses: [
-            'foo',
-            { bar: true }
-          ]
+          linkClasses: ['foo', { bar: true }]
         }
       }
     })
