@@ -219,7 +219,7 @@ describe('pagination', async () => {
       }
     })
     expect(wrapper.is('ul')).toBe(true)
-    const lis = wrapper.findAll('li')
+    let lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     // including bookend buttons
     expect(lis.length).toBe(11)
@@ -227,7 +227,9 @@ describe('pagination', async () => {
     // should have the last 4 page buttons with the display classes
     // When currentPage = 0
     expect(wrapper.vm.currentPage).toBe(1)
-    lis.filter(w => w.find('a')).wrappers.forEach((li, index) => {
+    // Grab the page buttons (enclude bookends)
+    lis = wrapper.findAll('li').wrappers.slice(2,9)
+    lis.filter(w => w.find('a')).forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
       expect(li.attributes('role')).toContain('presentation')
@@ -247,6 +249,8 @@ describe('pagination', async () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
+    // Grab the page buttons (enclude bookends)
+    lis = wrapper.findAll('li').wrappers.slice(2,9)
     lis.filter(w => w.find('a')).wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
