@@ -5,7 +5,7 @@ describe('pagination', async () => {
   it('renders with correct basic structure for root element', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -26,7 +26,7 @@ describe('pagination', async () => {
   it('renders with correct basic inner structure', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -80,7 +80,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         size: 'sm',
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -102,7 +102,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         size: 'lg',
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -124,7 +124,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         size: 'foo',
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -147,7 +147,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         align: 'center',
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -169,7 +169,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         align: 'right',
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -191,7 +191,7 @@ describe('pagination', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         align: 'end',
-        totlaRows: 1,
+        totalRows: 1,
         perPage: 1
       }
     })
@@ -212,7 +212,7 @@ describe('pagination', async () => {
   it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
-        totlaRows: 70,
+        totalRows: 70,
         perPage: 10,
         limit: 7,
         currentPage: 1
