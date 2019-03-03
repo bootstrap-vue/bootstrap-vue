@@ -258,7 +258,9 @@ export default {
       }
     },
     registeredTabs(newVal, oldVal) {
-      this.updateTabs()
+      this.$nextTick(() => {
+        this.updateTabs()
+      })
     }
   },
   created() {
