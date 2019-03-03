@@ -125,6 +125,11 @@ export default {
       }
     }
   },
+  created() {
+    if (this.bvTabs.registerTab) {
+      this.bvTabs.registerTab(this)
+    }
+  },
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
@@ -134,6 +139,11 @@ export default {
     // Only done if we have a title slot, as the title prop is reactive
     if (this.$slots.title && this.bvTabs.updateButton) {
       this.bvTabs.updateButton(this)
+    }
+  },
+  beforeDestroy() {
+    if (this.bvTabs.unregisterTab) {
+      this.bvTabs.unregisterTab(this)
     }
   },
   methods: {
