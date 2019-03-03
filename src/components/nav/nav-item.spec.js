@@ -23,7 +23,7 @@ describe('nav-item', async () => {
   it('has role on link when link-role set', async () => {
     const wrapper = mount(NavItem, {
       context: {
-        propsData: { role: 'tab'}
+        propsData: { role: 'tab' }
       }
     })
     expect(wrapper.attribute('role')).not.toBeDefined()
@@ -35,7 +35,7 @@ describe('nav-item', async () => {
   it('has class "disabled" on link when disabled set', async () => {
     const wrapper = mount(NavItem, {
       context: {
-        propsData: { disabled: true}
+        propsData: { disabled: true }
       }
     })
     const link = wrapper.find('a')
