@@ -7,14 +7,20 @@ export const props = linkPropsFactory()
 export default {
   name: 'BNavItem',
   functional: true,
-  props,
+  props: {
+    ...props,
+    linkRole: {
+      type: String,
+      default: null
+    }
+  },
   render(h, { props, data, children }) {
     return h(
       'li',
       mergeData(data, {
         staticClass: 'nav-item'
       }),
-      [h(BLink, { staticClass: 'nav-link', props }, children)]
+      [h(BLink, { staticClass: 'nav-link', props, attrs: { role: props.linkRole }, children)]
     )
   }
 }
