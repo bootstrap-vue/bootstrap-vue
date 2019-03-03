@@ -14,6 +14,10 @@ export default {
       default() {
         return {}
       }
+    },
+    linkClasses: {
+      type: [String, Object, Array],
+      default: null
     }
   },
   render(h, { props, data, listeners, children }) {
@@ -29,8 +33,9 @@ export default {
           BLink,
           {
             staticClass: 'nav-link',
-            props,
+            class: props.linkClasses,
             attrs: props.linkAttrs,
+            props,
             on: listeners
           },
           children
