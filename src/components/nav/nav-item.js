@@ -9,9 +9,11 @@ export default {
   functional: true,
   props: {
     ...props,
-    linkRole: {
-      type: String,
-      default: null
+    linkAttrs: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   render(h, { props, data, listeners, children }) {
@@ -28,7 +30,7 @@ export default {
           {
             staticClass: 'nav-link',
             props,
-            attrs: { role: props.linkRole },
+            attrs: props.linkAttrs,
             on: listeners
           },
           children
