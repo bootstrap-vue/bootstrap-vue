@@ -219,7 +219,7 @@ describe('pagination', async () => {
       }
     })
     expect(wrapper.is('ul')).toBe(true)
-    let lis = wrapper.findAll('li')
+    const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     // including bookend buttons
     expect(lis.length).toBe(11)
@@ -227,25 +227,44 @@ describe('pagination', async () => {
     // should have the last 4 page buttons with the display classes
     // When currentPage = 0
     expect(wrapper.vm.currentPage).toBe(1)
-    // Grab the page buttons (enclude bookends)
-    lis = wrapper
+    // Grab the page buttons
+    wrapper
       .findAll('li')
-      .wrappers.slice(2, 9)
-      .forEach((li, index) => {
+      .wrappers.forEach((li, index) => {
         expect(li.classes()).toContain('page-item')
         expect(li.attributes('role')).toContain('none')
         expect(li.attributes('role')).toContain('presentation')
-        if (index < 3) {
-          expect(li.classes()).not.toContain('d-none')
-          expect(li.classes()).not.toContain('d-sm-flex')
-        } else {
-          expect(li.classes()).toContain('d-none')
-          expect(li.classes()).toContain('d-sm-flex')
-        }
         if (index === 0) {
-          expect(li.classes()).toContain('active')
+          // First button
+          expect(li.classes()).toContain('disabled')
+          expect(li.find('a')).not.toBeDefined()
+        } else if (index === 1) {
+          // Prev button
+          expect(li.classes()).toContain('disabled')
+          expect(li.find('a')).not.toBeDefined()
+        } else if (index === 9) {
+          // Next buton
+          expect(li.classes()).not.toContain('disabled')
+          expect(li.find('a')).toBeDefined()
+        } else if (index === 10) {
+          // Last button
+          expect(li.classes()).not.toContain('disabled')
+          expect(li.find('a')).toBeDefined()
         } else {
-          expect(li.classes()).not.toContain('active')
+          // Page number buttons
+          expect(li.find('a')).toBeDefined()
+          if (index === 2) {
+            expect(li.classes()).toContain('active')
+          } else {
+            expect(li.classes()).not.toContain('active')
+          }
+          if (index < 5) {
+            expect(li.classes()).not.toContain('d-none')
+            expect(li.classes()).not.toContain('d-sm-flex')
+          } else if (index > 4) {
+            expect(li.classes()).toContain('d-none')
+            expect(li.classes()).toContain('d-sm-flex')
+          }
         }
       })
 
@@ -257,24 +276,43 @@ describe('pagination', async () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
     // Grab the page buttons (enclude bookends)
-    lis = wrapper
+    wrapper
       .findAll('li')
-      .wrappers.slice(2, 9)
-      .forEach((li, index) => {
+      .wrappers.forEach((li, index) => {
         expect(li.classes()).toContain('page-item')
         expect(li.attributes('role')).toContain('none')
         expect(li.attributes('role')).toContain('presentation')
-        if (index > 1 && index < 5) {
-          expect(li.classes()).not.toContain('d-none')
-          expect(li.classes()).not.toContain('d-sm-flex')
+        if (index === 0) {
+          // First button
+          expect(li.classes()).not.toContain('disabled')
+          expect(li.find('a')).toBeDefined()
+        } else if (index === 1) {
+          // Prev button
+          expect(li.classes()).not.toContain('disabled')
+          expect(li.find('a')).toBeDefined()
+        } else if (index === 9) {
+          // Next buton
+          expect(li.classes()).not.toContain('disabled')
+          expect(li.find('a')).toBeDefined()
+        } else if (index === 10) {
+          // Last button
+          expect(li.classes()).not.toContain('disabled')
+          expect(li.find('a')).toBeDefined()
         } else {
-          expect(li.classes()).toContain('d-none')
-          expect(li.classes()).toContain('d-sm-flex')
-        }
-        if (index === 3) {
-          expect(li.classes()).toContain('active')
-        } else {
-          expect(li.classes()).not.toContain('active')
+          // Page number buttons
+          expect(li.find('a')).toBeDefined()
+          if (index === 5) {
+            expect(li.classes()).toContain('active')
+          } else {
+            expect(li.classes()).not.toContain('active')
+          }
+          if (index > 3 && index < 7) {
+            expect(li.classes()).not.toContain('d-none')
+            expect(li.classes()).not.toContain('d-sm-flex')
+          } else if (index < 4 || index > 6) {
+            expect(li.classes()).toContain('d-none')
+            expect(li.classes()).toContain('d-sm-flex')
+          }
         }
       })
   })
