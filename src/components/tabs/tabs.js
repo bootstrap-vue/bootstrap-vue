@@ -1,6 +1,7 @@
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
+import { arrayIncludes } from '../../utils/array'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
@@ -207,7 +208,11 @@ export default {
       // Index of current tab
       currentTab: tabIdx,
       // Array of direct child b-tab instances
-      tabs: []
+      tabs: [],
+      // Array for tabs that have been injected into b-tabs.
+      // For reactivity purposes only, as order in this
+      // array is not guganteed to follow document order
+      registeredTabs: []
     }
   },
   computed: {
@@ -304,6 +309,18 @@ export default {
         }
         this._bvObserver = null
       }
+    },
+    registerTab(tab) {
+      if (!arrayIncludes(this.registeredTabs, tab)) {
+        this.registeredTabs.push(tab)
+      }
+      this.registeredTabs = this.registeredTabs.slice()
+    },
+    unregisterTab(tab) {
+      if (arrayIncludes(this.registeredTabs, tab)) {
+        this.registeredTabs = this.registeredTabs.filter(t => t !== tab)
+      }
+      this.registeredTabs = this.registeredTabs.slice()
     },
     getTabs() {
       return (this.$slots.default || [])
