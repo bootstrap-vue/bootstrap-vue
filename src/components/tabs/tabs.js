@@ -256,6 +256,9 @@ export default {
           }
         }
       }
+    },
+    registeredTabs(newVal, oldVal) {
+      this.updateTabs()
     }
   },
   created() {
