@@ -14,13 +14,26 @@ export default {
       default: null
     }
   },
-  render(h, { props, data, children }) {
+  render(h, { props, data, listeners, children }) {
+    // We transfer the listeners to the link
+    delete data.on
     return h(
       'li',
       mergeData(data, {
         staticClass: 'nav-item'
       }),
-      [h(BLink, { staticClass: 'nav-link', props, attrs: { role: props.linkRole } }, children)]
+      [
+        h(
+          BLink,
+          {
+            staticClass: 'nav-link',
+            props,
+            attrs: { role: props.linkRole },
+            on: listeners
+          },
+          children
+        )
+      ]
     )
   }
 }
