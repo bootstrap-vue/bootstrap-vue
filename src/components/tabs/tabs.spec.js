@@ -319,8 +319,9 @@ describe('tabs', async () => {
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(2)
     expect(tabs.findAll(Link).length).toBe(2)
-    expect(tabs.findAll(Tab).at(0).localActive).toBe(true)
-    expect(tabs.currentTab).toBe(0)
+    expect(tabs.findAll(Tab).at(0).vm.localActive).toBe(true)
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.registeredTabs.length).toBe(2)
 
     wrapper.setData({
       showTab: true
@@ -328,14 +329,16 @@ describe('tabs', async () => {
     await wrapper.vm.$nextTick()
     expect(tabs.findAll(Tab).length).toBe(3)
     expect(tabs.findAll(Link).length).toBe(3)
+    expect(tabs.vm.registeredTabs.length).toBe(3)
 
     // Set the 3rd tab to be active
     tabs.setData({
       currentTab: 2
     })
     await wrapper.vm.$nextTick()
-    expect(tabs.findAll(Tab).at(2).localActive).toBe(true)
-    expect(tabs.currentTab).toBe(2)
+    expect(tabs.findAll(Tab).at(2).vm.localActive).toBe(true)
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tabs.vm.registeredTabs.length).toBe(3)
 
     // Remove 3rd tab
     wrapper.setData({
@@ -344,10 +347,11 @@ describe('tabs', async () => {
     await wrapper.vm.$nextTick()
     expect(tabs.findAll(Tab).length).toBe(2)
     expect(tabs.findAll(Link).length).toBe(2)
+    expect(tabs.vm.registeredTabs.length).toBe(2)
 
     // last non-disabled tab should be active
-    expect(tabs.findAll(Tab).at(1).localActive).toBe(true)
-    expect(tabs.currentTab).toBe(1)
+    expect(tabs.findAll(Tab).at(1).vm.localActive).toBe(true)
+    expect(tabs.vm.currentTab).toBe(1)
   })
 
   it('key nav works', async () => {
