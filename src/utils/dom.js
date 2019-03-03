@@ -291,21 +291,21 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
 }
 
 // requestAnimationFrame convenience method
-let rAF = cb => {
-  // Fallback, but not a true polyfill.
-  // But all browsers we support (other than Opera Mini) support rAF
-  // without a polyfil
-  /* istanbul ignore next */
-  return setTimeout(cb, 16)
+// We don't have a version for cancelAnimationFrame, but we don't call it anywhere
+export const requestAF = cb => {
+  const w = inBrowser ? window : {}
+  const rAF =
+    w.requestAnimationFrame ||
+    w.webkitRequestAnimationFrame ||
+    w.mozRequestAnimationFrame ||
+    w.msRequestAnimationFrame ||
+    w.oRequestAnimationFrame ||
+    function(cb) {
+      // Fallback, but not a true polyfill.
+      // But all browsers we support (other than Opera Mini) support rAF
+      // without a polyfill.
+      /* istanbul ignore next */
+      return setTimeout(cb, 16)
+    }
+  return rAF(cb)
 }
-if (inBrowser) {
-  /* istanbul ignore next */
-  rAF =
-    window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    rAF
-}
-export const requestAF = rAF

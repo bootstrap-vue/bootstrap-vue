@@ -1,4 +1,5 @@
 import idMixin from '../../mixins/id'
+import { requestAF } from '../../utils/dom'
 
 // @vue/component
 export default {
@@ -137,26 +138,14 @@ export default {
   },
   methods: {
     // Transition handlers
-    beforeEnter() /* instanbul ignore next: difficult to test rAF in JSDOM */ {
+    beforeEnter() {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
-      // TODO: Move raf method into utils/dom.js
-      const raf =
-        window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        /* istanbul ignore next */
-        function(cb) {
-          setTimeout(cb, 16)
-        }
-
-      raf(() => {
+      requestAF(() => {
         this.show = true
       })
     },
-    beforeLeave() /* instanbul ignore next: difficult to test rAF in JSDOM */ {
+    beforeLeave() {
       // Remove the 'show' class
       this.show = false
     },
@@ -185,7 +174,15 @@ export default {
         ref: 'panel',
         staticClass: 'tab-pane',
         class: this.tabClasses,
-        directives: [{ name: 'show', value: this.localActive }],
+        directives: [
+          // TODO: convert to style object in render
+          {
+            name: 'show',
+            rawName: 'v-show',
+            value: this.localActive,
+            expression: 'localActive'
+          }
+        ],
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
@@ -201,7 +198,16 @@ export default {
     return h(
       'transition',
       {
-        props: { mode: 'out-in' },
+        props: {
+          mode: 'out-in',
+          // Disable use of built-in transition classes
+          'enter-class': '',
+          'enter-active-class': '',
+          'enter-to-class': '',
+          'leave-class': '',
+          'leave-active-class': '',
+          'leave-to-class': ''
+        },
         on: {
           beforeEnter: this.beforeEnter,
           beforeLeave: this.beforeLeave

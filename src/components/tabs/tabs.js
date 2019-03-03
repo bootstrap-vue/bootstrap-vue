@@ -4,11 +4,25 @@ import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
+// @vue/component
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
+  inject: {
+    bvTabs: {
+      default() /* istanbul ignore next */ {
+        return {}
+      }
+    }
+  },
   props: {
     // Reference to the child b-tab instance
-    tab: { default: null, required: true },
+    tab: { default: null },
+    tabs: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     id: { type: String, default: null },
     controls: { type: String, default: null },
     tabIndex: { type: Number, default: null },
@@ -28,6 +42,7 @@ const BTabButtonHelper = {
         evt.stopPropagation()
       }
       if (this.tab.disabled) {
+        /* istanbul ignore next */
         return
       }
       const type = evt.type
@@ -186,9 +201,11 @@ export default {
     }
   },
   data() {
+    let tabIdx = parseInt(this.value, 10)
+    tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
-      currentTab: parseInt(this.value, 10) || -1,
+      currentTab: tabIdx,
       // Array of direct child b-tab instances
       tabs: []
     }
@@ -220,6 +237,7 @@ export default {
     value(val, old) {
       if (val !== old) {
         val = parseInt(val, 10)
+        val = isNaN(val) ? -1 : val
         old = parseInt(old, 10) || 0
         const tabs = this.tabs
         if (tabs[val] && !tabs[val].disabled) {
@@ -236,27 +254,66 @@ export default {
     }
   },
   created() {
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+    // Create private non-reactive prop
+    this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
-    // We wrap this in a `$nextTick()` to ensure the tabs have been created
+    // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
       this.updateTabs()
     })
   },
   mounted() {
-    // In case tabs have changed before mount
-    this.updateTabs()
-    // Observe Child changes so we can update list of tabs
-    observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
-      subtree: false
+    this.$nextTick(() => {
+      // Call updateTabs jsut in case....
+      this.updateTabs()
+      // Observe Child changes so we can update list of tabs
+      this.setObserver(true)
     })
   },
+  deactivated() /* istanbul ignore next */ {
+    this.setObserver(false)
+  },
+  activated() /* istanbul ignore next */ {
+    let tabIdx = parseInt(this.value, 10)
+    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+    this.$nextTick(() => {
+      this.updateTabs()
+      this.setObserver(true)
+    })
+  },
+  beforeDestroy() /* istanbul ignore next */ {
+    this.setObserver(false)
+  },
   methods: {
+    setObserver(on) {
+      if (on) {
+        // Make sure no existing observer running
+        this.setObserver(false)
+        // Watch for changes to b-tab sub components
+        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+          childList: true,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['style', 'class']
+        })
+      } else {
+        if (this._bvObserver && this._bvObserver.disconnect) {
+          this._bvObserver.disconnect()
+        }
+        this._bvObserver = null
+      }
+    },
+    getTabs() {
+      return (this.$slots.default || [])
+        .map(vnode => vnode.componentInstance)
+        .filter(tab => tab && tab._isTab)
+    },
     // Update list of b-tab children
     updateTabs() {
       // Probe tabs
-      const tabs = (this.$slots.default || [])
-        .map(vnode => vnode.componentInstance)
-        .filter(tab => tab && tab._isTab)
+      const tabs = this.getTabs()
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
@@ -291,8 +348,12 @@ export default {
 
       // Set the current tab state to active
       tabs.forEach((tab, idx) => {
-        tab.localActive = idx === tabIndex && !tab.disabled
+        // tab.localActive = idx === tabIndex && !tab.disabled
+        tab.localActive = false
       })
+      if (tabs[tabIndex]) {
+        tabs[tabIndex].localActive = true
+      }
 
       // Update the array of tab children
       this.tabs = tabs
@@ -325,6 +386,7 @@ export default {
       }
       if (!result) {
         // Couldn't set tab, so ensure v-model is set to this.currentTab
+        /* istanbul ignore next: should rarely happen */
         this.$emit('input', this.currentTab)
       }
       return result
@@ -338,6 +400,7 @@ export default {
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
         // No tab specified
+        /* istanbull ignore next: should never happen */
         return false
       }
     },
@@ -405,14 +468,15 @@ export default {
   },
   render(h) {
     const tabs = this.tabs
+
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
     // For each <b-tab> found create the tab buttons
     const buttons = tabs.map((tab, index) => {
-      const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
       let tabIndex = null
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
       if (!this.noKeyNav) {
@@ -424,14 +488,17 @@ export default {
         }
       }
       return h(BTabButtonHelper, {
-        key: tab._uid || buttonId || index,
+        key: tab._uid || index,
         ref: 'buttons',
         // Needed to make this.$refs.buttons an array
         refInFor: true,
         props: {
           tab: tab,
-          id: buttonId,
-          controls: this.safeId('_BV_tab_container_'),
+          tabs: tabs,
+          id:
+            tab.controlledBy ||
+            (this.tab && this.tab.safeId ? this.tab.safeId(`_BV_tab_button_`) : null),
+          controls: this.tab && this.tab.safeId ? this.tab.safeId() : null,
           tabIndex,
           setSize: tabs.length,
           posInSet: index + 1,
@@ -453,6 +520,7 @@ export default {
     let navs = h(
       'ul',
       {
+        ref: 'navs',
         class: [
           'nav',
           {
@@ -477,6 +545,7 @@ export default {
     navs = h(
       'div',
       {
+        key: 'bv-tabs-navs',
         class: [
           {
             'card-header': this.card && !this.vertical && !(this.end || this.bottom),
@@ -499,10 +568,12 @@ export default {
     }
 
     // Main content section
+    // TODO: This container should be a helper component
     const content = h(
       'div',
       {
         ref: 'tabsContainer',
+        key: 'bv-tabs-container',
         staticClass: 'tab-content',
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }

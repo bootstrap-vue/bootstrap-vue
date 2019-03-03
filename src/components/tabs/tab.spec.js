@@ -1,8 +1,6 @@
 import Tab from './tab'
 import { mount } from '@vue/test-utils'
 
-jest.useFakeTimers()
-
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
@@ -75,8 +73,15 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
   })
 
-  it('has class active when localActive becomes true', async () => {
-    const wrapper = mount(Tab)
+  it('has class active and show when localActive becomes true', async () => {
+    const wrapper = mount(Tab, {
+      mountToDocument: true,
+      stubs: {
+        // the builtin stub doesn't execute the transition hooks
+        // so we let it use the real transition component
+        transition: false
+      }
+    })
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -85,10 +90,22 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
 
     expect(wrapper.classes()).toContain('active')
+    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('card-body')
+
+    wrapper.setData({ localActive: false })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
   })
