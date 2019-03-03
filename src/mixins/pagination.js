@@ -402,7 +402,7 @@ export default {
         },
         [
           h('div', { staticClass: 'page-link' }, [
-            this.$slots['ellipsis-text'] || toString(this.ellipsisText) || h(false))
+            this.$slots['ellipsis-text'] || toString(this.ellipsisText) || h(false)
           ])
         ]
       )
