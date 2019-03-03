@@ -75,4 +75,137 @@ describe('pagination', async () => {
     expect(page.find('.page-link').attributes('aria-label')).toEqual('Go to page 1')
     expect(page.find('.page-link').attributes('target')).toEqual('_self')
   })
+
+  it('has class "pagination-sm" when prop size="sm"', async () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        size: 'sm',
+        totlaRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+  })
+
+  it('has class "pagination-lg" when prop size="lg"', async () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        size: 'lg',
+        totlaRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+  })
+
+  it('has class "pagination-foo" when prop size="foo"', async () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        size: 'foo',
+        totlaRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination-foo')
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+  })
+
+  it('has class "justify-content-center" when prop align="center"', async () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        align: 'center',
+        totlaRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+  })
+
+  it('has class "justify-content-end" when prop align="right"', async () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        align: 'right',
+        totlaRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+  })
+
+  it('has class "justify-content-end" when prop align="end"', async () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        align: 'end',
+        totlaRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+  })
 })
