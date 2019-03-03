@@ -9,7 +9,7 @@ export default {
   functional: true,
   props: {
     ...props,
-    linksAttrs: {
+    linkAttrs: {
       type: Object,
       default() {
         return {}
