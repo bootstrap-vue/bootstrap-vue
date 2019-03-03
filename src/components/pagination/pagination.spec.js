@@ -208,4 +208,58 @@ describe('pagination', async () => {
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
   })
+
+  it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totlaRows: 70,
+        perPage: 10,
+        limit: 7,
+        currentPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    const lis = wrapper.findAll('li')
+    expect(lis).toBeDefined()
+    // including bookend buttons
+    expect(lis.length).toBe(11)
+
+    // should have the last 4 page buttons with the display classes
+    // When currentPage = 0
+    expect(wrapper.vm.currentPage).toBe(1)
+    lis.filter(w => w.find('a'))
+      .wrappers.forEach((li, index) => {
+        expect(li.classes()).toContain('page-item')
+        expect(li.attributes('role')).toContain('none')
+        expect(li.attributes('role')).toContain('presentation')
+        if (index < 3) {
+          expect(li.classes()).not.toContain('d-none')
+          expect(li.classes()).not.toContain('d-sm-flex')
+        } else {
+          expect(li.classes()).toContain('d-none')
+          expect(li.classes()).toContain('d-sm-flex')
+        }
+      })
+
+    // should have the first and last 2 pages buttons with the display classes
+    // When currentPage = 4
+    wraper.setProps({
+      value: '4'
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(4)
+    lis.filter(w => w.find('a'))
+      .wrappers.forEach((li, index) => {
+        expect(li.classes()).toContain('page-item')
+        expect(li.attributes('role')).toContain('none')
+        expect(li.attributes('role')).toContain('presentation')
+        if (index > 1 && index < 6) {
+          expect(li.classes()).not.toContain('d-none')
+          expect(li.classes()).not.toContain('d-sm-flex')
+        } else {
+          expect(li.classes()).toContain('d-none')
+          expect(li.classes()).toContain('d-sm-flex')
+        }
+      })
+  })
 })
