@@ -20,7 +20,7 @@ export default {
       mergeData(data, {
         staticClass: 'nav-item'
       }),
-      [h(BLink, { staticClass: 'nav-link', props, attrs: { role: props.linkRole }, children)]
+      [h(BLink, { staticClass: 'nav-link', props, attrs: { role: props.linkRole } }, children)]
     )
   }
 }
