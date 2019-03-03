@@ -28,8 +28,9 @@ describe('nav-item', async () => {
         }
       }
     })
-    expect(wrapper.attribute('role')).not.toBeDefined()
-    const link = wrapper.find('a')
+    expect(wrapper.attributes('role')).not.toBeDefined()
+    const link = wrapper.find(Link)
+    expect(link).toBeDefined()
     expect(link.attributes('role')).toBeDefined()
     expect(link.attributes('role')).toBe('tab')
   })
@@ -42,7 +43,8 @@ describe('nav-item', async () => {
         }
       }
     })
-    const link = wrapper.find('a')
+    const link = wrapper.find(Link)
+    expect(link).toBeDefined()
     expect(link.classes()).toContain('foo')
     expect(link.classes()).toContain('bar')
     expect(link.classes()).toContain('nav-link')
@@ -54,7 +56,8 @@ describe('nav-item', async () => {
         propsData: { disabled: true }
       }
     })
-    const link = wrapper.find('a')
+    const link = wrapper.find(Link)
+    expect(link).toBeDefined()
     expect(link.classes()).toContain('disabled')
   })
 
@@ -69,7 +72,8 @@ describe('nav-item', async () => {
     wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
-    const link = wrapper.find('a')
+    const link = wrapper.find(Link)
+    expect(link).toBeDefined()
     link.trigger('click')
     expect(spy).toHaveBeenCalled()
   })
