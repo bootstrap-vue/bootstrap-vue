@@ -20,16 +20,35 @@ describe('nav-item', async () => {
     expect(link.attributes('role')).not.toBeDefined()
   })
 
-  it('has role on link when link-role set', async () => {
+  it('has attrs on link when link-attrs set', async () => {
     const wrapper = mount(NavItem, {
       context: {
-        propsData: { role: 'tab' }
+        propsData: {
+          linkAttrs: { role: 'tab' }
+        }
       }
     })
     expect(wrapper.attribute('role')).not.toBeDefined()
     const link = wrapper.find('a')
     expect(link.attributes('role')).toBeDefined()
     expect(link.attributes('role')).toBe('tab')
+  })
+
+  it('has custom classes on link when link-classes set', async () => {
+    const wrapper = mount(NavItem, {
+      context: {
+        propsData: {
+          linkClasses: [
+            'foo',
+            { bar: true }
+          ]
+        }
+      }
+    })
+    const link = wrapper.find('a')
+    expect(link.classes()).toContain('foo')
+    expect(link.classes()).toContain('bar')
+    expect(link.classes()).toContain('nav-link')
   })
 
   it('has class "disabled" on link when disabled set', async () => {
