@@ -23,7 +23,7 @@ describe('nav-item', async () => {
   it('has attrs on link when link-attrs set', async () => {
     const wrapper = mount(NavItem, {
       context: {
-        propsData: {
+        props: {
           linkAttrs: { role: 'tab' }
         }
       }
@@ -38,7 +38,7 @@ describe('nav-item', async () => {
   it('has custom classes on link when link-classes set', async () => {
     const wrapper = mount(NavItem, {
       context: {
-        propsData: {
+        props: {
           linkClasses: ['foo', { bar: true }]
         }
       }
@@ -53,7 +53,7 @@ describe('nav-item', async () => {
   it('has class "disabled" on link when disabled set', async () => {
     const wrapper = mount(NavItem, {
       context: {
-        propsData: { disabled: true }
+        props: { disabled: true }
       }
     })
     const link = wrapper.find(Link)
@@ -82,7 +82,7 @@ describe('nav-item', async () => {
     const spy = jest.fn()
     const wrapper = mount(NavItem, {
       context: {
-        propsData: { disabled: true },
+        props: { disabled: true },
         on: { click: spy }
       }
     })
@@ -90,7 +90,8 @@ describe('nav-item', async () => {
     wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
-    const link = wrapper.find('a')
+    const link = wrapper.find(Link)
+    expect(link).toBeDefined()
     link.trigger('click')
     expect(spy).not.toHaveBeenCalled()
   })
