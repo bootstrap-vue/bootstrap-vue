@@ -228,18 +228,26 @@ describe('pagination', async () => {
     // When currentPage = 0
     expect(wrapper.vm.currentPage).toBe(1)
     // Grab the page buttons (enclude bookends)
-    lis = wrapper.findAll('li').wrappers.slice(2, 9).forEach((li, index) => {
-      expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
-      if (index < 3) {
-        expect(li.classes()).not.toContain('d-none')
-        expect(li.classes()).not.toContain('d-sm-flex')
-      } else {
-        expect(li.classes()).toContain('d-none')
-        expect(li.classes()).toContain('d-sm-flex')
-      }
-    })
+    lis = wrapper
+      .findAll('li')
+      .wrappers.slice(2, 9)
+      .forEach((li, index) => {
+        expect(li.classes()).toContain('page-item')
+        expect(li.attributes('role')).toContain('none')
+        expect(li.attributes('role')).toContain('presentation')
+        if (index < 3) {
+          expect(li.classes()).not.toContain('d-none')
+          expect(li.classes()).not.toContain('d-sm-flex')
+        } else {
+          expect(li.classes()).toContain('d-none')
+          expect(li.classes()).toContain('d-sm-flex')
+        if (index === 0) {
+          expect(li.classes()).toContain('active')
+        } else {
+          expect(li.classes()).not.toContain('active')
+        }
+        }
+      })
 
     // should have the first and last 2 pages buttons with the display classes
     // When currentPage = 4
@@ -249,17 +257,25 @@ describe('pagination', async () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
     // Grab the page buttons (enclude bookends)
-    lis = wrapper.findAll('li').wrappers.slice(2, 9).forEach((li, index) => {
-      expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
-      if (index > 1 && index < 6) {
-        expect(li.classes()).not.toContain('d-none')
-        expect(li.classes()).not.toContain('d-sm-flex')
-      } else {
-        expect(li.classes()).toContain('d-none')
-        expect(li.classes()).toContain('d-sm-flex')
-      }
-    })
+    lis = wrapper
+      .findAll('li')
+      .wrappers.slice(2, 9)
+      .forEach((li, index) => {
+        expect(li.classes()).toContain('page-item')
+        expect(li.attributes('role')).toContain('none')
+        expect(li.attributes('role')).toContain('presentation')
+        if (index > 1 && index < 5) {
+          expect(li.classes()).not.toContain('d-none')
+          expect(li.classes()).not.toContain('d-sm-flex')
+        } else {
+          expect(li.classes()).toContain('d-none')
+          expect(li.classes()).toContain('d-sm-flex')
+        }
+        if (index === 3) {
+          expect(li.classes()).toContain('active')
+        } else {
+          expect(li.classes()).not.toContain('active')
+        }
+      })
   })
 })
