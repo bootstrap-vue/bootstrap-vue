@@ -301,7 +301,7 @@ describe('tabs', async () => {
   it('dynamic tab insertion and removal works', async () => {
     const App = Vue.extend({
       data() {
-        showTab: false
+        return { showTab: false }
       },
       render(h) {
         return h(Tabs, {}, [
