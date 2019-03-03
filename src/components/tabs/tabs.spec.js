@@ -298,6 +298,58 @@ describe('tabs', async () => {
     expect(tab1.emitted('click')).toBeDefined()
   })
 
+  it('dynamic tab insertion and removal works', async () => {
+    const App = Vue.extend({
+      data() {
+        showTab: false
+      },
+      render(h) {
+        return h(Tabs, {}, [
+          h(Tab, { props: { title: 'one' } }, 'tab 0'),
+          h(Tab, { props: { title: 'two' } }, 'tab 1'),
+          this.showTab ? h(Tab, { props: { title: 'three' } }, 'tab 2') : h(false)
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(Tabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(Tab).length).toBe(2)
+    expect(tabs.findAll(Link).length).toBe(2)
+    expect(tabs.findAll(Tab).at(0).localActive).toBe(true)
+    expect(tabs.currentTab).toBe(0)
+
+    wrapper.setData({
+      showTab: true
+    })
+    await wrapper.vm.$nextTick()
+    expect(tabs.findAll(Tab).length).toBe(3)
+    expect(tabs.findAll(Link).length).toBe(3)
+
+    // Set the 3rd tab to be active
+    tabs.setData({
+      currentTab: 2
+    })
+    await wrapper.vm.$nextTick()
+    expect(tabs.findAll(Tab).at(2).localActive).toBe(true)
+    expect(tabs.currentTab).toBe(2)
+
+    // Remove 3rd tab
+    wrapper.setData({
+      showTab: false
+    })
+    await wrapper.vm.$nextTick()
+    expect(tabs.findAll(Tab).length).toBe(2)
+    expect(tabs.findAll(Link).length).toBe(2)
+
+    // last non-disabled tab should be active
+    expect(tabs.findAll(Tab).at(1).localActive).toBe(true)
+    expect(tabs.currentTab).toBe(1)
+  })
+
   it('key nav works', async () => {
     const App = Vue.extend({
       render(h) {
