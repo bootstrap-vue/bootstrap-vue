@@ -228,8 +228,7 @@ describe('pagination', async () => {
     // When currentPage = 0
     expect(wrapper.vm.currentPage).toBe(1)
     // Grab the page buttons (enclude bookends)
-    lis = wrapper.findAll('li').wrappers.slice(2,9)
-    lis.filter(w => w.find('a')).forEach((li, index) => {
+    lis = wrapper.findAll('li').wrappers.slice(2, 9).forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
       expect(li.attributes('role')).toContain('presentation')
@@ -250,8 +249,7 @@ describe('pagination', async () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
     // Grab the page buttons (enclude bookends)
-    lis = wrapper.findAll('li').wrappers.slice(2,9)
-    lis.filter(w => w.find('a')).wrappers.forEach((li, index) => {
+    lis = wrapper.findAll('li').wrappers.slice(2, 9).forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
       expect(li.attributes('role')).toContain('presentation')
