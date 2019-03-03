@@ -241,11 +241,11 @@ describe('pagination', async () => {
         } else {
           expect(li.classes()).toContain('d-none')
           expect(li.classes()).toContain('d-sm-flex')
+        }
         if (index === 0) {
           expect(li.classes()).toContain('active')
         } else {
           expect(li.classes()).not.toContain('active')
-        }
         }
       })
 
