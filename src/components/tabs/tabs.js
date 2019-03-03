@@ -20,7 +20,7 @@ const BTabButtonHelper = {
     tab: { default: null },
     tabs: {
       type: Array,
-      default() {
+      default() /* istanbul ignore next */ {
         return []
       }
     },
@@ -305,6 +305,7 @@ export default {
         })
       } else {
         if (this._bvObserver && this._bvObserver.disconnect) {
+          /* istanbul ignore next */
           this._bvObserver.disconnect()
         }
         this._bvObserver = null
@@ -417,7 +418,7 @@ export default {
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
         // No tab specified
-        /* istanbull ignore next: should never happen */
+        /* istanbul ignore next: should never happen */
         return false
       }
     },
