@@ -486,5 +486,5 @@ describe('pagination', async () => {
     expect(wrapper.vm.currentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
-  }}
+  })
 })
