@@ -224,9 +224,7 @@ describe('pagination', async () => {
     expect(wrapper.findAll('li').length).toBe(3)
     expect(wrapper.findAll('a').length).toBe(3)
     expect(wrapper.findAll('.page-link').length).toBe(3)
-    expect(
-      wrapper.findAll('.page-link').is('a.[aria-controls="foo"]')
-    ).toBe(true)
+    expect(wrapper.findAll('.page-link').is('a.[aria-controls="foo"]')).toBe(true)
 
     wrapper.setProps({
       ariaControls: null
@@ -234,9 +232,7 @@ describe('pagination', async () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.findAll('li').length).toBe(3)
     expect(wrapper.findAll('a').length).toBe(3)
-    expect(
-      wrapper.findAll('.page-link').is('a.[aria-controls]')
-    ).toBe(false)
+    expect(wrapper.findAll('.page-link').is('a.[aria-controls]')).toBe(false)
   })
 
   it('has atribute aria-label on page links', async () => {
@@ -252,9 +248,24 @@ describe('pagination', async () => {
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(3)
     expect(wrapper.findAll('a').length).toBe(3)
-    expect(wrapper.findAll('a').at(0).attributes('aria-label')).toBe('Go to page 1')
-    expect(wrapper.findAll('a').at(1).attributes('aria-label')).toBe('Go to page 2')
-    expect(wrapper.findAll('a').at(2).attributes('aria-label')).toBe('Go to page 3')
+    expect(
+      wrapper
+        .findAll('a')
+        .at(0)
+        .attributes('aria-label')
+    ).toBe('Go to page 1')
+    expect(
+      wrapper
+        .findAll('a')
+        .at(1)
+        .attributes('aria-label')
+    ).toBe('Go to page 2')
+    expect(
+      wrapper
+        .findAll('a')
+        .at(2)
+        .attributes('aria-label')
+    ).toBe('Go to page 3')
   })
 
   it('has all links disabled when prop disabled set', async () => {
