@@ -46,9 +46,18 @@ describe('get', async () => {
       c: 'bar',
       d: { e: 'baz' }
     }
+    const obj2 = {
+      a: { b: 'fiz' },
+      c: 'bar',
+      d: { e: 'baz' }
+    }
 
     expect(get(obj1, 'a.b')).toBe('foo')
     expect(get(obj1, 'c')).toBe('bar')
     expect(get(obj1, 'd.e')).toBe('baz')
+
+    expect(get(obj2, 'a.b')).toBe('fiz')
+    expect(get(obj2, 'c')).toBe('bar')
+    expect(get(obj2, 'd.e')).toBe('baz')
   })
 })
