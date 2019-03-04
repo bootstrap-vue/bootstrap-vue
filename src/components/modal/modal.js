@@ -149,6 +149,10 @@ export default {
       type: String,
       default: null
     },
+    headerCloseVariant: {
+      type: String,
+      default: null
+    },
     headerClass: {
       type: [String, Array],
       default: null
@@ -822,6 +826,9 @@ export default {
           closeButton = h(
             'b-button-close',
             {
+              class: {
+                [`text-${this.headerCloseVariant}`]: this.headerCloseVariant
+              },
               props: {
                 disabled: this.is_transitioning,
                 ariaLabel: this.headerCloseLabel,
