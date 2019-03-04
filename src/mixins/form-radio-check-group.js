@@ -52,11 +52,7 @@ export default {
           this.validated ? `was-validated` : ''
         ]
       }
-      return [
-        // Is this needed since children will pick up on size?
-        this.sizeFormClass,
-        this.validated ? `was-validated` : ''
-      ]
+      return [this.validated ? `was-validated` : '']
     },
     computedAriaInvalid() {
       const ariaInvalid = this.ariaInvalid
