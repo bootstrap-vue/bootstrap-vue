@@ -65,6 +65,9 @@ describe('get', async () => {
     expect(get(obj1, 'i.j', 'zzz')).toBe('zzz')
     expect(get(obj1, 'i.j')).toBe(null)
 
+    expect(get({ a: 'b' }, '...', true)).toBe(true)
+    expect(get({ a: 'b' }, '...')).toBe(null)
+
     expect(get(obj2, 'a.b')).toBe('fiz')
     expect(get(obj2, 'c')).toBe('bar')
     expect(get(obj2, 'd.e')).toBe('baz')
