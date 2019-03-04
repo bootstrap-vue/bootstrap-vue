@@ -6,7 +6,7 @@ import warn from '../utils/warn'
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
-import { stripTags } from '../utils/html'
+import toString from '../utils/to-string'
 import BLink from '../components/link/link'
 
 // Threshold of limit size when we start/stop showing ellipsis
@@ -353,18 +353,17 @@ export default {
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
       let button
-      const domProps = btnSlot ? {} : { textContent: btnText }
-      const staticClass = 'page-item'
+      const btnContent = btnSlot || toString(btnText) || h(false)
       const attrs = {
         role: 'none presentation',
         'aria-hidden': disabled ? 'true' : null
       }
       if (disabled || isActivePage(pageTest) || linkTo < 1 || linkTo > numberOfPages) {
-        button = h('li', { key, attrs, staticClass, class: ['disabled'] }, [
-          h('span', { staticClass: 'page-link', domProps }, [btnSlot])
+        button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
+          h('span', { staticClass: 'page-link' }, [btnContent])
         ])
       } else {
-        button = h('li', { key, attrs, staticClass }, [
+        button = h('li', { key, attrs, staticClass: 'page-item' }, [
           h(
             'b-link',
             {
@@ -383,7 +382,7 @@ export default {
                 keydown: onSpaceKey
               }
             },
-            [h('span', { domProps }, [btnSlot])]
+            [btnContent]
           )
         ])
       }
@@ -402,7 +401,7 @@ export default {
         },
         [
           h('div', { staticClass: 'page-link' }, [
-            this.$slots['ellipsis-text'] || this.ellipsisText || h(false)
+            this.$slots['ellipsis-text'] || toString(this.ellipsisText) || h(false)
           ])
         ]
       )
@@ -416,7 +415,7 @@ export default {
             1,
             this.labelFirstPage,
             this.$slots['first-text'],
-            stripTags(this.firstText),
+            this.firstText,
             1,
             'bookend-goto-first'
           )
@@ -428,7 +427,7 @@ export default {
         this.currentPage - 1,
         this.labelPrevPage,
         this.$slots['prev-text'],
-        stripTags(this.prevText),
+        this.prevText,
         1,
         'bookend-goto-prev'
       )
@@ -439,8 +438,6 @@ export default {
 
     // Individual Page links
     this.pageList.forEach(page => {
-      let inner
-      const pageText = this.makePage(page.number)
       const active = isActivePage(page.number)
       const staticClass = 'page-link'
       const attrs = {
@@ -454,34 +451,23 @@ export default {
         // ARIA "roving tabindex" method
         tabindex: disabled ? null : active ? '0' : '-1'
       }
-      if (disabled) {
-        inner = h(
-          'span',
-          {
-            key: `page-${page.number}-link-disabled`,
-            staticClass,
-            attrs
-          },
-          pageText
-        )
-      } else {
-        inner = h(
-          'b-link',
-          {
-            key: `page-${page.number}-link`,
-            props: this.linkProps(page.number),
-            staticClass,
-            attrs,
-            on: {
-              click: evt => {
-                this.onClick(page.number, evt)
-              },
-              keydown: onSpaceKey
-            }
-          },
-          pageText
-        )
-      }
+      const inner = h(
+        disabled ? 'span' : `b-link`,
+        {
+          props: disabled ? {} : this.linkProps(page.number),
+          staticClass,
+          attrs,
+          on: disabled
+            ? {}
+            : {
+                click: evt => {
+                  this.onClick(page.number, evt)
+                },
+                keydown: onSpaceKey
+              }
+        },
+        toString(this.makePage(page.number))
+      )
       buttons.push(
         h(
           'li',

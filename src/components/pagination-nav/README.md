@@ -149,7 +149,7 @@ below.
 
 ```html
 <template>
-  <div>
+  <div class="overflow-auto">
     <!-- Use text in props -->
     <b-pagination-nav
       v-model="currentPage"
@@ -207,7 +207,7 @@ below.
 
 ## Button Size
 
-Optionally change from the default button size by setting the `size` prop to either `'am` for
+Optionally change from the default button size by setting the `size` prop to either `'sm'` for
 smaller buttons or `'lg'` for larger buttons.
 
 ```html
