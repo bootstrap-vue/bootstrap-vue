@@ -460,7 +460,9 @@ export default {
           on: disabled
             ? {}
             : {
-                click: evt => { this.onClick(page.number, evt) },
+                click: evt => {
+                  this.onClick(page.number, evt)
+                },
                 keydown: onSpaceKey
               }
         },
