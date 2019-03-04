@@ -46,7 +46,7 @@ describe('get', async () => {
       c: 'bar',
       d: { e: 'baz' },
       f: { 'g.h': 'faz' },
-      'i.j.k': 'fuz' }
+      'i.j.k': 'fuz'
     }
     const obj2 = {
       a: { b: 'fiz' },
