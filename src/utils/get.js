@@ -12,17 +12,19 @@ import { isObject } from './object'
  * @return {*}
  */
 export default (obj, path, defaultValue = null) => {
+  path = isArray(path) ? path.join('.') : path
+
   if (!path || !isObject(obj)) {
     return defaultValue
   }
+
   if (obj[path] !== undefined) {
-    // Handle edge case where user has dot in actual feild name
+    // Handle edge case where user has dot in actual field name
     // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
     return obj[path]
   }
 
-  path = isArray(path) ? path.join('.') : path
-  // Handle string array notation (numeric indicies only)
+  // Handle string array notation (numeric indices only)
   path = String(path).replace(/\[(\d+)]/g, '.$1')
 
   const steps = path.split('.').filter(Boolean)
