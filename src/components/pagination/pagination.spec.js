@@ -209,6 +209,35 @@ describe('pagination', async () => {
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
   })
 
+  it('has atribute aria-controls on page links when prop aria-controls is set', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        hideGotoEndButtons: true,
+        hideEllipsis: true,
+        totalRows: 3,
+        perPage: 1,
+        value: 1,
+        ariaControls: 'foo'
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.findAll('li').length).toBe(3)
+    expect(wrapper.findAll('a').length).toBe(3)
+    expect(wrapper.findAll('a').at(0).attributes('aria-controls')).toBe('foo')
+    expect(wrapper.findAll('a').at(1).attributes('aria-controls')).toBe('foo')
+    expect(wrapper.findAll('a').at(2).attributes('aria-controls')).toBe('foo')
+
+    wrapper.setProps({
+      ariaControls: null
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.findAll('li').length).toBe(3)
+    expect(wrapper.findAll('a').length).toBe(3)
+    expect(wrapper.findAll('a').at(0).attributes('aria-controls')).not.toBeDefined()
+    expect(wrapper.findAll('a').at(1).attributes('aria-controls')).not.toBeDefined()
+    expect(wrapper.findAll('a').at(2).attributes('aria-controls')).not.toBeDefined()
+  })
+
   it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
