@@ -238,6 +238,9 @@ export default {
       })
       // Update the v-model
       this.$emit('input', index)
+      this.$nextTick(() => {
+        this.updateTabs()
+      })
     },
     value(val, old) {
       if (val !== old) {
