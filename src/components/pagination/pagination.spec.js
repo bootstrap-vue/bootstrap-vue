@@ -445,4 +445,46 @@ describe('pagination', async () => {
     expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).not.toBe('separator')
   })
+
+  it('places ellipsis in correct places', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 3,
+        perPage: 1,
+        currentPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+
+    expect(wrapper.vm.currentPage).toBe(1)
+    // Grab the page buttons
+    let lis = wrapper.findAll('li')
+    expect(lis.length).toBe(7)
+    
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    // click on 2nd button
+    wrapper.findAll('li').at(3).find('a').trigger('click')
+    await wrapper.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toBe(2)
+    expect(wrapper.emitted('change')[0][0]).toBe(2)
+
+    // click goto last button
+    wrapper.findAll('li').at(6).find('a').trigger('click')
+    await wrapper.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input')[1][0]).toBe(3)
+    expect(wrapper.emitted('change')[1][0]).toBe(3)
+
+    // click prev button
+    wrapper.findAll('li').at(1).find('a').trigger('click')
+    await wrapper.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.emitted('input')[2][0]).toBe(2)
+    expect(wrapper.emitted('change')[2][0]).toBe(2)
+  }}
 })
