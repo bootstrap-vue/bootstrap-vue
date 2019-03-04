@@ -302,4 +302,47 @@ describe('pagination', async () => {
       }
     })
   })
+
+  it('places ellipsis in correct places', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 70,
+        perPage: 10,
+        limit: 5,
+        currentPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+
+    // Should have ellipsis in place of last button
+    // When currentPage = 0
+    expect(wrapper.vm.currentPage).toBe(1)
+    // Grab the page buttons
+    let lis = wrapper.findAll('li')
+    expect(lis.length).toBe(9)
+    expect(lis.at(2).attributes('role')).not.toBe('separator')
+    expect(lis.at(6).attributes('role')).toBe('separator')
+
+    // should have both ellipsis showing
+    // When currentPage = 4
+    wrapper.setProps({
+      value: '4'
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(4)
+    expect(lis.length).toBe(9)
+    expect(lis.at(2).attributes('role')).not.toBe('separator')
+    expect(lis.at(6).attributes('role')).toBe('separator')
+
+    // should have first ellipsis showing
+    // When currentPage = 5
+    wrapper.setProps({
+      value: 5
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(5)
+    expect(lis.length).toBe(9)
+    expect(lis.at(2).attributes('role')).toBe('separator')
+    expect(lis.at(6).attributes('role')).not.toBe('separator')
+  })
 })
