@@ -12,15 +12,17 @@ import { isObject } from './object'
  * @return {*}
  */
 export default (obj, path, defaultValue = null) => {
-  path = isArray(path) ? path.join('.') : path
+  // Handle aray of path values
+  path = isArray(path) ? path.join('.') : (path || '')
 
+  // If no path or no object passed
   if (!path || !isObject(obj)) {
     return defaultValue
   }
 
+  // Handle edge case where user has dot(s) in top-level item field key
+  // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
   if (obj[path] !== undefined) {
-    // Handle edge case where user has dot in actual field name
-    // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
     return obj[path]
   }
 
@@ -28,9 +30,11 @@ export default (obj, path, defaultValue = null) => {
   path = String(path).replace(/\[(\d+)]/g, '.$1')
 
   const steps = path.split('.').filter(Boolean)
+  // Handle case where someone pases a string of only dots
   if (steps.length === 0) {
     return defaultValue
   }
 
+  // Traverse path in object to find result
   return steps.every(step => (obj = obj[step]) !== undefined) ? obj : defaultValue
 }
