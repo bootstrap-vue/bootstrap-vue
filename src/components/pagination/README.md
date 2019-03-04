@@ -59,7 +59,7 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
 
 ```html
 <template>
-  <div>
+  <div class="overflow-auto">
     <!-- Use text in props -->
     <b-pagination
       v-model="currentPage"
@@ -118,7 +118,7 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
 
 ## Button Size
 
-Optionally change from the default button size by setting the `size` prop to either `'am` for
+Optionally change from the default button size by setting the `size` prop to either `'sm'` for
 smaller buttons or `'lg'` for larger buttons.
 
 ```html
