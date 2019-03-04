@@ -222,17 +222,16 @@ describe('pagination', async () => {
     })
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(5)
-    expect(wrapper.findAll('a').length).toBe(4)
-    expect(wrapper.findAll('.page-link').length).toBe(3)
-    expect(wrapper.findAll('.page-link').is('a.[aria-controls="foo"]')).toBe(true)
+    expect(wrapper.findAll('a.page-link').length).toBe(4)
+    expect(wrapper.findAll('a.page-link').is('[aria-controls="foo"]')).toBe(true)
 
     wrapper.setProps({
       ariaControls: null
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.findAll('li').length).toBe(5)
-    expect(wrapper.findAll('a').length).toBe(4)
-    expect(wrapper.findAll('.page-link').is('a.[aria-controls]')).toBe(false)
+    expect(wrapper.findAll('a.page-link').length).toBe(4)
+    expect(wrapper.findAll('a.page-link').is('[aria-controls]')).toBe(false)
   })
 
   it('has atribute aria-label on page links', async () => {
@@ -251,7 +250,7 @@ describe('pagination', async () => {
     expect(
       wrapper
         .findAll('a')
-        .at(1)
+        .at(0)
         .attributes('aria-label')
     ).toBe('Go to page 1')
     expect(
@@ -269,7 +268,7 @@ describe('pagination', async () => {
     expect(
       wrapper
         .findAll('a')
-        .at(4)
+        .at(3)
         .attributes('aria-label')
     ).toBe('Go to next page')
   })
@@ -288,7 +287,24 @@ describe('pagination', async () => {
     expect(wrapper.findAll('.page-item').length).toBe(7)
     expect(wrapper.findAll('.page-item').is('li.page-item.disabled')).toBe(true)
     expect(wrapper.findAll('.page-link').is('span.page-link')).toBe(true)
-    expect(wrapper.findAll('.page-link').is('[aria-disabled="true"]')).toBe(true)
+    expect(
+      wrapper
+        .findAll('.page-link')
+        .at(2)
+        .attributes('aria-disabled')
+    ).toBe('true')
+    expect(
+      wrapper
+        .findAll('.page-link')
+        .at(3)
+        .attributes('aria-disabled')
+    ).toBe('true')
+    expect(
+      wrapper
+        .findAll('.page-link')
+        .at(4)
+        .attributes('aria-disabled')
+    ).toBe('true')
   })
 
   it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
