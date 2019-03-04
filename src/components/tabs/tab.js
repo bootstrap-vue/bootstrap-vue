@@ -127,12 +127,19 @@ export default {
   },
   created() {
     if (this.bvTabs.registerTab) {
-      this.bvTabs.registerTab(this)
+      this.$nextTick(() => {
+        this.bvTabs.registerTab(this)
+      })
     }
   },
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
+    if (this.bvTabs.registerTab) {
+      this.$nextTick(() => {
+        this.bvTabs.registerTab(this)
+      })
+    }
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
@@ -143,7 +150,9 @@ export default {
   },
   beforeDestroy() {
     if (this.bvTabs.unregisterTab) {
-      this.bvTabs.unregisterTab(this)
+      this.$nextTick(() => {
+        this.bvTabs.unregisterTab(this)
+      })
     }
   },
   methods: {
