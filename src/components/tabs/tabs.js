@@ -491,10 +491,8 @@ export default {
   },
   render(h) {
     const tabs = this.tabs
-    /*
     // eslint-disable-next-line no-unused-vars
     const registeredTabs = this.registeredTabs
-    */
 
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
