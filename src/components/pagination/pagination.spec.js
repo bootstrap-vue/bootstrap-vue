@@ -330,8 +330,9 @@ describe('pagination', async () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
+    lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
-    expect(lis.at(2).attributes('role')).not.toBe('separator')
+    expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).toBe('separator')
 
     // should have first ellipsis showing
@@ -341,6 +342,7 @@ describe('pagination', async () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(5)
+    lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).not.toBe('separator')
