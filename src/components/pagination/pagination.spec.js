@@ -459,7 +459,7 @@ describe('pagination', async () => {
     // Grab the page buttons
     let lis = wrapper.findAll('li')
     expect(lis.length).toBe(7)
-    
+
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
@@ -470,7 +470,7 @@ describe('pagination', async () => {
       .at(3)
       .find('a')
       .trigger('click')
-    await wrapper.$nextTick()
+    await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -483,7 +483,7 @@ describe('pagination', async () => {
       .at(6)
       .find('a')
       .trigger('click')
-    await wrapper.$nextTick()
+    await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
