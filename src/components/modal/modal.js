@@ -826,13 +826,10 @@ export default {
           closeButton = h(
             'b-button-close',
             {
-              class: {
-                [`text-${this.headerCloseVariant}`]: this.headerCloseVariant
-              },
               props: {
                 disabled: this.is_transitioning,
                 ariaLabel: this.headerCloseLabel,
-                textVariant: this.headerTextVariant
+                textVariant: this.headerCloseVariant || this.headerTextVariant
               },
               on: {
                 click: evt => {
