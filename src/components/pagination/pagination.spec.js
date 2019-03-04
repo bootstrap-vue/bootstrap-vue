@@ -238,6 +238,39 @@ describe('pagination', async () => {
     expect(wrapper.findAll('a').at(2).attributes('aria-controls')).not.toBeDefined()
   })
 
+  it('has atribute aria-label on page links', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        hideGotoEndButtons: true,
+        hideEllipsis: true,
+        totalRows: 3,
+        perPage: 1,
+        value: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.findAll('li').length).toBe(3)
+    expect(wrapper.findAll('a').length).toBe(3)
+    expect(wrapper.findAll('a').at(0).attributes('aria-label')).toBe('Go to page 1')
+    expect(wrapper.findAll('a').at(1).attributes('aria-label')).toBe('Go to page 2')
+    expect(wrapper.findAll('a').at(2).attributes('aria-label')).toBe('Go to page 3')
+  })
+
+  it('has all links disabled when prop disabled set', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 3,
+        perPage: 1,
+        value: 1,
+        disabled: true
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.findAll('li').length).toBe(7)
+    expect(wrapper.findAll('.page-link').length).toBe(7)
+    expect(wrapper.findAll('.page-link').is('span.page-link.disabled')).toBe(true)
+  })
+
   it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
