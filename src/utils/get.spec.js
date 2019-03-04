@@ -40,7 +40,7 @@ describe('get', async () => {
 
   it('handles when field name has dot', async () => {
     // https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
-    const obj1 = { 'a.b': 'foo', c: 'bar', d { e: 'baz' } }
+    const obj1 = { 'a.b': 'foo', c: 'bar', d: { e: 'baz' } }
     
     expect(get(obj1, 'a.b')).toBe('foo')
     expect(get(obj1, 'c')).toBe('bar')
