@@ -438,8 +438,6 @@ export default {
 
     // Individual Page links
     this.pageList.forEach(page => {
-      let inner
-      const pageText = this.makePage(page.number)
       const active = isActivePage(page.number)
       const staticClass = 'page-link'
       const attrs = {
@@ -453,34 +451,21 @@ export default {
         // ARIA "roving tabindex" method
         tabindex: disabled ? null : active ? '0' : '-1'
       }
-      if (disabled) {
-        inner = h(
-          'span',
-          {
-            key: `page-${page.number}-link-disabled`,
-            staticClass,
-            attrs
-          },
-          pageText
-        )
-      } else {
-        inner = h(
-          'b-link',
-          {
-            key: `page-${page.number}-link`,
-            props: this.linkProps(page.number),
-            staticClass,
-            attrs,
-            on: {
-              click: evt => {
-                this.onClick(page.number, evt)
-              },
-              keydown: onSpaceKey
-            }
-          },
-          pageText
-        )
-      }
+      const inner = h(
+        disabled ? 'span' : `b-link`,
+        {
+          props: disabled ? {} : this.linkProps(page.number),
+          staticClass,
+          attrs,
+          on: disabled
+            ? {}
+            : {
+                click: evt => { this.onClick(page.number, evt) },
+                keydown: onSpaceKey
+              }
+        },
+        toString(this.makePage(page.number))
+      )
       buttons.push(
         h(
           'li',
