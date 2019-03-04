@@ -149,6 +149,10 @@ export default {
       type: String,
       default: null
     },
+    headerCloseVariant: {
+      type: String,
+      default: null
+    },
     headerClass: {
       type: [String, Array],
       default: null
@@ -825,7 +829,7 @@ export default {
               props: {
                 disabled: this.is_transitioning,
                 ariaLabel: this.headerCloseLabel,
-                textVariant: this.headerTextVariant
+                textVariant: this.headerCloseVariant || this.headerTextVariant
               },
               on: {
                 click: evt => {
