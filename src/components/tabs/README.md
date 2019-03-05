@@ -11,9 +11,9 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 ```html
 <div>
   <b-tabs content-class="mt-3">
-    <b-tab title="first" active>I'm the first fading tab</b-tab>
-    <b-tab title="second">I'm the second tab content</p></b-tab>
-    <b-tab title="disabled" disabled>Disabled tab!></p></b-tab>
+    <b-tab title="first" active><p>I'm the first fading tab</p></b-tab>
+    <b-tab title="second"><p>I'm the second tab content</p></b-tab>
+    <b-tab title="disabled" disabled><p>Disabled tab!></p></b-tab>
   </b-tabs>
 </div>
 
@@ -27,7 +27,7 @@ attribute, see https://vuejs.org/v2/api/#key).
 ## Cards Integration
 
 Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
-it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>`
+it inside a `<b-card>` component. Note that you should add the`no-body` prop on the `<b-card>`
 component in order to properly decorate the card header and remove the extra padding introduced by
 `card-body`.
 
@@ -35,8 +35,12 @@ component in order to properly decorate the card header and remove the extra pad
 <div>
   <b-card no-body>
     <b-tabs card>
-      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 1" active>
+        <b-card-text>Tab Contents 1</b-card-text>
+      </b-tab>
+      <b-tab title="Tab 2">
+        <b-card-text>Tab Contents 2</b-card-text>
+      </b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -46,7 +50,7 @@ component in order to properly decorate the card header and remove the extra pad
 
 When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatically have the
 `card-body` class applied (this class provides the padding around the tab content). To disable the
-`card-body` class, set the `no-body` prop on `<b-tab>` sub component.
+`card-body` class, set the `no-body` prop on the `<b-tab>` sub component.
 
 ```html
 <div>
@@ -68,11 +72,14 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
       </b-tab>
 
       <b-tab title="Text">
-        <h5>This tab does not have the <code>no-body</code> prop set</h5>
-        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
-        consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
-        mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit
-        elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure.
+        <b-card-title>This tab does not have the <code>no-body</code> prop set</b-card-title>
+        <b-card-text>
+          Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
+          consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex
+          consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt
+          veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua
+          esse irure.
+        </b-card-text>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -84,6 +91,8 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
 **Note:** Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in
 `card` mode (as the `card-body` class is only set when in `card` mode).
 
+Refer to the [Cards documentation](/docs/components/card) for more details on card components.
+
 ## Pills variant
 
 Tabs use the `tabs` styling by default. Just add `pills` property to `<b-tabs>` for the pill style
@@ -93,8 +102,8 @@ variant.
 <div>
   <b-card no-body>
     <b-tabs pills card>
-      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -110,8 +119,8 @@ Visually move the tab controls to the bottom by setting the prop `end`
 <div>
   <b-card no-body>
     <b-tabs pills card end>
-      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -139,9 +148,9 @@ tabs work with or without `card` mode enabled.
 <div>
   <b-card no-body>
     <b-tabs pills card vertical>
-      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-      <b-tab title="Tab 2">Tab Contents 2</b-tab>
-      <b-tab title="Tab 3">Tab Contents 3</b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 3"><b-card-text>Tab Contents 3</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -155,9 +164,9 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 <div>
   <b-card no-body>
     <b-tabs pills card vertical end>
-      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-      <b-tab title="Tab 2">Tab Contents 2</b-tab>
-      <b-tab title="Tab 3">Tab Contents 3 </b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 3"><b-card-text>Tab Contents 3</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -174,9 +183,9 @@ column classes such as `col-2`, `col-3`, etc.
 <div>
   <b-card no-body>
     <b-tabs pills card vertical nav-wrapper-class="w-50">
-      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-      <b-tab title="Tab 2">Tab Contents 2</b-tab>
-      <b-tab title="Tab 3">Tab Contents 3</b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 3"><b-card-text>Tab Contents 3</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -205,6 +214,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
     <!-- Add your b-tab components here -->
     <template slot="tabs">
       <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
+      <li class="nav-item align-self-center">Plain Text</li>
     </template>
   </b-tabs>
 </div>
@@ -212,13 +222,13 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <!-- b-tabs-item-slot.vue -->
 ```
 
-**Note:** extra (contentless) tabs should be a `<b-nav-item>` or have the class `nav-item` with a
-root element of `<li>` for proper rendering.
+**Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have the class `nav-item`
+with a root element of `<li>` and class `nav-item` for proper rendering and semantic markup.
 
 ## Add custom content to tab title
 
 If you want to add custom content to tab title, like HTML code, icons, or another non-interactive
-Vue component, this possible by using `title` slot
+Vue component, this possible by using `title` slot of `<b-tab>`.
 
 ```html
 <div>
