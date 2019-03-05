@@ -13,7 +13,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
   <b-tabs content-class="mt-3">
     <b-tab title="first" active><p>I'm the first fading tab</p></b-tab>
     <b-tab title="second"><p>I'm the second tab content</p></b-tab>
-    <b-tab title="disabled" disabled><p>Disabled tab!></p></b-tab>
+    <b-tab title="disabled" disabled><p>Disabled tab!</p></b-tab>
   </b-tabs>
 </div>
 
