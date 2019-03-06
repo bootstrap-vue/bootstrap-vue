@@ -96,7 +96,7 @@ export default {
         attrs: {
           role: 'tab',
           // ID must be the same as generated in b-tab for controlled-by
-          id: tab && tab.safeId ? tab.safeId('_tab_button_'),
+          id: tab && tab.safeId ? tab.safeId('_tab_button_') : null,
           'aria-controls': !disabled && tab && tab.safeId ? tab.safeId() : null,
           'aria-selected': active && !disabled ? 'true' : 'false',
           'aria-posinset': this.index > -1 ? this.index + 1 : null,
@@ -113,7 +113,7 @@ export default {
         staticClass: 'nav-item',
         class: [
           {
-            active: active && !disable,
+            active: active && !disabled,
             disabled: disabled
           },
           tab ? tab.titleItemClass : {}
