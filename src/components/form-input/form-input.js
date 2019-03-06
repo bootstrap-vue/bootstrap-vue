@@ -147,7 +147,7 @@ export default {
         min: self.min,
         max: self.max,
         step: self.step,
-        list: self.list,
+        list: self.localType !== 'password' ? self.list : null,
         'aria-required': self.required ? 'true' : null,
         'aria-invalid': self.computedAriaInvalid
       },
