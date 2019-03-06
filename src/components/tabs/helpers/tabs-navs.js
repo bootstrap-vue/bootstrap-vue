@@ -209,7 +209,7 @@ export default {
 
     // Return the rendered tabs header
     return(
-      'div'
+      'div',
       {
         class: [
           {
