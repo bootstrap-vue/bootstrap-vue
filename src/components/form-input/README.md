@@ -427,11 +427,11 @@ chosen, or new values to be entered.
 
 ```html
 <template>
-  <b-form-input list="my-list-id"></b-form-input>
+  <b-form-input list="my-list-id" />
 
   <datalist id="my-list-id">
     <option>Manual Option</option>
-    <option v-for="size in sizes">{{size}}</option>
+    <option v-for="size in sizes">{{ size }}</option>
   </datalist>
 </template>
 
