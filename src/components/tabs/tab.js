@@ -120,42 +120,38 @@ export default {
       if (newVal !== oldVal) {
         if (newVal && this.localActive && this.bvTabs.firstTab) {
           this.localActive = false
+          // May not need this
           this.bvTabs.firstTab()
         }
       }
     }
   },
   created() {
-    if (this.bvTabs.registerTab) {
-      this.$nextTick(() => {
-        this.bvTabs.registerTab(this)
-      })
-    }
+    this.registerTab()
   },
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
-    if (this.bvTabs.registerTab) {
-      this.$nextTick(() => {
-        this.bvTabs.registerTab(this)
-      })
-    }
-  },
-  updated() {
-    // Force the tab button content to update (since slots are not reactive)
-    // Only done if we have a title slot, as the title prop is reactive
-    if (this.$slots.title && this.bvTabs.updateButton) {
-      this.bvTabs.updateButton(this)
-    }
+    this.registerTab()
   },
   beforeDestroy() {
-    if (this.bvTabs.unregisterTab) {
-      this.$nextTick(() => {
-        this.bvTabs.unregisterTab(this)
-      })
-    }
+    this.unregisterTab()
   },
   methods: {
+    registerTab() {
+      if (this.bvTabs.registerTab) {
+        this.$nextTick(() => {
+          this.bvTabs.registerTab(this)
+        })
+      }
+    },
+    unregisterTab() {
+      if (this.bvTabs.unregisterTab) {
+        this.$nextTick(() => {
+          this.bvTabs.unregisterTab(this)
+        })
+      }
+    },
     // Transition handlers
     beforeEnter() {
       // change opacity (add 'show' class) 1 frame after display
