@@ -452,6 +452,10 @@ chosen, or new values to be entered.
 options first, followed by auto-complete options. To only display datalist options, set
 `autocomplete="off"`.
 
+**Note:** Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
+recommended that datalists be treated as an enhancement and not be relied upon at this time.
+[click here](https://caniuse.com/#feat=datalist) for full support details on all browsers.
+
 ## `v-model` modifiers
 
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
