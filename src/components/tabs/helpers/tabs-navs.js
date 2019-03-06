@@ -135,7 +135,7 @@ export default {
         .find(t => t.localActive && !t.disabled)
 
       // Else try value specified by this.value
-      if(!tab) {
+      if (!tab) {
         if (this.value >= tabs.length) {
           // Handle last tab being removed, so find the last non-disabled tab
           tab = tabs
@@ -211,11 +211,7 @@ export default {
           id: bvTabs.safeId ? bvTabs.safeId('_BV_tab_controls_') : null
         }
       },
-      [
-        this.$slots['tabs-start'] || h(false),
-        $navs,
-        this.$slots['tabs-end'] || h(false)
-      ]
+      [this.$slots['tabs-start'] || h(false), $navs, this.$slots['tabs-end'] || h(false)]
     )
 
     // Optional slot for header content. Most applicable in card mode
