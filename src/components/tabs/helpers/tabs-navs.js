@@ -15,7 +15,7 @@ export default {
   inject: {
     bvTabs: {
       default() {
-        return: {}
+        return {}
       }
     }
   },
