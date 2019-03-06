@@ -131,7 +131,7 @@ export default {
 
       // Else find the first non-disabled tab
       if (!tab) {
-        tab = tabs.find(t => !disabled)
+        tab = tabs.find(t => !t.disabled)
       }
 
       // Return the index of the tab if found (else returns -1)
