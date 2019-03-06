@@ -80,7 +80,7 @@ export default {
     const $link = h(
       disabled ? 'span' : BLink,
       {
-        staticClass: 'nav-link'
+        staticClass: 'nav-link',
         class: [
           {
             active: active && !disabled,
