@@ -64,7 +64,7 @@ export default {
         if (val >= tabs.length) {
           // handle case where last tab removed
           this.last()
-        } else if (tabs[val] && !tabs[val].disabled) {
+        } else if (tabs[val] && notDisabled(tabs[val])) {
           this.setActiveTab(tabs[val])
         } else {
           // Try next or prev tabs
@@ -137,7 +137,7 @@ export default {
       let tab = tabs
         .slice()
         .reverse()
-        .find(t => t.localActive && notDisabled(t)
+        .find(t => t.localActive && notDisabled(t))
 
       // Else try value specified by this.value
       if (!tab) {
@@ -147,7 +147,7 @@ export default {
             .slice()
             .reverse()
             .find(notDisabled)
-        } else if (tabs[this.value] && !tabs[this.value].disabled) {
+        } else if (tabs[this.value] && notDisabled(tabs[this.value])) {
           tab = tabs[this.value]
         }
       }
