@@ -354,6 +354,7 @@ describe('tabs', async () => {
     expect(tabs.vm.currentTab).toBe(1)
   })
 
+/*
   it('key nav works', async () => {
     const App = Vue.extend({
       render(h) {
@@ -429,6 +430,7 @@ describe('tabs', async () => {
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
   })
+*/
 
   it('disabling active tab selects first non-disabled tab', async () => {
     const App = Vue.extend({
