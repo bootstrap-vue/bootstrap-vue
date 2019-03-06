@@ -5,6 +5,11 @@ import BLink from '../../link/link'
 // @vue/component
 export default {
   name: 'BTabNav',
+  inject: {
+    bvTabsNavs: {
+      default: false
+    }
+  },
   props: {
     tab: {
       // Vue instance of b-tab
@@ -44,6 +49,7 @@ export default {
   mounted() {
     if (this.tab) {
       // just in case this didnt happen in created()
+      // this.tab.localActive = this.active
       this.tab.$on('hook:updated', this.doUpdate)
     }
   },
@@ -54,14 +60,18 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.tab && this.bvTabs) {
-        // This looks up in the tabs array and determines the new index
-        // Just in case the indices have changed during render
-        this.bvTabs.setActiveTab(this.tab)
+      if (this.tab && this.bvTabsNavs && !this.tab.disabled) {
+        this.tab.localActive = true
+        // May need to do this as well or instead
+        // this.bvTabsNavs.setActiveTab(this.tab)
+
+        // Emit a click on this tab
+        this.tab.$emit && this.tab.$emit('click')
       }
     },
     handleUpdate() {
       if (this.tab && this.tab.$slots.title) {
+        // Ensure tab button re-renders changes in slot
         this.$forceUpdate()
       }
     }
@@ -75,11 +85,15 @@ export default {
     let $content = h(false)
     if (this.tab) {
       $content = this.tab.$slots.title || this.tab.title
+      if ($content === null || $content === undefined) {
+        // Fallback to the tab's index number
+        $content = String(this.index)
+      }
     }
 
     // The nav-link
     const $link = h(
-      disabled ? 'span' : BLink,
+      BLink,
       {
         staticClass: 'nav-link',
         class: [
@@ -90,9 +104,12 @@ export default {
           this.tab ? this.tab.titleLinkClass : {}
         ],
         props: {
-          // These will be ignored by span
           disabled: disabled,
-          href: tab && tab.id ? `#${tab.id}` : '#'
+          // Use the user supplied tab `id`, if provided, as the tab button's `href`
+          // TODO: support router hash-based routing (need to add support for seting active
+          //       tab based on location HREF in BTabsNav)
+          // href: tab && tab.id ? `#${tab.id}` : '#'
+          href: '#'
         },
         attrs: {
           role: 'tab',
@@ -103,7 +120,7 @@ export default {
           'aria-posinset': this.index > -1 ? this.index + 1 : null,
           'aria-setsize': this.setSize || null
         },
-        on: disabled ? {} : { click: this.onClick }
+        on: { click: this.onClick }
       },
       [$content]
     )
