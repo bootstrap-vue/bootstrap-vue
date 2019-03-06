@@ -448,13 +448,13 @@ chosen, or new values to be entered.
 <!-- b-form-input-datalist.vue -->
 ```
 
-**Note:** Datalists work in conjunction with the browser's built in auto-complete, displaying datalist
+**Notes:**
+
+- Datalists work in conjunction with the browser's built in auto-complete, displaying datalist
 options first, followed by auto-complete options. To only display datalist options, set
 `autocomplete="off"`.
-
-**Note:** Datalists cannot be applied to input fields with `type="password"`.
-
-**Note:** Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
+- Datalists cannot be applied to input fields with `type="password"`.
+- Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
 recommended that datalists be treated as an enhancement and not be relied upon at this time.
 [click here](https://caniuse.com/#feat=datalist) for full support details on all browsers.
 
