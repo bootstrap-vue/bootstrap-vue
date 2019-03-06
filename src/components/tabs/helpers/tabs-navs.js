@@ -22,7 +22,7 @@ export default {
   props: {
     tabs: {
       // Array of b-tab instances, in document order
-      type: Array
+      type: Array,
       default: () => ([])
     },
     value: {
@@ -41,12 +41,12 @@ export default {
   computed: {
     slotScope() {
       return {
-        first: this.first
+        first: this.first,
         previous: this.prev,
         prev: this.prev,
         next: this.next,
         last: this.last,
-        currentTab: this.activeIndex
+        currentTab: this.activeIndex,
         tabCount: this.tabs.length
       }
     }
@@ -108,7 +108,7 @@ export default {
       this.setActiveTab(tab)
     },
     last() {
-      const tabs = this.tabs
+      const tab = this.tabs
         .slice()
         .reverse()
         .find(t => !t.disabled)
@@ -183,7 +183,7 @@ export default {
             'px-1': card && vertical
           },
           bvTabs.navClass || {}
-        },
+        ],
         attrs: {
           role: 'tablist',
           id: bvTabs.safeId ? bvTabs.safeId('_BV_tab_controls_') : null
@@ -224,6 +224,7 @@ export default {
             'rounded-0': card && vertical
           },
           bvTabs.navWrapperClass || {}
+        ]
       },
       // Header slot, if present, always appears on top in vertical mode
       vertical || !end ? [$header, $nav, h(false)] : [h(false), $nav, $header]
