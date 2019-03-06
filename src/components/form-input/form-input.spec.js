@@ -140,6 +140,17 @@ describe('form-input', async () => {
     expect(input.attributes('list')).toBe('foobar')
   })
 
+  it('does not have list attribute when list prop set and type=password', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        list: 'foobar',
+        type: 'password'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('list')).not.toBeDefined()
+  })
+
   it('renders text input by default', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
