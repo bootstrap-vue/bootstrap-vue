@@ -451,12 +451,12 @@ chosen, or new values to be entered.
 **Notes:**
 
 - Datalists work in conjunction with the browser's built in auto-complete, displaying datalist
-options first, followed by auto-complete options. To only display datalist options, set
-`autocomplete="off"`.
+  options first, followed by auto-complete options. To only display datalist options, set
+  `autocomplete="off"`.
 - Datalists cannot be applied to input fields with `type="password"`.
 - Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
   recommended that datalists be treated as an enhancement and not be relied upon at this time.
-  [click here](https://caniuse.com/#feat=datalist) for full support details on all browsers.
+  Check [Can I Use](https://caniuse.com/#feat=datalist) for full support details on all browsers.
 
 ## `v-model` modifiers
 
