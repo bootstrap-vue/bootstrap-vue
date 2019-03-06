@@ -13,7 +13,7 @@ import { isObject } from './object'
  */
 export default (obj, path, defaultValue = null) => {
   // Handle aray of path values
-  path = isArray(path) ? path.join('.') : path || ''
+  path = isArray(path) ? path.join('.') : path
 
   // If no path or no object passed
   if (!path || !isObject(obj)) {
