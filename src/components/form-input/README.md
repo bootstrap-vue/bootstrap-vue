@@ -452,7 +452,7 @@ chosen, or new values to be entered.
 options first, followed by auto-complete options. To only display datalist options, set
 `autocomplete="off"`.
 
-**Note:** Datalists cannot be applied to password input fields.
+**Note:** Datalists cannot be applied to input fields with `type="password"`.
 
 **Note:** Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
 recommended that datalists be treated as an enhancement and not be relied upon at this time.
