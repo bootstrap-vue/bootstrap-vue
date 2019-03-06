@@ -2,12 +2,10 @@
 // Used by BTabs to maitain source of truth
 import BNav from '../../nav/nav'
 import BTabNav from './tab-nav'
-import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 // @vue/component
 export default {
   name: 'BTabsNavs',
-  mixins: [normalizeSlotMixin],
   provide() {
     return {
       bvTabsNavs: this
@@ -56,44 +54,54 @@ export default {
     value(val, old) {
       if (val !== old) {
         const tabs = this.tabs
-        if (tabs[val] && !tabs[val].disabled) {
+        // val = Math.min(val, 0)
+        // old = Math.max(val || 0, -1)
+        if (val >= tabs.length) {
+          // handle case where last tab removed
+          this.last()
+        } else if (tabs[val] && !tabs[val].disabled) {
           this.setActiveTab(tabs[val])
         } else {
           // Try next or prev tabs
           if (val < old) {
-            this.previousTab()
+            this.prev()
           } else {
-            this.nextTab()
+            this.next()
           }
         }
       }
     },
     activeIndex(val, old) {
       // Update the parent v-model
+      // Could do this with $emit('change', val)
       this.bvTabs.activeIndex = val
     }
   },
   created() {
-    // set the initial value of the model
+    // set the initial value of the model (could be -1)
     this.activeIndex = this.getActiveIndex()
   },
   methods: {
     // Called by BTabNav and the following methods
     setActiveTab(tab) {
       if (tab && !tab.disabled) {
+        // Should this be this.$emit('change', this.tabs.indexOf(tab))
         this.activeIndex = this.tabs.indexOf(tab)
       } else {
-        // We should re-update the parent model here ????
-        //
-        //
+        // TODO:
+        //   We should re-update the parent model here
+        //   to keep model in sync???
+        //   this.$emit('change', this.activeIndex)
       }
     },
     // These methods are used by the scoped slots, and by the parent BTabs component
     first() {
+      // Activate the first non-disabled tab
       const tab = this.tabs.find(t => !t.disabled)
       this.setActiveTab(tab)
     },
     prev() {
+      // Activate the previous non-disabled tab
       const index = Math.max(this.activeIndex, 0)
       const tab = this.tabs
         .slice(0, index)
@@ -102,11 +110,13 @@ export default {
       this.setActiveTab(tab)
     },
     next() {
+      // Activate the next non-disabled tab
       const index = Math.max(this.activeIndex, -1)
       const tab = this.tabs.slice(index + 1).find(t => !t.disabled)
       this.setActiveTab(tab)
     },
     last() {
+      // Activate the last non-disabled tab
       const tab = this.tabs
         .slice()
         .reverse()
@@ -119,14 +129,22 @@ export default {
 
       // look for last tab with localActive set to true
       // Trusting the tab's state first (handy if new tabs are added with `active=true`)
-      let tab = this.tabs
+      let tab = tabs
         .slice()
         .reverse()
         .find(t => t.localActive && !t.disabled)
 
-      // Else try value specified by this.activeIndex
-      if (!tab && tabs[this.value] && !tabs[this.value].disabled) {
-        tab = tabs[this.value]
+      // Else try value specified by this.value
+      if(!tab) {
+        if (this.value >= tabs.length) {
+          // Handle last tab being removed, so find the last non-disabled tab
+          tab = tabs
+            .slice()
+            .reverse()
+            .find(t => !t.disabled)
+        } else if (tabs[this.value] && !tabs[this.value].disabled) {
+          tab = tabs[this.value]
+        }
       }
 
       // Else find the first non-disabled tab
@@ -140,15 +158,12 @@ export default {
   },
   render(h) {
     const bvTabs = this.bvTabs
+    const activeIndex = this.getActiveIndex()
     const end = bvTabs.end || bvTabs.bottom || false
     const vertical = bvTabs.vertical || false
     const card = bvTabs.card
     // Accepts null, 'tabs', 'pills', 'plain'
     const navType = bvTabs.navType === 'plain' ? null : bvTabs.navType || null
-
-    // Determine the active tab index
-    // The BTabNav will be responsible for updating the model
-    const activeIndex = this.getActiveIndex()
 
     // Generate the tab nav items/links
     const $navs = this.tabs.map((tab, idx) => {
@@ -197,22 +212,14 @@ export default {
         }
       },
       [
-        // may need to run normalizeSlot('tabs-start', this.slotScope)
-        // Although we should be able to do scoping in b-tabs component
         this.$slots['tabs-start'] || h(false),
-        // rendered tab buttons
         $navs,
-        // may need to run normalizeSlot('tabs-end', this.slotScope)
-        // Although we should be able to do scoping in b-tabs component
         this.$slots['tabs-end'] || h(false)
       ]
     )
 
     // Optional slot for header content. Most applicable in card mode
-    let $header = h(false)
-    if (!vertical) {
-      $header = this.normalizeSlot('header', this.slotScope) || h(false)
-    }
+    const $header = this.$slots['header'] || h(false)
 
     // Return the rendered tabs header
     return h(
@@ -227,7 +234,7 @@ export default {
             'border-top-0': card && end && vertical,
             // Ensure we are full height in vertical card mode
             'h-100': card && vertical,
-            // Remove counded clipping to give a straight edge in vertical mode
+            // Remove counded clipping to give a straight edge in vertical card mode
             'rounded-0': card && vertical
           },
           bvTabs.navWrapperClass || {}
