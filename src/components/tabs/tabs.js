@@ -320,12 +320,14 @@ export default {
       }
     },
     registerTab(tab) {
+      // Used to trigger reactivity on tab changes
       if (!arrayIncludes(this.registeredTabs, tab)) {
         this.registeredTabs.push(tab)
       }
       this.registeredTabs = this.registeredTabs.slice()
     },
     unregisterTab(tab) {
+      // Used to trigger reactivity on tab changes
       if (arrayIncludes(this.registeredTabs, tab)) {
         this.registeredTabs = this.registeredTabs.filter(t => t !== tab)
       }
