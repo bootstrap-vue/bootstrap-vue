@@ -1,5 +1,6 @@
 // BTabNav (Private Component, not for public use)
 // Used by helper component BTabsNavs
+import BLink from '../../link/link'
 
 // @vue/component
 export default {
@@ -13,7 +14,7 @@ export default {
     active: {
       // If this tab should be made active
       type: Boolean,
-      default: false,
+      default: false
     },
     index: {
       // Zero-based index of tab
