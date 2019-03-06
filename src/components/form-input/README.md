@@ -455,8 +455,8 @@ options first, followed by auto-complete options. To only display datalist optio
 `autocomplete="off"`.
 - Datalists cannot be applied to input fields with `type="password"`.
 - Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
-recommended that datalists be treated as an enhancement and not be relied upon at this time.
-[click here](https://caniuse.com/#feat=datalist) for full support details on all browsers.
+  recommended that datalists be treated as an enhancement and not be relied upon at this time.
+  [click here](https://caniuse.com/#feat=datalist) for full support details on all browsers.
 
 ## `v-model` modifiers
 
