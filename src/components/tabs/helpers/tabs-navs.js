@@ -3,6 +3,11 @@
 import BNav from '../../nav/nav'
 import BTabNav from './tab-nav'
 
+// Filter function to filter out disabled tabs
+function notDisabled(tab) {
+  return !tab.disabled
+}
+
 // @vue/component
 export default {
   name: 'BTabsNavs',
@@ -97,7 +102,7 @@ export default {
     // These methods are used by the scoped slots, and by the parent BTabs component
     first() {
       // Activate the first non-disabled tab
-      const tab = this.tabs.find(t => !t.disabled)
+      const tab = this.tabs.find(notDisabled)
       this.setActiveTab(tab)
     },
     prev() {
@@ -106,13 +111,13 @@ export default {
       const tab = this.tabs
         .slice(0, index)
         .reverse()
-        .find(t => !t.disabled)
+        .find(notDisabled)
       this.setActiveTab(tab)
     },
     next() {
       // Activate the next non-disabled tab
       const index = Math.max(this.activeIndex, -1)
-      const tab = this.tabs.slice(index + 1).find(t => !t.disabled)
+      const tab = this.tabs.slice(index + 1).find(notDisabled)
       this.setActiveTab(tab)
     },
     last() {
@@ -120,7 +125,7 @@ export default {
       const tab = this.tabs
         .slice()
         .reverse()
-        .find(t => !t.disabled)
+        .find(notDisabled)
       this.setActiveTab(tab)
     },
     // Private method to determine which tab should be active
@@ -132,7 +137,7 @@ export default {
       let tab = tabs
         .slice()
         .reverse()
-        .find(t => t.localActive && !t.disabled)
+        .find(t => t.localActive && notDisabled(t)
 
       // Else try value specified by this.value
       if (!tab) {
@@ -141,7 +146,7 @@ export default {
           tab = tabs
             .slice()
             .reverse()
-            .find(t => !t.disabled)
+            .find(notDisabled)
         } else if (tabs[this.value] && !tabs[this.value].disabled) {
           tab = tabs[this.value]
         }
@@ -149,7 +154,7 @@ export default {
 
       // Else find the first non-disabled tab
       if (!tab) {
-        tab = tabs.find(t => !t.disabled)
+        tab = tabs.find(notDisabled)
       }
 
       // Return the index of the tab if found (else returns -1)
