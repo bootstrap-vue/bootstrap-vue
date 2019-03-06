@@ -1,6 +1,7 @@
 // BTabsNavs (Private Component, not for public use)
 // Used by BTabs to maitain source of truth
 import BNav from '../../nav/nav'
+import BTabNav from './tab-nav'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 // @vue/component
@@ -23,7 +24,7 @@ export default {
     tabs: {
       // Array of b-tab instances, in document order
       type: Array,
-      default: () => ([])
+      default: () => []
     },
     value: {
       // Currently active tab requested by BTabs
@@ -102,9 +103,7 @@ export default {
     },
     next() {
       const index = Math.max(this.activeIndex, -1)
-      const tab = this.tabs
-        .slice(index + 1)
-        .find(t => !t.disabled)
+      const tab = this.tabs.slice(index + 1).find(t => !t.disabled)
       this.setActiveTab(tab)
     },
     last() {
@@ -117,17 +116,24 @@ export default {
     // Private method to determine which tab should be active
     getActiveIndex() {
       const tabs = this.tabs || []
+
       // look for last tab with localActive set to true
       // Trusting the tab's state first (handy if new tabs are added with `active=true`)
-      let tab = this.tabs.slice().reverse().find(t => t.localActive && !t.disabled)
+      let tab = this.tabs
+        .slice()
+        .reverse()
+        .find(t => t.localActive && !t.disabled)
+
       // Else try value specified by this.activeIndex
       if (!tab && tabs[this.value] && !tabs[this.value].disabled) {
         tab = tabs[this.value]
       }
+
       // Else find the first non-disabled tab
       if (!tab) {
         tab = tabs.find(t => !disabled)
       }
+
       // Return the index of the tab if found (else returns -1)
       return tabs.indexOf(tab)
     }
@@ -157,7 +163,8 @@ export default {
             index: idx,
             setSize: this.tabs.length
           }
-        }
+        },
+        []
       )
     })
 
@@ -187,7 +194,7 @@ export default {
         attrs: {
           role: 'tablist',
           id: bvTabs.safeId ? bvTabs.safeId('_BV_tab_controls_') : null
-        },
+        }
       },
       [
         // may need to run normalizeSlot('tabs-start', this.slotScope)
@@ -197,7 +204,7 @@ export default {
         $navs,
         // may need to run normalizeSlot('tabs-end', this.slotScope)
         // Although we should be able to do scoping in b-tabs component
-        this.$slots['tabs-end'] || h(false),
+        this.$slots['tabs-end'] || h(false)
       ]
     )
 
@@ -208,7 +215,7 @@ export default {
     }
 
     // Return the rendered tabs header
-    return(
+    return h(
       'div',
       {
         class: [
