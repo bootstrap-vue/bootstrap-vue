@@ -83,7 +83,7 @@ describe('button-close', () => {
           on: { click: spy1 }
         }
       },
-      slots {
+      slots: {
         default: '<i>some <span>text</span></i>'
       }
     })
@@ -116,7 +116,7 @@ describe('button-close', () => {
           on: { click: spy1 }
         }
       },
-      slots {
+      slots: {
         default: '<i>some <span>text</span></i>'
       }
     })
