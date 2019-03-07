@@ -30,7 +30,7 @@ export default {
       default: () => []
     },
     value: {
-      // Currently active tab requested by BTabs
+      // Currently active tab requested by BTabs value prop
       type: Number,
       default: -1
     }
@@ -56,20 +56,14 @@ export default {
     }
   },
   created() {
-    // this.$nextTick(() => {
-    //   this.emitChange()
-    // })
+    this.emitChange()
   },
   mounted() {
-    this.$nextTick(() => {
-      // We do this in a nextTick to make sure the tabs have been processed
-      // first to make sure there is only one tab at max active
-      this.emitChange()
-    })
+    this.emitChange()
   },
   updated() {
     // Keep model up to date after an update
-    // this.emitChange()
+    this.emitChange()
   },
   methods: {
     emitChange() {
