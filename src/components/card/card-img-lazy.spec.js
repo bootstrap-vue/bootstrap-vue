@@ -1,7 +1,7 @@
 import CardImgLazy from './card-img-lazy'
 import { mount } from '@vue/test-utils'
 
-describe('card-image', async () => {
+describe('card-image', () => {
   it('default has tag "img"', async () => {
     const wrapper = mount(CardImgLazy, {
       context: {
