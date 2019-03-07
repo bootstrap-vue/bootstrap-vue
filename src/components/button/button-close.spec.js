@@ -1,105 +1,127 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import ButtonClose from './button-close'
+import { mount } from '@vue/test-utils'
 
 describe('button-close', () => {
-  beforeEach(loadFixture(__dirname, 'button-close'))
-  testVM()
-
-  it('default should have class close', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toHaveClass('close')
+  it('has root element "button"', async () => {
+    const wrapper = mount(ButtonClose)
+    expect(wrapper.is('button')).toBe(true)
   })
 
-  it('slot should have class close', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.slot).toHaveClass('close')
+  it('has class close', async () => {
+    const wrapper = mount(ButtonClose)
+    expect(wrapper.classes()).toContain('close')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it('disabled should have class close', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.disabled).toHaveClass('close')
+  it('has attribute type=button', async () => {
+    const wrapper = mount(ButtonClose)
+    expect(wrapper.attributes('type')).toBe('button')
   })
 
-  it('variant should have classes close and text-primary', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.variant).toHaveAllClasses(['close', 'text-primary'])
+  it('does not have attribute disabled by default', async () => {
+    const wrapper = mount(ButtonClose)
+    expect(wrapper.attributes('disabled')).not.toBeDefined()
   })
 
-  it('slot should have custom content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.slot.innerHTML).toContain('close')
+  it('has attribute disabled when prop disabled is set', async () => {
+    const wrapper = mount(ButtonClose, {
+      context: {
+        props: { disabled: true }
+      }
+    })
+    expect(wrapper.attributes('disabled')).toBeDefined()
   })
 
-  it('default should emit "click" event when clicked', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn = $refs.default
-    const spy = jest.fn()
-
-    btn.addEventListener('click', spy)
-    btn.click()
-
-    expect(spy).toHaveBeenCalled()
+  it('has attribute aria-label=Close by default', async () => {
+    const wrapper = mount(ButtonClose)
+    expect(wrapper.attributes('aria-label')).toBe('Close')
   })
 
-  it('default should emit "click" event with native event object', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn = $refs.default
-    let event = null
-
-    btn.addEventListener('click', e => (event = e))
-    btn.click()
-
-    expect(event).toBeInstanceOf(MouseEvent)
+  it('has custom attribute aria-label=Close when prop aria-label set', async () => {
+    const wrapper = mount(ButtonClose, {
+      context: {
+        props: { ariaLabel: 'foobar' }
+      }
+    })
+    expect(wrapper.attributes('aria-label')).toBe('foobar')
   })
 
-  it('disabled should be disabled and not emit click event with `disabled` prop true', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn = $refs.disabled
-    const spy = jest.fn()
-
-    btn.addEventListener('click', spy)
-    btn.click()
-
-    expect(btn.disabled).toBe(true)
-    expect(spy).not.toHaveBeenCalled()
+  it('has variant class when variant prop set', async () => {
+    const wrapper = mount(ButtonClose, {
+      context: {
+        props: { variant: 'primary' }
+      }
+    })
+    expect(wrapper.classes()).toContain('close')
+    expect(wrapper.classes()).toContain('text-primary')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('calls click handlers bound by its parent', async () => {
-    const { app } = window
-    const $btn = app.$refs.handlers
-    const spy1 = jest.fn()
-    const spy2 = jest.fn()
-    app.spies.push(spy1, spy2)
-
-    $btn.click()
-    expect(spy1).toHaveBeenCalled()
-    expect(spy2).toHaveBeenCalled()
+  it('should have default content', async () => {
+    const wrapper = mount(ButtonClose)
+    expect(wrapper.element.innerHTML).toContain('&times;')
   })
 
-  it('does not call click handlers bound by its parent when disabled', async () => {
-    const { app } = window
-    const $btn = app.$refs.handlersDisabled
-    const spy1 = jest.fn()
-    const spy2 = jest.fn()
-    app.spies.push(spy1, spy2)
+  it('should have custom content from default slot', async () => {
+    const wrapper = mount(ButtonClose, {
+      context: {
+        slots: {
+          default: 'foobar'
+        }
+      }
+    })
+    expect(wrapper.text()).toContain('foobar')
+  })
 
-    $btn.click()
-    expect(spy1).not.toHaveBeenCalled()
-    expect(spy2).not.toHaveBeenCalled()
+  it('should emit "click" event when clicked', async () => {
+    const wrapper = mount(ButtonClose, {
+      context: {
+        slots: {
+          default: 'some <span>text</span>'
+        }
+      }
+    })
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
+
+    const btn = wrapper.find('button')
+    btn.trigger('click')
+
+    expect(wrapper.emitted('click')).toBeDefined()
+    expect(wrapper.emitted('click').length).toBe(1)
+    expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(MouseEvent)
+
+    const span = wrapper.find('span')
+    expect(span).toBeDefined()
+    span.trigger('click')
+
+    expect(wrapper.emitted('click').length).toBe(2)
+    expect(wrapper.emitted('click')[1][0]).toBeInstanceOf(MouseEvent)
+  })
+
+  it('should not emit "click" event when disabled and clicked', async () => {
+    const wrapper = mount(ButtonClose, {
+      context: {
+        props: {
+          disabled: true
+        },
+        slots: {
+          default: 'some <span>text</span>'
+        }
+      }
+    })
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
+
+    const btn = wrapper.find('button')
+    btn.trigger('click')
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
+
+    const span = wrapper.find('span')
+    expect(span).toBeDefined()
+    span.trigger('click')
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
   })
 })
