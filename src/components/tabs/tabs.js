@@ -138,7 +138,7 @@ export default {
       if (arrayIncludes(regTabs, tab)) {
         regTabs = regTabs.filter(t => t !== tab)
       }
-      regTabs.__stamp__ = Date.now()
+      regTabs.__stamp__ = (regTabs.__stamp__ || 0) + 1
       this.registeredTabs = regTabs
     },
     unregisterTab(tab) {
@@ -147,7 +147,7 @@ export default {
       if (arrayIncludes(regTabs, tab)) {
         regTabs = regTabs.filter(t => t !== tab)
       }
-      regTabs.__stamp__ = Date.now()
+      regTabs.__stamp__ = (regTabs.__stamp__ || 0) + 1
       this.registeredTabs = regTabs
     },
     // Activate a tab given a b-tab instance
