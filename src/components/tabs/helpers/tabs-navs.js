@@ -234,7 +234,7 @@ export default {
             'card-header-pills': card && navType === 'pills' && !vertical,
             'card-header-tabs': card && navType === 'tabs' && !vertical,
             'mx-2': card && vertical,
-            'px-1': card && vertical
+            'px-1': card && vertical,
             'border-bottom-0': vertical && navType === 'tabs'
           },
           bvTabs.navClass || {}
