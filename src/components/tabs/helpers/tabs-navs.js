@@ -35,6 +35,11 @@ export default {
       default: -1
     }
   },
+  data() {
+    return: {
+      localValue: this.value
+    }
+  },
   watch: {
     value(val, old) {
       if (val !== old) {
@@ -43,7 +48,8 @@ export default {
           // handle case where last tab removed
           this.last()
         } else if (tabs[val] && notDisabled(tabs[val])) {
-          this.setActiveTab(tabs[val])
+          // this.setActiveTab(tabs[val])
+          this.localValue = val
         } else {
           // Try next or prev tabs
           if (val < old) {
@@ -53,6 +59,9 @@ export default {
           }
         }
       }
+    },
+    localValue(val, old) {
+      this.$emit('change', val)
     }
   },
   created() {
@@ -154,7 +163,7 @@ export default {
 
       // Else try value specified by this.value
       if (!tab) {
-        if (this.value >= tabs.length) {
+        if (this.localValue >= tabs.length) {
           // Handle last tab being removed, so find the last non-disabled tab
           tab = tabs
             .slice()
