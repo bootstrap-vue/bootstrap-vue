@@ -65,6 +65,7 @@ export default {
     }
   },
   created() {
+    this.localValue = this.value
     this.$nextTick(() => {
       this.emitChange()
     })
@@ -76,7 +77,7 @@ export default {
   },
   updated() {
     // Keep model up to date after an update
-    this.emitChange()
+    // this.emitChange()
   },
   methods: {
     emitChange() {
