@@ -36,7 +36,7 @@ export default {
     }
   },
   data() {
-    return: {
+    return {
       localValue: this.value
     }
   },
