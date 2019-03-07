@@ -41,7 +41,7 @@ export default {
     }
   },
   created() {
-    this.$nextTick(() =>
+    this.$nextTick(() => {
       if (this.tab) {
         this.tab.localActive = this.active
         this.tab.$on('hook:updated', this.handleUpdate)
