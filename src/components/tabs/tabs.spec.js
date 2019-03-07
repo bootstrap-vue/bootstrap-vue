@@ -270,7 +270,7 @@ describe('tabs', () => {
     expect(wrapper.findAll('.nav-link').length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabsNavs.vm.currentTab).toBe(0)
+    expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
