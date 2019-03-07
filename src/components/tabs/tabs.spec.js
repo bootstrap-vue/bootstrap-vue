@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Tab from './tab'
 import Tabs from './tabs'
+import TabsNavs from './helpers/tabs-navs'
 import Link from '../link/link'
 import { mount } from '@vue/test-utils'
 
@@ -23,7 +24,8 @@ describe('tabs', async () => {
     const wrapper = mount(Tabs)
 
     expect(wrapper.vm.currentTab).toBe(-1)
-    expect(wrapper.vm.tabs.length).toBe(0)
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(0)
   })
 
   it('sets correct tab active for initial value', async () => {
@@ -36,8 +38,9 @@ describe('tabs', async () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.vm.currentTab).toBe(tabIndex)
-    expect(wrapper.vm.tabs.length).toBe(3)
-    expect(wrapper.vm.tabs[tabIndex].localActive).toBe(true)
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
+    expect(tabsNavs.vm.tabs[tabIndex].localActive).toBe(true)
   })
 
   it('sets correct tab active when first tab is disabled', async () => {
