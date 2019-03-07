@@ -134,17 +134,21 @@ export default {
   methods: {
     registerTab(tab) {
       // Used to trigger reactivity on tab changes
-      if (!arrayIncludes(this.registeredTabs, tab)) {
-        this.registeredTabs.push(tab)
+      const regTabs = (this.registeredTabs || []).slice()
+      if (arrayIncludes(regTabs, tab)) {
+        regTabs = regTabs.filter(t => t !== tab)
       }
-      this.registeredTabs = this.registeredTabs.slice()
+      regTabs.__stamp__ = Date.now()
+      this.registeredTabs = regTabs
     },
     unregisterTab(tab) {
       // Used to trigger reactivity on tab changes
-      if (arrayIncludes(this.registeredTabs, tab)) {
-        this.registeredTabs = this.registeredTabs.filter(t => t !== tab)
+      const regTabs = (this.registeredTabs || []).slice()
+      if (arrayIncludes(regTabs, tab)) {
+        regTabs = regTabs.filter(t => t !== tab)
       }
-      this.registeredTabs = this.registeredTabs.slice()
+      regTabs.__stamp__ = Date.now()
+      this.registeredTabs = regTabs
     },
     // Activate a tab given a b-tab instance
     // Accessed by b-tab
