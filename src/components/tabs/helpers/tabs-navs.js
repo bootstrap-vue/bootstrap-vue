@@ -43,24 +43,11 @@ export default {
     }
   },
   computed: {
-    slotScope() {
-      return {
-        first: this.first,
-        previous: this.prev,
-        prev: this.prev,
-        next: this.next,
-        last: this.last,
-        currentTab: this.activeIndex,
-        tabCount: this.tabs.length
-      }
-    }
   },
   watch: {
     value(val, old) {
       if (val !== old) {
         const tabs = this.tabs
-        // val = Math.min(val, 0)
-        // old = Math.max(val || 0, -1)
         if (val >= tabs.length) {
           // handle case where last tab removed
           this.last()
@@ -83,21 +70,43 @@ export default {
     }
   },
   created() {
-    // set the initial value of the model (could be -1)
-    this.activeIndex = this.getActiveIndex()
+    // this.$nextTick() {
+    //   this.emitChange()
+    // })
+  },
+  mounted() {
+    this.$nextTick() {
+      // We do this in a nextTick to make sure the tabs have been processed
+      // first to make sure there is only one tab at max active
+      this.emitChange()
+    })
   },
   methods: {
+    emitChange() {
+      const tabs = this.tabs
+      this.$emit('change', this.getActiveTabIndex())
+    },
+    activateTab(tab) {
+      this.tabs.forEach((t, idx) => {
+        t.localActive = t === tab
+      })
+      this.emitChange()
+    },
     // Called by BTabNav and the following methods
     setActiveTab(tab) {
-      if (tab && !tab.disabled) {
-        // Should this be this.$emit('change', this.tabs.indexOf(tab))
-        this.activeIndex = this.tabs.indexOf(tab)
+      if (tab && notDisabled(tab)) {
+        this.activateTab(tab)
       } else {
-        // TODO:
-        //   We should re-update the parent model here
-        //   to keep model in sync???
-        //   this.$emit('change', this.activeIndex)
+        // Couldn't activate tab, so make sure model is in sync
+        this.emitChange()
       }
+    },
+    // These two methods could be computed props, if reactivity works right
+    getActiveTab() {
+      return this.tabs.filter(notDisabled).find(t -> t.localActive)
+    },
+    getActiveTabIndex() {
+      return this.tabs.indexOf(this.getActiveTab())
     },
     // These methods are used by the scoped slots, and by the parent BTabs component
     first() {
@@ -107,7 +116,7 @@ export default {
     },
     prev() {
       // Activate the previous non-disabled tab
-      const index = Math.max(this.activeIndex, 0)
+      const index = this.getActiveTabIndex()
       const tab = this.tabs
         .slice(0, index)
         .reverse()
@@ -116,7 +125,7 @@ export default {
     },
     next() {
       // Activate the next non-disabled tab
-      const index = Math.max(this.activeIndex, -1)
+      const index = this.getActiveTabIndex()
       const tab = this.tabs.slice(index + 1).find(notDisabled)
       this.setActiveTab(tab)
     },
@@ -128,8 +137,7 @@ export default {
         .find(notDisabled)
       this.setActiveTab(tab)
     },
-    // Private method to determine which tab should be active
-    getActiveIndex() {
+    computeActiveIndex() {
       const tabs = this.tabs || []
 
       // look for last tab with localActive set to true
@@ -163,12 +171,14 @@ export default {
   },
   render(h) {
     const bvTabs = this.bvTabs
-    const activeIndex = this.getActiveIndex()
     const end = bvTabs.end || bvTabs.bottom || false
     const vertical = bvTabs.vertical || false
     const card = bvTabs.card
     // Accepts null, 'tabs', 'pills', 'plain'
     const navType = bvTabs.navType === 'plain' ? null : bvTabs.navType || null
+
+    // Determine which tab **should** be active
+    const activeIndex = this.computeActiveIndex()
 
     // Generate the tab nav items/links
     const $navs = this.tabs.map((tab, idx) => {
@@ -179,9 +189,10 @@ export default {
           key: tab._uid || `tab-index-${idx}`,
           props: {
             tab: tab || null,
-            active: idx === activeIndex,
             index: idx,
-            setSize: this.tabs.length
+            setSize: this.tabs.length,
+            // BTabNav will use this prop to set the tab's localActive state
+            active: idx === activeIndex
           }
         },
         []
