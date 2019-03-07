@@ -49,7 +49,7 @@ describe('button-close', () => {
   it('has variant class when variant prop set', async () => {
     const wrapper = mount(ButtonClose, {
       context: {
-        props: { variant: 'primary' }
+        props: { textVariant: 'primary' }
       }
     })
     expect(wrapper.classes()).toContain('close')
@@ -78,7 +78,9 @@ describe('button-close', () => {
 
   it('should emit "click" event when clicked', async () => {
     let event = null
-    const spy1 = jest.fn(e => { event = e })
+    const spy1 = jest.fn(e => {
+      event = e
+    })
     const wrapper = mount(ButtonClose, {
       context: {
         slots() {
