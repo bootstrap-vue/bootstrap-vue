@@ -1,7 +1,7 @@
 import Pagination from './pagination'
 import { mount } from '@vue/test-utils'
 
-describe('pagination', async () => {
+describe('pagination', () => {
   it('renders with correct basic structure for root element', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
