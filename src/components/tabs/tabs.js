@@ -134,7 +134,7 @@ export default {
   methods: {
     registerTab(tab) {
       // Used to trigger reactivity on tab changes
-      const regTabs = (this.registeredTabs || []).slice()
+      let regTabs = (this.registeredTabs || []).slice()
       if (arrayIncludes(regTabs, tab)) {
         regTabs = regTabs.filter(t => t !== tab)
       }
@@ -143,7 +143,7 @@ export default {
     },
     unregisterTab(tab) {
       // Used to trigger reactivity on tab changes
-      const regTabs = (this.registeredTabs || []).slice()
+      let regTabs = (this.registeredTabs || []).slice()
       if (arrayIncludes(regTabs, tab)) {
         regTabs = regTabs.filter(t => t !== tab)
       }
