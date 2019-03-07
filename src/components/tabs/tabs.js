@@ -102,9 +102,6 @@ export default {
     }
   },
   computed: {
-    computedValue() {
-      return parseValue(this.value)
-    },
     fade() {
       // This computed prop is sniffed by the tab child
       return !this.noFade
@@ -121,7 +118,7 @@ export default {
   watch: {
     currentTab(val, old) {
       // Update the v-model
-      if (this.computedValue !== val) {
+      if (val !== parseValue(this.value)) {
         this.$emit('input', val)
       }
     }
@@ -210,7 +207,7 @@ export default {
         ref: 'tabsNavs',
         props: {
           tabs: tabs,
-          value: this.computedValue
+          value: parseValue(this.value)
         },
         on: {
           change: index => {
