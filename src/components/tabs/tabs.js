@@ -118,7 +118,7 @@ export default {
   watch: {
     currentTab(val, old) {
       // Update the v-model
-      if (val !== parseValue(this.value)) {
+      if (val !== parseInt(this.value, 10)) {
         this.$emit('input', val)
       }
     }
