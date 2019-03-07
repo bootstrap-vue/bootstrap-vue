@@ -485,6 +485,7 @@ describe('tabs', async () => {
     expect(tab3.vm.localActive).toBe(false)
   })
 
+  /*
   it('tab title slots are reactive', async () => {
     const App = Vue.extend({
       render(h) {
@@ -516,4 +517,5 @@ describe('tabs', async () => {
     // Expect tab button content to be `foobar`
     expect(wrapper.find('.nav-link').text()).toBe('foobar')
   })
+  */
 })
