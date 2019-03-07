@@ -35,13 +35,6 @@ export default {
       default: -1
     }
   },
-  data() {
-    return {
-      // Initially set to null so we can trigger
-      // an update to the parent
-      // activeIndex: null
-    }
-  },
   watch: {
     value(val, old) {
       if (val !== old) {
@@ -63,9 +56,9 @@ export default {
     }
   },
   created() {
-    this.$nextTick(() => {
-      this.emitChange()
-    })
+    // this.$nextTick(() => {
+    //   this.emitChange()
+    // })
   },
   mounted() {
     this.$nextTick(() => {
@@ -76,7 +69,7 @@ export default {
   },
   updated() {
     // Keep model up to date after an update
-    this.emitChange()
+    // this.emitChange()
   },
   methods: {
     emitChange() {
