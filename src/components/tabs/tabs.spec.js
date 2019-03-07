@@ -301,12 +301,12 @@ describe('tabs', () => {
     expect(tab3.vm.localActive).toBe(true)
     expect(tab3.emitted('click')).toBeDefined()
 
-    // Try to set 1st Tab to be active via click (space === click in keynav mode)
+    // Try to set 1st Tab to be active via click
     expect(tab1.emitted('click')).not.toBeDefined()
     wrapper
       .findAll('.nav-link')
       .at(0)
-      .trigger('keydown.space')
+      .trigger('click')
     await wrapper.vm.$nextTick()
     expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
