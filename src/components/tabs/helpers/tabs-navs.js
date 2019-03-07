@@ -103,7 +103,7 @@ export default {
     },
     // These two methods could be computed props, if reactivity works right
     getActiveTab() {
-      return this.tabs.filter(notDisabled).find(t -> t.localActive)
+      return this.tabs.filter(notDisabled).find(t => t.localActive)
     },
     getActiveTabIndex() {
       return this.tabs.indexOf(this.getActiveTab())
