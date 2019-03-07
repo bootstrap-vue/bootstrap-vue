@@ -1,7 +1,7 @@
 import DropdownItemBtn from './dropdown-item-button'
 import { mount } from '@vue/test-utils'
 
-describe('dropdown-item-button', async () => {
+describe('dropdown-item-button', () => {
   it('renders with tag "button" and type="button" by default', async () => {
     const wrapper = mount(DropdownItemBtn)
     expect(wrapper.is('button')).toBe(true)
