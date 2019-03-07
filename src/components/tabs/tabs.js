@@ -86,11 +86,9 @@ export default {
     }
   },
   data() {
-    let tabIdx = parseInt(this.value, 10)
-    tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
-      currentTab: tabIdx,
+      currentTab: this.computedValue,
       // Array of b-tab instances that have been injected into b-tabs.
       // For reactivity purposes only, as order in this
       // array is not guganteed to follow document order
@@ -98,6 +96,10 @@ export default {
     }
   },
   computed: {
+    computedValue() {
+      const value = parseInt(this.value, 10)
+      return isNaN(value) ? -1 : value
+    },
     fade() {
       // This computed prop is sniffed by the tab child
       return !this.noFade
@@ -115,10 +117,6 @@ export default {
     currentTab(val, old) {
       // Update the v-model
       this.$emit('input', val)
-    },
-    value(val, old) {
-      const tabIdx = parseInt(val, 10)
-      this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     }
   },
   created() {
@@ -205,7 +203,7 @@ export default {
         ref: 'tabsNavs',
         props: {
           tabs: tabs,
-          value: this.currentTab
+          value: this.computedValue
         },
         on: {
           change: index => {
