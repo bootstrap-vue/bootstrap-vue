@@ -1,7 +1,7 @@
 import CardFooter from './card-footer'
 import { mount } from '@vue/test-utils'
 
-describe('card-footer', async () => {
+describe('card-footer', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(CardFooter)
     expect(wrapper.is('div')).toBe(true)
