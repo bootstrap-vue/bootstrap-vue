@@ -26,7 +26,7 @@ describe('button-close', () => {
   it('has attribute disabled when prop disabled is set', async () => {
     const wrapper = mount(ButtonClose, {
       context: {
-        props: { disabled: true }
+        propsData: { disabled: true }
       }
     })
     expect(wrapper.attributes('disabled')).toBeDefined()
@@ -40,7 +40,7 @@ describe('button-close', () => {
   it('has custom attribute aria-label=Close when prop aria-label set', async () => {
     const wrapper = mount(ButtonClose, {
       context: {
-        props: { ariaLabel: 'foobar' }
+        propsData: { ariaLabel: 'foobar' }
       }
     })
     expect(wrapper.attributes('aria-label')).toBe('foobar')
@@ -49,7 +49,7 @@ describe('button-close', () => {
   it('has variant class when variant prop set', async () => {
     const wrapper = mount(ButtonClose, {
       context: {
-        props: { variant: 'primary' }
+        propsData: { variant: 'primary' }
       }
     })
     expect(wrapper.classes()).toContain('close')
@@ -59,7 +59,8 @@ describe('button-close', () => {
 
   it('should have default content', async () => {
     const wrapper = mount(ButtonClose)
-    expect(wrapper.element.innerHTML).toContain('&times;')
+    // '&times;' gets converted to '×'
+    expect(wrapper.text()).toContain('×')
   })
 
   it('should have custom content from default slot', async () => {
@@ -102,7 +103,7 @@ describe('button-close', () => {
   it('should not emit "click" event when disabled and clicked', async () => {
     const wrapper = mount(ButtonClose, {
       context: {
-        props: {
+        propsData: {
           disabled: true
         },
         slots: {
