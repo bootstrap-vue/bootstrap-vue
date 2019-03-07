@@ -2,7 +2,7 @@ import Input from './form-input'
 import { mount } from '@vue/test-utils'
 import Vue from 'vue'
 
-describe('form-input', async () => {
+describe('form-input', () => {
   it('has class form-control', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
