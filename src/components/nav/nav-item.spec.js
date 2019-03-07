@@ -2,7 +2,7 @@ import NavItem from './nav-item'
 import Link from '../link/link'
 import { mount } from '@vue/test-utils'
 
-describe('nav-item', async () => {
+describe('nav-item', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(NavItem)
     expect(wrapper.is('li')).toBe(true)
