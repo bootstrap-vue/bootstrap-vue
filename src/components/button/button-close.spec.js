@@ -79,9 +79,7 @@ describe('button-close', () => {
     })
     const wrapper = mount(ButtonClose, {
       context: {
-        data: {
-          on: { click: spy1 }
-        }
+        on: { click: spy1 }
       },
       slots: {
         default: '<i>some <span>text</span></i>'
@@ -91,16 +89,17 @@ describe('button-close', () => {
     expect(spy1).not.toHaveBeenCalled()
 
     const btn = wrapper.find('button')
-    btn.element.click()
+    expect(btn).toBeDefined()
+    btn.trigger('click')
 
     expect(spy1).toHaveBeenCalled()
     expect(spy1.mock.calls.length).toBe(1)
     expect(event).toBeInstanceOf(MouseEvent)
 
-    // Workes when clicking on an inner element
+    // Works when clicking on an inner element
     const span = wrapper.find('span')
     expect(span).toBeDefined()
-    span.element.click()
+    span.trigger('click')
 
     expect(spy1.mock.calls.length).toBe(2)
   })
@@ -112,9 +111,7 @@ describe('button-close', () => {
         props: {
           disabled: true
         },
-        data: {
-          on: { click: spy1 }
-        }
+        on: { click: spy1 }
       },
       slots: {
         default: '<i>some <span>text</span></i>'
@@ -124,14 +121,15 @@ describe('button-close', () => {
     expect(spy1).not.toHaveBeenCalled()
 
     const btn = wrapper.find('button')
-    btn.element.click()
+    expect(btn).toBeDefined()
+    btn.trigger('click')
 
     expect(spy1).not.toHaveBeenCalled()
 
     // Does not emit click on inner element clicks
     const span = wrapper.find('span')
     expect(span).toBeDefined()
-    span.element.click()
+    span.trigger('click')
 
     expect(spy1).not.toHaveBeenCalled()
   })
