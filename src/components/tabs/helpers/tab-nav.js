@@ -73,6 +73,11 @@ export default {
         // Ensure tab button re-renders changes in slot
         this.$forceUpdate()
       }
+    },
+    focus() {
+      if (this.$refs && this.$refs.link && this.$refs.link.focus) {
+        this.$refs.link.focus()
+      }
     }
   },
   render(h) {
@@ -94,6 +99,7 @@ export default {
     const $link = h(
       BLink,
       {
+        ref: 'link',
         staticClass: 'nav-link',
         class: [
           {
