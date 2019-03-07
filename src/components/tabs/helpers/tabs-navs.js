@@ -42,8 +42,6 @@ export default {
       activeIndex: null
     }
   },
-  computed: {
-  },
   watch: {
     value(val, old) {
       if (val !== old) {
@@ -83,7 +81,6 @@ export default {
   },
   methods: {
     emitChange() {
-      const tabs = this.tabs
       this.$emit('change', this.getActiveTabIndex())
     },
     activateTab(tab) {
