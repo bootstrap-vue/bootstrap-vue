@@ -169,8 +169,8 @@ export default {
             .slice()
             .reverse()
             .find(notDisabled)
-        } else if (tabs[this.value] && notDisabled(tabs[this.value])) {
-          tab = tabs[this.value]
+        } else if (tabs[this.localValue] && notDisabled(tabs[this.localValue])) {
+          tab = tabs[this.localValue]
         }
       }
 
