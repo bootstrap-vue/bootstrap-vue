@@ -39,7 +39,7 @@ export default {
     return {
       // Initially set to null so we can trigger
       // an update to the parent
-      activeIndex: null
+      // activeIndex: null
     }
   },
   watch: {
@@ -60,11 +60,6 @@ export default {
           }
         }
       }
-    },
-    activeIndex(val, old) {
-      // Update the parent v-model
-      // Could do this with $emit('change', val)
-      this.bvTabs.activeIndex = val
     }
   },
   created() {
@@ -85,7 +80,7 @@ export default {
     },
     activateTab(tab) {
       this.tabs.forEach((t, idx) => {
-        t.localActive = t === tab
+        t.localActive = t === tab && notDisabled(t)
       })
       this.emitChange()
     },
