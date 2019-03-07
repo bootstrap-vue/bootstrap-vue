@@ -179,8 +179,11 @@ export default {
     }
   },
   render(h) {
+    // These unused vars are used to trigger re-render to get latest tabs
     // eslint-disable-next-line no-unused-vars
     const registeredTabs = this.registeredTabs
+    // eslint-disable-next-line no-unused-vars
+    const currentTab = this.currentTab
 
     const scope = this.slotScope
     const $children = this.$slots.default || []
