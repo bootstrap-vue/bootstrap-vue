@@ -65,12 +65,8 @@ describe('button-close', () => {
 
   it('should have custom content from default slot', async () => {
     const wrapper = mount(ButtonClose, {
-      context: {
-        slots() {
-          return {
-            default: '<i>foobar</i>'
-          }
-        }
+      slots: {
+        default: '<i>foobar</i>'
       }
     })
     expect(wrapper.text()).toContain('foobar')
@@ -83,21 +79,19 @@ describe('button-close', () => {
     })
     const wrapper = mount(ButtonClose, {
       context: {
-        slots() {
-          return {
-            default: '<i>some <span>text</span></i>'
-          }
-        },
         data: {
           on: { click: spy1 }
         }
+      },
+      slots {
+        default: '<i>some <span>text</span></i>'
       }
     })
 
     expect(spy1).not.toHaveBeenCalled()
 
     const btn = wrapper.find('button')
-    btn.trigger('click')
+    btn.element.click()
 
     expect(spy1).toHaveBeenCalled()
     expect(spy1.mock.calls.length).toBe(1)
@@ -106,7 +100,7 @@ describe('button-close', () => {
     // Workes when clicking on an inner element
     const span = wrapper.find('span')
     expect(span).toBeDefined()
-    span.trigger('click')
+    span.element.click()
 
     expect(spy1.mock.calls.length).toBe(2)
   })
@@ -118,28 +112,26 @@ describe('button-close', () => {
         props: {
           disabled: true
         },
-        slots() {
-          return {
-            default: 'some <span>text</span>'
-          }
-        },
         data: {
           on: { click: spy1 }
         }
+      },
+      slots {
+        default: '<i>some <span>text</span></i>'
       }
     })
 
     expect(spy1).not.toHaveBeenCalled()
 
     const btn = wrapper.find('button')
-    btn.trigger('click')
+    btn.element.click()
 
     expect(spy1).not.toHaveBeenCalled()
 
     // Does not emit click on inner element clicks
     const span = wrapper.find('span')
     expect(span).toBeDefined()
-    span.trigger('click')
+    span.element.click()
 
     expect(spy1).not.toHaveBeenCalled()
   })
