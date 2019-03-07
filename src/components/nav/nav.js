@@ -38,6 +38,7 @@ export default {
   functional: true,
   props,
   render(h, { props, data, children }) {
+    /* istanbul ignore if */
     if (props.isNavBar) {
       warn("b-nav: Prop 'is-nav-bar' is deprecated. Please use component '<b-navbar-nav>' instead.")
     }
