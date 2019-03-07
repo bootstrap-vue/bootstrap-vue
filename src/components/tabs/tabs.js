@@ -3,6 +3,12 @@ import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { arrayIncludes } from '../../utils/array'
 
+// Utility function to parse the value (converting null or NaN to -1)
+function parseValue(val) {
+  val = parseInt(val, 10)
+  return isNaN(val) ? -1 : val
+}
+
 // @vue/component
 export default {
   name: 'BTabs',
@@ -88,7 +94,7 @@ export default {
   data() {
     return {
       // Index of current tab
-      currentTab: this.computedValue,
+      currentTab: parseValue(this.value),
       // Array of b-tab instances that have been injected into b-tabs.
       // For reactivity purposes only, as order in this
       // array is not guganteed to follow document order
@@ -97,8 +103,7 @@ export default {
   },
   computed: {
     computedValue() {
-      const value = parseInt(this.value, 10)
-      return isNaN(value) ? -1 : value
+      return parseValue(this.value)
     },
     fade() {
       // This computed prop is sniffed by the tab child
