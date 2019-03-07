@@ -24,10 +24,6 @@ export default {
       type: String,
       default: 'div'
     },
-    buttonId: {
-      type: String,
-      default: ''
-    },
     title: {
       type: String,
       default: ''
@@ -40,11 +36,6 @@ export default {
     titleLinkClass: {
       // Sniffed by tabs.js and added to nav 'a.nav-link'
       type: [String, Array, Object],
-      default: null
-    },
-    headHtml: {
-      // Is this actually ever used?
-      type: String,
       default: null
     },
     disabled: {
@@ -84,7 +75,7 @@ export default {
       ]
     },
     controlledBy() {
-      return this.buttonId || this.safeId('__BV_tab_button__')
+      return this.safeId('__BV_tab_button__')
     },
     computedFade() {
       return this.bvTabs.fade || false
@@ -120,8 +111,6 @@ export default {
       if (newVal !== oldVal) {
         if (newVal && this.localActive && this.bvTabs.firstTab) {
           this.localActive = false
-          // May not need this
-          this.bvTabs.firstTab()
         }
       }
     }
@@ -133,6 +122,9 @@ export default {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
     this.registerTab()
+  },
+  updated() {
+    // this.registerTab()
   },
   beforeDestroy() {
     this.unregisterTab()
@@ -183,14 +175,13 @@ export default {
     }
   },
   render(h) {
-    let content = h(
+    let $content = h(
       this.tag,
       {
         ref: 'panel',
         staticClass: 'tab-pane',
         class: this.tabClasses,
         directives: [
-          // TODO: convert to style object in render
           {
             name: 'show',
             rawName: 'v-show',
@@ -208,6 +199,7 @@ export default {
         }
       },
       // Render content lazily if requested
+      // TODO: handle scoped default slot
       [this.localActive || !this.computedLazy ? this.$slots.default : h(false)]
     )
     return h(
@@ -228,7 +220,7 @@ export default {
           beforeLeave: this.beforeLeave
         }
       },
-      [content]
+      [$content]
     )
   }
 }
