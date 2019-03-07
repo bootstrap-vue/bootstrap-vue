@@ -1,7 +1,7 @@
 import DropdownText from './dropdown-text'
 import { mount } from '@vue/test-utils'
 
-describe('dropdown-text', async () => {
+describe('dropdown-text', () => {
   it('renders with tag "p" by default', async () => {
     const wrapper = mount(DropdownText)
     expect(wrapper.is('p')).toBe(true)

@@ -1,7 +1,7 @@
 import CardGroup from './card-group'
 import { mount } from '@vue/test-utils'
 
-describe('card-group', async () => {
+describe('card-group', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(CardGroup)
     expect(wrapper.is('div')).toBe(true)

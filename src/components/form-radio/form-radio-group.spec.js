@@ -3,7 +3,7 @@ import Radio from './form-radio'
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 
-describe('form-radio-group', async () => {
+describe('form-radio-group', () => {
   /* Structure, class and attributes tests */
 
   it('default has structure <div></div>', async () => {

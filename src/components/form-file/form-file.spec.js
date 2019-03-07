@@ -1,7 +1,7 @@
 import Input from './form-file'
 import { mount } from '@vue/test-utils'
 
-describe('form-file', async () => {
+describe('form-file', () => {
   it('default has expected structure, classes and attributes', async () => {
     const wrapper = mount(Input, {
       propsData: {

@@ -1,7 +1,7 @@
 import CardBody from './card-body'
 import { mount } from '@vue/test-utils'
 
-describe('card-body', async () => {
+describe('card-body', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(CardBody)
     expect(wrapper.is('div')).toBe(true)

@@ -1,7 +1,7 @@
 import NavbarBrand from './navbar-brand'
 import { mount } from '@vue/test-utils'
 
-describe('navbar-brand', async () => {
+describe('navbar-brand', () => {
   it('default has tag "div"', async () => {
     const wrapper = mount(NavbarBrand)
     expect(wrapper.is('div')).toBe(true)

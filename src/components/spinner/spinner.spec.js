@@ -1,7 +1,7 @@
 import Spinner from './spinner'
 import { mount } from '@vue/test-utils'
 
-describe('spinner', async () => {
+describe('spinner', () => {
   it('default has root element of span, and no children', async () => {
     const spinner = mount(Spinner)
     expect(spinner).toBeDefined()

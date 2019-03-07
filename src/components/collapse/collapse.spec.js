@@ -1,6 +1,6 @@
 import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 
-describe('collapse', async () => {
+describe('collapse', () => {
   beforeEach(loadFixture(__dirname, 'collapse'))
   testVM()
 
