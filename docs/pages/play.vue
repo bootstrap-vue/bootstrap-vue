@@ -139,12 +139,10 @@
               >
                 {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
               </b-badge>
-              <!-- prettier-ignore-start -->
-              <div
-                :class="[`text-${msg[0]}`, 'text-monospace', 'small']"
+              <span
+                :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
                 style="white-space: pre-wrap;"
-              >{{ msg[1] }}</div>
-              <!-- prettier-ignore-end -->
+              >{{ msg[1] }}</span>
             </li>
           </transition-group>
         </div>
