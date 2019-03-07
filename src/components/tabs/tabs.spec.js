@@ -60,10 +60,12 @@ describe('tabs', async () => {
     const tabs = wrapper.find(Tabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(3)
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
     expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.vm.tabs[1].localActive).toBe(true)
+    expect(tabsNavs.vm.tabs[1].localActive).toBe(true)
 
     expect(tabs.emitted('input')).toBeDefined()
     expect(tabs.emitted('input').length).toBe(1)
@@ -89,9 +91,12 @@ describe('tabs', async () => {
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(3)
 
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
+
     // Expect 2nd tab (index 1) to be active
     expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.vm.tabs[1].localActive).toBe(true)
+    expect(tabsNavs.vm.tabs[1].localActive).toBe(true)
 
     expect(tabs.emitted('input')).toBeDefined()
     expect(tabs.emitted('input').length).toBe(1)
@@ -162,9 +167,12 @@ describe('tabs', async () => {
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(3)
 
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
+
     // Expect 1st tab (index 0) to be active
     expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect(tabsNavs.vm.tabs[0].localActive).toBe(true)
     // It should not emit an input event as the value is the same
     expect(tabs.emitted('input')).not.toBeDefined()
 
@@ -203,9 +211,12 @@ describe('tabs', async () => {
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(3)
 
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
+
     // Expect 1st tab (index 0) to be active
     expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect(tabsNavs.vm.tabs[0].localActive).toBe(true)
     expect(tabs.emitted('input')).not.toBeDefined()
 
     // Try to set 2nd (disabled) Tab to be active
@@ -248,6 +259,9 @@ describe('tabs', async () => {
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(3)
 
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
+
     const tab1 = tabs.findAll(Tab).at(0)
     const tab2 = tabs.findAll(Tab).at(1)
     const tab3 = tabs.findAll(Tab).at(2)
@@ -256,7 +270,7 @@ describe('tabs', async () => {
     expect(wrapper.findAll('.nav-link').length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabsNavs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -455,6 +469,9 @@ describe('tabs', async () => {
     const tabs = wrapper.find(Tabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(Tab).length).toBe(3)
+
+    const tabsNavs = wrapper.find(TabsNavs)
+    expect(tabsNavs.vm.tabs.length).toBe(3)
 
     const tab1 = tabs.findAll(Tab).at(0)
     const tab2 = tabs.findAll(Tab).at(1)
