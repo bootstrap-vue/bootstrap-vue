@@ -65,10 +65,14 @@ export default {
     }
   },
   created() {
-    this.emitChange()
+    this.$nextTick(() => {
+      this.emitChange()
+    })
   },
   mounted() {
-    this.emitChange()
+    this.$nextTick(() => {
+      this.emitChange()
+    })
   },
   updated() {
     // Keep model up to date after an update
@@ -76,9 +80,7 @@ export default {
   },
   methods: {
     emitChange() {
-      this.$nextTick(() => {
-        this.$emit('change', this.getActiveTabIndex())
-      })
+      this.$emit('change', this.getActiveTabIndex())
     },
     // Also called by b-tabs
     activateTab(tab) {
