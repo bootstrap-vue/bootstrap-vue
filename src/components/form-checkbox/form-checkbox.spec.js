@@ -1,7 +1,7 @@
 import Input from './form-checkbox'
 import { mount } from '@vue/test-utils'
 
-describe('form-checkbox', async () => {
+describe('form-checkbox', () => {
   /* Custom checkbox structure, class and attributes tests */
 
   it('default has structure <div><input/><label></label></div>', async () => {

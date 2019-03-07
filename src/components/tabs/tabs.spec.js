@@ -5,7 +5,7 @@ import TabsNavs from './helpers/tabs-navs'
 import Link from '../link/link'
 import { mount } from '@vue/test-utils'
 
-describe('tabs', async () => {
+describe('tabs', () => {
   it('default has expected classes and structure', async () => {
     const wrapper = mount(Tabs)
 

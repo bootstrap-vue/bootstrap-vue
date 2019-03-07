@@ -1,6 +1,6 @@
 import normalizeSlot from './normalize-slot'
 
-describe('util/normalize-slot', async () => {
+describe('util/normalize-slot', () => {
   it('works', async () => {
     const $scoped = {
       default(slotScope) {

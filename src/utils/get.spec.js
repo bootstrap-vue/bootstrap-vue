@@ -1,6 +1,6 @@
 import get from './get'
 
-describe('get', async () => {
+describe('get', () => {
   it('handles invalid values gracefully', async () => {
     expect(get(null, '')).toBe(null)
     expect(get({}, null)).toBe(null)

@@ -1,6 +1,6 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
-describe('form-row', async () => {
+describe('form-row', () => {
   beforeEach(loadFixture(__dirname, 'form-row'))
   testVM()
 

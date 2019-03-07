@@ -1,7 +1,7 @@
 import DropdownItem from './dropdown-item'
 import { mount } from '@vue/test-utils'
 
-describe('dropdown-item', async () => {
+describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
     const wrapper = mount(DropdownItem)
     expect(wrapper.is('a')).toBe(true)

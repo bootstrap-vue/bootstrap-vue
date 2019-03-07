@@ -13,7 +13,7 @@ const variantList = [
   return { ref: `badge_${variant}`, variant }
 })
 
-describe('badge', async () => {
+describe('badge', () => {
   beforeEach(loadFixture(__dirname, 'badge'))
   testVM()
 

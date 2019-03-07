@@ -1,7 +1,7 @@
 import CardText from './card-text'
 import { mount } from '@vue/test-utils'
 
-describe('card-text', async () => {
+describe('card-text', () => {
   it('has root element "p"', async () => {
     const wrapper = mount(CardText)
     expect(wrapper.is('p')).toBe(true)

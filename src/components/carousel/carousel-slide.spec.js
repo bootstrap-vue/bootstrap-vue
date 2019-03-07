@@ -1,7 +1,7 @@
 import CarouselSlide from './carousel-slide'
 import { mount } from '@vue/test-utils'
 
-describe('carousel-slide', async () => {
+describe('carousel-slide', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(CarouselSlide)
     expect(wrapper.is('div')).toBe(true)

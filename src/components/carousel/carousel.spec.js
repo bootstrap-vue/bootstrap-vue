@@ -2,7 +2,7 @@ import { loadFixture, nextTick, testVM, setData } from '../../../tests/utils'
 
 jest.useFakeTimers()
 
-describe('carousel', async () => {
+describe('carousel', () => {
   beforeEach(loadFixture(__dirname, 'carousel'))
   testVM()
 

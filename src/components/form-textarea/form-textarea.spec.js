@@ -1,7 +1,7 @@
 import Textarea from './form-textarea'
 import { mount } from '@vue/test-utils'
 
-describe('form-textarea', async () => {
+describe('form-textarea', () => {
   it('root element is textarea', async () => {
     const input = mount(Textarea)
     expect(input.element.type).toBe('textarea')

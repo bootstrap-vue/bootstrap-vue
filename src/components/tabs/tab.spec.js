@@ -1,7 +1,7 @@
 import Tab from './tab'
 import { mount } from '@vue/test-utils'
 
-describe('tab', async () => {
+describe('tab', () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
 

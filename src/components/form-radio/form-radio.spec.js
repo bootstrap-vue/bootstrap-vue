@@ -1,7 +1,7 @@
 import Input from './form-radio'
 import { mount } from '@vue/test-utils'
 
-describe('form-radio', async () => {
+describe('form-radio', () => {
   /* Custom radio structure, class and attributes tests */
 
   it('default has structure <div><input/><label></label></div>', async () => {

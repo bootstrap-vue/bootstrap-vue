@@ -1,6 +1,6 @@
 import { loadFixture, testVM, setData, nextTick, sleep } from '../../../tests/utils'
 
-describe('table', async () => {
+describe('table', () => {
   beforeEach(loadFixture(__dirname, 'table'))
   testVM()
 
