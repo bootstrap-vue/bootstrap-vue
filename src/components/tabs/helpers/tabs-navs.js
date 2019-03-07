@@ -63,9 +63,9 @@ export default {
     }
   },
   created() {
-    // this.$nextTick(() => {
-    //   this.emitChange()
-    // })
+    this.$nextTick(() => {
+      this.emitChange()
+    })
   },
   mounted() {
     this.$nextTick(() => {
@@ -73,6 +73,10 @@ export default {
       // first to make sure there is only one tab at max active
       this.emitChange()
     })
+  },
+  updated() {
+    // Keep model up to date after an update
+    this.emitChange()
   },
   methods: {
     emitChange() {
