@@ -219,6 +219,7 @@ describe('tab', async () => {
     expect(wrapper.attributes('tabindex')).toBe('0')
   })
 
+  /*
   it("calls parent's updateButton() when title slot provided", async () => {
     let called = false
     let vm = null
@@ -248,6 +249,7 @@ describe('tab', async () => {
     expect(called).toBe(true)
     expect(vm).toEqual(wrapper.vm)
   })
+  */
 
   it('calls parent de/activateTab() when prop active changes', async () => {
     let activateCalled = false
