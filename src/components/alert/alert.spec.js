@@ -1,6 +1,6 @@
 import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 
-describe('alert', async () => {
+describe('alert', () => {
   jest.useFakeTimers()
 
   beforeEach(loadFixture(__dirname, 'alert'))
