@@ -80,7 +80,9 @@ export default {
   },
   methods: {
     emitChange() {
-      this.$emit('change', this.getActiveTabIndex())
+      this.$nextTick(() => {
+        this.$emit('change', this.getActiveTabIndex())
+      })
     },
     // Also called by b-tabs
     activateTab(tab) {
