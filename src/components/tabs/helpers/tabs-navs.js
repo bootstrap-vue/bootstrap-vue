@@ -70,12 +70,12 @@ export default {
     }
   },
   created() {
-    // this.$nextTick() {
+    // this.$nextTick(() => {
     //   this.emitChange()
     // })
   },
   mounted() {
-    this.$nextTick() {
+    this.$nextTick(() => {
       // We do this in a nextTick to make sure the tabs have been processed
       // first to make sure there is only one tab at max active
       this.emitChange()
