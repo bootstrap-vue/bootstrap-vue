@@ -179,6 +179,9 @@ export default {
     }
   },
   render(h) {
+    // eslint-disable-next-line no-unused-vars
+    const registeredTabs = this.registeredTabs
+
     const scope = this.slotScope
     const $children = this.$slots.default || []
     // Pre-Scoped slots we are passing to BTabsNavs
@@ -192,11 +195,6 @@ export default {
       .map(vNode => vNode.componentInstance)
       .filter(Boolean)
       .filter(vm => vm._isTab)
-
-    /*
-    // eslint-disable-next-line no-unused-vars
-    const registeredTabs = this.registeredTabs
-    */
 
     const $tabsNavs = h(
       BTabsNavs,
