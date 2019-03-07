@@ -82,7 +82,7 @@ wrapped in these components for proper styling.
 ```html
 <div>
   <b-input-group>
-    <b-input-group-prepend<b-button variant="outline-info">Button</b-button></b-input-group-prepend>
+    <b-input-group-prepend><b-button variant="outline-info">Button</b-button></b-input-group-prepend>
 
     <b-form-input type="number" min="0.00" />
 
