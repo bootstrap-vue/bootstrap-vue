@@ -78,11 +78,31 @@ export default {
     emitChange() {
       this.$emit('change', this.getActiveTabIndex())
     },
+    // Also called by b-tabs
     activateTab(tab) {
-      this.tabs.forEach((t, idx) => {
-        t.localActive = t === tab && notDisabled(t)
-      })
+      let result = false
+      if (tab && notDisabled(tab)) {
+        result = true
+        this.tabs.forEach((t, idx) => {
+          t.localActive = t === tab
+        })
+      }
       this.emitChange()
+      return result
+    },
+    // Called by b-tabs
+    deactivateTab(tab) {
+      if (tab) {
+        const available = this.tabs.filter(t => t !== tab).find(notDisabled)
+        if (available) {
+          this.activateTab(available)
+          return true
+        } else {
+          // Couldn't deactivate tab
+          this.emitChange()
+          return false
+        }
+      }
     },
     // Called by BTabNav and the following methods
     setActiveTab(tab) {
