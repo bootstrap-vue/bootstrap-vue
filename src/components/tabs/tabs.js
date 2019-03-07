@@ -116,7 +116,9 @@ export default {
   watch: {
     currentTab(val, old) {
       // Update the v-model
-      this.$emit('input', val)
+      if (this.computedValue !== val) {
+        this.$emit('input', val)
+      }
     }
   },
   created() {
