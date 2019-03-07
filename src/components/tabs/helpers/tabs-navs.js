@@ -187,7 +187,11 @@ export default {
     const vertical = bvTabs.vertical || false
     const card = bvTabs.card
     // Accepts null, 'tabs', 'pills', 'plain'
-    const navType = bvTabs.navType === 'plain' ? null : bvTabs.navType || null
+    let navType = bvTabs.navType === 'plain' ? null : bvTabs.navType || null
+    // Deprecate pills prop
+    navType = bvTabs.pills && navType === 'tabs' ? 'pills' : navType
+    // Deprecate no-nav-style prop
+    navType = bvTabs.noNavStyle ? null : navType
 
     // Determine which tab **should** be active
     const activeIndex = this.computeActiveIndex()
@@ -231,6 +235,7 @@ export default {
             'card-header-tabs': card && navType === 'tabs' && !vertical,
             'mx-2': card && vertical,
             'px-1': card && vertical
+            'border-bottom-0': vertical && navType === 'tabs'
           },
           bvTabs.navClass || {}
         ],
