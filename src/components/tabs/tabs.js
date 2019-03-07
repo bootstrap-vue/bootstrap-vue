@@ -1,7 +1,7 @@
-import BLink from '../link/link'
-import BTabsNavs from '.helpers/tabs-navs'
+import BTabsNavs from './helpers/tabs-navs'
 import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixin/normalize-slot'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { arrayIncludes } from '../../utils/array'
 
 // @vue/component
 export default {
@@ -181,11 +181,11 @@ export default {
   render(h) {
     const scope = this.slotScope
     const $children = this.$slots.default || []
-    // Scoped slots we are passing to 
-    const $header = normalizeSlot('header', scope)
-    const $tabsStart = normalizeSlot('tabs-start', scope)
+    // Pre-Scoped slots we are passing to BTabsNavs
+    const $header = this.normalizeSlot('header', scope)
+    const $tabsStart = this.normalizeSlot('tabs-start', scope)
     // slot `tabs` is deprecated in favour of `tabs-end`
-    const $tabsEnd = normalizeSlot('tabs-end', scope) || normalizeSlot('tabs', scope)
+    const $tabsEnd = this.normalizeSlot('tabs-end', scope) || this.normalizeSlot('tabs', scope)
 
     // Get a list of b-tab component instances (document order)
     const tabs = $children
@@ -197,7 +197,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     const registeredTabs = this.registeredTabs
     */
-    
+
     const $tabsNavs = h(
       BTabsNavs,
       {
