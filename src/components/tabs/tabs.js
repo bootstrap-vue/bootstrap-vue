@@ -124,8 +124,7 @@ export default {
     }
   },
   created() {
-    // const tabIdx = parseInt(this.value, 10)
-    // this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+    this.currentTab = parseValue(this.value)
   },
   mounted() {
     // set the currentTab index here?
