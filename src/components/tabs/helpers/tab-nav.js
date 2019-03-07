@@ -41,31 +41,30 @@ export default {
     }
   },
   created() {
-    if (this.tab) {
-      this.tab.localActive = this.active
-      this.tab.$on('hook:updated', this.doUpdate)
-    }
+    this.$nextTick(() =>
+      if (this.tab) {
+        this.tab.localActive = this.active
+        this.tab.$on('hook:updated', this.handleUpdate)
+      }
+    })
   },
   mounted() {
     if (this.tab) {
       // just in case this didnt happen in created()
       // this.tab.localActive = this.active
-      this.tab.$on('hook:updated', this.doUpdate)
+      this.tab.$on('hook:updated', this.handleUpdate)
     }
   },
   beforeDestroy() {
     if (this.tab) {
-      this.tab.$off('hook:updated', this.doUpdate)
+      this.tab.$off('hook:updated', this.handleUpdate)
     }
   },
   methods: {
     onClick() {
       if (this.tab && this.bvTabsNavs && !this.tab.disabled) {
-        this.tab.localActive = true
-        // May need to do this as well or instead
-        // this.bvTabsNavs.setActiveTab(this.tab)
-
-        // Emit a click on this tab
+        this.bvTabsNavs.setActiveTab(this.tab)
+        // Emit a click event on this tab
         this.tab.$emit && this.tab.$emit('click')
       }
     },
