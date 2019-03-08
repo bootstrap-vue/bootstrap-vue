@@ -1011,7 +1011,7 @@ export default {
       }
       this.$emit('row-contextmenu', item, index, e)
     },
-    headClicked(e, field) {
+    headClicked(e, field, isFooter, sortable) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
@@ -1030,22 +1030,24 @@ export default {
           this.localSortDesc = true
         }
       }
-      if (field.sortable) {
-        if (field.key === this.localSortBy) {
-          // Change sorting direction on current column
-          this.localSortDesc = !this.localSortDesc
-        } else {
-          // Start sorting this column ascending
-          this.localSortBy = field.key
+      if (sortable) {
+        if (field.sortable) {
+          if (field.key === this.localSortBy) {
+            // Change sorting direction on current column
+            this.localSortDesc = !this.localSortDesc
+          } else {
+            // Start sorting this column ascending
+            this.localSortBy = field.key
+            toggleLocalSortDesc()
+          }
+          sortChanged = true
+        } else if (this.localSortBy && !this.noSortReset) {
+          this.localSortBy = null
           toggleLocalSortDesc()
+          sortChanged = true
         }
-        sortChanged = true
-      } else if (this.localSortBy && !this.noSortReset) {
-        this.localSortBy = null
-        toggleLocalSortDesc()
-        sortChanged = true
       }
-      this.$emit('head-clicked', field.key, field, e)
+      this.$emit('head-clicked', field.key, field, e, isFooter)
       if (sortChanged) {
         // Sorting parameters changed
         this.$emit('sort-changed', this.context)
@@ -1212,18 +1214,12 @@ export default {
           },
           on: {
             click: evt => {
-              if (!sortable) {
-                return
-              }
-              this.headClicked(evt, field)
+              this.headClicked(evt, field, isFoot, sortable)
             },
             keydown: evt => {
-              if (!sortable) {
-                return
-              }
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                this.headClicked(evt, field)
+                this.headClicked(evt, field, isFoot, sortable)
               }
             }
           }
