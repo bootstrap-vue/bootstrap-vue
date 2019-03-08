@@ -73,8 +73,7 @@
     "test": "jest",
     "lint": "eslint --ext .js,.vue ./",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
-    "version": "standard-version",
-    "release": "npm run test && npm run build && npm run version && npm run prettify",
+    "release": "npm run test && npm run build && standard-version",
     "postinstall": "opencollective || exit 0"
   },
   "dependencies": {
@@ -151,6 +150,11 @@
     "coverageDirectory": "./coverage/",
     "testEnvironmentOptions": {
       "pretendToBeVisual": true
+    }
+  },
+  "standard-version": {
+    "scripts": {
+      "postchangelog": "npm run prettify"
     }
   },
   "keywords": [
