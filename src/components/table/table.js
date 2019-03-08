@@ -1022,7 +1022,7 @@ export default {
       }
       this.$emit('row-contextmenu', item, index, e)
     },
-    headClicked(e, field, isFooter, sortable) {
+    headClicked(e, field, isFooter) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
@@ -1045,7 +1045,7 @@ export default {
           this.localSortDesc = true
         }
       }
-      if (sortable) {
+      if (!(isFooter && this.noFooterSorting)) {
         if (field.sortable) {
           if (field.key === this.localSortBy) {
             // Change sorting direction on current column
@@ -1229,12 +1229,12 @@ export default {
           },
           on: {
             click: evt => {
-              this.headClicked(evt, field, isFoot, sortable)
+              this.headClicked(evt, field, isFoot)
             },
             keydown: evt => {
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                this.headClicked(evt, field, isFoot, sortable)
+                this.headClicked(evt, field, isFoot)
               }
             }
           }
