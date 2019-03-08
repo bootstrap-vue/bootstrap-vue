@@ -1,21 +1,15 @@
 /**
- * Register a component plugin as being loaded. returns true if component plugin already registered
+ * Load a component.
  * @param {object} Vue
  * @param {string} Component name
  * @param {object} Component definition
  */
 export function registerComponent(Vue, name, def) {
-  Vue._bootstrap_vue_components_ = Vue._bootstrap_vue_components_ || {}
-  const loaded = Vue._bootstrap_vue_components_[name]
-  if (!loaded && def && name) {
-    Vue._bootstrap_vue_components_[name] = true
-    Vue.component(name, def)
-  }
-  return loaded
+  Vue.component(name, def)
 }
 
 /**
- * Register a group of components as being loaded.
+ * Load a group of components.
  * @param {object} Vue
  * @param {object} Object of component definitions
  */
@@ -26,23 +20,17 @@ export function registerComponents(Vue, components) {
 }
 
 /**
- * Register a directive as being loaded. returns true if directive plugin already registered
+ * Load a directive.
  * @param {object} Vue
  * @param {string} Directive name
  * @param {object} Directive definition
  */
 export function registerDirective(Vue, name, def) {
-  Vue._bootstrap_vue_directives_ = Vue._bootstrap_vue_directives_ || {}
-  const loaded = Vue._bootstrap_vue_directives_[name]
-  if (!loaded && def && name) {
-    Vue._bootstrap_vue_directives_[name] = true
-    Vue.directive(name, def)
-  }
-  return loaded
+  Vue.directive(name, def)
 }
 
 /**
- * Register a group of directives as being loaded.
+ * Load a group of directives.
  * @param {object} Vue
  * @param {object} Object of directive definitions
  */
@@ -57,6 +45,7 @@ export function registerDirectives(Vue, directives) {
  * @param {object} Plugin definition
  */
 export function vueUse(VuePlugin) {
+  /* istanbul ignore next */
   if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VuePlugin)
   }
