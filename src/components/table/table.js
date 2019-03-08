@@ -24,7 +24,7 @@ const IGNORED_FIELD_KEYS = {
 // Used to filter out click events caused by the mouse up at end of selection
 function textSelectionActive() {
   const getSelection = (document || {}).getSelection || (window || {}).getSelection
-  return getSelection && getSelection().toString().length !== 0
+  return getSelection ? getSelection().toString().length !== 0 : false
 }
 
 // Return a copy of a row after all reserved fields have been filtered out
