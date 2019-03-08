@@ -253,7 +253,7 @@ describe('form-file', () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
-        value: null
+        value: ''
       }
     })
     const file1 = new File(['foo'], 'foo.txt')
