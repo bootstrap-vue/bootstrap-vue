@@ -928,6 +928,7 @@ export default {
         return
       } else if (getSelection && getSelection().toString().length !== 0) {
         // User is selecting text, so ignore
+        /* istanbul ignore next */
         return
       }
       if (e.type === 'keydown') {
