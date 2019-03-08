@@ -1,5 +1,5 @@
 /**
- * Register a component plugin as being loaded. returns true if component plugin already registered
+ * Load a component.
  * @param {object} Vue
  * @param {string} Component name
  * @param {object} Component definition
@@ -9,7 +9,7 @@ export function registerComponent(Vue, name, def) {
 }
 
 /**
- * Register a group of components as being loaded.
+ * Load a group of components.
  * @param {object} Vue
  * @param {object} Object of component definitions
  */
@@ -20,7 +20,7 @@ export function registerComponents(Vue, components) {
 }
 
 /**
- * Register a directive as being loaded. returns true if directive plugin already registered
+ * Load a directive.
  * @param {object} Vue
  * @param {string} Directive name
  * @param {object} Directive definition
@@ -30,7 +30,7 @@ export function registerDirective(Vue, name, def) {
 }
 
 /**
- * Register a group of directives as being loaded.
+ * Load a group of directives.
  * @param {object} Vue
  * @param {object} Object of directive definitions
  */
