@@ -5,13 +5,7 @@
  * @param {object} Component definition
  */
 export function registerComponent(Vue, name, def) {
-  Vue._bootstrap_vue_components_ = Vue._bootstrap_vue_components_ || {}
-  const loaded = Vue._bootstrap_vue_components_[name]
-  if (!loaded && def && name) {
-    Vue._bootstrap_vue_components_[name] = true
-    Vue.component(name, def)
-  }
-  return loaded
+  Vue.component(name, def)
 }
 
 /**
@@ -32,13 +26,7 @@ export function registerComponents(Vue, components) {
  * @param {object} Directive definition
  */
 export function registerDirective(Vue, name, def) {
-  Vue._bootstrap_vue_directives_ = Vue._bootstrap_vue_directives_ || {}
-  const loaded = Vue._bootstrap_vue_directives_[name]
-  if (!loaded && def && name) {
-    Vue._bootstrap_vue_directives_[name] = true
-    Vue.directive(name, def)
-  }
-  return loaded
+  Vue.directive(name, def)
 }
 
 /**
