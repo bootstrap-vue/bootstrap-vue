@@ -159,7 +159,9 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
-    const file = new File(['foo'], 'foo.txt')
+    const file = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
@@ -180,8 +182,12 @@ describe('form-file', () => {
         multiple: true
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
+    const file2 = new File(['foobar'], 'foobar.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
     const files = [file1, file2]
 
     // Emulate the files array
@@ -210,7 +216,9 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
@@ -234,7 +242,9 @@ describe('form-file', () => {
         multiple: false
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
     const files = [file1]
 
     // Emulate the files array
@@ -255,8 +265,12 @@ describe('form-file', () => {
         multiple: true
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
+    const file2 = new File(['<html><body></body></html>'], 'bar.html', {
+      type: 'text/html', lastModified: Date.now()
+    })
     const files = [file1, file2]
 
     // Emulate the files array
@@ -277,7 +291,9 @@ describe('form-file', () => {
         value: ''
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
@@ -301,8 +317,12 @@ describe('form-file', () => {
         multiple: true
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
+    const file2 = new File(['foo bar'], 'foobar.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
     const files = [file1, file2]
 
     // Emulate the files array
@@ -335,7 +355,9 @@ describe('form-file', () => {
         value: null
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain', lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
