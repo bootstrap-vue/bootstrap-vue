@@ -411,6 +411,46 @@ describe('table', () => {
     }
   })
 
+  it('row-clicked event should not happen when textSelection is active', async () => {
+    const {
+      app: { $refs }
+    } = window
+    const vm = $refs.table_paginated
+
+    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+    expect(tbody).toBeDefined()
+    const trs = [...tbody.children]
+    expect(trs.length).toBe(vm.perPage)
+
+    // Clear selection if any current
+    let selection = window.getSelection()
+    if (selection.rangeCount > 0) {
+      selection.removeAllRanges()
+    }
+
+    const spy = jest.fn()
+    vm.$on('row-clicked', spy)
+    expect(spy).not.toHaveBeenCalled()
+
+    // Select text in first TR
+    const range = document.createRange()
+    range.selectNode(trs[0])
+    selection.addRange(range)
+
+    // Click row
+    trs[0].click()
+    expect(spy).not.toHaveBeenCalled()
+
+    // Clear selection
+    if (selection.rangeCount > 0) {
+      selection.removeAllRanges()
+    }
+
+    // Click row
+    trs[0].click()
+    expect(spy).toHaveBeenCalled()
+  })
+
   it('each data row should emit a row-contextmenu event when right clicked', async () => {
     const {
       app: { $refs }
