@@ -1,4 +1,4 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
@@ -8,7 +8,7 @@ guidelines.
 
 ## [v2.0.0-rc.14](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.13...v2.0.0-rc.14)
 
-Released:  2019-03-08
+Released: 2019-03-08
 
 ### Bug Fixes v2.0.0-rc.14
 

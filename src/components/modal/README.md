@@ -142,9 +142,9 @@ When using the `v-model` property, do not use the `visible` property at the same
 
 ### Emitting Events on \$root
 
-You can emit `bv::show::modal`, `bv::hide::modal`, and  `bv::toggle::modal` events on `$root`
-with the first argument set to the modal's id. An optional second argument can specify the element
-to return focus to once the modal is closed. The second argument can be a CSS selector, an element
+You can emit `bv::show::modal`, `bv::hide::modal`, and `bv::toggle::modal` events on `$root` with
+the first argument set to the modal's id. An optional second argument can specify the element to
+return focus to once the modal is closed. The second argument can be a CSS selector, an element
 reference, or a component reference (the root element of the component will be focused).
 
 ```html

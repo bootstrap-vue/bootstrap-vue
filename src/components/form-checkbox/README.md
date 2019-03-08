@@ -183,8 +183,8 @@ props and the `v-model` are inherited from the `<b-form-checkbox-group>`.
 
 When binding multiple checkboxes together, you must set the `name` prop to the same value for all
 `<b-form-checkbox>`s in the group individually or via the `name` prop of `<b-form-checkbox-group>`.
-This will inform users of assistive technologies that the checkboxes are related and enables
-native browser keyboard navigation.
+This will inform users of assistive technologies that the checkboxes are related and enables native
+browser keyboard navigation.
 
 Whenever using multiple checkboxes, it is recommended that the checkboxes be placed in a
 [`<b-form-group>`](/docs/components/form-group) component to associate a label with the entire group
@@ -446,16 +446,16 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 
 ### Required constraint
 
-When using individual `<b-form-checkbox>` components (not in a `<b-form-checkbox-group>`), and
-you want the checkbox(es) to be `required` in your form, you **must** provide a `name` on each
-`<b-form-checkbox>` in order for the required constraint to work. All `<b-form-checkbox>`
-components tied to the same `v-model` **must** have the same `name`.
+When using individual `<b-form-checkbox>` components (not in a `<b-form-checkbox-group>`), and you
+want the checkbox(es) to be `required` in your form, you **must** provide a `name` on each
+`<b-form-checkbox>` in order for the required constraint to work. All `<b-form-checkbox>` components
+tied to the same `v-model` **must** have the same `name`.
 
 The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
-only users) to know which checkboxes belong to the same form variable (the name also
-automatically enables native browser keyboard navigation), hence `required` will only work if
-`name` is set.  `<b-form-checkbox-group>` will automatically generate a unique input name if one
-is not provied on the group.
+only users) to know which checkboxes belong to the same form variable (the name also automatically
+enables native browser keyboard navigation), hence `required` will only work if `name` is set.
+`<b-form-checkbox-group>` will automatically generate a unique input name if one is not provied on
+the group.
 
 ## Indeterminate (tri-state) support
 

@@ -386,8 +386,8 @@ Internally, the value of the field key specified by the `primary-key` prop is us
 value for each rendered item row `<tr>` element.
 
 If you are seeing rendering issue (i.e. tooltips hiding or unexpected subcomponent re-usage when
-item data changes or data is sorted/filtered/edited), setting the `primary-key` prop (if you have
-a unique identifier per row) can alleviate these issues.
+item data changes or data is sorted/filtered/edited), setting the `primary-key` prop (if you have a
+unique identifier per row) can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
@@ -395,8 +395,8 @@ and drop plugins, as they rely on having a consistent and unique per row `:key` 
 If `primary-key` is not provided, `<b-table>` will auto-generate keys based on the displayed row's
 index number (i.e. position in the _displayed_ table rows). This may cause GUI issues such as sub
 components/elements that are rendering with previous results (i.e. being re-used by Vue's render
-patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you
-can place a unique `:key` on your element/components in your custom formatted field slots).
+patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you can
+place a unique `:key` on your element/components in your custom formatted field slots).
 
 ## Table style options
 
@@ -1070,8 +1070,8 @@ scoped slots (even when disabled)
 
 ### Adding additional rows to the header
 
-If you wish to add additional rows to the header you may do so via the `thead-top` slot.
-This slot is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
+If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
+is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
 
 ```html
 <template>
@@ -1126,7 +1126,6 @@ Slot `thead-top` can be optionally scoped, receiving an object with the followin
 | --------- | ------ | ---------------------------------------------------------------------------- |
 | `columns` | Number | The number of columns in the rendered table                                  |
 | `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
-
 
 ## Row select support
 
