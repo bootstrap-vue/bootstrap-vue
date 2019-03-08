@@ -1181,7 +1181,7 @@ export default {
           // We need to add a hint about what the column is about for non-dighted users
           ariaLabel = startCase(field.key)
         }
-        const sortable = field.sortable && (!isFoot || !this.noFooterSorting)
+        const sortable = field.sortable && !(isFoot && this.noFooterSorting)
         const ariaLabelSorting = sortable
           ? this.localSortDesc && this.localSortBy === field.key
             ? this.labelSortAsc
