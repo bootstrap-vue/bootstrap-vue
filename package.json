@@ -73,7 +73,7 @@
     "test": "jest",
     "lint": "eslint --ext .js,.vue ./",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
-    "release": "npm run test && npm run build && standard-version",
+    "release": "npm run prettify && npm run test && npm run build && standard-version",
     "postinstall": "opencollective || exit 0"
   },
   "dependencies": {
@@ -154,7 +154,7 @@
   },
   "standard-version": {
     "scripts": {
-      "postchangelog": "npm run prettify"
+      "postchangelog": "prettier --write CHANGELOG.md"
     }
   },
   "keywords": [
