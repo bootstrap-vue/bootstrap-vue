@@ -20,6 +20,13 @@ const IGNORED_FIELD_KEYS = {
   _showDetails: true
 }
 
+// Helper to determine if a there is an active text selection on the document page.
+// Used to filter out click events caused by the mouse up at end of selection
+function textSelectionActive() {
+   const getSelection = (document || {}).getSelection || (window || {}).getSelection
+   return getSelection && getSelection().toString().length !== 0
+}
+
 // Return a copy of a row after all reserved fields have been filtered out
 // TODO: add option to specify which fields to include
 function sanitizeRow(row) {
@@ -919,16 +926,15 @@ export default {
     },
     // Event handlers
     rowClicked(e, item, index) {
-      const getSelection = (document || {}).getSelection || (window || {}).getSelection
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
         return
-      } else if (getSelection && getSelection().toString().length !== 0) {
+      } else if (textSelectionActive()) {
         // User is selecting text, so ignore
-        /* istanbul ignore next */
+        /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
       }
       if (e.type === 'keydown') {
@@ -1018,6 +1024,10 @@ export default {
         return
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
+        return
+      } else if (textSelectionActive()) {
+        // User is selecting text, so ignore
+        /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
       }
       e.stopPropagation()
