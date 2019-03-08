@@ -336,6 +336,10 @@ export default {
       type: Boolean,
       default: false
     },
+    noFooterSorting: {
+      type: Boolean,
+      default: false
+    },
     busy: {
       type: Boolean,
       default: false
@@ -1018,7 +1022,7 @@ export default {
       }
       this.$emit('row-contextmenu', item, index, e)
     },
-    headClicked(e, field) {
+    headClicked(e, field, isFooter) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
@@ -1041,22 +1045,24 @@ export default {
           this.localSortDesc = true
         }
       }
-      if (field.sortable) {
-        if (field.key === this.localSortBy) {
-          // Change sorting direction on current column
-          this.localSortDesc = !this.localSortDesc
-        } else {
-          // Start sorting this column ascending
-          this.localSortBy = field.key
+      if (!(isFooter && this.noFooterSorting)) {
+        if (field.sortable) {
+          if (field.key === this.localSortBy) {
+            // Change sorting direction on current column
+            this.localSortDesc = !this.localSortDesc
+          } else {
+            // Start sorting this column ascending
+            this.localSortBy = field.key
+            toggleLocalSortDesc()
+          }
+          sortChanged = true
+        } else if (this.localSortBy && !this.noSortReset) {
+          this.localSortBy = null
           toggleLocalSortDesc()
+          sortChanged = true
         }
-        sortChanged = true
-      } else if (this.localSortBy && !this.noSortReset) {
-        this.localSortBy = null
-        toggleLocalSortDesc()
-        sortChanged = true
       }
-      this.$emit('head-clicked', field.key, field, e)
+      this.$emit('head-clicked', field.key, field, e, isFooter)
       if (sortChanged) {
         // Sorting parameters changed
         this.$emit('sort-changed', this.context)
@@ -1192,7 +1198,8 @@ export default {
           // We need to add a hint about what the column is about for non-dighted users
           ariaLabel = startCase(field.key)
         }
-        const ariaLabelSorting = field.sortable
+        const sortable = field.sortable && !(isFoot && this.noFooterSorting)
+        const ariaLabelSorting = sortable
           ? this.localSortDesc && this.localSortBy === field.key
             ? this.labelSortAsc
             : this.labelSortDesc
@@ -1200,11 +1207,11 @@ export default {
         // Assemble the aria-label
         ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
         const ariaSort =
-          field.sortable && this.localSortBy === field.key
+          sortable && this.localSortBy === field.key
             ? this.localSortDesc
               ? 'descending'
               : 'ascending'
-            : field.sortable
+            : sortable
               ? 'none'
               : null
         const data = {
@@ -1212,7 +1219,7 @@ export default {
           class: this.fieldClasses(field),
           style: field.thStyle || {},
           attrs: {
-            tabindex: field.sortable ? '0' : null,
+            tabindex: sortable ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
             scope: isFoot ? null : 'col',
@@ -1222,12 +1229,12 @@ export default {
           },
           on: {
             click: evt => {
-              this.headClicked(evt, field)
+              this.headClicked(evt, field, isFoot)
             },
             keydown: evt => {
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                this.headClicked(evt, field)
+                this.headClicked(evt, field, isFoot)
               }
             }
           }
