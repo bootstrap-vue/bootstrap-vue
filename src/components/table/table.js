@@ -329,6 +329,10 @@ export default {
       type: Boolean,
       default: false
     },
+    noFooterSorting: {
+      type: Boolean,
+      default: false
+    },
     busy: {
       type: Boolean,
       default: false
@@ -1177,7 +1181,8 @@ export default {
           // We need to add a hint about what the column is about for non-dighted users
           ariaLabel = startCase(field.key)
         }
-        const ariaLabelSorting = field.sortable
+        const sortable = field.sortable && (!isFoot || !this.noFooterSorting)
+        const ariaLabelSorting = sortable
           ? this.localSortDesc && this.localSortBy === field.key
             ? this.labelSortAsc
             : this.labelSortDesc
@@ -1185,11 +1190,11 @@ export default {
         // Assemble the aria-label
         ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
         const ariaSort =
-          field.sortable && this.localSortBy === field.key
+          sortable && this.localSortBy === field.key
             ? this.localSortDesc
               ? 'descending'
               : 'ascending'
-            : field.sortable
+            : sortable
               ? 'none'
               : null
         const data = {
@@ -1197,7 +1202,7 @@ export default {
           class: this.fieldClasses(field),
           style: field.thStyle || {},
           attrs: {
-            tabindex: field.sortable ? '0' : null,
+            tabindex: sortable ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
             scope: isFoot ? null : 'col',
@@ -1207,9 +1212,15 @@ export default {
           },
           on: {
             click: evt => {
+              if (!sortable) {
+                return
+              }
               this.headClicked(evt, field)
             },
             keydown: evt => {
+              if (!sortable) {
+                return
+              }
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
                 this.headClicked(evt, field)
