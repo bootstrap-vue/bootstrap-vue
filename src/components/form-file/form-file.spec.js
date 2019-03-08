@@ -253,13 +253,14 @@ describe('form-file', () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
-        value: ''
+        value: null
       }
     })
     const file1 = new File(['foo'], 'foo.txt')
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
@@ -275,7 +276,7 @@ describe('form-file', () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
-        value: '',
+        value: [],
         multiple: true
       }
     })
@@ -285,19 +286,23 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     wrapper.setProps({ value: null })
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
     wrapper.vm.setFiles(files)
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual(files)
 
     wrapper.setProps({ value: [] })
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
   })
@@ -305,18 +310,21 @@ describe('form-file', () => {
   it('native reset event works', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        id: 'foo'
+        id: 'foo',
+        value: null
       }
     })
     const file1 = new File(['foo'], 'foo.txt')
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.find('input').trigger('reset')
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
   })
