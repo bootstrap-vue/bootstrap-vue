@@ -160,7 +160,8 @@ describe('form-file', () => {
       }
     })
     const file = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
 
     // Emulate the files array
@@ -183,10 +184,12 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
     const file2 = new File(['foobar'], 'foobar.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now() - 1000
     })
     const files = [file1, file2]
 
@@ -217,7 +220,8 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
 
     // Emulate the files array
@@ -243,7 +247,8 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
     const files = [file1]
 
@@ -266,10 +271,12 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
     const file2 = new File(['<html><body></body></html>'], 'bar.html', {
-      type: 'text/html', lastModified: Date.now()
+      type: 'text/html',
+      lastModified: Date.now() - 500
     })
     const files = [file1, file2]
 
@@ -292,7 +299,8 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
 
     // Emulate the files array
@@ -318,10 +326,12 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
     const file2 = new File(['foo bar'], 'foobar.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
     const files = [file1, file2]
 
@@ -356,7 +366,8 @@ describe('form-file', () => {
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
-      type: 'text/plain', lastModified: Date.now()
+      type: 'text/plain',
+      lastModified: Date.now()
     })
 
     // Emulate the files array
