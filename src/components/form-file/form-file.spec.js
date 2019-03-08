@@ -227,7 +227,28 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
   })
 
-  it('reset() method works', async () => {
+  it('reset() method works in single mode', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo',
+        multiple: false
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt')
+    const files = [file1]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+
+    wrapper.vm.reset()
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+  })
+
+  it('reset() method works in multiple mode', async () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
