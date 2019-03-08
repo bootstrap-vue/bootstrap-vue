@@ -45,6 +45,7 @@ export function registerDirectives(Vue, directives) {
  * @param {object} Plugin definition
  */
 export function vueUse(VuePlugin) {
+  /* istanbul ignore next */
   if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VuePlugin)
   }
