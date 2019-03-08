@@ -23,9 +23,8 @@ const IGNORED_FIELD_KEYS = {
 // Helper to determine if a there is an active text selection on the document page.
 // Used to filter out click events caused by the mouse up at end of selection
 function textSelectionActive() {
-  const getSelection = (document || {}).getSelection || (window || {}).getSelection
-  return getSelection && getSelection().toString().length !== 0
-}
+  const win = window
+  return win && win.getSelection ? win.getSelection().toString().length > 0 : false}
 
 // Return a copy of a row after all reserved fields have been filtered out
 // TODO: add option to specify which fields to include
