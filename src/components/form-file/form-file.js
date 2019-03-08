@@ -198,7 +198,7 @@ export default {
         this.onFileChange(evt)
       }
     },
-    traverseFileTree(item, path) {
+    traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
         path = path || ''
