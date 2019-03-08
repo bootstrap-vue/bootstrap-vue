@@ -3,26 +3,29 @@
   "version": "1.0.0",
   "meta": {
     "title": "Card",
-    "component": "BCard",
     "components": [
+      {
+        "component": "BCard",
+        "slots": [
+          {
+            "name": "header",
+            "description": "For custom rendering of header content"
+          },
+          {
+            "name": "footer",
+            "description": "For custom rendering of footer content"
+          }
+        ]
+      },
       "BCardHeader",
       "BCardFooter",
       "BCardBody",
       "BCardTitle",
       "BCardSubTitle",
       "BCardImg",
+      "BCardImgLazy",
       "BCardText",
       "BCardGroup"
-    ],
-    "slots": [
-      {
-        "name": "header",
-        "description": "For custom rendering of header content"
-      },
-      {
-        "name": "footer",
-        "description": "For custom rendering of footer content"
-      }
     ]
   }
 }

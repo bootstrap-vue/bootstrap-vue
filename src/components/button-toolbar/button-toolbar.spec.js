@@ -1,6 +1,6 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
-describe('button-toolbar', async () => {
+describe('button-toolbar', () => {
   beforeEach(loadFixture(__dirname, 'button-toolbar'))
   testVM()
 

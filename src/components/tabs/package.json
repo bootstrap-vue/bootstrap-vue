@@ -11,8 +11,8 @@
             "event": "input",
             "description": "Emits when a tab is shown. Used to update the v-model",
             "args": [
-              { 
-                "arg": "tab_index",
+              {
+                "arg": "tabIndex",
                 "description": "Current selected tab index (0-based index)"
               }
             ]
@@ -29,14 +29,14 @@
           }
         ]
       },
-      { 
+      {
         "component": "BTab",
         "events": [
           {
             "event": "click",
-            "description": "Emited when a tab is clicked, or is activated by keyboard navigation",
+            "description": "Emitted when a tab is clicked, or is activated by keyboard navigation",
             "args": [
-              { 
+              {
                 "arg": "evt",
                 "description": "Original event object"
               }

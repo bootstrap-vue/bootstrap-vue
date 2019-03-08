@@ -1,6 +1,6 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
-describe('link', async () => {
+describe('link', () => {
   beforeEach(loadFixture(__dirname, 'link'))
   testVM()
 
@@ -47,6 +47,16 @@ describe('link', async () => {
   it("should add '.disabled' class when prop disabled=true", async () => {
     const { app } = window
     expect(app.$refs.disabled).toHaveClass('disabled')
+  })
+
+  it('should set href to string `to` prop', async () => {
+    const { app } = window
+    expect(app.$refs.to_string.getAttribute('href')).toBe(app.href)
+  })
+
+  it('should set href to path from `to` prop', async () => {
+    const { app } = window
+    expect(app.$refs.to_path.getAttribute('href')).toBe(app.href)
   })
 
   it('should NOT invoke click handler bound by Vue when disabled and clicked on', async () => {

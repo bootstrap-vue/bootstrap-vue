@@ -1,7 +1,7 @@
 import CarouselSlide from './carousel-slide'
 import { mount } from '@vue/test-utils'
 
-describe('carousel-slide', async () => {
+describe('carousel-slide', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(CarouselSlide)
     expect(wrapper.is('div')).toBe(true)
@@ -119,7 +119,7 @@ describe('carousel-slide', async () => {
   it('has style background inherited from carousel parent', async () => {
     const wrapper = mount(CarouselSlide, {
       provide: {
-        carousel: {
+        bvCarousel: {
           background: 'rgb(1, 2, 3)'
         }
       }
@@ -208,7 +208,7 @@ describe('carousel-slide', async () => {
     const wrapper = mount(CarouselSlide, {
       provide: {
         // Mock carousel injection
-        carousel: {
+        bvCarousel: {
           imgWidth: '1024',
           imgHeight: '480'
         }

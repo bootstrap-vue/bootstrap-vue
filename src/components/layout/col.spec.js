@@ -18,7 +18,7 @@ function computeBkPtClass(type, breakpoint, val) {
   return className.toLowerCase()
 }
 
-describe('col', async () => {
+describe('col', () => {
   beforeEach(loadFixture(__dirname, 'col'))
   testVM()
 

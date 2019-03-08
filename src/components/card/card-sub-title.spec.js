@@ -1,7 +1,7 @@
 import CardSubTitle from './card-sub-title'
 import { mount } from '@vue/test-utils'
 
-describe('card-sub-title', async () => {
+describe('card-sub-title', () => {
   it('default has tag "h6"', async () => {
     const wrapper = mount(CardSubTitle)
     expect(wrapper.is('h6')).toBe(true)

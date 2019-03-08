@@ -1,7 +1,7 @@
 import NavbarToggle from './navbar-toggle'
 import { mount } from '@vue/test-utils'
 
-describe('navbar-toggle', async () => {
+describe('navbar-toggle', () => {
   it('default has tag "button"', async () => {
     const wrapper = mount(NavbarToggle, {
       propsData: {

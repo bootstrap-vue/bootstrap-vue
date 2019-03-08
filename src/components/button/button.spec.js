@@ -26,7 +26,7 @@ const btnRefs = variants.reduce(
   []
 )
 
-describe('button', async () => {
+describe('button', () => {
   beforeEach(loadFixture(__dirname, 'button'))
   testVM()
 

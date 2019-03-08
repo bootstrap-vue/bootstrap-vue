@@ -1,7 +1,7 @@
 import NavbarNav from './navbar-nav'
 import { mount } from '@vue/test-utils'
 
-describe('navbar-nav', async () => {
+describe('navbar-nav', () => {
   it('default has tag "ul"', async () => {
     const wrapper = mount(NavbarNav)
     expect(wrapper.is('ul')).toBe(true)

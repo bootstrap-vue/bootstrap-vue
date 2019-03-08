@@ -149,6 +149,10 @@ export default {
       type: String,
       default: null
     },
+    headerCloseVariant: {
+      type: String,
+      default: null
+    },
     headerClass: {
       type: [String, Array],
       default: null
@@ -342,7 +346,7 @@ export default {
     modalOuterStyle() {
       return {
         // We only set these styles on the stacked modals (ones with next z-index > 0).
-        position: 'relative',
+        position: 'absolute',
         zIndex: this.zIndex
       }
     }
@@ -366,6 +370,7 @@ export default {
     this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
     this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
+    this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
     // Listen for bv:modal::show events, and close ourselves if the opening modal not us
     this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
@@ -475,6 +480,17 @@ export default {
       }
       this.is_visible = false
       this.$emit('change', false)
+    },
+    // Public method to toggle modal visibility
+    toggle(triggerEl) {
+      if (triggerEl) {
+        this.return_focus = triggerEl
+      }
+      if (this.is_visible) {
+        this.hide('toggle')
+      } else {
+        this.show()
+      }
     },
     // Private method to finish showing modal
     doShow() {
@@ -626,7 +642,12 @@ export default {
     },
     hideHandler(id) {
       if (id === this.id) {
-        this.hide()
+        this.hide('event')
+      }
+    },
+    toggleHandler(id, triggerEl) {
+      if (id === this.id) {
+        this.toggle(triggerEl)
       }
     },
     shownHandler() {
@@ -808,7 +829,7 @@ export default {
               props: {
                 disabled: this.is_transitioning,
                 ariaLabel: this.headerCloseLabel,
-                textVariant: this.headerTextVariant
+                textVariant: this.headerCloseVariant || this.headerTextVariant
               },
               on: {
                 click: evt => {
@@ -975,11 +996,17 @@ export default {
     // Modal Backdrop
     let backdrop = h(false)
     if (!this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
-      backdrop = h('div', {
-        staticClass: 'modal-backdrop',
-        class: this.backdropClasses,
-        attrs: { id: this.safeId('__BV_modal_backdrop_') }
-      })
+      backdrop = h(
+        'div',
+        {
+          staticClass: 'modal-backdrop',
+          class: this.backdropClasses,
+          attrs: {
+            id: this.safeId('__BV_modal_backdrop_')
+          }
+        },
+        [$slots['modal-backdrop']]
+      )
     }
     // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
     let tabTrap = h(false)

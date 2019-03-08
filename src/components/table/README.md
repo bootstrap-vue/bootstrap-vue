@@ -362,31 +362,41 @@ const fields = [
 ]
 ```
 
-### Primary key
+## Primary key
 
 `<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
 that _uniquely_ identifies the row.
 
-This value is used by `<b-table>` to help Vue optimize the rendering of table rows. Internally, the
-the value of the field key specified by the `primary-key` prop is used as the Vue `:key` value for
-each rendered item row `<tr>` element. The value specified by the column key **must be** either a
-`string` or `number`, and **must be unique** across all rows in the table.
+The value specified by the primary column key **must be** either a `string` or `number`, and **must
+be unique** across all rows in the table.
 
-If you are seeing rendering issue (i.e. tooltips hiding when item data changes or data is
-sorted/filtered/edited), setting the `primary-key` prop (if you have a unique identifier per row)
-can alleviate these issues.
+The primary key column does not need to appear in the displayed fields.
+
+### Table row ID generation
+
+When provided, the `primary-key` will generate a unique ID for each item row `<tr>` element. The ID
+will be in the format of `{table-id}__row_{primary-key-value}`, where `{table-id}` is the unique ID
+of the `<b-table>` and `{primary-key-value}` is the value of the item's field value for the field
+specified by `primary-key`.
+
+### Table render and transition optimization
+
+The `primary-key` is also used by `<b-table>` to help Vue optimize the rendering of table rows.
+Internally, the value of the field key specified by the `primary-key` prop is used as the Vue `:key`
+value for each rendered item row `<tr>` element.
+
+If you are seeing rendering issue (i.e. tooltips hiding or unexpected subcomponent re-usage when
+item data changes or data is sorted/filtered/edited), setting the `primary-key` prop (if you have
+a unique identifier per row) can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
 
-If no primary key is provided, `<b-table>` will auto-generate keys based on the serialized values of
-the row's data values plus the displayed row's index number. This may cause GUI issues if you are
-modifiying the underlying table data inplace (i.e. via a `<b-form-input>` v-model bound to the row's
-data). Specifying a `primary-key` column can alleviate this issue.
-
-The primary key column does not need to appear in the displayed fields.
-
-In future releases of BootstrapVue, the `primary-key` may be used for additional features.
+If `primary-key` is not provided, `<b-table>` will auto-generate keys based on the displayed row's
+index number (i.e. position in the _displayed_ table rows). This may cause GUI issues such as sub
+components/elements that are rendering with previous results (i.e. being re-used by Vue's render
+patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you
+can place a unique `:key` on your element/components in your custom formatted field slots).
 
 ## Table style options
 
@@ -708,6 +718,13 @@ grouping and styling of table columns. Note the styles available via `<col>` ele
 Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup) for details and
 usage of `<colgroup>`
 
+Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                  |
+| --------- | ------ | ---------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                  |
+| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+
 ## Table busy state
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
@@ -742,6 +759,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
       <div slot="table-busy" class="text-center text-danger my-2">
+        <b-spinner class="align-middle" />
         <strong>Loading...</strong>
       </div>
     </b-table>
@@ -1036,7 +1054,8 @@ slot is provided, then the footer will use the `HEAD_` slot content.
 </div>
 ```
 
-The slot's scope variable (`data` in the above example) will have the following properties:
+The slots can be optionally scoped (`data` in the above example), and will have the following
+properties:
 
 | Property | Type   | Description                                                   |
 | -------- | ------ | ------------------------------------------------------------- |
@@ -1048,6 +1067,66 @@ When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot,
 `head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
 are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
 scoped slots (even when disabled)
+
+### Adding additional rows to the header
+
+If you wish to add additional rows to the header you may do so via the `thead-top` slot.
+This slot is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
+
+```html
+<template>
+  <div>
+    <b-table
+      :items="items"
+      :fields="fields"
+    >
+      <template slot="thead-top" slot-scope="data">
+        <tr>
+          <th colspan="2">&nbsp;</th>
+          <th>Type 1</th>
+          <th colspan="3">Type 2</th>
+          <th>Type 3</th>
+        </tr>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { name: "Stephen Hawking", id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
+          { name: "Johnny Appleseed", id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
+          { name: "George Washington", id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
+          { name: "Albert Einstein", id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
+          { name: "Isaac Newton", id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
+        ],
+        fields: [
+          "name",
+          { key: "id", label: "ID" },
+          { key: "type1", label: "Type 1" },
+          { key: "type2a", label: "Type 2A" },
+          { key: "type2b", label: "Type 2B" },
+          { key: "type2c", label: "Type 2C" },
+          { key: "type3", label: "Type 3" }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-thead-top-slot.vue -->
+```
+
+Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                  |
+| --------- | ------ | ---------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                  |
+| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+
 
 ## Row select support
 

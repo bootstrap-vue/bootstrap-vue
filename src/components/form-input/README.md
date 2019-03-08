@@ -416,6 +416,48 @@ On some browsers, scrolling the mousewheel while a numeric-like input is focused
 decrement the input's value. To disable this browser feature, just set the `no-wheel` prop to
 `true`.
 
+## Datalist support
+
+Datalists are a native HTML tag `<datalist>` that contains a list of `<option>` tags. By assigning
+an ID to the datalist tag, the list can be references from a text input by adding a `list` 
+attribute.
+
+This gives the input the behavior of a combo box or auto-complete, allowing existing values to be 
+chosen, or new values to be entered.
+
+```html
+<template>
+  <b-form-input list="my-list-id" />
+
+  <datalist id="my-list-id">
+    <option>Manual Option</option>
+    <option v-for="size in sizes">{{ size }}</option>
+  </datalist>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        sizes: ['Small', 'Medium', 'Large', 'Extra Large']
+      }
+    }
+  }
+</script>
+
+<!-- b-form-input-datalist.vue -->
+```
+
+**Notes:**
+
+- Datalists work in conjunction with the browser's built in auto-complete, displaying datalist
+  options first, followed by auto-complete options. To only display datalist options, set
+  `autocomplete="off"`.
+- Datalists cannot be applied to input fields with `type="password"`.
+- Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
+  recommended that datalists be treated as an enhancement and not be relied upon at this time.
+  Check [Can I Use](https://caniuse.com/#feat=datalist) for full support details on all browsers.
+
 ## `v-model` modifiers
 
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom

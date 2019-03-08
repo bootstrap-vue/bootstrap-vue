@@ -1,31 +1,40 @@
+import { isArray } from './array'
+import { isObject } from './object'
+
 /**
- * Get property defined by dot notation in string.
+ * Get property defined by dot/array notation in string.
  *
- * Copyright (C) 2014 (UNLICENSE)
- * @author Dmitry Yv <https://github.com/dy>
+ * @link https://gist.github.com/jeneg/9767afdcca45601ea44930ea03e0febf#gistcomment-1935901
  *
- * @param  {Object} holder   Target object where to look property up
- * @param  {string} propName Dot notation, like 'this.a.b.c'
- * @return {*}          A property value
+ * @param {Object} obj
+ * @param {string|Array} path
+ * @param {*} defaultValue (optional)
+ * @return {*}
  */
-export default function get(holder, propName) {
-  if (propName === undefined) {
-    return holder
+export default (obj, path, defaultValue = null) => {
+  // Handle aray of path values
+  path = isArray(path) ? path.join('.') : path
+
+  // If no path or no object passed
+  if (!path || !isObject(obj)) {
+    return defaultValue
   }
 
-  const propParts = (propName + '').split('.')
-  let result = holder
-  let lastPropName
-
-  while (
-    (lastPropName = propParts.shift()) !== undefined &&
-    // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/2623
-    result !== undefined &&
-    result !== null
-  ) {
-    if (result[lastPropName] === undefined) return undefined
-    result = result[lastPropName]
+  // Handle edge case where user has dot(s) in top-level item field key
+  // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
+  if (obj[path] !== undefined) {
+    return obj[path]
   }
 
-  return result
+  // Handle string array notation (numeric indices only)
+  path = String(path).replace(/\[(\d+)]/g, '.$1')
+
+  const steps = path.split('.').filter(Boolean)
+  // Handle case where someone pases a string of only dots
+  if (steps.length === 0) {
+    return defaultValue
+  }
+
+  // Traverse path in object to find result
+  return steps.every(step => (obj = obj[step]) !== undefined) ? obj : defaultValue
 }

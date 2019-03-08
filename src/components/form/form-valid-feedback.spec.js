@@ -1,7 +1,7 @@
 import Feedback from './form-valid-feedback'
 import { mount } from '@vue/test-utils'
 
-describe('form-valid-feedback', async () => {
+describe('form-valid-feedback', () => {
   it('default should have tag div', async () => {
     const feedback = mount(Feedback)
     expect(feedback.is('div')).toBe(true)

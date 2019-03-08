@@ -17,16 +17,15 @@ export const props = {
 export default {
   name: 'BDropdownItemButton',
   inject: {
-    dropdown: {
-      from: 'dropdown',
+    bvDropdown: {
       default: null
     }
   },
   props,
   methods: {
     closeDropdown() {
-      if (this.dropdown) {
-        this.dropdown.hide(true)
+      if (this.bvDropdown) {
+        this.bvDropdown.hide(true)
       }
     },
     onClick(evt) {

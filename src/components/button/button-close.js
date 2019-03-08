@@ -34,6 +34,7 @@ export default {
       on: {
         click(e) {
           // Ensure click on button HTML content is also disabled
+          /* istanbul ignore if: bug in JSDOM still emits click on inner element */
           if (props.disabled && e instanceof Event) {
             e.stopPropagation()
             e.preventDefault()

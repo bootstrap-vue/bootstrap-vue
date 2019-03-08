@@ -6,16 +6,15 @@ export const props = linkPropsFactory()
 export default {
   name: 'BDropdownItem',
   inject: {
-    dropdown: {
-      from: 'dropdown',
+    bvDropdown: {
       default: null
     }
   },
   props,
   methods: {
     closeDropdown() {
-      if (this.dropdown) {
-        this.dropdown.hide(true)
+      if (this.bvDropdown) {
+        this.bvDropdown.hide(true)
       }
     },
     onClick(evt) {

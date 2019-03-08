@@ -1,7 +1,7 @@
 import DropdownForm from './dropdown-form'
 import { mount } from '@vue/test-utils'
 
-describe('dropdown-form', async () => {
+describe('dropdown-form', () => {
   it('renders with tag "form"', async () => {
     const wrapper = mount(DropdownForm)
     expect(wrapper.is('form')).toBe(true)

@@ -2,7 +2,7 @@ import Input from './form-input'
 import { mount } from '@vue/test-utils'
 import Vue from 'vue'
 
-describe('form-input', async () => {
+describe('form-input', () => {
   it('has class form-control', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
@@ -122,6 +122,33 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('form')).toBe('foobar')
+  })
+
+  it('does not have list attribute when list prop not set', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(input.attributes('list')).not.toBeDefined()
+  })
+
+  it('has list attribute when list prop set', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        list: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('list')).toBe('foobar')
+  })
+
+  it('does not have list attribute when list prop set and type=password', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        list: 'foobar',
+        type: 'password'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('list')).not.toBeDefined()
   })
 
   it('renders text input by default', async () => {
@@ -480,6 +507,26 @@ describe('form-input', async () => {
     expect(wrapper.emitted('blur')).not.toBeDefined()
   })
 
+  it('does not update value when non-lazy formatter returns false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: 'abc',
+        formatter(value) {
+          return false
+        }
+      },
+      attachToDocument: true
+    })
+    const input = wrapper.find('input')
+    input.element.value = 'TEST'
+    input.trigger('input')
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    // value in input should remain the same as entered
+    expect(input.element.value).toEqual('TEST')
+    expect(wrapper.vm.localValue).toBe('abc')
+  })
+
   it('focused number input with no-wheel set to true works', async () => {
     const spy = jest.fn()
     const wrapper = mount(Input, {
@@ -563,5 +610,67 @@ describe('form-input', async () => {
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
+  })
+
+  it('"number" modifier prop works', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'text',
+        number: true
+      }
+    })
+
+    const input = wrapper.find('input')
+    input.element.value = '123.450'
+    input.trigger('input')
+    await wrapper.vm.$nextTick()
+
+    expect(input.element.value).toBe('123.450')
+    // Pre converted value as string
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0].length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
+    // v-model update event (should emit a numerical value)
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toBe(1)
+    expect(wrapper.emitted('update')[0].length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
+
+    // Update the input to be different string-wise, but same numerically
+    input.element.value = '123.4500'
+    input.trigger('input')
+    await wrapper.vm.$nextTick()
+
+    expect(input.element.value).toBe('123.4500')
+    // Should emit a new input event
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
+    // Should emit a new update event
+    expect(wrapper.emitted('update').length).toBe(2)
+    expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
+
+    // Updating the v-model to new numeric value
+    wrapper.setProps({
+      value: 45.6
+    })
+    await wrapper.vm.$nextTick()
+    expect(input.element.value).toBe('45.6')
+  })
+
+  it('focus() and blur() methods work', async () => {
+    const wrapper = mount(Input, {
+      mountToDocument: true
+    })
+    const input = wrapper.find('input')
+
+    expect(typeof wrapper.vm.focus).toBe('function')
+    expect(typeof wrapper.vm.blur).toBe('function')
+
+    expect(document.activeElement).not.toBe(input.element)
+    wrapper.vm.focus()
+    expect(document.activeElement).toBe(input.element)
+    wrapper.vm.blur()
+    expect(document.activeElement).not.toBe(input.element)
   })
 })

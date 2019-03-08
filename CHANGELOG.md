@@ -1,8 +1,127 @@
-# Changelog
+# Change Log
 
 All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
+
+<a name="2.0.0-rc.14"></a>
+
+## [v2.0.0-rc.14](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.13...v2.0.0-rc.14)
+
+Released:  2019-03-08
+
+### Bug Fixes v2.0.0-rc.14
+
+- **docs:** correct and validate component meta information
+  ([#2665](https://github.com/bootstrap-vue/bootstrap-vue/issues/2665))
+  ([#2650](https://github.com/bootstrap-vue/bootstrap-vue/issues/2650))
+  ([29147ca](https://github.com/bootstrap-vue/bootstrap-vue/commit/29147ca))
+- **dom-utils:** check for `el.classList` existence
+  ([#2713](https://github.com/bootstrap-vue/bootstrap-vue/issues/2713))
+  ([#2714](https://github.com/bootstrap-vue/bootstrap-vue/issues/2714))
+  ([4ff8b05](https://github.com/bootstrap-vue/bootstrap-vue/commit/4ff8b05))
+- **form-file:** fix v-model update watcher
+  ([#2695](https://github.com/bootstrap-vue/bootstrap-vue/issues/2695))
+  ([abf9d6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/abf9d6e))
+- **form-input:** allow number type for form-inputs via form-text mixin
+  ([#2738](https://github.com/bootstrap-vue/bootstrap-vue/issues/2738))
+  ([ec91788](https://github.com/bootstrap-vue/bootstrap-vue/commit/ec91788))
+- **modal:** modal stacking position fix
+  ([#2677](https://github.com/bootstrap-vue/bootstrap-vue/issues/2677))
+  ([#2681](https://github.com/bootstrap-vue/bootstrap-vue/issues/2681))
+  ([ff4c4c9](https://github.com/bootstrap-vue/bootstrap-vue/commit/ff4c4c9))
+- **nav-item:** move listeners to link element
+  ([#2755](https://github.com/bootstrap-vue/bootstrap-vue/issues/2755))
+  ([40b19a7](https://github.com/bootstrap-vue/bootstrap-vue/commit/40b19a7))
+- **nuxt-module:** fix default inclusion of CSS files
+  ([#2629](https://github.com/bootstrap-vue/bootstrap-vue/issues/2629))
+  ([#2701](https://github.com/bootstrap-vue/bootstrap-vue/issues/2701))
+  ([afbb650](https://github.com/bootstrap-vue/bootstrap-vue/commit/afbb650))
+- **pagination:** avoid using domProps innerText
+  ([#2744](https://github.com/bootstrap-vue/bootstrap-vue/issues/2744))
+  ([#2757](https://github.com/bootstrap-vue/bootstrap-vue/issues/2757))
+  ([d10f804](https://github.com/bootstrap-vue/bootstrap-vue/commit/d10f804))
+- **pagination:** correct pagination props/slots/event docs and fix ellipsis slot
+  ([#2699](https://github.com/bootstrap-vue/bootstrap-vue/issues/2699))
+  ([25e04e1](https://github.com/bootstrap-vue/bootstrap-vue/commit/25e04e1))
+- **radio/check group:** remove redundant size class from the group container
+  ([#2743](https://github.com/bootstrap-vue/bootstrap-vue/issues/2743))
+  ([#2761](https://github.com/bootstrap-vue/bootstrap-vue/issues/2761))
+  ([0639588](https://github.com/bootstrap-vue/bootstrap-vue/commit/0639588))
+- **tabs:** fix initial value handling
+  ([#2656](https://github.com/bootstrap-vue/bootstrap-vue/issues/2656))
+  ([#2661](https://github.com/bootstrap-vue/bootstrap-vue/issues/2661))
+  ([2708c74](https://github.com/bootstrap-vue/bootstrap-vue/commit/2708c74))
+- **tabs:** prevent double input event on mount, and add additional tests
+  ([#2748](https://github.com/bootstrap-vue/bootstrap-vue/issues/2748))
+  ([c462e0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/c462e0a))
+- **util/html:** ensure argument is a string
+  ([#2770](https://github.com/bootstrap-vue/bootstrap-vue/issues/2770))
+  ([#2775](https://github.com/bootstrap-vue/bootstrap-vue/issues/2775))
+  ([356247f](https://github.com/bootstrap-vue/bootstrap-vue/commit/356247f))
+- **utils:** add back array notation support to `get()` util
+  ([#2689](https://github.com/bootstrap-vue/bootstrap-vue/issues/2689))
+  ([9e824a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/9e824a5))
+- **utils:** make `looseEqual()` util compliant with Vue.js spec
+  ([#2651](https://github.com/bootstrap-vue/bootstrap-vue/issues/2651))
+  ([1b6a994](https://github.com/bootstrap-vue/bootstrap-vue/commit/1b6a994))
+
+### Features v2.0.0-rc.14
+
+- **card-img-lazy:** new card-img-lazy sub-component
+  ([#2647](https://github.com/bootstrap-vue/bootstrap-vue/issues/2647))
+  ([d2e1f8a](https://github.com/bootstrap-vue/bootstrap-vue/commit/d2e1f8a))
+- **docs:** add heading anchor links
+  ([#2698](https://github.com/bootstrap-vue/bootstrap-vue/issues/2698))
+  ([fd6cbef](https://github.com/bootstrap-vue/bootstrap-vue/commit/fd6cbef))
+- **form-checkbox/radio:** code improvements, test suites, and docs update
+  ([#2718](https://github.com/bootstrap-vue/bootstrap-vue/issues/2718))
+  ([#2721](https://github.com/bootstrap-vue/bootstrap-vue/issues/2721))
+  ([285a2e1](https://github.com/bootstrap-vue/bootstrap-vue/commit/285a2e1))
+- **form-input:** Added support for datalists to text form-inputs
+  ([#2781](https://github.com/bootstrap-vue/bootstrap-vue/issues/2781))
+  ([0339ad8](https://github.com/bootstrap-vue/bootstrap-vue/commit/0339ad8))
+- **form-textarea:** add `noAutoShrink` prop
+  ([#2664](https://github.com/bootstrap-vue/bootstrap-vue/issues/2664))
+  ([#2666](https://github.com/bootstrap-vue/bootstrap-vue/issues/2666))
+  ([a29c40c](https://github.com/bootstrap-vue/bootstrap-vue/commit/a29c40c))
+- **modal:** add modal-backdrop slot
+  ([#2688](https://github.com/bootstrap-vue/bootstrap-vue/issues/2688))
+  ([ce18ffd](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce18ffd))
+- **modal:** add toggle method and root event
+  ([#2708](https://github.com/bootstrap-vue/bootstrap-vue/issues/2708))
+  ([#2709](https://github.com/bootstrap-vue/bootstrap-vue/issues/2709))
+  ([f67218e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f67218e))
+- **modal:** add variant prop for header close button
+  ([#2765](https://github.com/bootstrap-vue/bootstrap-vue/issues/2765))
+  ([b7e95d9](https://github.com/bootstrap-vue/bootstrap-vue/commit/b7e95d9))
+- **nuxt-module:** add tree-shaking support to Nuxt module
+  ([#2654](https://github.com/bootstrap-vue/bootstrap-vue/issues/2654))
+  ([9aaf32f](https://github.com/bootstrap-vue/bootstrap-vue/commit/9aaf32f))
+- **table:** add IDs to tbody > tr elements if primary-key provided
+  ([#2693](https://github.com/bootstrap-vue/bootstrap-vue/issues/2693))
+  ([#2694](https://github.com/bootstrap-vue/bootstrap-vue/issues/2694))
+  ([3d72404](https://github.com/bootstrap-vue/bootstrap-vue/commit/3d72404))
+- **table:** added `thead-top` slot to table
+  ([#2489](https://github.com/bootstrap-vue/bootstrap-vue/issues/2489))
+  ([#2653](https://github.com/bootstrap-vue/bootstrap-vue/issues/2653))
+  ([fbb549c](https://github.com/bootstrap-vue/bootstrap-vue/commit/fbb549c))
+- **table:** better default rendering of unformatted object values
+  ([#2733](https://github.com/bootstrap-vue/bootstrap-vue/issues/2733))
+  ([ee84672](https://github.com/bootstrap-vue/bootstrap-vue/commit/ee84672))
+- **table:** make some slots available either as scoped or unscoped
+  ([#2740](https://github.com/bootstrap-vue/bootstrap-vue/issues/2740))
+  ([ab7937e](https://github.com/bootstrap-vue/bootstrap-vue/commit/ab7937e))
+- **util/get, table:** handle edge case where user has dot in actual item data field key (Closes
+  ([#2762](https://github.com/bootstrap-vue/bootstrap-vue/issues/2762))
+  ([#2764](https://github.com/bootstrap-vue/bootstrap-vue/issues/2764))
+  ([ee52844](https://github.com/bootstrap-vue/bootstrap-vue/commit/ee52844))
+
+### Performance Improvements v2.0.0-rc.14
+
+- **table:** minor tweaks to primary key usage
+  ([#2741](https://github.com/bootstrap-vue/bootstrap-vue/issues/2741))
+  ([d083385](https://github.com/bootstrap-vue/bootstrap-vue/commit/d083385))
 
 <a name="2.0.0-rc.13"></a>
 

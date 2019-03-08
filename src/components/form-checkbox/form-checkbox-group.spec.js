@@ -1,8 +1,9 @@
 import Group from './form-checkbox-group'
-// import Input from './form-checkbox'
+import Check from './form-checkbox'
+import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 
-describe('form-checkbox-group', async () => {
+describe('form-checkbox-group', () => {
   /* Structure, class and attributes tests */
 
   it('default has structure <div></div>', async () => {
@@ -195,6 +196,43 @@ describe('form-checkbox-group', async () => {
     expect(wrapper.classes()).toContain('btn-group-lg')
   })
 
+  it('button mode button variant works', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(
+          Group,
+          {
+            props: {
+              checked: [],
+              buttons: true,
+              buttonVariant: 'primary'
+            }
+          },
+          [
+            h(Check, { props: { value: 'one' } }, 'button 1'),
+            h(Check, { props: { value: 'two' } }, 'button 2'),
+            h(Check, { props: { value: 'three', buttonVariant: 'danger' } }, 'button 3')
+          ]
+        )
+      }
+    })
+
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+
+    // Find all the labels with .btn class
+    const btns = wrapper.findAll('label.btn')
+    expect(btns).toBeDefined()
+    expect(btns.length).toBe(3)
+    // Expect them to have the correct variant classes
+    expect(btns.at(0).classes()).toContain('btn-primary')
+    expect(btns.at(1).classes()).toContain('btn-primary')
+    expect(btns.at(2).classes()).toContain('btn-danger')
+  })
+
   /* functionality testing */
 
   it('has checkboxes via options array', async () => {
@@ -210,6 +248,24 @@ describe('form-checkbox-group', async () => {
     expect(checks.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
     expect(checks.is('input[type=checkbox]')).toBe(true)
+  })
+
+  it('has checkboxes via options array which respect disabled', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: [{ text: 'one' }, { text: 'two' }, { text: 'three', disabled: true }],
+        checked: []
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.at(0).attributes('disabled')).not.toBeDefined()
+    expect(checks.at(1).attributes('disabled')).not.toBeDefined()
+    expect(checks.at(2).attributes('disabled')).toBeDefined()
   })
 
   it('emits change event when checkbox clicked', async () => {
