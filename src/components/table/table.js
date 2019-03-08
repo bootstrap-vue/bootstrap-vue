@@ -919,11 +919,15 @@ export default {
     },
     // Event handlers
     rowClicked(e, item, index) {
+      const getSelection = (document || {}).getSelection || (window || {}).getSelection
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
+        return
+      } else if (getSelection && getSelection().toString().length !== 0) {
+        // User is selecting text, so ignore
         return
       }
       if (e.type === 'keydown') {
