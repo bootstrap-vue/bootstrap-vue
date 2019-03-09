@@ -1,10 +1,8 @@
 export default {
   methods: {
     renderBusy(h) {
-      const $busySlot = this.normalizeSlot('table-busy', {})
-
       // Return a busy indicator row, or null if not busy
-      if ($busySlot && this.computedBusy) {
+      if (this.computedBusy && this.hasNormalizedSlot('table-busy')) {
         // Show the busy slot
         const trAttrs = {
           role: this.isStacked ? 'row' : null
@@ -25,7 +23,7 @@ export default {
             ],
             attrs: trAttrs
           },
-          [h('td', { attrs: tdAttrs }, [$busySlot])]
+          [h('td', { attrs: tdAttrs }, [this.normalizeSlot('table-busy', {})]
         )
       } else {
         // We return null here so that we can determine if we need to
