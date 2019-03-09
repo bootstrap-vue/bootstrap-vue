@@ -36,12 +36,12 @@ describe('table/helpers/normalize-fields', () => {
     const formatter = () => {}
 
     // Label Shortcut
-    expect(normalizeFields({ foo: 'Foo Label'}).toEqual([
+    expect(normalizeFields({ foo: 'Foo Label'})).toEqual([
       { key: 'foo', label: 'Foo Label' }
     ])
 
     // Formatter Shortcut
-    expect(normalizeFields({ foo: formatter}).toEqual([
+    expect(normalizeFields({ foo: formatter})).toEqual([
       { key: 'foo', label: 'Foo', formatter: formatter }
     ])
 
