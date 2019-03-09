@@ -25,7 +25,10 @@ import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
 import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
+import busyMixin from './helpers/mixin-busy'
 import emptyMixin from './helpers/mixin-empty'
+import topRowMixin from './helpers/mixin-top-row'
+import bottomRowMixin from './helpers/mixin-bottom-row'
 
 // b-table component definition
 // @vue/component
@@ -37,9 +40,12 @@ export default {
     normalizeSlotMixin,
     theadMixin,
     tfootMixin,
+    busyMixin,
     captionMixin,
     colgroupMixin,
-    emptyMixin
+    emptyMixin,
+    topRowMixin,
+    bottomRowMixin
   ],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
