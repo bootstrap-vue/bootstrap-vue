@@ -150,7 +150,7 @@ expect.extend({
   },
   toBeComponent(vm, componentTag) {
     throwIfNotVueInstance(vm)
-
+    /* istanbul ignore next */
     return {
       message: () => `Expected to be <${componentTag}>. Received: ${getVmTag(vm)}`,
       pass: getVmTag(vm) === componentTag
@@ -158,7 +158,7 @@ expect.extend({
   },
   toBeElement(el, tagName) {
     throwIfNotHTMLElement(el)
-
+    /* istanbul ignore next */
     return {
       message: () =>
         `Expected to be <${String(tagName).toLowerCase()}>. Received: ${el.tagName.toLowerCase()}`,
