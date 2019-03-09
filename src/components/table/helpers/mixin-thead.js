@@ -92,7 +92,7 @@ export default {
         let ariaLabel = ''
         if (!field.label.trim() && !field.headerTitle) {
           // In case field's label and title are empty/blank
-          // We need to add a hint about what the column is about for non-dighted users
+          // We need to add a hint about what the column is about for non-sighted users
           ariaLabel = startCase(field.key)
         }
         const sortable = field.sortable && !(isFoot && this.noFooterSorting)
