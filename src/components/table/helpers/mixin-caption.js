@@ -29,10 +29,10 @@ export default {
   methods: {
     renderCaption(h) {
       // Build the caption
-      const $captionSlot = this.$slots['table-caption']
+      const $captionSlot = this.normalizeSlot('table-caption', {})
       let $caption = h(false)
 
-      if (this.caption || this.captionHtml || $captionSlot) {
+      if ($captionSlot || this.caption || this.captionHtml) {
         const data = {
           key: 'caption',
           id: this.captionId,
