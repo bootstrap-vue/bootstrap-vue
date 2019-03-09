@@ -9,11 +9,6 @@ import toString from '../../utils/to-string'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 
-// Mixins
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
-
 // Table helper functions
 import normalizeFields from './helpers/normalize-fields'
 import sanitizeRow from './helpers/sanitize-row'
@@ -22,11 +17,20 @@ import defaultSortCompare from './helpers/default-sort-compare'
 import filterEvent from './helpers/filter-event'
 import textSelectionActive from './helpers/text-selection-active'
 
+// Mixins
+import idMixin from '../../mixins/id'
+import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// Table helper mixins
+import captionMixin from './helpers/mixin-caption'
+import colgroupMixin from './helpers/mixin-colgroup'
+
 // b-table component definition
 // @vue/component
 export default {
   name: 'BTable',
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, captionMixin, colgroupMixin],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
   props: {
@@ -58,17 +62,6 @@ export default {
       type: String,
       default: 'asc',
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
-    },
-    caption: {
-      type: String,
-      default: null
-    },
-    captionHtml: {
-      type: String
-    },
-    captionTop: {
-      type: Boolean,
-      default: false
     },
     striped: {
       type: Boolean,
@@ -320,11 +313,6 @@ export default {
     footClasses() {
       const variant = this.footVariant || this.headVariant || null
       return [variant ? 'thead-' + variant : '', this.tfootClass]
-    },
-    captionClasses() {
-      return {
-        'b-table-caption-top': this.captionTop
-      }
     },
     // Items related computed props
     hasProvider() {
@@ -992,31 +980,12 @@ export default {
     const items = this.computedItems
     const tableStriped = this.striped
     const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
-    // Build the caption
-    let caption = h(false)
-    let captionId = null
-    if (this.caption || this.captionHtml || $slots['table-caption']) {
-      captionId = this.isStacked ? this.safeId('_caption_') : null
-      const data = {
-        key: 'caption',
-        id: captionId,
-        class: this.captionClasses
-      }
-      if (!$slots['table-caption']) {
-        data.domProps = htmlOrText(this.captionHtml, this.caption)
-      }
-      caption = h('caption', data, $slots['table-caption'])
-    }
+
+    // Build the caption (from caption mixin)
+    const $caption = this.renderCaption(h)
 
     // Build the colgroup
-    let colgroup = h(false)
-    if (this.hasNormalizedSlot('table-colgroup')) {
-      colgroup = h(
-        'colgroup',
-        { key: 'colgroup' },
-        this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })
-      )
-    }
+    const $colgroup = this.renderColgroup(h)
 
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
@@ -1477,13 +1446,13 @@ export default {
             [
               // Preserve user supplied aria-describedby, if provided in $attrs
               (this.$attrs || {})['aria-describedby'],
-              captionId
+              this.captionId
             ]
               .filter(a => a)
               .join(' ') || null
         }
       },
-      [caption, colgroup, thead, tfoot, tbody]
+      [$caption, $colgroup, thead, tfoot, tbody]
     )
 
     // Add responsive wrapper if needed and return table
