@@ -1,3 +1,5 @@
+import { htmlOrText } from '../../../utils/html'
+
 export default {
   props: {
     showEmpty: {
@@ -22,7 +24,7 @@ export default {
   methods: {
     renderEmptyRow(h) {
       const items = this.localItems
-      let $empty = h(false)
+      let $empty
 
       if (
         this.showEmpty &&
@@ -34,8 +36,9 @@ export default {
           emptyFilteredText: this.emptyFilteredText,
           emptyHtml: this.emptyHtml,
           emptyText: this.emptyText,
-          fields: fields,
-          items: items
+          fields: this.computedFields,
+          // Not sure why this is included, as it will always be an empty array
+          items: this.computedItems
         })
         if (!$empty) {
           $empty = h('div', {
@@ -58,7 +61,7 @@ export default {
         $empty = h(
           'tr',
           {
-            key: '__b-table-empty-row__',
+            key: this.isFiltered ? '_b-table-empty-filtered-row_' : '_b-table-empty-row_',
             staticClass: 'b-table-empty-row',
             class: [
               typeof this.tbodyTrClass === 'function'
@@ -71,7 +74,7 @@ export default {
         )
       }
 
-      return $empty
+      return $empty || h(false)
     }
   }
 }
