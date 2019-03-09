@@ -10,18 +10,17 @@ export default {
     const fields = this.computedFields
 
     return h(
-        'tr',
-        {
-          key: '__b-table-bottom-row__',
-          staticClass: 'b-table-bottom-row',
-          class: [
-            typeof this.tbodyTrClass === 'function'
-              ? this.tbodyTrClass(null, 'row-bottom')
-              : this.tbodyTrClass
-          ]
-        },
-        this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })
-      )
+      'tr',
+      {
+        key: '__b-table-bottom-row__',
+        staticClass: 'b-table-bottom-row',
+        class: [
+          typeof this.tbodyTrClass === 'function'
+            ? this.tbodyTrClass(null, 'row-bottom')
+            : this.tbodyTrClass
+        ]
+      },
+      this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })
     )
   }
 }
