@@ -23,4 +23,3 @@ export const EVENT_FILTER = [
   '[role="button"] *',
   '[tabindex]:not(.disabled):not([disabled])'
 ].join(',')
-
