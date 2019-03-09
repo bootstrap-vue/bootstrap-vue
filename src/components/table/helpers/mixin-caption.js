@@ -26,23 +26,25 @@ export default {
       return this.isStacked ? this.safeId('_caption_') : null
     }
   },
-  renderCaption(h) {
-    // Build the caption
-    const $slots = this.slots
-    let $caption = h(false)
+  methods: {
+    renderCaption(h) {
+      // Build the caption
+      const $slots = this.slots
+      let $caption = h(false)
 
-    if (this.caption || this.captionHtml || $slots['table-caption']) {
-      const data = {
-        key: 'caption',
-        id: this.captionId,
-        class: this.captionClasses
+      if (this.caption || this.captionHtml || $slots['table-caption']) {
+        const data = {
+          key: 'caption',
+          id: this.captionId,
+          class: this.captionClasses
+        }
+        if (!$slots['table-caption']) {
+          data.domProps = htmlOrText(this.captionHtml, this.caption)
+        }
+        $caption = h('caption', data, $slots['table-caption'])
       }
-      if (!$slots['table-caption']) {
-        data.domProps = htmlOrText(this.captionHtml, this.caption)
-      }
-      $caption = h('caption', data, $slots['table-caption'])
+
+      return $caption
     }
-
-    return $caption
   }
 }
