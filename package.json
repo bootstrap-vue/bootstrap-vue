@@ -154,7 +154,7 @@
       "<rootDir>/es/",
       "<rootDir>/docs/",
       "<rootDir>/scripts/",
-      "<rootDir>/test/"
+      "<rootDir>/tests/"
     ],
     "testEnvironmentOptions": {
       "pretendToBeVisual": true
