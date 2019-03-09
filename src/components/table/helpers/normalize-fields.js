@@ -73,7 +73,6 @@ export default function normalizeFields(origFields, items) {
       f.label = typeof f.label === 'string' ? f.label : startCase(f.key)
       return true
     }
-    /* istanbul ignore next */
     return false
   })
 }
