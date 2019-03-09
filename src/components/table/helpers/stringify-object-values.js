@@ -9,12 +9,13 @@ import { keys } from '../../../utils/object'
 //     'one 3 2 zzz 10 12 11'
 //
 // Primatives (numbers/strings) are returned as-is
-// Null and undefined are stringified as an empty string
+// Null and undefined values are filtered out
 // Dates are converted to their native string format
 //
 
 export default function stringifyObjectValues(val) {
   if (typeof val === 'undefined' || val === null) {
+    /* istanbul ignore next */
     return ''
   }
   if (val instanceof Object && !(val instanceof Date)) {
@@ -22,6 +23,7 @@ export default function stringifyObjectValues(val) {
     // Date objects we convert to strings
     return keys(val)
       .sort() /* sort to prevent SSR issues on pre-rendered sorted tables */
+      .filter(v => v !== undefined && v !== null) /* ignore undefined/null values */
       .map(k => stringifyObjectValues(val[k]))
       .join(' ')
   }
