@@ -1,5 +1,4 @@
 // Utilities
-import startCase from '../../utils/startcase'
 import get from '../../utils/get'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
