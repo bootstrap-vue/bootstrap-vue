@@ -25,12 +25,22 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Table helper mixins
 import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
+import theadMixin from './helpers/mixin-thead'
+import tfootMixin from './helpers/mixin-tfoot'
 
 // b-table component definition
 // @vue/component
 export default {
   name: 'BTable',
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, captionMixin, colgroupMixin],
+  mixins: [
+    idMixin,
+    listenOnRootMixin,
+    normalizeSlotMixin,
+    theadMixin,
+    tfootMixin,
+    captionMixin,
+    colgroupMixin
+  ],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
   props: {
@@ -49,19 +59,6 @@ export default {
       // If provided the value in each row must be unique!!!
       type: String,
       default: null
-    },
-    sortBy: {
-      type: String,
-      default: null
-    },
-    sortDesc: {
-      type: Boolean,
-      default: false
-    },
-    sortDirection: {
-      type: String,
-      default: 'asc',
-      validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
     },
     striped: {
       type: Boolean,
@@ -108,10 +105,6 @@ export default {
       type: Boolean,
       default: false
     },
-    footClone: {
-      type: Boolean,
-      default: false
-    },
     responsive: {
       type: [Boolean, String],
       default: false
@@ -120,49 +113,38 @@ export default {
       type: [Boolean, String],
       default: false
     },
-    selectable: {
+    busy: {
       type: Boolean,
       default: false
     },
-    selectMode: {
+    sortBy: {
       type: String,
-      default: 'multi'
+      default: null
     },
-    selectedVariant: {
+    sortDesc: {
+      type: Boolean,
+      default: false
+    },
+    sortDirection: {
       type: String,
-      default: 'primary'
+      default: 'asc',
+      validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
     },
-    headVariant: {
+    sortCompare: {
+      type: Function,
+      default: null
+    },
+    noSortReset: {
+      type: Boolean,
+      default: false
+    },
+    labelSortAsc: {
       type: String,
-      default: ''
+      default: 'Click to sort Ascending'
     },
-    footVariant: {
+    labelSortDesc: {
       type: String,
-      default: ''
-    },
-    theadClass: {
-      type: [String, Array],
-      default: null
-    },
-    theadTrClass: {
-      type: [String, Array],
-      default: null
-    },
-    tbodyClass: {
-      type: [String, Array],
-      default: null
-    },
-    tbodyTrClass: {
-      type: [String, Array, Function],
-      default: null
-    },
-    tfootClass: {
-      type: [String, Array],
-      default: null
-    },
-    tfootTrClass: {
-      type: [String, Array],
-      default: null
+      default: 'Click to sort Descending'
     },
     perPage: {
       type: Number,
@@ -177,10 +159,6 @@ export default {
       default: null
     },
     filterFunction: {
-      type: Function,
-      default: null
-    },
-    sortCompare: {
       type: Function,
       default: null
     },
@@ -200,15 +178,12 @@ export default {
       type: Boolean,
       default: false
     },
-    noSortReset: {
-      type: Boolean,
-      default: false
+    apiUrl: {
+      // Passthrough prop. Passed to the context object. Not used by b-table directly
+      type: String,
+      default: ''
     },
     noFooterSorting: {
-      type: Boolean,
-      default: false
-    },
-    busy: {
       type: Boolean,
       default: false
     },
@@ -219,13 +194,17 @@ export default {
         return []
       }
     },
-    labelSortAsc: {
-      type: String,
-      default: 'Click to sort Ascending'
+    selectable: {
+      type: Boolean,
+      default: false
     },
-    labelSortDesc: {
+    selectMode: {
       type: String,
-      default: 'Click to sort Descending'
+      default: 'multi'
+    },
+    selectedVariant: {
+      type: String,
+      default: 'primary'
     },
     showEmpty: {
       type: Boolean,
@@ -245,10 +224,13 @@ export default {
     emptyFilteredHtml: {
       type: String
     },
-    apiUrl: {
-      // Passthrough prop. Passed to the context object. Not used by b-table directly
-      type: String,
-      default: ''
+    tbodyClass: {
+      type: [String, Array],
+      default: null
+    },
+    tbodyTrClass: {
+      type: [String, Array, Function],
+      default: null
     },
     tbodyTransitionProps: {
       type: Object
@@ -304,15 +286,8 @@ export default {
         'b-table-selectable': this.selectable
       }
     },
-    headClasses() {
-      return [this.headVariant ? 'thead-' + this.headVariant : '', this.theadClass]
-    },
     bodyClasses() {
       return [this.tbodyClass]
-    },
-    footClasses() {
-      const variant = this.footVariant || this.headVariant || null
-      return [variant ? 'thead-' + variant : '', this.tfootClass]
     },
     // Items related computed props
     hasProvider() {
@@ -602,14 +577,6 @@ export default {
   },
   methods: {
     // Methods for computing classes, attributes and styles for table cells
-    fieldClasses(field) {
-      // header field (th) classes
-      return [
-        field.variant ? 'table-' + field.variant : '',
-        field.class ? field.class : '',
-        field.thClass ? field.thClass : ''
-      ]
-    },
     tdClasses(field, item) {
       let cellVariant = ''
       if (item._cellVariants && item._cellVariants[field.key]) {
@@ -839,52 +806,6 @@ export default {
       }
       this.$emit('row-contextmenu', item, index, e)
     },
-    headClicked(e, field, isFooter) {
-      if (this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      } else if (filterEvent(e)) {
-        // clicked on a non-disabled control so ignore
-        return
-      } else if (textSelectionActive()) {
-        // User is selecting text, so ignore
-        /* istanbul ignore next: JSDOM doesn't support getSelection() */
-        return
-      }
-      e.stopPropagation()
-      e.preventDefault()
-      let sortChanged = false
-      const toggleLocalSortDesc = () => {
-        const sortDirection = field.sortDirection || this.sortDirection
-        if (sortDirection === 'asc') {
-          this.localSortDesc = false
-        } else if (sortDirection === 'desc') {
-          this.localSortDesc = true
-        }
-      }
-      if (!(isFooter && this.noFooterSorting)) {
-        if (field.sortable) {
-          if (field.key === this.localSortBy) {
-            // Change sorting direction on current column
-            this.localSortDesc = !this.localSortDesc
-          } else {
-            // Start sorting this column ascending
-            this.localSortBy = field.key
-            toggleLocalSortDesc()
-          }
-          sortChanged = true
-        } else if (this.localSortBy && !this.noSortReset) {
-          this.localSortBy = null
-          toggleLocalSortDesc()
-          sortChanged = true
-        }
-      }
-      this.$emit('head-clicked', field.key, field, e, isFooter)
-      if (sortChanged) {
-        // Sorting parameters changed
-        this.$emit('sort-changed', this.context)
-      }
-    },
     stopIfBusy(evt) {
       if (this.computedBusy) {
         // If table is busy (via provider) then don't propagate
@@ -987,97 +908,11 @@ export default {
     // Build the colgroup
     const $colgroup = this.renderColgroup(h)
 
-    // factory function for thead and tfoot cells (th's)
-    const makeHeadCells = (isFoot = false) => {
-      return fields.map((field, colIndex) => {
-        let ariaLabel = ''
-        if (!field.label.trim() && !field.headerTitle) {
-          // In case field's label and title are empty/blank
-          // We need to add a hint about what the column is about for non-dighted users
-          ariaLabel = startCase(field.key)
-        }
-        const sortable = field.sortable && !(isFoot && this.noFooterSorting)
-        const ariaLabelSorting = sortable
-          ? this.localSortDesc && this.localSortBy === field.key
-            ? this.labelSortAsc
-            : this.labelSortDesc
-          : null
-        // Assemble the aria-label
-        ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
-        const ariaSort =
-          sortable && this.localSortBy === field.key
-            ? this.localSortDesc
-              ? 'descending'
-              : 'ascending'
-            : sortable
-              ? 'none'
-              : null
-        const data = {
-          key: field.key,
-          class: this.fieldClasses(field),
-          style: field.thStyle || {},
-          attrs: {
-            tabindex: sortable ? '0' : null,
-            abbr: field.headerAbbr || null,
-            title: field.headerTitle || null,
-            scope: isFoot ? null : 'col',
-            'aria-colindex': String(colIndex + 1),
-            'aria-label': ariaLabel,
-            'aria-sort': ariaSort
-          },
-          on: {
-            click: evt => {
-              this.headClicked(evt, field, isFoot)
-            },
-            keydown: evt => {
-              const keyCode = evt.keyCode
-              if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                this.headClicked(evt, field, isFoot)
-              }
-            }
-          }
-        }
-        let fieldScope = { label: field.label, column: field.key, field: field }
-        let slot =
-          isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
-            ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
-            : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
-        if (slot) {
-          slot = [slot]
-        } else {
-          data.domProps = htmlOrText(field.labelHtml, field.label)
-        }
-        return h('th', data, slot)
-      })
-    }
-
     // Build the thead
-    let thead = h(false)
-    if (this.isStacked !== true) {
-      // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
-      const theadChildren = []
-
-      if (this.hasNormalizedSlot('thead-top')) {
-        theadChildren.push(
-          this.normalizeSlot('thead-top', { columns: fields.length, fields: fields })
-        )
-      } else {
-        theadChildren.push(h(false))
-      }
-
-      theadChildren.push(h('tr', { class: this.theadTrClass }, makeHeadCells(false)))
-
-      thead = h('thead', { key: 'thead', class: this.headClasses }, theadChildren)
-    }
+    const $thead = this.renderThead(h)
 
     // Build the tfoot
-    let tfoot = h(false)
-    if (this.footClone && this.isStacked !== true) {
-      // If in always stacked mode (this.isStacked === true), then we don't bother rendering the tfoot
-      tfoot = h('tfoot', { key: 'tfoot', class: this.footClasses }, [
-        h('tr', { class: this.tfootTrClass }, makeHeadCells(true))
-      ])
-    }
+    const $tfoot = this.renderTfoot(h)
 
     // Prepare the tbody rows
     const rows = []
@@ -1408,7 +1243,7 @@ export default {
     }
 
     // Assemble the rows into the tbody
-    const tbody = h(
+    const $tbody = h(
       isTransGroup ? 'transition-group' : 'tbody',
       {
         props: tbodyProps,
@@ -1420,7 +1255,7 @@ export default {
     )
 
     // Assemble table
-    const table = h(
+    const $table = h(
       'table',
       {
         key: 'b-table',
@@ -1452,12 +1287,12 @@ export default {
               .join(' ') || null
         }
       },
-      [$caption, $colgroup, thead, tfoot, tbody]
+      [$caption, $colgroup, $thead, $tfoot, $tbody]
     )
 
     // Add responsive wrapper if needed and return table
     return this.isResponsive
-      ? h('div', { key: 'b-table-responsive', class: this.responsiveClass }, [table])
-      : table
+      ? h('div', { key: 'b-table-responsive', class: this.responsiveClass }, [$table])
+      : $table
   }
 }
