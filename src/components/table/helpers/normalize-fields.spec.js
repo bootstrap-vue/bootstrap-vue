@@ -3,8 +3,8 @@ import normalizeFields from './normalize-fields'
 describe('table/helpers/normalize-fields', () => {
   it('uses first row of items when fields are not defined and items passed', async () => {
     const fields = normalizeFields(null, [
-      { foo: 1, bar: { a: 2 }, 'foo bar': 3, 'baz_bar': 4 },
-      { foo: 1, bar: { a: 2 }, 'foo bar': 3, baz: 5 },
+      { foo: 1, bar: { a: 2 }, 'foo bar': 3, baz_bar: 4 },
+      { foo: 1, bar: { a: 2 }, 'foo bar': 3, baz: 5 }
     ])
     expect(fields).toEqual([
       { key: 'foo', label: 'Foo' },
