@@ -17,24 +17,28 @@ export default {
       return {
         'b-table-caption-top': this.captionTop
       }
+    },
+    captionId() {
+      // Even though this.safeId looks like a method, it is a computed prop
+      // that returns a new function if the underlying ID changes
+      this.isStacked ? this.safeId('_caption_') : null
     }
   },
   renderCaption(h) {
     // Build the caption
+    const $slots = this.slots
     let $caption = h(false)
-    let captionId = null
 
-    if (this.caption || this.captionHtml || this.$slots['table-caption']) {
-      captionId = this.isStacked ? this.safeId('_caption_') : null
+    if (this.caption || this.captionHtml || $slots['table-caption']) {
       const data = {
         key: 'caption',
-        id: captionId,
+        id: this.captionId,
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
         data.domProps = htmlOrText(this.captionHtml, this.caption)
       }
-      $caption = h('caption', data, this.$slots['table-caption'])
+      $caption = h('caption', data, $slots['table-caption'])
     }
 
     return $caption
