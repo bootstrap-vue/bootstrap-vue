@@ -1,98 +1,26 @@
+// Utilities
 import startCase from '../../utils/startcase'
 import get from '../../utils/get'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import { keys } from '../../utils/object'
+import toString from '../../utils/to-string'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
-import { closest, matches } from '../../utils/dom'
-import toString from '../../utils/to-string'
+
+// Mixins
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// Table helper functions
+import normalizeFields from './helpers/normalize-fields'
 import sanitizeRow from './helpers/sanitize-row'
-import stringifyObjectValues from './helpers/stringify-object-values'
 import stringifyRecordValues from './helpers/stringify-record-values'
-import { EVENT_FILTER } from './helpers/constants'
-
-// Object of item keys that should be ignored for headers and stringification and filter events
-const IGNORED_FIELD_KEYS = {
-  _rowVariant: true,
-  _cellVariants: true,
-  _showDetails: true
-}
-
-// Helper to determine if a there is an active text selection on the document page.
-// Used to filter out click events caused by the mouse up at end of selection
-function textSelectionActive() {
-  const win = window
-  return win && win.getSelection ? win.getSelection().toString().length > 0 : false
-}
-
-// Default sort compare routine
-// TODO: add option to sort by multiple columns (tri-state per column, plus order of columns in sort)
-//  where sprtBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
-//  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
-function defaultSortCompare(a, b, sortBy) {
-  a = get(a, sortBy, '')
-  b = get(b, sortBy, '')
-  if (
-    (a instanceof Date && b instanceof Date) ||
-    (typeof a === 'number' && typeof b === 'number')
-  ) {
-    // Special case for comparing Dates and Numbers
-    return (a < b && -1) || (a > b && 1) || 0
-  }
-  return stringifyObjectValues(a).localeCompare(stringifyObjectValues(b), undefined, {
-    numeric: true
-  })
-}
-
-// Helper function to massage field entry into common object format
-function processField(key, value) {
-  let field = null
-  if (typeof value === 'string') {
-    // Label shortcut
-    field = { key, label: value }
-  } else if (typeof value === 'function') {
-    // Formatter shortcut
-    field = { key, formatter: value }
-  } else if (typeof value === 'object') {
-    field = { ...value }
-    field.key = field.key || key
-  } else if (value !== false) {
-    // Fallback to just key
-    field = { key }
-  }
-  return field
-}
-
-// Returns true of we should ignore the click/dbclick/keypress event
-// Avoids having the user need to use @click.stop on the form control
-function filterEvent(evt) {
-  if (!evt || !evt.target) {
-    /* istanbul ignore next */
-    return
-  }
-  const el = evt.target
-  if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TR' || el.disabled) {
-    // Shortut all the following tests for efficiency
-    return false
-  }
-  if (closest('.dropdown-menu', el)) {
-    // Click was in a dropdown menu, so ignore
-    return true
-  }
-  const label = el.tagName === 'LABEL' ? el : closest('label', el)
-  if (label && label.control && !label.control.disabled) {
-    // If the label's form control is not disabled then we don't propagate evt
-    return true
-  }
-  return matches(el, EVENT_FILTER)
-}
+import defaultSortCompare from './helpers/default-sort-compare'
+import filterEvent from './helpers/filter-event'
+import textSelectionActive from './helpers/text-selection-active'
 
 // b-table component definition
 // @vue/component
@@ -450,53 +378,7 @@ export default {
     computedFields() {
       // We normalize fields into an array of objects
       // [ { key:..., label:..., ...}, {...}, ..., {..}]
-      let fields = []
-      if (isArray(this.fields)) {
-        // Normalize array Form
-        this.fields.filter(f => f).forEach(f => {
-          if (typeof f === 'string') {
-            fields.push({ key: f, label: startCase(f) })
-          } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
-            // Full object definition. We use assign so that we don't mutate the original
-            fields.push({ ...f })
-          } else if (typeof f === 'object' && keys(f).length === 1) {
-            // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
-            const key = keys(f)[0]
-            const field = processField(key, f[key])
-            if (field) {
-              fields.push(field)
-            }
-          }
-        })
-      } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
-        // Normalize object Form
-        keys(this.fields).forEach(key => {
-          let field = processField(key, this.fields[key])
-          if (field) {
-            fields.push(field)
-          }
-        })
-      }
-      // If no field provided, take a sample from first record (if exits)
-      if (fields.length === 0 && this.localItems.length > 0) {
-        const sample = this.localItems[0]
-        keys(sample).forEach(k => {
-          if (!IGNORED_FIELD_KEYS[k]) {
-            fields.push({ key: k, label: startCase(k) })
-          }
-        })
-      }
-      // Ensure we have a unique array of fields and that they have String labels
-      const memo = {}
-      return fields.filter(f => {
-        if (!memo[f.key]) {
-          memo[f.key] = true
-          f.label = typeof f.label === 'string' ? f.label : startCase(f.key)
-          return true
-        }
-        /* istanbul ignore next */
-        return false
-      })
+      return normalizeFields(this.fields, this.localItems)
     },
     filteredCheck() {
       // For watching changes to filteredItems vs localItems
