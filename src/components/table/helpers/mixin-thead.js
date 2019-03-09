@@ -88,7 +88,7 @@ export default {
       const fields = this.computedFields || []
 
       // Helper function to generate a field TH cell
-      function makeCell(field, colIndex) {
+      const makeCell = (field, colIndex) => {
         let ariaLabel = ''
         if (!field.label.trim() && !field.headerTitle) {
           // In case field's label and title are empty/blank
