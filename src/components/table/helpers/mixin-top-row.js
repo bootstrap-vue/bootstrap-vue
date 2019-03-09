@@ -22,6 +22,6 @@ export default {
         },
         [this.normalizeSlot('top-row', { columns: fields.length, fields: fields })]
       )
-    )
+    }
   }
 }
