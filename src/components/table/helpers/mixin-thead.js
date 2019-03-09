@@ -11,11 +11,11 @@ export default {
       default: ''
     },
     theadClass: {
-      type: [String, Array],
+      type: [String, Array, Object],
       default: null
     },
     theadTrClass: {
-      type: [String, Array],
+      type: [String, Array, Object],
       default: null
     }
   },
