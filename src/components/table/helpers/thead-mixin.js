@@ -166,7 +166,7 @@ export default {
           class: isFoot ? this.footClasses : this.headClasses
         },
         $trs
-      ))
+      )
     }
   }
 }
