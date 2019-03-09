@@ -59,6 +59,7 @@ const isVueInstance = vm => vm instanceof Vue
 const isHTMLElement = el => el instanceof HTMLElement
 
 const throwIfNotVueInstance = vm => {
+  /* istanbul ignore next */
   if (!isVueInstance(vm)) {
     // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
     // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
@@ -68,6 +69,7 @@ const throwIfNotVueInstance = vm => {
 }
 
 const throwIfNotHTMLElement = el => {
+  /* istanbul ignore next */
   if (!isHTMLElement(el)) {
     console.error(el)
     throw new TypeError(`The matcher function expects an HTML Element. Given ${typeof el}`)
@@ -75,6 +77,7 @@ const throwIfNotHTMLElement = el => {
 }
 
 const throwIfNotArray = array => {
+  /* istanbul ignore next */
   if (!Array.isArray(array)) {
     throw new TypeError(`The matcher requires an array. Given ${typeof array}`)
   }
@@ -110,6 +113,7 @@ const getTagName = node => (isVueInstance(node) ? getVmTag(node) : getHTMLTag(no
 // Extend Jest marchers
 expect.extend({
   toHaveClass(node, className) {
+    /* istanbul ignore next */
     return {
       message: () => `expected <${getTagName(node)}> to have class '${className}'`,
       pass: hasClass(node, className)
@@ -122,6 +126,7 @@ expect.extend({
     let missingClassNames = []
 
     classList.forEach(className => {
+      /* istanbul ignore next */
       if (!hasClass(node, className)) {
         pass = false
         missingClassNames.push(className)
@@ -133,6 +138,7 @@ expect.extend({
     const missingClassStr = missingClassNames.join(', ')
     const tagName = getTagName(node)
 
+    /* istanbul ignore next */
     return {
       // more debugging breadcrumbs
       message: () =>
