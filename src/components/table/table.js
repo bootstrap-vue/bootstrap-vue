@@ -406,6 +406,7 @@ export default {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = newItems.slice()
       } else {
+        /* istanbul ignore next */
         this.localItems = []
       }
     },
@@ -418,6 +419,7 @@ export default {
     },
     sortBy(newVal, oldVal) {
       if (newVal === this.localSortBy) {
+        /* istanbul ignore next */
         return
       }
       this.localSortBy = newVal || null
