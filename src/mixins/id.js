@@ -25,6 +25,7 @@ export default {
 
       // We return a function that accepts an optional suffix string
       // So this computed prop looks and works like a method!!!
+      // But benefits from Vue's Computed prop caching
       const fn = suffix => {
         if (!id) {
           return null
