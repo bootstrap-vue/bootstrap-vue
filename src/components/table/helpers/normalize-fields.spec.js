@@ -36,9 +36,7 @@ describe('table/helpers/normalize-fields', () => {
     const formatter = () => {}
 
     // Label Shortcut
-    expect(normalizeFields({ foo: 'Foo Label' })).toEqual([
-      { key: 'foo', label: 'Foo Label' }
-    ])
+    expect(normalizeFields({ foo: 'Foo Label' })).toEqual([{ key: 'foo', label: 'Foo Label' }])
 
     // Formatter Shortcut
     expect(normalizeFields({ foo: formatter })).toEqual([
@@ -66,5 +64,22 @@ describe('table/helpers/normalize-fields', () => {
 
     // Falback via false
     expect(normalizeFields({ foo: false })).toEqual([{ key: 'foo', label: 'Foo' }])
+  })
+
+  it('removes duplicate fields (preserving the first found)', async () => {
+    const arr1 = ['foo', 'bar', 'foo', 'foo_bar']
+    const arr2 = [{ key: 'foo', label: 'Fiz' }, 'bar', 'foo', 'foo_bar']
+
+    expect(normalizeFields(arr1, [])).toEqual([
+      { key: 'foo', label: 'Foo' },
+      { key: 'bar', label: 'Bar' },
+      { key: 'foo_bar', label: 'Foo Bar' }
+    ])
+
+    expect(normalizeFields(arr2, [])).toEqual([
+      { key: 'foo', label: 'Fiz' },
+      { key: 'bar', label: 'Bar' },
+      { key: 'foo_bar', label: 'Foo Bar' }
+    ])
   })
 })
