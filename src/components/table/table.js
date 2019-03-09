@@ -8,11 +8,15 @@ import { keys } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
-import fieldToString from '../../utils/to-string'
-import sanitizeRow from './helpers/sanitize-row'
+import toString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+import sanitizeRow from './helpers/sanitize-row'
+import stringifyObjectValues from './helpers/stringify-object-values'
+import stringifyRecordValues from './helpers/stringify-record-values'
+import { EVENT_FILTER } from './helpers/constants'
 
 // Object of item keys that should be ignored for headers and stringification and filter events
 const IGNORED_FIELD_KEYS = {
@@ -26,35 +30,6 @@ const IGNORED_FIELD_KEYS = {
 function textSelectionActive() {
   const win = window
   return win && win.getSelection ? win.getSelection().toString().length > 0 : false
-}
-
-// Stringifies the values of an object
-//   { b: 3, c: { z: 'zzz', d: null, e: 2 }, d: [10, 12, 11], a: 'one' }
-// becomes
-//   'one 3 2 zzz 10 12 11'
-function toString(v) {
-  if (typeof v === 'undefined' || v === null) {
-    return ''
-  }
-  if (v instanceof Object && !(v instanceof Date)) {
-    // Arrays are also object, and keys just returns the array indexes
-    // Date objects we convert to strings
-    return keys(v)
-      .sort() /* sort to prevent SSR issues on pre-rendered sorted tables */
-      .map(k => toString(v[k]))
-      .join(' ')
-  }
-  return String(v)
-}
-
-// Stringifies the values of a record, ignoring any special top level field keys
-// TODO: add option to strigify formatted/scopedSlot items, and only specific fields
-function recToString(row) {
-  /* istanbul ignore if */
-  if (!(row instanceof Object)) {
-    return ''
-  }
-  return toString(sanitizeRow(row))
 }
 
 // Default sort compare routine
@@ -71,7 +46,7 @@ function defaultSortCompare(a, b, sortBy) {
     // Special case for comparing Dates and Numbers
     return (a < b && -1) || (a > b && 1) || 0
   }
-  return toString(a).localeCompare(toString(b), undefined, {
+  return stringifyObjectValues(a).localeCompare(stringifyObjectValues(b), undefined, {
     numeric: true
   })
 }
@@ -95,28 +70,11 @@ function processField(key, value) {
   return field
 }
 
-// Filter CSS Selector for click/dblclick/etc events
-// If any of these selectors match the clicked element, we ignore the event
-const EVENT_FILTER = [
-  'a',
-  'a *', // include content inside links
-  'button',
-  'button *', // include content inside buttons
-  'input:not(.disabled):not([disabled])',
-  'select:not(.disabled):not([disabled])',
-  'textarea:not(.disabled):not([disabled])',
-  '[role="link"]',
-  '[role="link"] *',
-  '[role="button"]',
-  '[role="button"] *',
-  '[tabindex]:not(.disabled):not([disabled])'
-].join(',')
-
 // Returns true of we should ignore the click/dbclick/keypress event
 // Avoids having the user need to use @click.stop on the form control
 function filterEvent(evt) {
-  /* istanbul ignore if */
   if (!evt || !evt.target) {
+    /* istanbul ignore next */
     return
   }
   const el = evt.target
@@ -895,13 +853,13 @@ export default {
         // TODO: enable searching on formatted fields and scoped slots
         // TODO: should we filter only on visible fields (i.e. ones in this.fields) by default?
         // TODO: allow for searching on specific fields/key, this could be combined with the previous TODO
-        // TODO: give recToString extra options for filtering (i.e. passing the fields definition
+        // TODO: give stringifyRecordValues extra options for filtering (i.e. passing the fields definition
         //      and a reference to $scopedSlots)
         //
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
-        return regexp.test(recToString(item))
+        return regexp.test(stringifyRecordValues(item))
       }
 
       // Return the generated function
@@ -1365,10 +1323,10 @@ export default {
           } else {
             if (this.isStacked) {
               // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-              childNodes = [h('div', fieldToString(formatted))]
+              childNodes = [h('div', toString(formatted))]
             } else {
               // Non stacked
-              childNodes = fieldToString(formatted)
+              childNodes = toString(formatted)
             }
           }
           // Render either a td or th cell
