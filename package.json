@@ -148,14 +148,6 @@
       ".*\\.(vue)$": "vue-jest"
     },
     "coverageDirectory": "./coverage/",
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/dist/",
-      "<rootDir>/es/",
-      "<rootDir>/docs/",
-      "<rootDir>/scripts/",
-      "<rootDir>/tests/"
-    ],
     "testEnvironmentOptions": {
       "pretendToBeVisual": true
     }
