@@ -1,5 +1,5 @@
 export default {
-  methods:
+  methods: {
     renderTopRow(h) {
       // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
       // If in always stacked mode, we don't bother rendering the row
