@@ -29,7 +29,7 @@ export default {
       if (
         this.showEmpty &&
         (!items || items.length === 0) &&
-        !(this.computedBusy && this.$slots['table-busy'])
+        !(this.computedBusy && this.hasNormalizedSlot('table-busy'))
       ) {
         $empty = this.normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
           emptyFilteredHtml: this.emptyFilteredHtml,
