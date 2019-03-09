@@ -62,8 +62,8 @@ describe('table/helpers/normalize-fields', () => {
       { key: 'foo', label: 'Baz', formatter: formatter }
     ])
 
-    // Falback via false
-    expect(normalizeFields({ foo: false })).toEqual([{ key: 'foo', label: 'Foo' }])
+    // Ignore when key's value is false
+    expect(normalizeFields({ foo: false })).toEqual([])
   })
 
   it('removes duplicate fields (preserving the first found)', async () => {
