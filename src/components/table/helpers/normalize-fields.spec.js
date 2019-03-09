@@ -14,6 +14,22 @@ describe('table/helpers/normalize-fields', () => {
     ])
   })
 
+  it('ignores special fields in items when fields are not defined and items passed', async () => {
+    const fields = normalizeFields(null, [{
+      foo: 1,
+      bar: 2,
+      _showDetails: true,
+      _rowVariant: 'primary',
+      _cellVariants: ['primary', 'secondary', 'info'],
+      baz: 3
+    }])
+    expect(fields).toEqual([
+      { key: 'foo', label: 'Foo' },
+      { key: 'bar', label: 'Bar' },
+      { key: 'baz', label: 'Baz' }
+    ])
+  })
+
   it('returns and empty array when no fields or items passed', async () => {
     expect(normalizeFields(undefined, undefined)).toEqual([])
     expect(normalizeFields(null, null)).toEqual([])
