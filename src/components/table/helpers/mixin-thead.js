@@ -2,7 +2,7 @@ import startCase from '../../../utils/startcase'
 import KeyCodes from '../../../utils/key-codes'
 import { htmlOrText } from '../../../utils/html'
 import filterEvent from './filter-event'
-import textSelectionActive from './text-selction-active'
+import textSelectionActive from './text-selection-active'
 
 export default {
   props: {
