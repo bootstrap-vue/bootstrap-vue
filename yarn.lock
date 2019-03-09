@@ -4540,10 +4540,10 @@ eslint@^5.15.1:
     table "^5.2.3"
     text-table "^0.2.0"
 
-esm@^3.2.13:
-  version "3.2.13"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.13.tgz#c03a5a5fa35107425dd89b64c016cfbd18bb2a05"
-  integrity sha512-0KGE/BOvS4MIjsalY3GfbhAgy+wJ7OO/JXrpTm0KnajE9np5s4fuEkyplaF5xLnN7/3h9jZAvTnnMynK39wG4g==
+esm@^3.2.14:
+  version "3.2.14"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.14.tgz#567f65e9433bb0873eb92ed5e92e876c3ec2a212"
+  integrity sha512-uQq8DK0HB0n2Ze9gshhxGQa60caKmwNH7tKxALAT6wxYGfQCdEMXA3MV3z1rh8TSmQIVFYbltm9Xe1ghusnCqw==
 
 esm@^3.2.3:
   version "3.2.6"
