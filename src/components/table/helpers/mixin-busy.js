@@ -1,14 +1,16 @@
 export default {
   methods: {
     renderBusy(h) {
+      const $busySlot = this.$slots['table-busy']
+
       // Return a busy indicator row, or null if not busy
-      if ($slots['table-busy'] && this.computedBusy) {
+      if ($busySlot && this.computedBusy) {
         // Show the busy slot
         const trAttrs = {
           role: this.isStacked ? 'row' : null
         }
         const tdAttrs = {
-          colspan: String(fields.length),
+          colspan: String(this.computedFields.length),
           role: this.isStacked ? 'cell' : null
         }
         return h(
@@ -23,7 +25,7 @@ export default {
             ],
             attrs: trAttrs
           },
-          [h('td', { attrs: tdAttrs }, [$slots['table-busy']])]
+          [h('td', { attrs: tdAttrs }, [$busySlot])]
         )
       } else {
         // We return null here so that we can determine if we need to
