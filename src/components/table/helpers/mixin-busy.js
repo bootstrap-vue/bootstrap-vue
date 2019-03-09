@@ -1,7 +1,7 @@
 export default {
   methods: {
     renderBusy(h) {
-      const $busySlot = this.$slots['table-busy']
+      const $busySlot = this.normalizeSlot('table-busy', {})
 
       // Return a busy indicator row, or null if not busy
       if ($busySlot && this.computedBusy) {
