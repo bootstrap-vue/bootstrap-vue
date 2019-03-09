@@ -52,7 +52,7 @@ export default {
           'td',
           {
             attrs: {
-              colspan: String(fields.length),
+              colspan: String(this.computedFields.length),
               role: this.isStacked ? 'cell' : null
             }
           },
