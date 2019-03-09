@@ -37,13 +37,7 @@ export default (obj, path, defaultValue = null) => {
   }
 
   // Traverse path in object to find result
-  return steps.every(step => {
-    if (isObject(obj) && obj.hasOwnProperty(step)) {
-      obj = obj[step]
-      return true
-    }
-    return false
-  })
+  return steps.every(step => isObject(obj) && obj.hasOwnProperty(step) && (obj = obj[step]))
     ? obj
     : defaultValue
 }
