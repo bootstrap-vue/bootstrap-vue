@@ -6,7 +6,6 @@ import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
 import toString from '../../utils/to-string'
 import { arrayIncludes, isArray } from '../../utils/array'
-import { htmlOrText } from '../../utils/html'
 
 // Table helper functions
 import normalizeFields from './helpers/normalize-fields'
@@ -26,7 +25,7 @@ import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
 import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
-import emptMixin from './helpers/mixin-empty'
+import emptyMixin from './helpers/mixin-empty'
 
 // b-table component definition
 // @vue/component
@@ -878,7 +877,6 @@ export default {
     }
   },
   render(h) {
-    const $slots = this.$slots
     const $scoped = this.$scopedSlots
     const fields = this.computedFields
     const items = this.computedItems
