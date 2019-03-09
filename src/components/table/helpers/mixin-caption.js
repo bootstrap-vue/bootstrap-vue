@@ -29,19 +29,19 @@ export default {
   methods: {
     renderCaption(h) {
       // Build the caption
-      const $slots = this.slots
+      const $captionSlot = this.$slots['table-caption']
       let $caption = h(false)
 
-      if (this.caption || this.captionHtml || $slots['table-caption']) {
+      if (this.caption || this.captionHtml || $captionSlot) {
         const data = {
           key: 'caption',
           id: this.captionId,
           class: this.captionClasses
         }
-        if (!$slots['table-caption']) {
+        if (!$captionSlot) {
           data.domProps = htmlOrText(this.captionHtml, this.caption)
         }
-        $caption = h('caption', data, $slots['table-caption'])
+        $caption = h('caption', data, [$captionSlot])
       }
 
       return $caption
