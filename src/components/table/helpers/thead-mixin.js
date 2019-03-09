@@ -160,7 +160,7 @@ export default {
       }
 
       return h(
-        isFoot ? 'tfoot', 'thead',
+        isFoot ? 'tfoot' : 'thead',
         {
           key: isFoot ? 'tfoot' : 'thead',
           class: isFoot ? this.footClasses : this.headClasses
