@@ -26,7 +26,7 @@ export default {
   methods: {
     renderTfoot(h) {
       // Passing true to renderThead will make it render a tfoot
-      return this.renderThead(h, true)
+      return this.footClone ? this.renderThead(h, true) : h(false)
     }
   }
 }
