@@ -57,7 +57,7 @@ describe('table/helpers/normalize-fields', () => {
     ])
 
     // Key in object override with label
-    expect(normalizeFields({ foo: { key: 'bar' label: 'Baz' } })).toEqual([
+    expect(normalizeFields({ foo: { key: 'bar', label: 'Baz' } })).toEqual([
       { key: 'bar', label: 'Baz' }
     ])
 
