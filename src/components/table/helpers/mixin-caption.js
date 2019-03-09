@@ -1,3 +1,5 @@
+import { htmlOrText } from '../../../utils/html'
+
 export default {
   props: {
     caption: {
@@ -21,7 +23,7 @@ export default {
     captionId() {
       // Even though this.safeId looks like a method, it is a computed prop
       // that returns a new function if the underlying ID changes
-      this.isStacked ? this.safeId('_caption_') : null
+      return this.isStacked ? this.safeId('_caption_') : null
     }
   },
   renderCaption(h) {
