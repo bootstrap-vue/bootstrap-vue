@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     renderEmpty(h) {
-      const items = this.localItems
+      const items = this.computedItems
       let $empty
 
       if (
