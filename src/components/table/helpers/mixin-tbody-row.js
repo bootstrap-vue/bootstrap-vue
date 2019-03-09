@@ -2,7 +2,7 @@ import toString from '../../../utils/to-string'
 import get from '../../../utils/get'
 import KeyCodes from '../../../utils/key-codes'
 import filterEvent from './filter-event'
-import textSelectionActive from './text-deleection-active'
+import textSelectionActive from './text-selection-active'
 
 export default {
   props: {
