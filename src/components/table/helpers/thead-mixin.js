@@ -1,6 +1,8 @@
 import startCase from '../../../utils/startcase'
 import KeyCodes from '../../../utils/key-codes'
 import { htmlOrText } from '../../../utils/html'
+import filterEvent from './filter-event'
+import textSelectionActive from './text-selction-active'
 
 export default {
   props: {
@@ -15,12 +17,12 @@ export default {
     theadTrClass: {
       type: [String, Array],
       default: null
-    },
+    }
   },
   computed: {
     headClasses() {
       return [this.headVariant ? 'thead-' + this.headVariant : '', this.theadClass]
-    },
+    }
   },
   methods: {
     fieldClasses(field) {
@@ -80,10 +82,10 @@ export default {
     renderThead(h, isFoot = false) {
       if (this.isStacked === true) {
         // In always stacked mode, we don't bother rendering the head/foot
-        return $h(false)
+        return h(false)
       }
 
-      const fileds = this.computedFields || []
+      const fields = this.computedFields || []
 
       // Helper function to generate a field TH cell
       function makeCell(field, colIndex) {
