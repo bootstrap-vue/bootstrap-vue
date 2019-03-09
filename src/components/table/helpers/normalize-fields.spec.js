@@ -36,19 +36,17 @@ describe('table/helpers/normalize-fields', () => {
     const formatter = () => {}
 
     // Label Shortcut
-    expect(normalizeFields({ foo: 'Foo Label'})).toEqual([
+    expect(normalizeFields({ foo: 'Foo Label' })).toEqual([
       { key: 'foo', label: 'Foo Label' }
     ])
 
     // Formatter Shortcut
-    expect(normalizeFields({ foo: formatter})).toEqual([
+    expect(normalizeFields({ foo: formatter })).toEqual([
       { key: 'foo', label: 'Foo', formatter: formatter }
     ])
 
     // No key in object
-    expect(normalizeFields({ foo: { label: 'Bar' } })).toEqual([
-      { key: 'foo', label: 'Bar' }
-    ])
+    expect(normalizeFields({ foo: { label: 'Bar' } })).toEqual([{ key: 'foo', label: 'Bar' }])
     expect(normalizeFields({ foo: { label: 'Bar', sortable: true } })).toEqual([
       { key: 'foo', label: 'Bar', sortable: true }
     ])
@@ -65,5 +63,8 @@ describe('table/helpers/normalize-fields', () => {
     expect(normalizeFields({ foo: { label: 'Baz', formatter: formatter } })).toEqual([
       { key: 'foo', label: 'Baz', formatter: formatter }
     ])
+
+    // Falback via false
+    expect(normalizeFields({ foo: false })).toEqual([{ key: 'foo', label: 'Foo' }])
   })
 })
