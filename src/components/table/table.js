@@ -9,6 +9,7 @@ import { arrayIncludes, isArray } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
 import fieldToString from '../../utils/to-string'
+import sanitizeRow from './helpers/sanitize-row'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -25,18 +26,6 @@ const IGNORED_FIELD_KEYS = {
 function textSelectionActive() {
   const win = window
   return win && win.getSelection ? win.getSelection().toString().length > 0 : false
-}
-
-// Return a copy of a row after all reserved fields have been filtered out
-// TODO: add option to specify which fields to include
-function sanitizeRow(row) {
-  return keys(row).reduce((obj, key) => {
-    // Ignore special fields that start with _
-    if (!IGNORED_FIELD_KEYS[key]) {
-      obj[key] = row[key]
-    }
-    return obj
-  }, {})
 }
 
 // Stringifies the values of an object
