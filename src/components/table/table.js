@@ -1,10 +1,7 @@
 // Utilities
-import get from '../../utils/get'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
-import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import toString from '../../utils/to-string'
 import { arrayIncludes, isArray } from '../../utils/array'
 
 // Table helper functions
@@ -12,8 +9,6 @@ import normalizeFields from './helpers/normalize-fields'
 import sanitizeRow from './helpers/sanitize-row'
 import stringifyRecordValues from './helpers/stringify-record-values'
 import defaultSortCompare from './helpers/default-sort-compare'
-import filterEvent from './helpers/filter-event'
-import textSelectionActive from './helpers/text-selection-active'
 
 // Mixins
 import idMixin from '../../mixins/id'
@@ -690,11 +685,8 @@ export default {
     }
   },
   render(h) {
-    const $scoped = this.$scopedSlots
     const fields = this.computedFields
     const items = this.computedItems
-    const tableStriped = this.striped
-    const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
 
     // Build the caption (from caption mixin)
     const $caption = this.renderCaption(h)
