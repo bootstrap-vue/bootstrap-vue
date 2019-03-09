@@ -26,6 +26,7 @@ import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
 import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
+import emptMixin from './helpers/mixin-empty'
 
 // b-table component definition
 // @vue/component
@@ -38,7 +39,8 @@ export default {
     theadMixin,
     tfootMixin,
     captionMixin,
-    colgroupMixin
+    colgroupMixin,
+    emptyMixin
   ],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
@@ -204,24 +206,6 @@ export default {
     selectedVariant: {
       type: String,
       default: 'primary'
-    },
-    showEmpty: {
-      type: Boolean,
-      default: false
-    },
-    emptyText: {
-      type: String,
-      default: 'There are no records to show'
-    },
-    emptyHtml: {
-      type: String
-    },
-    emptyFilteredText: {
-      type: String,
-      default: 'There are no records matching your request'
-    },
-    emptyFilteredHtml: {
-      type: String
     },
     tbodyClass: {
       type: [String, Array],
@@ -917,53 +901,12 @@ export default {
     const rows = []
 
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
-    // If in always stacked mode, we don't bother rendering the row
-    if (this.hasNormalizedSlot('top-row') && this.isStacked !== true) {
-      rows.push(
-        h(
-          'tr',
-          {
-            key: 'top-row',
-            staticClass: 'b-table-top-row',
-            class: [
-              typeof this.tbodyTrClass === 'function'
-                ? this.tbodyTrClass(null, 'row-top')
-                : this.tbodyTrClass
-            ]
-          },
-          [this.normalizeSlot('top-row', { columns: fields.length, fields: fields })]
-        )
-      )
-    } else {
-      rows.push(h(false))
-    }
+    rows.push(this.renderTopRow(h))
 
     // Add the item data rows or the busy slot
-    if ($slots['table-busy'] && this.computedBusy) {
-      // Show the busy slot
-      const trAttrs = {
-        role: this.isStacked ? 'row' : null
-      }
-      const tdAttrs = {
-        colspan: String(fields.length),
-        role: this.isStacked ? 'cell' : null
-      }
-      rows.push(
-        h(
-          'tr',
-          {
-            key: 'table-busy-slot',
-            staticClass: 'b-table-busy-slot',
-            class: [
-              typeof this.tbodyTrClass === 'function'
-                ? this.tbodyTrClass(null, 'table-busy')
-                : this.tbodyTrClass
-            ],
-            attrs: trAttrs
-          },
-          [h('td', { attrs: tdAttrs }, [$slots['table-busy']])]
-        )
-      )
+    const $busy = this.renderBusy(h)
+    if ($busy) {
+      rows.push($busy)
     } else {
       // Show the rows
       items.forEach((item, rowIndex) => {
@@ -1156,78 +1099,10 @@ export default {
     }
 
     // Empty Items / Empty Filtered Row slot
-    if (
-      this.showEmpty &&
-      (!items || items.length === 0) &&
-      !($slots['table-busy'] && this.computedBusy)
-    ) {
-      let empty = this.normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
-        emptyFilteredHtml: this.emptyFilteredHtml,
-        emptyFilteredText: this.emptyFilteredText,
-        emptyHtml: this.emptyHtml,
-        emptyText: this.emptyText,
-        fields: fields,
-        items: items
-      })
-      if (!empty) {
-        empty = h('div', {
-          class: ['text-center', 'my-2'],
-          domProps: this.isFiltered
-            ? htmlOrText(this.emptyFilteredHtml, this.emptyFilteredText)
-            : htmlOrText(this.emptyHtml, this.emptyText)
-        })
-      }
-      empty = h(
-        'td',
-        {
-          attrs: {
-            colspan: String(fields.length),
-            role: this.isStacked ? 'cell' : null
-          }
-        },
-        [h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [empty])]
-      )
-      rows.push(
-        h(
-          'tr',
-          {
-            key: '__b-table-empty-row__',
-            staticClass: 'b-table-empty-row',
-            class: [
-              typeof this.tbodyTrClass === 'function'
-                ? this.tbodyTrClass(null, 'row-empty')
-                : this.tbodyTrClass
-            ],
-            attrs: this.isStacked ? { role: 'row' } : {}
-          },
-          [empty]
-        )
-      )
-    } else {
-      rows.push(h(false))
-    }
+    rows.push(this.renderEmpty(h))
 
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
-    // If in always stacked mode, we don't bother rendering the row
-    if (this.hasNormalizedSlot('bottom-row') && this.isStacked !== true) {
-      rows.push(
-        h(
-          'tr',
-          {
-            key: '__b-table-bottom-row__',
-            staticClass: 'b-table-bottom-row',
-            class: [
-              typeof this.tbodyTrClass === 'function'
-                ? this.tbodyTrClass(null, 'row-bottom')
-                : this.tbodyTrClass
-            ]
-          },
-          this.normalizeSlot('bottom-row', { columns: fields.length, fields: fields })
-        )
-      )
-    } else {
-      rows.push(h(false))
-    }
+    rows.push(this.renderBottomRow(h))
 
     // Is tbody transition enabled
     const isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers
