@@ -1,8 +1,10 @@
 import toString from '../../../utils/to-string'
+import get from '../../../utils/get'
+import KeyCodes from '../../../utils/key-codes'
 
 export default {
   methods: {
-    renderTbodyRowCell(h, feild, colIndex, item, rowIndex) {
+    renderTbodyRowCell(h, field, colIndex, item, rowIndex) {
       // Renders a TD or TH for a row's field
       const $scoped = this.$scopedSlots
       const detailsSlot = $scoped['row-details']
@@ -37,7 +39,7 @@ export default {
         ]
         if (this.isStacked) {
           // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-          $childNodes = [h('div', {}, [childNodes])]
+          $childNodes = [h('div', {}, [$childNodes])]
         }
       } else {
         // No scoped field slot
@@ -60,7 +62,7 @@ export default {
       const tableStriped = this.striped
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
       const $detailsSlot = $scoped['row-details']
-      const rowShowDetails = Boolean(item._showDetails && detailsSlot)
+      const rowShowDetails = Boolean(item._showDetails && $detailsSlot)
       const rowSelected = this.selectedRows[rowIndex]
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -225,5 +227,5 @@ export default {
       // Return the row(s)
       return $rows
     }
-  }    
+  }
 }
