@@ -22,7 +22,7 @@ export default {
     }
   },
   methods: {
-    renderEmptyRow(h) {
+    renderEmpty(h) {
       const items = this.localItems
       let $empty
 
