@@ -35,7 +35,7 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
     expect(wrapper.find('thead').findAll('tr').length).toBe(1)
   })
 
-  it('should render named slot `colgroup`', async () => {
+  it('should render named slot `table-colgroup`', async () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
@@ -57,7 +57,7 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
     expect(wrapper.find('colgroup').findAll('col').length).toBe(3)
   })
 
-  it('should render scoped slot `colgroup`', async () => {
+  it('should render scoped slot `table-colgroup`', async () => {
     let fields = []
     let columns
     const wrapper = mount(Table, {
@@ -87,5 +87,133 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
     ).toBe(true)
     expect(wrapper.findAll('col').length).toBe(1)
     expect(wrapper.find('col').attributes('span')).toBe('3')
+  })
+
+  it('should render named slot `table-caption`', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      slots: {
+        'table-caption': 'foobar'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+  })
+
+  it('should render scoped slot `table-caption`', async () => {
+    const scope = null
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      scopedSlots: {
+        'table-caption': function(props) {
+          scope = props
+          return this.$createElement('b', {}, 'foobar')
+        }
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(scope).toEqual({}) /* scoped is an empty object for caption */
+    expect(wrapper.find('caption').find('b').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+  })
+
+  it('should render `caption` when prop caption is set', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        caption: 'foobar'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+  })
+
+  it('should render `caption` when prop caption-html is set', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        captionHtml: '<b>foobar</b>'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(wrapper.find('caption').find('b').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+  })
+
+  it('should render `caption` with class when prop caption-top is set', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        caption: 'foobar',
+        captionTop: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').classes()).toContain('b-table-caption-top')
+  })
+
+  it('should render `caption` with id attribute when prop stacked is true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        id: 'zzz',
+        fields: testFields,
+        items: testItems,
+        caption: 'foobar',
+        stacked: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.attributes('id')).toBe('zzz')
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+    expect(wrapper.find('caption').attributes('id')).toBeDefined()
+    expect(wrapper.find('caption').attributes('id')).toBe('zzz__caption_')
+  })
+
+  it('should render `caption` with id attribute when prop stacked is sm', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        id: 'zzz',
+        fields: testFields,
+        items: testItems,
+        caption: 'foobar',
+        stacked: 'sm'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.attributes('id')).toBe('zzz')
+    expect(wrapper.find('table > caption').exists()).toBe(true)
+    expect(wrapper.find('caption').text()).toBe('foobar')
+    expect(wrapper.find('caption').attributes('id')).toBeDefined()
+    expect(wrapper.find('caption').attributes('id')).toBe('zzz__caption_')
   })
 })
