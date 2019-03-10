@@ -6,11 +6,9 @@ export default {
       let $colgroup = h(false)
 
       if (this.hasNormalizedSlot('table-colgroup')) {
-        $colgroup = h(
-          'colgroup',
-          { key: 'colgroup' },
-          [this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })]
-        )
+        $colgroup = h('colgroup', { key: 'colgroup' }, [
+          this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })
+        ])
       }
 
       return $colgroup
