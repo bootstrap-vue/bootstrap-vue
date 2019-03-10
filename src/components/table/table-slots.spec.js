@@ -63,8 +63,12 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
         items: testItems
       },
       scopedSlots: {
-        'table-colgroup': (scope) => {
-          return '<col /><col /><col />'
+        'table-colgroup': scope => {
+          const cols = []
+          for (i = 0; i < scope.columns; i++) {
+            cols.push '<col />'
+          }
+          return cols.join('')
         }
       }
     })
