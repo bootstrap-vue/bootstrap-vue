@@ -9,7 +9,7 @@ export default {
         $colgroup = h(
           'colgroup',
           { key: 'colgroup' },
-          this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })
+          [this.normalizeSlot('table-colgroup', { columns: fields.length, fields: fields })]
         )
       }
 
