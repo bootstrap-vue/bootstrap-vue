@@ -86,6 +86,6 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.findAll('col').length).toBe(1)
-    expect(wrapper.find('col').atributes('span')).toBe('3')
+    expect(wrapper.find('col').attributes('span')).toBe('3')
   })
 })
