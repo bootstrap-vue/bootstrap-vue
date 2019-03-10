@@ -35,8 +35,8 @@ export default {
       if ($captionSlot || this.caption || this.captionHtml) {
         const data = {
           key: 'caption',
-          id: this.captionId,
-          class: this.captionClasses
+          class: this.captionClasses,
+          attrs: { id: this.captionId }
         }
         if (!$captionSlot) {
           data.domProps = htmlOrText(this.captionHtml, this.caption)
