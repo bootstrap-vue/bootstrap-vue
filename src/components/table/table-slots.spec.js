@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
 
-describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
+describe('table colgroup, caption, header, and top/bottom row slots', () => {
   it('should not have colgroup or caption by default', async () => {
     const wrapper = mount(Table, {
       propsData: {
@@ -46,7 +46,7 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    expect(wrapper.find('colgroup').exists()).toBe(true)
+    expect(wrapper.find('table > colgroup').exists()).toBe(true)
     expect(
       wrapper
         .find('colgroup')
@@ -63,10 +63,10 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
         items: testItems
       },
       scopedSlots: {
-        'table-colgroup': scope => {
+        'table-colgroup': function(scope) {
           const cols = []
           for (let i = 0; i < scope.columns; i++) {
-            cols.push('<col />')
+            cols.push(this.$createElement('col', {}, []))
           }
           return cols.join('')
         }
@@ -74,7 +74,7 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    expect(wrapper.find('colgroup').exists()).toBe(true)
+    expect(wrapper.find('table > colgroup').exists()).toBe(true)
     expect(
       wrapper
         .find('colgroup')
