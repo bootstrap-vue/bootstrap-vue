@@ -131,7 +131,7 @@
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
     "standard-version": "^5.0.1",
-    "terser": "^3.16.1",
+    "terser": "^3.17.0",
     "vue": "^2.6.8",
     "vue-jest": "^3.0.4",
     "vue-server-renderer": "^2.6.8",
