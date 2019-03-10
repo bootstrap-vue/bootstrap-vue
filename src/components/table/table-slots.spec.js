@@ -71,7 +71,7 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
           fields = scope.fields
           columns = scope.columns
           for (let i = 0; i < scope.columns; i++) {
-            $cols.push(this.$createElement('col', {}, []))
+            $cols.push(this.$createElement('col', {}))
           }
           return $cols
         }
