@@ -140,6 +140,10 @@
               {
                 "arg": "event",
                 "description": "Native event object."
+              },
+              {
+                "arg": "isFooter",
+                "description": "'True' if this event originated from clicking on the footer cell"
               }
             ]
           },

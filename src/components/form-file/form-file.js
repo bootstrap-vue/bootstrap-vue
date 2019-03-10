@@ -137,6 +137,7 @@ export default {
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
       if (items && !this.noTraverse) {
+        /* istanbul ignore next: not supported in JSDOM */
         const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
@@ -198,7 +199,7 @@ export default {
         this.onFileChange(evt)
       }
     },
-    traverseFileTree(item, path) {
+    traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
         path = path || ''

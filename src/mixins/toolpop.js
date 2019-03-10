@@ -115,12 +115,14 @@ export default {
   watch: {
     show(show, old) {
       if (show === old) {
+        /* istanbul ignore next */
         return
       }
       show ? this.onOpen() : this.onClose()
     },
     disabled(disabled, old) {
       if (disabled === old) {
+        /* istanbul ignore next */
         return
       }
       disabled ? this.onDisable() : this.onEnable()
@@ -161,7 +163,7 @@ export default {
   },
   updated() {
     // If content/props changes, etc
-    /* istanbul ignore if: can't test in JSDOM */
+    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig())
     }
@@ -173,7 +175,7 @@ export default {
   },
   deactivated() {
     // Called when component is inside a <keep-alive> and component taken offline
-    /* istanbul ignore if: can't test in JSDOM */
+    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
@@ -223,19 +225,19 @@ export default {
       }
     },
     onDisable() {
-      /* istanbul ignore if: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable()
       }
     },
     onEnable() {
-      /* istanbul ignore if: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable()
       }
     },
     updatePosition() {
-      /* istanbul ignore if: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update()

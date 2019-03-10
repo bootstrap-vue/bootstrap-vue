@@ -4,6 +4,7 @@ export default class BvEvent {
   constructor(type, eventInit = {}) {
     // Start by emulating native Event constructor.
     if (!type) {
+      /* istanbul ignore next */
       throw new TypeError(
         `Failed to construct '${this.constructor.name}'. 1 argument required, ${
           arguments.length

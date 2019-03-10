@@ -159,7 +159,10 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
-    const file = new File(['foo'], 'foo.txt')
+    const file = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
@@ -180,8 +183,14 @@ describe('form-file', () => {
         multiple: true
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['foobar'], 'foobar.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 1000
+    })
     const files = [file1, file2]
 
     // Emulate the files array
@@ -210,7 +219,10 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
@@ -227,15 +239,45 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
   })
 
-  it('reset() method works', async () => {
+  it('reset() method works in single mode', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo',
+        multiple: false
+      }
+    })
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const files = [file1]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+
+    wrapper.vm.reset()
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+  })
+
+  it('reset() method works in multiple mode', async () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
         multiple: true
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['<html><body></body></html>'], 'bar.html', {
+      type: 'text/html',
+      lastModified: Date.now() - 500
+    })
     const files = [file1, file2]
 
     // Emulate the files array
@@ -256,10 +298,14 @@ describe('form-file', () => {
         value: ''
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
@@ -275,29 +321,39 @@ describe('form-file', () => {
     const wrapper = mount(Input, {
       propsData: {
         id: 'foo',
-        value: '',
+        value: [],
         multiple: true
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
-    const file2 = new File(['bar'], 'bar.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['foo bar'], 'foobar.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
     const files = [file1, file2]
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     wrapper.setProps({ value: null })
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
     wrapper.vm.setFiles(files)
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual(files)
 
     wrapper.setProps({ value: [] })
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
   })
@@ -305,18 +361,24 @@ describe('form-file', () => {
   it('native reset event works', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        id: 'foo'
+        id: 'foo',
+        value: null
       }
     })
-    const file1 = new File(['foo'], 'foo.txt')
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.find('input').trigger('reset')
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
   })
