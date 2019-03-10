@@ -15,12 +15,22 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('colgroup').exists()).toBe(false)
-    expect(wrapper.find('caption').esists()).toBe(false)
+    expect(wrapper.find('caption').exists()).toBe(false)
     expect(wrapper.find('tr.b-table-top-row').exists()).toBe(false)
     expect(wrapper.find('tr.b-table-bottom-row').exists()).toBe(false)
-    expect(wrapper.find('tbody').find('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .find('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').find('tr').length).toBe(testItems.length)
-    expect(wrapper.find('thead').find('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('thead')
+        .find('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('thead').find('tr').length).toBe(1)
   })
 
@@ -31,13 +41,18 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
         items: testItems
       },
       slots: {
-        colgroup: '<col /><col /><col />'
+        'table-colgroup': '<col /><col /><col />'
       }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('colgroup').exists()).toBe(true)
-    expect(wrapper.find('colgroup').findAll('col').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('colgroup')
+        .findAll('col')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('colgroup').findAll('col').length).toBe(3)
   })
 
@@ -48,7 +63,7 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
         items: testItems
       },
       scopedSlots: {
-        colgroup(scope) {
+        'table-colgroup': (scope) => {
           return '<col /><col /><col />'
         }
       }
@@ -56,7 +71,12 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('colgroup').exists()).toBe(true)
-    expect(wrapper.find('colgroup').findAll('col').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('colgroup')
+        .findAll('col')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('colgroup').findAll('col').length).toBe(3)
   })
 })
