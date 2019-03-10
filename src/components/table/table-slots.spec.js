@@ -24,14 +24,14 @@ describe('b-table colgroup, caption, and top/bottom, or header slots', () => {
         .find('tr')
         .exists()
     ).toBe(true)
-    expect(wrapper.find('tbody').find('tr').length).toBe(testItems.length)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
     expect(
       wrapper
         .find('thead')
         .find('tr')
         .exists()
     ).toBe(true)
-    expect(wrapper.find('thead').find('tr').length).toBe(1)
+    expect(wrapper.find('thead').findAll('tr').length).toBe(1)
   })
 
   it('should render named slot `colgroup`', async () => {
