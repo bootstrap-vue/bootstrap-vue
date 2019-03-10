@@ -69,7 +69,7 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
         'table-colgroup': function(scope) {
           fields = scope.fields
           columns = scope.columns
-          return this.$createElement('col', { attrs: { span: columns } }))
+          return this.$createElement('col', { attrs: { span: columns } })
         }
       }
     })
