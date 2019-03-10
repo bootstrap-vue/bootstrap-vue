@@ -1,4 +1,5 @@
 import Table from './table'
+import normalizeFields from './helpers/normalize-fields'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -64,11 +65,11 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
       },
       scopedSlots: {
         'table-colgroup': function(scope) {
-          const cols = []
+          const $cols = []
           for (let i = 0; i < scope.columns; i++) {
-            cols.push(this.$createElement('col', {}, []))
+            $cols.push(this.$createElement('col', {}, []))
           }
-          return cols.join('')
+          return $cols
         }
       }
     })
