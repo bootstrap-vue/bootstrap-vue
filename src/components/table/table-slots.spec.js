@@ -108,7 +108,7 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
   })
 
   it('should render scoped slot `table-caption`', async () => {
-    const scope = null
+    let scope = null
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
@@ -125,7 +125,12 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(scope).toEqual({}) /* scoped is an empty object for caption */
-    expect(wrapper.find('caption').find('b').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('caption')
+        .find('b')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
   })
 
@@ -156,7 +161,12 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('table > caption').exists()).toBe(true)
-    expect(wrapper.find('caption').find('b').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('caption')
+        .find('b')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
