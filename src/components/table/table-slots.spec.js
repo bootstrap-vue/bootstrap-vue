@@ -58,6 +58,8 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
   })
 
   it('should render scoped slot `colgroup`', async () => {
+    let fields = []
+    let columns
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
@@ -66,6 +68,8 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
       scopedSlots: {
         'table-colgroup': function(scope) {
           const $cols = []
+          fields = scope.fields
+          columns = scope.columns
           for (let i = 0; i < scope.columns; i++) {
             $cols.push(this.$createElement('col', {}, []))
           }
@@ -75,6 +79,9 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(columns).toBe(3)
+    expect(fields).toEqual(normalizeFields(testFields))
     expect(wrapper.find('table > colgroup').exists()).toBe(true)
     expect(
       wrapper
