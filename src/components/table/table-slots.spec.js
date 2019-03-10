@@ -70,7 +70,7 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
           const $cols = []
           fields = scope.fields
           columns = scope.columns
-          for (let i = 0; i < scope.columns; i++) {
+          for (let i = 0; i < columns; i++) {
             $cols.push(this.$createElement('col', { key: i }))
           }
           return $cols
@@ -89,6 +89,6 @@ describe('table colgroup, caption, header, and top/bottom row slots', () => {
         .findAll('col')
         .exists()
     ).toBe(true)
-    expect(wrapper.find('colgroup').findAll('col').length).toBe(3)
+    expect(wrapper.findAll('col').length).toBe(3)
   })
 })
