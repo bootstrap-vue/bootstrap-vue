@@ -1,4 +1,7 @@
 import looseEqual from '../../../utils/loose-equal'
+import { isArray } from '../../../utils/array'
+import warn from '../../../utils/warn'
+
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
