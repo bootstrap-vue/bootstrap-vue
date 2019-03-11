@@ -250,7 +250,7 @@ describe('table sorting', () => {
     columnA = $rows.map(row => {
       return row
         .findAll('td')
-        .at(1)
+        .at(0)
         .text()
     })
     expect(columnA[0]).toBe('3')
