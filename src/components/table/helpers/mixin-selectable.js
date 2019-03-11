@@ -133,7 +133,9 @@ export default {
           this.selectedLastRow = selected ? index : -1
         }
       }
-      this.$set(this.selectedRows, index, selected)
+      // this.$set(this.selectedRows, index, selected)
+      this.selectedRows[index] = selected
+      this.selectedRows = this.selectedRows.slice()
     }
   }
 }
