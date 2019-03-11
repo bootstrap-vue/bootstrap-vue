@@ -1,5 +1,4 @@
 import Table from './table'
-import defaultSortCompare from './helpers/default-sort-compare'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
