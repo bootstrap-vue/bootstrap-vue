@@ -8,16 +8,17 @@ function processField(key, value) {
   let field = null
   if (typeof value === 'string') {
     // Label shortcut
-    field = { key, label: value }
+    field = { key: key, label: value }
   } else if (typeof value === 'function') {
     // Formatter shortcut
-    field = { key, formatter: value }
+    field = { key: key, formatter: value }
   } else if (typeof value === 'object') {
     field = { ...value }
     field.key = field.key || key
   } else if (value !== false) {
     // Fallback to just key
-    field = { key }
+    /* istanbul ignore next */
+    field = { key: key }
   }
   return field
 }
