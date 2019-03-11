@@ -157,7 +157,11 @@ export default {
       if (isFoot) {
         $trs.push(h('tr', { class: this.tfootTrClass }, $cells))
       } else {
-        $trs.push(this.normalizeSlot('thead-top') || h(false))
+        const scope = {
+          columns: fields.length,
+          fileds: fields
+        }
+        $trs.push(this.normalizeSlot('thead-top', scope) || h(false))
         $trs.push(h('tr', { class: this.theadTrClass }, $cells))
       }
 
