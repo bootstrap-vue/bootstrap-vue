@@ -42,7 +42,7 @@ export default {
           // Render the individual item row (rows if details slot)
           $rows.push(this.renderTbodyRow(item, rowIndex))
         })
- 
+
         // Empty Items / Empty Filtered Row slot (only shows if items.length < -
         $rows.push(this.renderEmpty())
 
