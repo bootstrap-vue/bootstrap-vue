@@ -144,4 +144,117 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('3')
   })
+
+  it('should sort columns when clicking headers', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+    let $rows
+    let columnA
+    let columnB
+
+    // Should not be sorted
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the first column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('3')
+    expect(columnA[1]).toBe('1')
+    expect(columnA[2]).toBe('2')
+
+    // Sort by first column
+    wrapper
+      .findAll('thead > tr > td')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input').length).toBe(2)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('1')
+    expect(columnA[1]).toBe('2')
+    expect(columnA[2]).toBe('3')
+
+    // Click first column header again to reverse sort
+    wrapper
+      .findAll('thead > tr > td')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input').length).toBe(3)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('3')
+    expect(columnA[1]).toBe('2')
+    expect(columnA[2]).toBe('1')
+
+    // Click second column header to sort by it
+    wrapper
+      .findAll('thead > tr > td')
+      .at(1)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input').length).toBe(4)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the column text value
+    columnB = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(1)
+        .text()
+    })
+    expect(columnA[0]).toBe('a')
+    expect(columnA[1]).toBe('b')
+    expect(columnA[2]).toBe('c')
+
+    // Click third column header to clear sort
+    wrapper
+      .findAll('thead > tr > td')
+      .at(2)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input').length).toBe(5)
+    expect(wrapper.emitted('input')[4][0]).toBe(testItems)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(1)
+        .text()
+    })
+    expect(columnA[0]).toBe('3')
+    expect(columnA[1]).toBe('1')
+    expect(columnA[2]).toBe('2')
+  })
 })
