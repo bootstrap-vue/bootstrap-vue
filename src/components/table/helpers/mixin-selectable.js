@@ -94,9 +94,9 @@ export default {
     },
     setSelectionHandlers(on) {
       const method = on ? '$on' : '$off'
-      this.[method]('row-clicked', this.selectionHandler)
-      this.[method]('filtered', this.clearSelected)
-      this.[method]('sort-changed', this.clearSelected)
+      this[method]('row-clicked', this.selectionHandler)
+      this[method]('filtered', this.clearSelected)
+      this[method]('sort-changed', this.clearSelected)
     },
     selectionHandler(item, index, evt) {
       if (!this.selectable) {
