@@ -6,24 +6,6 @@ import textSelectionActive from './text-selection-active'
 
 export default {
   props: {
-    // These tbody props are here for organization only
-    // As we will probably move the tbody rendering into this mixin
-    tbodyClass: {
-      type: [String, Array],
-      default: null
-    },
-    tbodyTrClass: {
-      type: [String, Array, Function],
-      default: null
-    },
-    tbodyTransitionProps: {
-      type: Object
-      // default: undefined
-    },
-    tbodyTransitionHandlers: {
-      type: Object
-      // default: undefined
-    },
     selectable: {
       type: Boolean,
       default: false
