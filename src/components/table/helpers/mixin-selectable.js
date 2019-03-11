@@ -98,34 +98,32 @@ export default {
         return
       }
       let selected = !this.selectedRows[index]
-      switch (this.selectMode) {
-        case 'single':
-          this.selectedRows = []
-          break
-        case 'range':
-          if (this.selectedLastClicked >= 0 && evt.shiftKey) {
-            // range
-            for (
-              let idx = Math.min(this.selectedLastClicked, index);
-              idx <= Math.max(this.selectedLastClicked, index);
-              idx++
-            ) {
-              // this.selectedRows[idx] = true
-              this.$set(this.selectedRows, index, true)
-            }
-            selected = true
-          } else {
-            if (!(evt.ctrlKey || evt.metaKey)) {
-              // clear range selection if any
-              this.selectedRows = []
-              selected = true
-            }
-            this.selectedLastClicked = selected ? index : -1
+      let mode = this.selectMode
+      // Note 'multi' mode needs no special handling
+      if (mode === 'single') {
+        this.selectedRows = []
+      } else if (mode === 'range') {
+        if (this.selectedLastClicked >= 0 && evt.shiftKey) {
+          // range
+          for (
+            let idx = Math.min(this.selectedLastClicked, index);
+            idx <= Math.max(this.selectedLastClicked, index);
+            idx++
+          ) {
+            // this.selectedRows[idx] = true
+            this.$set(this.selectedRows, index, true)
           }
-          break
+          selected = true
+        } else {
+          if (!(evt.ctrlKey || evt.metaKey)) {
+            // clear range selection if any
+            this.selectedRows = []
+            selected = true
+          }
+          this.selectedLastClicked = selected ? index : -1
         }
-        this.$set(this.selectedRows, index, selected)
       }
+      this.$set(this.selectedRows, index, selected)
     }
   }
 }
