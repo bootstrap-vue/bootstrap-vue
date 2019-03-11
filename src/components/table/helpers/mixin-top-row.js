@@ -1,6 +1,8 @@
 export default {
   methods: {
-    renderTopRow(h) {
+    renderTopRow() {
+      const h = this.$createElement
+
       // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
       // If in always stacked mode, we don't bother rendering the row
       if (!this.hasNormalizedSlot('top-row') || this.isStacked === true) {
