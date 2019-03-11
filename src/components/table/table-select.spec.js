@@ -2,7 +2,7 @@ import Table from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
-const testFields = ['a']
+const testFields = [ { key: 'a', sortable: true }]
 
 describe('table row select', () => {
   it('should not emit row-selected event default', async () => {
@@ -199,5 +199,106 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(8)
     expect(wrapper.emitted('row-selected')[7][0]).toEqual([])
+  })
+
+  it('sort change clears selection', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Click first row
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+
+    // Click row header
+    wrapper
+      .findAll('thead > tr > th')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('sort-changed')).toBeDefined()
+    expect(wrapper.emitted('sort-changed').length).toBe(1)
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
+  })
+
+  it('filter change clears selection', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Click first row
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+
+    // Change filter
+    wrapper.setProps({
+      filter: '2'
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
+  })
+
+  it('pagination change clears selection', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single',
+        perPage: 3,
+        currentPage: 1
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Click first row
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+
+    // Change page
+    wrapper.setProps({
+      currentPage: 2
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
   })
 })
