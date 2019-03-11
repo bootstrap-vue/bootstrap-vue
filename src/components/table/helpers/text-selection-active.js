@@ -1,7 +1,17 @@
 // Helper to determine if a there is an active text selection on the document page.
 // Used to filter out click events caused by the mouse up at end of selection
+//
+// Expects an element reference to check to see if the selection contains part
+// of or is contained within the element.
 
-export default function textSelectionActive() {
+import { isElement } from '../../../utils/dom'
+
+export default function textSelectionActive(el) {
   const win = window
-  return win && win.getSelection ? win.getSelection().toString().length > 0 : false
+  if (win && win.getSelection && isElement(el)) {
+    const sel = win.getSelection()
+    return sel.containsNode ? sel.containsNode(el, true) : false
+  } else {
+    return false
+  }
 }
