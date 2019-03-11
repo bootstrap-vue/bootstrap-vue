@@ -119,7 +119,7 @@ describe('table sorting', () => {
         sortCompare: (a, b, sortBy) => {
           // We just use our default sort compare to test passing a function
           return defaultSortCompare(a, b, sortBy)
-        })
+        }
       }
     })
     expect(wrapper).toBeDefined()
