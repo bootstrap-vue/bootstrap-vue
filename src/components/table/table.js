@@ -706,10 +706,10 @@ export default {
     const $rows = []
 
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
-    $rows.push(this.renderTopRow(h))
+    $rows.push(this.renderTopRow())
 
     // Add the item data rows or the busy slot
-    const $busy = this.renderBusy(h)
+    const $busy = this.renderBusy()
     if ($busy) {
       $rows.push($busy)
     } else {
@@ -721,10 +721,10 @@ export default {
     }
 
     // Empty Items / Empty Filtered Row slot
-    $rows.push(this.renderEmpty(h))
+    $rows.push(this.renderEmpty())
 
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
-    $rows.push(this.renderBottomRow(h))
+    $rows.push(this.renderBottomRow())
 
     // Is tbody transition enabled
     const isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers
