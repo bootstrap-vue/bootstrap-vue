@@ -1,6 +1,8 @@
 export default {
   methods: {
-    renderBusy(h) {
+    renderBusy() {
+      const h = this.$createElement
+
       // Return a busy indicator row, or null if not busy
       if (this.computedBusy && this.hasNormalizedSlot('table-busy')) {
         // Show the busy slot
