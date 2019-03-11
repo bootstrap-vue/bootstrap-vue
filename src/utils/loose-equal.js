@@ -5,9 +5,9 @@ function isDate(obj) {
   return obj instanceof Date
 }
 
+// Assumes both a and b are arrays!
+// Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
 function compareArrays(a, b) {
-  // Assumes both a and b are arrays!
-  // Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
   if (a.length !== b.length) {
     return false
   }
