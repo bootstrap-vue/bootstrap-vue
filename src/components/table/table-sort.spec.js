@@ -1,4 +1,5 @@
 import Table from './table'
+import defaultSortCompare from './helpers/default-sort-compare'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
@@ -106,5 +107,41 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+  })
+
+  it('should accept custom sort compare', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        sortBy: 'a',
+        sortDesc: false,
+        sortCompare: (a, b, sortBy) => {
+          // We just use our default sort compare to test passing a function
+          return defaultSortCompare(a, b, sortBy)
+        })
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+    let $rows
+    let columnA
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the first column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('1')
+    expect(columnA[1]).toBe('2')
+    expect(columnA[2]).toBe('3')
   })
 })
