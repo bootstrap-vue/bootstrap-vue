@@ -3,7 +3,7 @@ import defaultSortCompare from './default-sort-compare'
 describe('table/helpers/default-sort-compare', () => {
   it('sorts numbers correctly', async () => {
     expect(defaultSortCompare({ a: 1 }, { a: 2 }, 'a')).toBe(-1)
-    expect(defaultSortCompare({ a: 2 } , { a: 1 }, 'a')).toBe(1)
+    expect(defaultSortCompare({ a: 2 }, { a: 1 }, 'a')).toBe(1)
     expect(defaultSortCompare({ a: 1 }, { a: 1 }, 'a')).toBe(0)
     expect(defaultSortCompare({ a: -1 }, { a: 1 }, 'a')).toBe(-1)
     expect(defaultSortCompare({ a: 1 }, { a: -1 }, 'a')).toBe(1)
