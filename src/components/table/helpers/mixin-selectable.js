@@ -105,6 +105,7 @@ export default {
     selectionHandler(item, index, evt) {
       if (!this.selectable) {
         // Don't do anything if table is not in selectable mode
+        /* istanbul ignore next: should never happen */
         this.clearSelected()
         return
       }
