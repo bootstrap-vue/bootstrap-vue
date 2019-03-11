@@ -159,7 +159,7 @@ export default {
       } else {
         const scope = {
           columns: fields.length,
-          fileds: fields
+          fields: fields
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h(false))
         $trs.push(h('tr', { class: this.theadTrClass }, $cells))
