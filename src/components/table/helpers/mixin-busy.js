@@ -1,4 +1,20 @@
 export default {
+  props: {
+    busy: {
+      type: Boolean,
+      default: false
+    },
+  },
+  data() {
+    return {
+      localBusy: false
+    }
+  },
+  computed: {
+    computedBusy() {
+      return this.busy || this.localBusy
+    }
+  },
   methods: {
     renderBusy() {
       const h = this.$createElement
