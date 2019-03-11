@@ -26,7 +26,7 @@ describe('table sorting', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    await wrapper.$nextTick()
+    await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').lnegth).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
