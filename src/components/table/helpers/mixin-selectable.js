@@ -1,4 +1,5 @@
 import looseEqual from '../../../utils/lose-equal'
+import { isArray } from '../../../utils/array'
 import sanitizeRow from './sanitize-row'
 
 export default {
