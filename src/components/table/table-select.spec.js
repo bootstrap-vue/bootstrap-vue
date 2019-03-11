@@ -140,7 +140,11 @@ describe('table row select', () => {
       .trigger('click', { shiftKey: true })
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(2)
-    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[0], testItems[1], testItems[2]])
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([
+      testItems[0],
+      testItems[1],
+      testItems[2]
+    ])
 
     // Click third row again
     wrapper
