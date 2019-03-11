@@ -183,11 +183,14 @@ describe('looseEqual', () => {
     arr1[2] = true
     const arr2 = []
     arr2[2] = true
-    const arr3 = [undefined, undefined, true]
+    const arr3 = [false, false, true]
+    const arr4 = [undefined, undefined, true]
 
     expect(looseEqual(arr1, arr2)).toBe(true)
     expect(looseEqual(arr2, arr1)).toBe(true)
     expect(looseEqual(arr1, arr3)).toBe(false)
     expect(looseEqual(arr3, arr1)).toBe(false)
+    expect(looseEqual(arr1, arr4)).toBe(true)
+    expect(looseEqual(arr4, arr1)).toBe(true)
   })
 })
