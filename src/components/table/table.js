@@ -96,10 +96,6 @@ export default {
       type: [Boolean, String],
       default: false
     },
-    busy: {
-      type: Boolean,
-      default: false
-    },
     sortBy: {
       type: String,
       default: null
@@ -165,7 +161,6 @@ export default {
     return {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
-      localBusy: false,
       // Our local copy of the items. Must be an array
       localItems: isArray(this.items) ? this.items.slice() : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
@@ -226,9 +221,6 @@ export default {
         currentPage: this.currentPage,
         apiUrl: this.apiUrl
       }
-    },
-    computedBusy() {
-      return this.busy || this.localBusy
     },
     computedFields() {
       // We normalize fields into an array of objects
