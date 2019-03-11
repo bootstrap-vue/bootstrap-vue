@@ -38,7 +38,7 @@ describe('table row select', () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
-        items: testItems,
+        items: testItems
       },
       on: {
         'row-clicked': (item, index, evt) => {}
