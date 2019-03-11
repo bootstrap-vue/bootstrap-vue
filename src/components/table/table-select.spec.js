@@ -39,7 +39,7 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
-    expect(wrapper.emitted('row-selected')[0][0]).toBe([testItems[0]])
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
 
     // Click third row
     wrapper
@@ -48,7 +48,7 @@ describe('table row select', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(2)
-    expect(wrapper.emitted('row-selected')[1][0]).toBe([testItems[2]])
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[2]])
 
     // Click third row again
     wrapper
@@ -57,6 +57,6 @@ describe('table row select', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(3)
-    expect(wrapper.emitted('row-selected')[2][0]).toBe([])
+    expect(wrapper.emitted('row-selected')[2][0]).toEqual([])
   })
 })
