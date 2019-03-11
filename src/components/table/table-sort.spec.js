@@ -23,11 +23,14 @@ describe('table sorting', () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
-    const $rows = wrapper.findAll('tbody > tr').array
+    const $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
     const columnA = $rows.map(row => {
-      return row.findAll('td').at(0).text()
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
     })
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
@@ -52,11 +55,14 @@ describe('table sorting', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
-    $rows = wrapper.findAll('tbody > tr').array
+    $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
     columnA = $rows.map(row => {
-      return row.findAll('td').at(0).text()
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
     })
     expect(columnA[0]).toBe('1')
     expect(columnA[1]).toBe('2')
@@ -68,11 +74,14 @@ describe('table sorting', () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(2)
-    $rows = wrapper.findAll('tbody > tr').array
+    $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
     columnA = $rows.map(row => {
-      return row.findAll('td').at(0).text()
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
     })
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('2')
@@ -85,11 +94,14 @@ describe('table sorting', () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(3)
-    $rows = wrapper.findAll('tbody > tr').array
+    $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
     columnA = $rows.map(row => {
-      return row.findAll('td').at(0).text()
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
     })
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
