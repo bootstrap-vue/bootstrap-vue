@@ -1,7 +1,7 @@
 import defaultSortCompare from './default-sort-compare'
 
 describe('table/helpers/default-sort-compare', () => {
-  if('sorts numbers correctly', async () => {
+  it('sorts numbers correctly', async () => {
     expect(defaultSortCompare(1, 2)).toBe(-1)
     expect(defaultSortCompare(2, 1)).toBe(1)
     expect(defaultSortCompare(1, 1)).toBe(0)
@@ -12,7 +12,7 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(1.561, 1.234)).toBe(1)
   })
 
-  if('sorts dates correctly', async () => {
+  it('sorts dates correctly', async () => {
     const date1 = new Date(2019, 1, 1)
     const date2 = new Date(1999, 11, 31)
     const date3 = new Date(1999, 1, 1)
@@ -28,7 +28,7 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(date4, date3)).toBe(-1)
   })
 
-  if('sorts string correctly', async () => {
+  it('sorts string correctly', async () => {
     // Note: string comparisons are locale based
     expect(defaultSortCompare('a', 'b')).toBe(-1)
     expect(defaultSortCompare('b', 'a')).toBe(1)
