@@ -44,7 +44,7 @@ describe('table bottom-row slot', () => {
     expect(
       wrapper
         .findAll('tbody > tr')
-        .at(0)
+        .at(testItems.length)
         .classes()
     ).toContain('b-table-bottom-row')
   })
@@ -81,7 +81,7 @@ describe('table bottom-row slot', () => {
     expect(
       wrapper
         .findAll('tbody > tr')
-        .at(0)
+        .at(testItems.length)
         .classes()
     ).toContain('b-table-bottom-row')
   })
