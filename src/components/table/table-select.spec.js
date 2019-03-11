@@ -58,4 +58,55 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([])
   })
+
+  it('select mode multi works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Click first row
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+
+    // Click third row
+    wrapper
+      .findAll('tbody > tr')
+      .at(2)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[0], testItems[2]])
+
+    // Click third row again
+    wrapper
+      .findAll('tbody > tr')
+      .at(2)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(3)
+    expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[0]])
+
+    // Click first row again
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(4)
+    expect(wrapper.emitted('row-selected')[3][0]).toEqual([])
+  })
 })
