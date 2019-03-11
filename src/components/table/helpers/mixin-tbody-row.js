@@ -6,6 +6,10 @@ import textSelectionActive from './text-selection-active'
 
 export default {
   props: {
+    tbodyTrClass: {
+      type: [String, Array, Function],
+      default: null
+    },
     selectable: {
       type: Boolean,
       default: false
