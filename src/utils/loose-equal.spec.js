@@ -175,4 +175,19 @@ describe('looseEqual', () => {
     expect(looseEqual(null, false)).toBe(false)
     expect(looseEqual(undefined, false)).toBe(false)
   })
+
+  it('compares sparse arrays correctly', () => {
+    // The following arrays all have a length of 3
+    // But the first two are "sparse"
+    const arr1 = []
+    arr1[2] = true
+    const arr2 = []
+    arr3[2] = true
+    const arr3 = [false, false, true]
+
+    expect(looseEqual(arr1, arr2)).toBe(true)
+    expect(looseEqual(arr2, arr1)).toBe(true)
+    expect(looseEqual(arr1, arr3)).toBe(false)
+    expect(looseEqual(arr3, arr1)).toBe(false)
+  })
 })
