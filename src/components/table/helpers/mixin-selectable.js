@@ -52,6 +52,7 @@ export default {
     selectedRows(selectedRows, oldVal) {
       if (this.selectable && !looseEqual(selectedRows, oldVal)) {
         let items = []
+        // forEach skips over non-existant indicies (on sparse arrays)
         selectedRows.forEach((v, idx) => {
           if (v) {
             items.push(this.computedItems[idx])
@@ -107,11 +108,12 @@ export default {
         this.clearSelected()
         return
       }
-      let selected = !this.selectedRows[index]
+      let selectedRows = this.selectedRows.slice()
+      let selected = !selectedRows[index]
       let mode = this.selectMode
       // Note 'multi' mode needs no special handling
       if (mode === 'single') {
-        this.selectedRows = []
+        selectedRows = []
       } else if (mode === 'range') {
         if (this.selectedLastRow > -1 && evt.shiftKey) {
           // range
@@ -120,22 +122,22 @@ export default {
             idx <= Math.max(this.selectedLastRow, index);
             idx++
           ) {
-            this.selectedRows[idx] = true
             // this.$set(this.selectedRows, idx, true)
+            selectedRows[idx] = true
           }
           selected = true
         } else {
           if (!(evt.ctrlKey || evt.metaKey)) {
             // clear range selection if any
-            this.selectedRows = []
+            selectedRows = []
             selected = true
           }
           this.selectedLastRow = selected ? index : -1
         }
       }
       // this.$set(this.selectedRows, index, selected)
-      this.selectedRows[index] = selected
-      this.selectedRows = this.selectedRows.slice()
+      selectedRows[index] = selected
+      this.selectedRows = selectedRows
     }
   }
 }
