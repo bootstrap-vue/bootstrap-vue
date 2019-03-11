@@ -244,7 +244,6 @@ describe('table sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(4)
-    expect(wrapper.emitted('input')[4][0]).toBe(testItems)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
