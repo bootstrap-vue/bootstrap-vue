@@ -1,4 +1,11 @@
+import tbodyRowMixin from './mixin-tbody-row'
+import emptyMixin from './mixin-empty'
+import topRowMixin from './mixin-top-row'
+import bottomRowMixin from './mixin-bottom-row'
+// busy mixin is imported in main table.js as it is used by multiple mixins
+
 export default {
+  mixins: [tbodyRowMixin, emptyMixin, topRowMixin, bottomRowMixin],
   props: {
     tbodyClass: {
       type: [String, Array],
@@ -74,6 +81,7 @@ export default {
         $rows
       )
 
+      // Return the assembled tbody
       return $tbody
     }
   }
