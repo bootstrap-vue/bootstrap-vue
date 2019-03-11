@@ -716,7 +716,7 @@ export default {
       // Show the rows
       items.forEach((item, rowIndex) => {
         // Render the individual item row (rows if details slot)
-        $rows.push(this.renderTbodyRow(h, item, rowIndex))
+        $rows.push(this.renderTbodyRow(item, rowIndex))
       })
     }
 
