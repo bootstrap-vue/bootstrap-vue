@@ -691,16 +691,16 @@ export default {
     const items = this.computedItems
 
     // Build the caption (from caption mixin)
-    const $caption = this.renderCaption(h)
+    const $caption = this.renderCaption()
 
     // Build the colgroup
-    const $colgroup = this.renderColgroup(h)
+    const $colgroup = this.renderColgroup()
 
     // Build the thead
-    const $thead = this.renderThead(h)
+    const $thead = this.renderThead()
 
     // Build the tfoot
-    const $tfoot = this.renderTfoot(h)
+    const $tfoot = this.renderTfoot()
 
     // Prepare the tbody rows
     const $rows = []
