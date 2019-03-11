@@ -5,7 +5,6 @@ import { arrayIncludes, isArray } from '../../utils/array'
 
 // Table helper functions
 import normalizeFields from './helpers/normalize-fields'
-import sanitizeRow from './helpers/sanitize-row'
 import stringifyRecordValues from './helpers/stringify-record-values'
 import defaultSortCompare from './helpers/default-sort-compare'
 
