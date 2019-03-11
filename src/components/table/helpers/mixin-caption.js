@@ -27,7 +27,9 @@ export default {
     }
   },
   methods: {
-    renderCaption(h) {
+    renderCaption() {
+      const h = this.$createElement
+
       // Build the caption
       const $captionSlot = this.normalizeSlot('table-caption', {})
       let $caption = h(false)
