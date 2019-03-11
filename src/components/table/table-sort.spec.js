@@ -51,7 +51,8 @@ describe('table sorting', () => {
       $rows
         .at(2)
         .findAll('td')
-        .at(0).text()
+        .at(0)
+        .text()
     ).toBe('2')
   })
 })
