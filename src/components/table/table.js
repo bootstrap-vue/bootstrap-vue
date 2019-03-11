@@ -83,20 +83,7 @@ export default {
     },
     dark: {
       type: Boolean,
-      default() {
-        /* istanbul ignore if */
-        if (this && typeof this.inverse === 'boolean') {
-          // Deprecate inverse
-          warn("b-table: prop 'inverse' has been deprecated. Use 'dark' instead")
-          return this.dark
-        }
-        return false
-      }
-    },
-    inverse: {
-      // Deprecated in v1.0.0 in favor of `dark`
-      type: Boolean,
-      default: null
+      default: false
     },
     hover: {
       type: Boolean,
