@@ -65,6 +65,7 @@ describe('table thead-top slot', () => {
             'tr',
             { class: 'test' },
             [this.$createElement('th', { attrs: { span: columns } }, 'foobar')]
+          )
         }
       }
     })
