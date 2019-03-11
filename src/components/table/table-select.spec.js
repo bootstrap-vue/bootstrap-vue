@@ -167,7 +167,7 @@ describe('table row select', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(5)
-    expect(wrapper.emitted('row-selected')[4][0]).toEqual([])
+    expect(wrapper.emitted('row-selected')[4][0]).toEqual([testItems[3]])
 
     // Ctrl-Click second row
     wrapper
@@ -177,5 +177,23 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(6)
     expect(wrapper.emitted('row-selected')[5][0]).toEqual([testItems[1], testItems[3]])
+
+    // Ctrl-Click second row
+    wrapper
+      .findAll('tbody > tr')
+      .at(1)
+      .trigger('click', { ctrlKey: true })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(7)
+    expect(wrapper.emitted('row-selected')[6][0]).toEqual([testItems[3]])
+
+    // Ctrl-Click third row
+    wrapper
+      .findAll('tbody > tr')
+      .at(2)
+      .trigger('click', { ctrlKey: true })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected').length).toBe(8)
+    expect(wrapper.emitted('row-selected')[7][0]).toEqual([])
   })
 })
