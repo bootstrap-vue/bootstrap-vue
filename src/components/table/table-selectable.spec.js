@@ -34,6 +34,26 @@ describe('table row select', () => {
     expect($rows.is('tr[tabindex]')).toBe(false)
   })
 
+  it('should have tabindex but not aria-selected when not selectable and has row-clicked listener', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+      },
+      on: {
+        'row-clicked': (item, index, evt) => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(4)
+    // Doesn't have aria-selected attribute on all TRs
+    expect($rows.is('tr[aria-selected]')).toBe(false)
+    // Does have tabindex attribute on all TRs
+    expect($rows.is('tr[tabindex]')).toBe(true)
+  })
+
   it('select mode single works', async () => {
     const wrapper = mount(Table, {
       propsData: {
