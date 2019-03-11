@@ -561,7 +561,8 @@ describe('table row select', () => {
     // Does not emit a row-selected event
     expect(wrapper.emitted('row-selected').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr')
+    // Should remove tabindex and aria-selected attributes
     expect($rows.is('[tabindex]')).toBe(false)
-    expect($rows.is('[aria-selected')).toBe(false)
+    expect($rows.is('[aria-selected]')).toBe(false)
   })
 })
