@@ -232,9 +232,9 @@ describe('table sorting', () => {
         .at(1)
         .text()
     })
-    expect(columnA[0]).toBe('a')
-    expect(columnA[1]).toBe('b')
-    expect(columnA[2]).toBe('c')
+    expect(columnB[0]).toBe('a')
+    expect(columnB[1]).toBe('b')
+    expect(columnB[2]).toBe('c')
 
     // Click third column header to clear sort
     wrapper
