@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       selectedRows: [],
-      selectedLastClicked: -1
+      selectedLastRow: -1
     }
   },
   watch: {
@@ -28,7 +28,7 @@ export default {
       // Reset for selectable
       // TODO: Should selectedLastClicked be reset here?
       //       As changes to _showDetails would trigger it to reset
-      this.selectedLastClicked = -1
+      this.selectedLastRow = -1
       let equal = false
       if (this.selectable && this.selectedRows.length > 0) {
         // Quick check against array length
@@ -113,11 +113,11 @@ export default {
       if (mode === 'single') {
         this.selectedRows = []
       } else if (mode === 'range') {
-        if (this.selectedLastClicked >= 0 && evt.shiftKey) {
+        if (this.selectedLastRow > -1 && evt.shiftKey) {
           // range
           for (
-            let idx = Math.min(this.selectedLastClicked, index);
-            idx <= Math.max(this.selectedLastClicked, index);
+            let idx = Math.min(this.selectedLastRow, index);
+            idx <= Math.max(this.selectedLastRow, index);
             idx++
           ) {
             this.selectedRows[idx] = true
@@ -130,7 +130,7 @@ export default {
             this.selectedRows = []
             selected = true
           }
-          this.selectedLastClicked = selected ? index : -1
+          this.selectedLastRow = selected ? index : -1
         }
       }
       this.$set(this.selectedRows, index, selected)
