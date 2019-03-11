@@ -20,6 +20,7 @@ import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
 import tbodyMixin from './helpers/mixin-tbody'
 import busyMixin from './helpers/mixin-busy'
+import selectableMixin from './helpers/mixin-selectable'
 import providerMixin from './helpers/mixin-provider'
 
 // b-table component definition
@@ -35,6 +36,7 @@ export default {
     theadMixin,
     tfootMixin,
     tbodyMixin,
+    selectableMixin,
     providerMixin
   ],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
@@ -159,14 +161,13 @@ export default {
   },
   data() {
     return {
+      // Mixins will also add to data
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
       // Our local copy of the items. Must be an array
       localItems: isArray(this.items) ? this.items.slice() : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
-      isFiltered: false,
-      selectedRows: [],
-      lastRowClicked: -1
+      isFiltered: false
     }
   },
   computed: {
@@ -352,22 +353,15 @@ export default {
       }
       this.localSortBy = newVal || null
     },
-    selectMode(newVal, oldVal) {
-      if (oldVal !== newVal) {
-        this.clearSelected()
-      }
-    },
     // Update .sync props
     localSortDesc(newVal, oldVal) {
       // Emit update to sort-desc.sync
       if (newVal !== oldVal) {
-        this.clearSelected()
         this.$emit('update:sortDesc', newVal)
       }
     },
     localSortBy(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.clearSelected()
         this.$emit('update:sortBy', newVal)
       }
     },
@@ -378,25 +372,7 @@ export default {
     },
     // Watch for changes on computedItems and update the v-model
     computedItems(newVal, oldVal) {
-      // Reset for selectable
-      this.lastRowClicked = -1
       this.$emit('input', newVal)
-      let equal = false
-      if (this.selectable && this.selectedRows.length > 0) {
-        // Quick check against array length
-        equal = isArray(newVal) && isArray(oldVal) && newVal.length === oldVal.length
-        for (let i = 0; equal && i < newVal.length; i++) {
-          // Look for the first non-loosely equal row, after ignoring reserved fields
-          equal = looseEqual(sanitizeRow(newVal[i]), sanitizeRow(oldVal[i]))
-        }
-      }
-      if (!equal) {
-        this.clearSelected()
-      }
-    },
-    selectable(newVal, oldVal) {
-      // Clear selection if prop selectable changes
-      this.clearSelected()
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
@@ -416,15 +392,11 @@ export default {
         isFiltered = false
       }
       if (isFiltered) {
-        this.clearSelected()
         this.$emit('filtered', filteredItems, filteredItems.length)
       }
       this.isFiltered = isFiltered
     },
     isFiltered(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.clearSelected()
-      }
       if (newVal === false && oldVal === true) {
         // We need to emit a filtered event if isFiltered transitions from true to
         // false so that users can update their pagination controls.
