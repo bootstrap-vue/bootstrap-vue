@@ -179,7 +179,7 @@ describe('table sorting', () => {
 
     // Sort by first column
     wrapper
-      .find('thead > tr > th')
+      .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
     await wrapper.vm.$nextTick()
