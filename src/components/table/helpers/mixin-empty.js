@@ -22,7 +22,8 @@ export default {
     }
   },
   methods: {
-    renderEmpty(h) {
+    renderEmpty() {
+      const h = this.$createElement
       const items = this.computedItems
       let $empty
 
