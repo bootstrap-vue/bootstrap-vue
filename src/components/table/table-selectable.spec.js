@@ -43,12 +43,15 @@ describe('table row select', () => {
         selectMode: 'single'
       }
     })
+    let $rows
+
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
-    expect(wrapper.findAll('tbody > tr').length).toBe(4)
-    expect(wrapper.findAll('tbody > tr').is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(4)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
+    expect($rows.is('[tabindex="0"]')).toBe(true)
 
     // Click first row
     wrapper
@@ -59,11 +62,12 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click third row
     wrapper
@@ -73,11 +77,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[2]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click third row again
     wrapper
@@ -87,11 +92,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
   })
 
   it('select mode multi works', async () => {
@@ -103,6 +109,7 @@ describe('table row select', () => {
         selectMode: 'multi'
       }
     })
+    let $rows
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
@@ -116,11 +123,12 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click third row
     wrapper
@@ -130,11 +138,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[0], testItems[2]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click third row again
     wrapper
@@ -144,11 +153,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click first row again
     wrapper
@@ -158,11 +168,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(4)
     expect(wrapper.emitted('row-selected')[3][0]).toEqual([])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
   })
 
   it('select mode range works', async () => {
@@ -174,11 +185,13 @@ describe('table row select', () => {
         selectMode: 'range'
       }
     })
+    let $rows
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
 
     // Click first row
     wrapper
@@ -189,11 +202,12 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Shift-Click third row
     wrapper
@@ -207,11 +221,12 @@ describe('table row select', () => {
       testItems[1],
       testItems[2]
     ])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click third row again
     wrapper
@@ -221,11 +236,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[2]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click fourth row
     wrapper
@@ -235,11 +251,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(4)
     expect(wrapper.emitted('row-selected')[3][0]).toEqual([testItems[3]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="true"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
 
     // Click fourth row again
     wrapper
@@ -249,11 +266,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     // No change to selected rows
     expect(wrapper.emitted('row-selected').length).toBe(4)
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="true"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
 
     // Ctrl-Click second row
     wrapper
@@ -263,11 +281,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(5)
     expect(wrapper.emitted('row-selected')[4][0]).toEqual([testItems[1], testItems[3]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="true"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
 
     // Ctrl-Click second row
     wrapper
@@ -277,11 +296,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(6)
     expect(wrapper.emitted('row-selected')[5][0]).toEqual([testItems[3]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="true"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
 
     // Ctrl-Click fourth row
     wrapper
@@ -291,11 +311,12 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(7)
     expect(wrapper.emitted('row-selected')[6][0]).toEqual([])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
   })
 
   it('sort change clears selection', async () => {
@@ -307,6 +328,7 @@ describe('table row select', () => {
         selectMode: 'single'
       }
     })
+    let $rows
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
@@ -320,11 +342,12 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click row header
     wrapper
@@ -336,11 +359,9 @@ describe('table row select', () => {
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
   })
 
   it('filter change clears selection', async () => {
@@ -352,11 +373,13 @@ describe('table row select', () => {
         selectMode: 'single'
       }
     })
+    let $rows
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
 
     // Click first row
     wrapper
@@ -367,11 +390,12 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(3).is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Change filter
     wrapper.setProps({
@@ -380,8 +404,9 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
   })
 
   it('pagination change clears selection', async () => {
@@ -395,12 +420,15 @@ describe('table row select', () => {
         currentPage: 1
       }
     })
+    let $rows
+
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
-    expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
 
     // Click first row
     wrapper
@@ -411,12 +439,13 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
-    expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect($rows.is('[tabindex="0"]')).toBe(true)
     // We only have 3 rows max per page
-    expect(wrapper.findAll('tbody > tr').at(0).is('[aria-selected="true"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(1).is('[aria-selected="false"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
 
     // Change page
     wrapper.setProps({
@@ -425,8 +454,9 @@ describe('table row select', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
-    expect(wrapper.findAll('tbody > tr').length).toBe(1)
-    expect(wrapper.findAll('tbody > tr').is('[tabindex="0"]')).toBe(true)
-    expect(wrapper.findAll('tbody > tr').is('[aria-selected="false"]')).toBe(true)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(1)
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
   })
 })
