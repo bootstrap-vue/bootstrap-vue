@@ -10,17 +10,10 @@ const testFields = [
 
 describe('table sorting', () => {
   it('should not be sorted by default', async () => {
-    let visibleRows = null
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
         items: testItems
-      },
-      on: {
-        input: val => {
-          // When v-model updated
-          visibleRows = val
-        }
       }
     })
     expect(wrapper).toBeDefined()
@@ -30,7 +23,6 @@ describe('table sorting', () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
-    expect(visibleRows).toEqual(testItems)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(
