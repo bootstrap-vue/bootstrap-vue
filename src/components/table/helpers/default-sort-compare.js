@@ -15,9 +15,18 @@ export default function defaultSortCompare(a, b, sortBy) {
     (typeof a === 'number' && typeof b === 'number')
   ) {
     // Special case for comparing Dates and Numbers
-    return (a < b && -1) || (a > b && 1) || 0
+    // Internally dates are compared via their epoch number values
+    if (a < b) {
+      return -1
+    } else if (a > b) {
+      return 1
+    } else {
+      return 0
+    }
+  } else {
+    // Do localized string comparison
+    return stringifyObjectValues(a).localeCompare(stringifyObjectValues(b), undefined, {
+      numeric: true
+    })
   }
-  return stringifyObjectValues(a).localeCompare(stringifyObjectValues(b), undefined, {
-    numeric: true
-  })
 }
