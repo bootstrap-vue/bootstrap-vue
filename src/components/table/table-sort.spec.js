@@ -163,6 +163,7 @@ describe('table sorting', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
@@ -183,6 +184,8 @@ describe('table sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('sort-changed')).toBeDefined()
+    expect(wrapper.emitted('sort-changed').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -203,6 +206,7 @@ describe('table sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('sort-changed').length).toBe(2)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -223,6 +227,7 @@ describe('table sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(4)
+    expect(wrapper.emitted('sort-changed').length).toBe(3)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -243,6 +248,7 @@ describe('table sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(5)
+    expect(wrapper.emitted('sort-changed').length).toBe(4)
     expect(wrapper.emitted('input')[4][0]).toBe(testItems)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
