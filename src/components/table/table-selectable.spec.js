@@ -40,7 +40,7 @@ describe('table row select', () => {
         fields: testFields,
         items: testItems
       },
-      on: {
+      listeners: {
         'row-clicked': (item, index, evt) => {}
       }
     })
