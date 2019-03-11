@@ -50,7 +50,7 @@ export default {
       this.clearSelected()
     },
     selectedRows(selectedRows, oldVal) {
-      if (this.selectable) {
+      if (this.selectable && !looseEqual(selectedRows, oldVal)) {
         let items = []
         selectedRows.forEach((v, idx) => {
           if (v) {
