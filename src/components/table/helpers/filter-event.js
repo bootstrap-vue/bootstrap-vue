@@ -23,5 +23,7 @@ export default function filterEvent(evt) {
     // If the label's form control is not disabled then we don't propagate evt
     return true
   }
+  // Else check to see if the event target matches one of the selectors in the event filter
+  // i.e. anchors, non disabled inputs, etc. Return true if we should ignore the event.
   return matches(el, EVENT_FILTER)
 }
