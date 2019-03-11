@@ -51,9 +51,6 @@ export default {
         this.clearSelected()
       }
     },
-    context(newVal, oldVal) {
-      this.clearSelected()
-    },
     selectable(newVal, oldVal) {
       this.clearSelected()
       this.setSelectionHandlers(newVal)
@@ -97,6 +94,7 @@ export default {
       this[method]('row-clicked', this.selectionHandler)
       this[method]('filtered', this.clearSelected)
       this[method]('sort-changed', this.clearSelected)
+      this[method]('context-changed', this.clearSelected)
     },
     selectionHandler(item, index, evt) {
       if (!this.selectable) {
