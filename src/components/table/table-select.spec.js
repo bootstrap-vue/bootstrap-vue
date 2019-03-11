@@ -65,7 +65,7 @@ describe('table row select', () => {
         fields: testFields,
         items: testItems,
         selectable: true,
-        selectMode: 'single'
+        selectMode: 'multi'
       }
     })
     expect(wrapper).toBeDefined()
