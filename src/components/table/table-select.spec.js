@@ -191,10 +191,10 @@ describe('table row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(7)
     expect(wrapper.emitted('row-selected')[6][0]).toEqual([testItems[3]])
 
-    // Ctrl-Click third row
+    // Ctrl-Click fourth row
     wrapper
       .findAll('tbody > tr')
-      .at(2)
+      .at(3)
       .trigger('click', { ctrlKey: true })
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected').length).toBe(8)
