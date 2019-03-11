@@ -315,6 +315,7 @@ export default {
       if (typeof this.filter === 'function') {
         // this.localFilterFn will contain the correct function ref.
         // Deprecate setting prop filter to a function
+        /* istanbul ignore next */
         return ''
       } else if (
         typeof this.filterFunction !== 'function' &&
@@ -623,6 +624,7 @@ export default {
         if (this.hasProvider) {
           this.$nextTick(this._providerUpdate)
         } else {
+          /* istanbul ignore next */
           this.localItems = isArray(this.items) ? this.items.slice() : []
         }
       }
