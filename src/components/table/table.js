@@ -475,16 +475,6 @@ export default {
 
       // Return the generated function
       return fn
-    },
-    // Event handler helper
-    stopIfBusy(evt) {
-      if (this.computedBusy) {
-        // If table is busy (via provider) then don't propagate
-        evt.preventDefault()
-        evt.stopPropagation()
-        return true
-      }
-      return false
     }
   },
   render(h) {
