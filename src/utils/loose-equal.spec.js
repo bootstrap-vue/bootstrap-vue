@@ -182,7 +182,7 @@ describe('looseEqual', () => {
     const arr1 = []
     arr1[2] = true
     const arr2 = []
-    arr3[2] = true
+    arr2[2] = true
     const arr3 = [false, false, true]
 
     expect(looseEqual(arr1, arr2)).toBe(true)
