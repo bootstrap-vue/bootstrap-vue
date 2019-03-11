@@ -80,8 +80,8 @@ describe('table row select', () => {
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
-    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
-    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Click third row again
