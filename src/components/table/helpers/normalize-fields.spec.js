@@ -84,6 +84,16 @@ describe('table/helpers/normalize-fields', () => {
     expect(normalizeFields({ foo: false })).toEqual([])
   })
 
+  it('handles mixed array format', async () => {
+    const arr1 = ['foo', { bar: { label: 'Bar Label' } }, { baz: 'Baz Label' }]
+
+    expect(normalizeFields(arr1, [])).toEqual([
+      { key: 'foo', label: 'Foo' },
+      { key: 'bar', label: 'Bar Label' },
+      { key: 'baz', label: 'Baz Label' }
+    ])
+  })
+
   it('removes duplicate fields (preserving the first found)', async () => {
     const arr1 = ['foo', 'bar', 'foo', 'foo_bar']
     const arr2 = [{ key: 'foo', label: 'Fiz' }, 'bar', 'foo', 'foo_bar']
