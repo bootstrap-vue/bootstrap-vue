@@ -18,12 +18,8 @@ import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
 import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
-import tbodyRowMixin from './helpers/mixin-tbody-row'
 import tbodyMixin from './helpers/mixin-tbody'
 import busyMixin from './helpers/mixin-busy'
-import emptyMixin from './helpers/mixin-empty'
-import topRowMixin from './helpers/mixin-top-row'
-import bottomRowMixin from './helpers/mixin-bottom-row'
 import providerMixin from './helpers/mixin-provider'
 
 // b-table component definition
@@ -33,16 +29,12 @@ export default {
   mixins: [
     idMixin,
     normalizeSlotMixin,
+    busyMixin,
     captionMixin,
+    colgroupMixin,
     theadMixin,
-    tbodyRowMixin,
     tfootMixin,
     tbodyMixin,
-    busyMixin,
-    colgroupMixin,
-    emptyMixin,
-    topRowMixin,
-    bottomRowMixin,
     providerMixin
   ],
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
