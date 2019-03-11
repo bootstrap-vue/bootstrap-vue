@@ -120,8 +120,8 @@ export default {
             idx <= Math.max(this.selectedLastClicked, index);
             idx++
           ) {
-            // this.selectedRows[index] = true
-            this.$set(this.selectedRows, index, true)
+            this.selectedRows[idx] = true
+            // this.$set(this.selectedRows, idx, true)
           }
           selected = true
         } else {
