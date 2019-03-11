@@ -207,7 +207,9 @@ export default {
       this.$emit('row-contextmenu', item, index, e)
     },
     // Render helpers
-    renderTbodyRowCell(h, field, colIndex, item, rowIndex) {
+    renderTbodyRowCell(field, colIndex, item, rowIndex) {
+      const h = this.$createElement
+
       // Renders a TD or TH for a row's field
       const $scoped = this.$scopedSlots
       const detailsSlot = $scoped['row-details']
@@ -258,8 +260,9 @@ export default {
       // Render either a td or th cell
       return h(field.isRowHeader ? 'th' : 'td', data, $childNodes)
     },
-    renderTbodyRow(h, item, rowIndex) {
+    renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)
+      const h = this.$createElement
       const $scoped = this.$scopedSlots
       const fields = this.computedFields
       const tableStriped = this.striped
@@ -280,7 +283,7 @@ export default {
 
       // For each item data field in row
       const $tds = fields.map((field, colIndex) => {
-        return this.renderTbodyRowCell(h, field, colIndex, item, rowIndex)
+        return this.renderTbodyRowCell(field, colIndex, item, rowIndex)
       })
 
       // Calculate the row number in the dataset (indexed from 1)
