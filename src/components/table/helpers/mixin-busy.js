@@ -3,7 +3,7 @@ export default {
     busy: {
       type: Boolean,
       default: false
-    },
+    }
   },
   data() {
     return {
