@@ -206,9 +206,6 @@ export default {
         'b-table-selectable': this.selectable
       }
     },
-    bodyClasses() {
-      return [this.tbodyClass]
-    },
     // Items related computed props
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
