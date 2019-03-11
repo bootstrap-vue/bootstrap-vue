@@ -61,7 +61,7 @@ export default {
       }
     }
   },
-  mounted() {
+  beforeMount() {
     // Set up handlers
     if (this.selectable) {
       this.setSelectionHandlers(true)
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     isRowSelected(idx) {
-      return this.selectedRows[idx]
+      return Boolean(this.selectedRows[idx])
     },
     rowSelectedClasses(idx) {
       if (this.selectable) {
@@ -95,9 +95,10 @@ export default {
     },
     setSelectionHandlers(on) {
       const method = on ? '$on' : '$off'
+      // Handle row-clicked event
       this[method]('row-clicked', this.selectionHandler)
+      // Clear selection on filter, pagination, and sort changes
       this[method]('filtered', this.clearSelected)
-      this[method]('sort-changed', this.clearSelected)
       this[method]('context-changed', this.clearSelected)
     },
     selectionHandler(item, index, evt) {
@@ -119,7 +120,7 @@ export default {
             idx <= Math.max(this.selectedLastClicked, index);
             idx++
           ) {
-            // this.selectedRows[idx] = true
+            // this.selectedRows[index] = true
             this.$set(this.selectedRows, index, true)
           }
           selected = true
