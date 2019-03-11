@@ -479,4 +479,89 @@ describe('table row select', () => {
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.is('[aria-selected="false"]')).toBe(true)
   })
+
+  it('change in select mode clears selection', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single'
+      }
+    })
+    let $rows
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Click first row
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    // Change mode
+    wrapper.setProps({
+      selectMode: 'range'
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.is('[aria-selected="false"]')).toBe(true)
+  })
+
+  it('disabling selctable clears selection', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single'
+      }
+    })
+    let $rows
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Click first row
+    wrapper
+      .findAll('tbody > tr')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    // Disabled selectable
+    wrapper.setProps({
+      selctable: false
+    })
+    await wrapper.vm.$nextTick()
+    // Does not emit a row-selected event
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex]')).toBe(false)
+    expect($rows.is('[aria-selected')).toBe(false)
+  })
 })
