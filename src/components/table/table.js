@@ -702,53 +702,8 @@ export default {
     // Build the tfoot
     const $tfoot = this.renderTfoot()
 
-    // Prepare the tbody rows
-    const $rows = []
-
-    // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
-    $rows.push(this.renderTopRow())
-
-    // Add the item data rows or the busy slot
-    const $busy = this.renderBusy()
-    if ($busy) {
-      $rows.push($busy)
-    } else {
-      // Show the rows
-      items.forEach((item, rowIndex) => {
-        // Render the individual item row (rows if details slot)
-        $rows.push(this.renderTbodyRow(item, rowIndex))
-      })
-    }
-
-    // Empty Items / Empty Filtered Row slot
-    $rows.push(this.renderEmpty())
-
-    // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
-    $rows.push(this.renderBottomRow())
-
-    // Is tbody transition enabled
-    const isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers
-    let tbodyProps = {}
-    let tbodyOn = {}
-    if (isTransGroup) {
-      tbodyOn = this.tbodyTransitionHandlers || {}
-      tbodyProps = {
-        ...(this.tbodyTransitionProps || {}),
-        tag: 'tbody'
-      }
-    }
-
-    // Assemble the rows into the tbody
-    const $tbody = h(
-      isTransGroup ? 'transition-group' : 'tbody',
-      {
-        props: tbodyProps,
-        on: tbodyOn,
-        class: this.bodyClasses,
-        attrs: this.isStacked ? { role: 'rowgroup' } : {}
-      },
-      $rows
-    )
+    // Build the tbody
+    const $tbody = this.renderTbody()
 
     // Assemble table
     const $table = h(
