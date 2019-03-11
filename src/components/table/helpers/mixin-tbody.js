@@ -11,10 +11,6 @@ export default {
       type: [String, Array],
       default: null
     },
-    tbodyTrClass: {
-      type: [String, Array, Function],
-      default: null
-    },
     tbodyTransitionProps: {
       type: Object
       // default: undefined
@@ -75,7 +71,7 @@ export default {
         {
           props: tbodyProps,
           on: tbodyOn,
-          class: this.bodyClasses,
+          class: [this.tbodyClass],
           attrs: this.isStacked ? { role: 'rowgroup' } : {}
         },
         $rows
