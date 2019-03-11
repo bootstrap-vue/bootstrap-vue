@@ -61,11 +61,9 @@ describe('table thead-top slot', () => {
         'thead-top': function(scope) {
           fields = scope.fields
           columns = scope.columns
-          return this.$createElement(
-            'tr',
-            { class: 'test' },
-            [this.$createElement('th', { attrs: { span: columns } }, 'foobar')]
-          )
+          return this.$createElement('tr', { class: 'test' }, [
+            this.$createElement('th', { attrs: { span: columns } }, 'foobar')
+          ])
         }
       }
     })
