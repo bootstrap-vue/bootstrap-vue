@@ -217,11 +217,11 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('1')
 
-    // Click second column header to sort by it
+    // Click second column header to sort by it (by using keydown.enter)
     wrapper
       .findAll('thead > tr > th')
       .at(1)
-      .trigger('click')
+      .trigger('keydown.enter')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(3)
     $rows = wrapper.findAll('tbody > tr').wrappers
