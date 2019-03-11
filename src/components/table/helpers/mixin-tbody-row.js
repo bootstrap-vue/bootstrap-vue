@@ -248,7 +248,7 @@ export default {
               this.rowClasses(item),
               this.rowSelectedClasses(rowIndex),
               {
-                'b-table-has-details': rowShowDetails,
+                'b-table-has-details': rowShowDetails
               }
             ],
             attrs: {
