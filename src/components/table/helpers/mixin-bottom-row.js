@@ -1,6 +1,8 @@
 export default {
   methods: {
-    renderBottomRow(h) {
+    renderBottomRow() {
+      const h = this.$createElement
+
       // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
       // If in always stacked mode, we don't bother rendering the row
       if (!this.hasNormalizedSlot('bottom-row') || this.isStacked === true) {
