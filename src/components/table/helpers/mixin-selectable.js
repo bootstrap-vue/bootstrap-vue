@@ -1,4 +1,4 @@
-import looseEqual from '../../../utils/lose-equal'
+import looseEqual from '../../../utils/loose-equal'
 import { isArray } from '../../../utils/array'
 import sanitizeRow from './sanitize-row'
 
@@ -21,15 +21,6 @@ export default {
     return {
       selectedRows: [],
       selectedLastClicked: -1
-    }
-  },
-  computed: {
-    computedRowSelectedClass() {
-      if (this.selectedVariant) {
-        return `${this.dark ? 'bg' : 'table'}-${this.selectedVariant}`
-      } else {
-        return ''
-      }
     }
   },
   watch: {
@@ -79,6 +70,19 @@ export default {
   methods: {
     isRowSelected(idx) {
       return this.selectedRows[idx]
+    },
+    rowSelectedClasses(idx) {
+      if (this.selectable) {
+        const rowSelected = this.isRowSelected(idx)
+        const base = this.dark ? 'bg' : 'table'
+        const variant = this.selectedVariant
+        return {
+          'b-row-selected': rowSelected,
+          [`${base}-${variant}`]: rowSelected && variant
+        }
+      } else {
+        return {}
+      }
     },
     clearSelected() {
       let hasSelection = this.selectedRows.reduce((prev, v) => {
