@@ -5,6 +5,19 @@ function isDate(obj) {
   return obj instanceof Date
 }
 
+function compareArrays(a, b) {
+  // Assumes both a and b are arrays!
+  // Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
+  if (a.length !== b.length) {
+    return false
+  }
+  let equal = true
+  for (let i = 0; equal && i < a.length; i++) {
+    equal = looseEqual(a[i], b[i])
+  }
+  return equal
+}
+
 /**
  * Check if two values are loosely equal - that is,
  * if they are plain objects, do they have the same shape?
@@ -22,9 +35,7 @@ function looseEqual(a, b) {
   aValidType = isArray(a)
   bValidType = isArray(b)
   if (aValidType || bValidType) {
-    return aValidType && bValidType
-      ? a.length === b.length && a.every((e, i) => looseEqual(e, b[i]))
-      : false
+    return aValidType && bValidType ? compareArrays(a, b) : false
   }
   aValidType = isObject(a)
   bValidType = isObject(b)
