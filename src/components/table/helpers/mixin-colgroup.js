@@ -1,7 +1,8 @@
 export default {
   methods: {
-    renderColgroup(h) {
-      // Build the colgroup
+    renderColgroup() {
+      const h = this.$createElement
+
       const fields = this.computedFields
       let $colgroup = h(false)
 
