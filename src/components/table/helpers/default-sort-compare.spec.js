@@ -23,9 +23,9 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(date2, date1, 'a')).toBe(-1)
     expect(defaultSortCompare(date2, date3, 'a')).toBe(1)
     expect(defaultSortCompare(date3, date2, 'a')).toBe(-1)
-    expect(defaultSortCompare(date4, date4, 'a')).toBe(0)
     expect(defaultSortCompare(date3, date4, 'a')).toBe(-1)
-    expect(defaultSortCompare(date4, date3, 'a')).toBe(-1)
+    expect(defaultSortCompare(date4, date3, 'a')).toBe(1)
+    expect(defaultSortCompare(date4, date4, 'a')).toBe(0)
   })
 
   it('sorts strings correctly', async () => {
@@ -34,5 +34,13 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare({ a: 'b' }, { a: 'a' }, 'a')).toBe(1)
     expect(defaultSortCompare({ a: 'a' }, { a: 'a' }, 'a')).toBe(0)
     expect(defaultSortCompare({ a: 'a' }, { a: 'aaa' }, 'a')).toBe(-1)
+  })
+
+  it('sorts by nested key correctly', async () => {
+    // Note: string comparisons are locale based
+    expect(defaultSortCompare({ a: { b: 'a' } }, { a: { b: 'b' } }, 'a.b')).toBe(-1)
+    expect(defaultSortCompare({ a: { b: 'b' } }, { a: { b: 'a' } }, 'a.b')).toBe(1)
+    expect(defaultSortCompare({ a: { b: 'a' } }, { a: { b: 'a' } }, 'a.b')).toBe(0)
+    expect(defaultSortCompare({ a: { b: 'a' } }, { a: { b: 'aaa' } }, 'a.b')).toBe(-1)
   })
 })
