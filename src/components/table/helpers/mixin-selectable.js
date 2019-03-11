@@ -35,6 +35,8 @@ export default {
   watch: {
     computedItems(newVal, oldVal) {
       // Reset for selectable
+      // TODO: Should selectedLastClicked be reset here?
+      //       As changes to _showDetails would trigger it to reset
       this.selectedLastClicked = -1
       let equal = false
       if (this.selectable && this.selectedRows.length > 0) {
@@ -49,14 +51,12 @@ export default {
         this.clearSelected()
       }
     },
-    isFiltered(newVal, oldVal) {
-      this.clearSelected()
-    },
     context(newVal, oldVal) {
       this.clearSelected()
     },
     selectable(newVal, oldVal) {
       this.clearSelected()
+      this.setSelectionHandlers(newVal)
     },
     selectMode(newVal, oldVal) {
       this.clearSelected()
@@ -74,10 +74,10 @@ export default {
     }
   },
   mounted() {
-    this.$on('row-clicked', this.selectionHandler)
-  },
-  beforeDestroy() {
-    this.$off('row-clicked', this.selectionHandler)
+    // Set up handlers
+    if (this.selectable) {
+      this.setSelectionHandlers(true)
+    }
   },
   methods: {
     isRowSelected(idx) {
@@ -91,6 +91,12 @@ export default {
         this.selectedLastClicked = -1
         this.selectedRows = []
       }
+    },
+    setSelectionHandlers(on) {
+      const method = on ? '$on' : '$off'
+      this.[method]('row-clicked', this.selectionHandler)
+      this.[method]('filtered', this.clearSelected)
+      this.[method]('sort-changed', this.clearSelected)
     },
     selectionHandler(item, index, evt) {
       if (!this.selectable) {
