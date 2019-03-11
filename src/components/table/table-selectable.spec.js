@@ -516,14 +516,14 @@ describe('table row select', () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).toBeDefined()
-    expect(wrapper.emitted('row-selected').length).toBe(1)
-    expect(wrapper.emitted('row-selected')[0][0]).toEqual([])
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.is('[aria-selected="false"]')).toBe(true)
   })
 
-  it('disabling selctable clears selection', async () => {
+  it('disabling selectable clears selection', async () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
@@ -555,7 +555,7 @@ describe('table row select', () => {
 
     // Disabled selectable
     wrapper.setProps({
-      selctable: false
+      selectable: false
     })
     await wrapper.vm.$nextTick()
     // Does not emit a row-selected event
