@@ -79,7 +79,9 @@ export default {
         this.$emit('sort-changed', this.context)
       }
     },
-    renderThead(h, isFoot = false) {
+    renderThead(isFoot = false) {
+      const h = this.$createElement
+
       if (this.isStacked === true) {
         // In always stacked mode, we don't bother rendering the head/foot
         return h(false)
