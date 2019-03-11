@@ -95,7 +95,7 @@ describe('table sorting', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(3)
     $rows = wrapper.findAll('tbody > tr').wrappers
-    expect($rows.length).toBe(3)
+    expect($rows.length).toBe(4)
     // Map the rows to the first column text value
     columnA = $rows.map(row => {
       return row
