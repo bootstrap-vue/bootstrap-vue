@@ -103,10 +103,12 @@ export default {
       this[method]('context-changed', this.clearSelected)
     },
     selectionHandler(item, index, evt) {
+      /* istanbul ignore if: should never happen */
       if (!this.selectable) {
         // Don't do anything if table is not in selectable mode
         /* istanbul ignore next: should never happen */
         this.clearSelected()
+        /* istanbul ignore next: should never happen */
         return
       }
       let selectedRows = this.selectedRows.slice()
