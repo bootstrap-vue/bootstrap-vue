@@ -27,7 +27,7 @@ describe('table top-row', () => {
         items: testItems
       },
       slots: {
-        'table-colgroup': `<td span="${testFields.length}">foobar</td>`
+        'top-row': `<td span="${testFields.length}">foobar</td>`
       }
     })
     expect(wrapper).toBeDefined()
