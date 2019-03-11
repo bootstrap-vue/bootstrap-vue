@@ -178,7 +178,7 @@ describe('table sorting', () => {
 
     // Sort by first column
     wrapper
-      .findAll('thead > tr > td')
+      .find('thead > tr > th')
       .at(0)
       .trigger('click')
     await wrapper.vm.$nextTick()
@@ -198,7 +198,7 @@ describe('table sorting', () => {
 
     // Click first column header again to reverse sort
     wrapper
-      .findAll('thead > tr > td')
+      .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
     await wrapper.vm.$nextTick()
@@ -218,7 +218,7 @@ describe('table sorting', () => {
 
     // Click second column header to sort by it
     wrapper
-      .findAll('thead > tr > td')
+      .findAll('thead > tr > th')
       .at(1)
       .trigger('click')
     await wrapper.vm.$nextTick()
@@ -238,7 +238,7 @@ describe('table sorting', () => {
 
     // Click third column header to clear sort
     wrapper
-      .findAll('thead > tr > td')
+      .findAll('thead > tr > th')
       .at(2)
       .trigger('click')
     await wrapper.vm.$nextTick()
