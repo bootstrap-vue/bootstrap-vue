@@ -16,6 +16,17 @@ export default {
     }
   },
   methods: {
+    // Event handler helper
+    stopIfBusy(evt) {
+      if (this.computedBusy) {
+        // If table is busy (via provider) then don't propagate
+        evt.preventDefault()
+        evt.stopPropagation()
+        return true
+      }
+      return false
+    },
+    // Renter the busy indecator or return null if not busy
     renderBusy() {
       const h = this.$createElement
 
