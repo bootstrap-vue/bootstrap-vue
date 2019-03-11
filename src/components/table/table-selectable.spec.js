@@ -29,9 +29,9 @@ describe('table row select', () => {
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(4)
     // Doesn't have aria-selected attribute on all TRs
-    expect($rows.wrapper.is('tr[aria-selected]')).toBe(false)
+    expect($rows.is('tr[aria-selected]')).toBe(false)
     // Doesn't have tabindex attribute on all TRs
-    expect($rows.wrapper.is('tr[tabindex]')).toBe(false)
+    expect($rows.is('tr[tabindex]')).toBe(false)
   })
 
   it('select mode single works', async () => {
