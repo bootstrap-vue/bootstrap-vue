@@ -50,7 +50,7 @@ export const eventOff = (el, evtName, handler, options) => {
 
 // Determine if an element is an HTML Element
 export const isElement = el => {
-  return el && el.nodeType === Node.ELEMENT_NODE
+  return Boolean(el && el.nodeType === Node.ELEMENT_NODE)
 }
 
 // Determine if an HTML element is visible - Faster than CSS check
@@ -59,7 +59,7 @@ export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() 
     return false
   }
   const bcr = getBCR(el)
-  return bcr && bcr.height > 0 && bcr.width > 0
+  return Boolean(bcr && bcr.height > 0 && bcr.width > 0)
 }
 
 // Determine if an element is disabled
