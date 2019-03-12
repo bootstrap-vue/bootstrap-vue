@@ -26,7 +26,7 @@ export default class BvEvent {
     // Create a private variable using closure scoping.
     let defaultPrevented = false
     // Recreate preventDefault method. One way setter.
-    this.preventDefault = function preventDefault() {
+    this.preventDefault = function() {
       if (this.cancelable) {
         defaultPrevented = true
       }

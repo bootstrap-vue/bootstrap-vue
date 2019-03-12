@@ -1,7 +1,7 @@
 /**
  * @param {string} str
  */
-export default function upperFirst(str) {
+export default str => {
   if (typeof str !== 'string') {
     str = String(str)
   }

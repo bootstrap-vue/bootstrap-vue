@@ -1,9 +1,5 @@
 const stripTagsRegex = /(<([^>]+)>)/gi
 
-export function stripTags(text = '') {
-  return String(text).replace(stripTagsRegex, '')
-}
+export const stripTags = (text = '') => String(text).replace(stripTagsRegex, '')
 
-export function htmlOrText(innerHTML, textContent) {
-  return innerHTML ? { innerHTML } : { textContent }
-}
+export const htmlOrText = (innerHTML, textContent) => (innerHTML ? { innerHTML } : { textContent })

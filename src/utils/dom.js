@@ -21,7 +21,7 @@ if (inBrowser) {
 }
 
 // Normalize event options based on support of passive option
-function parseEventOptions(options) {
+const parseEventOptions = options => {
   let useCapture = false
   if (options) {
     if (typeof options === 'object') {
@@ -300,12 +300,12 @@ export const requestAF = cb => {
     w.mozRequestAnimationFrame ||
     w.msRequestAnimationFrame ||
     w.oRequestAnimationFrame ||
-    function(cb) {
+    (cb => {
       // Fallback, but not a true polyfill.
       // But all browsers we support (other than Opera Mini) support rAF
       // without a polyfill.
       /* istanbul ignore next */
       return setTimeout(cb, 16)
-    }
+    })
   return rAF(cb)
 }
