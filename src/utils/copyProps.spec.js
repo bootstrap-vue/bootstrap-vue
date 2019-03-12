@@ -19,10 +19,5 @@ describe('utils/copyProps', () => {
     expect(copyProps(props)).toEqual(props)
     // Should be a new object reference
     expect(copyProps(props)).not.toBe(props)
-    // Prop values should be a new object references
-    expect(copyProps(props).a).not.toBe(props.a)
-    expect(copyProps(props).b).not.toBe(props.b)
-    // Except for primatives
-    expect(copyProps(props).c).toBe(props.c)
   })
 })
