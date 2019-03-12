@@ -166,7 +166,7 @@ export default {
           fields: fields
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h(false))
-        $trs.push(h('tr', { class: this.theadTrClass, attrs { role: 'row' } }, $cells))
+        $trs.push(h('tr', { class: this.theadTrClass, attrs: { role: 'row' } }, $cells))
       }
 
       return h(
