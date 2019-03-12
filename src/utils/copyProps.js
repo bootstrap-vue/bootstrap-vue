@@ -13,6 +13,7 @@ export default function copyProps(props, transformFn = identity) {
   const copied = {}
 
   for (const prop in props) {
+    /* istanbul ignore else */
     if (props.hasOwnProperty(prop)) {
       if (typeof props[prop] === 'object') {
         copied[transformFn(prop)] = { ...props[prop] }
