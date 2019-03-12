@@ -1,5 +1,5 @@
 import { isArray } from './array'
-import { isPlainObject } from '.object'
+import { isPlainObject } from './object'
 import identity from './identity'
 
 /**
