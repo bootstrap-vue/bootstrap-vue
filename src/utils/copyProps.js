@@ -20,6 +20,8 @@ export default function copyProps(props, transformFn = identity) {
   for (const prop in props) {
     /* istanbul ignore else */
     if (props.hasOwnProperty(prop)) {
+      // If the prop value is an object, do a shallow clone to prevent
+      // potential mutations to the original object.
       copied[transformFn(prop)] = isObject(props[prop]) ? { ...props[prop] } : props[prop]
     }
   }
