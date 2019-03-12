@@ -11,7 +11,7 @@ describe('utils/copyProps', () => {
 
   it('works with object props', async () => {
     const props = {
-      a: { type: String, default: '' },
+      a: { type: String, default: 'foobar' },
       b: { type: [Object, Array], default: null },
       c: 'c'
     }
@@ -19,5 +19,10 @@ describe('utils/copyProps', () => {
     expect(copyProps(props)).toEqual(props)
     // Should be a new object reference
     expect(copyProps(props)).not.toBe(props)
+    // Properties should be new object references
+    expect(copyProps(props).a === props.a).toBe(false)
+    expect(copyProps(props).b === props.b).toBe(false)
+    // Except for primatives
+    expect(copyProps(props).c === props.c).toBe(true)
   })
 })
