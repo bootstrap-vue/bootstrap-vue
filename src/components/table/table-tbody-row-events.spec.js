@@ -289,7 +289,7 @@ describe('table tbody row events', () => {
       scopedSlots: {
         'a': '<button id="a">button</button>',
         'b': '<input id="b" />',
-        'c': '<a href="#" id="c">link</a>'
+        'c': '<a href="#" id="c">link</a>',
         'd': '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>'
       }
     })
