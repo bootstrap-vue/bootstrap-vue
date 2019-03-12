@@ -4,12 +4,13 @@
 // Accepts an element as only argument to test to see if selection overlaps or is
 // contained within the element
 
-import { isELement } from '../../../utils/dom'
+import { isElement } from '../../../utils/dom'
 
 export default function textSelectionActive(el = document) {
   const win = window
   /* istanbul ignore if: JSDOM doesn't support getSelection */
   if (win && win.getSelection && win.getSelection().toString() !== '' && isElement(el)) {
+    const sel = win.getSelection()
     return sel.containsNode ? sel.containsNode(el, true) : false
   } else {
     return false
