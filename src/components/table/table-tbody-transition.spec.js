@@ -38,8 +38,6 @@ describe('table body transition', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
-    expect(wrapper.find(TransitionGroupStub).props('tag')).toBe('tbody')
-    expect(wrapper.find(TransitionGroupStub).props('name')).toBe('fade')
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
   })
@@ -63,8 +61,6 @@ describe('table body transition', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
-    expect(wrapper.find(TransitionGroupStub).props('tag')).toBe('tbody')
-    // We can't easily check to see of the handlers were attached, so we just assume they are
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
   })
