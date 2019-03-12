@@ -6,7 +6,7 @@
 
 import { isElement } from '../../../utils/dom'
 
-/* istanbul ignore next: JSDOM doesn't support getSelection */ 
+/* istanbul ignore next: JSDOM doesn't support getSelection */
 export default function textSelectionActive(el = document) {
   const win = window
   if (win && win.getSelection && win.getSelection().toString() !== '' && isElement(el)) {
