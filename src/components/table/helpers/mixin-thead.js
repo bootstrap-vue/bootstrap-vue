@@ -122,7 +122,8 @@ export default {
             tabindex: sortable ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
-            scope: isFoot ? null : 'col',
+            role: 'columnheader',
+            scope: 'col',
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
             'aria-sort': ariaSort
@@ -165,14 +166,15 @@ export default {
           fields: fields
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h(false))
-        $trs.push(h('tr', { class: this.theadTrClass }, $cells))
+        $trs.push(h('tr', { class: this.theadTrClass, attrs { role: 'row' } }, $cells))
       }
 
       return h(
         isFoot ? 'tfoot' : 'thead',
         {
           key: isFoot ? 'tfoot' : 'thead',
-          class: isFoot ? this.footClasses : this.headClasses
+          class: isFoot ? this.footClasses : this.headClasses,
+          attrs: { role: 'rowgroup' }
         },
         $trs
       )
