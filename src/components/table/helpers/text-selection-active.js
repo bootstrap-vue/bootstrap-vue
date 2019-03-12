@@ -9,8 +9,7 @@ import { isElement } from '../../../utils/dom'
 export default function textSelectionActive(el) {
   const win = window
   /* istanbul ignore if: JSDOM doesn't support getSelection */
-  if (win && win.getSelection && isElement(el)) {
-    const sel = win.getSelection()
+  if (win && win.getSelection && win.getSelection().toString() !== '' && isElement(el)) {
     return sel.containsNode ? sel.containsNode(el, true) : false
   } else {
     return false
