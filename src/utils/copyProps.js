@@ -2,7 +2,7 @@ import { isArray } from './array'
 import identity from './identity'
 
 /**
- * Copies props from one array/object to a new aray/object. Prop values 
+ * Copies props from one array/object to a new aray/object. Prop values
  * are also cloned as new references to prevent possible mution of original
  * prop object values.
  *
