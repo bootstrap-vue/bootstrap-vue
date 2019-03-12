@@ -41,11 +41,10 @@ $enable-shadows: true;
 $enable-gradients: true;
 $grid-breakpoints: (
   xs: 0,
-  sm: 428px,
-  md: 799px,
-  lg: 899px,
-  xl: 1234px,
-  xxl: 1600px
+  sm: 456px,
+  md: 789px,
+  lg: 999px,
+  xl: 1234px
 );
 
 // Include Bootstrap and BootstrapVue SCSS files
