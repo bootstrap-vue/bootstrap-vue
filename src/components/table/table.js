@@ -127,11 +127,11 @@ export default {
       default: 'Click to sort Descending'
     },
     perPage: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     currentPage: {
-      type: Number,
+      type: [Number, String],
       default: 1
     },
     filter: {
@@ -151,7 +151,7 @@ export default {
       default: false
     },
     value: {
-      // v-model for retreiving the current displayed rows
+      // v-model for retrieving the current displayed rows
       type: Array,
       default() {
         return []
@@ -246,10 +246,10 @@ export default {
         typeof this.filterFunction !== 'function' &&
         !(typeof this.filter === 'string' || this.filter instanceof RegExp)
       ) {
-        // Using internal filter function, which only acccepts string or regexp at the moment
+        // Using internal filter function, which only accepts string or regexp at the moment
         return ''
       } else {
-        // Could be astring, object or array, as needed by external filter function
+        // Could be a string, object or array, as needed by external filter function
         return this.filter
       }
     },
@@ -292,7 +292,7 @@ export default {
       const sortCompare = this.sortCompare
       const localSorting = this.localSorting
       if (sortBy && localSorting) {
-        // stableSort returns a new arary, and leaves the original array intact
+        // stableSort returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
           if (typeof sortCompare === 'function') {
@@ -300,7 +300,8 @@ export default {
             result = sortCompare(a, b, sortBy, sortDesc)
           }
           if (result === null || result === undefined || result === false) {
-            // Fallback to built-in defaultSortCompare if sortCompare not defined or returns null/false
+            // Fallback to built-in defaultSortCompare if sortCompare
+            // is not defined or returns null/false
             result = defaultSortCompare(a, b, sortBy)
           }
           // Negate result if sorting in descending order
@@ -398,7 +399,7 @@ export default {
       }
     },
     context(newVal, oldVal) {
-      // Emit context info for enternal paging/filtering/sorting handling
+      // Emit context info for external paging/filtering/sorting handling
       if (!looseEqual(newVal, oldVal)) {
         this.$emit('context-changed', newVal)
       }
@@ -423,17 +424,18 @@ export default {
 
       // Build the wrapped filter test function, passing the criteria to the provided function
       const fn = item => {
-        // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
+        // Generated function returns true if the criteria matches part
+        // of the serialized data, otherwise false
         return filterFn(item, criteria)
       }
 
-      // return the wrapped function
+      // Return the wrapped function
       return fn
     },
     defaultFilterFnFactory(criteria) {
-      // Generates the default filter function, using the given flter criteria
+      // Generates the default filter function, using the given filter criteria
       if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
-        // Bult in filter can only support strings or RegExp criteria (at the moment)
+        // Built in filter can only support strings or RegExp criteria (at the moment)
         return null
       }
 
@@ -445,7 +447,8 @@ export default {
         const pattern = criteria
           .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
           .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
-        // Build the RegExp (no need for global flag, as we only need to find the value once in the string)
+        // Build the RegExp (no need for global flag, as we only need
+        // to find the value once in the string)
         regexp = new RegExp(`.*${pattern}.*`, 'i')
       }
 
@@ -456,13 +459,14 @@ export default {
         // string containing all the value properties (recursively), even ones that are
         // not visible (not specified in this.fields).
         //
-        // TODO: enable searching on formatted fields and scoped slots
-        // TODO: should we filter only on visible fields (i.e. ones in this.fields) by default?
-        // TODO: allow for searching on specific fields/key, this could be combined with the previous TODO
-        // TODO: give stringifyRecordValues extra options for filtering (i.e. passing the fields definition
-        //      and a reference to $scopedSlots)
+        // TODO: Enable searching on formatted fields and scoped slots
+        // TODO: Should we filter only on visible fields (i.e. ones in this.fields) by default?
+        // TODO: Allow for searching on specific fields/key, this could be combined with the previous TODO
+        // TODO: Give stringifyRecordValues extra options for filtering (i.e. passing the
+        //       fields definition and a reference to $scopedSlots)
         //
-        // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
+        // Generated function returns true if the criteria matches part of
+        // the serialized data, otherwise false
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
         return regexp.test(stringifyRecordValues(item))
