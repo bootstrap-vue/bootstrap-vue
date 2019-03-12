@@ -364,11 +364,6 @@ export default {
         this.$emit('update:sortBy', newVal)
       }
     },
-    localBusy(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:busy', newVal)
-      }
-    },
     // Watch for changes on computedItems and update the v-model
     computedItems(newVal, oldVal) {
       this.$emit('input', newVal)
