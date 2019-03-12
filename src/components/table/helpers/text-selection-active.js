@@ -6,11 +6,13 @@
 
 import { isElement } from '../../../utils/dom'
 
-/* istanbul ignore next: JSDOM doesn't support getSelection */
 export default function textSelectionActive(el = document) {
   const win = window
+  /* istanbul ignore if: JSDOM doesn't support getSelection */
   if (win && win.getSelection && win.getSelection().toString() !== '' && isElement(el)) {
+    /* istanbul ignore next: JSDOM doesn't support getSelection */
     const sel = win.getSelection()
+    /* istanbul ignore next: JSDOM doesn't support getSelection */
     return sel.containsNode ? sel.containsNode(el, true) : false
   } else {
     return false
