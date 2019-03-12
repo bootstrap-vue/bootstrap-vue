@@ -235,4 +235,46 @@ describe('table tbody row events', () => {
     $rows.at(1).trigger('mouseleave')
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
   })
+
+  it('should emit row-clicked event when a row is focusable and enter pressed', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {
+        // Rows will only have tabindex=0 when a row-clicked listener present
+        'row-clicked': () => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+    $rows.at(1).element.focus() /* event only works when teh tr is focused */
+    $rows.at(1).trigger('keydown.enter')
+    expect(wrapper.emitted('row-clicked')).toBeDefined()
+    expect(wrapper.emitted('row-clicked').length).toBe(1)
+    expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) /* row item */
+    expect(wrapper.emitted('row-clicked')[0][1]).toEqual(1) /* row index */
+    // Note: the KeyboardEvent is forwarded to the click handler
+    expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(KeyboardEvent) /* event */
+  })
+
+  it('should not emit row-clicked event when a row is focusable, enter pressed, and table busy', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        busy: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+    $rows.at(1).element.focus() /* event only works when the tr is focused */
+    $rows.at(1).trigger('keydown.enter')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+  })
 })
