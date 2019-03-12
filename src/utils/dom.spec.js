@@ -6,6 +6,8 @@ import {
   contains,
   closest,
   matches,
+  select,
+  selectAll,
   hasAttr,
   getAttr,
   hasClass
@@ -182,5 +184,47 @@ describe('utils/dom', () => {
     expect(getAttr(null, 'role')).toBe(null)
     expect(getAttr($btns.at(0).element, '')).toBe(null)
     expect(getAttr($btns.at(0).element, undefined)).toBe(null)
+  })
+
+  it('select works', async () => {
+    const App = Vue.extend({
+      template: template1
+    })
+    const wrapper = mount(App, {
+      mountToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+
+    const $btns = wrapper.findAll('div.baz > button')
+    expect($btns).toBeDefined()
+    expect($btns.length).toBe(3)
+
+    expect(select('button', wrapper.element)).toBe($btns.at(0).element)
+    expect(select('button')).toBe($btns.at(0).element) /* assumes document as root */
+    expect(select('button#button3', wrapper.element)).toBe($btns.at(2).element)
+    expect(select('span.nothere', wrapper.element)).toBe(null)
+  })
+
+  it('selectAll works', async () => {
+    const App = Vue.extend({
+      template: template1
+    })
+    const wrapper = mount(App, {
+      mountToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+
+    const $btns = wrapper.findAll('div.baz > button')
+    expect($btns).toBeDefined()
+    expect($btns.length).toBe(3)
+
+    expect(Array.isArray(selectAll('button', wrapper.element))).toBe(true)
+    expect(selectAll('button', wrapper.element).length).toBe(3)
+    expect(selectAll('button', wrapper.element)[0]).toBe($btns[0].element)
+    expect(selectAll('button', wrapper.element)[1]).toBe($btns[1].element)
+    expect(selectAll('button', wrapper.element)[2]).toBe($btns[2].element)
+    expect(selectAll('button').length).toBe(3) /* assumes document as root */
+    expect(Array.isArray(selectAll('button.fake', wrapper.element))).toBe(true)
+    expect(selectAll('button.fake', wrapper.element).length).toBe(0)
   })
 })
