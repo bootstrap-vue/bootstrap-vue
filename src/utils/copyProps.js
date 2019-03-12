@@ -1,4 +1,5 @@
 import { isArray } from './array'
+import { isPlainObject } from '.object'
 import identity from './identity'
 
 /**
@@ -14,7 +15,7 @@ export default function copyProps(props, transformFn = identity) {
 
   for (const prop in props) {
     if (props.hasOwnProperty(prop)) {
-      if (typeof prop === 'object') {
+      if (isPlainObject(prop)) {
         copied[transformFn(prop)] = { ...props[prop] }
       } else {
         copied[transformFn(prop)] = props[prop]
