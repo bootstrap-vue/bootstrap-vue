@@ -26,19 +26,17 @@ export default {
       ]
     },
     tdAttrs(field, item, colIndex) {
-      let attrs = {}
-      attrs['aria-colindex'] = String(colIndex + 1)
+      const attrs = {
+        role: 'cell',
+        'aria-colindex': String(colIndex + 1)
+      }
       if (field.isRowHeader) {
-        attrs['scope'] = 'row'
+        attrs.scope = 'row'
+        attrs.role = 'rowheader'
       }
       if (this.isStacked) {
         // Generate the "header cell" label content in stacked mode
         attrs['data-label'] = field.label
-        if (field.isRowHeader) {
-          attrs['role'] = 'rowheader'
-        } else {
-          attrs['role'] = 'cell'
-        }
       }
       return { ...attrs, ...this.getTdValues(item, field.key, field.tdAttr, {}) }
     },
@@ -259,7 +257,7 @@ export default {
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
               'aria-selected': this.selectable ? (rowSelected ? 'true' : 'false') : null,
-              role: this.isStacked ? 'row' : null
+              role: 'row'
             },
             on: {
               // TODO: only instatiate handlers if we have registered listeners (except row-clicked)
@@ -305,11 +303,13 @@ export default {
 
       // Row Details slot
       if (rowShowDetails) {
-        const tdAttrs = { colspan: String(fields.length) }
-        const trAttrs = { id: detailsId }
-        if (this.isStacked) {
-          tdAttrs['role'] = 'cell'
-          trAttrs['role'] = 'row'
+        const tdAttrs = {
+          colspan: String(fields.length),
+          role: 'cell'
+        }
+        const trAttrs = {
+          id: detailsId.
+          role: 'row'
         }
         // Render the details slot
         const $details = h('td', { attrs: tdAttrs }, [
