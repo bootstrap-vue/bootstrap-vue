@@ -15,13 +15,13 @@ describe('table body transition', () => {
         // the builtin stub doesn't really emulate transitio properly
         // so we let it use the real transition component
         'transition-group': false
-      }      
+      }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
-    expect(wrapper.find('tbody').is('transition-group')).toBe(false)
+    expect(wrapper.find('transition-group').exists()).toBe(false)
   })
 
   it('tbody should be a transition-group component when tbody-transition-props set', async () => {
@@ -37,13 +37,13 @@ describe('table body transition', () => {
         // the builtin stub doesn't really emulate transitio properly
         // so we let it use the real transition component
         'transition-group': false
-      }      
+      }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
-    expect(wrapper.find('transition-group')).toBe(true)
+    expect(wrapper.find('transition-group').exists()).toBe(true)
     expect(wrapper.find('transition-group').is('tbody')).toBe(true)
   })
 
@@ -63,12 +63,12 @@ describe('table body transition', () => {
         // the builtin stub doesn't really emulate transitio properly
         // so we let it use the real transition component
         'transition-group': false
-      }      
+      }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('transition-group')).toBe(true)
+    expect(wrapper.find('transition-group').exists()).toBe(true)
     expect(wrapper.find('transition-group').is('tbody')).toBe(true)
   })
 })
