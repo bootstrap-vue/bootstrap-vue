@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { isElement, isDisabled, contains, hasClass } from './dom'
+import { isElement, isDisabled, contains, closest, hasClass } from './dom'
 
 const template1 = `
 <div id="a" class="foo">
@@ -77,5 +77,30 @@ describe('utils/dom', () => {
     expect(contains(wrapper.element, $btn1.element)).toBe(true)
     expect(contains($span.element, $btn1.element)).toBe(false)
     expect(contains(null, $btn1.element)).toBe(false)
+  })
+
+  it('closest works', async () => {
+    const App = Vue.extend({
+      template: template1
+    })
+    const wrapper = mount(App, {
+      mountToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+
+    const $btns = wrapper.findAll('div.baz > button')
+    expect($btns).toBeDefined()
+    expect($btns.length).toBe(3)
+
+    expect(closest('div.foo', $btns.at(0).element)).toBeDefined()
+    expect(closest('div.foo', $btns.at(0).element)).toBe(wrapper.element)
+    expect(closest('div.foo', null)).toBe(null)
+
+    const $baz = wrapper.find('div.baz')
+    expect($baz).toBeDefined()
+    expect($baz.exists()).toBe(true)
+    expect(closest('div.baz', $btns.at(0).element)).toBeDefined()
+    expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
+    expect(closest('div.nothere', $btns.at(0).element)).toBe(null)
   })
 })
