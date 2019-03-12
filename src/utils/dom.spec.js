@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { isElement, isDisabled, contains, closest, matches, hasClass } from './dom'
+import { isElement, isDisabled, contains, closest, matches, hasAttr, getAttr, hasClass } from './dom'
 
 const template1 = `
 <div id="a" class="foo">
@@ -8,7 +8,7 @@ const template1 = `
     <span class="barspan foobar"></span>
   </div>
   <div class="baz">
-    <button id="button1">btn 1</button>
+    <button id="button1" aria-label="label">btn 1</button>
     <button id="button2">btn 1</button>
     <button id="button3" disabled>btn 1</button>
   </div>
@@ -125,5 +125,50 @@ describe('utils/dom', () => {
     expect(matches('button[disabled]', $btns.at(2).element)).toBe(true)
     expect(matches('button[disabled]', $btns.at(1).element)).toBe(false)
     expect(matches('div.foo', null)).toBe(false)
+  })
+
+  it('hasAttr works', async () => {
+    const App = Vue.extend({
+      template: template1
+    })
+    const wrapper = mount(App, {
+      mountToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+
+    const $btns = wrapper.findAll('div.baz > button')
+    expect($btns).toBeDefined()
+    expect($btns.length).toBe(3)
+
+    expect(hasAttr($btns.at(0).element, 'disabled')).toBe(false)
+    expect(hasAttr($btns.at(0).element, 'aria-label')).toBe(true)
+    expect(hasAttr($btns.at(1).element, 'disabled')).toBe(false)
+    expect(hasAttr($btns.at(2).element, 'disabled')).toBe(true)
+    expect(hasAttr($btns.at(2).element, 'role')).toBe(false)
+    expect(hasAttr(null, 'role')).toBe(null)
+  })
+
+  it('getAttr works', async () => {
+    const App = Vue.extend({
+      template: template1
+    })
+    const wrapper = mount(App, {
+      mountToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+
+    const $btns = wrapper.findAll('div.baz > button')
+    expect($btns).toBeDefined()
+    expect($btns.length).toBe(3)
+
+    expect(getAttr($btns.at(0).element, 'aria-label')).toBe('label')
+    expect(getAttr($btns.at(0).element, 'id')).toBe('button1')
+    expect(getAttr($btns.at(1).element, 'aria-label')).toBe(null)
+    expect(getAttr($btns.at(1).element, 'id')).toBe('button2')
+    expect(getAttr($btns.at(2).element, 'aria-label')).toBe(null)
+    expect(getAttr($btns.at(2).element, 'id')).toBe('button3')
+    expect(getAttr(null, 'role')).toBe(null)
+    expect(getAttr($btns.at(0).element, '')).toBe(null)
+    expect(getAttr($btns.at(0).element, undefined)).toBe(null)
   })
 })
