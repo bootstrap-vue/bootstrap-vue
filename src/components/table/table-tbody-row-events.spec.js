@@ -287,10 +287,10 @@ describe('table tbody row events', () => {
         items: [testItems[0]]
       },
       scopedSlots: {
-        a: '<button id="a">button</button>',
-        b: '<input id="b" />',
-        c: '<a href="#" id="c">link</a>',
-        d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>'
+        a: '<div slot-scope="props"><button id="a">button {{ props.value }}</button></div>',
+        b: '<div slot-scope="props"><input id="b" :name="props.value"/></div>',
+        c: '<div slot-scope="props"><a href="#" id="c">link {{ props.value }}</a></div>',
+        d: '<div slot-scope="props"><div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown {{ props.value }}</div></div></div>'
       }
     })
     expect(wrapper).toBeDefined()
