@@ -15,6 +15,13 @@ export default {
       return this.busy || this.localBusy
     }
   },
+  watch: {
+    localBusy(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('update:busy', newVal)
+      }
+    }
+  },
   methods: {
     // Event handler helper
     stopIfBusy(evt) {
