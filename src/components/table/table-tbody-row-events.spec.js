@@ -29,7 +29,7 @@ describe('table tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems,
-        busy: true,
+        busy: true
       }
     })
     expect(wrapper).toBeDefined()
@@ -92,5 +92,40 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
     $rows.at(1).trigger('dblclick')
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
+  })
+
+  it('should emit row-middle-clicked event when a row is middle clicked', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
+    $rows.at(1).trigger('auxclick')
+    expect(wrapper.emitted('row-middle-clicked')).toBeDefined()
+    expect(wrapper.emitted('row-middle-clicked').length).toBe(1)
+    expect(wrapper.emitted('row-middle-clicked')[0][0]).toEqual(testItems[1]) /* row item */
+    expect(wrapper.emitted('row-middle-clicked')[0][1]).toEqual(1) /* row index */
+    expect(wrapper.emitted('row-middle-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+  })
+
+  it('should not emit row-middle-clicked event when a row is middle clicked and table busy', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        busy: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
+    $rows.at(1).trigger('auxclick')
+    expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
   })
 })
