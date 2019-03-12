@@ -48,6 +48,6 @@ describe('utils/BvEvent', () => {
     expect(evt).toBeInstanceOf(BvEvent)
     expect(evt.type).toBe('foobar')
     expect(evt.cancelable).toBe(true)
-    expect(evt.custome).toBe(123)
+    expect(evt.custom).toBe(123)
   })
 })
