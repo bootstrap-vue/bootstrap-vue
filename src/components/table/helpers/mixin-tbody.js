@@ -72,7 +72,7 @@ export default {
           props: tbodyProps,
           on: tbodyOn,
           class: [this.tbodyClass],
-          attrs: this.isStacked ? { role: 'rowgroup' } : {}
+          attrs: { role: 'rowgroup' }
         },
         $rows
       )
