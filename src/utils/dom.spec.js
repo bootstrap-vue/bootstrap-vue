@@ -1,6 +1,15 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { isElement, isDisabled, contains, closest, matches, hasAttr, getAttr, hasClass } from './dom'
+import {
+  isElement,
+  isDisabled,
+  contains,
+  closest,
+  matches,
+  hasAttr,
+  getAttr,
+  hasClass
+} from './dom'
 
 const template1 = `
 <div id="a" class="foo">
