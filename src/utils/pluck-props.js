@@ -12,9 +12,7 @@ import identity from './identity'
  */
 export default function pluckProps(keysToPluck, objToPluck, transformFn = identity) {
   return (isArray(keysToPluck) ? keysToPluck.slice() : keys(keysToPluck)).reduce((memo, prop) => {
-    memo[transformFn(prop)] = typeof objToPluck[prop] === 'object'
-      ? { ...objToPluck[prop] }
-      : objToPluck[prop]
+    memo[transformFn(prop)] = objToPluck[prop]
     return memo
   }, {})
 }
