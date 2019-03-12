@@ -1,6 +1,6 @@
 import looseEqual from './loose-equal'
 
-describe('looseEqual', () => {
+describe('utils/looseEqual', () => {
   it('compares booleans correctly', () => {
     expect(looseEqual(true, true)).toBe(true)
     expect(looseEqual(false, false)).toBe(true)

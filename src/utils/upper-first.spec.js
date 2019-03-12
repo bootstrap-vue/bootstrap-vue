@@ -1,6 +1,6 @@
 import upperFirst from './upper-first'
 
-describe('utils/upper-first', () => {
+describe('utils/upperFirst', () => {
   it('works', async () => {
     expect(upperFirst('lower')).toBe('Lower')
     expect(upperFirst(' lower ')).toBe('Lower')
