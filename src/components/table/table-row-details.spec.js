@@ -51,7 +51,7 @@ describe('table row details', () => {
     expect($trs.at(1).is('tr.b-table-details')).toBe(true)
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
-    expect($trs.at(1).text()).toBe(foobar)
+    expect($trs.at(1).text()).toBe('foobar')
   })
 
   it('should show details slot when _showDetails changed', async () => {
@@ -81,11 +81,11 @@ describe('table row details', () => {
     expect($trs.length).toBe(5)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(true)
-    expect($trs.at(1).text()).toBe(foobar)
+    expect($trs.at(1).text()).toBe('foobar')
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
     expect($trs.at(4).is('tr.b-table-details')).toBe(true)
-    expect($trs.at(4).text()).toBe(foobar)
+    expect($trs.at(4).text()).toBe('foobar')
   })
 
   it('should hide details slot when _showDetails changed', async () => {
@@ -113,7 +113,7 @@ describe('table row details', () => {
     expect($trs.length).toBe(4)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(true)
-    expect($trs.at(1).text()).toBe(foobar)
+    expect($trs.at(1).text()).toBe('foobar')
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
 
@@ -154,7 +154,7 @@ describe('table row details', () => {
     expect($trs.at(1).is('tr.d-none')).toBe(true)
     expect($trs.at(2).is('tr.b-table-details')).toBe(true)
     expect($trs.at(2).is('tr.d-none')).toBe(false)
-    expect($trs.at(2).text()).toBe(foobar)
+    expect($trs.at(2).text()).toBe('foobar')
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).is('tr.d-none')).toBe(false)
     expect($trs.at(4).is('tr.b-table-details')).toBe(false)
