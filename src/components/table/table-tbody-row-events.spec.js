@@ -281,8 +281,8 @@ describe('table tbody row events', () => {
   it('should not emit row-clicked event when clicking on a button or other interactive element', async () => {
     const wrapper = mount(Table, {
       propsData: {
-        /* add an extra virtual column */
-        fields: [].concat(testFields, 'd'),
+        /* add extra virtual columns */
+        fields: [].concat(testFields, ['d', 'e']),
         /* we just use a single row for testing */
         items: [testItems[0]]
       },
@@ -291,7 +291,8 @@ describe('table tbody row events', () => {
         a: '<button id="a">button</button>',
         b: '<input id="b" />',
         c: '<a href="#" id="c">link</a>',
-        d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>'
+        d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
+        e: '<label for="e">label</label><input id="e" />'
       }
     })
     expect(wrapper).toBeDefined()
@@ -318,6 +319,11 @@ describe('table tbody row events', () => {
     const $dd = wrapper.find('div[id="d"]')
     expect($dd.exists()).toBe(true)
     $dd.trigger('click')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    const $label = wrapper.find('label[for="e"]')
+    expect($label.exists()).toBe(true)
+    $label.trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
   })
 })
