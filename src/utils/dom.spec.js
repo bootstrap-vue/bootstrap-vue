@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { isElement, isDisabled, contains, closest, hasClass } from './dom'
+import { isElement, isDisabled, contains, closest, matches, hasClass } from './dom'
 
 const template1 = `
 <div id="a" class="foo">
@@ -102,5 +102,28 @@ describe('utils/dom', () => {
     expect(closest('div.baz', $btns.at(0).element)).toBeDefined()
     expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
     expect(closest('div.nothere', $btns.at(0).element)).toBe(null)
+  })
+
+  it('matches works', async () => {
+    const App = Vue.extend({
+      template: template1
+    })
+    const wrapper = mount(App, {
+      mountToDocument: true
+    })
+    expect(wrapper).toBeDefined()
+
+    const $btns = wrapper.findAll('div.baz > button')
+    expect($btns).toBeDefined()
+    expect($btns.length).toBe(3)
+
+    expect(matches('div.baz > button', $btns.at(0).element)).toBe(true)
+    expect(matches('div.foo > button', $btns.at(0).element)).toBe(false)
+    expect(matches('div.foo button', $btns.at(0).element)).toBe(true)
+    expect(matches('div.bar button', $btns.at(0).element)).toBe(false)
+    expect(matches('button#button1', $btns.at(0).element)).toBe(true)
+    expect(matches('button[disabled]', $btns.at(2).element)).toBe(true)
+    expect(matches('button[disabled]', $btns.at(1).element)).toBe(false)
+    expect(matches('div.foo', null)).toBe(false)
   })
 })
