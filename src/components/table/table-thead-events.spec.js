@@ -28,10 +28,10 @@ describe('table thead events', () => {
 
     $ths.at(2).trigger('click')
     expect(wrapper.emitted('head-clicked').length).toBe(2)
-    expect(wrapper.emitted('head-clicked')[2][0]).toEqual(testFields[2].key) /* field key */
-    expect(wrapper.emitted('head-clicked')[2][1]).toEqual(testFields[2]) /* field def */
-    expect(wrapper.emitted('head-clicked')[2][2]).toBeInstanceOf(MouseEvent) /* event */
-    expect(wrapper.emitted('head-clicked')[2][3]).toBe(false) /* is footer */
+    expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) /* field key */
+    expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) /* field def */
+    expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) /* event */
+    expect(wrapper.emitted('head-clicked')[1][3]).toBe(false) /* is footer */
   })
 
   it('should not emit head-clicked event when prop busy is set', async () => {
