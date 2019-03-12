@@ -9,6 +9,6 @@ describe('utils/upper-first', () => {
     expect(upperFirst(undefined)).toBe('Undefined')
     expect(upperFirst({})).toBe('[object Object]')
     expect(upperFirst([])).toBe('')
-    expect(upperFirst(['foo','bar'])).toBe('Foo,bar')
+    expect(upperFirst(['foo', 'bar'])).toBe('Foo,bar')
   })
 })
