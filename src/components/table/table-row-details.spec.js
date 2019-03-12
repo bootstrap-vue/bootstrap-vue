@@ -117,11 +117,11 @@ describe('table row details', () => {
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
 
-    wrapper.vm.localItems[2]._showDetails = false
+    wrapper.vm.localItems[0]._showDetails = false
     $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(3)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
-    expect($trs.at(1).is('tr.b-table-details')).toBe(true)
+    expect($trs.at(1).is('tr.b-table-details')).toBe(false)
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
   })
 
