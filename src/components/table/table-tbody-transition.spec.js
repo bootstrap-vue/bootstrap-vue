@@ -10,6 +10,9 @@ describe('table body transition', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      stubs: {
+        'transition-group': TransitionGroupStub
       }
     })
     expect(wrapper).toBeDefined()
@@ -27,14 +30,16 @@ describe('table body transition', () => {
         tbodyTransitionProps: {
           name: 'fade'
         }
+      },
+      stubs: {
+        'transition-group': TransitionGroupStub
       }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
-    expect(wrapper.find('tbody').is('tbody')).toBe(true)
-    expect(wrapper.find('transition-group').is('tbody')).toBe(true)
+    // Transition-group stub doesn't render itself with the specified tag
+    expect(wrapper.find('tbody').exists()).toBe(false)
   })
 
   it('tbody should be a transition-group component when tbody-transition-handlers set', async () => {
@@ -50,15 +55,13 @@ describe('table body transition', () => {
         }
       },
       stubs: {
-        // the builtin stub doesn't really emulate transitio properly
-        // so we let it use the real transition component
-        'transition-group': false
+        'transition-group': TransitionGroupStub
       }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('transition-group').exists()).toBe(true)
-    expect(wrapper.find('transition-group').is('tbody')).toBe(true)
+    expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
+    // Transition-group stub doesn't render itself with the specified tag
+    expect(wrapper.find('tbody').exists()).toBe(false)
   })
 })
