@@ -28,7 +28,7 @@ const Selector = {
 }
 
 /* istanbul ignore next: dificult to test in Jest/JSDOM environment */
-class PopOver extends ToolTip {
+class PopOver extends ToolTip /* istanbul ignore next */ {
   // Getter overrides
 
   static get Default() {
