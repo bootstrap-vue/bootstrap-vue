@@ -222,8 +222,6 @@ describe('utils/dom', () => {
     expect(selectAll('button', wrapper.element)[0]).toBe($btns.at(0).element)
     expect(selectAll('button', wrapper.element)[1]).toBe($btns.at(1).element)
     expect(selectAll('button', wrapper.element)[2]).toBe($btns.at(2).element)
-    expect(selectAll('button').length).toBe(3) /* assumes document root */
-    expect(selectAll('button')[0]).toBe($btns.at(0).element)
 
     expect(Array.isArray(selectAll('button.fake', wrapper.element))).toBe(true)
     expect(selectAll('button.fake', wrapper.element).length).toBe(0)
