@@ -43,7 +43,8 @@ describe('table body transition', () => {
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
-    expect(wrapper.find('tbody').is('transition-group')).toBe(true)
+    expect(wrapper.find('transition-group')).toBe(true)
+    expect(wrapper.find('transition-group').is('tbody').toBe(true)
   })
 
   it('tbody should be a transition-group component when tbody-transition-handlers set', async () => {
@@ -67,7 +68,7 @@ describe('table body transition', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').is('tbody')).toBe(true)
-    expect(wrapper.find('tbody').is('transition-group')).toBe(true)
+    expect(wrapper.find('transition-group')).toBe(true)
+    expect(wrapper.find('transition-group').is('tbody').toBe(true)
   })
 })
