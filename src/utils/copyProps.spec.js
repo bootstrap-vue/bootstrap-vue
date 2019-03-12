@@ -20,9 +20,12 @@ describe('utils/copyProps', () => {
     // Should be a new object reference
     expect(copyProps(props)).not.toBe(props)
     // Properties should be new object references
-    expect(copyProps(props).a === props.a).toBe(false)
-    expect(copyProps(props).b === props.b).toBe(false)
+    expect(copyProps(props).a).not.toBe(props.a)
+    expect(copyProps(props).a).toEqual(props.a)
+    expect(copyProps(props).b).not.toBe(props.b)
+    expect(copyProps(props).b).toEqual(props.b)
     // Except for primatives
-    expect(copyProps(props).c === props.c).toBe(true)
+    expect(copyProps(props).c).toBe(props.c)
+    expect(copyProps(props).c).toEqual(props.c)
   })
 })
