@@ -7,6 +7,19 @@ describe('utils/BvEvent', () => {
     expect(evt.type).toBe('foobar')
   })
 
+  it('throws exception if no type given', async () => {
+    let evt = null
+    let failed = false
+    try {
+      evt = new BvEvent()
+    } catch (e) {
+      failed = true
+    }
+    expect(evt).not.toBeInstanceOf(BvEvent)
+    expect(evt).toBe(null)
+    expect(failed).toBe(true)
+  })
+
   it('supports cancelable events', async () => {
     const evt = new BvEvent('foobar', {
       cancelable: true
