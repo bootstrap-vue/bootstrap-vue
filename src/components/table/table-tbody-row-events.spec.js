@@ -165,4 +165,74 @@ describe('table tbody row events', () => {
     $rows.at(1).trigger('contextmenu')
     expect(wrapper.emitted('row-contextmenu')).not.toBeDefined()
   })
+
+  it('should emit row-hovered event when a row is hovered', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-hovered')).not.toBeDefined()
+    $rows.at(1).trigger('mouseenter')
+    expect(wrapper.emitted('row-hovered')).toBeDefined()
+    expect(wrapper.emitted('row-hovered').length).toBe(1)
+    expect(wrapper.emitted('row-hovered')[0][0]).toEqual(testItems[1]) /* row item */
+    expect(wrapper.emitted('row-hovered')[0][1]).toEqual(1) /* row index */
+    expect(wrapper.emitted('row-hovered')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+  })
+
+  it('should not emit row-hovered event when a row is hovered and table busy', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        busy: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-hovered')).not.toBeDefined()
+    $rows.at(1).trigger('mouseenter')
+    expect(wrapper.emitted('row-hovered')).not.toBeDefined()
+  })
+
+  it('should emit row-unhovered event when a row is unhovered', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
+    $rows.at(1).trigger('mouseleave')
+    expect(wrapper.emitted('row-unhovered')).toBeDefined()
+    expect(wrapper.emitted('row-unhovered').length).toBe(1)
+    expect(wrapper.emitted('row-unhovered')[0][0]).toEqual(testItems[1]) /* row item */
+    expect(wrapper.emitted('row-unhovered')[0][1]).toEqual(1) /* row index */
+    expect(wrapper.emitted('row-unhovered')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+  })
+
+  it('should not emit row-unhovered event when a row is unhovered and table busy', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        busy: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-uhovered')).not.toBeDefined()
+    $rows.at(1).trigger('mouseleave')
+    expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
+  })
 })
