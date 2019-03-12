@@ -222,8 +222,10 @@ describe('utils/dom', () => {
     expect(selectAll('button', wrapper.element)[0]).toBe($btns[0].element)
     expect(selectAll('button', wrapper.element)[1]).toBe($btns[1].element)
     expect(selectAll('button', wrapper.element)[2]).toBe($btns[2].element)
+
     expect(Array.isArray(selectAll('button.fake', wrapper.element))).toBe(true)
     expect(selectAll('button.fake', wrapper.element).length).toBe(0)
+
     expect(selectAll('div.baz button', wrapper.element).length).toBe(3)
     expect(selectAll('div.baz button', wrapper.element)[0]).toBe($btns[0].element)
     expect(selectAll('div.baz button', wrapper.element)[1]).toBe($btns[1].element)
