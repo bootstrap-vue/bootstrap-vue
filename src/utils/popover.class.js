@@ -28,20 +28,20 @@ const Selector = {
 }
 
 /* istanbul ignore next: dificult to test in Jest/JSDOM environment */
-class PopOver extends ToolTip /* istanbul ignore next */ {
+class PopOver extends ToolTip {
   // Getter overrides
 
-  static get Default() {
+  static get Default() /* istanbul ignore next */ {
     return Defaults
   }
 
-  static get NAME() {
+  static get NAME() /* istanbul ignore next */ {
     return NAME
   }
 
   // Method overrides
 
-  isWithContent(tip) {
+  isWithContent(tip) /* istanbul ignore next */ {
     tip = tip || this.$tip
     if (!tip) {
       return false
@@ -51,11 +51,11 @@ class PopOver extends ToolTip /* istanbul ignore next */ {
     return hasTitle || hasContent
   }
 
-  addAttachmentClass(attachment) {
+  addAttachmentClass(attachment) /* istanbul ignore next */ {
     addClass(this.getTipElement(), `${CLASS_PREFIX}-${attachment}`)
   }
 
-  setContent(tip) {
+  setContent(tip) /* istanbul ignore next */ {
     // we use append for html objects to maintain js events/components
     this.setElementContent(select(Selector.TITLE, tip), this.getTitle())
     this.setElementContent(select(Selector.CONTENT, tip), this.getContent())
@@ -65,7 +65,7 @@ class PopOver extends ToolTip /* istanbul ignore next */ {
   }
 
   // This method may look identical to ToolTip version, but it uses a different RegEx defined above
-  cleanTipClass() {
+  cleanTipClass() /* istanbul ignore next */ {
     const tip = this.getTipElement()
     const tabClass = tip.className.match(BSCLS_PREFIX_REGEX)
     if (tabClass !== null && tabClass.length > 0) {
@@ -75,7 +75,7 @@ class PopOver extends ToolTip /* istanbul ignore next */ {
     }
   }
 
-  getTitle() {
+  getTitle() /* istanbul ignore next */ {
     let title = this.$config.title || ''
     if (typeof title === 'function') {
       title = title(this.$element)
@@ -97,7 +97,7 @@ class PopOver extends ToolTip /* istanbul ignore next */ {
 
   // New methods
 
-  getContent() {
+  getContent() /* istanbul ignore next */ {
     let content = this.$config.content || ''
     if (typeof content === 'function') {
       content = content(this.$element)
