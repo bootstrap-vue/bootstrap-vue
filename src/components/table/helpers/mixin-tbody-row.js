@@ -308,7 +308,7 @@ export default {
           role: 'cell'
         }
         const trAttrs = {
-          id: detailsId.
+          id: detailsId,
           role: 'row'
         }
         // Render the details slot
