@@ -1,6 +1,5 @@
 import Table from './table'
 import { mount } from '@vue/test-utils'
-import Vue from 'vue'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
@@ -289,9 +288,9 @@ describe('table tbody row events', () => {
       },
       slots: {
         // in Vue 2.6x, slots get translated into scopedSlots
-        a: '<button id="a">button {{ props.value }}</button>',
-        b: '<input id="b" :name="props.value"/>',
-        c: '<a href="#" id="c">link {{ props.value }}</a>',
+        a: '<button id="a">button</button>',
+        b: '<input id="b" />',
+        c: '<a href="#" id="c">link</a>',
         d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>'
       }
     })
