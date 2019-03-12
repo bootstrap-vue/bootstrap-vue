@@ -40,7 +40,7 @@ export default {
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
         return
-      } else if (textSelectionActive(this.$el)) {
+      } else if (textSelectionActive()) {
         // User is selecting text, so ignore
         /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
