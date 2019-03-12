@@ -277,4 +277,46 @@ describe('table tbody row events', () => {
     $rows.at(1).trigger('keydown.enter')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
   })
+
+  it('should not emit row-clicked event when clicking on a button or other interactive element', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        /* add an extra virtual column */
+        fields: [].concat(testFields, 'd'),
+        /* we just use a single row for testing */
+        items: [testItems[0]]
+      },
+      scopedSlots: {
+        'a': '<button id="a">button</button>',
+        'b': '<input id="b" />',
+        'c': '<a href="#" id="c">link</a>'
+        'd': '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(1)
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    const $btn = wrapper.find('button[id="a"]')
+    expect($btn.exists()).toBe(true)
+    $btn.trigger('click')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    const $input = wrapper.find('input[id="b"]')
+    expect($input.exists()).toBe(true)
+    $input.trigger('click')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    const $link = wrapper.find('a[id="c"]')
+    expect($link.exists()).toBe(true)
+    $link.trigger('click')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    const $dd = wrapper.find('div[id="d"]')
+    expect($dd.exists()).toBe(true)
+    $dd.trigger('click')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+  })
 })
