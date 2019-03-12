@@ -20,7 +20,8 @@ export default {
             typeof this.tbodyTrClass === 'function'
               ? this.tbodyTrClass(null, 'row-top')
               : this.tbodyTrClass
-          ]
+          ],
+          attrs: { role: 'row' }
         },
         [this.normalizeSlot('top-row', { columns: fields.length, fields: fields })]
       )
