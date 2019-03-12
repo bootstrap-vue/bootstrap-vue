@@ -18,7 +18,7 @@ const template1 = `
 describe('utils/dom', () => {
   it('isElement works', async () => {
     const App = Vue.extend({
-      template:template1
+      template: template1
     })
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
@@ -30,7 +30,7 @@ describe('utils/dom', () => {
 
   it('isDisabled works', async () => {
     const App = Vue.extend({
-      template:template1
+      template: template1
     })
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
@@ -38,14 +38,14 @@ describe('utils/dom', () => {
     const $btns = wrapper.findAll('div.baz > button')
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
-    expect(isDisabled($btn.at(0).element)).toBe(false)
-    expect(isDisabled($btn.at(1).element)).toBe(false)
-    expect(isDisabled($btn.at(2).element)).toBe(true)
+    expect(isDisabled($btns.at(0).element)).toBe(false)
+    expect(isDisabled($btns.at(1).element)).toBe(false)
+    expect(isDisabled($btns.at(2).element)).toBe(true)
   })
 
   it('hasClass works', async () => {
     const App = Vue.extend({
-      template:template1
+      template: template1
     })
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
@@ -61,7 +61,7 @@ describe('utils/dom', () => {
 
   it('contains works', async () => {
     const App = Vue.extend({
-      template:template1
+      template: template1
     })
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
