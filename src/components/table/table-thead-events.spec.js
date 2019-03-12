@@ -23,14 +23,14 @@ describe('table thead events', () => {
     expect(wrapper.emitted('head-clicked').length).toBe(1)
     expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) /* field key */
     expect(wrapper.emitted('head-clicked')[0][1]).toEqual(testFields[0]) /* field def */
-    expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+    expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
     expect(wrapper.emitted('head-clicked')[0][3]).toBe(false) /* is footer */
 
     $ths.at(2).trigger('click')
     expect(wrapper.emitted('head-clicked').length).toBe(2)
     expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[1].key) /* field key */
     expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[1]) /* field def */
-    expect(wrapper.emitted('row-clicked')[1][2]).toBeInstanceOf(MouseEvent) /* event */
+    expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) /* event */
     expect(wrapper.emitted('head-clicked')[1][3]).toBe(false) /* is footer */
   })
 
