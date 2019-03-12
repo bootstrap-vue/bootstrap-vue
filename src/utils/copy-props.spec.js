@@ -1,4 +1,4 @@
-import copyProps from './copyProps'
+import copyProps from './copy-props'
 
 describe('utils/copyProps', () => {
   it('works with array props', async () => {
