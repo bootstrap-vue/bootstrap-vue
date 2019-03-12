@@ -47,7 +47,7 @@ describe('table body transition', () => {
       propsData: {
         fields: testFields,
         items: testItems,
-        tbodyTransitionHanlders: {
+        tbodyTransitionHandlers: {
           onBeforeEnter: el => {},
           onAfterEnter: el => {},
           onBeforeLeave: el => {},
