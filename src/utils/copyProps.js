@@ -17,7 +17,7 @@ export default function copyProps(props, transformFn = identity) {
     if (props.hasOwnProperty(prop)) {
       if (isPlainObject(prop)) {
         // copied[transformFn(prop)] = { ...props[prop] }
-        copied[transformFn(prop)] = assign{{}, props[prop])
+        copied[transformFn(prop)] = assign({}, props[prop])
       } else {
         copied[transformFn(prop)] = props[prop]
       }
