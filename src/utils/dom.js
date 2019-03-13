@@ -33,7 +33,9 @@ export const parseEventOptions = options => {
     // Need to translate to actual Boolean value
     return Boolean(isObject(options) ? options.useCapture : options)
   }
+  /* istanbul ignore next: JSDOM doesn't support above detection of passive */
   return options || { useCapture: false }
+  // So we can't reach this anymore for unit testing due to the above if statement
 }
 
 // Attach an event listener to an element
