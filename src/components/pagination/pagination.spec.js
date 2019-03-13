@@ -406,7 +406,7 @@ describe('pagination', () => {
       value: '7'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(4)
+    expect(wrapper.vm.currentPage).toBe(7)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -417,7 +417,7 @@ describe('pagination', () => {
         // pages 1 to 4
         expect(li.classes()).toContain('d-none')
         expect(li.classes()).toContain('d-sm-flex')
-      } else if (index >=6 && index <= 8) {
+      } else if (index >= 6 && index <= 8) {
         // pages 5 to 7
         expect(li.classes()).not.toContain('d-none')
         expect(li.classes()).not.toContain('d-sm-flex')
