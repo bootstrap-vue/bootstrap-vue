@@ -524,56 +524,61 @@ describe('pagination', () => {
     expect(wrapper.emitted('change')[2][0]).toBe(2)
   })
 
-  it('keyboard navigation works', async () => {
-    // Mock getBCR so that the isVisible(el) test returns true.
-    // In our test below, all pagination buttons would normally be visible.
-    Element.prototype.getBoundingClientRect = jest.fn(() => {
-      return {
+  describe('pagination keyboard navigation', () => {
+    beforeEach(() => {
+      // Mock getBCR so that the isVisible(el) test returns true.
+      // In our test below, all pagination buttons would normally be visible.
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
           width: 24,
           height: 24,
           top: 0,
           left: 0,
           bottom: 0,
-          right: 0,
-      }
+          right: 0
+        }
+      })
     })
-    const wrapper = mount(Pagination, {
-      propsData: {
-        totalRows: 3,
-        perPage: 1,
-        value: 2,
-        limit: 3
-      },
-      mountToDocument: true
+
+    it('keyboard navigation works', async () => {
+      const wrapper = mount(Pagination, {
+        propsData: {
+          totalRows: 3,
+          perPage: 1,
+          value: 2,
+          limit: 3
+        },
+        mountToDocument: true
+      })
+      await wrapper.vm.$nextTick()
+      expect(wrapper.is('ul')).toBe(true)
+
+      // Grab the button links (4 bookends + 3 pages)
+      let links = wrapper.findAll('a')
+      expect(links.length).toBe(7)
+
+      links.at(3).element.focus()
+      expect(document.activeElement).toBe(links.at(3).element)
+
+      // LEFT
+      links.at(3).trigger('keydown.left')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe(links.at(2).element)
+
+      // RIGHT
+      links.at(2).trigger('keydown.right')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe(links.at(3).element)
+
+      // SHIFT-RIGHT
+      links.at(2).trigger('keydown.right', { shiftKey: true })
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe(links.at(6).element)
+
+      // SHIFT-LEFT
+      links.at(6).trigger('keydown.left', { shiftKey: true })
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe(links.at(0).element)
     })
-    await wrapper.vm.$nextTick()
-    expect(wrapper.is('ul')).toBe(true)
-
-    // Grab the button links (4 bookends + 3 pages)
-    let links = wrapper.findAll('a')
-    expect(links.length).toBe(7)
-
-    links.at(3).element.focus()
-    expect(document.activeElement).toBe(links.at(3).element)
-
-    // LEFT
-    links.at(3).trigger('keydown.left')
-    await wrapper.vm.$nextTick()
-    expect(document.activeElement).toBe(links.at(2).element)
-
-    // RIGHT
-    links.at(2).trigger('keydown.right')
-    await wrapper.vm.$nextTick()
-    expect(document.activeElement).toBe(links.at(3).element)
-
-    // SHIFT-RIGHT
-    links.at(2).trigger('keydown.right', { shiftKey: true })
-    await wrapper.vm.$nextTick()
-    expect(document.activeElement).toBe(links.at(6).element)
-
-    // SHIFT-LEFT
-    links.at(6).trigger('keydown.left', { shiftKey: true })
-    await wrapper.vm.$nextTick()
-    expect(document.activeElement).toBe(links.at(0).element)
   })
 })
