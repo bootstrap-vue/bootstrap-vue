@@ -58,6 +58,9 @@ export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() 
   if (!isElement(el) || !contains(document.body, el)) {
     return false
   }
+  if (el.offsetWidth || el.offsetHeight) {
+    return true
+  }
   const bcr = getBCR(el)
   return Boolean(bcr && bcr.height > 0 && bcr.width > 0)
 }
