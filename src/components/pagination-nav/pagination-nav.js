@@ -1,4 +1,5 @@
 import warn from '../../utils/warn'
+import { requestAF } from '../../utils/dom'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
@@ -69,11 +70,10 @@ export default {
       }
       // Done in a nextTick to ensure page number updated correctly
       this.$nextTick(() => {
-        // May need to use a setTimeout or requestAnimationFrame
-        setTimeout(() => {
+        requestAF(() => {
           // Update the v-model
           this.currentPage = pageNum
-        }, 500)
+        })
         try {
           // Emulate native link click page reloading behaviour by  blurring the
           // paginator and returing focus to the document
