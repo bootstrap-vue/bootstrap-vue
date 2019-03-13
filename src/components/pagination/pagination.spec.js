@@ -561,28 +561,28 @@ describe('pagination', () => {
       expect(links.length).toBe(7)
 
       links.at(3).element.focus()
-      expect(document.activeElement).toBe(links.at(3).element)
+      expect(links.at(3).element).toEqual(document.activeElement)
 
       // LEFT
-      // links.at(3).trigger('keydown.left')
-      wrapper.trigger('keydown.left')
+      links.at(3).trigger('keydown.left')
       await wrapper.vm.$nextTick()
-      expect(document.activeElement).toBe(links.at(2).element)
+      await wrapper.vm.$nextTick()
+      expect(links.at(2).element).toEqual(document.activeElement)
 
       // RIGHT
       links.at(2).trigger('keydown.right')
       await wrapper.vm.$nextTick()
-      expect(document.activeElement).toBe(links.at(3).element)
+      expect(links.at(3).element).toEqual(document.activeElement)
 
       // SHIFT-RIGHT
       links.at(2).trigger('keydown.right', { shiftKey: true })
       await wrapper.vm.$nextTick()
-      expect(document.activeElement).toBe(links.at(6).element)
+      expect(links.at(6).element).toEqual(document.activeElement)
 
       // SHIFT-LEFT
       links.at(6).trigger('keydown.left', { shiftKey: true })
       await wrapper.vm.$nextTick()
-      expect(document.activeElement).toBe(links.at(0).element)
+      expect(links.at(0).element).toEqual(document.activeElement)
     })
   })
 })
