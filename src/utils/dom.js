@@ -58,9 +58,8 @@ export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() 
   if (!isElement(el) || !contains(document.body, el)) {
     return false
   }
-  if (el.offsetWidth || el.offsetHeight) {
-    return true
-  }
+  // All browsers support getBoundingClientRect(), except JSDOM as it returns all 0's for values :(
+  // So any tests that need isVisible will fail in JSDOM
   const bcr = getBCR(el)
   return Boolean(bcr && bcr.height > 0 && bcr.width > 0)
 }
