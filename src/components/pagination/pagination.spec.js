@@ -1,5 +1,5 @@
 import Pagination from './pagination'
-import { isVisible, getBCR } from '../../utils/dom'
+import { isVisible, getBCR, contains } from '../../utils/dom'
 import { mount } from '@vue/test-utils'
 
 describe('pagination', () => {
@@ -560,9 +560,9 @@ describe('pagination', () => {
       // Sanity check for getBCR override
       expect(wrapper.element.getBoundingClientRect().width).toBe(24)
       expect(getBCR(links.at(3).element).width).toBe(24)
-      expect(getBCR(links.at(3).element).height).toBe(24)
+      expect(contains(document, links.at(3).element)).toBe(true)
+      expect(contains(document.body, links.at(3).element)).toBe(true)
       expect(isVisible(links.at(3).element)).toBe(true)
-      expect(isVisible(links.at(2).element)).toBe(true)
 
       // Focus the active button
       links.at(3).element.focus()
