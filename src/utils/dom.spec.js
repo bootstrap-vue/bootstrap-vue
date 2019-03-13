@@ -33,7 +33,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('div.foo')).toBe(true)
     expect(isElement(wrapper.element)).toBe(true)
@@ -45,7 +47,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -60,7 +64,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -76,7 +82,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -97,7 +105,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -122,7 +130,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -148,7 +156,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -169,7 +177,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -193,7 +201,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -201,9 +209,15 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
+    // With root element specified
     expect(select('button', wrapper.element)).toBe($btns.at(0).element)
     expect(select('button#button3', wrapper.element)).toBe($btns.at(2).element)
     expect(select('span.nothere', wrapper.element)).toBe(null)
+
+    // Without root element specified (assumes document as root)
+    expect(select('button')).toBe($btns.at(0).element)
+    expect(select('button#button3')).toBe($btns.at(2).element)
+    expect(select('span.nothere').toBe(null)
   })
 
   it('selectAll works', async () => {
@@ -211,7 +225,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -219,6 +233,7 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
+    // With root element specified
     expect(Array.isArray(selectAll('button', wrapper.element))).toBe(true)
     expect(selectAll('button', wrapper.element).length).toBe(3)
     expect(selectAll('button', wrapper.element)[0]).toBe($btns.at(0).element)
@@ -232,6 +247,21 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button', wrapper.element)[0]).toBe($btns.at(0).element)
     expect(selectAll('div.baz button', wrapper.element)[1]).toBe($btns.at(1).element)
     expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns.at(2).element)
+
+    // Without root element specified (assumes document as root)
+    expect(Array.isArray(selectAll('button'))).toBe(true)
+    expect(selectAll('button').length).toBe(3)
+    expect(selectAll('button')[0]).toBe($btns.at(0).element)
+    expect(selectAll('button')[1]).toBe($btns.at(1).element)
+    expect(selectAll('button')[2]).toBe($btns.at(2).element)
+
+    expect(Array.isArray(selectAll('button.fake'))).toBe(true)
+    expect(selectAll('button.fake').length).toBe(0)
+
+    expect(selectAll('div.baz button').length).toBe(3)
+    expect(selectAll('div.baz button')[0]).toBe($btns.at(0).element)
+    expect(selectAll('div.baz button')[1]).toBe($btns.at(1).element)
+    expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
   })
 
   it('event options parsing works', async () => {
