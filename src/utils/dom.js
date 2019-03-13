@@ -21,12 +21,13 @@ if (inBrowser) {
 }
 
 // Normalize event options based on support of passive option
-const parseEventOptions = options => {
+// Exported only for testing purposes
+export const parseEventOptions = options => {
   let useCapture = false
   if (options) {
     if (typeof options === 'object') {
-      // eslint-disable-next-line no-unneeded-ternary
-      useCapture = options.useCapture ? true : false
+      // Need to translate to actual Boolean value
+      useCapture = Boolean(options.useCapture)
     } else {
       useCapture = options
     }
