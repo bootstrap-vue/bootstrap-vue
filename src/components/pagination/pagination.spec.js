@@ -523,4 +523,45 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
   })
+
+  it('keyboard navigation works', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 3,
+        perPage: 1,
+        currentPage: 2,
+        limit: 3
+      },
+      mountToDocument: true
+    })
+    
+    expect(wrapper.is('ul')).toBe(true)
+
+    // Grab the page button links
+    let links = wrapper.findAll('li > a')
+    expect(links.length).toBe(7)
+
+    links.at(3).element.focus()
+    expect(document.activeElement).toBe(links.at(3).element)
+
+    // LEFT
+    links.at(3).trigger('keydown.left')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe(links.at(2).element)
+
+    // RIGHT
+    links.at(2).trigger('keydown.right')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe(links.at(3).element)
+
+    // SHIFT-RIGHT
+    links.at(2).trigger('keydown.right', { shiftKey: true })
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe(links.at(6).element)
+
+    // SHIFT-LEFT
+    links.at(6).trigger('keydown.left', { shiftKey: true })
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe(links.at(0).element)
+  })
 })
