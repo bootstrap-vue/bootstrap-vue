@@ -206,6 +206,7 @@ export default {
       }
       // Sanity checks
       if (startNum < 1) {
+        /* istanbul ignore next */
         startNum = 1
       } else if (startNum > numPages - numLinks) {
         startNum = numPages - numLinks + 1
