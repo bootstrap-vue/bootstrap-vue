@@ -554,14 +554,15 @@ describe('pagination', () => {
       expect(wrapper.is('ul')).toBe(true)
 
       // Grab the button links (4 bookends + 3 pages)
-      let links = wrapper.findAll('a')
+      let links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(7)
 
       links.at(3).element.focus()
       expect(document.activeElement).toBe(links.at(3).element)
 
       // LEFT
-      links.at(3).trigger('keydown.left')
+      // links.at(3).trigger('keydown.left')
+      wrapper.trigger('keydown.left')
       await wrapper.vm.$nextTick()
       expect(document.activeElement).toBe(links.at(2).element)
 
