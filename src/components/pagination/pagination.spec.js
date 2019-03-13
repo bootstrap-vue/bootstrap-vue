@@ -525,6 +525,30 @@ describe('pagination', () => {
     expect(wrapper.emitted('change')[2][0]).toBe(2)
   })
 
+  it('changing the limit changes the nuber of buttons shown', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 9,
+        perPage: 1,
+        currentPage: 5,
+        limit: 10,
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+
+    // Should be 13 <LI> total
+    expect(wrapper.findAll('li')).toBe(13)
+
+    wrapper.setProps({
+      limit: 4
+    })
+    await wrapper.vm.$nextTick()
+
+    // Should be 8 <LI> total
+    expect(wrapper.findAll('li')).toBe(13)
+  })
+
+  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('pagination keyboard navigation', () => {
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true.
@@ -588,6 +612,32 @@ describe('pagination', () => {
       links.at(6).trigger('keydown.left', { shiftKey: true })
       await wrapper.vm.$nextTick()
       expect(document.activeElement).toEqual(links.at(0).element)
+    })
+
+    it('internal method focusCurrent() works', async () => {
+      const wrapper = mount(Pagination, {
+        propsData: {
+          totalRows: 3,
+          perPage: 1,
+          value: 2,
+          limit: 3
+        },
+        attachToDocument: true
+      })
+      await wrapper.vm.$nextTick()
+      expect(wrapper.is('ul')).toBe(true)
+      // Grab the button links (2 bookends + 3 pages + 2 bookends)
+      let links = wrapper.findAll('a.page-link')
+      expect(links.length).toBe(7)
+
+      // Focus the last button
+      links.at(6).element.focus()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(6).element)
+
+      wrapper.vm.focusCurrent()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(3).element)
     })
   })
 })
