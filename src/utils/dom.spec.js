@@ -10,7 +10,9 @@ import {
   selectAll,
   hasAttr,
   getAttr,
-  hasClass
+  hasClass,
+  isPassiveSupported,
+  parseEventOptions
 } from './dom'
 
 const template1 = `
@@ -230,5 +232,31 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button', wrapper.element)[0]).toBe($btns.at(0).element)
     expect(selectAll('div.baz button', wrapper.element)[1]).toBe($btns.at(1).element)
     expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns.at(2).element)
+  })
+
+  it('event options parsing works', async () => {
+    if (isPassiveSupported()) {
+      // Converts boolean to object
+      expect(parseEventOptions(true)).toEqual({ useCapture: true })
+      expect(parseEventOptions(false)).toEqual({ useCapture: false })
+      expect(parseEventOptions()).toEqual({ useCapture: false })
+
+      // Parses object correctly (returns as-is)
+      expect(parseEventOptions({ useCapture: false })).toEqual({ useCapture: false })
+      expect(parseEventOptions({ useCapture: true })).toEqual({ useCapture: true })
+      expect(parseEventOptions({})).toEqual({})
+      expect(
+        parseEventOptions({
+          useCapture: false,
+          foobar: true
+        })
+      ).toEqual({ useCapture: false, foobar: true })
+      expect(
+        parseEventOptions({
+          useCapture: true,
+          foobar: false
+        })
+      ).toEqual({ useCapture: true, foobar: false })
+    })
   })
 })
