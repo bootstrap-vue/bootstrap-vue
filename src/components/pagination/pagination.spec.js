@@ -529,7 +529,7 @@ describe('pagination', () => {
       propsData: {
         totalRows: 3,
         perPage: 1,
-        currentPage: 2,
+        value: 2,
         limit: 3
       },
       mountToDocument: true
