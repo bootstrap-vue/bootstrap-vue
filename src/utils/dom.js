@@ -1,4 +1,5 @@
 import { from as arrayFrom } from './array'
+import { isObject } from './object'
 import { inBrowser } from './env'
 
 // Determine if the browser supports the option passive for events
@@ -30,12 +31,15 @@ export const isPassiveSupported = () => {
 export const parseEventOptions = options => {
   let useCapture = false
   if (options) {
-    if (typeof options === 'object') {
+    if (isObject(options)) {
       // Need to translate to actual Boolean value
       useCapture = Boolean(options.useCapture)
     } else {
-      useCapture = options
+      // Need to translate to actual Boolean value
+      useCapture = Boolean(options)
     }
+  } else {
+    options = { useCapture: false }
   }
   return passiveEventSupported ? options : useCapture
 }
