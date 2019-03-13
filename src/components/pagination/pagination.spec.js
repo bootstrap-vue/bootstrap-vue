@@ -525,6 +525,18 @@ describe('pagination', () => {
   })
 
   it('keyboard navigation works', async () => {
+    // Mock getBCR so that the isVisible(el) test returns true.
+    // In our test below, all pagination buttons would normally be visible.
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+          width: 24,
+          height: 24,
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+      }
+    })
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 3,
