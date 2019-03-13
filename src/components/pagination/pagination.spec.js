@@ -550,6 +550,7 @@ describe('pagination', () => {
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('pagination keyboard navigation', () => {
+    const origGetBCR = Element.prototype.getBoundingClientRect
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true.
       // In our test below, all pagination buttons would normally be visible.
@@ -563,6 +564,10 @@ describe('pagination', () => {
           right: 0
         }
       })
+    })
+    afterEach(() => {
+      // Restore prototype
+      Element.prototype.getBoundingClientRect = origGetBCR
     })
 
     it('keyboard navigation works', async () => {
