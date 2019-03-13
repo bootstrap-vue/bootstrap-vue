@@ -537,8 +537,8 @@ describe('pagination', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.is('ul')).toBe(true)
 
-    // Grab the page button links
-    let links = wrapper.findAll('li > a')
+    // Grab the button links (4 bookends + 3 pages)
+    let links = wrapper.findAll('a')
     expect(links.length).toBe(7)
 
     links.at(3).element.focus()
