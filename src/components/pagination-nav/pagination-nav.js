@@ -63,9 +63,14 @@ export default {
   },
   methods: {
     onClick(pageNum, evt) {
-      // Update the v-model
-      this.currentPage = pageNum
+      if (pageNum === this.currentPage) {
+        // Dont do anything if clicking the current active page
+        return
+      }
+      // Done in a nextTick to ensure page number updated correctly
       this.$nextTick(() => {
+        // Update the v-model
+        this.currentPage = pageNum
         try {
           // Emulate native link click page reloading behaviour by  blurring the
           // paginator and returing focus to the document
