@@ -28,11 +28,20 @@ const template1 = `
 </div>
 `
 
+const App = Vue.extend({
+  template: template1,
+  destroyed() {
+    // Hack to remove DOM from document as vue-test-utils leaves
+    // the rendered DOM in document after each test, when
+    // mounting option `attachToDocument` is true
+    if (this.$el && this.$el.parentNode && this.$el.parentNode.removeChild) {
+      this.$el.parentNode.removeChild(this.$el)
+    }
+  }
+})
+
 describe('utils/dom', () => {
   it('isElement works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -44,9 +53,6 @@ describe('utils/dom', () => {
   })
 
   it('isDisabled works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -61,9 +67,6 @@ describe('utils/dom', () => {
   })
 
   it('hasClass works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -79,9 +82,6 @@ describe('utils/dom', () => {
   })
 
   it('contains works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -101,9 +101,6 @@ describe('utils/dom', () => {
   })
 
   it('closest works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -126,9 +123,6 @@ describe('utils/dom', () => {
   })
 
   it('matches works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -152,9 +146,6 @@ describe('utils/dom', () => {
   })
 
   it('hasAttr works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -173,9 +164,6 @@ describe('utils/dom', () => {
   })
 
   it('getAttr works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -197,9 +185,6 @@ describe('utils/dom', () => {
   })
 
   it('select works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -224,9 +209,6 @@ describe('utils/dom', () => {
   })
 
   it('selectAll works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -256,7 +238,7 @@ describe('utils/dom', () => {
     //       and elements once the test is complete!
     expect(Array.isArray(selectAll('button'))).toBe(true)
     expect(selectAll('button')).not.toEqual([])
-    // expect(selectAll('button').length).toBe(3)
+    expect(selectAll('button').length).toBe(3)
     // expect(selectAll('button')[0]).toBe($btns.at(0).element)
     // expect(selectAll('button')[1]).toBe($btns.at(1).element)
     // expect(selectAll('button')[2]).toBe($btns.at(2).element)
