@@ -235,6 +235,7 @@ describe('utils/dom', () => {
   })
 
   it('event options parsing works', async () => {
+    // JSDOM probably does not support passive mode
     if (isPassiveSupported()) {
       // Converts boolean to object
       expect(parseEventOptions(true)).toEqual({ useCapture: true })
@@ -257,6 +258,30 @@ describe('utils/dom', () => {
           foobar: false
         })
       ).toEqual({ useCapture: true, foobar: false })
+    } else {
+      // Converts non object to boolean
+      expect(parseEventOptions(true)).toEqual(true)
+      expect(parseEventOptions(false)).toEqual(false)
+      expect(parseEventOptions()).toEqual(false)
+      expect(parseEventOptions(null)).toEqual(false)
+      // Converts object to boolean
+      expect(parseEventOptions({ useCapture: false })).toEqual(false)
+      expect(parseEventOptions({ useCapture: true })).toEqual(true)
+      expect(parseEventOptions({})).toEqual(false)
+      expect(
+        parseEventOptions({
+          useCapture: false,
+          foobar: true
+        })
+      ).toEqual(false)
+      expect(
+        parseEventOptions({
+          useCapture: true,
+          foobar: true
+        })
+      ).toEqual(true)
+      expect(parseEventOptions({ foobar: true })).toEqual(false)
+      expect(parseEventOptions({ foobar: false })).toEqual(false)
     }
   })
 })
