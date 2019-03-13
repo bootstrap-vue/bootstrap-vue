@@ -471,7 +471,7 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).not.toBe('separator')
   })
 
-  it('clicking buttons updates teh v-model', async () => {
+  it('clicking buttons updates the v-model', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 3,
@@ -637,6 +637,33 @@ describe('pagination', () => {
 
       wrapper.vm.focusCurrent()
       await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(3).element)
+    })
+
+    it('Current page button is focused when button display changes', async () => {
+      const wrapper = mount(Pagination, {
+        propsData: {
+          totalRows: 10,
+          perPage: 1,
+          value: 1,
+          limit: 5
+        },
+        attachToDocument: true
+      })
+      let links
+
+      await wrapper.vm.$nextTick()
+      expect(wrapper.is('ul')).toBe(true)
+      // Grab the button links (2 disabled bookends + 4 pages + (-ellipsis) + 2 bookends)
+      links = wrapper.findAll('a.page-link')
+      expect(links.length).toBe(6)
+
+      // Click on hte 4th button (page 4, index 3)
+      links.at(3).element.click()
+      await wrapper.vm.$nextTick()
+      // links re-rendered with first bookends enabled and an ellipsis
+      links = wrapper.findAll('a.page-link')
+      // HTe 4th link should be page 4, and retain focus
       expect(document.activeElement).toEqual(links.at(3).element)
     })
   })
