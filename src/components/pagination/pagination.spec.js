@@ -531,13 +531,13 @@ describe('pagination', () => {
         totalRows: 9,
         perPage: 1,
         currentPage: 5,
-        limit: 10,
+        limit: 10
       }
     })
     expect(wrapper.is('ul')).toBe(true)
 
     // Should be 13 <LI> total
-    expect(wrapper.findAll('li')).toBe(13)
+    expect(wrapper.findAll('li').length).toBe(13)
 
     wrapper.setProps({
       limit: 4
@@ -545,7 +545,7 @@ describe('pagination', () => {
     await wrapper.vm.$nextTick()
 
     // Should be 8 <LI> total
-    expect(wrapper.findAll('li')).toBe(13)
+    expect(wrapper.findAll('li').length).toBe(13)
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
