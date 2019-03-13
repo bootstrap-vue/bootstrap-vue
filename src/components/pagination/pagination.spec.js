@@ -417,7 +417,7 @@ describe('pagination', () => {
         // pages 1 to 4
         expect(li.classes()).toContain('d-none')
         expect(li.classes()).toContain('d-sm-flex')
-      } else if (index >=6 && index <= 8)
+      } else if (index >=6 && index <= 8) {
         // pages 5 to 7
         expect(li.classes()).not.toContain('d-none')
         expect(li.classes()).not.toContain('d-sm-flex')
