@@ -560,7 +560,6 @@ describe('pagination', () => {
       // Sanity check for getBCR override
       expect(wrapper.element.getBoundingClientRect().width).toBe(24)
       expect(getBCR(links.at(3).element).width).toBe(24)
-      expect(contains(document, links.at(3).element)).toBe(true)
       expect(contains(document.body, links.at(3).element)).toBe(true)
       expect(isVisible(links.at(3).element)).toBe(true)
 
@@ -573,22 +572,22 @@ describe('pagination', () => {
       // links.at(3).trigger('keydown.left')
       wrapper.trigger('keydown.left')
       await wrapper.vm.$nextTick()
-      // expect(document.activeElement).toEqual(links.at(2).element)
+      expect(document.activeElement).toEqual(links.at(2).element)
 
       // RIGHT
       links.at(2).trigger('keydown.right')
       await wrapper.vm.$nextTick()
-      // expect(document.activeElement).toEqual(links.at(3).element)
+      expect(document.activeElement).toEqual(links.at(3).element)
 
       // SHIFT-RIGHT
       links.at(2).trigger('keydown.right', { shiftKey: true })
       await wrapper.vm.$nextTick()
-      // expect(document.activeElement).toEqual(links.at(6).element)
+      expect(document.activeElement).toEqual(links.at(6).element)
 
       // SHIFT-LEFT
       links.at(6).trigger('keydown.left', { shiftKey: true })
       await wrapper.vm.$nextTick()
-      // expect(document.activeElement).toEqual(links.at(0).element)
+      expect(document.activeElement).toEqual(links.at(0).element)
     })
   })
 })
