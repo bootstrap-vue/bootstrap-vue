@@ -549,7 +549,7 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attatchToDocument: true
+        attachToDocument: true
       })
       await wrapper.vm.$nextTick()
       expect(wrapper.is('ul')).toBe(true)
