@@ -1,5 +1,8 @@
 # Getting Started
 
+- [Vue](https://vuejs.org) version 2.6.8 (or greater) is recommended
+- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version 4.3.1 (or greater) SCSS/CSS
+
 ## General
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
