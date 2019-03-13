@@ -257,6 +257,6 @@ describe('utils/dom', () => {
           foobar: false
         })
       ).toEqual({ useCapture: true, foobar: false })
-    })
+    }
   })
 })
