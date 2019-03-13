@@ -20,6 +20,11 @@ if (inBrowser) {
   }
 }
 
+// Exported only for testing purposes
+export const isPassiveSupported = () => {
+  return passiveEventSupported
+}
+
 // Normalize event options based on support of passive option
 // Exported only for testing purposes
 export const parseEventOptions = options => {
