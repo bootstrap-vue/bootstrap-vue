@@ -217,7 +217,7 @@ describe('utils/dom', () => {
     // Without root element specified (assumes document as root)
     expect(select('button')).toBe($btns.at(0).element)
     expect(select('button#button3')).toBe($btns.at(2).element)
-    expect(select('span.nothere').toBe(null)
+    expect(select('span.nothere')).toBe(null)
   })
 
   it('selectAll works', async () => {
