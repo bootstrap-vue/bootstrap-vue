@@ -553,6 +553,9 @@ describe('pagination', () => {
       await wrapper.vm.$nextTick()
       expect(wrapper.is('ul')).toBe(true)
 
+      // Sanity check for getBCR override
+      expect(wrapper.element.getBoundingClientRect().width).toBe(24)
+
       // Grab the button links (4 bookends + 3 pages)
       let links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(7)
