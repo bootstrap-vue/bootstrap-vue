@@ -70,10 +70,10 @@ export default {
       // Done in a nextTick to ensure page number updated correctly
       this.$nextTick(() => {
         // May need to use a setTimeout or requestAnimationFrame
-        this.$nextTick(() => {
+        setTimout(() => {
           // Update the v-model
           this.currentPage = pageNum
-        })
+        }, 500)
         try {
           // Emulate native link click page reloading behaviour by  blurring the
           // paginator and returing focus to the document
