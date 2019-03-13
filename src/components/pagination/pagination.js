@@ -45,9 +45,12 @@ export default {
     // These methods are used by the render function
     onClick(num, evt) {
       // Handle edge cases where number of pages has changed (i.e. if perPage changes)
+      // This should normally not happen, but just in case.
       if (num > this.numberOfPages) {
+        /* istanbul ignore next */
         num = this.numberOfPages
       } else if (num < 1) {
+        /* istanbul ignore next */
         num = 1
       }
       // Update the v-model
