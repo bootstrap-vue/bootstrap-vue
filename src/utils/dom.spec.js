@@ -35,6 +35,9 @@ const App = Vue.extend({
     // the rendered DOM in document after each test, when
     // mounting option `attachToDocument` is true.
     // Requires each test to call wrapper.vm.$destroy() when done
+    //
+    // See: https://github.com/vuejs/vue-test-utils/issues/1185
+    //
     if (this.$el && this.$el.parentNode && this.$el.parentNode.removeChild) {
       this.$el.parentNode.removeChild(this.$el)
     }
