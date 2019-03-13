@@ -471,7 +471,7 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).not.toBe('separator')
   })
 
-  it('places ellipsis in correct places', async () => {
+  it('clicking buttons updates teh v-model', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 3,
@@ -545,7 +545,7 @@ describe('pagination', () => {
     await wrapper.vm.$nextTick()
 
     // Should be 8 <LI> total
-    expect(wrapper.findAll('li').length).toBe(13)
+    expect(wrapper.findAll('li').length).toBe(8)
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
