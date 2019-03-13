@@ -29,19 +29,11 @@ export const isPassiveSupported = () => {
 // Normalize event options based on support of passive option
 // Exported only for testing purposes
 export const parseEventOptions = options => {
-  let useCapture = false
-  if (options) {
-    if (isObject(options)) {
-      // Need to translate to actual Boolean value
-      useCapture = Boolean(options.useCapture)
-    } else {
-      // Need to translate to actual Boolean value
-      useCapture = Boolean(options)
-    }
-  } else {
-    options = { useCapture: false }
+  if (!passiveEventSupported) {
+    // Need to translate to actual Boolean value
+    return Boolean(isObject(options) ? options.useCapture : options)
   }
-  return passiveEventSupported ? options : useCapture
+  return options || { useCapture: false }
 }
 
 // Attach an event listener to an element
