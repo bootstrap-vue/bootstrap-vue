@@ -1,5 +1,5 @@
 import Pagination from './pagination'
-import { isVisible } from '../../utils/dom'
+import { isVisible, getBCR } from '../../utils/dom'
 import { mount } from '@vue/test-utils'
 
 describe('pagination', () => {
@@ -549,7 +549,7 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        mountToDocument: true
+        attatchToDocument: true
       })
       await wrapper.vm.$nextTick()
       expect(wrapper.is('ul')).toBe(true)
@@ -559,6 +559,8 @@ describe('pagination', () => {
 
       // Sanity check for getBCR override
       expect(wrapper.element.getBoundingClientRect().width).toBe(24)
+      expect(getBCR(links.at(3).element.width)).toBe(24)
+      expect(getBCR(links.at(3).element.height)).toBe(24)
       expect(isVisible(links.at(3).element)).toBe(true)
       expect(isVisible(links.at(2).element)).toBe(true)
 
