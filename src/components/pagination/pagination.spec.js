@@ -325,7 +325,7 @@ describe('pagination', () => {
     // should have the last 4 page buttons with the display classes
     // When currentPage = 0
     expect(wrapper.vm.currentPage).toBe(1)
-    // Grab the page buttons
+    // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
@@ -366,7 +366,7 @@ describe('pagination', () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
-    // Grab the page buttons (enclude bookends)
+    // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
@@ -397,6 +397,30 @@ describe('pagination', () => {
           expect(li.classes()).toContain('d-none')
           expect(li.classes()).toContain('d-sm-flex')
         }
+      }
+    })
+
+    // should have the first 4 pages buttons with the display classes
+    // When currentPage = 4
+    wrapper.setProps({
+      value: '7'
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(4)
+    // Grab the page buttons (including bookends)
+    wrapper.findAll('li').wrappers.forEach((li, index) => {
+      expect(li.classes()).toContain('page-item')
+      expect(li.attributes('role')).toContain('none')
+      expect(li.attributes('role')).toContain('presentation')
+      // Page number buttons
+      if (index >= 2 && index <= 5) {
+        // pages 1 to 4
+        expect(li.classes()).toContain('d-none')
+        expect(li.classes()).toContain('d-sm-flex')
+      } else if (index >=6 && index <= 8)
+        // pages 5 to 7
+        expect(li.classes()).not.toContain('d-none')
+        expect(li.classes()).not.toContain('d-sm-flex')
       }
     })
   })
@@ -482,7 +506,7 @@ describe('pagination', () => {
       .findAll('li')
       .at(6)
       .find('a')
-      .trigger('click')
+      .trigger('keydown.space') /* generates a click event */
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
