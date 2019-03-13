@@ -31,7 +31,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('div.foo')).toBe(true)
     expect(isElement(wrapper.element)).toBe(true)
@@ -43,7 +45,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -58,7 +62,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -74,7 +80,9 @@ describe('utils/dom', () => {
     const App = Vue.extend({
       template: template1
     })
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -95,7 +103,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -120,7 +128,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -146,7 +154,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -167,7 +175,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -191,7 +199,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
@@ -209,7 +217,7 @@ describe('utils/dom', () => {
       template: template1
     })
     const wrapper = mount(App, {
-      mountToDocument: true
+      attachToDocument: true
     })
     expect(wrapper).toBeDefined()
 
