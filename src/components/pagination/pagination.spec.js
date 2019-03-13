@@ -534,7 +534,7 @@ describe('pagination', () => {
       },
       mountToDocument: true
     })
-    
+    await wrapper.vm.$nextTick()
     expect(wrapper.is('ul')).toBe(true)
 
     // Grab the page button links
