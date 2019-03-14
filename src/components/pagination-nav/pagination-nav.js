@@ -86,7 +86,11 @@ export default {
   mounted() {
     if (this.$router) {
       this.$watch('$route', (to, from) => {
-        this.guessCurrentPage()
+        // May need to be requestAnimationFrame
+        // Or a router guard
+        this.$nextTick(() => {
+          this.guessCurrentPage()
+        })
       })
     }
   },
