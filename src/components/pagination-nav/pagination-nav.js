@@ -82,9 +82,18 @@ export default {
       // Returns the value prop as a number or `null` if undefined or < 1
       const val = parseInt(this.value, 10)
       return isNaN(val) || val < 1 ? null : val
+    },
+    needsEmit() {
+      return this.computedValue !== this.currentPage
+    }
+  },
+  watch: {
+    needsEmit(newVal, oldVal) {
+      this.$emit('input', this.currentPage)
     }
   },
   created() {
+    // For SSR (with Vue Router)
     this.$nextTick(() => {
       this.guessCurrentPage()
     })
