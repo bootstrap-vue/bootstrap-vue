@@ -155,7 +155,7 @@ export default {
     const curr = parseInt(this.value, 10)
     return {
       // -1 signifies no page initially selected
-      currentPage: curr > 0 ? : curr : -1,
+      currentPage: curr > 0 ? curr : -1,
       localNumPages: 1,
       localLimit: DEFAULT_LIMIT
     }
