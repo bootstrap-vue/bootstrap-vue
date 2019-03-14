@@ -82,14 +82,6 @@ export default {
       // Returns the value prop as a number or `null` if undefined or < 1
       const val = parseInt(this.value, 10)
       return isNaN(val) || val < 1 ? null : val
-    },
-    needsEmit() {
-      return this.computedValue !== this.currentPage
-    }
-  },
-  watch: {
-    needsEmit(newVal, oldVal) {
-      this.$emit('input', this.currentPage)
     }
   },
   created() {
@@ -99,6 +91,19 @@ export default {
     })
   },
   mounted() {
+    // ----------------------------------------------------------------------------
+    // To figure out:
+    //
+    // When this.value is null, and we can't guess the current page
+    // we need to emit an input event to set the v-model to page 1.
+    // Currently in pagination mixin, the currentPage data is set to 1,
+    // which makes our guess not trigger the input event
+    // Need to be able to set currentPage to -1 (or 0) and then
+    // when rendering/computing values, we need to do Math.max(1, this.currentPage)
+    // to calculate the correct layout.  THe emit should compare this.value to
+    // this.currentPage (on create) and emit if necessary, after the guess takes
+    // place.  Needs to work for both pagination and pagination-nav components.
+    // ----------------------------------------------------------------------------
     /* istanbul ignore next: for now */
     if (this.$router) {
       this.$watch('$route', (to, from) => {
