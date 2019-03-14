@@ -100,12 +100,12 @@ export default {
       if (pageNum === this.currentPage) {
         return
       }
+      requestAF(() => {
+        // Update the v-model
+        this.currentPage = pageNum
+      })
       // Done in a nextTick to ensure page number updated correctly
       this.$nextTick(() => {
-        requestAF(() => {
-          // Update the v-model
-          this.currentPage = pageNum
-        })
         try {
           // Emulate native link click page reloading behaviour by  blurring the
           // paginator and returing focus to the document
