@@ -31,11 +31,11 @@ const props = {
   // pagination-nav specific props
   numberOfPages: {
     type: [Number, String],
-    default: null,
+    default: 1,
     validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
-      if (value !== null && (isNaN(num) || num < 1)) {
+      if (isNaN(num) || num < 1) {
         warn('b-pagination: prop "number-of-pages" must be a number greater than 0')
         return false
       }
@@ -155,7 +155,7 @@ export default {
     guessCurrentPage() /* istanbul ignore next: for now */ {
       let current = this.computedValue
       const numPages = this.localNumPages
-      console.log('Start: Guess current:', current)
+      console.log('Start: Guess current:', current, numPages)
       if (!current) {
         // Try and guess the page number based on URL
         if (this.$router) {
