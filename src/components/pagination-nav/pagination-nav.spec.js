@@ -54,7 +54,7 @@ describe('pagination-nav', () => {
 
     // Default base URL is "/", and link will be the page number
     expect($links.at(0).attributes('href')).toBe('/1')
-    expect($links.at(1).attributes('href')).toBe('/1')
+    expect($links.at(1).attributes('href')).toBe('/2')
     expect($links.at(2).attributes('href')).toBe('/1')
     expect($links.at(3).attributes('href')).toBe('/2')
     expect($links.at(4).attributes('href')).toBe('/3')
@@ -104,7 +104,7 @@ describe('pagination-nav', () => {
 
     // Default base URL is "/", and link will be the page number
     expect($links.at(0).attributes('href')).toBe('/foo/1')
-    expect($links.at(1).attributes('href')).toBe('/foo/1')
+    expect($links.at(1).attributes('href')).toBe('/foo/2')
     expect($links.at(2).attributes('href')).toBe('/foo/1')
     expect($links.at(3).attributes('href')).toBe('/foo/2')
     expect($links.at(4).attributes('href')).toBe('/foo/3')
@@ -132,7 +132,7 @@ describe('pagination-nav', () => {
 
     // Default base URL is "/", and link will be the page number
     expect($links.at(0).attributes('href')).toBe('?1')
-    expect($links.at(1).attributes('href')).toBe('?1')
+    expect($links.at(1).attributes('href')).toBe('?2')
     expect($links.at(2).attributes('href')).toBe('?1')
     expect($links.at(3).attributes('href')).toBe('?2')
     expect($links.at(4).attributes('href')).toBe('?3')
