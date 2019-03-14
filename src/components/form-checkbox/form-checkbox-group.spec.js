@@ -403,7 +403,8 @@ describe('form-checkbox-group', () => {
     expect(checks.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
     expect(checks.is('input[type=checkbox]')).toBe(true)
-    expect(checks.is('input[disabled]')).toBe(true)
+    expect(checks.is('input[required]')).toBe(true)
+    expect(checks.is('input[aria-required="true"]')).toBe(true)
   })
 
   it('child checkboxes have class custom-control-inline when stacked=false', async () => {
