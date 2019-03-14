@@ -4,9 +4,9 @@ const ANCHOR_TAG = 'a'
 
 export const isRouterLink = tag => tag !== ANCHOR_TAG
 
-export const computeTag = (props, parent) => {
-  return parent.$router && props.to && !props.disabled
-    ? parent.$nuxt
+export const computeTag = ({ to, disabled }, thisOrParent) => {
+  return thisOrParent.$router && to && !disabled
+    ? thisOrParent.$nuxt
       ? 'nuxt-link'
       : 'router-link'
     : ANCHOR_TAG
