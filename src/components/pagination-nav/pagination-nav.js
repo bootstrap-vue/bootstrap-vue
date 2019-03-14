@@ -181,7 +181,8 @@ export default {
         // convert a `to` location to a full URL (client side only when no router)
         const resolveLink = to => {
           if (
-            inBrowser && ((isObject(to) && to.path !== undefined && to.path !== null) || typeof to === 'string')
+            inBrowser &&
+            ((isObject(to) && to.path !== undefined && to.path !== null) || typeof to === 'string')
           ) {
             let link = document.createElement('a')
             link.href = computeHref({ to })
@@ -192,13 +193,11 @@ export default {
           }
         }
         // Loop through the possible pages looking for a match until found
-        for (let page = 1; !guessedPage && page <= this.localNumPages; page++) {
+        for (let page = 1; !guess && page <= this.localNumPages; page++) {
           let to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
-            guess = $router.resolve(to, $route, this.append).href === currLocRoute
-              ? page
-              : null
+            guess = $router.resolve(to, $route, this.append).href === currLocRoute ? page : null
           } else if (inBrowser) {
             // If no router available (or !this.useRouter when `to` is a string)
             // we compare using fully qualified URLs
@@ -206,7 +205,7 @@ export default {
           }
         }
       }
-      this.currentPage = guess ? guess : 1
+      this.currentPage = guess || 1
     }
   }
 }
