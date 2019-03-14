@@ -163,7 +163,6 @@ export default {
       }
       let current = this.computedValue
       const numPages = this.localNumPages
-      console.log('Start: Guess current:', current, numPages)
       if (!current) {
         // Try and guess the page number based on URL
         if (this.$router) {
@@ -173,7 +172,6 @@ export default {
             to = isObject(to) ? to : String(to)
             const href = this.$router.resolve(to).resolved.fullPath
             current = href === this.$route.fullPath ? page : null
-            console.log('Loop: Guess current:', page, href, this.$route.fullPath, current)
           }
         } else if (inBrowser) {
           // Else try by comparing page URL with page Link URLs
@@ -186,7 +184,6 @@ export default {
           }
         }
       }
-      console.log('End: Guess current:', current)
       if (current) {
         this.currentPage = current
       }
