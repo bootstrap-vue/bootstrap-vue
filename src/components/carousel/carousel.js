@@ -402,7 +402,7 @@ export default {
     },
     touchMove(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       // ensure swiping with one touch and not pinching
-      if (evt.touches && (evt.originalEvent || evt).touches.length > 1) {
+      if (evt.touches && evt.touches.length > 1) {
         this.touchDeltaX = 0
       } else {
         this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
