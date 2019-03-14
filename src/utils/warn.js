@@ -3,7 +3,7 @@
  * @param {string} message
  */
 /* istanbul ignore next */
-function warn(message) {
+const warn = message => {
   console.warn(`[BootstrapVue warn]: ${message}`)
 }
 

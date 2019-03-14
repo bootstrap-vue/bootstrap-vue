@@ -1,13 +1,16 @@
 import { isElement, eventOn, eventOff } from './dom'
 
-// Falback observation for legacy broswers
-// Emulate observer disconnect() method so that we can detach the events later
+const eventListenerSupported = window.addEventListener
+const MutationObserver =
+  window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
 
-function fakeObserverFactory(el, callback) /* istanbul ignore next: hard to test in JSDOM */ {
+// Fallback observation for legacy browsers
+// Emulate observer disconnect() method so that we can detach the events later
+const fakeObserverFactory = (el, callback) => /* istanbul ignore next: hard to test in JSDOM */ {
   eventOn(el, 'DOMNodeInserted', callback, false)
   eventOn(el, 'DOMNodeRemoved', callback, false)
   return {
-    disconnect: function() {
+    disconnect: () => {
       eventOff(el, 'DOMNodeInserted', callback, false)
       eventOff(el, 'DOMNodeRemoved', callback, false)
     }
@@ -21,20 +24,12 @@ function fakeObserverFactory(el, callback) /* istanbul ignore next: hard to test
  * @param {object} [opts={childList: true, subtree: true}] observe options
  * @see http://stackoverflow.com/questions/3219758
  */
-export default function observeDOM(
-  el,
-  callback,
-  opts
-) /* istanbul ignore next: difficult to test in JSDOM */ {
-  const MutationObserver =
-    window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
-  const eventListenerSupported = window.addEventListener
-
+const observeDom = (el, callback, opts) => /* istanbul ignore next: difficult to test in JSDOM */ {
   // Handle case where we might be passed a vue instance
   el = el ? el.$el || el : null
-  /* istanbul ignore next: dificult to test in JSDOM */
+  /* istanbul ignore next: difficult to test in JSDOM */
   if (!isElement(el)) {
-    // We can't observe somthing that isn't an element
+    // We can't observe something that isn't an element
     return null
   }
 
@@ -47,7 +42,7 @@ export default function observeDOM(
       // A Mutation can contain several change records, so we loop through them to see what has changed.
       // We break out of the loop early if any "significant" change has been detected
       for (let i = 0; i < mutations.length && !changed; i++) {
-        // The muttion record
+        // The mutation record
         const mutation = mutations[i]
         // Mutation Type
         const type = mutation.type
@@ -80,6 +75,8 @@ export default function observeDOM(
   }
 
   // We return a reference to the observer so that obs.disconnect() can be called if necessary
-  // To reduce overhead when the root element is hiiden
+  // To reduce overhead when the root element is hidden
   return obs
 }
+
+export default observeDom

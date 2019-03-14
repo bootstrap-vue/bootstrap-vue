@@ -3,7 +3,7 @@ import { select, addClass, removeClass, getAttr } from './dom'
 
 const NAME = 'popover'
 const CLASS_PREFIX = 'bs-popover'
-const BSCLS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
+const BS_CLASS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
 const Defaults = {
   ...ToolTip.Default,
@@ -67,7 +67,7 @@ class PopOver extends ToolTip {
   // This method may look identical to ToolTip version, but it uses a different RegEx defined above
   cleanTipClass() /* istanbul ignore next */ {
     const tip = this.getTipElement()
-    const tabClass = tip.className.match(BSCLS_PREFIX_REGEX)
+    const tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX)
     if (tabClass !== null && tabClass.length > 0) {
       tabClass.forEach(cls => {
         removeClass(tip, cls)

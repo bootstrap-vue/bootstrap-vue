@@ -1,13 +1,11 @@
 import { isArray } from './array'
 import { isObject, keys } from './object'
 
-function isDate(obj) {
-  return obj instanceof Date
-}
+const isDate = obj => obj instanceof Date
 
 // Assumes both a and b are arrays!
 // Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
-function compareArrays(a, b) {
+const compareArrays = (a, b) => {
   if (a.length !== b.length) {
     return false
   }
@@ -23,7 +21,7 @@ function compareArrays(a, b) {
  * if they are plain objects, do they have the same shape?
  * Returns boolean true or false
  */
-function looseEqual(a, b) {
+const looseEqual = (a, b) => {
   if (a === b) {
     return true
   }
