@@ -314,7 +314,7 @@ describe('pagination', () => {
         totalRows: 70,
         perPage: 10,
         limit: 7,
-        currentPage: 1
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -432,7 +432,7 @@ describe('pagination', () => {
         totalRows: 70,
         perPage: 10,
         limit: 5,
-        currentPage: 1
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -476,7 +476,7 @@ describe('pagination', () => {
       propsData: {
         totalRows: 3,
         perPage: 1,
-        currentPage: 1
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -530,7 +530,7 @@ describe('pagination', () => {
       propsData: {
         totalRows: 9,
         perPage: 1,
-        currentPage: 5,
+        value: 5,
         limit: 10
       }
     })
