@@ -1,7 +1,7 @@
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 import { inBrowser } from '../../utils/env'
-import { keys } from '../../utils/object'
+import { isObject } from '../../utils/object'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
@@ -74,7 +74,7 @@ export default {
     },
     computedValue() {
       // Returns the value prop as a number or `null` if undefined or < 1
-      val = parseInt(this.value, 10)
+      const val = parseInt(this.value, 10)
       return isNaN(val) || val < 1 ? null : val
     }
   },
@@ -84,7 +84,9 @@ export default {
     }
   },
   created() {
-    this.$nextTick(() => { this.guessCurrentPage() })
+    this.$nextTick(() => {
+      this.guessCurrentPage()
+    })
   },
   methods: {
     onClick(pageNum, evt) {
@@ -147,16 +149,16 @@ export default {
         // Try and guess the page number based on URL
         if (this.$router) {
           // If a router is present
-          for (let page = 0; !current && page < numPages; i++) {
+          for (let page = 0; !current && page < numPages; page++) {
             let to = this.makeLink(page)
             to = isObject(to) ? to : String(to)
             const href = this.$router.resolve(to).resolved.fullPath
             current = href === this.$route.fullPath ? page : null
           }
-        } else if (inBrowser){
+        } else if (inBrowser) {
           // Else try by comparing page URL with page Link URLs
           const loc = window.location || document.location
-          for (let page = 0; !current && page < numPages; i++) {
+          for (let page = 0; !current && page < numPages; page++) {
             const link = document.createElement('a')
             // Assigning to a link will auto normalize the URL
             link.href = routeToHREF(this.makeLink(page))
