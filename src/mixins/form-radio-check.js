@@ -86,9 +86,7 @@ export default {
       // Required only works when a name is provided for the input(s)
       // Child can only be required when parent is
       // Groups will always have a name (either user supplied or auto generated)
-      return Boolean(
-        this.get_Name && (this.bvGroup.is_Group ? this.bvGroup.required : this.required)
-      )
+      return Boolean(this.get_Name && (this.is_Group ? this.bvGroup.required : this.required))
     },
     get_Name() {
       // Group name preferred over local name

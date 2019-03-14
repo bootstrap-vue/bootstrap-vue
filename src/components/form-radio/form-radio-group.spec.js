@@ -268,6 +268,27 @@ describe('form-radio-group', () => {
     expect(radios.at(2).attributes('disabled')).toBeDefined()
   })
 
+  it('has radios with attribute required when prop required set', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        required: true
+      }
+    })
+    // We need nextTick here since auto generated name is computed in a nextTick on mount
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.classes()).toBeDefined()
+    const radios = wrapper.findAll('input')
+    expect(radios.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual('')
+    expect(radios.is('input[type=radio]')).toBe(true)
+    expect(radios.is('input[required]')).toBe(true)
+    expect(radios.is('input[aria-required="true"]')).toBe(true)
+  })
+
   it('emits change event when radio clicked', async () => {
     const wrapper = mount(Group, {
       attachToDocument: true,

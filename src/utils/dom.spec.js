@@ -29,7 +29,6 @@ const template1 = `
 `
 
 const App = Vue.extend({
-  template: template1,
   destroyed() {
     // Hack to remove DOM from document as vue-test-utils leaves
     // the rendered DOM in document after each test, when
@@ -41,7 +40,8 @@ const App = Vue.extend({
     if (this.$el && this.$el.parentNode && this.$el.parentNode.removeChild) {
       this.$el.parentNode.removeChild(this.$el)
     }
-  }
+  },
+  template: template1
 })
 
 describe('utils/dom', () => {
