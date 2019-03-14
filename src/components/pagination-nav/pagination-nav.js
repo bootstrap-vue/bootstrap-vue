@@ -1,7 +1,18 @@
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
+import { inBrowser } from '../../utils/env'
+import { keys } from '../../utils/object'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
+
+// Convert a 'to' location to an HREF string (if possible)
+function routeToHREF(to = '/') {
+  // Note does not handle query params or hash in to object.
+  // TODO:
+  //  Could be updated to better handle `to.search` and `to.hash` properties.
+  //  BLink uses a similar method... could be made into a util.
+  return String(isObject(to) ? to.path === undefined ? '/' : to.path) : to)
+}
 
 // Props needed for router links
 const routerProps = pickLinkProps(
@@ -60,7 +71,20 @@ export default {
     // Used by render function to trigger wraping in '<nav>' element
     isNav() {
       return true
+    },
+    computedValue() {
+      // Returns the value prop as a number or `null` if undefined or < 1
+      val = parseInt(this.value, 10)
+      return isNaN(val) || val < 1 ? null : val
     }
+  },
+  watch: {
+    '$route': function(to, from) {
+      this.guessCurrentPage()
+    }
+  },
+  created() {
+    this.$nextTick(() => { this.guessCurrentPage() })
   },
   methods: {
     onClick(pageNum, evt) {
@@ -115,6 +139,34 @@ export default {
         }
       }
       return props
+    },
+    guessCurrentPage() {
+      let current = this.computedValue
+      const numPages = this.localNumPages
+      if (!current) {
+        // Try and guess the page number based on URL
+        if (this.$router) {
+          // If a router is present
+          for (let page = 0; !current && page < numPages) {
+            let to = this.makeLink(page)
+            to = isObject(to) ? to : String(to)
+            const href = this.$router.resolve(to).resolved.fullPath
+            current = href === this.$route.fullPath ? page : null
+          }
+        } else if (inBrowser){
+          // Else try by comparing page URL with page Link URLs
+          const loc = window.location || document.location
+          for (let page = 0; !current && page < numPages) {
+            const link = document.createElement('a')
+            // Assigning to a link will auto normalize the URL
+            link.href = routeToHREF(this.makeLink(page))
+            current = link.href === loc.href ? page : null
+          }
+        }
+      }
+      if (current) {
+        this.currentPage = current
+      }
     }
   }
 }
