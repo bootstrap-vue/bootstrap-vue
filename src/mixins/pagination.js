@@ -36,7 +36,8 @@ function sanitizeNumPages(value) {
 
 // Sanitize the provided current page number (converting to a number)
 function sanitizeCurPage(value, numPages) {
-  let page = parseInt(value, 10) || 1
+  const page = parseInt(value, 10) || 1
+  numPages = sanitizeNumPages(numPages)
   return page > numPages ? numPages : page < 1 ? 1 : page
 }
 
@@ -151,8 +152,10 @@ export default {
   components: { BLink },
   props,
   data() {
+    const curr = parseInt(this.value, 10)
     return {
-      currentPage: -1,
+      // -1 signifies no page initially selected
+      currentPage: curr > 0 ? : curr : -1,
       localNumPages: 1,
       localLimit: DEFAULT_LIMIT
     }
@@ -279,9 +282,8 @@ export default {
     // Set our default values in data
     this.localLimit = sanitizeLimit(this.limit)
     this.localNumPages = sanitizeNumPages(this.numberOfPages)
-    if (parseInt(this.currentPage, 10) > 0) {
-      this.currentPage = sanitizeCurPage(this.value, this.localNumPages)
-    }
+    // Sanity check
+    this.currentPage = this.currentPage > this.localNumPages ? this.localNumPages : this.currentPage
   },
   methods: {
     getButtons() {
