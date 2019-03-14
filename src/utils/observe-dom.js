@@ -1,8 +1,10 @@
 import { isElement, eventOn, eventOff } from './dom'
+import { inBrowser } from './env'
 
-const eventListenerSupported = window.addEventListener
+const eventListenerSupported = inBrowser && window.addEventListener
 const MutationObserver =
-  window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+  inBrowser &&
+  (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver)
 
 // Fallback observation for legacy browsers
 // Emulate observer disconnect() method so that we can detach the events later
