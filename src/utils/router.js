@@ -30,7 +30,7 @@ export const computeHref = ({ href, to }, tag = ANCHOR_TAG, fallback = '#', toFa
 
   // Return `href` when explicitly provided
   if (href) {
-    return href || fallback
+    return href
   }
 
   // Reconstruct `href` when `to` used, but no router
