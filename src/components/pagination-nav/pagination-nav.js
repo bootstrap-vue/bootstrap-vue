@@ -78,15 +78,17 @@ export default {
       return isNaN(val) || val < 1 ? null : val
     }
   },
-  watch: {
-    '$route': function(to, from) {
-      this.guessCurrentPage()
-    }
-  },
   created() {
     this.$nextTick(() => {
       this.guessCurrentPage()
     })
+  },
+  mounted() {
+    if (this.$router) {
+      this.$watch('$route', (to, from) => {
+        this.guessCurrentPage()
+      })
+    }
   },
   methods: {
     onClick(pageNum, evt) {
