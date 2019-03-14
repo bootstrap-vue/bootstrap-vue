@@ -37,6 +37,134 @@ describe('pagination-nav', () => {
     expect($ul.attributes('aria-label')).toBe('Pagination')
   })
 
+  it('renders with correct default HREF', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 5,
+        value: 3,
+        limit: 10
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(9)
+
+    // Default base URL is "/", and link will be the page number
+    expect($links.at(0).attribute('href')).toBe('/1')
+    expect($links.at(1).attribute('href')).toBe('/1')
+    expect($links.at(2).attribute('href')).toBe('/1')
+    expect($links.at(3).attribute('href')).toBe('/2')
+    expect($links.at(4).attribute('href')).toBe('/3')
+    expect($links.at(5).attribute('href')).toBe('/4')
+    expect($links.at(6).attribute('href')).toBe('/5')
+    expect($links.at(7).attribute('href')).toBe('/4')
+    expect($links.at(8).attribute('href')).toBe('/5')
+  })
+
+  it('renders with correct default page button text', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 5,
+        value: 3,
+        limit: 10
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(9)
+
+    expect($links.at(2).text()).toBe('1')
+    expect($links.at(3).text()).toBe('2')
+    expect($links.at(4).text()).toBe('3')
+    expect($links.at(5).text()).toBe('4')
+    expect($links.at(6).text()).toBe('5')
+  })
+
+  it('renders with correct HREF when base-url specified', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 5,
+        value: 3,
+        limit: 10,
+        baseUrl: '/foo/'
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(9)
+
+    // Default base URL is "/", and link will be the page number
+    expect($links.at(0).attribute('href')).toBe('/foo/1')
+    expect($links.at(1).attribute('href')).toBe('/foo/1')
+    expect($links.at(2).attribute('href')).toBe('/foo/1')
+    expect($links.at(3).attribute('href')).toBe('/foo/2')
+    expect($links.at(4).attribute('href')).toBe('/foo/3')
+    expect($links.at(5).attribute('href')).toBe('/foo/4')
+    expect($links.at(6).attribute('href')).toBe('/foo/5')
+    expect($links.at(7).attribute('href')).toBe('/foo/4')
+    expect($links.at(8).attribute('href')).toBe('/foo/5')
+  })
+
+  it('renders with correct HREF when link-gen function provided', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 5,
+        value: 3,
+        limit: 10,
+        linkGen: (page) => `?${page}`
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(9)
+
+    // Default base URL is "/", and link will be the page number
+    expect($links.at(0).attribute('href')).toBe('?1')
+    expect($links.at(1).attribute('href')).toBe('?1')
+    expect($links.at(2).attribute('href')).toBe('?1')
+    expect($links.at(3).attribute('href')).toBe('?2')
+    expect($links.at(4).attribute('href')).toBe('?3')
+    expect($links.at(5).attribute('href')).toBe('?4')
+    expect($links.at(6).attribute('href')).toBe('?5')
+    expect($links.at(7).attribute('href')).toBe('?4')
+    expect($links.at(8).attribute('href')).toBe('?5')
+  })
+
+  it('renders with correct page button text when page-gen function provided', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 5,
+        value: 3,
+        limit: 10,
+        pageGen: (page) => `Page ${page}`
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(9)
+
+    expect($links.at(2).text()).toBe('Page 1')
+    expect($links.at(3).text()).toBe('Page 2')
+    expect($links.at(4).text()).toBe('Page 3')
+    expect($links.at(5).text()).toBe('Page 4')
+    expect($links.at(6).text()).toBe('Page 5')
+  })
+
   it('clicking buttons updates the v-model', async () => {
     const wrapper = mount(PaginationNav, {
       propsData: {
