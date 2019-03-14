@@ -22,6 +22,11 @@
   font-weight: normal;
 }
 
+.bd-toc-item.active > .bd-toc-link {
+    color: #563d7c;
+    font-weight: bold;
+}
+
 .bd-toc-link,
 .bd-sidenav {
   .badge {
