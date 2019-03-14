@@ -89,7 +89,9 @@ export default {
         // May need to be requestAnimationFrame
         // Or a router guard
         this.$nextTick(() => {
-          this.guessCurrentPage()
+          requestAF(() => {
+            this.guessCurrentPage()
+          })
         })
       })
     }
