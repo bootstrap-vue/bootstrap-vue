@@ -325,7 +325,7 @@ describe('pagination', () => {
 
     // should have the last 4 page buttons with the display classes
     // When currentPage = 0
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -366,7 +366,7 @@ describe('pagination', () => {
       value: '4'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(4)
+    expect(wrapper.vm.computedCurrentPage).toBe(4)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -407,7 +407,7 @@ describe('pagination', () => {
       value: '7'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(7)
+    expect(wrapper.vm.computedCurrentPage).toBe(7)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -439,7 +439,7 @@ describe('pagination', () => {
 
     // Should have ellipsis in place of last button
     // When currentPage = 0
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     // Grab the page buttons
     let lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
@@ -452,7 +452,7 @@ describe('pagination', () => {
       value: '4'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(4)
+    expect(wrapper.vm.computedCurrentPage).toBe(4)
     lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).toBe('separator')
@@ -464,7 +464,7 @@ describe('pagination', () => {
       value: 5
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(5)
+    expect(wrapper.vm.computedCurrentPage).toBe(5)
     lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).toBe('separator')
@@ -485,7 +485,7 @@ describe('pagination', () => {
     let lis = wrapper.findAll('li')
     expect(lis.length).toBe(7)
 
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
@@ -496,7 +496,7 @@ describe('pagination', () => {
       .find('a')
       .trigger('click')
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
@@ -509,7 +509,7 @@ describe('pagination', () => {
       .find('a')
       .trigger('keydown.space') /* generates a click event */
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
 
@@ -520,7 +520,7 @@ describe('pagination', () => {
       .find('a')
       .trigger('click')
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
   })
