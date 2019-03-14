@@ -1,13 +1,15 @@
 import { isPlainObject } from './object'
 
-export const isRouterLink = tag => tag !== 'a'
+const ANCHOR_TAG = 'a'
+
+export const isRouterLink = tag => tag !== ANCHOR_TAG
 
 export const computeTag = (props, parent) => {
   return parent.$router && props.to && !props.disabled
     ? parent.$nuxt
       ? 'nuxt-link'
       : 'router-link'
-    : 'a'
+    : ANCHOR_TAG
 }
 
 export const computeRel = ({ target, rel }) => {
@@ -17,7 +19,7 @@ export const computeRel = ({ target, rel }) => {
   return rel || null
 }
 
-export const computeHref = ({ disabled, href, to }, tag = 'a') => {
+export const computeHref = ({ href, to }, tag = ANCHOR_TAG) => {
   // We've already checked the parent.$router in computeTag,
   // so isRouterLink(tag) indicates a live router.
   // When deferring to Vue Router's router-link, don't use the href attr at all.
