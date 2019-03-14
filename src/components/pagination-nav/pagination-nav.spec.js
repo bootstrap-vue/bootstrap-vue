@@ -38,7 +38,7 @@ describe('pagination-nav', () => {
   })
 
   it('clicking buttons updates the v-model', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(PaginationNav, {
       propsData: {
         numberOfPages: 3,
         value: 1
