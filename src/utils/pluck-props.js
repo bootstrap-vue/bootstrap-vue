@@ -12,9 +12,11 @@ import identity from './identity'
  * @param {Function} transformFn
  * @return {{}}
  */
-export default function pluckProps(keysToPluck, objToPluck, transformFn = identity) {
+const pluckProps = (keysToPluck, objToPluck, transformFn = identity) => {
   return (isArray(keysToPluck) ? keysToPluck.slice() : keys(keysToPluck)).reduce((memo, prop) => {
     memo[transformFn(prop)] = objToPluck[prop]
     return memo
   }, {})
 }
+
+export default pluckProps

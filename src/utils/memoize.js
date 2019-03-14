@@ -1,10 +1,12 @@
 import { create } from './object'
 
-export default function memoize(fn) {
+const memoize = fn => {
   const cache = create(null)
 
-  return function memoizedFn() {
-    const args = JSON.stringify(arguments)
-    return (cache[args] = cache[args] || fn.apply(null, arguments))
+  return (...args) => {
+    const argsKey = JSON.stringify(args)
+    return (cache[argsKey] = cache[argsKey] || fn.apply(null, args))
   }
 }
+
+export default memoize

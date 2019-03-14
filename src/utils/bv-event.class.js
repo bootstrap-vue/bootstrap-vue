@@ -1,6 +1,6 @@
 import { assign, defineProperty, defineProperties, readonlyDescriptor } from '../utils/object'
 
-export default class BvEvent {
+class BvEvent {
   constructor(type, eventInit = {}) {
     // Start by emulating native Event constructor.
     if (!type) {
@@ -52,3 +52,5 @@ export default class BvEvent {
     }
   }
 }
+
+export default BvEvent

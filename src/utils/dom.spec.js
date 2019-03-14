@@ -10,7 +10,9 @@ import {
   selectAll,
   hasAttr,
   getAttr,
-  hasClass
+  hasClass,
+  isPassiveSupported,
+  parseEventOptions
 } from './dom'
 
 const template1 = `
@@ -26,11 +28,24 @@ const template1 = `
 </div>
 `
 
+const App = Vue.extend({
+  destroyed() {
+    // Hack to remove DOM from document as vue-test-utils leaves
+    // the rendered DOM in document after each test, when
+    // mounting option `attachToDocument` is true.
+    // Requires each test to call wrapper.vm.$destroy() when done
+    //
+    // See: https://github.com/vuejs/vue-test-utils/issues/1185
+    //
+    if (this.$el && this.$el.parentNode && this.$el.parentNode.removeChild) {
+      this.$el.parentNode.removeChild(this.$el)
+    }
+  },
+  template: template1
+})
+
 describe('utils/dom', () => {
   it('isElement works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -39,12 +54,11 @@ describe('utils/dom', () => {
     expect(isElement(wrapper.element)).toBe(true)
     expect(isElement(null)).toBe(false)
     expect(isElement(App)).toBe(false)
+
+    wrapper.vm.$destroy()
   })
 
   it('isDisabled works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -56,12 +70,11 @@ describe('utils/dom', () => {
     expect(isDisabled($btns.at(0).element)).toBe(false)
     expect(isDisabled($btns.at(1).element)).toBe(false)
     expect(isDisabled($btns.at(2).element)).toBe(true)
+
+    wrapper.vm.$destroy()
   })
 
   it('hasClass works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -74,12 +87,11 @@ describe('utils/dom', () => {
     expect(hasClass($span.element, 'foobar')).toBe(true)
     expect(hasClass($span.element, 'fizzlerocks')).toBe(false)
     expect(hasClass(null, 'foobar')).toBe(false)
+
+    wrapper.vm.$destroy()
   })
 
   it('contains works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -96,12 +108,11 @@ describe('utils/dom', () => {
     expect(contains(wrapper.element, $btn1.element)).toBe(true)
     expect(contains($span.element, $btn1.element)).toBe(false)
     expect(contains(null, $btn1.element)).toBe(false)
+
+    wrapper.vm.$destroy()
   })
 
   it('closest works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -121,12 +132,11 @@ describe('utils/dom', () => {
     expect(closest('div.baz', $btns.at(0).element)).toBeDefined()
     expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
     expect(closest('div.nothere', $btns.at(0).element)).toBe(null)
+
+    wrapper.vm.$destroy()
   })
 
   it('matches works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -147,12 +157,11 @@ describe('utils/dom', () => {
     expect(matches($btns.at(0).element, 'div.bar > button')).toBe(false)
     expect(matches($btns.at(0).element, 'button#button1')).toBe(true)
     expect(matches(null, 'div.foo')).toBe(false)
+
+    wrapper.vm.$destroy()
   })
 
   it('hasAttr works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -168,12 +177,11 @@ describe('utils/dom', () => {
     expect(hasAttr($btns.at(2).element, 'disabled')).toBe(true)
     expect(hasAttr($btns.at(2).element, 'role')).toBe(false)
     expect(hasAttr(null, 'role')).toBe(null)
+
+    wrapper.vm.$destroy()
   })
 
   it('getAttr works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -192,12 +200,11 @@ describe('utils/dom', () => {
     expect(getAttr(null, 'role')).toBe(null)
     expect(getAttr($btns.at(0).element, '')).toBe(null)
     expect(getAttr($btns.at(0).element, undefined)).toBe(null)
+
+    wrapper.vm.$destroy()
   })
 
   it('select works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -207,15 +214,23 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
+    // With root element specified
     expect(select('button', wrapper.element)).toBe($btns.at(0).element)
     expect(select('button#button3', wrapper.element)).toBe($btns.at(2).element)
     expect(select('span.nothere', wrapper.element)).toBe(null)
+
+    // Note: It appears that vue-test-utils is not detaching previous app instances
+    //       and elements once the test is complete!
+    expect(select('button')).not.toBe(null)
+    expect(select('button')).toBe($btns.at(0).element)
+    expect(select('button#button3')).not.toBe(null)
+    expect(select('button#button3')).toBe($btns.at(2).element)
+    expect(select('span.nothere')).toBe(null)
+
+    wrapper.vm.$destroy()
   })
 
   it('selectAll works', async () => {
-    const App = Vue.extend({
-      template: template1
-    })
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -225,6 +240,7 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
+    // With root element specified
     expect(Array.isArray(selectAll('button', wrapper.element))).toBe(true)
     expect(selectAll('button', wrapper.element).length).toBe(3)
     expect(selectAll('button', wrapper.element)[0]).toBe($btns.at(0).element)
@@ -238,5 +254,77 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button', wrapper.element)[0]).toBe($btns.at(0).element)
     expect(selectAll('div.baz button', wrapper.element)[1]).toBe($btns.at(1).element)
     expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns.at(2).element)
+
+    // Without root element specified (assumes document as root)
+    // Note: It appears that vue-test-utils is not detaching previous app instances
+    //       and elements once the test is complete!
+    expect(Array.isArray(selectAll('button'))).toBe(true)
+    expect(selectAll('button')).not.toEqual([])
+    expect(selectAll('button').length).toBe(3)
+    expect(selectAll('button')[0]).toBe($btns.at(0).element)
+    expect(selectAll('button')[1]).toBe($btns.at(1).element)
+    expect(selectAll('button')[2]).toBe($btns.at(2).element)
+
+    expect(Array.isArray(selectAll('button.fake'))).toBe(true)
+    expect(selectAll('button.fake').length).toBe(0)
+
+    expect(selectAll('div.baz button')).not.toEqual([])
+    expect(selectAll('div.baz button').length).toBe(3)
+    expect(selectAll('div.baz button')[0]).toBe($btns.at(0).element)
+    expect(selectAll('div.baz button')[1]).toBe($btns.at(1).element)
+    expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
+
+    wrapper.vm.$destroy()
+  })
+
+  it('event options parsing works', async () => {
+    // JSDOM probably does not support passive mode
+    if (isPassiveSupported()) {
+      // Converts boolean to object
+      expect(parseEventOptions(true)).toEqual({ useCapture: true })
+      expect(parseEventOptions(false)).toEqual({ useCapture: false })
+      expect(parseEventOptions()).toEqual({ useCapture: false })
+
+      // Parses object correctly (returns as-is)
+      expect(parseEventOptions({ useCapture: false })).toEqual({ useCapture: false })
+      expect(parseEventOptions({ useCapture: true })).toEqual({ useCapture: true })
+      expect(parseEventOptions({})).toEqual({})
+      expect(
+        parseEventOptions({
+          useCapture: false,
+          foobar: true
+        })
+      ).toEqual({ useCapture: false, foobar: true })
+      expect(
+        parseEventOptions({
+          useCapture: true,
+          foobar: false
+        })
+      ).toEqual({ useCapture: true, foobar: false })
+    } else {
+      // Converts non object to boolean
+      expect(parseEventOptions(true)).toEqual(true)
+      expect(parseEventOptions(false)).toEqual(false)
+      expect(parseEventOptions()).toEqual(false)
+      expect(parseEventOptions(null)).toEqual(false)
+      // Converts object to boolean
+      expect(parseEventOptions({ useCapture: false })).toEqual(false)
+      expect(parseEventOptions({ useCapture: true })).toEqual(true)
+      expect(parseEventOptions({})).toEqual(false)
+      expect(
+        parseEventOptions({
+          useCapture: false,
+          foobar: true
+        })
+      ).toEqual(false)
+      expect(
+        parseEventOptions({
+          useCapture: true,
+          foobar: true
+        })
+      ).toEqual(true)
+      expect(parseEventOptions({ foobar: true })).toEqual(false)
+      expect(parseEventOptions({ foobar: false })).toEqual(false)
+    }
   })
 })

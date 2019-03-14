@@ -78,9 +78,7 @@ export const isObject = obj => obj !== null && typeof obj === 'object'
  * Strict object type check. Only returns true
  * for plain JavaScript objects.
  */
-export const isPlainObject = obj => {
-  return Object.prototype.toString.call(obj) === '[object Object]'
-}
+export const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
 
 // @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
 export const omit = (obj, props) =>

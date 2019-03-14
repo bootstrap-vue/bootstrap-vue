@@ -11,7 +11,7 @@ import { isObject } from './object'
  * @param {*} defaultValue (optional)
  * @return {*}
  */
-export default (obj, path, defaultValue = null) => {
+const get = (obj, path, defaultValue = null) => {
   // Handle array of path values
   path = isArray(path) ? path.join('.') : path
 
@@ -41,3 +41,5 @@ export default (obj, path, defaultValue = null) => {
     ? obj
     : defaultValue
 }
+
+export default get

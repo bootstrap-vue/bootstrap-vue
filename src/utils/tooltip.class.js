@@ -19,7 +19,7 @@ import {
 
 const NAME = 'tooltip'
 const CLASS_PREFIX = 'bs-tooltip'
-const BSCLS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
+const BS_CLASS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
 const TRANSITION_DURATION = 150
 
@@ -118,9 +118,7 @@ const TransitionEndEvents = {
 // Each tooltip requires a unique client side ID
 let NEXTID = 1
 /* istanbul ignore next */
-function generateId(name) {
-  return `__BV_${name}_${NEXTID++}__`
-}
+const generateId = name => `__BV_${name}_${NEXTID++}__`
 
 /*
  * ToolTip Class definition
@@ -142,7 +140,8 @@ class ToolTip {
     this.$id = generateId(this.constructor.NAME)
     this.$root = $root || null
     this.$routeWatcher = null
-    // We use a bound version of the following handlers for root/modal listeners to maintain the 'this' context
+    // We use a bound version of the following handlers for root/modal
+    // listeners to maintain the 'this' context
     this.$forceHide = this.forceHide.bind(this)
     this.$doHide = this.doHide.bind(this)
     this.$doShow = this.doShow.bind(this)
@@ -380,7 +379,7 @@ class ToolTip {
     this.visibleCheck(on)
     // Route change events
     this.setRouteWatcher(on)
-    // Ontouch start listeners
+    // On-touch start listeners
     this.setOnTouchStartListener(on)
     if (on && /(focus|blur)/.test(this.$config.trigger)) {
       // If focus moves between trigger element and tip container, dont close
@@ -412,7 +411,7 @@ class ToolTip {
       return
     }
 
-    // Create a canelable BvEvent
+    // Create a cancelable BvEvent
     const hideEvt = new BvEvent('hide', {
       // We disable cancelling if force is true
       cancelable: !force,
@@ -488,7 +487,7 @@ class ToolTip {
       : select(container, body) || body
   }
 
-  // Will be overritten by popover if needed
+  // Will be overridden by popover if needed
   addAriaDescribedby() {
     // Add aria-describedby on trigger element, without removing any other IDs
     let desc = getAttr(this.$element, 'aria-describedby') || ''
@@ -500,7 +499,7 @@ class ToolTip {
     setAttr(this.$element, 'aria-describedby', desc)
   }
 
-  // Will be overritten by popover if needed
+  // Will be overridden by popover if needed
   removeAriaDescribedby() {
     let desc = getAttr(this.$element, 'aria-describedby') || ''
     desc = desc
@@ -559,7 +558,7 @@ class ToolTip {
         return TransitionEndEvents[name]
       }
     }
-    // fallback
+    // Fallback
     return []
   }
 
@@ -590,7 +589,8 @@ class ToolTip {
         this.compileTemplate(this.$config.template) ||
         this.compileTemplate(this.constructor.Default.template)
     }
-    // Add tab index so tip can be focused, and to allow it to be set as relatedTargt in focusin/out events
+    // Add tab index so tip can be focused, and to allow it to be
+    // set as relatedTarget in focusin/out events
     this.$tip.tabIndex = -1
     return this.$tip
   }
@@ -669,7 +669,7 @@ class ToolTip {
     // Listen for global show/hide events
     this.setRootListener(true)
 
-    // Using 'this' as the handler will get automagically directed to this.handleEvent
+    // Using 'this' as the handler will get automatically directed to this.handleEvent
     // And maintain our binding to 'this'
     triggers.forEach(trigger => {
       if (trigger === 'click') {
@@ -689,7 +689,7 @@ class ToolTip {
 
   unListen() {
     const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
-    // Using "this" as the handler will get automagically directed to this.handleEvent
+    // Using "this" as the handler will get automatically directed to this.handleEvent
     events.forEach(evt => {
       eventOff(this.$element, evt, this)
     }, this)
@@ -976,7 +976,7 @@ class ToolTip {
   // NOTE: Overridden by PopOver class
   cleanTipClass() {
     const tip = this.getTipElement()
-    const tabClass = tip.className.match(BSCLS_PREFIX_REGEX)
+    const tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX)
     if (tabClass !== null && tabClass.length > 0) {
       tabClass.forEach(cls => {
         removeClass(tip, cls)

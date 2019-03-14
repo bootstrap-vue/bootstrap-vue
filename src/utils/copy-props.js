@@ -3,14 +3,14 @@ import { isObject } from './object'
 import identity from './identity'
 
 /**
- * Copies props from one array/object to a new aray/object. Prop values
- * are also cloned as new references to prevent possible mution of original
+ * Copies props from one array/object to a new array/object. Prop values
+ * are also cloned as new references to prevent possible mutation of original
  * prop object values. Optionally accepts a function to transform the prop name.
  *
  * @param {[]|{}} props
  * @param {Function} transformFn
  */
-export default function copyProps(props, transformFn = identity) {
+const copyProps = (props, transformFn = identity) => {
   if (isArray(props)) {
     return props.map(transformFn)
   }
@@ -28,3 +28,5 @@ export default function copyProps(props, transformFn = identity) {
 
   return copied
 }
+
+export default copyProps
