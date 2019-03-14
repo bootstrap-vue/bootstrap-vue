@@ -19,32 +19,33 @@ export const computeRel = ({ target, rel }) => {
   return rel || null
 }
 
-export const computeHref = ({ href, to }, tag = ANCHOR_TAG) => {
-  // We've already checked the parent.$router in computeTag,
-  // so isRouterLink(tag) indicates a live router.
-  // When deferring to Vue Router's router-link, don't use the href attr at all.
+// Note: Doesn't handle query params or hash in to object.
+export const computeHref = ({ href, to }, tag = ANCHOR_TAG, fallback = '#', toFallback = '/') => {
+  // We've already checked the $router in computeTag(), so isRouterLink() indicates a live router.
+  // When deferring to Vue Router's router-link, don't use the href attribute at all.
   // We return null, and then remove href from the attributes passed to router-link
   if (isRouterLink(tag)) {
     return null
   }
 
-  // If href explicitly provided
+  // Return `href` when explicitly provided
   if (href) {
-    return href
+    return href || fallback
   }
 
   // Reconstruct `href` when `to` used, but no router
+  // TODO: Could be updated to better handle `to.search` and `to.hash` properties
   if (to) {
     // Fallback to `to` prop (if `to` is a string)
     if (typeof to === 'string') {
-      return to
+      return to || toFallback
     }
     // Fallback to `to.path` prop (if `to` is an object)
     if (isPlainObject(to) && typeof to.path === 'string') {
-      return to.path
+      return to.path || toFallback
     }
   }
 
-  // If nothing is provided use '#' as a fallback
-  return '#'
+  // If nothing is provided return the fallback
+  return fallback
 }
