@@ -147,7 +147,7 @@ export default {
         // Try and guess the page number based on URL
         if (this.$router) {
           // If a router is present
-          for (let page = 0; !current && page < numPages) {
+          for (let page = 0; !current && page < numPages; i++) {
             let to = this.makeLink(page)
             to = isObject(to) ? to : String(to)
             const href = this.$router.resolve(to).resolved.fullPath
@@ -156,7 +156,7 @@ export default {
         } else if (inBrowser){
           // Else try by comparing page URL with page Link URLs
           const loc = window.location || document.location
-          for (let page = 0; !current && page < numPages) {
+          for (let page = 0; !current && page < numPages; i++) {
             const link = document.createElement('a')
             // Assigning to a link will auto normalize the URL
             link.href = routeToHREF(this.makeLink(page))
