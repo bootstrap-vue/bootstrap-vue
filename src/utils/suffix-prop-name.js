@@ -7,4 +7,6 @@ import upperFirst from './upper-first'
  * @param {string} suffix
  * @param {string} str
  */
-export default (suffix, str) => str + (suffix ? upperFirst(suffix) : '')
+const suffixPropName = (suffix, str) => str + (suffix ? upperFirst(suffix) : '')
+
+export default suffixPropName

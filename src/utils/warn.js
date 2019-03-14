@@ -3,6 +3,8 @@
  * @param {string} message
  */
 /* istanbul ignore next */
-export default message => {
+const warn = message => {
   console.warn(`[BootstrapVue warn]: ${message}`)
 }
+
+export default warn

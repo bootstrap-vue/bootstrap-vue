@@ -24,7 +24,7 @@ const fakeObserverFactory = (el, callback) => /* istanbul ignore next: hard to t
  * @param {object} [opts={childList: true, subtree: true}] observe options
  * @see http://stackoverflow.com/questions/3219758
  */
-export default (el, callback, opts) => /* istanbul ignore next: difficult to test in JSDOM */ {
+const observeDom = (el, callback, opts) => /* istanbul ignore next: difficult to test in JSDOM */ {
   // Handle case where we might be passed a vue instance
   el = el ? el.$el || el : null
   /* istanbul ignore next: difficult to test in JSDOM */
@@ -78,3 +78,5 @@ export default (el, callback, opts) => /* istanbul ignore next: difficult to tes
   // To reduce overhead when the root element is hidden
   return obs
 }
+
+export default observeDom

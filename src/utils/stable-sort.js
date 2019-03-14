@@ -15,8 +15,7 @@
  * @param {function} sort compare function
  * @return {array}
  */
-
-export default (array, compareFn) => {
+const stableSort = (array, compareFn) => {
   // Using `.bind(compareFn)` on the wrapped anonymous function improves
   // performance by avoiding the function call setup. We don't use an arrow
   // function here as it binds `this` to the `stableSort` context rather than
@@ -30,3 +29,5 @@ export default (array, compareFn) => {
     )
     .map(e => e[1])
 }
+
+export default stableSort
