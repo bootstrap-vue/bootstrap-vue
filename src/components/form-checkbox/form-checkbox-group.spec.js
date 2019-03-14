@@ -396,7 +396,7 @@ describe('form-checkbox-group', () => {
         name: 'group',
         options: ['one', 'two', 'three'],
         checked: [],
-        disabled: true
+        required: true
       }
     })
     const checks = wrapper.findAll('input')
