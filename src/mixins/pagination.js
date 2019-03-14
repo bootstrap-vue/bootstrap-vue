@@ -60,11 +60,11 @@ const props = {
   },
   value: {
     type: [Number, String],
-    default: 1,
+    default: null,
     validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
-      if (isNaN(num) || num < 1) {
+      if (value !== null && (isNaN(num) || num < 1)) {
         warn('pagination: v-model value must be a number greater than 0')
         return false
       }
