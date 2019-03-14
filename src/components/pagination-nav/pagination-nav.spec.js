@@ -1,5 +1,4 @@
 import PaginationNav from './pagination-nav'
-import { requestAF } from '../../utils/dom'
 import { mount } from '@vue/test-utils'
 
 // The majority of tests for the core of pagination mixin are performed
@@ -14,6 +13,9 @@ describe('pagination-nav', () => {
         value: 1
       }
     })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
     // pagination-nav has an outer wrapper of nav
     expect(wrapper.is('nav')).toBe(true)
     const $ul = wrapper.find('ul.pagination')
@@ -33,5 +35,59 @@ describe('pagination-nav', () => {
     expect($ul.attributes('role')).toBe('menubar')
     expect($ul.attributes('aria-disabled')).toBe('false')
     expect($ul.attributes('aria-label')).toBe('Pagination')
+  })
+
+  it('clicking buttons updates the v-model', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        numberOfPages: 3,
+        value: 1
+      }
+    })
+    expect(wrapper.is('nav')).toBe(true)
+
+    expect(wrapper.findAll('li')).toBe(7)
+
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    // click on 2nd button
+    wrapper
+      .findAll('li')
+      .at(3)
+      .find('a')
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toBe(2)
+    expect(wrapper.emitted('change')[0][0]).toBe(2)
+
+    // click goto last button
+    wrapper
+      .findAll('li')
+      .at(6)
+      .find('a')
+      .trigger('keydown.space') /* generates a click event */
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input')[1][0]).toBe(3)
+    expect(wrapper.emitted('change')[1][0]).toBe(3)
+
+    // click prev button
+    wrapper
+      .findAll('li')
+      .at(1)
+      .find('a')
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.emitted('input')[2][0]).toBe(2)
+    expect(wrapper.emitted('change')[2][0]).toBe(2)
   })
 })
