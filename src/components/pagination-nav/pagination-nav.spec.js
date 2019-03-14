@@ -197,7 +197,8 @@ describe('pagination-nav', () => {
     const wrapper = mount(PaginationNav, {
       propsData: {
         numberOfPages: 3,
-        value: 1
+        value: 1,
+        limit: 10
       }
     })
     expect(wrapper.is('nav')).toBe(true)
@@ -207,7 +208,18 @@ describe('pagination-nav', () => {
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
-    // click on 2nd button
+    // click on current page button (does nothing)
+    wrapper
+      .findAll('li')
+      .at(2)
+      .find('a')
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    // click on 2nd page button
     wrapper
       .findAll('li')
       .at(3)
