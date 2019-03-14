@@ -186,7 +186,7 @@ export default {
             let link = document.createElement('a')
             link.href = computeHref({ to })
             // once href is assigned, the returned href will be normalized to the full URL
-            return = link.href
+            return link.href
           } else {
             return ''
           }
