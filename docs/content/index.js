@@ -16,7 +16,8 @@ export const misc = importAll(miscContext)
 export const nav = [
   {
     title: 'Getting started',
-    base: ''
+    base: '',
+    exact: true
   },
   {
     title: 'Components',
