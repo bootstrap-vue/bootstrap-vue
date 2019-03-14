@@ -50,7 +50,6 @@ describe('pagination-nav', () => {
 
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
 
     // click on 2nd button
     wrapper
@@ -62,9 +61,7 @@ describe('pagination-nav', () => {
     await new Promise(resolve => requestAnimationFrame(resolve))
     expect(wrapper.vm.currentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
-    expect(wrapper.emitted('change')[0][0]).toBe(2)
 
     // click goto last button
     wrapper
@@ -76,7 +73,6 @@ describe('pagination-nav', () => {
     await new Promise(resolve => requestAnimationFrame(resolve))
     expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
-    expect(wrapper.emitted('change')[1][0]).toBe(3)
 
     // click prev button
     wrapper
@@ -88,6 +84,5 @@ describe('pagination-nav', () => {
     await new Promise(resolve => requestAnimationFrame(resolve))
     expect(wrapper.vm.currentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
-    expect(wrapper.emitted('change')[2][0]).toBe(2)
   })
 })
