@@ -1,5 +1,5 @@
 import PaginationNav from './pagination-nav'
-import { mount, RouterLinkStub } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 // The majority of tests for the core of pagination mixin are performed
 // in pagination.spec.js.  Here we just test the differences that
