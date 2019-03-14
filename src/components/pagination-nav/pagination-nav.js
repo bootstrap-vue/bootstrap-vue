@@ -76,7 +76,7 @@ export default {
     }
   },
   created() {
-    // For SSR (with Vue Router)
+    // For SSR, assuming a page URL can be detected
     this.$nextTick(() => {
       this.guessCurrentPage()
     })
@@ -97,9 +97,8 @@ export default {
     // ----------------------------------------------------------------------------
     /* istanbul ignore next: for now */
     if (this.$router) {
+      // We only add the watcher if vue router is detected
       this.$watch('$route', (to, from) => {
-        // May need to be requestAnimationFrame
-        // Or a router guard
         this.$nextTick(() => {
           requestAF(() => {
             this.guessCurrentPage()
@@ -116,10 +115,11 @@ export default {
       }
       requestAF(() => {
         // Update the v-model
+        // Done in in rAF to allow browser to complete the native click handling of a link
         this.currentPage = pageNum
       })
-      // Done in a nextTick to ensure page number updated correctly
       this.$nextTick(() => {
+        // Done in a nextTick to ensure rendering complete
         try {
           // Emulate native link click page reloading behaviour by  blurring the
           // paginator and returning focus to the document
@@ -143,56 +143,70 @@ export default {
     },
     linkProps(pageNum) {
       const link = this.makeLink(pageNum)
-      let props = {
-        href: typeof link === 'string' ? link : void 0,
+      const props = {
         target: this.target || null,
         rel: this.rel || null,
-        disabled: this.disabled
+        disabled: this.disabled,
+        // The following props are only used if BLink detects router
+        exact: this.exact,
+        activeClass: this.activeClass,
+        exactActiveClass: this.exactActiveClass,
+        append: this.append,
+        replace: this.replace
       }
       if (this.useRouter || typeof link === 'object') {
-        props = {
-          ...props,
-          to: link,
-          exact: this.exact,
-          activeClass: this.activeClass,
-          exactActiveClass: this.exactActiveClass,
-          append: this.append,
-          replace: this.replace
-        }
+        props.to = link
+      } else {
+        props.href = link
       }
       return props
     },
-    guessCurrentPage() /* istanbul ignore next: for now */ {
+    guessCurrentPage() {
       if (this.noPageDetect) {
+        // This option is added as page detection on large number of pages
+        // can take some time due to having to loop through all the possible
+        // page links until one is found. User's can switch to using v-model
+        // to update which page is active
         return
       }
-      let current = this.computedValue
-      const numPages = this.localNumPages
-      if (!current) {
-        // Try and guess the page number based on URL
-        if (this.$router) {
-          // If a router is present
-          for (let page = 1; !current && page <= numPages; page++) {
-            let to = this.makeLink(page)
-            to = isObject(to) ? to : String(to)
-            const href = this.$router.resolve(to).resolved.fullPath
-            current = href === this.$route.fullPath ? page : null
-          }
-        } else if (inBrowser) {
-          // Else try by comparing page URL with page Link URLs
-          const loc = window.location || document.location
-          for (let page = 1; !current && page <= numPages; page++) {
-            const to = this.makeLink(page)
-            const link = document.createElement('a')
-            // Assigning to a link will auto normalize the URL
+      let guess = this.computedValue
+      const $router = this.$router
+      const $route = this.$route
+      // This section only occurs if we are client side, or serverside with $router
+      /* istanbul ignore else */
+      if (!guess && (inBrowser || (!inBrowser && $router))) {
+        const currLocRoute = $router && $route ? $route.fullPath : null
+        // Current page full HREF (if client side)
+        const currLocLink = inBrowser ? (window.location || document.location).href : null
+        // convert a `to` location to a full URL (client side only when no router)
+        const resolveLink = to => {
+          if (
+            inBrowser && ((isObject(to) && to.path !== undefined && to.path !== null) || typeof to === 'string')
+          ) {
+            let link = document.createElement('a')
             link.href = computeHref({ to })
-            current = link.href === loc.href ? page : null
+            // once href is assigned, the returned href will be normalized to the full URL
+            return = link.href
+          } else {
+            return ''
+          }
+        }
+        // Loop through the possible pages looking for a match until found
+        for (let page = 1; !guessedPage && page <= this.localNumPages; page++) {
+          let to = this.makeLink(page)
+          if ($router && (isObject(to) || this.useRouter)) {
+            // Resolve the page via the $router
+            guess = $router.resolve(to, $route, this.append).href === currLocRoute
+              ? page
+              : null
+          } else if (inBrowser) {
+            // If no router available (or !this.useRouter when `to` is a string)
+            // we compare using fully qualified URLs
+            guess = resolveLink(to) === currLocLink ? page : null
           }
         }
       }
-      if (current) {
-        this.currentPage = current
-      }
+      this.currentPage = guess ? guess : 1
     }
   }
 }
