@@ -7,7 +7,7 @@ let passiveEventSupported = false
 /* istanbul ignore if */
 if (inBrowser) {
   try {
-    var options = {
+    const options = {
       get passive() {
         // This function will be called when the browser
         // attempts to access the passive property.
@@ -22,9 +22,7 @@ if (inBrowser) {
 }
 
 // Exported only for testing purposes
-export const isPassiveSupported = () => {
-  return passiveEventSupported
-}
+export const isPassiveSupported = () => passiveEventSupported
 
 // Normalize event options based on support of passive option
 // Exported only for testing purposes
