@@ -53,15 +53,15 @@ describe('pagination-nav', () => {
     expect($links.length).toBe(9)
 
     // Default base URL is "/", and link will be the page number
-    expect($links.at(0).attribute('href')).toBe('/1')
-    expect($links.at(1).attribute('href')).toBe('/1')
-    expect($links.at(2).attribute('href')).toBe('/1')
-    expect($links.at(3).attribute('href')).toBe('/2')
-    expect($links.at(4).attribute('href')).toBe('/3')
-    expect($links.at(5).attribute('href')).toBe('/4')
-    expect($links.at(6).attribute('href')).toBe('/5')
-    expect($links.at(7).attribute('href')).toBe('/4')
-    expect($links.at(8).attribute('href')).toBe('/5')
+    expect($links.at(0).attributes('href')).toBe('/1')
+    expect($links.at(1).attributes('href')).toBe('/1')
+    expect($links.at(2).attributes('href')).toBe('/1')
+    expect($links.at(3).attributes('href')).toBe('/2')
+    expect($links.at(4).attributes('href')).toBe('/3')
+    expect($links.at(5).attributes('href')).toBe('/4')
+    expect($links.at(6).attributes('href')).toBe('/5')
+    expect($links.at(7).attributes('href')).toBe('/4')
+    expect($links.at(8).attributes('href')).toBe('/5')
   })
 
   it('renders with correct default page button text', async () => {
@@ -103,15 +103,15 @@ describe('pagination-nav', () => {
     expect($links.length).toBe(9)
 
     // Default base URL is "/", and link will be the page number
-    expect($links.at(0).attribute('href')).toBe('/foo/1')
-    expect($links.at(1).attribute('href')).toBe('/foo/1')
-    expect($links.at(2).attribute('href')).toBe('/foo/1')
-    expect($links.at(3).attribute('href')).toBe('/foo/2')
-    expect($links.at(4).attribute('href')).toBe('/foo/3')
-    expect($links.at(5).attribute('href')).toBe('/foo/4')
-    expect($links.at(6).attribute('href')).toBe('/foo/5')
-    expect($links.at(7).attribute('href')).toBe('/foo/4')
-    expect($links.at(8).attribute('href')).toBe('/foo/5')
+    expect($links.at(0).attributes('href')).toBe('/foo/1')
+    expect($links.at(1).attributes('href')).toBe('/foo/1')
+    expect($links.at(2).attributes('href')).toBe('/foo/1')
+    expect($links.at(3).attributes('href')).toBe('/foo/2')
+    expect($links.at(4).attributes('href')).toBe('/foo/3')
+    expect($links.at(5).attributes('href')).toBe('/foo/4')
+    expect($links.at(6).attributes('href')).toBe('/foo/5')
+    expect($links.at(7).attributes('href')).toBe('/foo/4')
+    expect($links.at(8).attributes('href')).toBe('/foo/5')
   })
 
   it('renders with correct HREF when link-gen function provided', async () => {
@@ -131,15 +131,15 @@ describe('pagination-nav', () => {
     expect($links.length).toBe(9)
 
     // Default base URL is "/", and link will be the page number
-    expect($links.at(0).attribute('href')).toBe('?1')
-    expect($links.at(1).attribute('href')).toBe('?1')
-    expect($links.at(2).attribute('href')).toBe('?1')
-    expect($links.at(3).attribute('href')).toBe('?2')
-    expect($links.at(4).attribute('href')).toBe('?3')
-    expect($links.at(5).attribute('href')).toBe('?4')
-    expect($links.at(6).attribute('href')).toBe('?5')
-    expect($links.at(7).attribute('href')).toBe('?4')
-    expect($links.at(8).attribute('href')).toBe('?5')
+    expect($links.at(0).attributes('href')).toBe('?1')
+    expect($links.at(1).attributes('href')).toBe('?1')
+    expect($links.at(2).attributes('href')).toBe('?1')
+    expect($links.at(3).attributes('href')).toBe('?2')
+    expect($links.at(4).attributes('href')).toBe('?3')
+    expect($links.at(5).attributes('href')).toBe('?4')
+    expect($links.at(6).attributes('href')).toBe('?5')
+    expect($links.at(7).attributes('href')).toBe('?4')
+    expect($links.at(8).attributes('href')).toBe('?5')
   })
 
   it('renders with correct page button text when page-gen function provided', async () => {
