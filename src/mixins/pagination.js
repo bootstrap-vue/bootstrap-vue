@@ -152,7 +152,7 @@ export default {
   props,
   data() {
     return {
-      currentPage: 1,
+      currentPage: -1,
       localNumPages: 1,
       localLimit: DEFAULT_LIMIT
     }
@@ -169,11 +169,14 @@ export default {
       }
       return ''
     },
+    computedCurrentPage() {
+      return sanitizeCurPage(this.currentPage, this.localNumPages)
+    },
     paginationParams() {
       // Determine if we should show the the ellipsis
       const limit = this.limit
       const numPages = this.localNumPages
-      const curPage = this.currentPage
+      const curPage = this.computedCurrentPage
       const hideEllipsis = this.hideEllipsis
       let showFirstDots = false
       let showLastDots = false
@@ -216,7 +219,7 @@ export default {
     pageList() {
       // Generates the pageList array
       const { numLinks, startNum } = this.paginationParams
-
+      const currPage = this.computedCurrentPage
       // Generate list of page numbers
       const pages = makePageArray(startNum, numLinks)
       // We limit to a total of 3 page buttons on XS screens
@@ -224,7 +227,7 @@ export default {
       // Note: Ellipsis will also be hidden on XS screens
       // TODO: Make this visual limit configurable based on breakpoint(s)
       if (pages.length > 3) {
-        const idx = this.currentPage - startNum
+        const idx = currPage - startNum
         if (idx === 0) {
           // Keep leftmost 3 buttons visible when current page is first page
           for (let i = 3; i < pages.length; i++) {
@@ -276,7 +279,9 @@ export default {
     // Set our default values in data
     this.localLimit = sanitizeLimit(this.limit)
     this.localNumPages = sanitizeNumPages(this.numberOfPages)
-    this.currentPage = sanitizeCurPage(this.value, this.localNumPages)
+    if (parseInt(this.currentPage, 10) > 0) {
+      this.currentPage = sanitizeCurPage(this.value, this.localNumPages)
+    }
   },
   methods: {
     getButtons() {
@@ -290,7 +295,7 @@ export default {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(
-          el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage
+          el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.computedCurrentPage
         )
         if (btn && btn.focus) {
           this.setBtnFocus(btn)
@@ -347,9 +352,10 @@ export default {
     const numberOfPages = this.localNumPages
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
+    const currPage = this.computedCurrentPage
 
     // Helper function
-    const isActivePage = pageNum => pageNum === this.currentPage
+    const isActivePage = pageNum => pageNum === currPage
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
@@ -425,7 +431,7 @@ export default {
     // Goto Previous page button bookend
     buttons.push(
       makeEndBtn(
-        this.currentPage - 1,
+        currPage - 1,
         this.labelPrevPage,
         this.$slots['prev-text'],
         this.prevText,
@@ -489,7 +495,7 @@ export default {
     // Goto Next page button bookend
     buttons.push(
       makeEndBtn(
-        this.currentPage + 1,
+        currPage + 1,
         this.labelNextPage,
         this.$slots['next-text'],
         this.nextText,
