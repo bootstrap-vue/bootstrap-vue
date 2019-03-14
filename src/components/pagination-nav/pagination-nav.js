@@ -31,11 +31,11 @@ const props = {
   // pagination-nav specific props
   numberOfPages: {
     type: [Number, String],
-    default: 1,
+    default: null,
     validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
-      if (isNaN(num) || num < 1) {
+      if (value !== null && (isNaN(num) || num < 1)) {
         warn('b-pagination: prop "number-of-pages" must be a number greater than 0')
         return false
       }
@@ -85,6 +85,7 @@ export default {
     })
   },
   mounted() {
+    /* istanbul ignore next: for now */
     if (this.$router) {
       this.$watch('$route', (to, from) => {
         // May need to be requestAnimationFrame
