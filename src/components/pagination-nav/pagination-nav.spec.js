@@ -46,7 +46,7 @@ describe('pagination-nav', () => {
     })
     expect(wrapper.is('nav')).toBe(true)
 
-    expect(wrapper.findAll('li')).toBe(7)
+    expect(wrapper.findAll('li').length).toBe(7)
 
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
