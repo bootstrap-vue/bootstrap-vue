@@ -120,7 +120,7 @@ describe('pagination-nav', () => {
         numberOfPages: 5,
         value: 3,
         limit: 10,
-        linkGen: (page) => `?${page}`
+        linkGen: page => `?${page}`
       }
     })
     await wrapper.vm.$nextTick()
@@ -148,7 +148,7 @@ describe('pagination-nav', () => {
         numberOfPages: 5,
         value: 3,
         limit: 10,
-        pageGen: (page) => `Page ${page}`
+        pageGen: page => `Page ${page}`
       }
     })
     await wrapper.vm.$nextTick()
