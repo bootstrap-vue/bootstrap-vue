@@ -11,7 +11,7 @@ function routeToHREF(to = '/') {
   // TODO:
   //  Could be updated to better handle `to.search` and `to.hash` properties.
   //  BLink uses a similar method... could be made into a util.
-  return String(isObject(to) ? to.path === undefined ? '/' : to.path) : to)
+  return String(isObject(to) ? (to.path === undefined ? '/' : to.path) : to)
 }
 
 // Props needed for router links
