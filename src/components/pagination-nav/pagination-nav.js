@@ -58,6 +58,11 @@ const props = {
     type: Function,
     default: null
   },
+  noPageDetect: {
+    // Disable auto page number detection if true
+    type: Boolean,
+    default: false
+  },
   // Router specific props
   ...routerProps
 }
@@ -153,6 +158,9 @@ export default {
       return props
     },
     guessCurrentPage() /* istanbul ignore next: for now */ {
+      if (this.noPageDetect) {
+        return
+      }
       let current = this.computedValue
       const numPages = this.localNumPages
       console.log('Start: Guess current:', current, numPages)
@@ -160,7 +168,7 @@ export default {
         // Try and guess the page number based on URL
         if (this.$router) {
           // If a router is present
-          for (let page = 0; !current && page < numPages; page++) {
+          for (let page = 1; !current && page <= numPages; page++) {
             let to = this.makeLink(page)
             to = isObject(to) ? to : String(to)
             const href = this.$router.resolve(to).resolved.fullPath
@@ -170,7 +178,7 @@ export default {
         } else if (inBrowser) {
           // Else try by comparing page URL with page Link URLs
           const loc = window.location || document.location
-          for (let page = 0; !current && page < numPages; page++) {
+          for (let page = 1; !current && page <= numPages; page++) {
             const link = document.createElement('a')
             // Assigning to a link will auto normalize the URL
             link.href = routeToHREF(this.makeLink(page))
