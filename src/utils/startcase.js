@@ -17,9 +17,10 @@
  * @param {String} str
  * @returns {String}
  */
-export default function toStartCaseStr(str) {
-  return str
+const startCase = str =>
+  str
     .replace(/_/g, ' ')
     .replace(/([a-z])([A-Z])/g, (str, $1, $2) => $1 + ' ' + $2)
     .replace(/(\s|^)(\w)/g, (str, $1, $2) => $1 + $2.toUpperCase())
-}
+
+export default startCase

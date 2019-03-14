@@ -1,4 +1,5 @@
 import Pagination from './pagination'
+import { isVisible, getBCR, contains } from '../../utils/dom'
 import { mount } from '@vue/test-utils'
 
 describe('pagination', () => {
@@ -313,7 +314,7 @@ describe('pagination', () => {
         totalRows: 70,
         perPage: 10,
         limit: 7,
-        currentPage: 1
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -325,7 +326,7 @@ describe('pagination', () => {
     // should have the last 4 page buttons with the display classes
     // When currentPage = 0
     expect(wrapper.vm.currentPage).toBe(1)
-    // Grab the page buttons
+    // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
@@ -366,7 +367,7 @@ describe('pagination', () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(4)
-    // Grab the page buttons (enclude bookends)
+    // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
       expect(li.attributes('role')).toContain('none')
@@ -399,6 +400,30 @@ describe('pagination', () => {
         }
       }
     })
+
+    // should have the first 4 pages buttons with the display classes
+    // When currentPage = 4
+    wrapper.setProps({
+      value: '7'
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(7)
+    // Grab the page buttons (including bookends)
+    wrapper.findAll('li').wrappers.forEach((li, index) => {
+      expect(li.classes()).toContain('page-item')
+      expect(li.attributes('role')).toContain('none')
+      expect(li.attributes('role')).toContain('presentation')
+      // Page number buttons
+      if (index >= 2 && index <= 5) {
+        // pages 1 to 4
+        expect(li.classes()).toContain('d-none')
+        expect(li.classes()).toContain('d-sm-flex')
+      } else if (index >= 6 && index <= 8) {
+        // pages 5 to 7
+        expect(li.classes()).not.toContain('d-none')
+        expect(li.classes()).not.toContain('d-sm-flex')
+      }
+    })
   })
 
   it('places ellipsis in correct places', async () => {
@@ -407,7 +432,7 @@ describe('pagination', () => {
         totalRows: 70,
         perPage: 10,
         limit: 5,
-        currentPage: 1
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -446,12 +471,12 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).not.toBe('separator')
   })
 
-  it('places ellipsis in correct places', async () => {
+  it('clicking buttons updates the v-model', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 3,
         perPage: 1,
-        currentPage: 1
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -482,7 +507,7 @@ describe('pagination', () => {
       .findAll('li')
       .at(6)
       .find('a')
-      .trigger('click')
+      .trigger('keydown.space') /* generates a click event */
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
@@ -498,5 +523,153 @@ describe('pagination', () => {
     expect(wrapper.vm.currentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
+  })
+
+  it('changing the limit changes the nuber of buttons shown', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 9,
+        perPage: 1,
+        value: 5,
+        limit: 10
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+
+    // Should be 13 <LI> total
+    expect(wrapper.findAll('li').length).toBe(13)
+
+    wrapper.setProps({
+      limit: 4
+    })
+    await wrapper.vm.$nextTick()
+
+    // Should be 8 <LI> total
+    expect(wrapper.findAll('li').length).toBe(8)
+  })
+
+  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  describe('pagination keyboard navigation', () => {
+    const origGetBCR = Element.prototype.getBoundingClientRect
+    beforeEach(() => {
+      // Mock getBCR so that the isVisible(el) test returns true.
+      // In our test below, all pagination buttons would normally be visible.
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          width: 24,
+          height: 24,
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        }
+      })
+    })
+    afterEach(() => {
+      // Restore prototype
+      Element.prototype.getBoundingClientRect = origGetBCR
+    })
+
+    it('keyboard navigation works', async () => {
+      const wrapper = mount(Pagination, {
+        propsData: {
+          totalRows: 3,
+          perPage: 1,
+          value: 2,
+          limit: 3
+        },
+        attachToDocument: true
+      })
+      await wrapper.vm.$nextTick()
+      expect(wrapper.is('ul')).toBe(true)
+      // Grab the button links (2 bookends + 3 pages + 2 bookends)
+      let links = wrapper.findAll('a.page-link')
+      expect(links.length).toBe(7)
+
+      // Sanity check for getBCR override
+      expect(wrapper.element.getBoundingClientRect().width).toBe(24)
+      expect(getBCR(links.at(3).element).width).toBe(24)
+      expect(contains(document.body, links.at(3).element)).toBe(true)
+      expect(isVisible(links.at(3).element)).toBe(true)
+
+      // Focus the active button
+      links.at(3).element.focus()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(3).element)
+
+      // LEFT
+      // links.at(3).trigger('keydown.left')
+      wrapper.trigger('keydown.left')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(2).element)
+
+      // RIGHT
+      links.at(2).trigger('keydown.right')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(3).element)
+
+      // SHIFT-RIGHT
+      links.at(2).trigger('keydown.right', { shiftKey: true })
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(6).element)
+
+      // SHIFT-LEFT
+      links.at(6).trigger('keydown.left', { shiftKey: true })
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(0).element)
+    })
+
+    it('internal method focusCurrent() works', async () => {
+      const wrapper = mount(Pagination, {
+        propsData: {
+          totalRows: 3,
+          perPage: 1,
+          value: 2,
+          limit: 3
+        },
+        attachToDocument: true
+      })
+      await wrapper.vm.$nextTick()
+      expect(wrapper.is('ul')).toBe(true)
+      // Grab the button links (2 bookends + 3 pages + 2 bookends)
+      let links = wrapper.findAll('a.page-link')
+      expect(links.length).toBe(7)
+
+      // Focus the last button
+      links.at(6).element.focus()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(6).element)
+
+      wrapper.vm.focusCurrent()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toEqual(links.at(3).element)
+    })
+
+    it('Current page button is focused when button display changes', async () => {
+      const wrapper = mount(Pagination, {
+        propsData: {
+          totalRows: 10,
+          perPage: 1,
+          value: 1,
+          limit: 5
+        },
+        attachToDocument: true
+      })
+      let links
+
+      await wrapper.vm.$nextTick()
+      expect(wrapper.is('ul')).toBe(true)
+      // Grab the button links (2 disabled bookends + 4 pages + (-ellipsis) + 2 bookends)
+      links = wrapper.findAll('a.page-link')
+      expect(links.length).toBe(6)
+
+      // Click on hte 4th button (page 4, index 3)
+      links.at(3).element.click()
+      await wrapper.vm.$nextTick()
+      // links re-rendered with first bookends enabled and an ellipsis
+      links = wrapper.findAll('a.page-link')
+      // HTe 4th link should be page 4, and retain focus
+      expect(document.activeElement).toEqual(links.at(3).element)
+    })
   })
 })

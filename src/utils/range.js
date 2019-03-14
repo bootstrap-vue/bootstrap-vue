@@ -2,4 +2,6 @@
  * @param {number} length
  * @return {Array}
  */
-export default length => Array.apply(null, { length })
+const range = length => Array.apply(null, { length })
+
+export default range

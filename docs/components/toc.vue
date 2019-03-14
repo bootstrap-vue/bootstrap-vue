@@ -60,6 +60,7 @@
 .m-toc.section-nav .nav-link.active {
   color: #563d7c;
   background: transparent;
+  font-weight: 600;
 }
 
 .m-toc.section-nav > .nav-item + .nav,
