@@ -2,18 +2,9 @@ import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 import { inBrowser } from '../../utils/env'
 import { isObject } from '../../utils/object'
+import { computeHref } from '../../utils/router'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
-
-// Convert a 'to' location to an HREF string (if possible)
-function routeToHREF(to = '/') {
-  // Note does not handle query params or hash in to object.
-  // TODO:
-  //  Could be updated to better handle `to.search` and `to.hash` properties.
-  //  BLink uses a similar method... could be made into a util.
-  /* istanbul ignore next: for now */
-  return String(isObject(to) ? (to.path === undefined ? '/' : to.path) : to)
-}
 
 // Props needed for router links
 const routerProps = pickLinkProps(
@@ -70,11 +61,11 @@ const props = {
 // Our render function is brought in via the pagination mixin
 // @vue/component
 export default {
-  name: 'BPaginatonNav',
+  name: 'BPaginationNav',
   mixins: [paginationMixin],
   props,
   computed: {
-    // Used by render function to trigger wraping in '<nav>' element
+    // Used by render function to trigger wrapping in '<nav>' element
     isNav() {
       return true
     },
@@ -131,27 +122,27 @@ export default {
       this.$nextTick(() => {
         try {
           // Emulate native link click page reloading behaviour by  blurring the
-          // paginator and returing focus to the document
+          // paginator and returning focus to the document
           const target = evt.currentTarget || evt.target
           target.blur()
         } catch (e) {}
       })
     },
-    makePage(pagenum) {
+    makePage(pageNum) {
       if (this.pageGen && typeof this.pageGen === 'function') {
-        return this.pageGen(pagenum)
+        return this.pageGen(pageNum)
       }
-      return pagenum
+      return pageNum
     },
-    makeLink(pagenum) {
+    makeLink(pageNum) {
       if (this.linkGen && typeof this.linkGen === 'function') {
-        return this.linkGen(pagenum)
+        return this.linkGen(pageNum)
       }
-      const link = `${this.baseUrl}${pagenum}`
+      const link = `${this.baseUrl}${pageNum}`
       return this.useRouter ? { path: link } : link
     },
-    linkProps(pagenum) {
-      const link = this.makeLink(pagenum)
+    linkProps(pageNum) {
+      const link = this.makeLink(pageNum)
       let props = {
         href: typeof link === 'string' ? link : void 0,
         target: this.target || null,
@@ -191,9 +182,10 @@ export default {
           // Else try by comparing page URL with page Link URLs
           const loc = window.location || document.location
           for (let page = 1; !current && page <= numPages; page++) {
+            const to = this.makeLink(page)
             const link = document.createElement('a')
             // Assigning to a link will auto normalize the URL
-            link.href = routeToHREF(this.makeLink(page))
+            link.href = computeHref({ to })
             current = link.href === loc.href ? page : null
           }
         }
