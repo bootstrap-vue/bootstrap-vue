@@ -277,6 +277,9 @@ describe('form-radio-group', () => {
         required: true
       }
     })
+    // We need nextTick here since auto generated name is computed in a nextTick on mount
+    await wrapper.vm.$nextTick()
+
     expect(wrapper.classes()).toBeDefined()
     const radios = wrapper.findAll('input')
     expect(radios.length).toBe(3)
