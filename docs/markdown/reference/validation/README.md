@@ -5,7 +5,7 @@ validation plugins. Below are some examples of plugins and how they may be integ
 
 ## Vuelidate
 
-[Vuelidate](https://github.com/vuelidate/vuelidate) provides "Simple, lightweight model-based
+[Vuelidate](https://github.com/vuelidate/vuelidate/) provides "Simple, lightweight model-based
 validation for Vue.js". Installation instructions and other documentation can be found at
 https://vuelidate.netlify.com/.
 
