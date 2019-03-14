@@ -205,7 +205,7 @@ describe('pagination-nav', () => {
 
     expect(wrapper.findAll('li').length).toBe(7)
 
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // click on current page button (does nothing)
@@ -216,7 +216,7 @@ describe('pagination-nav', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // click on 2nd page button
@@ -227,7 +227,7 @@ describe('pagination-nav', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
-    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
 
@@ -239,7 +239,7 @@ describe('pagination-nav', () => {
       .trigger('keydown.space') /* generates a click event */
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
-    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
 
     // click prev button
@@ -250,7 +250,7 @@ describe('pagination-nav', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
-    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
   })
 })
