@@ -41,6 +41,14 @@ export default {
       return result < 1 ? 1 : result
     }
   },
+  created() {
+    this.$nextTick(() => {
+      // Set the initial page if not set (i.e. null). Defaults to page 1
+      if(!(parseInt(this.value, 10) > 0)) {
+        this.computedPage = 1
+      })
+    })
+  },
   methods: {
     // These methods are used by the render function
     onClick(num, evt) {
