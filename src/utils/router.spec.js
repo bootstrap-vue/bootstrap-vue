@@ -114,10 +114,10 @@ describe('utils/router', () => {
       expect(computeHref(obj)).toEqual('?foo=bar')
     })
 
-    it('parses empty `to` to default', async () => {
-      expect(computeHref({ to: {} })).toEqual('/')
-      expect(computeHref({ to: {} }, 'a', '#', '')).toEqual('')
-      expect(computeHref({ to: {} }, 'a', '/', '#')).toEqual('#')
+    it('parses empty `to` to fallback default', async () => {
+      expect(computeHref({ to: {} })).toEqual('#')
+      expect(computeHref({ to: {} }, 'a', '#', '')).toEqual('#')
+      expect(computeHref({ to: {} }, 'a', '/', '#')).toEqual('1')
     })
 
     it('parses complete `to`', async () => {
@@ -133,7 +133,7 @@ describe('utils/router', () => {
           hash: '#fizzlerocks'
         }
       }
-      expect(computeHref(obj)).toEqual('/foo?bar=1&baz=a&baz=b&bif#fizzlerocks')
+      expect(computeHref(obj)).toEqual('/foo?bar=1&baz=a&baz=b&baz=c&bif#fizzlerocks')
     })
   })
 
