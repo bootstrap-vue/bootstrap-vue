@@ -41,6 +41,16 @@ export default {
       return result < 1 ? 1 : result
     }
   },
+  created() {
+    // If this value parses to NaN or a value less than 1
+    // we trigger an $emit('input', null)
+    if (!(parseInt(this.value, 10) > 0)) {
+      this.$nextTick(() => {
+        // Trigger an initial emit of 'null' if no page specified
+        this.currentPage = 0
+      })
+    }
+  },
   methods: {
     // These methods are used by the render function
     onClick(num, evt) {
