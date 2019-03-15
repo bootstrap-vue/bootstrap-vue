@@ -163,6 +163,7 @@ export default {
     },
     guessCurrentPage() {
       let guess = this.computedValue
+      console.log('GUESS Start: guess =', guess)
       const $router = this.$router
       const $route = this.$route
       // This section only occurs if we are client side, or serverside with $router
@@ -187,6 +188,7 @@ export default {
         }
         // Loop through the possible pages looking for a match until found
         for (let page = 1; !guess && page <= this.localNumPages; page++) {
+          console.log(`GUESS Loop page ${page} Check`, guess)
           let to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
@@ -194,10 +196,13 @@ export default {
           } else if (inBrowser) {
             // If no router available (or !this.useRouter when `to` is a string)
             // we compare using fully qualified URLs
+            console.log(`GUESS Loop page ${page} Compare`, resolveLink(to), currLocLink)
             guess = resolveLink(to) === currLocLink ? page : null
           }
+          console.log(`GUESS Loop page ${page} End`, guess)
         }
       }
+      console.log('GUESS End: guess =', guess)
       if (guess) {
         this.currentPage = guess
       }
