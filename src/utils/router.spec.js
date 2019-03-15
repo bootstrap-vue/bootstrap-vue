@@ -16,7 +16,7 @@ describe('/utils/router', () => {
 
   if('parses empty `href` to default', async () => {
     expect(computeHref({ href: '' })).toEqual('#')
-    expect(computeHref({ href: '' }), /, '').toEqual('/')
+    expect(computeHref({ href: '' }), '/', '').toEqual('/')
     expect(computeHref({ href: '' }), '', '').toEqual('')
   })
 
@@ -56,6 +56,6 @@ describe('/utils/router', () => {
 
   if('parses empty `to` to default', async () => {
     expect(computeHref({ to: {} })).toEqual('/')
-    expect(computeHref({ to: {} }), #, '').toEqual('')
+    expect(computeHref({ to: {} }), '#', '').toEqual('')
   })
 })
