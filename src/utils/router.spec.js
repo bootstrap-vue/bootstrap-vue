@@ -117,7 +117,7 @@ describe('utils/router', () => {
     it('parses empty `to` to fallback default', async () => {
       expect(computeHref({ to: {} })).toEqual('#')
       expect(computeHref({ to: {} }, 'a', '#', '')).toEqual('#')
-      expect(computeHref({ to: {} }, 'a', '/', '#')).toEqual('1')
+      expect(computeHref({ to: {} }, 'a', '/', '#')).toEqual('/')
     })
 
     it('parses complete `to`', async () => {
