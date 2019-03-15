@@ -210,7 +210,7 @@ describe('pagination', () => {
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
   })
 
-  it('has atribute aria-controls on page links when prop aria-controls is set', async () => {
+  it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         hideGotoEndButtons: true,
@@ -235,7 +235,7 @@ describe('pagination', () => {
     expect(wrapper.findAll('a.page-link').is('[aria-controls]')).toBe(false)
   })
 
-  it('has atribute aria-label on page links', async () => {
+  it('has attribute aria-label on page links', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         hideGotoEndButtons: true,
@@ -320,11 +320,11 @@ describe('pagination', () => {
     expect(wrapper.is('ul')).toBe(true)
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
-    // including bookend buttons
+    // Including bookend buttons
     expect(lis.length).toBe(11)
 
-    // should have the last 4 page buttons with the display classes
-    // When currentPage = 0
+    // Should have the last 4 page buttons with the
+    // display classes when currentPage = 0
     expect(wrapper.vm.computedCurrentPage).toBe(1)
     // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
@@ -338,7 +338,7 @@ describe('pagination', () => {
         // Prev button
         expect(li.classes()).toContain('disabled')
       } else if (index === 9) {
-        // Next buton
+        // Next button
         expect(li.classes()).not.toContain('disabled')
       } else if (index === 10) {
         // Last button
@@ -360,8 +360,8 @@ describe('pagination', () => {
       }
     })
 
-    // should have the first and last 2 pages buttons with the display classes
-    // When currentPage = 4
+    // Should have the first and last 2 pages buttons with the
+    // display classes when currentPage = 4
     wrapper.setProps({
       value: '4'
     })
@@ -379,7 +379,7 @@ describe('pagination', () => {
         // Prev button
         expect(li.classes()).not.toContain('disabled')
       } else if (index === 9) {
-        // Next buton
+        // Next button
         expect(li.classes()).not.toContain('disabled')
       } else if (index === 10) {
         // Last button
@@ -401,8 +401,8 @@ describe('pagination', () => {
       }
     })
 
-    // should have the first 4 pages buttons with the display classes
-    // When currentPage = 4
+    // Should have the first 4 pages buttons with the
+    // display classes when currentPage = 4
     wrapper.setProps({
       value: '7'
     })
@@ -446,8 +446,7 @@ describe('pagination', () => {
     expect(lis.at(2).attributes('role')).not.toBe('separator')
     expect(lis.at(6).attributes('role')).toBe('separator')
 
-    // should have both ellipsis showing
-    // When currentPage = 4
+    // Should have both ellipsis showing when currentPage = 4
     wrapper.setProps({
       value: '4'
     })
@@ -458,8 +457,7 @@ describe('pagination', () => {
     expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).toBe('separator')
 
-    // should have first ellipsis showing
-    // When currentPage = 5
+    // Should have first ellipsis showing when currentPage = 5
     wrapper.setProps({
       value: 5
     })
@@ -489,7 +487,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    // click on 2nd button
+    // Click on 2nd button
     wrapper
       .findAll('li')
       .at(3)
@@ -502,7 +500,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(2)
     expect(wrapper.emitted('change')[0][0]).toBe(2)
 
-    // click goto last button
+    // Click goto last button
     wrapper
       .findAll('li')
       .at(6)
@@ -513,7 +511,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
 
-    // click prev button
+    // Click prev button
     wrapper
       .findAll('li')
       .at(1)
@@ -552,8 +550,8 @@ describe('pagination', () => {
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true.
-      // In our test below, all pagination buttons would normally be visible.
+      // Mock getBCR so that the isVisible(el) test returns true
+      // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => {
         return {
           width: 24,
@@ -663,12 +661,12 @@ describe('pagination', () => {
       links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(6)
 
-      // Click on hte 4th button (page 4, index 3)
+      // Click on the 4th button (page 4, index 3)
       links.at(3).element.click()
       await wrapper.vm.$nextTick()
-      // links re-rendered with first bookends enabled and an ellipsis
+      // Links re-rendered with first bookends enabled and an ellipsis
       links = wrapper.findAll('a.page-link')
-      // HTe 4th link should be page 4, and retain focus
+      // The 4th link should be page 4, and retain focus
       expect(document.activeElement).toEqual(links.at(3).element)
     })
   })

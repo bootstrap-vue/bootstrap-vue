@@ -6,7 +6,7 @@ const localVue = createLocalVue()
 localVue.use(VueRouter)
 
 // The majority of tests for the core of pagination mixin are performed
-// in pagination.spec.js.  Here we just test the differences that
+// in pagination.spec.js. Here we just test the differences that
 // pagination-nav has
 
 describe('pagination-nav', () => {
@@ -212,7 +212,7 @@ describe('pagination-nav', () => {
     expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
-    // click on current page button (does nothing)
+    // Click on current page button (does nothing)
     wrapper
       .findAll('li')
       .at(2)
@@ -223,7 +223,7 @@ describe('pagination-nav', () => {
     expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
-    // click on 2nd page button
+    // Click on 2nd page button
     wrapper
       .findAll('li')
       .at(3)
@@ -235,7 +235,7 @@ describe('pagination-nav', () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
 
-    // click goto last button
+    // Click goto last button
     wrapper
       .findAll('li')
       .at(6)
@@ -246,7 +246,7 @@ describe('pagination-nav', () => {
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
 
-    // click prev button
+    // Click prev button
     wrapper
       .findAll('li')
       .at(1)
@@ -258,7 +258,7 @@ describe('pagination-nav', () => {
     expect(wrapper.emitted('input')[2][0]).toBe(2)
   })
 
-  describe('autodetect page', () => {
+  describe('auto-detect page', () => {
     // Note: JSDOM only works with hash URL updates out of the box
 
     it('detects current page without $router', async () => {

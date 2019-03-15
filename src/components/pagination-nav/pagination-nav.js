@@ -101,13 +101,14 @@ export default {
       }
       requestAF(() => {
         // Update the v-model
-        // Done in in rAF to allow browser to complete the native click handling of a link
+        // Done in in requestAF() to allow browser to complete the
+        // native click handling of a link
         this.currentPage = pageNum
       })
       this.$nextTick(() => {
-        // Done in a nextTick to ensure rendering complete
+        // Done in a nextTick() to ensure rendering complete
         try {
-          // Emulate native link click page reloading behaviour by  blurring the
+          // Emulate native link click page reloading behaviour by blurring the
           // paginator and returning focus to the document
           const target = evt.currentTarget || evt.target
           target.blur()
@@ -151,22 +152,22 @@ export default {
       let guess = this.computedValue
       const $router = this.$router
       const $route = this.$route
-      // This section only occurs if we are client side, or serverside with $router
+      // This section only occurs if we are client side, or server-side with $router
       /* istanbul ignore else */
       if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         const currLocRoute = $router && $route ? $route.fullPath : null
         // Current page full HREF (if client side)
         const currLocLink = inBrowser ? (window.location || document.location).href : null
-        // convert a `to` location to a full URL (client side only when no router)
+        // Convert a `to` location to a full URL (client side only when no router)
         const resolveLink = to => {
           if (
             inBrowser &&
             ((isObject(to) && to.path !== undefined && to.path !== null) || typeof to === 'string')
           ) {
             let link = document.createElement('a')
-            // Convert the `to` to a HREF via a temprary `a` tag
+            // Convert the `to` to a HREF via a temporary `a` tag
             link.href = computeHref({ to }, undefined, '/', '/')
-            // once href is assigned, the returned href will be normalized to the full URL
+            // Once href is assigned, the returned href will be normalized to the full URL
             return link.href
           } else {
             /* istanbul ignore next: this should never happen under normal circumstances */

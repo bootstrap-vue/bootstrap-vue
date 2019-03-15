@@ -67,10 +67,10 @@ export default {
         }
       })
     },
-    makePage(pagenum) {
-      return pagenum
+    makePage(pageNum) {
+      return pageNum
     },
-    linkProps(pagenum) {
+    linkProps(pageNum) {
       // Always '#' for pagination component
       return { href: '#' }
     }
