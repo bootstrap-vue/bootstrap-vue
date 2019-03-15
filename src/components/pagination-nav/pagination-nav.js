@@ -198,7 +198,9 @@ export default {
           }
         }
       }
-      this.currentPage = guess || 1
+      if (guess) {
+        this.currentPage = guess
+      }
     }
   }
 }
