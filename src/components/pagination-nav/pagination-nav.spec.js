@@ -297,11 +297,14 @@ describe('pagination-nav', () => {
             // We return a to prop to auto trigger use of $router
             // if using strings, we would need to set use-router=true
             return page === 2 ? { path: '/' } : { path: '/' + page }
+          },
+          onInput(page) {
+            this.$emit('input', page)
           }
         },
         template: `
           <div>
-            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" />
+            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" @input="onInput" />
             <router-view />
           </div>
         `
