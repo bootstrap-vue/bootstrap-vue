@@ -61,6 +61,28 @@ describe('utils/router', () => {
     })
   })
 
+  describe('parseQuery()', () => {
+    it('returns empty object when empty query', async () => {
+      expect(parseQuery('')).toEqual({})
+      expect(parseQuery('?')).toEqual({})
+    })
+
+    it('parses simple query', async () => {
+      expect(parseQuery('?foo=bar')).toEqual({ foo: 'bar' })
+      expect(parseQuery('?foo=bar&baz=buz')).toEqual({ foo: 'bar', baz: 'buz' })
+    })
+
+    it('parses empty vals', async () => {
+      expect(parseQuery('?foo')).toEqual({ foo: '' })
+      expect(parseQuery('?foo=bar&baz')).toEqual({ foo: 'bar', baz: '' })
+    })
+
+    it('parses duplicate keys as arrays', async () => {
+      expect(parseQuery('?foo=bar&foo=baz')).toEqual({ foo: ['bar', 'baz'] })
+      expect(parseQuery('?foo=bar&baz=buz&baz=fiz')).toEqual({ foo: 'bar', baz: ['buz', 'fiz'] })
+    })
+  })
+
   // computeHref() utility method
   describe('computeHref()', () => {
     it('works with href', async () => {
