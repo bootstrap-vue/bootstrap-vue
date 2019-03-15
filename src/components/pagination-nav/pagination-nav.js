@@ -85,8 +85,10 @@ export default {
     if (this.$router) {
       // We only add the watcher if vue router is detected
       this.$watch('$route', (to, from) => {
-        requestAF(() => {
-          this.guessCurrentPage()
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.guessCurrentPage()
+          })
         })
       })
     }
