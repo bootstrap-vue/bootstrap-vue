@@ -351,6 +351,7 @@ describe('pagination-nav', () => {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
+      window.history.pushState({}, '', '/')
       // Create router instance
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
@@ -361,6 +362,8 @@ describe('pagination-nav', () => {
 
       // Wait for the router to initialize
       await new Promise(resolve => router.onReady(resolve))
+      // Make sure the router is at /, as JSDOM instances are re-used for multiple tests
+      // wrapper.vm.$router.push('/')
 
       // Wait for the guessCurrentPage to complete
       await wrapper.vm.$nextTick()
@@ -412,6 +415,7 @@ describe('pagination-nav', () => {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
+      window.history.pushState({}, '', '/')
       // Create router instance
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
@@ -422,6 +426,8 @@ describe('pagination-nav', () => {
 
       // Wait for the router to initialize
       await new Promise(resolve => router.onReady(resolve))
+      // Make sure the router is at /, as JSDOM instance from above is re-used
+      // wrapper.vm.$router.push('/')
 
       // Wait for the guessCurrentPage to complete
       await wrapper.vm.$nextTick()
