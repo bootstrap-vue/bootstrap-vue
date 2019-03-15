@@ -301,6 +301,8 @@ describe('pagination-nav', () => {
     // Note: JSDOM only works with hash URL updates out of the box
 
     it('detects current page without $router', async () => {
+      // Make sure theJSDOM is at /, as JSDOM instance from above is re-used
+      window.history.pushState({}, '', '/')
       const wrapper = mount(PaginationNav, {
         propsData: {
           numberOfPages: 3,
@@ -351,6 +353,7 @@ describe('pagination-nav', () => {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
+      // Make sure theJSDOM is at /, as JSDOM instance from above is re-used
       window.history.pushState({}, '', '/')
       // Create router instance
       const router = new VueRouter({
@@ -362,8 +365,6 @@ describe('pagination-nav', () => {
 
       // Wait for the router to initialize
       await new Promise(resolve => router.onReady(resolve))
-      // Make sure the router is at /, as JSDOM instances are re-used for multiple tests
-      // wrapper.vm.$router.push('/')
 
       // Wait for the guessCurrentPage to complete
       await wrapper.vm.$nextTick()
@@ -415,6 +416,7 @@ describe('pagination-nav', () => {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
+      // Make sure theJSDOM is at /, as JSDOM instance from above is re-used
       window.history.pushState({}, '', '/')
       // Create router instance
       const router = new VueRouter({
@@ -426,8 +428,6 @@ describe('pagination-nav', () => {
 
       // Wait for the router to initialize
       await new Promise(resolve => router.onReady(resolve))
-      // Make sure the router is at /, as JSDOM instance from above is re-used
-      // wrapper.vm.$router.push('/')
 
       // Wait for the guessCurrentPage to complete
       await wrapper.vm.$nextTick()
