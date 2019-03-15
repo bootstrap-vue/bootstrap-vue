@@ -325,7 +325,7 @@ describe('pagination-nav', () => {
       expect(wrapper.emitted('input')[0][0]).toBe(2) /* page 2, URL = '' */
     })
 
-    it('works with $router to detect path', async () => {
+    it('works with $router to detect path and linkGen returns location object', async () => {
       const App = {
         components: {
           BPaginationNav: PaginationNav
@@ -341,6 +341,67 @@ describe('pagination-nav', () => {
         template: `
           <div>
             <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" />
+            <router-view />
+          </div>
+        `
+      }
+      // Our router view component
+      const FooRoute = {
+        render(h) {
+          return h('div', { class: 'foo-content' }, ['stub'])
+        }
+      }
+      // Create router instance
+      const router = new VueRouter({
+        routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
+      })
+      const wrapper = mount(App, { localVue, router })
+
+      expect(wrapper).toBeDefined()
+
+      // Wait for the router to initialize
+      await new Promise(resolve => router.onReady(resolve))
+
+      // Wait for the guessCurrentPage to complete
+      await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      await wrapper.vm.$nextTick()
+
+      // The pagination-nav component should exist
+      expect(wrapper.find(PaginationNav).exists()).toBe(true)
+      // And should be on page 2
+      expect(wrapper.find(PaginationNav).vm.currentPage).toBe(2)
+
+      // Push router to a new page
+      wrapper.vm.$router.push('/3')
+
+      // Wait for the guessCurrentPage to complete
+      await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      await wrapper.vm.$nextTick()
+
+      // The pagination-nav component should exist
+      expect(wrapper.find(PaginationNav).exists()).toBe(true)
+      // And should be on page 3
+      expect(wrapper.find(PaginationNav).vm.currentPage).toBe(3)
+    })
+
+    it('works with $router to detect path and use-router set and linkGen returns string', async () => {
+      const App = {
+        components: {
+          BPaginationNav: PaginationNav
+        },
+        methods: {
+          linkGen(page) {
+            // We make page #2 "home" for testing
+            // We return a to prop to auto trigger use of $router
+            // if using strings, we would need to set use-router=true
+            return page === 2 ? '/' : `/${page}`
+          }
+        },
+        template: `
+          <div>
+            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" use-router />
             <router-view />
           </div>
         `
