@@ -101,11 +101,11 @@ describe('link', () => {
   describe('pickLinkProps() helper', () => {
     it('works', async () => {
       expect(pickLinkProps([])).toEqual({})
-      expect(pickLinkProps(['append'])).toEqual({ ...linkProps.append })
-      expect(pickLinkProps('to')).toEqual({ ...linkProps.to })
+      expect(pickLinkProps(['append'])).toEqual({ append: linkProps.append })
+      expect(pickLinkProps('to')).toEqual({ to: linkProps.to })
       expect(pickLinkProps(['append', 'routerTag'])).toEqual({
-        ...linkProps.append,
-        ...linkProps.routerTag
+        append: linkProps.append,
+        routerTag: linkProps.routerTag
       })
     })
   })
@@ -114,7 +114,10 @@ describe('link', () => {
     it('works', async () => {
       expect(omitLinkProps([])).toEqual({ ...linkProps })
       const propsOmitted = Object.keys(linkProps).filter(p => p !== 'to' && p !== 'append')
-      expect(omitLinkProps(propsOmitted)).toEqual({ ...linkProps.to, ...linkProps.append })
+      expect(omitLinkProps(propsOmitted)).toEqual({
+        to: linkProps.to,
+        append: linkProps.append
+      })
     })
   })
 })
