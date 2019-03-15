@@ -312,7 +312,7 @@ describe('pagination-nav', () => {
               :link-gen="linkGen"
               v-model="currPage"
             />
-            <router-view ref="view" />
+            <router-view />
           </div>
         `
       }
@@ -321,12 +321,19 @@ describe('pagination-nav', () => {
         render(h) {
           // page 2 is linked to route /
           const pageNum = this.$route.params.pageNum || 'home'
-          return h('div', { class: 'test-content' }, [pageNum])
+          return h('div', { class: 'foo-content' }, [pageNum])
         }
       }
       // Create router instance
       const router = new VueRouter({
-        routes: [{ path: '/:page', component: FooRoute }]
+        routes: [{
+          path: '/:page',
+          component: FooRoute,
+          children: [
+            // Rendered when :page is null/undefined/emptu
+            { path: '', component: FooRoute }
+          ]
+        }]
       })
       const wrapper = mount(App, { localVue, router })
 
@@ -340,8 +347,8 @@ describe('pagination-nav', () => {
       expect(wrapper.vm.currPage).toBe(2)
 
       // The router view should have the text 'home'
-      expect(wrapper.find('.test-content').exists()).toBe(true)
-      expect(wrapper.find('.test-content').text()).toContain('home')
+      expect(wrapper.find('.foo-content').exists()).toBe(true)
+      expect(wrapper.find('.foo-content').text()).toContain('home')
     })
   })
 })
