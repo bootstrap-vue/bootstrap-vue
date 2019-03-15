@@ -108,7 +108,7 @@ describe('pagination-nav', () => {
 
     // NAV Attributes
     expect(wrapper.attributes('aria-hidden')).toBe('true')
-    expect(wrapper.attributes('aria-disabed')).toBe('true')
+    expect(wrapper.attributes('aria-disabled')).toBe('true')
 
     // UL Classes
     expect($ul.classes()).toContain('pagination')
