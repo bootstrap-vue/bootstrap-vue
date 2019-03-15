@@ -77,6 +77,38 @@ describe('pagination', () => {
     expect(page.find('.page-link').attributes('target')).toEqual('_self')
   })
 
+  it('renders scopedSlot page', async () => {
+    let scopes = []
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 3,
+        perPage: 1,
+        limit: 10,
+        value: 1
+      },
+      scopedSlots: {
+        page: scope => {
+          const pageNum = scope.page
+          scopes[pageNum] = scope
+          return `page ${scope.page}`
+        }
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(scopes.length).toBe(3)
+    expect(scopes[0]).toEqual({ page: 1, content: '1', active: true })
+    expect(scopes[1]).toEqual({ page: 2, content: '2', active: false })
+    expect(scopes[2]).toEqual({ page: 3, content: '3', active: false })
+
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(5)
+    expect($links.at(0).text()).toBe('Page 1')
+    expect($links.at(1).text()).toBe('Page 2')
+    expect($links.at(2).text()).toBe('Page 3')
+  })
+
   it('has class "pagination-sm" when prop size="sm"', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
