@@ -297,9 +297,6 @@ describe('pagination-nav', () => {
             // We return a to prop to auto trigger use of $router
             // if using strings, we would need to set use-router=true
             return page === 2 ? { path: '/' } : { path: '/' + page }
-          },
-          onInput(page) {
-            this.$emit('input', page)
           }
         },
         template: `
@@ -312,9 +309,7 @@ describe('pagination-nav', () => {
       // Our router view component
       const FooRoute = {
         render(h) {
-          // page 2 is linked to route /
-          const pageNum = this.$route.params.pageNum || 'home'
-          return h('div', { class: 'foo-content' }, [pageNum])
+          return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
       // Create router instance
@@ -332,36 +327,24 @@ describe('pagination-nav', () => {
       await wrapper.vm.$nextTick()
       await new Promise(resolve => requestAnimationFrame(resolve))
       await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
 
       // The pagination-nav component should exist
       expect(wrapper.find(PaginationNav).exists()).toBe(true)
+      // And should be on page 2
       expect(wrapper.find(PaginationNav).vm.currentPage).toBe(2)
 
-      // The router view should have the text 'home'
-      expect(wrapper.find('.foo-content').exists()).toBe(true)
-      expect(wrapper.find('.foo-content').text()).toContain('home')
-
-      // Auto page detect should set us at page #2 (url '/')
-      expect(wrapper.emitted('input')).toBeDefined()
-      expect(wrapper.emitted('input').length).toBe(1)
-      expect(wrapper.emitted('input')[0][0]).toBe(2)
-
       // Push router to a new page
-      router.push('/3')
+      wrapper.vm.$router.push('/3')
 
       // Wait for the guessCurrentPage to complete
       await wrapper.vm.$nextTick()
       await new Promise(resolve => requestAnimationFrame(resolve))
       await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
 
-      expect(wrapper.emitted('input').length).toBe(2)
-      expect(wrapper.emitted('input')[1][0]).toBe(3)
-
-      // The router view should have the text 'home'
-      expect(wrapper.find('.foo-content').exists()).toBe(true)
-      expect(wrapper.find('.foo-content').text()).toContain('3')
+      // The pagination-nav component should exist
+      expect(wrapper.find(PaginationNav).exists()).toBe(true)
+      // And should be on page 3
+      expect(wrapper.find(PaginationNav).vm.currentPage).toBe(3)
     })
   })
 })
