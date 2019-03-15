@@ -1,5 +1,6 @@
 import { isPlainObject, keys } from './object'
 import { isArray } from './array'
+import toString from './to-string'
 
 const ANCHOR_TAG = 'a'
 
@@ -13,7 +14,7 @@ const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 // - escapes [!'()*]
 // - preserve commas
 const encode = str =>
-  encodeURIComponent(str)
+  encodeURIComponent(toString(str))
     .replace(encodeReserveRE, encodeReserveReplacer)
     .replace(commaRE, ',')
 
@@ -88,8 +89,8 @@ export const computeHref = ({ href, to } = {}, tag = ANCHOR_TAG, fallback = '#',
     if (typeof to === 'string') {
       return to || toFallback
     }
-    // Fallback to `to.path` prop (if `to` is an object)
-    if (isPlainObject(to) && typeof to.path === 'string') {
+    // Fallback to `to.path + to.query + to.hash` prop (if `to` is an object)
+    if (isPlainObject(to) && (to.path || to.query || to.hash)) {
       const query = stringifyQueryObj(to.query)
       const hash = to.hash || ''
       return `${to.path}${query}${hash}` || toFallback
