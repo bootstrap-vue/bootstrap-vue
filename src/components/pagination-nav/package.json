@@ -6,6 +6,28 @@
     "components": [
       {
         "component": "BPaginationNav",
+        "events": [
+          {
+            "event": "input",
+            "description": "when page changes via user interaction or programmatically",
+            "args": [
+              {
+                "arg": "page",
+                "description": "Selected page number (starting with 1), or null if no page found"
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "when page changes via user interaction",
+            "args": [
+              {
+                "arg": "page",
+                "description": "Selected page number (starting with 1)"
+              }
+            ]
+          }
+        ],
         "slots": [
           {
             "name": "first-text",
