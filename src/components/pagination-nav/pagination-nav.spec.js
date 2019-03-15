@@ -291,11 +291,6 @@ describe('pagination-nav', () => {
         components: {
           BPaginationNav: PaginationNav
         },
-        data() {
-          return {
-            currPage: null
-          }
-        },
         methods: {
           linkGen(page) {
             // We make page #2 "home" for testing
@@ -306,12 +301,7 @@ describe('pagination-nav', () => {
         },
         template: `
           <div>
-            <b-pagination-nav
-              ref="pagination"
-              :number-of-pages="3"
-              :link-gen="linkGen"
-              v-model="currPage"
-            />
+            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" />
             <router-view />
           </div>
         `
@@ -349,7 +339,24 @@ describe('pagination-nav', () => {
       expect(wrapper.find('.foo-content').text()).toContain('home')
 
       // Auto page detect should set us at page #2 (url '/')
-      expect(wrapper.vm.currPage).toBe(2)
+      expect(wrapper.emitted('input')).toBe(true)
+      expect(wrapper.emitted('input').length).toBe(1)
+      expect(wrapper.emitted('input')[0][0]).toBe(2)
+
+      // Push router to a new page
+      router.push('/3')
+
+      // Wait for the guessCurrentPage to complete
+      await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.emitted('input').length).toBe(2)
+      expect(wrapper.emitted('input')[1][0]).toBe(3)
+
+      // The router view should have the text 'home'
+      expect(wrapper.find('.foo-content').exists()).toBe(true)
+      expect(wrapper.find('.foo-content').text()).toContain('3')
     })
   })
 })
