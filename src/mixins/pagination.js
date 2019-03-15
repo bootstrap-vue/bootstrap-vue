@@ -371,7 +371,13 @@ export default {
         role: 'none presentation',
         'aria-hidden': disabled ? 'true' : null
       }
-      if (disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages) {
+      if (
+        disabled ||
+        isActivePage(pageTest) ||
+        noCurrPage ||
+        linkTo < 1 ||
+        linkTo > numberOfPages
+      ) {
         button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
           h(
             'span',
@@ -457,7 +463,7 @@ export default {
     this.pageList.forEach((page, idx) => {
       const active = isActivePage(page.number) && !noCurrPage
       // Active page will have tabindex of 0, or if no current page and first page button
-      let tabIndex = disabled ? null : (active || (noCurrPage && idx === 0)) ? '0' : '-1'
+      let tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
       const staticClass = 'page-link'
       const attrs = {
         role: 'menuitemradio',
