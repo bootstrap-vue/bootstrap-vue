@@ -36,7 +36,7 @@ export const stringifyQueryObj = (obj = {}) => {
                 result.push(encode(key))
               } else if (val2 !== undefined) {
                 // faster than string interpolation
-                result.push(encode(key) + '=' + encode(val))
+                result.push(encode(key) + '=' + encode(val2))
               }
             })
             return result.join('&')
