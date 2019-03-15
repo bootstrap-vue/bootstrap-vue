@@ -2,14 +2,14 @@ import { stringifyQueryObj, computeHref, isRouterLink, computeRel, computeTag } 
 
 describe('utils/router', () => {
   // stringifyQueryObject utility method
-  describe('stringifyQueryObj()', async () => {
+  describe('stringifyQueryObj()', () => {
     it('returns empty string when noting passed', async () => {
       expect(stringifyQueryObj()).toEqual('')
     })
 
     it('handles special chars', async () => {
-      expect(stringifyQueryObj({ foo: ", !'()*" })).toEqual('foo=,%20%21%27%28%29%2a')
-      expect(stringifyQueryObj({ ", !'()*": 'foo' })).toEqual(',%20%21%27%28%29%2a=foo')
+      expect(stringifyQueryObj({ foo: ", !'()*" })).toEqual('?foo=,%20%21%27%28%29%2a')
+      expect(stringifyQueryObj({ ", !'()*": 'foo' })).toEqual(?',%20%21%27%28%29%2a=foo')
     })
 
     it('handles multiple keys', async () => {
@@ -17,7 +17,7 @@ describe('utils/router', () => {
         foo: 1,
         bar: 'baz'
       }
-      expect(stringifyQueryObj(obj)).toEqual('foo=1&bar=baz')
+      expect(stringifyQueryObj(obj)).toEqual('?foo=1&bar=baz')
     })
 
     it('handles array as values', async () => {
@@ -25,7 +25,7 @@ describe('utils/router', () => {
         foo: 1,
         bar: ['a', 'b', 'c']
       }
-      expect(stringifyQueryObj(obj)).toEqual('foo=1&bar=a&bar=b&bar=c')
+      expect(stringifyQueryObj(obj)).toEqual('?foo=1&bar=a&bar=b&bar=c')
     })
 
     it('skips undefined vals', async () => {
@@ -34,7 +34,7 @@ describe('utils/router', () => {
         bar: undefined,
         baz: 2
       }
-      expect(stringifyQueryObj(obj)).toEqual('foo=1&baz=2')
+      expect(stringifyQueryObj(obj)).toEqual('?foo=1&baz=2')
     })
 
     it('leaves in null val keys', async () => {
@@ -43,7 +43,7 @@ describe('utils/router', () => {
         bar: null,
         baz: 2
       }
-      expect(stringifyQueryObj(obj)).toEqual('foo=1&bar&baz=2')
+      expect(stringifyQueryObj(obj)).toEqual('?foo=1&bar&baz=2')
     })
   })
 
