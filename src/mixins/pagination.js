@@ -7,6 +7,7 @@ import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import toString from '../utils/to-string'
+import normalizeSlotMixin from '../mixins/normalize-slot'
 import BLink from '../components/link/link'
 
 // Threshold of limit size when we start/stop showing ellipsis
@@ -150,6 +151,7 @@ const props = {
 // @vue/component
 export default {
   components: { BLink },
+  mixins: [normalizeSlotMixin],
   props,
   data() {
     const curr = parseInt(this.value, 10)
@@ -264,7 +266,8 @@ export default {
     },
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.$emit('input', newValue)
+        // Emit null if no page selected
+        this.$emit('input', newValue > 0 ? newValue : null)
       }
     },
     numberOfPages(newValue, oldValue) {
@@ -446,8 +449,14 @@ export default {
     buttons.push(showFirstDots ? makeEllipsis(false) : h(false))
 
     // Individual Page links
-    this.pageList.forEach(page => {
+    this.pageList.forEach((page, idx) => {
       const active = isActivePage(page.number)
+      let tabIndex = disabled ? null : active ? '0' : '-1'
+      if (this.currentPage < 1 && idx === 0 && !disabled) {
+        // Handle case where no page is active (current page < 1), so we ensure
+        // the page 1 button is in the tab sequence so it can be selected
+        tabIndex = '0'
+      }
       const staticClass = 'page-link'
       const attrs = {
         role: 'menuitemradio',
@@ -458,8 +467,9 @@ export default {
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
         // ARIA "roving tabindex" method
-        tabindex: disabled ? null : active ? '0' : '-1'
+        tabindex: tabIndex
       }
+      const btnContent = this.makePage(page.number)
       const inner = h(
         disabled ? 'span' : `b-link`,
         {
@@ -475,7 +485,9 @@ export default {
                 keydown: onSpaceKey
               }
         },
-        toString(this.makePage(page.number))
+        [
+          this.normalizeSlot('page', { pageNum: page.number, content: btnContent }) ||
+          toString(btnContent)
       )
       buttons.push(
         h(
