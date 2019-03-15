@@ -87,7 +87,7 @@ describe('utils/router', () => {
           hash: '#fizzlerocks'
         }
       }
-      expect(computeHref(obj)).toEqual('/foo?bar=1&baz=a&baz=b&bif=#fizzlerocks')
+      expect(computeHref(obj)).toEqual('/foo?bar=1&baz=a&baz=b&bif#fizzlerocks')
     })
   })
 })
