@@ -490,7 +490,7 @@ export default {
               }
         },
         [
-          this.normalizeSlot('page', { page: page.number, content: btnContent }) ||
+          this.normalizeSlot('page', { page: page.number, content: btnContent, active: active }) ||
             toString(btnContent)
         ]
       )
