@@ -108,47 +108,29 @@ export function omitLinkProps(propsToOmit) {
   }, {})
 }
 
-/*
- * Don't think 'computed' is used anywhere, as it doesn't make sense
- * to make computed versions of props.
- *
-// convert props to computed props
-export const computed = {
-  linkProps() {
-    let linkProps = {}
-    let propKeys = keys(props)
-
-    for (let i = 0; i < propKeys.length; i++) {
-      const prop = propKeys[i]
-      // Computed Vue getters are bound to the instance.
-      linkProps[prop] = this[prop]
-    }
-
-    return linkProps
-  }
-}
- */
-
 function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
-  return function onClick(e) {
-    if (disabled && e instanceof Event) {
+  return function onClick(evt) {
+    if (disabled && evt instanceof Event) {
       // Stop event from bubbling up.
-      e.stopPropagation()
+      evt.stopPropagation()
       // Kill the event loop attached to this specific EventTarget.
-      e.stopImmediatePropagation()
+      evt.stopImmediatePropagation()
     } else {
-      if (isRouterLink(tag) && e.target.__vue__) {
-        e.target.__vue__.$emit('click', e)
+      if (isRouterLink(tag) && evt.target.__vue__) {
+        // Router links do not emit instance 'click' events, so we
+        // add in an $emit('click', evt) on it's vue instance
+        evt.target.__vue__.$emit('click', evt)
       }
       if (typeof suppliedHandler === 'function') {
         suppliedHandler(...arguments)
       }
-      parent.$root.$emit('clicked::link', e)
+      parent.$root.$emit('clicked::link', evt)
     }
 
     if ((!isRouterLink(tag) && href === '#') || disabled) {
-      // Stop scroll-to-top behavior or navigation.
-      e.preventDefault()
+      // Stop scroll-to-top behavior or navigation on regular links
+      // when href is just '#'
+      evt.preventDefault()
     }
   }
 }
