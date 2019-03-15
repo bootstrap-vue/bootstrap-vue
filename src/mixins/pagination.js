@@ -359,8 +359,9 @@ export default {
     const { showFirstDots, showLastDots } = this.paginationParams
     const currPage = this.computedCurrentPage
 
-    // Helper function
+    // Helper function and flag
     const isActivePage = pageNum => pageNum === currPage
+    const noCurrPage = this.currentPage < 1
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
@@ -370,7 +371,7 @@ export default {
         role: 'none presentation',
         'aria-hidden': disabled ? 'true' : null
       }
-      if (disabled || isActivePage(pageTest) || linkTo < 1 || linkTo > numberOfPages) {
+      if (disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages) {
         button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
           h(
             'span',
@@ -454,13 +455,9 @@ export default {
 
     // Individual Page links
     this.pageList.forEach((page, idx) => {
-      const active = isActivePage(page.number) && this.currentPage > 0
-      let tabIndex = disabled ? null : active ? '0' : '-1'
-      if (this.currentPage < 1 && idx === 0 && !disabled) {
-        // Handle case where no page is active (current page < 1), so we ensure
-        // the page 1 button is in the tab sequence so it can be selected
-        tabIndex = '0'
-      }
+      const active = isActivePage(page.number) && !noCurrPage
+      // Active page will have tabindex of 0, or if no current page and first page button
+      let tabIndex = disabled ? null : (active || (noCurrPage && idx === 0)) ? '0' : '-1'
       const staticClass = 'page-link'
       const attrs = {
         role: 'menuitemradio',
