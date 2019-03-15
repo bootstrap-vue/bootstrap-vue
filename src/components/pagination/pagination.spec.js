@@ -28,7 +28,8 @@ describe('pagination', () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 1,
-        perPage: 1
+        perPage: 1,
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -89,8 +90,8 @@ describe('pagination', () => {
       scopedSlots: {
         page: scope => {
           const pageNum = scope.page
-          scopes[pageNum] = scope
-          return `page ${scope.page}`
+          scopes[pageNum - 1] = scope
+          return `Page ${scope.page}`
         }
       }
     })
