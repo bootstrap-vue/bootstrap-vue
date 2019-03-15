@@ -37,6 +37,13 @@ describe('utils/router', () => {
       expect(stringifyQueryObj(obj)).toEqual('?foo=1&baz=2')
     })
 
+    it('skips undefined vals in arrays', async () => {
+      const obj = {
+        foo: ['a', undefined, 'c']
+      }
+      expect(stringifyQueryObj(obj)).toEqual('?foo=a&foo=c')
+    })
+
     it('leaves in null val keys', async () => {
       const obj = {
         foo: 1,
@@ -44,6 +51,13 @@ describe('utils/router', () => {
         baz: 2
       }
       expect(stringifyQueryObj(obj)).toEqual('?foo=1&bar&baz=2')
+    })
+
+    it('leaves in null vals in arrays', async () => {
+      const obj = {
+        foo: ['a', null, 'c']
+      }
+      expect(stringifyQueryObj(obj)).toEqual('?foo=a&foo=&foo=c')
     })
   })
 
