@@ -329,6 +329,7 @@ describe('pagination-nav', () => {
       await wrapper.vm.$nextTick()
       await new Promise(resolve => requestAnimationFrame(resolve))
       await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
 
       // The pagination-nav component should exist
       expect(wrapper.find(PaginationNav).exists()).toBe(true)
@@ -339,7 +340,7 @@ describe('pagination-nav', () => {
       expect(wrapper.find('.foo-content').text()).toContain('home')
 
       // Auto page detect should set us at page #2 (url '/')
-      expect(wrapper.emitted('input')).toBe(true)
+      expect(wrapper.emitted('input')).toBeDefined()
       expect(wrapper.emitted('input').length).toBe(1)
       expect(wrapper.emitted('input')[0][0]).toBe(2)
 
@@ -350,6 +351,7 @@ describe('pagination-nav', () => {
       await wrapper.vm.$nextTick()
       await new Promise(resolve => requestAnimationFrame(resolve))
       await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
 
       expect(wrapper.emitted('input').length).toBe(2)
       expect(wrapper.emitted('input')[1][0]).toBe(3)
