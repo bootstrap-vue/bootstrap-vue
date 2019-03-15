@@ -108,6 +108,11 @@ export function omitLinkProps(propsToOmit) {
   }, {})
 }
 
+/*
+ * Don't think 'computed' is used anywhere, as it doesn't make sense
+ * to make computed versions of props.
+ *
+// convert props to computed props
 export const computed = {
   linkProps() {
     let linkProps = {}
@@ -122,6 +127,7 @@ export const computed = {
     return linkProps
   }
 }
+ */
 
 function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
   return function onClick(e) {
