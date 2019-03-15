@@ -12,38 +12,45 @@ const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 // fixed encodeURIComponent which is more conformant to RFC3986:
 // - escapes [!'()*]
 // - preserve commas
-const encode = str => encodeURIComponent(str)
-  .replace(encodeReserveRE, encodeReserveReplacer)
-  .replace(commaRE, ',')
+const encode = str =>
+  encodeURIComponent(str)
+    .replace(encodeReserveRE, encodeReserveReplacer)
+    .replace(commaRE, ',')
 
 // Stringifies an object of query parameters
 // Borrowed from vue-router
 // https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
 export const stringifyQueryObj = (obj = {}) => {
-  const res = obj ? keys(obj).map(key => {
-    const val = obj[key]
-    if (val === undefined) {
-      return ''
-    } else if (val === null) {
-      return encode(key)
-    } else if (isArray(val)) {
-      const result = []
-      val.forEach(val2 => {
-        if (val2 === undefined) {
-          return
-        } else if (val2 === null) {
-          result.push(encode(key))
-        } else {
-          // faster than string interpolation
-          result.push(encode(key) + '=' + encode(val))
-        }
-      })
-      return result.join('&')
-    } else {
-      // faster than string interpolation
-      return encode(key) + '=' + encode(val)
-    }
-  }).filter(x => x.length > 0).join('&') : null
+  const res = obj
+    ? keys(obj)
+      .map(key => {
+          const val = obj[key]
+          if (val === undefined) {
+            return ''
+          } else if (val === null) {
+            return encode(key)
+          } else if (isArray(val)) {
+            const result = []
+            val.forEach(val2 => {
+              if (val2 === undefined) {
+                // eslint-ignore-next-line
+                return
+              } else if (val2 === null) {
+                result.push(encode(key))
+              } else {
+                // faster than string interpolation
+                result.push(encode(key) + '=' + encode(val))
+              }
+            })
+            return result.join('&')
+          } else {
+            // faster than string interpolation
+            return encode(key) + '=' + encode(val)
+          }
+        })
+        .filter(x => x.length > 0)
+        .join('&')
+    : null
 
   return res ? `?${res}` : ''
 }
