@@ -2,6 +2,51 @@ import { isPlainObject } from './object'
 
 const ANCHOR_TAG = 'a'
 
+// Precompile RegExp
+const commaRE = /%2C/g
+const encodeReserveRE = /[!'()*]/g
+// Method to replace reserved chars
+const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
+
+// fixed encodeURIComponent which is more conformant to RFC3986:
+// - escapes [!'()*]
+// - preserve commas
+const encode = str => encodeURIComponent(str)
+  .replace(encodeReserveRE, encodeReserveReplacer)
+  .replace(commaRE, ',')
+
+// Stringifies an object of query parameters
+// Borrowed from vue-router
+// https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
+export const stringifyQueryObj = (obj = {}) => {
+  const res = obj ? keys(obj).map(key => {
+    const val = obj[key]
+    if (val === undefined) {
+      return ''
+    } else if (val === null) {
+      return encode(key)
+    } else if (isArray(val)) {
+      const result = []
+      val.forEach(val2 => {
+        if (val2 === undefined) {
+          return
+        } else if (val2 === null) {
+          result.push(encode(key))
+        } else {
+          // faster than string interpolation
+          result.push(encode(key) + '=' + encode(val))
+        }
+      })
+      return result.join('&')
+    } else {
+      // faster than string interpolation
+      return encode(key) + '=' + encode(val)
+    }
+  }).filter(x => x.length > 0).join('&') : null
+
+  return res ? `?${res}` : ''
+}
+
 export const isRouterLink = tag => tag !== ANCHOR_TAG
 
 export const computeTag = ({ to, disabled }, thisOrParent) => {
@@ -19,7 +64,6 @@ export const computeRel = ({ target, rel }) => {
   return rel || null
 }
 
-// Note: Doesn't handle query params or hash in to object.
 export const computeHref = ({ href, to }, tag = ANCHOR_TAG, fallback = '#', toFallback = '/') => {
   // We've already checked the $router in computeTag(), so isRouterLink() indicates a live router.
   // When deferring to Vue Router's router-link, don't use the href attribute at all.
@@ -34,7 +78,6 @@ export const computeHref = ({ href, to }, tag = ANCHOR_TAG, fallback = '#', toFa
   }
 
   // Reconstruct `href` when `to` used, but no router
-  // TODO: Could be updated to better handle `to.search` and `to.hash` properties
   if (to) {
     // Fallback to `to` prop (if `to` is a string)
     if (typeof to === 'string') {
@@ -42,7 +85,9 @@ export const computeHref = ({ href, to }, tag = ANCHOR_TAG, fallback = '#', toFa
     }
     // Fallback to `to.path` prop (if `to` is an object)
     if (isPlainObject(to) && typeof to.path === 'string') {
-      return to.path || toFallback
+      const query = stringifyQueryObj(to.query)
+      const hash = to.hash || ''
+      return `${to.path}${query}${hash}` || toFallback
     }
   }
 
