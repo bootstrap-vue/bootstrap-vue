@@ -165,14 +165,14 @@ describe('utils/router', () => {
     it('works', async () => {
       const context1 = { $router: {} }
       const context2 = { $router: {}, $nuxt: {} }
-      const context3 = { }
+      const context3 = {}
 
       expect(computeTag({ to: '/foo' }, context1)).toBe('router-link')
       expect(computeTag({ to: '/foo' }, context2)).toBe('nuxt-link')
       expect(computeTag({ to: '/foo' }, context3)).toBe('a')
-      expect(computeTag({ }, context1)).toBe('a')
-      expect(computeTag({ }, context2)).toBe('a')
-      expect(computeTag({ }, context3)).toBe('a')
+      expect(computeTag({}, context1)).toBe('a')
+      expect(computeTag({}, context2)).toBe('a')
+      expect(computeTag({}, context3)).toBe('a')
       expect(computeTag({ to: '/foo', disabled: true }, context1)).toBe('a')
       expect(computeTag({ to: '/foo', disabled: true }, context2)).toBe('a')
       expect(computeTag({ to: '/foo', disabled: true }, context3)).toBe('a')
