@@ -179,7 +179,8 @@ export default {
             ((isObject(to) && to.path !== undefined && to.path !== null) || typeof to === 'string')
           ) {
             let link = document.createElement('a')
-            link.href = computeHref({ to })
+            // Convert the `to` to a HREF via a temprary `a` tag
+            link.href = computeHref({ to }, undefined, '/', '/')
             // once href is assigned, the returned href will be normalized to the full URL
             return link.href
           } else {
