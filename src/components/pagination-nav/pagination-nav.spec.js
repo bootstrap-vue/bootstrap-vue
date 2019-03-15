@@ -262,7 +262,7 @@ describe('pagination-nav', () => {
         propsData: {
           numberOfPages: 3,
           value: null,
-          linkGen: page => (page === 2 ? '' : `#${page}`)
+          linkGen: page => (page === 2 ? '/' : `/#${page}`)
         }
       })
       await wrapper.vm.$nextTick()
