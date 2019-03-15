@@ -18,6 +18,8 @@ const encode = str =>
     .replace(encodeReserveRE, encodeReserveReplacer)
     .replace(commaRE, ',')
 
+const decode = decodeURIComponent
+
 // Stringifies an object of query parameters
 // See: https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
 export const stringifyQueryObj = obj => {
@@ -53,6 +55,33 @@ export const stringifyQueryObj = obj => {
     .join('&')
 
   return query ? `?${query}` : ''
+}
+
+export const parseQuery = query => {
+  const parsed = {}
+
+  query = query.trim().replace(/^(\?|#|&)/, '')
+
+  if (!query) {
+    return parsed
+  }
+
+  query.split('&').forEach(param => {
+    const parts = param.replace(/\+/g, ' ').split('=')
+    const key = decode(parts.shift())
+    const val = parts.length > 0
+      ? decode(parts.join('='))
+      : null
+
+    if (parsed[key] === undefined) {
+      parsed[key] = val
+    } else if (isArray(parsed[key])) {
+      parsed[key].push(val)
+    } else {
+      parsed[key] = [parsed[key], val]
+    }
+  })
+  return parsed
 }
 
 export const isRouterLink = tag => tag !== ANCHOR_TAG
