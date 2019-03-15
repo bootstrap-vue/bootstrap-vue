@@ -1,4 +1,4 @@
-import { computeHref } from './router'
+import { stringifyQueryObj, computeHref, isRouterLink } from './router'
 
 describe('utils/router', () => {
   // stringifyQueryObject utility method
@@ -134,6 +134,15 @@ describe('utils/router', () => {
         }
       }
       expect(computeHref(obj)).toEqual('/foo?bar=1&baz=a&baz=b&bif#fizzlerocks')
+    })
+  })
+
+  // isROuterLink utility method
+  describe('isRouterLink()', () => {
+    it('works', async () => {
+      expect(isRouterLink('a')).toBe(false)
+      expect(isRouterLink('div')).toBe(true)
+      expect(isRouterLink()).toBe(true)
     })
   })
 })
