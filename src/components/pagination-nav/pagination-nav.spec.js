@@ -332,8 +332,10 @@ describe('pagination-nav', () => {
 
       expect(wrapper).toBeDefined()
 
-      await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
+      // Wait for the router to initialize
+      await new Promise(resolve => router.onReady(resolve))
+
+      // Wait for the guessCurrentPage to complete
       await wrapper.vm.$nextTick()
       await new Promise(resolve => requestAnimationFrame(resolve))
       await wrapper.vm.$nextTick()
