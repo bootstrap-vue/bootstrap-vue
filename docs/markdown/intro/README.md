@@ -1,13 +1,14 @@
 # Getting Started
 
-- [Vue](https://vuejs.org) version 2.6.8 (or greater) is recommended
-- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version 4.3.1 (or greater) SCSS/CSS
+- [Vue.js](https://vuejs.org) version {{ vueVersion }} (or greater) is recommended
+- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version {{ bootstrapVersion }} (or
+  greater) SCSS/CSS
 
 ## General
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org), etc you may prefer to directly include the package into your
-project. To get started, use `yarn` or `npm` to get the latest version of Vue, BootstrapVue and
+project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
 Bootstrap 4:
 
 ```bash
@@ -365,7 +366,7 @@ information about browsers currently supported by Bootstrap 4.
 
 ### JS
 
-BootstrapVue is written in Vue! So this is up to your project and bundler which browsers are
+BootstrapVue is written in Vue.js! So this is up to your project and bundler which browsers are
 supported.
 
 If you want to support older IE, Android and IOS devices, you may want to use
