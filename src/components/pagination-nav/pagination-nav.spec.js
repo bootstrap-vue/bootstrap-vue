@@ -1,6 +1,6 @@
 import PaginationNav from './pagination-nav'
 import { mount, createLocalVue } from '@vue/test-utils'
-import VueRouter from "vue-router"
+import VueRouter from 'vue-router'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
@@ -292,14 +292,16 @@ describe('pagination-nav', () => {
           BPaginationNav: PaginationNav
         },
         data() {
-          currPage: null
+          return {
+            currPage: null
+          }
         },
         methods: {
           linkGen(page) {
             // We make page #2 "home" for testing
             // We return a to prop to auto trigger use of $router
             // if using strings, we would need to set use-router=true
-            return page === 2 ? { path: '/' }  : { path: '/' + page }
+            return page === 2 ? { path: '/' } : { path: '/' + page }
           }
         },
         template: `
@@ -319,15 +321,12 @@ describe('pagination-nav', () => {
         render(h) {
           // page 2 is linked to route /
           const pageNum = this.$route.params.pageNum || 'home'
-          return h('div', { class: "test-content" }, [pageNum])
+          return h('div', { class: 'test-content' }, [pageNum])
         }
       }
       // Create router instance
       const router = new VueRouter({
-        routes: [
-          { path: '/', component: FooRoute },
-          { path: '/:page', component: FooRoute }
-        ]
+        routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
       })
       const wrapper = mount(App, { localVue, router })
 
