@@ -372,11 +372,9 @@ export default {
       }
       if (disabled || isActivePage(pageTest) || linkTo < 1 || linkTo > numberOfPages) {
         button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
-          h(
-            'span',
-            { staticClass: 'page-link', 'aria-disabled': disabled ? 'true' : null },
-            [btnContent]
-          )
+          h('span', { staticClass: 'page-link', 'aria-disabled': disabled ? 'true' : null }, [
+            btnContent
+          ])
         ])
       } else {
         button = h('li', { key, attrs, staticClass: 'page-item' }, [
