@@ -262,7 +262,7 @@ describe('pagination-nav', () => {
         propsData: {
           numberOfPages: 3,
           value: null,
-          linkGen: page => page === 2 ? '/' : `/#${page}`
+          linkGen: page => (page === 2 ? '' : `#${page}`)
         }
       })
       await wrapper.vm.$nextTick()
@@ -279,7 +279,7 @@ describe('pagination-nav', () => {
       // Emitted current page (2)
       expect(wrapper.emitted('input')).toBeDefined()
       expect(wrapper.emitted('input').length).toBe(1)
-      expect(wrapper.emitted('input')[0][0]).toBe(2) /* page 2, URL = '/' */
+      expect(wrapper.emitted('input')[0][0]).toBe(2) /* page 2, URL = '' */
     })
   })
 })
