@@ -162,19 +162,12 @@ export default {
       return props
     },
     guessCurrentPage() {
-      if (this.noPageDetect) {
-        // This option is added as page detection on large number of pages
-        // can take some time due to having to loop through all the possible
-        // page links until one is found. User's can switch to using v-model
-        // to update which page is active
-        return
-      }
       let guess = this.computedValue
       const $router = this.$router
       const $route = this.$route
       // This section only occurs if we are client side, or serverside with $router
       /* istanbul ignore else */
-      if (!guess && (inBrowser || (!inBrowser && $router))) {
+      if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         const currLocRoute = $router && $route ? $route.fullPath : null
         // Current page full HREF (if client side)
         const currLocLink = inBrowser ? (window.location || document.location).href : null
