@@ -369,6 +369,7 @@ export default {
       const attrs = {
         role: 'none presentation',
         'aria-hidden': disabled ? 'true' : null
+        'aria-disabled': disabled ? 'true' : null
       }
       if (disabled || isActivePage(pageTest) || linkTo < 1 || linkTo > numberOfPages) {
         button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
