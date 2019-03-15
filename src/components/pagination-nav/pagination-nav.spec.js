@@ -306,7 +306,7 @@ describe('pagination-nav', () => {
         },
         template: `
           <div>
-            <b-pavination-nav
+            <b-pagination-nav
               ref="pagination"
               :number-of-pages="3"
               :link-gen="linkGen"
@@ -326,7 +326,7 @@ describe('pagination-nav', () => {
       }
       // Create router instance
       const router = new VueRouter({
-        routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
+        routes: [{ path: '/:page', component: FooRoute }]
       })
       const wrapper = mount(App, { localVue, router })
 
