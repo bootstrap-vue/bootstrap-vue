@@ -326,14 +326,7 @@ describe('pagination-nav', () => {
       }
       // Create router instance
       const router = new VueRouter({
-        routes: [{
-          path: '/:page',
-          component: FooRoute,
-          children: [
-            // Rendered when :page is null/undefined/emptu
-            { path: '', component: FooRoute }
-          ]
-        }]
+        routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
       })
       const wrapper = mount(App, { localVue, router })
 
@@ -342,13 +335,19 @@ describe('pagination-nav', () => {
       await wrapper.vm.$nextTick()
       await new Promise(resolve => requestAnimationFrame(resolve))
       await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      await wrapper.vm.$nextTick()
 
-      // Auto page detect should set us at page #2 (url '/')
-      expect(wrapper.vm.currPage).toBe(2)
+      // The pagination-nav component should exist
+      expect(wrapper.find(PaginationNav).exists()).toBe(true)
+      expect(wrapper.find(PaginationNav).vm.currentPage).toBe(2)
 
       // The router view should have the text 'home'
       expect(wrapper.find('.foo-content').exists()).toBe(true)
       expect(wrapper.find('.foo-content').text()).toContain('home')
+
+      // Auto page detect should set us at page #2 (url '/')
+      expect(wrapper.vm.currPage).toBe(2)
     })
   })
 })
