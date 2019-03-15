@@ -90,6 +90,45 @@ describe('pagination-nav', () => {
     expect($links.at(6).text()).toBe('5')
   })
 
+  it('disabled renders correct', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 1,
+        value: 1,
+        disabled: true
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    // pagination-nav has an outer wrapper of nav
+    expect(wrapper.is('nav')).toBe(true)
+    const $ul = wrapper.find('ul.pagination')
+    expect($ul.exists()).toBe(true)
+
+    // NAV Attributes
+    expect(wrapper.attributes('aria-hidden')).toBe('true')
+    expect(wrapper.attributes('aria-disabed')).toBe('true')
+
+    // UL Classes
+    expect($ul.classes()).toContain('pagination')
+    expect($ul.classes()).toContain('b-pagination')
+
+    // UL Attributes
+    expect($ul.attributes('role')).toBe('menubar')
+    expect($ul.attributes('aria-disabled')).toBe('true')
+
+    // LI classes
+    expect(wrapper.findAll('li').length).toBe(5)
+    expect(wrapper.findAll('li.page-item').length).toBe(5)
+    expect(wrapper.findAll('li.disabled').length).toBe(5)
+
+    // LI Inner should be span elements
+    expect(wrapper.findAll('li > span').length).toBe(5)
+    expect(wrapper.findAll('li > span.page-link').length).toBe(5)
+    expect(wrapper.findAll('li > span[aria-disabled="true"').length).toBe(5)
+  })
+
   it('renders with correct HREF when base-url specified', async () => {
     const wrapper = mount(PaginationNav, {
       propsData: {
