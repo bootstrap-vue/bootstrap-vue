@@ -82,27 +82,11 @@ export default {
     })
   },
   mounted() {
-    // ----------------------------------------------------------------------------
-    // To figure out:
-    //
-    // When this.value is null, and we can't guess the current page
-    // we need to emit an input event to set the v-model to page 1.
-    // Currently in pagination mixin, the currentPage data is set to 1,
-    // which makes our guess not trigger the input event
-    // Need to be able to set currentPage to -1 (or 0) and then
-    // when rendering/computing values, we need to do Math.max(1, this.currentPage)
-    // to calculate the correct layout.  THe emit should compare this.value to
-    // this.currentPage (on create) and emit if necessary, after the guess takes
-    // place.  Needs to work for both pagination and pagination-nav components.
-    // ----------------------------------------------------------------------------
-    /* istanbul ignore next: for now */
     if (this.$router) {
       // We only add the watcher if vue router is detected
       this.$watch('$route', (to, from) => {
-        this.$nextTick(() => {
-          requestAF(() => {
-            this.guessCurrentPage()
-          })
+        requestAF(() => {
+          this.guessCurrentPage()
         })
       })
     }
@@ -192,10 +176,12 @@ export default {
           let to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
+            console.log(`Rtr ${page}:`, $router.resolve(to, $route, this.append).href, currLocRoute)
             guess = $router.resolve(to, $route, this.append).href === currLocRoute ? page : null
           } else if (inBrowser) {
             // If no router available (or !this.useRouter when `to` is a string)
             // we compare using fully qualified URLs
+            console.log(`Link ${page}:`, resolveLink(to), currLocLink)
             guess = resolveLink(to) === currLocLink ? page : null
           }
         }
