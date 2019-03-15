@@ -1,5 +1,5 @@
 import { loadFixture, testVM } from '../../../tests/utils'
-import { pickLinkProps, omitLinkProps, props as linkProps } from './link'
+import { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
 
 describe('link', () => {
   beforeEach(loadFixture(__dirname, 'link'))
@@ -96,6 +96,13 @@ describe('link', () => {
     app.$root.$on('clicked::link', spy)
     app.$refs.click.click()
     expect(spy).toHaveBeenCalled()
+  })
+
+  describe('propsFactory() helper', () => {
+    it('works', async () => {
+      expect(propsFactory()).toEqual(linkProps)
+      expect(propsFactory()).not.toBe(linkProps)
+    })
   })
 
   describe('pickLinkProps() helper', () => {
