@@ -476,7 +476,7 @@ export default {
         // ARIA "roving tabindex" method
         tabindex: tabIndex
       }
-      const btnContent = this.makePage(page.number)
+      const btnContent = toString(this.makePage(page.number))
       const inner = h(
         disabled ? 'span' : `b-link`,
         {
@@ -494,7 +494,7 @@ export default {
         },
         [
           this.normalizeSlot('page', { page: page.number, content: btnContent, active: active }) ||
-            toString(btnContent)
+            btnContent
         ]
       )
       buttons.push(
