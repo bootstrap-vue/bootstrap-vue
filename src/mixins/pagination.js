@@ -454,7 +454,7 @@ export default {
 
     // Individual Page links
     this.pageList.forEach((page, idx) => {
-      const active = isActivePage(page.number)
+      const active = isActivePage(page.number) && this.currentPage > 0
       let tabIndex = disabled ? null : active ? '0' : '-1'
       if (this.currentPage < 1 && idx === 0 && !disabled) {
         // Handle case where no page is active (current page < 1), so we ensure
