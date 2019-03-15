@@ -319,7 +319,7 @@ describe('pagination-nav', () => {
         render(h) {
           // page 2 is linked to route /
           const pageNum = this.$route.params.pageNum || 'home'
-          return h('div', { class="test-content" }, [pageNum])
+          return h('div', { class: "test-content" }, [pageNum])
         }
       }
       // Create router instance
