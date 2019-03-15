@@ -300,9 +300,12 @@ describe('pagination-nav', () => {
   describe('auto-detect page', () => {
     // Note: JSDOM only works with hash URL updates out of the box
 
-    it('detects current page without $router', async () => {
-      // Make sure theJSDOM is at /, as JSDOM instance from above is re-used
+    beforeEach(() => {
+      // Make sure theJSDOM is at /, as JSDOM instances for each test!
       window.history.pushState({}, '', '/')
+    })
+
+    it('detects current page without $router', async () => {
       const wrapper = mount(PaginationNav, {
         propsData: {
           numberOfPages: 3,
@@ -353,8 +356,6 @@ describe('pagination-nav', () => {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
-      // Make sure theJSDOM is at /, as JSDOM instance from above is re-used
-      window.history.pushState({}, '', '/')
       // Create router instance
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
@@ -416,8 +417,6 @@ describe('pagination-nav', () => {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
       }
-      // Make sure theJSDOM is at /, as JSDOM instance from above is re-used
-      window.history.pushState({}, '', '/')
       // Create router instance
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
