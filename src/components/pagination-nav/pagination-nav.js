@@ -176,13 +176,16 @@ export default {
           let to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
-            console.log(`Rtr ${page}:`, $router.resolve(to, $route, this.append).href, currLocRoute)
-            guess = $router.resolve(to, $route, this.append).href === currLocRoute ? page : null
+            const fullPath = $router.resolve(to, $route, this.append).route.fullPath
+            console.log(`Rtr ${page}:`, fullPath, currLocRoute)
+            guess = fullPath === currLocRoute ? page : null
+            console.log(`Rtr ${page}:`, fullPath, currLocRoute, guess)
           } else if (inBrowser) {
             // If no router available (or !this.useRouter when `to` is a string)
             // we compare using fully qualified URLs
             console.log(`Link ${page}:`, resolveLink(to), currLocLink)
             guess = resolveLink(to) === currLocLink ? page : null
+            console.log(`Link ${page}:`, resolveLink(to), currLocLink, guess)
           }
         }
       }
