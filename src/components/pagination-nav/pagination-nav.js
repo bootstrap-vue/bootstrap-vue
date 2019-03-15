@@ -192,7 +192,7 @@ export default {
       // We set currentPage to 0 to trigger an $emit('input', null)
       // As the default for this.currentPage is -1 when no value is specified
       // And valid page numbers are greater than 0
-      this.currentPage = guess ? guess : 0
+      this.currentPage = guess || 0
     }
   }
 }
