@@ -10,7 +10,7 @@ const encodeReserveRE = /[!'()*]/g
 // Method to replace reserved chars
 const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 
-// fixed encodeURIComponent which is more conformant to RFC3986:
+// Fixed encodeURIComponent which is more conformant to RFC3986:
 // - escapes [!'()*]
 // - preserve commas
 const encode = str =>
@@ -19,38 +19,40 @@ const encode = str =>
     .replace(commaRE, ',')
 
 // Stringifies an object of query parameters
-// Borrowed from vue-router
-// https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
-export const stringifyQueryObj = (obj = {}) => {
-  const res = obj
-    ? keys(obj)
-        .map(key => {
-          const val = obj[key]
-          if (val === undefined) {
-            return ''
-          } else if (val === null) {
-            return encode(key)
-          } else if (isArray(val)) {
-            const result = []
-            val.forEach(val2 => {
-              if (val2 === null) {
-                result.push(encode(key))
-              } else if (val2 !== undefined) {
-                // faster than string interpolation
-                result.push(encode(key) + '=' + encode(val2))
-              }
-            })
-            return result.join('&')
-          } else {
-            // faster than string interpolation
-            return encode(key) + '=' + encode(val)
-          }
-        })
-        .filter(x => x.length > 0)
-        .join('&')
-    : null
+// See: https://github.com/vuejs/vue-router/blob/dev/src/util/query.js
+export const stringifyQueryObj = obj => {
+  if (!isPlainObject(obj)) {
+    return ''
+  }
 
-  return res ? `?${res}` : ''
+  const query = keys(obj)
+    .map(key => {
+      const val = obj[key]
+      if (val === undefined) {
+        return ''
+      } else if (val === null) {
+        return encode(key)
+      } else if (isArray(val)) {
+        return val
+          .reduce((results, val2) => {
+            if (val2 === null) {
+              results.push(encode(key))
+            } else if (val2 !== undefined) {
+              // Faster than string interpolation
+              results.push(encode(key) + '=' + encode(val2))
+            }
+            return results
+          }, [])
+          .join('&')
+      }
+
+      // Faster than string interpolation
+      return encode(key) + '=' + encode(val)
+    })
+    .filter(x => !!x)
+    .join('&')
+
+  return query ? `?${query}` : ''
 }
 
 export const isRouterLink = tag => tag !== ANCHOR_TAG
