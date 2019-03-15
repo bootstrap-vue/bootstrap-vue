@@ -134,6 +134,7 @@
     "terser": "^3.17.0",
     "vue": "^2.6.9",
     "vue-jest": "^3.0.4",
+    "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.6.9",
     "vue-template-compiler": "^2.6.9"
   },
