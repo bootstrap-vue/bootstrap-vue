@@ -57,7 +57,7 @@ describe('utils/router', () => {
       const obj = {
         foo: ['a', null, 'c']
       }
-      expect(stringifyQueryObj(obj)).toEqual('?foo=a&foo=&foo=c')
+      expect(stringifyQueryObj(obj)).toEqual('?foo=a&foo&foo=c')
     })
   })
 
