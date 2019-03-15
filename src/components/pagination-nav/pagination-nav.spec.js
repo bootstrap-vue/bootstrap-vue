@@ -253,4 +253,33 @@ describe('pagination-nav', () => {
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
   })
+
+  describe('autodetect page', () => {
+    // Note: JSDOM only works with hash URL updates out of the box
+
+    it('detects current page without $router', async () => {
+      const wrapper = mount(PaginationNav, {
+        propsData: {
+          numberOfPages: 3,
+          value: null,
+          linkGen: page => page === 2 ? '/' : `/#${page}`
+        }
+      })
+      await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.vm.$router).not.toBeDefined()
+      expect(wrapper.vm.$route).not.toBeDefined()
+
+      expect(wrapper.is('nav')).toBe(true)
+      const $ul = wrapper.find('ul.pagination')
+      expect($ul.exists()).toBe(true)
+
+      // Emitted current page (2)
+      expect(wrapper.emitted('input')).toBeDefined()
+      expect(wrapper.emitted('input').length).toBe(1)
+      expect(wrapper.emitted('input')[0][0]).toBe(2) /* page 2, URL = '/' */
+    })
+  })
 })
