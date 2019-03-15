@@ -1,5 +1,9 @@
 import PaginationNav from './pagination-nav'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueRouter from "vue-router"
+
+const localVue = createLocalVue()
+localVue.use(VueRouter)
 
 // The majority of tests for the core of pagination mixin are performed
 // in pagination.spec.js.  Here we just test the differences that
@@ -280,6 +284,65 @@ describe('pagination-nav', () => {
       expect(wrapper.emitted('input')).toBeDefined()
       expect(wrapper.emitted('input').length).toBe(1)
       expect(wrapper.emitted('input')[0][0]).toBe(2) /* page 2, URL = '' */
+    })
+
+    it('works with $router to detect path', async () => {
+      const App = {
+        components: {
+          BPaginationNav: PaginationNav
+        },
+        data() {
+          currPage: null
+        },
+        methods: {
+          linkGen(page) {
+            // We make page #2 "home" for testing
+            // We return a to prop to auto trigger use of $router
+            // if using strings, we would need to set use-router=true
+            return page === 2 ? { path: '/' }  : { path: '/' + page }
+          }
+        },
+        template: `
+          <div>
+            <b-pavination-nav
+              ref="pagination"
+              :number-of-pages="3"
+              :link-gen="linkGen"
+              v-model="currPage"
+            />
+            <router-view ref="view" />
+          </div>
+        `
+      }
+      // Our router view component
+      const FooRoute = {
+        render(h) {
+          // page 2 is linked to route /
+          const pageNum = this.$route.params.pageNum || 'home'
+          return h('div', { class="test-content" }, [pageNum])
+        }
+      }
+      // Create router instance
+      const router = new VueRouter({
+        routes: [
+          { path: '/', component: FooRoute },
+          { path: '/:page', component: FooRoute }
+        ]
+      })
+      const wrapper = mount(App, { localVue, router })
+
+      expect(wrapper).toBeDefined()
+
+      await wrapper.vm.$nextTick()
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      await wrapper.vm.$nextTick()
+
+      // Auto page detect should set us at page #2 (url '/')
+      expect(wrapper.vm.currPage).toBe(2)
+
+      // The router view should have the text 'home'
+      expect(wrapper.find('.test-content').exists()).toBe(true)
+      expect(wrapper.find('.test-content').text()).toContain('home')
     })
   })
 })
