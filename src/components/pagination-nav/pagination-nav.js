@@ -104,6 +104,7 @@ export default {
         // Done in in requestAF() to allow browser to complete the
         // native click handling of a link
         this.currentPage = pageNum
+        this.$emit('change', pageNum)
       })
       this.$nextTick(() => {
         // Done in a nextTick() to ensure rendering complete
