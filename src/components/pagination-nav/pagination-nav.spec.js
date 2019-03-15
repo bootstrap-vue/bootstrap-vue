@@ -301,7 +301,7 @@ describe('pagination-nav', () => {
         },
         template: `
           <div>
-            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" @input="onInput" />
+            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" />
             <router-view />
           </div>
         `
