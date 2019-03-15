@@ -1,4 +1,4 @@
-import { stringifyQueryObj, computeHref, isRouterLink } from './router'
+import { stringifyQueryObj, computeHref, isRouterLink, computeRel } from './router'
 
 describe('utils/router', () => {
   // stringifyQueryObject utility method
@@ -137,12 +137,26 @@ describe('utils/router', () => {
     })
   })
 
-  // isROuterLink utility method
+  // isRouterLink utility method
   describe('isRouterLink()', () => {
     it('works', async () => {
       expect(isRouterLink('a')).toBe(false)
       expect(isRouterLink('div')).toBe(true)
       expect(isRouterLink()).toBe(true)
+    })
+  })
+
+  // computeRel utility method
+  describe('computeRel()', () => {
+    it('works', async () => {
+      expect(computeRel({ target: '_blank', rel: null })).toBe('noopener')
+      expect(computeRel({ target: '_blank', rel: undefined })).toBe(null)
+      expect(computeRel({ target: '_blank' })).toBe(null)
+      expect(computeRel({ target: '_blank', rel: 'foo' })).toBe('foo')
+      expect(computeRel({ target: '_notblank', rel: null })).toBe(null)
+      expect(computeRel({ target: '_notblank', rel: undefined })).toBe(null)
+      expect(computeRel({ target: '_notblank', rel: 'foo' })).toBe('foo')
+      expect(computeRel({})).toBe(null)
     })
   })
 })
