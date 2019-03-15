@@ -78,6 +78,7 @@ export function propsFactory() {
 
 export const props = propsFactory()
 
+// Return a fresh copy of BLink props, containing only the specifeid prop(s)
 export function pickLinkProps(propsToPick) {
   const freshLinkProps = propsFactory()
   // Normalize everything to array.
@@ -92,6 +93,7 @@ export function pickLinkProps(propsToPick) {
   }, {})
 }
 
+// Return a fresh copy of BLink props, keeping all but the specified omitting prop(s)
 export function omitLinkProps(propsToOmit) {
   const freshLinkProps = propsFactory()
   // Normalize everything to array.
