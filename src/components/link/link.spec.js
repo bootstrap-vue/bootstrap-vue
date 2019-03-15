@@ -111,7 +111,7 @@ describe('link', () => {
     it('works', async () => {
       expect(omitLinkProps([])).toEqual({ ...linkProps })
       const propsOmitted = Object.keys(linkProps).filter(p => p !== 'to' && p !== 'append')
-      expect(omitLinkProps(props)).toEqual({ ...linkProps.to, linkProps.append })
+      expect(omitLinkProps(props)).toEqual({ ...linkProps.to, ...linkProps.append })
     })
   })
 })
