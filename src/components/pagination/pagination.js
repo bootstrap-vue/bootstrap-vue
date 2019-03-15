@@ -44,9 +44,10 @@ export default {
   created() {
     this.$nextTick(() => {
       // Set the initial page if not set (i.e. null). Defaults to page 1
+      /* istanbul ignore else */
       if(!(parseInt(this.value, 10) > 0)) {
         this.computedPage = 1
-      })
+      }
     })
   },
   methods: {
