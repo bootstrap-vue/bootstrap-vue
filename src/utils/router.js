@@ -69,7 +69,7 @@ export const computeRel = ({ target, rel }) => {
   return rel || null
 }
 
-export const computeHref = ({ href, to }, tag = ANCHOR_TAG, fallback = '#', toFallback = '/') => {
+export const computeHref = ({ href, to } = {}, tag = ANCHOR_TAG, fallback = '#', toFallback = '/') => {
   // We've already checked the $router in computeTag(), so isRouterLink() indicates a live router.
   // When deferring to Vue Router's router-link, don't use the href attribute at all.
   // We return null, and then remove href from the attributes passed to router-link
