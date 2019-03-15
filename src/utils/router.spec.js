@@ -1,4 +1,4 @@
-import { stringifyQueryObj, computeHref, isRouterLink, computeRel } from './router'
+import { stringifyQueryObj, computeHref, isRouterLink, computeRel, computeTag } from './router'
 
 describe('utils/router', () => {
   // stringifyQueryObject utility method
@@ -157,6 +157,28 @@ describe('utils/router', () => {
       expect(computeRel({ target: '_notblank', rel: undefined })).toBe(null)
       expect(computeRel({ target: '_notblank', rel: 'foo' })).toBe('foo')
       expect(computeRel({})).toBe(null)
+    })
+  })
+
+  // computeTag utility method
+  describe('computeTag()', () => {
+    it('works', async () => {
+      const context1 = { $router: {} }
+      const context2 = { $router: {}, $nuxt: {} }
+      const context3 = { }
+
+      expect(computeTag({ to: '/foo' }, context1)).toBe('router-link')
+      expect(computeTag({ to: '/foo' }, context2)).toBe('nuxt-link')
+      expect(computeTag({ to: '/foo' }, context3)).toBe('a')
+      expect(computeTag({ }, context1)).toBe('a')
+      expect(computeTag({ }, context2)).toBe('a')
+      expect(computeTag({ }, context3)).toBe('a')
+      expect(computeTag({ to: '/foo', disabled: true }, context1)).toBe('a')
+      expect(computeTag({ to: '/foo', disabled: true }, context2)).toBe('a')
+      expect(computeTag({ to: '/foo', disabled: true }, context3)).toBe('a')
+      expect(computeTag({ disabled: true }, context1)).toBe('a')
+      expect(computeTag({ disabled: true }, context2)).toBe('a')
+      expect(computeTag({ disabled: true }, context3)).toBe('a')
     })
   })
 })
