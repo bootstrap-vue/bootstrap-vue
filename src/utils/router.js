@@ -23,7 +23,7 @@ const encode = str =>
 export const stringifyQueryObj = (obj = {}) => {
   const res = obj
     ? keys(obj)
-      .map(key => {
+        .map(key => {
           const val = obj[key]
           if (val === undefined) {
             return ''
@@ -32,12 +32,9 @@ export const stringifyQueryObj = (obj = {}) => {
           } else if (isArray(val)) {
             const result = []
             val.forEach(val2 => {
-              if (val2 === undefined) {
-                // eslint-ignore-next-line
-                return
-              } else if (val2 === null) {
+              if (val2 === null) {
                 result.push(encode(key))
-              } else {
+              } else if (val2 !== undefined){
                 // faster than string interpolation
                 result.push(encode(key) + '=' + encode(val))
               }
