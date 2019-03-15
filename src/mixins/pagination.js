@@ -369,11 +369,14 @@ export default {
       const attrs = {
         role: 'none presentation',
         'aria-hidden': disabled ? 'true' : null
-        'aria-disabled': disabled ? 'true' : null
       }
       if (disabled || isActivePage(pageTest) || linkTo < 1 || linkTo > numberOfPages) {
         button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
-          h('span', { staticClass: 'page-link' }, [btnContent])
+          h(
+            'span',
+            { staticClass: 'page-link', 'aria-disabled': disabled ? 'true' : null },
+            [btnContent]
+          )
         ])
       } else {
         button = h('li', { key, attrs, staticClass: 'page-item' }, [
@@ -413,8 +416,8 @@ export default {
           attrs: { role: 'separator' }
         },
         [
-          h('div', { staticClass: 'page-link' }, [
-            this.$slots['ellipsis-text'] || toString(this.ellipsisText) || h(false)
+          h('span', { staticClass: 'page-link' }, [
+            this.normalizeSlot('ellipsis-text', {}) || toString(this.ellipsisText) || h(false)
           ])
         ]
       )
@@ -427,7 +430,7 @@ export default {
         : makeEndBtn(
             1,
             this.labelFirstPage,
-            this.$slots['first-text'],
+            this.normalizeSlot('first-text', {}),
             this.firstText,
             1,
             'bookend-goto-first'
@@ -439,7 +442,7 @@ export default {
       makeEndBtn(
         currPage - 1,
         this.labelPrevPage,
-        this.$slots['prev-text'],
+        this.normalizeSlot('prev-text', {}),
         this.prevText,
         1,
         'bookend-goto-prev'
@@ -513,7 +516,7 @@ export default {
       makeEndBtn(
         currPage + 1,
         this.labelNextPage,
-        this.$slots['next-text'],
+        this.normalizeSlot('next-text', {}),
         this.nextText,
         numberOfPages,
         'bookend-goto-next'
@@ -527,7 +530,7 @@ export default {
         : makeEndBtn(
             numberOfPages,
             this.labelLastPage,
-            this.$slots['last-text'],
+            this.normalizeSlot('last-text', {}),
             this.lastText,
             numberOfPages,
             'bookend-goto-last'
