@@ -184,6 +184,7 @@ export default {
             // once href is assigned, the returned href will be normalized to the full URL
             return link.href
           } else {
+            /* istanbul ignore next: this should never happen under normal circumstances */
             return ''
           }
         }
