@@ -1,4 +1,5 @@
 import { loadFixture, testVM } from '../../../tests/utils'
+import { pickLinkProps, omitLinkProps, props as linkProps } from './link'
 
 describe('link', () => {
   beforeEach(loadFixture(__dirname, 'link'))
@@ -95,5 +96,22 @@ describe('link', () => {
     app.$root.$on('clicked::link', spy)
     app.$refs.click.click()
     expect(spy).toHaveBeenCalled()
+  })
+
+  describe('pickLinkProps() helper', () => {
+    it('works', async () => {
+      expect(pickLinkProps([])).toEqual({})
+      expect(pickLinkProps(['append'])).toEqual({ ...linkProps.append })
+      expect(pickLinkProps('to')).toEqual({ ...linkProps.to })
+      expect(pickLinkProps(['append', 'routerTag'])).toEqual({ ...linkProps.append, ...linkProps.routerTag })
+    })
+  })
+
+  describe('omitLinkProps() helper', () => {
+    it('works', async () => {
+      expect(omitLinkProps([])).toEqual({ ...linkProps })
+      const propsOmitted = Object.keys(linkProps).filter(p => p !== 'to' && p !== 'append')
+      expect(omitLinkProps(props)).toEqual({ ...linkProps.to, linkProps.append })
+    })
   })
 })
