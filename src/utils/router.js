@@ -1,4 +1,5 @@
-import { isPlainObject } from './object'
+import { isPlainObject, keys } from './object'
+import { isArray } from './array'
 
 const ANCHOR_TAG = 'a'
 
