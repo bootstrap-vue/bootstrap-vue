@@ -57,7 +57,7 @@ export const stringifyQueryObj = obj => {
 
 export const isRouterLink = tag => tag !== ANCHOR_TAG
 
-export const computeTag = ({ to, disabled }, thisOrParent) => {
+export const computeTag = ({ to, disabled } = {}, thisOrParent) => {
   return thisOrParent.$router && to && !disabled
     ? thisOrParent.$nuxt
       ? 'nuxt-link'
@@ -65,7 +65,7 @@ export const computeTag = ({ to, disabled }, thisOrParent) => {
     : ANCHOR_TAG
 }
 
-export const computeRel = ({ target, rel }) => {
+export const computeRel = ({ target, rel } = {}) => {
   if (target === '_blank' && rel === null) {
     return 'noopener'
   }
