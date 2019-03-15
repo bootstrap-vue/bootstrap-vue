@@ -9,7 +9,7 @@ describe('utils/router', () => {
 
     it('handles special chars', async () => {
       expect(stringifyQueryObj({ foo: ", !'()*" })).toEqual('?foo=,%20%21%27%28%29%2a')
-      expect(stringifyQueryObj({ ", !'()*": 'foo' })).toEqual(?',%20%21%27%28%29%2a=foo')
+      expect(stringifyQueryObj({ ", !'()*": 'foo' })).toEqual('?,%20%21%27%28%29%2a=foo')
     })
 
     it('handles multiple keys', async () => {
