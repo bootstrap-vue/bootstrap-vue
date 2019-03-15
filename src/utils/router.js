@@ -96,9 +96,10 @@ export const computeHref = (
     }
     // Fallback to `to.path + to.query + to.hash` prop (if `to` is an object)
     if (isPlainObject(to) && (to.path || to.query || to.hash)) {
+      const path = toString(to.path)
       const query = stringifyQueryObj(to.query)
-      const hash = to.hash || ''
-      return `${to.path}${query}${hash}` || toFallback
+      const hash = toString(to.hash)
+      return `${path}${query}${hash}` || toFallback
     }
   }
 
