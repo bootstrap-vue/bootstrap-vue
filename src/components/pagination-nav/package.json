@@ -26,6 +26,10 @@
           {
             "name": "ellipsis-text",
             "description": "The '...' indicator text (html/sub-components supported)"
+          },
+          {
+            "name": "page",
+            "description": "Scoped slot for page button text. Scoped props: page - page number, content - string of page number or pageGen result, active - true if page is active"
           }
         ]
       }
