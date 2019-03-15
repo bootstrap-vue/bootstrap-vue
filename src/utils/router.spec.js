@@ -1,7 +1,7 @@
 import { stringifyQueryObj, computeHref, isRouterLink, computeRel, computeTag } from './router'
 
 describe('utils/router', () => {
-  // stringifyQueryObject utility method
+  // stringifyQueryObject() utility method
   describe('stringifyQueryObj()', () => {
     it('returns empty string when noting passed', async () => {
       expect(stringifyQueryObj()).toEqual('')
@@ -28,7 +28,7 @@ describe('utils/router', () => {
       expect(stringifyQueryObj(obj)).toEqual('?foo=1&bar=a&bar=b&bar=c')
     })
 
-    it('skips undefined vals', async () => {
+    it('skips undefined values', async () => {
       const obj = {
         foo: 1,
         bar: undefined,
@@ -37,14 +37,14 @@ describe('utils/router', () => {
       expect(stringifyQueryObj(obj)).toEqual('?foo=1&baz=2')
     })
 
-    it('skips undefined vals in arrays', async () => {
+    it('skips undefined values in arrays', async () => {
       const obj = {
         foo: ['a', undefined, 'c']
       }
       expect(stringifyQueryObj(obj)).toEqual('?foo=a&foo=c')
     })
 
-    it('leaves in null val keys', async () => {
+    it('leaves in null value keys', async () => {
       const obj = {
         foo: 1,
         bar: null,
@@ -53,7 +53,7 @@ describe('utils/router', () => {
       expect(stringifyQueryObj(obj)).toEqual('?foo=1&bar&baz=2')
     })
 
-    it('leaves in null vals in arrays', async () => {
+    it('leaves in null values in arrays', async () => {
       const obj = {
         foo: ['a', null, 'c']
       }
@@ -61,7 +61,7 @@ describe('utils/router', () => {
     })
   })
 
-  // computeHref utility metod
+  // computeHref() utility method
   describe('computeHref()', () => {
     it('works with href', async () => {
       const obj = { href: '/foo/bar?baz=123' }
@@ -151,7 +151,7 @@ describe('utils/router', () => {
     })
   })
 
-  // isRouterLink utility method
+  // isRouterLink() utility method
   describe('isRouterLink()', () => {
     it('works', async () => {
       expect(isRouterLink('a')).toBe(false)
@@ -160,7 +160,7 @@ describe('utils/router', () => {
     })
   })
 
-  // computeRel utility method
+  // computeRel() utility method
   describe('computeRel()', () => {
     it('works', async () => {
       expect(computeRel({ target: '_blank', rel: null })).toBe('noopener')
@@ -174,7 +174,7 @@ describe('utils/router', () => {
     })
   })
 
-  // computeTag utility method
+  // computeTag() utility method
   describe('computeTag()', () => {
     it('works', async () => {
       const context1 = { $router: {} }
