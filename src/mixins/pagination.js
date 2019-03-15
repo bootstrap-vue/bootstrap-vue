@@ -487,7 +487,7 @@ export default {
         },
         [
           this.normalizeSlot('page', { pageNum: page.number, content: btnContent }) ||
-          toString(btnContent)
+            toString(btnContent)
         ]
       )
       buttons.push(
