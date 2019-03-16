@@ -14,7 +14,9 @@ const routerProps = pickLinkProps(
   'exact',
   'replace',
   'target',
-  'rel'
+  'rel',
+  // Nuxt specific prop
+  'no-prefetch'
 )
 
 // Props object
@@ -140,7 +142,9 @@ export default {
         activeClass: this.activeClass,
         exactActiveClass: this.exactActiveClass,
         append: this.append,
-        replace: this.replace
+        replace: this.replace,
+        // nuxt-link specific prop
+        noPrefetch: this.noPrefetch
       }
       if (this.useRouter || typeof link === 'object') {
         props.to = link
