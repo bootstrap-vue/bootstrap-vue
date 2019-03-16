@@ -5,16 +5,6 @@ import { inBrowser } from '../../utils/env'
 import { isObject } from '../../utils/object'
 import { computeHref, parseQuery } from '../../utils/router'
 import paginationMixin from '../../mixins/pagination'
-import { pickLinkProps } from '../link/link'
-
-// Props needed for router links
-const routerProps = pickLinkProps(
-  'activeClass',
-  'exactActiveClass',
-  'exact',
-  // Nuxt specific prop
-  'noPrefetch'
-)
 
 // Props object
 const props = {
@@ -53,8 +43,24 @@ const props = {
     type: Boolean,
     default: false
   },
-  // Router specific props
-  ...routerProps
+  // router-link specific props
+  activeClass: {
+    type: String
+    // default: undefined
+  },
+  exact: {
+    type: Boolean,
+    default: false
+  },
+  exactActiveClass: {
+    type: String
+    // default: undefined
+  },
+  // nuxt-link specific prop(s)
+  noPrefetch: {
+    type: Boolean,
+    default: false
+  }
 }
 
 // Our render function is brought in via the pagination mixin
