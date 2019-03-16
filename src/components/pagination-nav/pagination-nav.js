@@ -150,6 +150,7 @@ export default {
       return props
     },
     resolveLink(to = '') {
+      // Given a to (or href string), convert to normalized route-like structure
       // Works only client side!!
       try {
         let link = document.createElement('a')
@@ -163,6 +164,7 @@ export default {
       }
     },
     resolveRoute(to = '') {
+      // Given a to (or href string), convert to normalized route location structure
       // works only when router available!!
       try {
         const route = this.$router.resolve(to, this.$route).route
@@ -180,31 +182,31 @@ export default {
       /* istanbul ignore else */
       if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         // Current route (if router available)
-        const currLocRoute = $router && $route ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
+        const currRoute = $router ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
         const loc = inBrowser ? window.location || document.location : null
-        const currLocLink = loc ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) } : {}
+        const currLink = loc ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) } : {}
         // Loop through the possible pages looking for a match until found
         for (let page = 1; !guess && page <= this.localNumPages; page++) {
           let to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
-            guess = looseEqual(this.resolveRoute(to), currLocRoute) ? page : null
+            guess = looseEqual(this.resolveRoute(to), currRoute) ? page : null
           } else if (inBrowser) {
             // If no $router available (or !this.useRouter when `to` is a string)
             // we compare using parsed URIs
-            guess = looseEqual(this.resolveLink(to), currLocLink) ? page : null
+            guess = looseEqual(this.resolveLink(to), currLink) ? page : null
           } else {
-            // probably SSR, but no $router
+            // probably SSR, but no $router so we can't guess, so lets break out of loop
             /* istanbul ignore next */
-            guess = null
+            guess = -1
           }
         }
       }
       // We set currentPage to 0 to trigger an $emit('input', null)
       // As the default for this.currentPage is -1 when no value is specified
       // And valid page numbers are greater than 0
-      this.currentPage = guess || 0
+      this.currentPage = guess > 0 ? guess : 0
     }
   }
 }
