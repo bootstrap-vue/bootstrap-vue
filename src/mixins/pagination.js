@@ -431,14 +431,7 @@ export default {
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtn(
-            1,
-            this.labelFirstPage,
-            'first-text',
-            this.firstText,
-            1,
-            'bookend-goto-first'
-          )
+        : makeEndBtn(1, this.labelFirstPage, 'first-text', this.firstText, 1, 'bookend-goto-first')
     )
 
     // Goto Previous page button bookend
