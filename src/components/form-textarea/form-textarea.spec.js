@@ -865,7 +865,7 @@ describe('form-textarea', () => {
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
 
-    input.destroy()
+    keepalive.destroy()
   })
 
   it('trim modifier prop works', async () => {
