@@ -370,7 +370,7 @@ export default {
         disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
       const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
       const scope = { disabled: isDisabled, page: pageNum }
-      const btnContent = this.normalizSlot(btnSlot, scope) || toString(btnText) || h(false)
+      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h(false)
       const inner = h(
         isDisabled ? 'span' : 'b-link',
         {
