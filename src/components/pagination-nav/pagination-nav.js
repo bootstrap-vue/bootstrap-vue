@@ -153,12 +153,13 @@ export default {
       // Given a to (or href string), convert to normalized route-like structure
       // Works only client side!!
       try {
-        let link = document.createElement('a')
+        const link = document.createElement('a')
         // Convert the `to` to a HREF via a temporary `a` tag
         link.href = computeHref({ to }, 'a', '/', '/')
         // Once href is assigned, the returned href will be normalized to the full URL bits
         return { path: link.pathname, hash: link.hash, query: parseQuery(link.query) }
       } catch (e) {
+        console.log(e)
         /* istanbul ignore next */
         return {}
       }
@@ -188,7 +189,7 @@ export default {
         const currLink = loc ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) } : {}
         // Loop through the possible pages looking for a match until found
         for (let page = 1; !guess && page <= this.localNumPages; page++) {
-          let to = this.makeLink(page)
+          const to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
             guess = looseEqual(this.resolveRoute(to), currRoute) ? page : null
