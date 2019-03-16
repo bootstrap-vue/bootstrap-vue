@@ -135,7 +135,7 @@ const props = {
     default: '»'
   },
   labelPage: {
-    type: String,
+    type: [String, Function],
     default: 'Go to page'
   },
   hideEllipsis: {
@@ -370,52 +370,49 @@ export default {
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
-      let button
       const btnContent = btnSlot || toString(btnText) || h(false)
-      const attrs = {
-        role: 'none presentation',
-        'aria-hidden': disabled ? 'true' : null
-      }
-      const liClasses = { disabled, 'flex-fill': alignFill }
-      if (
+      const isDisabled =
         disabled ||
         isActivePage(pageTest) ||
         noCurrPage ||
         linkTo < 1 ||
         linkTo > numberOfPages
-      ) {
-        button = h('li', { key, attrs, staticClass: 'page-item', class: liClasses }, [
-          h(
-            'span',
-            { staticClass: 'page-link', attrs: { 'aria-disabled': disabled ? 'true' : null } },
-            [btnContent]
-          )
-        ])
-      } else {
-        button = h('li', { key, attrs, staticClass: 'page-item', class: liClasses }, [
-          h(
-            'b-link',
-            {
-              staticClass: 'page-link',
-              props: this.linkProps(linkTo),
-              attrs: {
-                role: 'menuitem',
-                tabindex: '-1',
-                'aria-label': ariaLabel,
-                'aria-controls': this.ariaControls || null
-              },
-              on: {
+      const inner = h(
+        isDisabled ? 'span' : 'b-link',
+        {
+          staticClass: 'page-link',
+          props: isDisabled ? {} : this.linkProps(linkTo),
+          attrs: {
+            role: 'menuitem',
+            tabindex: isDisabled ? null : '-1',
+            'aria-label': ariaLabel,
+            'aria-controls': this.ariaControls || null,
+            'aria-disabled': isDisabled ? 'true' : null
+          },
+          on: isDisabled
+            ? {}
+            : {
                 click: evt => {
                   this.onClick(linkTo, evt)
                 },
                 keydown: onSpaceKey
               }
-            },
-            [btnContent]
-          )
-        ])
-      }
-      return button
+        },
+        [btnContent]
+      )
+      return h(
+        'li',
+        {
+          key,
+          staticClass: 'page-item',
+          class: { disabled: isDisabled, 'flex-fill': alignFill },
+          attrs: {
+            role: 'none presentation',
+            'aria-hidden': isDisabled ? 'true' : null
+          }
+        },
+        [inner]
+      )
     }
 
     // Ellipsis factory
@@ -475,7 +472,9 @@ export default {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
-        'aria-label': `${this.labelPage} ${page.number}`,
+        'aria-label': typeof this.labelPage === 'function'
+          ? this.labelPage(page.number)
+          : `${this.labelPage} ${page.number}`,
         'aria-checked': active ? 'true' : 'false',
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
