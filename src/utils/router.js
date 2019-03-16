@@ -41,17 +41,17 @@ export const stringifyQueryObj = obj => {
               results.push(encode(key))
             } else if (val2 !== undefined) {
               // Faster than string interpolation
-              results.push(encode(key) + '=' + encode(val2))
+              results.push(encode(key) + '=' + encode(toString(val2)))
             }
             return results
           }, [])
           .join('&')
       }
-
       // Faster than string interpolation
-      return encode(key) + '=' + encode(val)
+      return encode(key) + '=' + encode(toString(val))
     })
-    .filter(x => !!x)
+    /* must check for length, as we only want to filter empty strings, not things that look falsey! */
+    .filter(x => x.length > 0)
     .join('&')
 
   return query ? `?${query}` : ''
@@ -59,8 +59,7 @@ export const stringifyQueryObj = obj => {
 
 export const parseQuery = query => {
   const parsed = {}
-
-  query = query.trim().replace(/^(\?|#|&)/, '')
+  query = toString(query).trim().replace(/^(\?|#|&)/, '')
 
   if (!query) {
     return parsed
@@ -79,6 +78,7 @@ export const parseQuery = query => {
       parsed[key] = [parsed[key], val]
     }
   })
+
   return parsed
 }
 
