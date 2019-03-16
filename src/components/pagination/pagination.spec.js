@@ -22,6 +22,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('renders with correct basic inner structure', async () => {
@@ -76,6 +78,8 @@ describe('pagination', () => {
     expect(page.find('.page-link').attributes('tabindex')).toEqual('0')
     expect(page.find('.page-link').attributes('aria-label')).toEqual('Go to page 1')
     expect(page.find('.page-link').attributes('target')).toEqual('_self')
+
+    wrapper.destroy()
   })
 
   it('renders scopedSlot page', async () => {
@@ -108,6 +112,8 @@ describe('pagination', () => {
     expect($links.at(0).text()).toBe('Page 1')
     expect($links.at(1).text()).toBe('Page 2')
     expect($links.at(2).text()).toBe('Page 3')
+
+    wrapper.destroy()
   })
 
   it('has class "pagination-sm" when prop size="sm"', async () => {
@@ -130,6 +136,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "pagination-lg" when prop size="lg"', async () => {
@@ -152,6 +160,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "pagination-foo" when prop size="foo"', async () => {
@@ -175,6 +185,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "justify-content-center" when prop align="center"', async () => {
@@ -197,6 +209,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "justify-content-end" when prop align="right"', async () => {
@@ -219,6 +233,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "justify-content-end" when prop align="end"', async () => {
@@ -241,6 +257,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
@@ -266,6 +284,8 @@ describe('pagination', () => {
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('a.page-link').length).toBe(4)
     expect(wrapper.findAll('a.page-link').is('[aria-controls]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('has attribute aria-label on page links', async () => {
@@ -305,6 +325,8 @@ describe('pagination', () => {
         .at(3)
         .attributes('aria-label')
     ).toBe('Go to next page')
+
+    wrapper.destroy()
   })
 
   it('has all links disabled when prop disabled set', async () => {
@@ -339,6 +361,8 @@ describe('pagination', () => {
         .at(4)
         .attributes('aria-disabled')
     ).toBe('true')
+
+    wrapper.destroy()
   })
 
   it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
@@ -457,6 +481,8 @@ describe('pagination', () => {
         expect(li.classes()).not.toContain('d-sm-flex')
       }
     })
+
+    wrapper.destroy()
   })
 
   it('places ellipsis in correct places', async () => {
@@ -500,6 +526,8 @@ describe('pagination', () => {
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).not.toBe('separator')
+
+    wrapper.destroy()
   })
 
   it('clicking buttons updates the v-model', async () => {
@@ -554,6 +582,8 @@ describe('pagination', () => {
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('changing the limit changes the nuber of buttons shown', async () => {
@@ -577,11 +607,14 @@ describe('pagination', () => {
 
     // Should be 8 <LI> total
     expect(wrapper.findAll('li').length).toBe(8)
+
+    wrapper.destroy()
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
+
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true
       // In our test below, all pagination buttons would normally be visible
@@ -648,6 +681,8 @@ describe('pagination', () => {
       links.at(6).trigger('keydown.left', { shiftKey: true })
       await wrapper.vm.$nextTick()
       expect(document.activeElement).toEqual(links.at(0).element)
+
+      wrapper.destroy()
     })
 
     it('internal method focusCurrent() works', async () => {
@@ -674,6 +709,8 @@ describe('pagination', () => {
       wrapper.vm.focusCurrent()
       await wrapper.vm.$nextTick()
       expect(document.activeElement).toEqual(links.at(3).element)
+
+      wrapper.destroy()
     })
 
     it('Current page button is focused when button display changes', async () => {
@@ -701,6 +738,8 @@ describe('pagination', () => {
       links = wrapper.findAll('a.page-link')
       // The 4th link should be page 4, and retain focus
       expect(document.activeElement).toEqual(links.at(3).element)
+
+      wrapper.destroy()
     })
   })
 })
