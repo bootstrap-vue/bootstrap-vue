@@ -103,9 +103,27 @@ describe('pagination', () => {
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(scopes.length).toBe(3)
-    expect(scopes[0]).toEqual({ page: 1, content: '1', active: true })
-    expect(scopes[1]).toEqual({ page: 2, content: '2', active: false })
-    expect(scopes[2]).toEqual({ page: 3, content: '3', active: false })
+    expect(scopes[0]).toEqual({
+      page: 1,
+      content: '1',
+      active: true,
+      index: 0,
+      disabled: false
+    })
+    expect(scopes[1]).toEqual({
+      page: 2,
+      content: '2',
+      active: false,
+      index: 1,
+      disabled: false
+    })
+    expect(scopes[2]).toEqual({
+      page: 3,
+      content: '3',
+      active: false,
+      index: 2,
+      disabled: false
+    })
 
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(5)
