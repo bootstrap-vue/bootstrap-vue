@@ -3,182 +3,226 @@ import { mount } from '@vue/test-utils'
 
 describe('form-textarea', () => {
   it('root element is textarea', async () => {
-    const input = mount(Textarea)
-    expect(input.element.type).toBe('textarea')
+    const wrapper = mount(Textarea)
+    expect(wrapper.element.type).toBe('textarea')
+
+    wrapper.destroy()
   })
 
   it('does not have attribute disabled by default', async () => {
-    const input = mount(Textarea)
-    expect(input.attributes('disabled')).not.toBeDefined()
+    const wrapper = mount(Textarea)
+    expect(wrapper.attributes('disabled')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has attribute disabled when disabled=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         disabled: true
       }
     })
-    expect(input.attributes('disabled')).toBeDefined()
+    expect(wrapper.attributes('disabled')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('does not have attribute readonly by default', async () => {
-    const input = mount(Textarea)
-    expect(input.attributes('readonly')).not.toBeDefined()
+    const wrapper = mount(Textarea)
+    expect(wrapper.attributes('readonly')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has attribute readonly when readonly=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         readonly: true
       }
     })
-    expect(input.attributes('readonly')).toBeDefined()
+    expect(wrapper.attributes('readonly')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('inherits non-prop attributes', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       attrs: {
         foo: 'bar'
       }
     })
-    expect(input.attributes('foo')).toBeDefined()
-    expect(input.attributes('foo')).toBe('bar')
+    expect(wrapper.attributes('foo')).toBeDefined()
+    expect(wrapper.attributes('foo')).toBe('bar')
+
+    wrapper.destroy()
   })
 
   it('has class form-control by default', async () => {
-    const input = mount(Textarea)
-    expect(input.classes()).toContain('form-control')
+    const wrapper = mount(Textarea)
+    expect(wrapper.classes()).toContain('form-control')
+
+    wrapper.destroy()
   })
 
   it('does not have class form-control-plaintext by default', async () => {
-    const input = mount(Textarea)
-    expect(input.classes()).not.toContain('form-control-plaintext')
+    const wrapper = mount(Textarea)
+    expect(wrapper.classes()).not.toContain('form-control-plaintext')
+
+    wrapper.destroy()
   })
 
   it('does not have size classes by default', async () => {
-    const input = mount(Textarea)
-    expect(input.classes()).not.toContain('form-control-sm')
-    expect(input.classes()).not.toContain('form-control-lg')
+    const wrapper = mount(Textarea)
+    expect(wrapper.classes()).not.toContain('form-control-sm')
+    expect(wrapper.classes()).not.toContain('form-control-lg')
+
+    wrapper.destroy()
   })
 
   it('has size class when size prop is set', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         size: 'sm'
       }
     })
-    expect(input.classes()).toContain('form-control-sm')
-    input.setProps({ size: 'lg' })
-    expect(input.classes()).toContain('form-control-lg')
-    input.setProps({ size: 'foobar' })
-    expect(input.classes()).toContain('form-control-foobar')
-    input.setProps({ size: '' })
-    expect(input.classes()).not.toContain('form-control-')
+    expect(wrapper.classes()).toContain('form-control-sm')
+    wrapper.setProps({ size: 'lg' })
+    expect(wrapper.classes()).toContain('form-control-lg')
+    wrapper.setProps({ size: 'foobar' })
+    expect(wrapper.classes()).toContain('form-control-foobar')
+    wrapper.setProps({ size: '' })
+    expect(wrapper.classes()).not.toContain('form-control-')
+
+    wrapper.destroy()
   })
 
   it('has class form-control-plaintext when plaintext=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         plaintext: true
       }
     })
-    expect(input.classes()).toContain('form-control-plaintext')
+    expect(wrapper.classes()).toContain('form-control-plaintext')
+
+    wrapper.destroy()
   })
 
   it('does not have class form-control when plaintext=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         plaintext: true
       }
     })
-    expect(input.classes()).not.toContain('form-control')
+    expect(wrapper.classes()).not.toContain('form-control')
+
+    wrapper.destroy()
   })
 
   it('has attribute readonly when plaintext=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         plaintext: true
       }
     })
-    expect(input.attributes('readonly')).toBeDefined()
+    expect(wrapper.attributes('readonly')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has user supplied id', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         id: 'foobar'
       }
     })
-    expect(input.attributes('id')).toBe('foobar')
+    expect(wrapper.attributes('id')).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('does not have is-valid or is-invalid classes by default', async () => {
-    const input = mount(Textarea)
-    expect(input.classes()).not.toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
+    const wrapper = mount(Textarea)
+    expect(wrapper.classes()).not.toContain('is-valid')
+    expect(wrapper.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('has class is-valid when state=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         state: true
       }
     })
-    expect(input.classes()).toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
+    expect(wrapper.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('has class is-valid when state=valid', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         state: 'valid'
       }
     })
-    expect(input.classes()).toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
+    expect(wrapper.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('has class is-invalid when state=false', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         state: false
       }
     })
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
+    expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
+
+    wrapper.destroy()
   })
 
   it('has class is-invalid when state=invalid', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         state: 'invalid'
       }
     })
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
+    expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
+
+    wrapper.destroy()
   })
 
   it('does not have aria-invalid attribute by default', async () => {
-    const input = mount(Textarea)
-    expect(input.contains('[aria-invalid]')).toBe(false)
+    const wrapper = mount(Textarea)
+    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('does not have aria-invalid attribute when state=true', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         state: true
       }
     })
-    expect(input.contains('[aria-invalid]')).toBe(false)
+    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('does not have aria-invalid attribute when state=valid', async () => {
-    const input = mount(Textarea, {
+    const wrapper = mount(Textarea, {
       propsData: {
         state: 'valid'
       }
     })
-    expect(input.contains('[aria-invalid]')).toBe(false)
+    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when state=false', async () => {
@@ -188,6 +232,8 @@ describe('form-textarea', () => {
       }
     })
     expect(input.attributes('aria-invalid')).toBe('true')
+
+    input.destroy()
   })
 
   it('has aria-invalid attribute when state=invalid', async () => {
@@ -197,6 +243,8 @@ describe('form-textarea', () => {
       }
     })
     expect(input.attributes('aria-invalid')).toBe('true')
+
+    input.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid=true', async () => {
@@ -208,6 +256,8 @@ describe('form-textarea', () => {
     expect(input.attributes('aria-invalid')).toBe('true')
     input.setProps({ ariaInvalid: 'true' })
     expect(input.attributes('aria-invalid')).toBe('true')
+
+    input.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid="spelling"', async () => {
@@ -217,11 +267,15 @@ describe('form-textarea', () => {
       }
     })
     expect(input.attributes('aria-invalid')).toBe('spelling')
+
+    input.destroy()
   })
 
   it('does not emit an update event on mount when value not set', async () => {
     const input = mount(Textarea)
     expect(input.emitted('update')).not.toBeDefined()
+
+    input.destroy()
   })
 
   it('does mot emit an update event on mount when value is set and no formatter', async () => {
@@ -229,6 +283,8 @@ describe('form-textarea', () => {
       value: 'foobar'
     })
     expect(input.emitted('update')).not.toBeDefined()
+
+    input.destroy()
   })
 
   it('emits an input event with single arg of value', async () => {
@@ -240,6 +296,8 @@ describe('form-textarea', () => {
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input')[0].length).toEqual(1)
     expect(input.emitted('input')[0][0]).toEqual('test')
+
+    input.destroy()
   })
 
   it('emits an change event with single arg of value', async () => {
@@ -254,6 +312,8 @@ describe('form-textarea', () => {
     expect(input.emitted('change')).toBeDefined()
     expect(input.emitted('change')[0].length).toEqual(1)
     expect(input.emitted('change')[0][0]).toEqual('test')
+
+    input.destroy()
   })
 
   it('emits an update event with one arg on input', async () => {
@@ -264,6 +324,8 @@ describe('form-textarea', () => {
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update')[0].length).toEqual(1)
     expect(input.emitted('update')[0][0]).toEqual('test')
+
+    input.destroy()
   })
 
   it('does not emit an update event on change when value not changed', async () => {
@@ -276,6 +338,8 @@ describe('form-textarea', () => {
     expect(input.emitted('update')[0][0]).toEqual('test')
     input.trigger('change')
     expect(input.emitted('update').length).toEqual(1)
+
+    input.destroy()
   })
 
   it('emits an update event with one arg on change when input text changed', async () => {
@@ -290,6 +354,8 @@ describe('form-textarea', () => {
     input.trigger('change')
     expect(input.emitted('update').length).toEqual(2)
     expect(input.emitted('update')[1][0]).toEqual('TEST')
+
+    input.destroy()
   })
 
   it('does not emit an update, input or change event when value prop changed', async () => {
@@ -304,6 +370,8 @@ describe('form-textarea', () => {
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
+
+    input.destroy()
   })
 
   it('emits a native focus event', async () => {
@@ -316,18 +384,24 @@ describe('form-textarea', () => {
     input.trigger('focus')
     expect(input.emitted('focus')).not.toBeDefined()
     expect(spy).toHaveBeenCalled()
+
+    input.destroy()
   })
 
   it('emits a blur event when blurred', async () => {
     const input = mount(Textarea)
     input.trigger('blur')
     expect(input.emitted('blur')).toBeDefined()
+
+    input.destroy()
   })
 
   it('has attribute rows set to 2 by default', async () => {
     const input = mount(Textarea)
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('2')
+
+    input.destroy()
   })
 
   it('has attribute rows when rows set and max-rows not set', async () => {
@@ -349,6 +423,8 @@ describe('form-textarea', () => {
     input.setProps({ rows: -10 })
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('2')
+
+    input.destroy()
   })
 
   it('has attribute rows set when rows and max-rows are equal', async () => {
@@ -364,6 +440,8 @@ describe('form-textarea', () => {
     input.setProps({ rows: '10', maxRows: '10' })
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('10')
+
+    input.destroy()
   })
 
   it('does not have rows set when rows and max-rows set', async () => {
@@ -374,6 +452,8 @@ describe('form-textarea', () => {
       }
     })
     expect(input.attributes('rows')).not.toBeDefined()
+
+    input.destroy()
   })
 
   it('has attribute rows set when max-rows less than rows', async () => {
@@ -385,6 +465,8 @@ describe('form-textarea', () => {
     })
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('10')
+
+    input.destroy()
   })
 
   it('does not have style resize by default', async () => {
@@ -393,6 +475,8 @@ describe('form-textarea', () => {
     })
     expect(input.element.style).toBeDefined()
     expect(input.element.style.resize).toEqual('')
+
+    input.destroy()
   })
 
   it('does not have style resize when no-resize is set', async () => {
@@ -404,6 +488,8 @@ describe('form-textarea', () => {
     })
     expect(input.element.style).toBeDefined()
     expect(input.element.style.resize).toEqual('none')
+
+    input.destroy()
   })
 
   it('does not have style resize when max-rows not set', async () => {
@@ -415,6 +501,8 @@ describe('form-textarea', () => {
     })
     expect(input.element.style).toBeDefined()
     expect(input.element.style.resize).toEqual('')
+
+    input.destroy()
   })
 
   it('does not have style resize when max-rows less than rows', async () => {
@@ -427,6 +515,8 @@ describe('form-textarea', () => {
     })
     expect(input.element.style).toBeDefined()
     expect(input.element.style.resize).toEqual('')
+
+    input.destroy()
   })
 
   it('has style resize:none when max-rows greater than rows', async () => {
@@ -440,6 +530,8 @@ describe('form-textarea', () => {
     expect(input.element.style).toBeDefined()
     expect(input.element.style.resize).toBeDefined()
     expect(input.element.style.resize).toEqual('none')
+
+    input.destroy()
   })
 
   it('does not have style height by default', async () => {
@@ -449,6 +541,8 @@ describe('form-textarea', () => {
     expect(input.element.style).toBeDefined()
     expect(input.element.style.height).toBeDefined()
     expect(input.element.style.height).toEqual('')
+
+    input.destroy()
   })
 
   it('does not have style height when rows and max-rows equal', async () => {
@@ -462,6 +556,8 @@ describe('form-textarea', () => {
     expect(input.element.style).toBeDefined()
     expect(input.element.style.height).toBeDefined()
     expect(input.element.style.height).toEqual('')
+
+    input.destroy()
   })
 
   it('does not have style height when max-rows not set', async () => {
@@ -474,6 +570,8 @@ describe('form-textarea', () => {
     expect(input.element.style).toBeDefined()
     expect(input.element.style.height).toBeDefined()
     expect(input.element.style.height).toEqual('')
+
+    input.destroy()
   })
 
   /*
@@ -494,6 +592,8 @@ describe('form-textarea', () => {
     expect(input.element.style).toBeDefined()
     expect(input.element.style.height).toBeDefined()
     expect(input.element.style.height).not.toEqual('')
+
+    input.destroy()
   })
 
   it('auto height should work', async () => {
@@ -523,6 +623,8 @@ describe('form-textarea', () => {
     expect(input.element.style.height).not.toEqual('')
     const thirdHeight = parseFloat(input.element.style.height)
     expect(thirdHeight).toBeLessThan(secondHeight)
+
+    input.destroy()
   })
   */
 
@@ -549,6 +651,8 @@ describe('form-textarea', () => {
     expect(input.emitted('input')[0][0]).toEqual('test')
     // And no change event
     expect(input.emitted('change')).not.toBeDefined()
+
+    input.destroy()
   })
 
   it('Formats on change when not lazy', async () => {
@@ -574,6 +678,8 @@ describe('form-textarea', () => {
     expect(input.emitted('change')[0][0]).toEqual('test')
     // And no input event
     expect(input.emitted('input')).not.toBeDefined()
+
+    input.destroy()
   })
 
   it('Formats on blur when lazy', async () => {
@@ -627,6 +733,8 @@ describe('form-textarea', () => {
     expect(input.emitted('change').length).toEqual(1)
     expect(input.emitted('blur').length).toEqual(1)
     expect(input.emitted('update').length).toEqual(2)
+
+    input.destroy()
   })
 
   it('Does not format value on mount when not lazy', async () => {
@@ -643,6 +751,8 @@ describe('form-textarea', () => {
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('TEST')
+
+    input.destroy()
   })
 
   it('Does not format value on mount when lazy', async () => {
@@ -660,6 +770,8 @@ describe('form-textarea', () => {
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('TEST')
+
+    input.destroy()
   })
 
   it('Does not format on prop "value" change when not lazy', async () => {
@@ -681,6 +793,8 @@ describe('form-textarea', () => {
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('TEST')
+
+    input.destroy()
   })
 
   it('Does not format on value prop change when lazy', async () => {
@@ -704,6 +818,8 @@ describe('form-textarea', () => {
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('TEST')
+
+    input.destroy()
   })
 
   it('activate and deactivate hooks work (keepalive)', async () => {
@@ -748,6 +864,8 @@ describe('form-textarea', () => {
     // Check that the internal dontResize flag is now false
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
+
+    input.destroy()
   })
 
   it('trim modifier prop works', async () => {
@@ -810,6 +928,8 @@ describe('form-textarea', () => {
     expect(input.emitted('change')).toBeDefined()
     expect(input.emitted('change').length).toEqual(1)
     expect(input.emitted('change')[0][0]).toEqual('  TEST  ')
+
+    input.destroy()
   })
 
   it('number modifier prop works', async () => {
@@ -873,5 +993,7 @@ describe('form-textarea', () => {
     expect(input.emitted('input').length).toEqual(4)
     expect(input.emitted('input')[3][0]).toEqual('0123 450')
     expect(typeof input.emitted('input')[3][0]).toEqual('string')
+
+    input.destroy()
   })
 })
