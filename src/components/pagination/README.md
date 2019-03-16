@@ -6,7 +6,7 @@
 For pagination that changes to a new URL, use the
 [`<b-pagination-nav>`](/docs/components/pagination-nav) component instead.
 
-**Example Usage:**
+**Example Usage with `<b-table>`:**
 
 ```html
 <template>
