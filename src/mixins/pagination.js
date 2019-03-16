@@ -372,11 +372,7 @@ export default {
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
       const btnContent = btnSlot || toString(btnText) || h(false)
       const isDisabled =
-        disabled ||
-        isActivePage(pageTest) ||
-        noCurrPage ||
-        linkTo < 1 ||
-        linkTo > numberOfPages
+        disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
       const inner = h(
         isDisabled ? 'span' : 'b-link',
         {
@@ -472,9 +468,10 @@ export default {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
-        'aria-label': typeof this.labelPage === 'function'
-          ? this.labelPage(page.number)
-          : `${this.labelPage} ${page.number}`,
+        'aria-label':
+          typeof this.labelPage === 'function'
+            ? this.labelPage(page.number)
+            : `${this.labelPage} ${page.number}`,
         'aria-checked': active ? 'true' : 'false',
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
