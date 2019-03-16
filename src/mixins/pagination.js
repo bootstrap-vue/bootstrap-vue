@@ -369,7 +369,7 @@ export default {
       const isDisabled =
         disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
       const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
-      const scope = { disabled: isDisabled, page: pageNum }
+      const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
       const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h(false)
       const inner = h(
         isDisabled ? 'span' : 'b-link',
@@ -469,7 +469,13 @@ export default {
         tabindex: tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
-      const scope = { page: page.number, content: btnContent, active, disabled }
+      const scope = {
+        page: page.number,
+        index: page.number - 1,
+        content: btnContent,
+        active,
+        disabled
+      }
       const inner = h(
         disabled ? 'span' : 'b-link',
         {
