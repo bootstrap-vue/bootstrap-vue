@@ -305,6 +305,12 @@ pages). If you initially set the `v-model` to a value of `1` or greater, auto pa
 not occur (until after a user clicks a page button), and the page specified by the `v-model` will
 be set as `active`.
 
+To disable auto active page detection, set the `no-page-detect` prop to `true`.
+
+**Note:** Auto page detection needs to loop through all possible page links until a match is detected.
+For larget `number-of-pages`, this check can take some time so you may want to manually control
+which page is the active via the `v-model` and the `no-page-detect` prop.
+
 ## Accessibility
 
 The `<b-pagination-nav>` component provides many features to support assistive technology users,
