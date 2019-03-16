@@ -183,11 +183,13 @@ export default {
       if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         // Current route (if router available)
         const currRoute = $router
-          ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
+          ? { path: $route.path, hash: $route.hash, query: $route.query }
+          : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
         const loc = inBrowser ? window.location || document.location : null
         const currLink = loc
-          ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) } : {}
+          ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) }
+          : {}
         // Loop through the possible pages looking for a match until found
         for (let page = 1; !guess && page <= this.localNumPages; page++) {
           const to = this.makeLink(page)
