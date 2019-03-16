@@ -55,7 +55,7 @@ To generate page links as [`<router link>`](https://router.vuejs.org/api/#router
 If a `$router` is not detected on your app, `<b-pagination-nav>` will fallback to regular `<a>`
 elements, and any `to` location object will be converted to a standard URL (if possible).
 
-### Link Generator function
+### Link generator function
 
 If you need finer grained control over the generated link URLs or `<router-link>` `to` props, you
 may set the `link-gen` prop to a function reference that accepts one argument which is a page
@@ -88,7 +88,7 @@ linkGen(pageNum) {
 }
 ```
 
-### Page number generation
+## Page number generation
 
 By default, `<b-pagination-nav>` renders page numbers (1-N) in the page link buttons. You can
 override this behaviour by supplying a function reference to the `page-gen` property. The function
@@ -134,11 +134,12 @@ you can use the scoped slot `page` for finer-grained formatting.
 
 ## Customizing appearance
 
-### Limiting the number of disaplayed buttons
+### Limiting the number of displayed buttons
 
 To restrict the number of page buttons (including the ellipsis, but excluding the first, prev,
 next, and last buttons) shown, use the `limit` prop to specify the desired number of page buttons
 (including the ellipsis, if shown). The default `limit` is `5`. The minimum supported value is `3`.
+When `limit` is set to `3`, no ellipsis indicators will be shown for practical purposes.
 
 The `first` and `last` buttons can be optionally hidden by setting the `hide-goto-end-buttons`
 prop.
