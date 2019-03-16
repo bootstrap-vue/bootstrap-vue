@@ -7,6 +7,8 @@ describe('form-input', () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control')
+
+    wrapper.destroy()
   })
 
   it('has class form-control-lg when size=lg and plane=false', async () => {
@@ -17,6 +19,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control-lg')
+
+    wrapper.destroy()
   })
 
   it('has class form-control-sm when size=lg and plain=false', async () => {
@@ -27,6 +31,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control-sm')
+
+    wrapper.destroy()
   })
 
   it('does not have class form-control-plaintext when plaintext not set', async () => {
@@ -34,6 +40,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).not.toContain('form-control-plaintext')
     expect(input.attributes('readonly')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has class form-control-plaintext when plaintext=true', async () => {
@@ -44,6 +52,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control-plaintext')
+
+    wrapper.destroy()
   })
 
   it('has attribute read-only when plaintext=true', async () => {
@@ -55,6 +65,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control-plaintext')
     expect(input.attributes('readonly')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has class custom-range instead of form-control when type=range', async () => {
@@ -66,6 +78,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).toContain('custom-range')
     expect(input.classes()).not.toContain('form-control')
+
+    wrapper.destroy()
   })
 
   it('does not have class form-control-plaintext when type=range and plaintext=true', async () => {
@@ -79,6 +93,8 @@ describe('form-input', () => {
     expect(input.classes()).toContain('custom-range')
     expect(input.classes()).not.toContain('form-control')
     expect(input.classes()).not.toContain('form-control-plaintext')
+
+    wrapper.destroy()
   })
 
   it('does not have class form-control-plaintext when type=color and plaintext=true', async () => {
@@ -92,6 +108,8 @@ describe('form-input', () => {
     expect(input.classes()).not.toContain('custom-range')
     expect(input.classes()).not.toContain('form-control-plaintext')
     expect(input.classes()).toContain('form-control')
+
+    wrapper.destroy()
   })
 
   it('has user supplied id', async () => {
@@ -102,6 +120,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('id')).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('has safeId after mount when no id provided', async () => {
@@ -109,9 +129,10 @@ describe('form-input', () => {
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    return wrapper.vm.$nextTick().then(function() {
-      expect(input.attributes('id')).toBeDefined()
-    })
+    await wrapper.vm.$nextTick()
+    expect(input.attributes('id')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has form attribute when form prop set', async () => {
@@ -122,12 +143,16 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('form')).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('does not have list attribute when list prop not set', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
     expect(input.attributes('list')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has list attribute when list prop set', async () => {
@@ -138,6 +163,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('list')).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('does not have list attribute when list prop set and type=password', async () => {
@@ -149,12 +176,16 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('list')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('renders text input by default', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
     expect(input.attributes('type')).toBe('text')
+
+    wrapper.destroy()
   })
 
   it('renders number input when type set to number', async () => {
@@ -165,6 +196,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('type')).toBe('number')
+
+    wrapper.destroy()
   })
 
   it('renders text input when type not supported', async () => {
@@ -183,6 +216,8 @@ describe('form-input', () => {
 
     expect(Vue.config.warnHandler).toHaveBeenCalled()
     Vue.config.warnHandler = warnHandler
+
+    wrapper.destroy()
   })
 
   it('does not have is-valid or is-invalid classes when state is default', async () => {
@@ -190,6 +225,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).not.toContain('is-valid')
     expect(input.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('does not have is-valid or is-invalid classes when state=""', async () => {
@@ -201,6 +238,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).not.toContain('is-valid')
     expect(input.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('has class is-valid when state=true', async () => {
@@ -212,6 +251,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).toContain('is-valid')
     expect(input.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('has class is-valid when state="valid"', async () => {
@@ -223,6 +264,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).toContain('is-valid')
     expect(input.classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
   })
 
   it('has class is-invalid when state=false', async () => {
@@ -234,6 +277,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).toContain('is-invalid')
     expect(input.classes()).not.toContain('is-valid')
+
+    wrapper.destroy()
   })
 
   it('has class is-invalid when state="invalid"', async () => {
@@ -245,11 +290,15 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(input.classes()).toContain('is-invalid')
     expect(input.classes()).not.toContain('is-valid')
+
+    wrapper.destroy()
   })
 
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(Input)
     expect(wrapper.contains('[aria-invalid]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('does not have aria-invalid attribute when state is true', async () => {
@@ -259,6 +308,8 @@ describe('form-input', () => {
       }
     })
     expect(wrapper.contains('[aria-invalid]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when state=false', async () => {
@@ -269,6 +320,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid="true"', async () => {
@@ -279,6 +332,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid=true', async () => {
@@ -289,6 +344,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid="spelling"', async () => {
@@ -299,6 +356,8 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('aria-invalid')).toBe('spelling')
+
+    wrapper.destroy()
   })
 
   it('is disabled when disabled=true', async () => {
@@ -310,6 +369,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(!!input.attributes('disabled')).toBe(true)
     expect(input.element.disabled).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('is not disabled when disabled=false', async () => {
@@ -321,6 +382,8 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     expect(!!input.attributes('disabled')).toBe(false)
     expect(input.element.disabled).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('emits an input event', async () => {
@@ -333,6 +396,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted().input[0].length).toEqual(1)
     expect(wrapper.emitted().input[0][0]).toEqual('test')
+
+    wrapper.destroy()
   })
 
   it('emits a native focus event', async () => {
@@ -347,6 +412,8 @@ describe('form-input', () => {
 
     expect(wrapper.emitted()).toMatchObject({})
     expect(spy).toHaveBeenCalled()
+
+    wrapper.destroy()
   })
 
   it('emits a blur event with native event as only arg', async () => {
@@ -362,6 +429,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('blur')[0].length).toEqual(1)
     expect(wrapper.emitted('blur')[0][0] instanceof Event).toBe(true)
     expect(wrapper.emitted('blur')[0][0].type).toEqual('blur')
+
+    wrapper.destroy()
   })
 
   it('applies formatter on input when not lazy', async () => {
@@ -386,6 +455,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual('test')
 
     expect(input.vm.localValue).toEqual('test')
+
+    wrapper.destroy()
   })
 
   it('does not apply formatter on input when lazy', async () => {
@@ -410,6 +481,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('TEST')
+
+    wrapper.destroy()
   })
 
   it('applies formatter on blur when lazy', async () => {
@@ -444,6 +517,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur').length).toEqual(1)
     expect(input.vm.localValue).toEqual('test')
+
+    wrapper.destroy()
   })
 
   it('does not apply formatter when value supplied on mount and not lazy', async () => {
@@ -463,6 +538,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('does not apply formatter when value prop updated and not lazy', async () => {
@@ -484,6 +561,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('does not apply formatter when value prop updated and lazy', async () => {
@@ -505,6 +584,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('does not update value when non-lazy formatter returns false', async () => {
@@ -525,6 +606,8 @@ describe('form-input', () => {
     // value in input should remain the same as entered
     expect(input.element.value).toEqual('TEST')
     expect(wrapper.vm.localValue).toBe('abc')
+
+    wrapper.destroy()
   })
 
   it('focused number input with no-wheel set to true works', async () => {
@@ -550,6 +633,8 @@ describe('form-input', () => {
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
+
+    wrapper.destroy()
   })
 
   it('focused number input with no-wheel set to false works', async () => {
@@ -575,6 +660,8 @@ describe('form-input', () => {
 
     // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
+
+    wrapper.destroy()
   })
 
   it('changing no-wheel after mount works', async () => {
@@ -610,6 +697,8 @@ describe('form-input', () => {
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
+
+    wrapper.destroy()
   })
 
   it('"number" modifier prop works', async () => {
@@ -656,6 +745,8 @@ describe('form-input', () => {
     })
     await wrapper.vm.$nextTick()
     expect(input.element.value).toBe('45.6')
+
+    wrapper.destroy()
   })
 
   it('focus() and blur() methods work', async () => {
@@ -672,5 +763,7 @@ describe('form-input', () => {
     expect(document.activeElement).toBe(input.element)
     wrapper.vm.blur()
     expect(document.activeElement).not.toBe(input.element)
+
+    wrapper.destroy()
   })
 })

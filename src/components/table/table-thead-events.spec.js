@@ -32,6 +32,8 @@ describe('table thead events', () => {
     expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) /* field def */
     expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) /* event */
     expect(wrapper.emitted('head-clicked')[1][3]).toBe(false) /* is footer */
+
+    wrapper.destroy()
   })
 
   it('should not emit head-clicked event when prop busy is set', async () => {
@@ -48,6 +50,8 @@ describe('table thead events', () => {
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
     $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should not emit head-clicked event when vm.localBusy is true', async () => {
@@ -66,6 +70,8 @@ describe('table thead events', () => {
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
     $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should not emit head-clicked event when clicking on a button or other interactive element', async () => {
@@ -100,5 +106,7 @@ describe('table thead events', () => {
     expect($link.exists()).toBe(true)
     $link.trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 })
