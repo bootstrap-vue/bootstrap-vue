@@ -59,7 +59,9 @@ export const stringifyQueryObj = obj => {
 
 export const parseQuery = query => {
   const parsed = {}
-  query = toString(query).trim().replace(/^(\?|#|&)/, '')
+  query = toString(query)
+    .trim()
+    .replace(/^(\?|#|&)/, '')
 
   if (!query) {
     return parsed
