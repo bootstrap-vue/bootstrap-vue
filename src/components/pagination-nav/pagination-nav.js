@@ -165,7 +165,7 @@ export default {
     resolveRoute(to = '') {
       // works only when router available!!
       try {
-        const route = $router.resolve(to, this.$route).route
+        const route = this.$router.resolve(to, this.$route).route
         return { path: route.path, hash: route.hash, query: route.query }
       } catch (e) {
         /* istanbul ignore next */
@@ -180,14 +180,10 @@ export default {
       /* istanbul ignore else */
       if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         // Current route (if router available)
-        const currLocRoute = ($router && $route)
-          ? { path: $route.path, hash: $route.hash, query: $route.query }
-          : {}
+        const currLocRoute = $router && $route ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
         const loc = inBrowser ? window.location || document.location : null
-        const currLocLink = loc
-          ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) }
-          : {}
+        const currLocLink = loc ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) } : {}
         // Loop through the possible pages looking for a match until found
         for (let page = 1; !guess && page <= this.localNumPages; page++) {
           let to = this.makeLink(page)
@@ -197,7 +193,7 @@ export default {
           } else if (inBrowser) {
             // If no $router available (or !this.useRouter when `to` is a string)
             // we compare using parsed URIs
-            guess = looseEqual(resolveLink(to), currLocLink) ? page : null
+            guess = looseEqual(this.resolveLink(to), currLocLink) ? page : null
           } else {
             // probably SSR, but no $router
             /* istanbul ignore next */
