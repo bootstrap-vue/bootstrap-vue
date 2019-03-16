@@ -16,6 +16,8 @@ describe('table colgroup', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('colgroup').exists()).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('should render named slot `table-colgroup`', async () => {
@@ -38,6 +40,8 @@ describe('table colgroup', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('colgroup').findAll('col').length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('should render scoped slot `table-colgroup`', async () => {
@@ -70,5 +74,7 @@ describe('table colgroup', () => {
     ).toBe(true)
     expect(wrapper.findAll('col').length).toBe(1)
     expect(wrapper.find('col').attributes('span')).toBe('3')
+
+    wrapper.destroy()
   })
 })

@@ -23,6 +23,8 @@ describe('table row details', () => {
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(false)
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('expected rows have details showing', async () => {
@@ -52,6 +54,8 @@ describe('table row details', () => {
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('should show details slot when _showDetails changed', async () => {
@@ -86,6 +90,8 @@ describe('table row details', () => {
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
     expect($trs.at(4).is('tr.b-table-details')).toBe(true)
     expect($trs.at(4).text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('should hide details slot when _showDetails changed', async () => {
@@ -123,6 +129,8 @@ describe('table row details', () => {
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(false)
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('should have extra spacer tr when details showing and striped=true', async () => {
@@ -159,5 +167,7 @@ describe('table row details', () => {
     expect($trs.at(3).is('tr.d-none')).toBe(false)
     expect($trs.at(4).is('tr.b-table-details')).toBe(false)
     expect($trs.at(4).is('tr.d-none')).toBe(false)
+
+    wrapper.destroy()
   })
 })

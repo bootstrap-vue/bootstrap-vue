@@ -15,6 +15,8 @@ describe('table row select', () => {
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should not have aria-selected/tabindex attribute when not selctable and no row-clicked listener', async () => {
@@ -32,6 +34,8 @@ describe('table row select', () => {
     expect($rows.is('tr[aria-selected]')).toBe(false)
     // Doesn't have tabindex attribute on all TRs
     expect($rows.is('tr[tabindex]')).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('should have tabindex but not aria-selected when not selectable and has row-clicked listener', async () => {
@@ -52,6 +56,8 @@ describe('table row select', () => {
     expect($rows.is('tr[aria-selected]')).toBe(false)
     // Does have tabindex attribute on all TRs
     expect($rows.is('tr[tabindex]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('select mode single works', async () => {
@@ -118,6 +124,8 @@ describe('table row select', () => {
     expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('select mode multi works', async () => {
@@ -194,6 +202,8 @@ describe('table row select', () => {
     expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('select mode range works', async () => {
@@ -337,6 +347,8 @@ describe('table row select', () => {
     expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('sort change clears selection', async () => {
@@ -382,6 +394,8 @@ describe('table row select', () => {
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('filter change clears selection', async () => {
@@ -427,6 +441,8 @@ describe('table row select', () => {
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('pagination change clears selection', async () => {
@@ -478,6 +494,8 @@ describe('table row select', () => {
     expect($rows.length).toBe(1)
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('change in select mode clears selection', async () => {
@@ -521,6 +539,8 @@ describe('table row select', () => {
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('disabling selectable clears selection', async () => {
@@ -564,5 +584,7 @@ describe('table row select', () => {
     // Should remove tabindex and aria-selected attributes
     expect($rows.is('[tabindex]')).toBe(false)
     expect($rows.is('[aria-selected]')).toBe(false)
+
+    wrapper.destroy()
   })
 })
