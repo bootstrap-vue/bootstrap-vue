@@ -55,6 +55,16 @@ To generate page links as [`<router link>`](https://router.vuejs.org/api/#router
 If a `$router` is not detected on your app, `<b-pagination-nav>` will fallback to regular `<a>`
 elements, and any `to` location object will be converted to a standard URL (if possible).
 
+The following router link specific props are supported:
+
+- `active-class`
+- `exact`
+- `exact-active-class`
+- `no-prefetch` (`<nuxt-link>` specific prop)
+
+For setails on the above props, refer to the [Router Link Support](/docs/reference/router-links)
+reference section.
+
 ### Link generator function
 
 If you need finer grained control over the generated link URLs or `<router-link>` `to` props, you
