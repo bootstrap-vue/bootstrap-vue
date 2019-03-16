@@ -17,6 +17,8 @@ describe('tabs', () => {
     expect(wrapper.classes()).not.toContain('row')
     expect(wrapper.classes()).not.toContain('no-gutters')
     expect(wrapper.attributes('id')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('default has expected data state', async () => {
@@ -24,6 +26,8 @@ describe('tabs', () => {
 
     expect(wrapper.vm.currentTab).toBe(-1)
     expect(wrapper.vm.tabs.length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('sets correct tab active for initial value', async () => {
@@ -38,6 +42,8 @@ describe('tabs', () => {
     expect(wrapper.vm.currentTab).toBe(tabIndex)
     expect(wrapper.vm.tabs.length).toBe(3)
     expect(wrapper.vm.tabs[tabIndex].localActive).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('sets correct tab active when first tab is disabled', async () => {
@@ -66,6 +72,8 @@ describe('tabs', () => {
     expect(tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
     expect(tabs.emitted('input')[0][0]).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('sets current index based on active prop of b-tab', async () => {
@@ -94,6 +102,8 @@ describe('tabs', () => {
     expect(tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
     expect(tabs.emitted('input')[0][0]).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('selects first non-ditabled tab when active tab disabled', async () => {
@@ -139,6 +149,8 @@ describe('tabs', () => {
     expect(tabs.findAll(Tab).at(2).vm.localActive).toBe(true)
     expect(tabs.emitted('input').length).toBe(2)
     expect(tabs.emitted('input')[1][0]).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('v-model works', async () => {
@@ -180,6 +192,8 @@ describe('tabs', () => {
     expect(tabs.emitted('input').length).toBe(2)
     // Should emit index of 2 (3rd tab)
     expect(tabs.emitted('input')[1][0]).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('v-model works when trying to activate a disabled tab', async () => {
@@ -225,6 +239,8 @@ describe('tabs', () => {
     expect(tabs.emitted('input').length).toBe(2)
     // Should emit index of 0 (1st tab)
     expect(tabs.emitted('input')[1][0]).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('clicking on tab activates the tab, and tab emits click event', async () => {
@@ -296,6 +312,8 @@ describe('tabs', () => {
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
     expect(tab1.emitted('click')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('key nav works', async () => {
@@ -372,6 +390,8 @@ describe('tabs', () => {
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('disabling active tab selects first non-disabled tab', async () => {
@@ -422,6 +442,8 @@ describe('tabs', () => {
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('tab title slots are reactive', async () => {
@@ -454,5 +476,7 @@ describe('tabs', () => {
 
     // Expect tab button content to be `foobar`
     expect(wrapper.find('.nav-link').text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 })
