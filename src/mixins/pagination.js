@@ -363,7 +363,6 @@ export default {
     // Helper function and flag
     const isActivePage = pageNum => pageNum === currPage
     const noCurrPage = this.currentPage < 1
-    const alignFill = this.align === 'fill'
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
