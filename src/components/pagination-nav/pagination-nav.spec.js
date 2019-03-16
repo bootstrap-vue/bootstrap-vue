@@ -9,6 +9,10 @@ localVue.use(VueRouter)
 // in pagination.spec.js. Here we just test the differences that
 // pagination-nav has
 
+// We use a (currently) undocumented wrapper method `destroy()` at the end
+// of each test to remove the VM and DOM from the JSDOM document, as
+// the wrappers's and instances remain after each test completes.
+
 describe('pagination-nav', () => {
   it('renders with correct basic structure for root elements', async () => {
     const wrapper = mount(PaginationNav, {
@@ -39,6 +43,8 @@ describe('pagination-nav', () => {
     expect($ul.attributes('role')).toBe('menubar')
     expect($ul.attributes('aria-disabled')).toBe('false')
     expect($ul.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('renders with correct default HREF', async () => {
@@ -66,6 +72,8 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('/5')
     expect($links.at(7).attributes('href')).toBe('/4')
     expect($links.at(8).attributes('href')).toBe('/5')
+
+    wrapper.destroy()
   })
 
   it('renders with correct default page button text', async () => {
@@ -88,6 +96,8 @@ describe('pagination-nav', () => {
     expect($links.at(4).text()).toBe('3')
     expect($links.at(5).text()).toBe('4')
     expect($links.at(6).text()).toBe('5')
+
+    wrapper.destroy()
   })
 
   it('disabled renders correct', async () => {
@@ -127,6 +137,8 @@ describe('pagination-nav', () => {
     expect(wrapper.findAll('li > span').length).toBe(5)
     expect(wrapper.findAll('li > span.page-link').length).toBe(5)
     expect(wrapper.findAll('li > span[aria-disabled="true"').length).toBe(5)
+
+    wrapper.destroy()
   })
 
   it('renders with correct HREF when base-url specified', async () => {
@@ -155,6 +167,8 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('/foo/5')
     expect($links.at(7).attributes('href')).toBe('/foo/4')
     expect($links.at(8).attributes('href')).toBe('/foo/5')
+
+    wrapper.destroy()
   })
 
   it('renders with correct HREF when link-gen function provided', async () => {
@@ -183,6 +197,8 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('?5')
     expect($links.at(7).attributes('href')).toBe('?4')
     expect($links.at(8).attributes('href')).toBe('?5')
+
+    wrapper.destroy()
   })
 
   it('renders with correct HREF when link-gen function returns object', async () => {
@@ -211,6 +227,8 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('/baz?5')
     expect($links.at(7).attributes('href')).toBe('/baz?4')
     expect($links.at(8).attributes('href')).toBe('/baz?5')
+
+    wrapper.destroy()
   })
 
   it('renders with correct page button text when page-gen function provided', async () => {
@@ -234,6 +252,8 @@ describe('pagination-nav', () => {
     expect($links.at(4).text()).toBe('Page 3')
     expect($links.at(5).text()).toBe('Page 4')
     expect($links.at(6).text()).toBe('Page 5')
+
+    wrapper.destroy()
   })
 
   it('clicking buttons updates the v-model', async () => {
@@ -295,6 +315,8 @@ describe('pagination-nav', () => {
     await new Promise(resolve => requestAnimationFrame(resolve))
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
+
+    wrapper.destroy()
   })
 
   describe('auto-detect page', () => {
@@ -328,6 +350,8 @@ describe('pagination-nav', () => {
       expect(wrapper.emitted('input')).toBeDefined()
       expect(wrapper.emitted('input').length).toBe(1)
       expect(wrapper.emitted('input')[0][0]).toBe(2) /* page 2, URL = '' */
+
+      wrapper.destroy()
     })
 
     it('works with $router to detect path and linkGen returns location object', async () => {
@@ -389,6 +413,8 @@ describe('pagination-nav', () => {
       expect(wrapper.find(PaginationNav).exists()).toBe(true)
       // And should be on page 3
       expect(wrapper.find(PaginationNav).vm.currentPage).toBe(3)
+
+      wrapper.destroy()
     })
 
     it('works with $router to detect path and use-router set and linkGen returns string', async () => {
@@ -450,6 +476,8 @@ describe('pagination-nav', () => {
       expect(wrapper.find(PaginationNav).exists()).toBe(true)
       // And should be on page 3
       expect(wrapper.find(PaginationNav).vm.currentPage).toBe(3)
+
+      wrapper.destroy()
     })
   })
 })
