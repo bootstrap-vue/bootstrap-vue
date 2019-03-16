@@ -366,9 +366,11 @@ export default {
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
-      const btnContent = btnSlot || toString(btnText) || h(false)
       const isDisabled =
         disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
+      const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
+      const scope = { disabled: isDisabled, page: pageNum }
+      const btnContent = this.normalizSlot(btnSlot, scope) || toString(btnText) || h(false)
       const inner = h(
         isDisabled ? 'span' : 'b-link',
         {
@@ -432,7 +434,7 @@ export default {
         : makeEndBtn(
             1,
             this.labelFirstPage,
-            this.normalizeSlot('first-text', {}),
+            'first-text',
             this.firstText,
             1,
             'bookend-goto-first'
@@ -444,7 +446,7 @@ export default {
       makeEndBtn(
         currPage - 1,
         this.labelPrevPage,
-        this.normalizeSlot('prev-text', {}),
+        'prev-text',
         this.prevText,
         1,
         'bookend-goto-prev'
@@ -474,6 +476,7 @@ export default {
         tabindex: tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
+      const scope = { page: page.number, content: btnContent, active, disabled }
       const inner = h(
         disabled ? 'span' : 'b-link',
         {
@@ -489,10 +492,7 @@ export default {
                 keydown: onSpaceKey
               }
         },
-        [
-          this.normalizeSlot('page', { page: page.number, content: btnContent, active }) ||
-            btnContent
-        ]
+        [this.normalizeSlot('page', scope) || btnContent]
       )
       buttons.push(
         h(
@@ -516,7 +516,7 @@ export default {
       makeEndBtn(
         currPage + 1,
         this.labelNextPage,
-        this.normalizeSlot('next-text', {}),
+        'next-text',
         this.nextText,
         numberOfPages,
         'bookend-goto-next'
@@ -530,7 +530,7 @@ export default {
         : makeEndBtn(
             numberOfPages,
             this.labelLastPage,
-            this.normalizeSlot('last-text', {}),
+            'last-text',
             this.lastText,
             numberOfPages,
             'bookend-goto-last'
