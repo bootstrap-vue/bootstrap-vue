@@ -31,27 +31,27 @@
         "slots": [
           {
             "name": "first-text",
-            "description": "The \"go to first page\" button text (html/sub-components supported). Optionally scoped"
+            "description": "The \"go to first page\" button text. Optionally scoped"
           },
           {
             "name": "prev-text",
-            "description": "The \"go to previous page\" button text (html/sub-components supported). Optionally scoped"
+            "description": "The \"go to previous page\" button text. Optionally scoped"
           },
           {
             "name": "next-text",
-            "description": "The \"go to next page\" button text (html/sub-components supported). Optionally scoped"
+            "description": "The \"go to next page\" button text. Optionally scoped"
           },
           {
             "name": "last-text",
-            "description": "The \"go to last page\" button text (html/sub-components supported). Optionally scoped"
+            "description": "The \"go to last page\" button text. Optionally scoped"
           },
           {
             "name": "ellipsis-text",
-            "description": "The '...' indicator text (html/sub-components supported)"
+            "description": "The '...' indicator text. Not scoped"
           },
           {
             "name": "page",
-            "description": "Scoped slot for page button text."
+            "description": "The page number button button content. Always scoped"
           }
         ]
       }
