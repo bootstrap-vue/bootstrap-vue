@@ -1,4 +1,11 @@
-import { stringifyQueryObj, computeHref, isRouterLink, computeRel, computeTag } from './router'
+import {
+  stringifyQueryObj,
+  parseQuery,
+  computeHref,
+  isRouterLink,
+  computeRel,
+  computeTag
+} from './router'
 
 describe('utils/router', () => {
   // stringifyQueryObject() utility method
