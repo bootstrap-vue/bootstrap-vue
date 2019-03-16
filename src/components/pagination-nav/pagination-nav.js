@@ -12,11 +12,8 @@ const routerProps = pickLinkProps(
   'activeClass',
   'exactActiveClass',
   'exact',
-  'replace',
-  'target',
-  'rel',
   // Nuxt specific prop
-  'no-prefetch'
+  'noPrefetch'
 )
 
 // Props object
