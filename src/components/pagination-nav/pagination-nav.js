@@ -157,7 +157,7 @@ export default {
         // Convert the `to` to a HREF via a temporary `a` tag
         link.href = computeHref({ to }, 'a', '/', '/')
         // Once href is assigned, the returned href will be normalized to the full URL bits
-        return { path: link.pathname, hash: link.hash, query: parseQuery(link.query) }
+        return { path: link.pathname, hash: link.hash, query: parseQuery(link.search) }
       } catch (e) {
         console.log(e)
         /* istanbul ignore next */
