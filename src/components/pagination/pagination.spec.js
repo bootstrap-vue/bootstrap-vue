@@ -39,7 +39,6 @@ describe('pagination', () => {
 
     lis.wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.classes()).not.toContain('flex-fill')
       expect(li.attributes('role')).toContain('none')
       expect(li.attributes('role')).toContain('presentation')
       const pageLink = li.find('.page-link')
@@ -168,7 +167,6 @@ describe('pagination', () => {
     expect(wrapper.classes()).toContain('pagination-foo')
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
-    expect(wrapper.classes()).not.toContain('text-center')
     expect(wrapper.classes()).not.toContain('pagination-sm')
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
@@ -191,7 +189,6 @@ describe('pagination', () => {
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
-    expect(wrapper.classes()).not.toContain('text-center')
     expect(wrapper.classes()).not.toContain('pagination-sm')
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).toContain('justify-content-center')
@@ -214,7 +211,6 @@ describe('pagination', () => {
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
-    expect(wrapper.classes()).not.toContain('text-center')
     expect(wrapper.classes()).not.toContain('pagination-sm')
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
@@ -237,7 +233,6 @@ describe('pagination', () => {
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
-    expect(wrapper.classes()).not.toContain('text-center')
     expect(wrapper.classes()).not.toContain('pagination-sm')
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
@@ -246,33 +241,6 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
-  })
-
-
-  it('has class "text-center" and li class "flex-fill" when prop align="fill"', async () => {
-    const wrapper = mount(Pagination, {
-      propsData: {
-        align: 'fill',
-        totalRows: 1,
-        perPage: 1
-      }
-    })
-    expect(wrapper.is('ul')).toBe(true)
-    // Classes
-    expect(wrapper.classes()).toContain('pagination')
-    expect(wrapper.classes()).toContain('b-pagination')
-    expect(wrapper.classes()).toContain('text-center')
-    expect(wrapper.classes()).not.toContain('pagination-sm')
-    expect(wrapper.classes()).not.toContain('pagination-lg')
-    expect(wrapper.classes()).not.toContain('justify-content-center')
-    expect(wrapper.classes()).not.toContain('justify-content-end')
-    // Attributes
-    expect(wrapper.attributes('role')).toBe('menubar')
-    expect(wrapper.attributes('aria-disabled')).toBe('false')
-    expect(wrapper.attributes('aria-label')).toBe('Pagination')
-    // lis
-    expect(wrapper.findAll('li').is('li.page-item')).toBe(true)
-    expect(wrapper.findAll('li').is('li.flex-fill')).toBe(true)
   })
 
   it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
