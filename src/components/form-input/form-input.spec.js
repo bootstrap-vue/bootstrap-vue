@@ -129,9 +129,8 @@ describe('form-input', () => {
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    return wrapper.vm.$nextTick().then(function() {
-      expect(input.attributes('id')).toBeDefined()
-    })
+    await wrapper.vm.$nextTick()
+    expect(input.attributes('id')).toBeDefined()
 
     wrapper.destroy()
   })
