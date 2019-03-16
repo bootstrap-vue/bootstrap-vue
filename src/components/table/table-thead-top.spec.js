@@ -18,6 +18,8 @@ describe('table thead-top slot', () => {
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('should render named slot `thead-top`', async () => {
@@ -47,6 +49,8 @@ describe('table thead-top slot', () => {
         .at(0)
         .classes()
     ).toContain('test')
+
+    wrapper.destroy()
   })
 
   it('should render scoped slot `thead-top`', async () => {
@@ -86,5 +90,7 @@ describe('table thead-top slot', () => {
         .at(0)
         .classes()
     ).toContain('test')
+
+    wrapper.destroy()
   })
 })
