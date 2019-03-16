@@ -80,12 +80,14 @@ describe('utils/router', () => {
     })
 
     it('parses empty vals', async () => {
-      expect(parseQuery('?foo')).toEqual({ foo: '' })
-      expect(parseQuery('?foo=bar&baz')).toEqual({ foo: 'bar', baz: '' })
+      expect(parseQuery('?foo')).toEqual({ foo: null })
+      expect(parseQuery('?foo=bar&baz')).toEqual({ foo: 'bar', baz: null })
+      expect(parseQuery('?foo=&baz')).toEqual({ foo: null, baz: null })
     })
 
     it('parses duplicate keys as arrays', async () => {
       expect(parseQuery('?foo=bar&foo=baz')).toEqual({ foo: ['bar', 'baz'] })
+      expect(parseQuery('?foo=&foo=baz&foo')).toEqual({ foo: [null, 'baz', null] })
       expect(parseQuery('?foo=bar&baz=buz&baz=fiz')).toEqual({ foo: 'bar', baz: ['buz', 'fiz'] })
     })
   })
