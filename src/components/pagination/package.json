@@ -31,19 +31,19 @@
         "slots": [
           {
             "name": "first-text",
-            "description": "The \"go to first page\" button content (html/sub-components supported)"
+            "description": "The \"go to first page\" button content (html/sub-components supported). Optionally scoped"
           },
           {
             "name": "prev-text",
-            "description": "The \"go to previous page\" button content (html/sub-components supported)"
+            "description": "The \"go to previous page\" button content (html/sub-components supported). Optionally scoped"
           },
           {
             "name": "next-text",
-            "description": "The \"go to next page\" button content (html/sub-components supported)"
+            "description": "The \"go to next page\" button content (html/sub-components supported). Optionally scoped"
           },
           {
             "name": "last-text",
-            "description": "The \"go to last page\" button content (html/sub-components supported)"
+            "description": "The \"go to last page\" button content (html/sub-components supported). Optionally scoped"
           },
           {
             "name": "ellipsis-text",
@@ -51,7 +51,7 @@
           },
           {
             "name": "page",
-            "description": "Scoped slot for page button text. Scoped props: page - page number, content - string of page number or pageGen result, active - true if page is active"
+            "description": "Scoped slot for page button text."
           }
         ]
       }
