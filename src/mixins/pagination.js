@@ -376,6 +376,7 @@ export default {
         role: 'none presentation',
         'aria-hidden': disabled ? 'true' : null
       }
+      const liClasses = { disabled, 'flex-fill': alignFill }
       if (
         disabled ||
         isActivePage(pageTest) ||
@@ -383,7 +384,7 @@ export default {
         linkTo < 1 ||
         linkTo > numberOfPages
       ) {
-        button = h('li', { key, attrs, staticClass: 'page-item', class: { disabled, 'flex-fill': alignFill } }, [
+        button = h('li', { key, attrs, staticClass: 'page-item', class: liClasses }, [
           h(
             'span',
             { staticClass: 'page-link', attrs: { 'aria-disabled': disabled ? 'true' : null } },
@@ -391,7 +392,7 @@ export default {
           )
         ])
       } else {
-        button = h('li', { key, attrs, staticClass: 'page-item', class: { 'flex-fill': alignFill } }, [
+        button = h('li', { key, attrs, staticClass: 'page-item', class: liClasses }, [
           h(
             'b-link',
             {
@@ -483,7 +484,7 @@ export default {
       }
       const btnContent = toString(this.makePage(page.number))
       const inner = h(
-        disabled ? 'span' : `b-link`,
+        disabled ? 'span' : 'b-link',
         {
           props: disabled ? {} : this.linkProps(page.number),
           staticClass,
@@ -498,7 +499,7 @@ export default {
               }
         },
         [
-          this.normalizeSlot('page', { page: page.number, content: btnContent, active: active }) ||
+          this.normalizeSlot('page', { page: page.number, content: btnContent, active }) ||
             btnContent
         ]
       )
@@ -508,10 +509,7 @@ export default {
           {
             key: `page-${page.number}`,
             staticClass: 'page-item',
-            class: [
-              { disabled: disabled, active: active, 'flex-fill': alignFill },
-              page.classes
-            ],
+            class: [{ disabled, active, 'flex-fill': alignFill }, page.classes],
             attrs: { role: 'none presentation' }
           },
           [inner]
