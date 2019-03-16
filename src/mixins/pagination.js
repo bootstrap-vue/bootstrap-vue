@@ -171,6 +171,10 @@ export default {
         return 'justify-content-center'
       } else if (this.align === 'end' || this.align === 'right') {
         return 'justify-content-end'
+      } else if (this.align === 'fill') {
+        // Pagination is already d-flex, but we need to add on text-center
+        // to make the content of the buttons nice
+        return 'text-center'
       }
       return ''
     },
@@ -362,6 +366,7 @@ export default {
     // Helper function and flag
     const isActivePage = pageNum => pageNum === currPage
     const noCurrPage = this.currentPage < 1
+    const alignFill = this.align === 'fill'
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
@@ -378,7 +383,7 @@ export default {
         linkTo < 1 ||
         linkTo > numberOfPages
       ) {
-        button = h('li', { key, attrs, staticClass: 'page-item', class: ['disabled'] }, [
+        button = h('li', { key, attrs, staticClass: 'page-item', class: { disabled, 'flex-fill': alignFill } }, [
           h(
             'span',
             { staticClass: 'page-link', attrs: { 'aria-disabled': disabled ? 'true' : null } },
@@ -386,7 +391,7 @@ export default {
           )
         ])
       } else {
-        button = h('li', { key, attrs, staticClass: 'page-item' }, [
+        button = h('li', { key, attrs, staticClass: 'page-item', class: { 'flex-fill': alignFill } }, [
           h(
             'b-link',
             {
@@ -419,7 +424,7 @@ export default {
         {
           key: `elipsis-${isLast ? 'last' : 'first'}`,
           staticClass: 'page-item',
-          class: ['disabled', 'd-none', 'd-sm-flex'],
+          class: ['disabled', 'd-none', 'd-sm-flex', alignFill ? 'flex-fill' : ''],
           attrs: { role: 'separator' }
         },
         [
@@ -503,7 +508,10 @@ export default {
           {
             key: `page-${page.number}`,
             staticClass: 'page-item',
-            class: [disabled ? 'disabled' : '', active ? 'active' : '', page.classes],
+            class: [
+              { disabled: disabled, active: active, 'flex-fill': alignFill },
+              page.classes
+            ],
             attrs: { role: 'none presentation' }
           },
           [inner]
