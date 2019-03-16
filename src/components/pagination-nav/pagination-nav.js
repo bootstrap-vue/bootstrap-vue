@@ -159,7 +159,6 @@ export default {
         // Once href is assigned, the returned href will be normalized to the full URL bits
         return { path: link.pathname, hash: link.hash, query: parseQuery(link.search) }
       } catch (e) {
-        console.log(e)
         /* istanbul ignore next */
         return {}
       }
@@ -195,17 +194,14 @@ export default {
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
             guess = looseEqual(this.resolveRoute(to), currRoute) ? page : null
-            console.log(`Rtr Page ${page}`, this.resolveRoute(to), currRoute, guess)
           } else if (inBrowser) {
             // If no $router available (or !this.useRouter when `to` is a string)
             // we compare using parsed URIs
             guess = looseEqual(this.resolveLink(to), currLink) ? page : null
-            console.log(`Lnk Page ${page}`, this.resolveLink(to), currLink, guess)
           } else {
             // probably SSR, but no $router so we can't guess, so lets break out of loop
             /* istanbul ignore next */
             guess = -1
-            console.log(`??? Page ${page}`, '-', '-', guess)
           }
         }
       }
