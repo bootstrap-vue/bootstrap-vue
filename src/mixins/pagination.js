@@ -171,10 +171,6 @@ export default {
         return 'justify-content-center'
       } else if (this.align === 'end' || this.align === 'right') {
         return 'justify-content-end'
-      } else if (this.align === 'fill') {
-        // Pagination is already d-flex, but we need to add on text-center
-        // to make the content of the buttons nice
-        return 'text-center'
       }
       return ''
     },
@@ -237,25 +233,26 @@ export default {
       // TODO: Make this visual limit configurable based on breakpoint(s)
       if (pages.length > 3) {
         const idx = currPage - startNum
+        const classes = 'd-none d-sm-flex'
         if (idx === 0) {
           // Keep leftmost 3 buttons visible when current page is first page
           for (let i = 3; i < pages.length; i++) {
-            pages[i].classes = 'd-none d-sm-flex'
+            pages[i].classes = classes
           }
         } else if (idx === pages.length - 1) {
           // Keep rightmost 3 buttons visible when current page is last page
           for (let i = 0; i < pages.length - 3; i++) {
-            pages[i].classes = 'd-none d-sm-flex'
+            pages[i].classes = classes
           }
         } else {
           // Hide all except current page, current page - 1 and current page + 1
           for (let i = 0; i < idx - 1; i++) {
             // hide some left button(s)
-            pages[i].classes = 'd-none d-sm-flex'
+            pages[i].classes = classes
           }
           for (let i = pages.length - 1; i > idx + 1; i--) {
             // hide some right button(s)
-            pages[i].classes = 'd-none d-sm-flex'
+            pages[i].classes = classes
           }
         }
       }
@@ -401,7 +398,7 @@ export default {
         {
           key,
           staticClass: 'page-item',
-          class: { disabled: isDisabled, 'flex-fill': alignFill },
+          class: { disabled: isDisabled },
           attrs: {
             role: 'none presentation',
             'aria-hidden': isDisabled ? 'true' : null
@@ -418,7 +415,7 @@ export default {
         {
           key: `elipsis-${isLast ? 'last' : 'first'}`,
           staticClass: 'page-item',
-          class: ['disabled', 'd-none', 'd-sm-flex', alignFill ? 'flex-fill' : ''],
+          class: ['disabled', 'd-none', 'd-sm-flex'],
           attrs: { role: 'separator' }
         },
         [
@@ -463,7 +460,6 @@ export default {
       const active = isActivePage(page.number) && !noCurrPage
       // Active page will have tabindex of 0, or if no current page and first page button
       let tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
-      const staticClass = 'page-link'
       const attrs = {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
@@ -483,7 +479,7 @@ export default {
         disabled ? 'span' : 'b-link',
         {
           props: disabled ? {} : this.linkProps(page.number),
-          staticClass,
+          staticClass: 'page-link',
           attrs,
           on: disabled
             ? {}
@@ -505,7 +501,7 @@ export default {
           {
             key: `page-${page.number}`,
             staticClass: 'page-item',
-            class: [{ disabled, active, 'flex-fill': alignFill }, page.classes],
+            class: [{ disabled, active }, page.classes],
             attrs: { role: 'none presentation' }
           },
           [inner]
