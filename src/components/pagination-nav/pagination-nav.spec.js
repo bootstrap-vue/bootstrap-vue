@@ -141,6 +141,31 @@ describe('pagination-nav', () => {
     wrapper.destroy()
   })
 
+  it('reacts to changes in number-of-pages', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        numberOfPages: 3,
+        value: 2,
+        limit: 10
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    let $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(7)
+
+    wrapper.setProps({
+      numberOfPages: 5
+    })
+
+    let $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(9)
+
+    wrapper.destroy()
+  })
+
   it('renders with correct HREF when base-url specified', async () => {
     const wrapper = mount(PaginationNav, {
       propsData: {
@@ -330,6 +355,49 @@ describe('pagination-nav', () => {
     expect($links.at(4).text()).toBe('three')
     expect($links.at(5).text()).toBe('four')
     expect($links.at(6).text()).toBe('five')
+
+    wrapper.destroy()
+  })
+
+  it('reacts to changes in pages array length', async () => {
+    const pages = ['/baz?1', '/baz?2', '/baz?3']
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        value: 2,
+        limit: 10,
+        pages: pages
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    let $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(7)
+
+    expect($links.at(0).attributes('href')).toBe('/baz?1')
+    expect($links.at(1).attributes('href')).toBe('/baz?1')
+    expect($links.at(2).attributes('href')).toBe('/baz?1')
+    expect($links.at(3).attributes('href')).toBe('/baz?2')
+    expect($links.at(4).attributes('href')).toBe('/baz?3')
+    expect($links.at(5).attributes('href')).toBe('/baz?3')
+    expect($links.at(6).attributes('href')).toBe('/baz?3')
+
+    // Add extra page
+    pages.push('/baz?4')
+    await wrapper.vm.$nextTick()
+
+    $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(8)
+
+    expect($links.at(0).attributes('href')).toBe('/baz?1')
+    expect($links.at(1).attributes('href')).toBe('/baz?1')
+    expect($links.at(2).attributes('href')).toBe('/baz?1')
+    expect($links.at(3).attributes('href')).toBe('/baz?2')
+    expect($links.at(4).attributes('href')).toBe('/baz?3')
+    expect($links.at(4).attributes('href')).toBe('/baz?4')
+    expect($links.at(5).attributes('href')).toBe('/baz?3')
+    expect($links.at(6).attributes('href')).toBe('/baz?4')
 
     wrapper.destroy()
   })
