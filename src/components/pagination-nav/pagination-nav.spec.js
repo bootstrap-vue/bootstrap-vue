@@ -256,6 +256,85 @@ describe('pagination-nav', () => {
     wrapper.destroy()
   })
 
+  it('renders with correct HREF when array of links set via pages prop', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        value: 3,
+        limit: 10,
+        pages: [ '/baz?1', '/baz?2', '/baz?3', '/baz?4', '/baz?5' ]
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(5)
+
+    // Default base URL is "/", and link will be the page number
+    expect($links.at(0).attributes('href')).toBe('/baz?1')
+    expect($links.at(1).attributes('href')).toBe('/baz?2')
+    expect($links.at(2).attributes('href')).toBe('/baz?1')
+    expect($links.at(3).attributes('href')).toBe('/baz?2')
+    expect($links.at(4).attributes('href')).toBe('/baz?3')
+    expect($links.at(5).attributes('href')).toBe('/baz?4')
+    expect($links.at(6).attributes('href')).toBe('/baz?5')
+    expect($links.at(7).attributes('href')).toBe('/baz?4')
+    expect($links.at(8).attributes('href')).toBe('/baz?5')
+
+    // Page buttons have correct content
+    expect($links.at(2).text()).toBe('1')
+    expect($links.at(3).text()).toBe('2')
+    expect($links.at(4).text()).toBe('3')
+    expect($links.at(5).text()).toBe('4')
+    expect($links.at(6).text()).toBe('5')
+
+    wrapper.destroy()
+  })
+
+
+  it('renders with correct HREF when array of links and text set via pages prop', async () => {
+    const wrapper = mount(PaginationNav, {
+      propsData: {
+        value: 3,
+        limit: 10,
+        pages: [
+          { link: '/baz?1', text: 'one' },
+          { link: '/baz?2', text: 'two' },
+          { link: '/baz?3', text: 'three' },
+          { link: '/baz?4', text: 'four' },
+          { link: '/baz?5', text: 'five' }
+        ]
+      }
+    })
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('nav')).toBe(true)
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(5)
+
+    // Default base URL is "/", and link will be the page number
+    expect($links.at(0).attributes('href')).toBe('/baz?1')
+    expect($links.at(1).attributes('href')).toBe('/baz?2')
+    expect($links.at(2).attributes('href')).toBe('/baz?1')
+    expect($links.at(3).attributes('href')).toBe('/baz?2')
+    expect($links.at(4).attributes('href')).toBe('/baz?3')
+    expect($links.at(5).attributes('href')).toBe('/baz?4')
+    expect($links.at(6).attributes('href')).toBe('/baz?5')
+    expect($links.at(7).attributes('href')).toBe('/baz?4')
+    expect($links.at(8).attributes('href')).toBe('/baz?5')
+
+    // Page buttons have correct content
+    expect($links.at(2).text()).toBe('one')
+    expect($links.at(3).text()).toBe('two')
+    expect($links.at(4).text()).toBe('three')
+    expect($links.at(5).text()).toBe('four')
+    expect($links.at(6).text()).toBe('five')
+
+    wrapper.destroy()
+  })
+
   it('clicking buttons updates the v-model', async () => {
     const wrapper = mount(PaginationNav, {
       propsData: {
