@@ -160,11 +160,12 @@ export default {
       return this.size ? `pagination-${this.size}` : ''
     },
     alignment() {
-      if (this.align === 'center') {
+      const align = this.align
+      if (align === 'center') {
         return 'justify-content-center'
-      } else if (this.align === 'end' || this.align === 'right') {
+      } else if (align === 'end' || align === 'right') {
         return 'justify-content-end'
-      } else if (this.aliang === 'fill') {
+      } else if (align === 'fill') {
         // The page-items will also have 'flex-fill' added.
         // We ad text centering to make the button appearance better in fill mode.
         return 'text-center'
