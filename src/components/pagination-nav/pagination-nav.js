@@ -1,5 +1,6 @@
 import warn from '../../utils/warn'
 import looseEqual from '../../utils/loose-equal'
+import toString from '../../utils/to-string'
 import { requestAF } from '../../utils/dom'
 import { inBrowser } from '../../utils/env'
 import { isObject } from '../../utils/object'
