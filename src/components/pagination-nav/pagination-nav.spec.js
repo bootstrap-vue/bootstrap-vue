@@ -160,7 +160,7 @@ describe('pagination-nav', () => {
       numberOfPages: 5
     })
 
-    let $links = wrapper.findAll('a.page-link')
+    $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
     wrapper.destroy()
