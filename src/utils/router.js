@@ -129,7 +129,8 @@ export const computeHref = (
     if (isPlainObject(to) && (to.path || to.query || to.hash)) {
       const path = toString(to.path)
       const query = stringifyQueryObj(to.query)
-      const hash = toString(to.hash)
+      let hash = toString(to.hash)
+      hash = !hash || hash.charAt(0) === '#' ? hash : `#${hash}`
       return `${path}${query}${hash}` || toFallback
     }
   }
