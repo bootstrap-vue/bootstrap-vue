@@ -351,8 +351,8 @@ smaller buttons or `'lg'` for larger buttons.
 
 ### Alignment
 
-By default the pagination component is left aligned. Change the alignment to `center` or `right`
-(`right` is an alias for `end`) by setting the prop `align` to the appropriate value.
+By default the pagination component is left aligned. Change the alignment to `center`, `right`
+(`right` is an alias for `end`), or 'fill' by setting the prop `align` to the appropriate value.
 
 ```html
 <template>
@@ -370,6 +370,11 @@ By default the pagination component is left aligned. Change the alignment to `ce
     <div class="mt-3 text-right">
       <h6>Right (end) alignment</h6>
       <b-pagination-nav number-of-pages="10" base-url="#" align="right" />
+    </div>
+
+    <div class="mt-3 text-right">
+      <h6>Fill alignment</h6>
+      <b-pagination-nav number-of-pages="10" base-url="#" align="fill" />
     </div>
   </div>
 </template>
