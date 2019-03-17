@@ -159,6 +159,15 @@ describe('utils/router', () => {
       expect(computeHref(obj)).toEqual(obj.to.hash)
     })
 
+    it('parses `to` with hash missing "#"', async () => {
+      const obj = {
+        to: {
+          hash: 'foobar'
+        }
+      }
+      expect(computeHref(obj)).toEqual('#foobar')
+    })
+
     it('parses `to` with only query', async () => {
       const obj = {
         to: {
