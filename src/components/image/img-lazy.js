@@ -153,8 +153,10 @@ export default {
   },
   methods: {
     setListeners(on) {
-      clearTimeout(this.scrollTimeout)
-      this.scrollTimeout = null
+      if (this.scrollTimeout) {
+        clearTimeout(this.scrollTimeout)
+        this.scrollTimeout = null
+      }
       const root = window
       if (on) {
         eventOn(this.$el, 'load', this.checkView)
