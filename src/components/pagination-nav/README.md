@@ -62,7 +62,7 @@ The following router link specific props are supported:
 - `exact-active-class`
 - `no-prefetch` (`<nuxt-link>` specific prop)
 
-For setails on the above props, refer to the [Router Link Support](/docs/reference/router-links)
+For details on the above props, refer to the [Router Link Support](/docs/reference/router-links)
 reference section.
 
 ### Link generator function
@@ -96,7 +96,24 @@ linkGen(pageNum) {
     query: { page: pageNum }
   }
 }
+
+// Returning a router-link `to` object with named route and parameters
+linkGen(pageNum) {
+  return {
+    name: 'posts',
+    params: { post: pageNum }
+  }
+}
 ```
+
+**Note:** when falling back from a `to` location object to a standard link (when no `$router` is
+available), only the following location properties are used to generate the URL:
+
+- `path` (if not procided defautls to the page's current URL)
+- `query`
+- `hash` (must include the leading `#` if used)
+
+The conversion of `name` routes and `params` is not supported.
 
 ## Page number generation
 
