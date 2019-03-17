@@ -246,7 +246,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
     </div>
 
     <div class="mt-3">
-      <h6 clas="text-center">Fill alignment</h6>
+      <h6 class="text-center">Fill alignment</h6>
       <b-pagination v-model="currentPage" :total-rows="rows" align="fill" />
     </div>
   </div>
