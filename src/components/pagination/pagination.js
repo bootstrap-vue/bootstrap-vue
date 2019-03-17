@@ -49,10 +49,13 @@ export default {
   created() {
     // Set the initial page count
     this.localNumPages = this.numberOfPages
-    // If this value parses to NaN or a value less than 1
-    // we trigger an $emit('input', null)
-    if (!(parseInt(this.value, 10) > 0)) {
+    // Set the initial page value
+    const curr = parseInt(this.value, 10) || 0
+    if (curr > 0)) {
+      this.currentPage = curr
+    } else {
       this.$nextTick(() => {
+        // If this value parses to NaN or a value less than 1
         // Trigger an initial emit of 'null' if no page specified
         this.currentPage = 0
       })
