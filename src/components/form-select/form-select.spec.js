@@ -120,7 +120,7 @@ describe('form-select', () => {
     })
     expect(wrapper.attributes('aria-invalid')).toBe('true')
     expect(wrapper.classes()).toContain('custom-select')
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes().length).toBe(1)
 
     wrapper.destroy()
   })
@@ -133,7 +133,7 @@ describe('form-select', () => {
     })
     expect(wrapper.attributes('aria-invalid')).toBe('true')
     expect(wrapper.classes()).toContain('custom-select')
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes().length).toBe(1)
 
     wrapper.destroy()
   })
