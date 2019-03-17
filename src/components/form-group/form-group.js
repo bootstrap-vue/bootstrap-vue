@@ -249,8 +249,10 @@ export default {
   computed: {
     labelColProps() {
       const props = {}
+      /* istanbul ignore next: deprecated */
       if (this.horizontal) {
         // Deprecated setting of horizontal/breakpoint props
+        /* istanbul ignore next */
         warn(
           "b-form-group: Props 'horizontal' and 'breakpoint' are deprecated. Use 'label-cols(-{breakpoint})' props instead."
         )
