@@ -290,6 +290,7 @@ describe('pagination', () => {
       }
     })
     expect(wrapper.is('ul')).toBe(true)
+
     // Classes
     expect(wrapper.classes()).toContain('text-center')
     expect(wrapper.classes()).toContain('pagination')
@@ -299,7 +300,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
 
-    expect(wrapper.findAll('li.flex-fill').length).toBe(9)
+    expect(wrapper.findAll('li.flex-fill').length).toBe(8)
 
     wrapper.destroy()
   })
