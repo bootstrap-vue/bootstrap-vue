@@ -390,7 +390,7 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
-  it('updates v-model when option selected', async () => {
+  it('updates v-model when option selected in single mode', async () => {
     const wrapper = mount(Select, {
       propsData: {
         options: ['one', 'two', 'three']
@@ -399,16 +399,44 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).not.toBeDefained()
-    expect(wrapper.emitted('change')).not.toBeDefained()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
 
     // select 3rd option
     $options.at(2).setSelected()
 
-    expect(wrapper.emitted('input')).toBeDefained()
-    expect(wrapper.emitted('change')).toBeDefained()
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe('one')
     expect(wrapper.emitted('change')[0][0]).toBe('one')
+
+    wrapper.destroy()
+  })
+
+  it('updates v-model when option selected in multiple mode', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        multiple: true,
+        selectSize: 3,
+        options: ['one', 'two', 'three'],
+        value: []
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    // select 2nd and 3rd option
+    $options.at(1).element.selected = true
+    $options.at(2).element.selected = true
+    wrapper.trigger('change')
+
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toEqual(['two', 'three'])
+    expect(wrapper.emitted('change')[0][0]).toEqual(['two', 'three'])
 
     wrapper.destroy()
   })
