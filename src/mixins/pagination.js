@@ -5,7 +5,6 @@
 import warn from '../utils/warn'
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
-import { isArray } from '../utils/array'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import toString from '../utils/to-string'
 import normalizeSlotMixin from '../mixins/normalize-slot'
