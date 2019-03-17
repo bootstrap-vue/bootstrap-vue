@@ -465,11 +465,9 @@ describe('pagination', () => {
           expect(li.classes()).not.toContain('active')
         }
         if (index > 3 && index < 7) {
-          expect(li.classes()).not.toContain('d-none')
-          expect(li.classes()).not.toContain('d-sm-flex')
+          expect(li.classes()).not.toContain('bv-d-xs-down-none')
         } else if (index < 4 || index > 6) {
-          expect(li.classes()).toContain('d-none')
-          expect(li.classes()).toContain('d-sm-flex')
+          expect(li.classes()).toContain('bv-d-xs-down-none')
         }
       }
     })
@@ -489,12 +487,10 @@ describe('pagination', () => {
       // Page number buttons
       if (index >= 2 && index <= 5) {
         // pages 1 to 4
-        expect(li.classes()).toContain('d-none')
-        expect(li.classes()).toContain('d-sm-flex')
+        expect(li.classes()).toContain('bv-d-xs-down-none')
       } else if (index >= 6 && index <= 8) {
         // pages 5 to 7
-        expect(li.classes()).not.toContain('d-none')
-        expect(li.classes()).not.toContain('d-sm-flex')
+        expect(li.classes()).not.toContain('bv-d-xs-down-none')
       }
     })
 
