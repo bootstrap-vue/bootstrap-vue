@@ -53,11 +53,11 @@ const EventOptions = { passive: true, capture: false }
 function getTransisionEndEvent(el) {
   for (const name in TransitionEndEvents) {
     if (el.style[name] !== undefined) {
-      /* istanbul ignore next: JSDOM doesn't support transition events */
       return TransitionEndEvents[name]
     }
   }
   // fallback
+  /* istanbul ignore next */
   return null
 }
 
@@ -152,6 +152,7 @@ export default {
     },
     interval(newVal, oldVal) {
       if (newVal === oldVal) {
+        /* istanbul ignore next */
         return
       }
       if (!newVal) {
@@ -277,6 +278,7 @@ export default {
       const nextSlide = this.slides[to]
       // Don't do anything if there aren't any slides to slide to
       if (!currentSlide || !nextSlide) {
+        /* istanbul ignore next */
         return
       }
       // Start animating
@@ -541,6 +543,7 @@ export default {
       focusout: this.restart,
       keydown: evt => {
         if (/input|textarea/i.test(evt.target.tagName)) {
+          /* istanbul ignore next */
           return
         }
         const keyCode = evt.keyCode

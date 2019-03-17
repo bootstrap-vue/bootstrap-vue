@@ -15,9 +15,8 @@ window.app = new Vue({
         text: 'Manage',
         href: '#'
       },
-      {
-        text: 'Library'
-      }
+      // Test with non object
+      'Library'
     ],
     items2: [
       {

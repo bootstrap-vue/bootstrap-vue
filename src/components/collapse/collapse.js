@@ -1,4 +1,5 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import { inBrowser } from '../../utils/env'
 import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
 // Events we emit on $root
@@ -74,24 +75,37 @@ export default {
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
   },
   mounted() {
-    if (this.isNav && typeof document !== 'undefined') {
+    if (this.isNav && inBrowser) {
       // Set up handlers
-      eventOn(window, 'resize', this.handleResize, EventOptions)
-      eventOn(window, 'orientationchange', this.handleResize, EventOptions)
+      this.setWindowEvents(true)
       this.handleResize()
     }
     this.emitState()
+  },
+  deactivated() /* istanbul ignore next */ {
+    if (this.isNav && inBrowser) {
+      this.setWindowEvents(false)
+    }
+  },
+  activated() /* istanbul ignore next */ {
+    if (this.isNav && inBrowser) {
+      this.setWindowEvents(true)
+    }
   },
   updated() {
     this.$root.$emit(EVENT_STATE, this.id, this.show)
   },
   beforeDestroy() /* istanbul ignore next */ {
-    if (this.isNav && typeof document !== 'undefined') {
-      eventOff(window, 'resize', this.handleResize, EventOptions)
-      eventOff(window, 'orientationchange', this.handleResize, EventOptions)
+    if (this.isNav && inBrowser) {
+      this.setWindowEvents(false)
     }
   },
   methods: {
+    setWindowEvents(on) {
+      const method = on ? eventOn : eventOff
+      method(window, 'resize', this.handleResize, EventOptions)
+      method(window, 'orientationchange', this.handleResize, EventOptions)
+    },
     toggle() {
       this.show = !this.show
     },
