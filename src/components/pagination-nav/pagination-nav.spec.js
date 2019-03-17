@@ -361,12 +361,11 @@ describe('pagination-nav', () => {
   })
 
   it('reacts to changes in pages array length', async () => {
-    const pages = ['/baz?1', '/baz?2', '/baz?3']
     const wrapper = mount(PaginationNav, {
       propsData: {
         value: 2,
         limit: 10,
-        pages: pages
+        pages: ['/baz?1', '/baz?2', '/baz?3']
       }
     })
     await wrapper.vm.$nextTick()
@@ -385,7 +384,9 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('/baz?3')
 
     // Add extra page
-    pages.push('/baz?4')
+    wrapper.setData({
+      pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4']
+    })
     await wrapper.vm.$nextTick()
 
     $links = wrapper.findAll('a.page-link')
