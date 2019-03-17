@@ -362,18 +362,18 @@ By default the pagination component is left aligned. Change the alignment to `ce
       <b-pagination-nav number-of-pages="10" base-url="#" />
     </div>
 
-    <div class="mt-3 text-center">
-      <h6>Center alignment</h6>
+    <div class="mt-3">
+      <h6 class="text-center">Center alignment</h6>
       <b-pagination-nav number-of-pages="10" base-url="#" align="center" />
     </div>
 
-    <div class="mt-3 text-right">
-      <h6>Right (end) alignment</h6>
+    <div class="mt-3">
+      <h6 class="text-right">Right (end) alignment</h6>
       <b-pagination-nav number-of-pages="10" base-url="#" align="right" />
     </div>
 
-    <div class="mt-3 text-center">
-      <h6>Fill alignment</h6>
+    <div class="mt-3">
+      <h6 class="text-center">Fill alignment</h6>
       <b-pagination-nav number-of-pages="10" base-url="#" align="fill" />
     </div>
   </div>
