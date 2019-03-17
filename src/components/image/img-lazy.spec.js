@@ -9,7 +9,7 @@ describe('img-lazy', () => {
     wrapper.destroy()
   })
 
-  it('shows when show prop is set', () => {
+  it('shows when show prop is set', async () => {
     const src = 'https://picsum.photos/1024/400/?image=41'
     const wrapper = mount(ImgLazy, {
       propsData: {
