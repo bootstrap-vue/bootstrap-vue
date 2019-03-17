@@ -114,6 +114,7 @@ export default {
   },
   watch: {
     show(show, old) {
+      /* istanbul ignore if */
       if (show === old) {
         /* istanbul ignore next */
         return
@@ -121,6 +122,7 @@ export default {
       show ? this.onOpen() : this.onClose()
     },
     disabled(disabled, old) {
+      /* istanbul ignore if */
       if (disabled === old) {
         /* istanbul ignore next */
         return
