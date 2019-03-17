@@ -397,9 +397,9 @@ describe('pagination-nav', () => {
     expect($links.at(2).attributes('href')).toBe('/baz?1')
     expect($links.at(3).attributes('href')).toBe('/baz?2')
     expect($links.at(4).attributes('href')).toBe('/baz?3')
-    expect($links.at(4).attributes('href')).toBe('/baz?4')
-    expect($links.at(5).attributes('href')).toBe('/baz?3')
-    expect($links.at(6).attributes('href')).toBe('/baz?4')
+    expect($links.at(5).attributes('href')).toBe('/baz?4')
+    expect($links.at(6).attributes('href')).toBe('/baz?3')
+    expect($links.at(7).attributes('href')).toBe('/baz?4')
 
     wrapper.destroy()
   })
