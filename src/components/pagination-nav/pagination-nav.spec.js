@@ -261,7 +261,7 @@ describe('pagination-nav', () => {
       propsData: {
         value: 3,
         limit: 10,
-        pages: [ '/baz?1', '/baz?2', '/baz?3', '/baz?4', '/baz?5' ]
+        pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4', '/baz?5']
       }
     })
     await wrapper.vm.$nextTick()
@@ -291,7 +291,6 @@ describe('pagination-nav', () => {
 
     wrapper.destroy()
   })
-
 
   it('renders with correct HREF when array of links and text set via pages prop', async () => {
     const wrapper = mount(PaginationNav, {
