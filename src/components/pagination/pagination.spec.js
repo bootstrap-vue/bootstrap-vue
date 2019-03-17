@@ -282,7 +282,7 @@ describe('pagination', () => {
   it('has class "text-center" and "flex-fill" when prop align="fill"', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
-        align: 'end',
+        align: 'fill',
         totalRows: 5,
         perPage: 1,
         limit: 4,
