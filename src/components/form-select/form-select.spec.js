@@ -17,6 +17,27 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('does not have attr size by default', async () => {
+    const wrapper = mount(Select)
+    expect(wrapper.attributes('size')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('does have attr size when plain=true', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        plain: true
+      }
+    })
+    expect(wrapper.attributes('size')).toBeDefined()
+    expect(wrapper.attributes('size')).toBe('0')
+    expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('has class custom-select-sm when size=sm and plain=false', async () => {
     const wrapper = mount(Select, {
       propsData: {
