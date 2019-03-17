@@ -36,4 +36,27 @@ describe('img-lazy', () => {
 
     wrapper.destroy()
   })
+
+  it('triggers check on resize event event', async () => {
+    const src = 'https://picsum.photos/1024/400/?image=41'
+    const wrapper = mount(ImgLazy, {
+      attachToDocument: true,
+      propsData: {
+        src: src
+      }
+    })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+
+    expect(wrapper.vm.scrollTimeout).toBe(null)
+
+    const evt = new UIEvent('resize')
+    window.dispatchEvent(evt)
+
+    expect(wrapper.vm.scrollTimeout).not.toBe(null)
+
+    wrapper.destroy()
+  })
 })
