@@ -175,7 +175,6 @@ export default {
           text: toString(info.text || pageNum)
         }
       } else {
-        const link = `${this.baseUrl}${pageNum}`
         return { link: toString(info), text: toString(pageNum) }
       }
     },
