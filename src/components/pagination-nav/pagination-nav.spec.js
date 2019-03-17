@@ -384,7 +384,7 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('/baz?3')
 
     // Add extra page
-    wrapper.setData({
+    wrapper.setProps({
       pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4']
     })
     await wrapper.vm.$nextTick()
