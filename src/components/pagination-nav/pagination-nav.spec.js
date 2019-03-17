@@ -311,7 +311,7 @@ describe('pagination-nav', () => {
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
-    expect($links.length).toBe(7)
+    expect($links.length).toBe(9)
 
     // Default base URL is "/", and link will be the page number
     expect($links.at(0).attributes('href')).toBe('/baz?1')
