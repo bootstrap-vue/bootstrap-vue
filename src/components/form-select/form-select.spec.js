@@ -375,11 +375,11 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
 
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
+    expect($options.at(0).text()).toBe('1')
+    expect($options.at(1).text()).toBe('2')
     expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
+    expect($options.at(0).attributes('value')).toBe('one')
+    expect($options.at(1).attributes('value')).toBe('two')
     expect($options.at(2).attributes('value')).toBe('three')
 
     wrapper.destroy()
