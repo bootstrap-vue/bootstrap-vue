@@ -112,7 +112,7 @@ linkGen(pageNum) {
 **Note:** when falling back from a `to` location object to a standard link (when no `$router` is
 available), only the following location properties are used to generate the URL:
 
-- `path` (if not provided defautls to the page's current URL path)
+- `path` (if not provided defaults to the page's current URL path)
 - `query`
 - `hash` (must include the leading `#` if used)
 
