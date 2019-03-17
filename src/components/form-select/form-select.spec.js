@@ -20,7 +20,30 @@ describe('form-select', () => {
   it('does not have attr multiple by default', async () => {
     const wrapper = mount(Select)
     expect(wrapper.attributes('multiple')).not.toBeDefined()
-    expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('has attr multiple when multiple=true', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        multiple: true
+      }
+    })
+    expect(wrapper.attributes('multiple')).toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('has attr size when select-size is set', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        selectSize: 4
+      }
+    })
+    expect(wrapper.attributes('size')).toBeDefined()
+    expect(wrapper.attributes('size')).toBe('4')
+    expect(wrapper.attributes('multiple')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -48,7 +71,6 @@ describe('form-select', () => {
   it('does not have attr size by default', async () => {
     const wrapper = mount(Select)
     expect(wrapper.attributes('size')).not.toBeDefined()
-    expect(wrapper.classes().length).toBe(1)
 
     wrapper.destroy()
   })
@@ -61,7 +83,6 @@ describe('form-select', () => {
     })
     expect(wrapper.attributes('size')).toBeDefined()
     expect(wrapper.attributes('size')).toBe('0')
-    expect(wrapper.classes().length).toBe(1)
 
     wrapper.destroy()
   })
@@ -258,6 +279,75 @@ describe('form-select', () => {
     await wrapper.vm.$nextTick()
 
     expect(document.activeElement).not.toBe(wrapper.element)
+
+    wrapper.destroy()
+  })
+
+  it('has option elements from simple options array', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        options: ['one', 'two', 'three']
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+    expect($options.at(0).text()).toBe('one')
+    expect($options.at(1).text()).toBe('two')
+    expect($options.at(2).text()).toBe('three')
+    expect($options.at(0).attribute('value')).toBe('one')
+    expect($options.at(1).attribute('value')).toBe('two')
+    expect($options.at(2).attribute('value')).toBe('three')
+    expect($options.is('[disabled]')).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('has option elements from options array of objects', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        options: [
+          { text: 'one', value: 1 },
+          { text: 'two', value: 2, disabled: true },
+          { text: 'three', value: 3 }
+        ]
+      }
+    })
+    const $options = wrapper.findAll('option')
+
+    expect($options.length).toBe(3)
+    expect($options.at(0).text()).toBe('one')
+    expect($options.at(1).text()).toBe('two')
+    expect($options.at(2).text()).toBe('three')
+    expect($options.at(0).attribute('value')).toBe('1')
+    expect($options.at(1).attribute('value')).toBe('2')
+    expect($options.at(2).attribute('value')).toBe('3')
+    expect($options.at(0).is('[disabled]')).toBe(false)
+    expect($options.at(1).is('[disabled]')).toBe(true)
+    expect($options.at(2).is('[disabled]')).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('has option elements from default slot', async () => {
+    const wrapper = mount(Select, {
+      slots: {
+        default: [
+          '<option value="1">one</option>',
+          '<option value="2">two</option>',
+          '<option value="3">three</option>'
+        ]
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+
+    expect($options.at(0).text()).toBe('one')
+    expect($options.at(1).text()).toBe('two')
+    expect($options.at(2).text()).toBe('three')
+    expect($options.at(0).attribute('value')).toBe('1')
+    expect($options.at(1).attribute('value')).toBe('2')
+    expect($options.at(2).attribute('value')).toBe('3')
+    expect($options.is('[disabled]')).toBe(false)
 
     wrapper.destroy()
   })
