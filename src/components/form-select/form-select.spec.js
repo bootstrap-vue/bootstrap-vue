@@ -408,8 +408,36 @@ describe('form-select', () => {
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toBe('one')
-    expect(wrapper.emitted('change')[0][0]).toBe('one')
+    expect(wrapper.emitted('input')[0][0]).toBe('three')
+    expect(wrapper.emitted('change')[0][0]).toBe('three')
+
+    wrapper.destroy()
+  })
+
+  it('updates v-model when option selected in single mode with complex values', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        options: [
+          { text: 'one', value: { a: 1 } },
+          { text: 'two', value: { b: 2 } },
+          { text: 'three', value: { c: 3 } }
+        ]
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    // select 3rd option
+    $options.at(2).setSelected()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toEqual({ c: 3 })
+    expect(wrapper.emitted('change')[0][0]).toEqual({ c: 3 })
 
     wrapper.destroy()
   })
@@ -439,6 +467,39 @@ describe('form-select', () => {
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual(['two', 'three'])
     expect(wrapper.emitted('change')[0][0]).toEqual(['two', 'three'])
+
+    wrapper.destroy()
+  })
+
+  it('updates v-model when option selected in multiple mode with complex values', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        multiple: true,
+        selectSize: 3,
+        value: [],
+        options: [
+          { text: 'one', value: { a: 1 } },
+          { text: 'two', value: { b: 2 } },
+          { text: 'three', value: { c: 3 } }
+        ]
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    // select 2nd and 3rd option
+    $options.at(1).element.selected = true
+    $options.at(2).element.selected = true
+    wrapper.trigger('change')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
+    expect(wrapper.emitted('change')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
 
     wrapper.destroy()
   })
