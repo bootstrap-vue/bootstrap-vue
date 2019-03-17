@@ -3,8 +3,15 @@ import looseEqual from '../../utils/loose-equal'
 import { requestAF } from '../../utils/dom'
 import { inBrowser } from '../../utils/env'
 import { isObject } from '../../utils/object'
+import { isArray } from '../../utils/array'
 import { computeHref, parseQuery } from '../../utils/router'
 import paginationMixin from '../../mixins/pagination'
+
+// TODO: move this to an instance method in pagination mixin
+function sanitizeNumPages(value) {
+  let num = parseInt(value, 10) || 1
+  return num < 1 ? 1 : num
+}
 
 // Props object
 const props = {
@@ -36,6 +43,11 @@ const props = {
   },
   pageGen: {
     type: Function,
+    default: null
+  },
+  pages: {
+    // Optional array of page links
+    type: Array,
     default: null
   },
   noPageDetect: {
@@ -80,7 +92,20 @@ export default {
       return isNaN(val) || val < 1 ? null : val
     }
   },
+  watch: {
+    numberOfPages(newVal, oldVal) {
+      this.$nextTick(() => {
+        this.setNumPages()
+      })
+    },
+    pages(newVal, oldVal) {
+      this.$nextTick(() => {
+        this.setNumPages()
+      })
+    }
+  },
   created() {
+    this.setNumPages()
     // For SSR, assuming a page URL can be detected
     this.$nextTick(() => {
       this.guessCurrentPage()
@@ -99,6 +124,13 @@ export default {
     }
   },
   methods: {
+    setNumPages() {
+      if (isArray(this.pages) && this.pages.length > 0) {
+        this.localNumPages = this.pages.length
+      } else {
+        this.localNumPages = sanitizeNumPages(this.numberOfPages)
+      }
+    },
     onClick(pageNum, evt) {
       // Dont do anything if clicking the current active page
       if (pageNum === this.currentPage) {
@@ -107,7 +139,7 @@ export default {
       requestAF(() => {
         // Update the v-model
         // Done in in requestAF() to allow browser to complete the
-        // native click handling of a link
+        // native browser click handling of a link
         this.currentPage = pageNum
         this.$emit('change', pageNum)
       })
@@ -121,18 +153,45 @@ export default {
         } catch (e) {}
       })
     },
-    makePage(pageNum) {
-      if (this.pageGen && typeof this.pageGen === 'function') {
-        return this.pageGen(pageNum)
+    getPageInfo(pageNum) {
+      if (
+        !isArray(this.pages) ||
+        this.pages.length === 0 ||
+        this.pages[pageNum - 1] === undefined
+      ) {
+        const link = `${this.baseUrl}${pageNum}`
+        return {
+          link: this.useRouter ? { path: link } : link,
+          text: toString(pageNum)
+        }
       }
-      return pageNum
+      const info = this.pages[pageNum - 1]
+      if (isObject(info)) {
+        const link = info.link
+        return {
+          // Mormalize link for router use
+          link: isObject(link) ? link : this.useRouter ? { path: link } : link,
+          // Make sure text has a value
+          text: toString(info.text || pageNum)
+        }
+      } else {
+        const link = `${this.baseUrl}${pageNum}`
+        return { link: toString(info), text: toString(pageNum) }
+      }
+    },
+    makePage(pageNum) {
+      const info = this.getPageInfo(pageNum)
+      if (this.pageGen && typeof this.pageGen === 'function') {
+        return this.pageGen(pageNum, info)
+      }
+      return info.text
     },
     makeLink(pageNum) {
+      const info = this.getPageInfo(pageNum)
       if (this.linkGen && typeof this.linkGen === 'function') {
-        return this.linkGen(pageNum)
+        return this.linkGen(pageNum, info)
       }
-      const link = `${this.baseUrl}${pageNum}`
-      return this.useRouter ? { path: link } : link
+      return info.link
     },
     linkProps(pageNum) {
       const link = this.makeLink(pageNum)
