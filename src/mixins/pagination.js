@@ -30,16 +30,9 @@ function sanitizeLimit(value) {
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
-// Sanitize the provided numberOfPages value (converting to a number)
-function sanitizeNumPages(value) {
-  let num = parseInt(value, 10) || 1
-  return num < 1 ? 1 : num
-}
-
 // Sanitize the provided current page number (converting to a number)
 function sanitizeCurPage(value, numPages) {
   const page = parseInt(value, 10) || 1
-  numPages = sanitizeNumPages(numPages)
   return page > numPages ? numPages : page < 1 ? 1 : page
 }
 
@@ -272,12 +265,6 @@ export default {
         this.$emit('input', newValue > 0 ? newValue : null)
       }
     },
-    numberOfPages(newValue, oldValue) {
-      // Pagination nav supports providing an array of pages with links
-      if (newValue !== oldValue && (!isArray(this.pages) || this.pages.length === 0)) {
-        this.localNumPages = sanitizeNumPages(newValue)
-      }
-    },
     limit(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.localLimit = sanitizeLimit(newValue)
@@ -287,7 +274,6 @@ export default {
   created() {
     // Set our default values in data
     this.localLimit = sanitizeLimit(this.limit)
-    this.localNumPages = sanitizeNumPages(this.numberOfPages)
     // Sanity check
     this.currentPage = this.currentPage > this.localNumPages ? this.localNumPages : this.currentPage
   },
