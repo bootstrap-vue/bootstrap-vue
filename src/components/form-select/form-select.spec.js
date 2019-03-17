@@ -24,10 +24,48 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('does not have attr required by default', async () => {
+    const wrapper = mount(Select)
+    expect(wrapper.attributes('required')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('has attr required when required=true', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        required: true
+      }
+    })
+    expect(wrapper.attributes('required')).toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('does not have attr form by default', async () => {
+    const wrapper = mount(Select)
+    expect(wrapper.attributes('form')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('has attr form when form is set', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        form: 'foobar'
+      }
+    })
+    expect(wrapper.attributes('form')).toBeDefined()
+    expect(wrapper.attributes('form')).toBe('foobar')
+
+    wrapper.destroy()
+  })
+
   it('has attr multiple when multiple=true', async () => {
     const wrapper = mount(Select, {
       propsData: {
-        multiple: true
+        multiple: true,
+        value: []
       }
     })
     expect(wrapper.attributes('multiple')).toBeDefined()
@@ -294,9 +332,9 @@ describe('form-select', () => {
     expect($options.at(0).text()).toBe('one')
     expect($options.at(1).text()).toBe('two')
     expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attribute('value')).toBe('one')
-    expect($options.at(1).attribute('value')).toBe('two')
-    expect($options.at(2).attribute('value')).toBe('three')
+    expect($options.at(0).attributes('value')).toBe('one')
+    expect($options.at(1).attributes('value')).toBe('two')
+    expect($options.at(2).attributes('value')).toBe('three')
     expect($options.is('[disabled]')).toBe(false)
 
     wrapper.destroy()
@@ -318,9 +356,9 @@ describe('form-select', () => {
     expect($options.at(0).text()).toBe('one')
     expect($options.at(1).text()).toBe('two')
     expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attribute('value')).toBe('1')
-    expect($options.at(1).attribute('value')).toBe('2')
-    expect($options.at(2).attribute('value')).toBe('3')
+    expect($options.at(0).attributes('value')).toBe('1')
+    expect($options.at(1).attributes('value')).toBe('2')
+    expect($options.at(2).attributes('value')).toBe('3')
     expect($options.at(0).is('[disabled]')).toBe(false)
     expect($options.at(1).is('[disabled]')).toBe(true)
     expect($options.at(2).is('[disabled]')).toBe(false)
@@ -344,10 +382,33 @@ describe('form-select', () => {
     expect($options.at(0).text()).toBe('one')
     expect($options.at(1).text()).toBe('two')
     expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attribute('value')).toBe('1')
-    expect($options.at(1).attribute('value')).toBe('2')
-    expect($options.at(2).attribute('value')).toBe('3')
+    expect($options.at(0).attributes('value')).toBe('1')
+    expect($options.at(1).attributes('value')).toBe('2')
+    expect($options.at(2).attributes('value')).toBe('3')
     expect($options.is('[disabled]')).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('updates v-model when option selected', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        options: ['one', 'two', 'three']
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+
+    expect(wrapper.emitted('input')).not.toBeDefained()
+    expect(wrapper.emitted('change')).not.toBeDefained()
+
+    // select 3rd option
+    $options.at(2).setSelected()
+
+    expect(wrapper.emitted('input')).toBeDefained()
+    expect(wrapper.emitted('change')).toBeDefained()
+    expect(wrapper.emitted('input')[0][0]).toBe('one')
+    expect(wrapper.emitted('change')[0][0]).toBe('one')
 
     wrapper.destroy()
   })
