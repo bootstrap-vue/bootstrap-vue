@@ -279,6 +279,31 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('has class "text-center" and "flex-fill" when prop align="fill"', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        align: 'end',
+        totalRows: 5,
+        perPage: 1,
+        limit: 4,
+        value: 3
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('text-center')
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+
+    expect(wrapper.findAll('li.flex-fill').length).toBe(9)
+
+    wrapper.destroy()
+  })
+
   it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
