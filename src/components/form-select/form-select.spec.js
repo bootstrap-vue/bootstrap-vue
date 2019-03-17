@@ -366,6 +366,25 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('has option elements from options legacy object format', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        options: { one: 1, two: 2, three: 'three' }
+      }
+    })
+    const $options = wrapper.findAll('option')
+
+    expect($options.length).toBe(3)
+    expect($options.at(0).text()).toBe('one')
+    expect($options.at(1).text()).toBe('two')
+    expect($options.at(2).text()).toBe('three')
+    expect($options.at(0).attributes('value')).toBe('1')
+    expect($options.at(1).attributes('value')).toBe('2')
+    expect($options.at(2).attributes('value')).toBe('three')
+
+    wrapper.destroy()
+  })
+
   it('has option elements from default slot', async () => {
     const wrapper = mount(Select, {
       slots: {
