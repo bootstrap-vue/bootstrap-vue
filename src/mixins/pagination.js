@@ -5,6 +5,7 @@
 import warn from '../utils/warn'
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
+import { isArray } from '../utils/array'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import toString from '../utils/to-string'
 import normalizeSlotMixin from '../mixins/normalize-slot'
@@ -272,7 +273,8 @@ export default {
       }
     },
     numberOfPages(newValue, oldValue) {
-      if (newValue !== oldValue) {
+      // Pagination nav supports providing an array of pages with links
+      if (newValue !== oldValue && (!isArray(this.pages) || this.pages.length === 0)) {
         this.localNumPages = sanitizeNumPages(newValue)
       }
     },
