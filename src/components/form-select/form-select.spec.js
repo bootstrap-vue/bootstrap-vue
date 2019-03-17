@@ -115,7 +115,7 @@ describe('form-select', () => {
   it('has attr aria-invalid="true" when aria-invalid="true"', async () => {
     const wrapper = mount(Select, {
       propsData: {
-        araiInvalid: 'true'
+        ariaInvalid: 'true'
       }
     })
     expect(wrapper.attributes('aria-invalid')).toBe('true')
@@ -128,7 +128,7 @@ describe('form-select', () => {
   it('has attr aria-invalid="true" when aria-invalid=true', async () => {
     const wrapper = mount(Select, {
       propsData: {
-        araiInvalid: true
+        ariaInvalid: true
       }
     })
     expect(wrapper.attributes('aria-invalid')).toBe('true')
@@ -168,7 +168,7 @@ describe('form-select', () => {
   it('has class form-control-sm when size=sm and plain=true', async () => {
     const wrapper = mount(Select, {
       propsData: {
-        size: 'lg',
+        size: 'sm',
         plain: true
       }
     })
@@ -182,7 +182,7 @@ describe('form-select', () => {
   it('has class form-control-foo when size=foo and plain=true', async () => {
     const wrapper = mount(Select, {
       propsData: {
-        size: 'lg',
+        size: 'foo',
         plain: true
       }
     })
