@@ -17,6 +17,34 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('does not have attr multiple by default', async () => {
+    const wrapper = mount(Select)
+    expect(wrapper.attributes('multiple')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('has auto ID attr by default', async () => {
+    const wrapper = mount(Select)
+    await wrapper.vm.$nextTick() // auto ID assigned after mount
+    expect(wrapper.attributes('id')).toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('has user supplied ID attr when id is set', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        id: 'foobar'
+      }
+    })
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toBe('foobar')
+
+    wrapper.destroy()
+  })
+
   it('does not have attr size by default', async () => {
     const wrapper = mount(Select)
     expect(wrapper.attributes('size')).not.toBeDefined()
