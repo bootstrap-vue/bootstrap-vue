@@ -273,8 +273,10 @@ export default {
   created() {
     // Set our default values in data
     this.localLimit = sanitizeLimit(this.limit)
-    // Sanity check
-    this.currentPage = this.currentPage > this.localNumPages ? this.localNumPages : this.currentPage
+    this.$nextTick(() => {
+      // Sanity check
+      this.currentPage = this.currentPage > this.localNumPages ? this.localNumPages : this.currentPage
+    })
   },
   methods: {
     getButtons() {
