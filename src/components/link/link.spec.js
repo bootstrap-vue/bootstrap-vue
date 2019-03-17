@@ -1,4 +1,5 @@
 import { loadFixture, testVM } from '../../../tests/utils'
+import { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
 
 describe('link', () => {
   beforeEach(loadFixture(__dirname, 'link'))
@@ -95,5 +96,35 @@ describe('link', () => {
     app.$root.$on('clicked::link', spy)
     app.$refs.click.click()
     expect(spy).toHaveBeenCalled()
+  })
+
+  describe('propsFactory() helper', () => {
+    it('works', async () => {
+      expect(propsFactory()).toEqual(linkProps)
+      expect(propsFactory()).not.toBe(linkProps)
+    })
+  })
+
+  describe('pickLinkProps() helper', () => {
+    it('works', async () => {
+      expect(pickLinkProps([])).toEqual({})
+      expect(pickLinkProps(['append'])).toEqual({ append: linkProps.append })
+      expect(pickLinkProps('to')).toEqual({ to: linkProps.to })
+      expect(pickLinkProps(['append', 'routerTag'])).toEqual({
+        append: linkProps.append,
+        routerTag: linkProps.routerTag
+      })
+    })
+  })
+
+  describe('omitLinkProps() helper', () => {
+    it('works', async () => {
+      expect(omitLinkProps([])).toEqual({ ...linkProps })
+      const propsOmitted = Object.keys(linkProps).filter(p => p !== 'to' && p !== 'append')
+      expect(omitLinkProps(propsOmitted)).toEqual({
+        to: linkProps.to,
+        append: linkProps.append
+      })
+    })
   })
 })

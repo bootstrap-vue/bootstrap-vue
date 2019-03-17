@@ -31,23 +31,27 @@
         "slots": [
           {
             "name": "first-text",
-            "description": "The \"go to first page\" button content (html/sub-components supported)"
+            "description": "The \"go to first page\" button content. Optionally scoped"
           },
           {
             "name": "prev-text",
-            "description": "The \"go to previous page\" button content (html/sub-components supported)"
+            "description": "The \"go to previous page\" button content. Optionally scoped"
           },
           {
             "name": "next-text",
-            "description": "The \"go to next page\" button content (html/sub-components supported)"
+            "description": "The \"go to next page\" button content. Optionally scoped"
           },
           {
             "name": "last-text",
-            "description": "The \"go to last page\" button content (html/sub-components supported)"
+            "description": "The \"go to last page\" button content. Optionally scoped"
           },
           {
             "name": "ellipsis-text",
-            "description": "The '...' indicator content (html/sub-components supported)"
+            "description": "The '...' indicator content. Not scoped"
+          },
+          {
+            "name": "page",
+            "description": "Page number button content. Always scoped"
           }
         ]
       }
