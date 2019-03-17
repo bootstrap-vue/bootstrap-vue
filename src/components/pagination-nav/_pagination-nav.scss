@@ -1,2 +1,3 @@
 // Pagination and pagination-nav require the helper utility classes
-@include "../../utilities.scss";
+// Note the utilities file will automatically only be included once
+@include "../../utilities";
