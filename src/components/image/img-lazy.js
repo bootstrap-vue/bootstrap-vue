@@ -153,7 +153,7 @@ export default {
   },
   methods: {
     setListeners(on) {
-      clearTimeout(this.scrollTimer)
+      clearTimeout(this.scrollTimeout)
       this.scrollTimeout = null
       const root = window
       if (on) {
