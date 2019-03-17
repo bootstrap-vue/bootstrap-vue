@@ -51,7 +51,7 @@ export default {
     this.localNumPages = this.numberOfPages
     // Set the initial page value
     const curr = parseInt(this.value, 10) || 0
-    if (curr > 0)) {
+    if (curr > 0) {
       this.currentPage = curr
     } else {
       this.$nextTick(() => {
