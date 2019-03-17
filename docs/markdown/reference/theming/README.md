@@ -44,7 +44,8 @@ $grid-breakpoints: (
   sm: 428px,
   md: 799px,
   lg: 899px,
-  xl: 1234px xxl: 1600px
+  xl: 1234px,
+  xxl: 1600px
 );
 
 // Include Bootstrap and BootstrapVue SCSS files
