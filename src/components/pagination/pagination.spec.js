@@ -383,7 +383,7 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
+  it('renders classes bv-d-xs-down-none when more than 3 pages', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 70,
@@ -426,11 +426,9 @@ describe('pagination', () => {
           expect(li.classes()).not.toContain('active')
         }
         if (index < 5) {
-          expect(li.classes()).not.toContain('d-none')
-          expect(li.classes()).not.toContain('d-sm-flex')
+          expect(li.classes()).not.toContain('bv-d-xs-down-none')
         } else if (index > 4) {
-          expect(li.classes()).toContain('d-none')
-          expect(li.classes()).toContain('d-sm-flex')
+          expect(li.classes()).toContain('bv-d-xs-down-none')
         }
       }
     })
