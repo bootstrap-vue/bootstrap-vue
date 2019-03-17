@@ -136,19 +136,16 @@ export default {
       this.$nextTick(this.checkView)
     }
   },
-  activated() {
-    /* istanbul ignore if */
+  activated() /* istanbul ignore next */ {
     if (!this.isShown) {
       this.setListeners(true)
       this.$nextTick(this.checkView)
     }
   },
-  deactivated() {
-    /* istanbul ignore next */
+  deactivated() /* istanbul ignore next */ {
     this.setListeners(false)
   },
   beforeDestroy() {
-    /* istanbul ignore next */
     this.setListeners(false)
   },
   methods: {
