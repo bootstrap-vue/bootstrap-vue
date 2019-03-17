@@ -275,7 +275,8 @@ export default {
     this.localLimit = sanitizeLimit(this.limit)
     this.$nextTick(() => {
       // Sanity check
-      this.currentPage = this.currentPage > this.localNumPages ? this.localNumPages : this.currentPage
+      this.currentPage =
+        this.currentPage > this.localNumPages ? this.localNumPages : this.currentPage
     })
   },
   methods: {
