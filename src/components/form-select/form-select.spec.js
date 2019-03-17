@@ -404,6 +404,7 @@ describe('form-select', () => {
 
     // select 3rd option
     $options.at(2).setSelected()
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -432,6 +433,7 @@ describe('form-select', () => {
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
     wrapper.trigger('change')
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
