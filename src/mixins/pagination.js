@@ -164,6 +164,10 @@ export default {
         return 'justify-content-center'
       } else if (this.align === 'end' || this.align === 'right') {
         return 'justify-content-end'
+      } else if (this.aliang === 'fill') {
+        // The page-items will also have 'flex-fill' added.
+        // We ad text centering to make the button appearance better in fill mode.
+        return 'text-center'
       }
       return ''
     },
@@ -350,6 +354,7 @@ export default {
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currPage = this.computedCurrentPage
+    const fill = this.align === 'fill'
 
     // Helper function and flag
     const isActivePage = pageNum => pageNum === currPage
@@ -390,7 +395,7 @@ export default {
         {
           key,
           staticClass: 'page-item',
-          class: { disabled: isDisabled },
+          class: { disabled: isDisabled, 'flex-fill': fill },
           attrs: {
             role: 'none presentation',
             'aria-hidden': isDisabled ? 'true' : null
@@ -407,7 +412,7 @@ export default {
         {
           key: `elipsis-${isLast ? 'last' : 'first'}`,
           staticClass: 'page-item',
-          class: ['disabled', 'd-none', 'd-sm-flex'],
+          class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : ''],
           attrs: { role: 'separator' }
         },
         [
@@ -490,7 +495,7 @@ export default {
           {
             key: `page-${page.number}`,
             staticClass: 'page-item',
-            class: [{ disabled, active }, page.classes],
+            class: [{ disabled, active, 'flex-fill': fill }, page.classes],
             attrs: { role: 'none presentation' }
           },
           [inner]
@@ -532,7 +537,8 @@ export default {
       'ul',
       {
         ref: 'ul',
-        class: ['pagination', 'b-pagination', this.btnSize, this.alignment],
+        staticClass: 'pagination',
+        class: ['b-pagination', this.btnSize, this.alignment],
         attrs: {
           role: 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
