@@ -372,7 +372,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
       <b-pagination-nav number-of-pages="10" base-url="#" align="right" />
     </div>
 
-    <div class="mt-3 text-right">
+    <div class="mt-3 text-center">
       <h6>Fill alignment</h6>
       <b-pagination-nav number-of-pages="10" base-url="#" align="fill" />
     </div>
