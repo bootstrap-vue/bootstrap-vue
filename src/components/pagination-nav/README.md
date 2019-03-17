@@ -125,7 +125,7 @@ override this behaviour by supplying a function reference to the `page-gen` prop
 reference should accept a single argument which is a page number (1-N). The `page-gen` function
 should return a string.
 
-**Note:** HTML content in generated page number strings is **not** supported. For basica HTML,
+**Note:** HTML content in generated page number strings is **not** supported. For basic HTML,
 you can use the scoped slot `page` for finer-grained formatting.
 
 **Example: Using an array of links to generate pagination:**
