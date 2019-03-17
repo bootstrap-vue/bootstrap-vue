@@ -52,10 +52,19 @@ describe('img-lazy', () => {
 
     expect(wrapper.vm.scrollTimeout).toBe(null)
 
-    const evt = new UIEvent('resize')
-    window.dispatchEvent(evt)
+    const resizeEvt = new UIEvent('resize')
+    window.dispatchEvent(resizeEvt)
 
     expect(wrapper.vm.scrollTimeout).not.toBe(null)
+
+    // Since JEST doesnt support getBCR, we fake it by setting the data prop to shown
+    wrapper.setData({
+      isShown: true
+    })
+
+    window.dispatchEvent(resizeEvt)
+
+    expect(wrapper.vm.scrollTimeout).toBe(null)
 
     wrapper.destroy()
   })
