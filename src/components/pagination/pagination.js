@@ -48,9 +48,7 @@ export default {
   },
   created() {
     // Set the initial page count
-    this.$nextTick(() => {
-      this.localNumPages = this.numberOfPages
-    })
+    this.localNumPages = this.numberOfPages
     // If this value parses to NaN or a value less than 1
     // we trigger an $emit('input', null)
     if (!(parseInt(this.value, 10) > 0)) {
@@ -59,6 +57,10 @@ export default {
         this.currentPage = 0
       })
     }
+  },
+  mounted() {
+    // Set the initial page count
+    this.localNumPages = this.numberOfPages
   },
   methods: {
     // These methods are used by the render function
