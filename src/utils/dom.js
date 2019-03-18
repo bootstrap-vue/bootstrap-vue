@@ -1,4 +1,5 @@
 import { from as arrayFrom } from './array'
+import { isObject } from './object'
 import { inBrowser } from './env'
 
 // Determine if the browser supports the option passive for events
@@ -6,7 +7,7 @@ let passiveEventSupported = false
 /* istanbul ignore if */
 if (inBrowser) {
   try {
-    var options = {
+    const options = {
       get passive() {
         // This function will be called when the browser
         // attempts to access the passive property.
@@ -20,18 +21,19 @@ if (inBrowser) {
   }
 }
 
+// Exported only for testing purposes
+export const isPassiveSupported = () => passiveEventSupported
+
 // Normalize event options based on support of passive option
-function parseEventOptions(options) {
-  let useCapture = false
-  if (options) {
-    if (typeof options === 'object') {
-      // eslint-disable-next-line no-unneeded-ternary
-      useCapture = options.useCapture ? true : false
-    } else {
-      useCapture = options
-    }
+// Exported only for testing purposes
+export const parseEventOptions = options => {
+  if (!passiveEventSupported) {
+    // Need to translate to actual Boolean value
+    return Boolean(isObject(options) ? options.useCapture : options)
   }
-  return passiveEventSupported ? options : useCapture
+  /* istanbul ignore next: JSDOM doesn't support above detection of passive */
+  return options || { useCapture: false }
+  // So we can't reach this anymore for unit testing due to the above if statement
 }
 
 // Attach an event listener to an element
@@ -50,7 +52,7 @@ export const eventOff = (el, evtName, handler, options) => {
 
 // Determine if an element is an HTML Element
 export const isElement = el => {
-  return el && el.nodeType === Node.ELEMENT_NODE
+  return Boolean(el && el.nodeType === Node.ELEMENT_NODE)
 }
 
 // Determine if an HTML element is visible - Faster than CSS check
@@ -58,8 +60,10 @@ export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() 
   if (!isElement(el) || !contains(document.body, el)) {
     return false
   }
+  // All browsers support getBoundingClientRect(), except JSDOM as it returns all 0's for values :(
+  // So any tests that need isVisible will fail in JSDOM
   const bcr = getBCR(el)
-  return bcr && bcr.height > 0 && bcr.width > 0
+  return Boolean(bcr && bcr.height > 0 && bcr.width > 0)
 }
 
 // Determine if an element is disabled
@@ -300,12 +304,12 @@ export const requestAF = cb => {
     w.mozRequestAnimationFrame ||
     w.msRequestAnimationFrame ||
     w.oRequestAnimationFrame ||
-    function(cb) {
+    (cb => {
       // Fallback, but not a true polyfill.
       // But all browsers we support (other than Opera Mini) support rAF
       // without a polyfill.
       /* istanbul ignore next */
       return setTimeout(cb, 16)
-    }
+    })
   return rAF(cb)
 }

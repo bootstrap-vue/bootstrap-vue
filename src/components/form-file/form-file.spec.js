@@ -34,6 +34,8 @@ describe('form-file', () => {
     expect(label.classes()).toContain('custom-file-label')
     expect(label.attributes('for')).toBeDefined()
     expect(label.attributes('for')).toBe('foo')
+
+    wrapper.destroy()
   })
 
   it('default has input attribute multiple when multiple=true', async () => {
@@ -45,6 +47,8 @@ describe('form-file', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('multiple')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('default has input attribute required when required=true', async () => {
@@ -58,6 +62,8 @@ describe('form-file', () => {
     expect(input.attributes('required')).toBeDefined()
     expect(input.attributes('aria-required')).toBeDefined()
     expect(input.attributes('aria-required')).toBe('true')
+
+    wrapper.destroy()
   })
 
   it('default has input attribute disabled when disabled=true', async () => {
@@ -69,6 +75,8 @@ describe('form-file', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('disabled')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('default has input attribute capture when capture=true', async () => {
@@ -80,6 +88,8 @@ describe('form-file', () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('capture')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('default has input attribute accept when accept is set', async () => {
@@ -92,6 +102,8 @@ describe('form-file', () => {
     const input = wrapper.find('input')
     expect(input.attributes('accept')).toBeDefined()
     expect(input.attributes('accept')).toBe('image/*')
+
+    wrapper.destroy()
   })
 
   it('default has input attribute name when name is set', async () => {
@@ -104,6 +116,8 @@ describe('form-file', () => {
     const input = wrapper.find('input')
     expect(input.attributes('name')).toBeDefined()
     expect(input.attributes('name')).toBe('bar')
+
+    wrapper.destroy()
   })
 
   it('default has input attribute form when form is set', async () => {
@@ -116,6 +130,8 @@ describe('form-file', () => {
     const input = wrapper.find('input')
     expect(input.attributes('form')).toBeDefined()
     expect(input.attributes('form')).toBe('bar')
+
+    wrapper.destroy()
   })
 
   it('default has class focus when input focused', async () => {
@@ -136,6 +152,8 @@ describe('form-file', () => {
     input.trigger('focusout')
     await wrapper.vm.$nextTick()
     expect(input.classes()).not.toContain('focus')
+
+    wrapper.destroy()
   })
 
   it('has no wrapper div or label when plain=true', async () => {
@@ -151,6 +169,8 @@ describe('form-file', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('foo')
     expect(wrapper.attributes('multiple')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('emits input event when file changed', async () => {
@@ -174,6 +194,8 @@ describe('form-file', () => {
     wrapper.vm.setFiles([file])
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
+
+    wrapper.destroy()
   })
 
   it('emits input event when files changed in multiple mode', async () => {
@@ -211,6 +233,8 @@ describe('form-file', () => {
     // Setting to array of new files should emit event
     wrapper.vm.setFiles(files.slice().reverse())
     expect(wrapper.emitted('input').length).toEqual(2)
+
+    wrapper.destroy()
   })
 
   it('native change event works', async () => {
@@ -237,6 +261,8 @@ describe('form-file', () => {
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
+
+    wrapper.destroy()
   })
 
   it('reset() method works in single mode', async () => {
@@ -261,6 +287,8 @@ describe('form-file', () => {
     wrapper.vm.reset()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
+
+    wrapper.destroy()
   })
 
   it('reset() method works in multiple mode', async () => {
@@ -289,6 +317,8 @@ describe('form-file', () => {
     wrapper.vm.reset()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
+
+    wrapper.destroy()
   })
 
   it('reset works in single mode by setting value', async () => {
@@ -315,6 +345,8 @@ describe('form-file', () => {
 
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
+
+    wrapper.destroy()
   })
 
   it('reset works in multiple mode by setting value', async () => {
@@ -356,6 +388,8 @@ describe('form-file', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
+
+    wrapper.destroy()
   })
 
   it('native reset event works', async () => {
@@ -381,5 +415,7 @@ describe('form-file', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
+
+    wrapper.destroy()
   })
 })

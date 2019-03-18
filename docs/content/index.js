@@ -1,5 +1,5 @@
-import { importAll } from '~/utils'
-import { version } from '~/../package.json'
+import { importAll, parseVersion } from '~/utils'
+import { version, dependencies, devDependencies } from '~/../package.json'
 
 const componentsContext = require.context('~/../src/components/', true, /package.json/)
 export const components = importAll(componentsContext)
@@ -16,7 +16,8 @@ export const misc = importAll(miscContext)
 export const nav = [
   {
     title: 'Getting started',
-    base: ''
+    base: '',
+    exact: true
   },
   {
     title: 'Components',
@@ -39,5 +40,8 @@ export const nav = [
     pages: misc
   }
 ]
+
+export const bootstrapVersion = parseVersion(dependencies.bootstrap)
+export const vueVersion = parseVersion(devDependencies.vue)
 
 export { version }

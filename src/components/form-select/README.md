@@ -113,7 +113,7 @@ and optgroups _above_ the options specified by the `options` prop, use the named
 - **`disabled`** Disables item for selection
 - **`text`** Display text, or **`html`** Display html
 
-`value` can be a string, number, or simple object.  Avoid using complex types in values.
+`value` can be a string, number, or simple object. Avoid using complex types in values.
 
 If both `html` and `text` are provided, `html` will take precidence. Only basic/native HTML is
 supported in the `html` field (components will not work).
@@ -133,22 +133,22 @@ change them using `text-field`, `html-field`, `value-field`, and `disabled-field
 ### Array
 
 ```js
-const options = ['A', 'B', 'C', { text: 'D', value: {d: 1}, disabled: true }, 'E', 'F']
+const options = ['A', 'B', 'C', { text: 'D', value: { d: 1 }, disabled: true }, 'E', 'F']
 ```
 
 If an array entry is a string, it will be used for both the generated `value` and `text` fields.
 
 You can mix using strings and [objects](#objects) in the array.
 
-Internally, BootstrapVue will convert the above array to the following array (the 
+Internally, BootstrapVue will convert the above array to the following array (the
 [Array of Objects](#array-of-objects) format:
 
 ```js
-[
+const options = [
   { text: 'A', value: 'A', disabled: false },
   { text: 'B', value: 'B', disabled: false },
   { text: 'C', value: 'C', disabled: false },
-  { text: 'D', value: {d: 1}, disabled: true },
+  { text: 'D', value: { d: 1 }, disabled: true },
   { text: 'E', value: 'E', disabled: false },
   { text: 'F', value: 'F', disabled: false }
 ]
@@ -166,20 +166,20 @@ const options = [
 ]
 ```
 
-If `value` is missing, then `text` will be used as both the `value` and `text` fields. If
-you use the `html` property, you **must** supply a `value` property.
+If `value` is missing, then `text` will be used as both the `value` and `text` fields. If you use
+the `html` property, you **must** supply a `value` property.
 
-Internally, BootstrapVue will convert the above array to the following array (the 
+Internally, BootstrapVue will convert the above array to the following array (the
 [Array of Objects](#array-of-objects) format:
 
 ```js
-[
+const options = [
   { text: 'Item 1', value: 'first', disabled: false },
   { text: 'Item 2', value: 'second', disabled: false },
   { html: '<b>Item</b> 3', value: 'third', disabled: true },
   { text: 'Item 4', value: 'Item 4', disabled: false },
   { text: 'Item 5', value: 'E', disabled: false },
-  { text: 'F', value: {foo: 'bar', baz: true }, disabled: false }
+  { text: 'F', value: { foo: 'bar', baz: true }, disabled: false }
 ]
 ```
 
@@ -197,11 +197,11 @@ const options = {
 }
 ```
 
-Internally, BootstrapVue will convert the above object to the following array (the 
+Internally, BootstrapVue will convert the above object to the following array (the
 [Array of Objects](#array-of-objects) format:
 
 ```js
-[
+const options = [
   { text: 'Item A', value: 'a', disabled: false },
   { text: 'Item B', value: 'b', disabled: false },
   { html: 'Item C', value: 'c', disabled: false },

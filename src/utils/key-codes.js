@@ -2,7 +2,7 @@
  * Key Codes (events)
  */
 
-export default {
+const KEY_CODES = {
   SPACE: 32,
   ENTER: 13,
   ESC: 27,
@@ -25,3 +25,5 @@ export default {
   INS: 45,
   DELETE: 46
 }
+
+export default KEY_CODES

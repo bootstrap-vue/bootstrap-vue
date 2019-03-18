@@ -24,6 +24,8 @@ describe('b-table primary key', () => {
     expect(trs.at(0).attributes('id')).not.toBeDefined()
     expect(trs.at(1).attributes('id')).not.toBeDefined()
     expect(trs.at(2).attributes('id')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should have ids on table rows when primary key set to field', async () => {
@@ -50,6 +52,8 @@ describe('b-table primary key', () => {
     expect(trs.at(1).attributes('id')).toBe(`foo__row_${testItems[1].a}`)
     expect(trs.at(2).attributes('id')).toBeDefined()
     expect(trs.at(2).attributes('id')).toBe(`foo__row_${testItems[2].a}`)
+
+    wrapper.destroy()
   })
 
   it('should not have ids on table rows when primary key set to nonexistent field', async () => {
@@ -73,5 +77,7 @@ describe('b-table primary key', () => {
     expect(trs.at(0).attributes('id')).not.toBeDefined()
     expect(trs.at(1).attributes('id')).not.toBeDefined()
     expect(trs.at(2).attributes('id')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 })

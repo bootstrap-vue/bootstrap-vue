@@ -4,7 +4,7 @@
  * @param {string} Component name
  * @param {object} Component definition
  */
-export function registerComponent(Vue, name, def) {
+export const registerComponent = (Vue, name, def) => {
   Vue.component(name, def)
 }
 
@@ -13,7 +13,7 @@ export function registerComponent(Vue, name, def) {
  * @param {object} Vue
  * @param {object} Object of component definitions
  */
-export function registerComponents(Vue, components) {
+export const registerComponents = (Vue, components) => {
   for (let component in components) {
     registerComponent(Vue, component, components[component])
   }
@@ -25,7 +25,7 @@ export function registerComponents(Vue, components) {
  * @param {string} Directive name
  * @param {object} Directive definition
  */
-export function registerDirective(Vue, name, def) {
+export const registerDirective = (Vue, name, def) => {
   Vue.directive(name, def)
 }
 
@@ -34,7 +34,7 @@ export function registerDirective(Vue, name, def) {
  * @param {object} Vue
  * @param {object} Object of directive definitions
  */
-export function registerDirectives(Vue, directives) {
+export const registerDirectives = (Vue, directives) => {
   for (let directive in directives) {
     registerDirective(Vue, directive, directives[directive])
   }
@@ -44,7 +44,7 @@ export function registerDirectives(Vue, directives) {
  * Install plugin if window.Vue available
  * @param {object} Plugin definition
  */
-export function vueUse(VuePlugin) {
+export const vueUse = VuePlugin => {
   /* istanbul ignore next */
   if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VuePlugin)

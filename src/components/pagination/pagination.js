@@ -41,13 +41,40 @@ export default {
       return result < 1 ? 1 : result
     }
   },
+  watch: {
+    numberOfPages(newVal, OldVal) {
+      this.localNumPages = newVal
+    }
+  },
+  created() {
+    // Set the initial page count
+    this.localNumPages = this.numberOfPages
+    // Set the initial page value
+    const curr = parseInt(this.value, 10) || 0
+    if (curr > 0) {
+      this.currentPage = curr
+    } else {
+      this.$nextTick(() => {
+        // If this value parses to NaN or a value less than 1
+        // Trigger an initial emit of 'null' if no page specified
+        this.currentPage = 0
+      })
+    }
+  },
+  mounted() {
+    // Set the initial page count
+    this.localNumPages = this.numberOfPages
+  },
   methods: {
     // These methods are used by the render function
     onClick(num, evt) {
       // Handle edge cases where number of pages has changed (i.e. if perPage changes)
+      // This should normally not happen, but just in case.
       if (num > this.numberOfPages) {
+        /* istanbul ignore next */
         num = this.numberOfPages
       } else if (num < 1) {
+        /* istanbul ignore next */
         num = 1
       }
       // Update the v-model
@@ -64,10 +91,10 @@ export default {
         }
       })
     },
-    makePage(pagenum) {
-      return pagenum
+    makePage(pageNum) {
+      return pageNum
     },
-    linkProps(pagenum) {
+    linkProps(pageNum) {
       // Always '#' for pagination component
       return { href: '#' }
     }

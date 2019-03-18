@@ -29,7 +29,7 @@ export default {
       eventOn(this.focusInElement, 'focusin', this._focusInHandler, false)
     }
   },
-  beforeDestroy() {
+  beforeDestroy() /* istanbul ignore next */ {
     eventOff(this.focusInElement, 'focusin', this._focusInHandler, false)
   },
   methods: {

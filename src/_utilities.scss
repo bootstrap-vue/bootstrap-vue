@@ -1,0 +1,14 @@
+// Bootstrap Vue Utility classes
+
+$bv-utility-classes-defined: false !default;
+
+@if $bv-utility-classes-defined == false {
+  // This test will only include these style definitions once
+  
+  // Create .bv-d-<bp>-down-none helper classes
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-down($breakpoint) {
+      .bv-d-#{$breakpoint}-down-none { display: none !important; }
+    }
+  }
+}

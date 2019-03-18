@@ -419,10 +419,10 @@ decrement the input's value. To disable this browser feature, just set the `no-w
 ## Datalist support
 
 Datalists are a native HTML tag `<datalist>` that contains a list of `<option>` tags. By assigning
-an ID to the datalist tag, the list can be references from a text input by adding a `list` 
+an ID to the datalist tag, the list can be references from a text input by adding a `list`
 attribute.
 
-This gives the input the behavior of a combo box or auto-complete, allowing existing values to be 
+This gives the input the behavior of a combo box or auto-complete, allowing existing values to be
 chosen, or new values to be entered.
 
 ```html
@@ -454,9 +454,9 @@ chosen, or new values to be entered.
   options first, followed by auto-complete options. To only display datalist options, set
   `autocomplete="off"`.
 - Datalists cannot be applied to input fields with `type="password"`.
-- Not all browsers fully support `<datalist>` and implementations can be buggy. It is 
-  recommended that datalists be treated as an enhancement and not be relied upon at this time.
-  Check [Can I Use](https://caniuse.com/#feat=datalist) for full support details on all browsers.
+- Not all browsers fully support `<datalist>` and implementations can be buggy. It is recommended
+  that datalists be treated as an enhancement and not be relied upon at this time. Check
+  [Can I Use](https://caniuse.com/#feat=datalist) for full support details on all browsers.
 
 ## `v-model` modifiers
 

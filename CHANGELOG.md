@@ -1,14 +1,61 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.0.0-rc.15"></a>
+
+## [v2.0.0-rc.15](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.14...v2.0.0-rc.15)
+
+Released: 2019-03-18
+
+### Bug Fixes
+
+- **carousel:** fix touchmove handler to re-enable swipe gestures
+  ([#2844](https://github.com/bootstrap-vue/bootstrap-vue/issues/2844))
+  ([a067f8c](https://github.com/bootstrap-vue/bootstrap-vue/commit/a067f8c))
+- **form-radio/form-checkbox:** ensure required prop propagated in group mode (fixes
+  [#2839](https://github.com/bootstrap-vue/bootstrap-vue/issues/2839))
+  ([#2842](https://github.com/bootstrap-vue/bootstrap-vue/issues/2842))
+  ([fc24589](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc24589))
+- **pagination-nav:** fix race condition with clicking prev/next buttons
+  ([#2834](https://github.com/bootstrap-vue/bootstrap-vue/issues/2834))
+  ([42f14e1](https://github.com/bootstrap-vue/bootstrap-vue/commit/42f14e1))
+- **table:** allow string for pagination prop types
+  ([#2824](https://github.com/bootstrap-vue/bootstrap-vue/issues/2824))
+  ([31d2044](https://github.com/bootstrap-vue/bootstrap-vue/commit/31d2044))
+- **table:** don't emit row-clicked when user is selecting text (Closes
+  [#2791](https://github.com/bootstrap-vue/bootstrap-vue/issues/2791))
+  ([ecf0689](https://github.com/bootstrap-vue/bootstrap-vue/commit/ecf0689))
+- **util/loose-equal:** handle comparing sparse arrays
+  ([#2813](https://github.com/bootstrap-vue/bootstrap-vue/issues/2813))
+  ([6ac8ade](https://github.com/bootstrap-vue/bootstrap-vue/commit/6ac8ade))
+- **utils/get:** handle cases when field value is not array or object (closes
+  [#2807](https://github.com/bootstrap-vue/bootstrap-vue/issues/2807))
+  ([#2808](https://github.com/bootstrap-vue/bootstrap-vue/issues/2808))
+  ([c656fa3](https://github.com/bootstrap-vue/bootstrap-vue/commit/c656fa3))
+- **utisl/observeDom:** make sure to check for browser enviroment
+  ([#2838](https://github.com/bootstrap-vue/bootstrap-vue/issues/2838))
+  ([8471f31](https://github.com/bootstrap-vue/bootstrap-vue/commit/8471f31))
+
+### Features
+
+- **docs:** get recommended `Vue.js` and `Bootstrap` version from `package.json`
+  ([#2840](https://github.com/bootstrap-vue/bootstrap-vue/issues/2840))
+  ([3a6702e](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a6702e))
+- **pagination-nav:** auto-detect current page based on $route/URL. Add support array of links
+  ([#2836](https://github.com/bootstrap-vue/bootstrap-vue/issues/2836))
+  ([65e12f8](https://github.com/bootstrap-vue/bootstrap-vue/commit/65e12f8))
+- **table:** new option to disable footer sorting
+  ([#2802](https://github.com/bootstrap-vue/bootstrap-vue/issues/2802))
+  ([bc443a3](https://github.com/bootstrap-vue/bootstrap-vue/commit/bc443a3))
+
 <a name="2.0.0-rc.14"></a>
 
 ## [v2.0.0-rc.14](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.13...v2.0.0-rc.14)
 
-Released:  2019-03-08
+Released: 2019-03-08
 
 ### Bug Fixes v2.0.0-rc.14
 

@@ -38,6 +38,8 @@ describe('b-table provider functions', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+
+    wrapper.destroy()
   })
 
   it('promise items provider works', async () => {
@@ -85,6 +87,8 @@ describe('b-table provider functions', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+
+    wrapper.destroy()
   })
 
   it('callback items provider works', async () => {
@@ -130,6 +134,8 @@ describe('b-table provider functions', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+
+    wrapper.destroy()
   })
 
   it('callback items provider expects 2 arguments', async () => {
@@ -173,6 +179,8 @@ describe('b-table provider functions', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('provider refreshing works', async () => {
@@ -203,6 +211,8 @@ describe('b-table provider functions', () => {
     wrapper.vm.$root.$emit('bv::refresh::table', 'thetable')
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed').length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('refresh debouncing works', async () => {
@@ -250,5 +260,7 @@ describe('b-table provider functions', () => {
     expect(wrapper.emitted('refreshed').length).toBe(1)
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed').length).toBe(1)
+
+    wrapper.destroy()
   })
 })

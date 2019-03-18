@@ -3,7 +3,7 @@ import { select, addClass, removeClass, getAttr } from './dom'
 
 const NAME = 'popover'
 const CLASS_PREFIX = 'bs-popover'
-const BSCLS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
+const BS_CLASS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
 const Defaults = {
   ...ToolTip.Default,
@@ -31,17 +31,17 @@ const Selector = {
 class PopOver extends ToolTip {
   // Getter overrides
 
-  static get Default() {
+  static get Default() /* istanbul ignore next */ {
     return Defaults
   }
 
-  static get NAME() {
+  static get NAME() /* istanbul ignore next */ {
     return NAME
   }
 
   // Method overrides
 
-  isWithContent(tip) {
+  isWithContent(tip) /* istanbul ignore next */ {
     tip = tip || this.$tip
     if (!tip) {
       return false
@@ -51,11 +51,11 @@ class PopOver extends ToolTip {
     return hasTitle || hasContent
   }
 
-  addAttachmentClass(attachment) {
+  addAttachmentClass(attachment) /* istanbul ignore next */ {
     addClass(this.getTipElement(), `${CLASS_PREFIX}-${attachment}`)
   }
 
-  setContent(tip) {
+  setContent(tip) /* istanbul ignore next */ {
     // we use append for html objects to maintain js events/components
     this.setElementContent(select(Selector.TITLE, tip), this.getTitle())
     this.setElementContent(select(Selector.CONTENT, tip), this.getContent())
@@ -65,9 +65,9 @@ class PopOver extends ToolTip {
   }
 
   // This method may look identical to ToolTip version, but it uses a different RegEx defined above
-  cleanTipClass() {
+  cleanTipClass() /* istanbul ignore next */ {
     const tip = this.getTipElement()
-    const tabClass = tip.className.match(BSCLS_PREFIX_REGEX)
+    const tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX)
     if (tabClass !== null && tabClass.length > 0) {
       tabClass.forEach(cls => {
         removeClass(tip, cls)
@@ -75,7 +75,7 @@ class PopOver extends ToolTip {
     }
   }
 
-  getTitle() {
+  getTitle() /* istanbul ignore next */ {
     let title = this.$config.title || ''
     if (typeof title === 'function') {
       title = title(this.$element)
@@ -97,7 +97,7 @@ class PopOver extends ToolTip {
 
   // New methods
 
-  getContent() {
+  getContent() /* istanbul ignore next */ {
     let content = this.$config.content || ''
     if (typeof content === 'function') {
       content = content(this.$element)

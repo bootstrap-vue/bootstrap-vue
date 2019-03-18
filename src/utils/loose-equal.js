@@ -1,8 +1,19 @@
 import { isArray } from './array'
 import { isObject, keys } from './object'
 
-function isDate(obj) {
-  return obj instanceof Date
+const isDate = obj => obj instanceof Date
+
+// Assumes both a and b are arrays!
+// Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)
+const compareArrays = (a, b) => {
+  if (a.length !== b.length) {
+    return false
+  }
+  let equal = true
+  for (let i = 0; equal && i < a.length; i++) {
+    equal = looseEqual(a[i], b[i])
+  }
+  return equal
 }
 
 /**
@@ -10,7 +21,7 @@ function isDate(obj) {
  * if they are plain objects, do they have the same shape?
  * Returns boolean true or false
  */
-function looseEqual(a, b) {
+const looseEqual = (a, b) => {
   if (a === b) {
     return true
   }
@@ -22,9 +33,7 @@ function looseEqual(a, b) {
   aValidType = isArray(a)
   bValidType = isArray(b)
   if (aValidType || bValidType) {
-    return aValidType && bValidType
-      ? a.length === b.length && a.every((e, i) => looseEqual(e, b[i]))
-      : false
+    return aValidType && bValidType ? compareArrays(a, b) : false
   }
   aValidType = isObject(a)
   bValidType = isObject(b)

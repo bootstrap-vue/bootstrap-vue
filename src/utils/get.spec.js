@@ -72,4 +72,29 @@ describe('get', () => {
     expect(get(obj2, 'c')).toBe('bar')
     expect(get(obj2, 'd.e')).toBe('baz')
   })
+
+  it('handles when field value is not array or object', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2807
+    const obj1 = {
+      a: { b: 'c' },
+      b: [{ c: 'd' }],
+      c: { d: { e: 'f' } },
+      d: [{ e: [{ f: 'g' }] }]
+    }
+    const obj2 = {
+      a: null,
+      b: undefined,
+      c: 0,
+      d: [null]
+    }
+
+    expect(get(obj1, 'a.b')).toBe('c')
+    expect(get(obj2, 'a.b')).toBe(null)
+    expect(get(obj1, 'b[0].c')).toBe('d')
+    expect(get(obj2, 'b[0].c')).toBe(null)
+    expect(get(obj1, 'c.d.e')).toBe('f')
+    expect(get(obj2, 'c.d.e')).toBe(null)
+    expect(get(obj1, 'd[0].e[0].f')).toBe('g')
+    expect(get(obj2, 'd[0].e[0].f')).toBe(null)
+  })
 })
