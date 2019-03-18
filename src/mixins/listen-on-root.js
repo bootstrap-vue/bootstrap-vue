@@ -26,7 +26,7 @@ export default {
       this.$on('hook:beforeDestroy', () => {
         this.$root.$off(event, callback)
       })
-      // Return this for easy chaning
+      // Return this for easy chaining
       return this
     },
 
@@ -38,6 +38,7 @@ export default {
      */
     emitOnRoot(event, ...args) {
       this.$root.$emit(event, ...args)
+      // Return this for easy chaining
       return this
     }
   }
