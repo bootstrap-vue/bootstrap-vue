@@ -23,6 +23,14 @@ export default {
       selectedLastRow: -1
     }
   },
+  computed: {
+    isSelecting() {
+      return this.selectable &&
+        this.selectMode === 'range' &&
+        this.selectedRows &&
+        this.selectedRows.some(Boolean)
+    }
+  },
   watch: {
     computedItems(newVal, oldVal) {
       // Reset for selectable
