@@ -10,7 +10,7 @@ guidelines.
 
 Released: 2019-03-18
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.15
 
 - **carousel:** fix touchmove handler to re-enable swipe gestures
   ([#2844](https://github.com/bootstrap-vue/bootstrap-vue/issues/2844))
@@ -39,7 +39,7 @@ Released: 2019-03-18
   ([#2838](https://github.com/bootstrap-vue/bootstrap-vue/issues/2838))
   ([8471f31](https://github.com/bootstrap-vue/bootstrap-vue/commit/8471f31))
 
-### Features
+### Features v2.0.0-rc.15
 
 - **docs:** get recommended `Vue.js` and `Bootstrap` version from `package.json`
   ([#2840](https://github.com/bootstrap-vue/bootstrap-vue/issues/2840))
