@@ -144,6 +144,7 @@ export default {
     const link = isLink(props)
     const on = {
       click(e) {
+        /* istanbul ignore if: blink/button disabled should handle this */
         if (props.disabled && e instanceof Event) {
           e.stopPropagation()
           e.preventDefault()
