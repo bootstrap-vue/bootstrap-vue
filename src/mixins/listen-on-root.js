@@ -8,15 +8,6 @@ const BVRL = '__BV_root_listeners__'
 
 // @vue/component
 export default {
-  beforeDestroy() {
-    if (this[BVRL] && isArray(this[BVRL])) {
-      while (this[BVRL].length > 0) {
-        // shift to process in order
-        const { event, callback } = this[BVRL].shift()
-        this.$root.$off(event, callback)
-      }
-    }
-  },
   methods: {
     /**
      * Safely register event listeners on the root Vue node.
@@ -25,20 +16,20 @@ export default {
      * this orphans a callback because the node is gone,
      * but the root does not clear the callback.
      *
-     * This adds a non-reactive prop to a vm on the fly
-     * in order to avoid object observation and its performance costs
-     * to something that needs no reactivity.
-     * It should be highly unlikely there are any naming collisions.
+     * When registering a $root listener, it also registers a listener on
+     * the component's `beforeDestroy` hook to automatically remove the
+     * event listener from the $root instance.
+     * 
      * @param {string} event
      * @param {function} callback
      * @chainable
      */
     listenOnRoot(event, callback) {
-      if (!this[BVRL] || !isArray(this[BVRL])) {
-        this[BVRL] = []
-      }
-      this[BVRL].push({ event, callback })
       this.$root.$on(event, callback)
+      this.$on('hook:beforeDestroy', () => {
+        this.$root.$off(event, callback)
+      })
+      // Return this for easy chaning
       return this
     },
 
