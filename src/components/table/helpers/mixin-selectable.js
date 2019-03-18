@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    isSelecting() {
+    isSelectingRange() {
       return (
         this.selectable &&
         this.selectMode === 'range' &&
