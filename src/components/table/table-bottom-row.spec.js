@@ -18,6 +18,8 @@ describe('table bottom-row slot', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length)
+
+    wrapper.destroy()
   })
 
   it('should render named slot `bottom-row`', async () => {
@@ -47,6 +49,8 @@ describe('table bottom-row slot', () => {
         .at(testItems.length)
         .classes()
     ).toContain('b-table-bottom-row')
+
+    wrapper.destroy()
   })
 
   it('should render scoped slot `bottom-row`', async () => {
@@ -84,5 +88,7 @@ describe('table bottom-row slot', () => {
         .at(testItems.length)
         .classes()
     ).toContain('b-table-bottom-row')
+
+    wrapper.destroy()
   })
 })

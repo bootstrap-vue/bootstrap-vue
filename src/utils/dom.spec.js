@@ -29,18 +29,6 @@ const template1 = `
 `
 
 const App = Vue.extend({
-  destroyed() {
-    // Hack to remove DOM from document as vue-test-utils leaves
-    // the rendered DOM in document after each test, when
-    // mounting option `attachToDocument` is true.
-    // Requires each test to call wrapper.vm.$destroy() when done
-    //
-    // See: https://github.com/vuejs/vue-test-utils/issues/1185
-    //
-    if (this.$el && this.$el.parentNode && this.$el.parentNode.removeChild) {
-      this.$el.parentNode.removeChild(this.$el)
-    }
-  },
   template: template1
 })
 
@@ -55,7 +43,7 @@ describe('utils/dom', () => {
     expect(isElement(null)).toBe(false)
     expect(isElement(App)).toBe(false)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('isDisabled works', async () => {
@@ -71,7 +59,7 @@ describe('utils/dom', () => {
     expect(isDisabled($btns.at(1).element)).toBe(false)
     expect(isDisabled($btns.at(2).element)).toBe(true)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('hasClass works', async () => {
@@ -88,7 +76,7 @@ describe('utils/dom', () => {
     expect(hasClass($span.element, 'fizzlerocks')).toBe(false)
     expect(hasClass(null, 'foobar')).toBe(false)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('contains works', async () => {
@@ -109,7 +97,7 @@ describe('utils/dom', () => {
     expect(contains($span.element, $btn1.element)).toBe(false)
     expect(contains(null, $btn1.element)).toBe(false)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('closest works', async () => {
@@ -133,7 +121,7 @@ describe('utils/dom', () => {
     expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
     expect(closest('div.nothere', $btns.at(0).element)).toBe(null)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('matches works', async () => {
@@ -158,7 +146,7 @@ describe('utils/dom', () => {
     expect(matches($btns.at(0).element, 'button#button1')).toBe(true)
     expect(matches(null, 'div.foo')).toBe(false)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('hasAttr works', async () => {
@@ -178,7 +166,7 @@ describe('utils/dom', () => {
     expect(hasAttr($btns.at(2).element, 'role')).toBe(false)
     expect(hasAttr(null, 'role')).toBe(null)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('getAttr works', async () => {
@@ -201,7 +189,7 @@ describe('utils/dom', () => {
     expect(getAttr($btns.at(0).element, '')).toBe(null)
     expect(getAttr($btns.at(0).element, undefined)).toBe(null)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('select works', async () => {
@@ -227,7 +215,7 @@ describe('utils/dom', () => {
     expect(select('button#button3')).toBe($btns.at(2).element)
     expect(select('span.nothere')).toBe(null)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('selectAll works', async () => {
@@ -274,7 +262,7 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button')[1]).toBe($btns.at(1).element)
     expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
 
-    wrapper.vm.$destroy()
+    wrapper.destroy()
   })
 
   it('event options parsing works', async () => {

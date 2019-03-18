@@ -136,25 +136,24 @@ export default {
       this.$nextTick(this.checkView)
     }
   },
-  activated() {
-    /* istanbul ignore if */
+  activated() /* istanbul ignore next */ {
     if (!this.isShown) {
       this.setListeners(true)
       this.$nextTick(this.checkView)
     }
   },
-  deactivated() {
-    /* istanbul ignore next */
+  deactivated() /* istanbul ignore next */ {
     this.setListeners(false)
   },
   beforeDestroy() {
-    /* istanbul ignore next */
     this.setListeners(false)
   },
   methods: {
     setListeners(on) {
-      clearTimeout(this.scrollTimer)
-      this.scrollTimeout = null
+      if (this.scrollTimeout) {
+        clearTimeout(this.scrollTimeout)
+        this.scrollTimeout = null
+      }
       const root = window
       if (on) {
         eventOn(this.$el, 'load', this.checkView)
@@ -170,7 +169,7 @@ export default {
         eventOff(document, 'transitionend', this.onScroll, EventOptions)
       }
     },
-    checkView() /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
+    checkView() {
       // check bounding box + offset to see if we should show
       if (this.isShown) {
         this.setListeners(false)
@@ -186,7 +185,7 @@ export default {
       }
       /* istanbul ignore next */
       const box = getBCR(this.$el)
-      /* istanbul ignore if */
+      /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */
       if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
         // image is in view (or about to be in view)
         this.isShown = true

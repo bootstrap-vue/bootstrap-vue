@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.0.0-rc.14",
+  "version": "2.0.0-rc.15",
   "description": "BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "types": "src/index.d.ts",
@@ -90,7 +90,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/standalone": "^7.3.4",
     "@nuxtjs/google-analytics": "^2.2.0",
-    "@nuxtjs/pwa": "^3.0.0-beta.12",
+    "@nuxtjs/pwa": "^3.0.0-beta.14",
     "@vue/test-utils": "^1.0.0-beta.29",
     "autoprefixer": "^9.5.0",
     "babel-core": "^7.0.0-bridge.0",
@@ -101,18 +101,18 @@
     "codecov": "^3.2.0",
     "codemirror": "^5.44.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.15.1",
+    "eslint": "^5.15.2",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^22.3.2",
+    "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "esm": "^3.2.17",
+    "esm": "^3.2.18",
     "gh-pages": "^2.0.1",
     "highlightjs": "^9.12.0",
     "html-loader": "^0.5.5",
@@ -130,10 +130,11 @@
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
-    "standard-version": "^5.0.1",
+    "standard-version": "^5.0.2",
     "terser": "^3.17.0",
     "vue": "^2.6.9",
     "vue-jest": "^3.0.4",
+    "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.9",
     "vue-template-compiler": "^2.6.9"
   },
@@ -154,7 +155,7 @@
   },
   "standard-version": {
     "scripts": {
-      "postchangelog": "prettier --write CHANGELOG.md"
+      "postchangelog": "./node_modules/.bin/prettier --write CHANGELOG.md"
     }
   },
   "keywords": [

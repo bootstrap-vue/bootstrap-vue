@@ -22,6 +22,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) /* row item */
     expect(wrapper.emitted('row-clicked')[0][1]).toEqual(1) /* row index */
     expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-clicked event when prop busy is set', async () => {
@@ -39,6 +41,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
     $rows.at(1).trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should not emit row-clicked event when vm.localBusy is true', async () => {
@@ -57,6 +61,8 @@ describe('table tbody row events', () => {
     })
     $rows.at(1).trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should emit row-dblclicked event when a row is dblclicked', async () => {
@@ -76,6 +82,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-dblclicked')[0][0]).toEqual(testItems[1]) /* row item */
     expect(wrapper.emitted('row-dblclicked')[0][1]).toEqual(1) /* row index */
     expect(wrapper.emitted('row-dblclicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-dblclicked event when a row is dblclicked and table busy', async () => {
@@ -92,6 +100,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
     $rows.at(1).trigger('dblclick')
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should emit row-middle-clicked event when a row is middle clicked', async () => {
@@ -112,6 +122,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-middle-clicked')[0][1]).toEqual(1) /* row index */
     // expect(wrapper.emitted('row-middle-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
     expect(wrapper.emitted('row-middle-clicked')[0][2]).toBeInstanceOf(Event) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-middle-clicked event when a row is middle clicked and table busy', async () => {
@@ -128,6 +140,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
     $rows.at(1).trigger('auxclick', { which: 2 })
     expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should emit row-contextmenu event when a row is right clicked', async () => {
@@ -148,6 +162,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-contextmenu')[0][1]).toEqual(1) /* row index */
     // expect(wrapper.emitted('row-middle-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
     expect(wrapper.emitted('row-contextmenu')[0][2]).toBeInstanceOf(Event) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-contextmenu event when a row is right clicked and table busy', async () => {
@@ -164,6 +180,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-contextmenu')).not.toBeDefined()
     $rows.at(1).trigger('contextmenu')
     expect(wrapper.emitted('row-contextmenu')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should emit row-hovered event when a row is hovered', async () => {
@@ -183,6 +201,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-hovered')[0][0]).toEqual(testItems[1]) /* row item */
     expect(wrapper.emitted('row-hovered')[0][1]).toEqual(1) /* row index */
     expect(wrapper.emitted('row-hovered')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-hovered event when a row is hovered and table busy', async () => {
@@ -199,6 +219,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseenter')
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should emit row-unhovered event when a row is unhovered', async () => {
@@ -218,6 +240,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-unhovered')[0][0]).toEqual(testItems[1]) /* row item */
     expect(wrapper.emitted('row-unhovered')[0][1]).toEqual(1) /* row index */
     expect(wrapper.emitted('row-unhovered')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-unhovered event when a row is unhovered and table busy', async () => {
@@ -234,6 +258,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-uhovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseleave')
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should emit row-clicked event when a row is focusable and enter pressed', async () => {
@@ -259,6 +285,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-clicked')[0][1]).toEqual(1) /* row index */
     // Note: the KeyboardEvent is forwarded to the click handler
     expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(KeyboardEvent) /* event */
+
+    wrapper.destroy()
   })
 
   it('should not emit row-clicked event when a row is focusable, enter pressed, and table busy', async () => {
@@ -276,6 +304,8 @@ describe('table tbody row events', () => {
     $rows.at(1).element.focus() /* event only works when the tr is focused */
     $rows.at(1).trigger('keydown.enter')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should not emit row-clicked event when clicking on a button or other interactive element', async () => {
@@ -325,5 +355,7 @@ describe('table tbody row events', () => {
     expect($label.exists()).toBe(true)
     $label.trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 })

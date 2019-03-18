@@ -1,5 +1,6 @@
 import { keys } from '../../utils/object'
 import { arrayIncludes, concat } from '../../utils/array'
+import { isRouterLink, computeTag, computeRel, computeHref } from '../../utils/router'
 import { mergeData } from 'vue-functional-data-merge'
 
 /**
@@ -77,6 +78,7 @@ export function propsFactory() {
 
 export const props = propsFactory()
 
+// Return a fresh copy of BLink props, containing only the specifeid prop(s)
 export function pickLinkProps(propsToPick) {
   const freshLinkProps = propsFactory()
   // Normalize everything to array.
@@ -91,6 +93,7 @@ export function pickLinkProps(propsToPick) {
   }, {})
 }
 
+// Return a fresh copy of BLink props, keeping all but the specified omitting prop(s)
 export function omitLinkProps(propsToOmit) {
   const freshLinkProps = propsFactory()
   // Normalize everything to array.
@@ -105,90 +108,29 @@ export function omitLinkProps(propsToOmit) {
   }, {})
 }
 
-export const computed = {
-  linkProps() {
-    let linkProps = {}
-    let propKeys = keys(props)
-
-    for (let i = 0; i < propKeys.length; i++) {
-      const prop = propKeys[i]
-      // Computed Vue getters are bound to the instance.
-      linkProps[prop] = this[prop]
-    }
-
-    return linkProps
-  }
-}
-
-function computeTag(props, parent) {
-  return parent.$router && props.to && !props.disabled
-    ? parent.$nuxt
-      ? 'nuxt-link'
-      : 'router-link'
-    : 'a'
-}
-
-function isRouterLink(tag) {
-  return tag !== 'a'
-}
-
-function computeHref({ disabled, href, to }, tag) {
-  // We've already checked the parent.$router in computeTag,
-  // so isRouterLink(tag) indicates a live router.
-  // When deferring to Vue Router's router-link, don't use the href attr at all.
-  // We return null, and then remove href from the attributes passed to router-link
-  if (isRouterLink(tag)) {
-    return null
-  }
-
-  // If href explicitly provided
-  if (href) {
-    return href
-  }
-
-  // Reconstruct `href` when `to` used, but no router
-  if (to) {
-    // Fallback to `to` prop (if `to` is a string)
-    if (typeof to === 'string') {
-      return to
-    }
-    // Fallback to `to.path` prop (if `to` is an object)
-    if (typeof to === 'object' && typeof to.path === 'string') {
-      return to.path
-    }
-  }
-
-  // If nothing is provided use '#' as a fallback
-  return '#'
-}
-
-function computeRel({ target, rel }) {
-  if (target === '_blank' && rel === null) {
-    return 'noopener'
-  }
-  return rel || null
-}
-
 function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
-  return function onClick(e) {
-    if (disabled && e instanceof Event) {
+  return function onClick(evt) {
+    if (disabled && evt instanceof Event) {
       // Stop event from bubbling up.
-      e.stopPropagation()
+      evt.stopPropagation()
       // Kill the event loop attached to this specific EventTarget.
-      e.stopImmediatePropagation()
+      evt.stopImmediatePropagation()
     } else {
-      if (isRouterLink(tag) && e.target.__vue__) {
-        e.target.__vue__.$emit('click', e)
+      if (isRouterLink(tag) && evt.target.__vue__) {
+        // Router links do not emit instance 'click' events, so we
+        // add in an $emit('click', evt) on it's vue instance
+        evt.target.__vue__.$emit('click', evt)
       }
       if (typeof suppliedHandler === 'function') {
         suppliedHandler(...arguments)
       }
-      parent.$root.$emit('clicked::link', e)
+      parent.$root.$emit('clicked::link', evt)
     }
 
     if ((!isRouterLink(tag) && href === '#') || disabled) {
-      // Stop scroll-to-top behavior or navigation.
-      e.preventDefault()
+      // Stop scroll-to-top behavior or navigation on regular links
+      // when href is just '#'
+      evt.preventDefault()
     }
   }
 }

@@ -33,7 +33,7 @@ export default {
       eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
     }
   },
-  beforeDestroy() {
+  beforeDestroy() /* istanbul ignore next */ {
     eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
   },
   methods: {

@@ -6,12 +6,16 @@ describe('dropdown-item', () => {
     const wrapper = mount(DropdownItem)
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.attributes('href')).toBe('#')
+
+    wrapper.destroy()
   })
 
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(DropdownItem)
     expect(wrapper.classes()).toContain('dropdown-item')
     expect(wrapper.attributes('href')).toBe('#')
+
+    wrapper.destroy()
   })
 
   it('calls dropdown hide(true) method when clicked', async () => {
@@ -33,6 +37,8 @@ describe('dropdown-item', () => {
     await wrapper.vm.$nextTick()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
@@ -55,5 +61,7 @@ describe('dropdown-item', () => {
     await wrapper.vm.$nextTick()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
+
+    wrapper.destroy()
   })
 })

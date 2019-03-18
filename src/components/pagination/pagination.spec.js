@@ -22,13 +22,16 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('renders with correct basic inner structure', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 1,
-        perPage: 1
+        perPage: 1,
+        value: 1
       }
     })
     expect(wrapper.is('ul')).toBe(true)
@@ -75,6 +78,60 @@ describe('pagination', () => {
     expect(page.find('.page-link').attributes('tabindex')).toEqual('0')
     expect(page.find('.page-link').attributes('aria-label')).toEqual('Go to page 1')
     expect(page.find('.page-link').attributes('target')).toEqual('_self')
+
+    wrapper.destroy()
+  })
+
+  it('renders scopedSlot page', async () => {
+    let scopes = []
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 3,
+        perPage: 1,
+        limit: 10,
+        value: 1
+      },
+      scopedSlots: {
+        page: scope => {
+          const pageNum = scope.page
+          scopes[pageNum - 1] = scope
+          return `Page ${scope.page}`
+        }
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(scopes.length).toBe(3)
+    expect(scopes[0]).toEqual({
+      page: 1,
+      content: '1',
+      active: true,
+      index: 0,
+      disabled: false
+    })
+    expect(scopes[1]).toEqual({
+      page: 2,
+      content: '2',
+      active: false,
+      index: 1,
+      disabled: false
+    })
+    expect(scopes[2]).toEqual({
+      page: 3,
+      content: '3',
+      active: false,
+      index: 2,
+      disabled: false
+    })
+
+    const $links = wrapper.findAll('a.page-link')
+    expect($links.length).toBe(5)
+    expect($links.at(0).text()).toBe('Page 1')
+    expect($links.at(1).text()).toBe('Page 2')
+    expect($links.at(2).text()).toBe('Page 3')
+
+    wrapper.destroy()
   })
 
   it('has class "pagination-sm" when prop size="sm"', async () => {
@@ -97,6 +154,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "pagination-lg" when prop size="lg"', async () => {
@@ -119,6 +178,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "pagination-foo" when prop size="foo"', async () => {
@@ -142,6 +203,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "justify-content-center" when prop align="center"', async () => {
@@ -164,6 +227,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "justify-content-end" when prop align="right"', async () => {
@@ -186,6 +251,8 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
   it('has class "justify-content-end" when prop align="end"', async () => {
@@ -208,9 +275,37 @@ describe('pagination', () => {
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
   })
 
-  it('has atribute aria-controls on page links when prop aria-controls is set', async () => {
+  it('has class "text-center" and "flex-fill" when prop align="fill"', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        align: 'fill',
+        totalRows: 5,
+        perPage: 1,
+        limit: 4,
+        value: 3
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+
+    // Classes
+    expect(wrapper.classes()).toContain('text-center')
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).not.toContain('pagination-sm')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+
+    expect(wrapper.findAll('li.flex-fill').length).toBe(8)
+
+    wrapper.destroy()
+  })
+
+  it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         hideGotoEndButtons: true,
@@ -233,9 +328,11 @@ describe('pagination', () => {
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('a.page-link').length).toBe(4)
     expect(wrapper.findAll('a.page-link').is('[aria-controls]')).toBe(false)
+
+    wrapper.destroy()
   })
 
-  it('has atribute aria-label on page links', async () => {
+  it('has attribute aria-label on page links', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         hideGotoEndButtons: true,
@@ -272,6 +369,8 @@ describe('pagination', () => {
         .at(3)
         .attributes('aria-label')
     ).toBe('Go to next page')
+
+    wrapper.destroy()
   })
 
   it('has all links disabled when prop disabled set', async () => {
@@ -306,9 +405,11 @@ describe('pagination', () => {
         .at(4)
         .attributes('aria-disabled')
     ).toBe('true')
+
+    wrapper.destroy()
   })
 
-  it('renders classes d-none and d-sm-flex when more than 3 pages', async () => {
+  it('renders classes bv-d-xs-down-none when more than 3 pages', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
         totalRows: 70,
@@ -320,12 +421,12 @@ describe('pagination', () => {
     expect(wrapper.is('ul')).toBe(true)
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
-    // including bookend buttons
+    // Including bookend buttons
     expect(lis.length).toBe(11)
 
-    // should have the last 4 page buttons with the display classes
-    // When currentPage = 0
-    expect(wrapper.vm.currentPage).toBe(1)
+    // Should have the last 4 page buttons with the
+    // display classes when currentPage = 0
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -338,7 +439,7 @@ describe('pagination', () => {
         // Prev button
         expect(li.classes()).toContain('disabled')
       } else if (index === 9) {
-        // Next buton
+        // Next button
         expect(li.classes()).not.toContain('disabled')
       } else if (index === 10) {
         // Last button
@@ -351,22 +452,20 @@ describe('pagination', () => {
           expect(li.classes()).not.toContain('active')
         }
         if (index < 5) {
-          expect(li.classes()).not.toContain('d-none')
-          expect(li.classes()).not.toContain('d-sm-flex')
+          expect(li.classes()).not.toContain('bv-d-xs-down-none')
         } else if (index > 4) {
-          expect(li.classes()).toContain('d-none')
-          expect(li.classes()).toContain('d-sm-flex')
+          expect(li.classes()).toContain('bv-d-xs-down-none')
         }
       }
     })
 
-    // should have the first and last 2 pages buttons with the display classes
-    // When currentPage = 4
+    // Should have the first and last 2 pages buttons with the
+    // display classes when currentPage = 4
     wrapper.setProps({
       value: '4'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(4)
+    expect(wrapper.vm.computedCurrentPage).toBe(4)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -379,7 +478,7 @@ describe('pagination', () => {
         // Prev button
         expect(li.classes()).not.toContain('disabled')
       } else if (index === 9) {
-        // Next buton
+        // Next button
         expect(li.classes()).not.toContain('disabled')
       } else if (index === 10) {
         // Last button
@@ -392,22 +491,20 @@ describe('pagination', () => {
           expect(li.classes()).not.toContain('active')
         }
         if (index > 3 && index < 7) {
-          expect(li.classes()).not.toContain('d-none')
-          expect(li.classes()).not.toContain('d-sm-flex')
+          expect(li.classes()).not.toContain('bv-d-xs-down-none')
         } else if (index < 4 || index > 6) {
-          expect(li.classes()).toContain('d-none')
-          expect(li.classes()).toContain('d-sm-flex')
+          expect(li.classes()).toContain('bv-d-xs-down-none')
         }
       }
     })
 
-    // should have the first 4 pages buttons with the display classes
-    // When currentPage = 4
+    // Should have the first 4 pages buttons with the
+    // display classes when currentPage = 4
     wrapper.setProps({
       value: '7'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(7)
+    expect(wrapper.vm.computedCurrentPage).toBe(7)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
@@ -416,14 +513,14 @@ describe('pagination', () => {
       // Page number buttons
       if (index >= 2 && index <= 5) {
         // pages 1 to 4
-        expect(li.classes()).toContain('d-none')
-        expect(li.classes()).toContain('d-sm-flex')
+        expect(li.classes()).toContain('bv-d-xs-down-none')
       } else if (index >= 6 && index <= 8) {
         // pages 5 to 7
-        expect(li.classes()).not.toContain('d-none')
-        expect(li.classes()).not.toContain('d-sm-flex')
+        expect(li.classes()).not.toContain('bv-d-xs-down-none')
       }
     })
+
+    wrapper.destroy()
   })
 
   it('places ellipsis in correct places', async () => {
@@ -439,36 +536,36 @@ describe('pagination', () => {
 
     // Should have ellipsis in place of last button
     // When currentPage = 0
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     // Grab the page buttons
     let lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).not.toBe('separator')
     expect(lis.at(6).attributes('role')).toBe('separator')
 
-    // should have both ellipsis showing
-    // When currentPage = 4
+    // Should have both ellipsis showing when currentPage = 4
     wrapper.setProps({
       value: '4'
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(4)
+    expect(wrapper.vm.computedCurrentPage).toBe(4)
     lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).toBe('separator')
 
-    // should have first ellipsis showing
-    // When currentPage = 5
+    // Should have first ellipsis showing when currentPage = 5
     wrapper.setProps({
       value: 5
     })
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(5)
+    expect(wrapper.vm.computedCurrentPage).toBe(5)
     lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
     expect(lis.at(2).attributes('role')).toBe('separator')
     expect(lis.at(6).attributes('role')).not.toBe('separator')
+
+    wrapper.destroy()
   })
 
   it('clicking buttons updates the v-model', async () => {
@@ -485,44 +582,46 @@ describe('pagination', () => {
     let lis = wrapper.findAll('li')
     expect(lis.length).toBe(7)
 
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    // click on 2nd button
+    // Click on 2nd button
     wrapper
       .findAll('li')
       .at(3)
       .find('a')
       .trigger('click')
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
     expect(wrapper.emitted('change')[0][0]).toBe(2)
 
-    // click goto last button
+    // Click goto last button
     wrapper
       .findAll('li')
       .at(6)
       .find('a')
       .trigger('keydown.space') /* generates a click event */
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
 
-    // click prev button
+    // Click prev button
     wrapper
       .findAll('li')
       .at(1)
       .find('a')
       .trigger('click')
     await wrapper.vm.$nextTick()
-    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('changing the limit changes the nuber of buttons shown', async () => {
@@ -546,14 +645,17 @@ describe('pagination', () => {
 
     // Should be 8 <LI> total
     expect(wrapper.findAll('li').length).toBe(8)
+
+    wrapper.destroy()
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
+
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true.
-      // In our test below, all pagination buttons would normally be visible.
+      // Mock getBCR so that the isVisible(el) test returns true
+      // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => {
         return {
           width: 24,
@@ -582,6 +684,7 @@ describe('pagination', () => {
       })
       await wrapper.vm.$nextTick()
       expect(wrapper.is('ul')).toBe(true)
+      await wrapper.vm.$nextTick()
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       let links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(7)
@@ -617,6 +720,8 @@ describe('pagination', () => {
       links.at(6).trigger('keydown.left', { shiftKey: true })
       await wrapper.vm.$nextTick()
       expect(document.activeElement).toEqual(links.at(0).element)
+
+      wrapper.destroy()
     })
 
     it('internal method focusCurrent() works', async () => {
@@ -643,6 +748,8 @@ describe('pagination', () => {
       wrapper.vm.focusCurrent()
       await wrapper.vm.$nextTick()
       expect(document.activeElement).toEqual(links.at(3).element)
+
+      wrapper.destroy()
     })
 
     it('Current page button is focused when button display changes', async () => {
@@ -663,13 +770,15 @@ describe('pagination', () => {
       links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(6)
 
-      // Click on hte 4th button (page 4, index 3)
+      // Click on the 4th button (page 4, index 3)
       links.at(3).element.click()
       await wrapper.vm.$nextTick()
-      // links re-rendered with first bookends enabled and an ellipsis
+      // Links re-rendered with first bookends enabled and an ellipsis
       links = wrapper.findAll('a.page-link')
-      // HTe 4th link should be page 4, and retain focus
+      // The 4th link should be page 4, and retain focus
       expect(document.activeElement).toEqual(links.at(3).element)
+
+      wrapper.destroy()
     })
   })
 })

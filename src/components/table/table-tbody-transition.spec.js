@@ -7,6 +7,7 @@ const testFields = ['a', 'b', 'c']
 describe('table body transition', () => {
   it('tbody should not be a transition-group component by default', async () => {
     const wrapper = mount(Table, {
+      attachToDocument: true,
       propsData: {
         fields: testFields,
         items: testItems
@@ -20,10 +21,13 @@ describe('table body transition', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
     expect(wrapper.find(TransitionGroupStub).exists()).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('tbody should be a transition-group component when tbody-transition-props set', async () => {
     const wrapper = mount(Table, {
+      attachToDocument: true,
       propsData: {
         fields: testFields,
         items: testItems,
@@ -40,10 +44,13 @@ describe('table body transition', () => {
     expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('tbody should be a transition-group component when tbody-transition-handlers set', async () => {
     const wrapper = mount(Table, {
+      attachToDocument: true,
       propsData: {
         fields: testFields,
         items: testItems,
@@ -63,5 +70,7 @@ describe('table body transition', () => {
     expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
+
+    wrapper.destroy()
   })
 })

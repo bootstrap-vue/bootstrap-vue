@@ -10,7 +10,7 @@ export default {
     sizeFormClass() {
       return [this.size ? `form-control-${this.size}` : null]
     },
-    sizeBtnClass() {
+    sizeBtnClass() /* istanbul ignore next: don't think this is used */ {
       return [this.size ? `btn-${this.size}` : null]
     }
   }

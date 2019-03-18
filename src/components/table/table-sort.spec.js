@@ -36,6 +36,8 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+
+    wrapper.destroy()
   })
 
   it('should sort column descending when sortBy set and sortDesc changed', async () => {
@@ -107,6 +109,8 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+
+    wrapper.destroy()
   })
 
   it('should accept custom sort compare', async () => {
@@ -143,6 +147,8 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('1')
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('3')
+
+    wrapper.destroy()
   })
 
   it('should sort columns when clicking headers', async () => {
@@ -256,5 +262,7 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+
+    wrapper.destroy()
   })
 })

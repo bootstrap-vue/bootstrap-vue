@@ -15,6 +15,8 @@ describe('table caption', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('caption').exists()).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('should render named slot `table-caption`', async () => {
@@ -33,6 +35,8 @@ describe('table caption', () => {
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+
+    wrapper.destroy()
   })
 
   it('should render scoped slot `table-caption`', async () => {
@@ -60,6 +64,8 @@ describe('table caption', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('should render `caption` when prop caption is set', async () => {
@@ -76,6 +82,8 @@ describe('table caption', () => {
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+
+    wrapper.destroy()
   })
 
   it('should render `caption` when prop caption-html is set', async () => {
@@ -98,6 +106,8 @@ describe('table caption', () => {
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+
+    wrapper.destroy()
   })
 
   it('should render `caption` with class when prop caption-top is set', async () => {
@@ -115,6 +125,8 @@ describe('table caption', () => {
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).toContain('b-table-caption-top')
+
+    wrapper.destroy()
   })
 
   it('should render `caption` with id attribute when prop stacked is true', async () => {
@@ -135,6 +147,8 @@ describe('table caption', () => {
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).toBeDefined()
     expect(wrapper.find('caption').attributes('id')).toBe('zzz__caption_')
+
+    wrapper.destroy()
   })
 
   it('should render `caption` with id attribute when prop stacked is sm', async () => {
@@ -155,5 +169,7 @@ describe('table caption', () => {
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).toBeDefined()
     expect(wrapper.find('caption').attributes('id')).toBe('zzz__caption_')
+
+    wrapper.destroy()
   })
 })
