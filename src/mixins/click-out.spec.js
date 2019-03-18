@@ -1,5 +1,6 @@
 import clickOutMixin from './click-out'
 import { mount } from '@vue/test-utils'
+import Vue from 'vue'
 
 describe('utils/click-out', () => {
   it('works', async () => {
