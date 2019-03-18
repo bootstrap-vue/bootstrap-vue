@@ -2,12 +2,15 @@ import clickOutMixin from './clickout'
 import { mount } from '@vue/test-utils'
 
 describe('utils/click-out', () => {
-  it ('works', async() => {
+  it ('works', async () => {
     let count = 0
-    App = Vue.extend({
+    const App = Vue.extend({
       mixins: [clickOutMixin],
       data() {
         // listenForClickOut comes from the mixin
+      },
+      mounted() {
+        this.listenForCLickOut = true
       },
       methods: {
         clickOutHandler(evt) {
@@ -27,15 +30,7 @@ describe('utils/click-out', () => {
 
     expect(wrapper).toBeDefined()
     expect(count).toBe(0)
-    expect(wrapper.vm.listenForClickOut).toBe(false)
-
-    // When this.listenForClickOut is false
-    expect(wraper.find('button').exists()).toBe(true)
-    wrapper.find('button').trigger(click)
-    expect(count).toBe(0)
-    document.dispatchEvent(clickEvt)
-    await wrapper.vm.$nextTick()
-    expect(count).toBe(0)
+    expect(wrapper.vm.listenForClickOut).toBe(true)
 
     // When this.listenForClickOut is true
     wrapper.setData({
@@ -50,12 +45,14 @@ describe('utils/click-out', () => {
     await wrapper.vm.$nextTick()
     expect(count).toBe(1)
 
-    // When this.listenForClickOut returns to false
+    // When this.listenForClickOut is false
     wrapper.setData({
       listenForClickOut: false
     })
     document.dispatchEvent(clickEvt)
     await wrapper.vm.$nextTick()
     expect(count).toBe(1)
+
+    wrapper.destroy()
   })
 })
