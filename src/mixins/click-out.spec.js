@@ -1,8 +1,8 @@
-import clickOutMixin from './clickout'
+import clickOutMixin from './click-out'
 import { mount } from '@vue/test-utils'
 
 describe('utils/click-out', () => {
-  it ('works', async () => {
+  it('works', async () => {
     let count = 0
     const App = Vue.extend({
       mixins: [clickOutMixin],
