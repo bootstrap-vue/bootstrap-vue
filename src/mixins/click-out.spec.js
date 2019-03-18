@@ -7,10 +7,8 @@ describe('utils/click-out', () => {
     let count = 0
     const App = Vue.extend({
       mixins: [clickOutMixin],
-      data() {
-        // listenForClickOut comes from the mixin
-      },
-      mounted() {
+      // listenForClickOut comes from the mixin data
+      created() {
         this.listenForClickOut = true
       },
       methods: {
@@ -34,9 +32,6 @@ describe('utils/click-out', () => {
     expect(wrapper.vm.listenForClickOut).toBe(true)
 
     // When this.listenForClickOut is true
-    wrapper.setData({
-      listenForClickOut: true
-    })
     expect(count).toBe(0)
     wrapper.find('button').trigger('click')
     expect(count).toBe(0)
