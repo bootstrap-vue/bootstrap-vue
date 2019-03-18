@@ -1,16 +1,21 @@
 import ImgLazy from './img-lazy'
 import { mount } from '@vue/test-utils'
 
+const src = 'https://picsum.photos/1024/400/?image=41'
+
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
-    const wrapper = mount(ImgLazy)
+    const wrapper = mount(ImgLazy, {
+      propsData: {
+        src: src
+      }
+    })
     expect(wrapper.is('img')).toBe(true)
 
     wrapper.destroy()
   })
 
   it('shows when show prop is set', async () => {
-    const src = 'https://picsum.photos/1024/400/?image=41'
     const wrapper = mount(ImgLazy, {
       propsData: {
         src: src,

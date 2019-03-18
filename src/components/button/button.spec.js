@@ -154,8 +154,6 @@ describe('button', () => {
     expect(vm.getAttribute('aria-pressed')).toBe('true')
   })
 
-  /*
-   * I have no clue why this test fails.
   it('pressed should have `.focus` class when focused', async () => {
     const { app } = window
     const btn = app.$refs.btn_pressed
@@ -163,15 +161,16 @@ describe('button', () => {
     await setData(app, 'btnToggle', false)
     await nextTick()
 
-    btn.focus()
+    const focusinEvt = new FocusEvent('focusin')
+    btn.dispatchEvent(focusinEvt)
     await nextTick()
     expect(btn).toHaveClass('focus')
 
-    btn.blur()
+    const focusoutEvt = new FocusEvent('focusout')
+    btn.dispatchEvent(focusoutEvt)
     await nextTick()
     expect(btn).not.toHaveClass('focus')
   })
-  */
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
     const { app } = window
