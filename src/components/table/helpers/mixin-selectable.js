@@ -25,10 +25,12 @@ export default {
   },
   computed: {
     isSelecting() {
-      return this.selectable &&
+      return (
+        this.selectable &&
         this.selectMode === 'range' &&
         this.selectedRows &&
         this.selectedRows.some(Boolean)
+      )
     }
   },
   watch: {
