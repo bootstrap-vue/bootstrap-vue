@@ -11,7 +11,7 @@ describe('utils/click-out', () => {
         // listenForClickOut comes from the mixin
       },
       mounted() {
-        this.listenForCLickOut = true
+        this.listenForClickOut = true
       },
       methods: {
         clickOutHandler(evt) {
