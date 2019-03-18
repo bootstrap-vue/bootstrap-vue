@@ -198,7 +198,8 @@ export default {
         'b-table-fixed': this.fixed,
         'b-table-stacked': this.stacked === true || this.stacked === '',
         [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked,
-        'b-table-selectable': this.selectable
+        'b-table-selectable': this.selectable,
+        'b-table-selecting-range': this.isSelectingRange
       }
     },
     // Items related computed props
