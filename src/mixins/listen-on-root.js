@@ -1,10 +1,7 @@
-import { isArray } from '../utils/array'
 /**
  * Issue #569: collapse::toggle::state triggered too many times
  * @link https://github.com/bootstrap-vue/bootstrap-vue/issues/569
  */
-
-const BVRL = '__BV_root_listeners__'
 
 // @vue/component
 export default {
@@ -19,7 +16,7 @@ export default {
      * When registering a $root listener, it also registers a listener on
      * the component's `beforeDestroy` hook to automatically remove the
      * event listener from the $root instance.
-     * 
+     *
      * @param {string} event
      * @param {function} callback
      * @chainable
