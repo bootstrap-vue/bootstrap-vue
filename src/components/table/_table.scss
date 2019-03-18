@@ -164,7 +164,7 @@
 
   // Disabled text-selection when in mode range with at
   // least one row selected
-  &.b-table-selecting {
+  &.b-table-selecting-range {
     user-select: none;
   }
 }
