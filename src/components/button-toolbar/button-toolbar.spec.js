@@ -85,15 +85,11 @@ describe('button-toolbar', () => {
     // Test App for keynav
     const App = Vue.extend({
       render(h) {
-        return h(
-          ButtonToolbar,
-          { props: { keyNav: true } },
-          [
-            h(ButtonGroup, {}, [h(Button, {}, 'a'), h(Button, {}, 'b')]),
-            h(ButtonGroup, {}, [h(Button, {}, 'c'), h(Button, {}, 'd')]),
-            h(ButtonGroup, {}, [h(Button, {}, 'e'), h(Button, {}, 'f')])
-          ]
-        )
+        return h(ButtonToolbar, { props: { keyNav: true } }, [
+          h(ButtonGroup, {}, [h(Button, {}, 'a'), h(Button, {}, 'b')]),
+          h(ButtonGroup, {}, [h(Button, {}, 'c'), h(Button, {}, 'd')]),
+          h(ButtonGroup, {}, [h(Button, {}, 'e'), h(Button, {}, 'f')])
+        ])
       }
     })
 
@@ -103,7 +99,7 @@ describe('button-toolbar', () => {
       })
 
       expect(wrapper.is('div')).toBe(true)
-      expect(wrapper.is(ButtonGroup)).toBe(true)
+      expect(wrapper.is(ButtonToolbar)).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $groups = wrapper.findAll('.btn-group')
