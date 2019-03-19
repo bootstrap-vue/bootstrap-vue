@@ -208,18 +208,19 @@ export default {
       // Preserve user supplied aria-describedby, if provided in $attrs
       const adb =
         [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
-
+      const items = this.computedItems
+      const fields = this.computedFields
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
         'aria-rowcount':
-          this.filteredItems.length > this.items.length ? String(this.filteredItems.length) : null,
+          this.filteredItems.length > items.length ? String(this.filteredItems.length) : null,
         // Merge in user supplied $attrs if any
         ...this.$attrs,
         // Now we can override any $attrs here
         id: this.safeId(),
         role: this.isStacked ? 'table' : null,
         'aria-busy': this.computedBusy ? 'true' : 'false',
-        'aria-colcount': String(this.fields.length),
+        'aria-colcount': String(fields.length),
         'aria-describedby': adb,
         ...this.selectableTableAttrs
       }
