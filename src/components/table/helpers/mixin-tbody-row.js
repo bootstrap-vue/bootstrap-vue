@@ -80,7 +80,7 @@ export default {
       const keyCode = evt.keyCode
       const target = evt.target
       const trs = this.$refs.itemRows
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy(evt)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
