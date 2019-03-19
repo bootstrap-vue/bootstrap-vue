@@ -106,7 +106,7 @@ export default {
     },
     selectableRowAttrs(idx) {
       return {
-        'aria-selected' = !this.selectable ? null : this.isRowSelected(idx) ? 'true' : 'false'
+        'aria-selected': !this.selectable ? null : this.isRowSelected(idx) ? 'true' : 'false'
       }
     },
     clearSelected() {
