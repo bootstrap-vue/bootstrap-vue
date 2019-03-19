@@ -37,20 +37,21 @@ export default {
         this.focusFirst(evt)
       }
     },
+    stop(evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
+    },
     onKeydown(evt) {
       if (!this.keyNav) {
         return
       }
       const key = evt.keyCode
       const shift = evt.shiftKey
-      if (!arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.LEFT, KeyCodes.RIGHT], key)) {
-        return
-      }
-      evt.preventDefault()
-      evt.stopPropagation()
       if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
+        this.stop(evt)
         shift ? this.focusFirst(evt) : this.focusPrev(evt)
       } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
+        this.stop(evt)
         shift ? this.focusLast(evt) : this.focusNext(evt)
       }
     },
