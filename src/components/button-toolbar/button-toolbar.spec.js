@@ -87,9 +87,7 @@ describe('button-toolbar', () => {
       render(h) {
         return h(ButtonToolbar, { props: { keyNav: true } }, [
           h(ButtonGroup, {}, [h(Button, {}, 'a'), h(Button, {}, 'b')]),
-          h(ButtonGroup, {}, [
-            h(Button, { props: { disabled: true } }, 'c'), h(Button, {}, 'd')
-          ]),
+          h(ButtonGroup, {}, [h(Button, { props: { disabled: true } }, 'c'), h(Button, {}, 'd')]),
           h(ButtonGroup, {}, [h(Button, {}, 'e'), h(Button, {}, 'f')])
         ])
       }
@@ -114,7 +112,12 @@ describe('button-toolbar', () => {
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
       expect($btns.is(Button)).toBe(true)
-      expect($btns.is('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(0).is('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(1).is('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(2).is('button[tabindex="-1"')).toBe(false) // disabled button
+      expect($btns.at(3).is('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(4).is('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(5).is('button[tabindex="-1"')).toBe(true)
 
       wrapper.destroy()
     })
@@ -133,12 +136,12 @@ describe('button-toolbar', () => {
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
 
-      expect(document.activeElement).not.toBe(wrapper)
-      expect(document.activeElement).not.toBe($btns.at(0))
+      expect(document.activeElement).not.toBe(wrapper.element)
+      expect(document.activeElement).not.toBe($btns.at(0).element)
 
       wrapper.trigger('focusin')
       await wrapper.vm.$nextTick()
-      expect(document.activeElement).toBe($btns.at(0))
+      expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()
     })
