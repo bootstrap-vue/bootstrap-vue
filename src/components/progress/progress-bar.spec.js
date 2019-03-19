@@ -44,7 +44,7 @@ describe('progress-bar', () => {
       }
     })
 
-    expect(wrapper.classes()).toContain('bg-primary')
+    expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes()).toContain('progress-bar')
 
     wrapper.destroy()
@@ -57,7 +57,7 @@ describe('progress-bar', () => {
           variant: 'info'
         }
       },
-      prosData: {
+      propsData: {
         variant: 'primary'
       }
     })
@@ -158,7 +158,7 @@ describe('progress-bar', () => {
 
   it('has max set when parent max set', async () => {
     const wrapper = mount(ProgressBar, {
-      injsect: {
+      provide: {
         bvProgress: {
           max: 50
         }
