@@ -522,7 +522,7 @@ export default {
         key: 'b-table',
         staticClass: 'table b-table',
         class: this.tableClasses,
-        attrs: this.tableAttrs,
+        attrs: this.tableAttrs
       },
       [$caption, $colgroup, $thead, $tfoot, $tbody]
     )
