@@ -42,6 +42,7 @@ export default {
     },
     onKeydown(evt) {
       if (!this.keyNav) {
+        /* istanbul ignore next: should never happen */
         return
       }
       const key = evt.keyCode
