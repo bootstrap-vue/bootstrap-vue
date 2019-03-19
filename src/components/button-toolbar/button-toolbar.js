@@ -45,53 +45,37 @@ export default {
       if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
         evt.preventDefault()
         evt.stopPropagation()
-        if (shift) {
-          this.focusFirst(evt)
-        } else {
-          this.focusNext(evt, true)
-        }
+        shift ? this.focusFirst(evt) : this.focusPrev(evt)
       } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
         evt.preventDefault()
         evt.stopPropagation()
-        if (shift) {
-          this.focusLast(evt)
-        } else {
-          this.focusNext(evt, false)
-        }
+        shift ? this.focusLast(evt) : this.focusNext(evt)
       }
     },
     setItemFocus(item) {
       this.$nextTick(() => {
-        item.focus()
+        item && item.focus && item.focus()
       })
     },
-    focusNext(evt, prev) {
+    focusPrev(evt) {
+      let items = this.getItems()
+      const index = items.indexOf(evt.target)
+      items = items.slice(0, index)
+      this.setItemFocus(items[0])
+    },
+    focusNext(evt) {
       const items = this.getItems()
-      if (items.length < 1) {
-        return
-      }
-      let index = items.indexOf(evt.target)
-      if (prev && index > 0) {
-        index--
-      } else if (!prev && index < items.length - 1) {
-        index++
-      }
-      if (index < 0) {
-        index = 0
-      }
-      this.setItemFocus(items[index])
+      const index = items.indexOf(evt.target)
+      items = items.slice(index + 1).reverse()
+      this.setItemFocus(items[0])
     },
     focusFirst(evt) {
       const items = this.getItems()
-      if (items.length > 0) {
-        this.setItemFocus(items[0])
-      }
+      this.setItemFocus(items[0])
     },
     focusLast(evt) {
       const items = this.getItems()
-      if (items.length > 0) {
-        this.setItemFocus([items.length - 1])
-      }
+      this.setItemFocus([items.length - 1])
     },
     getItems() {
       let items = selectAll(ITEM_SELECTOR, this.$el)
