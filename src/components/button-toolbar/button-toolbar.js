@@ -60,13 +60,13 @@ export default {
     focusPrev(evt) {
       let items = this.getItems()
       const index = items.indexOf(evt.target)
-      items = items.slice(0, index)
+      items = items.slice(0, index).reverse()
       this.setItemFocus(items[0])
     },
     focusNext(evt) {
       let items = this.getItems()
       const index = items.indexOf(evt.target)
-      items = items.slice(index + 1).reverse()
+      items = items.slice(index)
       this.setItemFocus(items[0])
     },
     focusFirst(evt) {
@@ -74,8 +74,8 @@ export default {
       this.setItemFocus(items[0])
     },
     focusLast(evt) {
-      const items = this.getItems()
-      this.setItemFocus([items.length - 1])
+      const items = this.getItems().reverse()
+      this.setItemFocus(items[0])
     },
     getItems() {
       let items = selectAll(ITEM_SELECTOR, this.$el)
