@@ -14,7 +14,7 @@ declare module 'bootstrap-vue' {
 
   export default VuePlugin
 
-  type VueVariant = 'active' | 'success' | 'info' | 'warning' | 'danger'
+  type TableVariant = 'active' | 'success' | 'info' | 'warning' | 'danger'
   type SortDirection = 'asc' | 'desc'
   type FormatterCallback = ((value: mixed, key: string, item: mixed) => string)
 
@@ -29,14 +29,14 @@ declare module 'bootstrap-vue' {
     tdClass: string | string[] | FormatterCallback
     thClass: string | string[]
     thStyle: mixed
-    variant: VueVariant
+    variant: TableVariant
     tdAttr: mixed | ((value: mixed, key: string, item: mixed) => mixed)
     isRowHeader: boolean
   }
   export interface TableFieldObject {
     [key: string]: TableField
   }
-  export interface TableFieldArray extends Array<string | {key: string & TableField}> {}
+  export type TableFieldArray = Array<string | ({key: string} & TableField)>
 
   // Interfaces
   export interface Alert extends Vue {
@@ -139,7 +139,7 @@ declare module 'bootstrap-vue' {
   export interface Progress extends Vue {}
   export interface Table extends Vue {
     refresh: () => void
-    fields: TableFieldObject | TableFieldArray
+    fields?: TableFieldObject | TableFieldArray
   }
   export interface Tabs extends Vue {}
   export interface Tooltip extends Vue {
