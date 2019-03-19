@@ -186,19 +186,43 @@ export default {
           : ''
     },
     tableClasses() {
+      return [
+        {
+          'table-striped': this.striped,
+          'table-hover': this.hover,
+          'table-dark': this.dark,
+          'table-bordered': this.bordered,
+          'table-borderless': this.borderless,
+          'table-sm': this.small,
+          border: this.outlined,
+          // The following are b-table custom styles
+          'b-table-fixed': this.fixed,
+          'b-table-stacked': this.stacked === true || this.stacked === '',
+          [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked
+        },
+        // Selectable classes
+        this.selectableTableClasses
+      ]
+    },
+    tableAttrs() {
+      // Preserve user supplied aria-describedby, if provided in $attrs
+      const adb =
+        [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
+      const items = this.computedItems
+      const fields = this.computedFields
       return {
-        'table-striped': this.striped,
-        'table-hover': this.hover,
-        'table-dark': this.dark,
-        'table-bordered': this.bordered,
-        'table-borderless': this.borderless,
-        'table-sm': this.small,
-        border: this.outlined,
-        // The following are b-table custom styles
-        'b-table-fixed': this.fixed,
-        'b-table-stacked': this.stacked === true || this.stacked === '',
-        [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked,
-        'b-table-selectable': this.selectable
+        // We set aria-rowcount before merging in $attrs, in case user has supplied their own
+        'aria-rowcount':
+          this.filteredItems.length > items.length ? String(this.filteredItems.length) : null,
+        // Merge in user supplied $attrs if any
+        ...this.$attrs,
+        // Now we can override any $attrs here
+        id: this.safeId(),
+        role: this.isStacked ? 'table' : null,
+        'aria-busy': this.computedBusy ? 'true' : 'false',
+        'aria-colcount': String(fields.length),
+        'aria-describedby': adb,
+        ...this.selectableTableAttrs
       }
     },
     // Items related computed props
@@ -477,9 +501,6 @@ export default {
     }
   },
   render(h) {
-    const fields = this.computedFields
-    const items = this.computedItems
-
     // Build the caption (from caption mixin)
     const $caption = this.renderCaption()
 
@@ -502,31 +523,7 @@ export default {
         key: 'b-table',
         staticClass: 'table b-table',
         class: this.tableClasses,
-        attrs: {
-          // We set aria-rowcount before merging in $attrs, in case user has supplied their own
-          'aria-rowcount':
-            this.filteredItems.length > items.length ? String(this.filteredItems.length) : null,
-          // Merge in user supplied $attrs if any
-          ...this.$attrs,
-          // Now we can override any $attrs here
-          id: this.safeId(),
-          role: this.isStacked ? 'table' : null,
-          'aria-multiselectable': this.selectable
-            ? this.selectMode === 'single'
-              ? 'false'
-              : 'true'
-            : null,
-          'aria-busy': this.computedBusy ? 'true' : 'false',
-          'aria-colcount': String(fields.length),
-          'aria-describedby':
-            [
-              // Preserve user supplied aria-describedby, if provided in $attrs
-              (this.$attrs || {})['aria-describedby'],
-              this.captionId
-            ]
-              .filter(a => a)
-              .join(' ') || null
-        }
+        attrs: this.tableAttrs
       },
       [$caption, $colgroup, $thead, $tfoot, $tbody]
     )
