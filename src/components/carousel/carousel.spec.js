@@ -278,6 +278,9 @@ describe('carousel', () => {
     carousel.$on('unpaused', spy1)
     carousel.$on('paused', spy2)
 
+    expect(carousel.interval).toBe(0)
+    expect(carousel.isPaused).toBe(true)
+
     jest.runOnlyPendingTimers()
     await nextTick()
     expect(spy1).not.toHaveBeenCalled()
@@ -286,6 +289,8 @@ describe('carousel', () => {
     await setData(app, 'interval', 1000)
     await app.$nextTick()
     jest.runOnlyPendingTimers()
+    expect(carousel.interval).toBe(1000)
+    expect(carousel.isPaused).toBe(false)
     expect(spy1).toHaveBeenCalled()
     expect(spy2).not.toHaveBeenCalled()
 
