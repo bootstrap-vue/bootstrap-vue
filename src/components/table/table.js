@@ -207,21 +207,19 @@ export default {
     tableAttrs() {
       // Preserve user supplied aria-describedby, if provided in $attrs
       const adb =
-        [(this.$attrs || {})['aria-describedby'], this.captionId]
-          .filter(Boolean)
-          .join(' ') || null
+        [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
 
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
         'aria-rowcount':
-          this.filteredItems.length > items.length ? String(this.filteredItems.length) : null,
+          this.filteredItems.length > this.items.length ? String(this.filteredItems.length) : null,
         // Merge in user supplied $attrs if any
         ...this.$attrs,
         // Now we can override any $attrs here
         id: this.safeId(),
         role: this.isStacked ? 'table' : null,
         'aria-busy': this.computedBusy ? 'true' : 'false',
-        'aria-colcount': String(fields.length),
+        'aria-colcount': String(this.fields.length),
         'aria-describedby': adb,
         ...this.selectableTableAttrs
       }
@@ -502,9 +500,6 @@ export default {
     }
   },
   render(h) {
-    const fields = this.computedFields
-    const items = this.computedItems
-
     // Build the caption (from caption mixin)
     const $caption = this.renderCaption()
 
