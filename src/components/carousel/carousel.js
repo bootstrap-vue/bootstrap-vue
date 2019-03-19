@@ -138,7 +138,7 @@ export default {
       transitionEndEvent: null,
       slides: [],
       direction: null,
-      isPaused: false,
+      isPaused: this.interval ? false : true,
       // Touch event handling values
       touchStartX: 0,
       touchDeltaX: 0
@@ -181,6 +181,8 @@ export default {
     this._intervalId = null
     this._animationTimeout = null
     this._touchTimeout = null
+    // Set initial paused state
+    this.isPaused = this.interval ? false : true
   },
   mounted() {
     // Cache current browser transitionend event name
