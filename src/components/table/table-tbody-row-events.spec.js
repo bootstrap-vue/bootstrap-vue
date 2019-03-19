@@ -393,30 +393,30 @@ describe('table tbody row events', () => {
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
-    expect(document.activeElement).not.toBe($rows.at(0))
-    expect(document.activeElement).not.toBe($rows.at(1))
-    expect(document.activeElement).not.toBe($rows.at(2))
+    expect(document.activeElement).not.toEqual($rows.at(0))
+    expect(document.activeElement).not.toEqual($rows.at(1))
+    expect(document.activeElement).not.toEqual($rows.at(2))
 
     $rows.at(0).trigger('focus')
-    expect(document.activeElement).toBe($rows.at(0))
+    expect(document.activeElement).toEqual($rows.at(0))
 
     $rows.at(0).trigger('keydown.end')
-    expect(document.activeElement).toBe($rows.at(2))
+    expect(document.activeElement).toEqual($rows.at(2))
 
     $rows.at(2).trigger('keydown.home')
-    expect(document.activeElement).toBe($rows.at(0))
+    expect(document.activeElement).toEqual($rows.at(0))
 
     $rows.at(0).trigger('keydown.down')
-    expect(document.activeElement).toBe($rows.at(1))
+    expect(document.activeElement).toEqual($rows.at(1))
 
     $rows.at(1).trigger('keydown.up')
-    expect(document.activeElement).toBe($rows.at(0))
+    expect(document.activeElement).toEqual($rows.at(0))
 
     $rows.at(0).trigger('keydown.down', { shiftKey: true })
-    expect(document.activeElement).toBe($rows.at(2))
+    expect(document.activeElement).toEqual($rows.at(2))
 
     $rows.at(2).trigger('keydown.up', { shiftKey: true })
-    expect(document.activeElement).toBe($rows.at(0))
+    expect(document.activeElement).toEqual($rows.at(0))
 
     wrapper.destroy()
   })
