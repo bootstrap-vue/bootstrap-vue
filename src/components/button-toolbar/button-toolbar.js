@@ -1,4 +1,5 @@
 import { isVisible, selectAll } from '../../utils/dom'
+import { arrayIncludes } from '../../utils/array'
 import KeyCodes from '../../utils/key-codes'
 
 const ITEM_SELECTOR = [
@@ -42,36 +43,39 @@ export default {
       }
       const key = evt.keyCode
       const shift = evt.shiftKey
+      if (!arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.LEFT, KeyCodes.RIGHT], key)) {
+        return
+      }
+      evt.preventDefault()
+      evt.stopPropagation()
       if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
-        evt.preventDefault()
-        evt.stopPropagation()
         shift ? this.focusFirst(evt) : this.focusPrev(evt)
       } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
-        evt.preventDefault()
-        evt.stopPropagation()
         shift ? this.focusLast(evt) : this.focusNext(evt)
       }
     },
     setItemFocus(item) {
-      this.$nextTick(() => {
-        item && item.focus && item.focus()
-      })
-    },
-    focusPrev(evt) {
-      let items = this.getItems()
-      const index = items.indexOf(evt.target)
-      items = items.slice(0, index).reverse()
-      this.setItemFocus(items[0])
-    },
-    focusNext(evt) {
-      let items = this.getItems()
-      const index = items.indexOf(evt.target)
-      items = items.slice(index)
-      this.setItemFocus(items[0])
+      item && item.focus && item.focus()
     },
     focusFirst(evt) {
       const items = this.getItems()
       this.setItemFocus(items[0])
+    },
+    focusPrev(evt) {
+      let items = this.getItems()
+      const index = items.indexOf(evt.target)
+      if (index > -1) {
+        items = items.slice(0, index).reverse()
+        this.setItemFocus(items[0])
+      }
+    },
+    focusNext(evt) {
+      let items = this.getItems()
+      const index = items.indexOf(evt.target)
+      if (index > -1) {
+        items = items.slice(index)
+        this.setItemFocus(items[0])
+      }
     },
     focusLast(evt) {
       const items = this.getItems().reverse()
