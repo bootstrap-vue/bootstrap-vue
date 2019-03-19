@@ -104,7 +104,7 @@ export default {
         [`${base}-${variant}`]: this.selectable && rowSelected && variant
       }
     },
-    selectableRowAttributes(idx) {
+    selectableRowAttrs(idx) {
       return {
         'aria-selected' = !this.selectable ? null : this.isRowSelected(idx) ? 'true' : 'false'
       }
