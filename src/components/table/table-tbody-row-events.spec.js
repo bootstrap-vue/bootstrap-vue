@@ -295,8 +295,8 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-clicked').length).toBe(1)
     expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) /* row item */
     expect(wrapper.emitted('row-clicked')[0][1]).toEqual(1) /* row index */
-    // Note: the KeyboardEvent is converted into a MouseEvent
-    expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
+    // Note: the KeyboardEvent is passed to the row-clicked handler
+    expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(KeyboardEvent) /* event */
 
     wrapper.destroy()
   })
