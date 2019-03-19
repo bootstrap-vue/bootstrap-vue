@@ -33,7 +33,7 @@ export default {
         'b-table-selecting': isSelecting
       }
     },
-    selectableTableAttributes() {
+    selectableTableAttrs() {
       return {
         'aria-multiselectable': this.selectableIsMultiSelect
       }
@@ -94,19 +94,6 @@ export default {
   methods: {
     isRowSelected(idx) {
       return Boolean(this.selectedRows[idx])
-    },
-    rowSelectedClasses(idx) {
-      if (this.selectable) {
-        const rowSelected = this.isRowSelected(idx)
-        const base = this.dark ? 'bg' : 'table'
-        const variant = this.selectedVariant
-        return {
-          'b-row-selected': rowSelected,
-          [`${base}-${variant}`]: rowSelected && variant
-        }
-      } else {
-        return {}
-      }
     },
     selectableRowClasses(idx) {
       const rowSelected = this.isRowSelected(idx)
