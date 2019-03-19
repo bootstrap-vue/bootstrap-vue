@@ -112,11 +112,11 @@ export default {
         } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
           // Focus last row
           trs[trs.length - 1].focus()
-        } else if (keyCode === KeyCodes.UP && index > 1) {
+        } else if (keyCode === KeyCodes.UP && index > 0) {
           // Focus previous row
           trs[index - 1].focus()
-        } else if (keyCode === KeyCodes.DOWN && index < trs.length - 2) {
-          // Focus previous row
+        } else if (keyCode === KeyCodes.DOWN && index < trs.length - 1) {
+          // Focus next row
           trs[index + 1].focus()
         }
       }
