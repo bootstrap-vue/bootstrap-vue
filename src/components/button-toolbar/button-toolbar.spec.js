@@ -87,7 +87,10 @@ describe('button-toolbar', () => {
       render(h) {
         return h(ButtonToolbar, { props: { keyNav: true } }, [
           h(ButtonGroup, {}, [h(Button, {}, 'a'), h(Button, {}, 'b')]),
-          h(ButtonGroup, {}, [h(Button, {}, 'c'), h(Button, {}, 'd')]),
+          h(ButtonGroup, {}, [
+            h(Button, { props: { disabled: true } }, 'c'),
+            h(Button, {}, 'd')
+          ]),
           h(ButtonGroup, {}, [h(Button, {}, 'e'), h(Button, {}, 'f')])
         ])
       }
@@ -111,6 +114,28 @@ describe('button-toolbar', () => {
       expect($btns.length).toBe(6)
       expect($btns.is(Button)).toBe(true)
       expect($btns.is('button[tabindex="-1"')).toBe(true)
+
+      wrapper.destroy()
+    })
+
+    it('focuses first button when tabbed into', async () => {
+      const wrapper = mount(App, {
+        attachToDocument: true
+      })
+
+      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.attributes('tabindex')).toBe('0')
+
+      const $btns = wrapper.findAll('button')
+      expect($btns).toBeDefined()
+      expect($btns.length).toBe(6)
+
+      expect(document.activeElement).not.toBe(wrapper)
+      expect(document.activeElement).not.toBe($btns.at(0))
+
+      wrapper.trigger('focusin')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe($btns.at(0))
 
       wrapper.destroy()
     })
