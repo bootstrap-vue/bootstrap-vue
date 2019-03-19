@@ -253,6 +253,7 @@ export default {
       if (!evt) {
         this.isPaused = false
       }
+      /* istanbul ignore next: most likley will never happen, but just in case */
       if (this._intervalId) {
         clearInterval(this._intervalId)
         this._intervalId = null
