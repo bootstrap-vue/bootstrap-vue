@@ -106,22 +106,6 @@ describe('progress-bar', () => {
     wrapper.destroy()
   })
 
-  it('has min set', async () => {
-    const wrapper = mount(ProgressBar, {
-      propsData: {
-        value: 75,
-        min: 50
-      }
-    })
-
-    expect(wrapper.attributes('style')).toContain('width: 50%;')
-    expect(wrapper.attributes('aria-valuenow')).toBe('75')
-    expect(wrapper.attributes('aria-valuemin')).toBe('50')
-    expect(wrapper.attributes('aria-valuemax')).toBe('100')
-
-    wrapper.destroy()
-  })
-
   it('has label when prop label set', async () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
@@ -161,7 +145,8 @@ describe('progress-bar', () => {
   it('has label when show-value set', async () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
-        value: 50
+        value: 50,
+        showValue: true
       }
     })
 
@@ -174,6 +159,7 @@ describe('progress-bar', () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
         value: 50,
+        showValue: true,
         precision: 2
       }
     })
@@ -187,6 +173,7 @@ describe('progress-bar', () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
         value: 25,
+        showProgress: true,
         max: 50
       }
     })
@@ -200,6 +187,7 @@ describe('progress-bar', () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
         value: 25,
+        showProgress: true,
         max: 50,
         precision: 2
       }
