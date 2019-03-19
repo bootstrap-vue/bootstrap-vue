@@ -48,7 +48,6 @@ export default {
       }
       evt.preventDefault()
       evt.stopPropagation()
-      console.log('Keydown', evt)
       if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
         shift ? this.focusFirst(evt) : this.focusPrev(evt)
       } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
@@ -74,7 +73,7 @@ export default {
       let items = this.getItems()
       const index = items.indexOf(evt.target)
       if (index > -1) {
-        items = items.slice(index)
+        items = items.slice(index + 1)
         this.setItemFocus(items[0])
       }
     },
