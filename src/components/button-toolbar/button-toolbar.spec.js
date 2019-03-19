@@ -100,6 +100,8 @@ describe('button-toolbar', () => {
         attachToDocument: true
       })
 
+      await wrapper.vm.$nextTick()
+
       expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
@@ -121,6 +123,8 @@ describe('button-toolbar', () => {
       const wrapper = mount(App, {
         attachToDocument: true
       })
+
+      await wrapper.vm.$nextTick()
 
       expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
