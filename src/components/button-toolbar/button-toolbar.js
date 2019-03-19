@@ -1,5 +1,4 @@
 import { isVisible, selectAll } from '../../utils/dom'
-import { arrayIncludes } from '../../utils/array'
 import KeyCodes from '../../utils/key-codes'
 
 const ITEM_SELECTOR = [
