@@ -98,8 +98,7 @@ describe('button-toolbar', () => {
         attachToDocument: true
       })
 
-      expect(wrapper.is('div')).toBe(true)
-      expect(wrapper.is(ButtonToolbar)).toBe(true)
+      expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $groups = wrapper.findAll('.btn-group')
