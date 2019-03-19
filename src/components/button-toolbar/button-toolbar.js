@@ -64,7 +64,7 @@ export default {
       this.setItemFocus(items[0])
     },
     focusNext(evt) {
-      const items = this.getItems()
+      let items = this.getItems()
       const index = items.indexOf(evt.target)
       items = items.slice(index + 1).reverse()
       this.setItemFocus(items[0])
