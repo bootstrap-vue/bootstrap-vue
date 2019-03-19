@@ -105,7 +105,7 @@ export default {
       ) {
         evt.stopPropagation()
         evt.preventDefault()
-        const shift = evt.shift
+        const shift = evt.shiftKey
         if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
           // Focus first row
           trs[0].focus()
