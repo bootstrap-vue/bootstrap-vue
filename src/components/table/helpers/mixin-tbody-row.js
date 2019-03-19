@@ -75,7 +75,7 @@ export default {
       }
       return value === null || typeof value === 'undefined' ? '' : value
     },
-    tbodyRowKeydown(evt, item, index) {
+    tbodyRowKeydown(evt, item, rowIndex) {
       const keyCode = evt.keyCode
       const target = evt.target
       const trs = this.$refs.itemRows
@@ -99,7 +99,7 @@ export default {
         evt.preventDefault()
         // We also allow enter/space to trigger a click (when row is focused)
         // We translate to a row-clicked event
-        this.rowClicked(evt, item, index)
+        this.rowClicked(evt, item, rowIndex)
       } else if (
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
