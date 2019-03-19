@@ -1,6 +1,6 @@
 import ButtonToolbar from './button-toolbar'
-// import ButtonGroup from '../button-group/button-group'
-// import Button from '../button/button'
+import ButtonGroup from '../button-group/button-group'
+import Button from '../button/button'
 import { mount } from '@vue/test-utils'
 
 describe('button-toolbar', () => {
@@ -81,8 +81,42 @@ describe('button-toolbar', () => {
       Element.prototype.getBoundingClientRect = origGetBCR
     })
 
-    it('works', async () => {
-      expect(true).not.toBe(false)
+    // Test App for keynav
+    const App = Vue.extend({
+      render(h) {
+        return h(
+          ButtonToolbar,
+          { props: { keyNav: true } },
+          [
+            h(ButtonGroup, {} [h(Button, {} 'a'), h(Button, {} 'b')]),
+            h(ButtonGroup, {} [h(Button, {} 'c'), h(Button, {} 'd')]),
+            h(ButtonGroup, {} [h(Button, {} 'e'), h(Button, {} 'f')])
+          ]
+        )
+      }
+    })
+
+    it('has correct structure', async () => {
+      const wrapper = mount(App, {
+        attachToDocument: true
+      })
+
+      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.is(ButtonGroup)).toBe(true)
+      expect(wrapper.attributes('tabindex')).toBe('0')
+
+      const $groups = wrapper.findAll('.btn-group')
+      expect($groups).toBeDefined()
+      expect($groups.length).toBe(3)
+      expect($groups.is(ButtonGroup)).toBe(true)
+
+      const $btns = wrapper.findAll('button')
+      expect($btns).toBeDefined()
+      expect($btns.length).toBe(6)
+      expect($btns.is(Button)).toBe(true)
+      expect($btns.is('button[tabindex="-1"')).toBe(true)
+
+      wrapper.destroy()
     })
   })
 })
