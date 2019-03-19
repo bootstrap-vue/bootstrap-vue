@@ -95,7 +95,9 @@ export default {
         evt.preventDefault()
         // We also allow enter/space to trigger a click (when row is focused)
         evt.target.click()
-      } else if (arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)) {
+      } else if (
+        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
+      ) {
         evt.stopPropagation()
         evt.preventDefault()
         const shift = evt.shift
@@ -273,7 +275,9 @@ export default {
 
       const handlers = {}
       if (hasRowClickHandler) {
-        handlers['click'] = evt => { this.rowClicked(evt, item, rowIndex) }
+        handlers['click'] = evt => {
+          this.rowClicked(evt, item, rowIndex)
+        }
         handlers['keydown'] = this.tbodyRowKeydown
       }
 
