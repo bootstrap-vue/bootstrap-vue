@@ -378,4 +378,46 @@ describe('table tbody row events', () => {
 
     wrapper.destroy()
   })
+
+  it('keyboard events moves focus to apropriate rows', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {
+        // Tabindex will only be set if htere is a row-clicked listener
+        'row-clicked': () => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(document.activeElement).not.toBe($rows.at(0))
+    expect(document.activeElement).not.toBe($rows.at(1))
+    expect(document.activeElement).not.toBe($rows.at(2))
+
+    $rows.at(0).trigger('focus')
+    expect(document.activeElement).toBe($rows.at(0))
+
+    $rows.at(0).trigger('keydown.end')
+    expect(document.activeElement).toBe($rows.at(2))
+
+    $rows.at(2).trigger('keydown.home')
+    expect(document.activeElement).toBe($rows.at(0))
+
+    $rows.at(0).trigger('keydown.down')
+    expect(document.activeElement).toBe($rows.at(1))
+
+    $rows.at(1).trigger('keydown.up')
+    expect(document.activeElement).toBe($rows.at(0))
+
+    $rows.at(0).trigger('keydown.down', { shiftKey: true })
+    expect(document.activeElement).toBe($rows.at(2))
+
+    $rows.at(2).trigger('keydown.up', { shiftKey: true })
+    expect(document.activeElement).toBe($rows.at(0))
+
+    wrapper.destroy()
+  })
 })
