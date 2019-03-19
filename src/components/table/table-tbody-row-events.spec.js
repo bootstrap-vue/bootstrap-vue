@@ -397,7 +397,7 @@ describe('table tbody row events', () => {
     expect(document.activeElement).not.toBe($rows.at(1).element)
     expect(document.activeElement).not.toBe($rows.at(2).element)
 
-    $rows.at(0).trigger('focus')
+    $rows.at(0).element.focus()
     expect(document.activeElement).toBe($rows.at(0).element)
 
     $rows.at(0).trigger('keydown.end')
