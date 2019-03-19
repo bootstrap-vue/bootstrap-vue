@@ -418,6 +418,13 @@ describe('table tbody row events', () => {
     $rows.at(2).trigger('keydown.up', { shiftKey: true })
     expect(document.activeElement).toBe($rows.at(0).element)
 
+    // SHould only move focus if TR was target
+    $rows
+      .at(0)
+      .find('td')
+      .trigger('keydown.down')
+    expect(document.activeElement).toBe($rows.at(0).element)
+
     wrapper.destroy()
   })
 })
