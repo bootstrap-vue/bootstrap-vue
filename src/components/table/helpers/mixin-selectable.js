@@ -1,5 +1,5 @@
 import looseEqual from '../../../utils/loose-equal'
-import { isArray } from '../../../utils/array'
+import { isArray, arrayIncludes } from '../../../utils/array'
 import sanitizeRow from './sanitize-row'
 
 export default {
@@ -24,13 +24,26 @@ export default {
     }
   },
   computed: {
-    isSelectingRange() {
-      return (
-        this.selectable &&
-        this.selectMode === 'range' &&
-        this.selectedRows &&
-        this.selectedRows.some(Boolean)
-      )
+    selectableTableClasses() {
+      const selectable = this.selectable
+      const isSelecting = selectable && this.selectedRows && this.selectedRows.some(Boolean)
+      return {
+        'b-table-selectable': selectable,
+        [`b-table-select-${this.selectMode}`]: selectable,
+        'b-table-selecting': isSelecting
+      }
+    },
+    selectableTableAttributes() {
+      return {
+        'aria-multiselectable': this.selectableIsMultiSelect
+      }
+    },
+    selectableIsMultiSelect() {
+      if (this.selectable) {
+        return arrayIncludes(['range', 'multi'], this.selectMode) ? 'true' : 'false'
+      } else {
+        return null
+      }
     }
   },
   watch: {
@@ -95,6 +108,20 @@ export default {
         return {}
       }
     },
+    selectableRowClasses(idx) {
+      const rowSelected = this.isRowSelected(idx)
+      const base = this.dark ? 'bg' : 'table'
+      const variant = this.selectedVariant
+      return {
+        'b-table-row-selected': this.selectable && rowSelected,
+        [`${base}-${variant}`]: this.selectable && rowSelected && variant
+      }
+    },
+    selectableRowAttributes(idx) {
+      return {
+        'aria-selected' = !this.selectable ? null : this.isRowSelected(idx) ? 'true' : 'false'
+      }
+    },
     clearSelected() {
       let hasSelection = this.selectedRows.reduce((prev, v) => {
         return prev || v
@@ -135,7 +162,6 @@ export default {
             idx <= Math.max(this.selectedLastRow, index);
             idx++
           ) {
-            // this.$set(this.selectedRows, idx, true)
             selectedRows[idx] = true
           }
           selected = true
@@ -148,7 +174,6 @@ export default {
           this.selectedLastRow = selected ? index : -1
         }
       }
-      // this.$set(this.selectedRows, index, selected)
       selectedRows[index] = selected
       this.selectedRows = selectedRows
     }
