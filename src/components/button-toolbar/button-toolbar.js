@@ -48,6 +48,7 @@ export default {
       }
       evt.preventDefault()
       evt.stopPropagation()
+      console.log('Keydown', evt)
       if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
         shift ? this.focusFirst(evt) : this.focusPrev(evt)
       } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
