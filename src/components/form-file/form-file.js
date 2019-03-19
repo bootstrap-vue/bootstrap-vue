@@ -174,7 +174,7 @@ export default {
       // Triggered when the parent form (if any) is reset
       this.selectedFile = this.multiple ? [] : null
     },
-    onDragover(evt) {
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -183,12 +183,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    onDragleave(evt) {
+    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop(evt) {
+    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
