@@ -285,14 +285,16 @@ describe('carousel', () => {
 
     await setData(app, 'interval', 1000)
     await app.$nextTick()
+    jest.runOnlyPendingTimers()
     expect(spy1).toHaveBeenCalled()
     expect(spy2).not.toHaveBeenCalled()
 
-    jest.runAllTimers()
+    jest.runOnlyPendingTimers()
     await nextTick()
 
     await setData(app, 'interval', 0)
     await app.$nextTick()
+    jest.runOnlyPendingTimers()
     expect(spy2).toHaveBeenCalled()
   })
 })
