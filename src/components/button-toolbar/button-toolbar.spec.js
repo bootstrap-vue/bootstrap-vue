@@ -1,6 +1,6 @@
-import ButonToolbar from './button-toolbar'
-import ButtonGroup from '../button-group/button-group'
-import Button from '../button/button'
+import ButtonToolbar from './button-toolbar'
+// import ButtonGroup from '../button-group/button-group'
+// import Button from '../button/button'
 import { mount } from '@vue/test-utils'
 
 describe('button-toolbar', () => {
