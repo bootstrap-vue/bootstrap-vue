@@ -195,7 +195,6 @@ export default {
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
       const $detailsSlot = $scoped['row-details']
       const rowShowDetails = Boolean(item._showDetails && $detailsSlot)
-      const rowSelected = this.isRowSelected(rowIndex) /* from selctable mixin */
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -244,7 +243,7 @@ export default {
             key: `__b-table-row-${rowKey}__`,
             class: [
               this.rowClasses(item),
-              this.rowSelectedClasses(rowIndex),
+              this.selectableRowClasses(rowIndex),
               {
                 'b-table-has-details': rowShowDetails
               }
@@ -256,8 +255,8 @@ export default {
               'aria-describedby': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
-              'aria-selected': this.selectable ? (rowSelected ? 'true' : 'false') : null,
-              role: 'row'
+              role: 'row',
+              ...this.selectableRowAttrs(rowIndex)
             },
             on: {
               // TODO: only instatiate handlers if we have registered listeners (except row-clicked)
