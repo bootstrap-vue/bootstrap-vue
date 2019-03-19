@@ -2,6 +2,7 @@ import ButtonToolbar from './button-toolbar'
 import ButtonGroup from '../button-group/button-group'
 import Button from '../button/button'
 import { mount } from '@vue/test-utils'
+import Vue from 'vue'
 
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {
