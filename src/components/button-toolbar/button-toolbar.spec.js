@@ -145,5 +145,51 @@ describe('button-toolbar', () => {
 
       wrapper.destroy()
     })
+
+    it('keyboard navigation works', async () => {
+      const wrapper = mount(App, {
+        attachToDocument: true
+      })
+
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.attributes('tabindex')).toBe('0')
+
+      const $btns = wrapper.findAll('button')
+      expect($btns).toBeDefined()
+      expect($btns.length).toBe(6)
+
+      // Focus first button
+      $btns.at(0).element.focus()
+      expect(document.activeElement).toBe($btns.at(0).element)
+
+      // Cursor right
+      $btns.at(0).trigger('keydown.right')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe($btns.at(1).element)
+
+      // Cursor right (skips disabled button)
+      $btns.at(1).trigger('keydown.right')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe($btns.at(3).element)
+
+      // Cursor shift-right (focuses last button)
+      $btns.at(1).trigger('keydown.right', { shiftKey: true })
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe($btns.at(5).element)
+
+      // Cursor left
+      $btns.at(5).trigger('keydown.left')
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe($btns.at(4).element)
+
+      // Cursor shift left (focuses first button)
+      $btns.at(5).trigger('keydown.left', { shiftKey: true })
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).toBe($btns.at(0).element)
+
+      wrapper.destroy()
+    })
   })
 })
