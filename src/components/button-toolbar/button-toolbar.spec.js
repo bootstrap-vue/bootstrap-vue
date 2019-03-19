@@ -82,7 +82,7 @@ describe('button-toolbar', () => {
     })
 
     it('works', async () => {
-      expect(true).toBe(true)
+      expect(true).not.toBe(false)
     })
   })
 })
