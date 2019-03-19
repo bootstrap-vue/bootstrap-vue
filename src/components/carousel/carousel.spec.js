@@ -267,4 +267,32 @@ describe('carousel', () => {
     expect(spyEnd).toHaveBeenCalledWith(app.slide)
     expect(carousel.isSliding).toBe(false)
   })
+
+  it('should emit paused and unpaused events when interval hcanged to 0', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    const spy1 = jest.fn()
+    const spy2 = jest.fn()
+
+    carousel.$on('unpaused', spy1)
+    carousel.$on('paused', spy2)
+
+    jest.runOnlyPendingTimers()
+    await nextTick()
+    expect(spy1).not.toHaveBeenCalled()
+    expect(spy2).not.toHaveBeenCalled()
+
+    await setData(app, 'interval', 1000)
+    await app.$nextTick()
+    expect(spy1).toHaveBeenCalled()
+    expect(spy2).not.toHaveBeenCalled()
+
+    jest.runAllTimers()
+    await nextTick()
+
+    await setData(app, 'interval', 0)
+    await app.$nextTick()
+    expect(spy2).toHaveBeenCalled()
+  })
 })
