@@ -244,7 +244,7 @@ export default {
             key: `__b-table-row-${rowKey}__`,
             class: [
               this.rowClasses(item),
-              this.rowSelectedClasses(rowIndex),
+              this.selectableRowClasses(rowIndex),
               {
                 'b-table-has-details': rowShowDetails
               }
@@ -256,8 +256,8 @@ export default {
               'aria-describedby': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
-              'aria-selected': this.selectable ? (rowSelected ? 'true' : 'false') : null,
-              role: 'row'
+              role: 'row',
+              ...this.selectableRowAttrs(rowIndex)
             },
             on: {
               // TODO: only instatiate handlers if we have registered listeners (except row-clicked)
