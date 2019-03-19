@@ -89,9 +89,9 @@ describe('button-toolbar', () => {
           ButtonToolbar,
           { props: { keyNav: true } },
           [
-            h(ButtonGroup, {} [h(Button, {} 'a'), h(Button, {} 'b')]),
-            h(ButtonGroup, {} [h(Button, {} 'c'), h(Button, {} 'd')]),
-            h(ButtonGroup, {} [h(Button, {} 'e'), h(Button, {} 'f')])
+            h(ButtonGroup, {}, [h(Button, {}, 'a'), h(Button, {}, 'b')]),
+            h(ButtonGroup, {}, [h(Button, {}, 'c'), h(Button, {}, 'd')]),
+            h(ButtonGroup, {}, [h(Button, {}, 'e'), h(Button, {}, 'f')])
           ]
         )
       }
