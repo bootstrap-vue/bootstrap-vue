@@ -1188,6 +1188,16 @@ as read-only.**
 <!-- b-table-selectable.vue -->
 ```
 
+When table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
+
 **Notes:**
 
 - _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
