@@ -171,6 +171,7 @@ export default {
     },
     index(to, from) {
       if (to === from || this.isSliding) {
+        /* istanbul ignore next */
         return
       }
       this.doSlide(to, from)
