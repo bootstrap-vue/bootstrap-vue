@@ -75,7 +75,7 @@ export default {
       }
       return value === null || typeof value === 'undefined' ? '' : value
     },
-    tbodyRowKeydown(evt) {
+    tbodyRowKeydown(evt, item, index) {
       const keyCode = evt.keyCode
       const target = evt.target
       const trs = this.$refs.itemRows
@@ -84,6 +84,10 @@ export default {
         return
       } else if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
         // Ignore if not the active tr element
+        return
+      } else if (target.tabIndex !== 0) {
+        // Ignore if not focusable
+        /* istanbul ignore next */
         return
       } else if (trs && trs.length === 0) {
         /* istanbul ignore next */
@@ -94,7 +98,8 @@ export default {
         evt.stopPropagation()
         evt.preventDefault()
         // We also allow enter/space to trigger a click (when row is focused)
-        evt.target.click()
+        // We translate to a row-clicked event
+        this.rowClicked(evt, item, index)
       } else if (
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
@@ -278,7 +283,9 @@ export default {
         handlers['click'] = evt => {
           this.rowClicked(evt, item, rowIndex)
         }
-        handlers['keydown'] = this.tbodyRowKeydown
+        handlers['keydown'] = evt => {
+          this.tbodyRowKeydown(evt, item, rowIndex)
+        }
       }
 
       // Add the item row
