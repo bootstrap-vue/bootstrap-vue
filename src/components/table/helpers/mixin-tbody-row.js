@@ -1,7 +1,6 @@
 import toString from '../../../utils/to-string'
 import get from '../../../utils/get'
 import KeyCodes from '../../../utils/key-codes'
-import { selectAll } from '../../../utils/dom'
 import { arrayIncludes } from '../../../utils/array'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -96,20 +95,20 @@ export default {
         evt.preventDefault()
         // We also allow enter/space to trigger a click (when row is focused)
         evt.target.click()
-      } else if (arrayIncludes([KeyCode.UP, KeyCode.DOWN, KeyCode.HOME, KeyCode.END], keyCode)) {
+      } else if (arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)) {
         evt.stopPropagation()
         evt.preventDefault()
         const shift = evt.shift
-        if (keyCode === KeyCode.HOME || (shift && keyCode === KeyCode.UP)) {
+        if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
           // Focus first row
           trs[0].focus()
-        } else if (keyCode === KeyCode.END || (shift && keyCode === KeyCode.DOWN)) {
+        } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
           // Focus last row
           trs[trs.length - 1].focus()
-        } else if (keyCode === KeyCode.UP && index > 1) {
+        } else if (keyCode === KeyCodes.UP && index > 1) {
           // Focus previous row
           trs[index - 1].focus()
-        } else if (keyCode === KeyCode.DOWN && index < trs.length - 2) {
+        } else if (keyCode === KeyCodes.DOWN && index < trs.length - 2) {
           // Focus previous row
           trs[index + 1].focus()
         }
