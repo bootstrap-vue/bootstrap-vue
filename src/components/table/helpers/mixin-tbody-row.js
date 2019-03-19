@@ -195,7 +195,6 @@ export default {
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
       const $detailsSlot = $scoped['row-details']
       const rowShowDetails = Boolean(item._showDetails && $detailsSlot)
-      const rowSelected = this.isRowSelected(rowIndex) /* from selctable mixin */
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
