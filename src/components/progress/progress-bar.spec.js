@@ -37,7 +37,7 @@ describe('progress-bar', () => {
 
   it('has class bg-info when parent variant=info', async () => {
     const wrapper = mount(ProgressBar, {
-      inject: {
+      provide: {
         bvProgress: {
           variant: 'info'
         }
@@ -52,7 +52,7 @@ describe('progress-bar', () => {
 
   it('has class bg-primary when prop variant=primary and parent variant=info', async () => {
     const wrapper = mount(ProgressBar, {
-      inject: {
+      provide: {
         bvProgress: {
           variant: 'info'
         }
@@ -82,7 +82,7 @@ describe('progress-bar', () => {
 
   it('has class progress-bar-striped when parent prop striped set', async () => {
     const wrapper = mount(ProgressBar, {
-      inject: {
+      provide: {
         bvProgress: {
           striped: true
         }
@@ -111,7 +111,7 @@ describe('progress-bar', () => {
 
   it('has class progress-bar-animated and progress-bar-striped when parent prop animated set', async () => {
     const wrapper = mount(ProgressBar, {
-      inject: {
+      provide: {
         bvProgress: {
           animated: true
         }
