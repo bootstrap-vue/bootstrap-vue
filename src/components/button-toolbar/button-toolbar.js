@@ -22,11 +22,6 @@ export default {
       default: false
     }
   },
-  computed: {
-    classObject() {
-      return ['btn-toolbar', this.justify && !this.vertical ? 'justify-content-between' : '']
-    }
-  },
   mounted() {
     if (this.keyNav) {
       // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
@@ -111,15 +106,18 @@ export default {
     return h(
       'div',
       {
-        class: this.classObject,
+        staticClass: 'btn-toolbar',
+        class: { 'justify-content-between': this.justify },
         attrs: {
           role: 'toolbar',
           tabindex: this.keyNav ? '0' : null
         },
-        on: {
-          focusin: this.onFocusin,
-          keydown: this.onKeydown
-        }
+        on: this.keyNav
+          ? {
+              focusin: this.onFocusin,
+              keydown: this.onKeydown
+            }
+          : {}
       },
       [this.$slots.default]
     )
