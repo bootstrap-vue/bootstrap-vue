@@ -10,6 +10,10 @@ describe('table tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -32,6 +36,10 @@ describe('table tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -50,6 +58,10 @@ describe('table tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -295,6 +307,10 @@ describe('table tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -323,6 +339,10 @@ describe('table tbody row events', () => {
         c: '<a href="#" id="c">link</a>',
         d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
         e: '<label for="e">label</label><input id="e" />'
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
