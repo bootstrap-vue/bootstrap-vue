@@ -35,6 +35,39 @@ describe('progress-bar', () => {
     wrapper.destroy()
   })
 
+  it('has class bg-info when parent variant=info', async () => {
+    const wrapper = mount(ProgressBar, {
+      inject: {
+        bvProgress : {
+          variant: 'info'
+        }
+      }
+    })
+
+    expect(wrapper.classes()).toContain('bg-primary')
+    expect(wrapper.classes()).toContain('progress-bar')
+
+    wrapper.destroy()
+  })
+
+
+  it('has class bg-primary when prop variant=primary and parent variant=info', async () => {
+    const wrapper = mount(ProgressBar, {
+      inject: {
+        bvProgress : {
+          variant: 'info'
+        }
+      },
+      prosData: {
+        variant: 'primary'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('bg-primary')
+    expect(wrapper.classes()).toContain('progress-bar')
+
+    wrapper.destroy()
+  })
   it('has class progress-bar-striped when prop striped set', async () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
@@ -48,10 +81,12 @@ describe('progress-bar', () => {
     wrapper.destroy()
   })
 
-  it('has class progress-bar-striped when prop striped set', async () => {
+  it('has class progress-bar-striped when parent prop striped set', async () => {
     const wrapper = mount(ProgressBar, {
-      propsData: {
-        striped: true
+      inject: {
+        bvProgress : {
+          striped: true
+        }
       }
     })
 
@@ -65,6 +100,22 @@ describe('progress-bar', () => {
     const wrapper = mount(ProgressBar, {
       propsData: {
         animated: true
+      }
+    })
+
+    expect(wrapper.classes()).toContain('progress-bar-animated')
+    expect(wrapper.classes()).toContain('progress-bar-striped')
+    expect(wrapper.classes()).toContain('progress-bar')
+
+    wrapper.destroy()
+  })
+
+  it('has class progress-bar-animated and progress-bar-striped when parent prop animated set', async () => {
+    const wrapper = mount(ProgressBar, {
+      inject: {
+        bvProgress : {
+          animated: true
+        }
       }
     })
 
@@ -95,6 +146,26 @@ describe('progress-bar', () => {
       propsData: {
         value: 25,
         max: 50
+      }
+    })
+
+    expect(wrapper.attributes('style')).toContain('width: 50%;')
+    expect(wrapper.attributes('aria-valuenow')).toBe('25')
+    expect(wrapper.attributes('aria-valuemin')).toBe('0')
+    expect(wrapper.attributes('aria-valuemax')).toBe('50')
+
+    wrapper.destroy()
+  })
+
+  it('has max set when parent max set', async () => {
+    const wrapper = mount(ProgressBar, {
+      injsect: {
+        bvProgress: {
+          max: 50
+        }
+      },
+      propsData: {
+        value: 25
       }
     })
 
