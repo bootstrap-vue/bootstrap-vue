@@ -28,8 +28,12 @@ describe('table row select', () => {
     })
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
+    expect(wrapper.atributes('aria-multiselectable')).not.toBeDefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(4)
     // Doesn't have aria-selected attribute on all TRs
@@ -52,8 +56,12 @@ describe('table row select', () => {
     })
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
+    expect(wrapper.atributes('aria-multiselectable')).not.toBeDefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(4)
     // Doesn't have aria-selected attribute on all TRs
@@ -77,8 +85,12 @@ describe('table row select', () => {
 
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
+    expect(wrapper.atributes('aria-multiselectable')).toBe('false')
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(4)
@@ -101,9 +113,12 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-single')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
-    // Click third row
+    // Click third row to select it
     wrapper
       .findAll('tbody > tr')
       .at(2)
@@ -118,9 +133,12 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-single')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
-    // Click third row again
+    // Click third row again to clear selection
     wrapper
       .findAll('tbody > tr')
       .at(2)
@@ -135,7 +153,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
     wrapper.destroy()
   })
@@ -152,8 +173,12 @@ describe('table row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
+    expect(wrapper.atributes('aria-multiselectable')).toBe('true')
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
 
     // Click first row
@@ -172,7 +197,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
     // Click third row
     wrapper
@@ -189,7 +217,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
     // Click third row again
     wrapper
@@ -206,7 +237,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
     // Click first row again
     wrapper
@@ -223,7 +257,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
 
     wrapper.destroy()
   })
@@ -240,8 +277,12 @@ describe('table row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await wrapper.vm.$nextTick()
+    expect(wrapper.atributes('aria-multiselectable')).toBe('true')
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
@@ -263,7 +304,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Shift-Click third row
     wrapper
@@ -284,7 +328,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Click third row again
     wrapper
@@ -301,7 +348,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Click fourth row
     wrapper
@@ -318,7 +368,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Click fourth row again
     wrapper
@@ -335,7 +388,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Ctrl-Click second row
     wrapper
@@ -352,7 +408,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Ctrl-Click second row
     wrapper
@@ -369,7 +428,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     // Ctrl-Click fourth row
     wrapper
@@ -386,7 +448,10 @@ describe('table row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-selectable')
-    expect(wrapper.classes()).not.toContain('b-table-selecting-range')
+    expect(wrapper.classes()).toContain('b-table-select-range')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
 
     wrapper.destroy()
   })
