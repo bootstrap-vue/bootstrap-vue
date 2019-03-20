@@ -136,8 +136,8 @@ export default {
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
+      /* istanbul ignore next: not supported in JSDOM */
       if (items && !this.noTraverse) {
-        /* istanbul ignore next: not supported in JSDOM */
         const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
@@ -174,7 +174,7 @@ export default {
       // Triggered when the parent form (if any) is reset
       this.selectedFile = this.multiple ? [] : null
     },
-    onDragover(evt) {
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -183,12 +183,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    onDragleave(evt) {
+    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop(evt) {
+    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {

@@ -138,7 +138,7 @@ export default {
       transitionEndEvent: null,
       slides: [],
       direction: null,
-      isPaused: false,
+      isPaused: !(parseInt(this.interval, 10) > 0),
       // Touch event handling values
       touchStartX: 0,
       touchDeltaX: 0
@@ -171,6 +171,7 @@ export default {
     },
     index(to, from) {
       if (to === from || this.isSliding) {
+        /* istanbul ignore next */
         return
       }
       this.doSlide(to, from)
@@ -181,6 +182,8 @@ export default {
     this._intervalId = null
     this._animationTimeout = null
     this._touchTimeout = null
+    // Set initial paused state
+    this.isPaused = !(parseInt(this.interval, 10) > 0)
   },
   mounted() {
     // Cache current browser transitionend event name
@@ -251,6 +254,7 @@ export default {
       if (!evt) {
         this.isPaused = false
       }
+      /* istanbul ignore next: most likley will never happen, but just in case */
       if (this._intervalId) {
         clearInterval(this._intervalId)
         this._intervalId = null

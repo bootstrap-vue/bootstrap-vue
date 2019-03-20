@@ -35,6 +35,24 @@ window.app = new Vue({
       {
         text: 'Library'
       }
+    ],
+    items3: [
+      {
+        text: 'Home',
+        href: 'https://bootstrap-vue.github.io'
+      },
+      {
+        text: 'Admin',
+        href: '#',
+        active: true
+      },
+      {
+        text: 'Manage',
+        href: '#'
+      },
+      {
+        text: 'Library'
+      }
     ]
   }
 })

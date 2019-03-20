@@ -114,6 +114,7 @@ export default {
         on: noDrag
           ? {
               dragstart: e => {
+                /* istanbul ignore next: difficult to test in JSDOM */
                 e.preventDefault()
               }
             }
