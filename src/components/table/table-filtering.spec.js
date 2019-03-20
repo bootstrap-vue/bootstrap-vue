@@ -1,13 +1,8 @@
 import Table from './table'
-import defaultSortCompare from './helpers/default-sort-compare'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
-const testFields = [
-  { key: 'a', label: 'A', sortable: true },
-  { key: 'b', label: 'B', sortable: true },
-  { key: 'c', label: 'C', sortable: false }
-]
+const testFields = ['a', 'b', 'c']
 
 describe('table > filtering', () => {
   it('should not be filtered by default', async () => {
@@ -54,7 +49,7 @@ describe('table > filtering', () => {
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
-    let $rows = wrapper.findAll('tbody > tr').wrappers
+    let $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(1)
 
     const $tds = $rows.at(0).findAll('td')
