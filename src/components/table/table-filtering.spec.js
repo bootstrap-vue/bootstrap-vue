@@ -101,9 +101,9 @@ describe('table > filtering', () => {
 
     expect(wrapper.emitted('filtered').length).toBe(2)
     // Copy of items matching filter
-    expect(wrapper.emitted('filtered')[0][0]).toEqual(testItems)
+    expect(wrapper.emitted('filtered')[1][0]).toEqual(testItems)
     // Number of rows matching filter
-    expect(wrapper.emitted('filtered')[0][1]).toEqual(3)
+    expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
 
     wrapper.destroy()
   })
