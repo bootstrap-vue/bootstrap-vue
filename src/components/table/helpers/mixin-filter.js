@@ -114,7 +114,7 @@ export default {
       }
     }
   },
-  methods() {
+  methods: {
     // Filter Function factories
     filterFnFactory(filterFn, criteria) {
       // Wrapper factory for external filter functions.
