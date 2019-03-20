@@ -44,10 +44,7 @@ export default {
   },
   watch: {
     items(newItems) {
-      // TODO: Move provider check into provider mixin
-      if (this.hasProvider || newItems instanceof Function) {
-        this.$nextTick(this._providerUpdate)
-      } else if (isArray(newItems)) {
+      if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = newItems.slice()
       } else if (newItems === null || newItems === undefined) {
