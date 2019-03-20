@@ -13,6 +13,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Table helper mixins
 import itemsMixin from './helpers/mixin-items'
 import filteringMixin from './helpers/mixin-filtering'
+import sortingMixin from './helpers/mixin-sorting'
 import paginationMixin from './helpers/mixin-pagination'
 import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
@@ -34,6 +35,7 @@ export default {
     normalizeSlotMixin,
     itemsMixin,
     filteringMixin,
+    sortingMixin,
     paginationMixin,
     busyMixin,
     captionMixin,
@@ -87,43 +89,6 @@ export default {
       type: [Boolean, String],
       default: false
     },
-    sortBy: {
-      type: String,
-      default: null
-    },
-    sortDesc: {
-      type: Boolean,
-      default: false
-    },
-    sortDirection: {
-      type: String,
-      default: 'asc',
-      validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
-    },
-    sortCompare: {
-      type: Function,
-      default: null
-    },
-    noSortReset: {
-      type: Boolean,
-      default: false
-    },
-    labelSortAsc: {
-      type: String,
-      default: 'Click to sort Ascending'
-    },
-    labelSortDesc: {
-      type: String,
-      default: 'Click to sort Descending'
-    },
-    noLocalSorting: {
-      type: Boolean,
-      default: false
-    },
-    noFooterSorting: {
-      type: Boolean,
-      default: false
-    },
     value: {
       // v-model for retrieving the current displayed rows
       type: Array,
@@ -134,9 +99,7 @@ export default {
   },
   data() {
     return {
-      // Mixins will also add to data
-      localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false
+      // Mixins add to data
     }
   },
   computed: {
@@ -195,80 +158,22 @@ export default {
         ...this.selectableTableAttrs
       }
     },
-    // Items related computed props
-    localSorting() {
-      return this.hasProvider ? !!this.noProviderSorting : !this.noLocalSorting
-    },
     context() {
       // Current state of sorting, filtering and pagination props/values
       return {
         filter: this.localFilter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: this.perPage,
-        currentPage: this.currentPage,
+        perPage: parseInt(this.perPage, 10) || 0,
+        currentPage: parseInt(this.currentPage, 10) || 1,
         apiUrl: this.apiUrl
       }
-    },
-    sortedItems() {
-      // Sorts the filtered items and returns a new array of the sorted items
-      // or the original items array if not sorted.
-      let items = this.filteredItems || []
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
-      const sortCompare = this.sortCompare
-      const localSorting = this.localSorting
-      if (sortBy && localSorting) {
-        // stableSort returns a new array, and leaves the original array intact
-        return stableSort(items, (a, b) => {
-          let result = null
-          if (typeof sortCompare === 'function') {
-            // Call user provided sortCompare routine
-            result = sortCompare(a, b, sortBy, sortDesc)
-          }
-          if (result === null || result === undefined || result === false) {
-            // Fallback to built-in defaultSortCompare if sortCompare
-            // is not defined or returns null/false
-            result = defaultSortCompare(a, b, sortBy)
-          }
-          // Negate result if sorting in descending order
-          return (result || 0) * (sortDesc ? -1 : 1)
-        })
-      }
-      return items
     },
     computedItems() {
       return this.paginatedItems || []
     }
   },
   watch: {
-    // Watch props for changes and update local values
-    sortDesc(newVal, oldVal) {
-      if (newVal === this.localSortDesc) {
-        /* istanbul ignore next */
-        return
-      }
-      this.localSortDesc = newVal || false
-    },
-    sortBy(newVal, oldVal) {
-      if (newVal === this.localSortBy) {
-        /* istanbul ignore next */
-        return
-      }
-      this.localSortBy = newVal || null
-    },
-    // Update .sync props
-    localSortDesc(newVal, oldVal) {
-      // Emit update to sort-desc.sync
-      if (newVal !== oldVal) {
-        this.$emit('update:sortDesc', newVal)
-      }
-    },
-    localSortBy(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:sortBy', newVal)
-      }
-    },
     // Watch for changes on computedItems and update the v-model
     computedItems(newVal, oldVal) {
       this.$emit('input', newVal)
