@@ -101,6 +101,7 @@ export default {
         // if Filter criteria is truthy
         isFiltered = true
       } else {
+        /* istanbul ignore next: rare chance of reaching this else */
         isFiltered = false
       }
       if (isFiltered) {
