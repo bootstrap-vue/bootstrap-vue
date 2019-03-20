@@ -16,7 +16,7 @@ declare module 'bootstrap-vue' {
 
   type TableVariant = 'active' | 'success' | 'info' | 'warning' | 'danger'
   type SortDirection = 'asc' | 'desc'
-  type FormatterCallback = ((value: mixed, key: string, item: mixed) => string)
+  type FormatterCallback = ((value: mixed, key: string, item: mixed) => any)
 
   export interface TableField {
     label?: string
@@ -29,7 +29,7 @@ declare module 'bootstrap-vue' {
     tdClass: string | string[] | FormatterCallback
     thClass: string | string[]
     thStyle: mixed
-    variant: TableVariant
+    variant: TableVariant | string
     tdAttr: mixed | ((value: mixed, key: string, item: mixed) => mixed)
     isRowHeader: boolean
   }
