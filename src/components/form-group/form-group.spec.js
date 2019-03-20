@@ -39,6 +39,7 @@ describe('form-group', () => {
           right: 0
         }
       })
+      await beforeEach(loadFixture(__dirname, 'form-group'))()
     })
 
     afterEach(() => {
@@ -66,8 +67,7 @@ describe('form-group', () => {
       legend.dispatchEvent(clickEvt)
       await nextTick()
 
-      // test not working, but when testing in docs it works.
-      // expect(document.activeElement).toBe(input)
+      expect(document.activeElement).toBe(input)
     })
   })
 })
