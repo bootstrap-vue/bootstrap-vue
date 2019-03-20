@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       // Our local copy of the items. Must be an array
-      localItems: isArray(this.items) ? this.items.slice() : [],
+      localItems: isArray(this.items) ? this.items.slice() : []
     }
   },
   computed: {
