@@ -39,7 +39,7 @@ describe('form-group', () => {
           right: 0
         }
       })
-      await (loadFixture(__dirname, 'form-group'))()
+      await loadFixture(__dirname, 'form-group')()
     })
 
     afterEach(() => {
