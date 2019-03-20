@@ -47,37 +47,7 @@ export default {
       }
       e.stopPropagation()
       e.preventDefault()
-      let sortChanged = false
-      const toggleLocalSortDesc = () => {
-        const sortDirection = field.sortDirection || this.sortDirection
-        if (sortDirection === 'asc') {
-          this.localSortDesc = false
-        } else if (sortDirection === 'desc') {
-          this.localSortDesc = true
-        }
-      }
-      if (!(isFoot && this.noFooterSorting)) {
-        if (field.sortable) {
-          if (field.key === this.localSortBy) {
-            // Change sorting direction on current column
-            this.localSortDesc = !this.localSortDesc
-          } else {
-            // Start sorting this column ascending
-            this.localSortBy = field.key
-            toggleLocalSortDesc()
-          }
-          sortChanged = true
-        } else if (this.localSortBy && !this.noSortReset) {
-          this.localSortBy = null
-          toggleLocalSortDesc()
-          sortChanged = true
-        }
-      }
       this.$emit('head-clicked', field.key, field, e, isFoot)
-      if (sortChanged) {
-        // Sorting parameters changed
-        this.$emit('sort-changed', this.context)
-      }
     },
     renderThead(isFoot = false) {
       const h = this.$createElement
