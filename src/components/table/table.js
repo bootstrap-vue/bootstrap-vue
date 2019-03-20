@@ -266,12 +266,10 @@ export default {
   watch: {
     // Watch props for changes and update local values
     items(newItems) {
-      if (this.hasProvider || newItems instanceof Function) {
-        this.$nextTick(this._providerUpdate)
-      } else if (isArray(newItems)) {
+      if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = newItems.slice()
-      } else {
+      } else if (newItems === null || newItems === undefined) {
         /* istanbul ignore next */
         this.localItems = []
       }
