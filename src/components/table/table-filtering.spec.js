@@ -1,4 +1,5 @@
 import Table from './table'
+import stringifyRecordValues from './helpers/stringify-record-values'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
@@ -138,7 +139,8 @@ describe('table > filtering', () => {
   })
 
   it('should work with filter function', async () => {
-    const filterFn = (item, crteria) => {
+    const filterFn = (item, regexp) => {
+      // We are passing a regexp for this test
       return regexp.test(stringifyRecordValues(item))
     }
     const wrapper = mount(Table, {
