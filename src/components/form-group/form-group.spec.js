@@ -53,7 +53,7 @@ describe('form-group', () => {
       const legend = $group.$el.querySelector('legend')
       expect(legend).toBeDefined()
       expect(legend.tagName).toBe('LEGEND')
-      expect(legend.textContent).toContain('legend-text')
+      expect(legend.textContent).toContain('legend-click')
       const input = $group.$el.querySelector('input')
       expect(input).toBeDefined()
 
