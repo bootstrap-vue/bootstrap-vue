@@ -21,4 +21,21 @@ describe('form-group', () => {
 
     expect(oldADB).not.toBe(newADB)
   })
+
+  it('clicking legend focuses input', async () => {
+    const { app } = window
+    const $group = app.$refs.group10
+
+    const legend = $group.$el.querySelector('legend')
+    expect(legend).toBeDefined()
+    const input = $group.$el.querySelector('input')
+    expect(input).toBeDefined()
+
+    expect(document.activeElement).not.toBe(input)
+
+    legend.click()
+    await nextTick()
+
+    expect(document.activeElement).toBe(input)
+  })
 })
