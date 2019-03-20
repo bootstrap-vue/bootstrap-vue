@@ -33,7 +33,7 @@ export default {
       // [ { key:..., label:..., ...}, {...}, ..., {..}]
       return normalizeFields(this.fields, this.localItems)
     },
-    computedFieldsObj() {
+    computedFieldsObj() /* istanbul ignore next: not using at the moment */ {
       // Fields as a simple lookup hash object
       // Mainly for scopedSlots for convenience
       return this.computedFields.reduce((f, obj) => {
