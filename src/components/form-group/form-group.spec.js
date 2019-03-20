@@ -59,7 +59,11 @@ describe('form-group', () => {
 
       expect(document.activeElement).not.toBe(input)
 
-      legend.click()
+      // legend.click()
+      // legend.click() doesn't trigger the click event, since it is
+      // a non-interactive element
+      const clickEvt = new MouseEvent('click')
+      legend.dispatchEvent(clickEvt)
       await nextTick()
 
       expect(document.activeElement).toBe(input)
