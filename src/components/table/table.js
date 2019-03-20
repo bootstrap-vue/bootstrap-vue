@@ -1,16 +1,11 @@
 // Utilities
 import looseEqual from '../../utils/loose-equal'
-import stableSort from '../../utils/stable-sort'
-import { arrayIncludes } from '../../utils/array'
-
-// Table helper functions
-import defaultSortCompare from './helpers/default-sort-compare'
 
 // Mixins
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-// Table helper mixins
+// Table helper Mixins
 import itemsMixin from './helpers/mixin-items'
 import filteringMixin from './helpers/mixin-filtering'
 import sortingMixin from './helpers/mixin-sorting'
@@ -98,9 +93,8 @@ export default {
     }
   },
   data() {
-    return {
-      // Mixins add to data
-    }
+    // Mixins add to data
+    return {}
   },
   computed: {
     // Layout related computed props
