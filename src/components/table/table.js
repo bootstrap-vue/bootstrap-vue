@@ -1,10 +1,9 @@
 // Utilities
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
-import { arrayIncludes, isArray } from '../../utils/array'
+import { arrayIncludes } from '../../utils/array'
 
 // Table helper functions
-import normalizeFields from './helpers/normalize-fields'
 import defaultSortCompare from './helpers/default-sort-compare'
 
 // Mixins
@@ -137,7 +136,7 @@ export default {
     return {
       // Mixins will also add to data
       localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false,
+      localSortDesc: this.sortDesc || false
     }
   },
   computed: {
