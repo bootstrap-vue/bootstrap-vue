@@ -22,20 +22,47 @@ describe('form-group', () => {
     expect(oldADB).not.toBe(newADB)
   })
 
-  it('clicking legend focuses input', async () => {
-    const { app } = window
-    const $group = app.$refs.group10
+  describe('legend click', () => {
+    // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+    const origGetBCR = Element.prototype.getBoundingClientRect
 
-    const legend = $group.$el.querySelector('legend')
-    expect(legend).toBeDefined()
-    const input = $group.$el.querySelector('input')
-    expect(input).toBeDefined()
+    beforeEach(() => {
+      // Mock getBCR so that the isVisible(el) test returns true
+      // In our test below, all pagination buttons would normally be visible
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          width: 24,
+          height: 24,
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        }
+      })
+    })
 
-    expect(document.activeElement).not.toBe(input)
+    afterEach(() => {
+      // Restore prototype
+      Element.prototype.getBoundingClientRect = origGetBCR
+    })
 
-    legend.click()
-    await nextTick()
+    it('clicking legend focuses input', async () => {
+      const { app } = window
+      const $group = app.$refs.group10
 
-    expect(document.activeElement).toBe(input)
+      const legend = $group.$el.querySelector('legend')
+      expect(legend).toBeDefined()
+      expect(legend.tagName).toBe('LEGEND')
+      expect(legend.textContent).toContain('legend-text')
+      const input = $group.$el.querySelector('input')
+      expect(input).toBeDefined()
+
+      expect(document.activeElement).not.toBe(input)
+
+      legend.click()
+      await nextTick()
+
+      expect(document.activeElement).toBe(input)
+    })
   })
 })
