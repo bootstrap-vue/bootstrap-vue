@@ -26,7 +26,7 @@ describe('form-group', () => {
     // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
     const origGetBCR = Element.prototype.getBoundingClientRect
 
-    beforeEach(() => {
+    beforeEach(async () => {
       // Mock getBCR so that the isVisible(el) test returns true
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => {
@@ -39,7 +39,7 @@ describe('form-group', () => {
           right: 0
         }
       })
-      await beforeEach(loadFixture(__dirname, 'form-group'))()
+      await (loadFixture(__dirname, 'form-group'))()
     })
 
     afterEach(() => {
