@@ -33,11 +33,11 @@ export default {
         field.thClass ? field.thClass : ''
       ]
     },
-    headClicked(e, field, isFoot) {
-      if (this.stopIfBusy(e)) {
+    headClicked(evt, field, isFoot) {
+      if (this.stopIfBusy(evt)) {
         // If table is busy (via provider) then don't propagate
         return
-      } else if (filterEvent(e)) {
+      } else if (filterEvent(evt)) {
         // clicked on a non-disabled control so ignore
         return
       } else if (textSelectionActive(this.$el)) {
@@ -45,9 +45,9 @@ export default {
         /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
       }
-      e.stopPropagation()
-      e.preventDefault()
-      this.$emit('head-clicked', field.key, field, e, isFoot)
+      evt.stopPropagation()
+      evt.preventDefault()
+      this.$emit('head-clicked', field.key, field, evt, isFoot)
     },
     renderThead(isFoot = false) {
       const h = this.$createElement
@@ -61,54 +61,45 @@ export default {
 
       // Helper function to generate a field TH cell
       const makeCell = (field, colIndex) => {
-        let ariaLabel = ''
+        let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
           // In case field's label and title are empty/blank
           // We need to add a hint about what the column is about for non-sighted users
           /* istanbul ignore next */
           ariaLabel = startCase(field.key)
         }
-        const sortable = field.sortable && !(isFoot && this.noFooterSorting)
-        const ariaLabelSorting = sortable
-          ? this.localSortDesc && this.localSortBy === field.key
-            ? this.labelSortAsc
-            : this.labelSortDesc
-          : null
-        // Assemble the aria-label
-        ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
-        const ariaSort =
-          sortable && this.localSortBy === field.key
-            ? this.localSortDesc
-              ? 'descending'
-              : 'ascending'
-            : sortable
-              ? 'none'
-              : null
+        const hasHeadClickListener = this.$listeners['head-clicked']
+        const handlers = {}
+        if (hasHeadClickListener) {
+          handlers.click = evt => {
+            this.headClicked(evt, field, isFoot)
+          }
+          handlers.keydown = evt => {
+            const keyCode = evt.keyCode
+            if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
+              this.headClicked(evt, field, isFoot)
+            }
+          }
+        }
         const data = {
           key: field.key,
-          class: this.fieldClasses(field),
+          class: [
+            this.fieldClasses(field),
+            this.sortTheadThClasses(field.key, field, isFoot)
+          ],
           style: field.thStyle || {},
           attrs: {
-            tabindex: sortable ? '0' : null,
+            // We only add a tabindex of 0 if htere is a head-clicked listener
+            tabindex: hasHeadClickListener ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
             role: 'columnheader',
             scope: 'col',
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
-            'aria-sort': ariaSort
+            ...this.sortTheadThAttrs(field.key, field, isFoot)
           },
-          on: {
-            click: evt => {
-              this.headClicked(evt, field, isFoot)
-            },
-            keydown: evt => {
-              const keyCode = evt.keyCode
-              if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                this.headClicked(evt, field, isFoot)
-              }
-            }
-          }
+          on: handlers
         }
         let fieldScope = { label: field.label, column: field.key, field: field }
         let slot =
