@@ -141,17 +141,18 @@ export default {
     },
     defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given filter criteria
-      if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
-        // Built in filter can only support strings or RegExp criteria (at the moment)
+      const type = typeof criteria
+      if (!criteria || !(type === 'string' || type === 'number' || criteria instanceof RegExp)) {
+        // Built in filter can only support strings/numbers or RegExp criteria (at the moment)
         return null
       }
 
       // Build the regexp needed for filtering
       let regexp = criteria
-      if (typeof regexp === 'string') {
+      if (typeof regexp === 'string' || typeof regexp === 'number') {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
-        const pattern = criteria
+        const pattern = String(criteria)
           .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
           .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
         // Build the RegExp (no need for global flag, as we only need
