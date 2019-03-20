@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false,
+      localSortDesc: this.sortDesc || false
     }
   },
   computed: {
@@ -95,7 +95,7 @@ export default {
     },
     sortingTableAttrs() {
       return {}
-    },
+    }
   },
   watch: {
     isSortable(newVal, oldVal) {
@@ -201,7 +201,6 @@ export default {
         /* istanbul ignore next */
         ariaLabel = startCase(key)
       }
-      const sortable = field.sortable
       const ariaLabelSorting = sortable
         ? this.localSortDesc && this.localSortBy === key
           ? this.labelSortAsc
