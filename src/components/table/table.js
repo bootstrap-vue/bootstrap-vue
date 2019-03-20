@@ -12,6 +12,7 @@ import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // Table helper mixins
+import itemsMixin from './helpers/mixin-items'
 import filteringMixin from './helpers/mixin-filtering'
 import paginationMixin from './helpers/mixin-pagination'
 import captionMixin from './helpers/mixin-caption'
@@ -32,6 +33,7 @@ export default {
   mixins: [
     idMixin,
     normalizeSlotMixin,
+    itemsMixin,
     filteringMixin,
     paginationMixin,
     busyMixin,
@@ -46,22 +48,6 @@ export default {
   // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
   props: {
-    items: {
-      type: [Array, Function],
-      default() /* istanbul ignore next */ {
-        return []
-      }
-    },
-    fields: {
-      type: [Object, Array],
-      default: null
-    },
-    primaryKey: {
-      // Primary key for record.
-      // If provided the value in each row must be unique!!!
-      type: String,
-      default: null
-    },
     striped: {
       type: Boolean,
       default: false
@@ -152,8 +138,6 @@ export default {
       // Mixins will also add to data
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
-      // Our local copy of the items. Must be an array
-      localItems: isArray(this.items) ? this.items.slice() : []
     }
   },
   computed: {
@@ -227,11 +211,6 @@ export default {
         apiUrl: this.apiUrl
       }
     },
-    computedFields() {
-      // We normalize fields into an array of objects
-      // [ { key:..., label:..., ...}, {...}, ..., {..}]
-      return normalizeFields(this.fields, this.localItems)
-    },
     sortedItems() {
       // Sorts the filtered items and returns a new array of the sorted items
       // or the original items array if not sorted.
@@ -265,15 +244,6 @@ export default {
   },
   watch: {
     // Watch props for changes and update local values
-    items(newItems) {
-      if (isArray(newItems)) {
-        // Set localItems/filteredItems to a copy of the provided array
-        this.localItems = newItems.slice()
-      } else if (newItems === null || newItems === undefined) {
-        /* istanbul ignore next */
-        this.localItems = []
-      }
-    },
     sortDesc(newVal, oldVal) {
       if (newVal === this.localSortDesc) {
         /* istanbul ignore next */
