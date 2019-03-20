@@ -56,7 +56,7 @@ describe('table > filtering', () => {
 
     expect($tds.at(0).text()).toBe('2')
     expect($tds.at(1).text()).toBe('a')
-    expect($tds.at(1).text()).toBe('z')
+    expect($tds.at(2).text()).toBe('z')
 
     wrapper.destroy()
   })
