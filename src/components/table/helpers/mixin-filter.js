@@ -12,7 +12,7 @@ export default {
     filterFunction: {
       type: Function,
       default: null
-    },
+    }
   },
   data() {
     return {
@@ -59,7 +59,9 @@ export default {
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
         /* istanbul ignore next */
-        warn('b-table: Supplying a function to prop "filter" is deprecated. Use "filterFn" instead.')
+        warn(
+          'b-table: Supplying a function to prop "filter" is deprecated. Use "filterFn" instead.'
+        )
         /* istanbul ignore next */
         return filter
       } else {
@@ -81,7 +83,7 @@ export default {
         items = items.filter(filterFn)
       }
       return items
-    },
+    }
   },
   watch: {
     // Watch for changes to the filter criteria and filtered items vs localItems).
