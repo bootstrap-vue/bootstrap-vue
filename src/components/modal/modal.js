@@ -354,6 +354,7 @@ export default {
   watch: {
     visible(newVal, oldVal) {
       if (newVal === oldVal) {
+        /* istanbul ignore next */
         return
       }
       this[newVal ? 'show' : 'hide']()
@@ -378,7 +379,7 @@ export default {
       this.show()
     }
   },
-  beforeDestroy() /* instanbul ignore next */ {
+  beforeDestroy() /* istanbul ignore next */ {
     // Ensure everything is back to normal
     if (this._observer) {
       this._observer.disconnect()
@@ -456,7 +457,7 @@ export default {
         relatedTarget: null,
         isOK: trigger || null,
         trigger: trigger || null,
-        cancel() {
+        cancel() /* istanbul ignore next */ {
           // Backwards compatibility
           warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
           this.preventDefault()

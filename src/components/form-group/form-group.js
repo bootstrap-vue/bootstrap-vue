@@ -351,11 +351,13 @@ export default {
     legendClick(evt) {
       if (this.labelFor) {
         // don't do anything if labelFor is set
+        /* istanbul ignore next: clicking a label will focus the input, so no need to test */
         return
       }
       const tagName = evt.target ? evt.target.tagName : ''
       if (/^(input|select|textarea|label|button|a)$/i.test(tagName)) {
         // If clicked an interactive element inside legend, we just let the default happen
+        /* istanbul ignore next */
         return
       }
       const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)

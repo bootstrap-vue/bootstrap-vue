@@ -51,7 +51,7 @@ export default {
       vnode.context.$root.$on(EVENT_STATE, el[BVT])
     }
   },
-  unbind(el, binding, vnode) {
+  unbind(el, binding, vnode) /* istanbul ignore next */ {
     if (el[BVT]) {
       // Remove our $root listener
       vnode.context.$root.$off(EVENT_STATE, el[BVT])

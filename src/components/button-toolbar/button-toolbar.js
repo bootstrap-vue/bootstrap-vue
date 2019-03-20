@@ -22,11 +22,6 @@ export default {
       default: false
     }
   },
-  computed: {
-    classObject() {
-      return ['btn-toolbar', this.justify && !this.vertical ? 'justify-content-between' : '']
-    }
-  },
   mounted() {
     if (this.keyNav) {
       // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
@@ -41,62 +36,51 @@ export default {
         this.focusFirst(evt)
       }
     },
+    stop(evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
+    },
     onKeydown(evt) {
       if (!this.keyNav) {
+        /* istanbul ignore next: should never happen */
         return
       }
       const key = evt.keyCode
       const shift = evt.shiftKey
       if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
-        evt.preventDefault()
-        evt.stopPropagation()
-        if (shift) {
-          this.focusFirst(evt)
-        } else {
-          this.focusNext(evt, true)
-        }
+        this.stop(evt)
+        shift ? this.focusFirst(evt) : this.focusPrev(evt)
       } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
-        evt.preventDefault()
-        evt.stopPropagation()
-        if (shift) {
-          this.focusLast(evt)
-        } else {
-          this.focusNext(evt, false)
-        }
+        this.stop(evt)
+        shift ? this.focusLast(evt) : this.focusNext(evt)
       }
     },
     setItemFocus(item) {
-      this.$nextTick(() => {
-        item.focus()
-      })
-    },
-    focusNext(evt, prev) {
-      const items = this.getItems()
-      if (items.length < 1) {
-        return
-      }
-      let index = items.indexOf(evt.target)
-      if (prev && index > 0) {
-        index--
-      } else if (!prev && index < items.length - 1) {
-        index++
-      }
-      if (index < 0) {
-        index = 0
-      }
-      this.setItemFocus(items[index])
+      item && item.focus && item.focus()
     },
     focusFirst(evt) {
       const items = this.getItems()
-      if (items.length > 0) {
+      this.setItemFocus(items[0])
+    },
+    focusPrev(evt) {
+      let items = this.getItems()
+      const index = items.indexOf(evt.target)
+      if (index > -1) {
+        items = items.slice(0, index).reverse()
+        this.setItemFocus(items[0])
+      }
+    },
+    focusNext(evt) {
+      let items = this.getItems()
+      const index = items.indexOf(evt.target)
+      if (index > -1) {
+        items = items.slice(index + 1)
         this.setItemFocus(items[0])
       }
     },
     focusLast(evt) {
-      const items = this.getItems()
-      if (items.length > 0) {
-        this.setItemFocus([items.length - 1])
-      }
+      const items = this.getItems().reverse()
+      this.setItemFocus(items[0])
     },
     getItems() {
       let items = selectAll(ITEM_SELECTOR, this.$el)
@@ -111,15 +95,18 @@ export default {
     return h(
       'div',
       {
-        class: this.classObject,
+        staticClass: 'btn-toolbar',
+        class: { 'justify-content-between': this.justify },
         attrs: {
           role: 'toolbar',
           tabindex: this.keyNav ? '0' : null
         },
-        on: {
-          focusin: this.onFocusin,
-          keydown: this.onKeydown
-        }
+        on: this.keyNav
+          ? {
+              focusin: this.onFocusin,
+              keydown: this.onKeydown
+            }
+          : {}
       },
       [this.$slots.default]
     )
