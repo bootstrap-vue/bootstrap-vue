@@ -106,7 +106,7 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
 
     wrapper.setProps({
-      filter: 3
+      filter: '3'
     })
     await wrapper.vm.$nextTick()
 
