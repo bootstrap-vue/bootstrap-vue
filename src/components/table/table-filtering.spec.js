@@ -105,6 +105,35 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
 
+    wrapper.setProps({
+      filter: 3
+    })
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+
+    expect(wrapper.emitted('filtered').length).toBe(3)
+    // Copy of items matching filter
+    expect(wrapper.emitted('filtered')[2][0]).toEqual([testItems[0]])
+    // Number of rows matching filter
+    expect(wrapper.emitted('filtered')[2][1]).toEqual(1)
+
+    wrapper.setProps({
+      // Setting to an empty array will also clear the filter
+      filter: []
+    })
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+
+    expect(wrapper.emitted('filtered').length).toBe(4)
+    // Copy of items matching filter
+    expect(wrapper.emitted('filtered')[3][0]).toEqual(testItems)
+    // Number of rows matching filter
+    expect(wrapper.emitted('filtered')[3][1]).toEqual(3)
+
     wrapper.destroy()
   })
 })
