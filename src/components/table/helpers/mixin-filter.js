@@ -2,7 +2,7 @@ import stringifyRecordValues from './stringify-record-values'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 
-export default: {
+export default {
   props: {
     filter: {
       // Pasing a function to filter is deprecated and should be avoided
