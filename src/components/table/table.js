@@ -5,7 +5,6 @@ import { arrayIncludes, isArray } from '../../utils/array'
 
 // Table helper functions
 import normalizeFields from './helpers/normalize-fields'
-import stringifyRecordValues from './helpers/stringify-record-values'
 import defaultSortCompare from './helpers/default-sort-compare'
 
 // Mixins
@@ -154,7 +153,7 @@ export default {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
       // Our local copy of the items. Must be an array
-      localItems: isArray(this.items) ? this.items.slice() : [],
+      localItems: isArray(this.items) ? this.items.slice() : []
     }
   },
   computed: {
