@@ -69,4 +69,33 @@
                   :state="false">
         <b-form-input id="input7" v-model="text"></b-form-input>
     </b-form-group>
+    <!-- horizontal with no label -->
+    <b-form-group id="group8"
+                  label-cols="12"
+                  label-align="left"
+                  label-cols-md="4"
+                  label-align-md="right"
+                  label=""
+                  label-cols-lg="2"
+                  label-for="input8"
+                  description="Enter your fullname."
+                  :invalid-feedback="text.length ? '' : 'Please enter something'"
+                  :valid-feedback="text.length ? 'Thank you' : ''"
+                  :state="text.length ? true : false">
+        <b-form-input id="input8" v-model="text"></b-form-input>
+    </b-form-group>
+    <!-- horizontal with no legend -->
+    <b-form-group id="group9"
+                  label-cols="12"
+                  label-align="left"
+                  label-cols-md="4"
+                  label-align-md="right"
+                  label=""
+                  label-cols-lg="2"
+                  description="Enter your fullname."
+                  :invalid-feedback="text.length ? '' : 'Please enter something'"
+                  :valid-feedback="text.length ? 'Thank you' : ''"
+                  :state="text.length ? true : false">
+        <b-form-input id="input9" v-model="text"></b-form-input>
+    </b-form-group>
 </div>
