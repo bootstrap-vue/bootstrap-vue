@@ -124,7 +124,7 @@ describe('table', () => {
       app: { $refs }
     } = window
 
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
+    const tables = ['table_basic', 'table_paginated']
     await nextTick()
 
     tables.forEach((table, idx) => {
@@ -173,28 +173,5 @@ describe('table', () => {
         ).toBe(true)
       }
     })
-  })
-
-  it('should set row classes', async () => {
-    // Classes that children rows must contain
-    const classesTest = {
-      'tr-start-with-l': [1, 7],
-      'tr-last-name-macdonald': [0, 6]
-    }
-    const { app } = window
-    const vm = app.$refs.table_style_row
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    for (const className in classesTest) {
-      const children = classesTest[className]
-      for (let childIndex = 0, len = tbody.children.length - 1; childIndex < len; ++childIndex) {
-        const hasClass = children.indexOf(childIndex) >= 0
-        expect(
-          Boolean(tbody.children[childIndex]) &&
-            Boolean(tbody.children[childIndex].classList) &&
-            tbody.children[childIndex].classList.contains(className)
-        ).toBe(hasClass)
-      }
-    }
   })
 })
