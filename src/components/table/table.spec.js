@@ -444,7 +444,7 @@ describe('table', () => {
     const wrapper = mount(Table, {
       propsData: {
         items: [{ a: 1, b: 2 }],
-        fields: [ { key: 'a', isRowHeader: true }, 'b']
+        fields: [{ key: 'a', isRowHeader: true }, 'b']
       }
     })
 
