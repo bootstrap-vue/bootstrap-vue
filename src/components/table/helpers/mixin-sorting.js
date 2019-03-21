@@ -87,14 +87,6 @@ export default {
         })
       }
       return items
-    },
-    // Classes and Attributes to add to the <table>
-    // Here for possible future use
-    sortingTableClasses() {
-      return {}
-    },
-    sortingTableAttrs() {
-      return {}
     }
   },
   watch: {
@@ -182,7 +174,7 @@ export default {
       }
     },
     // methods to compute classes and attrs for thead>th cells
-    sortTheadThClasses(key, field, idx) {
+    sortTheadThClasses(key, field, isFoot) {
       return {
         // No Classes for sorting currently...
         // All styles targeted using aria-* attrs
