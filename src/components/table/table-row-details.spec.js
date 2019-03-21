@@ -94,6 +94,67 @@ describe('table row details', () => {
     wrapper.destroy()
   })
 
+  it('should show details slot when slot method toggleDetails() called', async () => {
+    const testItems = [
+      { a: 1, b: 2, c: 3, _showDetails: true },
+    ]
+    const testFields = ['a', 'b', 'c']
+    let scopeDetails = null
+    let scopeField = null
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      scopedSlots: {
+        'row-details': function(scope) {
+          scopeDetails = scope
+          return '<div>foobar</div>'
+        },
+        'a': function(scope) {
+          scopeSlot = scope
+          return '<div>AAA</div>'
+        }
+      }
+    })
+    let $trs
+    expect(wrapper).toBeDefined()
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(2)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+    expect($trs.at(1).is('tr.b-table-details')).toBe(true)
+    expect($trs.at(1).text()).toBe('foobar')
+
+    // Toggle scoped records via details slot
+    expect(scopeDetails).not.toBe(null)
+    scopeDetails.toggleDetails()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(1)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+
+    // Toggle scoped records via field slot
+    expect(scopeField).not.toBe(null)
+    scopeField.toggleDetails()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(2)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+    expect($trs.at(1).is('tr.b-table-details')).toBe(true)
+    expect($trs.at(1).text()).toBe('foobar')
+
+    wrapper.destroy()
+  })
+
   it('should hide details slot when _showDetails changed', async () => {
     const testItems = [
       { a: 1, b: 2, c: 3, _showDetails: true },
