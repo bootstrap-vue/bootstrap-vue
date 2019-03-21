@@ -90,7 +90,7 @@ export default {
     }
   },
   watch: {
-    isSortable(newVal, oldVal) {
+    isSortable(newVal, oldVal) /* istanbul ignore next: pain in the butt to test */ {
       if (newVal) {
         if (this.isSortable) {
           this.$on('head-clicked', this.handleSort)
