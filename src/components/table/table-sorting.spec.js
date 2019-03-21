@@ -159,7 +159,7 @@ describe('table sorting', () => {
     // not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // for clearing sorting
-    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+    expect($ths.at(2).attributes('aria-label')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -350,7 +350,7 @@ describe('table sorting', () => {
     expect(columnA[2]).toBe('2')
     // Should have aria-* labels
     expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(2)
-    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(3)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(2)
 
     // Sort by first column
     wrapper
@@ -573,7 +573,7 @@ describe('table sorting', () => {
     // not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // for clearing sorting
-    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+    expect($ths.at(2).attributes('aria-label')).not.toBeDefined()
 
     // Change sort direction (should be descending first)
     wrapper
