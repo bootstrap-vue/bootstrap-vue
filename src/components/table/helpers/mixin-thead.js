@@ -117,7 +117,7 @@ export default {
       // Genrate the row(s)
       const $trs = []
       if (isFoot) {
-        $trs.push(h('tr', { class: this.tfootTrClass }, $cells))
+        $trs.push(h('tr', { class: this.tfootTrClass, attrs: { role: 'row' } }, $cells))
       } else {
         const scope = {
           columns: fields.length,
