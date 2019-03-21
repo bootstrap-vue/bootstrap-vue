@@ -1,4 +1,4 @@
-import { loadFixture, testVM, setData, nextTick } from '../../../tests/utils'
+import { loadFixture, testVM, nextTick } from '../../../tests/utils'
 
 describe('table', () => {
   beforeEach(loadFixture(__dirname, 'table'))
