@@ -61,6 +61,8 @@ function getTransisionEndEvent(el) {
   return null
 }
 
+const noop = () => {}
+
 // @vue/component
 export default {
   name: 'BCarousel',
@@ -109,6 +111,11 @@ export default {
     },
     noTouch: {
       // Sniffed by carousel-slide
+      type: Boolean,
+      default: false
+    },
+    noHoverPause: {
+      // Disable pause on hover
       type: Boolean,
       default: false
     },
@@ -541,8 +548,8 @@ export default {
     )
 
     const on = {
-      mouseenter: this.pause,
-      mouseleave: this.restart,
+      mouseenter: this.noHoverPause ? noop : this.pause,
+      mouseleave: this.noHoverPause ? noop : this.restart,
       focusin: this.pause,
       focusout: this.restart,
       keydown: evt => {
