@@ -262,7 +262,7 @@ describe('table', () => {
   it('item _rowVariant works', async () => {
     const wrapper = mount(Table, {
       propsData: {
-        items: [{ a: 1, _rowVariant: 'primary'}],
+        items: [{ a: 1, _rowVariant: 'primary' }],
         fields: ['a'],
         dark: false
       }
