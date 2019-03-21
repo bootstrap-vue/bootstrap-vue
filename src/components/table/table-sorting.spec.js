@@ -440,7 +440,7 @@ describe('table sorting', () => {
     expect(columnA[2]).toBe('2')
     // Should have aria-* labels
     expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(2)
-    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(3)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(2)
 
     wrapper.destroy()
   })
@@ -605,7 +605,7 @@ describe('table sorting', () => {
     // not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
     // for sorting by ascending
-    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
 
     // not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
