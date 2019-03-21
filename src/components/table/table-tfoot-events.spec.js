@@ -11,6 +11,10 @@ describe('table tfoot events', () => {
         fields: testFields,
         items: testItems,
         footClone: true
+      },
+      listeners: {
+        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        'head-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -44,6 +48,10 @@ describe('table tfoot events', () => {
         items: testItems,
         footClone: true,
         busy: true
+      },
+      listeners: {
+        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        'head-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -62,6 +70,10 @@ describe('table tfoot events', () => {
         fields: testFields,
         items: testItems,
         footClone: true
+      },
+      listeners: {
+        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        'head-clicked': () => {}
       }
     })
     wrapper.setData({
@@ -83,6 +95,10 @@ describe('table tfoot events', () => {
         fields: testFields,
         items: testItems,
         footClone: true
+      },
+      listeners: {
+        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        'head-clicked': () => {}
       },
       slots: {
         // in Vue 2.6x, slots get translated into scopedSlots
