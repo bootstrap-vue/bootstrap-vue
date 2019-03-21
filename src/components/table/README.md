@@ -1188,6 +1188,16 @@ as read-only.**
 <!-- b-table-selectable.vue -->
 ```
 
+When table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
+
 **Notes:**
 
 - _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
@@ -1818,12 +1828,22 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 ## Table accessibility notes
 
+When a column (field) is sortable, the header (and footer) heading cells will also be placed into
+the document tab sequence for accessibility.
+
 When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered,
 all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
 `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
 
-When a column (field) is sortable, the header (and footer) heading cells will also be placed into
-the document tab sequence for accessibility.
+When the table items rows are in the tabl sequence, they will also support basic keyboard navigation
+when focused:
+
+- <kbd>DOWN</kbd> will move to the next row
+- <kbd>UP</kbd> will move to the previous row
+- <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
+- <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row. <kbd>SHIFT</kbd> and <kbd>CTRL</kbd>
+  modifiers will also work (depending on the table selectable mode).
 
 Note the following row based events/actions are not considered accessible, and should only be used
 if the functionality is non critical or can be provided via other means:

@@ -150,6 +150,7 @@ export default {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       const el = evt.target
       if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
+        /* istanbul ignore next: can't test getComputedStyle in JSDOM */
         return
       }
       if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {

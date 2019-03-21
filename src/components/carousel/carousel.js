@@ -61,6 +61,8 @@ function getTransisionEndEvent(el) {
   return null
 }
 
+const noop = () => {}
+
 // @vue/component
 export default {
   name: 'BCarousel',
@@ -112,6 +114,11 @@ export default {
       type: Boolean,
       default: false
     },
+    noHoverPause: {
+      // Disable pause on hover
+      type: Boolean,
+      default: false
+    },
     imgWidth: {
       // Sniffed by carousel-slide
       type: [Number, String]
@@ -138,7 +145,7 @@ export default {
       transitionEndEvent: null,
       slides: [],
       direction: null,
-      isPaused: false,
+      isPaused: !(parseInt(this.interval, 10) > 0),
       // Touch event handling values
       touchStartX: 0,
       touchDeltaX: 0
@@ -171,6 +178,7 @@ export default {
     },
     index(to, from) {
       if (to === from || this.isSliding) {
+        /* istanbul ignore next */
         return
       }
       this.doSlide(to, from)
@@ -181,6 +189,8 @@ export default {
     this._intervalId = null
     this._animationTimeout = null
     this._touchTimeout = null
+    // Set initial paused state
+    this.isPaused = !(parseInt(this.interval, 10) > 0)
   },
   mounted() {
     // Cache current browser transitionend event name
@@ -251,6 +261,7 @@ export default {
       if (!evt) {
         this.isPaused = false
       }
+      /* istanbul ignore next: most likley will never happen, but just in case */
       if (this._intervalId) {
         clearInterval(this._intervalId)
         this._intervalId = null
@@ -537,8 +548,8 @@ export default {
     )
 
     const on = {
-      mouseenter: this.pause,
-      mouseleave: this.restart,
+      mouseenter: this.noHoverPause ? noop : this.pause,
+      mouseleave: this.noHoverPause ? noop : this.restart,
       focusin: this.pause,
       focusout: this.restart,
       keydown: evt => {
