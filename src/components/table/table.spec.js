@@ -287,6 +287,61 @@ describe('table', () => {
     wrapper.destroy()
   })
 
+  it('stacked has data-label attribute on all tbody > tr td', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stacked: true,
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    const $trs = wrapper.findAll('tbody > tr').wrappers
+
+    // Labels will have run through startCase
+    expect(
+      $trs[0]
+        .findAll('td')
+        .at(0)
+        .attributes('data-label')
+    ).toBe('A')
+    expect(
+      $trs[1]
+        .findAll('td')
+        .at(0)
+        .attributes('data-label')
+    ).toBe('A')
+
+    expect(
+      $trs[0]
+        .findAll('td')
+        .at(1)
+        .attributes('data-label')
+    ).toBe('B')
+    expect(
+      $trs[1]
+        .findAll('td')
+        .at(1)
+        .attributes('data-label')
+    ).toBe('B')
+
+    expect(
+      $trs[0]
+        .findAll('td')
+        .at(2)
+        .attributes('data-label')
+    ).toBe('C')
+    expect(
+      $trs[1]
+        .findAll('td')
+        .at(2)
+        .attributes('data-label')
+    ).toBe('C')
+
+    wrapper.destroy()
+  })
+
   it('item _rowVariant works', async () => {
     const wrapper = mount(Table, {
       propsData: {
