@@ -95,9 +95,7 @@ describe('table row details', () => {
   })
 
   it('should show details slot when slot method toggleDetails() called', async () => {
-    const testItems = [
-      { a: 1, b: 2, c: 3, _showDetails: true },
-    ]
+    const testItems = [{ a: 1, b: 2, c: 3, _showDetails: true }]
     const testFields = ['a', 'b', 'c']
     let scopeDetails = null
     let scopeField = null
@@ -111,8 +109,8 @@ describe('table row details', () => {
           scopeDetails = scope
           return '<div>foobar</div>'
         },
-        'a': function(scope) {
-          scopeSlot = scope
+        a: function(scope) {
+          scopeField = scope
           return '<div>AAA</div>'
         }
       }
