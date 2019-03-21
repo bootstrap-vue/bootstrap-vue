@@ -83,10 +83,7 @@ export default {
         }
         const data = {
           key: field.key,
-          class: [
-            this.fieldClasses(field),
-            this.sortTheadThClasses(field.key, field, isFoot)
-          ],
+          class: [this.fieldClasses(field), this.sortTheadThClasses(field.key, field, isFoot)],
           style: field.thStyle || {},
           attrs: {
             // We only add a tabindex of 0 if htere is a head-clicked listener
