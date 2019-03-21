@@ -15,6 +15,10 @@ export default {
       default: false
     },
     sortDirection: {
+      // This prop is named incorrectly.
+      // It should be initialSortDirection
+      // As it is a bit misleading (not to mention screws up
+      // the Aria Label on the headers)
       type: String,
       default: 'asc',
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
@@ -24,6 +28,10 @@ export default {
       default: null
     },
     noSortReset: {
+      // Another prop that should have had a better name.
+      // It should be noSortClear (on non-sortable headers).
+      // We will need to make sure the documentation is clear on what
+      // this prop does (as well as in the code for future reference)
       type: Boolean,
       default: false
     },
@@ -147,10 +155,23 @@ export default {
       let sortChanged = false
       const toggleLocalSortDesc = () => {
         const sortDirection = field.sortDirection || this.sortDirection
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // This prop/property needs better documentation as to what it does
+        // (especially here in the code). It appears to be an initial sort
+        // direction for a column.  But it has conflicts under certain
+        // situations causing the Aria Labels for a column to get messed up
+        // giving the opposite label as to what the click actually does.
+        // The property, if kept, should be called initiaSortDirection
+        // to make it clear as to what it is (and that it doesn't change
+        // sorting direction on the fly)
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (sortDirection === 'asc') {
           this.localSortDesc = false
         } else if (sortDirection === 'desc') {
           this.localSortDesc = true
+        } else {
+          // sortDirection === 'last'
+          // Leave at last sort direction from previous column
         }
       }
       if (field.sortable) {
@@ -160,6 +181,7 @@ export default {
         } else {
           // Start sorting this column ascending
           this.localSortBy = key
+          // this.localSortDesc = false
           toggleLocalSortDesc()
         }
         sortChanged = true
@@ -189,17 +211,36 @@ export default {
       let ariaLabel = ''
       if (!field.label.trim() && !field.headerTitle) {
         // In case field's label and title are empty/blank, we need to
-        // add a hint about what the column is about for non-sighted users
+        // add a hint about what the column is about for non-sighted users.
+        // This is dulicated code from tbody-row mixin, but we need it
+        // here as well, since we overwrite the original aria-label.
         /* istanbul ignore next */
         ariaLabel = startCase(key)
       }
-      const ariaLabelSorting = sortable
-        ? this.localSortDesc && this.localSortBy === key
-          ? this.labelSortAsc
-          : this.labelSortDesc
-        : this.noSortReset
-          ? ''
-          : this.labelSortClear
+      // The correctness of these labels is very important for screen-reader users.
+      // Currently the field.sortDirection property complicates the following:
+      let ariaLabelSorting = ''
+      if (sortable) {
+        if (this.localSortBy === key) {
+          // currently sorted sortable column.
+          ariaLabelSorting = this.localSortDesc ? this.labelSortAsc : this.labelSortDesc
+        } else {
+          // Not currently sorted sortable column.
+          // Have to add special tests to handle this.sortDirection and field.sortDirection.
+          // Not using nested ternary's here for clarity/readability
+          const sortDirection = this.sortDirection || field.sortDirection
+          if (sortDirection === 'asc') {
+            ariaLabelSorting = this.labelSortAsc
+          } else if (sortDirection === 'desc') {
+            ariaLabelSorting = this.labelSortDesc
+          } else { // 'last'
+            ariaLabelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
+          }
+        }
+      } else if (!this.noSortReset) {
+        // Non sortable column
+        ariaLabelSorting = this.labelSortClear
+      }
       // Assemble the aria-label attribute value
       ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
       // Assemble the aria-sort attribute value
@@ -212,6 +253,7 @@ export default {
             ? 'none'
             : null
       // Return the attributes
+      // (All the above just to get these two values)
       return {
         'aria-label': ariaLabel || null,
         'aria-sort': ariaSort
