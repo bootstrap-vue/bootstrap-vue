@@ -135,11 +135,11 @@ export default {
     // Handlers
     // Need to move from thead-mixin
     handleSort(key, field, evt, isFoot) {
-      if (isFoot && this.noFoooterSorting) {
-        return
-      }
       if (!this.isSortable) {
         /* istanbul ignore next */
+        return
+      }
+      if (isFoot && this.noFooterSorting) {
         return
       }
       // TODO: make this tri-state sorting
