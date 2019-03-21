@@ -321,7 +321,7 @@ describe('table sorting', () => {
 
     // Click first column header again to reverse sort
     wrapper
-      .findAll('foot > tr > th')
+      .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
     await wrapper.vm.$nextTick()
