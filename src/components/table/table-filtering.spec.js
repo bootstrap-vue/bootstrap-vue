@@ -211,11 +211,17 @@ describe('table > filtering', () => {
       propsData: {
         fields: testFields,
         items: testItems,
-        filter: 'ZZZZZZZZ',
+        filter: '',
         showEmpty: true
       }
     })
     expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length)
+
+    wrapper.setProps({
+      filter: 'ZZZZZZ'
+    })
     await wrapper.vm.$nextTick()
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
