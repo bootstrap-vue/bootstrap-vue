@@ -138,6 +138,7 @@ class ToolTip {
     this.$doShow = this.doShow.bind(this)
     this.$doDisable = this.doDisable.bind(this)
     this.$doEnable = this.doEnable.bind(this)
+    this._noop = noop.bind(this)
     // Set the configuration
     this.updateConfig(config)
   }
@@ -836,9 +837,9 @@ class ToolTip {
     if ('ontouchstart' in document.documentElement) {
       arrayFrom(document.body.children).forEach(el => {
         if (on) {
-          eventOn(el, 'mouseover', noop)
+          eventOn(el, 'mouseover', this._noop)
         } else {
-          eventOff(el, 'mouseover', noop)
+          eventOff(el, 'mouseover', this._noop)
         }
       })
     }
