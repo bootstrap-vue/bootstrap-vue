@@ -9,7 +9,7 @@ const testFields = [
   { key: 'c', label: 'C', sortable: false }
 ]
 
-describe('table sorting', () => {
+describe('table > sorting', () => {
   it('should not be sorted by default', async () => {
     const wrapper = mount(Table, {
       propsData: {
