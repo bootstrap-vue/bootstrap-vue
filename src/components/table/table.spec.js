@@ -439,4 +439,57 @@ describe('table', () => {
 
     wrapper.destroy()
   })
+
+  it('item field isRowHeader works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: [ { key: 'a', isRowHeader: true }, 'b']
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > *').length).toBe(2)
+
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(0)
+        .is('th')
+    ).toBe(true)
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(0)
+        .attributes('role')
+    ).toBe('rowheader')
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(0)
+        .attributes('scope')
+    ).toBe('row')
+
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(1)
+        .is('td')
+    ).toBe(true)
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(1)
+        .attributes('role')
+    ).toBe('cell')
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(1)
+        .attributes('scope')
+    ).not.toBeDefined()
+
+    wrapper.destroy()
+  })
 })
