@@ -11,8 +11,7 @@ describe('table thead events', () => {
         fields: testFields,
         items: testItems
       },
-      listeners: {
-      }
+      listeners: {}
     })
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('thead > tr')
