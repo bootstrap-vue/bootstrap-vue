@@ -258,4 +258,48 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
   })
+
+  it('item _rowVariant works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, _rowVariant: 'primary'}],
+        fields: ['a'],
+        dark: false
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.find('tbody > tr').classes()).toContain('table-primary')
+
+    wrapper.setProps({
+      dark: true
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.find('tbody > tr').classes()).toContain('bg-primary')
+  })
+
+  it('item _cellVariants works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, _cellVariants: { a: 'info' } }],
+        fields: ['a'],
+        dark: false
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
+    expect(wrapper.find('tbody > tr > td').classes()).toContain('table-info')
+
+    wrapper.setProps({
+      dark: true
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
+    expect(wrapper.find('tbody > tr > td').classes()).toContain('bg-info')
+  })
 })
