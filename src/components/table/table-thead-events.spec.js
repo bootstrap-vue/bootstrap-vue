@@ -12,8 +12,6 @@ describe('table thead events', () => {
         items: testItems
       },
       listeners: {
-        // head-clicked will only be emitted if there is a registered listener
-        'head-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
