@@ -302,4 +302,36 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
     expect(wrapper.find('tbody > tr > td').classes()).toContain('bg-info')
   })
+
+  it('tbody-tr-class works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }, { a: 3, b: 4 }],
+        fields: ['a', 'b'],
+        tbodyTrClass: 'foobar'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+
+    // prop as a string
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    const $trs = wrapper.find('tbody > tr')
+    expect($trs.at(0).classes()).toContain('foobar')
+    expect($trs.at(1).classes()).toContain('foobar')
+
+    // As a function
+    wrapper.setProps({
+      tbodyTrClass: (item) => {
+        return item.a === 1 ? 'foo' : 'bar'
+      }
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    const $trs = wrapper.find('tbody > tr')
+    expect($trs.at(0).classes()).toContain('foo')
+    expect($trs.at(0).classes()).not.toContain('bar')
+    expect($trs.at(1).classes()).toContain('bar')
+    expect($trs.at(1).classes()).not.toContain('foo')
+  })
 })
