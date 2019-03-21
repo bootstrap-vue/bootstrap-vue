@@ -59,7 +59,7 @@ export default {
       return this.hasProvider ? !!this.noProviderSorting : !this.noLocalSorting
     },
     isSortable() {
-      return this.computedFields.some(f => f.sortable !== undefined)
+      return this.computedFields.some(f => f.sortable)
     },
     sortedItems() {
       // Sorts the filtered items and returns a new array of the sorted items
