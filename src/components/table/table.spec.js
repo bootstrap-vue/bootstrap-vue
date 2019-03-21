@@ -238,4 +238,24 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
   })
+
+  it('stacked has precedence over responsive', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stacked: true,
+        responsive: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).not.toContain('table-responsive')
+    expect(wrapper.classes()).toContain('b-table-stacked')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+  })
 })
