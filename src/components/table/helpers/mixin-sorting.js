@@ -233,7 +233,8 @@ export default {
             ariaLabelSorting = this.labelSortAsc
           } else if (sortDirection === 'desc') {
             ariaLabelSorting = this.labelSortDesc
-          } else { // 'last'
+          } else {
+            // sortDirection === 'last'
             ariaLabelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
           }
         }
