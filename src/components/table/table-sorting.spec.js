@@ -545,8 +545,6 @@ describe('table sorting', () => {
     let columnA
 
     await wrapper.vm.$nextTick()
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
@@ -583,7 +581,7 @@ describe('table sorting', () => {
       .at(0)
       .trigger('click')
     await wrapper.vm.$nextTick()
-    expect(wrapper.emitted('input').length).toBe(2)
+
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
