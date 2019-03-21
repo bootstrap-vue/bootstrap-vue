@@ -316,19 +316,19 @@ describe('table', () => {
 
     // prop as a string
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
-    const $trs = wrapper.find('tbody > tr')
+    let $trs = wrapper.find('tbody > tr')
     expect($trs.at(0).classes()).toContain('foobar')
     expect($trs.at(1).classes()).toContain('foobar')
 
     // As a function
     wrapper.setProps({
-      tbodyTrClass: (item) => {
+      tbodyTrClass: item => {
         return item.a === 1 ? 'foo' : 'bar'
       }
     })
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
-    const $trs = wrapper.find('tbody > tr')
+    $trs = wrapper.find('tbody > tr')
     expect($trs.at(0).classes()).toContain('foo')
     expect($trs.at(0).classes()).not.toContain('bar')
     expect($trs.at(1).classes()).toContain('bar')
