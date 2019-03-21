@@ -627,7 +627,8 @@ describe('table > sorting', () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
-        items: testItems
+        items: testItems,
+        noSortReset: true
       }
     })
     expect(wrapper).toBeDefined()
