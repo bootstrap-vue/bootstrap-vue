@@ -248,8 +248,12 @@ describe('table', () => {
       app: { $refs }
     } = window
     const vm = $refs.table_paginated
-    const ariaLabelDesc = vm.labelSortDesc
+    const ariaLabelAsc = vm.labelSortAsc
     const ariaLabelClear = vm.labelSortClear
+
+    // No columns sorted
+    expect(vm.localSortDesc).toBe(false)
+    expect(vm.localSortBy).toEqual(null)
 
     const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
     expect(thead).toBeDefined()
@@ -257,8 +261,8 @@ describe('table', () => {
       const tr = [...thead.children].find(el => el && el.tagName === 'TR')
       expect(tr).toBeDefined()
       if (tr) {
-        expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabelDesc)
-        expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabelDesc)
+        expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabelAsc)
+        expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabelAsc)
         expect(tr.children[2].getAttribute('aria-label')).toBe(ariaLabelClear)
         expect(tr.children[3].getAttribute('aria-label')).toBe(ariaLabelClear)
       }
@@ -270,8 +274,12 @@ describe('table', () => {
       app: { $refs }
     } = window
     const vm = $refs.table_paginated
-    const ariaLabelDesc = vm.labelSortDesc
+    const ariaLabelAsc = vm.labelSortAsc
     const ariaLabelClear = vm.labelSortClear
+
+    // No columns sorted
+    expect(vm.localSortDesc).toBe(false)
+    expect(vm.localSortBy).toEqual(null)
 
     const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
     expect(tfoot).toBeDefined()
@@ -279,8 +287,8 @@ describe('table', () => {
       const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
       expect(tr).toBeDefined()
       if (tr) {
-        expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabelDesc)
-        expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabelDesc)
+        expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabelAsc)
+        expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabelAsc)
         expect(tr.children[2].getAttribute('aria-label')).toBe(ariaLabelClear)
         expect(tr.children[3].getAttribute('aria-label')).toBe(ariaLabelClear)
       }
