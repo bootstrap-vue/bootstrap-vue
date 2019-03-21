@@ -253,7 +253,7 @@ describe('table', () => {
 
     // No columns sorted
     expect(vm.localSortDesc).toBe(false)
-    expect(vm.localSortBy).toEqual(null)
+    expect(vm.localSortBy).toEqual('')
 
     const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
     expect(thead).toBeDefined()
@@ -279,7 +279,7 @@ describe('table', () => {
 
     // No columns sorted
     expect(vm.localSortDesc).toBe(false)
-    expect(vm.localSortBy).toEqual(null)
+    expect(vm.localSortBy).toEqual('')
 
     const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
     expect(tfoot).toBeDefined()
