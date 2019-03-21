@@ -515,4 +515,5 @@ describe('table', () => {
     expect($tds.at(0).text()).toBe('2')
 
     wrapper.destroy()
+  })
 })
