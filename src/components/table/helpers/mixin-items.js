@@ -44,6 +44,7 @@ export default {
   },
   watch: {
     items(newItems) {
+      /* istanbul ignore else */
       if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = newItems.slice()
