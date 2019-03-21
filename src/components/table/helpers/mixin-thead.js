@@ -68,7 +68,7 @@ export default {
           /* istanbul ignore next */
           ariaLabel = startCase(field.key)
         }
-        const hasHeadClickListener = this.$listeners['head-clicked']
+        const hasHeadClickListener = this.$listeners['head-clicked'] || this.isSortable
         const handlers = {}
         if (hasHeadClickListener) {
           handlers.click = evt => {
@@ -86,7 +86,7 @@ export default {
           class: [this.fieldClasses(field), this.sortTheadThClasses(field.key, field, isFoot)],
           style: field.thStyle || {},
           attrs: {
-            // We only add a tabindex of 0 if htere is a head-clicked listener
+            // We only add a tabindex of 0 if there is a head-clicked listener
             tabindex: hasHeadClickListener ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
