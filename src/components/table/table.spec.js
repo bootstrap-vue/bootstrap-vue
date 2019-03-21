@@ -493,6 +493,32 @@ describe('table', () => {
     wrapper.destroy()
   })
 
+  it('item field tdAttr and tdClass works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: [
+          { key: 'a', tdAttr: { 'data-foo': 'bar' } },
+          { key: 'b', tdClass: () => 'fobar' }
+        ]
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+
+    const $tds = wrapper.findAll('tbody > tr > td')
+
+    expect($tds.at(0).attributes('data-foo')).toBe('bar')
+    expect($tds.at(0).classes().length).toBe(0)
+
+    expect($tds.at(0).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(0).classes()).toContain('foobar')
+
+    wrapper.destroy()
+  })
+
   it('item field formatter as function works', async () => {
     const wrapper = mount(Table, {
       propsData: {
