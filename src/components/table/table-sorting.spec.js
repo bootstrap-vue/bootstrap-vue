@@ -578,7 +578,10 @@ describe('table sorting', () => {
     expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     // Change sort direction (should be descending first)
-    wrapper.findAll('thead > tr > th').at(0).trigger('click')
+    wrapper
+      .findAll('thead > tr > th')
+      .at(0)
+      .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('input').length).toBe(2)
     $rows = wrapper.findAll('tbody > tr').wrappers
