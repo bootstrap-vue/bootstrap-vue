@@ -622,4 +622,78 @@ describe('table > sorting', () => {
 
     wrapper.destroy()
   })
+
+  it('non-sortable header th should not emit a sort-changed event when clicked and prop no-sort-reset is set', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+    let $rows
+    let columnA
+
+    // Should not be sorted
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the first column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('3')
+    expect(columnA[1]).toBe('1')
+    expect(columnA[2]).toBe('2')
+
+    // Click first column to sort
+    wrapper
+      .findAll('thead > tr > th')
+      .at(0)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('sort-changed')).toBeDefined()
+    expect(wrapper.emitted('sort-changed').length).toBe(1)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('1')
+    expect(columnA[1]).toBe('2')
+    expect(columnA[2]).toBe('3')
+
+    // Click third column header (should not clear sorting)
+    wrapper
+      .findAll('thead > tr > th')
+      .at(2)
+      .trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('sort-changed').length).toBe(1)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('1')
+    expect(columnA[1]).toBe('2')
+    expect(columnA[2]).toBe('3')
+
+    wrapper.destroy()
+  })
 })
