@@ -117,6 +117,13 @@ export default {
       }
     }
   },
+  created() {
+    // Set the initial filtered state.
+    // In a nextTick so that we trigger a filtered event if needed
+    this.$nextTick(() => {
+      this.isFiltered = Boolean(this.localFilter)
+    })
+  },
   methods: {
     // Filter Function factories
     filterFnFactory(filterFn, criteria) {
