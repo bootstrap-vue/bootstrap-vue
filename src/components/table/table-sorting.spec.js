@@ -241,6 +241,7 @@ describe('table > sorting', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
+    expect(wrapper.emitted('sort-changed')[0][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -261,6 +262,7 @@ describe('table > sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(2)
+    expect(wrapper.emitted('sort-changed')[1][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -281,6 +283,7 @@ describe('table > sorting', () => {
       .trigger('keydown.enter')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(3)
+    expect(wrapper.emitted('sort-changed')[2][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -301,6 +304,7 @@ describe('table > sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(4)
+    expect(wrapper.emitted('sort-changed')[3][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -360,6 +364,7 @@ describe('table > sorting', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
+    expect(wrapper.emitted('sort-changed')[0][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -383,6 +388,7 @@ describe('table > sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(2)
+    expect(wrapper.emitted('sort-changed')[1][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -406,6 +412,7 @@ describe('table > sorting', () => {
       .trigger('keydown.enter')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(3)
+    expect(wrapper.emitted('sort-changed')[2][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -426,6 +433,7 @@ describe('table > sorting', () => {
       .trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.emitted('sort-changed').length).toBe(4)
+    expect(wrapper.emitted('sort-changed')[3][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
