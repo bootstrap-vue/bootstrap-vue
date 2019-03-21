@@ -71,6 +71,23 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('3')
 
+    let $ths = wrapper.findAll('thead > tr > th')
+    
+    // currently sorted as ascending
+    expect($ths.at(0).attributes('aria-sort')).toBe('ascending')
+    // for switching to descending
+    expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
+
+    // not sorted by this column
+    expect($ths.at(1).attributes('aria-sort')).toBe('none')
+    // for sorting by ascending
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not a sortable column
+    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    // for clearing sorting
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+
     // Change sort direction
     wrapper.setProps({
       sortDesc: true
@@ -89,6 +106,23 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('1')
+
+    $ths = wrapper.findAll('thead > tr > th')
+
+    // currently sorted as descending
+    expect($ths.at(0).attributes('aria-sort')).toBe('descending')
+    // for switching to ascending
+    expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not sorted by this column
+    expect($ths.at(1).attributes('aria-sort')).toBe('none')
+    // for sorting by ascending
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not a sortable column
+    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    // for clearing sorting
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     // Clear sort
     wrapper.setProps({
@@ -109,6 +143,23 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+
+    $ths = wrapper.findAll('thead > tr > th')
+
+    // currently not sorted
+    expect($ths.at(0).attributes('aria-sort')).toBe('none')
+    // for sorting by ascending
+    expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not sorted by this column
+    expect($ths.at(1).attributes('aria-sort')).toBe('none')
+    // for sorting by ascending
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not a sortable column
+    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    // for clearing sorting
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     wrapper.destroy()
   })
