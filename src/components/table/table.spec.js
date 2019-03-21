@@ -292,11 +292,11 @@ describe('table', () => {
       propsData: {
         items: items1,
         fields: fields1,
-        stacked: true,
+        stacked: true
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
     const $trs = wrapper.findAll('tbody > tr').wrappers
 
     // Labels will have run through startCase
