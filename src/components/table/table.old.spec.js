@@ -4,28 +4,6 @@ describe('table', () => {
   beforeEach(loadFixture(__dirname, 'table'))
   testVM()
 
-  it('table_paginated thead should contain class thead-dark', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-    if (thead) {
-      expect(thead.classList.contains('thead-dark')).toBe(true)
-    }
-  })
-
-  it('table_paginated tfoot should contain class thead-light', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
-    if (tfoot) {
-      expect(tfoot.classList.contains('thead-light')).toBe(true)
-    }
-  })
-
   it('table_basic should contain custom formatted columns', async () => {
     const { app } = window
     const vm = app.$refs.table_basic
