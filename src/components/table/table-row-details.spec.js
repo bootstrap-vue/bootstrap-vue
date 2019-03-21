@@ -1,7 +1,7 @@
 import Table from './table'
 import { mount } from '@vue/test-utils'
 
-describe('table row details', () => {
+describe('table > row details', () => {
   it('does not show details if slot row-details not defined', async () => {
     const testItems = [
       { a: 1, b: 2, c: 3, _showDetails: true },
