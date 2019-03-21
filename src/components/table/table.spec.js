@@ -217,7 +217,7 @@ describe('table', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.find('table').classes()).toContain('table')
     expect(wrapper.find('table').classes()).toContain('b-table')
-    expect(wrapper.find('table').classes().length).toBe(3)
+    expect(wrapper.find('table').classes().length).toBe(2)
   })
 
   it('has class "table-responsive-md" when responsive=md', async () => {
@@ -236,6 +236,6 @@ describe('table', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.find('table').classes()).toContain('table')
     expect(wrapper.find('table').classes()).toContain('b-table')
-    expect(wrapper.find('table').classes().length).toBe(3)
+    expect(wrapper.find('table').classes().length).toBe(2)
   })
 })
