@@ -155,16 +155,6 @@ export default {
       let sortChanged = false
       const toggleLocalSortDesc = () => {
         const sortDirection = field.sortDirection || this.sortDirection
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // This prop/property needs better documentation as to what it does
-        // (especially here in the code). It appears to be an initial sort
-        // direction for a column.  But it has conflicts under certain
-        // situations causing the Aria Labels for a column to get messed up
-        // giving the opposite label as to what the click actually does.
-        // The property, if kept, should be called initiaSortDirection
-        // to make it clear as to what it is (and that it doesn't change
-        // sorting direction on the fly)
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (sortDirection === 'asc') {
           this.localSortDesc = false
         } else if (sortDirection === 'desc') {
@@ -209,7 +199,7 @@ export default {
       }
       const sortable = field.sortable
       let ariaLabel = ''
-      if (!field.label.trim() && !field.headerTitle) {
+      if ((!field.label || !field.label.trim()) && !field.headerTitle) {
         // In case field's label and title are empty/blank, we need to
         // add a hint about what the column is about for non-sighted users.
         // This is dulicated code from tbody-row mixin, but we need it
@@ -218,7 +208,6 @@ export default {
         ariaLabel = startCase(key)
       }
       // The correctness of these labels is very important for screen-reader users.
-      // Currently the field.sortDirection property complicates the following:
       let ariaLabelSorting = ''
       if (sortable) {
         if (this.localSortBy === key) {
@@ -240,9 +229,7 @@ export default {
         }
       } else if (!this.noSortReset) {
         // Non sortable column
-        ariaLabelSorting = this.labelSortClear
-        // TODO: this should be: (no label when no localSortBy
-        ariaLabelSorting = this.loclSortBy ? this.labelSortClear : null
+        ariaLabelSorting = this.localSortBy ? this.labelSortClear : ''
       }
       // Assemble the aria-label attribute value
       ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
