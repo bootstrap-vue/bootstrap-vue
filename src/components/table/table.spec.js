@@ -54,23 +54,6 @@ describe('table', () => {
     expect(tr.children.length).toBe(Object.keys(table.items[0]).length - 1)
   })
 
-  it('table_basic should have thead and tbody', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const parts = [...$refs.table_basic.$el.children]
-
-    const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-
-    const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-
-    const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-    expect(tfoot).not.toBeDefined()
-  })
-
   it('table_paginated should have thead, tbody and tfoot', async () => {
     const {
       app: { $refs }
@@ -125,45 +108,6 @@ describe('table', () => {
     if (tfoot) {
       expect(tfoot.classList.contains('thead-light')).toBe(true)
     }
-  })
-
-  it('all examples have correct number of columns', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-      expect(thead).toBeDefined()
-      if (thead) {
-        const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-        expect(tr).toBeDefined()
-        if (tr) {
-          expect(tr.children.length).toBe(Object.keys(vm.fields).length)
-        }
-      }
-    })
-  })
-
-  it('all examples should show the correct number of visible rows', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const app = window.app
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-      expect(tbody).toBeDefined()
-      if (tbody) {
-        expect(tbody.children.length).toBe(vm.perPage || app.items.length)
-      }
-    })
   })
 
   it('all examples should have variant "success" on 1st row', async () => {
@@ -302,78 +246,6 @@ describe('table', () => {
           spy.mockClear()
         })
       }
-    }
-  })
-
-  it('table_paginated pagination works', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const app = window.app
-    const spy = jest.fn()
-
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      // We need between 11 and 14 ites for this test
-      expect(app.items.length > 10).toBe(true)
-      expect(app.items.length < 15).toBe(true)
-
-      vm.$on('input', spy)
-
-      // Page size to be less then number of items
-      await setData(app, 'currentPage', 1)
-      await setData(app, 'perPage', 10)
-      await nextTick()
-      expect(vm.perPage).toBe(10)
-      expect(vm.value.length).toBe(10)
-      expect(tbody.children.length).toBe(10)
-
-      // Goto page 2, should have length 1
-      await setData(app, 'currentPage', 2)
-      await nextTick()
-      expect(vm.value.length).toBe(app.items.length - 10)
-      expect(tbody.children.length).toBe(app.items.length - 10)
-
-      expect(spy).toHaveBeenCalled()
-    }
-  })
-
-  it('table_paginated shows empty message when no items', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const app = window.app
-    const spy = jest.fn()
-
-    expect(vm.showEmpty).toBe(true)
-
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      expect(app.items.length > 10).toBe(true)
-      expect(app.items.length < 15).toBe(true)
-
-      vm.$on('input', spy)
-
-      // Set page size to show all items
-      await setData(app, 'currentPage', 1)
-      await setData(app, 'perPage', 15)
-      await nextTick()
-      expect(vm.value.length).toBe(app.items.length)
-      expect(tbody.children.length).toBe(app.items.length)
-
-      // Set items to empty list
-      await setData(app, 'items', [])
-      await nextTick()
-      expect(app.items.length).toBe(0)
-      expect(vm.value.length).toBe(0)
-      expect(tbody.children.length).toBe(1)
-      expect(tbody.textContent).toContain(vm.emptyText)
-
-      expect(spy).toHaveBeenCalled()
     }
   })
 
