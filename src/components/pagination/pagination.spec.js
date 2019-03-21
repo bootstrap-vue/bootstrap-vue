@@ -134,6 +134,35 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('renders corerct number of elements when total-rows changes', async () => {
+    const wrapper = mount(Pagination, {
+      propsData: {
+        size: 'sm',
+        totalRows: 1,
+        perPage: 1,
+        limit: 10
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.findAll('li').length).toBe(5)
+
+    wrapper.setProps({
+      totalRows: 4
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.findAll('li').length).toBe(8)
+
+    wrapper.setProps({
+      perPage: 2
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.findAll('li').length).toBe(6)
+
+    wrapper.destroy()
+  })
+
   it('has class "pagination-sm" when prop size="sm"', async () => {
     const wrapper = mount(Pagination, {
       propsData: {
