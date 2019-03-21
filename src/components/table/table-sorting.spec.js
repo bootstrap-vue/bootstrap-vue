@@ -40,7 +40,7 @@ describe('table sorting', () => {
     wrapper.destroy()
   })
 
-  it('should sort column descending when sortBy set and sortDesc changed', async () => {
+  it('should sort column descending when sortBy set and sortDesc changed, with proper attributes', async () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
@@ -72,7 +72,7 @@ describe('table sorting', () => {
     expect(columnA[2]).toBe('3')
 
     let $ths = wrapper.findAll('thead > tr > th')
-    
+
     // currently sorted as ascending
     expect($ths.at(0).attributes('aria-sort')).toBe('ascending')
     // for switching to descending
@@ -86,7 +86,7 @@ describe('table sorting', () => {
     // not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // for clearing sorting
-    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     // Change sort direction
     wrapper.setProps({
@@ -122,7 +122,7 @@ describe('table sorting', () => {
     // not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // for clearing sorting
-    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     // Clear sort
     wrapper.setProps({
@@ -159,7 +159,7 @@ describe('table sorting', () => {
     // not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // for clearing sorting
-    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     wrapper.destroy()
   })
