@@ -340,54 +340,6 @@ describe('table', () => {
     }
   })
 
-  it('table_paginated filtering works', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const app = window.app
-    const spyInput = jest.fn()
-    const spyFiltered = jest.fn()
-
-    expect(vm.showEmpty).toBe(true)
-    expect(app.items.length > 10).toBe(true)
-    expect(app.items.length < 15).toBe(true)
-
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      expect(app.items.length > 1).toBe(true)
-
-      vm.$on('input', spyInput)
-
-      // Set page size to max number of items
-      await setData(app, 'currentPage', 1)
-      await setData(app, 'perPage', 15)
-      await nextTick()
-      expect(vm.value.length).toBe(app.items.length)
-      expect(tbody.children.length).toBe(app.items.length)
-
-      // Apply Fiter
-      await setData(app, 'filter', String(app.items[0].name.last))
-      await nextTick()
-      expect(vm.value.length < app.items.length).toBe(true)
-      expect(tbody.children.length < app.items.length).toBe(true)
-
-      // Empty filter alert
-      vm.$on('filtered', spyFiltered)
-      await setData(app, 'filter', 'ZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzz........')
-      await nextTick()
-
-      expect(spyFiltered).toHaveBeenCalled()
-
-      expect(vm.value.length).toBe(0)
-      expect(tbody.children.length).toBe(1)
-      expect(tbody.children[0].children[0].textContent).toContain(vm.emptyFilteredText)
-
-      expect(spyInput).toHaveBeenCalled()
-    }
-  })
-
   it('table_paginated shows empty message when no items', async () => {
     const {
       app: { $refs }
