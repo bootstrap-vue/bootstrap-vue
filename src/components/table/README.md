@@ -323,14 +323,14 @@ The following field properties are recognized:
 
 | Property        | Type                        | Description                                                                                                                                                                                                                                                                                                           |
 | --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` from as an array of objects.                                                                                                                                                                                        |
+| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                    |
 | `label`         | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
 | `headerTitle`   | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
 | `headerAbbr`    | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
 | `class`         | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
 | `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.                                                                 |
 | `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection` | String                      | Change sort direction on this column. Refer to the [**Change sort direction**](#change-sort-direction) Section for more details.                                                                                                                                                                                      |
+| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [**Change initial sort direction**](#Change-initial-sort-direction) Section for more details.                                                                                                                                             |
 | `tdClass`       | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
 | `thClass`       | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
 | `thStyle`       | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
@@ -413,7 +413,7 @@ place a unique `:key` on your element/components in your custom formatted field 
 | `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
 | `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
 | `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)                                                                                                                                                                                                                                           |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed`)                                                                                                                                                                                                                                                                            |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
 | `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [**Sorting**](#sorting) section below for more details.                                                                                                                                              |
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [**Responsive tables**](#responsive-tables) below for details. |
@@ -1309,10 +1309,20 @@ pre-specify the column to be sorted, set the `sort-by` prop to the field's key. 
 direction by setting `sort-desc` to either `true` (for descending) or `false` (for ascending, the
 default).
 
+- **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
+  lowest value in the first row with progressively higher values in the following rows. The header
+  indicator arrow will point in the direction of lowest to highest.  (i.e. down for ascending).
+- **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
+  the highest value in the first row with progressively lower values in the following rows. The
+  header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
+
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
 `.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
 criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
-the `.sync` prop modifier
+the `.sync` prop modifier.
+
+Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
+table not being sorted.
 
 When the prop `foot-clone` is set, the footer headings will also allow sorting by clicking, even if
 you have custom formatted footer field headers. To disable the sort icons and sorting via heading
@@ -1427,16 +1437,19 @@ with a single argument containing the context object of `<b-table>`. See the
 [Detection of sorting change](#detection-of-sorting-change) section below for details about the
 sort-changed event and the context object.
 
-### Change sort direction
+### Change initial sort direction
 
 Control the order in which ascending and descending sorting is applied when a sortable column header
 is clicked, by using the `sort-direction` prop. The default value `'asc'` applies ascending sort
-first. To reverse the behavior and sort in descending direction first, set it to `'desc'`.
+first (when a column is not currently sorted). To reverse the behavior and sort in descending
+direction first, set it to `'desc'`.
 
-If you don't want the sorting direction to change at all when clicking another sortable column
-header, set `sort-direction` to `'last'`.
+If you don't want the current sorting direction to change when clicking another sortable column
+header, set `sort-direction` to `'last'`. This will maintain the sorting direction of the previously
+sorted column.
 
-For individual column sort directions, specify the property `sortDirection` in `fields`. See the
+For individual column initial sort direction (which applies when the column transitions from unsorted
+to sorted), specify the property `sortDirection` in `fields`. See the
 [Complete Example](#complete-example) below for an example of using this feature.
 
 ## Filtering
