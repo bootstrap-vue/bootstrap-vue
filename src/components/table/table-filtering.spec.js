@@ -220,6 +220,11 @@ describe('table > filtering', () => {
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.find('tbody > tr').text()).toBe(wrapper.vm.emptyFilteredText)
+    expect(wrapper.find('tbody > tr').classes()).toContain('b-table-empty-row')
+    expect(wrapper.find('tbody > tr').attributes('role')).toBe('row')
+    expect(wrapper.find('tbody > tr > td').attributes('role')).toBe('cell')
+    expect(wrapper.find('tbody > tr > td > div').attributes('role')).toBe('alert')
+    expect(wrapper.find('tbody > tr > td > div').attributes('aria-live')).toBe('polite')
 
     wrapper.destroy()
   })
