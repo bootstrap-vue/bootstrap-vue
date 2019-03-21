@@ -197,10 +197,12 @@ export default {
         ? this.localSortDesc && this.localSortBy === key
           ? this.labelSortAsc
           : this.labelSortDesc
-        : this.labelSortClear
-      // Assemble the aria-label
-      ariaLabel = [ariaLabel, ariaLabelSorting].filter(Boolean).join(': ')
-      // Assemble the aria-sort
+        : this.noSortReset
+          ? ''
+          : this.labelSortClear
+      // Assemble the aria-label attribute value
+      ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
+      // Assemble the aria-sort attribute value
       const ariaSort =
         sortable && this.localSortBy === key
           ? this.localSortDesc
