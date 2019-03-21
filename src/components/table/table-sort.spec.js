@@ -396,7 +396,6 @@ describe('table sorting', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     let $rows
     let columnA
-    let columnB
 
     // Should not be sorted
     await wrapper.vm.$nextTick()
