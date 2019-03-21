@@ -497,10 +497,7 @@ describe('table', () => {
     const wrapper = mount(Table, {
       propsData: {
         items: [{ a: 1, b: 2 }],
-        fields: [
-          { key: 'a', tdAttr: { 'data-foo': 'bar' } },
-          { key: 'b', tdClass: () => 'fobar' }
-        ]
+        fields: [{ key: 'a', tdAttr: { 'data-foo': 'bar' } }, { key: 'b', tdClass: () => 'fobar' }]
       }
     })
 
@@ -513,8 +510,8 @@ describe('table', () => {
     expect($tds.at(0).attributes('data-foo')).toBe('bar')
     expect($tds.at(0).classes().length).toBe(0)
 
-    expect($tds.at(0).attributes('data-foo')).not.toBeDefined()
-    expect($tds.at(0).classes()).toContain('foobar')
+    expect($tds.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(1).classes()).toContain('foobar')
 
     wrapper.destroy()
   })
