@@ -430,7 +430,7 @@ describe('table', () => {
     expect(wrapper.find('tfoot').classes()).toContain('bar')
 
     wrapper.setProps({
-      theadTrClass: 'willie',
+      theadTrClass: 'willy',
       tfoorTrClass: 'wonka'
     })
 
