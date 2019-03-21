@@ -241,6 +241,8 @@ export default {
       } else if (!this.noSortReset) {
         // Non sortable column
         ariaLabelSorting = this.labelSortClear
+        // TODO: this should be: (no label when no localSortBy
+        ariaLabelSorting = this.loclSortBy ? this.labelSortClear : null
       }
       // Assemble the aria-label attribute value
       ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
