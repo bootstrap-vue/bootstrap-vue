@@ -19,6 +19,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has class "table-striped" when striped=true', async () => {
@@ -37,6 +39,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "table-bordered" when bordered=true', async () => {
@@ -55,6 +59,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "table-borderless" when borderless=true', async () => {
@@ -73,6 +79,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "table-hover" when hover=true', async () => {
@@ -91,6 +99,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "table-sm" when small=true', async () => {
@@ -109,6 +119,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "table-dark" when dark=true', async () => {
@@ -127,6 +139,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "border" when outlined=true', async () => {
@@ -145,6 +159,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "b-table-fixed" when fixed=true', async () => {
@@ -163,6 +179,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "b-table-stacked" when stacked=true', async () => {
@@ -181,6 +199,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "b-table-stacked-md" when stacked=md', async () => {
@@ -199,6 +219,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has class "table-responsive" when responsive=true', async () => {
@@ -218,6 +240,8 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('table')
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has class "table-responsive-md" when responsive=md', async () => {
@@ -237,6 +261,8 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('table')
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('stacked has precedence over responsive', async () => {
@@ -257,6 +283,8 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('item _rowVariant works', async () => {
@@ -278,6 +306,8 @@ describe('table', () => {
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.find('tbody > tr').classes()).toContain('bg-primary')
+
+    wrapper.destroy()
   })
 
   it('item _cellVariants works', async () => {
@@ -301,6 +331,28 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
     expect(wrapper.find('tbody > tr > td').classes()).toContain('bg-info')
+
+    wrapper.destroy()
+  })
+
+  it('changing items array works', async () => {
+    const items1 = [{ a: 1, b: 2 }, { a: 3, b: 4 }]
+    const items2 = [{ a: 3, b: 4 }]
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: ['a', 'b']
+      }
+    })
+    expect(wrapper).toBeDefined()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    wrapper.setProps({
+      items: items2
+    })
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('tbody-tr-class works', async () => {
@@ -333,5 +385,7 @@ describe('table', () => {
     expect($trs.at(0).classes()).not.toContain('bar')
     expect($trs.at(1).classes()).toContain('bar')
     expect($trs.at(1).classes()).not.toContain('foo')
+
+    wrapper.destroy()
   })
 })
