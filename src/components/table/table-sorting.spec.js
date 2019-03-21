@@ -349,8 +349,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
     // Should have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(3)
 
     // Sort by first column
     wrapper
@@ -373,8 +373,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('3')
     // Should have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(3)
 
     // Click first column header again to reverse sort
     wrapper
@@ -396,8 +396,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('1')
     // Should have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(3)
 
     // Click second column header to sort by it (by using keydown.enter)
     wrapper
@@ -439,8 +439,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
     // Should have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(3)
 
     wrapper.destroy()
   })
@@ -477,8 +477,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
     // Shouldn't have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(0)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(0)
 
     // Click first column
     wrapper
@@ -500,8 +500,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
     // Shouldn't have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(0)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(0)
 
     // Click third column header
     wrapper
@@ -523,8 +523,8 @@ describe('table sorting', () => {
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
     // Shouldn't have aria-* labels
-    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(0)
-    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(0)
 
     wrapper.destroy()
   })
