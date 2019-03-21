@@ -4,90 +4,6 @@ describe('table', () => {
   beforeEach(loadFixture(__dirname, 'table'))
   testVM()
 
-  it('all example tables should contain class names', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.table_basic).toHaveAllClasses(['table', 'b-table', 'table-striped', 'table-hover'])
-
-    expect($refs.table_paginated).toHaveAllClasses([
-      'table',
-      'b-table',
-      'table-sm',
-      'table-striped',
-      'table-bordered',
-      'table-hover'
-    ])
-
-    expect($refs.table_dark).toHaveAllClasses([
-      'table',
-      'b-table',
-      'table-sm',
-      'table-bordered',
-      'table-dark'
-    ])
-  })
-
-  it('table_responsive should be wrapped in a div', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const table = $refs.table_responsive
-
-    expect(table.$el.tagName).toBe('DIV')
-    expect(table).toHaveAllClasses(['table-responsive'])
-    expect(table.$el.children.length).toBe(1)
-    expect(table.$el.children[0].tagName).toBe('TABLE')
-  })
-
-  it('should generate fields automatically from the first item', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const table = $refs.table_without_fields
-    const thead = $refs.table_without_fields.$el.children[0]
-    const tr = thead.children[0]
-
-    // The row should be equal to the items without any of Bootstrap Vue's
-    // utility fields, like _rowVariant, or _cellVariants
-    expect(tr.children.length).toBe(Object.keys(table.items[0]).length - 1)
-  })
-
-  it('table_paginated should have thead, tbody and tfoot', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const parts = [...$refs.table_paginated.$el.children]
-
-    const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-
-    const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-
-    const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
-  })
-
-  it('table_dark should have thead and tbody', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const parts = [...$refs.table_dark.$el.children]
-
-    const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-
-    const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-
-    const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-    expect(tfoot).not.toBeDefined()
-  })
-
   it('table_paginated thead should contain class thead-dark', async () => {
     const {
       app: { $refs }
@@ -150,27 +66,6 @@ describe('table', () => {
         )
         expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
         expect(tr.children[3].children[0].tagName).toBe('BUTTON')
-      }
-    }
-  })
-
-  it('table_paginated should contain custom formatted columns', async () => {
-    const { app } = window
-    const vm = app.$refs.table_basic
-
-    const tbody = [...app.$refs.table_paginated.$el.children].find(
-      el => el && el.tagName === 'TBODY'
-    )
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].textContent).toContain(
-          vm.items[0].name.first + ' ' + vm.items[0].name.last
-        )
-        expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
-        expect(tr.children[3].children[0].tagName).toBe('INPUT')
       }
     }
   })
@@ -247,15 +142,6 @@ describe('table', () => {
         })
       }
     }
-  })
-
-  it('should render stacked table', async () => {
-    // This test should be a bit more intesive, looking for the data- attributes
-    // and cell inner div wrapper
-    const { app } = window
-    const vm = app.$refs.table_stacked
-
-    expect(vm).toHaveAllClasses(['b-table-stacked'])
   })
 
   it('all example tables should have custom formatted cells', async () => {
