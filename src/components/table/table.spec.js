@@ -394,7 +394,7 @@ describe('table', () => {
       propsData: {
         items: [{ a: 1, b: 2 }],
         fields: ['a', 'b'],
-        foodClone: true
+        footClone: true
       }
     })
 
