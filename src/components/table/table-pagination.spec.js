@@ -109,4 +109,31 @@ describe('table > pagination', () => {
 
     wrapper.destroy()
   })
+
+  it('setting current-page to more than pages shows empty row when show-empty=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: testItems,
+        perPage: 3,
+        currentPage: 1,
+        showEmpty: true
+      }
+    })
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+
+    wrapper.setProps({
+      currentPage: 10
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    const $tr = wrapper.find('tbody > tr')
+    expect($tr.text()).toBe(wrapper.vm.emptyText)
+    expect($tr.classes()).toContain('b-table-empty-row')
+    expect($tr.attributes('role')).toBe('row')
+    expect(wrapper.find('tbody > tr > td').attributes('role')).toBe('cell')
+    expect(wrapper.find('tbody > tr > td > div').attributes('role')).toBe('alert')
+    expect(wrapper.find('tbody > tr > td > div').attributes('aria-live')).toBe('polite')
+
+    wrapper.destroy()
+  })
 })
