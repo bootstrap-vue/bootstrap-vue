@@ -348,6 +348,9 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+    // Should have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
 
     // Sort by first column
     wrapper
@@ -369,6 +372,9 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('1')
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('3')
+    // Should have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
 
     // Click first column header again to reverse sort
     wrapper
@@ -389,6 +395,9 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('2')
     expect(columnA[2]).toBe('1')
+    // Should have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
 
     // Click second column header to sort by it (by using keydown.enter)
     wrapper
@@ -429,6 +438,9 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+    // Should have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(2)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(3)
 
     wrapper.destroy()
   })
@@ -464,6 +476,9 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+    // Shouldn't have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(0)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(0)
 
     // Click first column
     wrapper
@@ -484,6 +499,9 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+    // Shouldn't have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(0)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(0)
 
     // Click third column header
     wrapper
@@ -504,6 +522,94 @@ describe('table sorting', () => {
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
+    // Shouldn't have aria-* labels
+    expect(wrapper.find('tfoot > tr > th[aria-sort]').length).toBe(0)
+    expect(wrapper.find('tfoot > tr > th[aria-label]').length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('should sort column descending first, when sort-direction=desc', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        sortDesc: false,
+        sortDirection: 'desc'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+    let $rows
+    let columnA
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the first column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('3')
+    expect(columnA[1]).toBe('1')
+    expect(columnA[2]).toBe('2')
+
+    let $ths = wrapper.findAll('thead > tr > th')
+
+    // currently not sorted
+    expect($ths.at(0).attributes('aria-sort')).toBe('none')
+    // for switching to descending
+    expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
+
+    // not sorted by this column
+    expect($ths.at(1).attributes('aria-sort')).toBe('none')
+    // for sorting by ascending
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
+
+    // not a sortable column
+    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    // for clearing sorting
+    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
+
+    // Change sort direction (should be descending first)
+    wrapper.findAll('thead > tr > th').at(0).trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input').length).toBe(2)
+    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect($rows.length).toBe(3)
+    // Map the rows to the first column text value
+    columnA = $rows.map(row => {
+      return row
+        .findAll('td')
+        .at(0)
+        .text()
+    })
+    expect(columnA[0]).toBe('3')
+    expect(columnA[1]).toBe('2')
+    expect(columnA[2]).toBe('1')
+
+    $ths = wrapper.findAll('thead > tr > th')
+
+    // currently sorted as descending
+    expect($ths.at(0).attributes('aria-sort')).toBe('descending')
+    // for switching to ascending
+    expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not sorted by this column
+    expect($ths.at(1).attributes('aria-sort')).toBe('none')
+    // for sorting by ascending
+    expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
+
+    // not a sortable column
+    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    // for clearing sorting
+    expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     wrapper.destroy()
   })
