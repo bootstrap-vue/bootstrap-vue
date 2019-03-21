@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 const testItems = [{ a: 1, b: 2, c: 3 }]
 const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: 'c', label: 'C' }]
 
-describe('table tfoot events', () => {
+describe('table > tfoot events', () => {
   it('should emit head-clicked event when a head cell is clicked', async () => {
     const wrapper = mount(Table, {
       propsData: {
