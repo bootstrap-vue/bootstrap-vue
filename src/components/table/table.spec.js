@@ -388,4 +388,55 @@ describe('table', () => {
 
     wrapper.destroy()
   })
+
+  it('thead and tfoot variant and classes work', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: ['a', 'b'],
+        foodClone: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('thead > tr').length).toBe(1)
+    expect(wrapper.findAll('tfoot > tr').length).toBe(1)
+
+    expect(wrapper.find('thead').classes().length).toBe(0)
+    expect(wrapper.find('tfoot').classes().length).toBe(0)
+
+    wrapper.setProps({
+      headVariant: 'light'
+    })
+
+    expect(wrapper.find('thead').classes()).toContain('thead-light')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-light')
+
+    wrapper.setProps({
+      footVariant: 'dark'
+    })
+
+    expect(wrapper.find('thead').classes()).toContain('thead-light')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
+
+    wrapper.setProps({
+      theadClass: 'foo',
+      tfootClass: 'bar'
+    })
+
+    expect(wrapper.find('thead').classes()).toContain('thead-light')
+    expect(wrapper.find('thead').classes()).toContain('foo')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
+    expect(wrapper.find('tfoot').classes()).toContain('bar')
+
+    wrapper.setProps({
+      theadTrClass: 'willie',
+      tfoorTrClass: 'wonka'
+    })
+
+    expect(wrapper.find('thead > tr').classes()).toContain('willy')
+    expect(wrapper.find('tfoor > tr').classes()).toContain('wonka')
+
+    wrapper.destroy()
+  })
 })
