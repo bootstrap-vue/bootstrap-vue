@@ -435,7 +435,7 @@ describe('table', () => {
     })
 
     expect(wrapper.find('thead > tr').classes()).toContain('willy')
-    expect(wrapper.find('tfoor > tr').classes()).toContain('wonka')
+    expect(wrapper.find('tfoot > tr').classes()).toContain('wonka')
 
     wrapper.destroy()
   })
