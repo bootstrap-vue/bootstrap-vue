@@ -189,4 +189,38 @@ describe('table > filtering', () => {
 
     wrapper.destroy()
   })
+
+  it('should be filtered with no rows when no matches', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        filter: 'ZZZZZZZZ'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('should show empty filtered message when no matches and show-empty=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        filter: 'ZZZZZZZZ',
+        showEmpty: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.find('tbody > tr').text()).toBe(wrapper.vm.emptyFilteredText)
+
+    wrapper.destroy()
+  })
 })
