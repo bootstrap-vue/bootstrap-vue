@@ -26,31 +26,6 @@ describe('table', () => {
     }
   })
 
-  it('all examples should have variant "success" on 1st row', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const app = window.app
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-
-    const items = app.items.slice()
-    items[0]._rowVariant = 'success'
-    await setData(app, 'items', items)
-    await nextTick()
-
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-      expect(tbody).toBeDefined()
-      if (tbody) {
-        const tr = tbody.children[0]
-        const variant = vm.dark ? 'bg-success' : 'table-success'
-        expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
-      }
-    })
-  })
-
   it('table_basic should contain custom formatted columns', async () => {
     const { app } = window
     const vm = app.$refs.table_basic
