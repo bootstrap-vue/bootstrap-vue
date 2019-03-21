@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 
-describe('b-table primary key', () => {
+describe('table > primary key', () => {
   it('default should not have ids on table rows', async () => {
     const wrapper = mount(Table, {
       propsData: {
