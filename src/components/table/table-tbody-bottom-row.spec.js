@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils'
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
 
-describe('table > bottom-row slot', () => {
+describe('table > tbody bottom-row slot', () => {
   it('should not have bottom row by default', async () => {
     const wrapper = mount(Table, {
       propsData: {
