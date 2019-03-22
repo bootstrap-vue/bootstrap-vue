@@ -443,7 +443,9 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
+    // FOrmatter should have been called, and passed an array
     expect(called).toBe(true)
+    expect(filesIsArray).toBe(true)
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('foobar')
 
