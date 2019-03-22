@@ -263,7 +263,7 @@ or the `force-show` prop to display the feedback.
 <!-- form-feedback-example.vue -->
 ```
 
-### Form control datalist
+### Datalist helper
 
 For broswers that support
 [`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) elements,
@@ -289,6 +289,8 @@ export default {
 
 <!-- form-datalist-example.vue -->
 ```
+
+`<b-form-datalist>` is also available via the shorter aslias as `<b-datalist>`.
 
 See also:
 
