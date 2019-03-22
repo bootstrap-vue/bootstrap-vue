@@ -325,14 +325,14 @@ The following field properties are recognized:
 
 | Property        | Type                        | Description                                                                                                                                                                                                                                                                                                           |
 | --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                    |
+| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
 | `label`         | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
 | `headerTitle`   | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
 | `headerAbbr`    | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
 | `class`         | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
 | `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.                                                                 |
 | `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [**Change initial sort direction**](#Change-initial-sort-direction) Section for more details.                                                                                                                                             |
+| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [**Change initial sort direction**](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
 | `tdClass`       | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
 | `thClass`       | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
 | `thStyle`       | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
@@ -1321,7 +1321,7 @@ default).
 
 - **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
   lowest value in the first row with progressively higher values in the following rows. The header
-  indicator arrow will point in the direction of lowest to highest.  (i.e. down for ascending).
+  indicator arrow will point in the direction of lowest to highest. (i.e. down for ascending).
 - **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
   the highest value in the first row with progressively lower values in the following rows. The
   header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
@@ -1460,8 +1460,8 @@ If you don't want the current sorting direction to change when clicking another 
 header, set `sort-direction` to `'last'`. This will maintain the sorting direction of the previously
 sorted column.
 
-For individual column initial sort direction (which applies when the column transitions from unsorted
-to sorted), specify the property `sortDirection` in `fields`. See the
+For individual column initial sort direction (which applies when the column transitions from
+unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 [Complete Example](#complete-example) below for an example of using this feature.
 
 ## Filtering
