@@ -54,7 +54,7 @@ export default {
           {
             attrs: {
               colspan: String(this.computedFields.length),
-              role: this.isStacked ? 'cell' : null
+              role: 'cell'
             }
           },
           [h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [$empty])]
@@ -69,7 +69,7 @@ export default {
                 ? this.tbodyTrClass(null, 'row-empty')
                 : this.tbodyTrClass
             ],
-            attrs: this.isStacked ? { role: 'row' } : {}
+            attrs: { role: 'row' }
           },
           [$empty]
         )

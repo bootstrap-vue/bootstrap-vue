@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 const testItems = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
 const testFields = [{ key: 'a', sortable: true }]
 
-describe('table row select', () => {
+describe('table > row select', () => {
   it('should not emit row-selected event default', async () => {
     const wrapper = mount(Table, {
       propsData: {

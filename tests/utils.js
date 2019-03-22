@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import BootstrapVue from '../src'
@@ -14,7 +15,7 @@ Vue.config.devtools = false
 window.Vue = Vue
 Vue.use(BootstrapVue)
 
-export function loadFixture(dirName, name) {
+export function loadFixture(dirName, name) /* istanbul ignore next */ {
   const fixtureBase = resolve(dirName, 'fixtures')
   const template = readFileSync(resolve(fixtureBase, name + '.html'), 'UTF-8')
   const js = readFileSync(resolve(fixtureBase, name + '.js'), 'UTF-8')
@@ -33,25 +34,31 @@ export function loadFixture(dirName, name) {
 }
 
 export async function testVM() {
+  /* istanbul ignore next */
   it(`vm mounts`, async () => {
     return expect(window.app.$el).toBeDefined()
   })
 }
 
 export function nextTick() {
+  /* istanbul ignore next */
   return new Promise((resolve, reject) => {
     Vue.nextTick(resolve)
   })
 }
 
 export async function setData(app, key, value) {
+  /* istanbul ignore next */
   app[key] = value
+  /* istanbul ignore next */
   await nextTick()
 }
 
 // Usage: await sleep(1000);
 export function sleep(ms) {
+  /* istanbul ignore next */
   ms = ms || 0
+  /* istanbul ignore next */
   return new Promise((resolve, reject) => setTimeout(resolve, ms))
 }
 
@@ -76,13 +83,14 @@ const throwIfNotHTMLElement = el => {
   }
 }
 
+/* istanbul ignore next */
 const throwIfNotArray = array => {
-  /* istanbul ignore next */
   if (!Array.isArray(array)) {
     throw new TypeError(`The matcher requires an array. Given ${typeof array}`)
   }
 }
 
+/* istanbul ignore next */
 const vmHasClass = (vm, className) => {
   throwIfNotVueInstance(vm)
   return vm.$el._prevClass.indexOf(className) !== -1
@@ -93,6 +101,7 @@ const vmHasClass = (vm, className) => {
  * @param {string} className
  * @return {boolean}
  */
+/* istanbul ignore next */
 const elHasClass = (el, className) => {
   throwIfNotHTMLElement(el)
   return el.classList.contains(className)
@@ -103,14 +112,19 @@ const elHasClass = (el, className) => {
  * @param {string} className
  * @return {boolean}
  */
+/* istanbul ignore next */
 const hasClass = (node, className) =>
   isVueInstance(node) ? vmHasClass(node, className) : elHasClass(node, className)
 
+/* istanbul ignore next */
 const getVmTag = vm => vm.$options._componentTag
+/* istanbul ignore next */
 const getHTMLTag = el => String(el.tagName).toLowerCase()
+/* istanbul ignore next */
 const getTagName = node => (isVueInstance(node) ? getVmTag(node) : getHTMLTag(node))
 
 // Extend Jest marchers
+/* istanbul ignore next */
 expect.extend({
   toHaveClass(node, className) {
     /* istanbul ignore next */
