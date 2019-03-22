@@ -149,6 +149,7 @@ export default {
         return
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
+        /* istanbul ignore next: event filtering already tested via click handler */
         return
       }
       this.$emit('row-dblclicked', item, index, e)
