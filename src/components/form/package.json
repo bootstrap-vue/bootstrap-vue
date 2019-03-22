@@ -23,7 +23,8 @@
       "BFormText",
       "BFormInvalidFeedback",
       "BFormValidFeedback",
-      "BFormRow"
+      "BFormRow",
+      "BFormDatalist"
     ]
   }
 }
