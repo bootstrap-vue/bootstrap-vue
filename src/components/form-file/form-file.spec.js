@@ -443,9 +443,41 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
-    // FOrmatter should have been called, and passed an array
+    // Formatter should have been called, and passed an array
     expect(called).toBe(true)
     expect(filesIsArray).toBe(true)
+    // Should have our custom formatted "filename"
+    expect(wrapper.find('label').text()).toContain('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('file-name slot works', async () => {
+    let slotScope = null
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo'
+      },
+      scopedSlots: {
+        'file-name': (scope) => {
+          slotScope = scope
+          return 'foobar'
+        }
+      }
+    })
+    const file = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+
+    // Emulate the files array
+    wrapper.vm.setFiles([file])
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(file)
+
+    // scoped slot should have been called, with expected scope
+    expect(slotScope).toEqual({ files: [file], names: [file.name] })
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('foobar')
 
