@@ -2,12 +2,13 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
 
 // @vue/component
 export default {
   name: 'BFormFile',
-  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
+  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   props: {
     value: {
       // type: Object,
@@ -75,11 +76,22 @@ export default {
       }
 
       // Convert selectedFile to an array (if not already one)
-      const files = concat(this.selectedFile)
-      // Use the user supplied formatter, or the built in one.
-      return typeof this.fileNameFormatter === 'function'
-        ? String(this.fileNameFormatter(files))
-        : files.map(file => file.name).join(', ')
+      const files = concat(this.selectedFile).filter(Boolean)
+
+      if (this.hasNormalizedSlot('file-name')) {
+        // There is a slot for formatting the files/names
+        return [
+          this.normalizeSlot('file-name', {
+            files: files,
+            names: files.map(f => f.name)
+          })
+        ]
+      } else {
+        // Use the user supplied formatter, or the built in one.
+        return typeof this.fileNameFormatter === 'function'
+          ? String(this.fileNameFormatter(files))
+          : files.map(file => file.name).join(', ')
+      }
     }
   },
   watch: {
@@ -268,7 +280,8 @@ export default {
     const label = h(
       'label',
       {
-        class: ['custom-file-label', this.dragging ? 'dragging' : null],
+        staticClass: 'custom-file-label',
+        class: [this.dragging ? 'dragging' : null],
         attrs: {
           for: this.safeId(),
           'data-browse': this.browseText || null
@@ -281,7 +294,8 @@ export default {
     return h(
       'div',
       {
-        class: ['custom-file', 'b-form-file', this.stateClass],
+        staticClass: 'custom-file b-form-file',
+        class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragover: this.onDragover,
