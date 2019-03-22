@@ -172,8 +172,9 @@ Both properties are always arrays, regarless of the setting of the `multiple` pr
 <template>
   <b-form-file multiple>
    <template slot="file-name" slot-scope="{ names }">
-     <b-badge v-for="name in names" :key="name" variant="dark" class="mr-1">
-      {{ name }}
+     <b-badge variant="dark">{{ names[0] }}</b-badge>
+     <b-badge v-if="names.length > 1" variant="dark" class="ml-1">
+       + {{ names.length - 1 }} More files
      </b-badge>
    </template>
   </b-form-file>
