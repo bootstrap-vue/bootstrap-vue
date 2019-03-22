@@ -215,16 +215,15 @@ export default {
           ariaLabelSorting = this.localSortDesc ? this.labelSortAsc : this.labelSortDesc
         } else {
           // Not currently sorted sortable column.
-          // Have to add special tests to handle this.sortDirection and field.sortDirection.
           // Not using nested ternary's here for clarity/readability
+          // Default for ariaLabel
+          ariaLabelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
+          // Handle sortDirection setting
           const sortDirection = this.sortDirection || field.sortDirection
           if (sortDirection === 'asc') {
             ariaLabelSorting = this.labelSortAsc
           } else if (sortDirection === 'desc') {
             ariaLabelSorting = this.labelSortDesc
-          } else {
-            // sortDirection === 'last'
-            ariaLabelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
           }
         }
       } else if (!this.noSortReset) {
