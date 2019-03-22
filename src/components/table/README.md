@@ -522,7 +522,7 @@ You can also style every row using the `tbody-tr-class` prop
 <!-- b-table-styled-row.vue -->
 ```
 
-## Responsive tables
+### Responsive tables
 
 Responsive tables allow tables to be scrolled horizontally with ease. Make any table responsive
 across all viewports by setting the prop `responsive` to `true`. Or, pick a maximum breakpoint with
@@ -594,7 +594,7 @@ values: `sm`, `md`, `lg`, or `xl`.
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
 
-## Stacked tables
+### Stacked tables
 
 An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
 SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any table stacked
@@ -647,86 +647,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
 
-## Table caption
-
-Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
-slot takes precedence over the prop). The default Bootstrap V4 styling places the caption at the
-bottom of the table:
-
-```html
-<template>
-  <div>
-    <b-table :items="items" :fields="fields">
-      <template slot="table-caption">This is a table caption.</template>
-    </b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        fields: ['first_name', 'last_name', 'age'],
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-caption.vue -->
-```
-
-You can have the caption placed at the top of the table by setting the `caption-top` prop to `true`:
-
-```html
-<template>
-  <div>
-    <b-table :items="items" :fields="fields" caption-top>
-      <template slot="table-caption">This is a table caption at the top.</template>
-    </b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        fields: ['first_name', 'last_name', 'age'],
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-caption-top.vue -->
-```
-
-You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
-control the caption positioning.
-
-## Table colgroup
-
-Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements for optional
-grouping and styling of table columns. Note the styles available via `<col>` elements are limited.
-Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup) for details and
-usage of `<colgroup>`
-
-Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
-
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
-
-## Table busy state
+### Table busy state
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
 just before you update your items, and then set it to `false` once you have your items. When in the
@@ -796,6 +717,85 @@ additional information on the `busy` state.
 
 **Note:** All click related and hover events, and sort-changed events will **not** be emitted when
 the table is in the `busy` state.
+
+### Table caption
+
+Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
+slot takes precedence over the prop). The default Bootstrap V4 styling places the caption at the
+bottom of the table:
+
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields">
+      <template slot="table-caption">This is a table caption.</template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-caption.vue -->
+```
+
+You can have the caption placed at the top of the table by setting the `caption-top` prop to `true`:
+
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields" caption-top>
+      <template slot="table-caption">This is a table caption at the top.</template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-caption-top.vue -->
+```
+
+You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
+control the caption positioning.
+
+### Table colgroup
+
+Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements for optional
+grouping and styling of table columns. Note the styles available via `<col>` elements are limited.
+Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup) for details and
+usage of `<colgroup>`
+
+Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                  |
+| --------- | ------ | ---------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                  |
+| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
 
 ## Custom Data Rendering
 
@@ -915,8 +915,14 @@ scoped field slot
 <!-- b-table-html-data-slots.vue -->
 ```
 
-**Warning:** Be cautious of using this to display user supplied content, **as script tags could be
-injected into your page!**
+<p class="alert alert-danger">
+  <string>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
+  supplied content,  as it may make your application vulnerable to
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
+  user supplied string.
+</div>
 
 ### Formatter callback
 
