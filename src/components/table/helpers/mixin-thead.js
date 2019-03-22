@@ -105,10 +105,10 @@ export default {
             : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
         if (slot) {
           slot = [slot]
-        } else {
-          data.domProps = htmlOrText(field.labelHtml, field.label)
+        } else if (field.labelHtml) {
+          data.domProps = htmlOrText(field.labelHtml)
         }
-        return h('th', data, [slot])
+        return h('th', data, slot || field.label)
       }
 
       // Generate the array of TH cells
