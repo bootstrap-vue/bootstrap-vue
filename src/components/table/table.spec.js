@@ -557,6 +557,7 @@ describe('table', () => {
       }
     }
     const wrapper = mount(Table, {
+      parentComponent: Parent,
       propsData: {
         items: [{ a: 1, b: 2, c: 3 }],
         fields: [
