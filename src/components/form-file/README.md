@@ -119,6 +119,72 @@ stylesheets. Also it is advised to use
 Alternatively you can set the content of the custom file browse button text via the `browse-text`
 prop. Note, only plain text is supported. HTML and components are not supported.
 
+## Customize the foratting of the selected file names
+
+By default, the custom styled file input lists the file names separated by commas. You can customize
+how the file names are shown either via a custom formatter function or the `file-name` scoped slot.
+
+###  File name formatter functon
+
+Set the prop `file-name-formatter` to a function that accepts a single argument which is an array of
+[`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) objects. The function should return
+a single formatted string (HTML is not supported). The formatter will not be called if no files are
+selected.
+
+Regardless of if the prop `multiple` is set or not, the argument to the formatter will always be an
+array.
+
+```html
+<template>
+  <b-form-file multiple :file-name-formatter="formatNames"></b-form-file>
+</template>
+
+<script>
+  export default {
+    methods: {
+      formatNames(files) {
+        if (files.length === 1) {
+          return files[0].name
+        } else {
+          return `${files.length} files selected`
+        }
+      }
+    }
+  }
+</script>
+
+<!-- file-formatter-function.vue -->
+```
+
+###  File name formatting via scoped slot
+
+Alternatively, you can use the scoped slot `file-name` to render the file names. The scoped slot
+will receive the following properties:
+
+| Property | Type  | Description             |
+| -------- | ----- | ----------------------- |
+| `files`  | Array | Array of `File` objects |
+| `names`  | Array | Array of file names     |
+
+Both properties are always arrays, regarless of the setting of the `multiple` prop.
+
+```html
+<template>
+  <b-form-file multiple>
+   <template slot="file-name" slot-scope="{ names }">
+     <b-badge v-for="name in names" :key="name" variant="dark" class="mr-1">
+      {{ name }}
+     </b-badge>
+   </template>
+  </b-form-file>
+</template>
+
+<!-- file-formatter-slot.vue -->
+```
+
+When using the `file-name` slot, the `file-name-formatter` prop is ignored. Also, the slot will
+not be rendered when there are no file(s) selected.
+
 ## Non custom file input
 
 You can have `<b-form-file>` render a browser native file input by setting the `plain` prop. Note
