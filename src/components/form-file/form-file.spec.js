@@ -418,4 +418,35 @@ describe('form-file', () => {
 
     wrapper.destroy()
   })
+
+  it('file-name-formatter works', async () => {
+    let called = false
+    let filesIsArray = false
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foo',
+        fileNameFormatter: files => {
+          called = true
+          filesIsArray = Array.isArray(files)
+          return 'foobar'
+        }
+      }
+    })
+    const file = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+
+    // Emulate the files array
+    wrapper.vm.setFiles([file])
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(file)
+
+    expect(called).toBe(true)
+    // Should have our custom formatted "filename"
+    expect(wrapper.find('label').text()).toContain('foobar')
+
+    wrapper.destroy()
+  })
 })
