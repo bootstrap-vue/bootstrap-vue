@@ -290,7 +290,7 @@ export default {
 <!-- form-datalist-example.vue -->
 ```
 
-`<b-form-datalist>` is also available via the shorter aslias as `<b-datalist>`.
+`<b-form-datalist>` is also available via the shorter alias of `<b-datalist>`.
 
 See also:
 
