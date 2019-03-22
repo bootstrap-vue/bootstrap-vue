@@ -549,24 +549,41 @@ describe('table', () => {
   })
 
   it('item field tdAttr and tdClass works', async () => {
+    const Parent = {
+      methods: {
+        parentTdAttrs(value, key, item) {
+          return { 'data-parent': 'parent' }
+        }
+      }
+    }
     const wrapper = mount(Table, {
       propsData: {
-        items: [{ a: 1, b: 2 }],
-        fields: [{ key: 'a', tdAttr: { 'data-foo': 'bar' } }, { key: 'b', tdClass: () => 'baz' }]
+        items: [{ a: 1, b: 2, c: 3 }],
+        fields: [
+          { key: 'a', tdAttr: { 'data-foo': 'bar' } },
+          { key: 'b', tdClass: () => 'baz' },
+          { key: 'b', tdAttr: 'parentTdAttrs' }
+        ]
       }
     })
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
-    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(3)
 
     const $tds = wrapper.findAll('tbody > tr > td')
 
     expect($tds.at(0).attributes('data-foo')).toBe('bar')
+    expect($tds.at(0).attributes('data-parent')).not.toBeDefined()
     expect($tds.at(0).classes().length).toBe(0)
 
-    expect($tds.at(1).attributes('data-foo')).not.toBeDefined()
     expect($tds.at(1).classes()).toContain('baz')
+    expect($tds.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(1).attributes('data-parent')).not.toBeDefined()
+
+    expect($tds.at(2).attributes('data-parent')).toBe('parent')
+    expect($tds.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(2).classes().length).toBe(0)
 
     wrapper.destroy()
   })
