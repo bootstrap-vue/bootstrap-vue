@@ -16,7 +16,6 @@ export default {
     const options = this.formOptions.map((option, index) => {
       return h('option', {
         key: `option_${index}_opt`,
-        on: this.$listeners
         attrs: { disabled: option.disabled },
         domProps: { ...htmlOrText(option.html, option.text), value: option.value }
       })
