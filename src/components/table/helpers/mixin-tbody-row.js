@@ -149,6 +149,7 @@ export default {
         return
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
+        /* istanbul ignore next: event filtering already tested via click handler */
         return
       }
       this.$emit('row-dblclicked', item, index, e)
@@ -194,39 +195,23 @@ export default {
           this.$set(item, '_showDetails', !item._showDetails)
         }
       }
-      let $childNodes
-
-      if ($scoped[field.key]) {
-        // Has scoped field slot
-        $childNodes = [
-          $scoped[field.key]({
-            item: item,
-            index: rowIndex,
-            field: field,
-            unformatted: get(item, field.key, ''),
-            value: formatted,
-            toggleDetails: toggleDetailsFn,
-            detailsShowing: Boolean(item._showDetails),
-            rowSelected: Boolean(rowSelected)
-          })
-        ]
-        if (this.isStacked) {
-          // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-          $childNodes = [h('div', {}, [$childNodes])]
-        }
-      } else {
-        // No scoped field slot
-        if (this.isStacked) {
-          // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-          $childNodes = [h('div', toString(formatted))]
-        } else {
-          // Non stacked
-          $childNodes = toString(formatted)
-        }
+      const slotScope = {
+        item: item,
+        index: rowIndex,
+        field: field,
+        unformatted: get(item, field.key, ''),
+        value: formatted,
+        toggleDetails: toggleDetailsFn,
+        detailsShowing: Boolean(item._showDetails),
+        rowSelected: Boolean(rowSelected)
       }
-
+      let $childNodes = $scoped[field.key] ? $scoped[field.key](slotScope) : toString(formatted)
+      if (this.isStacked) {
+        // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
+        $childNodes = [h('div', {}, [$childNodes])]
+      }
       // Render either a td or th cell
-      return h(field.isRowHeader ? 'th' : 'td', data, $childNodes)
+      return h(field.isRowHeader ? 'th' : 'td', data, [$childNodes])
     },
     renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)
