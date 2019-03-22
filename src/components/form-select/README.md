@@ -132,6 +132,8 @@ change them using `text-field`, `html-field`, `value-field`, and `disabled-field
 
 ### Array
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 const options = ['A', 'B', 'C', { text: 'D', value: { d: 1 }, disabled: true }, 'E', 'F']
 ```
@@ -142,6 +144,8 @@ You can mix using strings and [objects](#objects) in the array.
 
 Internally, BootstrapVue will convert the above array to the following array (the
 [Array of Objects](#array-of-objects) format:
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const options = [
@@ -156,11 +160,13 @@ const options = [
 
 ### Array of objects
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 const options = [
   { text: 'Item 1', value: 'first' },
   { text: 'Item 2', value: 'second' },
-  { html: '<b>Item</b> 3', value: 'third', disabled: true }
+  { html: '<b>Item</b> 3', value: 'third', disabled: true },
   { text: 'Item 4' },
   { text: 'Item 5', value: { foo: 'bar', baz: true } }
 ]
@@ -171,6 +177,8 @@ the `html` property, you **must** supply a `value` property.
 
 Internally, BootstrapVue will convert the above array to the following array (the
 [Array of Objects](#array-of-objects) format:
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const options = [
@@ -187,6 +195,8 @@ const options = [
 
 Keys are mapped to `value` and values are mapped to option `text`.
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 const options = {
   a: 'Item A',
@@ -200,6 +210,8 @@ const options = {
 Internally, BootstrapVue will convert the above object to the following array (the
 [Array of Objects](#array-of-objects) format:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 const options = [
   { text: 'Item A', value: 'a', disabled: false },
@@ -211,7 +223,7 @@ const options = [
 ```
 
 **Note:** When using the [Object](#object) format, the order of the final array is **not**
-guaranteed. For this reason, it is reccomended to use the above array formats.
+guaranteed. For this reason, it is recommended to use the above array formats.
 
 ## Standard (single) select
 

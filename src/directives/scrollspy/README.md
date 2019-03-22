@@ -254,8 +254,10 @@ element.
 
 ### Config object properties
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-config = {
+const config = {
   element: 'body',
   offset: 10,
   method: 'auto',
@@ -372,16 +374,18 @@ node reference
 Whenever a target is activated, the event `bv:scrollspy::activate` is emitted on `$root` with the
 targets HREF (ID) as the argument (i.e. `#bar`)
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-new Vue({
+const app = new Vue({
   el: '#app',
+  created() {
+    this.$root.$on('bv::scrollspy::activate', this.onActivate)
+  },
   methods: {
     onActivate(target) {
       console.log('Receved Event: scrollspy::activate for target ', target)
     }
-  },
-  created() {
-    this.$root.$on('bv::scrollspy::activate', this.onActivate)
   }
 })
 ```

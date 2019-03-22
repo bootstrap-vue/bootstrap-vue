@@ -73,7 +73,7 @@ Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**.
 This will include both `boostrap.css` and `bootstrap-vue.css` default CSS.
 
 ```js
-{
+module.exports = {
   modules: ['bootstrap-vue/nuxt']
 }
 ```
@@ -82,7 +82,7 @@ If you are using custom Bootstrap SCSS, you can disable automatic inclusion of B
 BootstrapVue pre-compiled CSS files by setting the following option(s) to `false`:
 
 ```js
-{
+module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
     bootstrapCSS: false, // or `css`
@@ -125,18 +125,11 @@ plugins, you can configure the list of BootstrapVue `componentPlugins` or `direc
 want to globally install in your Nuxt.js project.
 
 ```js
-{
+module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    componentPlugins: [
-      'Form',
-      'FormCheckbox',
-      'FormInput',
-      'FormRadio'
-    ],
-    directivePlugins: [
-      'Popover'
-    ]
+    componentPlugins: ['Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
+    directivePlugins: ['Popover']
   }
 }
 ```
@@ -193,10 +186,10 @@ instructions.
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue)
-
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue)
 ```
 
 Optionally, you can import components individually, as
@@ -228,12 +221,16 @@ directly importing those components.
 
 To cherry pick a component/directive, start by importing it in the file where it is being used:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 import BModal from 'bootstrap-vue/es/components/modal/modal'
 import BModalDirective from 'bootstrap-vue/es/directives/modal/modal'
 ```
 
 Then add it to your component definition:
+
+<!-- eslint-disable no-undef -->
 
 ```js
 Vue.component('my-component', {
@@ -249,6 +246,8 @@ Vue.component('my-component', {
 
 Or register them globally:
 
+<!-- eslint-disable no-undef -->
+
 ```js
 Vue.component('b-modal', BModal)
 Vue.directive('b-modal', BModalDirective)
@@ -261,6 +260,8 @@ camelCasing, PascalCasing, and/or object property shorthand.
 
 You can also import component groups and directives as Vue plugins by importing the component group
 or directive directory:
+
+<!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
@@ -294,7 +295,6 @@ babel loader rule in webpack.
 
 ```js
 // webpack.config.js
-const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {

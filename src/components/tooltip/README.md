@@ -406,10 +406,12 @@ These events work for both the component **and** directive versions of tooltip.
 To listen to any tooltip opening, use:
 
 ```js
-mounted() {
-  this.$root.$on('bv::tooltip::show', (bvEventObj) => {
-    console.log('bvEventObj:', bvEventObj);
-  })
+export default {
+  mounted() {
+    this.$root.$on('bv::tooltip::show', bvEventObj => {
+      console.log('bvEventObj:', bvEventObj)
+    })
+  }
 }
 ```
 

@@ -810,10 +810,12 @@ These events work for both the component and directive versions of popover.
 To listen to any popover opening, use:
 
 ```js
-mounted () {
-  this.$root.$on('bv::popover::show', (bvEventObj) => {
-    console.log('bvEventObj:', bvEventObj);
-  })
+export default {
+  mounted() {
+    this.$root.$on('bv::popover::show', bvEventObj => {
+      console.log('bvEventObj:', bvEventObj)
+    })
+  }
 }
 ```
 

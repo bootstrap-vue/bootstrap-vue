@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <div v-play class="bd-content" v-html="readme" />
+    <div v-play class="bd-content" v-html="readme"></div>
 
     <section class="bd-content">
       <h2 id="component-reference">{{ startCase(meta.title) }} Component Reference</h2>
@@ -14,10 +14,10 @@
         :root-event-listeners="meta.rootEventListeners"
         :slots="meta.slots"
         :aliases="meta.aliases"
-      />
+      ></componentdoc>
 
       <!-- Component importing information -->
-      <importdoc :meta="meta" />
+      <importdoc :meta="meta"></importdoc>
     </section>
   </main>
 </template>

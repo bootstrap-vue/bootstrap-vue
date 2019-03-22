@@ -122,9 +122,9 @@ carousel, set the `interval` back to the desired number of ms.
 When the carousel is paused, the user can still switch slides via the controls (if enabled) or touch
 swipe (on touch enabled devices, if not disabled).
 
-When the users mouse hovers the carousel it will automatically pause, and will automatically
-restart when the mouse leaves the carousel. To disable this feature, set the `no-hover-pause`
-prop on <b-carousel>`.
+When the users mouse hovers the carousel it will automatically pause, and will automatically restart
+when the mouse leaves the carousel. To disable this feature, set the `no-hover-pause` prop on
+<b-carousel>`.
 
 ## Controls and Indicators
 

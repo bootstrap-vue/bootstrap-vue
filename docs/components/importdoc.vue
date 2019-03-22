@@ -19,7 +19,7 @@
 
       <p><strong>Example:</strong></p>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode" /></pre>
+      <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode"></code></pre>
     </template>
 
     <template v-if="directives.length > 0">
@@ -38,7 +38,7 @@
 
       <p><strong>Example:</strong></p>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
+      <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode"></code></pre>
     </template>
 
     <h3 id="importing-as-a-plugin">Importing {{ pluginTitle }} as a Vue plugin</h3>
@@ -52,7 +52,7 @@
       This plugin includes all of the above listed individual directives.
     </p>
 
-    <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode" /></pre>
+    <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode"></code></pre>
 
     <template v-if="meta.plugins && meta.plugins.length > 0">
       <p>This plugin also automatically includes the following plugins:</p>

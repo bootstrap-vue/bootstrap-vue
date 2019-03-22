@@ -501,10 +501,12 @@ focus once the menu is closed.
 To listen to any dropdown opening, use:
 
 ```js
-mounted() {
-  this.$root.$on('bv::dropdown::show', (bvEvent) => {
-    console.log('Dropdown is about to be shown', bvEvent)
-  })
+export default {
+  mounted() {
+    this.$root.$on('bv::dropdown::show', bvEvent => {
+      console.log('Dropdown is about to be shown', bvEvent)
+    })
+  }
 }
 ```
 

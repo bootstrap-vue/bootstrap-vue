@@ -1,9 +1,9 @@
 <template>
   <main class="container">
-    <div v-play class="bd-content" v-html="readme" />
+    <div v-play class="bd-content" v-html="readme"></div>
     <section class="bd-content">
       <h2 id="directive-reference">{{ metaTitle }} Directive Reference</h2>
-      <importdoc :meta="meta" />
+      <importdoc :meta="meta"></importdoc>
     </section>
   </main>
 </template>

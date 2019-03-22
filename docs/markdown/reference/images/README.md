@@ -11,30 +11,38 @@ for `vue-loader` in your webpack config.
 
 The default value for `transformAssetUrls` is:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-transformAssetUrls: {
-  video: ['src', 'poster'],
-  source: 'src',
-  img: 'src',
-  image: 'xlink:href'
+const options = {
+  transformAssetUrls: {
+    video: ['src', 'poster'],
+    source: 'src',
+    img: 'src',
+    image: 'xlink:href'
+  }
 }
 ```
 
 To allow BootstrapVue components to use project relative URLs, use the following configuration:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-transformAssetUrls: {
-  video: ['src', 'poster'],
-  source: 'src',
-  img: 'src',
-  image: 'xlink:href',
-  'b-img': 'src',
-  'b-img-lazy': ['src', 'blank-src'],
-  'b-card': 'img-src',
-  'b-card-img': 'img-src',
-  'b-card-img-lazy': ['src', 'blank-src'],
-  'b-carousel-slide': 'img-src',
-  'b-embed': 'src'
+const options = {
+  transformAssetUrls: {
+    video: ['src', 'poster'],
+    source: 'src',
+    img: 'src',
+    image: 'xlink:href',
+    'b-img': 'src',
+    'b-img-lazy': ['src', 'blank-src'],
+    'b-card': 'img-src',
+    'b-card-img': 'img-src',
+    'b-card-img-lazy': ['src', 'blank-src'],
+    'b-carousel-slide': 'img-src',
+    'b-embed': 'src'
+  }
 }
 ```
 
@@ -85,21 +93,23 @@ module.exports = {
 In your `nuxt.config.js` file, add the following to your build section:
 
 ```js
-build: {
-  extend (config, ctx) {
-    const vueLoader = config.module.rules.find((rule) => rule.loader === 'vue-loader')
-    vueLoader.options.transformAssetUrls = {
-      video: ['src', 'poster'],
-      source: 'src',
-      img: 'src',
-      image: 'xlink:href',
-      'b-img': 'src',
-      'b-img-lazy': ['src', 'blank-src'],
-      'b-card': 'img-src',
-      'b-card-img': 'img-src',
-      'b-card-img-lazy': ['src', 'blank-src'],
-      'b-carousel-slide': 'img-src',
-      'b-embed': 'src'
+module.exports = {
+  build: {
+    extend(config, ctx) {
+      const vueLoader = config.module.rules.find(rule => rule.loader === 'vue-loader')
+      vueLoader.options.transformAssetUrls = {
+        video: ['src', 'poster'],
+        source: 'src',
+        img: 'src',
+        image: 'xlink:href',
+        'b-img': 'src',
+        'b-img-lazy': ['src', 'blank-src'],
+        'b-card': 'img-src',
+        'b-card-img': 'img-src',
+        'b-card-img-lazy': ['src', 'blank-src'],
+        'b-carousel-slide': 'img-src',
+        'b-embed': 'src'
+      }
     }
   }
 }

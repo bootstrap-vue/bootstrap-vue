@@ -229,11 +229,13 @@ about `$root` instance can be found in
 To listen to any collapse state changes, use:
 
 ```js
-mounted() {
-  this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
-    console.log('collapseId:', collapseId)
-    console.log('isJustShown:', isJustShown)
-  })
+export default {
+  mounted() {
+    this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
+      console.log('collapseId:', collapseId)
+      console.log('isJustShown:', isJustShown)
+    })
+  }
 }
 ```
 

@@ -60,7 +60,7 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="html" mode="htmlmixed" />
+              <codemirror v-model="html" mode="htmlmixed"></codemirror>
             </div>
           </div>
           <div key="A2" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
@@ -77,7 +77,7 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="js" mode="javascript" />
+              <codemirror v-model="js" mode="javascript"></codemirror>
             </div>
           </div>
         </transition-group>
@@ -98,7 +98,7 @@
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
           </div>
-          <div ref="result" class="card-body" />
+          <div ref="result" class="card-body"></div>
         </div>
 
         <!--Console-->

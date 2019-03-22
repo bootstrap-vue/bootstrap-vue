@@ -10,7 +10,7 @@
         class="toc-entry font-weight-bold mb-2"
         @click="scrollIntoView($event, toc.top)"
       >
-        <span v-html="toc.title" />
+        <span v-html="toc.title"></span>
       </b-nav-item>
 
       <template v-for="(h2, index) in toc.toc">
@@ -29,7 +29,7 @@
             class="toc-entry toc-h3 mb-2"
             @click="scrollIntoView($event, h3.href)"
           >
-            <span v-html="h3.label" />
+            <span v-html="h3.label"></span>
           </b-nav-item>
         </b-nav>
 
@@ -40,7 +40,7 @@
           class="toc-entry toc-h2 mb-2"
           @click="scrollIntoView($event, h2.href)"
         >
-          <span v-html="h2.label" />
+          <span v-html="h2.label"></span>
         </b-nav-item>
       </template>
     </b-nav>

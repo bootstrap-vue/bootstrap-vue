@@ -35,6 +35,8 @@
 `items` is the table data in array format, where each record (row) data are keyed objects. Example
 format:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 const items = [
   { age: 32, first_name: 'Cyndi' },
@@ -352,6 +354,8 @@ For information and usage about scoped slots and formatters, refer to the
 [**Custom Data Rendering**](#custom-data-rendering) section below.
 
 Feel free to mix and match simple array and object array together:
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const fields = [
@@ -1387,6 +1391,8 @@ routine handle only certain fields (keys) or in the special case of virtual colu
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
 
+<!-- eslint-disable no-unused-vars, no-undef -->
+
 ```js
 function sortCompare(a, b, key) {
   if (typeof a[key] === 'number' && typeof b[key] === 'number') {
@@ -1602,6 +1608,8 @@ function to provide the row data (items), by specifying a function reference via
 
 The provider function is called with the following signature:
 
+<!-- eslint-disable no-undef -->
+
 ```js
 provider(ctx, [callback])
 ```
@@ -1623,6 +1631,8 @@ method.
 
 **Example: returning an array of data (synchronous):**
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 function myProvider(ctx) {
   let items = []
@@ -1636,18 +1646,20 @@ function myProvider(ctx) {
 
 **Example: Using callback to return data (asynchronous):**
 
+<!-- eslint-disable no-unused-vars, standard/no-callback-literal -->
+
 ```js
 function myProvider(ctx, callback) {
-  let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
+  const params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
 
   this.fetchData('/some/url' + params)
     .then(data => {
       // Pluck the array of items off our axios response
-      let items = data.items
+      const items = data.items
       // Provide the array of items to the callback
       callback(items)
     })
-    .catch(error => {
+    .catch(() => {
       callback([])
     })
 
@@ -1657,6 +1669,8 @@ function myProvider(ctx, callback) {
 ```
 
 **Example: Using a Promise to return data (asynchronous):**
+
+<!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
 function myProvider(ctx) {
@@ -1801,10 +1815,12 @@ The `sort-changed` event provides a single argument of the table's current state
 This context object has the same format as used by items provider functions.
 
 ```js
-methods: {
-  sortingChanged (ctx) {
-    // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
-    // ctx.sortDesc ==> true if sorting descending, false otherwise
+export default {
+  methods: {
+    sortingChanged(ctx) {
+      // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+      // ctx.sortDesc ==> true if sorting descending, false otherwise
+    }
   }
 }
 ```

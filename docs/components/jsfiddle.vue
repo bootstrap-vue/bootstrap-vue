@@ -8,7 +8,7 @@
       :allowtransparency="true"
       frameborder="0"
       :src="src"
-    />
+    ></iframe>
     <div
       v-if="height === 0"
       class="text-center"

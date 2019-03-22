@@ -161,15 +161,17 @@ reference, or a component reference (the root element of the component will be f
 ```
 
 ```js
-methods: {
-  showModal () {
-    this.$root.$emit('bv::show::modal','modal1', '#btnShow')
-  },
-  hideModal () {
-    this.$root.$emit('bv::hide::modal','modal1', '#btnShow')
-  },
-  toggleModal () {
-    this.$root.$emit('bv::toggle::modal','modal1', '#btnToggle')
+export default {
+  methods: {
+    showModal() {
+      this.$root.$emit('bv::show::modal', 'modal1', '#btnShow')
+    },
+    hideModal() {
+      this.$root.$emit('bv::hide::modal', 'modal1', '#btnShow')
+    },
+    toggleModal() {
+      this.$root.$emit('bv::toggle::modal', 'modal1', '#btnToggle')
+    }
   }
 }
 ```
@@ -527,10 +529,12 @@ component. This will hide the modal before another modal is shown.
 To listen to any modal opening, use:
 
 ```js
-mounted() {
-  this.$root.$on('bv::modal::show', (bvEvent, modalId) => {
-    console.log('Modal is about to be shown', bvEvent, modalId)
-  })
+export default {
+  mounted() {
+    this.$root.$on('bv::modal::show', (bvEvent, modalId) => {
+      console.log('Modal is about to be shown', bvEvent, modalId)
+    })
+  }
 }
 ```
 
@@ -576,9 +580,11 @@ already has focus within the `<b-modal>`.
 ```
 
 ```js
-methods: {
-  focusMyElement(e) {
-    this.$refs.focusThis.focus()
+export default {
+  methods: {
+    focusMyElement(e) {
+      this.$refs.focusThis.focus()
+    }
   }
 }
 ```

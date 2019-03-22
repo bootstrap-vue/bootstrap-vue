@@ -45,7 +45,7 @@
         small
         head-variant="default"
         striped
-      />
+      ></b-table>
     </article>
 
     <article v-if="events && events.length > 0">
@@ -63,7 +63,7 @@
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description" />
+            <span v-html="arg.description"></span>
           </div>
         </template>
       </b-table>
@@ -85,7 +85,7 @@
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description" />
+            <span v-html="arg.description"></span>
           </div>
         </template>
       </b-table>
