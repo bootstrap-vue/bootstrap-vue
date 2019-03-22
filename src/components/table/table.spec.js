@@ -563,7 +563,7 @@ describe('table', () => {
         fields: [
           { key: 'a', tdAttr: { 'data-foo': 'bar' } },
           { key: 'b', tdClass: () => 'baz' },
-          { key: 'b', tdAttr: 'parentTdAttrs' }
+          { key: 'c', tdAttr: 'parentTdAttrs' }
         ]
       }
     })
