@@ -2,7 +2,7 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import { from as arrayFrom, isArray } from '../../utils/array'
+import { from as arrayFrom, isArray, concat } from '../../utils/array'
 
 // @vue/component
 export default {
@@ -49,6 +49,10 @@ export default {
     noDrop: {
       type: Boolean,
       default: false
+    },
+    fileNameFormatter: {
+      type: Function,
+      default: null
     }
   },
   data() {
@@ -70,13 +74,12 @@ export default {
         return this.placeholder
       }
 
-      // Multiple files
-      if (this.multiple) {
-        return this.selectedFile.map(file => file.name).join(', ')
-      }
-
-      // Single file
-      return this.selectedFile.name
+      // Convert selectedFile to an array (if not already one)
+      const files = concat(this.selectedFile)
+      // Use the user supplied formatter, or the built in one.
+      return typeof this.fileNameFormatter === 'function'
+        ? String(this.fileNameFormatter(files))
+        : files.map(file => file.name).join(', ')
     }
   },
   watch: {
