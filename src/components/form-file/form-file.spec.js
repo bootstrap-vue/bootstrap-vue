@@ -459,7 +459,7 @@ describe('form-file', () => {
         id: 'foo'
       },
       scopedSlots: {
-        'file-name': (scope) => {
+        'file-name': scope => {
           slotScope = scope
           return 'foobar'
         }
