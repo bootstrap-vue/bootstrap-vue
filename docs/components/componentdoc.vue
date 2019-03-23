@@ -150,7 +150,7 @@ export default {
       // Add the required column if there are required field(s)
       if (hasRequired) {
         // Insert Required field after prop name
-        fileds.splice(1, 0, { key: 'required', label: 'Required' })
+        fields.splice(1, 0, { key: 'required', label: 'Required' })
       }
 
       return fields
@@ -170,10 +170,7 @@ export default {
       ]
     },
     slotsFields() {
-      return [
-        { key: 'name', label: 'Slot' },
-        { key: 'description', label: 'Description' }
-      ]
+      return [{ key: 'name', label: 'Slot' }, { key: 'description', label: 'Description' }]
     },
     propsItems() {
       const component = Vue.options.components[this.component]
