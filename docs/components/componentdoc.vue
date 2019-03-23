@@ -223,13 +223,16 @@ export default {
 
         // Requied prop?
         const required = p.required ? 'Yes' : ''
+        // Deprecation?
+        const deprecated = p.deprecated || false
 
         return {
           prop: kebabCase(prop),
           type,
           required,
           typeClass,
-          default: defaultVal
+          default: defaultVal,
+          deprecated
         }
       })
     },
