@@ -1,4 +1,4 @@
-import { noWarn } from './env'
+import { getNoWarn } from './env'
 
 /**
  * Log a warning message to the console with bootstrap-vue formatting sugar.
@@ -6,7 +6,7 @@ import { noWarn } from './env'
  */
 /* istanbul ignore next */
 const warn = message => {
-  if (!noWarn) {
+  if (!getNoWarn()) {
     console.warn(`[BootstrapVue warn]: ${message}`)
   }
 }
