@@ -20,7 +20,7 @@ import BFormValidFeedback from '../form/form-valid-feedback'
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
 // Breakpoint names for label-cols and label-align props
-const BREAKPOINTS = getPreakpointsUp()
+const BREAKPOINTS = getBreakpointsUp()
 
 // Memoize this function to return cached values to save time in computed functions
 const makePropName = memoize((breakpoint = '', prefix) => {
