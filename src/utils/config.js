@@ -6,8 +6,10 @@
 //    passing an expression to Vue.use(BootstrapVue, config = {}) or
 //    via global window.BoostrapVue.config (or similar)
 //  - Add default variants for each component (that may have a default
-//    variant, such as button, etc
-//
+//    variant, such as button, etc)
+//  - Pull this default config into the documentation (/docs/reference/settings)
+//    and document how to configure the settings
+// 
 import get from './get'
 
 const BV_DEFAULTS = {
