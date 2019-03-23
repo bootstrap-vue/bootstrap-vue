@@ -35,12 +35,15 @@
           <code>{{ value }}</code>
           <template v-if="item.deprecated">
             <br>
-            <b-badge variant="warning">deprecated</b-badge>
+            <b-badge variant="warning">
+              {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
+            </b-badge>
+            <!-- if deprecated is a string, show the string value -->
             <span v-if="typeof item.deprecated === 'string'"> {{ item.deprecated }}</span>
           </template>
         </template>
-        <template slot="default" slot-scope="field">
-          <code v-if="field.value">{{ field.value }}</code>
+        <template slot="default" slot-scope="{ value }">
+          <code v-if="value">{{ value }}</code>
         </template>
       </b-table>
     </article>
@@ -65,13 +68,13 @@
         head-variant="default"
         striped
       >
-        <template slot="args" slot-scope="field">
+        <template slot="args" slot-scope="{ value, item }">
           <div
-            v-for="arg in field.value"
-            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
+            v-for="arg in value"
+            :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description" />
+            <span v-html="arg.description"></span>
           </div>
         </template>
       </b-table>
@@ -87,13 +90,13 @@
         head-variant="default"
         striped
       >
-        <template slot="args" slot-scope="field">
+        <template slot="args" slot-scope="{ value, item }">
           <div
-            v-for="arg in field.value"
-            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
+            v-for="arg in value"
+            :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description" />
+            <span v-html="arg.description"></span>
           </div>
         </template>
       </b-table>
