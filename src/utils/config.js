@@ -20,7 +20,7 @@ const BV_DEFAULTS = {
   BBadge: { variant: 'secondary' },
   BButton: { variant: 'secondary' },
   BButtonCose: { textVariant: null },
-  BDropdown: { variant: null }, // defaults to button variant
+  BDropdown: { variant: 'secondary' },
   BImg: { blankColor: 'transparent' }
 }
 
