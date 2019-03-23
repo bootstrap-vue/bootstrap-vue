@@ -1,11 +1,14 @@
 import { stripTags } from '../../utils/html'
+import { getConfigComponent } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import BButton from '../button/button'
 
+const NAME = 'BDropdown'
+
 // @vue/component
 export default {
-  name: 'BDropdown',
+  name: NAME,
   components: { BButton },
   mixins: [idMixin, dropdownMixin],
   props: {
@@ -19,7 +22,7 @@ export default {
     },
     variant: {
       type: String,
-      default: null
+      default: () => getConfigComponent(NAME, 'variant')
     },
     menuClass: {
       type: [String, Array],
