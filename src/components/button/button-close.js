@@ -14,7 +14,7 @@ const props = {
   },
   textVariant: {
     type: String,
-    default: getConfigComponent(NAME, 'textVariant')
+    default: () => getConfigComponent(NAME, 'textVariant')
   }
 }
 
