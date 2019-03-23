@@ -31,6 +31,14 @@
         head-variant="default"
         striped
       >
+        <template slot="prop" slot-scope="{ value, item }">
+          <code>{{ value }}</code>
+          <template v-if="item.deprecated">
+            <br>
+            <b-badge variant="warning">deprecated</b-badge>
+            <span v-if="typeof item.deprecated === 'string'"> {{ item.deprecated }}</span>
+          </template>
+        </template>
         <template slot="default" slot-scope="field">
           <code v-if="field.value">{{ field.value }}</code>
         </template>
