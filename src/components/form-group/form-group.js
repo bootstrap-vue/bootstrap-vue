@@ -2,6 +2,7 @@
 import idMixin from '../../mixins/id'
 import formStateMixin from '../../mixins/form-state'
 // Utils
+import { getBreakpointsUp } from '../../utils/config'
 import upperFirst from '../../utils/upper-first'
 import memoize from '../../utils/memoize'
 import warn from '../../utils/warn'
@@ -19,7 +20,7 @@ import BFormValidFeedback from '../form/form-valid-feedback'
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
 // Breakpoint names for label-cols and label-align props
-const BREAKPOINTS = ['', 'sm', 'md', 'lg', 'xl']
+const BREAKPOINTS = getPreakpointsUp()
 
 // Memoize this function to return cached values to save time in computed functions
 const makePropName = memoize((breakpoint = '', prefix) => {
@@ -28,7 +29,7 @@ const makePropName = memoize((breakpoint = '', prefix) => {
 
 // Generate the labelCol breakpoint props
 const bpLabelColProps = BREAKPOINTS.reduce((props, breakpoint) => {
-  // label-cols, label-cols-sm, label-cols-md, ...
+  // i.e. label-cols, label-cols-sm, label-cols-md, ...
   props[makePropName(breakpoint, 'labelCols')] = {
     type: [Number, String, Boolean],
     default: breakpoint ? false : null
