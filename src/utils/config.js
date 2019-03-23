@@ -9,7 +9,7 @@
 //    variant, such as button, etc)
 //  - Pull this default config into the documentation (/docs/reference/settings)
 //    and document how to configure the settings
-// 
+//
 import get from './get'
 
 const BV_DEFAULTS = {
