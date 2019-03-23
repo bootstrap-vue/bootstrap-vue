@@ -3,7 +3,7 @@ import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 
 const DEPRECATION_MSG =
-  'Supplying a function to prop "filter" is deprecated. Use "filter-fn" instead.'
+  'Supplying a function to prop "filter" is deprecated. Use "filter-function" instead.'
 
 export default {
   props: {
