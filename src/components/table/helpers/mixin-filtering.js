@@ -2,7 +2,7 @@ import stringifyRecordValues from './stringify-record-values'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 
-const DEPRECATION_MSG = 'Supplying a function to prop "filter" is deprecated. Use "filterFn" instead'
+const DEPRECATION_MSG = 'Supplying a function to prop "filter" is deprecated. Use "filter-fn" instead.'
 
 export default {
   props: {
@@ -62,7 +62,7 @@ export default {
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
         /* istanbul ignore next */
-        warn(`b-table: ${DEPRECATION_MSG}')
+        warn(`b-table: ${DEPRECATION_MSG}`)
         /* istanbul ignore next */
         return filter
       } else {
