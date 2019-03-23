@@ -2,7 +2,8 @@ import stringifyRecordValues from './stringify-record-values'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 
-const DEPRECATION_MSG = 'Supplying a function to prop "filter" is deprecated. Use "filter-fn" instead.'
+const DEPRECATION_MSG =
+  'Supplying a function to prop "filter" is deprecated. Use "filter-fn" instead.'
 
 export default {
   props: {
