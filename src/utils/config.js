@@ -12,7 +12,8 @@ import get from './get'
 
 const BV_DEFAULTS = {
   breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'],
-  // Component Specific defaults are keyed by the component name
+  // Component Specific defaults are keyed by the component
+  // name (PascalCase) and prop name (camelCase)
   BAlert: { variant: 'info' },
   BBadge: { variant: 'secondary' },
   BButton: { variant: 'secondary' },
