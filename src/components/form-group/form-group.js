@@ -239,12 +239,14 @@ export default {
     horizontal: {
       // Deprecated
       type: Boolean,
-      default: false
+      default: false,
+      deprecated: true
     },
     breakpoint: {
       // Deprecated (ignored if horizontal is not true)
       type: String,
-      default: null // legacy value 'sm'
+      default: null, // legacy value 'sm',
+      deprecated: true
     }
   },
   computed: {
@@ -258,7 +260,7 @@ export default {
           "b-form-group: Props 'horizontal' and 'breakpoint' are deprecated. Use 'label-cols(-{breakpoint})' props instead."
         )
         // Legacy default is breakpoint sm and cols 3
-        const bp = this.breakpoint || 'sm'
+        const bp = this.breakpoint || BREAKPOINTS[1] // 'sm'
         const cols = parseInt(this.labelCols, 10) || 3
         props[bp] = cols > 0 ? cols : 3
         // We then return the single breakpoint prop for legacy compatability
