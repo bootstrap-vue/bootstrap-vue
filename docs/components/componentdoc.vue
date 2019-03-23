@@ -134,44 +134,46 @@ export default {
     },
     propsFields() {
       const component = Vue.options.components[this.component]
-      let props = []
+      let props = {}
       if (component) {
-        props = component.options.props
+        props = component.options.props || {}
       }
-      const hasRequired = props.length > 0 && props.filter(p => p.required).length > 0
 
-      const fields = {
-        prop: { label: 'Property' },
-        type: { label: 'Type' },
-        default: { label: 'Default Value' }
-      }
+      const hasRequired = Object.keys(props).some(p => props[p].required)
+
+      const fields = [
+        { key: 'prop', label: 'Property' },
+        { key: 'type', label: 'Type' },
+        { key: 'default', label: 'Default Value' }
+      ]
 
       // Add the required column if there are required field(s)
       if (hasRequired) {
-        fields.required = { label: 'Required' }
+        // Insert Required field after prop name
+        fileds.splice(1, 0, { key: 'required', label: 'Required' })
       }
 
       return fields
     },
     eventsFields() {
-      return {
-        event: { label: 'Event' },
-        args: { label: 'Arguments' },
-        description: { label: 'Description' }
-      }
+      return [
+        { key: 'event', label: 'Event' },
+        { key: 'args', label: 'Arguments' },
+        { key: 'description', label: 'Description' }
+      ]
     },
     rootEventListenersFields() {
-      return {
-        event: { label: 'Event' },
-        args: { label: 'Arguments' },
-        description: { label: 'Description' }
-      }
+      return [
+        { key: 'event', label: 'Event' },
+        { key: 'args', label: 'Arguments' },
+        { key: 'description', label: 'Description' }
+      ]
     },
     slotsFields() {
-      return {
-        name: { label: 'Slot' },
-        description: { label: 'Description' }
-      }
+      return [
+        { key: 'name', label: 'Slot' },
+        { key: 'description', label: 'Description' }
+      ]
     },
     propsItems() {
       const component = Vue.options.components[this.component]
