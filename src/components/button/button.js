@@ -23,7 +23,7 @@ const btnProps = {
   },
   variant: {
     type: String,
-    default: getConfigComponent(NAME, 'variant')
+    default: () => getConfigComponent(NAME, 'variant')
   },
   type: {
     type: String,
