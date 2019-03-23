@@ -39,6 +39,18 @@ const getConfigParam = key => {
   return JSON.parse(JSON.stringify(get(config, key, get(getDefaults(), key))))
 }
 
+// Method to grab a config value for a particular component.
+// Returns a deep clone (immutable) copy
+const getConfigComponent = (cmpName, key = null) => {
+  if (key) {
+    // Return the particular config value for key for specified component
+    return getConfigParam(`${cmpName}.${key}`)
+  } else {
+    // return the components full config
+    return getConfigParam(cmpName) || {}
+  }
+}
+
 // Convenience method for getting all breakpoint names
 const getBreakpointsAll = () => {
   const bpts = getConfigParam('breakpoints')
@@ -68,6 +80,7 @@ const getBreakpointsDown = () => {
 export {
   getDefaults, 
   getConfigParam,
+  getConfigComponent,
   getBreakpointsAll,
   getBreakpointsUp,
   getBreakpointsDown
