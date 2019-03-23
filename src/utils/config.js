@@ -22,12 +22,13 @@ const config = {}
 const getConfigParam = key => {
   // First we try the user config, and if key not found we
   // fall back to default value.
-  return get(config, key, get(BV_DEFAULTS, key))
+  // Returns a deep cloned version
+  return JSON.parse(JSON.stringify(get(config, key, get(BV_DEFAULTS, key))))
 }
 
 // Convenience method for getting all breakpoint names
 const getBreakpointsAll = () => {
-  const bpts = getConfigParam('breakpoints').slice()
+  const bpts = getConfigParam('breakpoints')
   return bpts
 }
 
