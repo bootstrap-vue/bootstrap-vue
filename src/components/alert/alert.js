@@ -14,7 +14,7 @@ export default {
   props: {
     variant: {
       type: String,
-      default: getConfigComponent(NAME, 'variant')
+      default: () => getConfigComponent(NAME, 'variant')
     },
     dismissible: {
       type: Boolean,
