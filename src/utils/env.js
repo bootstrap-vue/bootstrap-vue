@@ -8,3 +8,5 @@ export const hasTouchSupport =
   inBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
 
 export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)
+
+export const noWarn = process && process.env && process.env.BOOTSTRAP_VUE_NO_WARN
