@@ -36,15 +36,19 @@ describe('utils/config', () => {
 
   it('getDefaults() returns deep clone', async () => {
     const defaults = getDefaults()
+
+    expect(Object.keys(defaults).length).toBeGreaterThan(1)
     expect(getDefaults()).toEqual(defaults)
     expect(getDefaults()).not.toBe(defaults)
 
     // Each key should be a clone (top level key test)
-    expect(Object.keys(defaults).every(key => {
-      // Should not point to the same reference
-      const param = getConfigParam(key)
-      return param !== defaults[key] && looseEqual(param, defaults[key])
-    })).toBe(true)
+    expect(
+      Object.keys(defaults).every(key => {
+        // Should not point to the same reference
+        const param = getConfigParam(key)
+        return param !== defaults[key] && looseEqual(param, defaults[key])
+      })
+    ).toBe(true)
 
     // TODO: test each nested key (if Array or Plain Object)
   })
