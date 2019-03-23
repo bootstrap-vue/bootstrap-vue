@@ -433,6 +433,35 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('updating v-model (value) when selects correct option', async () => {
+    const wrapper = mount(Select, {
+      propsData: {
+        options: ['one', 'two', { text: 'three', value: { three: 3 } }],
+        value: 'one'
+      }
+    })
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+
+    expect($options.at(0).element.selected).toBe(true)
+
+    // select 2nd option
+    wrapper.setProps({
+      value: 'two'
+    })
+
+    expect($options.at(1).element.selected).toBe(true)
+
+    // select 3rd option
+    wrapper.setProps({
+      value: { three: 3 }
+    })
+
+    expect($options.at(2).element.selected).toBe(true)
+
+    wrapper.destroy()
+  })
+
   it('updates v-model when option selected in single mode with complex values', async () => {
     const wrapper = mount(Select, {
       propsData: {

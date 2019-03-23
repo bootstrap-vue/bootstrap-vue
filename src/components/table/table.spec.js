@@ -1,764 +1,643 @@
-import { loadFixture, testVM, setData, nextTick, sleep } from '../../../tests/utils'
+import Table from './table'
+import { mount } from '@vue/test-utils'
+
+const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
+const fields1 = ['a', 'b', 'c']
 
 describe('table', () => {
-  beforeEach(loadFixture(__dirname, 'table'))
-  testVM()
+  it('has expected default classes', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1
+      }
+    })
 
-  it('all example tables should contain class names', async () => {
-    const {
-      app: { $refs }
-    } = window
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(2)
 
-    expect($refs.table_basic).toHaveAllClasses(['table', 'b-table', 'table-striped', 'table-hover'])
-
-    expect($refs.table_paginated).toHaveAllClasses([
-      'table',
-      'b-table',
-      'table-sm',
-      'table-striped',
-      'table-bordered',
-      'table-hover'
-    ])
-
-    expect($refs.table_dark).toHaveAllClasses([
-      'table',
-      'b-table',
-      'table-sm',
-      'table-bordered',
-      'table-dark'
-    ])
+    wrapper.destroy()
   })
 
-  it('table_responsive should be wrapped in a div', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const table = $refs.table_responsive
+  it('has class "table-striped" when striped=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        striped: true
+      }
+    })
 
-    expect(table.$el.tagName).toBe('DIV')
-    expect(table).toHaveAllClasses(['table-responsive'])
-    expect(table.$el.children.length).toBe(1)
-    expect(table.$el.children[0].tagName).toBe('TABLE')
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table-striped')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
-  it('should generate fields automatically from the first item', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const table = $refs.table_without_fields
-    const thead = $refs.table_without_fields.$el.children[0]
-    const tr = thead.children[0]
+  it('has class "table-bordered" when bordered=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        bordered: true
+      }
+    })
 
-    // The row should be equal to the items without any of Bootstrap Vue's
-    // utility fields, like _rowVariant, or _cellVariants
-    expect(tr.children.length).toBe(Object.keys(table.items[0]).length - 1)
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table-bordered')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
-  it('table_basic should have thead and tbody', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('has class "table-borderless" when borderless=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        borderless: true
+      }
+    })
 
-    const parts = [...$refs.table_basic.$el.children]
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table-borderless')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
 
-    const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-
-    const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-
-    const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-    expect(tfoot).not.toBeDefined()
+    wrapper.destroy()
   })
 
-  it('table_paginated should have thead, tbody and tfoot', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('has class "table-hover" when hover=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        hover: true
+      }
+    })
 
-    const parts = [...$refs.table_paginated.$el.children]
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table-hover')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
 
-    const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-
-    const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-
-    const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
+    wrapper.destroy()
   })
 
-  it('table_dark should have thead and tbody', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('has class "table-sm" when small=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        small: true
+      }
+    })
 
-    const parts = [...$refs.table_dark.$el.children]
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table-sm')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
 
-    const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-
-    const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-
-    const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-    expect(tfoot).not.toBeDefined()
+    wrapper.destroy()
   })
 
-  it('table_paginated thead should contain class thead-dark', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-    if (thead) {
-      expect(thead.classList.contains('thead-dark')).toBe(true)
-    }
+  it('has class "table-dark" when dark=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        dark: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('table-dark')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
-  it('table_paginated tfoot should contain class thead-light', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
-    if (tfoot) {
-      expect(tfoot.classList.contains('thead-light')).toBe(true)
-    }
+  it('has class "border" when outlined=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        outlined: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('border')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
-  it('all examples have correct number of columns', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('has class "b-table-fixed" when fixed=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        fixed: true
+      }
+    })
 
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-fixed')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
 
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-      expect(thead).toBeDefined()
-      if (thead) {
-        const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-        expect(tr).toBeDefined()
-        if (tr) {
-          expect(tr.children.length).toBe(Object.keys(vm.fields).length)
+    wrapper.destroy()
+  })
+
+  it('has class "b-table-stacked" when stacked=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stacked: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-stacked')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  it('has class "b-table-stacked-md" when stacked=md', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stacked: 'md'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-stacked-md')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  it('has class "table-responsive" when responsive=true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        responsive: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('table-responsive')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.find('table').classes()).toContain('table')
+    expect(wrapper.find('table').classes()).toContain('b-table')
+    expect(wrapper.find('table').classes().length).toBe(2)
+
+    wrapper.destroy()
+  })
+
+  it('has class "table-responsive-md" when responsive=md', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        responsive: 'md'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('table-responsive-md')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.find('table').classes()).toContain('table')
+    expect(wrapper.find('table').classes()).toContain('b-table')
+    expect(wrapper.find('table').classes().length).toBe(2)
+
+    wrapper.destroy()
+  })
+
+  it('stacked has precedence over responsive', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stacked: true,
+        responsive: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).not.toContain('table-responsive')
+    expect(wrapper.classes()).toContain('b-table-stacked')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  it('stacked has data-label attribute on all tbody > tr td', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stacked: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    const $trs = wrapper.findAll('tbody > tr').wrappers
+
+    // Labels will have run through startCase
+    expect(
+      $trs[0]
+        .findAll('td')
+        .at(0)
+        .attributes('data-label')
+    ).toBe('A')
+    expect(
+      $trs[1]
+        .findAll('td')
+        .at(0)
+        .attributes('data-label')
+    ).toBe('A')
+
+    expect(
+      $trs[0]
+        .findAll('td')
+        .at(1)
+        .attributes('data-label')
+    ).toBe('B')
+    expect(
+      $trs[1]
+        .findAll('td')
+        .at(1)
+        .attributes('data-label')
+    ).toBe('B')
+
+    expect(
+      $trs[0]
+        .findAll('td')
+        .at(2)
+        .attributes('data-label')
+    ).toBe('C')
+    expect(
+      $trs[1]
+        .findAll('td')
+        .at(2)
+        .attributes('data-label')
+    ).toBe('C')
+
+    wrapper.destroy()
+  })
+
+  it('item _rowVariant works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, _rowVariant: 'primary' }],
+        fields: ['a'],
+        dark: false
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.find('tbody > tr').classes()).toContain('table-primary')
+
+    wrapper.setProps({
+      dark: true
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.find('tbody > tr').classes()).toContain('bg-primary')
+
+    wrapper.destroy()
+  })
+
+  it('item _cellVariants works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, _cellVariants: { a: 'info' } }],
+        fields: ['a'],
+        dark: false
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
+    expect(wrapper.find('tbody > tr > td').classes()).toContain('table-info')
+
+    wrapper.setProps({
+      dark: true
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
+    expect(wrapper.find('tbody > tr > td').classes()).toContain('bg-info')
+
+    wrapper.destroy()
+  })
+
+  it('changing items array works', async () => {
+    const items1 = [{ a: 1, b: 2 }, { a: 3, b: 4 }]
+    const items2 = [{ a: 3, b: 4 }]
+    const wrapper = mount(Table, {
+      propsData: {
+        items: items1,
+        fields: ['a', 'b']
+      }
+    })
+    expect(wrapper).toBeDefined()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    wrapper.setProps({
+      items: items2
+    })
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('tbody-tr-class works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }, { a: 3, b: 4 }],
+        fields: ['a', 'b'],
+        tbodyTrClass: 'foobar'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+
+    // prop as a string
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    let $trs = wrapper.findAll('tbody > tr')
+    expect($trs.at(0).classes()).toContain('foobar')
+    expect($trs.at(1).classes()).toContain('foobar')
+
+    // As a function
+    wrapper.setProps({
+      tbodyTrClass: item => {
+        return item.a === 1 ? 'foo' : 'bar'
+      }
+    })
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.at(0).classes()).toContain('foo')
+    expect($trs.at(0).classes()).not.toContain('bar')
+    expect($trs.at(1).classes()).toContain('bar')
+    expect($trs.at(1).classes()).not.toContain('foo')
+
+    wrapper.destroy()
+  })
+
+  it('thead and tfoot variant and classes work', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: ['a', 'b'],
+        footClone: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('thead > tr').length).toBe(1)
+    expect(wrapper.findAll('tfoot > tr').length).toBe(1)
+
+    expect(wrapper.find('thead').classes().length).toBe(0)
+    expect(wrapper.find('tfoot').classes().length).toBe(0)
+
+    wrapper.setProps({
+      headVariant: 'light'
+    })
+
+    expect(wrapper.find('thead').classes()).toContain('thead-light')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-light')
+
+    wrapper.setProps({
+      footVariant: 'dark'
+    })
+
+    expect(wrapper.find('thead').classes()).toContain('thead-light')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
+
+    wrapper.setProps({
+      theadClass: 'foo',
+      tfootClass: 'bar'
+    })
+
+    expect(wrapper.find('thead').classes()).toContain('thead-light')
+    expect(wrapper.find('thead').classes()).toContain('foo')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
+    expect(wrapper.find('tfoot').classes()).toContain('bar')
+
+    wrapper.setProps({
+      theadTrClass: 'willy',
+      tfootTrClass: 'wonka'
+    })
+
+    expect(wrapper.find('thead > tr').classes()).toContain('willy')
+    expect(wrapper.find('tfoot > tr').classes()).toContain('wonka')
+
+    wrapper.destroy()
+  })
+
+  it('item field isRowHeader works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: [{ key: 'a', isRowHeader: true }, 'b']
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > *').length).toBe(2)
+
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(0)
+        .is('th')
+    ).toBe(true)
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(0)
+        .attributes('role')
+    ).toBe('rowheader')
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(0)
+        .attributes('scope')
+    ).toBe('row')
+
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(1)
+        .is('td')
+    ).toBe(true)
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(1)
+        .attributes('role')
+    ).toBe('cell')
+    expect(
+      wrapper
+        .findAll('tbody > tr > *')
+        .at(1)
+        .attributes('scope')
+    ).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('item field tdAttr and tdClass works', async () => {
+    const Parent = {
+      methods: {
+        parentTdAttrs(value, key, item) {
+          return { 'data-parent': 'parent' }
         }
       }
-    })
-  })
-
-  it('all examples should show the correct number of visible rows', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const app = window.app
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-      expect(tbody).toBeDefined()
-      if (tbody) {
-        expect(tbody.children.length).toBe(vm.perPage || app.items.length)
+    }
+    const wrapper = mount(Table, {
+      parentComponent: Parent,
+      propsData: {
+        items: [{ a: 1, b: 2, c: 3 }],
+        fields: [
+          { key: 'a', tdAttr: { 'data-foo': 'bar' } },
+          { key: 'b', tdClass: () => 'baz' },
+          { key: 'c', tdAttr: 'parentTdAttrs' }
+        ]
       }
     })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(3)
+
+    const $tds = wrapper.findAll('tbody > tr > td')
+
+    expect($tds.at(0).attributes('data-foo')).toBe('bar')
+    expect($tds.at(0).attributes('data-parent')).not.toBeDefined()
+    expect($tds.at(0).classes().length).toBe(0)
+
+    expect($tds.at(1).classes()).toContain('baz')
+    expect($tds.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(1).attributes('data-parent')).not.toBeDefined()
+
+    expect($tds.at(2).attributes('data-parent')).toBe('parent')
+    expect($tds.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(2).classes().length).toBe(0)
+
+    wrapper.destroy()
   })
 
-  it('all examples have sortable & unsortable headers', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('item field formatter as function works', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: [
+          {
+            key: 'a',
+            formatter(value, key, item) {
+              return item.a + item.b
+            }
+          },
+          'b'
+        ]
+      }
+    })
 
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-    // const sortables = [true, true, false, false]
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+    const $tds = wrapper.findAll('tbody > tr > td')
+    expect($tds.at(0).text()).toBe('3')
+    expect($tds.at(1).text()).toBe('2')
 
-    tables.forEach(table => {
-      const vm = $refs[table]
-      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-      expect(thead).toBeDefined()
-      if (thead) {
-        const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-        expect(tr).toBeDefined()
-        if (tr) {
-          const fieldKeys = Object.keys(vm.fields)
-          const ths = [...tr.children]
-          expect(ths.length).toBe(fieldKeys.length)
-          ths.forEach((th, idx) => {
-            expect(th.hasAttribute('aria-sort')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
-          })
+    wrapper.destroy()
+  })
+
+  it('item field formatter as string works', async () => {
+    const Parent = {
+      methods: {
+        formatter(value, key, item) {
+          return item.a + item.b
         }
       }
-    })
-  })
-
-  it('table_paginated has sortable & unsortable footers', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const fieldKeys = Object.keys(vm.fields)
-
-    const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
-    if (tfoot) {
-      const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        const ths = [...tr.children]
-        expect(ths.length).toBe(fieldKeys.length)
-        ths.forEach((th, idx) => {
-          expect(th.hasAttribute('aria-sort')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
-        })
-      }
     }
-  })
-
-  it('all example tables should have attribute aria-busy="false" when busy is false', async () => {
-    const { app } = window
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-
-    await setData(app, 'isBusy', false)
-    await nextTick()
-
-    tables.forEach(table => {
-      expect(app.$refs[table].$el.getAttribute('aria-busy')).toBe('false')
-    })
-  })
-
-  it('table_paginated should have attribute aria-busy="true" when busy is true', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const app = window.app
-
-    await setData(app, 'isBusy', true)
-    await nextTick()
-    expect($refs.table_paginated.$el.getAttribute('aria-busy')).toBe('true')
-
-    await setData(app, 'isBusy', false)
-    await nextTick()
-    expect($refs.table_paginated.$el.getAttribute('aria-busy')).toBe('false')
-  })
-
-  it('sortable columns should have ARIA labels in thead', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const ariaLabel = vm.labelSortDesc
-
-    const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-    if (thead) {
-      const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabel)
-        expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabel)
-        expect(tr.children[2].getAttribute('aria-label')).toBe(null)
-        expect(tr.children[3].getAttribute('aria-label')).toBe(null)
-      }
-    }
-  })
-
-  it('sortable columns should have ARIA labels in tfoot', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const ariaLabel = vm.labelSortDesc
-
-    const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(tfoot).toBeDefined()
-    if (tfoot) {
-      const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabel)
-        expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabel)
-        expect(tr.children[2].getAttribute('aria-label')).toBe(null)
-        expect(tr.children[3].getAttribute('aria-label')).toBe(null)
-      }
-    }
-  })
-
-  it('all examples should have variant "success" on 1st row', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const app = window.app
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-
-    const items = app.items.slice()
-    items[0]._rowVariant = 'success'
-    await setData(app, 'items', items)
-    await nextTick()
-
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-      expect(tbody).toBeDefined()
-      if (tbody) {
-        const tr = tbody.children[0]
-        const variant = vm.dark ? 'bg-success' : 'table-success'
-        expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
+    const wrapper = mount(Table, {
+      parentComponent: Parent,
+      propsData: {
+        items: [{ a: 1, b: 2 }],
+        fields: [{ key: 'a', formatter: 'formatter' }, 'b']
       }
     })
-  })
 
-  it('table_basic should contain custom formatted columns', async () => {
-    const { app } = window
-    const vm = app.$refs.table_basic
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+    const $tds = wrapper.findAll('tbody > tr > td')
+    expect($tds.at(0).text()).toBe('3')
+    expect($tds.at(1).text()).toBe('2')
 
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].textContent).toContain(
-          vm.items[0].name.first + ' ' + vm.items[0].name.last
-        )
-        expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
-        expect(tr.children[3].children[0].tagName).toBe('BUTTON')
-      }
-    }
-  })
-
-  it('table_paginated should contain custom formatted columns', async () => {
-    const { app } = window
-    const vm = app.$refs.table_basic
-
-    const tbody = [...app.$refs.table_paginated.$el.children].find(
-      el => el && el.tagName === 'TBODY'
-    )
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].textContent).toContain(
-          vm.items[0].name.first + ' ' + vm.items[0].name.last
-        )
-        expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
-        expect(tr.children[3].children[0].tagName).toBe('INPUT')
-      }
-    }
-  })
-
-  it('table_paginated should contain custom formatted headers', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-    if (thead) {
-      const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].textContent).toContain('Person Full name')
-        expect(tr.children[1].textContent).toContain('Person age')
-        expect(tr.children[2].textContent).toContain('is Active')
-        expect(tr.children[3].textContent).toContain('Select')
-      }
-    }
-  })
-
-  it('table_paginated should contain custom formatted footers', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    await nextTick()
-
-    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
-    if (tfoot) {
-      const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        expect(tr.children[0].textContent).toContain('Showing 5 People')
-        expect(tr.children[1].textContent).toContain('Person age')
-        expect(tr.children[2].textContent).toContain('is Active')
-        expect(tr.children[3].textContent).toContain('Selected: 0')
-      }
-    }
-  })
-
-  it('sortable header th should emit a sort-changed event with context when clicked and sort changed', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const spy = jest.fn()
-    const fieldKeys = Object.keys(vm.fields)
-
-    vm.$on('sort-changed', spy)
-    const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-    if (thead) {
-      const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        let sortBy = null
-        const ths = [...tr.children]
-        expect(ths.length).toBe(fieldKeys.length)
-        ths.forEach((th, idx) => {
-          th.click()
-          if (vm.fields[fieldKeys[idx]].sortable) {
-            expect(spy).toHaveBeenCalledWith(vm.context)
-            expect(vm.context.sortBy).toBe(fieldKeys[idx])
-            sortBy = vm.context.sortBy
-          } else {
-            if (sortBy) {
-              expect(spy).toHaveBeenCalledWith(vm.context)
-              expect(vm.context.sortBy).toBe(null)
-              sortBy = null
-            } else {
-              expect(spy).not.toHaveBeenCalled()
-              expect(vm.context.sortBy).toBe(null)
-            }
-          }
-          spy.mockClear()
-        })
-      }
-    }
-  })
-
-  it('sortable footer th should emit a sort-changed event with context when clicked and sort changed', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const spy = jest.fn()
-    const fieldKeys = Object.keys(vm.fields)
-
-    vm.$on('sort-changed', spy)
-    const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
-    expect(tfoot).toBeDefined()
-    if (tfoot) {
-      const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        let sortBy = null
-        const ths = [...tr.children]
-        expect(ths.length).toBe(fieldKeys.length)
-        ths.forEach((th, idx) => {
-          th.click()
-          if (vm.fields[fieldKeys[idx]].sortable) {
-            expect(spy).toHaveBeenCalledWith(vm.context)
-            expect(vm.context.sortBy).toBe(fieldKeys[idx])
-            sortBy = vm.context.sortBy
-          } else {
-            if (sortBy) {
-              expect(spy).toHaveBeenCalledWith(vm.context)
-              expect(vm.context.sortBy).toBe(null)
-              sortBy = null
-            } else {
-              expect(spy).not.toHaveBeenCalled()
-              expect(vm.context.sortBy).toBe(null)
-            }
-          }
-          spy.mockClear()
-        })
-      }
-    }
-  })
-
-  it('non-sortable header th should not emit a sort-changed event when clicked and prop no-sort-reset is set', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_no_sort_reset
-    const spy = jest.fn()
-    const fieldKeys = Object.keys(vm.fields)
-
-    vm.$on('sort-changed', spy)
-    const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
-    expect(thead).toBeDefined()
-    if (thead) {
-      const tr = [...thead.children].find(el => el && el.tagName === 'TR')
-      expect(tr).toBeDefined()
-      if (tr) {
-        let sortBy = null
-        const ths = [...tr.children]
-        expect(ths.length).toBe(fieldKeys.length)
-        ths.forEach((th, idx) => {
-          th.click()
-          if (vm.fields[fieldKeys[idx]].sortable) {
-            expect(spy).toHaveBeenCalledWith(vm.context)
-            expect(vm.context.sortBy).toBe(fieldKeys[idx])
-            sortBy = vm.context.sortBy
-          } else {
-            expect(spy).not.toHaveBeenCalled()
-            expect(vm.context.sortBy).toBe(sortBy)
-          }
-          spy.mockClear()
-        })
-      }
-    }
-  })
-
-  it('table_paginated pagination works', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const app = window.app
-    const spy = jest.fn()
-
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      // We need between 11 and 14 ites for this test
-      expect(app.items.length > 10).toBe(true)
-      expect(app.items.length < 15).toBe(true)
-
-      vm.$on('input', spy)
-
-      // Page size to be less then number of items
-      await setData(app, 'currentPage', 1)
-      await setData(app, 'perPage', 10)
-      await nextTick()
-      expect(vm.perPage).toBe(10)
-      expect(vm.value.length).toBe(10)
-      expect(tbody.children.length).toBe(10)
-
-      // Goto page 2, should have length 1
-      await setData(app, 'currentPage', 2)
-      await nextTick()
-      expect(vm.value.length).toBe(app.items.length - 10)
-      expect(tbody.children.length).toBe(app.items.length - 10)
-
-      expect(spy).toHaveBeenCalled()
-    }
-  })
-
-  it('table_paginated filtering works', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const app = window.app
-    const spyInput = jest.fn()
-    const spyFiltered = jest.fn()
-
-    expect(vm.showEmpty).toBe(true)
-    expect(app.items.length > 10).toBe(true)
-    expect(app.items.length < 15).toBe(true)
-
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      expect(app.items.length > 1).toBe(true)
-
-      vm.$on('input', spyInput)
-
-      // Set page size to max number of items
-      await setData(app, 'currentPage', 1)
-      await setData(app, 'perPage', 15)
-      await nextTick()
-      expect(vm.value.length).toBe(app.items.length)
-      expect(tbody.children.length).toBe(app.items.length)
-
-      // Apply Fiter
-      await setData(app, 'filter', String(app.items[0].name.last))
-      await nextTick()
-      expect(vm.value.length < app.items.length).toBe(true)
-      expect(tbody.children.length < app.items.length).toBe(true)
-
-      // Empty filter alert
-      vm.$on('filtered', spyFiltered)
-      await setData(app, 'filter', 'ZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzz........')
-      await nextTick()
-
-      expect(spyFiltered).toHaveBeenCalled()
-
-      expect(vm.value.length).toBe(0)
-      expect(tbody.children.length).toBe(1)
-      expect(tbody.children[0].children[0].textContent).toContain(vm.emptyFilteredText)
-
-      expect(spyInput).toHaveBeenCalled()
-    }
-  })
-
-  it('table_paginated shows empty message when no items', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const vm = $refs.table_paginated
-    const app = window.app
-    const spy = jest.fn()
-
-    expect(vm.showEmpty).toBe(true)
-
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    if (tbody) {
-      expect(app.items.length > 10).toBe(true)
-      expect(app.items.length < 15).toBe(true)
-
-      vm.$on('input', spy)
-
-      // Set page size to show all items
-      await setData(app, 'currentPage', 1)
-      await setData(app, 'perPage', 15)
-      await nextTick()
-      expect(vm.value.length).toBe(app.items.length)
-      expect(tbody.children.length).toBe(app.items.length)
-
-      // Set items to empty list
-      await setData(app, 'items', [])
-      await nextTick()
-      expect(app.items.length).toBe(0)
-      expect(vm.value.length).toBe(0)
-      expect(tbody.children.length).toBe(1)
-      expect(tbody.textContent).toContain(vm.emptyText)
-
-      expect(spy).toHaveBeenCalled()
-    }
-  })
-
-  it('table_provider should emit a refreshed event for providerArray', async () => {
-    const { app } = window
-    const vm = app.$refs.table_provider
-    const spy = jest.fn()
-
-    await setData(app, 'providerType', 'array')
-    await nextTick()
-    await sleep(100)
-
-    vm.$on('refreshed', spy)
-    vm.refresh()
-    await nextTick()
-    await sleep(100)
-
-    expect(spy).toHaveBeenCalled()
-    // expect(vm.value.length).toBe(app.items.length)
-  })
-
-  it('table_provider should emit a refreshed event for providerCallback', async () => {
-    const { app } = window
-    const vm = app.$refs.table_provider
-    const spy = jest.fn()
-
-    await setData(app, 'providerType', 'callback')
-    await nextTick()
-    await sleep(100)
-
-    vm.$on('refreshed', spy)
-    vm.refresh()
-    await nextTick()
-    await sleep(100)
-
-    expect(spy).toHaveBeenCalled()
-  })
-
-  it('table_provider should emit a refreshed event for providerPromise', async () => {
-    const { app } = window
-    const vm = app.$refs.table_provider
-    const spy = jest.fn()
-
-    await setData(app, 'providerType', 'promise')
-    await nextTick()
-    await sleep(100)
-
-    vm.$on('refreshed', spy)
-    vm.refresh()
-    await nextTick()
-    await sleep(100)
-
-    expect(spy).toHaveBeenCalled()
-  })
-
-  it('should render stacked table', async () => {
-    const { app } = window
-    const vm = app.$refs.table_stacked
-
-    expect(vm).toHaveAllClasses(['b-table-stacked'])
-  })
-
-  it('all example tables should have custom formatted cells', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const tables = ['table_basic', 'table_paginated', 'table_dark']
-    await nextTick()
-
-    tables.forEach((table, idx) => {
-      const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-      expect(tbody).toBeDefined()
-      if (tbody) {
-        const tr = tbody.children[0]
-        expect(tr).toBeDefined()
-        expect(
-          Boolean(tr.children[0]) &&
-            Boolean(tr.children[0].classList) &&
-            tr.children[0].classList.contains('bg-primary')
-        ).toBe(true)
-        expect(
-          Boolean(tr.children[1]) &&
-            Boolean(tr.children[1].classList) &&
-            tr.children[1].classList.contains('bg-primary') &&
-            tr.children[1].classList.contains('text-dark')
-        ).toBe(true)
-        expect(
-          Boolean(tr.children[2]) &&
-            Boolean(tr.children[2].classList) &&
-            tr.children[2].classList.contains('bg-danger')
-        ).toBe(true)
-        expect(
-          Boolean(tr.children[3]) &&
-            Boolean(tr.children[3].classList) &&
-            tr.children[3].classList.contains('bg-primary') &&
-            tr.children[3].classList.contains('text-light')
-        ).toBe(true)
-        expect(
-          Boolean(tr.children[0]) &&
-            Boolean(tr.children[0].attributes) &&
-            tr.children[0].getAttribute('title') === 'Person Full name'
-        ).toBe(true)
-        expect(
-          Boolean(tr.children[2]) &&
-            Boolean(tr.children[2].attributes) &&
-            tr.children[2].getAttribute('title') === 'is Active'
-        ).toBe(true)
-        expect(
-          Boolean(tr.children[3]) &&
-            Boolean(tr.children[3].attributes) &&
-            tr.children[3].getAttribute('title') === 'Actions'
-        ).toBe(true)
-      }
-    })
-  })
-
-  it('should set row classes', async () => {
-    // Classes that children rows must contain
-    const classesTest = {
-      'tr-start-with-l': [1, 7],
-      'tr-last-name-macdonald': [0, 6]
-    }
-    const { app } = window
-    const vm = app.$refs.table_style_row
-    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-    expect(tbody).toBeDefined()
-    for (const className in classesTest) {
-      const children = classesTest[className]
-      for (let childIndex = 0, len = tbody.children.length - 1; childIndex < len; ++childIndex) {
-        const hasClass = children.indexOf(childIndex) >= 0
-        expect(
-          Boolean(tbody.children[childIndex]) &&
-            Boolean(tbody.children[childIndex].classList) &&
-            tbody.children[childIndex].classList.contains(className)
-        ).toBe(hasClass)
-      }
-    }
+    wrapper.destroy()
   })
 })

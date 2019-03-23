@@ -177,6 +177,7 @@ See also:
 - `<b-form-text>` Help text blocks for inputs
 - `<b-form-invalid-feedback>` Invalid feedback text blocks for input `invalid` states
 - `<b-form-valid-feedback>` Valid feedback text blocks for input `valid` states
+- `<b-form-datalist>` Create `<datalist>` for use with `<b-form-input>` or plain `<input>`
 
 See also: [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups
 that support labels, help text and feedback
@@ -261,6 +262,41 @@ or the `force-show` prop to display the feedback.
 
 <!-- form-feedback-example.vue -->
 ```
+
+### Datalist helper
+
+For broswers that support
+[`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) elements,
+the `<b-form-datalist>` helper component will allow you to quickly create a `<datalist>` and
+child `<option>` elements via an array passed to the `options` prop.
+
+```html
+<template>
+  <label for="input-with-list">Input with datalist</label>
+  <b-form-input list="input-list" id="input-with-list"></b-form-input>
+  <b-form-datalist id="input-list" :options="options"></b-form-datalist>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      options: ['Apple', 'Banana', 'Grape', 'Kiwi', 'Orange']
+    }
+  }
+}
+</script>
+
+<!-- form-datalist-example.vue -->
+```
+
+`<b-form-datalist>` is also available via the shorter alias of `<b-datalist>`.
+
+See also:
+
+- [`<b-form-input> datalist`](/docs/components/form-input#datalist-support) for datalist usage.
+- [`<b-form-select> options`](/docs/components/form-select#options-property) for more information on
+  the `options` array format.
 
 ## Validation
 

@@ -1,4 +1,5 @@
 import BForm from './form'
+import BFormDatalist from './form-datalist'
 import BFormRow from './form-row'
 import BFormText from './form-text'
 import BFormInvalidFeedback from './form-invalid-feedback'
@@ -7,6 +8,8 @@ import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BForm,
+  BFormDatalist,
+  BDatalist: BFormDatalist,
   BFormRow,
   BFormText,
   BFormInvalidFeedback,

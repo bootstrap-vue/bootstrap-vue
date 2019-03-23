@@ -416,7 +416,7 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
   <div>
     <b-form-checkbox-group v-model="value" :options="options" :state="state" name="checkboxValidation">
       <b-form-invalid-feedback :state="state">Please select two</b-form-invalid-feedback>
-      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feeback>
+      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feedback>
     </b-form-checkbox-group>
   </div>
 </template>

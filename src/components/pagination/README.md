@@ -132,7 +132,7 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       <span class="text-danger" slot="prev-text">Prev</span>
       <span class="text-warning" slot="next-text">Next</span>
       <span class="text-info" slot="last-text">Last</span>
-      <div class="d-flex align-items-center h-100" slot="ellipsis-text">
+      <div slot="ellipsis-text">
         <b-spinner small type="grow" />
         <b-spinner small type="grow" />
         <b-spinner small type="grow" />

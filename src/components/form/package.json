@@ -23,7 +23,11 @@
       "BFormText",
       "BFormInvalidFeedback",
       "BFormValidFeedback",
-      "BFormRow"
+      "BFormRow",
+      {
+        "component": "BFormDatalist",
+        "aliases": ["BDatalist"]
+      }
     ]
   }
 }
