@@ -19,33 +19,33 @@ import BFormValidFeedback from '../form/form-valid-feedback'
 // Selector for finding first input in the form-group
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
-// Breakpoint names for label-cols and label-align props
-const BREAKPOINTS = getBreakpointsUp()
-
 // Memoize this function to return cached values to save time in computed functions
 const makePropName = memoize((breakpoint = '', prefix) => {
   return `${prefix}${upperFirst(breakpoint)}`
 })
 
 // Generate the labelCol breakpoint props
-const bpLabelColProps = BREAKPOINTS.reduce((props, breakpoint) => {
-  // i.e. label-cols, label-cols-sm, label-cols-md, ...
-  props[makePropName(breakpoint, 'labelCols')] = {
-    type: [Number, String, Boolean],
-    default: breakpoint ? false : null
-  }
-  return props
-}, create(null))
-
+const bpLabelColProps = () => {
+  return getBreakpointsUp().reduce((props, breakpoint) => {
+    // i.e. label-cols, label-cols-sm, label-cols-md, ...
+    props[makePropName(breakpoint, 'labelCols')] = {
+      type: [Number, String, Boolean],
+      default: breakpoint ? false : null
+    }
+    return props
+  }, create(null))
+}
 // Generate the labelAlign breakpoint props
-const bpLabelAlignProps = BREAKPOINTS.reduce((props, breakpoint) => {
-  // label-align, label-align-sm, label-align-md, ...
-  props[makePropName(breakpoint, 'labelAlign')] = {
-    type: String, // left, right, center
-    default: null
-  }
-  return props
-}, create(null))
+const bpLabelAlignProps = () => {
+  return getBreakpointsUp().reduce((props, breakpoint) => {
+    // label-align, label-align-sm, label-align-md, ...
+    props[makePropName(breakpoint, 'labelAlign')] = {
+      type: String, // left, right, center
+      default: null
+    }
+    return props
+  }, create(null))
+}
 
 // render helper functions (here rather than polluting the instance with more methods)
 function renderInvalidFeedback(h, ctx) {
@@ -233,9 +233,9 @@ export default {
       default: false
     },
     // label-cols prop and all label-cols-{bp} props
-    ...bpLabelColProps,
+    ...bpLabelColProps(),
     // label-align prop and all label-align-{bp} props
-    ...bpLabelAlignProps,
+    ...bpLabelAlignProps(),
     horizontal: {
       // Deprecated
       type: Boolean,
@@ -250,8 +250,13 @@ export default {
     }
   },
   computed: {
+    breakpoints() {
+      // This will be cached the first time it is called
+      return getBreakpointsUp()
+    },
     labelColProps() {
       const props = {}
+      const breakpoints = this.breakpoints
       /* istanbul ignore next: deprecated */
       if (this.horizontal) {
         // Deprecated setting of horizontal/breakpoint props
@@ -260,13 +265,13 @@ export default {
           "b-form-group: Props 'horizontal' and 'breakpoint' are deprecated. Use 'label-cols(-{breakpoint})' props instead."
         )
         // Legacy default is breakpoint sm and cols 3
-        const bp = this.breakpoint || BREAKPOINTS[1] // 'sm'
+        const bp = this.breakpoint || breakpoints[1] // 'sm'
         const cols = parseInt(this.labelCols, 10) || 3
         props[bp] = cols > 0 ? cols : 3
         // We then return the single breakpoint prop for legacy compatability
         return props
       }
-      BREAKPOINTS.forEach(breakpoint => {
+      breakpoints.forEach(breakpoint => {
         // Grab the value if the label column breakpoint prop
         let propVal = this[makePropName(breakpoint, 'labelCols')]
         // Handle case where the prop's value is an empty string, which represents true
@@ -289,7 +294,8 @@ export default {
     },
     labelAlignClasses() {
       const classes = []
-      BREAKPOINTS.forEach(breakpoint => {
+      const breakpoints = this.breakpoints
+      breakpoints.forEach(breakpoint => {
         // assemble the label column breakpoint align classes
         const propVal = this[makePropName(breakpoint, 'labelAlign')] || null
         if (propVal) {
