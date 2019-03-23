@@ -1,10 +1,12 @@
-import { getConfigParam, getBreakPointsAll, getBreakpointsUp, getBreakPointsDown } from './config'
+import { getConfigParam, getBreakpointsAll, getBreakpointsUp, getBreakpointsDown } from './config'
 
 describe('utils/config', () => {
   it('getConfigParam works', async () => {
     expect(getConfigParam('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
     expect(getConfigParam('breakpoints')).not.toBe(getConfigParam('breakpoints'))
+    // Should return null for not found
+    expect(getConfigParam('foo.bar[1].baz')).toBe(null)
   })
 
   it('getBreakpointsAll works', async () => {
