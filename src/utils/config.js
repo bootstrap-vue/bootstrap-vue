@@ -61,6 +61,7 @@ const getBreakpointsDown = () => {
 }
 
 // Named Exports
+// prettier-ignore
 export {
   getDefaults, 
   getConfigParam,
