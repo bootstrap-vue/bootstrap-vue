@@ -1,4 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { getConfigComponent } from '../../utils/config'
+
+const NAME = 'BButtonClose'
 
 const props = {
   disabled: {
@@ -11,13 +14,13 @@ const props = {
   },
   textVariant: {
     type: String,
-    default: null
+    default: getConfigComponent(NAME, 'textVariant')
   }
 }
 
 // @vue/component
 export default {
-  name: 'BButtonClose',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, listeners, slots }) {
