@@ -39,7 +39,7 @@
               {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
             </b-badge>
             <!-- if deprecated is a string, show the string value -->
-            <span v-if="typeof item.deprecated === 'string'"> {{ item.deprecated }}</span>
+            <small v-if="typeof item.deprecated === 'string'"> {{ item.deprecated }}</small>
           </template>
         </template>
         <template slot="default" slot-scope="{ value }">
