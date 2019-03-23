@@ -22,7 +22,7 @@ const config = {}
 const getConfigParam = key => {
   // First we try the user config, and if key not found we
   // fall back to default value.
-  return get(config, key, get(BV_DEFAULTS, key)) 
+  return get(config, key, get(BV_DEFAULTS, key))
 }
 
 // Convenience method for getting all breakpoint names
@@ -50,9 +50,4 @@ const getBreakpointsDown = () => {
 }
 
 // Named Exports
-export {
-  getConfigParam,
-  getBreakpointsAll,
-  getBreakpointsUp,
-  getBreakpointsDown
-}
+export { getConfigParam, getBreakpointsAll, getBreakpointsUp, getBreakpointsDown }
