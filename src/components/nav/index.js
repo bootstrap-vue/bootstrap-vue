@@ -4,7 +4,7 @@ import BNavText from './nav-text'
 import BNavForm from './nav-form'
 import BNavItemDropdown from './nav-item-dropdown'
 import dropdownPlugin from '../dropdown'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BNav,
@@ -17,9 +17,10 @@ const components = {
   BNavDd: BNavItemDropdown
 }
 
+const plugins = {
+  dropdownPlugin
+}
+
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-    Vue.use(dropdownPlugin)
-  }
+  install: installFactory({ components, plugins })
 }
