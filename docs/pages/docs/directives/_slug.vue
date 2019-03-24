@@ -2,7 +2,7 @@
   <main class="container">
     <div v-play class="bd-content" v-html="readme" />
     <section class="bd-content">
-      <anchored-heading :id="directive-reference" level="2">
+      <anchored-heading id="directive-reference" level="2">
         {{ metaTitle }} Directive Reference
       </anchored-heading>
       <importdoc :meta="meta" />
