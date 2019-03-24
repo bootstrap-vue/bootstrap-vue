@@ -4,7 +4,7 @@
     class="bd-content"
   >
     <template v-if="components.length > 0">
-      <anchored-heading :id="`importing-individual-components`" level="3">
+      <anchored-heading id="importing-individual-components" level="3">
         Importing individual {{ pluginTitle }} Components
       </anchored-heading>
 
@@ -23,7 +23,7 @@
     </template>
 
     <template v-if="directives.length > 0">
-      <anchored-heading :id="`importing-individual-directives`" level="3">
+      <anchored-heading id="importing-individual-directives" level="3">
         Importing individual {{ pluginTitle }} Directives
       </anchored-heading>
 
@@ -41,7 +41,7 @@
       <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
     </template>
 
-    <anchored-heading :id="`importing-as-a-plugin`" level="3">
+    <anchored-heading id="importing-as-a-plugin" level="3">
       Importing {{ pluginTitle }} as a Vue plugin
     </anchored-heading>
 
