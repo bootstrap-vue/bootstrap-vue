@@ -27,15 +27,15 @@ function strNum() {
   }
 }
 
-// Async component
-// So that we can have configed breakpoints generate props
+// Async (lazy) component
+// So that we can generate breakpoint specific props once the config has been updated.
+//
 // See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
-
 export default (resolve, reject) => {
   // Grab the breakpoints from the config (exclude the '' (xs) breakpoint)
   const breakpoints = getBreakpointsUp().filter(Boolean)
 
-  // Memoized function for better performance
+  // Memoized function for better performance on generating class names
   const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
     let className = type
     if (val === false || val === null || val === undefined) {
@@ -66,13 +66,13 @@ export default (resolve, reject) => {
     return propMap
   }, create(null))
 
-  // Supports classes like: .offset-3, .offset-md-1, .offset-lg-12
+  // Supports classes like: .offset-md-1, .offset-lg-12
   const breakpointOffset = breakpoints.reduce((propMap, breakpoint) => {
     propMap[suffixPropName(breakpoint, 'offset')] = strNum()
     return propMap
   }, create(null))
 
-  // Supports classes like: .order-3, .order-md-1, .order-lg-12
+  // Supports classes like: .order-md-1, .order-lg-12
   const breakpointOrder = breakpoints.reduce((propMap, breakpoint) => {
     propMap[suffixPropName(breakpoint, 'order')] = strNum()
     return propMap
@@ -95,10 +95,6 @@ export default (resolve, reject) => {
     name: 'BCol',
     functional: true,
     props: {
-      tag: {
-        type: String,
-        default: 'div'
-      },
       // Generic flexbox .col (xs)
       col: {
         type: Boolean,
@@ -118,6 +114,10 @@ export default (resolve, reject) => {
         default: null,
         validator: str =>
           arrayIncludes(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str)
+      },
+      tag: {
+        type: String,
+        default: 'div'
       }
     },
     render(h, { props, data, children }) {
