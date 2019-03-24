@@ -57,35 +57,26 @@ export default (resolve, reject) => {
   })
 
   // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
-  const breakpointCol = breakpoints.filter(Boolean).reduce(
-    (propMap, breakpoint) => {
-      if (breakpoint) {
-        // We filter out the '' breakpoint (xs), as making a prop name ''
-        // would not work. The `cols` prop is used for `xs`
-        propMap[breakpoint] = boolStrNum()
-      }
-      return propMap
-    },
-    create(null)
-  )
+  const breakpointCol = breakpoints.filter(Boolean).reduce((propMap, breakpoint) => {
+    if (breakpoint) {
+      // We filter out the '' breakpoint (xs), as making a prop name ''
+      // would not work. The `cols` prop is used for `xs`
+      propMap[breakpoint] = boolStrNum()
+    }
+    return propMap
+  }, create(null))
 
   // Supports classes like: .offset-3, .offset-md-1, .offset-lg-12
-  const breakpointOffset = breakpoints.reduce(
-    (propMap, breakpoint) => {
-      propMap[suffixPropName(breakpoint, 'offset')] = strNum()
-      return propMap
-    },
-    create(null)
-  )
+  const breakpointOffset = breakpoints.reduce((propMap, breakpoint) => {
+    propMap[suffixPropName(breakpoint, 'offset')] = strNum()
+    return propMap
+  }, create(null))
 
   // Supports classes like: .order-3, .order-md-1, .order-lg-12
-  const breakpointOrder = breakpoints.reduce(
-    (propMap, breakpoint) => {
-      propMap[suffixPropName(breakpoint, 'order')] = strNum()
-      return propMap
-    },
-    create(null)
-  )
+  const breakpointOrder = breakpoints.reduce((propMap, breakpoint) => {
+    propMap[suffixPropName(breakpoint, 'order')] = strNum()
+    return propMap
+  }, create(null))
 
   // For loop doesn't need to check hasOwnProperty
   // when using an object created from null
@@ -123,7 +114,8 @@ export default (resolve, reject) => {
       alignSelf: {
         type: String,
         default: null,
-        validator: str => arrayIncludes(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str)
+        validator: str =>
+          arrayIncludes(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str)
       }
     },
     render(h, { props, data, children }) {
