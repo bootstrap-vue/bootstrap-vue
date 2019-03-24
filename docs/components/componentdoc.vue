@@ -31,16 +31,15 @@
         head-variant="default"
         striped
       >
+        <template slot="row-details" slot-scope="{ item }>
+          <b-badge variant="warning">
+            {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
+          </b-badge>
+          <!-- if deprecated is a string, show the string value -->
+          <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
+        </template>
         <template slot="prop" slot-scope="{ value, item }">
           <code>{{ value }}</code>
-          <template v-if="item.deprecated">
-            <br>
-            <b-badge variant="warning">
-              {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
-            </b-badge>
-            <!-- if deprecated is a string, show the string value -->
-            <small v-if="typeof item.deprecated === 'string'"> {{ item.deprecated }}</small>
-          </template>
         </template>
         <template slot="default" slot-scope="{ value }">
           <code v-if="value">{{ value }}</code>
@@ -239,7 +238,8 @@ export default {
           required,
           typeClass,
           default: defaultVal,
-          deprecated
+          deprecated,
+          _showDetails: !!deprecated
         }
       })
     },
