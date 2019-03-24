@@ -1,7 +1,7 @@
 import BBreadcrumb from './breadcrumb'
 import BBreadcrumbItem from './breadcrumb-item'
 import BBreadcrumbLink from './breadcrumb-link'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BBreadcrumb,
@@ -10,7 +10,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }
