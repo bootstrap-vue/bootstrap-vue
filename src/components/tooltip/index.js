@@ -1,14 +1,15 @@
 import BTooltip from './tooltip'
-import tooltipDirectivePlugin from '../../directives/tooltip'
-import { registerComponents } from '../../utils/plugins'
+import BTooltipDirective from '../../directives/tooltip/tooltip'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BTooltip
 }
 
+const directives = {
+  BTooltip: BTooltipDirective
+}
+
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-    Vue.use(tooltipDirectivePlugin)
-  }
+  install: installFactory({ components, directives })
 }
