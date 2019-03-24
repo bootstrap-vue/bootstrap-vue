@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BButtonClose'
 
@@ -10,11 +10,11 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: () => getConfigComponent(NAME, 'ariaLabel')
+    default: () => getComponentConfig(NAME, 'ariaLabel')
   },
   textVariant: {
     type: String,
-    default: () => getConfigComponent(NAME, 'textVariant')
+    default: () => getComponentConfig(NAME, 'textVariant')
   }
 }
 
