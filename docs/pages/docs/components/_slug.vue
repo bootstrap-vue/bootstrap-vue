@@ -3,7 +3,7 @@
     <div v-play class="bd-content" v-html="readme" />
 
     <section class="bd-content">
-      <anchored-heading level="2" :id="component-reference">
+      <anchored-heading :id="component-reference" level="2">
         {{ startCase(meta.title) }} Component Reference
       </anchored-heading>
 
