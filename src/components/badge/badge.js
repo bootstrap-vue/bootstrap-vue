@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
 import Link, { propsFactory as linkPropsFactory } from '../link/link'
 
@@ -17,7 +17,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getConfigComponent(NAME, 'variant')
+    default: () => getComponentConfig(NAME, 'variant')
   },
   pill: {
     type: Boolean,
@@ -36,7 +36,7 @@ export default {
     const componentData = {
       staticClass: 'badge',
       class: [
-        `badge-${props.variant || getConfigComponent(NAME, 'variant')}`,
+        `badge-${props.variant || getComponentConfig(NAME, 'variant')}`,
         {
           'badge-pill': Boolean(props.pill),
           active: props.active,
