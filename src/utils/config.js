@@ -56,6 +56,9 @@ const DEFAULTS = {
     textVariant: null,
     ariaLabel: 'Close'
   },
+  BCardSubTitle: {
+    subTitleTextVariant: 'muted'
+  },
   BDropdown: {
     toggleText: 'Toggle Dropdown',
     variant: 'secondary'
