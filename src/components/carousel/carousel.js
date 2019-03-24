@@ -1,5 +1,6 @@
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
+import noop from '../../utils/noop'
 import {
   selectAll,
   reflow,
@@ -28,7 +29,7 @@ const DIRECTION = {
 const TRANS_DURATION = 600 + 50
 
 // Time for mouse compat events to fire after touch
-const TOUCHEVENT_COMPAT_WAIT = 500
+const TOUCH_EVENT_COMPAT_WAIT = 500
 
 // Number of pixels to consider touch move a swipe
 const SWIPE_THRESHOLD = 40
@@ -50,7 +51,7 @@ const TransitionEndEvents = {
 const EventOptions = { passive: true, capture: false }
 
 // Return the browser specific transitionEnd event name
-function getTransisionEndEvent(el) {
+function getTransitionEndEvent(el) {
   for (const name in TransitionEndEvents) {
     if (el.style[name] !== undefined) {
       return TransitionEndEvents[name]
@@ -109,6 +110,11 @@ export default {
     },
     noTouch: {
       // Sniffed by carousel-slide
+      type: Boolean,
+      default: false
+    },
+    noHoverPause: {
+      // Disable pause on hover
       type: Boolean,
       default: false
     },
@@ -187,7 +193,7 @@ export default {
   },
   mounted() {
     // Cache current browser transitionend event name
-    this.transitionEndEvent = getTransisionEndEvent(this.$el) || null
+    this.transitionEndEvent = getTransitionEndEvent(this.$el) || null
     // Get all slides
     this.updateSlides()
     // Observe child changes so we can update slide list
@@ -198,7 +204,7 @@ export default {
       attributeFilter: ['id']
     })
   },
-  beforeDestroy() /* istanbul ignore next: dificult to test */ {
+  beforeDestroy() /* istanbul ignore next: difficult to test */ {
     clearTimeout(this._animationTimeout)
     clearTimeout(this._touchTimeout)
     clearInterval(this._intervalId)
@@ -210,7 +216,7 @@ export default {
     // Set slide
     setSlide(slide, direction = null) {
       // Don't animate when page is not visible
-      /* istanbul ignore if: dificult to test */
+      /* istanbul ignore if: difficult to test */
       if (inBrowser && document.visibilityState && document.hidden) {
         return
       }
@@ -254,7 +260,7 @@ export default {
       if (!evt) {
         this.isPaused = false
       }
-      /* istanbul ignore next: most likley will never happen, but just in case */
+      /* istanbul ignore next: most likely will never happen, but just in case */
       if (this._intervalId) {
         clearInterval(this._intervalId)
         this._intervalId = null
@@ -264,9 +270,9 @@ export default {
         this._intervalId = setInterval(this.next, Math.max(1000, this.interval))
       }
     },
-    // Re-Start auto rotate slides when focus/hover leaves the carousel
+    // Restart auto rotate slides when focus/hover leaves the carousel
     restart(evt) {
-      /* istanbul ignore if: dificult to test */
+      /* istanbul ignore if: difficult to test */
       if (!this.$el.contains(document.activeElement)) {
         this.start()
       }
@@ -307,7 +313,7 @@ export default {
         addClass(nextSlide, dirClass)
         // Transition End handler
         let called = false
-        /* istanbul ignore next: dificult to test */
+        /* istanbul ignore next: difficult to test */
         const onceTransEnd = evt => {
           if (called) {
             return
@@ -340,7 +346,7 @@ export default {
           const events = this.transitionEndEvent.split(/\s+/)
           events.forEach(event => eventOn(currentSlide, event, onceTransEnd, EventOptions))
         }
-        // Fallback to setTimeout
+        // Fallback to setTimeout()
         this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
       }
       if (isCycling) {
@@ -386,16 +392,16 @@ export default {
       }
     },
     handleSwipe() /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      const absDeltax = Math.abs(this.touchDeltaX)
-      if (absDeltax <= SWIPE_THRESHOLD) {
+      const absDeltaX = Math.abs(this.touchDeltaX)
+      if (absDeltaX <= SWIPE_THRESHOLD) {
         return
       }
-      const direction = absDeltax / this.touchDeltaX
+      const direction = absDeltaX / this.touchDeltaX
       if (direction > 0) {
-        // swipe left
+        // Swipe left
         this.prev()
       } else if (direction < 0) {
-        // swipe right
+        // Swipe right
         this.next()
       }
     },
@@ -407,7 +413,7 @@ export default {
       }
     },
     touchMove(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      // ensure swiping with one touch and not pinching
+      // Ensure swiping with one touch and not pinching
       if (evt.touches && evt.touches.length > 1) {
         this.touchDeltaX = 0
       } else {
@@ -432,7 +438,7 @@ export default {
       }
       this._touchTimeout = setTimeout(
         this.start,
-        TOUCHEVENT_COMPAT_WAIT + Math.max(1000, this.interval)
+        TOUCH_EVENT_COMPAT_WAIT + Math.max(1000, this.interval)
       )
     }
   },
@@ -451,7 +457,7 @@ export default {
       [this.$slots.default]
     )
 
-    // Prev and Next Controls
+    // Prev and next controls
     let controls = h(false)
     if (this.controls) {
       controls = [
@@ -541,8 +547,8 @@ export default {
     )
 
     const on = {
-      mouseenter: this.pause,
-      mouseleave: this.restart,
+      mouseenter: this.noHoverPause ? noop : this.pause,
+      mouseleave: this.noHoverPause ? noop : this.restart,
       focusin: this.pause,
       focusout: this.restart,
       keydown: evt => {
@@ -560,7 +566,8 @@ export default {
     }
     // Touch support event handlers for environment
     if (!this.noTouch && hasTouchSupport) {
-      /* istanbul ignore next: JSDOM doesn't support touch events */ // Attach appropriate listeners (passsive mode)
+      // Attach appropriate listeners (passive mode)
+      /* istanbul ignore next: JSDOM doesn't support touch events */
       if (hasPointerEvent) {
         on['&pointerdown'] = this.touchStart
         on['&pointerup'] = this.touchEnd

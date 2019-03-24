@@ -9,6 +9,7 @@
   "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
+  "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
     {
@@ -40,13 +41,6 @@
       "url": "https://github.com/jackmu95"
     }
   ],
-  "bugs": {
-    "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
-  },
   "files": [
     "src",
     "dist",
@@ -87,8 +81,8 @@
     "@babel/core": "^7.4.0",
     "@babel/plugin-transform-modules-commonjs": "^7.4.0",
     "@babel/plugin-transform-runtime": "^7.4.0",
-    "@babel/preset-env": "^7.4.1",
-    "@babel/standalone": "^7.4.1",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/standalone": "^7.4.2",
     "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.14",
     "@vue/test-utils": "^1.0.0-beta.29",
@@ -112,7 +106,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "esm": "^3.2.18",
+    "esm": "^3.2.20",
     "gh-pages": "^2.0.1",
     "highlightjs": "^9.12.0",
     "html-loader": "^0.5.5",
@@ -121,10 +115,10 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.1",
     "node-sass": "^4.11.0",
-    "nuxt": "^2.4.5",
+    "nuxt": "^2.5.1",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
-    "rollup": "^1.7.0",
+    "rollup": "^1.7.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.1",
     "rollup-plugin-node-resolve": "^4.0.1",
@@ -137,21 +131,6 @@
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
-  },
-  "jest": {
-    "testRegex": "spec.js$",
-    "moduleFileExtensions": [
-      "js",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      ".*\\.(vue)$": "vue-jest"
-    },
-    "coverageDirectory": "./coverage/",
-    "testEnvironmentOptions": {
-      "pretendToBeVisual": true
-    }
   },
   "standard-version": {
     "scripts": {

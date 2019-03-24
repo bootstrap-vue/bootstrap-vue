@@ -1,5 +1,6 @@
 import Popper from 'popper.js'
 import BvEvent from './bv-event.class'
+import noop from './noop'
 import { from as arrayFrom } from './array'
 import {
   closest,
@@ -25,7 +26,7 @@ const TRANSITION_DURATION = 150
 
 // Modal $root hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
-// Modal container for appending tip/popover
+// Modal container for appending tooltip/popover
 const MODAL_CLASS = '.modal-content'
 
 const AttachmentMap = {
@@ -76,15 +77,6 @@ const Selector = {
   ARROW: '.arrow'
 }
 
-// ESLINT: Not used
-// const Trigger = {
-//   HOVER: 'hover',
-//   FOCUS: 'focus',
-//   CLICK: 'click',
-//   BLUR: 'blur',
-//   MANUAL: 'manual'
-// }
-
 const Defaults = {
   animation: true,
   template:
@@ -105,7 +97,7 @@ const Defaults = {
   boundary: 'scrollParent'
 }
 
-// Transition Event names
+// Transition event names
 const TransitionEndEvents = {
   WebkitTransition: ['webkitTransitionEnd'],
   MozTransition: ['transitionend'],
@@ -113,15 +105,14 @@ const TransitionEndEvents = {
   transition: ['transitionend']
 }
 
-// Client Side Tip ID counter for aria-describedby attribute
-// Could use Alex's uid generator util
+// Client-side tip ID counter for aria-describedby attribute
 // Each tooltip requires a unique client side ID
 let NEXTID = 1
 /* istanbul ignore next */
 const generateId = name => `__BV_${name}_${NEXTID++}__`
 
 /*
- * ToolTip Class definition
+ * ToolTip class definition
  */
 /* istanbul ignore next: difficult to test in Jest/JSDOM environment */
 class ToolTip {
@@ -147,6 +138,7 @@ class ToolTip {
     this.$doShow = this.doShow.bind(this)
     this.$doDisable = this.doDisable.bind(this)
     this.$doEnable = this.doEnable.bind(this)
+    this._noop = noop.bind(this)
     // Set the configuration
     this.updateConfig(config)
   }
@@ -284,7 +276,7 @@ class ToolTip {
     this.fixTitle()
     this.setContent(tip)
     if (!this.isWithContent(tip)) {
-      // if No content, don't bother showing
+      // If no content, don't bother showing
       this.$tip = null
       return
     }
@@ -327,7 +319,7 @@ class ToolTip {
     this.removePopper()
     this.$popper = new Popper(this.$element, tip, this.getPopperConfig(placement, tip))
 
-    // Transitionend Callback
+    // Transitionend callback
     const complete = () => {
       if (this.$config.animation) {
         this.fixTransition(tip)
@@ -356,7 +348,7 @@ class ToolTip {
     this.transitionOnce(tip, complete)
   }
 
-  // handler for periodic visibility check
+  // Handler for periodic visibility check
   visibleCheck(on) {
     clearInterval(this.$visibleInterval)
     this.$visibleInterval = null
@@ -382,14 +374,14 @@ class ToolTip {
     // On-touch start listeners
     this.setOnTouchStartListener(on)
     if (on && /(focus|blur)/.test(this.$config.trigger)) {
-      // If focus moves between trigger element and tip container, dont close
+      // If focus moves between trigger element and tip container, don't close
       eventOn(this.$tip, 'focusout', this)
     } else {
       eventOff(this.$tip, 'focusout', this)
     }
   }
 
-  // force hide of tip (internal method)
+  // Force hide of tip (internal method)
   forceHide() {
     if (!this.$tip || !hasClass(this.$tip, ClassName.SHOW)) {
       return
@@ -424,11 +416,11 @@ class ToolTip {
       return
     }
 
-    // Transitionend Callback
+    // Transitionend callback
     /* istanbul ignore next */
     const complete = () => {
       if (this.$hoverState !== HoverState.SHOW && tip.parentNode) {
-        // Remove tip from dom, and force recompile on next show
+        // Remove tip from DOM, and force recompile on next show
         tip.parentNode.removeChild(tip)
         this.removeAriaDescribedby()
         this.removePopper()
@@ -481,13 +473,14 @@ class ToolTip {
   getContainer() {
     const container = this.$config.container
     const body = document.body
-    // If we are in a modal, we append to the modal instead of body, unless a container is specified
+    // If we are in a modal, we append to the modal instead of body,
+    // unless a container is specified
     return container === false
       ? closest(MODAL_CLASS, this.$element) || body
       : select(container, body) || body
   }
 
-  // Will be overridden by popover if needed
+  // Will be overridden by PopOver if needed
   addAriaDescribedby() {
     // Add aria-describedby on trigger element, without removing any other IDs
     let desc = getAttr(this.$element, 'aria-describedby') || ''
@@ -499,7 +492,7 @@ class ToolTip {
     setAttr(this.$element, 'aria-describedby', desc)
   }
 
-  // Will be overridden by popover if needed
+  // Will be overridden by PopOver if needed
   removeAriaDescribedby() {
     let desc = getAttr(this.$element, 'aria-describedby') || ''
     desc = desc
@@ -544,7 +537,7 @@ class ToolTip {
       transEvents.forEach(evtName => {
         eventOn(tip, evtName, fnOnce)
       })
-      // Fallback to setTimeout
+      // Fallback to setTimeout()
       this.$fadeTimeout = setTimeout(fnOnce, TRANSITION_DURATION)
     } else {
       fnOnce()
@@ -620,7 +613,7 @@ class ToolTip {
     }
     const allowHtml = this.$config.html
     if (typeof content === 'object' && content.nodeType) {
-      // content is a DOM node
+      // Content is a DOM node
       if (allowHtml) {
         if (content.parentElement !== container) {
           container.innerHTML = ''
@@ -643,7 +636,8 @@ class ToolTip {
       title = title(this.$element)
     }
     if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
-      // We have a DOM node, but without inner content, so just return empty string
+      // We have a DOM node, but without inner content,
+      // so just return empty string
       title = ''
     }
     if (typeof title === 'string') {
@@ -669,8 +663,8 @@ class ToolTip {
     // Listen for global show/hide events
     this.setRootListener(true)
 
-    // Using 'this' as the handler will get automatically directed to this.handleEvent
-    // And maintain our binding to 'this'
+    // Using 'this' as the handler will get automatically directed to
+    // this.handleEvent and maintain our binding to 'this'
     triggers.forEach(trigger => {
       if (trigger === 'click') {
         eventOn(el, 'click', this)
@@ -701,7 +695,7 @@ class ToolTip {
   handleEvent(e) {
     // This special method allows us to use "this" as the event handlers
     if (isDisabled(this.$element)) {
-      // If disabled, don't do anything. Note: if tip is shown before element gets
+      // If disabled, don't do anything. Note: If tip is shown before element gets
       // disabled, then tip not close until no longer disabled or forcefully closed.
       return
     }
@@ -720,7 +714,7 @@ class ToolTip {
       this.enter(e)
     } else if (type === 'focusout') {
       // target is the element which is loosing focus
-      // And relatedTarget is the element gaining focus
+      // and relatedTarget is the element gaining focus
       if ($tip && $element && $element.contains(target) && $tip.contains(relatedTarget)) {
         // If focus moves from $element to $tip, don't trigger a leave
         return
@@ -759,7 +753,7 @@ class ToolTip {
       }
     } else {
       if (this.$routeWatcher) {
-        // cancel the route watcher by calling the stored reference
+        // Cancel the route watcher by calling the stored reference
         this.$routeWatcher()
         this.$routeWatcher = null
       }
@@ -836,9 +830,9 @@ class ToolTip {
 
   /* istanbul ignore next */
   setOnTouchStartListener(on) {
-    // if this is a touch-enabled device we add extra
-    // empty mouseover listeners to the body's immediate children;
-    // only needed because of broken event delegation on iOS
+    // If this is a touch-enabled device we add extra
+    // empty mouseover listeners to the body's immediate children
+    // Only needed because of broken event delegation on iOS
     // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
     if ('ontouchstart' in document.documentElement) {
       arrayFrom(document.body.children).forEach(el => {
@@ -849,11 +843,6 @@ class ToolTip {
         }
       })
     }
-  }
-
-  /* istanbul ignore next */
-  _noop() {
-    // Empty noop handler for ontouchstart devices
   }
 
   fixTitle() {

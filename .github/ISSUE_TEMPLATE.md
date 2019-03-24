@@ -1,3 +1,8 @@
+<!--
+  Replace the text below with a thorough description of your issue.
+  Issues without a description will be closed.
+-->
+
 **Before opening an issue:**
 
 - [Search for duplicate or closed issues](https://github.com/bootstrap-vue/bootstrap-vue/issues?utf8=%E2%9C%93&q=is%3Aissue)

@@ -1,7 +1,7 @@
 import Table from './table'
 import { mount } from '@vue/test-utils'
 
-describe('table row details', () => {
+describe('table > row details', () => {
   it('does not show details if slot row-details not defined', async () => {
     const testItems = [
       { a: 1, b: 2, c: 3, _showDetails: true },
@@ -167,6 +167,65 @@ describe('table row details', () => {
     expect($trs.at(3).is('tr.d-none')).toBe(false)
     expect($trs.at(4).is('tr.b-table-details')).toBe(false)
     expect($trs.at(4).is('tr.d-none')).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('should show details slot when slot method toggleDetails() called', async () => {
+    const testItems = [{ a: 1, b: 2, c: 3, _showDetails: true }]
+    const testFields = ['a', 'b', 'c']
+    let scopeDetails = null
+    let scopeField = null
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      scopedSlots: {
+        'row-details': function(scope) {
+          scopeDetails = scope
+          return 'foobar'
+        },
+        a: function(scope) {
+          scopeField = scope
+          return 'AAA'
+        }
+      }
+    })
+    let $trs
+    expect(wrapper).toBeDefined()
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(2)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+    expect($trs.at(1).is('tr.b-table-details')).toBe(true)
+    expect($trs.at(1).text()).toBe('foobar')
+
+    // Toggle details via details slot
+    expect(scopeDetails).not.toBe(null)
+    scopeDetails.toggleDetails()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(1)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+
+    // Toggle details via field slot
+    expect(scopeField).not.toBe(null)
+    scopeField.toggleDetails()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(2)
+
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(2)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+    expect($trs.at(1).is('tr.b-table-details')).toBe(true)
+    expect($trs.at(1).text()).toBe('foobar')
 
     wrapper.destroy()
   })
