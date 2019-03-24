@@ -90,6 +90,10 @@ const getDefaults = () => JSON.parse(JSON.stringify(DEFAULTS))
 // Method to set the config.
 // Merges in only known top-level and sub-level keys.
 //   Vue.use(BootstrapVue, config)
+// or
+//   BootstrapVue.setConfig(config)
+//   Vue.use(BootstrapVue)
+
 
 /* istanbul ignore next: just for now to prevent red X on codecov until we can test this */
 const setConfig = (opts = {}) => {
@@ -123,16 +127,6 @@ const getConfigParam = key => {
 
 // Method to grab a config value for a particular component.
 // Returns a deep clone (immutable) copy
-const getConfigComponent = (cmpName, key = null) => {
-  if (key) {
-    // Return the particular config value for key for specified component
-    return getConfigParam(`${cmpName}.${key}`)
-  } else {
-    // return the components full config
-    return getConfigParam(cmpName) || {}
-  }
-}
-
 const getComponentConfig = (cmpName, key = null) => {
   if (key) {
     // Return the particular config value for key for specified component
@@ -172,7 +166,6 @@ export {
   setConfig,
   getDefaults, 
   getConfigParam,
-  getConfigComponent,
   getComponentConfig,
   getBreakpointsAll,
   getBreakpointsUp,
