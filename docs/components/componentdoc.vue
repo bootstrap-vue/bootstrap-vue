@@ -31,7 +31,7 @@
         head-variant="default"
         striped
       >
-        <template slot="prop" slot-scope="{ value, item }">
+        <template slot="prop" slot-scope="{ value }">
           <code>{{ value }}</code>
         </template>
         <template slot="row-details" slot-scope="{ item }">
