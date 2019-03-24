@@ -197,7 +197,7 @@ export default {
         })
       } else {
         // Regular component
-        props = component.options.props
+        props = component.options.props || {}
       }
 
       return Object.keys(props).map(prop => {
