@@ -22,7 +22,7 @@ const BootstrapVue = (Vue, config = {} ) => {
 // BootstrapVue.setConfig = setConfig
 
 // Auto installation only occurs if window.Vue exists
-if (window && window.Vue) {
+if (window && window.Vue && window.Vue.use) {
   /* istanbul ignore next */
   window.BootstrapVue = BootstrapVue
   /* istanbul ignore next */
