@@ -199,7 +199,7 @@ export default {
         return []
       }
 
-      const props = this.componentProps : {}
+      const props = this.componentProps || {}
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
