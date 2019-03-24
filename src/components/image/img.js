@@ -1,4 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { getConfigComponent } from '../../utils/config'
+
+const NAME = 'BImg'
 
 // Blank image with fill template
 const BLANK_TEMPLATE =
@@ -82,7 +85,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: 'transparent'
+    default: () => getConfigComponent(NAME, 'blankColor')
   }
 }
 
