@@ -155,8 +155,7 @@ const getConfigComponent = (cmpName, key = null) => {
 
 // Convenience method for getting all breakpoint names
 const getBreakpointsAll = () => {
-  const bpts = getConfigParam('breakpoints')
-  return bpts
+  return getConfigParam('breakpoints')
 }
 
 // Convenience method for getting breakpoints with
