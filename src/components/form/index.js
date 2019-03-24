@@ -4,7 +4,7 @@ import BFormRow from './form-row'
 import BFormText from './form-text'
 import BFormInvalidFeedback from './form-invalid-feedback'
 import BFormValidFeedback from './form-valid-feedback'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BForm,
@@ -18,7 +18,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }
