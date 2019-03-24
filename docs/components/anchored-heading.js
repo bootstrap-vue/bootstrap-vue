@@ -18,6 +18,7 @@ export default {
       },
       [h(false)]
     )
-    return h(`h${this.level}`, { attrs: { id: this.id } }, [this.$slots.default, $anchor])
+    const $content = h('span', { staticClass: 'bd-content-title' }, [this.$slots.default, $anchor])
+    return h(`h${this.level}`, { attrs: { id: this.id, tabindex: '-1' } }, [$content])
   }
 }
