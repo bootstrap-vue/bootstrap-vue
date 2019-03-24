@@ -5,7 +5,7 @@
   >
     <b-row tag="header" align-v="center">
       <b-col sm="9">
-        <anchored-heading level="2" :id="`comp-ref-${componentName}`">
+        <anchored-heading :id="`comp-ref-${componentName}`" level="2">
           <code>{{ tag }}</code>
         </anchored-heading>
       </b-col>
@@ -17,7 +17,7 @@
     </b-row>
 
     <article v-if="aliases && aliases.length > 0">
-      <anchored-heading level="4" :id="`comp-ref-${componentName}-aliases`">
+      <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
         Component aliases
       </anchored-heading>
       <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
@@ -27,7 +27,7 @@
     </article>
 
     <article v-if="propsItems && propsItems.length > 0">
-      <anchored-heading level="4" :id="`comp-ref-${componentName}-props`">
+      <anchored-heading :id="`comp-ref-${componentName}-props`" level="4">
         Properties
       </anchored-heading>
       <b-table
@@ -54,7 +54,7 @@
     </article>
 
     <article v-if="slots && slots.length > 0">
-      <anchored-heading level="4" :id="`comp-ref-${componentName}-slots`">
+      <anchored-heading :id="`comp-ref-${componentName}-slots`" level="4">
         Slots
       </anchored-heading>
       <b-table
@@ -67,7 +67,7 @@
     </article>
 
     <article v-if="events && events.length > 0">
-      <anchored-heading level="4" :id="`comp-ref-${componentName}-events`">
+      <anchored-heading :id="`comp-ref-${componentName}-events`" level="4">
         Events
       </anchored-heading>
       <b-table
@@ -90,7 +90,7 @@
     </article>
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0">
-      <anchored-heading level="4" :id="`comp-ref-${componentName}-rootEventListeners`">
+      <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4">
         $root Event Listeners
       </anchored-heading>
       <p>You can control <code>{{ tag }}</code> by emitting the following events on <samp>$root</samp>:</p>
