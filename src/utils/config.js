@@ -66,6 +66,9 @@ const DEFAULTS = {
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
   },
+  BFormText: {
+    textVariant: 'muted'
+  },
   BImg: {
     blankColor: 'transparent'
   },
