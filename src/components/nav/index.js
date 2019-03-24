@@ -3,7 +3,7 @@ import BNavItem from './nav-item'
 import BNavText from './nav-text'
 import BNavForm from './nav-form'
 import BNavItemDropdown from './nav-item-dropdown'
-import dropdownPlugin from '../dropdown'
+import DropdownPlugin from '../dropdown'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
@@ -18,7 +18,7 @@ const components = {
 }
 
 const plugins = {
-  dropdownPlugin
+  DropdownPlugin
 }
 
 export default {
