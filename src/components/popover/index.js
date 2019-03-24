@@ -1,15 +1,15 @@
 import BPopover from './popover'
-import BPopoverDirective from '../../directives/popover/popover'
+import BPopoverDirectivePlugin from '../../directives/popover'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
   BPopover
 }
 
-const directives = {
-  BPopover: BPopoverDirective
+const plugins = {
+  BPopoverDirectivePlugin
 }
 
 export default {
-  install: installFactory({ components, directives })
+  install: installFactory({ components, plugins })
 }
