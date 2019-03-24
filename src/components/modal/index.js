@@ -1,14 +1,15 @@
 import BModal from './modal'
-import modalDirectivePlugin from '../../directives/modal'
-import { registerComponents } from '../../utils/plugins'
+import BModalDirective from '../../directives/modal/modal'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BModal
 }
 
+const directives = {
+  BModal: BModalDirective
+}
+
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-    Vue.use(modalDirectivePlugin)
-  }
+  install: installFactory({ components, directives })
 }
