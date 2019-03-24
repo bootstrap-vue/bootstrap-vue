@@ -1,6 +1,6 @@
 import * as componentPlugins from './components'
 import * as directivePlugins from './directives'
-import { vueUse } from './utils/plugins'
+// import { vueUse } from './utils/plugins'
 // import { setConfig } from './utils/config'
 
 const BootstrapVue = (Vue, config = {} ) => {
