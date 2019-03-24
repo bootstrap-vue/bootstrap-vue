@@ -5,7 +5,9 @@
   >
     <b-row tag="header" align-v="center">
       <b-col sm="9">
-        <h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2>
+        <anchored-heading level="2" :id="`comp-ref-${componentName}`">
+          <code>{{ tag }}</code>
+        </anchored-heading>
       </b-col>
       <b-col sm="3" class="text-sm-right">
         <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
@@ -15,7 +17,9 @@
     </b-row>
 
     <article v-if="aliases && aliases.length > 0">
-      <h4 :id="`comp-ref-${componentName}-aliases`">Component aliases</h4>
+      <anchored-heading level="4" :id="`comp-ref-${componentName}-aliases`">
+        Component aliases
+      </anchored-heading>
       <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
         <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
@@ -23,7 +27,9 @@
     </article>
 
     <article v-if="propsItems && propsItems.length > 0">
-      <h4 :id="`comp-ref-${componentName}-props`">Properties</h4>
+      <anchored-heading level="4" :id="`comp-ref-${componentName}-props`">
+        Properties
+      </anchored-heading>
       <b-table
         :items="propsItems"
         :fields="propsFields"
@@ -48,7 +54,9 @@
     </article>
 
     <article v-if="slots && slots.length > 0">
-      <h4 :id="`comp-ref-${componentName}-slots`">Slots</h4>
+      <anchored-heading level="4" :id="`comp-ref-${componentName}-slots`">
+        Slots
+      </anchored-heading>
       <b-table
         :items="slots"
         :fields="slotsFields"
@@ -59,7 +67,9 @@
     </article>
 
     <article v-if="events && events.length > 0">
-      <h4 :id="`comp-ref-${componentName}-events`">Events</h4>
+      <anchored-heading level="4" :id="`comp-ref-${componentName}-events`">
+        Events
+      </anchored-heading>
       <b-table
         :items="events"
         :fields="eventsFields"
@@ -80,7 +90,9 @@
     </article>
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0">
-      <h4 :id="`comp-ref-${componentName}-rootEventListeners`">$root Event Listeners</h4>
+      <anchored-heading level="4" :id="`comp-ref-${componentName}-rootEventListeners`">
+        $root Event Listeners
+      </anchored-heading>
       <p>You can control <code>{{ tag }}</code> by emitting the following events on <samp>$root</samp>:</p>
       <b-table
         :items="rootEventListeners"
@@ -116,8 +128,12 @@ h5 {
 <script>
 import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
+import AnchoredHeading from './anchored-heading'
 
 export default {
+  components: {
+    AnchoredHeading
+  },
   props: {
     component: {},
     slots: {
