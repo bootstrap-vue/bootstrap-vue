@@ -36,7 +36,7 @@ export default (resolve, reject) => {
   const breakpoints = getBreakpointsUp()
 
   // Memoized function for better performance
-  export const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
+  const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
     let className = type
     if (val === false || val === null || val === undefined) {
       return undefined
