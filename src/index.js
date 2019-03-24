@@ -18,7 +18,7 @@ const BootstrapVue = {
       Vue.use(directivePlugins[plugin])
     }
   },
-  setConfig(config = {}) {
+  setConfig(config = {}) /* istanbul ignore next */ {
     setConfig(config)
   }
 }
