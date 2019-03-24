@@ -189,7 +189,17 @@ export default {
         return {}
       }
 
-      const props = component.options.props
+      let props = {}
+      if (!component.options && typeof component === 'function') {
+        // Async component that hans't been resolved yet.
+        component((opts) => {
+          props = opts.props || {}
+        })
+      } else {
+        // Regular component
+        props = component.options.props
+      }
+
       return Object.keys(props).map(prop => {
         const p = props[prop]
 
