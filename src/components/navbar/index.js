@@ -2,9 +2,9 @@ import BNavbar from './navbar'
 import BNavbarNav from './navbar-nav'
 import BNavbarBrand from './navbar-brand'
 import BNavbarToggle from './navbar-toggle'
-import Nav from '../nav'
-import Collapse from '../collapse'
-import Dropdown from '../dropdown'
+import NavPlugin from '../nav'
+import CollapsePlugin from '../collapse'
+import DropdownPlugin from '../dropdown'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
@@ -16,9 +16,9 @@ const components = {
 }
 
 const plugins = {
-  Nav,
-  Collapse,
-  Dropdown
+  NavPlugin,
+  CollapsePlugin,
+  DropdownPlugin
 }
 
 export default {
