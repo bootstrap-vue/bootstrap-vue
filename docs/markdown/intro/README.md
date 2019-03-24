@@ -58,6 +58,8 @@ _after_ Bootstrap SCSS to ensure variables are set up correctly.
 
 ## Nuxt.js plugin module
 
+[Nuxt.js](https://nuxtjs.org) version {{ nuxtVersion }} (or greater) is recommended.
+
 Install dependencies:
 
 ```bash
