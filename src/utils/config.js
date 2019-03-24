@@ -94,7 +94,6 @@ const getDefaults = () => JSON.parse(JSON.stringify(DEFAULTS))
 //   BootstrapVue.setConfig(config)
 //   Vue.use(BootstrapVue)
 
-
 /* istanbul ignore next: just for now to prevent red X on codecov until we can test this */
 const setConfig = (opts = {}) => {
   if (isObject(opts)) {
