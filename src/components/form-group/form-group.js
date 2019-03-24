@@ -24,7 +24,7 @@ const makePropName = memoize((breakpoint = '', prefix) => {
   return `${prefix}${upperFirst(breakpoint)}`
 })
 
-const DEPRECATED_MSG = 
+const DEPRECATED_MSG =
   'Props "horizontal" and "breakpoint" are deprecated. Use "label-cols(-{breakpoint})" props instead.'
 
 // render helper functions (here rather than polluting the instance with more methods)
