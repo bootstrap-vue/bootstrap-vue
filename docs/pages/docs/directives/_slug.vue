@@ -2,7 +2,9 @@
   <main class="container">
     <div v-play class="bd-content" v-html="readme" />
     <section class="bd-content">
-      <h2 id="directive-reference">{{ metaTitle }} Directive Reference</h2>
+      <anchored-heading level="2" :id="directive-reference">
+        {{ metaTitle }} Directive Reference
+      </anchored-heading>
       <importdoc :meta="meta" />
     </section>
   </main>
@@ -10,6 +12,7 @@
 
 <script>
 import importdoc from '~/components/importdoc.vue'
+import AnchoredHeading from '~/components/anchored-heading'
 import { directives as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
