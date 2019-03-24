@@ -4,7 +4,7 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BFormFile'
 
@@ -28,15 +28,15 @@ export default {
     },
     placeholder: {
       type: String,
-      default: () => getConfigComponent(NAME, 'placeholder')
+      default: () => getComponentConfig(NAME, 'placeholder')
     },
     browseText: {
       type: String,
-      default: () => getConfigComponent(NAME, 'browseText')
+      default: () => getComponentConfig(NAME, 'browseText')
     },
     dropPlaceholder: {
       type: String,
-      default: () => getConfigComponent(NAME, 'dropPlaceholder')
+      default: () => getComponentConfig(NAME, 'dropPlaceholder')
     },
     multiple: {
       type: Boolean,
