@@ -11,10 +11,10 @@ export default {
   },
   render(h) {
     const $anchor = h(
-      'a',
+      'b-link',
       {
         staticClass: 'anchorjs-link',
-        attrs: { href: `#${this.id}`, 'aria-label': 'Anchor' }
+        attrs: { to: { hash: `#${this.id}` }, 'aria-label': 'Anchor' }
       },
       [h(false)]
     )
