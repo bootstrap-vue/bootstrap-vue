@@ -5,11 +5,25 @@ import { setConfig } from './config'
  * @param {object} { components, directives }
  * @returns {function} plugin install function
  */
-export const installFactory = ({ components, directives }) => {
+export const installFactory = ({ components, directives, plugins }) => {
   return (Vue, config = {}) => {
     setConfig(config)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
+    registerPlugins(Vue, plugins)
+  }
+}
+
+/**
+ * Load a group of plugins.
+ * @param {object} Vue
+ * @param {object} Plugin definitions
+ */
+export const registerPlugins = (Vue, plugins = {}) => {
+  for (let plugin in plugins) {
+    if (plugin && plugins[plugin]) {
+      Vue.use(plugins[plugin])
+    }
   }
 }
 
