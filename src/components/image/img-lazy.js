@@ -1,12 +1,15 @@
 import BImg from './img'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
+import { getConfigComponent } from '../../utils/config'
+
+const NAME = 'BImgLazy'
 
 const THROTTLE = 100
 const EventOptions = { passive: true, capture: false }
 
 // @vue/component
 export default {
-  name: 'BImgLazy',
+  name: NAME,
   components: { BImg },
   props: {
     src: {
@@ -33,7 +36,7 @@ export default {
     },
     blankColor: {
       type: String,
-      default: 'transparent'
+      default: () => getConfigComponent(NAME, 'blankColor')
     },
     blankWidth: {
       type: [Number, String],
