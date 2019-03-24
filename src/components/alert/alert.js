@@ -1,5 +1,5 @@
 import BButtonClose from '../button/button-close'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BAlert'
 
@@ -14,7 +14,7 @@ export default {
   props: {
     variant: {
       type: String,
-      default: () => getConfigComponent(NAME, 'variant')
+      default: () => getComponentConfig(NAME, 'variant')
     },
     dismissible: {
       type: Boolean,
