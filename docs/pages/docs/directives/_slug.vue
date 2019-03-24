@@ -21,7 +21,7 @@ const getReadMe = name =>
   import('~/../src/directives/' + name + '/README.md' /* webpackChunkName: "docs/directives" */)
 
 export default {
-  components: { importdoc },
+  components: { importdoc, AnchoredHeading },
   mixins: [docsMixin],
   computed: {
     metaTitle() {
