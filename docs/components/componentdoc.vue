@@ -139,16 +139,26 @@ export default {
     }
   },
   computed: {
-    componentOptions() {
+    componentProps() {
       const component = Vue.options.components[this.component]
-      return component && component.options ? component.options : {}
+      if (!component) {
+        return {}
+      }
+
+      let props = {}
+      if (!component.options && typeof component === 'function') {
+        // Async component that hans't been resolved yet.
+        component(opts => {
+          props = opts.props ? { ...opts.props } : {}
+        })
+      } else {
+        // Regular component
+        props = component.options.props || {}
+      }
     },
     propsFields() {
       const component = Vue.options.components[this.component]
-      let props = {}
-      if (component) {
-        props = component.options.props || {}
-      }
+      const props = this.componentProps
 
       const hasRequired = Object.keys(props).some(p => props[p].required)
 
@@ -186,19 +196,10 @@ export default {
     propsItems() {
       const component = Vue.options.components[this.component]
       if (!component) {
-        return {}
+        return []
       }
 
-      let props = {}
-      if (!component.options && typeof component === 'function') {
-        // Async component that hans't been resolved yet.
-        component(opts => {
-          props = opts.props ? { ...opts.props } : {}
-        })
-      } else {
-        // Regular component
-        props = component.options.props || {}
-      }
+      const props = this.componentProps : {}
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
