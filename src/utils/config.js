@@ -21,6 +21,11 @@ const BV_DEFAULTS = {
   BButton: { variant: 'secondary' },
   BButtonCose: { textVariant: null },
   BDropdown: { variant: 'secondary' },
+  BFormFile: {
+    browseText: 'Browse',
+    dropPlaceholder: 'Drop files here',
+    placeholder: 'No file chosen' // Chrome default file prompt
+  },
   BImg: { blankColor: 'transparent' },
   BImgLazy: { blankColor: 'transparent' },
   MBodal: {
