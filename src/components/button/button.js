@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { keys } from '../../utils/object'
@@ -23,7 +23,7 @@ const btnProps = {
   },
   variant: {
     type: String,
-    default: () => getConfigComponent(NAME, 'variant')
+    default: () => getComponentConfig(NAME, 'variant')
   },
   type: {
     type: String,
@@ -88,7 +88,7 @@ function isNonStandardTag(props) {
 // Compute required classes (non static classes)
 function computeClass(props) {
   return [
-    `btn-${props.variant || getConfigComponent(NAME, 'variant')}`,
+    `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
     {
       [`btn-${props.size}`]: Boolean(props.size),
       'btn-block': props.block,
