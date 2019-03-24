@@ -4,9 +4,9 @@
     class="bd-content"
   >
     <template v-if="components.length > 0">
-      <h3 id="importing-individual-components">
+      <anchored-heading level="3" :id="`importing-individual-components`">
         Importing individual {{ pluginTitle }} Components
-      </h3>
+      </anchored-heading>
 
       <b-table :items="componentImports" small head-variant="default" striped>
         <template slot="component" slot-scope="field">
@@ -23,9 +23,9 @@
     </template>
 
     <template v-if="directives.length > 0">
-      <h3 id="importing-individual-directives">
+      <anchored-heading level="3" :id="`importing-individual-directives`">
         Importing individual {{ pluginTitle }} Directives
-      </h3>
+      </anchored-heading>
 
       <b-table :items="directiveImports" small head-variant="default" striped>
         <template slot="directive" slot-scope="field">
@@ -41,7 +41,9 @@
       <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
     </template>
 
-    <h3 id="importing-as-a-plugin">Importing {{ pluginTitle }} as a Vue plugin</h3>
+    <anchored-heading level="3" :id="`importing-as-a-plugin`">
+      Importing {{ pluginTitle }} as a Vue plugin
+    </anchored-heading>
 
     <p v-if="isComponentRoute">
       This plugin includes all of the above listed individual
@@ -67,8 +69,12 @@
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import hljs from 'highlightjs'
+import AnchoredHeading from './anchored-heading'
 
 export default {
+  components: {
+    AnchoredHeading
+  },
   props: {
     meta: {}
   },
