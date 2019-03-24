@@ -6,7 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import {
   addClass,
@@ -237,29 +237,29 @@ export default {
     },
     headerCloseLabel: {
       type: String,
-      default: () => getConfigComponent(NAME, 'headerCloseLabel')
+      default: () => getComponentConfig(NAME, 'headerCloseLabel')
     },
     cancelTitle: {
       type: String,
-      default: () => getConfigComponent(NAME, 'cancelTitle')
+      default: () => getComponentConfig(NAME, 'cancelTitle')
     },
     cancelTitleHtml: {
       type: String
     },
     okTitle: {
       type: String,
-      default: () => getConfigComponent(NAME, 'okTitle')
+      default: () => getComponentConfig(NAME, 'okTitle')
     },
     okTitleHtml: {
       type: String
     },
     cancelVariant: {
       type: String,
-      default: () => getConfigComponent(NAME, 'cancelVariant')
+      default: () => getComponentConfig(NAME, 'cancelVariant')
     },
     okVariant: {
       type: String,
-      default: () => getConfigComponent(NAME, 'okVariant')
+      default: () => getComponentConfig(NAME, 'okVariant')
     },
     lazy: {
       type: Boolean,
