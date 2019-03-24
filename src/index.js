@@ -3,10 +3,10 @@ import * as directivePlugins from './directives'
 // import { vueUse } from './utils/plugins'
 // import { setConfig } from './utils/config'
 
-const BootstrapVue = (Vue, config = {} ) => {
+const BootstrapVue = (Vue, config = {}) => {
   // Configure BootstrapVue
   // setConfig(config)
-  
+
   // Register component plugins
   for (let plugin in componentPlugins) {
     Vue.use(componentPlugins[plugin])
