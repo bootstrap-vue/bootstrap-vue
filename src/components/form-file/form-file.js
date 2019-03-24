@@ -4,10 +4,13 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
+import { getConfigComponent } from '../../utils/config'
+
+const NAME = 'BFormFile'
 
 // @vue/component
 export default {
-  name: 'BFormFile',
+  name: NAME,
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   props: {
     value: {
@@ -25,15 +28,15 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'No file chosen' // Chrome default file prompt
+      default: () => getConfigComponent(NAME, 'placeholder')
     },
     browseText: {
       type: String,
-      default: null
+      default: () => getConfigComponent(NAME, 'browseText')
     },
     dropPlaceholder: {
       type: String,
-      default: null
+      default: () => getConfigComponent(NAME, 'dropPlaceholder')
     },
     multiple: {
       type: Boolean,
