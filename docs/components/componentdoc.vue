@@ -192,7 +192,7 @@ export default {
       let props = {}
       if (!component.options && typeof component === 'function') {
         // Async component that hans't been resolved yet.
-        component((opts) => {
+        component(opts => {
           props = opts.props || {}
         })
       } else {
