@@ -1,5 +1,5 @@
 import BPopover from './popover'
-import BPpopoverDirective from '../../directives/popover/popover'
+import BPopoverDirective from '../../directives/popover/popover'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
