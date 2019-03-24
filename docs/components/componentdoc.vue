@@ -31,17 +31,17 @@
         head-variant="default"
         striped
       >
-        <template slot="row-details" slot-scope="{ item }>
+        <template slot="prop" slot-scope="{ value, item }">
+          <code>{{ value }}</code>
+        </template>
+        <template slot="row-details" slot-scope="{ item }">
           <b-badge variant="warning">
             {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
           </b-badge>
           <!-- if deprecated is a string, show the string value -->
           <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
         </template>
-        <template slot="prop" slot-scope="{ value, item }">
-          <code>{{ value }}</code>
-        </template>
-        <template slot="default" slot-scope="{ value }">
+        <template slot="defaultValue" slot-scope="{ value }">
           <code v-if="value">{{ value }}</code>
         </template>
       </b-table>
@@ -165,7 +165,7 @@ export default {
       const fields = [
         { key: 'prop', label: 'Property' },
         { key: 'type', label: 'Type' },
-        { key: 'default', label: 'Default Value' }
+        { key: 'defaultValue', label: 'Default Value' }
       ]
 
       // Add the required column if there are required field(s)
@@ -237,7 +237,7 @@ export default {
           type,
           required,
           typeClass,
-          default: defaultVal,
+          defaultValue: defaultVal,
           deprecated,
           _showDetails: !!deprecated
         }
