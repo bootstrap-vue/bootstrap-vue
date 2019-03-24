@@ -57,6 +57,7 @@ const DEFAULTS = {
     ariaLabel: 'Close'
   },
   BDropdown: {
+    toggleText: 'Toggle Dropdown',
     variant: 'secondary'
   },
   BFormFile: {
