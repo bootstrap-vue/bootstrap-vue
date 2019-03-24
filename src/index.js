@@ -1,12 +1,12 @@
 import * as componentPlugins from './components'
 import * as directivePlugins from './directives'
 import { vueUse } from './utils/plugins'
-// import { setConfig } from './utils/config'
+import { setConfig } from './utils/config'
 
 const BootstrapVue = {
   install(Vue, config = {}) {
     // Configure BootstrapVue
-    // setConfig(config)
+    setConfig(config)
 
     // Register component plugins
     for (let plugin in componentPlugins) {
@@ -17,6 +17,9 @@ const BootstrapVue = {
     for (let plugin in directivePlugins) {
       Vue.use(directivePlugins[plugin])
     }
+  },
+  setConfig(config = {}) {
+    setConfig(config)
   }
 }
 
