@@ -1,6 +1,6 @@
 import BImg from './img'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BImgLazy'
 
@@ -36,7 +36,7 @@ export default {
     },
     blankColor: {
       type: String,
-      default: () => getConfigComponent(NAME, 'blankColor')
+      default: () => getComponentConfig(NAME, 'blankColor')
     },
     blankWidth: {
       type: [Number, String],
