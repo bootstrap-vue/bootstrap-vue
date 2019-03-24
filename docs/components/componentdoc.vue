@@ -155,9 +155,10 @@ export default {
         // Regular component
         props = component.options.props || {}
       }
+
+      return props
     },
     propsFields() {
-      const component = Vue.options.components[this.component]
       const props = this.componentProps
 
       const hasRequired = Object.keys(props).some(p => props[p].required)
@@ -194,12 +195,7 @@ export default {
       return [{ key: 'name', label: 'Slot' }, { key: 'description', label: 'Description' }]
     },
     propsItems() {
-      const component = Vue.options.components[this.component]
-      if (!component) {
-        return []
-      }
-
-      const props = this.componentProps || {}
+      const props = this.componentProps
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
