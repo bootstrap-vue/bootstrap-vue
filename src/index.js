@@ -1,8 +1,12 @@
 import * as componentPlugins from './components'
 import * as directivePlugins from './directives'
 import { vueUse } from './utils/plugins'
+// import { setConfig } from './utils/config'
 
-const VuePlugin = Vue => {
+const BootstrapVue = (Vue, config = {} ) => {
+  // Configure BootstrapVue
+  // setConfig(config)
+  
   // Register component plugins
   for (let plugin in componentPlugins) {
     Vue.use(componentPlugins[plugin])
@@ -14,6 +18,15 @@ const VuePlugin = Vue => {
   }
 }
 
-vueUse(VuePlugin)
+// expose the config method
+// BootstrapVue.setConfig = setConfig
 
-export default VuePlugin
+// Auto installation only occurs if window.Vue exists
+if (window && window.Vue) {
+  /* istanbul ignore next */
+  window.BootstrapVue = BootstrapVue
+  /* istanbul ignore next */
+  window.Vue.use(BootstrapVue)
+}
+
+export default BootstrapVue
