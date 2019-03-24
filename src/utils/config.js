@@ -71,7 +71,7 @@ const DEFAULTS = {
   BAlert: { variant: 'info' },
   BBadge: { variant: 'secondary' },
   BButton: { variant: 'secondary' },
-  BButtonCose: { textVariant: null, ariaLabel: 'Close' },
+  BButtonClose: { textVariant: null, ariaLabel: 'Close' },
   BDropdown: { variant: 'secondary' },
   BFormFile: {
     browseText: 'Browse',
