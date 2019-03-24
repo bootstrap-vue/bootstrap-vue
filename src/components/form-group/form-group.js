@@ -313,7 +313,9 @@ export default (resolve, reject) => {
         return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null
       },
       descriptionId() {
-        return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null
+        return this.$slots['description'] || this.description
+          ? this.safeId('_BV_description_')
+          : null
       },
       hasInvalidFeedback() {
         // used for computing aria-describedby
