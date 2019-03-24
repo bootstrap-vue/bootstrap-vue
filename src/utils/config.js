@@ -2,11 +2,6 @@
 // General Bootstrap Vue configuration
 //
 // TODO:
-//
-//  - Make this cofigurable before bootstrap Vue is loaded, either by
-//    passing an expression to Vue.use(BootstrapVue, config = {}) or
-//    via global window.BoostrapVue.config, or Vue.prototype.XXX (or similar)
-//
 //  - Pull this default config into the documentation (/docs/reference/settings)
 //    and document how to configure the settings
 //
@@ -16,44 +11,20 @@ import { isArray } from './array'
 
 // DISCUSSION: Breakpoint definitions
 //
-// Should breakpoints be stored here, or maybe on the Vue prototype?
-//
-//   i.e. Vue.prototype.$BV_BREAKPOINTS
-//
 // Some components (BCol and BFormGroup) generate props based on breakpoints, and this
 // occurs when the component is first loaded (evaluated), which may happen before the
 // config is created/modified
 //
-// To get around this would be to make the components that need to generate
-// prop names based on the config would be to define the component(s) as such:
-//
-//   // we use a named function so that component.name resolves to the components name
-//   // and that minification doesn't mangle the name
-//   const BFormGroup = function BFormGroup(resolve, reject) => {
-//     // prop computation could happen before the resolve
-//     // or within the component using object spread on a function()
-//     resolve( /* @vue/component */ {
-//       // component definition
-//     })
-//   }
-//   export default BFormGroup
-//
-// Now the component definition is only called/executed when the first access to the
+// To get around this we make these components async (lazy evaluation).
+// The component definition is only called/executed when the first access to the
 // component is used (and cached on subsequent uses)
 //
 // See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
 //
-// This might be the better solution to the problem, although if other components need to
-// pluck props from this component, they wont be able to.
-// We are safe with BCol and BFormGroup as nothing else users their props
-//
-
-const BREAKPOINTS_DEFAULT = ['xs', 'sm', 'md', 'lg', 'xl']
-
 // DISCUSSION: Prop Defaults
 //
 // For default values on props, we use the default value factory function approach so
-// so that the default values are pulled in at **runtime**
+// so that the default values are pulled in at each component instantiation.
 //
 //   props: {
 //     variant: {
@@ -63,23 +34,43 @@ const BREAKPOINTS_DEFAULT = ['xs', 'sm', 'md', 'lg', 'xl']
 //   }
 //
 
+// prettier-ignore
 const DEFAULTS = {
   // Breakpoints... see discussion above
-  breakpoints: BREAKPOINTS_DEFAULT,
+  breakpoints: [
+    'xs', 'sm', 'md', 'lg', 'xl'
+  ],
+
   // Component Specific defaults are keyed by the component
   // name (PascalCase) and prop name (camelCase)
-  BAlert: { variant: 'info' },
-  BBadge: { variant: 'secondary' },
-  BButton: { variant: 'secondary' },
-  BButtonClose: { textVariant: null, ariaLabel: 'Close' },
-  BDropdown: { variant: 'secondary' },
+  BAlert: {
+    variant: 'info'
+  },
+  BBadge: {
+    variant: 'secondary'
+  },
+  BButton: {
+    variant: 'secondary'
+  },
+  BButtonClose: {
+    textVariant: null,
+    ariaLabel: 'Close'
+  },
+  BDropdown: {
+    variant: 'secondary'
+  },
   BFormFile: {
     browseText: 'Browse',
-    dropPlaceholder: 'Drop files here',
-    placeholder: 'No file chosen' // Chrome default file prompt
+    // Chrome default file prompt
+    placeholder: 'No file chosen',
+    dropPlaceholder: 'Drop files here'
   },
-  BImg: { blankColor: 'transparent' },
-  BImgLazy: { blankColor: 'transparent' },
+  BImg: {
+    blankColor: 'transparent'
+  },
+  BImgLazy: {
+    blankColor: 'transparent'
+  },
   BModal: {
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
@@ -90,11 +81,6 @@ const DEFAULTS = {
 }
 
 // This contains user defined configuration
-//
-// Should this be stored here, or on the Vue.prototype ?????
-// For testing purposes, we might want to store this on Vue, so
-// we can use localVue so that testing doesn't pollute the config.
-// (unless we create a clearConfig() method to reset it)
 const CONFIG = {}
 
 // Method to get a deep clone (immutable) copy of the defaults
@@ -102,14 +88,7 @@ const getDefaults = () => JSON.parse(JSON.stringify(DEFAULTS))
 
 // Method to set the config.
 // Merges in only known top-level and sub-level keys.
-//
 //   Vue.use(BootstrapVue, config)
-// or
-//   BootstrapVue.config(config)
-//   Vue.use(BootstrapVue)
-//
-// Breakpoint definition may need to be moved out of the config object
-// and set globally before bootstrapVue is loaded
 
 /* istanbul ignore next: just for now to prevent red X on codecov until we can test this */
 const setConfig = (opts = {}) => {
@@ -153,6 +132,16 @@ const getConfigComponent = (cmpName, key = null) => {
   }
 }
 
+const getComponentConfig = (cmpName, key = null) => {
+  if (key) {
+    // Return the particular config value for key for specified component
+    return getConfigParam(`${cmpName}.${key}`)
+  } else {
+    // return the components full config
+    return getConfigParam(cmpName) || {}
+  }
+}
+
 // Convenience method for getting all breakpoint names
 const getBreakpointsAll = () => {
   return getConfigParam('breakpoints')
@@ -183,6 +172,7 @@ export {
   getDefaults, 
   getConfigParam,
   getConfigComponent,
+  getComponentConfig,
   getBreakpointsAll,
   getBreakpointsUp,
   getBreakpointsDown
