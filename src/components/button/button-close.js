@@ -10,7 +10,7 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: 'Close'
+    default: () => getConfigComponent(NAME, 'ariaLabel')
   },
   textVariant: {
     type: String,
