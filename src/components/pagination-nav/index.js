@@ -1,12 +1,10 @@
 import BPaginationNav from './pagination-nav'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BPaginationNav
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }
