@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { getConfigComponent } from '../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BImg'
 
@@ -85,7 +85,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => getConfigComponent(NAME, 'blankColor')
+    default: () => getComponentConfig(NAME, 'blankColor')
   }
 }
 
