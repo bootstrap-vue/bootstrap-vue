@@ -32,8 +32,8 @@ function strNum() {
 // See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
 
 export default (resolve, reject) => {
-  // Grab the breakpoints from the config
-  const breakpoints = getBreakpointsUp()
+  // Grab the breakpoints from the config (exclude the '' (xs) breakpoint)
+  const breakpoints = getBreakpointsUp().filter(Boolean)
 
   // Memoized function for better performance
   const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
@@ -57,7 +57,7 @@ export default (resolve, reject) => {
   })
 
   // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
-  const breakpointCol = breakpoints.filter(Boolean).reduce((propMap, breakpoint) => {
+  const breakpointCol = breakpoints.reduce((propMap, breakpoint) => {
     if (breakpoint) {
       // We filter out the '' breakpoint (xs), as making a prop name ''
       // would not work. The `cols` prop is used for `xs`
@@ -108,7 +108,9 @@ export default (resolve, reject) => {
       cols: strNum(),
       // Breakpoint Specific props
       ...breakpointCol,
+      offset: strNum(),
       ...breakpointOffset,
+      order: strNum(),
       ...breakpointOrder,
       // Flex alignment
       alignSelf: {
@@ -138,6 +140,8 @@ export default (resolve, reject) => {
         // Default to .col if no other classes generated nor `cols` specified.
         col: props.col || (classList.length === 0 && !props.cols),
         [`col-${props.cols}`]: props.cols,
+        [`offset-${props.offset}`]: props.offset,
+        [`order-${props.order}`]: props.order,
         [`align-self-${props.alignSelf}`]: props.alignSelf
       })
 
