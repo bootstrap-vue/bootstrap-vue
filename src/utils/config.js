@@ -21,7 +21,8 @@ const BV_DEFAULTS = {
   BButton: { variant: 'secondary' },
   BButtonCose: { textVariant: null },
   BDropdown: { variant: 'secondary' },
-  BImg: { blankColor: 'transparent' }
+  BImg: { blankColor: 'transparent' },
+  BImgLazy: { blankColor: 'transparent' }
 }
 
 // This will be the object that any future user defined
