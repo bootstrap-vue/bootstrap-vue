@@ -53,10 +53,12 @@ const DEFAULTS = {
     variant: 'secondary'
   },
   BButtonClose: {
+    // textVariant null mean inherit current text color
     textVariant: null,
     ariaLabel: 'Close'
   },
   BCardSubTitle: {
+    // BCard and BCardBody also inherit this prop
     subTitleTextVariant: 'muted'
   },
   BDropdown: {
