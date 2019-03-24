@@ -15,7 +15,11 @@ const components = {
   BNavToggle: BNavbarToggle
 }
 
-const plugins = { Nav, Collapse, Dropdown }
+const plugins = {
+  Nav,
+  Collapse,
+  Dropdown
+}
 
 export default {
   install: installFactory({ components, plugins })
