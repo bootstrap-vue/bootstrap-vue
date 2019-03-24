@@ -80,7 +80,7 @@ const DEFAULTS = {
   },
   BImg: { blankColor: 'transparent' },
   BImgLazy: { blankColor: 'transparent' },
-  MBodal: {
+  BModal: {
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
     okTitle: 'OK',
