@@ -1,3 +1,5 @@
+import { setConfig } from './config'
+
 /**
  * Plugin install factory function.
  * @param {object} { components, directives }
