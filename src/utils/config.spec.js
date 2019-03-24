@@ -1,7 +1,7 @@
 import {
   getDefaults,
   getConfigParam,
-  getConfigComponent,
+  getComponentConfig,
   getBreakpointsAll,
   getBreakpointsUp,
   getBreakpointsDown
@@ -17,17 +17,17 @@ describe('utils/config', () => {
     expect(getConfigParam('foo.bar[1].baz')).toBe(null)
   })
 
-  it('getConfigComponent() works', async () => {
+  it('getComponentConfig() works', async () => {
     // Specific component config key
-    expect(getConfigComponent('BAlert', 'variant')).toEqual('info')
+    expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
     // Component's full config
-    expect(getConfigComponent('BAlert')).toEqual(getDefaults().BAlert)
+    expect(getComponentConfig('BAlert')).toEqual(getDefaults().BAlert)
     // Should return a deep clone for full config
-    expect(getConfigComponent('BAlert')).not.toBe(getDefaults().BAlert)
+    expect(getComponentConfig('BAlert')).not.toBe(getDefaults().BAlert)
     // Should return empty object for not found component
-    expect(getConfigComponent('foobar')).toEqual({})
+    expect(getComponentConfig('foobar')).toEqual({})
     // Should return null for not found component key
-    expect(getConfigComponent('BAlert', 'foobar')).toBe(null)
+    expect(getComponentConfig('BAlert', 'foobar')).toBe(null)
   })
 
   it('getBreakpointsAll() works', async () => {
