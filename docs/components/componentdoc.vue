@@ -51,6 +51,16 @@
           <code v-if="value">{{ value }}</code>
         </template>
       </b-table>
+
+      <template v-if="componentVModel">
+        <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
+          V-Model
+        </anchored-heading>
+        <ul>
+          <li>Prop: <code>{{ kebabCase(componentVModel.prop) }}</code></li>
+          <li>Event: <code>{{ componentVModel.event }}</code></li>
+        </ul>
+      </template>
     </article>
 
     <article v-if="slots && slots.length > 0">
@@ -154,24 +164,28 @@ export default {
     }
   },
   computed: {
-    componentProps() {
+    componentOptions() {
       const component = Vue.options.components[this.component]
       if (!component) {
         return {}
       }
 
-      let props = {}
+      let options = {}
       if (!component.options && typeof component === 'function') {
         // Async component that hans't been resolved yet.
         component(opts => {
-          props = opts.props ? { ...opts.props } : {}
+          options = opts ? { ...options } : {}
         })
       } else {
         // Regular component
-        props = component.options.props || {}
+        options = component.options || {}
       }
-
-      return props
+    },
+    componentVModel() {
+      return this.componentOptions.model || false
+    },
+    componentProps() {
+      return this.componentOptions.props || {}
     },
     propsFields() {
       const props = this.componentProps
