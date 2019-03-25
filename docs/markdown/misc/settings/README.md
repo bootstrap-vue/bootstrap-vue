@@ -44,12 +44,12 @@ The values provided as the config option to `Vue.use` will be merged with the de
 
 ### Supplying config for individual component plugin imports
 
-WHen importing individual component plugins, you can specify a config as well (using the same
-config structure as above.  YOu only need to provide configuration to the first component you
+When importing individual component plugins, you can specify a config as well (using the same
+config structure as above.  You only need to provide configuration to the first component you
 import, but each successive config will be merged with the previous config provided.
 
-Note breakpoint names should be defined before using any compoponents as they are required
-to generate component breakpoint specific props. Once the component that has breakpoint specific
+Note breakpoint names should be defined before using any components as they are required to
+generate component breakpoint specific props. Once the component that has breakpoint specific
 props is used, andy subsequent changes to the breakpoints will not be reflected.
 
 ```js
@@ -57,11 +57,12 @@ import Layout from 'bootstrap-vue/es/components/layout'
 import Alert from 'bootstrap-vue/es/components/alert'
 import Button from 'bootstrap-vue/es/components/button'
 
+// Supply configs via each plugin as it is Vue.use'd
 Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
 Vue.use(Alert, { BAlert: { variant: 'danger' } })
 Vue.use(Button, { BButton: { variant: 'primary' } })
 
-// OR
+// Or supply complete config to first Vue.use'd plugin (preferred)
 Vue.use(Layout, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   { BAlert: { variant: 'danger' } },
@@ -70,6 +71,11 @@ Vue.use(Layout, {
 Vue.use(Alert)
 Vue.use(Button)
 ```
+
+### Providing the config to Nuxt.js BootstrapVue plugin
+
+Refer to the [Getting Started](/docs/#nuxtjs-plugin-module) documentation for information on
+passing the config object to the Nuxt.js plugin module.
 
 ## Disabling BootstrapVue console warnings
 
