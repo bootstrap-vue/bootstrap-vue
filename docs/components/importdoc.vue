@@ -144,8 +144,13 @@ export default {
     },
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
+      // // This also works for importing plugins, but may not tree shake as well
+      // return [
+      //   `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
+      //   `Vue.use(${this.pluginName})`
+      // ].join('\n')
       return [
-        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
+        `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
     }
