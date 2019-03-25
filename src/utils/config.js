@@ -108,9 +108,12 @@ const setConfig = (config = {}) => {
       if (!DEFAULTS.hasOwnProperty(cmpName)) {
         /* istanbul ignore next */
         warn(`config: unknown config property "${cmpName}"`)
+        /* istanbul ignore next */
+        return
       }
       const cmpConfig = config[cmpName]
       if (cmpName === 'breakpoints') {
+        // Special case for breakpoints
         const breakpoints = config.breakpoints
         if (
           !isArray(breakpoints) ||
@@ -119,9 +122,9 @@ const setConfig = (config = {}) => {
         ) {
           /* istanbul ignore next */
           warn('config: "breakpoints" must be an array of breakpoint names')
+        } else {
+          CONFIG.breakpoints = cloneDeep(breakpoints)
         }
-        // Special case for breakpoints
-        CONFIG.breakpoints = cloneDeep(breakpoints)
       } else if (isObject(cmpConfig)) {
         keys(cmpConfig)
           .filter(key => cmpConfig.hasOwnProperty(key))
@@ -129,11 +132,12 @@ const setConfig = (config = {}) => {
             if (!DEFAULTS[cmpName].hasOwnProperty(key)) {
               /* istanbul ignore next */
               warn(`config: unknown config property "${cmpName}.{$key}"`)
-            }
-            // If we pre-populate the config with defaults, we can skip this line
-            CONFIG[cmpName] = CONFIG[cmpName] || {}
-            if (cmpConfig[key] !== undefined) {
-              CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
+            } else {
+              // If we pre-populate the config with defaults, we can skip this line
+              CONFIG[cmpName] = CONFIG[cmpName] || {}
+              if (cmpConfig[key] !== undefined) {
+                CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
+              }
             }
           })
       }
