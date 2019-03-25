@@ -4,10 +4,10 @@ import { mount } from '@vue/test-utils'
 describe('modal > default button content, classes and attributes', () => {
   it('footer ok and cancel buttons', async () => {
     const wrapper = mount(Modal)
-    expect (wrapper).toBeDefined()
+    expect(wrapper).toBeDefined()
 
     const $buttons = wrapper.findAll('footer button')
-    expect ($buttons.length).toBe(2)
+    expect($buttons.length).toBe(2)
 
     // Cancel button (left-most button)
     const $cancel = $buttons.at(0)
@@ -28,10 +28,10 @@ describe('modal > default button content, classes and attributes', () => {
 
   it('header close button', async () => {
     const wrapper = mount(Modal)
-    expect (wrapper).toBeDefined()
+    expect(wrapper).toBeDefined()
 
     const $buttons = wrapper.findAll('header button')
-    expect ($buttons.length).toBe(1)
+    expect($buttons.length).toBe(1)
 
     // Close button
     const $close = $buttons.at(0)
