@@ -13,6 +13,7 @@ import looseEqual from './loose-equal'
 import { createLocalVue } from '@vue/test-utils'
 import BootstrapVue from '../../src'
 import AlertPlugin from '../../src/components/alert'
+import BVConfigPlugin from '../../src/bv-config'
 
 describe('utils/config', () => {
   afterEach(() => {
@@ -143,6 +144,22 @@ describe('utils/config', () => {
     expect(getConfig()).toEqual({})
 
     localVue.use(AlertPlugin, testConfig)
+    expect(getConfig()).toEqual(testConfig)
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+  })
+
+  it('config via Vue.use(BVConfig) works', async () => {
+    const testConfig = {
+      BAlert: { variant: 'foobar' }
+    }
+    const localVue = createLocalVue()
+
+    expect(getConfig()).toEqual({})
+
+    localVue.use(BVConfigPlugin, testConfig)
     expect(getConfig()).toEqual(testConfig)
 
     // Reset the configuration
