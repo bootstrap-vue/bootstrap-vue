@@ -32,6 +32,11 @@ export default {
       // Only applicable when rendered with button style
       type: String,
       default: null
+    },
+    ariaLabel: {
+      // Placed on the input if present.
+      type: String,
+      default: null
     }
   },
   data() {
@@ -172,7 +177,9 @@ export default {
         'form-check-input': this.is_Plain,
         'custom-control-input': this.is_Custom,
         'is-valid': this.get_State === true && !this.is_BtnMode,
-        'is-invalid': this.get_State === false && !this.is_BtnMode
+        'is-invalid': this.get_State === false && !this.is_BtnMode,
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
+        'position-static': this.is_Plain && !defaultSlot
       },
       directives: [
         {
@@ -190,7 +197,8 @@ export default {
         disabled: this.is_Disabled,
         required: this.is_Required,
         autocomplete: 'off',
-        'aria-required': this.is_Required || null
+        'aria-required': this.is_Required || null,
+        'aria-label': this.ariaLabel || null
       },
       domProps: {
         value: this.value,
@@ -209,17 +217,22 @@ export default {
       return button
     } else {
       // Not button mode
-      const label = h(
-        'label',
-        {
-          class: {
-            'form-check-label': this.is_Plain,
-            'custom-control-label': this.is_Custom
+      let label = h(false)
+      // If no label content in plain mode we dont render the label
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
+      if (!(this.is_Plain && !defaultSlot)) {
+        label = h(
+          'label',
+          {
+            class: {
+              'form-check-label': this.is_Plain,
+              'custom-control-label': this.is_Custom
+            },
+            attrs: { for: this.safeId() }
           },
-          attrs: { for: this.safeId() }
-        },
-        defaultSlot
-      )
+          defaultSlot
+        )
+      }
       // Wrap it in a div
       return h(
         'div',
