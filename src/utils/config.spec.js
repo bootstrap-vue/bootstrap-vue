@@ -1,20 +1,20 @@
 import {
   getDefaults,
-  getConfigParam,
+  getConfigValue,
   getComponentConfig,
-  getBreakpointsAll,
+  getBreakpoints,
   getBreakpointsUp,
   getBreakpointsDown
 } from './config'
 import looseEqual from './loose-equal'
 
 describe('utils/config', () => {
-  it('getConfigParam() works', async () => {
-    expect(getConfigParam('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
+  it('getConfigValue() works', async () => {
+    expect(getConfigValue('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
-    expect(getConfigParam('breakpoints')).not.toBe(getConfigParam('breakpoints'))
+    expect(getConfigValue('breakpoints')).not.toBe(getConfigValue('breakpoints'))
     // Should return null for not found
-    expect(getConfigParam('foo.bar[1].baz')).toBe(null)
+    expect(getConfigValue('foo.bar[1].baz')).toBe(null)
   })
 
   it('getComponentConfig() works', async () => {
@@ -30,10 +30,10 @@ describe('utils/config', () => {
     expect(getComponentConfig('BAlert', 'foobar')).toBe(null)
   })
 
-  it('getBreakpointsAll() works', async () => {
-    expect(getBreakpointsAll()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
+  it('getBreakpoints() works', async () => {
+    expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
-    expect(getBreakpointsAll()).not.toBe(getBreakpointsAll())
+    expect(getBreakpoints()).not.toBe(getBreakpoints())
   })
 
   it('getBreakpointsUp() works', async () => {
@@ -59,11 +59,11 @@ describe('utils/config', () => {
     expect(
       Object.keys(defaults).every(key => {
         // Should not point to the same reference
-        const param = getConfigParam(key)
+        const param = getConfigValue(key)
         return param !== defaults[key] && looseEqual(param, defaults[key])
       })
     ).toBe(true)
 
-    // TODO: test each nested key (if Array or Plain Object)
+    // TODO: Test each nested key (if Array or plain Object)
   })
 })

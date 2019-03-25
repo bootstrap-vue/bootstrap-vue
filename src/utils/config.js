@@ -1,31 +1,26 @@
-//
-// General Bootstrap Vue configuration
-//
-// TODO:
-//  - Pull this default config into the documentation (/docs/reference/settings)
-//    and document how to configure the settings
-//
 import get from './get'
 import cloneDeep from './clone-deep'
 import { keys, isObject } from './object'
 import { isArray } from './array'
 
-// DISCUSSION: Breakpoint definitions
+// General Bootstrap Vue configuration
+//
+// BREAKPOINT DEFINITIONS
 //
 // Some components (BCol and BFormGroup) generate props based on breakpoints, and this
 // occurs when the component is first loaded (evaluated), which may happen before the
 // config is created/modified
 //
-// To get around this we make these components async (lazy evaluation).
+// To get around this we make these components async (lazy evaluation)
 // The component definition is only called/executed when the first access to the
 // component is used (and cached on subsequent uses)
 //
 // See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
 //
-// DISCUSSION: Prop Defaults
+// PROP DEFAULTS
 //
 // For default values on props, we use the default value factory function approach so
-// so that the default values are pulled in at each component instantiation.
+// so that the default values are pulled in at each component instantiation
 //
 //   props: {
 //     variant: {
@@ -33,14 +28,11 @@ import { isArray } from './array'
 //       default: () => getConfigComponent('BAlert', 'variant')
 //     }
 //   }
-//
 
 // prettier-ignore
 const DEFAULTS = {
-  // Breakpoints... see discussion above
-  breakpoints: [
-    'xs', 'sm', 'md', 'lg', 'xl'
-  ],
+  // Breakpoints
+  breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'],
 
   // Component Specific defaults are keyed by the component
   // name (PascalCase) and prop name (camelCase)
@@ -54,7 +46,7 @@ const DEFAULTS = {
     variant: 'secondary'
   },
   BButtonClose: {
-    // textVariant null mean inherit current text color
+    // `textVariant` is `null` to inherit the current text color
     textVariant: null,
     ariaLabel: 'Close'
   },
@@ -96,39 +88,42 @@ const CONFIG = {}
 // Method to get a deep clone (immutable) copy of the defaults
 const getDefaults = () => cloneDeep(DEFAULTS)
 
-// Method to set the config.
-// Merges in only known top-level and sub-level keys.
+// Method to set the config
+// Merges in only known top-level and sub-level keys
 //   Vue.use(BootstrapVue, config)
 // or
 //   BootstrapVue.setConfig(config)
 //   Vue.use(BootstrapVue)
 
 /* istanbul ignore next: just for now to prevent red X on codecov until we can test this */
-const setConfig = (opts = {}) => {
-  if (isObject(opts)) {
-    keys(opts).forEach(component => {
-      if (opts.hasOwnProperty(component) && DEFAULTS.hasOwnProperty(component)) {
-        if (component === 'breakpoints' && isArray(opts.breakpoints)) {
-          // special case for breakpoints
-          CONFIG.breakpoints = cloneDeep(opts.breakpoints)
-        } else if (isObject(opts[component])) {
-          keys(opts[component]).forEach(prop => {
-            if (opts[component].hasOwnProperty(prop) && DEFAULTS[component].hasOwnProperty(prop)) {
-              // If we pre-populate the config with the defaults, we can skip this line
-              CONFIG[component] = CONFIG[component] || {}
-              CONFIG[component][prop] = opts[component][prop]
-            }
+const setConfig = (config = {}) => {
+  if (!isObject(config)) {
+    return
+  }
+
+  keys(config)
+    .filter(cmpName => config.hasOwnProperty(cmpName) && DEFAULTS.hasOwnProperty(cmpName))
+    .forEach(cmpName => {
+      const cmpConfig = config[cmpName]
+      if (cmpName === 'breakpoints' && isArray(config.breakpoints)) {
+        // Special case for breakpoints
+        CONFIG.breakpoints = cloneDeep(config.breakpoints)
+      } else if (isObject(cmpConfig)) {
+        keys(cmpConfig)
+          .filter(key => cmpConfig.hasOwnProperty(key) && DEFAULTS[cmpName].hasOwnProperty(key))
+          .forEach(key => {
+            // If we pre-populate the config with defaults, we can skip this line
+            CONFIG[cmpName] = CONFIG[cmpName] || {}
+            CONFIG[cmpName][key] = cmpConfig[key]
           })
-        }
       }
     })
-  }
 }
 
-// Method to grab a config value based on a dotted/array notation key.
+// Method to grab a config value based on a dotted/array notation key
 // Returns a deep clone (immutable) copy
-const getConfigParam = key => {
-  // First we try the user config, and if key not found we fall back to default value.
+const getConfigValue = key => {
+  // First we try the user config, and if key not found we fall back to default value
   // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
   return cloneDeep(get(CONFIG, key, get(getDefaults(), key)))
 }
@@ -136,44 +131,39 @@ const getConfigParam = key => {
 // Method to grab a config value for a particular component.
 // Returns a deep clone (immutable) copy
 const getComponentConfig = (cmpName, key = null) => {
-  if (key) {
-    // Return the particular config value for key for specified component
-    return getConfigParam(`${cmpName}.${key}`)
-  } else {
-    // return the components full config
-    return getConfigParam(cmpName) || {}
-  }
+  // Return the particular config value for key for if specified,
+  // otherwise we return the full config
+  return key ? getConfigValue(`${cmpName}.${key}`) : getConfigValue(cmpName) || {}
 }
 
 // Convenience method for getting all breakpoint names
-const getBreakpointsAll = () => getConfigParam('breakpoints')
+const getBreakpoints = () => getConfigValue('breakpoints')
 
 // Convenience method for getting breakpoints with
-// the smallest breakpoint set as ''.
+// the smallest breakpoint set as ''
 // Useful for components that create breakpoint specific props
 const getBreakpointsUp = () => {
-  const breakpoints = getBreakpointsAll()
+  const breakpoints = getBreakpoints()
   breakpoints[0] = ''
   return breakpoints
 }
 
 // Convenience method for getting breakpoints with
-// the largest breakpoint set as ''.
+// the largest breakpoint set as ''
 // Useful for components that create breakpoint specific props
 const getBreakpointsDown = () => {
-  const breakpoints = getBreakpointsAll()
+  const breakpoints = getBreakpoints()
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 }
 
 // Named Exports
-// prettier-ignore
 export {
   setConfig,
   getDefaults,
-  getConfigParam,
+  getConfigValue,
   getComponentConfig,
-  getBreakpointsAll,
+  getBreakpoints,
   getBreakpointsUp,
   getBreakpointsDown
 }
