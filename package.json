@@ -120,7 +120,7 @@
     "prettier": "1.14.3",
     "rollup": "^1.7.3",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
