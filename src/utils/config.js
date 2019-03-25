@@ -97,6 +97,7 @@ const getDefaults = () => cloneDeep(DEFAULTS)
 
 const setConfig = (config = {}) => {
   if (!isObject(config)) {
+    /* istanbul ignore next */
     return
   }
 
@@ -104,7 +105,7 @@ const setConfig = (config = {}) => {
     .filter(cmpName => config.hasOwnProperty(cmpName) && DEFAULTS.hasOwnProperty(cmpName))
     .forEach(cmpName => {
       const cmpConfig = config[cmpName]
-      if (cmpName === 'breakpoints' && isArray(config.breakpoints)) {
+      if (cmpName === 'breakpoints' && isArray(config.breakpoints) && config.breakpoints.length > 0) {
         // Special case for breakpoints
         CONFIG.breakpoints = cloneDeep(config.breakpoints)
       } else if (isObject(cmpConfig)) {
@@ -113,7 +114,9 @@ const setConfig = (config = {}) => {
           .forEach(key => {
             // If we pre-populate the config with defaults, we can skip this line
             CONFIG[cmpName] = CONFIG[cmpName] || {}
-            CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
+            if (cmpConfig[key] !== undefined) {
+              CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
+            }
           })
       }
     })
