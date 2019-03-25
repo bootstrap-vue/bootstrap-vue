@@ -398,9 +398,9 @@ be set as `active`.
 
 To disable auto active page detection, set the `no-page-detect` prop to `true`.
 
-**Note:** Auto page detection needs to loop through all possible page links until a match is detected.
-For larget `number-of-pages`, this check can take some time so you may want to manually control
-which page is the active via the `v-model` and the `no-page-detect` prop.
+**Note:** Auto page detection needs to loop through all possible page links until a match is
+detected. For larger `number-of-pages`, this check can take some time so you may want to manually
+control which page is the active via the `v-model` and the `no-page-detect` prop.
 
 ## Accessibility
 
