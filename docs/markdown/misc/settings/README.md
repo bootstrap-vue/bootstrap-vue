@@ -3,9 +3,12 @@
 ## Configuring BootstrapVue defaults
 
 BootstrapVue is pre-configured for the default Bootstrap V4.x configuration. It assumes the breakpoints
-are the standard breakpoint names of `xs`, `sm`, `md`, `lg`, and `xl`.
+are the standard breakpoint names of `xs`, `sm`, `md`, `lg`, and `xl`. Also various BootstrapVue
+components have props with default variants and text content.
 
-Also various BootstrapVue components have props with default variants and text content.
+BootstrapVue provides several methods for changing the default configuration.
+
+Note that it is not possible to change the defaults when using BootstrapVue via a `<script>` tag.
 
 ### Default BootstrapVue configuration
 
@@ -17,7 +20,7 @@ properties defined in the default configuration can be overridden.
 {{ defaultConfig }}
 </pre>
 
-### Supplying new configuration values
+### Setting new configuration values
 
 When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object which specifies
 new values to replace teh default values.  For example if you wish to define new breakpoint names
@@ -30,7 +33,7 @@ Vue.use(BootstrapVue, {
 })
 ```
 
-Or if changin the default variants for `<b-button>` and `<b-alert>`:
+Or if changing the default variants for `<b-button>` and `<b-alert>`:
 
 ```js
 import BootstrapVue from 'bootstrap-vue'
@@ -42,7 +45,7 @@ Vue.use(BootstrapVue, {
 
 The values provided as the config option to `Vue.use` will be merged with the default values.
 
-### Supplying config for individual component plugin imports
+### Setting config via individual component plugin imports
 
 When importing individual component plugins, you can specify a config as well (using the same
 config structure as above.  You only need to provide configuration to the first component you
@@ -50,7 +53,7 @@ import, but each successive config will be merged with the previous config provi
 
 Note breakpoint names should be defined before using any components as they are required to
 generate component breakpoint specific props. Once the component that has breakpoint specific
-props is used, andy subsequent changes to the breakpoints will not be reflected.
+props is used, andy subsequent changes to the breakpoints will **not** be reflected.
 
 ```js
 import Layout from 'bootstrap-vue/es/components/layout'
@@ -72,7 +75,7 @@ Vue.use(Alert)
 Vue.use(Button)
 ```
 
-### Providing the config to Nuxt.js BootstrapVue plugin
+### Setting the config via Nuxt.js BootstrapVue plugin
 
 Refer to the [Getting Started](/docs/#nuxtjs-plugin-module) documentation for information on
 passing the config object to the Nuxt.js plugin module.
