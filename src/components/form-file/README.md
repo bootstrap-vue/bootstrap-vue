@@ -124,7 +124,7 @@ prop. Note, only plain text is supported. HTML and components are not supported.
 By default, the custom styled file input lists the file names separated by commas. You can customize
 how the file names are shown either via a custom formatter function or the `file-name` scoped slot.
 
-###  File name formatter functon
+### File name formatter functon
 
 Set the prop `file-name-formatter` to a function that accepts a single argument which is an array of
 [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) objects. The function should return
@@ -156,7 +156,7 @@ array.
 <!-- file-formatter-function.vue -->
 ```
 
-###  File name formatting via scoped slot
+### File name formatting via scoped slot
 
 Alternatively, you can use the scoped slot `file-name` to render the file names. The scoped slot
 will receive the following properties:
@@ -183,8 +183,8 @@ Both properties are always arrays, regarless of the setting of the `multiple` pr
 <!-- file-formatter-slot.vue -->
 ```
 
-When using the `file-name` slot, the `file-name-formatter` prop is ignored. Also, the slot will
-not be rendered when there are no file(s) selected.
+When using the `file-name` slot, the `file-name-formatter` prop is ignored. Also, the slot will not
+be rendered when there are no file(s) selected.
 
 ## Non custom file input
 
