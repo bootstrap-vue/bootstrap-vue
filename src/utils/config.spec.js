@@ -82,20 +82,36 @@ describe('utils/config', () => {
     const testConfig = {
       BAlert: { variant: 'danger' }
     }
+    const testBreakpoints = {
+      breakpoints: ['aa', 'bb', 'cc', 'dd', 'ee']
+    }
+
     const defaults = getDefaults()
 
     expect(getConfig()).toEqual({})
 
+    // Try a conponent config
     setConfig(testConfig)
     expect(getConfig()).toEqual(testConfig)
     expect(getConfig()).not.toBe(testConfig)
     expect(getComponentConfig('BAlert')).toEqual(testConfig.BAlert)
     expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
 
+    // Try breakpoint config (should merge)
+    setConfig(testBreakpoints)
+    expect(getBreakpoints()).toEqual(testBreakPoints)
+    expect(getBreakpoints()).not.toBe(testBreakPoints)
+    expect(getConfigValue('breakpoint')).toEqual(testBreakpoints)
+    // should leave previous config
+    expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
+    // Should merge config
+    expect(getConfig()).toEqual({ ...testConfig, ...testBreakpoints })
+
     // Reset the configuration
     resetConfig()
     expect(getConfig()).toEqual({})
     expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
     expect(getComponentConfig('BAlert', 'variant')).toEqual(defaults.BAlert.variant)
+    expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
   })
 })
