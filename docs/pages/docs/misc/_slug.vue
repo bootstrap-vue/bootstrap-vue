@@ -1,9 +1,3 @@
-<template>
-  <div class="container">
-    <div class="bd-content" v-html="readme" />
-  </div>
-</template>
-
 <script>
 import { misc as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
@@ -27,6 +21,9 @@ export default {
       readme: readme.default,
       meta
     }
-  }
+  },
+
+  // Supply template with readme in it, so interpolation works
+  teamplate: template: `<div class="container bd-content">${readme}</div>`
 }
 </script>
