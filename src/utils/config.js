@@ -117,11 +117,11 @@ const setConfig = (config = {}) => {
         const breakpoints = config.breakpoints
         if (
           !isArray(breakpoints) ||
-          breakpoints.length === 0 ||
+          breakpoints.length < 2 ||
           breakpoints.some(b => typeof b !== 'string' || b.length === 0)
         ) {
           /* istanbul ignore next */
-          warn('config: "breakpoints" must be an array of breakpoint names')
+          warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
         } else {
           CONFIG.breakpoints = cloneDeep(breakpoints)
         }
