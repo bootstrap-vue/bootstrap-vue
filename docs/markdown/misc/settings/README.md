@@ -9,9 +9,56 @@ Also various BootstrapVue components have props with default variants and text c
 
 ### Default BootstrapVue configuration
 
-<pre class="hljs js text-monospace p-2">
+Default breakpoint names are stored in the `breakpoints` property, while component defaults are keyed
+by their <samp>PascaleCase</samp> name with the props as <samp>camelCase</samp> properties. Only
+properties defined in the default configuration can be overridden.
+
+<pre class="hljs json text-monospace p-2">
 {{ defaultConfig }}
 </pre>
+
+### Supplying new configuration values
+
+When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object which specifies
+new values to replace teh default values.  For example if you wish to define new breakpoint names
+(which will generate appropriate properties on components such as `<b-col>` and `<b-form-group>`):
+
+```js
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue, {
+  breakpoints: [`xs`, 'sm', 'md', 'lg', 'xl', 'xxl']
+})
+```
+
+Or if changin the default variants for `<b-button>` and `<b-alert>`:
+
+```js
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue, {
+  BAlert: { variant: 'danger' },
+  BButton: { variant: 'primary' }
+})
+```
+
+The values provided as the config option to `Vue.use` will be merged with the default values.
+
+### Supplying config for individual component plugin imports
+
+WHen importing individual component plugins, you can specify a config as well (using the same
+config structure as above.  YOu only need to provide configuration to the first component you
+import, but each successive config will be merged with the previous config provided.
+
+Note breakppint names should only be defined before using any compoponents (as they are required
+to generate component breakpoint specific props).
+
+```js
+import Layout from 'bootstrap-vue/es/components/layout'
+import Alert from 'bootstrap-vue/es/components/alert'
+import Button from 'bootstrap-vue/es/components/button'
+Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
+Vue.use(Alert, { BAlert: { variant: 'danger' } })
+Vue.use(Button, { BButton: { variant: 'primary' } })
+```
 
 ## Disabling BootstrapVue console warnings
 
