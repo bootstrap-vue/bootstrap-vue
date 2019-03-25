@@ -1,4 +1,17 @@
-# Miscellaneous Settings
+# Settings
+
+## Configuring BootstrapVue defaults
+
+BootstrapVue is pre-configured for the default Bootstrap V4.x configuration. It assumes the breakpoints
+are the standard breakpoint names of `xs`, `sm`, `md`, `lg`, and `xl`.
+
+Also various BootstrapVue components have props with default variants and text content.
+
+### Default BootstrapVue configuration
+
+<pre class="hljs js text-monospace p-2">
+{{ defaultConfig }}
+</pre>
 
 ## Disabling BootstrapVue console warnings
 
