@@ -72,20 +72,19 @@ counterparts for that.
 
 ### Limiting the number of displayed buttons
 
-To restrict the number of page buttons (including the ellipsis, but excluding the first, prev,
-next, and last buttons) shown, use the `limit` prop to specify the desired number of page buttons
+To restrict the number of page buttons (including the ellipsis, but excluding the first, prev, next,
+and last buttons) shown, use the `limit` prop to specify the desired number of page buttons
 (including the ellipsis, if shown). The default `limit` is `5`. The minimum supported value is `3`.
 When `limit` is set to `3`, no ellipsis indicators will be shown for practical purposes.
 
-The `first` and `last` buttons can be optionally hidden by setting the `hide-goto-end-buttons`
-prop.
+The `first` and `last` buttons can be optionally hidden by setting the `hide-goto-end-buttons` prop.
 
 The showing of the `ellipsis` can be optionally disabled by setting the `hide-ellipsis` prop.
 
 #### Small screen support
 
-On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
-minimize the potential of the pagination interface wrapping onto multiple lines:
+On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to minimize
+the potential of the pagination interface wrapping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limited to a maximum of 3 visible on `xs` screens and smaller.
@@ -177,11 +176,10 @@ The slot `page` is always scoped, while the slots `first-text`, `prev-text`, `ne
 `last-text` slots:**
 
 | Property   | Type    | Description                                          |
-| ---------- | ------- | ---------------------------------------------------- | 
+| ---------- | ------- | ---------------------------------------------------- |
 | `page`     | Number  | Page number (from `1` to `numberOfPages`)            |
 | `index`    | Number  | Page number (indexed from `0` to `numberOfPages -1`) |
 | `disabled` | Boolean | If the page button is disabled                       |
-
 
 ### Button Size
 
@@ -295,8 +293,8 @@ technology.
 The `label-page` will optionally accept a function to generate the aria-label. The function is
 passed a single argument which is the page number (indexed from 1 to number of pages).
 
-You can remove any label by setting the prop to an empty string (`''`), although this is
-not reccomended unless the content of the button textually conveys it's purpose.
+You can remove any label by setting the prop to an empty string (`''`), although this is not
+reccomended unless the content of the button textually conveys it's purpose.
 
 ### Keyboard navigation support
 

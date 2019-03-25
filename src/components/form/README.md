@@ -266,12 +266,12 @@ or the `force-show` prop to display the feedback.
 ### Datalist helper
 
 For broswers that support
-[`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) elements,
-the `<b-form-datalist>` helper component will allow you to quickly create a `<datalist>` and
-child `<option>` elements via an array passed to the `options` prop.
+[`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) elements, the
+`<b-form-datalist>` helper component will allow you to quickly create a `<datalist>` and child
+`<option>` elements via an array passed to the `options` prop.
 
-You may also manually provide `<option>` elements inside `<b-form-datalist>`. They will appear
-below any `<option>` elements generated from the `options` prop.
+You may also manually provide `<option>` elements inside `<b-form-datalist>`. They will appear below
+any `<option>` elements generated from the `options` prop.
 
 ```html
 <template>
