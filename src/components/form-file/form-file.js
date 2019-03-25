@@ -12,6 +12,10 @@ const NAME = 'BFormFile'
 export default {
   name: NAME,
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
       // type: Object,
