@@ -53,10 +53,18 @@ describe('cloneDeep()', () => {
   it('should clone objects', () => {
     const a = { a: 1, b: 2, c: 3 }
     expect(cloneDeep(a)).toEqual(a)
+    expect(cloneDeep(a)).not.toBe(a)
   })
 
   it('should deeply clone objects', () => {
     const a = { a: { a: 1, b: 2, c: 3 }, b: { a: 1, b: 2, c: 3 }, c: { a: 1, b: 2, c: 3 } }
     expect(cloneDeep(a)).toEqual(a)
+    expect(cloneDeep(a)).not.toBe(a)
+    expect(cloneDeep(a).a).toEqual(a.a)
+    expect(cloneDeep(a).a).not.toBe(a.a)
+    expect(cloneDeep(a).b).toEqual(a.b)
+    expect(cloneDeep(a).b).not.toBe(a.b)
+    expect(cloneDeep(a).c).toEqual(a.c)
+    expect(cloneDeep(a).c).not.toBe(a.c)
   })
 })
