@@ -1,4 +1,7 @@
 import {
+  setConfig,
+  resetConfig,
+  getConfig,
   getDefaults,
   getConfigValue,
   getComponentConfig,
@@ -9,6 +12,10 @@ import {
 import looseEqual from './loose-equal'
 
 describe('utils/config', () => {
+  afterEach(() => {
+    resetConfig()
+  })
+
   it('getConfigValue() works', async () => {
     expect(getConfigValue('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
@@ -65,5 +72,30 @@ describe('utils/config', () => {
     ).toBe(true)
 
     // TODO: Test each nested key (if Array or plain Object)
+  })
+
+  it('getConfig() return current empty user config', async () => {
+    expect(getConfig()).toEqual({})
+  })
+
+  it('setConfig() works', async () => {
+    const testConfig = {
+      BAlert: { variant: 'danger' }
+    }
+    const defaults = getDefaults()
+
+    expect(getConfig()).toEqual({})
+
+    setConfig(testConfig)
+    expect(getConfig()).toEqual(testConfig)
+    expect(getConfig()).not.toBe(testConfig)
+    expect(getComponentConfig('BAlert')).toEqual(testConfig.BAlert)
+    expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+    expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
+    expect(getComponentConfig('BAlert', 'variant')).toEqual(defaults.BAlert.variant)
   })
 })
