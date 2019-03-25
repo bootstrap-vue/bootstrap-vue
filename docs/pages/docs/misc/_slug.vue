@@ -23,6 +23,7 @@ export default {
     let readme = await getReadMe(params.slug)
     const meta = _meta[params.slug]
     readme = readme.default
+    readme.replace('{{ defaultConfig }}', JSON.stringify(defaultConfig || {}, 2))
     return {
       readme,
       meta
