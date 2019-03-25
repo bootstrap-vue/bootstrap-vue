@@ -122,7 +122,7 @@ const setConfig = (config = {}) => {
 // Reset the user config to default
 // For testing purposes only
 const resetConfig = () => {
-  config = {}
+  CONFIG = {}
 }
 
 // Get the current user config
