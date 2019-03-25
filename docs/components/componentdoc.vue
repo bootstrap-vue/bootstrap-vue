@@ -180,9 +180,16 @@ export default {
         // Regular component
         options = component.options || {}
       }
+
+      return options
     },
     componentVModel() {
-      return this.componentOptions.model || false
+      const model = this.componentOptions.model
+      if (model && model.prop && model.event) {
+        return model
+      } else {
+        return false
+      }
     },
     componentProps() {
       return this.componentOptions.props || {}
