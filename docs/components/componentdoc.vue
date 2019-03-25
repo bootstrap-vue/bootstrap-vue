@@ -184,7 +184,7 @@ export default {
       if (!component.options && typeof component === 'function') {
         // Async component that hans't been resolved yet
         component(opts => {
-          options = opts ? { ...options } : {}
+          options = opts ? { ...opts } : {}
         })
       } else {
         // Regular component
