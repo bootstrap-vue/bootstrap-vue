@@ -118,22 +118,30 @@ describe('utils/config', () => {
     expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
   })
 
-  it('config via Vue.use() works', async () => {
+  it('config via Vue.use(BootstrapVue) works', async () => {
     const testConfig = {
       BAlert: { variant: 'foobar' }
     }
     const localVue = createLocalVue()
 
-    // Via main BootstrapVue import
     expect(getConfig()).toEqual({})
+
     localVue.use(BootstrapVue, testConfig)
     expect(getConfig()).toEqual(testConfig)
 
     // Reset the configuration
     resetConfig()
     expect(getConfig()).toEqual({})
+  })
 
-    // Via component plugin import
+  it('config via Vue.use(ComponentPlugin) works', async () => {
+    const testConfig = {
+      BAlert: { variant: 'foobar' }
+    }
+    const localVue = createLocalVue()
+
+    expect(getConfig()).toEqual({})
+
     localVue.use(AlertPlugin, testConfig)
     expect(getConfig()).toEqual(testConfig)
 
