@@ -14,7 +14,8 @@ Note that it is not possible to change the defaults when using BootstrapVue via 
 
 Default breakpoint names are stored in the `breakpoints` property, while component defaults are keyed
 by their <samp>PascaleCase</samp> name with the props as <samp>camelCase</samp> properties. Only
-properties defined in the default configuration can be overridden.
+properties defined in the default configuration can be overridden. Attempting to set a config property
+that is not defned in the default will generate a console warning.
 
 <pre class="hljs json text-monospace p-2">
 {{ defaultConfig }}
@@ -24,11 +25,10 @@ properties defined in the default configuration can be overridden.
 
 When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object which specifies
 new values to replace teh default values.  For example if you wish to define new breakpoint names
-(which will generate appropriate properties on components such as `<b-col>` and `<b-form-group>`):
-
-Note: When defining custom breakpoints, keep the names short (2 to 3 characters). At least two (2)
-breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined in
-your custom Bootstrap SCSS.
+(which will generate appropriate properties on components such as `<b-col>` and `<b-form-group>`),
+so that the new breakpoints are `['aa', 'bb', 'cc', 'dd']` then `<b-col>` will now have `bb`, `cc`,
+and `dd` props instead of `sm`, `md`, `lg` and `xl` props (Similar for the `label-cols-{breakpoint}` and
+`label-align-{breakpoint}`props on `<b-form-group>`):
 
 ```js
 import BootstrapVue from 'bootstrap-vue'
@@ -48,6 +48,10 @@ Vue.use(BootstrapVue, {
 ```
 
 The values provided as the config option to `Vue.use` will be merged with the default values.
+
+**Note:** When defining custom breakpoints, keep the names short (2 to 3 characters). At least two
+breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined in
+your custom Bootstrap SCSS.
 
 ### Setting config via individual component plugin imports
 
