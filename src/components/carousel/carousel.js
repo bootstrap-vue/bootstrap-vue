@@ -69,6 +69,10 @@ export default {
   provide() {
     return { bvCarousel: this }
   },
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     labelPrev: {
       type: String,
