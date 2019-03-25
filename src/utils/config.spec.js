@@ -11,8 +11,8 @@ import {
 } from './config'
 import looseEqual from './loose-equal'
 import { createLocalVue } from '@vue/test-utils'
-import { BootstrapVue } from '../../src'
-import { AlertPlugin } from '../../src/components/alert'
+import BootstrapVue from '../../src'
+import AlertPlugin from '../../src/components/alert'
 
 describe('utils/config', () => {
   afterEach(() => {
