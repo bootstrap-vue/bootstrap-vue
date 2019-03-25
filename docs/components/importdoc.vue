@@ -68,7 +68,6 @@
         </ul>
       </template>
     </article>
-
   </section>
 </template>
 
@@ -144,7 +143,7 @@ export default {
     },
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      // // This also works for importing plugins, but may not tree shake as well
+      // This also works for importing plugins, but may not tree shake as well
       // return [
       //   `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
       //   `Vue.use(${this.pluginName})`
