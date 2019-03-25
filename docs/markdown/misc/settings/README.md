@@ -26,6 +26,10 @@ When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object
 new values to replace teh default values.  For example if you wish to define new breakpoint names
 (which will generate appropriate properties on components such as `<b-col>` and `<b-form-group>`):
 
+Note: When defining custom breakpoints, keep the names short (2 to 3 characters). At least two (2)
+breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined in
+your custom Bootstrap SCSS.
+
 ```js
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue, {
@@ -55,6 +59,10 @@ Note breakpoint names should be defined before using any components as they are 
 generate component breakpoint specific props. Once the component that has breakpoint specific
 props is used, andy subsequent changes to the breakpoints will **not** be reflected.
 
+**Example 1 (least preferred method):**
+
+<!-- eslint-disable import/first, import/no-duplicates -->
+
 ```js
 import Layout from 'bootstrap-vue/es/components/layout'
 import Alert from 'bootstrap-vue/es/components/alert'
@@ -64,8 +72,18 @@ import Button from 'bootstrap-vue/es/components/button'
 Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
 Vue.use(Alert, { BAlert: { variant: 'danger' } })
 Vue.use(Button, { BButton: { variant: 'primary' } })
+```
 
-// Or supply complete config to first Vue.use'd plugin (preferred)
+**Example 2:**
+
+<!-- eslint-disable import/first, import/no-duplicates -->
+
+```js
+import Layout from 'bootstrap-vue/es/components/layout'
+import Alert from 'bootstrap-vue/es/components/alert'
+import Button from 'bootstrap-vue/es/components/button'
+
+// Supply complete config to first Vue.use'd plugin
 Vue.use(Layout, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   { BAlert: { variant: 'danger' } },
@@ -75,10 +93,36 @@ Vue.use(Alert)
 Vue.use(Button)
 ```
 
+**Example 3 (most preferred method):**
+
+<!-- eslint-disable import/first, import/no-duplicates -->
+
+```js
+// BootstrapVue configuration helper plugin
+import BVConfig from 'bootstrap-vue/es/bv-config'
+// Component plugins
+import Layout from 'bootstrap-vue/es/components/layout'
+import Alert from 'bootstrap-vue/es/components/alert'
+import Button from 'bootstrap-vue/es/components/button'
+
+// Supply complete config to the BVConfig helper plugin
+Vue.use(BVConfig, {
+  breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
+  { BAlert: { variant: 'danger' } },
+  { BButton: { variant: 'primary' } }
+})
+
+// Then use component plugins
+Vue.use(Layout)
+Vue.use(Alert)
+Vue.use(Button)
+```
+
 **Caveat:** Vue only installs plugins _once_. If you import a plugin that has already been
 imported by another component plugin, the configuration passed to the component plugin will
-**not** be merged in.  It is best to set the complete configuration on only the first component
-plugin `Vue.use(...)` (the second option in the example above).
+**not** be merged in.  It is best to set the complete configuration using the `BVConfig`
+helper plugin as shown in **Example 3** above. The `BVConfig` plugin should be used in the
+main entry point of your app, and before any `Vue.use()` of component plugins.
 
 ### Setting the config via Nuxt.js BootstrapVue plugin
 
@@ -103,4 +147,4 @@ process.env.BOOTSTRAP_VUE_NO_WARN = true
 By ignoring warnings, you may find that your project fails/breaks when using future releases
 of bootstrapVue where deprecated props have been removed.
 
-Warnings should be corrected before moving your project into production!
+**Warnings should be corrected before moving your project into production!**
