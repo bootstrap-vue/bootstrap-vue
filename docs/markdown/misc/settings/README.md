@@ -48,16 +48,27 @@ WHen importing individual component plugins, you can specify a config as well (u
 config structure as above.  YOu only need to provide configuration to the first component you
 import, but each successive config will be merged with the previous config provided.
 
-Note breakppint names should only be defined before using any compoponents (as they are required
-to generate component breakpoint specific props).
+Note breakpoint names should be defined before using any compoponents as they are required
+to generate component breakpoint specific props. Once the component that has breakpoint specific
+props is used, andy subsequent changes to the breakpoints will not be reflected.
 
 ```js
 import Layout from 'bootstrap-vue/es/components/layout'
 import Alert from 'bootstrap-vue/es/components/alert'
 import Button from 'bootstrap-vue/es/components/button'
+
 Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
 Vue.use(Alert, { BAlert: { variant: 'danger' } })
 Vue.use(Button, { BButton: { variant: 'primary' } })
+
+// OR
+Vue.use(Layout, {
+  breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
+  { BAlert: { variant: 'danger' } },
+  { BButton: { variant: 'primary' } }
+})
+Vue.use(Alert)
+Vue.use(Button)
 ```
 
 ## Disabling BootstrapVue console warnings
