@@ -143,6 +143,23 @@ want to globally install in your Nuxt.js project.
 }
 ```
 
+### Passing custom BootstrapVue config with Nuxt.js
+
+If you need to pass a custom
+[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may due so
+by setting the `config` property in your `nuxt.config.js`:
+
+```js
+{
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    config: {
+      // Custom config options here
+    }
+  }
+}
+```
+
 ## Vue CLI 2
 
 BootstrapVue has two Vue CLI templates available:
