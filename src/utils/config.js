@@ -1,5 +1,6 @@
 import get from './get'
 import cloneDeep from './clone-deep'
+import warn from './warn'
 import { keys, isObject } from './object'
 import { isArray } from './array'
 
@@ -102,16 +103,33 @@ const setConfig = (config = {}) => {
   }
 
   keys(config)
-    .filter(cmpName => config.hasOwnProperty(cmpName) && DEFAULTS.hasOwnProperty(cmpName))
+    .filter(cmpName => config.hasOwnProperty(cmpName))
     .forEach(cmpName => {
+      if (!DEFAULTS.hasOwnProperty(cmpName)) {
+        /* istanbul ignore next */
+        warn(`config: unknown config property "${cmpName}"`)
+      }
       const cmpConfig = config[cmpName]
-      if (cmpName === 'breakpoints' && isArray(config.breakpoints) && config.breakpoints.length > 0) {
+      if (cmpName === 'breakpoints') {
+        const breakpoints = config.breakpoints
+        if (
+          !isArray(breakpoints) ||
+          breakpoints.length === 0 ||
+          breakpoints.some(b => typeof b !== 'string' || b.length === 0)
+        ) {
+          /* istanbul ignore next */
+          warn('config: "breakpoints" must be an array of breakpoint names')
+        }
         // Special case for breakpoints
-        CONFIG.breakpoints = cloneDeep(config.breakpoints)
+        CONFIG.breakpoints = cloneDeep(breakpoints)
       } else if (isObject(cmpConfig)) {
         keys(cmpConfig)
-          .filter(key => cmpConfig.hasOwnProperty(key) && DEFAULTS[cmpName].hasOwnProperty(key))
+          .filter(key => cmpConfig.hasOwnProperty(key))
           .forEach(key => {
+            if (!DEFAULTS[cmpName].hasOwnProperty(key)) {
+              /* istanbul ignore next */
+              warn(`config: unknown config property "${cmpName}.{$key}"`)
+            }
             // If we pre-populate the config with defaults, we can skip this line
             CONFIG[cmpName] = CONFIG[cmpName] || {}
             if (cmpConfig[key] !== undefined) {
