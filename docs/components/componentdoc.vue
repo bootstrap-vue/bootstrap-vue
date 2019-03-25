@@ -182,7 +182,7 @@ export default {
 
       let options = {}
       if (!component.options && typeof component === 'function') {
-        // Async component that hans't been resolved yet.
+        // Async component that hans't been resolved yet
         component(opts => {
           options = opts ? { ...options } : {}
         })
@@ -217,7 +217,7 @@ export default {
 
       // Add the required column if there are required field(s)
       if (hasRequired) {
-        // Insert Required field after prop name
+        // Insert required field after prop name
         fields.splice(1, 0, { key: 'required', label: 'Required' })
       }
 
