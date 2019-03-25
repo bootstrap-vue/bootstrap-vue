@@ -24,6 +24,6 @@ export default {
   },
 
   // Supply template with readme in it, so interpolation works
-  teamplate: template: `<div class="container bd-content">${readme}</div>`
+  teamplate: `<div class="container bd-content">${readme}</div>`
 }
 </script>
