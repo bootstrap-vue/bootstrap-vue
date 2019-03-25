@@ -1,6 +1,6 @@
 import { importAll, parseVersion } from '~/utils'
 import { version, dependencies, devDependencies } from '~/../package.json'
-import { getDefaults } from '~../src/utils/config'
+import { getDefaults } from '~/../src/utils/config'
 
 const componentsContext = require.context('~/../src/components/', true, /package.json/)
 export const components = importAll(componentsContext)
