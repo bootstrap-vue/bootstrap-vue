@@ -83,7 +83,7 @@ const DEFAULTS = {
 }
 
 // This contains user defined configuration
-const CONFIG = {}
+let CONFIG = {}
 
 // Method to get a deep clone (immutable) copy of the defaults
 const getDefaults = () => cloneDeep(DEFAULTS)
@@ -95,7 +95,6 @@ const getDefaults = () => cloneDeep(DEFAULTS)
 //   BootstrapVue.setConfig(config)
 //   Vue.use(BootstrapVue)
 
-/* istanbul ignore next: just for now to prevent red X on codecov until we can test this */
 const setConfig = (config = {}) => {
   if (!isObject(config)) {
     return
@@ -114,10 +113,16 @@ const setConfig = (config = {}) => {
           .forEach(key => {
             // If we pre-populate the config with defaults, we can skip this line
             CONFIG[cmpName] = CONFIG[cmpName] || {}
-            CONFIG[cmpName][key] = cmpConfig[key]
+            CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
           })
       }
     })
+}
+
+// Reset the user config to default
+// For testing purposes only
+const resetConfig = () => {
+  config = {}
 }
 
 // Method to grab a config value based on a dotted/array notation key
@@ -160,6 +165,7 @@ const getBreakpointsDown = () => {
 // Named Exports
 export {
   setConfig,
+  resetConfig,
   getDefaults,
   getConfigValue,
   getComponentConfig,
