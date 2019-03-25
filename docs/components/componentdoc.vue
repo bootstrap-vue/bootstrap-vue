@@ -56,10 +56,20 @@
         <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
           V-Model
         </anchored-heading>
-        <ul>
-          <li>Prop: <code>{{ kebabCase(componentVModel.prop) }}</code></li>
-          <li>Event: <code>{{ componentVModel.event }}</code></li>
-        </ul>
+        <b-table
+          :items="[componentVModel]"
+          :fields="['prop', 'event']"
+          small
+          head-variant="default"
+          striped
+        >
+          <template slot="prop" slot-scope="{ value }">
+            <code>{{ kebabCase(value) }}</code>
+          </template>
+          <template slot="event" slot-scope="{ value }">
+            <code>{{ value }}</code>
+          </template>
+        </b-table>
       </template>
     </article>
 
