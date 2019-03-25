@@ -75,6 +75,11 @@ Vue.use(Alert)
 Vue.use(Button)
 ```
 
+**Caveat:** Vue only installs plugins _once_. If you import a plugin that has already been
+imported by another component plugin, the configuration passed to the component plugin will
+**not** be merged in.  It is best to set the complete configuration on only the first component
+plugin `Vue.use(...)` (the second option in the example above).
+
 ### Setting the config via Nuxt.js BootstrapVue plugin
 
 Refer to the [Getting Started](/docs/#nuxtjs-plugin-module) documentation for information on
