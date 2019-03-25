@@ -8,7 +8,7 @@
 }
 
 // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2909
-dropdown.dropleft .dropdown-toggle {
+.dropdown.dropleft .dropdown-toggle {
   &.dropdown-toggle-no-caret:before {
     display: none !important;
   }
