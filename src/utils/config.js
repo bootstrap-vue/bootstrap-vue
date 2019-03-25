@@ -6,6 +6,7 @@
 //    and document how to configure the settings
 //
 import get from './get'
+import cloneDeep from './clone-deep'
 import { keys, isObject } from './object'
 import { isArray } from './array'
 
@@ -93,7 +94,7 @@ const DEFAULTS = {
 const CONFIG = {}
 
 // Method to get a deep clone (immutable) copy of the defaults
-const getDefaults = () => JSON.parse(JSON.stringify(DEFAULTS))
+const getDefaults = () => cloneDeep(DEFAULTS)
 
 // Method to set the config.
 // Merges in only known top-level and sub-level keys.
@@ -109,7 +110,7 @@ const setConfig = (opts = {}) => {
       if (opts.hasOwnProperty(component) && DEFAULTS.hasOwnProperty(component)) {
         if (component === 'breakpoints' && isArray(opts.breakpoints)) {
           // special case for breakpoints
-          CONFIG.breakpoints = JSON.parse(JSON.stringify(opts.breakpoints))
+          CONFIG.breakpoints = cloneDeep(opts.breakpoints)
         } else if (isObject(opts[component])) {
           keys(opts[component]).forEach(prop => {
             if (opts[component].hasOwnProperty(prop) && DEFAULTS[component].hasOwnProperty(prop)) {
@@ -129,7 +130,7 @@ const setConfig = (opts = {}) => {
 const getConfigParam = key => {
   // First we try the user config, and if key not found we fall back to default value.
   // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
-  return JSON.parse(JSON.stringify(get(CONFIG, key, get(getDefaults(), key))))
+  return cloneDeep(get(CONFIG, key, get(getDefaults(), key)))
 }
 
 // Method to grab a config value for a particular component.
@@ -145,33 +146,31 @@ const getComponentConfig = (cmpName, key = null) => {
 }
 
 // Convenience method for getting all breakpoint names
-const getBreakpointsAll = () => {
-  return getConfigParam('breakpoints')
-}
+const getBreakpointsAll = () => getConfigParam('breakpoints')
 
 // Convenience method for getting breakpoints with
 // the smallest breakpoint set as ''.
-// Usefull for components that create breakpoint specific props
+// Useful for components that create breakpoint specific props
 const getBreakpointsUp = () => {
-  const bpts = getBreakpointsAll()
-  bpts[0] = ''
-  return bpts
+  const breakpoints = getBreakpointsAll()
+  breakpoints[0] = ''
+  return breakpoints
 }
 
 // Convenience method for getting breakpoints with
 // the largest breakpoint set as ''.
-// Usefull for components that create breakpoint specific props
+// Useful for components that create breakpoint specific props
 const getBreakpointsDown = () => {
-  const bpts = getBreakpointsAll()
-  bpts[bpts.length - 1] = ''
-  return bpts
+  const breakpoints = getBreakpointsAll()
+  breakpoints[breakpoints.length - 1] = ''
+  return breakpoints
 }
 
 // Named Exports
 // prettier-ignore
 export {
   setConfig,
-  getDefaults, 
+  getDefaults,
   getConfigParam,
   getComponentConfig,
   getBreakpointsAll,
