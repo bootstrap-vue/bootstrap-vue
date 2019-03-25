@@ -10,6 +10,9 @@ import {
   getBreakpointsDown
 } from './config'
 import looseEqual from './loose-equal'
+import { createLocalVue } from '@vue/test-utils'
+import { BootstrapVue } from '../../src'
+import { AlertPlugin } from '../../src/components/alert'
 
 describe('utils/config', () => {
   afterEach(() => {
@@ -113,5 +116,29 @@ describe('utils/config', () => {
     expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
     expect(getComponentConfig('BAlert', 'variant')).toEqual(defaults.BAlert.variant)
     expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
+  })
+
+  it('config via Vue.use() works', async () => {
+    const testConfig = {
+      BAlert: { variant: 'foobar' }
+    }
+    const localVue = createLocalVue()
+
+    // Via main BootstrapVue import
+    expect(getConfig()).toEqual({})
+    localVue.use(BootstrapVue, testConfig)
+    expect(getConfig()).toEqual(testConfig)
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+
+    // Via component plugin import
+    localVue.use(AlertPlugin, testConfig)
+    expect(getConfig()).toEqual(testConfig)
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
   })
 })
