@@ -6,6 +6,7 @@ export default {
   mixins: [docsMixin],
   data() {
     return {
+      readme,
       bootstrapVersion,
       vueVersion,
       nuxtVersion,
