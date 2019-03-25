@@ -4,64 +4,71 @@
     class="bd-content"
   >
     <template v-if="components.length > 0">
-      <anchored-heading id="importing-individual-components" level="3">
-        Importing individual {{ pluginTitle }} Components
-      </anchored-heading>
+      <article>
+        <anchored-heading id="importing-individual-components" level="3">
+          Importing individual {{ pluginTitle }} Components
+        </anchored-heading>
 
-      <b-table :items="componentImports" small head-variant="default" striped>
-        <template slot="component" slot-scope="field">
-          <code>{{ field.value }}</code>
-        </template>
-        <template slot="importPath" slot-scope="field">
-          <code>{{ field.value }}</code>
-        </template>
-      </b-table>
+        <b-table :items="componentImports" small head-variant="default" striped>
+          <template slot="component" slot-scope="field">
+            <code>{{ field.value }}</code>
+          </template>
+          <template slot="importPath" slot-scope="field">
+            <code>{{ field.value }}</code>
+          </template>
+        </b-table>
 
-      <p><strong>Example:</strong></p>
+        <p><strong>Example:</strong></p>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode" /></pre>
+        <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode" /></pre>
+      </article>
     </template>
 
     <template v-if="directives.length > 0">
-      <anchored-heading id="importing-individual-directives" level="3">
-        Importing individual {{ pluginTitle }} Directives
+      <article>
+        <anchored-heading id="importing-individual-directives" level="3">
+          Importing individual {{ pluginTitle }} Directives
+        </anchored-heading>
+
+        <b-table :items="directiveImports" small head-variant="default" striped>
+          <template slot="directive" slot-scope="field">
+            <code>{{ field.value }}</code>
+          </template>
+          <template slot="importPath" slot-scope="field">
+            <code>{{ field.value }}</code>
+          </template>
+        </b-table>
+
+        <p><strong>Example:</strong></p>
+
+        <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
+      </article>
+    </template>
+
+    <article>
+      <anchored-heading id="importing-as-a-plugin" level="3">
+        Importing {{ pluginTitle }} as a Vue plugin
       </anchored-heading>
 
-      <b-table :items="directiveImports" small head-variant="default" striped>
-        <template slot="directive" slot-scope="field">
-          <code>{{ field.value }}</code>
-        </template>
-        <template slot="importPath" slot-scope="field">
-          <code>{{ field.value }}</code>
-        </template>
-      </b-table>
+      <p v-if="isComponentRoute">
+        This plugin includes all of the above listed individual
+        components<span v-if="directives.length"> and directives</span>.
+        Plugins also include any component aliases.
+      </p>
+      <p v-else>
+        This plugin includes all of the above listed individual directives.
+      </p>
 
-      <p><strong>Example:</strong></p>
+      <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode" /></pre>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
-    </template>
+      <template v-if="meta.plugins && meta.plugins.length > 0">
+        <p>This plugin also automatically includes the following plugins:</p>
+        <ul>
+          <li v-for="plugin in meta.plugins" :key="plugin"><code>{{ plugin }}</code></li>
+        </ul>
+      </template>
+    </article>
 
-    <anchored-heading id="importing-as-a-plugin" level="3">
-      Importing {{ pluginTitle }} as a Vue plugin
-    </anchored-heading>
-
-    <p v-if="isComponentRoute">
-      This plugin includes all of the above listed individual
-      components<span v-if="directives.length"> and directives</span>.
-      Plugins also include any component aliases.
-    </p>
-    <p v-else>
-      This plugin includes all of the above listed individual directives.
-    </p>
-
-    <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode" /></pre>
-
-    <template v-if="meta.plugins && meta.plugins.length > 0">
-      <p>This plugin also automatically includes the following plugins:</p>
-      <ul>
-        <li v-for="plugin in meta.plugins" :key="plugin"><code>{{ plugin }}</code></li>
-      </ul>
-    </template>
   </section>
 </template>
 
