@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { misc as _meta } from '~/content'
+import { misc as _meta, defaultConfig } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 
 const getReadMe = name =>
@@ -20,12 +20,15 @@ export default {
   },
 
   async asyncData({ params }) {
-    readme = await getReadMe(params.slug)
     const meta = _meta[params.slug]
-
-    return {
+    let readme = await getReadMe(params.slug)
+    readme = readme.default
+    if (params.slug === 'settings') {
       // Replace the defaultConfig placeholder (if found)
-      readme: readme.default.replace('{{ defaultConfig }}', JSON.stringify(this.defaultConfig, 2))
+      readme = readme.replace('{{ defaultConfig }}', JSON.stringify(defaultConfig, 2))
+    }
+    return {
+      readme,
       meta
     }
   }
