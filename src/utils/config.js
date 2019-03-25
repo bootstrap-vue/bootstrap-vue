@@ -128,7 +128,7 @@ const resetConfig = () => {
 // Get the current user config
 // For testing purposes only
 const getConfig = () => {
-  return = cloneDeep(CONFIG)
+  return cloneDeep(CONFIG)
 }
 
 // Method to grab a config value based on a dotted/array notation key
