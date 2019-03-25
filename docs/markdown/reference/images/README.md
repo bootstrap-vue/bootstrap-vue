@@ -49,9 +49,9 @@ const options = {
 This will allow you to use the following format in your `.vue` files:
 
 ```html
-<b-img src="~/static/picture.jpg" />
+<b-img src="~/static/picture.jpg"></b-img>
 
-<b-card-img img-src="~/static/picture.jpg" />
+<b-card-img img-src="~/static/picture.jpg"></b-card-img>
 ```
 
 ### Vue CLI 3 Support
@@ -121,7 +121,7 @@ If you cannot set the `transformAssetUrls` in your view-loader config, you can a
 `require` method:
 
 ```html
-<b-img :src="require('../static/picture.jpg')" />
+<b-img :src="require('../static/picture.jpg')"></b-img>
 
-<b-card-img :img-src="require('../static/picture.jpg')" />
+<b-card-img :img-src="require('../static/picture.jpg')"></b-card-img>
 ```

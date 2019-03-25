@@ -12,7 +12,7 @@ Rules are directly applied to `<iframe>`, `<embed>`, `<video>`, and `<object>` e
     aspect="16by9"
     src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
     allowfullscreen
-  />
+  ></b-embed>
 </div>
 
 <!-- b-embed.vue -->
@@ -38,18 +38,18 @@ aspect ratio. You can change this tag via the `tag` prop.
 ## Attributes and Child Elements
 
 Any additional attributes provided to `<b-embed>` (other than the above `type`, `aspect` and `tag`
-props are applied to the inner embeded element (i.s. `iframe`, `video`, `embed` and `object`).
+props are applied to the inner embedded element (i.s. `iframe`, `video`, `embed` and `object`).
 
 Any children elements between the opening and closing `<b-embed>` will be placed inside the inner
-embeded element. Note that type `iframe` does not support any children.
+embedded element. Note that type `iframe` does not support any children.
 
 **Example: Responsive embedding of an HTML5 `<video>`**
 
 ```html
 <div>
   <b-embed type="video" aspect="4by3" controls poster="poster.png">
-    <source src="devstories.webm" type="video/webm;codecs=&quot;vp8, vorbis&quot;" />
-    <source src="devstories.mp4" type="video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />
+    <source src="devstories.webm" type="video/webm;codecs=&quot;vp8, vorbis&quot;">
+    <source src="devstories.mp4" type="video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
   </b-embed>
 </div>
 ```

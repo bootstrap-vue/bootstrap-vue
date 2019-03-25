@@ -30,7 +30,7 @@ error message component.
           :state="$v.form.name.$dirty ? !$v.name.$error : null"
           aria-describedby="input1LiveFeedback"
           placeholder="Enter name"
-        />
+        ></b-form-input>
 
         <b-form-invalid-feedback id="input1LiveFeedback">
           This is a required field and must be at least 3 characters
@@ -43,7 +43,7 @@ error message component.
           :options="foods"
           :state="$v.form.food.$dirty ? !$v.name.$error : null"
           v-model="form.food"
-        />
+        ></b-form-select>
 
         <b-form-invalid-feedback id="input2LiveFeedback">
           This is a required field
@@ -128,7 +128,7 @@ Same example as above, just modified for VeeValidate:
           :state="validateState('form.name')"
           aria-describedby="input1LiveFeedback"
           placeholder="Enter name"
-        />
+        ></b-form-input>
 
         <b-form-invalid-feedback id="input1LiveFeedback">
           This is a required field and must be at least 3 characters
@@ -142,7 +142,7 @@ Same example as above, just modified for VeeValidate:
           v-validate="{ required: true }"
           :state="validateState('form.foods')"
           v-model="form.food"
-        />
+        ></b-form-select>
 
         <b-form-invalid-feedback id="input2LiveFeedback">
           This is a required field

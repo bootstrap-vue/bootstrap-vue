@@ -12,11 +12,11 @@
       :state="Boolean(file)"
       placeholder="Choose a file..."
       drop-placeholder="Drop file here..."
-    />
+    ></b-form-file>
     <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
 
     <!-- Plain mode -->
-    <b-form-file v-model="file2" class="mt-3" plain />
+    <b-form-file v-model="file2" class="mt-3" plain></b-form-file>
     <div class="mt-3">Selected file: {{ file2 ? file2.name : '' }}</div>
   </div>
 </template>
@@ -81,13 +81,13 @@ type(s). To specify more than one type, separate the values with a comma.
 ```html
 <div>
   <!-- Accept all image formats by IANA media type wildcard-->
-  <b-form-file accept="image/*" />
+  <b-form-file accept="image/*"></b-form-file>
 
   <!-- Accept specific image formats by IANA type -->
-  <b-form-file accept="image/jpeg, image/png, image/gif" />
+  <b-form-file accept="image/jpeg, image/png, image/gif"></b-form-file>
 
   <!-- Accept specific image formats by extension -->
-  <b-form-file accept=".jpg, .png, .gif" />
+  <b-form-file accept=".jpg, .png, .gif"></b-form-file>
 </div>
 ```
 
@@ -226,7 +226,7 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
 ```html
 <template>
   <div>
-    <b-form-file v-model="file" ref="fileinput" class="mb-2" />
+    <b-form-file v-model="file" ref="fileinput" class="mb-2"></b-form-file>
 
     <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
     <b-button @click="file = null">Reset via v-model</b-button>

@@ -14,7 +14,7 @@ enter when focused), not by hovering; this is an
     <b-dropdown-item>First Action</b-dropdown-item>
     <b-dropdown-item>Second Action</b-dropdown-item>
     <b-dropdown-item>Third Action</b-dropdown-item>
-    <b-dropdown-divider />
+    <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item active>Active action</b-dropdown-item>
     <b-dropdown-item disabled>Disabled action</b-dropdown-item>
   </b-dropdown>
@@ -378,7 +378,7 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
   <b-dropdown id="ddown-divider" text="Dropdown with divider" class="m-2">
     <b-dropdown-item-button>First item</b-dropdown-item-button>
     <b-dropdown-item-button>Second item</b-dropdown-item-button>
-    <b-dropdown-divider />
+    <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item-button>Separated Item</b-dropdown-item-button>
   </b-dropdown>
 </div>
@@ -418,7 +418,7 @@ constrain/set the menu width.
       Some example text that's free-flowing within the dropdown menu.
     </b-dropdown-text>
     <b-dropdown-text>And this is more example text.</b-dropdown-text>
-    <b-dropdown-divider />
+    <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item-button>First item</b-dropdown-item-button>
     <b-dropdown-item-button>Second Item</b-dropdown-item-button>
   </b-dropdown>
@@ -460,7 +460,7 @@ regular form.
         <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
         <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
       </b-dropdown-form>
-      <b-dropdown-divider />
+      <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
       <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
     </b-dropdown>
@@ -547,7 +547,7 @@ item:
       <b-dropdown-item-button aria-describedby="header2">Add</b-dropdown-item-button>
       <b-dropdown-item-button aria-describedby="header2">Delete</b-dropdown-item-button>
     </div>
-    <b-dropdown-divider />
+    <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item-button>
       Something <strong>not</strong> associated with user
     </b-dropdown-item-button>

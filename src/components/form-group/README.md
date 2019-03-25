@@ -16,7 +16,7 @@
       :valid-feedback="validFeedback"
       :state="state"
     >
-      <b-form-input id="input1" :state="state" v-model="name" trim />
+      <b-form-input id="input1" :state="state" v-model="name" trim></b-form-input>
     </b-form-group>
   </div>
 </template>
@@ -102,7 +102,7 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
       label="Enter your name"
       label-for="inputHorizontal"
     >
-      <b-form-input id="inputHorizontal" />
+      <b-form-input id="inputHorizontal"></b-form-input>
     </b-form-group>
   </div>
 </div>
@@ -122,15 +122,15 @@ for both `horizontal` and non-horizontal form groups.
 ```html
 <div>
   <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Small" label-for="input_sm">
-    <b-form-input id="input_sm" size="sm" />
+    <b-form-input id="input_sm" size="sm"></b-form-input>
   </b-form-group>
 
   <b-form-group label-cols="4" label-cols-lg="2" label="Default" label-for="input_default">
-    <b-form-input id="input_default" />
+    <b-form-input id="input_default"></b-form-input>
   </b-form-group>
 
   <b-form-group label-cols="4" label-cols-lg="2" label-size="lg" label="Large" label-for="input_lg">
-    <b-form-input id="input_lg" size="lg" />
+    <b-form-input id="input_lg" size="lg"></b-form-input>
   </b-form-group>
 </div>
 
@@ -179,15 +179,15 @@ of related form controls:
         label-align-sm="right"
         label-for="nestedStreet"
       >
-        <b-form-input id="nestedStreet" />
+        <b-form-input id="nestedStreet"></b-form-input>
       </b-form-group>
 
       <b-form-group label-cols-sm="3" label="City:" label-align-sm="right" label-for="nestedCity">
-        <b-form-input id="nestedCity" />
+        <b-form-input id="nestedCity"></b-form-input>
       </b-form-group>
 
       <b-form-group label-cols-sm="3" label="State:" label-align-sm="right" label-for="nestedState">
-        <b-form-input id="nestedState" />
+        <b-form-input id="nestedState"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -196,11 +196,11 @@ of related form controls:
         label-align-sm="right"
         label-for="nestedCountry"
       >
-        <b-form-input id="nestedCountry" />
+        <b-form-input id="nestedCountry"></b-form-input>
       </b-form-group>
 
       <b-form-group label-cols-sm="3" label="Ship via:" label-align-sm="right" class="mb-0">
-        <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']" />
+        <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']"></b-form-radio-group>
       </b-form-group>
     </b-form-group>
   </b-card>

@@ -456,7 +456,7 @@ export default {
           router: this.$router,
           // We set a fake parent so we can capture most runtime and render errors (error boundary)
           parent: new Vue({
-            template: '<span />',
+            template: '<span></span>',
             errorCaptured(err, vm, info) {
               // pass error to playground error handler
               playground.errHandler(err, info)

@@ -47,7 +47,7 @@
         name="flavour1"
         v-model="selected"
         :options="options"
-      />
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Using sub-components:">
@@ -105,11 +105,11 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 <template>
   <div>
     <b-form-group label="Form-checkbox-group inline checkboxes (default)">
-      <b-form-checkbox-group v-model="selected" name="flavour1a" :options="options" />
+      <b-form-checkbox-group v-model="selected" name="flavour1a" :options="options"></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Form-checkbox-group stacked checkboxes">
-      <b-form-checkbox-group stacked v-model="selected" name="flavour2a" :options="options" />
+      <b-form-checkbox-group stacked v-model="selected" name="flavour2a" :options="options"></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Individual stacked checkboxes (default)">
@@ -244,7 +244,7 @@ variants). The default `button-variant` is `secondary`.
 <template>
   <div>
     <b-form-group label="Button-group style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" name="buttons1" :options="options" />
+      <b-form-checkbox-group buttons v-model="selected" name="buttons1" :options="options"></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Button-group style checkboxes with variant primary and large buttons">
@@ -255,11 +255,11 @@ variants). The default `button-variant` is `secondary`.
         size="lg"
         name="buttons2"
         :options="options"
-      />
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Stacked (vertical) button-group style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" stacked :options="options" />
+      <b-form-checkbox-group buttons v-model="selected" stacked :options="options"></b-form-checkbox-group>
     </b-form-group>
   </div>
 </template>
@@ -325,11 +325,11 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 <template>
   <div>
     <b-form-group label="Inline switch style checkboxes">
-      <b-form-checkbox-group switches v-model="selected" name="switches1" :options="options" />
+      <b-form-checkbox-group switches v-model="selected" name="switches1" :options="options"></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Stacked (vertical) switch style checkboxes">
-      <b-form-checkbox-group switches v-model="selected" stacked :options="options" />
+      <b-form-checkbox-group switches v-model="selected" stacked :options="options"></b-form-checkbox-group>
     </b-form-group>
   </div>
 </template>
@@ -355,18 +355,18 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 
 ## Non custom check inputs (plain)
 
-You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native chechbox input
+You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native checkbox input
 by setting the `plain` prop.
 
 ```html
 <template>
   <div>
     <b-form-group label="Plain inline checkboxes">
-      <b-form-checkbox-group plain v-model="selected" :options="options" />
+      <b-form-checkbox-group plain v-model="selected" :options="options"></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Plain stacked checkboxes">
-      <b-form-checkbox-group plain stacked v-model="selected" :options="options" />
+      <b-form-checkbox-group plain stacked v-model="selected" :options="options"></b-form-checkbox-group>
     </b-form-group>
   </div>
 </template>
@@ -542,7 +542,7 @@ modifier.
         :options="flavours"
         class="ml-4"
         aria-label="Individual flavours"
-      />
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <div>

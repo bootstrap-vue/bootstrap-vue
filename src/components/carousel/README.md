@@ -26,7 +26,7 @@
         caption="First slide"
         text="Nulla vitae elit libero, a pharetra augue mollis interdum."
         img-src="https://picsum.photos/1024/480/?image=52"
-      />
+      ></b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
@@ -34,7 +34,7 @@
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58" />
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
@@ -46,7 +46,7 @@
           height="480"
           src="https://picsum.photos/1024/480/?image=55"
           alt="image slot"
-        />
+        >
       </b-carousel-slide>
 
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -154,9 +154,9 @@ default slide animation.
     img-width="1024"
     img-height="480"
   >
-    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10" />
-    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12" />
-    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22" />
+    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10"></b-carousel-slide>
+    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12"></b-carousel-slide>
+    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22"></b-carousel-slide>
   </b-carousel>
 </div>
 
@@ -177,10 +177,10 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
     img-width="1024"
     img-height="480"
   >
-    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10" />
-    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12" />
-    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22" />
-    <b-carousel-slide caption="Fourth Slide" img-src="https://picsum.photos/1024/480/?image=23" />
+    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10"></b-carousel-slide>
+    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12"></b-carousel-slide>
+    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22"></b-carousel-slide>
+    <b-carousel-slide caption="Fourth Slide" img-src="https://picsum.photos/1024/480/?image=23"></b-carousel-slide>
   </b-carousel>
 </div>
 

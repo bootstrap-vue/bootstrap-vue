@@ -5,7 +5,7 @@
       <anchored-heading id="directive-reference" level="2">
         {{ metaTitle }} Directive Reference
       </anchored-heading>
-      <importdoc :meta="meta" />
+      <importdoc :meta="meta"></importdoc>
     </section>
   </main>
 </template>

@@ -25,7 +25,12 @@ auto-dismissing).
       @dismiss-count-down="countDownChanged"
     >
       <p>This alert will dismiss after {{ dismissCountDown }} seconds...</p>
-      <b-progress variant="warning" :max="dismissSecs" :value="dismissCountDown" height="4px" />
+      <b-progress
+        variant="warning"
+        :max="dismissSecs"
+        :value="dismissCountDown"
+        height="4px"
+      ></b-progress>
     </b-alert>
 
     <b-button @click="showAlert" variant="info" class="m-1">

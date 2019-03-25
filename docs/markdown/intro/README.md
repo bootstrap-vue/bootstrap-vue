@@ -143,7 +143,7 @@ If you need to pass a custom
 by setting the `config` property in your `nuxt.config.js`:
 
 ```js
-{
+module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
     config: {
