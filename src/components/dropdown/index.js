@@ -5,7 +5,7 @@ import BDropdownHeader from './dropdown-header'
 import BDropdownDivider from './dropdown-divider'
 import BDropdownForm from './dropdown-form'
 import BDropdownText from './dropdown-text'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BDropdown,
@@ -27,7 +27,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

@@ -11,9 +11,13 @@ import { htmlOrText } from '../../utils/html'
 export default {
   name: 'BFormSelect',
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
-      // type: Object,
+      // type: [Object, Array, String, Number, Boolean],
       // default: undefined
     },
     multiple: {

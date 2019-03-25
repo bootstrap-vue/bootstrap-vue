@@ -3,7 +3,9 @@
     <div v-play class="bd-content" v-html="readme"></div>
 
     <section class="bd-content">
-      <h2 id="component-reference">{{ startCase(meta.title) }} Component Reference</h2>
+      <anchored-heading id="component-reference" level="2">
+        {{ startCase(meta.title) }} Component Reference
+      </anchored-heading>
 
       <!-- Component reference information -->
       <componentdoc
@@ -23,8 +25,9 @@
 </template>
 
 <script>
-import componentdoc from '~/components/componentdoc.vue'
-import importdoc from '~/components/importdoc.vue'
+import AnchoredHeading from '~/components/anchored-heading'
+import Componentdoc from '~/components/componentdoc'
+import Importdoc from '~/components/importdoc'
 import { components as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
@@ -33,7 +36,11 @@ const getReadMe = name =>
   import('~/../src/components/' + name + '/README.md' /* webpackChunkName: "docs/components" */)
 
 export default {
-  components: { componentdoc, importdoc },
+  components: {
+    Componentdoc,
+    Importdoc,
+    AnchoredHeading
+  },
   mixins: [docsMixin],
   layout: 'docs',
   async asyncData({ params }) {

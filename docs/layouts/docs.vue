@@ -56,9 +56,11 @@ export default {
         path = `/docs/markdown/reference/${slug}/README.md`
       } else if (name === 'docs-misc-slug') {
         if (slug === 'changelog') {
-          path = `/CHANGELOG.md`
+          path = '/CHANGELOG.md'
         } else if (slug === 'contributing') {
-          path = `/CONTRIBUTING.md`
+          path = '/CONTRIBUTING.md'
+        } else if (slug === 'settings') {
+          path = '/docs/markdown/misc/settings/README.md'
         }
       }
       return base + path

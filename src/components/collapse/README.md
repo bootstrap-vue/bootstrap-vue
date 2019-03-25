@@ -130,8 +130,8 @@ identifier via the `accordion` prop:
       </b-card-header>
       <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
         <b-card-body>
-          <p class="card-text">I start opened because <code>visible</code> is <code>true</code></p>
-          <p class="card-text">{{ text }}</p>
+          <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
+          <b-card-text>{{ text }}</b-card-text>
         </b-card-body>
       </b-collapse>
     </b-card>
@@ -141,7 +141,9 @@ identifier via the `accordion` prop:
         <b-button block href="#" v-b-toggle.accordion2 variant="info">Accordion 2</b-button>
       </b-card-header>
       <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-        <b-card-body<p class="card-text">{{ text }}</p></b-card-body>
+        <b-card-body>
+          <b-card-text>{{ text }}</b-card-text>
+        </b-card-body>
       </b-collapse>
     </b-card>
 
@@ -150,7 +152,9 @@ identifier via the `accordion` prop:
         <b-button block href="#" v-b-toggle.accordion3 variant="info">Accordion 3</b-button>
       </b-card-header>
       <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
-        <b-card-body><p class="card-text">{{ text }}</p></b-card-body>
+        <b-card-body>
+          <b-card-text>{{ text }}</b-card-text>
+        </b-card-body>
       </b-collapse>
     </b-card>
   </div>

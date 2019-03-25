@@ -1,8 +1,11 @@
 import BButtonClose from '../button/button-close'
+import { getComponentConfig } from '../../utils/config'
+
+const NAME = 'BAlert'
 
 // @vue/component
 export default {
-  name: 'BAlert',
+  name: NAME,
   components: { BButtonClose },
   model: {
     prop: 'show',
@@ -11,7 +14,7 @@ export default {
   props: {
     variant: {
       type: String,
-      default: 'info'
+      default: () => getComponentConfig(NAME, 'variant')
     },
     dismissible: {
       type: Boolean,

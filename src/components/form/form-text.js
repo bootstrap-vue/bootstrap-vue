@@ -1,4 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { getComponentConfig } from '../../utils/config'
+
+const NAME = 'BFormText'
 
 export const props = {
   id: {
@@ -11,7 +14,7 @@ export const props = {
   },
   textVariant: {
     type: String,
-    default: 'muted'
+    default: () => getComponentConfig(NAME, 'textVariant')
   },
   inline: {
     type: Boolean,
@@ -21,7 +24,7 @@ export const props = {
 
 // @vue/component
 export default {
-  name: 'BFormText',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, children }) {

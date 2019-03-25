@@ -1,4 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { getComponentConfig } from '../../utils/config'
+
+const NAME = 'BCardSubTitle'
 
 export const props = {
   subTitle: {
@@ -11,13 +14,13 @@ export const props = {
   },
   subTitleTextVariant: {
     type: String,
-    default: 'muted'
+    default: () => getComponentConfig(NAME, 'subTitleTextVariant')
   }
 }
 
 // @vue/component
 export default {
-  name: 'BCardSubTitle',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, children }) {

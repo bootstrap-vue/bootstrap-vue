@@ -106,9 +106,9 @@ export default {
         if (slot) {
           slot = [slot]
         } else {
-          data.domProps = htmlOrText(field.labelHtml, field.label)
+          data.domProps = htmlOrText(field.labelHtml)
         }
-        return h('th', data, [slot])
+        return h('th', data, slot || field.label)
       }
 
       // Generate the array of TH cells

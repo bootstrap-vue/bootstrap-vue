@@ -1,12 +1,10 @@
 import BEmbed from './embed'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BEmbed
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

@@ -1,12 +1,10 @@
-import bPopover from './popover'
-import { registerDirectives } from '../../utils/plugins'
+import BPopoverDirective from './popover'
+import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  bPopover
+  BPopover: BPopoverDirective
 }
 
 export default {
-  install(Vue) {
-    registerDirectives(Vue, directives)
-  }
+  install: installFactory({ directives })
 }

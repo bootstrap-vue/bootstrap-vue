@@ -448,6 +448,10 @@ chosen, or new values to be entered.
 <!-- b-form-input-datalist.vue -->
 ```
 
+BootstrapVue provides the form helper component
+[`<b-form-datalist>`](/docs/components/form/#datalist-helper) for quickly creating a `<datalist>`
+from an array of options.
+
 **Notes:**
 
 - Datalists work in conjunction with the browser's built in auto-complete, displaying datalist

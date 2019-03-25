@@ -1,5 +1,5 @@
 import BButtonGroup from './button-group'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BButtonGroup,
@@ -7,7 +7,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

@@ -135,6 +135,10 @@ export default {
       bvTabs: this
     }
   },
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     tag: {
       type: String,

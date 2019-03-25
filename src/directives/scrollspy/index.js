@@ -1,12 +1,10 @@
-import bScrollspy from './scrollspy'
-import { registerDirectives } from '../../utils/plugins'
+import BScrollspyDirective from './scrollspy'
+import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  bScrollspy
+  BScrollspy: BScrollspyDirective
 }
 
 export default {
-  install(Vue) {
-    registerDirectives(Vue, directives)
-  }
+  install: installFactory({ directives })
 }

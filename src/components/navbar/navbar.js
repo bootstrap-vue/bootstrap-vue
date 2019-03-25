@@ -1,4 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { getBreakpoints } from '../../utils/config'
 
 export const props = {
   tag: {
@@ -36,7 +37,8 @@ export default {
   props,
   render(h, { props, data, children }) {
     let breakpoint = ''
-    if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== 'xs') {
+    let xs = getBreakpoints()[0]
+    if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== xs) {
       breakpoint = `navbar-expand-${props.toggleable}`
     } else if (props.toggleable === false) {
       breakpoint = 'navbar-expand'

@@ -8,7 +8,7 @@ import BCardImg from './card-img'
 import BCardImgLazy from './card-img-lazy'
 import BCardText from './card-text'
 import BCardGroup from './card-group'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BCard,
@@ -24,7 +24,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

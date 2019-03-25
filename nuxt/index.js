@@ -67,6 +67,11 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         })
     }
 
+    // Add BootstrapVue configuration if present
+    if (options.config && Object.prototype.toString.call(options.config) === '[object Object]') {
+      templateOptions.config = { ...options.config }
+    }
+
     // Register plugin, pasing options to plugin template
     this.addPlugin({
       src: resolve(__dirname, 'plugin.template.js'),
