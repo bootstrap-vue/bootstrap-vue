@@ -4,9 +4,9 @@ options.componentPlugins.reduce((acc, p) => (acc += `import ${p[0]} from 'bootst
 options.directivePlugins.reduce((acc, p) => (acc += `import ${p[0]} from 'bootstrap-vue/es/directives/${p[1]}'\n` ), '') %>
 
 <% if (options.config) { %>
-import { setConfig } from 'bootstrap-vue/es/utils/config'
+import BVConfigPlugin from 'bootstrap-vue/es/bv-config'
 
-setConfig(<%= JSON.stringify(options.config, undefined, 2) %>)
+Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>)
 <% } %>
 
 <%=
