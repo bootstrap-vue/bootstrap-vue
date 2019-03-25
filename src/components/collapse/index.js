@@ -1,14 +1,15 @@
 import BCollapse from './collapse'
-import toggleDirectivePlugin from '../../directives/toggle'
-import { registerComponents } from '../../utils/plugins'
+import BToggleDirectivePlugin from '../../directives/toggle'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BCollapse
 }
 
+const plugins = {
+  BToggleDirectivePlugin
+}
+
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-    Vue.use(toggleDirectivePlugin)
-  }
+  install: installFactory({ components, plugins })
 }

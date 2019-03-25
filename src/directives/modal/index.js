@@ -1,12 +1,10 @@
-import bModal from './modal'
-import { registerDirectives } from '../../utils/plugins'
+import BModalDirective from './modal'
+import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  bModal
+  BModal: BModalDirective
 }
 
 export default {
-  install(Vue) {
-    registerDirectives(Vue, directives)
-  }
+  install: installFactory({ directives })
 }

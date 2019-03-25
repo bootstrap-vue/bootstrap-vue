@@ -58,6 +58,8 @@ _after_ Bootstrap SCSS to ensure variables are set up correctly.
 
 ## Nuxt.js plugin module
 
+[Nuxt.js](https://nuxtjs.org) version {{ nuxtVersion }} (or greater) is recommended.
+
 Install dependencies:
 
 ```bash
@@ -137,6 +139,23 @@ want to globally install in your Nuxt.js project.
     directivePlugins: [
       'Popover'
     ]
+  }
+}
+```
+
+### Passing custom BootstrapVue config with Nuxt.js
+
+If you need to pass a custom
+[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may due so
+by setting the `config` property in your `nuxt.config.js`:
+
+```js
+{
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    config: {
+      // Custom config options here
+    }
   }
 }
 ```

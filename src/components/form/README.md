@@ -270,6 +270,9 @@ For broswers that support
 the `<b-form-datalist>` helper component will allow you to quickly create a `<datalist>` and
 child `<option>` elements via an array passed to the `options` prop.
 
+You may also manually provide `<option>` elements inside `<b-form-datalist>`. They will appear
+below any `<option>` elements generated from the `options` prop.
+
 ```html
 <template>
   <label for="input-with-list">Input with datalist</label>

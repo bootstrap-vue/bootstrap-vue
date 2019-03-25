@@ -1,6 +1,6 @@
 import BTabs from './tabs'
 import BTab from './tab'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BTabs,
@@ -8,7 +8,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

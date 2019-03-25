@@ -1,6 +1,6 @@
 import BButton from './button'
 import BButtonClose from './button-close'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BButton,
@@ -10,7 +10,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }
