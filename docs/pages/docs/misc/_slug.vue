@@ -1,4 +1,4 @@
-<tempalte>
+<template>
   <div class="container">
     <div class="bd-content" v-html="readme" />
   </div>
@@ -20,8 +20,9 @@ export default {
   },
 
   async asyncData({ params }) {
-    const meta = _meta[params.slug]
     const readme = await getReadMe(params.slug)
+    const meta = _meta[params.slug]
+
     return {
       readme: readme.default,
       meta
