@@ -125,6 +125,12 @@ const resetConfig = () => {
   config = {}
 }
 
+// Get the current user config
+// For testing purposes only
+const getConfig = () => {
+  return = cloneDeep(CONFIG)
+}
+
 // Method to grab a config value based on a dotted/array notation key
 // Returns a deep clone (immutable) copy
 const getConfigValue = key => {
@@ -166,6 +172,7 @@ const getBreakpointsDown = () => {
 export {
   setConfig,
   resetConfig,
+  getConfig,
   getDefaults,
   getConfigValue,
   getComponentConfig,
