@@ -1,3 +1,9 @@
+<tempalte>
+  <div class="container">
+    <div class="bd-content" v-html="readme" />
+  </div>
+</template>
+
 <script>
 import { misc as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
@@ -14,16 +20,14 @@ export default {
   },
 
   async asyncData({ params }) {
-    const readme = await getReadMe(params.slug)
+    readme = await getReadMe(params.slug)
     const meta = _meta[params.slug]
 
     return {
-      readme: readme.default,
+      // Replace the defaultConfig placeholder (if found)
+      readme: readme.default.replace('{{ defaultConfig }}', JSON.stringify(this.defaultConfig, 2))
       meta
     }
-  },
-
-  // Supply template with readme in it, so interpolation works
-  teamplate: `<div class="container bd-content">${readme}</div>`
+  }
 }
 </script>
