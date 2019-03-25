@@ -1,8 +1,8 @@
-import get from './get'
 import cloneDeep from './clone-deep'
+import get from './get'
 import warn from './warn'
-import { keys, isObject } from './object'
 import { isArray } from './array'
+import { keys, isObject } from './object'
 
 // General Bootstrap Vue configuration
 //
@@ -23,12 +23,12 @@ import { isArray } from './array'
 // For default values on props, we use the default value factory function approach so
 // so that the default values are pulled in at each component instantiation
 //
-//   props: {
-//     variant: {
-//       type: String,
-//       default: () => getConfigComponent('BAlert', 'variant')
-//     }
-//   }
+//  props: {
+//    variant: {
+//      type: String,
+//      default: () => getConfigComponent('BAlert', 'variant')
+//    }
+//  }
 
 // prettier-ignore
 const DEFAULTS = {
@@ -152,9 +152,7 @@ const resetConfig = () => {
 
 // Get the current user config
 // For testing purposes only
-const getConfig = () => {
-  return cloneDeep(CONFIG)
-}
+const getConfig = () => cloneDeep(CONFIG)
 
 // Method to grab a config value based on a dotted/array notation key
 // Returns a deep clone (immutable) copy
