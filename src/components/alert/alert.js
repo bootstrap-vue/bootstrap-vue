@@ -148,7 +148,7 @@ export default {
           'enter-class': '',
           'enter-active-class': '',
           'enter-to-class': '',
-          'leave-class': '',
+          'leave-class': 'show',
           'leave-active-class': '',
           'leave-to-class': ''
         },
