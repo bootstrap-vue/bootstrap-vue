@@ -1,75 +1,154 @@
 import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
+import Alert from './alert'
+import { mount } from '@vue/test-utils'
 
 describe('alert', () => {
-  jest.useFakeTimers()
+  it('hidden alert renders comment node', async () => {
+    const wrapper = mount(Alert, {})
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).toBe('<!---->')
 
-  beforeEach(loadFixture(__dirname, 'alert'))
-  testVM()
-
-  it('visible alerts have class names', async () => {
-    const { app } = window
-
-    expect(app.$refs.default_alert).toHaveClass('alert alert-info')
-    expect(app.$refs.success_alert).toHaveClass('alert alert-success')
+    wrapper.destroy()
   })
 
-  it('show prop set to true displays hidden alert', async () => {
-    const { app } = window
+  it('visible alert has default class names and attributes', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
 
-    // Default is hidden
-    expect(app.$el.textContent).not.toContain('Dismissible Alert!')
+    await wrapper.vm.$nextTick()
 
-    // Make visible by changing visible state
-    await setData(app, 'showDismissibleAlert', true)
-    expect(app.$el.textContent).toContain('Dismissible Alert!')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.attributes('aria-live')).toBe('polite')
+    expect(wrapper.attributes('aria-atomic')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('visible alert has variant when prop variant is set', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        variant: 'success'
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-success')
+    expect(wrapper.attributes('aria-live')).toBe('polite')
+    expect(wrapper.attributes('aria-atomic')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('hidden alert shows when show prop set', async () => {
+    const wrapper = mount(Alert)
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).toBe('<!---->')
+
+    wrapper.setProps({
+      show: true
+    })
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+
+    wrapper.destroy()
   })
 
   it('dismiss should have class alert-dismissible', async () => {
-    const { app } = window
-    const alert = app.$refs.success_alert
-    expect(alert).toHaveClass('alert-dismissible')
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        dismissable: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert-dismissible')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+
+    wrapper.destroy()
   })
 
-  it('dismiss should have close button', async () => {
-    const { app } = window
-    const alert = app.$refs.success_alert
-    const closeBtn = alert.$el.querySelector('.close')
-    expect(closeBtn).not.toBeNull()
-    expect(closeBtn.tagName).toBe('BUTTON')
+  it('dismissible alert should have close button', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        dismissable: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.find('button').exists()).toBe(true)
+    expect(wrapper.find('button').classes()).toContain('close')
+
+    wrapper.destroy()
   })
 
   it('dismiss button click should close alert', async () => {
-    const { app } = window
-    const alert = app.$refs.success_alert
-    // const closeBtn = alert.$el.querySelector('.close')
-    // This line causes Jest to puke for some reason????
-    // closeBtn.click()
-    // But this line works instead (which i what click calls)
-    alert.dismiss()
-    await nextTick()
-    expect(app.$el.textContent).not.toContain('Success Alert')
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        dismissable: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert-dismissible')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.find('button').exists()).toBe(true)
+
+    erapper.find('button').trigger('click')
+
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).toBe('<!---->')
+
+    wrapper.destroy()
   })
 
   it('dismiss countdown emits dismiss-count-down event', async () => {
-    const { app } = window
-    const alert = app.$refs.counter_alert
-    const spy = jest.fn()
-
-    // Default is hidden
-    expect(app.$el.textContent).not.toContain('This alert will dismiss after')
-
-    // Make visible by changing visible state
-    const dismissTime = 5
-    alert.$on('dismiss-count-down', spy)
-    await setData(app, 'dismissCountDown', dismissTime)
-    // await nextTick();
-    expect(spy).not.toBeCalled()
-    jest.runTimersToTime(1000)
-    // Emits a dismiss-count-down` event
-    expect(spy).toHaveBeenCalledWith(dismissTime - 1)
-    // await nextTick();
-    jest.runAllTimers()
-    expect(app.$el.textContent).toContain('This alert will dismiss after')
-    expect(spy.mock.calls.length).toBe(dismissTime + 1)
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 3,
+      }
+    })
+    expect(wrapper.emitted('dismiss-count-down')).not.toBeDefined()
+    jest.runTimersToTime(1001)
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 3 - 1
+    jest.runTimersToTime(2001)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 3 - 2
+    jest.runTimersToTime(3001)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0) // 3 - 3
   })
 })
