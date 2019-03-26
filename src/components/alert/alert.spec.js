@@ -112,6 +112,33 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
+  it('dismiss button click should close alert', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        dismissible: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert-dismissible')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.find('button').exists()).toBe(true)
+    expect(wrapper.emitted('dismissed')).toBe(false)
+
+    wrapper.find('button').trigger('click')
+
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBe(true)
+    expect(wrapper.emitted('dismissed').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('should have class fade when prop fade=true', async () => {
     const wrapper = mount(Alert, {
       propsData: {
@@ -137,26 +164,41 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
-  it('dismiss button click should close alert', async () => {
+  it('fade transition works', async () => {
     const wrapper = mount(Alert, {
       propsData: {
-        show: true,
-        dismissible: true
+        show: false,
+        fade: true
+      },
+      stubs: {
+        // the builtin stub doesn't execute the transition hooks
+        // so we let it use the real transition component
+        transition: false
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('alert-dismissible')
-    expect(wrapper.classes()).toContain('alert')
-    expect(wrapper.find('button').exists()).toBe(true)
-
-    wrapper.find('button').trigger('click')
-
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
+    
+    wrapper.setProps({
+      show: true
+    })
+
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).toContain('fade')
+    expect(wrapper.classes()).toContain('show')
+
+    wrapper.setProps({
+      show: false
+    })
+
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.classes()).not.toContain('show')
 
     wrapper.destroy()
   })
