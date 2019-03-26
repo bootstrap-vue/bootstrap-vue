@@ -178,7 +178,7 @@ describe('alert', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
-    
+
     wrapper.setProps({
       show: true
     })
