@@ -71,7 +71,9 @@ export default {
       } else {
         this.$emit('input', false)
       }
-      this.dismissed = true
+      if (!this.fade) {
+        this.dismissed = true
+      }
     },
     clearCounter() {
       if (this.countDownTimerId) {
@@ -150,6 +152,9 @@ export default {
             },
             beforeLeave: () => {
               this.showClass = false
+            },
+            afterLeave: () => {
+              this.dismissed = true
             }
           }
         },
