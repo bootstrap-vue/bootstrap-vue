@@ -7,7 +7,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).toBe('<!---->')
+    expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -57,13 +57,14 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).toBe('<!---->')
+    expect(wrapper.html()).not.toBeDefined()
 
     wrapper.setProps({
       show: true
     })
 
     await wrapper.vm.$nextTick()
+    expect(wrapper.html()).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
@@ -124,7 +125,7 @@ describe('alert', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).toBe('<!---->')
+    expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -137,6 +138,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
 
     expect(wrapper.emitted('dismiss-count-down')).not.toBeDefined()
     jest.runTimersToTime(1001)
@@ -152,7 +154,7 @@ describe('alert', () => {
 
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).toBe('<!---->')
+    expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
   })
