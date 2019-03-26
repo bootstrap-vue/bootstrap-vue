@@ -9,7 +9,7 @@ import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormTextarea',
   mixins: [
     idMixin,
@@ -197,4 +197,4 @@ export default {
       }
     })
   }
-}
+})
