@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formRadioCheckMixin from '../../mixins/form-radio-check'
 import formMixin from '../../mixins/form'
@@ -8,7 +9,7 @@ import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormCheckbox',
   mixins: [
     formRadioCheckMixin, // Includes shared render function
@@ -121,4 +122,4 @@ export default {
       }
     }
   }
-}
+})
