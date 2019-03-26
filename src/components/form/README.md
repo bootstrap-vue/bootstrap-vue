@@ -17,7 +17,8 @@
           type="email"
           v-model="form.email"
           required
-          placeholder="Enter email" />
+          placeholder="Enter email"
+        ></b-form-input>
       </b-form-group>
 
       <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
@@ -26,11 +27,17 @@
           type="text"
           v-model="form.name"
           required
-          placeholder="Enter name" />
+          placeholder="Enter name"
+        ></b-form-input>
       </b-form-group>
 
       <b-form-group id="exampleInputGroup3" label="Food:" label-for="exampleInput3">
-        <b-form-select id="exampleInput3" :options="foods" required v-model="form.food" />
+        <b-form-select
+          id="exampleInput3"
+          v-model="form.food"
+          :options="foods"
+          required
+        ></b-form-select>
       </b-form-group>
 
       <b-form-group id="exampleGroup4">
@@ -67,12 +74,12 @@
       },
       onReset(evt) {
         evt.preventDefault()
-        /* Reset our form values */
+        // Reset our form values
         this.form.email = ''
         this.form.name = ''
         this.form.food = null
         this.form.checked = []
-        /* Trick to reset/clear native browser form validation state */
+        // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
           this.show = true
@@ -105,11 +112,15 @@ visitors with class `.sr-only`.
 <div>
   <b-form inline>
     <label class="sr-only" for="inlineFormInputName2">Name</label>
-    <b-input class="mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" placeholder="Jane Doe" />
+    <b-input
+      id="inlineFormInputName2"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      placeholder="Jane Doe"
+    ></b-input>
 
     <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
     <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-      <b-input id="inlineFormInputGroupUsername2" placeholder="Username" />
+      <b-input id="inlineFormInputGroupUsername2" placeholder="Username"></b-input>
     </b-input-group>
 
     <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
@@ -195,7 +206,7 @@ will announce this help text when the user focuses or enters the control.
 <div>
   <b-form  @submit.prevent>
     <label for="textPassword">Password</label>
-    <b-input type="password" id="textPassword" aria-describedby="passwordHelpBlock" />
+    <b-input type="password" id="textPassword" aria-describedby="passwordHelpBlock"></b-input>
     <b-form-text id="passwordHelpBlock">
       Your password must be 8-20 characters long, contain letters and numbers, and must not
       contain spaces, special characters, or emoji.
@@ -203,7 +214,7 @@ will announce this help text when the user focuses or enters the control.
    </b-form>
 </div>
 
-<!-- form-help-text.vue -->
+<!-- b-form-help-text.vue -->
 ```
 
 ### Feedback helpers
@@ -225,7 +236,7 @@ inputs, labels, etc.
 [`<b-form-radio>`](/docs/components/form-radio#contextual-states),
 [`<b-form-checkbox>`](/docs/components/form-checkbox#contextual-states), and
 [`<b-form-file>`](/docs/components/form-file) have wrapper elements which will prevent the feedback
-text from automatically showing (as the feeback component is not a direct sibling of the form
+text from automatically showing (as the feedback component is not a direct sibling of the form
 control's input). Use the feedback component's `state` prop (bound to the state of the form control)
 or the `force-show` prop to display the feedback.
 
@@ -234,7 +245,7 @@ or the `force-show` prop to display the feedback.
   <div>
     <b-form  @submit.prevent>
       <label for="feedbackUser">User ID</label>
-      <b-input type="text" v-model="userid" :state="validation" id="feedbackUser" />
+      <b-input v-model="userId" :state="validation" id="feedbackUser"></b-input>
       <b-form-invalid-feedback :state="validation">
         Your user ID must be 5-12 characters long.
       </b-form-invalid-feedback>
@@ -249,23 +260,23 @@ or the `force-show` prop to display the feedback.
   export default {
     data() {
       return {
-        userid: ''
+        userId: ''
       }
     },
     computed: {
       validation() {
-        return this.userid.length > 4 && this.userid.length < 13
+        return this.userId.length > 4 && this.userId.length < 13
       }
     }
   }
 </script>
 
-<!-- form-feedback-example.vue -->
+<!-- b-form-feedback-example.vue -->
 ```
 
 ### Datalist helper
 
-For broswers that support
+For browsers that support
 [`<datalist>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) elements, the
 `<b-form-datalist>` helper component will allow you to quickly create a `<datalist>` and child
 `<option>` elements via an array passed to the `options` prop.
@@ -290,7 +301,7 @@ export default {
 }
 </script>
 
-<!-- form-datalist-example.vue -->
+<!-- b-form-datalist-example.vue -->
 ```
 
 `<b-form-datalist>` is also available via the shorter alias of `<b-datalist>`.

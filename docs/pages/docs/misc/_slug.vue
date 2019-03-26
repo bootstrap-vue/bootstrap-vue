@@ -9,7 +9,7 @@ import { misc as _meta, defaultConfig } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 
 const getReadMe = name =>
-  import('~/markdown/misc/' + name + '/README.md' /* webpackChunkName: "docs/misc" */)
+  import(`~/markdown/misc/${name}/README.md` /* webpackChunkName: "docs/misc" */)
 
 export default {
   mixins: [docsMixin],

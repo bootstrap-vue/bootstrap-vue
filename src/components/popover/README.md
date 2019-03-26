@@ -196,7 +196,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
           title="Popover!"
           triggers="hover focus"
           :content="`Placement ${placement}`"
-        />
+        ></b-popover>
       </b-col>
     </b-row>
 
@@ -209,7 +209,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
           title="Prop Examples"
           triggers="hover focus"
           content="Embedding content using properties is easy"
-        />
+        ></b-popover>
       </b-col>
 
       <b-col md="6" class="py-4 text-center">
@@ -264,7 +264,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
 | `delay`           | `0`              | Delay showing and hiding of popover by specified number of milliseconds. Can also be defined as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays                | `0` and up, integers only.                                                                                                                       |
 | `offset`          | `0`              | Shift the center of the popover by specified number of pixels. Also affects the position of the popover arrow.                                                                                             | Any negative or positive integer                                                                                                                 |
 | `container`       | `null`           | Element string ID to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
-| `boundary`        | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
+| `boundary`        | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundaryPadding` | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 
 ### Programmatically show and hide popover
@@ -585,7 +585,7 @@ to deal with on mobile devices (such as smart-phones).
 
     <!-- Output from the popover interaction -->
     <b-card title="Returned values:" v-if="input1Return && input2Return">
-      <p class="card-text" style="max-width:20rem;">
+      <p class="card-text" style="max-width: 20rem;">
         Name: <strong>{{ input1Return }}</strong><br />
         Color: <strong>{{ input2Return }}</strong>
       </p>
@@ -622,7 +622,13 @@ to deal with on mobile devices (such as smart-phones).
           description="Enter your name"
           invalid-feedback="This field is required"
         >
-          <b-form-input ref="input1" id="pop1" :state="input1state" size="sm" v-model="input1" />
+          <b-form-input
+            ref="input1"
+            id="pop1"
+            v-model="input1"
+            :state="input1state"
+            size="sm"
+          ></b-form-input>
         </b-form-group>
 
         <b-form-group
@@ -637,10 +643,10 @@ to deal with on mobile devices (such as smart-phones).
           <b-form-select
             size="sm"
             id="pop2"
-            :state="input2state"
             v-model="input2"
+            :state="input2state"
             :options="options"
-          />
+          ></b-form-input>
         </b-form-group>
 
         <b-alert show class="small">

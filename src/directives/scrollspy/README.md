@@ -34,7 +34,7 @@ as well.
         <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
           <b-dropdown-item href="#one" @click="scrollIntoView">one</b-dropdown-item>
           <b-dropdown-item href="#two" @click="scrollIntoView">two</b-dropdown-item>
-          <b-dropdown-divider />
+          <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item href="#three" @click="scrollIntoView">three</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>

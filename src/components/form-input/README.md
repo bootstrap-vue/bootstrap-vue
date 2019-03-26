@@ -6,8 +6,8 @@
 ```html
 <template>
   <div>
-    <b-form-input v-model="text1" type="text" placeholder="Enter your name"></b-form-input>
-    <div class="mt-2">Value: {{ text1 }}</div>
+    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+    <div class="mt-2">Value: {{ text }}</div>
   </div>
 </template>
 
@@ -15,7 +15,7 @@
   export default {
     data() {
       return {
-        text1: ''
+        text: ''
       }
     }
   }
@@ -169,7 +169,7 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="input-small">Small:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="input-small" size="sm" type="text" placeholder="Enter your name"></b-form-input>
+      <b-form-input id="input-small" size="sm" placeholder="Enter your name"></b-form-input>
     </b-col>
   </b-row>
 
@@ -178,7 +178,7 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="input-default">Default:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="input-default" type="text" placeholder="Enter your name"></b-form-input>
+      <b-form-input id="input-default" placeholder="Enter your name"></b-form-input>
     </b-col>
   </b-row>
 
@@ -187,7 +187,7 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="input-large">Large:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="input-large" size="lg" type="text" placeholder="Enter your name"></b-form-input>
+      <b-form-input id="input-large" size="lg" placeholder="Enter your name"></b-form-input>
     </b-col>
   </b-row>
 </b-container>
@@ -227,7 +227,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       <label for="input-none">No State:</label>
     </b-col>
     <b-col sm="9">
-      <b-form-input id="input-none" :state="null" type="text" placeholder="No validation"></b-form-input>
+      <b-form-input id="input-none" :state="null" placeholder="No validation"></b-form-input>
     </b-col>
   </b-row>
 
@@ -236,7 +236,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       <label for="input-valid">Valid State:</label>
     </b-col>
     <b-col sm="9">
-      <b-form-input id="input-valid" :state="true" type="text" placeholder="Valid input"></b-form-input>
+      <b-form-input id="input-valid" :state="true" placeholder="Valid input"></b-form-input>
     </b-col>
   </b-row>
 
@@ -245,7 +245,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       <label for="input-invalid">Invalid State:</label>
     </b-col>
     <b-col sm="9">
-      <b-form-input id="input-invalid" :state="false" type="text" placeholder="Invalid input"></b-form-input>
+      <b-form-input id="input-invalid" :state="false" placeholder="Invalid input"></b-form-input>
     </b-col>
   </b-row>
 </b-container>
@@ -263,7 +263,6 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       id="inputLive"
       v-model="name"
       trim
-      type="text"
       :state="nameState"
       aria-describedby="inputLiveHelp inputLiveFeedback"
       placeholder="Enter your name"
@@ -349,7 +348,6 @@ Formatting does not occur if a `formatter` is not provided.
     <b-form-input
       id="inputFormatter"
       v-model="text1"
-      type="text"
       placeholder="Enter your name"
       aria-describedby="inputFormatterHelp"
       :formatter="format"
@@ -363,7 +361,6 @@ Formatting does not occur if a `formatter` is not provided.
     <b-form-input
       id="inputLazy"
       v-model="text2"
-      type="text"
       placeholder="Enter your name"
       aria-describedby="inputLazyHelp"
       :formatter="format"

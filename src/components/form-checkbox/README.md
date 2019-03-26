@@ -105,11 +105,20 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 <template>
   <div>
     <b-form-group label="Form-checkbox-group inline checkboxes (default)">
-      <b-form-checkbox-group v-model="selected" name="flavour1a" :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        name="flavour1a"
+        :options="options"
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Form-checkbox-group stacked checkboxes">
-      <b-form-checkbox-group stacked v-model="selected" name="flavour2a" :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        name="flavour2a"
+        :options="options"
+        stacked
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Individual stacked checkboxes (default)">
@@ -244,7 +253,12 @@ variants). The default `button-variant` is `secondary`.
 <template>
   <div>
     <b-form-group label="Button-group style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" name="buttons1" :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        name="buttons1"
+        :options="options"
+        buttons
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Button-group style checkboxes with variant primary and large buttons">
@@ -259,7 +273,12 @@ variants). The default `button-variant` is `secondary`.
     </b-form-group>
 
     <b-form-group label="Stacked (vertical) button-group style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" stacked :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        :options="options"
+        stacked
+        buttons
+      ></b-form-checkbox-group>
     </b-form-group>
   </div>
 </template>
@@ -325,11 +344,20 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 <template>
   <div>
     <b-form-group label="Inline switch style checkboxes">
-      <b-form-checkbox-group switches v-model="selected" name="switches1" :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        :options="options"
+        switches
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Stacked (vertical) switch style checkboxes">
-      <b-form-checkbox-group switches v-model="selected" stacked :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        :options="options"
+        switches
+        stacked
+      ></b-form-checkbox-group>
     </b-form-group>
   </div>
 </template>
@@ -362,11 +390,20 @@ by setting the `plain` prop.
 <template>
   <div>
     <b-form-group label="Plain inline checkboxes">
-      <b-form-checkbox-group plain v-model="selected" :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        :options="options"
+        plain
+      ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Plain stacked checkboxes">
-      <b-form-checkbox-group plain stacked v-model="selected" :options="options"></b-form-checkbox-group>
+      <b-form-checkbox-group
+        v-model="selected"
+        :options="options"
+        plain
+        stacked
+      ></b-form-checkbox-group>
     </b-form-group>
   </div>
 </template>
@@ -414,7 +451,12 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 ```html
 <template>
   <div>
-    <b-form-checkbox-group v-model="value" :options="options" :state="state" name="checkboxValidation">
+    <b-form-checkbox-group
+      v-model="value"
+      :options="options"
+      :state="state"
+      name="checkboxValidation"
+    >
       <b-form-invalid-feedback :state="state">Please select two</b-form-invalid-feedback>
       <b-form-valid-feedback :state="state">Thank you</b-form-valid-feedback>
     </b-form-checkbox-group>
@@ -454,7 +496,7 @@ tied to the same `v-model` **must** have the same `name`.
 The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
 only users) to know which checkboxes belong to the same form variable (the name also automatically
 enables native browser keyboard navigation), hence `required` will only work if `name` is set.
-`<b-form-checkbox-group>` will automatically generate a unique input name if one is not provied on
+`<b-form-checkbox-group>` will automatically generate a unique input name if one is not provided on
 the group.
 
 ## Indeterminate (tri-state) support
@@ -538,7 +580,7 @@ modifier.
         id="flavors"
         stacked
         v-model="selected"
-        name="flavs"
+        name="flavors"
         :options="flavours"
         class="ml-4"
         aria-label="Individual flavours"

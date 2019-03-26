@@ -8,8 +8,8 @@ Generate your select options by passing an array or object to the `options` prop
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" />
-    <b-form-select v-model="selected" :options="options" size="sm" class="mt-3" />
+    <b-form-select v-model="selected" :options="options"></b-form-select>
+    <b-form-select v-model="selected" :options="options" size="sm" class="mt-3"></b-form-select>
 
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
@@ -237,7 +237,7 @@ option.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" />
+    <b-form-select v-model="selected" :options="options"></b-form-select>
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -276,7 +276,7 @@ Note: not all mobile browsers will show a the select as a list-box.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" :select-size="4" />
+    <b-form-select v-model="selected" :options="options" :select-size="4"></b-form-select>
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -317,7 +317,7 @@ an array reference as your `v-model` when in `multiple` mode.
 ```html
 <template>
   <div>
-    <b-form-select multiple :select-size="4" v-model="selected" :options="options" />
+    <b-form-select v-model="selected" :options="options" multiple :select-size="4"></b-form-select>
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>

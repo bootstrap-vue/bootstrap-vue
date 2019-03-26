@@ -42,7 +42,12 @@ v-model from the `<b-form-radio-group>`.
 <template>
   <div>
     <b-form-group label="Radios using options">
-      <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOptions" />
+      <b-form-radio-group
+        id="radios1"
+        v-model="selected"
+        :options="options"
+        name="radioOptions"
+      ></b-form-radio-group>
     </b-form-group>
 
     <b-form-group label="Radios using sub-components">
@@ -150,11 +155,20 @@ render them inline.
 <template>
   <div>
     <b-form-group label="Inline radios (default)">
-      <b-form-radio-group v-model="selected" :options="options" name="radioInline" />
+      <b-form-radio-group
+        v-model="selected"
+        :options="options"
+        name="radioInline"
+      ></b-form-radio-group>
     </b-form-group>
 
     <b-form-group label="Stacked radios">
-      <b-form-radio-group v-model="selected" :options="options" stacked name="radiosStacked" />
+      <b-form-radio-group
+        v-model="selected"
+        :options="options"
+        stacked
+        name="radiosStacked"
+      ></b-form-radio-group>
     </b-form-group>
 
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
@@ -197,35 +211,35 @@ in the checked state.
   <div>
     <b-form-group label="Button style radios">
       <b-form-radio-group
-        id="btnradios1"
+        id="btn-radios-1"
         buttons
         v-model="selected"
         :options="options"
         name="radiosBtnDefault"
-      />
+      ></b-form-radio-group>
     </b-form-group>
 
     <b-form-group label="Button style radios with outline-primary variant and size lg">
       <b-form-radio-group
-        id="btnradios2"
+        id="btn-radios-2"
         buttons
         button-variant="outline-primary"
         size="lg"
         v-model="selected"
         :options="options"
         name="radioBtnOutline"
-      />
+      ></b-form-radio-group>
     </b-form-group>
 
     <b-form-group label="Stacked button style radios">
       <b-form-radio-group
-        id="btnradios3"
+        id="btn-radios-3"
         buttons
         stacked
         v-model="selected"
         :options="options"
         name="radioBtnStacked"
-      />
+      ></b-form-radio-group>
     </b-form-group>
   </div>
 </template>
@@ -258,11 +272,22 @@ by setting the `plain` prop.
 <template>
   <div>
     <b-form-group label="Plain inline radios">
-      <b-form-radio-group v-model="selected" :options="options" plain name="plainInline" />
+      <b-form-radio-group
+        v-model="selected"
+        :options="options"
+        plain
+        name="plainInline"
+      ></b-form-radio-group>
     </b-form-group>
 
     <b-form-group label="Plain stacked radios">
-      <b-form-radio-group v-model="selected" :options="options" plain stacked name="plainStacked" />
+      <b-form-radio-group
+        v-model="selected"
+        :options="options"
+        plain
+        stacked
+        name="plainStacked"
+      ></b-form-radio-group>
     </b-form-group>
   </div>
 </template>
@@ -311,7 +336,7 @@ To apply one of the contextual state icons on `<b-form-radio>`, set the `state` 
   <div>
     <b-form-radio-group v-model="value" :options="options" :state="state" name="radioValidation">
       <b-form-invalid-feedback :state="state">Please select one</b-form-invalid-feedback>
-      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feeback>
+      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feedback>
     </b-form-radio-group>
   </div>
 </template>
@@ -349,7 +374,7 @@ in order for the required constraint to work. All `<b-form-radio>` components ti
 The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
 only users) to know which radios belong to the same form variable (the name also automatically
 enables native browser keyboard navigation), hence `required` will only work if `name` is set.
-`<b-form-radio-group>` will automatically generate a unique input name if one is not provied on the
+`<b-form-radio-group>` will automatically generate a unique input name if one is not provided on the
 group.
 
 ### Conveying contextual validation state to assistive technologies and colorblind users:

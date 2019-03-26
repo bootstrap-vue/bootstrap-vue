@@ -33,7 +33,7 @@ import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
 
 const getReadMe = name =>
-  import('~/../src/components/' + name + '/README.md' /* webpackChunkName: "docs/components" */)
+  import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
 export default {
   components: {

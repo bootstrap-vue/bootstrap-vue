@@ -11,9 +11,9 @@
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
-    <b-navbar-toggle target="nav_collapse" />
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse is-nav id="nav_collapse">
+    <b-collapse is-nav id="nav-collapse">
       <b-navbar-nav>
         <b-nav-item href="#">Link</b-nav-item>
         <b-nav-item href="#" disabled>Disabled</b-nav-item>
@@ -22,7 +22,7 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search" />
+          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
 
@@ -34,10 +34,10 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown right>
-          <!-- Using button-content slot -->
+          <!-- Using 'button-content' slot -->
           <template slot="button-content"><em>User</em></template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Signout</b-dropdown-item>
+          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -122,7 +122,7 @@ properly size. Here are some examples to demonstrate:
   <!-- Just an image -->
   <b-navbar variant="faded" type="light">
     <b-navbar-brand href="#">
-      <img src="https://placekitten.com/g/30/30" alt="BV" />
+      <img src="https://placekitten.com/g/30/30" alt="Kitten">
     </b-navbar-brand>
   </b-navbar>
 </div>
@@ -135,7 +135,7 @@ properly size. Here are some examples to demonstrate:
   <!-- Image and text -->
   <b-navbar variant="faded" type="light">
     <b-navbar-brand href="#">
-      <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="BV" />
+      <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="Kitten">
       BootstrapVue
     </b-navbar-brand>
   </b-navbar>
@@ -179,11 +179,11 @@ alignment and horizontal spacing for strings of text.
 ```html
 <div>
   <b-navbar toggleable type="light" variant="light">
-    <b-navbar-toggle target="nav_text_collapse" />
+    <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
 
     <b-navbar-brand>BootstrapVue</b-navbar-brand>
 
-    <b-collapse is-nav id="nav_text_collapse">
+    <b-collapse is-nav id="nav-text-collapse">
       <b-navbar-nav>
         <b-nav-text>Navbar text</b-nav-text>
       </b-navbar-nav>
@@ -232,7 +232,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
 <div>
   <b-navbar type="light" variant="light">
     <b-nav-form>
-      <b-form-input class="mr-sm-2" type="text" placeholder="Search" />
+      <b-form-input class="mr-sm-2" placeholder="Search"></b-form-input>
       <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Search</b-button>
     </b-nav-form>
   </b-navbar>
@@ -248,7 +248,7 @@ Input groups work as well:
   <b-navbar type="light" variant="light">
     <b-nav-form>
       <b-input-group left="@">
-        <b-form-input class="mr-sm-2" type="text" placeholder="Username" />
+        <b-form-input class="mr-sm-2" placeholder="Username"></b-form-input>
       </b-input-group>
     </b-nav-form>
   </b-navbar>

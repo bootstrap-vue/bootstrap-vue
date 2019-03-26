@@ -12,7 +12,7 @@
       placeholder="Enter something..."
       rows="3"
       max-rows="6"
-    />
+    ></b-form-textarea>
 
     <pre class="mt-3 mb-0">{{ text }}</pre>
   </div>
@@ -44,7 +44,11 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="textarea-small">Small:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-textarea id="textarea-small" size="sm" placeholder="Small textarea" />
+      <b-form-textarea
+        id="textarea-small"
+        size="sm"
+        placeholder="Small textarea"
+      ></b-form-textarea>
     </b-col>
   </b-row>
 
@@ -53,7 +57,10 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="textarea-default">Default:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-textarea id="textarea-default" placeholder="Default textarea" />
+      <b-form-textarea
+        id="textarea-default"
+        placeholder="Default textarea"
+      ></b-form-textarea>
     </b-col>
   </b-row>
 
@@ -62,7 +69,11 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="textarea-large">Large:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-textarea id="textarea-large" size="lg" placeholder="Large textarea" />
+      <b-form-textarea
+        id="textarea-large"
+        size="lg"
+        placeholder="Large textarea"
+      ></b-form-textarea>
     </b-col>
   </b-row>
 </b-container>
@@ -82,7 +93,7 @@ value). Setting it to null or a value below 2 will result in the default of `2` 
     id="textarea-rows"
     placeholder="Tall textarea"
     rows="8"
-  />
+  ></b-form-textarea>
 </div>
 
 <!-- b-form-textarea-rows.vue -->
@@ -100,7 +111,7 @@ feature, set the `no-resize` prop to `true`.
     placeholder="Fixed height textarea"
     rows="3"
     no-resize
-  />
+  ></b-form-textarea>
 </div>
 
 <!-- b-form-textarea-no-resize.vue -->
@@ -133,7 +144,8 @@ disabled in auto-height mode.
         id="textarea-auto-height"
         placeholder="Auto height textarea"
         rows="3"
-        max-rows="8" />
+        max-rows="8"
+      ></b-form-textarea>
     </b-col>
   </b-row>
 
@@ -147,7 +159,8 @@ disabled in auto-height mode.
         placeholder="Auto height (no-shrink) textarea"
         rows="3"
         max-rows="8"
-        no-auto-shrink />
+        no-auto-shrink
+      ></b-form-textarea>
     </b-col>
   </b-row>
 </b-container>
@@ -182,7 +195,7 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
       :state="text.length >= 10"
       placeholder="Enter at least 10 characters"
       rows="3"
-    />
+    ></b-form-textarea>
   </div>
 </template>
 
@@ -236,7 +249,7 @@ form field styling and preserve the correct text size, margin, padding and heigh
 ```html
 <template>
   <div>
-    <b-form-textarea id="textarea-plaintext" plaintext :value="text" />
+    <b-form-textarea id="textarea-plaintext" plaintext :value="text"></b-form-textarea>
   </div>
 </template>
 

@@ -205,7 +205,7 @@ called synchronously, as async is not supported.
       @shown="clearName"
     >
       <form @submit.stop.prevent="handleSubmit">
-        <b-form-input type="text" placeholder="Enter your name" v-model="name" />
+        <b-form-input v-model="name" placeholder="Enter your name"></b-form-input>
       </form>
     </b-modal>
   </div>
@@ -277,13 +277,13 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 
 ```html
 <div>
-  <b-button v-b-modal.modalxl variant="primary">xl modal</b-button>
-  <b-button v-b-modal.modallg variant="primary">lg modal</b-button>
-  <b-button v-b-modal.modalsm variant="primary">sm modal</b-button>
+  <b-button v-b-modal.modal-xl variant="primary">xl modal</b-button>
+  <b-button v-b-modal.modal-lg variant="primary">lg modal</b-button>
+  <b-button v-b-modal.modal-sm variant="primary">sm modal</b-button>
 
-  <b-modal id="modalxl" size="xl" title="Extra Large Modal">Hello Extra Large Modal!</b-modal>
-  <b-modal id="modallg" size="lg" title="Large Modal">Hello Large Modal!</b-modal>
-  <b-modal id="modalsm" size="sm" title="Small Modal">Hello Small Modal!</b-modal>
+  <b-modal id="modal-xl" size="xl" title="Extra Large Modal">Hello Extra Large Modal!</b-modal>
+  <b-modal id="modal-lg" size="lg" title="Large Modal">Hello Large Modal!</b-modal>
+  <b-modal id="modal-sm" size="sm" title="Small Modal">Hello Small Modal!</b-modal>
 </div>
 
 <!-- b-modal-sizes.vue -->
@@ -408,33 +408,70 @@ the `header-border-variant` and `footer-border-variant` props respectively.
     >
       <b-container fluid>
         <b-row class="mb-1 text-center">
-          <b-col cols="3" />
+          <b-col cols="3"></b-col>
           <b-col>Background</b-col>
           <b-col>Text</b-col>
         </b-row>
 
         <b-row class="mb-1">
           <b-col cols="3">Header</b-col>
-          <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
-          <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
+          <b-col>
+            <b-form-select
+              v-model="headerBgVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="headerTextVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
         </b-row>
 
         <b-row class="mb-1">
           <b-col cols="3">Body</b-col>
-          <b-col><b-form-select :options="variants" v-model="bodyBgVariant" /></b-col>
-          <b-col><b-form-select :options="variants" v-model="bodyTextVariant" /></b-col>
+          <b-col>
+            <b-form-select
+              v-model="bodyBgVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="bodyTextVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
         </b-row>
 
         <b-row>
           <b-col cols="3">Footer</b-col>
-          <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
-          <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
+          <b-col>
+            <b-form-select
+              v-model="footerBgVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="footerTextVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
         </b-row>
       </b-container>
 
       <div slot="modal-footer" class="w-100">
         <p class="float-left">Modal Footer Content</p>
-        <b-button size="sm" class="float-right" variant="primary" @click="show=false">Close</b-button>
+        <b-button
+          variant="primary"
+          size="sm"
+          class="float-right"
+          @click="show=false"
+        >
+          Close
+        </b-button>
       </div>
     </b-modal>
   </div>
@@ -565,16 +602,16 @@ already has focus within the `<b-modal>`.
   </div>
 
   <div>
-    <b-form-input type="text" />
+    <b-form-input></b-form-input>
   </div>
 
   <div>
     <!-- Element to gain focus when modal is opened -->
-    <b-form-input ref="focusThis" type="text" />
+    <b-form-input ref="focusThis"></b-form-input>
   </div>
 
   <div>
-    <b-form-input type="text" />
+    <b-form-input></b-form-input>
   </div>
 </b-modal>
 ```

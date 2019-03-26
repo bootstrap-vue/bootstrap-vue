@@ -8,7 +8,7 @@
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" />
+    <b-table striped hover :items="items"></b-table>
   </div>
 </template>
 
@@ -79,7 +79,7 @@ modifier properties (make sure your field keys do not conflict with these names)
 ```html
 <template>
   <div>
-    <b-table hover :items="items" />
+    <b-table hover :items="items"></b-table>
   </div>
 </template>
 
@@ -156,7 +156,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -191,7 +191,7 @@ is guaranteed)**:
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -243,7 +243,7 @@ typically be in the order they were defined in the object, although **field orde
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -454,7 +454,7 @@ place a unique `:key` on your element/components in your custom formatted field 
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -498,7 +498,7 @@ You can also style every row using the `tbody-tr-class` prop
 ```html
 <template>
   <div>
-    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass"></b-table>
   </div>
 </template>
 
@@ -538,7 +538,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items" />
+    <b-table responsive :items="items"></b-table>
   </div>
 </template>
 
@@ -616,7 +616,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 ```html
 <template>
   <div>
-    <b-table stacked :items="items" />
+    <b-table stacked :items="items"></b-table>
   </div>
 </template>
 
@@ -685,7 +685,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
       <div slot="table-busy" class="text-center text-danger my-2">
-        <b-spinner class="align-middle" />
+        <b-spinner class="align-middle"></b-spinner>
         <strong>Loading...</strong>
       </div>
     </b-table>
@@ -796,10 +796,10 @@ usage of `<colgroup>`
 
 Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
 ## Custom Data Rendering
 
@@ -896,7 +896,7 @@ scoped field slot
 <template>
   <div>
     <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value" />
+      <span slot="html" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -1133,10 +1133,10 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
 
 Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
 ## Row select support
 
@@ -1157,7 +1157,7 @@ as read-only.**
 <template>
   <div>
     <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
     </b-form-group>
 
     <b-table
@@ -1166,7 +1166,7 @@ as read-only.**
       selectedVariant="success"
       :items="items"
       @row-selected="rowSelected"
-    />
+    ></b-table>
 
     {{ selected }}
   </div>
@@ -1347,7 +1347,12 @@ presentational data.
 ```html
 <template>
   <div>
-    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields" />
+    <b-table
+      :items="items"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+    ></b-table>
 
     <div>
       Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
@@ -1589,7 +1594,7 @@ table#table-transition-example .flip-list-move {
       small
       primary-key="a"
       :tbody-transition-props="transProps"
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -1709,7 +1714,8 @@ function myProvider(ctx) {
 
 `<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
 however it also provides a `busy` prop that can be used either to override the inner `busy` state,
-or to monitor `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+or to monitor `<b-pagination>`'s current busy state in your application using the 2-way `.sync`
+modifier.
 
 **Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
 function should handle errors from data sources and return an empty array to `<b-table>`.
@@ -1725,7 +1731,7 @@ function should handle errors from data sources and return an empty array to `<b
       :items="myProvider"
       :fields="fields"
       ...
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -1807,7 +1813,7 @@ Or by calling the `refresh()` method on the table reference
 
 ```html
 <div>
-  <b-table ref="table" ... />
+  <b-table ref="table" ... ></b-table>
 </div>
 ```
 
@@ -1826,7 +1832,7 @@ have changed.
 
 ```html
 <div>
-  <b-table @sort-changed="sortingChanged" ... />
+  <b-table @sort-changed="sortingChanged" ... ></b-table>
 </div>
 ```
 
@@ -1850,7 +1856,7 @@ details).
 
 ```html
 <div>
-  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... ></b-table>
 </div>
 ```
 
@@ -1870,8 +1876,8 @@ When the table is in `selectable` mode, or if there is a `row-clicked` event lis
 all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
 `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
 
-When the table items rows are in the tabl sequence, they will also support basic keyboard navigation
-when focused:
+When the table items rows are in the table sequence, they will also support basic keyboard
+navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row
@@ -1911,7 +1917,7 @@ differences between operating systems, this too is not a preventable default beh
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -1945,7 +1951,7 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select :options="pageOptions" v-model="perPage" />
+          <b-form-select :options="pageOptions" v-model="perPage"></b-form-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -1997,7 +2003,7 @@ differences between operating systems, this too is not a preventable default beh
           :per-page="perPage"
           v-model="currentPage"
           class="my-0"
-        />
+        ></b-pagination>
       </b-col>
     </b-row>
 

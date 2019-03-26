@@ -127,7 +127,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
   </b-row>
 
   <!-- Tooltip title specified via prop title -->
-  <b-tooltip target="exButton1" title="Online!" />
+  <b-tooltip target="exButton1" title="Online!"></b-tooltip>
 
   <!-- HTML title specified via default slot -->
   <b-tooltip target="exButton2" placement="bottom">
@@ -135,7 +135,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
   </b-tooltip>
 
   <!-- Tooltip for an element identified by ref -->
-  <b-tooltip :target="() => $refs.exButton3" title="Alternative!" />
+  <b-tooltip :target="() => $refs.exButton3" title="Alternative!"></b-tooltip>
 </b-container>
 
 <!-- b-tooltip-component.vue -->
@@ -153,7 +153,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `delay`           | `0`              | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays              | `0` and up, integers only.                                                                                                                       |
 | `offset`          | `0`              | Shift the center of the tooltip by specified number of pixels                                                                                                                                              | Any negative or positive integer                                                                                                                 |
 | `container`       | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
-| `boundary`        | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
+| `boundary`        | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundaryPadding` | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 
 ### Programmatically show and hide tooltip
@@ -171,7 +171,6 @@ it to `true` will show the tooltip, while setting it to `false` will hide the to
     <div class="mt-3">
       <b-button @click="show = !show">Toggle Tooltip</b-button>
     </div>
-
 
     <b-tooltip :show.sync="show" target="tooltipButton-1" placement="top">
       Hello <strong>World!</strong>
@@ -408,8 +407,8 @@ To listen to any tooltip opening, use:
 ```js
 export default {
   mounted() {
-    this.$root.$on('bv::tooltip::show', bvEventObj => {
-      console.log('bvEventObj:', bvEventObj)
+    this.$root.$on('bv::tooltip::show', bvEvent => {
+      console.log('bvEvent:', bvEvent)
     })
   }
 }

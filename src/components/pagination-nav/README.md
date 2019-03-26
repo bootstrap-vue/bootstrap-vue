@@ -22,11 +22,7 @@ component pagination (such as table or list pagination), use the
   export default {
     methods: {
       linkGen(pageNum) {
-        if (pageNum === 1) {
-          return '?'
-        } else {
-          return `?page=${pageNum}`
-        }
+        return pageNum === 1 ? '?' : `?page=${pageNum}`
       }
     }
   }
@@ -431,7 +427,7 @@ The `label-page` will optionally accept a function to generate the aria-label. T
 passed a single argument which is the page number (indexed from 1 to number of pages).
 
 You can remove any label by setting the prop to an empty string (`''`), although this is not
-reccomended unless the content of the button textually conveys it's purpose.
+recommended unless the content of the button textually conveys it's purpose.
 
 ### Keyboard navigation support
 

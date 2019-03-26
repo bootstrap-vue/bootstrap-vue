@@ -72,7 +72,7 @@ import Layout from 'bootstrap-vue/es/components/layout'
 import Alert from 'bootstrap-vue/es/components/alert'
 import Button from 'bootstrap-vue/es/components/button'
 
-// Supply configs via each plugin as it is Vue.use'd
+// Supply configs via each plugin as it is `Vue.use()`'d
 Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
 Vue.use(Alert, { BAlert: { variant: 'danger' } })
 Vue.use(Button, { BButton: { variant: 'primary' } })
@@ -87,7 +87,7 @@ import Layout from 'bootstrap-vue/es/components/layout'
 import Alert from 'bootstrap-vue/es/components/alert'
 import Button from 'bootstrap-vue/es/components/button'
 
-// Supply complete config to first Vue.use'd plugin
+// Supply complete config to first `Vue.use()`'d plugin
 Vue.use(Layout, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   BAlert: { variant: 'danger' },

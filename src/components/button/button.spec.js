@@ -5,7 +5,7 @@ import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
  * - Style variants: [ 'primary','secondary','success','outline-success','warning','danger','link' ]
  * - Sizes: [ 'sm','','lg' ]
  * - Props: [ disabled, block ]
- * - elements: [ <button/>, <a/> ]
+ * - elements: [ <button></button>, <a></a> ]
  */
 const colorVariants = ['primary', 'secondary', 'success', 'warning', 'danger']
 const outlineVariants = colorVariants.map(v => `outline-${v}`)

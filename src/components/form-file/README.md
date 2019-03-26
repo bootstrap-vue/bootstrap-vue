@@ -119,12 +119,12 @@ stylesheets. Also it is advised to use
 Alternatively you can set the content of the custom file browse button text via the `browse-text`
 prop. Note, only plain text is supported. HTML and components are not supported.
 
-## Customize the foratting of the selected file names
+## Customize the formatting of the selected file names
 
 By default, the custom styled file input lists the file names separated by commas. You can customize
 how the file names are shown either via a custom formatter function or the `file-name` scoped slot.
 
-### File name formatter functon
+### File name formatter function
 
 Set the prop `file-name-formatter` to a function that accepts a single argument which is an array of
 [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) objects. The function should return
@@ -166,7 +166,7 @@ will receive the following properties:
 | `files`  | Array | Array of `File` objects |
 | `names`  | Array | Array of file names     |
 
-Both properties are always arrays, regarless of the setting of the `multiple` prop.
+Both properties are always arrays, regardless of the setting of the `multiple` prop.
 
 ```html
 <template>
@@ -226,7 +226,7 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
 ```html
 <template>
   <div>
-    <b-form-file v-model="file" ref="fileinput" class="mb-2"></b-form-file>
+    <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
 
     <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
     <b-button @click="file = null">Reset via v-model</b-button>
@@ -244,7 +244,7 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
     },
     methods: {
       clearFiles() {
-        this.$refs.fileinput.reset()
+        this.$refs['file-input'].reset()
       }
     }
   }

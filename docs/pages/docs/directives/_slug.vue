@@ -18,7 +18,7 @@ import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
 
 const getReadMe = name =>
-  import('~/../src/directives/' + name + '/README.md' /* webpackChunkName: "docs/directives" */)
+  import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
 
 export default {
   components: {
