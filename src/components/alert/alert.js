@@ -103,7 +103,7 @@ export default {
   },
   render(h) {
     const $slots = this.$slots
-    let $alert = undefined
+    let $alert // undefined
     if (this.localShow) {
       let $dismissBtn = h(false)
       if (this.dismissible) {
