@@ -1,4 +1,3 @@
-import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 import Alert from './alert'
 import { mount } from '@vue/test-utils'
 
@@ -7,7 +6,6 @@ describe('alert', () => {
     const wrapper = mount(Alert, {})
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
-    expect(wrapper.is('div')).toBe(false)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).toBe('<!---->')
 
@@ -58,7 +56,6 @@ describe('alert', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
-    expect(wrapper.is('div')).toBe(false)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).toBe('<!---->')
 
@@ -103,6 +100,7 @@ describe('alert', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
+    expect(wrapper.find('button').attributes('aria-label')).toBe('Close')
 
     wrapper.destroy()
   })
@@ -121,11 +119,10 @@ describe('alert', () => {
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.find('button').exists()).toBe(true)
 
-    erapper.find('button').trigger('click')
+    wrapper.find('button').trigger('click')
 
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.is('div')).toBe(false)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).toBe('<!---->')
 
@@ -136,9 +133,11 @@ describe('alert', () => {
     jest.useFakeTimers()
     const wrapper = mount(Alert, {
       propsData: {
-        show: 3,
+        show: 3
       }
     })
+    expect(wrapper.isVueInstance()).toBe(true)
+
     expect(wrapper.emitted('dismiss-count-down')).not.toBeDefined()
     jest.runTimersToTime(1001)
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -150,5 +149,11 @@ describe('alert', () => {
     jest.runTimersToTime(3001)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0) // 3 - 3
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).toBe('<!---->')
+
+    wrapper.destroy()
   })
 })
