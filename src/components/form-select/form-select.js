@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formOptionsMixin from '../../mixins/form-options'
 import formMixin from '../../mixins/form'
@@ -8,7 +9,7 @@ import { from as arrayFrom } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormSelect',
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
   model: {
@@ -126,4 +127,4 @@ export default {
       [$slots.first, options, $slots.default]
     )
   }
-}
+})
