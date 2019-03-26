@@ -125,7 +125,7 @@ describe('alert', () => {
     expect(wrapper.classes()).toContain('alert-dismissible')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.find('button').exists()).toBe(true)
-    expect(wrapper.emitted('dismissed')).toBe(false)
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
 
     wrapper.find('button').trigger('click')
 
@@ -133,7 +133,7 @@ describe('alert', () => {
 
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
-    expect(wrapper.emitted('dismissed')).toBe(true)
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
 
     wrapper.destroy()
@@ -198,7 +198,8 @@ describe('alert', () => {
 
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
   })
