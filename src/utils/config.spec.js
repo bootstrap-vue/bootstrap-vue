@@ -98,8 +98,8 @@ describe('utils/config', () => {
     setConfig(testConfig)
     expect(getConfig()).toEqual(testConfig)
     expect(getConfig()).not.toBe(testConfig)
-    expect(getComponentConfig('BAlert')).toEqual(testConfig.BAlert)
     expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
+    expect(getComponentConfig('BAlert', 'dismissLabel')).toEqual('Close')
 
     // Try breakpoint config (should merge)
     setConfig(testBreakpoints)
