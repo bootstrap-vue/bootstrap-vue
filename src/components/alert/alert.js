@@ -38,12 +38,8 @@ export default {
     return {
       countDownTimerId: null,
       dismissed: false,
+      localShow: this.show,
       showClass: this.fade && this.show
-    }
-  },
-  computed: {
-    localShow() {
-      return !this.dismissed && (this.countDownTimerId || this.show)
     }
   },
   watch: {
@@ -52,6 +48,7 @@ export default {
     },
     dismissed(newVal) {
       if (newVal) {
+        this.localShow = false
         this.$emit('dismissed')
       }
     }
@@ -84,6 +81,9 @@ export default {
       this.clearCounter()
       // Reset dismiss status
       this.dismissed = false
+      if (!show) {
+        this.localShow = false
+      }
       // No timer for boolean values
       if (show === true || show === false || show === null || show === 0) {
         return
