@@ -117,6 +117,11 @@ describe('alert', () => {
       propsData: {
         show: true,
         fade: true
+      },
+      stubs: {
+        // the builtin stub doesn't execute the transition hooks
+        // so we let it use the real transition component
+        transition: false
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
