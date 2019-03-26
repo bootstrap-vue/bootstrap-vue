@@ -40,13 +40,6 @@ export default {
     }
   },
   computed: {
-    classObject() {
-      return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : '']
-    },
-    alertVariant() {
-      const variant = this.variant
-      return `alert-${variant}`
-    },
     localShow() {
       return !this.dismissed && (this.countDownTimerId || this.show)
     }
@@ -120,7 +113,11 @@ export default {
     const alert = h(
       'div',
       {
-        class: this.classObject,
+        staticClass: 'alert',
+        class: {
+          'alert-dismissible': this.dismissible,
+          [`alert-${this.variant}`]: this.variant
+        },
         attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
       },
       [dismissBtn, this.$slots.default]
