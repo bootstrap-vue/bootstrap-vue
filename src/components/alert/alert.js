@@ -23,7 +23,7 @@ export default {
     },
     dismissLabel: {
       type: String,
-      default: 'Close'
+      default: () => getComponentConfig(NAME, 'dismissLabel')
     },
     show: {
       type: [Boolean, Number],
