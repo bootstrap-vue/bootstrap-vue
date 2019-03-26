@@ -1,6 +1,6 @@
 import BListGroup from './list-group'
 import BListGroupItem from './list-group-item'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BListGroup,
@@ -8,7 +8,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

@@ -311,7 +311,7 @@ To apply one of the contextual state icons on `<b-form-radio>`, set the `state` 
   <div>
     <b-form-radio-group v-model="value" :options="options" :state="state" name="radioValidation">
       <b-form-invalid-feedback :state="state">Please select one</b-form-invalid-feedback>
-      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feeback>
+      <b-form-valid-feedback :state="state">Thank you</b-form-valid-feedback>
     </b-form-radio-group>
   </div>
 </template>

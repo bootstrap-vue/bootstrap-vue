@@ -1,6 +1,6 @@
 import BProgress from './progress'
 import BProgressBar from './progress-bar'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BProgress,
@@ -8,7 +8,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

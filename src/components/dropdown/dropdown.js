@@ -1,17 +1,21 @@
 import { stripTags } from '../../utils/html'
+import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import BButton from '../button/button'
 
+const NAME = 'BDropdown'
+
 // @vue/component
 export default {
-  name: 'BDropdown',
+  name: NAME,
   components: { BButton },
   mixins: [idMixin, dropdownMixin],
   props: {
     toggleText: {
+      // This really should be toggleLabel
       type: String,
-      default: 'Toggle Dropdown'
+      default: () => getComponentConfig(NAME, 'toggleText')
     },
     size: {
       type: String,
@@ -19,7 +23,7 @@ export default {
     },
     variant: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'variant')
     },
     menuClass: {
       type: [String, Array],

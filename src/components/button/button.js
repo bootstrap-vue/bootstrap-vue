@@ -1,9 +1,12 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { keys } from '../../utils/object'
 import { addClass, removeClass } from '../../utils/dom'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
+
+const NAME = 'BButton'
 
 const btnProps = {
   block: {
@@ -20,7 +23,7 @@ const btnProps = {
   },
   variant: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'variant')
   },
   type: {
     type: String,
@@ -85,7 +88,7 @@ function isNonStandardTag(props) {
 // Compute required classes (non static classes)
 function computeClass(props) {
   return [
-    props.variant ? `btn-${props.variant}` : `btn-secondary`,
+    `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
     {
       [`btn-${props.size}`]: Boolean(props.size),
       'btn-block': props.block,
@@ -136,7 +139,7 @@ function computeAttrs(props, data) {
 
 // @vue/component
 export default {
-  name: 'BButton',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, listeners, children }) {

@@ -2,12 +2,16 @@ import stringifyRecordValues from './stringify-record-values'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 
+const DEPRECATION_MSG =
+  'Supplying a function to prop "filter" is deprecated. Use "filter-function" instead.'
+
 export default {
   props: {
     filter: {
       // Pasing a function to filter is deprecated and should be avoided
       type: [String, RegExp, Object, Array, Function],
-      default: null
+      default: null,
+      deprecated: DEPRECATION_MSG
     },
     filterFunction: {
       type: Function,
@@ -59,9 +63,7 @@ export default {
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
         /* istanbul ignore next */
-        warn(
-          'b-table: Supplying a function to prop "filter" is deprecated. Use "filterFn" instead.'
-        )
+        warn(`b-table: ${DEPRECATION_MSG}`)
         /* istanbul ignore next */
         return filter
       } else {
