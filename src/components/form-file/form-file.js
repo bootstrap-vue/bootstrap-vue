@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
@@ -9,7 +10,7 @@ import { getComponentConfig } from '../../utils/config'
 const NAME = 'BFormFile'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   model: {
@@ -313,4 +314,4 @@ export default {
       [input, label]
     )
   }
-}
+})
