@@ -21,10 +21,14 @@ describe('alert', () => {
     expect(wrapper.is('div')).toBe(true)
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('show')
+
     expect(wrapper.attributes('role')).toBe('alert')
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
@@ -74,7 +78,7 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
-  it('dismiss should have class alert-dismissible', async () => {
+  it('dismissible alert should have class alert-dismissible', async () => {
     const wrapper = mount(Alert, {
       propsData: {
         show: true,
@@ -104,6 +108,26 @@ describe('alert', () => {
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('Close')
+
+    wrapper.destroy()
+  })
+
+  it('should have class fade when prop fade=true', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        fade: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).toContain('fade')
+    expect(wrapper.classes()).toContain('show')
 
     wrapper.destroy()
   })
