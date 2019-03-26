@@ -1,5 +1,6 @@
 import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
+import { requestAF } from '../../utils/dom'
 
 const NAME = 'BAlert'
 
@@ -36,7 +37,8 @@ export default {
   data() {
     return {
       countDownTimerId: null,
-      dismissed: false
+      dismissed: false,
+      showClass: this.fade && this.show
     }
   },
   computed: {
@@ -47,6 +49,11 @@ export default {
   watch: {
     show() {
       this.showChanged()
+    },
+    dismissed(newVal) {
+      if (newVal) {
+        this.$emit('dismissed')
+      }
     }
   },
   mounted() {
@@ -58,15 +65,13 @@ export default {
   methods: {
     dismiss() {
       this.clearCounter()
-      this.dismissed = true
-      this.$emit('dismissed')
-      this.$emit('input', false)
       if (typeof this.show === 'number') {
         this.$emit('dismiss-count-down', 0)
         this.$emit('input', 0)
       } else {
         this.$emit('input', false)
       }
+      this.dismissed = true
     },
     clearCounter() {
       if (this.countDownTimerId) {
@@ -101,27 +106,57 @@ export default {
       // If not showing, render placeholder
       return h(false)
     }
-    let dismissBtn = h(false)
+    let $dismissBtn = h(false)
     if (this.dismissible) {
       // Add dismiss button
-      dismissBtn = h(
+      $dismissBtn = h(
         'b-button-close',
         { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
         [this.$slots.dismiss]
       )
     }
-    const alert = h(
+    const $alert = h(
       'div',
       {
         staticClass: 'alert',
         class: {
+          fade: this.fade,
+          show: this.showClass,
           'alert-dismissible': this.dismissible,
           [`alert-${this.variant}`]: this.variant
         },
         attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
       },
-      [dismissBtn, this.$slots.default]
+      [$dismissBtn, this.$slots.default]
     )
-    return !this.fade ? alert : h('transition', { props: { name: 'fade', appear: true } }, [alert])
+    if (this.fade) {
+      return h(
+        'transition',
+        {
+          props: {
+            // Disable use of built-in transition classes
+            'enter-class': '',
+            'enter-active-class': '',
+            'enter-to-class': '',
+            'leave-class': '',
+            'leave-active-class': '',
+            'leave-to-class': ''
+          },
+          on: {
+            beforeEnter() {
+              requestAF(() => {
+                this.showClass = true
+              })
+            },
+            beforeLeave() {
+              this.showClass = false
+            }
+          }
+        },
+        [$alert]
+      )
+    } else {
+      return $alert
+    }
   }
 }
