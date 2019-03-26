@@ -5,7 +5,7 @@ import { getComponentConfig } from '../../utils/config'
 const NAME = 'BAlert'
 
 // @vue/component
-export default Vue.extend({
+export default BAlert = Vue.extend({
   name: NAME,
   components: { BButtonClose },
   model: {
