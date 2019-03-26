@@ -95,7 +95,7 @@ describe('alert', () => {
     const wrapper = mount(Alert, {
       propsData: {
         show: true,
-        dismissable: true
+        dismissible: true
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
@@ -112,7 +112,7 @@ describe('alert', () => {
     const wrapper = mount(Alert, {
       propsData: {
         show: true,
-        dismissable: true
+        dismissible: true
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
