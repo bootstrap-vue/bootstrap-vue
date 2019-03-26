@@ -78,7 +78,7 @@ describe('alert', () => {
     const wrapper = mount(Alert, {
       propsData: {
         show: true,
-        dismissable: true
+        dismissible: true
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
@@ -143,14 +143,12 @@ describe('alert', () => {
     expect(wrapper.html()).toBeDefined()
 
     expect(wrapper.emitted('dismiss-count-down')).not.toBeDefined()
-    jest.runTimersToTime(1001)
+    jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 3 - 1
-    jest.runTimersToTime(2001)
-    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
-    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 3 - 2
-    jest.runTimersToTime(3001)
+
+    jest.runAllTimers()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0) // 3 - 3
 
