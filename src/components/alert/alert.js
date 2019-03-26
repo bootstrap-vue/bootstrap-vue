@@ -71,9 +71,7 @@ export default {
       } else {
         this.$emit('input', false)
       }
-      if (!this.fade) {
-        this.dismissed = true
-      }
+      this.dismissed = true
     },
     clearCounter() {
       if (this.countDownTimerId) {
@@ -104,68 +102,58 @@ export default {
     }
   },
   render(h) {
-    let $dismissBtn = h(false)
-    if (this.dismissible) {
-      // Add dismiss button
-      $dismissBtn = h(
-        'b-button-close',
-        { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
-        [this.$slots.dismiss]
+    let $alert = h(false)
+    if (this.localShow) {
+      let $dismissBtn = h(false)
+      if (this.dismissible) {
+        // Add dismiss button
+        $dismissBtn = h(
+          'b-button-close',
+          { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
+          [this.$slots.dismiss]
+        )
+      }
+      $alert = h(
+        'div',
+        {
+          staticClass: 'alert',
+          class: {
+            fade: this.fade,
+            show: this.showClass,
+            'alert-dismissible': this.dismissible,
+            [`alert-${this.variant}`]: this.variant
+          },
+          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
+        },
+        [$dismissBtn, this.$slots.default]
       )
     }
-    const $alert = h(
-      'div',
+    return h(
+      'transition',
       {
-        staticClass: 'alert',
-        class: {
-          fade: this.fade,
-          show: this.showClass,
-          'alert-dismissible': this.dismissible,
-          [`alert-${this.variant}`]: this.variant
+        props: {
+          // Disable use of built-in transition classes
+          'enter-class': '',
+          'enter-active-class': '',
+          'enter-to-class': '',
+          'leave-class': '',
+          'leave-active-class': '',
+          'leave-to-class': ''
         },
-        directives: [
-          {
-            name: 'if',
-            rawName: 'v-if',
-            value: this.localShow,
-            expression: 'localShow'
-          }
-        ],
-        attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
-      },
-      [$dismissBtn, this.$slots.default]
-    )
-    if (this.fade) {
-      return h(
-        'transition',
-        {
-          props: {
-            // Disable use of built-in transition classes
-            'enter-class': '',
-            'enter-active-class': '',
-            'enter-to-class': '',
-            'leave-class': '',
-            'leave-active-class': '',
-            'leave-to-class': ''
-          },
-          on: {
-            beforeEnter: () => {
+        on: {
+          beforeEnter: () => {
+            if (this.fade) {
               requestAF(() => {
                 this.showClass = true
               })
-            },
-            beforeLeave: () => {
-              this.showClass = false
-            },
-            afterLeave: () => {
-              this.dismissed = true
             }
+          },
+          beforeLeave: () => {
+            this.showClass = false
           }
-        },
-        [$alert]
-      )
-    } else {
-      return $alert
-    }
+        }
+      },
+      [$alert]
+    )
   }
 }
