@@ -1,8 +1,9 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import { requestAF } from '../../utils/dom'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BTab',
   mixins: [idMixin],
   inject: {
@@ -216,4 +217,4 @@ export default {
       [content]
     )
   }
-}
+})
