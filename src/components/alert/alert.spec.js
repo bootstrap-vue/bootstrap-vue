@@ -25,6 +25,7 @@ describe('alert', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.attributes('role')).toBe('alert')
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
 
@@ -45,6 +46,7 @@ describe('alert', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-success')
+    expect(wrapper.attributes('role')).toBe('alert')
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
 
@@ -82,9 +84,9 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('alert-dismissible')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).toContain('alert-dismissible')
 
     wrapper.destroy()
   })
