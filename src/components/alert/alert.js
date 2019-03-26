@@ -143,12 +143,12 @@ export default {
             'leave-to-class': ''
           },
           on: {
-            beforeEnter() {
+            beforeEnter: () => {
               requestAF(() => {
                 this.showClass = true
               })
             },
-            beforeLeave() {
+            beforeLeave: () => {
               this.showClass = false
             }
           }
