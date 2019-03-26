@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -28,7 +29,7 @@ const TYPES = [
 ]
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormInput',
   mixins: [
     idMixin,
@@ -162,4 +163,4 @@ export default {
       }
     })
   }
-}
+})
