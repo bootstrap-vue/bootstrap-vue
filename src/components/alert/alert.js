@@ -104,10 +104,6 @@ export default {
     }
   },
   render(h) {
-    if (!this.localShow) {
-      // If not showing, render placeholder
-      return h(false)
-    }
     let $dismissBtn = h(false)
     if (this.dismissible) {
       // Add dismiss button
@@ -127,6 +123,14 @@ export default {
           'alert-dismissible': this.dismissible,
           [`alert-${this.variant}`]: this.variant
         },
+        directives: [
+          {
+            name: 'if',
+            rawName: 'v-if',
+            value: this.localShow,
+            expression: 'localShow'
+          }
+        ],
         attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
       },
       [$dismissBtn, this.$slots.default]
