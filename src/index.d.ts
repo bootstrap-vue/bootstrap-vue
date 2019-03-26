@@ -24,14 +24,14 @@ declare module 'bootstrap-vue' {
     headerAbbr?: string
     class?: string | string[]
     formatter?: string | FormatterCallback
-    sortable: boolean
-    sortDirection: SortDirection
-    tdClass: string | string[] | FormatterCallback
-    thClass: string | string[]
-    thStyle: mixed
-    variant: TableVariant | string
-    tdAttr: mixed | ((value: mixed, key: string, item: mixed) => mixed)
-    isRowHeader: boolean
+    sortable?: boolean
+    sortDirection?: SortDirection
+    tdClass?: string | string[] | FormatterCallback
+    thClass?: string | string[]
+    thStyle?: mixed
+    variant?: TableVariant | string
+    tdAttr?: mixed | ((value: mixed, key: string, item: mixed) => mixed)
+    isRowHeader?: boolean
   }
   export interface TableFieldObject {
     [key: string]: TableField
