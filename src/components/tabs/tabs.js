@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
@@ -127,7 +128,7 @@ function notDisabled(tab) {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BTabs',
   mixins: [idMixin],
   provide() {
@@ -603,4 +604,4 @@ export default {
       ]
     )
   }
-}
+})
