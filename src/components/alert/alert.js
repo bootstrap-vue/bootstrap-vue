@@ -98,15 +98,25 @@ export default {
         this.$emit('dismiss-count-down', dismissCountDown)
         this.$emit('input', dismissCountDown)
       }, 1000)
+    },
+    onBeforeEnter() {
+      if (this.fade) {
+        // Add show class one frame after inserted, to make transitions work
+        requestAF(() => {
+          this.showClass = true
+        })
+      }
+    },
+    onBeforeLeave() {
+      this.showClass = false
     }
   },
   render(h) {
     const $slots = this.$slots
-    let $alert // undefined
+    let $alert = h(false)
     if (this.localShow) {
       let $dismissBtn = h(false)
       if (this.dismissible) {
-        // Add dismiss button
         $dismissBtn = h(
           'b-button-close',
           { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
@@ -133,6 +143,7 @@ export default {
       'transition',
       {
         props: {
+          mode: 'out-in',
           // Disable use of built-in transition classes
           'enter-class': '',
           'enter-active-class': '',
@@ -142,16 +153,8 @@ export default {
           'leave-to-class': ''
         },
         on: {
-          beforeEnter: () => {
-            if (this.fade) {
-              requestAF(() => {
-                this.showClass = true
-              })
-            }
-          },
-          beforeLeave: () => {
-            this.showClass = false
-          }
+          beforeEnter: this.onBeforeEnter,
+          beforeLeave: this.onBeforeLeave
         }
       },
       $alert
