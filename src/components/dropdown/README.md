@@ -544,15 +544,15 @@ item:
 ```html
 <div>
   <b-dropdown id="dropdown-aria" text="Dropdown ARIA" variant="primary" class="m-2">
-    <div role="group" aria-labelledby="header1">
-      <b-dropdown-header id="header1">Groups</b-dropdown-header>
-      <b-dropdown-item-button aria-describedby="header1">Add</b-dropdown-item-button>
-      <b-dropdown-item-button aria-describedby="header1">Delete</b-dropdown-item-button>
+    <div role="group" aria-labelledby="dropdown-header-1">
+      <b-dropdown-header id="dropdown-header-1">Groups</b-dropdown-header>
+      <b-dropdown-item-button aria-describedby="dropdown-header-1">Add</b-dropdown-item-button>
+      <b-dropdown-item-button aria-describedby="dropdown-header-1">Delete</b-dropdown-item-button>
     </div>
-    <div role="group" aria-labelledby="header2">
-      <b-dropdown-header id="header2">Users</b-dropdown-header>
-      <b-dropdown-item-button aria-describedby="header2">Add</b-dropdown-item-button>
-      <b-dropdown-item-button aria-describedby="header2">Delete</b-dropdown-item-button>
+    <div role="group" aria-labelledby="dropdown-header-2">
+      <b-dropdown-header id="dropdown-header-2">Users</b-dropdown-header>
+      <b-dropdown-item-button aria-describedby="dropdown-header-2">Add</b-dropdown-item-button>
+      <b-dropdown-item-button aria-describedby="dropdown-header-2">Delete</b-dropdown-item-button>
     </div>
     <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item-button>

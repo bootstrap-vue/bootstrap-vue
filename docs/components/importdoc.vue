@@ -72,15 +72,13 @@
 </template>
 
 <script>
+import hljs from 'highlightjs'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
-import hljs from 'highlightjs'
 import AnchoredHeading from './anchored-heading'
 
 export default {
-  components: {
-    AnchoredHeading
-  },
+  components: { AnchoredHeading },
   props: {
     meta: {}
   },

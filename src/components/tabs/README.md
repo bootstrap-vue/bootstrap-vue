@@ -270,7 +270,7 @@ need to accommodate your custom classes for this._
 <template>
   <div>
     <b-card no-body>
-      <b-tabs card v-model="tabIndex">
+      <b-tabs v-model="tabIndex" card>
         <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
         <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
         <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
@@ -349,7 +349,7 @@ order to use these methods.
   <div>
     <!-- Tabs with card integration -->
     <b-card no-body>
-      <b-tabs small card v-model="tabIndex">
+      <b-tabs v-model="tabIndex" small card>
         <b-tab title="General">I'm the first fading tab</b-tab>
         <b-tab title="Edit profile">
           I'm the second tab
@@ -407,7 +407,7 @@ order to use these methods.
 
         <!-- Render this if no tabs -->
         <div slot="empty" class="text-center text-muted">
-          There are no open tabs <br />
+          There are no open tabs<br>
           Open a new tab using the <b>+</b> button above.
         </div>
       </b-tabs>

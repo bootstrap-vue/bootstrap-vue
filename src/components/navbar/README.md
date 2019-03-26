@@ -13,7 +13,7 @@
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse is-nav id="nav-collapse">
+    <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-item href="#">Link</b-nav-item>
         <b-nav-item href="#" disabled>Disabled</b-nav-item>
@@ -183,7 +183,7 @@ alignment and horizontal spacing for strings of text.
 
     <b-navbar-brand>BootstrapVue</b-navbar-brand>
 
-    <b-collapse is-nav id="nav-text-collapse">
+    <b-collapse id="nav-text-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-text>Navbar text</b-nav-text>
       </b-navbar-nav>

@@ -48,8 +48,8 @@ embedded element. Note that type `iframe` does not support any children.
 ```html
 <div>
   <b-embed type="video" aspect="4by3" controls poster="poster.png">
-    <source src="devstories.webm" type="video/webm;codecs=&quot;vp8, vorbis&quot;">
-    <source src="devstories.mp4" type="video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
+    <source src="dev-stories.webm" type="video/webm">
+    <source src="dev-stories.mp4" type="video/mp4">
   </b-embed>
 </div>
 ```

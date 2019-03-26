@@ -115,7 +115,7 @@ and optgroups _above_ the options specified by the `options` prop, use the named
 
 `value` can be a string, number, or simple object. Avoid using complex types in values.
 
-If both `html` and `text` are provided, `html` will take precidence. Only basic/native HTML is
+If both `html` and `text` are provided, `html` will take precedence. Only basic/native HTML is
 supported in the `html` field (components will not work).
 
 <p class="alert alert-danger">

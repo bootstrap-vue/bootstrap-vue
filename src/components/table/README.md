@@ -431,15 +431,15 @@ place a unique `:key` on your element/components in your custom formatted field 
 <template>
   <div>
     <b-form-group label="Table Options">
-      <b-form-checkbox inline v-model="striped">Striped</b-form-checkbox>
-      <b-form-checkbox inline v-model="bordered">Bordered</b-form-checkbox>
-      <b-form-checkbox inline v-model="borderless">Borderless</b-form-checkbox>
-      <b-form-checkbox inline v-model="outlined">Outlined</b-form-checkbox>
-      <b-form-checkbox inline v-model="small">Small</b-form-checkbox>
-      <b-form-checkbox inline v-model="hover">Hover</b-form-checkbox>
-      <b-form-checkbox inline v-model="dark">Dark</b-form-checkbox>
-      <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
-      <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
 
     <b-table
@@ -1258,7 +1258,7 @@ initially showing.
         </b-button>
 
         <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-        <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
+        <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
           Details via check
         </b-form-checkbox>
       </template>
@@ -1931,7 +1931,7 @@ differences between operating systems, this too is not a preventable default beh
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
-            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
               <option :value="false">Asc</option> <option :value="true">Desc</option>
             </b-form-select>
           </b-input-group>
@@ -1951,7 +1951,7 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select :options="pageOptions" v-model="perPage"></b-form-select>
+          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -1999,16 +1999,16 @@ differences between operating systems, this too is not a preventable default beh
     <b-row>
       <b-col md="6" class="my-1">
         <b-pagination
+          v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
-          v-model="currentPage"
           class="my-0"
         ></b-pagination>
       </b-col>
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+    <b-modal id="modal-info" @hide="resetModal" :title="modalInfo.title" ok-only>
       <pre>{{ modalInfo.content }}</pre>
     </b-modal>
   </b-container>

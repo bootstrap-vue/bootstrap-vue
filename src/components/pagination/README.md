@@ -15,13 +15,13 @@ For pagination that changes to a new URL, use the
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="myTable"
+      aria-controls="my-table"
     ></b-pagination>
 
     <p class="mt-3">Current Page: {{ currentPage }}</p>
 
     <b-table
-      id="myTable"
+      id="my-table"
       :items="items"
       :per-page="perPage"
       :current-page="currentPage"

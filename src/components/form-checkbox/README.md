@@ -10,9 +10,9 @@
 <template>
   <div>
     <b-form-checkbox
-      id="checkbox1"
-      name="checkbox1"
+      id="checkbox-1"
       v-model="status"
+      name="checkbox-1"
       value="accepted"
       unchecked-value="not_accepted"
     >
@@ -43,15 +43,15 @@
   <div>
     <b-form-group label="Using options array:">
       <b-form-checkbox-group
-        id="checkboxes1"
-        name="flavour1"
+        id="checkbox-group-1"
         v-model="selected"
         :options="options"
+        name="flavour-1"
       ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Using sub-components:">
-      <b-form-checkbox-group id="checkboxes2" name="flavour2" v-model="selected">
+      <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
         <b-form-checkbox value="orange">Orange</b-form-checkbox>
         <b-form-checkbox value="apple">Apple</b-form-checkbox>
         <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
@@ -107,16 +107,16 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
     <b-form-group label="Form-checkbox-group inline checkboxes (default)">
       <b-form-checkbox-group
         v-model="selected"
-        name="flavour1a"
         :options="options"
+        name="flavour-1a"
       ></b-form-checkbox-group>
     </b-form-group>
 
     <b-form-group label="Form-checkbox-group stacked checkboxes">
       <b-form-checkbox-group
         v-model="selected"
-        name="flavour2a"
         :options="options"
+        name="flavour-2a"
         stacked
       ></b-form-checkbox-group>
     </b-form-group>
@@ -127,7 +127,7 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
         v-model="selected"
         :key="option.value"
         :value="option.value"
-        name="flavour3a"
+        name="flavour-3a"
       >
         {{ option.text }}
       </b-form-checkbox>
@@ -139,7 +139,7 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
         v-model="selected"
         :key="option.value"
         :value="option.value"
-        name="flavour4a"
+        name="flavour-4a"
         inline
       >
         {{ option.text }}
@@ -217,10 +217,10 @@ variant is `secondary`.
 ```html
 <template>
   <div>
-    <b-form-checkbox button v-model="checked1" name="check-button">
+    <b-form-checkbox v-model="checked1" name="check-button" button>
       Button Checkbox <b>(Checked: {{ checked1 }})</b>
     </b-form-checkbox>
-    <b-form-checkbox button v-model="checked2" name="check-button" button-variant="info">
+    <b-form-checkbox v-model="checked2" name="check-button" button button-variant="info">
       Button Checkbox <b>(Checked: {{ checked2 }})</b>
     </b-form-checkbox>
   </div>
@@ -255,8 +255,8 @@ variants). The default `button-variant` is `secondary`.
     <b-form-group label="Button-group style checkboxes">
       <b-form-checkbox-group
         v-model="selected"
-        name="buttons1"
         :options="options"
+        name="buttons-1"
         buttons
       ></b-form-checkbox-group>
     </b-form-group>
@@ -264,11 +264,11 @@ variants). The default `button-variant` is `secondary`.
     <b-form-group label="Button-group style checkboxes with variant primary and large buttons">
       <b-form-checkbox-group
         v-model="selected"
+        :options="options"
         buttons
         button-variant="primary"
         size="lg"
-        name="buttons2"
-        :options="options"
+        name="buttons-2"
       ></b-form-checkbox-group>
     </b-form-group>
 
@@ -316,7 +316,7 @@ A single checkbox can be rendered with a switch appearance by setting the prop `
 ```html
 <template>
   <div>
-    <b-form-checkbox switch v-model="checked" name="check-button">
+    <b-form-checkbox v-model="checked" name="check-button" switch>
       Switch Checkbox <b>(Checked: {{ checked }})</b>
     </b-form-checkbox>
   </div>
@@ -455,7 +455,7 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
       v-model="value"
       :options="options"
       :state="state"
-      name="checkboxValidation"
+      name="checkbox-validation"
     >
       <b-form-invalid-feedback :state="state">Please select two</b-form-invalid-feedback>
       <b-form-valid-feedback :state="state">Thank you</b-form-valid-feedback>
@@ -530,7 +530,7 @@ modifier.
     </b-form-checkbox>
 
     <div class="mt-3">
-      Checked: <strong>{{ checked }}</strong><br />
+      Checked: <strong>{{ checked }}</strong><br>
       Indeterminate: <strong>{{ indeterminate }}</strong>
     </div>
 
@@ -564,7 +564,7 @@ modifier.
   <div>
     <b-form-group>
       <template slot="label">
-        <b>Choose your flavours:</b><br />
+        <b>Choose your flavours:</b><br>
         <b-form-checkbox
           v-model="allSelected"
           :indeterminate="indeterminate"
@@ -578,18 +578,18 @@ modifier.
 
       <b-form-checkbox-group
         id="flavors"
-        stacked
         v-model="selected"
-        name="flavors"
         :options="flavours"
+        name="flavors"
         class="ml-4"
         aria-label="Individual flavours"
+        stacked
       ></b-form-checkbox-group>
     </b-form-group>
 
     <div>
-      Selected: <strong>{{ selected }}</strong><br />
-      All Selected: <strong>{{ allSelected }}</strong><br />
+      Selected: <strong>{{ selected }}</strong><br>
+      All Selected: <strong>{{ allSelected }}</strong><br>
       Indeterminate: <strong>{{ indeterminate }}</strong>
     </div>
   </div>

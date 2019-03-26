@@ -7,41 +7,40 @@
   <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
-        id="exampleInputGroup1"
+        id="input-group-1"
         label="Email address:"
-        label-for="exampleInput1"
+        label-for="input-1"
         description="We'll never share your email with anyone else."
       >
         <b-form-input
-          id="exampleInput1"
-          type="email"
+          id="input-1"
           v-model="form.email"
+          type="email"
           required
           placeholder="Enter email"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
+      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
         <b-form-input
-          id="exampleInput2"
-          type="text"
+          id="input-2"
           v-model="form.name"
           required
           placeholder="Enter name"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="exampleInputGroup3" label="Food:" label-for="exampleInput3">
+      <b-form-group id="input-group-3" label="Food:" label-for="input-3">
         <b-form-select
-          id="exampleInput3"
+          id="input-3"
           v-model="form.food"
           :options="foods"
           required
         ></b-form-select>
       </b-form-group>
 
-      <b-form-group id="exampleGroup4">
-        <b-form-checkbox-group v-model="form.checked" id="exampleChecks">
+      <b-form-group id="input-group-4">
+        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
           <b-form-checkbox value="me">Check me out</b-form-checkbox>
           <b-form-checkbox value="that">Check that out</b-form-checkbox>
         </b-form-checkbox-group>
@@ -111,16 +110,16 @@ visitors with class `.sr-only`.
 ```html
 <div>
   <b-form inline>
-    <label class="sr-only" for="inlineFormInputName2">Name</label>
+    <label class="sr-only" for="inline-form-input-name">Name</label>
     <b-input
-      id="inlineFormInputName2"
+      id="inline-form-input-name"
       class="mb-2 mr-sm-2 mb-sm-0"
       placeholder="Jane Doe"
     ></b-input>
 
-    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+    <label class="sr-only" for="inline-form-input-username">Username</label>
     <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-      <b-input id="inlineFormInputGroupUsername2" placeholder="Username"></b-input>
+      <b-input id="inline-form-input-username" placeholder="Username"></b-input>
     </b-input-group>
 
     <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
@@ -137,12 +136,12 @@ Custom form controls and selects are also supported.
 ```html
 <div>
   <b-form inline>
-    <label class="mr-sm-2" for="inlineFormCustomSelectPref">Preference</label>
+    <label class="mr-sm-2" for="inline-form-custom-select-pref">Preference</label>
     <b-form-select
       class="mb-2 mr-sm-2 mb-sm-0"
       :value="null"
       :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-      id="inlineFormCustomSelectPref"
+      id="inline-form-custom-select-pref"
     >
       <option slot="first" :value="null">Choose...</option>
     </b-form-select>
@@ -205,9 +204,9 @@ will announce this help text when the user focuses or enters the control.
 ```html
 <div>
   <b-form  @submit.prevent>
-    <label for="textPassword">Password</label>
-    <b-input type="password" id="textPassword" aria-describedby="passwordHelpBlock"></b-input>
-    <b-form-text id="passwordHelpBlock">
+    <label for="text-password">Password</label>
+    <b-input type="password" id="text-password" aria-describedby="password-help-block"></b-input>
+    <b-form-text id="password-help-block">
       Your password must be 8-20 characters long, contain letters and numbers, and must not
       contain spaces, special characters, or emoji.
     </b-form-text>
@@ -244,8 +243,8 @@ or the `force-show` prop to display the feedback.
 <template>
   <div>
     <b-form  @submit.prevent>
-      <label for="feedbackUser">User ID</label>
-      <b-input v-model="userId" :state="validation" id="feedbackUser"></b-input>
+      <label for="feedback-user">User ID</label>
+      <b-input v-model="userId" :state="validation" id="feedback-user"></b-input>
       <b-form-invalid-feedback :state="validation">
         Your user ID must be 5-12 characters long.
       </b-form-invalid-feedback>

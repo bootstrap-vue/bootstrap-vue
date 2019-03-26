@@ -6,10 +6,10 @@
 
 ```html
 <div>
-  <b-button v-b-modal.modal1>Launch demo modal</b-button>
+  <b-button v-b-modal.modal-1>Launch demo modal</b-button>
 
   <!-- Modal Component -->
-  <b-modal id="modal1" title="BootstrapVue">
+  <b-modal id="modal-1" title="BootstrapVue">
     <p class="my-4">Hello from modal!</p>
   </b-modal>
 </div>
@@ -49,13 +49,13 @@ Other elements can easily show modals using the `v-b-modal` directive.
 ```html
 <div>
   <!-- Using modifiers -->
-  <b-button v-b-modal.myModal>Show Modal</b-button>
+  <b-button v-b-modal.my-modal>Show Modal</b-button>
 
   <!-- Using value -->
-  <b-button v-b-modal="'myModal'">Show Modal</b-button>
+  <b-button v-b-modal="'my-modal'">Show Modal</b-button>
 
   <!-- The modal -->
-  <b-modal id="myModal">Hello From My Modal!</b-modal>
+  <b-modal id="my-modal">Hello From My Modal!</b-modal>
 </div>
 
 <!-- b-modal-directive.vue -->
@@ -75,10 +75,10 @@ methods.
 ```html
 <template>
   <div>
-    <b-button @click="showModal" id="showBtn">Open Modal</b-button>
-    <b-button @click="toggleModal" id="toggleBtn">Toggle Modal</b-button>
+    <b-button id="show-btn" @click="showModal">Open Modal</b-button>
+    <b-button id="toggle-btn" @click="toggleModal">Toggle Modal</b-button>
 
-    <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
+    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
       <div class="d-block text-center">
         <h3>Hello From My Modal!</h3>
       </div>
@@ -92,15 +92,15 @@ methods.
   export default {
     methods: {
       showModal() {
-        this.$refs.myModalRef.show()
+        this.$refs['my-modal'].show()
       },
       hideModal() {
-        this.$refs.myModalRef.hide()
+        this.$refs['my-modal'].hide()
       },
       toggleModal() {
-        // We pass the ID of the button that we want to return focus to when
-        // the modal has hidden
-        this.$refs.myModalRef.toggle('#toggleBtn')
+        // We pass the ID of the button that we want to return focus to
+        // when the modal has hidden
+        this.$refs['my-modal'].toggle('#toggle-btn')
       }
     }
   }
@@ -152,7 +152,7 @@ reference, or a component reference (the root element of the component will be f
   <b-button @click="showModal" ref="btnShow">Open Modal</b-button>
   <b-button @click="toggleModal" ref="btnToggle">Toggle Modal</b-button>
 
-  <b-modal id="modal1">
+  <b-modal id="modal-1">
     <div class="d-block">Hello From My Modal!</div>
     <b-button @click="hideModal">Close Me</b-button>
     <b-button @click="toggleModal">Toggle Me</b-button>
@@ -164,13 +164,13 @@ reference, or a component reference (the root element of the component will be f
 export default {
   methods: {
     showModal() {
-      this.$root.$emit('bv::show::modal', 'modal1', '#btnShow')
+      this.$root.$emit('bv::show::modal', 'modal-1', '#btnShow')
     },
     hideModal() {
-      this.$root.$emit('bv::hide::modal', 'modal1', '#btnShow')
+      this.$root.$emit('bv::hide::modal', 'modal-1', '#btnShow')
     },
     toggleModal() {
-      this.$root.$emit('bv::toggle::modal', 'modal1', '#btnToggle')
+      this.$root.$emit('bv::toggle::modal', 'modal-1', '#btnToggle')
     }
   }
 }
@@ -186,7 +186,7 @@ called synchronously, as async is not supported.
 ```html
 <template>
   <div>
-    <b-button v-b-modal.modalPrevent>Launch demo modal</b-button>
+    <b-button v-b-modal.modal-prevent>Launch demo modal</b-button>
 
     <!-- Main UI -->
     <div class="mt-3 mb-3">
@@ -198,7 +198,7 @@ called synchronously, as async is not supported.
 
     <!-- Modal Component -->
     <b-modal
-      id="modalPrevent"
+      id="modal-prevent"
       ref="modal"
       title="Submit your name"
       @ok="handleOk"
@@ -660,7 +660,7 @@ When using the `bv::show::modal` event (emitted on `$root`), you can specify a s
 is the element to return focus to. This argument accepts the same types as the `return-focus` prop.
 
 ```js
-this.$root.$emit('bv::show::modal', 'modal1', '#focusThisOnClose')
+this.$root.$emit('bv::show::modal', 'modal-1', '#focusThisOnClose')
 ```
 
 _Tip:_ if using a click event (or similar) to trigger modal to open, pass the event's `target`
@@ -668,7 +668,7 @@ property:
 
 ```html
 <div>
-  <b-button @click="$root.$emit('bv::show::modal', 'modal1', $event.target)">Open Modal</b-button>
+  <b-button @click="$root.$emit('bv::show::modal', 'modal-1', $event.target)">Open Modal</b-button>
 </div>
 ```
 

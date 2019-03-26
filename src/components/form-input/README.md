@@ -105,7 +105,7 @@ new values for those using the `min` and `max` props.
 <template>
   <div>
     <label for="range-1">Example range with min and max</label>
-    <b-form-input type="range" id="range-1" v-model="value" min="0" max="5"></b-form-input>
+    <b-form-input id="range-1" v-model="value" type="range" min="0" max="5"></b-form-input>
     <div class="mt-2">Value: {{ value }}</div>
   </div>
 </template>
@@ -130,7 +130,7 @@ In the example below, we double the number of steps by using step="0.5".
 <template>
   <div>
     <label for="range-2">Example range with step value</label>
-    <b-form-input type="range" id="range-2" v-model="value" min="0" max="5" step="0.5"></b-form-input>
+    <b-form-input id="range-2" v-model="value" type="range" min="0" max="5" step="0.5"></b-form-input>
     <div class="mt-2">Value: {{ value }}</div>
   </div>
 </template>
@@ -258,23 +258,23 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
 ```html
 <template>
   <div role="group">
-    <label for="inputLive">Name:</label>
+    <label for="input-live">Name:</label>
     <b-form-input
-      id="inputLive"
+      id="input-live"
       v-model="name"
-      trim
       :state="nameState"
-      aria-describedby="inputLiveHelp inputLiveFeedback"
+      aria-describedby="input-live-help input-live-feedback"
       placeholder="Enter your name"
+      trim
     ></b-form-input>
 
     <!-- This will only be shown if the preceding input has an invalid state -->
-    <b-form-invalid-feedback id="inputLiveFeedback">
+    <b-form-invalid-feedback id="input-live-feedback">
       Enter at least 3 letters
     </b-form-invalid-feedback>
 
     <!-- This is a form text block (formerly known as help block) -->
-    <b-form-text id="inputLiveHelp">Your full name.</b-form-text>
+    <b-form-text id="input-live-help">Your full name.</b-form-text>
   </div>
 </template>
 
@@ -344,29 +344,29 @@ Formatting does not occur if a `formatter` is not provided.
 ```html
 <template>
   <div>
-    <label for="inputFormatter">Text input with formatter (on input)</label>
+    <label for="input-formatter">Text input with formatter (on input)</label>
     <b-form-input
-      id="inputFormatter"
+      id="input-formatter"
       v-model="text1"
-      placeholder="Enter your name"
-      aria-describedby="inputFormatterHelp"
       :formatter="format"
+      placeholder="Enter your name"
+      aria-describedby="input-formatter-help"
     ></b-form-input>
-    <b-form-text id="inputFormatterHelp">
+    <b-form-text id="input-formatter-help">
       We will convert your name to lowercase instantly
     </b-form-text>
     <div>Value: {{ text1 }}</div>
 
-    <label for="inputLazy">Text input with lazy formatter (on blur)</label>
+    <label for="input-lazy">Text input with lazy formatter (on blur)</label>
     <b-form-input
-      id="inputLazy"
+      id="input-lazy"
       v-model="text2"
-      placeholder="Enter your name"
-      aria-describedby="inputLazyHelp"
       :formatter="format"
+      placeholder="Enter your name"
+      aria-describedby="input-lazy-help"
       lazy-formatter
     ></b-form-input>
-    <b-form-text id="inputLazyHelp">This one is a little lazy!</b-form-text>
+    <b-form-text id="input-lazy-help">This one is a little lazy!</b-form-text>
     <div>Value: {{ text2 }}</div>
   </div>
 </template>

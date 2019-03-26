@@ -9,15 +9,15 @@
 <template>
   <div>
     <b-carousel
-      id="carousel1"
-      style="text-shadow: 1px 1px 2px #333;"
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
       controls
       indicators
       background="#ababab"
-      :interval="4000"
       img-width="1024"
       img-height="480"
-      v-model="slide"
+      style="text-shadow: 1px 1px 2px #333;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
@@ -59,7 +59,7 @@
     </b-carousel>
 
     <p class="mt-4">
-      Slide #: {{ slide }}<br />
+      Slide #: {{ slide }}<br>
       Sliding: {{ sliding }}
     </p>
   </div>

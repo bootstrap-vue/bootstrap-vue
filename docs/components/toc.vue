@@ -97,19 +97,20 @@ export default {
     })
   },
   methods: {
-    isArray(arg) {
-      return Object.prototype.toString.call(arg) === '[object Array]'
+    isArray(value) {
+      return Array.isArray(value)
     },
     scrollIntoView(e, href) {
       e.preventDefault()
       e.stopPropagation()
-      // We use an attribute querySelector rather than getElementByID, as some auto
-      // generated ID's are invalid, and some may appear more than once
+      // We use an attribute querySelector rather than getElementByID,
+      // as some auto generated ID's are invalid, and some may appear
+      // more than once
       const el = href ? document.querySelector(`[id="${href.replace(/#/g, '')}"]`) : null
       if (el) {
         // Get the document scrolling element
         const scroller = document.scrollingElement || document.documentElement || document.body
-        // scroll heading into view (minus offset to account for nav top height
+        // Scroll heading into view (minus offset to account for nav top height
         scrollTo(scroller, offsetTop(el) - 70, 100, () => {
           // Set a tab index so we can focus header for a11y support
           el.tabIndex = -1

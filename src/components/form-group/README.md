@@ -8,15 +8,15 @@
 <template>
   <div>
     <b-form-group
-      id="fieldset1"
+      id="fieldset-1"
       description="Let us know your name."
       label="Enter your name"
-      label-for="input1"
+      label-for="input-1"
       :invalid-feedback="invalidFeedback"
       :valid-feedback="validFeedback"
       :state="state"
     >
-      <b-form-input id="input1" :state="state" v-model="name" trim></b-form-input>
+      <b-form-input id="input-1" v-model="name" :state="state" trim></b-form-input>
     </b-form-group>
   </div>
 </template>
@@ -95,14 +95,14 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
 <div>
   <div>
     <b-form-group
-      id="fieldsetHorizontal"
+      id="fieldset-horizontal"
       label-cols-sm="4"
       label-cols-lg="3"
       description="Let us know your name."
       label="Enter your name"
-      label-for="inputHorizontal"
+      label-for="input-horizontal"
     >
-      <b-form-input id="inputHorizontal"></b-form-input>
+      <b-form-input id="input-horizontal"></b-form-input>
     </b-form-group>
   </div>
 </div>
@@ -177,30 +177,47 @@ of related form controls:
         label-cols-sm="3"
         label="Street:"
         label-align-sm="right"
-        label-for="nestedStreet"
+        label-for="nested-street"
       >
-        <b-form-input id="nestedStreet"></b-form-input>
+        <b-form-input id="nested-street"></b-form-input>
       </b-form-group>
 
-      <b-form-group label-cols-sm="3" label="City:" label-align-sm="right" label-for="nestedCity">
-        <b-form-input id="nestedCity"></b-form-input>
+      <b-form-group
+        label-cols-sm="3"
+        label="City:"
+        label-align-sm="right"
+        label-for="nested-city"
+      >
+        <b-form-input id="nested-city"></b-form-input>
       </b-form-group>
 
-      <b-form-group label-cols-sm="3" label="State:" label-align-sm="right" label-for="nestedState">
-        <b-form-input id="nestedState"></b-form-input>
+      <b-form-group
+        label-cols-sm="3"
+        label="State:"
+        label-align-sm="right"
+        label-for="nested-state"
+      >
+        <b-form-input id="nested-state"></b-form-input>
       </b-form-group>
 
       <b-form-group
         label-cols-sm="3"
         label="Country:"
         label-align-sm="right"
-        label-for="nestedCountry"
+        label-for="nested-country"
       >
-        <b-form-input id="nestedCountry"></b-form-input>
+        <b-form-input id="nested-country"></b-form-input>
       </b-form-group>
 
-      <b-form-group label-cols-sm="3" label="Ship via:" label-align-sm="right" class="mb-0">
-        <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']"></b-form-radio-group>
+      <b-form-group
+        label-cols-sm="3"
+        label="Ship via:"
+        label-align-sm="right" class="mb-0"
+      >
+        <b-form-radio-group
+          class="pt-2"
+          :options="['Air', 'Courier', 'Mail']"
+        ></b-form-radio-group>
       </b-form-group>
     </b-form-group>
   </b-card>

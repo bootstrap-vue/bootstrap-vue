@@ -1,8 +1,5 @@
 <template>
-  <section
-    v-if="component"
-    class="bd-content"
-  >
+  <section v-if="component" class="bd-content">
     <b-row tag="header" align-v="center">
       <b-col sm="9">
         <anchored-heading :id="`comp-ref-${componentName}`" level="2">
@@ -44,7 +41,7 @@
           <b-badge variant="warning">
             {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
           </b-badge>
-          <!-- if deprecated is a string, show the string value -->
+          <!-- If deprecated is a string, show the string value -->
           <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
         </template>
         <template slot="defaultValue" slot-scope="{ value }">
@@ -113,7 +110,10 @@
       <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4">
         $root Event Listeners
       </anchored-heading>
-      <p>You can control <code>{{ tag }}</code> by emitting the following events on <samp>$root</samp>:</p>
+      <p>
+        You can control <code>{{ tag }}</code> by emitting the following events on
+        <samp>$root</samp>:
+      </p>
       <b-table
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
@@ -151,9 +151,7 @@ import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
 
 export default {
-  components: {
-    AnchoredHeading
-  },
+  components: { AnchoredHeading },
   props: {
     component: {},
     slots: {
@@ -206,7 +204,6 @@ export default {
     },
     propsFields() {
       const props = this.componentProps
-
       const hasRequired = Object.keys(props).some(p => props[p].required)
 
       const fields = [
@@ -259,19 +256,15 @@ export default {
 
         // Describe value
         let defaultVal = p.default
-
         if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
           defaultVal = defaultVal()
         }
-
         if (typeof defaultVal !== 'string') {
           defaultVal = JSON.stringify(defaultVal)
         }
-
         if (defaultVal === '' || defaultVal === null || defaultVal === 'null') {
           defaultVal = ''
         }
-
         defaultVal = (defaultVal || '').replace(/"/g, "'")
 
         // Requied prop?
@@ -294,7 +287,7 @@ export default {
       return kebabCase(this.component)
     },
     tag() {
-      return '<' + this.componentName + '>'
+      return `<${this.componentName}>`
     },
     githubURL() {
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
