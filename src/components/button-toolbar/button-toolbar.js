@@ -1,4 +1,4 @@
-Import Vue from 'vue'
+import Vue from 'vue'
 import { isVisible, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 
