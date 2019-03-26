@@ -47,8 +47,8 @@ export default {
     }
   },
   watch: {
-    show() {
-      this.showChanged()
+    show(newVal) {
+      this.showChanged(newVal)
     },
     dismissed(newVal) {
       if (newVal) {
@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted() {
-    this.showChanged()
+    this.showChanged(this.show)
   },
   destroyed /* istanbul ignore next */() {
     this.clearCounter()
@@ -79,17 +79,17 @@ export default {
         this.countDownTimerId = null
       }
     },
-    showChanged() {
+    showChanged(show) {
       // Reset counter status
       this.clearCounter()
       // Reset dismiss status
       this.dismissed = false
       // No timer for boolean values
-      if (this.show === true || this.show === false || this.show === null || this.show === 0) {
+      if (show === true || show === false || show === null || show === 0) {
         return
       }
       // Start counter (ensure we have an integer value)
-      let dismissCountDown = parseInt(this.show, 10) || 1
+      let dismissCountDown = parseInt(show, 10) || 1
       this.countDownTimerId = setInterval(() => {
         if (dismissCountDown < 1) {
           this.dismiss()
@@ -102,7 +102,8 @@ export default {
     }
   },
   render(h) {
-    let $alert = h(false)
+    const $slots = this.$slots
+    let $alert = undefined
     if (this.localShow) {
       let $dismissBtn = h(false)
       if (this.dismissible) {
@@ -110,7 +111,7 @@ export default {
         $dismissBtn = h(
           'b-button-close',
           { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
-          [this.$slots.dismiss]
+          [$slots.dismiss]
         )
       }
       $alert = h(
@@ -125,8 +126,9 @@ export default {
           },
           attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
         },
-        [$dismissBtn, this.$slots.default]
+        [$dismissBtn, $slots.default]
       )
+      $alert = [$alert]
     }
     return h(
       'transition',
@@ -153,7 +155,7 @@ export default {
           }
         }
       },
-      [$alert]
+      $alert
     )
   }
 }
