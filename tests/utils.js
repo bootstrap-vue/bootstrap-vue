@@ -1,7 +1,8 @@
 /* istanbul ignore file */
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import Vue from 'vue/dist/vue.common'
+// import Vue from 'vue/dist/vue.common'
+import Vue from 'vue/dist/vue.esm'
 import BootstrapVue from '../src'
 
 // Hide development mode warning
