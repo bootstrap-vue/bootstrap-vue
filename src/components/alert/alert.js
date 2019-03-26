@@ -81,9 +81,8 @@ export default {
       this.clearCounter()
       // Reset dismiss status
       this.dismissed = false
-      if (!show) {
-        this.localShow = false
-      }
+      // Set localShow state
+      this.localShow = Boolean(show)
       // No timer for boolean values
       if (show === true || show === false || show === null || show === 0) {
         return
