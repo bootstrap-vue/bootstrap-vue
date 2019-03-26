@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formOptionsMixin from '../../mixins/form-options'
@@ -8,7 +9,7 @@ import formStateMixin from '../../mixins/form-state'
 import BFormRadio from './form-radio'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormRadioGroup',
   components: { BFormRadio },
   mixins: [
@@ -40,4 +41,4 @@ export default {
       return true
     }
   }
-}
+})
