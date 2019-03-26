@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 // Utilities
 import looseEqual from '../../utils/loose-equal'
 
@@ -21,7 +23,7 @@ import providerMixin from './helpers/mixin-provider'
 
 // b-table component definition
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BTable',
   // Order of mixins is important.
   // They are merged from left to fight, followed by this component.
@@ -216,4 +218,4 @@ export default {
       ? h('div', { key: 'b-table-responsive', class: this.responsiveClass }, [$table])
       : $table
   }
-}
+})
