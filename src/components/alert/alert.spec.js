@@ -133,7 +133,7 @@ describe('alert', () => {
 
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
 
     wrapper.destroy()
@@ -197,6 +197,7 @@ describe('alert', () => {
     })
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
 
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
