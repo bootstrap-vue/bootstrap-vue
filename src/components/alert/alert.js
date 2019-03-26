@@ -5,7 +5,7 @@ import { getComponentConfig } from '../../utils/config'
 const NAME = 'BAlert'
 
 // @vue/component
-export default Vue.extend({
+const BAlert = Vue.extend({
   name: NAME,
   components: { BButtonClose },
   model: {
@@ -129,3 +129,5 @@ export default Vue.extend({
     return !this.fade ? alert : h('transition', { props: { name: 'fade', appear: true } }, [alert])
   }
 })
+
+export default BAlert
