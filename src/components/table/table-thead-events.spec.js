@@ -121,7 +121,7 @@ describe('table > thead events', () => {
       slots: {
         // in Vue 2.6x, slots get translated into scopedSlots
         HEAD_a: '<button id="a">button</button>',
-        HEAD_b: '<input id="b" />',
+        HEAD_b: '<input id="b">',
         HEAD_c: '<a href="#" id="c">link</a>'
       }
     })
