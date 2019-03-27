@@ -127,9 +127,7 @@ const applyTooltip = (el, bindings, vnode) => {
 }
 
 // Remove ToolTip on our element
-/* istanbul ignore next: not easy to test */
 const removeTooltip = el => {
-  /* istanbul ignore next: not easy to test */
   if (el[BV_TOOLTIP]) {
     el[BV_TOOLTIP].destroy()
     el[BV_TOOLTIP] = null
