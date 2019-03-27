@@ -108,11 +108,14 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 // Add or update ToolTip on our element
 const applyTooltip = (el, bindings, vnode) => {
   if (!inBrowser) {
+    /* istanbul ignore next */
     return
   }
   if (!Popper) {
     // Popper is required for ToolTips to work
+    /* istanbul ignore next */
     warn('v-b-tooltip: Popper.js is required for ToolTips to work')
+    /* istanbul ignore next */
     return
   }
   const config = parseBindings(bindings)
