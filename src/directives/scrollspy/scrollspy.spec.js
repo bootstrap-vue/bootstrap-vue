@@ -1,5 +1,5 @@
 import scrollspyDirective from './scrollspy'
-import ScrollSpy from '../../utils/scrollspy.class'
+import ScrollSpy from './scrollspy.class'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 // Key we use to store our instance
@@ -30,8 +30,8 @@ describe('v-b-scrollspy directive', () => {
     const $div = wrapper.find('div')
 
     // Should have instance of popover class on it
-    expect($div.element[BV_TOOLTIP]).toBeDefined()
-    expect($div.element[BV_TOOLTIP]).toBeInstanceOf(ScrollSpy)
+    expect($div.element[BV_SCROLLSPY]).toBeDefined()
+    expect($div.element[BV_SCROLLSPY]).toBeInstanceOf(ScrollSpy)
 
     wrapper.destroy()
   })
