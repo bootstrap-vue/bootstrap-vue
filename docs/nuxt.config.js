@@ -117,6 +117,7 @@ module.exports = {
           .readdirSync(`${root}/${dir}`)
           .filter(c => c !== 'index.js' && c[0] !== '_')
           .filter(c => excludeDirs.indexOf(c) === -1)
+          .filter(c => !/\.s?css$/.test(c))
           .map(page => `/docs/${dir}/${page}`)
 
       return []
