@@ -7,6 +7,12 @@ const listenTypes = { click: true }
 // Emitted show event for modal
 const EVENT_SHOW = 'bv::show::modal'
 
+const setRole = (el, binding, vnode) => {
+  if (el.tagName !== 'BUTTON') {
+    setAttr(el, 'role', 'button')
+  }
+}
+
 /*
  * Export our directive
  */
@@ -19,10 +25,10 @@ export default {
       })
     })
     // If element is not a button, we add `role="button"` for accessibility
-    if (el.tagName !== 'BUTTON') {
-      setAttr(el, 'role', 'button')
-    }
+    setRole(el, binding, vnode)
   },
+  updated: setRole,
+  componentUpdated: setRole,
   unbind(el, binding, vnode) {
     unbindTargets(vnode, binding, listenTypes)
     // If element is not a button, we add `role="button"` for accessibility
