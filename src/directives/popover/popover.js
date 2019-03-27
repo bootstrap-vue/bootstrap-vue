@@ -106,14 +106,16 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 }
 
 // Add or update PopOver on our element
-/* istanbul ignore next: not easy to test */
-const applyPopover = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
+const applyPopover = (el, bindings, vnode) => {
   if (!inBrowser) {
+    /* istanbul ignore next */
     return
   }
   // Popper is required for PopOvers to work
   if (!Popper) {
+    /* istanbul ignore next */
     warn('v-b-popover: Popper.js is required for PopOvers to work')
+    /* istanbul ignore next */
     return
   }
   const config = parseBindings(bindings)
@@ -125,9 +127,7 @@ const applyPopover = (el, bindings, vnode) => /* istanbul ignore next: not easy 
 }
 
 // Remove PopOver on our element
-/* istanbul ignore next */
 const removePopover = el => {
-  /* istanbul ignore next: not easy to test */
   if (el[BV_POPOVER]) {
     el[BV_POPOVER].destroy()
     el[BV_POPOVER] = null
@@ -138,12 +138,11 @@ const removePopover = el => {
 /*
  * Export our directive
  */
-/* istanbul ignore next: not easy to test */
 export default {
-  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  bind(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  inserted(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
@@ -156,7 +155,7 @@ export default {
       applyPopover(el, bindings, vnode)
     }
   },
-  unbind(el) /* istanbul ignore next: not easy to test */ {
+  unbind(el) {
     removePopover(el)
   }
 }
