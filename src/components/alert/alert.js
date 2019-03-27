@@ -108,7 +108,9 @@ export default {
       }
     },
     onBeforeLeave() {
-      this.showClass = false
+      requestAF(() => {
+        this.showClass = false
+      })
     }
   },
   render(h) {
@@ -148,7 +150,7 @@ export default {
           'enter-class': '',
           'enter-active-class': '',
           'enter-to-class': '',
-          'leave-class': 'show',
+          'leave-class': '',
           'leave-active-class': '',
           'leave-to-class': ''
         },
