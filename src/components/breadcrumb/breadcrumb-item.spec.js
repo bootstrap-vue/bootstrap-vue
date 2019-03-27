@@ -36,7 +36,7 @@ describe('breadcrumb-item', () => {
   it('has link as child and href', async () => {
     const wrapper = mount(BreadcrumbItem, {
       propsData: {
-        link: '/foo/bar'
+        href: '/foo/bar'
       }
     })
     expect(wrapper.is('li')).toBe(true)
