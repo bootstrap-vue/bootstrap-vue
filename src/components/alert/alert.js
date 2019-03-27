@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
@@ -5,7 +6,7 @@ import { requestAF } from '../../utils/dom'
 const NAME = 'BAlert'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   components: { BButtonClose },
   model: {
@@ -108,9 +109,7 @@ export default {
       }
     },
     onBeforeLeave() {
-      requestAF(() => {
-        this.showClass = false
-      })
+      this.showClass = false
     }
   },
   render(h) {
@@ -150,7 +149,7 @@ export default {
           'enter-class': '',
           'enter-active-class': '',
           'enter-to-class': '',
-          'leave-class': '',
+          'leave-class': 'show',
           'leave-active-class': '',
           'leave-to-class': ''
         },
@@ -162,4 +161,4 @@ export default {
       $alert
     )
   }
-}
+})
