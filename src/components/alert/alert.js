@@ -1,5 +1,6 @@
 import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
+import { requestAF } from '../../utils/dom'
 
 const NAME = 'BAlert'
 
@@ -22,7 +23,7 @@ export default {
     },
     dismissLabel: {
       type: String,
-      default: 'Close'
+      default: () => getComponentConfig(NAME, 'dismissLabel')
     },
     show: {
       type: [Boolean, Number],
@@ -36,28 +37,24 @@ export default {
   data() {
     return {
       countDownTimerId: null,
-      dismissed: false
-    }
-  },
-  computed: {
-    classObject() {
-      return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : '']
-    },
-    alertVariant() {
-      const variant = this.variant
-      return `alert-${variant}`
-    },
-    localShow() {
-      return !this.dismissed && (this.countDownTimerId || this.show)
+      dismissed: false,
+      localShow: this.show,
+      showClass: this.fade && this.show
     }
   },
   watch: {
-    show() {
-      this.showChanged()
+    show(newVal) {
+      this.showChanged(newVal)
+    },
+    dismissed(newVal) {
+      if (newVal) {
+        this.localShow = false
+        this.$emit('dismissed')
+      }
     }
   },
   mounted() {
-    this.showChanged()
+    this.showChanged(this.show)
   },
   destroyed /* istanbul ignore next */() {
     this.clearCounter()
@@ -65,15 +62,13 @@ export default {
   methods: {
     dismiss() {
       this.clearCounter()
-      this.dismissed = true
-      this.$emit('dismissed')
-      this.$emit('input', false)
       if (typeof this.show === 'number') {
         this.$emit('dismiss-count-down', 0)
         this.$emit('input', 0)
       } else {
         this.$emit('input', false)
       }
+      this.dismissed = true
     },
     clearCounter() {
       if (this.countDownTimerId) {
@@ -81,17 +76,19 @@ export default {
         this.countDownTimerId = null
       }
     },
-    showChanged() {
+    showChanged(show) {
       // Reset counter status
       this.clearCounter()
       // Reset dismiss status
       this.dismissed = false
+      // Set localShow state
+      this.localShow = Boolean(show)
       // No timer for boolean values
-      if (this.show === true || this.show === false || this.show === null || this.show === 0) {
+      if (show === true || show === false || show === null || show === 0) {
         return
       }
       // Start counter (ensure we have an integer value)
-      let dismissCountDown = parseInt(this.show, 10) || 1
+      let dismissCountDown = parseInt(show, 10) || 1
       this.countDownTimerId = setInterval(() => {
         if (dismissCountDown < 1) {
           this.dismiss()
@@ -101,30 +98,66 @@ export default {
         this.$emit('dismiss-count-down', dismissCountDown)
         this.$emit('input', dismissCountDown)
       }, 1000)
+    },
+    onBeforeEnter() {
+      if (this.fade) {
+        // Add show class one frame after inserted, to make transitions work
+        requestAF(() => {
+          this.showClass = true
+        })
+      }
+    },
+    onBeforeLeave() /* istanbul ignore next: does not appear to be called in vue-test-utils */ {
+      this.showClass = false
     }
   },
   render(h) {
-    if (!this.localShow) {
-      // If not showing, render placeholder
-      return h(false)
-    }
-    let dismissBtn = h(false)
-    if (this.dismissible) {
-      // Add dismiss button
-      dismissBtn = h(
-        'b-button-close',
-        { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
-        [this.$slots.dismiss]
+    const $slots = this.$slots
+    let $alert = h(false)
+    if (this.localShow) {
+      let $dismissBtn = h(false)
+      if (this.dismissible) {
+        $dismissBtn = h(
+          'b-button-close',
+          { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
+          [$slots.dismiss]
+        )
+      }
+      $alert = h(
+        'div',
+        {
+          staticClass: 'alert',
+          class: {
+            fade: this.fade,
+            show: this.showClass,
+            'alert-dismissible': this.dismissible,
+            [`alert-${this.variant}`]: this.variant
+          },
+          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
+        },
+        [$dismissBtn, $slots.default]
       )
+      $alert = [$alert]
     }
-    const alert = h(
-      'div',
+    return h(
+      'transition',
       {
-        class: this.classObject,
-        attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
+        props: {
+          mode: 'out-in',
+          // Disable use of built-in transition classes
+          'enter-class': '',
+          'enter-active-class': '',
+          'enter-to-class': '',
+          'leave-class': 'show',
+          'leave-active-class': '',
+          'leave-to-class': ''
+        },
+        on: {
+          beforeEnter: this.onBeforeEnter,
+          beforeLeave: this.onBeforeLeave
+        }
       },
-      [dismissBtn, this.$slots.default]
+      $alert
     )
-    return !this.fade ? alert : h('transition', { props: { name: 'fade', appear: true } }, [alert])
   }
 }
