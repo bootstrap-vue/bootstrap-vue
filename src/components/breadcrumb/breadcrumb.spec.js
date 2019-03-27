@@ -88,7 +88,7 @@ describe('breadcrumb', () => {
     expect($lis.at(2).text()).toBe('Manage')
 
     // last item should have active state
-    expect ($lis.at(3).classes()).toContain('active')
+    expect($lis.at(3).classes()).toContain('active')
     expect(
       $lis
         .at(3)
