@@ -48,7 +48,9 @@ describe('v-b-modal directive', () => {
         bModal: modalDirective
       },
       data() {
-        return {}
+        return {
+          text: 'span'
+        }
       },
       mounted() {
         this.$root.$on(EVENT_SHOW, spy)
@@ -56,7 +58,7 @@ describe('v-b-modal directive', () => {
       beforeDestroy() {
         this.$root.$off(EVENT_SHOW, spy)
       },
-      template: '<span tabindex="0" v-b-modal.test>span</span>'
+      template: '<span tabindex="0" v-b-modal.test>{{ text }}</span>'
     })
     const wrapper = mount(App, {
       localVue: localVue
@@ -65,13 +67,21 @@ describe('v-b-modal directive', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
-    expect(wrapper.find('span').attributes('role').toBe('button')
+    expect(wrapper.find('span').attributes('role')).toBe('button')
+    expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
     $span.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $span.element)
-    expect(wrapper.find('span').attributes('role').toBe('button')
+    expect(wrapper.find('span').attributes('role')).toBe('button')
+
+    // Test updating component. should maintain role attribute
+    wrapper.setData({
+      text: 'foobar'
+    })
+    expect(wrapper.find('span').text()).toBe('foobar')
+    expect(wrapper.find('span').attributes('role')).toBe('button')
 
     wrapper.destroy()
   })
