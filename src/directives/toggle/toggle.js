@@ -16,7 +16,8 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 // Listen to event for toggle state update (emitted by collapse)
 const EVENT_STATE = 'bv::collapse::state'
 
-/* istanbul ignore next */
+// Handle directive updates
+/* istanbul ignore next: not easy to test */
 const handleUpdate = (el, binding, vnode) => {
   if (!inBrowser) {
     return
@@ -34,6 +35,9 @@ const handleUpdate = (el, binding, vnode) => {
   setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
 }
 
+/*
+ * Export our directive
+ */
 export default {
   bind(el, binding, vnode) {
     const targets = bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
