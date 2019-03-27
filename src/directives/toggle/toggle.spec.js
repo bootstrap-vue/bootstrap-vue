@@ -78,9 +78,9 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
-    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
-    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('span').classes()).not.toContain('collapsed')
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
@@ -88,9 +88,9 @@ describe('v-b-toggle directive', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('span').attributes('role')).toBe('button')
-    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
-    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('span').classes()).not.toContain('collapsed')
 
     // Test updating component. should maintain role attribute
     wrapper.setData({
@@ -98,9 +98,9 @@ describe('v-b-toggle directive', () => {
     })
     expect(wrapper.find('span').text()).toBe('foobar')
     expect(wrapper.find('span').attributes('role')).toBe('button')
-    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
-    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('span').classes()).not.toContain('collapsed')
 
     wrapper.destroy()
   })
