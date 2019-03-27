@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
-    const wrapper = mount(Alert, {})
+    const wrapper = mount(Alert)
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
@@ -53,6 +53,26 @@ describe('alert', () => {
     expect(wrapper.attributes('role')).toBe('alert')
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('renders content from default slot', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+      },
+      slots: {
+        default: '<article>foobar</article>'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('article').exists()).toBe(true)
+    expect(wrapper.find('article').text()).toBe('foobar')
 
     wrapper.destroy()
   })
@@ -112,6 +132,24 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
+  it('dismissible alert should have close button with custom aria-label', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: true,
+        dismissible: true,
+        dismissLabel: 'foobar'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.find('button').exists()).toBe(true)
+    expect(wrapper.find('button').classes()).toContain('close')
+    expect(wrapper.find('button').attributes('aria-label')).toBe('foobar')
+
+    wrapper.destroy()
+  })
+
   it('dismiss button click should close alert', async () => {
     const wrapper = mount(Alert, {
       propsData: {
@@ -126,6 +164,7 @@ describe('alert', () => {
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
 
     wrapper.find('button').trigger('click')
 
@@ -135,6 +174,9 @@ describe('alert', () => {
     expect(wrapper.html()).not.toBeDefined()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(false)
 
     wrapper.destroy()
   })
