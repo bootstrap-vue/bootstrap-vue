@@ -52,6 +52,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 // Add or update ScrollSpy on our element
 const applyScrollspy = (el, bindings, vnode) => {
   if (!inBrowser) {
+    /* istanbul ignore next */
     return
   }
   const config = parseBindings(bindings)
