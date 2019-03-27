@@ -132,16 +132,18 @@ describe('v-b-toggle directive', () => {
     const $root = wrapper.vm.$root
 
     $root.$emit(EVENT_STATE, 'test', true)
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
-    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     $root.$emit(EVENT_STATE, 'test', false)
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
 
     wrapper.destroy()
   })
