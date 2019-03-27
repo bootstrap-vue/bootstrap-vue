@@ -116,26 +116,26 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <b-container fluid>
   <b-row>
     <b-col md="4" class="py-4">
-      <b-button id="exButton1" variant="outline-success">Live chat</b-button>
+      <b-button id="button-1" variant="outline-success">Live chat</b-button>
     </b-col>
     <b-col md="4" class="py-4">
-      <b-button id="exButton2" variant="outline-success">Html chat</b-button>
+      <b-button id="button-2" variant="outline-success">Html chat</b-button>
     </b-col>
     <b-col md="4" class="py-4">
-      <b-button ref="exButton3" variant="outline-success">Alternative chat</b-button>
+      <b-button ref="button-3" variant="outline-success">Alternative chat</b-button>
     </b-col>
   </b-row>
 
   <!-- Tooltip title specified via prop title -->
-  <b-tooltip target="exButton1" title="Online!" />
+  <b-tooltip target="button-1" title="Online!"></b-tooltip>
 
   <!-- HTML title specified via default slot -->
-  <b-tooltip target="exButton2" placement="bottom">
+  <b-tooltip target="button-2" placement="bottom">
     Hello <strong>World!</strong>
   </b-tooltip>
 
   <!-- Tooltip for an element identified by ref -->
-  <b-tooltip :target="() => $refs.exButton3" title="Alternative!" />
+  <b-tooltip :target="() => $refs['button-3']" title="Alternative!"></b-tooltip>
 </b-container>
 
 <!-- b-tooltip-component.vue -->
@@ -153,7 +153,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `delay`           | `0`              | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays              | `0` and up, integers only.                                                                                                                       |
 | `offset`          | `0`              | Shift the center of the tooltip by specified number of pixels                                                                                                                                              | Any negative or positive integer                                                                                                                 |
 | `container`       | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
-| `boundary`        | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
+| `boundary`        | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundaryPadding` | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 
 ### Programmatically show and hide tooltip
@@ -165,15 +165,14 @@ it to `true` will show the tooltip, while setting it to `false` will hide the to
 <template>
   <div class="text-center">
     <div>
-      <b-button id="tooltipButton-1" variant="primary">I have a tooltip</b-button>
+      <b-button id="tooltip-button-1" variant="primary">I have a tooltip</b-button>
     </div>
 
     <div class="mt-3">
       <b-button @click="show = !show">Toggle Tooltip</b-button>
     </div>
 
-
-    <b-tooltip :show.sync="show" target="tooltipButton-1" placement="top">
+    <b-tooltip :show.sync="show" target="tooltip-button-1" placement="top">
       Hello <strong>World!</strong>
     </b-tooltip>
   </div>
@@ -193,8 +192,8 @@ To make the tooltip shown on initial render, simply add the `show` prop on `<b-t
 
 ```html
 <div class="text-center">
-  <b-button id="tooltipButton-2" variant="primary">Button</b-button>
-  <b-tooltip show target="tooltipButton-2">I start open</b-tooltip>
+  <b-button id="tooltip-button-2" variant="primary">Button</b-button>
+  <b-tooltip show target="tooltip-button-2">I start open</b-tooltip>
 </div>
 
 <!-- b-tooltip-show-open.vue -->
@@ -207,7 +206,7 @@ by reference.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-button id="tooltipButton-showEvent" variant="primary">I have a tooltip</b-button>
+      <b-button id="tooltip-button-show-event" variant="primary">I have a tooltip</b-button>
     </div>
 
     <div class="p-2">
@@ -215,7 +214,7 @@ by reference.
       <b-button class="px-1" @click="onClose">Close</b-button>
     </div>
 
-    <b-tooltip ref="tooltip" target="tooltipButton-showEvent">
+    <b-tooltip ref="tooltip" target="tooltip-button-show-event">
       Hello <strong>World!</strong>
     </b-tooltip>
   </div>
@@ -252,7 +251,7 @@ long as you have provided the `.sync` prop modifier.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-button id="tooltipButton-disable" variant="primary">I have a tooltip</b-button>
+      <b-button id="tooltip-button-disable" variant="primary">I have a tooltip</b-button>
     </div>
 
     <div class="p-2">
@@ -263,7 +262,7 @@ long as you have provided the `.sync` prop modifier.
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $ref event
       </b-button>
 
-      <b-tooltip :disabled.sync="disabled" ref="tooltip" target="tooltipButton-disable">
+      <b-tooltip :disabled.sync="disabled" ref="tooltip" target="tooltip-button-disable">
         Hello <strong>World!</strong>
       </b-tooltip>
     </div>
@@ -406,10 +405,12 @@ These events work for both the component **and** directive versions of tooltip.
 To listen to any tooltip opening, use:
 
 ```js
-mounted() {
-  this.$root.$on('bv::tooltip::show', (bvEventObj) => {
-    console.log('bvEventObj:', bvEventObj);
-  })
+export default {
+  mounted() {
+    this.$root.$on('bv::tooltip::show', bvEvent => {
+      console.log('bvEvent:', bvEvent)
+    })
+  }
 }
 ```
 

@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['standard', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
-  plugins: ['jest', 'node', 'promise'],
+  plugins: ['jest', 'markdown', 'node', 'promise'],
   parserOptions: {
     parser: 'babel-eslint',
     sourceType: 'module'
@@ -14,6 +14,16 @@ module.exports = {
     Vue: true
   },
   rules: {
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          void: 'never',
+          normal: 'never',
+          component: 'never'
+        }
+      }
+    ],
     'vue/max-attributes-per-line': ['error', { singleline: 4 }],
     'vue/no-template-shadow': 'off',
     'vue/no-use-v-if-with-v-for': 'off',

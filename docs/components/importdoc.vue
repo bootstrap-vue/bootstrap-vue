@@ -20,7 +20,7 @@
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode" /></pre>
+        <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode"></code></pre>
       </article>
     </template>
 
@@ -41,7 +41,7 @@
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode" /></pre>
+        <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode"></code></pre>
       </article>
     </template>
 
@@ -59,7 +59,7 @@
         This plugin includes all of the above listed individual directives.
       </p>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode" /></pre>
+      <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode"></code></pre>
 
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
@@ -72,15 +72,13 @@
 </template>
 
 <script>
+import hljs from 'highlightjs'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
-import hljs from 'highlightjs'
 import AnchoredHeading from './anchored-heading'
 
 export default {
-  components: {
-    AnchoredHeading
-  },
+  components: { AnchoredHeading },
   props: {
     meta: {}
   },

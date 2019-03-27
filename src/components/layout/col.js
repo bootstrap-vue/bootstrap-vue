@@ -45,7 +45,7 @@ export default (resolve, reject) => {
       className += `-${breakpoint}`
     }
     // Handling the boolean style prop when accepting [Boolean, String, Number]
-    // means Vue will not convert <b-col sm /> to sm: true for us.
+    // means Vue will not convert <b-col sm></b-col> to sm: true for us.
     // Since the default is false, an empty string indicates the prop's presence.
     if (type === 'col' && (val === '' || val === true)) {
       // .col-md

@@ -15,16 +15,18 @@ For pagination that changes to a new URL, use the
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="myTable"
-    />
+      aria-controls="my-table"
+    ></b-pagination>
+
     <p class="mt-3">Current Page: {{ currentPage }}</p>
+
     <b-table
-      id="myTable"
+      id="my-table"
       :items="items"
       :per-page="perPage"
       :current-page="currentPage"
       small
-    />
+    ></b-pagination>
   </div>
 </template>
 
@@ -107,7 +109,8 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       first-text="First"
       prev-text="Prev"
       next-text="Next"
-      last-text="Last" />
+      last-text="Last"
+    ></b-pagination>
 
     <!-- Use emojis in props -->
     <b-pagination
@@ -118,7 +121,8 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       prev-text="⏪"
       next-text="⏩"
       last-text="⏭"
-      class="mt-4" />
+      class="mt-4"
+    ></b-pagination>
 
     <!-- Use HTML and sub-components in slots -->
     <b-pagination
@@ -132,9 +136,9 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       <span class="text-warning" slot="next-text">Next</span>
       <span class="text-info" slot="last-text">Last</span>
       <div slot="ellipsis-text">
-        <b-spinner small type="grow" />
-        <b-spinner small type="grow" />
-        <b-spinner small type="grow" />
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
       </div>
       <span slot="page" slot-scope="{ page, active }">
         <b v-if="active">{{ page }}</b>
@@ -191,17 +195,17 @@ smaller buttons or `'lg'` for larger buttons.
   <div class="overflow-auto">
     <div>
       <h6>Small</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" size="sm" />
+      <b-pagination v-model="currentPage" :total-rows="rows" size="sm"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6>Default</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" />
+      <b-pagination v-model="currentPage" :total-rows="rows"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6>Large</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" size="lg" />
+      <b-pagination v-model="currentPage" :total-rows="rows" size="lg"></b-pagination>
     </div>
   </div>
 </template>
@@ -230,22 +234,22 @@ By default the pagination component is left aligned. Change the alignment to `ce
   <div class="overflow-auto">
     <div>
       <h6>Left alignment (default)</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" />
+      <b-pagination v-model="currentPage" :total-rows="rows"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6 class="text-center">Center alignment</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" align="center" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="center"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6 class="text-right">Right (end) alignment</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" align="right" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="right"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6 class="text-center">Fill alignment</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" align="fill" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="fill"></b-pagination>
     </div>
   </div>
 </template>
@@ -294,7 +298,7 @@ The `label-page` will optionally accept a function to generate the aria-label. T
 passed a single argument which is the page number (indexed from 1 to number of pages).
 
 You can remove any label by setting the prop to an empty string (`''`), although this is not
-reccomended unless the content of the button textually conveys it's purpose.
+recommended unless the content of the button textually conveys it's purpose.
 
 ### Keyboard navigation support
 
