@@ -59,7 +59,9 @@ describe('v-b-toggle directive', () => {
         bToggle: toggleDirective
       },
       data() {
-        return {}
+        return {
+          text: 'span'
+        }
       },
       mounted() {
         this.$root.$on(EVENT_TOGGLE, spy)
@@ -106,7 +108,6 @@ describe('v-b-toggle directive', () => {
   })
   it('responds to state update events', async () => {
     const localVue = new CreateLocalVue()
-    const spy = jest.fn()
 
     const App = localVue.extend({
       directives: {
@@ -129,8 +130,6 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     const $root = wrapper.vm.$root
-
-    const $button = wrapper.find('button')
 
     $root.$emit(EVENT_STATE, 'test', true)
 
