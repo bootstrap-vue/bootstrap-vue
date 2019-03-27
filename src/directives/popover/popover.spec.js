@@ -16,7 +16,7 @@ describe('v-b-popover directive', () => {
       data() {
         return {}
       },
-      template: '<button v-b-popover="'content'" title="foobar">button</button>'
+      template: `<button v-b-popover="'content'" title="foobar">button</button>`
     })
 
     const wrapper = mount(App, {
