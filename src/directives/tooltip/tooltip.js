@@ -106,8 +106,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 }
 
 // Add or update ToolTip on our element
-/* istanbul ignore next: not easy to test */
-const applyTooltip = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
+const applyTooltip = (el, bindings, vnode) => {
   if (!inBrowser) {
     return
   }
@@ -139,10 +138,10 @@ const removeTooltip = el => {
  * Export our directive
  */
 export default {
-  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  bind(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  inserted(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
@@ -155,7 +154,7 @@ export default {
       applyTooltip(el, bindings, vnode)
     }
   },
-  unbind(el) /* istanbul ignore next: not easy to test */ {
+  unbind(el) {
     removeTooltip(el)
   }
 }
