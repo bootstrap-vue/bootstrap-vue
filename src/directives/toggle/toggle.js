@@ -16,6 +16,12 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 // Listen to event for toggle state update (emitted by collapse)
 const EVENT_STATE = 'bv::collapse::state'
 
+// Reset and remove a property from the provided element
+const resetProp = (el, prop) => {
+  el[prop] = null
+  delete el[prop]
+}
+
 // Handle directive updates
 /* istanbul ignore next: not easy to test */
 const handleUpdate = (el, binding, vnode) => {
@@ -81,16 +87,18 @@ export default {
   updated: handleUpdate,
   unbind(el, binding, vnode) /* istanbul ignore next */ {
     unbindTargets(vnode, binding, listenTypes)
+    // Remove our $root listener
     if (el[BV_TOGGLE]) {
-      // Remove our $root listener
       vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE])
-      el[BV_TOGGLE] = null
-      el[BV_TOGGLE_STATE] = null
-      el[BV_TOGGLE_CONTROLS] = null
-      removeClass(el, 'collapsed')
-      removeAttr(el, 'aria-expanded')
-      removeAttr(el, 'aria-controls')
-      removeAttr(el, 'role')
     }
+    // Reset custom  props
+    resetProp(el, BV_TOGGLE)
+    resetProp(el, BV_TOGGLE_STATE)
+    resetProp(el, BV_TOGGLE_CONTROLS)
+    // Reset classes/attrs
+    removeClass(el, 'collapsed')
+    removeAttr(el, 'aria-expanded')
+    removeAttr(el, 'aria-controls')
+    removeAttr(el, 'role')
   }
 }
