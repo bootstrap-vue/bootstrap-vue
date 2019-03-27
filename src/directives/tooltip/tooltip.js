@@ -18,7 +18,7 @@ const validTriggers = {
 // Build a ToolTip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
-const parseBindings = bindings => {
+const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   // We start out with a blank config
   let config = {}
 
@@ -107,7 +107,7 @@ const parseBindings = bindings => {
 
 // Add or update ToolTip on our element
 /* istanbul ignore next: not easy to test */
-const applyTooltip = (el, bindings, vnode) => {
+const applyTooltip = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   if (!inBrowser) {
     return
   }
@@ -127,6 +127,7 @@ const applyTooltip = (el, bindings, vnode) => {
 // Remove ToolTip on our element
 /* istanbul ignore next: not easy to test */
 const removeTooltip = el => {
+  /* istanbul ignore next: not easy to test */
   if (el[BV_TOOLTIP]) {
     el[BV_TOOLTIP].destroy()
     el[BV_TOOLTIP] = null
@@ -137,25 +138,24 @@ const removeTooltip = el => {
 /*
  * Export our directive
  */
-/* istanbul ignore next: not easy to test */
 export default {
-  bind(el, bindings, vnode) {
+  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyTooltip(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) {
+  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyTooltip(el, bindings, vnode)
   },
-  update(el, bindings, vnode) {
+  update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     if (bindings.value !== bindings.oldValue) {
       applyTooltip(el, bindings, vnode)
     }
   },
-  componentUpdated(el, bindings, vnode) {
+  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     if (bindings.value !== bindings.oldValue) {
       applyTooltip(el, bindings, vnode)
     }
   },
-  unbind(el) {
+  unbind(el) /* istanbul ignore next: not easy to test */ {
     removeTooltip(el)
   }
 }
