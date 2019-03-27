@@ -8,7 +8,7 @@ describe('v-b-modal directive', () => {
     const localVue = new CreateLocalVue()
     const spy = jest.fn()
 
-    const App = Vue.extend({
+    const App = localVue.extend({
       directives: {
         bModal: modalDirective
       },
