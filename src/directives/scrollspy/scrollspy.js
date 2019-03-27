@@ -8,7 +8,7 @@ const BV_SCROLLSPY = '__BV_ScrollSpy__'
 // Build a ScrollSpy config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
-const parseBindings = bindings => {
+const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   const config = {}
 
   // If argument, assume element ID
@@ -50,7 +50,6 @@ const parseBindings = bindings => {
 }
 
 // Add or update ScrollSpy on our element
-/* istanbul ignore next: not easy to test */
 const applyScrollspy = (el, bindings, vnode) => {
   if (!inBrowser) {
     return
@@ -64,7 +63,6 @@ const applyScrollspy = (el, bindings, vnode) => {
 }
 
 // Remove ScrollSpy on our element
-/* istanbul ignore next: not easy to test */
 const removeScrollspy = el => {
   if (el[BV_SCROLLSPY]) {
     el[BV_SCROLLSPY].dispose()
@@ -77,10 +75,10 @@ const removeScrollspy = el => {
  * Export our directive
  */
 export default {
-  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  bind(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  inserted(el, bindings, vnode)  {
     applyScrollspy(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
@@ -93,7 +91,7 @@ export default {
       applyScrollspy(el, bindings, vnode)
     }
   },
-  unbind(el) /* istanbul ignore next: not easy to test */ {
+  unbind(el) {
     removeScrollspy(el)
   }
 }
