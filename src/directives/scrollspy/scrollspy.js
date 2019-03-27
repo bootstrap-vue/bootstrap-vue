@@ -78,7 +78,7 @@ export default {
   bind(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode)  {
+  inserted(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
