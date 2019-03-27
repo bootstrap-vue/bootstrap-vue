@@ -1,5 +1,22 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
+/*
+// For migration to test utils
+const items1 = [
+  { text: 'Home', href: '/' },
+  { text: 'Admin', href: '/admin', active: false },
+  { html: '<b>Manage</b>', href: '/admin/manage' },
+  // Test with non object
+  'Library'
+]
+const items2 = [
+  { text: 'Home', href: '/' },
+  { text: 'Admin', href: '/admin', active: true },
+  { text: 'Manage', href: '/admin/manage' },
+  { text: 'Library', href: '/admin/manage/library' }
+]
+*/
+
 describe('breadcrumb', () => {
   beforeEach(loadFixture(__dirname, 'breadcrumb'))
   testVM()
@@ -15,19 +32,6 @@ describe('breadcrumb', () => {
     Array.from($ol.children).forEach($li => {
       if ($li.tagName === 'LI') {
         expect($li.classList.contains('breadcrumb-item')).toBe(true)
-      }
-    })
-  })
-
-  it('should apply ARIA roles', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const $ol = $refs.breadcrumb1
-
-    Array.from($ol.children).forEach($li => {
-      if ($li.tagName === 'LI') {
-        expect($li.getAttribute('role')).toBe('presentation')
       }
     })
   })
@@ -85,19 +89,4 @@ describe('breadcrumb', () => {
       }
     })
   })
-
-  // TODO: FC's can't emit events, so what to do here?
-  // it("should emit a click event with the item when clicked", async () => {
-  //     const { app: { $refs, $el } } = window
-  //     const vm = $refs.breadcrumb2
-  //     const spy = jest.fn()
-
-  //     vm.$on("click", spy)
-  //     const $listItems = Array.from(vm.$el.children)
-
-  //     app.items2.forEach((item, index) => {
-  //         $listItems[index].click()
-  //         expect(spy).toHaveBeenCalledWith(item)
-  //     })
-  // })
 })
