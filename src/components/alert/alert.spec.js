@@ -60,7 +60,7 @@ describe('alert', () => {
   it('renders content from default slot', async () => {
     const wrapper = mount(Alert, {
       propsData: {
-        show: true,
+        show: true
       },
       slots: {
         default: '<article>foobar</article>'
