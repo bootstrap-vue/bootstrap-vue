@@ -18,7 +18,7 @@ const validTriggers = {
 // Build a PopOver config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
-const parseBindings = bindings => {
+const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   // We start out with a blank config
   let config = {}
 
@@ -107,7 +107,7 @@ const parseBindings = bindings => {
 
 // Add or update PopOver on our element
 /* istanbul ignore next: not easy to test */
-const applyPopover = (el, bindings, vnode) => {
+const applyPopover = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   if (!inBrowser) {
     return
   }
@@ -127,6 +127,7 @@ const applyPopover = (el, bindings, vnode) => {
 // Remove PopOver on our element
 /* istanbul ignore next */
 const removePopover = el => {
+  /* istanbul ignore next: not easy to test */
   if (el[BV_POPOVER]) {
     el[BV_POPOVER].destroy()
     el[BV_POPOVER] = null
@@ -139,23 +140,23 @@ const removePopover = el => {
  */
 /* istanbul ignore next: not easy to test */
 export default {
-  bind(el, bindings, vnode) {
+  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyPopover(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) {
+  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyPopover(el, bindings, vnode)
   },
-  update(el, bindings, vnode) {
+  update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     if (bindings.value !== bindings.oldValue) {
       applyPopover(el, bindings, vnode)
     }
   },
-  componentUpdated(el, bindings, vnode) {
+  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     if (bindings.value !== bindings.oldValue) {
       applyPopover(el, bindings, vnode)
     }
   },
-  unbind(el) {
+  unbind(el) /* istanbul ignore next: not easy to test */ {
     removePopover(el)
   }
 }
