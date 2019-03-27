@@ -86,7 +86,7 @@ describe('breadcrumb-link', () => {
     })
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.attributes('href')).not.toBeDefined()
-    expect(wrapper.attributes('aria-current')).not.toBeDefined()
+    expect(wrapper.attributes('aria-current')).toBeDefined('location')
     expect(wrapper.classes().length).toBe(0)
   })
 })
