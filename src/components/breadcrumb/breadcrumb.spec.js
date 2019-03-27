@@ -1,103 +1,176 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import Breadcrumb from './breadcrumb'
+import { mount } from '@vue/test-utils'
 
 describe('breadcrumb', () => {
-  beforeEach(loadFixture(__dirname, 'breadcrumb'))
-  testVM()
+  it('should have expected default structure', async () => {
+    const wrapper = mount(Breadcrumb)
 
-  it('should apply Bootstrap breadcrumb classes', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const $ol = $refs.breadcrumb1
-
-    expect($ol.classList.contains('breadcrumb')).toBe(true)
-
-    Array.from($ol.children).forEach($li => {
-      if ($li.tagName === 'LI') {
-        expect($li.classList.contains('breadcrumb-item')).toBe(true)
-      }
-    })
+    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.classes()).toContain('breadcrumb')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toBe('')
   })
 
-  it('should apply ARIA roles', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const $ol = $refs.breadcrumb1
-
-    Array.from($ol.children).forEach($li => {
-      if ($li.tagName === 'LI') {
-        expect($li.getAttribute('role')).toBe('presentation')
+  it('should render default slot when no items provided', async () => {
+    const wrapper = mount(Breadcrumb, {
+      slots: {
+        default: 'foobar'
       }
     })
+    
+    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.classes()).toContain('breadcrumb')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toBe('foobar')
+  })
+
+  it ('should accpet items', () => {
+    const wrapper = mount(Breadcrumb, {
+      propsData: {
+        items: [
+          { text: 'Home', href: '/' },
+          { text: 'Admin', to: '/admin', active: false },
+          { html: '<b>Manage</b>', href: '/admin/manage' },
+          // Test with non object
+          'Library'
+        ]
+      }
+    })
+    
+    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.classes()).toContain('breadcrumb')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('li').length).toBe(4)
+    expect(wrapper.findAll('li.breadcrumb-item').length).toBe(4)
+    const $lis = wrapper.findAll('li')
+
+    // HREF testing
+    expect (
+      $lis
+        .at(0)
+        .find('a')
+        .exists()
+    ).toBe(true)
+    expect (
+      $lis
+        .at(0)
+        .find('a')
+        .attributes('href')
+    ).toBe('/')
+    expect ($lis.at(0).text()).toBe('Home')
+
+    expect (
+      $lis
+        .at(1)
+        .find('a')
+        .exists()
+    ).toBe(true)
+    expect (
+      $lis
+        .at(1)
+        .find('a')
+        .attributes('href')
+    ).toBe('/admin')
+    expect ($lis.at(1).text()).toBe('Admin')
+
+    expect (
+      $lis
+        .at(2)
+        .find('a')
+        .exists()
+    ).toBe(true)
+    expect (
+      $lis
+        .at(2)
+        .find('a')
+        .attributes('href')
+    ).toBe('/admin/manage')
+    expect ($lis.at(1).text()).toBe('Manage')
+
+    // last item should have active state
+    expect ($lis.at(3).classes()).toContain('active')
+    expect (
+      $lis
+        .at(3)
+        .find('span')
+        .exists()
+    ).toBe(true)
+    expect ($lis.at(3).text()).toBe('Library')
   })
 
   it('should apply active class to active item', async () => {
-    const {
-      app: {
-        $refs: { breadcrumb2: crumb2 },
-        items2
-      }
-    } = window
-
-    items2.forEach((item, i) => {
-      if (item.active) {
-        expect(crumb2.children[i].classList.contains('active')).toBe(true)
+    const wrapper = mount(Breadcrumb, {
+      propsData: {
+        items: [
+          { text: 'Home', href: '/' },
+          { text: 'Admin', to: '/admin', active: true },
+          { html: '<b>Manage</b>', href: '/admin/manage' },
+          { text: 'Library', href: '/admin/manage/library' }
+        ]
       }
     })
+
+    
+    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.classes()).toContain('breadcrumb')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('li').length).toBe(4)
+    expect(wrapper.findAll('li.breadcrumb-item').length).toBe(4)
+    const $lis = wrapper.findAll('li')
+
+    // HREF testing
+    expect (
+      $lis
+        .at(0)
+        .find('a')
+        .exists()
+    ).toBe(true)
+    expect (
+      $lis
+        .at(0)
+        .find('a')
+        .attributes('href')
+    ).toBe('/')
+    expect ($lis.at(0).text()).toBe('Home')
+
+    // This one should be a span/active
+    expect (
+      $lis
+        .at(1)
+        .find('span')
+        .exists()
+    ).toBe(true)
+    expect ($lis.at(1).classes()).toContain('active')
+    expect ($lis.at(1).text()).toBe('Admin')
+
+    expect (
+      $lis
+        .at(2)
+        .find('a')
+        .exists()
+    ).toBe(true)
+    expect (
+      $lis
+        .at(2)
+        .find('a')
+        .attributes('href')
+    ).toBe('/admin/manage')
+    expect ($lis.at(1).text()).toBe('Manage')
+
+    // last item should have active state
+    expect ($lis.at(3).classes()).not.toContain('active')
+    expect (
+      $lis
+        .at(3)
+        .find('a')
+        .exists()
+    ).toBe(true)
+    expect (
+      $lis
+        .at(2)
+        .find('a')
+        .attributes('href')
+    ).toBe('/admin/manage/library')
+    expect ($lis.at(3).text()).toBe('Library')
   })
-
-  it('should apply aria-current to active class element', async () => {
-    const {
-      app: {
-        $refs: { breadcrumb2: crumb2 },
-        items2
-      }
-    } = window
-    const $listItems = Array.from(crumb2.children)
-
-    items2.forEach((item, i) => {
-      if (item.active) {
-        expect($listItems[i].firstElementChild.hasAttribute('aria-current')).toBe(true)
-      } else {
-        expect($listItems[i].firstElementChild.hasAttribute('aria-current')).toBe(false)
-      }
-    })
-  })
-
-  it('should default active class to last item only when no true active prop provided', async () => {
-    const {
-      app: {
-        $refs: { breadcrumb1: crumb },
-        items
-      }
-    } = window
-    const $listItems = Array.from(crumb.children)
-    const itemsLength = items.length
-
-    items.forEach((item, i) => {
-      const isLast = i === itemsLength - 1
-
-      if (isLast) {
-        expect($listItems[i].classList.contains('active')).toBe(true)
-      } else {
-        expect($listItems[i].classList.contains('active')).toBe(false)
-      }
-    })
-  })
-
-  // TODO: FC's can't emit events, so what to do here?
-  // it("should emit a click event with the item when clicked", async () => {
-  //     const { app: { $refs, $el } } = window
-  //     const vm = $refs.breadcrumb2
-  //     const spy = jest.fn()
-
-  //     vm.$on("click", spy)
-  //     const $listItems = Array.from(vm.$el.children)
-
-  //     app.items2.forEach((item, index) => {
-  //         $listItems[index].click()
-  //         expect(spy).toHaveBeenCalledWith(item)
-  //     })
-  // })
 })
