@@ -232,7 +232,7 @@ Both these fixes have been documented in a
   <b-row>
     <b-col>Column</b-col>
     <b-col>Column</b-col>
-    <div class="w-100" />
+    <div class="w-100"></div>
     <b-col>Column</b-col>
     <b-col>Column</b-col>
   </b-row>

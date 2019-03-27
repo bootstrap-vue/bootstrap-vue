@@ -65,7 +65,7 @@
     "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
     "docs-publish": "scripts/docs-publish.sh",
     "test": "jest",
-    "lint": "eslint --ext .js,.vue ./",
+    "lint": "eslint --ext .js,.md,.vue ./",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
     "release": "npm run prettify && npm run test && npm run build && standard-version",
     "postinstall": "opencollective || exit 0"
@@ -101,6 +101,7 @@
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
+    "eslint-plugin-markdown": "^1.0.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",

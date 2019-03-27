@@ -61,7 +61,7 @@ navigation will not leave a history record.
 
 ```html
 <div>
-  <b-link :to="{ path: '/abc'}" replace />
+  <b-link :to="{ path: '/abc'}" replace></b-link>
 </div>
 ```
 
@@ -76,7 +76,7 @@ are navigating from `/a` to a relative link `b`, without `append` we will end up
 
 ```html
 <div>
-  <b-link :to="{ path: 'relative/path'}" append />
+  <b-link :to="{ path: 'relative/path'}" append></b-link>
 </div>
 ```
 
@@ -123,7 +123,7 @@ into "exact match mode", use the `exact` prop:
 ```html
 <div>
   <!-- This link will only be active at `/` -->
-  <b-link to="/" exact />
+  <b-link to="/" exact></b-link>
 </div>
 ```
 
@@ -156,7 +156,7 @@ the viewport, Nuxt.js will automatically prefetch the code splitted page. Settin
 disabled this feature for the specific link.
 
 **Note:** If you have prefetching disabled in your `nuxt.config.js` configuration
-(`router: { prefetchLinks: false}`), or are using a version of Nuxt.JS `< 2.4.0`, then this prop
+(`router: { prefetchLinks: false}`), or are using a version of Nuxt.js `< 2.4.0`, then this prop
 will have no effect.
 
 Prefetching support requires

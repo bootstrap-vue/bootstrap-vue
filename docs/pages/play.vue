@@ -47,7 +47,7 @@
       <div key="A" :class="full ? 'col-12' : 'col'">
         <transition-group class="row" tag="div" name="flip">
           <div key="A1" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
-            <!--Template-->
+            <!-- Template -->
             <div class="card mt-2">
               <div class="card-header card-outline-info">
                 <span>Template</span>
@@ -60,11 +60,11 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="html" mode="htmlmixed" />
+              <codemirror v-model="html" mode="htmlmixed"></codemirror>
             </div>
           </div>
           <div key="A2" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
-            <!--JS-->
+            <!-- JS -->
             <div class="card mt-2">
               <div class="card-header card-outline-warning">
                 <span>JS</span>
@@ -77,14 +77,14 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="js" mode="javascript" />
+              <codemirror v-model="js" mode="javascript"></codemirror>
             </div>
           </div>
         </transition-group>
       </div>
 
       <div key="B" :class="`col-md-${vertical || full ? 12 : 6} col-sm-12`">
-        <!--Result-->
+        <!-- Result -->
         <div class="card mt-2">
           <div class="card-header card-outline-success">
             <span>Result</span>
@@ -98,10 +98,10 @@
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
           </div>
-          <div ref="result" class="card-body" />
+          <div ref="result" class="card-body"></div>
         </div>
 
-        <!--Console-->
+        <!-- Console -->
         <div class="card mt-2">
           <div class="card-header card-outline-secondary">
             <span>Console</span>
@@ -347,14 +347,14 @@ export default {
     doSetup() {
       // Create our debounced runner
       this.run = debounce(this._run, 500)
-      // Set up our editor content watcher.
+      // Set up our editor content watcher
       this.contentUnWatch = this.$watch(
         () => this.js.trim() + '::' + this.html.trim(),
         (newVal, oldVal) => {
           this.run()
         }
       )
-      // load our content into the editors
+      // Load our content into the editors
       this.$nextTick(this.load)
     },
     destroyVM() {
@@ -423,10 +423,10 @@ export default {
         delete options.template
       }
 
-      // Vue's errorCapture doesn't always handle errors in methods, so we
-      // wrap any methods with a try/catch handler so we can show the error in our GUI console
-      // https://github.com/vuejs/vue/issues/8568
+      // Vue's errorCapture doesn't always handle errors in methods, so we wrap any
+      // methods with a try/catch handler so we can show the error in our GUI console
       // Doesn't handle errors in async methods
+      // See: https://github.com/vuejs/vue/issues/8568
       if (options.methods) {
         Object.keys(options.methods).forEach(methodName => {
           const fn = options.methods[methodName]
@@ -454,13 +454,14 @@ export default {
           el: holder,
           // Router needed for tooltips/popovers so they hide when docs route changes
           router: this.$router,
-          // We set a fake parent so we can capture most runtime and render errors (error boundary)
+          // We set a fake parent so we can capture most runtime and
+          // render errors (error boundary)
           parent: new Vue({
-            template: '<span />',
+            template: '<span></span>',
             errorCaptured(err, vm, info) {
-              // pass error to playground error handler
+              // Pass error to playground error handler
               playground.errHandler(err, info)
-              // dont propegate to parent/global error handler!
+              // Don't propegate to parent/global error handler!
               return false
             }
           })
@@ -471,7 +472,8 @@ export default {
         return
       }
 
-      // We got this far, so save the JS/HTML changes to localStorage and enable export button
+      // We got this far, so save the JS/HTML changes to localStorage
+      // and enable export button
       this.isOk = true
       this.save()
     },
@@ -497,7 +499,8 @@ export default {
       this.full = !this.full
     },
     log(tag, ...args) {
-      // We have to ignore props mutation warning due to vue bug when we have two instances
+      // We have to ignore props mutation warning due to a Vue bug
+      // when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
@@ -537,7 +540,7 @@ export default {
       }
       const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
       if (Date.now() - ts > maxRetention) {
-        // clear local storage if it is old
+        // Clear local storage if it is old
         ls.removeItem('playground_js')
         ls.removeItem('playground_html')
         ls.removeItem('playground_ts')
@@ -554,7 +557,7 @@ export default {
         window.localStorage.setItem('playground_html', this.html)
         window.localStorage.setItem('playground_ts', String(Date.now()))
       } catch (err) {
-        // silently ignore errors on safari iOS private mode
+        // Silently ignore errors on safari iOS private mode
       }
     }
   }
