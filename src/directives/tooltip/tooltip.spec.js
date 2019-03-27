@@ -20,7 +20,8 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue: localVue,
+      attachToDocument: true
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
