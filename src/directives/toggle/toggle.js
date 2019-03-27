@@ -7,8 +7,8 @@ const listenTypes = { click: true }
 
 // Property key for handler storage
 const BVT = '__BV_toggle__'
-const BVTS = '__BV_toggle_STATE__'
-const BVTC = '__BV_toggle_CONTROLS__'
+const BVT_STATE = '__BV_toggle_STATE__'
+const BVT_CCONTROLS = '__BV_toggle_CONTROLS__'
 
 // Emitted Control Event for collapse (emitted to collapse)
 const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -16,7 +16,8 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 // Listen to Event for toggle state update (Emited by collapse)
 const EVENT_STATE = 'bv::collapse::state'
 
-const handleUpdate(el, binding, vnode) /* istanbul ignore next */ {
+/* istanbul ignore next */
+const handleUpdate = (el, binding, vnode)  => {
   // Ensure the collapse class and aria-* attributes persist
   // after element is updated (eitehr by parent re-rendering
   // or changes to this element or it's contents.
