@@ -81,7 +81,7 @@ Object.keys(directives).forEach(page => {
   import(`~/../src/directives/${page}/README.md` /* webpackChunkName: "docs/directives" */).then(
     readme => process(readme.default, 'directives', page)
   )
-  })
+})
 Object.keys(reference).forEach(page => {
   import(`~/markdown/reference/${page}/README.md` /* webpackChunkName: "docs/reference" */).then(
     readme => process(readme.default, 'reference', page)
@@ -89,7 +89,7 @@ Object.keys(reference).forEach(page => {
 })
 Object.keys(misc).forEach(page => {
   import(`~/markdown/misc/${page}/README.md` /* webpackChunkName: "docs/misc" */).then(readme =>
-      process(readme.default, 'misc', page)
+    process(readme.default, 'misc', page)
   )
 })
 
@@ -139,7 +139,7 @@ export default {
         if (regex.test(item.title) || regex.test(item.section)) {
           results.push(item)
         }
-      return results
+        return results
       }, [])
     }
   }
