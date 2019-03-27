@@ -4,7 +4,7 @@ import { loadFixture, testVM } from '../../../tests/utils'
 // For migration to test utils
 const items1 = [
   { text: 'Home', href: '/' },
-  { text: 'Admin', href: '/admin', active: false },
+  { text: 'Admin', to: '/admin', active: false },
   { html: '<b>Manage</b>', href: '/admin/manage' },
   // Test with non object
   'Library'
