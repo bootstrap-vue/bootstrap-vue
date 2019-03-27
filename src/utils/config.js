@@ -38,6 +38,7 @@ const DEFAULTS = {
   // Component Specific defaults are keyed by the component
   // name (PascalCase) and prop name (camelCase)
   BAlert: {
+    dismissLabel: 'Close',
     variant: 'info'
   },
   BBadge: {
