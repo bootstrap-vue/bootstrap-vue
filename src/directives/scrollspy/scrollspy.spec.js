@@ -1,0 +1,38 @@
+import scrollspyDirective from './scrollspy'
+import ScrollSpy from '../../utils/scrollspy.class'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+
+// Key we use to store our instance
+const BV_SCROLLSPY = '__BV_ScrollSpy__'
+
+describe('v-b-scrollspy directive', () => {
+  it('should have ScrollSpy class instance', async () => {
+    const localVue = new CreateLocalVue()
+
+    const App = localVue.extend({
+      directives: {
+        bScrollspy: scrollspyDirective
+      },
+      data() {
+        return {}
+      },
+      // Assumes watching body element for scrolls
+      template: '<div v-b-scrollspy>content</div>'
+    })
+
+    const wrapper = mount(App, {
+      localVue: localVue,
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    const $div = wrapper.find('div')
+
+    // Should have instance of popover class on it
+    expect($div.element[BV_TOOLTIP]).toBeDefined()
+    expect($div.element[BV_TOOLTIP]).toBeInstanceOf(ScrollSpy)
+
+    wrapper.destroy()
+  })
+})
