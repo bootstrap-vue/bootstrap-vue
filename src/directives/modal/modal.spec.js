@@ -1,5 +1,5 @@
 import modalDirective from './modal'
-import { mount, createLocalVue as CreateLocalVue} from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const EVENT_SHOW = 'bv::show::modal'
 
