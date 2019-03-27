@@ -34,9 +34,9 @@ describe('button-group', () => {
       }
     })
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes()).toContain('btn-group-vertical')
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes()).not.toContain('btn-group')
+    expect(wrapper.classes().length).toBe(1)
   })
 
   it('should apply size class', async () => {
@@ -59,10 +59,10 @@ describe('button-group', () => {
       }
     })
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes()).toContain('btn-group-sm')
     expect(wrapper.classes()).toContain('btn-group-vertical')
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes()).not.toContain('btn-group')
+    expect(wrapper.classes().length).toBe(2)
   })
 
   it('has custom role when aria-role prop set', async () => {
