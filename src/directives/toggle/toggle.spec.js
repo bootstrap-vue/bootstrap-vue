@@ -5,7 +5,7 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 // Listen to event for toggle state update (emitted by collapse)
-// const EVENT_STATE = 'bv::collapse::state'
+const EVENT_STATE = 'bv::collapse::state'
 
 describe('v-b-toggle directive', () => {
   it('works on buttons', async () => {
@@ -20,7 +20,7 @@ describe('v-b-toggle directive', () => {
         return {}
       },
       mounted() {
-        this.$root.$on(EVENT_TOGLE, spy)
+        this.$root.$on(EVENT_TOGGLE, spy)
       },
       beforeDestroy() {
         this.$root.$off(EVENT_TOGGLE, spy)
@@ -62,7 +62,7 @@ describe('v-b-toggle directive', () => {
         return {}
       },
       mounted() {
-        this.$root.$on(EVENT_TOGLE, spy)
+        this.$root.$on(EVENT_TOGGLE, spy)
       },
       beforeDestroy() {
         this.$root.$off(EVENT_TOGGLE, spy)
@@ -101,6 +101,48 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('span').classes()).not.toContain('collapsed')
+
+    wrapper.destroy()
+  })
+  it('responds to state update events', async () => {
+    const localVue = new CreateLocalVue()
+    const spy = jest.fn()
+
+    const App = localVue.extend({
+      directives: {
+        bToggle: toggleDirective
+      },
+      data() {
+        return {}
+      },
+      template: '<button v-b-toggle.test>button</button>'
+    })
+
+    const wrapper = mount(App, {
+      localVue: localVue
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+
+    const $root = wrapper.vm.$root
+
+    const $button = wrapper.find('button')
+
+    $root.$emit(EVENT_STATE, 'test', true)
+
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+
+    $root.$emit(EVENT_STATE, 'test', false)
+
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     wrapper.destroy()
   })
