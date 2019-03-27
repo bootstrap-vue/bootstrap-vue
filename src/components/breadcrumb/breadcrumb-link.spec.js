@@ -77,9 +77,10 @@ describe('breadcrumb-link', () => {
     expect(wrapper.classes().length).toBe(0)
   })
 
-  it('renders link when href is set and active', async () => {
+  it('does not render a link when href is set and active', async () => {
     const wrapper = mount(BreadcrumbLink, {
       propsData: {
+        active: true,
         href: '/foo/bar'
       }
     })
