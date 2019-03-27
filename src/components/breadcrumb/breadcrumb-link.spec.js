@@ -41,7 +41,7 @@ describe('breadcrumb-link', () => {
 
   it('has attribute aria-current when active', async () => {
     const wrapper = mount(BreadcrumbLink, {
-      slots: {
+      propsData: {
         active: true
       }
     })
@@ -53,7 +53,7 @@ describe('breadcrumb-link', () => {
 
   it('has attribute aria-current with custom value when active', async () => {
     const wrapper = mount(BreadcrumbLink, {
-      slots: {
+      propsData: {
         active: true,
         ariaCurrent: 'foobar'
       }
@@ -66,7 +66,7 @@ describe('breadcrumb-link', () => {
 
   it('renders link when href is set', async () => {
     const wrapper = mount(BreadcrumbLink, {
-      slots: {
+      propsData: {
         href: '/foo/bar'
       }
     })
@@ -79,7 +79,7 @@ describe('breadcrumb-link', () => {
 
   it('renders link when href is set and active', async () => {
     const wrapper = mount(BreadcrumbLink, {
-      slots: {
+      propsData: {
         href: '/foo/bar'
       }
     })
