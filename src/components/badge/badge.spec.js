@@ -2,7 +2,7 @@ import Badge from './badge'
 import { mount } from '@vue/test-utils'
 
 describe('badge', () => {
-  if('should have base classes', async () => {
+  it('should have base classes', async () => {
     const wrapper = mount(Badge)
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('badge')
@@ -13,7 +13,7 @@ describe('badge', () => {
     expect(wrapper.attributes('href')).not.toBeDefined()
   })
 
-  if('should have default slot content', async () => {
+  it('should have default slot content', async () => {
     const wrapper = mount(Badge, {
       slots: {
         default: 'foobar'
