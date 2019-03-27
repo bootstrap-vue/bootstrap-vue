@@ -1,11 +1,11 @@
 import modalDirective from './modal'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue} from '@vue/test-utils'
 
 const EVENT_SHOW = 'bv::show::modal'
 
 describe('v-b-modal directive', () => {
   it('works on buttons', async () => {
-    const localVue = new createLocalVue()
+    const localVue = new CreateLocalVue()
     const spy = jest.fn()
 
     const App = Vue.extend({
