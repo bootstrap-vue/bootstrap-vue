@@ -1,4 +1,4 @@
-import BreadcrumbLink from './breadcrumb-item'
+import BreadcrumbItem from './breadcrumb-item'
 import { mount } from '@vue/test-utils'
 
 describe('breadcrumb-item', () => {
