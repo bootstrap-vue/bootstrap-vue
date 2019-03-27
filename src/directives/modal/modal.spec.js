@@ -16,10 +16,10 @@ describe('v-b-modal directive', () => {
         return {}
       },
       mounted() {
-        this.$root.on(EVENT_SHOW, spy)
+        this.$root.$on(EVENT_SHOW, spy)
       },
       beforeDestroy() {
-        this.$root.off(EVENT_SHOW, spy)
+        this.$root.$off(EVENT_SHOW, spy)
       },
       template: '<button v-b-modal.test>button</button>'
     })
