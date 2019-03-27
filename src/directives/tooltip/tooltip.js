@@ -1,12 +1,11 @@
 import Popper from 'popper.js'
 import ToolTip from '../../utils/tooltip.class'
+import { inBrowser } from '../../utils/env'
 import { keys } from '../../utils/object'
 import warn from '../../utils/warn'
 
-const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
-
 // Key which we use to store tooltip object on element
-const BVTT = '__BV_ToolTip__'
+const BV_TOOLTIP = '__BV_ToolTip__'
 
 // Valid event triggers
 const validTriggers = {
@@ -19,7 +18,7 @@ const validTriggers = {
 // Build a ToolTip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
-function parseBindings(bindings) {
+const parseBindings = bindings => {
   // We start out with a blank config
   let config = {}
 
@@ -35,9 +34,10 @@ function parseBindings(bindings) {
     config = { ...config, ...bindings.value }
   }
 
-  // If Argument, assume element ID of container element
+  // If argument, assume element ID of container element
   if (bindings.arg) {
-    // Element ID specified as arg. We must prepend '#' to become a CSS selector
+    // Element ID specified as arg
+    // We must prepend '#' to become a CSS selector
     config.container = `#${bindings.arg}`
   }
 
@@ -47,24 +47,24 @@ function parseBindings(bindings) {
       // Title allows HTML
       config.html = true
     } else if (/^nofade$/.test(mod)) {
-      // no animation
+      // No animation
       config.animation = false
     } else if (
       /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)
     ) {
-      // placement of tooltip
+      // Placement of tooltip
       config.placement = mod
     } else if (/^(window|viewport)$/.test(mod)) {
-      // bounday of tooltip
+      // Boundary of tooltip
       config.boundary = mod
     } else if (/^d\d+$/.test(mod)) {
-      // delay value
+      // Delay value
       const delay = parseInt(mod.slice(1), 10) || 0
       if (delay) {
         config.delay = delay
       }
     } else if (/^o-?\d+$/.test(mod)) {
-      // offset value. Negative allowed
+      // Offset value, negative allowed
       const offset = parseInt(mod.slice(1), 10) || 0
       if (offset) {
         config.offset = offset
@@ -72,10 +72,11 @@ function parseBindings(bindings) {
     }
   })
 
-  // Special handling of event trigger modifiers Trigger is a space separated list
+  // Special handling of event trigger modifiers trigger is
+  // a space separated list
   const selectedTriggers = {}
 
-  // parse current config object trigger
+  // Parse current config object trigger
   let triggers = typeof config.trigger === 'string' ? config.trigger.trim().split(/\s+/) : []
   triggers.forEach(trigger => {
     if (validTriggers[trigger]) {
@@ -83,7 +84,7 @@ function parseBindings(bindings) {
     }
   })
 
-  // Parse Modifiers for triggers
+  // Parse modifiers for triggers
   keys(validTriggers).forEach(trigger => {
     if (bindings.modifiers[trigger]) {
       selectedTriggers[trigger] = true
@@ -97,45 +98,39 @@ function parseBindings(bindings) {
     config.trigger = 'focus'
   }
   if (!config.trigger) {
-    // remove trigger config
+    // Remove trigger config
     delete config.trigger
   }
 
   return config
 }
 
-//
-// Add or Update tooltip on our element
-//
+// Add or update ToolTip on our element
 /* istanbul ignore next: not easy to test */
-function applyBVTT(el, bindings, vnode) {
+const applyTooltip = (el, bindings, vnode) => {
   if (!inBrowser) {
     return
   }
   if (!Popper) {
-    // Popper is required for tooltips to work
-    warn('v-b-tooltip: Popper.js is required for tooltips to work')
+    // Popper is required for ToolTips to work
+    warn('v-b-tooltip: Popper.js is required for ToolTips to work')
     return
   }
-  if (el[BVTT]) {
-    el[BVTT].updateConfig(parseBindings(bindings))
+  const config = parseBindings(bindings)
+  if (el[BV_TOOLTIP]) {
+    el[BV_TOOLTIP].updateConfig(config)
   } else {
-    el[BVTT] = new ToolTip(el, parseBindings(bindings), vnode.context.$root)
+    el[BV_TOOLTIP] = new ToolTip(el, config, vnode.context.$root)
   }
 }
 
-//
-// Remove tooltip on our element
-//
+// Remove ToolTip on our element
 /* istanbul ignore next: not easy to test */
-function removeBVTT(el) {
-  if (!inBrowser) {
-    return
-  }
-  if (el[BVTT]) {
-    el[BVTT].destroy()
-    el[BVTT] = null
-    delete el[BVTT]
+const removeTooltip = el => {
+  if (el[BV_TOOLTIP]) {
+    el[BV_TOOLTIP].destroy()
+    el[BV_TOOLTIP] = null
+    delete el[BV_TOOLTIP]
   }
 }
 
@@ -145,22 +140,22 @@ function removeBVTT(el) {
 /* istanbul ignore next: not easy to test */
 export default {
   bind(el, bindings, vnode) {
-    applyBVTT(el, bindings, vnode)
+    applyTooltip(el, bindings, vnode)
   },
   inserted(el, bindings, vnode) {
-    applyBVTT(el, bindings, vnode)
+    applyTooltip(el, bindings, vnode)
   },
   update(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
-      applyBVTT(el, bindings, vnode)
+      applyTooltip(el, bindings, vnode)
     }
   },
   componentUpdated(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
-      applyBVTT(el, bindings, vnode)
+      applyTooltip(el, bindings, vnode)
     }
   },
   unbind(el) {
-    removeBVTT(el)
+    removeTooltip(el)
   }
 }

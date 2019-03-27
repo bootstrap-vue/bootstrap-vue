@@ -1,25 +1,32 @@
-import { bindTargets, unbindTargets } from '../../utils/target'
 import { setAttr, removeAttr } from '../../utils/dom'
+import { bindTargets, unbindTargets } from '../../utils/target'
 
+// Target listen types
 const listenTypes = { click: true }
 
+// Emitted show event for modal
+const EVENT_SHOW = 'bv::show::modal'
+
+/*
+ * Export our directive
+ */
 export default {
   // eslint-disable-next-line no-shadow-restricted-names
   bind(el, binding, vnode) {
     bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
       targets.forEach(target => {
-        vnode.context.$root.$emit('bv::show::modal', target, vnode.elm)
+        vnode.context.$root.$emit(EVENT_SHOW, target, vnode.elm)
       })
     })
+    // If element is not a button, we add `role="button"` for accessibility
     if (el.tagName !== 'BUTTON') {
-      // If element is not a button, we add `role="button"` for accessibility
       setAttr(el, 'role', 'button')
     }
   },
   unbind(el, binding, vnode) {
     unbindTargets(vnode, binding, listenTypes)
+    // If element is not a button, we add `role="button"` for accessibility
     if (el.tagName !== 'BUTTON') {
-      // If element is not a button, we add `role="button"` for accessibility
       removeAttr(el, 'role', 'button')
     }
   }
