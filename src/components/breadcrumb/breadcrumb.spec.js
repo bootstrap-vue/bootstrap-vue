@@ -17,14 +17,14 @@ describe('breadcrumb', () => {
         default: 'foobar'
       }
     })
-    
+
     expect(wrapper.is('ol')).toBe(true)
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
   })
 
-  it ('should accpet items', () => {
+  it('should accpet items', () => {
     const wrapper = mount(Breadcrumb, {
       propsData: {
         items: [
@@ -36,7 +36,7 @@ describe('breadcrumb', () => {
         ]
       }
     })
-    
+
     expect(wrapper.is('ol')).toBe(true)
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
@@ -45,57 +45,57 @@ describe('breadcrumb', () => {
     const $lis = wrapper.findAll('li')
 
     // HREF testing
-    expect (
+    expect(
       $lis
         .at(0)
         .find('a')
         .exists()
     ).toBe(true)
-    expect (
+    expect(
       $lis
         .at(0)
         .find('a')
         .attributes('href')
     ).toBe('/')
-    expect ($lis.at(0).text()).toBe('Home')
+    expect($lis.at(0).text()).toBe('Home')
 
-    expect (
+    expect(
       $lis
         .at(1)
         .find('a')
         .exists()
     ).toBe(true)
-    expect (
+    expect(
       $lis
         .at(1)
         .find('a')
         .attributes('href')
     ).toBe('/admin')
-    expect ($lis.at(1).text()).toBe('Admin')
+    expect($lis.at(1).text()).toBe('Admin')
 
-    expect (
+    expect(
       $lis
         .at(2)
         .find('a')
         .exists()
     ).toBe(true)
-    expect (
+    expect(
       $lis
         .at(2)
         .find('a')
         .attributes('href')
     ).toBe('/admin/manage')
-    expect ($lis.at(1).text()).toBe('Manage')
+    expect($lis.at(2).text()).toBe('Manage')
 
     // last item should have active state
     expect ($lis.at(3).classes()).toContain('active')
-    expect (
+    expect(
       $lis
         .at(3)
         .find('span')
         .exists()
     ).toBe(true)
-    expect ($lis.at(3).text()).toBe('Library')
+    expect($lis.at(3).text()).toBe('Library')
   })
 
   it('should apply active class to active item', async () => {
@@ -110,7 +110,6 @@ describe('breadcrumb', () => {
       }
     })
 
-    
     expect(wrapper.is('ol')).toBe(true)
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
@@ -119,58 +118,58 @@ describe('breadcrumb', () => {
     const $lis = wrapper.findAll('li')
 
     // HREF testing
-    expect (
+    expect(
       $lis
         .at(0)
         .find('a')
         .exists()
     ).toBe(true)
-    expect (
+    expect(
       $lis
         .at(0)
         .find('a')
         .attributes('href')
     ).toBe('/')
-    expect ($lis.at(0).text()).toBe('Home')
+    expect($lis.at(0).text()).toBe('Home')
 
     // This one should be a span/active
-    expect (
+    expect(
       $lis
         .at(1)
         .find('span')
         .exists()
     ).toBe(true)
-    expect ($lis.at(1).classes()).toContain('active')
-    expect ($lis.at(1).text()).toBe('Admin')
+    expect($lis.at(1).classes()).toContain('active')
+    expect($lis.at(1).text()).toBe('Admin')
 
-    expect (
+    expect(
       $lis
         .at(2)
         .find('a')
         .exists()
     ).toBe(true)
-    expect (
+    expect(
       $lis
         .at(2)
         .find('a')
         .attributes('href')
     ).toBe('/admin/manage')
-    expect ($lis.at(1).text()).toBe('Manage')
+    expect($lis.at(2).text()).toBe('Manage')
 
     // last item should have active state
-    expect ($lis.at(3).classes()).not.toContain('active')
-    expect (
+    expect($lis.at(3).classes()).not.toContain('active')
+    expect(
       $lis
         .at(3)
         .find('a')
         .exists()
     ).toBe(true)
-    expect (
+    expect(
       $lis
-        .at(2)
+        .at(3)
         .find('a')
         .attributes('href')
     ).toBe('/admin/manage/library')
-    expect ($lis.at(3).text()).toBe('Library')
+    expect($lis.at(3).text()).toBe('Library')
   })
 })
