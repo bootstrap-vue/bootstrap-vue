@@ -30,7 +30,7 @@ describe('breadcrumb-item', () => {
     const wrapper = mount(BreadcrumbItem)
     expect(wrapper.is('li')).toBe(true)
     expect(wrapper.find('a').exists()).toBe(true)
-    expect(wrapper.find('a').attriutes('href')).toBe('#')
+    expect(wrapper.find('a').attributes('href')).toBe('#')
   })
 
   it('has link as child and href', async () => {
@@ -41,10 +41,10 @@ describe('breadcrumb-item', () => {
     })
     expect(wrapper.is('li')).toBe(true)
     expect(wrapper.find('a').exists()).toBe(true)
-    expect(wrapper.find('a').attriutes('href')).toBe('/foo/bar')
+    expect(wrapper.find('a').attributes('href')).toBe('/foo/bar')
   })
 
-  it('has child span with class active when prop active is set', async () => {
+  it('has child span and class active when prop active is set', async () => {
     const wrapper = mount(BreadcrumbItem, {
       propsData: {
         active: true
@@ -55,7 +55,6 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.find('span').exists()).toBe(true)
-    expect(wrapper.find('span').classes()).toContain('active')
   })
 
   it('has child text content from prop text', async () => {
