@@ -7,10 +7,11 @@ describe('v-b-modal directive', () => {
   it('works on buttons', async () => {
     const Vue = new createLocalVue()
     const spy = jest.fn()
+
     const App = Vue.extend({
       directives: {
         bModal: modalDirective
-      }
+      },
       data() {
         return {}
       },
