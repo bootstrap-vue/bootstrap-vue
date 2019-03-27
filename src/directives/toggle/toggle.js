@@ -1,5 +1,5 @@
 import target from '../../utils/target'
-import { setAttr, addClass, removeClass } from '../../utils/dom'
+import { setAttr, removeAttr, addClass, removeClass } from '../../utils/dom'
 import { inBrowser } from '../../utils/env'
 
 // target listen types
@@ -81,6 +81,9 @@ export default {
       el[BVT] = null
       el[BVT_STATE] = null
       el[BVT_CONTROLS] = null
+      removeClass(el, 'collapsed')
+      removeAttr(el, 'aria-expanded')
+      removeAttr(el, 'aria-controls')
     }
   }
 }
