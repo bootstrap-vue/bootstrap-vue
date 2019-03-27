@@ -5,7 +5,7 @@ const EVENT_SHOW = 'bv::show::modal'
 
 describe('v-b-modal directive', () => {
   it('works on buttons', async () => {
-    const Vue = new createLocalVue()
+    const localVue = new createLocalVue()
     const spy = jest.fn()
 
     const App = Vue.extend({
@@ -24,7 +24,7 @@ describe('v-b-modal directive', () => {
       template: '<button v-b-modal.test>button</button>'
     })
     const wrapper = mount(App, {
-      localVue: Vue,
+      localVue: localVue
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -34,7 +34,7 @@ describe('v-b-modal directive', () => {
     const $button = wrapper.find('button')
     $button.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toBeCalledWith('test', $button.element);
+    expect(spy).toBeCalledWith('test', $button.element)
 
     wrapper.destroy()
   })
