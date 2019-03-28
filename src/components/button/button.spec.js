@@ -2,8 +2,6 @@ import Button from './button'
 import Link from '../link/link'
 import { mount } from '@vue/test-utils'
 
-import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
-
 describe('button', () => {
   it('has default structure and classes', async () => {
     const wrapper = mount(Button)
