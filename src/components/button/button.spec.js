@@ -266,14 +266,5 @@ describe('button', () => {
 
     expect(called).toBe(1)
     expect(values[0]).toBe(true)
-    // Emulate prop updating
-    wrapper.setProps({
-      pressed: true
-    })
-
-    wrapper.find('button').trigger('click')
-
-    expect(called).toBe(2)
-    expect(values[1]).toBe(false)
   })
 })
