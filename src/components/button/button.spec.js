@@ -1,5 +1,4 @@
 import Button from './button'
-import Link from '../link/link'
 import { mount } from '@vue/test-utils'
 
 describe('button', () => {
@@ -29,7 +28,6 @@ describe('button', () => {
     })
 
     expect(wrapper.is('a')).toBe(true)
-    expect(wrapper.is(Link)).toBe(true)
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('/foo/bar')
     expect(wrapper.attributes('type')).not.toBeDefined()
@@ -103,7 +101,7 @@ describe('button', () => {
     expect(wrapper.attributes('type')).not.toBeDefined()
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('button')
     expect(wrapper.attributes('tabindex')).toBeDefined()
@@ -148,48 +146,42 @@ describe('button', () => {
   })
 
   it('should emit click event when clicked', async () => {
-    const spy = jest.fn()
-    const wrapper = mount(Button, {
-      listeners: {
-        click: spy
-      }
-    })
-
-    expect(wrapper.is('button')).toBe(true)
-    expect(spy).not.toHaveBeenCalled()
-    wrapper.find('button').trigger('click')
-    expect(spy).toHaveBeenCalled()
-  })
-
-  it('should emit click event when clicked', async () => {
+    const called = 0
     const evt = null
     const wrapper = mount(Button, {
       listeners: {
-        click: e => { evt = e }
+        click: e => {
+          evt = e
+          called++
+        }
       }
     })
 
     expect(wrapper.is('button')).toBe(true)
-    expect(evt).toEqual(null)
+    expect(called).toBe(0)
+    expect(called).toEqual(null)
     wrapper.find('button').trigger('click')
+    expect(called).toBe(1)
     expect(evt).toBeInstanceOf(MouseEvent)
   })
 
   it('should not emit click event when clicked and disabled', async () => {
-    const spy = jest.fn()
+    const called = 0
     const wrapper = mount(Button, {
       propsData: {
         disabled: true
       },
       listeners: {
-        click: spy
+        click: e => {
+          called++
+        }
       }
     })
 
     expect(wrapper.is('button')).toBe(true)
-    expect(spy).not.toHaveBeenCalled()
+    expect(called).toBe(0)
     wrapper.find('button').trigger('click')
-    expect(spy).not.toHaveBeenCalled()
+    expect(called).toBe(0)
   })
 
   it('should not have `.active` class and `aria-pressed` when pressed is null', async () => {
@@ -250,33 +242,39 @@ describe('button', () => {
   })
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
+    const called = 0
+    const values = []
     const wrapper = mount(Button, {
       propsData: {
         pressed: false
+      },
+      listeners: {
+        'update:pressed': val => {
+          values.push(val)
+          called++
+        }
       }
     })
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.attributes('aria-pressed')).toBeDefined()
     expect(wrapper.attributes('aria-pressed')).toBe('false')
-    expect(wrapper.emitted('update:pressed')).not.toBeDefined()
+    expect(called).toBe(0)
 
     wrapper.find('button').trigger('click')
 
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.attributes('aria-pressed')).toBeDefined()
     expect(wrapper.attributes('aria-pressed')).toBe('true')
-    expect(wrapper.emitted('update:pressed')).toBeDefined()
-    expect(wrapper.emitted('update:pressed').length).toBe(1)
-    expect(wrapper.emitted('update:pressed')[0][0]).toBe(true)
+    expect(called).toBe(1)
+    expect(values[0]).toBe(true)
 
     wrapper.find('button').trigger('click')
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.attributes('aria-pressed')).toBeDefined()
     expect(wrapper.attributes('aria-pressed')).toBe('false')
-    expect(wrapper.emitted('update:pressed')).toBeDefined()
-    expect(wrapper.emitted('update:pressed').length).toBe(2)
-    expect(wrapper.emitted('update:pressed')[1][0]).toBe(false)
+    expect(called).toBe(2)
+    expect(values[1]).toBe(false)
   })
 })
