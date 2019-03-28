@@ -27,9 +27,9 @@ export default {
     clearTimeout(this.scrollTimeout)
     this.scrollTimeout = null
     this.focusScroll()
-    this.$nextTick() {
+    this.$nextTick(() => {
       this.$root.$emit('setTOC', this.readme || '', this.meta || null)
-    }
+    })
   },
 
   updated() {
