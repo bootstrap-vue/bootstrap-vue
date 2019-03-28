@@ -435,8 +435,12 @@ export default (resolve, reject) => {
           disabled: isFieldset ? this.disabled : null,
           role: isFieldset ? null : 'group',
           'aria-invalid': this.computedState === false ? 'true' : null,
-          'aria-labelledby': isFieldset ? this.labelId : null,
-          'aria-describedby': this.describedByIds || null
+          // Only apply aria-labeledby if we are a horiontal fieldset
+          // as the legend is no longer a direct child of fieldset
+          'aria-labelledby': isFieldset && isHorizontal ? this.labelId : null,
+          // Only apply aria-describedby IDs if we are a fieldset
+          // as the input will have the IDs when not a fieldset
+          'aria-describedby': isFieldset ? this.describedByIds : null
         }
       }
       // Return it wrapped in a form-group.
