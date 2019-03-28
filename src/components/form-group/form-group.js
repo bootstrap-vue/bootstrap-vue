@@ -9,6 +9,7 @@ import warn from '../../utils/warn'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { arrayIncludes } from '../../utils/array'
 import { keys, create } from '../../utils/object'
+import { inBrowser } from '../../utils/env'
 // Sub components
 import BFormRow from '../layout/form-row'
 import BCol from '../layout/col'
@@ -379,7 +380,7 @@ export default (resolve, reject) => {
       setInputDescribedBy(add, remove) {
         // Sets the `aria-describedby` attribute on the input if label-for is set.
         // Optionally accepts a string of IDs to remove as the second parameter
-        if (this.labelFor && typeof document !== 'undefined') {
+        if (this.labelFor && inBrowser) {
           const input = select(`#${this.labelFor}`, this.$refs.content)
           if (input) {
             const adb = 'aria-describedby'
@@ -434,7 +435,7 @@ export default (resolve, reject) => {
           disabled: isFieldset ? this.disabled : null,
           role: isFieldset ? null : 'group',
           'aria-invalid': this.computedState === false ? 'true' : null,
-          'aria-labelledby': this.labelId || null,
+          'aria-labelledby': isFieldset ? this.labelId : null,
           'aria-describedby': this.describedByIds || null
         }
       }
