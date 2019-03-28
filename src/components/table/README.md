@@ -401,3 +401,908 @@ index number (i.e. position in the _displayed_ table rows). This may cause GUI i
 components/elements that are rendering with previous results (i.e. being re-used by Vue's render
 patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you can
 place a unique `:key` on your element/components in your custom formatted field slots).
+
+## Table style options
+
+### Table Styling
+
+`<b-table>` provides several props to alter the style of the table:
+
+| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                          |
+| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                                   |
+| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                                  |
+| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                   |
+| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
+| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
+| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)                                                                                                                                                                                                                                           |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
+| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
+| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [**Sorting**](#sorting) section below for more details.                                                                                                                                              |
+| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [**Responsive tables**](#responsive-tables) below for details. |
+| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [**Stacked tables**](#stacked-tables) below for details.                                                 |
+| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                             |
+| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                          |
+
+**Example: Basic table styles**
+
+```html
+<template>
+  <div>
+    <b-form-group label="Table Options">
+      <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
+    </b-form-group>
+
+    <b-table
+      :striped="striped"
+      :bordered="bordered"
+      :borderless="borderless"
+      :outlined="outlined"
+      :small="small"
+      :hover="hover"
+      :dark="dark"
+      :fixed="fixed"
+      :foot-clone="footClone"
+      :items="items"
+      :fields="fields"
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ],
+        striped: false,
+        bordered: false,
+        borderless: false,
+        outlined: false,
+        small: false,
+        hover: false,
+        dark: false,
+        fixed: false,
+        footClone: false
+      }
+    }
+  }
+</script>
+
+<!-- b-table-bordered.vue -->
+```
+
+### Row Styling
+
+You can also style every row using the `tbody-tr-class` prop
+
+| Property       | Type                      | Description                                                                                                                                                                    |
+| -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `tbodyTrClass` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`. |
+
+**Example: Basic row styles**
+
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass"></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald', status: 'awesome' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      }
+    },
+    methods: {
+      rowClass(item, type) {
+        if (!item) return
+        if (item.status === 'awesome') return 'table-success'
+      }
+    }
+  }
+</script>
+
+<!-- b-table-styled-row.vue -->
+```
+
+### Responsive tables
+
+Responsive tables allow tables to be scrolled horizontally with ease. Make any table responsive
+across all viewports by setting the prop `responsive` to `true`. Or, pick a maximum breakpoint with
+which to have a responsive table up to by setting the prop `responsive` to one of the breakpoint
+values: `sm`, `md`, `lg`, or `xl`.
+
+**Example: Always responsive table**
+
+```html
+<template>
+  <div>
+    <b-table responsive :items="items"></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          {
+            'heading 1': 'table cell',
+            'heading 2': 'table cell',
+            'heading 3': 'table cell',
+            'heading 4': 'table cell',
+            'heading 5': 'table cell',
+            'heading 6': 'table cell',
+            'heading 7': 'table cell',
+            'heading 8': 'table cell',
+            'heading 9': 'table cell',
+            'heading 10': 'table cell'
+          },
+          {
+            'heading 1': 'table cell',
+            'heading 2': 'table cell',
+            'heading 3': 'table cell',
+            'heading 4': 'table cell',
+            'heading 5': 'table cell',
+            'heading 6': 'table cell',
+            'heading 7': 'table cell',
+            'heading 8': 'table cell',
+            'heading 9': 'table cell',
+            'heading 10': 'table cell'
+          },
+          {
+            'heading 1': 'table cell',
+            'heading 2': 'table cell',
+            'heading 3': 'table cell',
+            'heading 4': 'table cell',
+            'heading 5': 'table cell',
+            'heading 6': 'table cell',
+            'heading 7': 'table cell',
+            'heading 8': 'table cell',
+            'heading 9': 'table cell',
+            'heading 10': 'table cell'
+          }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-responsive.vue -->
+```
+
+**Responsive table notes:**
+
+- _Possible vertical clipping/truncation_. Responsive tables make use of `overflow-y: hidden`, which
+  clips off any content that goes beyond the bottom or top edges of the table. In particular, this
+  may clip off dropdown menus and other third-party widgets.
+
+### Stacked tables
+
+An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
+SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any table stacked
+across _all viewports_ by setting the prop `stacked` to `true`. Or, alternatively, set a breakpoint
+at which the table will return to normal table format by setting the prop `stacked` to one of the
+breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
+
+Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
+element, with a width of 40%.
+
+The prop `stacked` takes precedence over the `responsive` prop.
+
+**Example: Always stacked table**
+
+```html
+<template>
+  <div>
+    <b-table stacked :items="items"></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-stacked.vue -->
+```
+
+**Note: When the table is visually stacked:**
+
+- The table header (and table footer) will be hidden.
+- Custom rendered header slots will not be shown, rather, the fields' `label` will be used.
+- The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an
+  external control to select the field to sort by and the sort direction. See the
+  [**Sorting**](#sorting) section below for sorting control information, as well as the
+  [**complete example**](#complete-example) at the bottom of this page for an example of controlling
+  sorting via the use of form controls.
+- The slots `top-row` and `bottom-row` will be hidden when visually stacked.
+- The table caption, if provided, will always appear at the top of the table when visually stacked.
+- In an always stacked table, the table header and footer, and the fixed top and bottom row slots
+  will not be rendered.
+
+### Table busy state
+
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
+just before you update your items, and then set it to `false` once you have your items. When in the
+busy state, the table will have the attribute `aria-busy="true"`.
+
+During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
+following custom CSS:
+
+```css
+/* Busy table styling */
+table.b-table[aria-busy='false'] {
+  opacity: 1;
+}
+table.b-table[aria-busy='true'] {
+  opacity: 0.6;
+}
+```
+
+You can override this styling using your own CSS.
+
+You may optionally provide a `table-busy` slot to show a custom loading message or spinner whenever
+the table's busy state is `true`. The slot will be placed in a `<tr>` element with class
+`b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
+
+**Example of `table-busy` slot usage:**
+
+```html
+<template>
+  <div>
+    <b-button @click="toggleBusy">Toggle Busy State</b-button>
+
+    <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
+      <div slot="table-busy" class="text-center text-danger my-2">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>Loading...</strong>
+      </div>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        isBusy: false,
+        items: [
+          { first_name: 'Dickerson', last_name: 'MacDonald', age: 40 },
+          { first_name: 'Larsen', last_name: 'Shaw', age: 21 },
+          { first_name: 'Geneva', last_name: 'Wilson', age: 89 },
+          { first_name: 'Jami', last_name: 'Carney', age: 38 }
+        ]
+      }
+    },
+    methods: {
+      toggleBusy() {
+        this.isBusy = !this.isBusy
+      }
+    }
+  }
+</script>
+
+<!-- b-table-busy-slot.vue -->
+```
+
+Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
+additional information on the `busy` state.
+
+**Note:** All click related and hover events, and sort-changed events will **not** be emitted when
+the table is in the `busy` state.
+
+### Table caption
+
+Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
+slot takes precedence over the prop). The default Bootstrap V4 styling places the caption at the
+bottom of the table:
+
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields">
+      <template slot="table-caption">This is a table caption.</template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-caption.vue -->
+```
+
+You can have the caption placed at the top of the table by setting the `caption-top` prop to `true`:
+
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields" caption-top>
+      <template slot="table-caption">This is a table caption at the top.</template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-caption-top.vue -->
+```
+
+You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
+control the caption positioning.
+
+### Table colgroup
+
+Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements for optional
+grouping and styling of table columns. Note the styles available via `<col>` elements are limited.
+Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup) for details and
+usage of `<colgroup>`
+
+Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+
+## Custom Data Rendering
+
+Custom rendering for each data field in a row is possible using either
+[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback
+function.
+
+### Scoped Field Slots
+
+Scoped slots give you greater control over how the record data appears. If you want to add an extra
+field which does not exist in the records, just add it to the `fields` array, And then reference the
+field(s) in the scoped slot(s).
+
+**Example: Custom data rendering with scoped slots**
+
+```html
+<template>
+  <div>
+    <b-table :fields="fields" :items="items">
+      <!-- A virtual column -->
+      <template slot="index" slot-scope="data">
+        {{ data.index + 1 }}
+      </template>
+
+      <!-- A custom formatted column -->
+      <template slot="name" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+      </template>
+
+      <!-- A virtual composite column -->
+      <template slot="nameage" slot-scope="data">
+        {{ data.item.name.first }} is {{ data.item.age }} years old
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: [
+          // A virtual column that doesn't exist in items
+          'index',
+          // A column that needs custom formatting
+          { key: 'name', label: 'Full Name' },
+          // A regular column
+          'age',
+          // A regular column
+          'sex',
+          // A virtual column made up from two fields
+          { key: 'nameage', label: 'First name and age' }
+        ],
+        items: [
+          { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+          { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+          { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+          { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-data-slots.vue -->
+```
+
+The slot's scope variable (`data` in the above sample) will have the following properties:
+
+| Property         | Type     | Description                                                                                                                                                                                             |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`          | Number   | The row number (indexed from zero) relative to the displayed rows                                                                                                                                       |
+| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                         |
+| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for information on field `formatter` callback functions) |
+| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                      |
+| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information                                          |
+| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information                              |
+| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [**Row select support**](#row-select-support) for additional information                                                                       |
+
+**Notes:**
+
+- _`index` will not always be the actual row's index number, as it is computed after filtering,
+  sorting and pagination have been applied to the original table data. The `index` value will refer
+  to the **displayed row number**. This number will align with the indexes from the optional
+  `v-model` bound variable._
+
+#### Displaying raw HTML
+
+By default `b-table` escapes HTML tags in items data and results of formatter functions, if you need
+to display raw HTML code in `b-table`, you should use `v-html` directive on an element in a in
+scoped field slot
+
+```html
+<template>
+  <div>
+    <b-table :items="items">
+      <span slot="html" slot-scope="data" v-html="data.value"></span>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          {
+            text: 'This is <i>escaped</i> content',
+            html: 'This is <i>raw <strong>HTML</strong></i> <span style="color:red">content</span>'
+          }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-html-data-slots.vue -->
+```
+
+<p class="alert alert-danger">
+  <string>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
+  supplied content,  as it may make your application vulnerable to
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
+  user supplied string.
+</div>
+
+### Formatter callback
+
+One more option to customize field output is to use formatter callback function. To enable this
+field's property `formatter` is used. Value of this property may be String or function reference. In
+case of a String value, the function must be defined at the parent component's methods. Providing
+formatter as a `Function`, it must be declared at global scope (window or as global mixin at Vue),
+unless it has been bound to a `this` context.
+
+The callback function accepts three arguments - `value`, `key`, and `item`, and should return the
+formatted value as a string (HTML strings are not supported)
+
+**Example: Custom data rendering with formatter callback function**
+
+```html
+<template>
+  <div>
+    <b-table :fields="fields" :items="items">
+      <template slot="name" slot-scope="data">
+        <!-- `data.value` is the value after formatted by the Formatter -->
+        <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: [
+          {
+            // A column that needs custom formatting,
+            // calling formatter 'fullName' in this app
+            key: 'name',
+            label: 'Full Name',
+            formatter: 'fullName'
+          },
+          // A regular column
+          'age',
+          {
+            // A regular column with custom formatter
+            key: 'sex',
+            formatter: value => {
+              return value.charAt(0).toUpperCase()
+            }
+          },
+          {
+            // A virtual column with custom formatter
+            key: 'birthYear',
+            label: 'Calculated Birth Year',
+            formatter: (value, key, item) => {
+              return new Date().getFullYear() - item.age
+            }
+          }
+        ],
+        items: [
+          { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+          { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+          { name: { first: 'Rubin', last: 'Kincade' }, sex: 'male', age: 73 },
+          { name: { first: 'Shirley', last: 'Partridge' }, sex: 'female', age: 62 }
+        ]
+      }
+    },
+    methods: {
+      fullName(value) {
+        return `${value.first} ${value.last}`
+      }
+    }
+  }
+</script>
+
+<!-- b-table-data-formatter.vue -->
+```
+
+## Custom empty/emptyfiltered rendering via slots
+
+Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
+also possible to provide custom rendering for tables that have no data to display using named slots.
+
+In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
+either falsy or an array of length 0.
+
+```html
+<div>
+  <b-table :fields="fields" :items="items" show-empty>
+    <template slot="empty" slot-scope="scope">
+      <h4>{{ scope.emptyText }}</h4>
+    </template>
+    <template slot="emptyfiltered" slot-scope="scope">
+      <h4>{{ scope.emptyFilteredText }}</h4>
+    </template>
+  </b-table>
+</div>
+```
+
+The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
+following properties:
+
+| Property            | Type   | Description                                        |
+| ------------------- | ------ | -------------------------------------------------- |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
+| `fields`            | Array  | The `fields` prop                                  |
+| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
+
+## Header/Footer custom rendering via scoped slots
+
+It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
+default the table footer is not rendered unless `foot-clone` is set to `true`.
+
+Scoped slots for the header and footer cells uses a special naming convention of `HEAD_<fieldkey>`
+and `FOOT_<fieldkey>` respectively. if a `FOOT_` slot for a field is not provided, but a `HEAD_`
+slot is provided, then the footer will use the `HEAD_` slot content.
+
+```html
+<div>
+  <b-table :fields="fields" :items="items" foot-clone>
+    <!-- A custom formatted data column cell -->
+    <template slot="name" slot-scope="data">
+      {{ data.value.first }} {{ data.value.last }}
+    </template>
+
+    <!-- A custom formatted header cell for field 'name' -->
+    <template slot="HEAD_name" slot-scope="data">
+      <em>{{ data.label }}</em>
+    </template>
+
+    <!-- A custom formatted footer cell  for field 'name' -->
+    <template slot="FOOT_name" slot-scope="data">
+      <strong>{{ data.label }}</strong>
+    </template>
+  </b-table>
+</div>
+```
+
+The slots can be optionally scoped (`data` in the above example), and will have the following
+properties:
+
+| Property | Type   | Description                                                   |
+| -------- | ------ | ------------------------------------------------------------- |
+| `column` | String | The fields's `key` value                                      |
+| `field`  | Object | the field's object (from the `fields` prop)                   |
+| `label`  | String | The fields label value (also available as `data.field.label`) |
+
+When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot, note that
+`head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
+are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
+scoped slots (even when disabled)
+
+### Adding additional rows to the header
+
+If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
+is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
+
+```html
+<template>
+  <div>
+    <b-table
+      :items="items"
+      :fields="fields"
+    >
+      <template slot="thead-top" slot-scope="data">
+        <tr>
+          <th colspan="2">&nbsp;</th>
+          <th>Type 1</th>
+          <th colspan="3">Type 2</th>
+          <th>Type 3</th>
+        </tr>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { name: "Stephen Hawking", id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
+          { name: "Johnny Appleseed", id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
+          { name: "George Washington", id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
+          { name: "Albert Einstein", id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
+          { name: "Isaac Newton", id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
+        ],
+        fields: [
+          "name",
+          { key: "id", label: "ID" },
+          { key: "type1", label: "Type 1" },
+          { key: "type2a", label: "Type 2A" },
+          { key: "type2b", label: "Type 2B" },
+          { key: "type2c", label: "Type 2C" },
+          { key: "type3", label: "Type 3" }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-thead-top-slot.vue -->
+```
+
+Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+
+## Row select support
+
+You can make rows selectable, by using the prop `selectable`.
+
+Users can easily change the selecting mode by setting the `select-mode` prop.
+
+- `multi`: each click will select/deselect the row (default mode)
+- `single`: only a single row can be selected at one time
+- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
+  and CTRL/CMD click will toggle the selected row.
+
+When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
+event, passing a single argument which is the complete list of selected items. **Treat this argument
+as read-only.**
+
+```html
+<template>
+  <div>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
+    </b-form-group>
+
+    <b-table
+      selectable
+      :select-mode="selectMode"
+      selectedVariant="success"
+      :items="items"
+      @row-selected="rowSelected"
+    ></b-table>
+
+    {{ selected }}
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        modes: ['multi', 'single', 'range'],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ],
+        selectMode: 'multi',
+        selected: []
+      }
+    },
+    methods: {
+      rowSelected(items) {
+        this.selected = items
+      }
+    }
+  }
+</script>
+
+<!-- b-table-selectable.vue -->
+```
+
+When table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
+
+**Notes:**
+
+- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
+  with an empty array if needed._
+- _Selected rows will have a class of `b-row-selected` added to them._
+- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for accessibility reasons._
+
+## Row details support
+
+If you would optionally like to display additional record information (such as columns not specified
+in the fields definition array), you can use the scoped slot `row-details`, in combination with the
+special item record Boolean property `_showDetails`.
+
+If the record has it's `_showDetails` property set to `true`, **and** a `row-details` scoped slot
+exists, a new row will be shown just below the item, with the rendered contents of the `row-details`
+scoped slot.
+
+In the scoped field slot, you can toggle the visibility of the row's `row-details` scoped slot by
+calling the `toggleDetails` function passed to the field's scoped slot variable. You can use the
+scoped fields slot variable `detailsShowing` to determine the visibility of the `row-details` slot.
+
+**Note:** If manipulating the `_showDetails` property directly on the item data (i.e. not via the
+`toggleDetails` function reference), the `_showDetails` properly **must** exist in the items data
+for proper reactive detection of changes to it's value. Read more about
+[Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
+
+**Available `row-details` scoped variable properties:**
+
+| Property        | Type     | Description                                                               |
+| --------------- | -------- | ------------------------------------------------------------------------- |
+| `item`          | Object   | The entire row record data object                                         |
+| `index`         | Number   | The current visible row number                                            |
+| `fields`        | Array    | The normalized fields definition array (in the _array of objects_ format) |
+| `toggleDetails` | Function | Function to toggle visibility of the row's details slot                   |
+
+In the following example, we show two methods of toggling the visibility of the details: one via a
+button, and one via a checkbox. We also have the third row details defaulting to have details
+initially showing.
+
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields" striped>
+      <template slot="show_details" slot-scope="row">
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+        </b-button>
+
+        <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
+        <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
+          Details via check
+        </b-form-checkbox>
+      </template>
+
+      <template slot="row-details" slot-scope="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
+            <b-col>{{ row.item.age }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
+            <b-col>{{ row.item.isActive }}</b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: ['first_name', 'last_name', 'show_details'],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          {
+            isActive: false,
+            age: 89,
+            first_name: 'Geneva',
+            last_name: 'Wilson',
+            _showDetails: true
+          },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-details.vue -->
+```
