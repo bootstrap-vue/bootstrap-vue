@@ -50,7 +50,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 }
 
 // Add or update ScrollSpy on our element
-const applyScrollspy = (el, bindings, vnode) => {
+const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   if (!inBrowser) {
     /* istanbul ignore next */
     return
@@ -64,7 +64,8 @@ const applyScrollspy = (el, bindings, vnode) => {
 }
 
 // Remove ScrollSpy on our element
-const removeScrollspy = el => {
+/* istanbul ignore next: not easy to test */
+const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
   if (el[BV_SCROLLSPY]) {
     el[BV_SCROLLSPY].dispose()
     el[BV_SCROLLSPY] = null
@@ -76,10 +77,10 @@ const removeScrollspy = el => {
  * Export our directive
  */
 export default {
-  bind(el, bindings, vnode) {
+  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyScrollspy(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) {
+  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyScrollspy(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
@@ -92,7 +93,7 @@ export default {
       applyScrollspy(el, bindings, vnode)
     }
   },
-  unbind(el) {
+  unbind(el) /* istanbul ignore next: not easy to test */ {
     removeScrollspy(el)
   }
 }
