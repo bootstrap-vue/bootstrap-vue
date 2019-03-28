@@ -21,7 +21,7 @@ describe('v-b-scrollspy directive', () => {
           <div v-b-scrollspy:scroller>navs</div>
           <div id="scroller" style="overflow-y: scroll;">scroller</div>
         </div>
-      '
+      `
     })
 
     const wrapper = mount(App, {
