@@ -1,191 +1,284 @@
+import Button from './button'
+import Link from '../link/link'
+import { mount } from '@vue/test-utils'
+
 import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 
-/**
- * Button functionality to test:
- * - Style variants: [ 'primary','secondary','success','outline-success','warning','danger','link' ]
- * - Sizes: [ 'sm','','lg' ]
- * - Props: [ disabled, block ]
- * - elements: [ <button></button>, <a></a> ]
- */
-const colorVariants = ['primary', 'secondary', 'success', 'warning', 'danger']
-const outlineVariants = colorVariants.map(v => `outline-${v}`)
-const variants = colorVariants.concat(outlineVariants, 'link')
-const sizes = ['sm', '', 'lg']
-
-const btnRefs = variants.reduce(
-  (memo, variant) =>
-    memo.concat(
-      sizes.map(size => {
-        return {
-          variant,
-          size,
-          ref: `btn${size ? `_${size}` : ''}_${variant.replace(/-/g, '_')}`
-        }
-      })
-    ),
-  []
-)
-
 describe('button', () => {
-  beforeEach(loadFixture(__dirname, 'button'))
-  testVM()
+  it('has default structure and classes', async () => {
+    const wrapper = mount(Button)
 
-  it('should contain class names', async () => {
-    const {
-      app: { $refs }
-    } = window
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('type')).toBeDefined()
+    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
+    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
+    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+  })
 
-    btnRefs.forEach(({ ref, variant, size }) => {
-      // ref will contain an array of children because of v-for
-      const vm = $refs[ref][0]
-
-      let classList = ['btn', `btn-${variant}`]
-      if (size) classList.push(`btn-${size}`)
-
-      expect(vm).toHaveAllClasses(classList)
+  it('renders a link when href provided', async () => {
+    const wrapper = mount(Button, {
+      propsData: {
+        href: '/foo/bar'
+      }
     })
 
-    const vmBlockDisabled = $refs.btn_block_disabled
-    expect(vmBlockDisabled).toHaveAllClasses(['btn', 'btn-block', 'disabled'])
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.is(Link)).toBe(true)
+    expect(wrapper.attributes('href')).toBeDefined()
+    expect(wrapper.attributes('href')).toBe('/foo/bar')
+    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
+    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
+    expect(wrapper.attributes('tabindex')).not.toBeDefined()
   })
 
-  it('should use <a> when given href', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btnRootNode = $refs.btn_href
+  it('renders default slot content', async () => {
+    const wrapper = mount(Button, {
+      slots: {
+        default: '<span>foobar</span>'
+      }
+    })
 
-    expect(btnRootNode).toBeElement('a')
-    expect(btnRootNode.href).toBe('https://github.com/bootstrap-vue/bootstrap-vue')
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('type')).toBeDefined()
+    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.find('span').exists()).toBe(true)
+    expect(wrapper.text()).toBe('foobar')
   })
 
-  it('should use the given tag', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btnRootNode = $refs.btn_div
+  it('applies variant class', async () => {
+    const wrapper = mount(Button, {
+      propsData: {
+        variant: 'danger'
+      }
+    })
 
-    expect(btnRootNode).toBeElement('div')
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('type')).toBeDefined()
+    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-danger')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('should use button when no tag is given', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btnRootNode = $refs.btn_no_tag
+  it('applies block class', async () => {
+    const wrapper = mount(Button, {
+      propsData: {
+        block: true
+      }
+    })
 
-    expect(btnRootNode).toBeElement('button')
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('type')).toBeDefined()
+    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes()).toContain('btn-block')
+    expect(wrapper.classes().length).toBe(3)
   })
 
-  it('should emit "click" event when clicked', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn = $refs.btn_click
+  it('renders custom root element', async () => {
+    const wrapper = mount(Button, {
+      propsData: {
+        tag: 'div'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toBe('button')
+    expect(wrapper.attributes('tabindex')).toBeDefined()
+    expect(wrapper.attributes('tabindex')).toBe('0')
+    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
+    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
+  })
+
+  it('button has attribute disabled when disabled set', async () => {
+    const wrapper = mount(Button, {
+      propsData: {
+        disabled: true
+      }
+    })
+
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes()).toContain('disabled')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+  })
+
+  it('link has attribute aria-disabled when disabled set', async () => {
+    const wrapper = mount(Button, {
+      propsData: {
+        href: '/foo/bar',
+        disabled: true
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes()).toContain('disabled')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.attributes('aria-disabled')).toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).toBe('true')
+  })
+
+  it('should emit click event when clicked', async () => {
     const spy = jest.fn()
+    const wrapper = mount(Button, {
+      listeners: {
+        click: spy
+      }
+    })
 
-    btn.addEventListener('click', spy)
-    btn.click()
-
+    expect(wrapper.is('button')).toBe(true)
+    expect(spy).not.toHaveBeenCalled()
+    wrapper.find('button').trigger('click')
     expect(spy).toHaveBeenCalled()
   })
 
-  it('should "click" event should emit with native event object', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn = $refs.btn_click
-    let event = null
+  it('should emit click event when clicked', async () => {
+    const evt = null
+    const wrapper = mount(Button, {
+      listeners: {
+        click: e => { evt = e }
+      }
+    })
 
-    btn.addEventListener('click', e => (event = e))
-    btn.click()
-
-    expect(event).toBeInstanceOf(MouseEvent)
+    expect(wrapper.is('button')).toBe(true)
+    expect(evt).toEqual(null)
+    wrapper.find('button').trigger('click')
+    expect(evt).toBeInstanceOf(MouseEvent)
   })
 
-  it('should be disabled and not emit click event with `disabled` prop true', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn = $refs.btn_block_disabled
+  it('should not emit click event when clicked and disabled', async () => {
     const spy = jest.fn()
+    const wrapper = mount(Button, {
+      propsData: {
+        disabled: true
+      },
+      listeners: {
+        click: spy
+      }
+    })
 
-    btn.addEventListener('click', spy)
-    btn.click()
-
-    expect(btn.disabled).toBe(true)
+    expect(wrapper.is('button')).toBe(true)
+    expect(spy).not.toHaveBeenCalled()
+    wrapper.find('button').trigger('click')
     expect(spy).not.toHaveBeenCalled()
   })
 
   it('should not have `.active` class and `aria-pressed` when pressed is null', async () => {
-    const { app } = window
-    const vm = app.$refs.btn_pressed
+    const wrapper = mount(Button, {
+      propsData: {
+        pressed: null
+      }
+    })
 
-    await setData(app, 'btnToggle', null)
-    await nextTick()
-
-    expect(vm).not.toHaveClass('active')
-    expect(vm.getAttribute('aria-pressed')).toBeNull()
-    vm.click()
-    expect(app.btnToggle).toBeNull()
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
+    wrapper.find('button').trigger('click')
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
+    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
   })
 
   it('should not have `.active` class and have `aria-pressed="false"` when pressed is false', async () => {
-    const { app } = window
-    const vm = app.$refs.btn_pressed
+    const wrapper = mount(Button, {
+      propsData: {
+        pressed: false
+      }
+    })
 
-    await setData(app, 'btnToggle', false)
-    await nextTick()
-
-    expect(vm).not.toHaveClass('active')
-    expect(vm.getAttribute('aria-pressed')).toBe('false')
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.attributes('aria-pressed')).toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBe('false')
+    expect(wrapper.attributes('autocomplete')).toBeDefined()
+    expect(wrapper.attributes('autocomplete')).toBe('off')
   })
 
   it('should have `.active` class and have `aria-pressed="true"` when pressed is true', async () => {
-    const { app } = window
-    const vm = app.$refs.btn_pressed
+    const wrapper = mount(Button, {
+      propsData: {
+        pressed: true
+      }
+    })
 
-    await setData(app, 'btnToggle', true)
-    await nextTick()
-
-    vm.click()
-
-    expect(vm).toHaveClass('active')
-    expect(vm.getAttribute('aria-pressed')).toBe('true')
+    expect(wrapper.classes()).toContain('active')
+    expect(wrapper.attributes('aria-pressed')).toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBe('true')
+    expect(wrapper.attributes('autocomplete')).toBeDefined()
+    expect(wrapper.attributes('autocomplete')).toBe('off')
   })
 
   it('pressed should have `.focus` class when focused', async () => {
-    const { app } = window
-    const btn = app.$refs.btn_pressed
+    const wrapper = mount(Button, {
+      propsData: {
+        pressed: false
+      }
+    })
 
-    await setData(app, 'btnToggle', false)
-    await nextTick()
-
-    const focusinEvt = new FocusEvent('focusin')
-    btn.dispatchEvent(focusinEvt)
-    await nextTick()
-    expect(btn).toHaveClass('focus')
-
-    const focusoutEvt = new FocusEvent('focusout')
-    btn.dispatchEvent(focusoutEvt)
-    await nextTick()
-    expect(btn).not.toHaveClass('focus')
+    expect(wrapper.classes()).not.toContain('focus')
+    wrapper.trigger('focusin')
+    expect(wrapper.classes()).toContain('focus')
+    wrapper.trigger('focusout')
+    expect(wrapper.classes()).not.toContain('focus')
   })
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
-    const { app } = window
-    const vm = app.$refs.btn_pressed
+    const wrapper = mount(Button, {
+      propsData: {
+        pressed: false
+      }
+    })
 
-    await setData(app, 'btnToggle', false)
-    await nextTick()
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.attributes('aria-pressed')).toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBe('false')
+    expect(wrapper.emitted('update:pressed')).not.toBeDefined()
 
-    expect(app.btnToggle).toBe(false)
-    expect(vm).not.toHaveClass('active')
-    expect(vm.getAttribute('aria-pressed')).toBe('false')
-    vm.click()
-    await nextTick()
-    expect(app.btnToggle).toBe(true)
-    expect(vm).toHaveClass('active')
-    expect(vm.getAttribute('aria-pressed')).toBe('true')
+    wrapper.find('button').trigger('click')
+
+    expect(wrapper.classes()).toContain('active')
+    expect(wrapper.attributes('aria-pressed')).toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBe('true')
+    expect(wrapper.emitted('update:pressed')).toBeDefined()
+    expect(wrapper.emitted('update:pressed').length).toBe(1)
+    expect(wrapper.emitted('update:pressed')[0][0]).toBe(true)
+
+    wrapper.find('button').trigger('click')
+
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.attributes('aria-pressed')).toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBe('false')
+    expect(wrapper.emitted('update:pressed')).toBeDefined()
+    expect(wrapper.emitted('update:pressed').length).toBe(2)
+    expect(wrapper.emitted('update:pressed')[1][0]).toBe(false)
   })
 })
