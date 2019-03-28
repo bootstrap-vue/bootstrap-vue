@@ -18,7 +18,7 @@ describe('v-b-scrollspy directive', () => {
       },
       template: `
         <div>
-          <div v-b-scrollspy:scroller>navs</div>
+          <div id="navs" v-b-scrollspy:scroller>navs</div>
           <div id="scroller" style="overflow-y: scroll;">scroller</div>
         </div>
       `
@@ -31,7 +31,8 @@ describe('v-b-scrollspy directive', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
-    const $div = wrapper.find('div')
+    expect(wrapper.find('div#navs').exists()).toBe(true)
+    const $div = wrapper.find('div#navs')
 
     // Should have instance of popover class on it
     expect($div.element[BV_SCROLLSPY]).toBeDefined()
