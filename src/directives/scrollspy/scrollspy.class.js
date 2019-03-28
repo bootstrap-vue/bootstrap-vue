@@ -370,7 +370,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     if (this.$scroller) {
       return this.$scroller
     }
-    let scroller = this.$config.element
+    let scroller = (this.$config || {}).element
     if (!scroller) {
       return null
     } else if (isElement(scroller.$el)) {
