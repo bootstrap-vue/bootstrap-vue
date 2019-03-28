@@ -260,21 +260,15 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-pressed')).toBeDefined()
-    expect(wrapper.attributes('aria-pressed')).toBe('false')
     expect(called).toBe(0)
 
     wrapper.find('button').trigger('click')
 
-    expect(wrapper.attributes('aria-pressed')).toBeDefined()
-    expect(wrapper.attributes('aria-pressed')).toBe('true')
     expect(called).toBe(1)
     expect(values[0]).toBe(true)
 
     wrapper.find('button').trigger('click')
 
-    expect(wrapper.attributes('aria-pressed')).toBeDefined()
-    expect(wrapper.attributes('aria-pressed')).toBe('false')
     expect(called).toBe(2)
     expect(values[1]).toBe(false)
   })
