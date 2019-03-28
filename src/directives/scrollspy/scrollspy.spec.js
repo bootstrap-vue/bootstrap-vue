@@ -16,8 +16,12 @@ describe('v-b-scrollspy directive', () => {
       data() {
         return {}
       },
-      // Assumes watching body element for scrolls
-      template: '<div v-b-scrollspy>content</div>'
+      template: `
+        <div>
+          <div v-b-scrollspy:scroller>navs</div>
+          <div id="scroller" style="overflow-y: scroll;">scroller</div>
+        </div>
+      '
     })
 
     const wrapper = mount(App, {
