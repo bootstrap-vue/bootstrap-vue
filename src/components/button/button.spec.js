@@ -104,10 +104,11 @@ describe('button', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('button')
+    expect(wrapper.attributes('aria-disabled')).toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
     expect(wrapper.attributes('tabindex')).toBeDefined()
     expect(wrapper.attributes('tabindex')).toBe('0')
     expect(wrapper.attributes('disabled')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
     expect(wrapper.attributes('autocomplete')).not.toBeDefined()
   })
@@ -162,7 +163,7 @@ describe('button', () => {
 
     expect(wrapper.is('button')).toBe(true)
     expect(called).toBe(0)
-    expect(called).toEqual(null)
+    expect(evt).toEqual(null)
     wrapper.find('button').trigger('click')
     expect(called).toBe(1)
     expect(evt).toBeInstanceOf(MouseEvent)
@@ -259,14 +260,12 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.attributes('aria-pressed')).toBeDefined()
     expect(wrapper.attributes('aria-pressed')).toBe('false')
     expect(called).toBe(0)
 
     wrapper.find('button').trigger('click')
 
-    expect(wrapper.classes()).toContain('active')
     expect(wrapper.attributes('aria-pressed')).toBeDefined()
     expect(wrapper.attributes('aria-pressed')).toBe('true')
     expect(called).toBe(1)
@@ -274,7 +273,6 @@ describe('button', () => {
 
     wrapper.find('button').trigger('click')
 
-    expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.attributes('aria-pressed')).toBeDefined()
     expect(wrapper.attributes('aria-pressed')).toBe('false')
     expect(called).toBe(2)
