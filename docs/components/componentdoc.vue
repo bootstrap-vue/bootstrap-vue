@@ -38,11 +38,13 @@
           <code>{{ value }}</code>
         </template>
         <template slot="row-details" slot-scope="{ item }">
-          <b-badge variant="warning">
-            {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
-          </b-badge>
-          <!-- If deprecated is a string, show the string value -->
-          <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
+          <p v-if="item.deprecated">
+            <b-badge variant="warning">
+              {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
+            </b-badge>
+            <!-- If deprecated is a string, show the string value -->
+            <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
+          </p>
         </template>
         <template slot="defaultValue" slot-scope="{ value }">
           <code v-if="value">{{ value }}</code>
@@ -100,7 +102,7 @@
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description"></span>
+            <span>{{ arg.description }}</span>
           </div>
         </template>
       </b-table>
@@ -127,7 +129,7 @@
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description"></span>
+            <span>{{ arg.description }}</span>
           </div>
         </template>
       </b-table>
