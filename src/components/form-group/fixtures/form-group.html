@@ -8,7 +8,7 @@
                   :invalid-feedback="text.length ? '' : 'Please enter something'"
                   :valid-feedback="text.length ? 'Thank you' : ''"
                   :state="text.length ? true : false">
-        <b-form-input id="input1" v-model="text"></b-form-input>
+        <b-form-input id="input1" ref="input1" v-model="text"></b-form-input>
     </b-form-group>
     <!-- horizontal with label -->
     <b-form-group id="group2"
