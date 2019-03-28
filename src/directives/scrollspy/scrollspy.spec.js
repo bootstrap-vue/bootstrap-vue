@@ -19,7 +19,7 @@ describe('v-b-scrollspy directive', () => {
       template: `
         <div>
           <div id="navs" v-b-scrollspy:scroller>navs</div>
-          <div id="scroller" style="overflow-y: scroll;">scroller</div>
+          <div id="scroller" style="position: relative; overflow-y: scroll;">scroller</div>
         </div>
       `
     })
