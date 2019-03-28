@@ -20,7 +20,7 @@ the maximum native width of the image.
 
 ```html
 <div>
-  <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
+  <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image"></b-img>
 </div>
 
 <!-- b-img-fluid.vue -->
@@ -32,10 +32,10 @@ Note this may cause blurring on small bitmap images.
 ```html
 <div>
   <h5>Small image with <code>fluid</code>:</h5>
-  <b-img src="https://picsum.photos/300/150/?image=41" fluid alt="Fluid image" />
+  <b-img src="https://picsum.photos/300/150/?image=41" fluid alt="Fluid image"></b-img>
 
   <h5 class="my-3">Small image with <code>fluid-grow</code>:</h5>
-  <b-img src="https://picsum.photos/300/150/?image=41" fluid-grow alt="Fluid-grow image" />
+  <b-img src="https://picsum.photos/300/150/?image=41" fluid-grow alt="Fluid-grow image"></b-img>
 </div>
 
 <!-- b-img-fluid-grow.vue -->
@@ -56,13 +56,13 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 <b-container fluid class="p-4 bg-dark">
   <b-row>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1"></b-img>
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" alt="Image 2" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" alt="Image 2"></b-img>
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=59" alt="Image 3" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=59" alt="Image 3"></b-img>
     </b-col>
   </b-row>
 </b-container>
@@ -87,13 +87,13 @@ values:
 ```html
 <template>
   <div>
-    <b-img v-bind="mainProps" rounded alt="Rounded image" />
-    <b-img v-bind="mainProps" rounded="top" alt="Top-rounded image" />
-    <b-img v-bind="mainProps" rounded="right" alt="Right-rounded image" />
-    <b-img v-bind="mainProps" rounded="bottom" alt="Bottom-rounded image" />
-    <b-img v-bind="mainProps" rounded="left" alt="Left-rounded image" />
-    <b-img v-bind="mainProps" rounded="circle" alt="Circle image" />
-    <b-img v-bind="mainProps" rounded="0" alt="Not rounded image" />
+    <b-img v-bind="mainProps" rounded alt="Rounded image"></b-img>
+    <b-img v-bind="mainProps" rounded="top" alt="Top-rounded image"></b-img>
+    <b-img v-bind="mainProps" rounded="right" alt="Right-rounded image"></b-img>
+    <b-img v-bind="mainProps" rounded="bottom" alt="Bottom-rounded image"></b-img>
+    <b-img v-bind="mainProps" rounded="left" alt="Left-rounded image"></b-img>
+    <b-img v-bind="mainProps" rounded="circle" alt="Circle image"></b-img>
+    <b-img v-bind="mainProps" rounded="0" alt="Not rounded image"></b-img>
   </div>
 </template>
 
@@ -120,8 +120,8 @@ left+right margins). You can also center images by placing them in a container t
 
 ```html
 <div class="clearfix">
-  <b-img left src="https://picsum.photos/125/125/?image=58" alt="Left image" />
-  <b-img right src="https://picsum.photos/125/125/?image=58" alt="Right image" />
+  <b-img left src="https://picsum.photos/125/125/?image=58" alt="Left image"></b-img>
+  <b-img right src="https://picsum.photos/125/125/?image=58" alt="Right image"></b-img>
 </div>
 
 <!-- b-img-left-right.vue -->
@@ -131,7 +131,7 @@ left+right margins). You can also center images by placing them in a container t
 
 ```html
 <div>
-  <b-img center src="https://picsum.photos/125/125/?image=58" alt="Center image" />
+  <b-img center src="https://picsum.photos/125/125/?image=58" alt="Center image"></b-img>
 </div>
 
 <!-- b-img-center.vue -->
@@ -159,13 +159,13 @@ The default `blank-color` is `transparent`.
 ```html
 <template>
   <div>
-    <b-img v-bind="mainProps" alt="Transparent image" />
-    <b-img v-bind="mainProps" blank-color="#777" alt="HEX shorthand color image (#777)" />
-    <b-img v-bind="mainProps" blank-color="red" alt="Named color image (red)" />
-    <b-img v-bind="mainProps" blank-color="black" alt="Named color image (black)" />
-    <b-img v-bind="mainProps" blank-color="#338833" alt="HEX color image" />
-    <b-img v-bind="mainProps" blank-color="rgba(128, 255, 255, 0.5)" alt="RGBa color image" />
-    <b-img v-bind="mainProps" blank-color="#88f" alt="HEX shorthand color (#88f)" />
+    <b-img v-bind="mainProps" alt="Transparent image"></b-img>
+    <b-img v-bind="mainProps" blank-color="#777" alt="HEX shorthand color image (#777)"></b-img>
+    <b-img v-bind="mainProps" blank-color="red" alt="Named color image (red)"></b-img>
+    <b-img v-bind="mainProps" blank-color="black" alt="Named color image (black)"></b-img>
+    <b-img v-bind="mainProps" blank-color="#338833" alt="HEX color image"></b-img>
+    <b-img v-bind="mainProps" blank-color="rgba(128, 255, 255, 0.5)" alt="RGBa color image"></b-img>
+    <b-img v-bind="mainProps" blank-color="#88f" alt="HEX shorthand color (#88f)"></b-img>
   </div>
 </template>
 
@@ -234,14 +234,14 @@ Once an image has come into view and is shown, the event listeners are removed.
 ```html
 <template>
   <div>
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(80)" alt="Image 1" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(82)" alt="Image 2" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(84)" alt="Image 3" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(85)" alt="Image 4" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(88)" alt="Image 5" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(90)" alt="Image 6" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(92)" alt="Image 7" />
-    <b-img-lazy v-bind="mainProps" :src="getImageUrl(94)" alt="Image 8" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(80)" alt="Image 1"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(82)" alt="Image 2"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(84)" alt="Image 3"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(85)" alt="Image 4"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(88)" alt="Image 5"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(90)" alt="Image 6"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(92)" alt="Image 7"></b-img-lazy>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(94)" alt="Image 8"></b-img-lazy>
   </div>
 </template>
 

@@ -1,12 +1,10 @@
-import bTooltip from './tooltip'
-import { registerDirectives } from '../../utils/plugins'
+import BTooltipDirective from './tooltip'
+import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  bTooltip
+  BTooltip: BTooltipDirective
 }
 
 export default {
-  install(Vue) {
-    registerDirectives(Vue, directives)
-  }
+  install: installFactory({ directives })
 }

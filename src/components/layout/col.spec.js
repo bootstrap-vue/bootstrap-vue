@@ -91,7 +91,7 @@ describe('col', () => {
   it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop", async () => {
     const { $refs } = window.app
     ;['sm', 'md', 'lg', 'xl'].forEach((bkpt, idx) => {
-      // Shorthand binding <b-col sm />
+      // Shorthand binding <b-col sm></b-col>
       expect($refs[bkpt]).toHaveClass(`col-${bkpt}`)
       // Dynamically bound using object literals { sm: true }
       expect($refs[`boolean-breakpoints`][idx]).toHaveClass(`col-${bkpt}`)

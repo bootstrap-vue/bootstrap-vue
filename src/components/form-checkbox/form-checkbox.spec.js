@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 describe('form-checkbox', () => {
   /* Custom checkbox structure, class and attributes tests */
 
-  it('default has structure <div><input/><label></label></div>', async () => {
+  it('default has structure <div><input><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -58,6 +58,35 @@ describe('form-checkbox', () => {
     wrapper.destroy()
   })
 
+  it('default does not have aria-label attribute on input', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.find('input').attributes('aria-label')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('has aria-label attribute on input when aria-label provided', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: false,
+        ariaLabel: 'bar'
+      },
+      slots: {
+        default: 'foo'
+      }
+    })
+    expect(wrapper.find('input').attributes('aria-label')).toBe('bar')
+
+    wrapper.destroy()
+  })
+
   it('default has input class custom-control-input', async () => {
     const wrapper = mount(Input, {
       propsData: {
@@ -70,6 +99,7 @@ describe('form-checkbox', () => {
     const input = wrapper.find('input')
     expect(input.classes().length).toEqual(1)
     expect(input.classes()).toContain('custom-control-input')
+    expect(input.classes()).not.toContain('position-static')
 
     wrapper.destroy()
   })
@@ -375,7 +405,7 @@ describe('form-checkbox', () => {
 
   /* plain styling */
 
-  it('plain has structure <div><input/><label></label></div>', async () => {
+  it('plain has structure <div><input><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         plain: true,
@@ -477,6 +507,34 @@ describe('form-checkbox', () => {
     })
     const label = wrapper.find('label')
     expect(label.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('plain does not have class position-static when label provided', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.find('input').classes()).not.toContain('position-static')
+
+    wrapper.destroy()
+  })
+
+  it('plain has no label when no default slot content', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        plain: true,
+        checked: false
+      }
+    })
+    expect(wrapper.find('label').exists()).toBe(false)
+    expect(wrapper.find('input').classes()).toContain('position-static')
 
     wrapper.destroy()
   })
@@ -596,7 +654,7 @@ describe('form-checkbox', () => {
 
   /* switch styling - stand alone */
 
-  it('switch has structure <div><input/><label></label></div>', async () => {
+  it('switch has structure <div><input><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         switch: true,
@@ -689,7 +747,7 @@ describe('form-checkbox', () => {
 
   /* button styling - stand-alone mode */
 
-  it('stand-alone button has structure <div><label><input/></label></div>', async () => {
+  it('stand-alone button has structure <div><label><input></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         button: true,

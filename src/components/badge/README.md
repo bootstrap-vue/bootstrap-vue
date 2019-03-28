@@ -21,7 +21,9 @@ Badges can be used as part of links or buttons to provide a counter (or similar 
 
 ```html
 <div class="text-center">
-  <b-button variant="primary">Notifications <b-badge variant="light">4</b-badge></b-button>
+  <b-button variant="primary">
+    Notifications <b-badge variant="light">4</b-badge>
+  </b-button>
 </div>
 
 <!-- b-badge-button.vue -->

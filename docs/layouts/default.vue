@@ -1,10 +1,10 @@
 <template>
   <div class="bd-home">
-    <m-nav />
+    <m-nav></m-nav>
     <br>
-    <nuxt />
+    <nuxt></nuxt>
 
-    <m-footer />
+    <m-footer></m-footer>
   </div>
 </template>
 

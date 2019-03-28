@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.0.0-rc.15",
+  "version": "2.0.0-rc.16",
   "description": "BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "types": "src/index.d.ts",
@@ -9,6 +9,7 @@
   "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
+  "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
     {
@@ -40,13 +41,6 @@
       "url": "https://github.com/jackmu95"
     }
   ],
-  "bugs": {
-    "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
-  },
   "files": [
     "src",
     "dist",
@@ -71,7 +65,7 @@
     "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
     "docs-publish": "scripts/docs-publish.sh",
     "test": "jest",
-    "lint": "eslint --ext .js,.vue ./",
+    "lint": "eslint --ext .js,.md,.vue ./",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
     "release": "npm run prettify && npm run test && npm run build && standard-version",
     "postinstall": "opencollective || exit 0"
@@ -84,11 +78,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/standalone": "^7.3.4",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/standalone": "^7.4.2",
     "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.14",
     "@vue/test-utils": "^1.0.0-beta.29",
@@ -99,20 +93,21 @@
     "babel-plugin-istanbul": "^5.1.1",
     "clean-css-cli": "^4.2.1",
     "codecov": "^3.2.0",
-    "codemirror": "^5.44.0",
+    "codemirror": "^5.45.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.15.2",
+    "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
+    "eslint-plugin-markdown": "^1.0.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "esm": "^3.2.18",
+    "esm": "^3.2.20",
     "gh-pages": "^2.0.1",
     "highlightjs": "^9.12.0",
     "html-loader": "^0.5.5",
@@ -121,37 +116,22 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.1",
     "node-sass": "^4.11.0",
-    "nuxt": "^2.4.5",
+    "nuxt": "^2.5.1",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
-    "rollup": "^1.6.0",
+    "rollup": "^1.7.3",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
     "standard-version": "^5.0.2",
     "terser": "^3.17.0",
-    "vue": "^2.6.9",
+    "vue": "^2.6.10",
     "vue-jest": "^3.0.4",
     "vue-router": "^3.0.2",
-    "vue-server-renderer": "^2.6.9",
-    "vue-template-compiler": "^2.6.9"
-  },
-  "jest": {
-    "testRegex": "spec.js$",
-    "moduleFileExtensions": [
-      "js",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      ".*\\.(vue)$": "vue-jest"
-    },
-    "coverageDirectory": "./coverage/",
-    "testEnvironmentOptions": {
-      "pretendToBeVisual": true
-    }
+    "vue-server-renderer": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   },
   "standard-version": {
     "scripts": {

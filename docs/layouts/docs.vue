@@ -1,15 +1,15 @@
 <template>
   <div>
-    <m-nav />
+    <m-nav></m-nav>
     <b-container fluid>
       <b-row class="flex-xl-nowrap2">
         <b-col cols="12" md="3" xl="2" class="bd-sidebar">
-          <m-search />
-          <m-sidebar />
+          <m-search></m-search>
+          <m-sidebar></m-sidebar>
         </b-col>
 
         <b-col xl="2" class="d-none d-xl-block bd-toc pt-4">
-          <m-toc />
+          <m-toc></m-toc>
         </b-col>
 
         <b-col cols="12" md="9" xl="8" class="pb-md-3 pl-md-5 bd-content">
@@ -22,7 +22,7 @@
             </b-btn>
           </b-button-group>
 
-          <nuxt />
+          <nuxt></nuxt>
         </b-col>
       </b-row>
     </b-container>
@@ -56,9 +56,11 @@ export default {
         path = `/docs/markdown/reference/${slug}/README.md`
       } else if (name === 'docs-misc-slug') {
         if (slug === 'changelog') {
-          path = `/CHANGELOG.md`
+          path = '/CHANGELOG.md'
         } else if (slug === 'contributing') {
-          path = `/CONTRIBUTING.md`
+          path = '/CONTRIBUTING.md'
+        } else if (slug === 'settings') {
+          path = '/docs/markdown/misc/settings/README.md'
         }
       }
       return base + path

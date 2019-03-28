@@ -1,28 +1,20 @@
-module.exports = {
-  presets: [
-    [
-      '@babel/env',
-      {
-        useBuiltIns: 'entry'
+module.exports = api => {
+  const isDocs = api.env('docs')
+
+  let presets = []
+  if (!isDocs) {
+    presets.push(['@babel/env', { useBuiltIns: 'entry', corejs: { version: 2 } }])
+  }
+
+  return {
+    presets,
+    env: {
+      es: {
+        plugins: [['@babel/plugin-transform-modules-commonjs', { noInterop: true, loose: true }]]
+      },
+      test: {
+        presets: [['@babel/env', { targets: { node: 'current' } }]]
       }
-    ]
-  ],
-  env: {
-    docs: {
-      plugins: ['@babel/plugin-transform-runtime']
-    },
-    es: {
-      plugins: [['@babel/plugin-transform-modules-commonjs', { noInterop: true, loose: true }]]
-    },
-    test: {
-      presets: [
-        [
-          '@babel/env',
-          {
-            targets: { node: 'current' }
-          }
-        ]
-      ]
     }
   }
 }

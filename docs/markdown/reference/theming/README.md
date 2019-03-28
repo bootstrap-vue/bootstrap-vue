@@ -73,5 +73,8 @@ npm install --save-dev node-sass sass-loader
 
 ## See also
 
-For more details on theming Bootstrap's CSS, refer to the
-[**Official Bootstrap V4 Theming Documentation**](https://getbootstrap.com/docs/4.3/getting-started/theming/).
+- If you are defining custom breakpoint names, please see the
+  [BootstrapVue settings](/docs/misc/settings) page on how to update BootstrapVue `<b-col>` and
+  `<b-form-group>` breakpoint specific props.
+- For more details on theming Bootstrap's SCSS/CSS, refer to the
+  [**Official Bootstrap V4 Theming Documentation**](https://getbootstrap.com/docs/4.3/getting-started/theming/).

@@ -34,7 +34,7 @@ as well.
         <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
           <b-dropdown-item href="#one" @click="scrollIntoView">one</b-dropdown-item>
           <b-dropdown-item href="#two" @click="scrollIntoView">two</b-dropdown-item>
-          <b-dropdown-divider />
+          <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item href="#three" @click="scrollIntoView">three</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>
@@ -254,8 +254,10 @@ element.
 
 ### Config object properties
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-config = {
+const config = {
   element: 'body',
   offset: 10,
   method: 'auto',
@@ -372,16 +374,18 @@ node reference
 Whenever a target is activated, the event `bv:scrollspy::activate` is emitted on `$root` with the
 targets HREF (ID) as the argument (i.e. `#bar`)
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-new Vue({
+const app = new Vue({
   el: '#app',
+  created() {
+    this.$root.$on('bv::scrollspy::activate', this.onActivate)
+  },
   methods: {
     onActivate(target) {
       console.log('Receved Event: scrollspy::activate for target ', target)
     }
-  },
-  created() {
-    this.$root.$on('bv::scrollspy::activate', this.onActivate)
   }
 })
 ```

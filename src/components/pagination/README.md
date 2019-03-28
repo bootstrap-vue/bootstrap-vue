@@ -15,16 +15,18 @@ For pagination that changes to a new URL, use the
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
-      aria-controls="myTable"
-    />
+      aria-controls="my-table"
+    ></b-pagination>
+
     <p class="mt-3">Current Page: {{ currentPage }}</p>
+
     <b-table
-      id="myTable"
+      id="my-table"
       :items="items"
       :per-page="perPage"
       :current-page="currentPage"
       small
-    />
+    ></b-pagination>
   </div>
 </template>
 
@@ -72,20 +74,19 @@ counterparts for that.
 
 ### Limiting the number of displayed buttons
 
-To restrict the number of page buttons (including the ellipsis, but excluding the first, prev,
-next, and last buttons) shown, use the `limit` prop to specify the desired number of page buttons
+To restrict the number of page buttons (including the ellipsis, but excluding the first, prev, next,
+and last buttons) shown, use the `limit` prop to specify the desired number of page buttons
 (including the ellipsis, if shown). The default `limit` is `5`. The minimum supported value is `3`.
 When `limit` is set to `3`, no ellipsis indicators will be shown for practical purposes.
 
-The `first` and `last` buttons can be optionally hidden by setting the `hide-goto-end-buttons`
-prop.
+The `first` and `last` buttons can be optionally hidden by setting the `hide-goto-end-buttons` prop.
 
 The showing of the `ellipsis` can be optionally disabled by setting the `hide-ellipsis` prop.
 
 #### Small screen support
 
-On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
-minimize the potential of the pagination interface wrapping onto multiple lines:
+On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to minimize
+the potential of the pagination interface wrapping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limited to a maximum of 3 visible on `xs` screens and smaller.
@@ -108,7 +109,8 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       first-text="First"
       prev-text="Prev"
       next-text="Next"
-      last-text="Last" />
+      last-text="Last"
+    ></b-pagination>
 
     <!-- Use emojis in props -->
     <b-pagination
@@ -119,7 +121,8 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       prev-text="⏪"
       next-text="⏩"
       last-text="⏭"
-      class="mt-4" />
+      class="mt-4"
+    ></b-pagination>
 
     <!-- Use HTML and sub-components in slots -->
     <b-pagination
@@ -132,10 +135,10 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       <span class="text-danger" slot="prev-text">Prev</span>
       <span class="text-warning" slot="next-text">Next</span>
       <span class="text-info" slot="last-text">Last</span>
-      <div class="d-flex align-items-center h-100" slot="ellipsis-text">
-        <b-spinner small type="grow" />
-        <b-spinner small type="grow" />
-        <b-spinner small type="grow" />
+      <div slot="ellipsis-text">
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
       </div>
       <span slot="page" slot-scope="{ page, active }">
         <b v-if="active">{{ page }}</b>
@@ -177,11 +180,10 @@ The slot `page` is always scoped, while the slots `first-text`, `prev-text`, `ne
 `last-text` slots:**
 
 | Property   | Type    | Description                                          |
-| ---------- | ------- | ---------------------------------------------------- | 
+| ---------- | ------- | ---------------------------------------------------- |
 | `page`     | Number  | Page number (from `1` to `numberOfPages`)            |
 | `index`    | Number  | Page number (indexed from `0` to `numberOfPages -1`) |
 | `disabled` | Boolean | If the page button is disabled                       |
-
 
 ### Button Size
 
@@ -193,17 +195,17 @@ smaller buttons or `'lg'` for larger buttons.
   <div class="overflow-auto">
     <div>
       <h6>Small</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" size="sm" />
+      <b-pagination v-model="currentPage" :total-rows="rows" size="sm"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6>Default</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" />
+      <b-pagination v-model="currentPage" :total-rows="rows"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6>Large</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" size="lg" />
+      <b-pagination v-model="currentPage" :total-rows="rows" size="lg"></b-pagination>
     </div>
   </div>
 </template>
@@ -232,22 +234,22 @@ By default the pagination component is left aligned. Change the alignment to `ce
   <div class="overflow-auto">
     <div>
       <h6>Left alignment (default)</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" />
+      <b-pagination v-model="currentPage" :total-rows="rows"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6 class="text-center">Center alignment</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" align="center" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="center"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6 class="text-right">Right (end) alignment</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" align="right" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="right"></b-pagination>
     </div>
 
     <div class="mt-3">
       <h6 class="text-center">Fill alignment</h6>
-      <b-pagination v-model="currentPage" :total-rows="rows" align="fill" />
+      <b-pagination v-model="currentPage" :total-rows="rows" align="fill"></b-pagination>
     </div>
   </div>
 </template>
@@ -295,8 +297,8 @@ technology.
 The `label-page` will optionally accept a function to generate the aria-label. The function is
 passed a single argument which is the page number (indexed from 1 to number of pages).
 
-You can remove any label by setting the prop to an empty string (`''`), although this is
-not reccomended unless the content of the button textually conveys it's purpose.
+You can remove any label by setting the prop to an empty string (`''`), although this is not
+recommended unless the content of the button textually conveys it's purpose.
 
 ### Keyboard navigation support
 

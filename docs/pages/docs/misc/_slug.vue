@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <div class="bd-content" v-html="readme" />
+    <div class="bd-content" v-html="readme"></div>
   </div>
 </template>
 
 <script>
-import { misc as _meta } from '~/content'
+import { misc as _meta, defaultConfig } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 
 const getReadMe = name =>
-  import('~/markdown/misc/' + name + '/README.md' /* webpackChunkName: "docs/misc" */)
+  import(`~/markdown/misc/${name}/README.md` /* webpackChunkName: "docs/misc" */)
 
 export default {
   mixins: [docsMixin],
@@ -20,11 +20,15 @@ export default {
   },
 
   async asyncData({ params }) {
-    const readme = await getReadMe(params.slug)
+    let readme = await getReadMe(params.slug)
     const meta = _meta[params.slug]
-
+    readme = readme.default
+    readme = readme.replace(
+      '{{ defaultConfig }}',
+      JSON.stringify(defaultConfig || {}, undefined, 2)
+    )
     return {
-      readme: readme.default,
+      readme,
       meta
     }
   }

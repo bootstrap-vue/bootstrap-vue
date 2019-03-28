@@ -146,8 +146,8 @@ export const closest = (selector, root) => {
         if (matches(element, sel)) {
           return element
         }
-        element = element.parentElement
-      } while (element !== null)
+        element = element.parentElement || element.parentNode
+      } while (element !== null && element.nodeType === Node.ELEMENT_NODE)
       return null
     }
 

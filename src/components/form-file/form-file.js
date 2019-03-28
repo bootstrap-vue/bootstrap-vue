@@ -2,12 +2,20 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import { from as arrayFrom, isArray } from '../../utils/array'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { from as arrayFrom, isArray, concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
+
+const NAME = 'BFormFile'
 
 // @vue/component
 export default {
-  name: 'BFormFile',
-  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
+  name: NAME,
+  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
       // type: Object,
@@ -24,15 +32,15 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'No file chosen' // Chrome default file prompt
+      default: () => getComponentConfig(NAME, 'placeholder')
     },
     browseText: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'browseText')
     },
     dropPlaceholder: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'dropPlaceholder')
     },
     multiple: {
       type: Boolean,
@@ -49,6 +57,10 @@ export default {
     noDrop: {
       type: Boolean,
       default: false
+    },
+    fileNameFormatter: {
+      type: Function,
+      default: null
     }
   },
   data() {
@@ -70,13 +82,23 @@ export default {
         return this.placeholder
       }
 
-      // Multiple files
-      if (this.multiple) {
-        return this.selectedFile.map(file => file.name).join(', ')
-      }
+      // Convert selectedFile to an array (if not already one)
+      const files = concat(this.selectedFile).filter(Boolean)
 
-      // Single file
-      return this.selectedFile.name
+      if (this.hasNormalizedSlot('file-name')) {
+        // There is a slot for formatting the files/names
+        return [
+          this.normalizeSlot('file-name', {
+            files: files,
+            names: files.map(f => f.name)
+          })
+        ]
+      } else {
+        // Use the user supplied formatter, or the built in one.
+        return typeof this.fileNameFormatter === 'function'
+          ? String(this.fileNameFormatter(files))
+          : files.map(file => file.name).join(', ')
+      }
     }
   },
   watch: {
@@ -136,8 +158,8 @@ export default {
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
+      /* istanbul ignore next: not supported in JSDOM */
       if (items && !this.noTraverse) {
-        /* istanbul ignore next: not supported in JSDOM */
         const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
@@ -174,7 +196,7 @@ export default {
       // Triggered when the parent form (if any) is reset
       this.selectedFile = this.multiple ? [] : null
     },
-    onDragover(evt) {
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -183,12 +205,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    onDragleave(evt) {
+    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop(evt) {
+    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
@@ -265,7 +287,8 @@ export default {
     const label = h(
       'label',
       {
-        class: ['custom-file-label', this.dragging ? 'dragging' : null],
+        staticClass: 'custom-file-label',
+        class: [this.dragging ? 'dragging' : null],
         attrs: {
           for: this.safeId(),
           'data-browse': this.browseText || null
@@ -278,7 +301,8 @@ export default {
     return h(
       'div',
       {
-        class: ['custom-file', 'b-form-file', this.stateClass],
+        staticClass: 'custom-file b-form-file',
+        class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragover: this.onDragover,

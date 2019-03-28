@@ -145,6 +145,10 @@ const props = {
 export default {
   components: { BLink },
   mixins: [normalizeSlotMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props,
   data() {
     const curr = parseInt(this.value, 10)

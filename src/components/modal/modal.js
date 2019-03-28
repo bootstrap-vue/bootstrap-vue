@@ -6,8 +6,8 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
+import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-
 import {
   addClass,
   contains,
@@ -25,6 +25,8 @@ import {
   selectAll,
   setAttr
 } from '../../utils/dom'
+
+const NAME = 'BModal'
 
 // Selectors for padding/margin adjustments
 const Selector = {
@@ -82,7 +84,7 @@ function getModalNextZIndex() {
 
 // @vue/component
 export default {
-  name: 'BModal',
+  name: NAME,
   components: { BButton, BButtonClose },
   mixins: [idMixin, listenOnRootMixin],
   model: {
@@ -235,29 +237,29 @@ export default {
     },
     headerCloseLabel: {
       type: String,
-      default: 'Close'
+      default: () => getComponentConfig(NAME, 'headerCloseLabel')
     },
     cancelTitle: {
       type: String,
-      default: 'Cancel'
+      default: () => getComponentConfig(NAME, 'cancelTitle')
     },
     cancelTitleHtml: {
       type: String
     },
     okTitle: {
       type: String,
-      default: 'OK'
+      default: () => getComponentConfig(NAME, 'okTitle')
     },
     okTitleHtml: {
       type: String
     },
     cancelVariant: {
       type: String,
-      default: 'secondary'
+      default: () => getComponentConfig(NAME, 'cancelVariant')
     },
     okVariant: {
       type: String,
-      default: 'primary'
+      default: () => getComponentConfig(NAME, 'okVariant')
     },
     lazy: {
       type: Boolean,
@@ -354,6 +356,7 @@ export default {
   watch: {
     visible(newVal, oldVal) {
       if (newVal === oldVal) {
+        /* istanbul ignore next */
         return
       }
       this[newVal ? 'show' : 'hide']()
@@ -378,7 +381,7 @@ export default {
       this.show()
     }
   },
-  beforeDestroy() /* instanbul ignore next */ {
+  beforeDestroy() /* istanbul ignore next */ {
     // Ensure everything is back to normal
     if (this._observer) {
       this._observer.disconnect()
@@ -456,7 +459,7 @@ export default {
         relatedTarget: null,
         isOK: trigger || null,
         trigger: trigger || null,
-        cancel() {
+        cancel() /* istanbul ignore next */ {
           // Backwards compatibility
           warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
           this.preventDefault()

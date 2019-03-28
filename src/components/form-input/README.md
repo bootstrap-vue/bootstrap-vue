@@ -6,8 +6,8 @@
 ```html
 <template>
   <div>
-    <b-form-input v-model="text1" type="text" placeholder="Enter your name" />
-    <div class="mt-2">Value: {{ text1 }}</div>
+    <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
+    <div class="mt-2">Value: {{ text }}</div>
   </div>
 </template>
 
@@ -15,7 +15,7 @@
   export default {
     data() {
       return {
-        text1: ''
+        text: ''
       }
     }
   }
@@ -38,7 +38,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
         <label :for="`type-${type}`">Type {{ type }}:</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input :id="`type-${type}`" :type="type" />
+        <b-form-input :id="`type-${type}`" :type="type"></b-form-input>
       </b-col>
     </b-row>
   </b-container>
@@ -105,7 +105,7 @@ new values for those using the `min` and `max` props.
 <template>
   <div>
     <label for="range-1">Example range with min and max</label>
-    <b-form-input type="range" id="range-1" v-model="value" min="0" max="5" />
+    <b-form-input id="range-1" v-model="value" type="range" min="0" max="5"></b-form-input>
     <div class="mt-2">Value: {{ value }}</div>
   </div>
 </template>
@@ -130,7 +130,7 @@ In the example below, we double the number of steps by using step="0.5".
 <template>
   <div>
     <label for="range-2">Example range with step value</label>
-    <b-form-input type="range" id="range-2" v-model="value" min="0" max="5" step="0.5" />
+    <b-form-input id="range-2" v-model="value" type="range" min="0" max="5" step="0.5"></b-form-input>
     <div class="mt-2">Value: {{ value }}</div>
   </div>
 </template>
@@ -169,7 +169,7 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="input-small">Small:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="input-small" size="sm" type="text" placeholder="Enter your name" />
+      <b-form-input id="input-small" size="sm" placeholder="Enter your name"></b-form-input>
     </b-col>
   </b-row>
 
@@ -178,7 +178,7 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="input-default">Default:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="input-default" type="text" placeholder="Enter your name" />
+      <b-form-input id="input-default" placeholder="Enter your name"></b-form-input>
     </b-col>
   </b-row>
 
@@ -187,7 +187,7 @@ To control width, place the input inside standard Bootstrap grid column.
       <label for="input-large">Large:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="input-large" size="lg" type="text" placeholder="Enter your name" />
+      <b-form-input id="input-large" size="lg" placeholder="Enter your name"></b-form-input>
     </b-col>
   </b-row>
 </b-container>
@@ -227,7 +227,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       <label for="input-none">No State:</label>
     </b-col>
     <b-col sm="9">
-      <b-form-input id="input-none" :state="null" type="text" placeholder="No validation" />
+      <b-form-input id="input-none" :state="null" placeholder="No validation"></b-form-input>
     </b-col>
   </b-row>
 
@@ -236,7 +236,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       <label for="input-valid">Valid State:</label>
     </b-col>
     <b-col sm="9">
-      <b-form-input id="input-valid" :state="true" type="text" placeholder="Valid input" />
+      <b-form-input id="input-valid" :state="true" placeholder="Valid input"></b-form-input>
     </b-col>
   </b-row>
 
@@ -245,7 +245,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       <label for="input-invalid">Invalid State:</label>
     </b-col>
     <b-col sm="9">
-      <b-form-input id="input-invalid" :state="false" type="text" placeholder="Invalid input" />
+      <b-form-input id="input-invalid" :state="false" placeholder="Invalid input"></b-form-input>
     </b-col>
   </b-row>
 </b-container>
@@ -258,24 +258,23 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
 ```html
 <template>
   <div role="group">
-    <label for="inputLive">Name:</label>
+    <label for="input-live">Name:</label>
     <b-form-input
-      id="inputLive"
+      id="input-live"
       v-model="name"
-      trim
-      type="text"
       :state="nameState"
-      aria-describedby="inputLiveHelp inputLiveFeedback"
+      aria-describedby="input-live-help input-live-feedback"
       placeholder="Enter your name"
-    />
+      trim
+    ></b-form-input>
 
-    <!-- This will only be shown if the preceeding input has an invalid state -->
-    <b-form-invalid-feedback id="inputLiveFeedback">
+    <!-- This will only be shown if the preceding input has an invalid state -->
+    <b-form-invalid-feedback id="input-live-feedback">
       Enter at least 3 letters
     </b-form-invalid-feedback>
 
     <!-- This is a form text block (formerly known as help block) -->
-    <b-form-text id="inputLiveHelp">Your full name.</b-form-text>
+    <b-form-text id="input-live-help">Your full name.</b-form-text>
   </div>
 </template>
 
@@ -345,31 +344,29 @@ Formatting does not occur if a `formatter` is not provided.
 ```html
 <template>
   <div>
-    <label for="inputFormatter">Text input with formatter (on input)</label>
+    <label for="input-formatter">Text input with formatter (on input)</label>
     <b-form-input
-      id="inputFormatter"
+      id="input-formatter"
       v-model="text1"
-      type="text"
-      placeholder="Enter your name"
-      aria-describedby="inputFormatterHelp"
       :formatter="format"
-    />
-    <b-form-text id="inputFormatterHelp">
+      placeholder="Enter your name"
+      aria-describedby="input-formatter-help"
+    ></b-form-input>
+    <b-form-text id="input-formatter-help">
       We will convert your name to lowercase instantly
     </b-form-text>
     <div>Value: {{ text1 }}</div>
 
-    <label for="inputLazy">Text input with lazy formatter (on blur)</label>
+    <label for="input-lazy">Text input with lazy formatter (on blur)</label>
     <b-form-input
-      id="inputLazy"
+      id="input-lazy"
       v-model="text2"
-      type="text"
-      placeholder="Enter your name"
-      aria-describedby="inputLazyHelp"
       :formatter="format"
+      placeholder="Enter your name"
+      aria-describedby="input-lazy-help"
       lazy-formatter
-    />
-    <b-form-text id="inputLazyHelp">This one is a little lazy!</b-form-text>
+    ></b-form-input>
+    <b-form-text id="input-lazy-help">This one is a little lazy!</b-form-text>
     <div>Value: {{ text2 }}</div>
   </div>
 </template>
@@ -427,7 +424,7 @@ chosen, or new values to be entered.
 
 ```html
 <template>
-  <b-form-input list="my-list-id" />
+  <b-form-input list="my-list-id"></b-form-input>
 
   <datalist id="my-list-id">
     <option>Manual Option</option>
@@ -448,6 +445,10 @@ chosen, or new values to be entered.
 <!-- b-form-input-datalist.vue -->
 ```
 
+BootstrapVue provides the form helper component
+[`<b-form-datalist>`](/docs/components/form/#datalist-helper) for quickly creating a `<datalist>`
+from an array of options.
+
 **Notes:**
 
 - Datalists work in conjunction with the browser's built in auto-complete, displaying datalist
@@ -463,7 +464,7 @@ chosen, or new values to be entered.
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
-To get around this, `<b-form-input>` and `<b-for-textarea>` have two boolean props `trim` and
+To get around this, `<b-form-input>` and `<b-form-textarea>` have two boolean props `trim` and
 `number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectively.
 Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
 

@@ -159,7 +159,15 @@
 }
 
 /* b-table: selectable rows */
-table.b-table.b-table-selectable > tbody > tr {
-  cursor: pointer;
-  // user-select: none;
+.b-table.table.b-table-selectable {
+  & > tbody > tr {
+    cursor: pointer;
+  }
+
+  &.b-table-selecting {
+    // Disabled text-selection when in mode range when at least one row selected
+    &.b-table-select-range > tbody > tr {
+      user-select: none;
+    }
+  }
 }

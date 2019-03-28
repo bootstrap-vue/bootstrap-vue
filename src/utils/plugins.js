@@ -1,3 +1,32 @@
+import { setConfig } from './config'
+
+/**
+ * Plugin install factory function.
+ * @param {object} { components, directives }
+ * @returns {function} plugin install function
+ */
+export const installFactory = ({ components, directives, plugins }) => {
+  return (Vue, config = {}) => {
+    setConfig(config)
+    registerComponents(Vue, components)
+    registerDirectives(Vue, directives)
+    registerPlugins(Vue, plugins)
+  }
+}
+
+/**
+ * Load a group of plugins.
+ * @param {object} Vue
+ * @param {object} Plugin definitions
+ */
+export const registerPlugins = (Vue, plugins = {}) => {
+  for (let plugin in plugins) {
+    if (plugin && plugins[plugin]) {
+      Vue.use(plugins[plugin])
+    }
+  }
+}
+
 /**
  * Load a component.
  * @param {object} Vue
@@ -5,7 +34,9 @@
  * @param {object} Component definition
  */
 export const registerComponent = (Vue, name, def) => {
-  Vue.component(name, def)
+  if (Vue && name && def) {
+    Vue.component(name, def)
+  }
 }
 
 /**
@@ -13,7 +44,7 @@ export const registerComponent = (Vue, name, def) => {
  * @param {object} Vue
  * @param {object} Object of component definitions
  */
-export const registerComponents = (Vue, components) => {
+export const registerComponents = (Vue, components = {}) => {
   for (let component in components) {
     registerComponent(Vue, component, components[component])
   }
@@ -26,7 +57,9 @@ export const registerComponents = (Vue, components) => {
  * @param {object} Directive definition
  */
 export const registerDirective = (Vue, name, def) => {
-  Vue.directive(name, def)
+  if (Vue && name && def) {
+    Vue.directive(name, def)
+  }
 }
 
 /**
@@ -34,7 +67,7 @@ export const registerDirective = (Vue, name, def) => {
  * @param {object} Vue
  * @param {object} Object of directive definitions
  */
-export const registerDirectives = (Vue, directives) => {
+export const registerDirectives = (Vue, directives = {}) => {
   for (let directive in directives) {
     registerDirective(Vue, directive, directives[directive])
   }

@@ -2,7 +2,7 @@ import BContainer from './container'
 import BRow from './row'
 import BCol from './col'
 import BFormRow from './form-row'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BContainer,
@@ -12,7 +12,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

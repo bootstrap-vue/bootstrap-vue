@@ -52,14 +52,14 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     const templateOptions = {}
 
-    // TODO: also add support for individual components & directives
+    // TODO: Also add support for individual components & directives
     for (const type of ['componentPlugins', 'directivePlugins']) {
       const bvPlugins = Array.isArray(options[type]) ? options[type] : []
 
       templateOptions[type] = bvPlugins
-        // convert everything to kebab
+        // Convert everything to kebab-case
         .map(p => kebabCase(p))
-        // remove duplicate items
+        // Remove duplicate items
         .filter((p, i, arr) => arr.indexOf(p) === i)
         .map(pluginDir => {
           const moduleName = (type === 'directivePlugins' ? 'v' : '') + pascalCase(pluginDir)
@@ -67,7 +67,12 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         })
     }
 
-    // Register plugin, pasing options to plugin template
+    // Add BootstrapVue configuration if present
+    if (options.config && Object.prototype.toString.call(options.config) === '[object Object]') {
+      templateOptions.config = { ...options.config }
+    }
+
+    // Register plugin, passing options to plugin template
     this.addPlugin({
       src: resolve(__dirname, 'plugin.template.js'),
       fileName: 'bootstrap-vue.js',

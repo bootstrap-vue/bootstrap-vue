@@ -6,6 +6,68 @@ guidelines.
 
 <a name="2.0.0-rc.15"></a>
 
+## [v2.0.0-rc.16](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.15...v2.0.0-rc.16)
+
+Released 2019-03-28
+
+### Bug Fixes v2.0.0-rc.16
+
+- **collapse/toggle:** persist toggle state on element and prevent multiple state emits (closes
+  [#2923](https://github.com/bootstrap-vue/bootstrap-vue/issues/2923))
+  ([#2924](https://github.com/bootstrap-vue/bootstrap-vue/issues/2924))
+  ([6f899fc](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f899fc))
+- **docs:** drop self-closing tags + build system improvements (fixes
+  [#2882](https://github.com/bootstrap-vue/bootstrap-vue/issues/2882))
+  ([#2893](https://github.com/bootstrap-vue/bootstrap-vue/issues/2893))
+  ([310c7dc](https://github.com/bootstrap-vue/bootstrap-vue/commit/310c7dc))
+- **dropdown:** fix `no-caret` prop when dropleft (fixes
+  [#2909](https://github.com/bootstrap-vue/bootstrap-vue/issues/2909))
+  ([#2910](https://github.com/bootstrap-vue/bootstrap-vue/issues/2910))
+  ([3bef981](https://github.com/bootstrap-vue/bootstrap-vue/commit/3bef981))
+- **table:** fix broken aria-labels for sortable columns + break out code into additional mixins +
+  tests ([#2884](https://github.com/bootstrap-vue/bootstrap-vue/issues/2884))
+  ([ddc2006](https://github.com/bootstrap-vue/bootstrap-vue/commit/ddc2006))
+- **table:** fix range selection
+  ([#2865](https://github.com/bootstrap-vue/bootstrap-vue/issues/2865))
+  ([da49558](https://github.com/bootstrap-vue/bootstrap-vue/commit/da49558))
+- **table:** fix SSR mismatch errors
+  ([#2897](https://github.com/bootstrap-vue/bootstrap-vue/issues/2897))
+  ([6c1940d](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c1940d))
+- **utils/dom:** update closest routine to support SVG
+  ([#2901](https://github.com/bootstrap-vue/bootstrap-vue/issues/2901))
+  ([9d4408d](https://github.com/bootstrap-vue/bootstrap-vue/commit/9d4408d))
+
+### Features v2.0.0-rc.16
+
+- add BOOTSTRAP_VUE_NO_WARN environment variable to hide warnings
+  ([#2826](https://github.com/bootstrap-vue/bootstrap-vue/issues/2826))
+  ([44d0351](https://github.com/bootstrap-vue/bootstrap-vue/commit/44d0351))
+- **alert:** remove need for custom CSS for fade transition
+  ([#2925](https://github.com/bootstrap-vue/bootstrap-vue/issues/2925))
+  ([0910b22](https://github.com/bootstrap-vue/bootstrap-vue/commit/0910b22))
+- **carousel:** add no-hover-pause prop
+  ([#2888](https://github.com/bootstrap-vue/bootstrap-vue/issues/2888))
+  ([8a503ec](https://github.com/bootstrap-vue/bootstrap-vue/commit/8a503ec))
+- **core:** create configurable base global configuration
+  ([#2905](https://github.com/bootstrap-vue/bootstrap-vue/issues/2905))
+  ([8018bdf](https://github.com/bootstrap-vue/bootstrap-vue/commit/8018bdf))
+- **form-checkbox/radio:** allow no label in plain mode (fixes
+  [#2911](https://github.com/bootstrap-vue/bootstrap-vue/issues/2911))
+  ([#2912](https://github.com/bootstrap-vue/bootstrap-vue/issues/2912))
+  ([6f38d9d](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f38d9d))
+- **form-file:** add in prop and scoped slot for formatting selected file names
+  ([#2902](https://github.com/bootstrap-vue/bootstrap-vue/issues/2902))
+  ([f53b5f8](https://github.com/bootstrap-vue/bootstrap-vue/commit/f53b5f8))
+- **forms:** new b-form-datalist helper component
+  ([#2899](https://github.com/bootstrap-vue/bootstrap-vue/issues/2899))
+  ([e9a8e85](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9a8e85))
+- **table:** add basic keyboard nav when table has row-clicked handler or is selctable (closes
+  [#2869](https://github.com/bootstrap-vue/bootstrap-vue/issues/2869))
+  ([#2870](https://github.com/bootstrap-vue/bootstrap-vue/issues/2870))
+  ([ddcd66a](https://github.com/bootstrap-vue/bootstrap-vue/commit/ddcd66a))
+
+<a name="2.0.0-rc.15"></a>
+
 ## [v2.0.0-rc.15](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.14...v2.0.0-rc.15)
 
 Released: 2019-03-18

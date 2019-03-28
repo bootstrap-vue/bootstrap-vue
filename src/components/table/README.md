@@ -8,7 +8,7 @@
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" />
+    <b-table striped hover :items="items"></b-table>
   </div>
 </template>
 
@@ -34,6 +34,8 @@
 
 `items` is the table data in array format, where each record (row) data are keyed objects. Example
 format:
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const items = [
@@ -77,7 +79,7 @@ modifier properties (make sure your field keys do not conflict with these names)
 ```html
 <template>
   <div>
-    <b-table hover :items="items" />
+    <b-table hover :items="items"></b-table>
   </div>
 </template>
 
@@ -154,7 +156,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -189,7 +191,7 @@ is guaranteed)**:
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -241,7 +243,7 @@ typically be in the order they were defined in the object, although **field orde
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -323,14 +325,14 @@ The following field properties are recognized:
 
 | Property        | Type                        | Description                                                                                                                                                                                                                                                                                                           |
 | --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` from as an array of objects.                                                                                                                                                                                        |
+| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
 | `label`         | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
 | `headerTitle`   | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
 | `headerAbbr`    | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
 | `class`         | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
 | `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.                                                                 |
 | `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection` | String                      | Change sort direction on this column. Refer to the [**Change sort direction**](#change-sort-direction) Section for more details.                                                                                                                                                                                      |
+| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [**Change initial sort direction**](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
 | `tdClass`       | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
 | `thClass`       | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
 | `thStyle`       | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
@@ -352,6 +354,8 @@ For information and usage about scoped slots and formatters, refer to the
 [**Custom Data Rendering**](#custom-data-rendering) section below.
 
 Feel free to mix and match simple array and object array together:
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const fields = [
@@ -413,7 +417,7 @@ place a unique `:key` on your element/components in your custom formatted field 
 | `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
 | `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
 | `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)                                                                                                                                                                                                                                           |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed`)                                                                                                                                                                                                                                                                            |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
 | `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [**Sorting**](#sorting) section below for more details.                                                                                                                                              |
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [**Responsive tables**](#responsive-tables) below for details. |
@@ -427,15 +431,15 @@ place a unique `:key` on your element/components in your custom formatted field 
 <template>
   <div>
     <b-form-group label="Table Options">
-      <b-form-checkbox inline v-model="striped">Striped</b-form-checkbox>
-      <b-form-checkbox inline v-model="bordered">Bordered</b-form-checkbox>
-      <b-form-checkbox inline v-model="borderless">Borderless</b-form-checkbox>
-      <b-form-checkbox inline v-model="outlined">Outlined</b-form-checkbox>
-      <b-form-checkbox inline v-model="small">Small</b-form-checkbox>
-      <b-form-checkbox inline v-model="hover">Hover</b-form-checkbox>
-      <b-form-checkbox inline v-model="dark">Dark</b-form-checkbox>
-      <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
-      <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
 
     <b-table
@@ -450,7 +454,7 @@ place a unique `:key` on your element/components in your custom formatted field 
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -494,7 +498,7 @@ You can also style every row using the `tbody-tr-class` prop
 ```html
 <template>
   <div>
-    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass"></b-table>
   </div>
 </template>
 
@@ -522,7 +526,7 @@ You can also style every row using the `tbody-tr-class` prop
 <!-- b-table-styled-row.vue -->
 ```
 
-## Responsive tables
+### Responsive tables
 
 Responsive tables allow tables to be scrolled horizontally with ease. Make any table responsive
 across all viewports by setting the prop `responsive` to `true`. Or, pick a maximum breakpoint with
@@ -534,7 +538,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items" />
+    <b-table responsive :items="items"></b-table>
   </div>
 </template>
 
@@ -594,7 +598,7 @@ values: `sm`, `md`, `lg`, or `xl`.
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
 
-## Stacked tables
+### Stacked tables
 
 An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
 SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any table stacked
@@ -612,7 +616,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 ```html
 <template>
   <div>
-    <b-table stacked :items="items" />
+    <b-table stacked :items="items"></b-table>
   </div>
 </template>
 
@@ -647,7 +651,78 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
 
-## Table caption
+### Table busy state
+
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
+just before you update your items, and then set it to `false` once you have your items. When in the
+busy state, the table will have the attribute `aria-busy="true"`.
+
+During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
+following custom CSS:
+
+```css
+/* Busy table styling */
+table.b-table[aria-busy='false'] {
+  opacity: 1;
+}
+table.b-table[aria-busy='true'] {
+  opacity: 0.6;
+}
+```
+
+You can override this styling using your own CSS.
+
+You may optionally provide a `table-busy` slot to show a custom loading message or spinner whenever
+the table's busy state is `true`. The slot will be placed in a `<tr>` element with class
+`b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
+
+**Example of `table-busy` slot usage:**
+
+```html
+<template>
+  <div>
+    <b-button @click="toggleBusy">Toggle Busy State</b-button>
+
+    <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
+      <div slot="table-busy" class="text-center text-danger my-2">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>Loading...</strong>
+      </div>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        isBusy: false,
+        items: [
+          { first_name: 'Dickerson', last_name: 'MacDonald', age: 40 },
+          { first_name: 'Larsen', last_name: 'Shaw', age: 21 },
+          { first_name: 'Geneva', last_name: 'Wilson', age: 89 },
+          { first_name: 'Jami', last_name: 'Carney', age: 38 }
+        ]
+      }
+    },
+    methods: {
+      toggleBusy() {
+        this.isBusy = !this.isBusy
+      }
+    }
+  }
+</script>
+
+<!-- b-table-busy-slot.vue -->
+```
+
+Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
+additional information on the `busy` state.
+
+**Note:** All click related and hover events, and sort-changed events will **not** be emitted when
+the table is in the `busy` state.
+
+### Table caption
 
 Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
 slot takes precedence over the prop). The default Bootstrap V4 styling places the caption at the
@@ -712,7 +787,7 @@ You can have the caption placed at the top of the table by setting the `caption-
 You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
 control the caption positioning.
 
-## Table colgroup
+### Table colgroup
 
 Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements for optional
 grouping and styling of table columns. Note the styles available via `<col>` elements are limited.
@@ -721,81 +796,10 @@ usage of `<colgroup>`
 
 Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
-
-## Table busy state
-
-`<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
-just before you update your items, and then set it to `false` once you have your items. When in the
-busy state, the table will have the attribute `aria-busy="true"`.
-
-During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
-following custom CSS:
-
-```css
-/* Busy table styling */
-table.b-table[aria-busy='false'] {
-  opacity: 1;
-}
-table.b-table[aria-busy='true'] {
-  opacity: 0.6;
-}
-```
-
-You can override this styling using your own CSS.
-
-You may optionally provide a `table-busy` slot to show a custom loading message or spinner whenever
-the table's busy state is `true`. The slot will be placed in a `<tr>` element with class
-`b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
-
-**Example of `table-busy` slot usage:**
-
-```html
-<template>
-  <div>
-    <b-button @click="toggleBusy">Toggle Busy State</b-button>
-
-    <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
-      <div slot="table-busy" class="text-center text-danger my-2">
-        <b-spinner class="align-middle" />
-        <strong>Loading...</strong>
-      </div>
-    </b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        isBusy: false,
-        items: [
-          { first_name: 'Dickerson', last_name: 'MacDonald', age: 40 },
-          { first_name: 'Larsen', last_name: 'Shaw', age: 21 },
-          { first_name: 'Geneva', last_name: 'Wilson', age: 89 },
-          { first_name: 'Jami', last_name: 'Carney', age: 38 }
-        ]
-      }
-    },
-    methods: {
-      toggleBusy() {
-        this.isBusy = !this.isBusy
-      }
-    }
-  }
-</script>
-
-<!-- b-table-busy-slot.vue -->
-```
-
-Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
-additional information on the `busy` state.
-
-**Note:** All click related and hover events, and sort-changed events will **not** be emitted when
-the table is in the `busy` state.
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
 ## Custom Data Rendering
 
@@ -892,7 +896,7 @@ scoped field slot
 <template>
   <div>
     <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value" />
+      <span slot="html" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -915,8 +919,14 @@ scoped field slot
 <!-- b-table-html-data-slots.vue -->
 ```
 
-**Warning:** Be cautious of using this to display user supplied content, **as script tags could be
-injected into your page!**
+<p class="alert alert-danger">
+  <string>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
+  supplied content,  as it may make your application vulnerable to
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
+  user supplied string.
+</div>
 
 ### Formatter callback
 
@@ -1123,10 +1133,10 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
 
 Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
 ## Row select support
 
@@ -1147,7 +1157,7 @@ as read-only.**
 <template>
   <div>
     <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
     </b-form-group>
 
     <b-table
@@ -1156,7 +1166,7 @@ as read-only.**
       selectedVariant="success"
       :items="items"
       @row-selected="rowSelected"
-    />
+    ></b-table>
 
     {{ selected }}
   </div>
@@ -1187,6 +1197,16 @@ as read-only.**
 
 <!-- b-table-selectable.vue -->
 ```
+
+When table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
 
 **Notes:**
 
@@ -1238,7 +1258,7 @@ initially showing.
         </b-button>
 
         <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-        <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
+        <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
           Details via check
         </b-form-checkbox>
       </template>
@@ -1299,10 +1319,20 @@ pre-specify the column to be sorted, set the `sort-by` prop to the field's key. 
 direction by setting `sort-desc` to either `true` (for descending) or `false` (for ascending, the
 default).
 
+- **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
+  lowest value in the first row with progressively higher values in the following rows. The header
+  indicator arrow will point in the direction of lowest to highest. (i.e. down for ascending).
+- **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
+  the highest value in the first row with progressively lower values in the following rows. The
+  header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
+
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
 `.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
 criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
-the `.sync` prop modifier
+the `.sync` prop modifier.
+
+Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
+table not being sorted.
 
 When the prop `foot-clone` is set, the footer headings will also allow sorting by clicking, even if
 you have custom formatted footer field headers. To disable the sort icons and sorting via heading
@@ -1317,7 +1347,12 @@ presentational data.
 ```html
 <template>
   <div>
-    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields" />
+    <b-table
+      :items="items"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+    ></b-table>
 
     <div>
       Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
@@ -1377,6 +1412,8 @@ routine handle only certain fields (keys) or in the special case of virtual colu
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
 
+<!-- eslint-disable no-unused-vars, no-undef -->
+
 ```js
 function sortCompare(a, b, key) {
   if (typeof a[key] === 'number' && typeof b[key] === 'number') {
@@ -1417,16 +1454,19 @@ with a single argument containing the context object of `<b-table>`. See the
 [Detection of sorting change](#detection-of-sorting-change) section below for details about the
 sort-changed event and the context object.
 
-### Change sort direction
+### Change initial sort direction
 
 Control the order in which ascending and descending sorting is applied when a sortable column header
 is clicked, by using the `sort-direction` prop. The default value `'asc'` applies ascending sort
-first. To reverse the behavior and sort in descending direction first, set it to `'desc'`.
+first (when a column is not currently sorted). To reverse the behavior and sort in descending
+direction first, set it to `'desc'`.
 
-If you don't want the sorting direction to change at all when clicking another sortable column
-header, set `sort-direction` to `'last'`.
+If you don't want the current sorting direction to change when clicking another sortable column
+header, set `sort-direction` to `'last'`. This will maintain the sorting direction of the previously
+sorted column.
 
-For individual column sort directions, specify the property `sortDirection` in `fields`. See the
+For individual column initial sort direction (which applies when the column transitions from
+unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 [Complete Example](#complete-example) below for an example of using this feature.
 
 ## Filtering
@@ -1554,7 +1594,7 @@ table#table-transition-example .flip-list-move {
       small
       primary-key="a"
       :tbody-transition-props="transProps"
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -1592,6 +1632,8 @@ function to provide the row data (items), by specifying a function reference via
 
 The provider function is called with the following signature:
 
+<!-- eslint-disable no-undef -->
+
 ```js
 provider(ctx, [callback])
 ```
@@ -1613,6 +1655,8 @@ method.
 
 **Example: returning an array of data (synchronous):**
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 function myProvider(ctx) {
   let items = []
@@ -1626,18 +1670,20 @@ function myProvider(ctx) {
 
 **Example: Using callback to return data (asynchronous):**
 
+<!-- eslint-disable no-unused-vars, standard/no-callback-literal -->
+
 ```js
 function myProvider(ctx, callback) {
-  let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
+  const params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
 
   this.fetchData('/some/url' + params)
     .then(data => {
       // Pluck the array of items off our axios response
-      let items = data.items
+      const items = data.items
       // Provide the array of items to the callback
       callback(items)
     })
-    .catch(error => {
+    .catch(() => {
       callback([])
     })
 
@@ -1647,6 +1693,8 @@ function myProvider(ctx, callback) {
 ```
 
 **Example: Using a Promise to return data (asynchronous):**
+
+<!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
 function myProvider(ctx) {
@@ -1666,7 +1714,8 @@ function myProvider(ctx) {
 
 `<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
 however it also provides a `busy` prop that can be used either to override the inner `busy` state,
-or to monitor `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+or to monitor `<b-pagination>`'s current busy state in your application using the 2-way `.sync`
+modifier.
 
 **Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
 function should handle errors from data sources and return an empty array to `<b-table>`.
@@ -1682,7 +1731,7 @@ function should handle errors from data sources and return an empty array to `<b
       :items="myProvider"
       :fields="fields"
       ...
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -1764,7 +1813,7 @@ Or by calling the `refresh()` method on the table reference
 
 ```html
 <div>
-  <b-table ref="table" ... />
+  <b-table ref="table" ... ></b-table>
 </div>
 ```
 
@@ -1783,7 +1832,7 @@ have changed.
 
 ```html
 <div>
-  <b-table @sort-changed="sortingChanged" ... />
+  <b-table @sort-changed="sortingChanged" ... ></b-table>
 </div>
 ```
 
@@ -1791,10 +1840,12 @@ The `sort-changed` event provides a single argument of the table's current state
 This context object has the same format as used by items provider functions.
 
 ```js
-methods: {
-  sortingChanged (ctx) {
-    // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
-    // ctx.sortDesc ==> true if sorting descending, false otherwise
+export default {
+  methods: {
+    sortingChanged(ctx) {
+      // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+      // ctx.sortDesc ==> true if sorting descending, false otherwise
+    }
   }
 }
 ```
@@ -1805,7 +1856,7 @@ details).
 
 ```html
 <div>
-  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... ></b-table>
 </div>
 ```
 
@@ -1818,12 +1869,22 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 ## Table accessibility notes
 
+When a column (field) is sortable, the header (and footer) heading cells will also be placed into
+the document tab sequence for accessibility.
+
 When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered,
 all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
 `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
 
-When a column (field) is sortable, the header (and footer) heading cells will also be placed into
-the document tab sequence for accessibility.
+When the table items rows are in the table sequence, they will also support basic keyboard
+navigation when focused:
+
+- <kbd>DOWN</kbd> will move to the next row
+- <kbd>UP</kbd> will move to the previous row
+- <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
+- <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row. <kbd>SHIFT</kbd> and <kbd>CTRL</kbd>
+  modifiers will also work (depending on the table selectable mode).
 
 Note the following row based events/actions are not considered accessible, and should only be used
 if the functionality is non critical or can be provided via other means:
@@ -1856,7 +1917,7 @@ differences between operating systems, this too is not a preventable default beh
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -1870,7 +1931,7 @@ differences between operating systems, this too is not a preventable default beh
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
-            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
               <option :value="false">Asc</option> <option :value="true">Desc</option>
             </b-form-select>
           </b-input-group>
@@ -1890,7 +1951,7 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select :options="pageOptions" v-model="perPage" />
+          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -1938,16 +1999,16 @@ differences between operating systems, this too is not a preventable default beh
     <b-row>
       <b-col md="6" class="my-1">
         <b-pagination
+          v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
-          v-model="currentPage"
           class="my-0"
-        />
+        ></b-pagination>
       </b-col>
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+    <b-modal id="modal-info" @hide="resetModal" :title="modalInfo.title" ok-only>
       <pre>{{ modalInfo.content }}</pre>
     </b-modal>
   </b-container>

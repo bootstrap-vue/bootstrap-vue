@@ -9,15 +9,15 @@
 <template>
   <div>
     <b-carousel
-      id="carousel1"
-      style="text-shadow: 1px 1px 2px #333;"
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
       controls
       indicators
       background="#ababab"
-      :interval="4000"
       img-width="1024"
       img-height="480"
-      v-model="slide"
+      style="text-shadow: 1px 1px 2px #333;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
@@ -26,7 +26,7 @@
         caption="First slide"
         text="Nulla vitae elit libero, a pharetra augue mollis interdum."
         img-src="https://picsum.photos/1024/480/?image=52"
-      />
+      ></b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
@@ -34,7 +34,7 @@
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58" />
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
@@ -46,7 +46,7 @@
           height="480"
           src="https://picsum.photos/1024/480/?image=55"
           alt="image slot"
-        />
+        >
       </b-carousel-slide>
 
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -59,7 +59,7 @@
     </b-carousel>
 
     <p class="mt-4">
-      Slide #: {{ slide }}<br />
+      Slide #: {{ slide }}<br>
       Sliding: {{ sliding }}
     </p>
   </div>
@@ -122,6 +122,10 @@ carousel, set the `interval` back to the desired number of ms.
 When the carousel is paused, the user can still switch slides via the controls (if enabled) or touch
 swipe (on touch enabled devices, if not disabled).
 
+When the users mouse hovers the carousel it will automatically pause, and will automatically restart
+when the mouse leaves the carousel. To disable this feature, set the `no-hover-pause` prop on
+<b-carousel>`.
+
 ## Controls and Indicators
 
 Set the prop `controls` to enable the previous and next control buttons.
@@ -150,9 +154,18 @@ default slide animation.
     img-width="1024"
     img-height="480"
   >
-    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10" />
-    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12" />
-    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22" />
+    <b-carousel-slide
+      caption="First slide"
+      img-src="https://picsum.photos/1024/480/?image=10"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Second Slide"
+      img-src="https://picsum.photos/1024/480/?image=12"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Third Slide"
+      img-src="https://picsum.photos/1024/480/?image=22"
+    ></b-carousel-slide>
   </b-carousel>
 </div>
 
@@ -166,17 +179,29 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
 ```html
 <div>
   <b-carousel
-    id="carousel-no-anim"
+    id="carousel-no-animation"
     style="text-shadow: 0px 0px 2px #000"
     no-animation
     indicators
     img-width="1024"
     img-height="480"
   >
-    <b-carousel-slide caption="First slide" img-src="https://picsum.photos/1024/480/?image=10" />
-    <b-carousel-slide caption="Second Slide" img-src="https://picsum.photos/1024/480/?image=12" />
-    <b-carousel-slide caption="Third Slide" img-src="https://picsum.photos/1024/480/?image=22" />
-    <b-carousel-slide caption="Fourth Slide" img-src="https://picsum.photos/1024/480/?image=23" />
+    <b-carousel-slide
+      caption="First slide"
+      img-src="https://picsum.photos/1024/480/?image=10"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Second Slide"
+      img-src="https://picsum.photos/1024/480/?image=12"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Third Slide"
+      img-src="https://picsum.photos/1024/480/?image=22"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Fourth Slide"
+      img-src="https://picsum.photos/1024/480/?image=23"
+    ></b-carousel-slide>
   </b-carousel>
 </div>
 

@@ -4,12 +4,38 @@ import { mount } from '@vue/test-utils'
 const testItems = [{ a: 1, b: 2, c: 3 }]
 const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: 'c', label: 'C' }]
 
-describe('table thead events', () => {
+describe('table > thead events', () => {
+  it('should not emit head-clicked event when a head cell is clicked and no head-clicked listener', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {}
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('thead > tr')
+    expect($rows.length).toBe(1)
+    const $ths = wrapper.findAll('thead > tr > th')
+    expect($ths.length).toBe(testFields.length)
+    expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+    $ths.at(0).trigger('click')
+    expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+    $ths.at(1).trigger('click')
+    expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+    $ths.at(2).trigger('click')
+    expect(wrapper.emitted('head-clicked')).not.toBeDefined()
+  })
+
   it('should emit head-clicked event when a head cell is clicked', async () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // head-clicked will only be emitted if there is a registered listener
+        'head-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -42,6 +68,10 @@ describe('table thead events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // head-clicked will only be emitted if there is a registered listener
+        'head-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -59,6 +89,10 @@ describe('table thead events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // head-clicked will only be emitted if there is a registered listener
+        'head-clicked': () => {}
       }
     })
     wrapper.setData({
@@ -80,10 +114,14 @@ describe('table thead events', () => {
         fields: testFields,
         items: testItems
       },
+      listeners: {
+        // head-clicked will only be emitted if there is a registered listener
+        'head-clicked': () => {}
+      },
       slots: {
         // in Vue 2.6x, slots get translated into scopedSlots
         HEAD_a: '<button id="a">button</button>',
-        HEAD_b: '<input id="b" />',
+        HEAD_b: '<input id="b">',
         HEAD_c: '<a href="#" id="c">link</a>'
       }
     })

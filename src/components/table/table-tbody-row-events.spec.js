@@ -4,12 +4,16 @@ import { mount } from '@vue/test-utils'
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
 
-describe('table tbody row events', () => {
+describe('table > tbody row events', () => {
   it('should emit row-clicked event when a row is clicked', async () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -32,6 +36,10 @@ describe('table tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -50,6 +58,10 @@ describe('table tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -283,7 +295,7 @@ describe('table tbody row events', () => {
     expect(wrapper.emitted('row-clicked').length).toBe(1)
     expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) /* row item */
     expect(wrapper.emitted('row-clicked')[0][1]).toEqual(1) /* row index */
-    // Note: the KeyboardEvent is forwarded to the click handler
+    // Note: the KeyboardEvent is passed to the row-clicked handler
     expect(wrapper.emitted('row-clicked')[0][2]).toBeInstanceOf(KeyboardEvent) /* event */
 
     wrapper.destroy()
@@ -295,6 +307,10 @@ describe('table tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -319,10 +335,14 @@ describe('table tbody row events', () => {
       slots: {
         // in Vue 2.6x, slots get translated into scopedSlots
         a: '<button id="a">button</button>',
-        b: '<input id="b" />',
+        b: '<input id="b">',
         c: '<a href="#" id="c">link</a>',
         d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
-        e: '<label for="e">label</label><input id="e" />'
+        e: '<label for="e">label</label><input id="e">'
+      },
+      listeners: {
+        // Row Clicked will only occur if there is a registered listener
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -355,6 +375,55 @@ describe('table tbody row events', () => {
     expect($label.exists()).toBe(true)
     $label.trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('keyboard events moves focus to apropriate rows', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {
+        // Tabindex will only be set if htere is a row-clicked listener
+        'row-clicked': () => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(document.activeElement).not.toBe($rows.at(0).element)
+    expect(document.activeElement).not.toBe($rows.at(1).element)
+    expect(document.activeElement).not.toBe($rows.at(2).element)
+
+    $rows.at(0).element.focus()
+    expect(document.activeElement).toBe($rows.at(0).element)
+
+    $rows.at(0).trigger('keydown.end')
+    expect(document.activeElement).toBe($rows.at(2).element)
+
+    $rows.at(2).trigger('keydown.home')
+    expect(document.activeElement).toBe($rows.at(0).element)
+
+    $rows.at(0).trigger('keydown.down')
+    expect(document.activeElement).toBe($rows.at(1).element)
+
+    $rows.at(1).trigger('keydown.up')
+    expect(document.activeElement).toBe($rows.at(0).element)
+
+    $rows.at(0).trigger('keydown.down', { shiftKey: true })
+    expect(document.activeElement).toBe($rows.at(2).element)
+
+    $rows.at(2).trigger('keydown.up', { shiftKey: true })
+    expect(document.activeElement).toBe($rows.at(0).element)
+
+    // SHould only move focus if TR was target
+    $rows
+      .at(0)
+      .find('td')
+      .trigger('keydown.down')
+    expect(document.activeElement).toBe($rows.at(0).element)
 
     wrapper.destroy()
   })

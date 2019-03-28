@@ -1,6 +1,6 @@
 import BImg from './img'
 import BImgLazy from './img-lazy'
-import { registerComponents } from '../../utils/plugins'
+import { installFactory } from '../../utils/plugins'
 
 const components = {
   BImg,
@@ -8,7 +8,5 @@ const components = {
 }
 
 export default {
-  install(Vue) {
-    registerComponents(Vue, components)
-  }
+  install: installFactory({ components })
 }

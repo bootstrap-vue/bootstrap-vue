@@ -10,12 +10,12 @@ busy slot.
 
 ```html
 <div class="text-center">
-  <b-spinner label="Spinning" />
-  <b-spinner type="grow" label="Spinning" />
-  <b-spinner variant="primary" label="Spinning" />
-  <b-spinner variant="primary" type="grow" label="Spinning" />
-  <b-spinner variant="success" label="Spinning" />
-  <b-spinner variant="success" type="grow" label="Spinning" />
+  <b-spinner label="Spinning"></b-spinner>
+  <b-spinner type="grow" label="Spinning"></b-spinner>
+  <b-spinner variant="primary" label="Spinning"></b-spinner>
+  <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+  <b-spinner variant="success" label="Spinning"></b-spinner>
+  <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
 </div>
 
 <!-- b-spinners.vue -->
@@ -32,7 +32,7 @@ Use the default `border` type spinners for a lightweight loading indicator.
 
 ```html
 <div>
-  <b-spinner label="Loading..." />
+  <b-spinner label="Loading..."></b-spinner>
 </div>
 
 <!-- b-spinner-border.vue -->
@@ -45,7 +45,7 @@ If you don't fancy a `border` spinner, switch to the `grow` spinner by setting t
 
 ```html
 <div>
-  <b-spinner type="grow" label="Loading..." />
+  <b-spinner type="grow" label="Loading..."></b-spinner>
 </div>
 
 <!-- b-spinner-grow.vue -->
@@ -64,11 +64,20 @@ you have custom defined text color variants, feel free to use them via the `vari
 <template>
   <div>
     <div class="text-center mb-3 d-flex justify-content-between">
-      <b-spinner v-for="variant in variants" :variant="variant" :key="variant" />
+      <b-spinner
+        v-for="variant in variants"
+        :variant="variant"
+        :key="variant"
+      ></b-spinner>
     </div>
 
     <div class="text-center d-flex justify-content-between">
-      <b-spinner v-for="variant in variants" :variant="variant" type="grow" :key="variant" />
+      <b-spinner
+        v-for="variant in variants"
+        :variant="variant"
+        :key="variant"
+        type="grow"
+      ></b-spinner>
     </div>
   </div>
 </template>
@@ -96,8 +105,8 @@ components.
 
 ```html
 <div>
-  <b-spinner small label="Small Spinner" />
-  <b-spinner small type="grow" label="Small Spinner" />
+  <b-spinner small label="Small Spinner"></b-spinner>
+  <b-spinner small label="Small Spinner" type="grow"></b-spinner>
 </div>
 
 <!-- b-spinner-sizes.vue -->
@@ -107,8 +116,8 @@ Or, use custom CSS or inline styles to change the dimensions as needed.
 
 ```html
 <div>
-  <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner" />
-  <b-spinner style="width: 3rem; height: 3rem;" type="grow" label="Large Spinner" />
+  <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+  <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner" type="grow"></b-spinner>
 </div>
 
 <!-- b-spinner-sizes-custom.vue -->
@@ -125,7 +134,7 @@ Use margin utilities like `.m-5` for easy spacing.
 
 ```html
 <div>
-  <b-spinner class="m-5" label="Busy" />
+  <b-spinner class="m-5" label="Busy"></b-spinner>
 </div>
 
 <!-- b-spinner-margin.vue -->
@@ -143,12 +152,12 @@ Using flex utility classes:
 ```html
 <div>
   <div class="d-flex justify-content-center mb-3">
-    <b-spinner label="Loading..." />
+    <b-spinner label="Loading..."></b-spinner>
   </div>
 
   <div class="d-flex align-items-center">
     <strong>Loading...</strong>
-    <b-spinner class="ml-auto" />
+    <b-spinner class="ml-auto"></b-spinner>
   </div>
 </div>
 
@@ -161,7 +170,7 @@ Using float utility classes:
 
 ```html
 <div class="clearfix">
-  <b-spinner class="float-right" label="Floated Right" />
+  <b-spinner class="float-right" label="Floated Right"></b-spinner>
 </div>
 
 <!-- b-spinner-floats.vue -->
@@ -173,7 +182,7 @@ Using text alignment utility classes:
 
 ```html
 <div class="text-center">
-  <b-spinner variant="primary" label="Text Centered" />
+  <b-spinner variant="primary" label="Text Centered"></b-spinner>
 </div>
 
 <!-- b-spinner-text-align.vue -->
@@ -187,12 +196,12 @@ also swap the label text out of the spinner element and utilize button text as n
 ```html
 <div>
   <b-button variant="primary" disabled>
-    <b-spinner small />
+    <b-spinner small></b-spinner>
     <span class="sr-only">Loading...</span>
   </b-button>
 
   <b-button variant="primary" disabled>
-    <b-spinner small type="grow" />
+    <b-spinner small type="grow"></b-spinner>
     Loading...
   </b-button>
 </div>

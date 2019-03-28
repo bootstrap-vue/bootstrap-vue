@@ -10,7 +10,7 @@
         class="toc-entry font-weight-bold mb-2"
         @click="scrollIntoView($event, toc.top)"
       >
-        <span v-html="toc.title" />
+        <span v-html="toc.title"></span>
       </b-nav-item>
 
       <template v-for="(h2, index) in toc.toc">
@@ -29,7 +29,7 @@
             class="toc-entry toc-h3 mb-2"
             @click="scrollIntoView($event, h3.href)"
           >
-            <span v-html="h3.label" />
+            <span v-html="h3.label"></span>
           </b-nav-item>
         </b-nav>
 
@@ -40,7 +40,7 @@
           class="toc-entry toc-h2 mb-2"
           @click="scrollIntoView($event, h2.href)"
         >
-          <span v-html="h2.label" />
+          <span v-html="h2.label"></span>
         </b-nav-item>
       </template>
     </b-nav>
@@ -97,19 +97,20 @@ export default {
     })
   },
   methods: {
-    isArray(arg) {
-      return Object.prototype.toString.call(arg) === '[object Array]'
+    isArray(value) {
+      return Array.isArray(value)
     },
     scrollIntoView(e, href) {
       e.preventDefault()
       e.stopPropagation()
-      // We use an attribute querySelector rather than getElementByID, as some auto
-      // generated ID's are invalid, and some may appear more than once
+      // We use an attribute querySelector rather than getElementByID,
+      // as some auto generated ID's are invalid, and some may appear
+      // more than once
       const el = href ? document.querySelector(`[id="${href.replace(/#/g, '')}"]`) : null
       if (el) {
         // Get the document scrolling element
         const scroller = document.scrollingElement || document.documentElement || document.body
-        // scroll heading into view (minus offset to account for nav top height
+        // Scroll heading into view (minus offset to account for nav top height
         scrollTo(scroller, offsetTop(el) - 70, 100, () => {
           // Set a tab index so we can focus header for a11y support
           el.tabIndex = -1

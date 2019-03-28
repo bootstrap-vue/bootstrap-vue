@@ -54,6 +54,12 @@ export default {
   },
   watch: {
     // Provider update triggering
+    items(newVal, oldVal) {
+      // If a new provider has been specified, trigger an update
+      if (this.hasProvider || newVal instanceof Function) {
+        this.$nextTick(this._providerUpdate)
+      }
+    },
     providerTriggerContext(newVal, oldVal) {
       // Trigger the provider to update as the relevant context values have changed.
       if (!looseEqual(newVal, oldVal)) {
