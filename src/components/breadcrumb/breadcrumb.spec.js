@@ -1,23 +1,6 @@
 import Breadcrumb from './breadcrumb'
 import { mount } from '@vue/test-utils'
 
-/*
-// For migration to test utils
-const items1 = [
-  { text: 'Home', href: '/' },
-  { text: 'Admin', to: '/admin', active: false },
-  { html: '<b>Manage</b>', href: '/admin/manage' },
-  // Test with non object
-  'Library'
-]
-const items2 = [
-  { text: 'Home', href: '/' },
-  { text: 'Admin', href: '/admin', active: true },
-  { text: 'Manage', href: '/admin/manage' },
-  { text: 'Library', href: '/admin/manage/library' }
-]
-*/
-
 describe('breadcrumb', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(Breadcrumb)
