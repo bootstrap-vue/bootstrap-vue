@@ -149,8 +149,8 @@ describe('button', () => {
   })
 
   it('should emit click event when clicked', async () => {
-    const called = 0
-    const evt = null
+    let called = 0
+    let evt = null
     const wrapper = mount(Button, {
       listeners: {
         click: e => {
