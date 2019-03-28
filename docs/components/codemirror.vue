@@ -1,5 +1,5 @@
 <template>
-  <textarea ref="textArea" :value="value" />
+  <textarea ref="textArea" :value="value"></textarea>
 </template>
 
 <script>

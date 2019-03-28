@@ -130,14 +130,14 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
     <b-nav-item active>Active</b-nav-item>
     <b-nav-item>Link</b-nav-item>
     <b-nav-item-dropdown
-      id="nav7_ddown"
+      id="my-nav-dropdown"
       text="Dropdown"
       extra-toggle-classes="nav-link-custom"
       right
     >
       <b-dropdown-item>one</b-dropdown-item>
       <b-dropdown-item>two</b-dropdown-item>
-      <b-dropdown-divider />
+      <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item>three</b-dropdown-item>
     </b-nav-item-dropdown>
   </b-nav>
@@ -151,14 +151,14 @@ default have the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle
 add them (like above) which will produce something like:
 
 ```html
-<li id="nav7_ddown" class="nav-item b-nav-dropdown dropdown">
+<li id="my-nav-dropdown" class="nav-item b-nav-dropdown dropdown">
   <a
     href="#"
-    id="nav7_ddown__BV_button_"
+    id="my-nav-dropdown__BV_button_"
     aria-haspopup="true"
     aria-expanded="false"
     class="nav-link dropdown-toggle nav-link-custom"
-  />
+  ></a>
   ...
 </li>
 ```

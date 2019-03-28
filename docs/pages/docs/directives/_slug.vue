@@ -1,11 +1,11 @@
 <template>
   <main class="container">
-    <div v-play class="bd-content" v-html="readme" />
+    <div v-play class="bd-content" v-html="readme"></div>
     <section class="bd-content">
       <anchored-heading id="directive-reference" level="2">
         {{ metaTitle }} Directive Reference
       </anchored-heading>
-      <importdoc :meta="meta" />
+      <importdoc :meta="meta"></importdoc>
     </section>
   </main>
 </template>
@@ -18,7 +18,7 @@ import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
 
 const getReadMe = name =>
-  import('~/../src/directives/' + name + '/README.md' /* webpackChunkName: "docs/directives" */)
+  import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
 
 export default {
   components: {

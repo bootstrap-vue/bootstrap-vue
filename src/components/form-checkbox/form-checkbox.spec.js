@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 describe('form-checkbox', () => {
   /* Custom checkbox structure, class and attributes tests */
 
-  it('default has structure <div><input/><label></label></div>', async () => {
+  it('default has structure <div><input><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
@@ -405,7 +405,7 @@ describe('form-checkbox', () => {
 
   /* plain styling */
 
-  it('plain has structure <div><input/><label></label></div>', async () => {
+  it('plain has structure <div><input><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         plain: true,
@@ -654,7 +654,7 @@ describe('form-checkbox', () => {
 
   /* switch styling - stand alone */
 
-  it('switch has structure <div><input/><label></label></div>', async () => {
+  it('switch has structure <div><input><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         switch: true,
@@ -747,7 +747,7 @@ describe('form-checkbox', () => {
 
   /* button styling - stand-alone mode */
 
-  it('stand-alone button has structure <div><label><input/></label></div>', async () => {
+  it('stand-alone button has structure <div><label><input></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
         button: true,

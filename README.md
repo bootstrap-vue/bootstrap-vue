@@ -89,7 +89,7 @@ Thank you to all our backers! 🙏
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
 
-<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
+<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890"></a>
 
 <h2 align="center">License</h2>
 

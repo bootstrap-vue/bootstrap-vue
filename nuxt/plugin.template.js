@@ -10,7 +10,7 @@ Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>)
 <% } %>
 
 <%=
-options.componentPlugins.reduce((acc, p) => (acc += `Vue.use(${p[0]})\n` ), '') %><%= 
+options.componentPlugins.reduce((acc, p) => (acc += `Vue.use(${p[0]})\n` ), '') %><%=
 options.directivePlugins.reduce((acc, p) => (acc += `Vue.use(${p[0]})\n` ), '') %>
 <% } else { %>
 import BootstrapVue from 'bootstrap-vue/es'

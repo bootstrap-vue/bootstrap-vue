@@ -57,17 +57,17 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
   <b-card no-body>
     <b-tabs card>
       <b-tab no-body title="Picture 1">
-        <b-card-img bottom src="https://picsum.photos/600/200/?image=21" />
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=21"></b-card-img>
         <b-card-footer>Picture 1 footer</b-card-footer>
       </b-tab>
 
       <b-tab no-body title="Picture 2">
-        <b-card-img bottom src="https://picsum.photos/600/200/?image=25" />
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=25"></b-card-img>
         <b-card-footer>Picture 2 footer</b-card-footer>
       </b-tab>
 
       <b-tab no-body title="Picture 3">
-        <b-card-img bottom src="https://picsum.photos/600/200/?image=26" />
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=26"></b-card-img>
         <b-card-footer>Picture 3 footer</b-card-footer>
       </b-tab>
 
@@ -235,14 +235,14 @@ Vue component, this possible by using `title` slot of `<b-tab>`.
   <b-tabs>
     <b-tab active>
       <template slot="title">
-        <b-spinner type="grow" small /> I'm <i>Custom</i> <strong>Title</strong>
+        <b-spinner type="grow" small></b-spinner> I'm <i>Custom</i> <strong>Title</strong>
       </template>
       <p class="p-3">Tab Contents 1</p>
     </b-tab>
 
     <b-tab>
       <template slot="title">
-        <b-spinner type="border" small /> Tab 2
+        <b-spinner type="border" small></b-spinner> Tab 2
       </template>
       <p class="p-3">Tab Contents 2</p>
     </b-tab>
@@ -270,7 +270,7 @@ need to accommodate your custom classes for this._
 <template>
   <div>
     <b-card no-body>
-      <b-tabs card v-model="tabIndex">
+      <b-tabs v-model="tabIndex" card>
         <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
         <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
         <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
@@ -349,7 +349,7 @@ order to use these methods.
   <div>
     <!-- Tabs with card integration -->
     <b-card no-body>
-      <b-tabs small card v-model="tabIndex">
+      <b-tabs v-model="tabIndex" small card>
         <b-tab title="General">I'm the first fading tab</b-tab>
         <b-tab title="Edit profile">
           I'm the second tab
@@ -393,7 +393,7 @@ order to use these methods.
     <b-card no-body>
       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
-        <b-tab v-for="i in tabs" :key="`dyntab-${i}`" :title="`Tab ${i}`">
+        <b-tab v-for="i in tabs" :key="`dyn-tab-${i}`" :title="`Tab ${i}`">
           Tab Contents {{ i }}
           <b-button size="sm" variant="danger" class="float-right" @click="() => closeTab(i)">
             Close tab
@@ -407,7 +407,7 @@ order to use these methods.
 
         <!-- Render this if no tabs -->
         <div slot="empty" class="text-center text-muted">
-          There are no open tabs <br />
+          There are no open tabs<br>
           Open a new tab using the <b>+</b> button above.
         </div>
       </b-tabs>

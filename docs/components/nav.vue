@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="md" class="navbar-dark bd-navbar" sticky>
-    <b-navbar-toggle target="bd-main-nav" />
+    <b-navbar-toggle target="bd-main-nav"></b-navbar-toggle>
 
     <b-navbar-brand to="/" exact>
       <svg
@@ -110,7 +110,7 @@
             scrolling="0"
             width="100px"
             height="20px"
-          />
+          ></iframe>
         </div>
       </b-navbar-nav>
     </b-collapse>

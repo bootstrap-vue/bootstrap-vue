@@ -517,8 +517,8 @@ describe('pagination-nav', () => {
         },
         template: `
           <div>
-            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" />
-            <router-view />
+            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen"></b-pagination-nav>
+            <router-view></router-view>
           </div>
         `
       }
@@ -580,8 +580,8 @@ describe('pagination-nav', () => {
         },
         template: `
           <div>
-            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" use-router />
-            <router-view />
+            <b-pagination-nav :number-of-pages="3" :link-gen="linkGen" use-router></b-pagination-nav>
+            <router-view></router-view>
           </div>
         `
       }

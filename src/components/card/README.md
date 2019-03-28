@@ -265,7 +265,7 @@ card.
 
     <b-card-footer>This is a footer</b-card-footer>
 
-    <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom />
+    <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img>
   </b-card>
 </div>
 
@@ -288,7 +288,7 @@ may be needed depending on your card content.
   <b-card no-body class="overflow-hidden" style="max-width: 540px;">
     <b-row no-gutters>
       <b-col md="6">
-        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0" />
+        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
       </b-col>
       <b-col md="6">
         <b-card-body title="Horizontal Card">
@@ -606,12 +606,7 @@ set them to display: inline-block as column-break-inside: avoid isn’t a bullet
       </blockquote>
     </b-card>
 
-    <b-card
-      title="Title"
-      img-src="https://placekitten.com/500/350"
-      img-alt="Image"
-      img-top
-    >
+    <b-card title="Title" img-src="https://placekitten.com/500/350" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
@@ -635,7 +630,7 @@ set them to display: inline-block as column-break-inside: avoid isn’t a bullet
       <b-card-text class="small text-muted">Last updated 3 mins ago</b-card-text>
     </b-card>
 
-    <b-card img-src="https://picsum.photos/400/400/?image=41" img-alt="Image" overlay />
+    <b-card img-src="https://picsum.photos/400/400/?image=41" img-alt="Image" overlay></b-card>
 
     <b-card img-src="https://picsum.photos/400/200/?image=41" img-alt="Image" img-top>
       <b-card-text>
