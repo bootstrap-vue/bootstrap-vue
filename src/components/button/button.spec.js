@@ -169,7 +169,7 @@ describe('button', () => {
   })
 
   it('should not emit click event when clicked and disabled', async () => {
-    const called = 0
+    let called = 0
     const wrapper = mount(Button, {
       propsData: {
         disabled: true
@@ -245,7 +245,7 @@ describe('button', () => {
   })
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
-    const called = 0
+    let called = 0
     const values = []
     const wrapper = mount(Button, {
       propsData: {
