@@ -21,7 +21,7 @@ describe('card', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it("should not contain '.card-body' if prop no-body set", async () => {
+  it('should not contain "card-body" if prop no-body set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         noBody: true
@@ -39,7 +39,7 @@ describe('card', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it("renders custom root element when tag prop set", async () => {
+  it('renders custom root element when tag prop set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         tag: 'article',
@@ -54,7 +54,7 @@ describe('card', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it("applies variant classes to root element", async () => {
+  it('applies variant classes to root element', async () => {
     const wrapper = mount(Card, {
       propsData: {
         noBody: true,
@@ -74,7 +74,7 @@ describe('card', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it("applies text align class to when align prop set", async () => {
+  it('applies text align class to when align prop set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         noBody: true,
@@ -90,7 +90,7 @@ describe('card', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it("should have content from default slot", async () => {
+  it('should have content from default slot', async () => {
     const wrapperBody = mount(Card, {
       propsData: {
         noBody: false
@@ -119,7 +119,7 @@ describe('card', () => {
     expect(wrapperNoBody.text()).toBe('foobar')
   })
 
-  it("should have class flex-row when img-left set", async () => {
+  it('should have class flex-row when img-left set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         noBody: true,
@@ -133,7 +133,7 @@ describe('card', () => {
     expect(wrapper.classes().length).toBe(2)
   })
 
-  it("should have class flex-row-reverse when img-right set", async () => {
+  it('should have class flex-row-reverse when img-right set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         noBody: true,
@@ -147,7 +147,7 @@ describe('card', () => {
     expect(wrapper.classes().length).toBe(2)
   })
 
-  it("should have class flex-row when img-left and img-right set", async () => {
+  it('should have class flex-row when img-left and img-right set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         noBody: true,
@@ -163,7 +163,7 @@ describe('card', () => {
     expect(wrapper.classes().length).toBe(2)
   })
 
-  it("should have header and footer when header and footer props are set", async () => {
+  it('should have header and footer when header and footer props are set', async () => {
     const wrapper = mount(Card, {
       propsData: {
         header: 'foo',
@@ -188,7 +188,7 @@ describe('card', () => {
     expect(wrapper.find('.card-header+.card-body+.card-footer').exists()).toBe(true)
   })
 
-  it("should have img at top", async () => {
+  it('should have img at top', async () => {
     const wrapper = mount(Card, {
       propsData: {
         imgSrc: '/foo/bar',
@@ -212,12 +212,35 @@ describe('card', () => {
     expect(wrapper.find('img + .card-body').exists()).toBe(true)
   })
 
-  it("should have img overlay", async () => {
+  it('should have img at bottom', async () => {
     const wrapper = mount(Card, {
       propsData: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',
-        imgBottom: true,
+        imgBottom: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+
+    expect(wrapper.findAll('img').length).toBe(1)
+    const $img = wrapper.find('img')
+    expect($img.is('img')).toBe(true)
+    expect($img.attributes('src')).toBe('/foo/bar')
+    expect($img.attributes('alt')).toBe('foobar')
+    expect($img.classes()).toContain('card-img-bott')
+    expect($img.classes().length).toBe(1)
+
+    // Expected order
+    expect(wrapper.find('.card-body + img').exists()).toBe(true)
+  })
+
+  it('should have img overlay', async () => {
+    const wrapper = mount(Card, {
+      propsData: {
+        imgSrc: '/foo/bar',
+        imgAlt: 'foobar',
         overlay: true
       }
     })
