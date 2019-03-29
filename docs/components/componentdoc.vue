@@ -216,7 +216,7 @@ export default {
       return this.componentOptions.props || {}
     },
     propsFields() {
-      return = [
+      return [
         { key: 'prop', label: 'Property' },
         { key: 'type', label: 'Type' },
         { key: 'defaultValue', label: 'Default Value' }
