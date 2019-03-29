@@ -3,6 +3,7 @@
     <b-form-input
       id="bd-search-input"
       v-model="search"
+      autocomplete="off"
       type="search"
       placeholder="Search keywords..."
       aria-label="Search site"
