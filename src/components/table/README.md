@@ -1306,6 +1306,7 @@ initially showing.
 
 <!-- b-table-details.vue -->
 ```
+
 ## Sorting
 
 As mentioned in the [**Fields**](#fields-column-definitions-) section above, you can make columns
