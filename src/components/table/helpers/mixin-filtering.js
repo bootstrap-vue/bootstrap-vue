@@ -11,7 +11,9 @@ export default {
       // Pasing a function to filter is deprecated and should be avoided
       type: [String, RegExp, Object, Array, Function],
       default: null,
-      deprecated: DEPRECATION_MSG
+      // depreaction: refers to a change in prop's usage
+      // deprecated: means don't use prop any more
+      deprecation: DEPRECATION_MSG
     },
     filterFunction: {
       type: Function,

@@ -12,7 +12,7 @@ Rules are directly applied to `<iframe>`, `<embed>`, `<video>`, and `<object>` e
     aspect="16by9"
     src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
     allowfullscreen
-  />
+  ></b-embed>
 </div>
 
 <!-- b-embed.vue -->
@@ -27,8 +27,10 @@ Set the type of embed you would like via the `type` prop.
 
 ## Aspect ratios
 
-Aspect ratios can be set via the `aspect` prop. Supported aspect rations are: `21by9` (21:9),
-`16by9` (16:9), `4by3` (4:3) and `1by1` (1:1). The default aspect is `16by9`.
+Aspect ratios can be set via the `aspect` prop. Supported aspect ratios are: `21by9` (21:9),
+`16by9` (16:9), `4by3` (4:3) and `1by1` (1:1). The default aspect is `16by9`. Aspect ratios are
+defined in Bootstrap's SCSS and translate to the classname `embed-responsive-{aspect}` (i.e.
+`embed-responsive-16by9`, `embed-responsive-4by3`, excetera).
 
 ## Wrapper element
 
@@ -38,18 +40,18 @@ aspect ratio. You can change this tag via the `tag` prop.
 ## Attributes and Child Elements
 
 Any additional attributes provided to `<b-embed>` (other than the above `type`, `aspect` and `tag`
-props are applied to the inner embeded element (i.s. `iframe`, `video`, `embed` and `object`).
+props) are applied to the inner embedded element (i.e. the `iframe`, `video`, `embed` or `object`).
 
 Any children elements between the opening and closing `<b-embed>` will be placed inside the inner
-embeded element. Note that type `iframe` does not support any children.
+embedded element. Note that the type `iframe` does not support any children.
 
 **Example: Responsive embedding of an HTML5 `<video>`**
 
 ```html
 <div>
   <b-embed type="video" aspect="4by3" controls poster="poster.png">
-    <source src="devstories.webm" type="video/webm;codecs=&quot;vp8, vorbis&quot;" />
-    <source src="devstories.mp4" type="video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />
+    <source src="dev-stories.webm" type="video/webm">
+    <source src="dev-stories.mp4" type="video/mp4">
   </b-embed>
 </div>
 ```

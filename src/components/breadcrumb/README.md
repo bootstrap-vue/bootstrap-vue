@@ -5,7 +5,7 @@
 
 ```html
 <template>
-  <b-breadcrumb :items="items" />
+  <b-breadcrumb :items="items"></b-breadcrumb>
 </template>
 
 <script>
@@ -39,6 +39,8 @@
 Items are rendered using `:items` prop. It can be an array of objects to provide link and active
 state. Links can be `href`'s for anchor tags, or `to`'s for router-links. Active state of last
 element is automatically set if it is `undefined`.
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const items = [

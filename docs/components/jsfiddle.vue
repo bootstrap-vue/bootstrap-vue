@@ -8,11 +8,8 @@
       :allowtransparency="true"
       frameborder="0"
       :src="src"
-    />
-    <div
-      v-if="height === 0"
-      class="text-center"
-    >
+    ></iframe>
+    <div v-if="height === 0" class="text-center">
       <img src="//jsfiddle.net/img/embeddable/logo-dark.png" alt="jsfiddle">
       <br>
       <small class="text-muted mt-1">
@@ -66,13 +63,14 @@ export default {
   },
   computed: {
     src() {
-      let url = `//jsfiddle.net/${this.slug}/embedded/${this.tabs}/${this.theme}?`
-      ;['fontColor', 'accentColor', 'bodyColor', 'menuColor'].forEach(attr => {
+      const attrs = ['fontColor', 'accentColor', 'bodyColor', 'menuColor']
+      const baseUrl = `//jsfiddle.net/${this.slug}/embedded/${this.tabs}/${this.theme}?`
+      return attrs.reduce((url, attr) => {
         if (this[attr] && this[attr].length > 0) {
           url += `${attr}=${this[attr]}&`
         }
-      })
-      return url
+        return url
+      }, baseUrl)
     },
     url() {
       return `//jsfiddle.net/${this.slug}`
@@ -90,23 +88,14 @@ export default {
   },
   methods: {
     setHeight(data) {
-      let height
       if (this.slug === data.slug) {
-        height = data.height <= 0 ? 400 : data.height + 50
-        this.height = height
-        return height
+        this.height = data.height <= 0 ? 400 : data.height + 50
       }
     },
     onMessage(event) {
-      const eventName = event.data[0]
-      const data = event.data[1]
-      switch (eventName) {
-        case 'embed':
-          return this.setHeight(data)
-        case 'resultsFrame':
-          return this.setHeight(data)
-        default:
-          break
+      const [eventName, data] = event.data
+      if (eventName === 'embed' || eventName === 'resultsFrame') {
+        this.setHeight(data)
       }
     }
   }

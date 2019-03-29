@@ -5,13 +5,13 @@
       :key="group.base"
       tag="div"
       class="bd-toc-item"
-      :to="'/docs/' + group.base"
+      :to="`/docs/${group.base}`"
       active-class="active"
       :exact="group.exact"
     >
       <router-link
         class="bd-toc-link"
-        :to="'/docs/' + group.base"
+        :to="`/docs/${group.base}`"
         :exact="group.exact"
       >
         {{ group.title }}
@@ -24,7 +24,7 @@
         <b-nav-item
           v-for="page in group.pages"
           :key="page.title"
-          :to="('/docs/' + group.base + page.slug).replace(/\/\//g, '/')"
+          :to="`/docs/${group.base}${page.slug}`.replace(/\/\//g, '/')"
           active-class="active"
         >
           {{ page.title }}

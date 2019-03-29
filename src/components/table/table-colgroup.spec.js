@@ -27,7 +27,7 @@ describe('table > colgroup', () => {
         items: testItems
       },
       slots: {
-        'table-colgroup': '<col /><col /><col />'
+        'table-colgroup': '<col><col><col>'
       }
     })
     expect(wrapper).toBeDefined()

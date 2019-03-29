@@ -128,27 +128,27 @@ can import `<b-card>` (plus it's sub components) and `<b-table>` as follows:
 ```js
 // Import the individual components
 import BCard from 'bootstrap-vue/es/components/card/card'
-import BCardHeader from 'bootstrap-vue/es/components/card/card-header'
 import BCardBody from 'bootstrap-vue/es/components/card/card-body'
 import BCardFooter from 'bootstrap-vue/es/components/card/card-footer'
-import BCardImage from 'bootstrap-vue/es/components/card/card-footer'
+import BCardHeader from 'bootstrap-vue/es/components/card/card-header'
+import BCardImg from 'bootstrap-vue/es/components/card/card-img'
 import BTable from 'bootstrap-vue/es/components/table/table'
 
-// Add components globally:
+// Add components globally
 Vue.component('b-card', BCard)
-Vue.component('b-card-header', BCardHeader)
 Vue.component('b-card-body', BCardBody)
 Vue.component('b-card-footer', BCardFooter)
+Vue.component('b-card-header', BCardHeader)
 Vue.component('b-card-img', BCardImg)
 Vue.component('b-table', BTable)
 
-// Or make available to your component or app:
+// Or make available to your component or app
 export default {
   components: {
     BCard,
-    BCardHeader,
     BCardBody,
     BCardFooter,
+    BCardHeader,
     BCardImg,
     BTable
   }

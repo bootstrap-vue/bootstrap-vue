@@ -1,28 +1,27 @@
-/*
- * ScrollSpy directive v-b-scrollspy
- */
-
 import ScrollSpy from './scrollspy.class'
+import { inBrowser } from '../../utils/env'
 import { keys } from '../../utils/object'
-import { isServer } from '../../utils/env'
 
-// Key we use to store our Instance
-const BVSS = '__BV_ScrollSpy__'
+// Key we use to store our instance
+const BV_SCROLLSPY = '__BV_ScrollSpy__'
 
-// Generate config from bindings
-function makeConfig(binding) /* istanbul ignore next: not easy to test */ {
+// Build a ScrollSpy config based on bindings (if any)
+// Arguments and modifiers take precedence over passed value config object
+/* istanbul ignore next: not easy to test */
+const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   const config = {}
 
-  // If Argument, assume element ID
-  if (binding.arg) {
-    // Element ID specified as arg. We must pre-pend #
-    config.element = '#' + binding.arg
+  // If argument, assume element ID
+  if (bindings.arg) {
+    // Element ID specified as arg
+    // We must prepend '#' to become a CSS selector
+    config.element = `#${bindings.arg}`
   }
 
   // Process modifiers
-  keys(binding.modifiers).forEach(mod => {
+  keys(bindings.modifiers).forEach(mod => {
     if (/^\d+$/.test(mod)) {
-      // Offest value
+      // Offset value
       config.offset = parseInt(mod, 10)
     } else if (/^(auto|position|offset)$/.test(mod)) {
       // Offset method
@@ -31,67 +30,70 @@ function makeConfig(binding) /* istanbul ignore next: not easy to test */ {
   })
 
   // Process value
-  if (typeof binding.value === 'string') {
+  if (typeof bindings.value === 'string') {
     // Value is a CSS ID or selector
-    config.element = binding.value
-  } else if (typeof binding.value === 'number') {
+    config.element = bindings.value
+  } else if (typeof bindings.value === 'number') {
     // Value is offset
-    config.offset = Math.round(binding.value)
-  } else if (typeof binding.value === 'object') {
+    config.offset = Math.round(bindings.value)
+  } else if (typeof bindings.value === 'object') {
     // Value is config object
     // Filter the object based on our supported config options
-    keys(binding.value)
+    keys(bindings.value)
       .filter(k => Boolean(ScrollSpy.DefaultType[k]))
       .forEach(k => {
-        config[k] = binding.value[k]
+        config[k] = bindings.value[k]
       })
   }
 
   return config
 }
 
-function addBVSS(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
-  if (isServer) {
+// Add or update ScrollSpy on our element
+const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
+  if (!inBrowser) {
+    /* istanbul ignore next */
     return
   }
-  const cfg = makeConfig(binding)
-  if (!el[BVSS]) {
-    el[BVSS] = new ScrollSpy(el, cfg, vnode.context.$root)
+  const config = parseBindings(bindings)
+  if (el[BV_SCROLLSPY]) {
+    el[BV_SCROLLSPY].updateConfig(config, vnode.context.$root)
   } else {
-    el[BVSS].updateConfig(cfg, vnode.context.$root)
+    el[BV_SCROLLSPY] = new ScrollSpy(el, config, vnode.context.$root)
   }
-  return el[BVSS]
 }
 
-function removeBVSS(el) /* istanbul ignore next: not easy to test */ {
-  if (el[BVSS]) {
-    el[BVSS].dispose()
-    el[BVSS] = null
+// Remove ScrollSpy on our element
+/* istanbul ignore next: not easy to test */
+const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
+  if (el[BV_SCROLLSPY]) {
+    el[BV_SCROLLSPY].dispose()
+    el[BV_SCROLLSPY] = null
+    delete el[BV_SCROLLSPY]
   }
 }
 
 /*
  * Export our directive
  */
-
 export default {
-  bind(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
-    addBVSS(el, binding, vnode)
+  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+    applyScrollspy(el, bindings, vnode)
   },
-  inserted(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
-    addBVSS(el, binding, vnode)
+  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+    applyScrollspy(el, bindings, vnode)
   },
-  update(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
-    addBVSS(el, binding, vnode)
+  update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+    if (bindings.value !== bindings.oldValue) {
+      applyScrollspy(el, bindings, vnode)
+    }
   },
-  componentUpdated(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
-    addBVSS(el, binding, vnode)
+  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+    if (bindings.value !== bindings.oldValue) {
+      applyScrollspy(el, bindings, vnode)
+    }
   },
   unbind(el) /* istanbul ignore next: not easy to test */ {
-    if (isServer) {
-      return
-    }
-    // Remove scroll event listener on scrollElId
-    removeBVSS(el)
+    removeScrollspy(el)
   }
 }

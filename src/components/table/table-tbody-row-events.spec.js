@@ -335,10 +335,10 @@ describe('table > tbody row events', () => {
       slots: {
         // in Vue 2.6x, slots get translated into scopedSlots
         a: '<button id="a">button</button>',
-        b: '<input id="b" />',
+        b: '<input id="b">',
         c: '<a href="#" id="c">link</a>',
         d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
-        e: '<label for="e">label</label><input id="e" />'
+        e: '<label for="e">label</label><input id="e">'
       },
       listeners: {
         // Row Clicked will only occur if there is a registered listener

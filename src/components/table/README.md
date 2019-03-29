@@ -8,7 +8,7 @@
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" />
+    <b-table striped hover :items="items"></b-table>
   </div>
 </template>
 
@@ -34,6 +34,8 @@
 
 `items` is the table data in array format, where each record (row) data are keyed objects. Example
 format:
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 const items = [
@@ -77,7 +79,7 @@ modifier properties (make sure your field keys do not conflict with these names)
 ```html
 <template>
   <div>
-    <b-table hover :items="items" />
+    <b-table hover :items="items"></b-table>
   </div>
 </template>
 
@@ -154,7 +156,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -189,7 +191,7 @@ is guaranteed)**:
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -241,7 +243,7 @@ typically be in the order they were defined in the object, although **field orde
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields" />
+    <b-table striped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -353,6 +355,8 @@ For information and usage about scoped slots and formatters, refer to the
 
 Feel free to mix and match simple array and object array together:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 const fields = [
   { key: 'first_name', label: 'First' },
@@ -427,15 +431,15 @@ place a unique `:key` on your element/components in your custom formatted field 
 <template>
   <div>
     <b-form-group label="Table Options">
-      <b-form-checkbox inline v-model="striped">Striped</b-form-checkbox>
-      <b-form-checkbox inline v-model="bordered">Bordered</b-form-checkbox>
-      <b-form-checkbox inline v-model="borderless">Borderless</b-form-checkbox>
-      <b-form-checkbox inline v-model="outlined">Outlined</b-form-checkbox>
-      <b-form-checkbox inline v-model="small">Small</b-form-checkbox>
-      <b-form-checkbox inline v-model="hover">Hover</b-form-checkbox>
-      <b-form-checkbox inline v-model="dark">Dark</b-form-checkbox>
-      <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
-      <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
 
     <b-table
@@ -450,7 +454,7 @@ place a unique `:key` on your element/components in your custom formatted field 
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -494,7 +498,7 @@ You can also style every row using the `tbody-tr-class` prop
 ```html
 <template>
   <div>
-    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass"></b-table>
   </div>
 </template>
 
@@ -534,7 +538,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items" />
+    <b-table responsive :items="items"></b-table>
   </div>
 </template>
 
@@ -612,7 +616,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 ```html
 <template>
   <div>
-    <b-table stacked :items="items" />
+    <b-table stacked :items="items"></b-table>
   </div>
 </template>
 
@@ -681,7 +685,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
       <div slot="table-busy" class="text-center text-danger my-2">
-        <b-spinner class="align-middle" />
+        <b-spinner class="align-middle"></b-spinner>
         <strong>Loading...</strong>
       </div>
     </b-table>
@@ -792,10 +796,10 @@ usage of `<colgroup>`
 
 Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
 ## Custom Data Rendering
 
@@ -892,7 +896,7 @@ scoped field slot
 <template>
   <div>
     <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value" />
+      <span slot="html" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -922,7 +926,7 @@ scoped field slot
   <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
   <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
   user supplied string.
-</div>
+</p>
 
 ### Formatter callback
 
@@ -1129,10 +1133,10 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
 
 Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                  |
-| `fields`  | Array  | Array of field defintion objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
 ## Row select support
 
@@ -1153,7 +1157,7 @@ as read-only.**
 <template>
   <div>
     <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
     </b-form-group>
 
     <b-table
@@ -1162,7 +1166,7 @@ as read-only.**
       selectedVariant="success"
       :items="items"
       @row-selected="rowSelected"
-    />
+    ></b-table>
 
     {{ selected }}
   </div>
@@ -1254,7 +1258,7 @@ initially showing.
         </b-button>
 
         <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-        <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
+        <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
           Details via check
         </b-form-checkbox>
       </template>
@@ -1343,7 +1347,12 @@ presentational data.
 ```html
 <template>
   <div>
-    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields" />
+    <b-table
+      :items="items"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+    ></b-table>
 
     <div>
       Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
@@ -1402,6 +1411,8 @@ routine handle only certain fields (keys) or in the special case of virtual colu
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
 function sortCompare(a, b, key) {
@@ -1583,7 +1594,7 @@ table#table-transition-example .flip-list-move {
       small
       primary-key="a"
       :tbody-transition-props="transProps"
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -1621,6 +1632,8 @@ function to provide the row data (items), by specifying a function reference via
 
 The provider function is called with the following signature:
 
+<!-- eslint-disable no-undef -->
+
 ```js
 provider(ctx, [callback])
 ```
@@ -1642,6 +1655,8 @@ method.
 
 **Example: returning an array of data (synchronous):**
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 function myProvider(ctx) {
   let items = []
@@ -1655,18 +1670,20 @@ function myProvider(ctx) {
 
 **Example: Using callback to return data (asynchronous):**
 
+<!-- eslint-disable no-unused-vars, standard/no-callback-literal -->
+
 ```js
 function myProvider(ctx, callback) {
-  let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
+  const params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
 
   this.fetchData('/some/url' + params)
     .then(data => {
       // Pluck the array of items off our axios response
-      let items = data.items
+      const items = data.items
       // Provide the array of items to the callback
       callback(items)
     })
-    .catch(error => {
+    .catch(() => {
       callback([])
     })
 
@@ -1676,6 +1693,8 @@ function myProvider(ctx, callback) {
 ```
 
 **Example: Using a Promise to return data (asynchronous):**
+
+<!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
 function myProvider(ctx) {
@@ -1695,7 +1714,8 @@ function myProvider(ctx) {
 
 `<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
 however it also provides a `busy` prop that can be used either to override the inner `busy` state,
-or to monitor `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+or to monitor `<b-pagination>`'s current busy state in your application using the 2-way `.sync`
+modifier.
 
 **Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
 function should handle errors from data sources and return an empty array to `<b-table>`.
@@ -1711,7 +1731,7 @@ function should handle errors from data sources and return an empty array to `<b
       :items="myProvider"
       :fields="fields"
       ...
-    />
+    ></b-table>
   </div>
 </template>
 
@@ -1793,7 +1813,7 @@ Or by calling the `refresh()` method on the table reference
 
 ```html
 <div>
-  <b-table ref="table" ... />
+  <b-table ref="table" ... ></b-table>
 </div>
 ```
 
@@ -1812,7 +1832,7 @@ have changed.
 
 ```html
 <div>
-  <b-table @sort-changed="sortingChanged" ... />
+  <b-table @sort-changed="sortingChanged" ... ></b-table>
 </div>
 ```
 
@@ -1820,10 +1840,12 @@ The `sort-changed` event provides a single argument of the table's current state
 This context object has the same format as used by items provider functions.
 
 ```js
-methods: {
-  sortingChanged (ctx) {
-    // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
-    // ctx.sortDesc ==> true if sorting descending, false otherwise
+export default {
+  methods: {
+    sortingChanged(ctx) {
+      // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+      // ctx.sortDesc ==> true if sorting descending, false otherwise
+    }
   }
 }
 ```
@@ -1834,7 +1856,7 @@ details).
 
 ```html
 <div>
-  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... ></b-table>
 </div>
 ```
 
@@ -1854,8 +1876,8 @@ When the table is in `selectable` mode, or if there is a `row-clicked` event lis
 all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
 `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
 
-When the table items rows are in the tabl sequence, they will also support basic keyboard navigation
-when focused:
+When the table items rows are in the table sequence, they will also support basic keyboard
+navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row
@@ -1895,7 +1917,7 @@ differences between operating systems, this too is not a preventable default beh
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -1909,7 +1931,7 @@ differences between operating systems, this too is not a preventable default beh
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
-            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
               <option :value="false">Asc</option> <option :value="true">Desc</option>
             </b-form-select>
           </b-input-group>
@@ -1929,7 +1951,7 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select :options="pageOptions" v-model="perPage" />
+          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -1977,51 +1999,49 @@ differences between operating systems, this too is not a preventable default beh
     <b-row>
       <b-col md="6" class="my-1">
         <b-pagination
+          v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
-          v-model="currentPage"
           class="my-0"
-        />
+        ></b-pagination>
       </b-col>
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+    <b-modal id="modal-info" @hide="resetModal" :title="modalInfo.title" ok-only>
       <pre>{{ modalInfo.content }}</pre>
     </b-modal>
   </b-container>
 </template>
 
 <script>
-  const items = [
-    { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-    { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-    {
-      isActive: false,
-      age: 9,
-      name: { first: 'Mini', last: 'Navarro' },
-      _rowVariant: 'success'
-    },
-    { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-    { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-    { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-    { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-    {
-      isActive: true,
-      age: 87,
-      name: { first: 'Larsen', last: 'Shaw' },
-      _cellVariants: { age: 'danger', isActive: 'warning' }
-    },
-    { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-    { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-    { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-    { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-  ]
-
   export default {
     data() {
       return {
-        items: items,
+        items: [
+          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+          {
+            isActive: false,
+            age: 9,
+            name: { first: 'Mini', last: 'Navarro' },
+            _rowVariant: 'success'
+          },
+          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+          {
+            isActive: true,
+            age: 87,
+            name: { first: 'Larsen', last: 'Shaw' },
+            _cellVariants: { age: 'danger', isActive: 'warning' }
+          },
+          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        ],
         fields: [
           { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
@@ -2030,7 +2050,6 @@ differences between operating systems, this too is not a preventable default beh
         ],
         currentPage: 1,
         perPage: 5,
-        totalRows: items.length,
         pageOptions: [5, 10, 15],
         sortBy: null,
         sortDesc: false,
@@ -2040,6 +2059,9 @@ differences between operating systems, this too is not a preventable default beh
       }
     },
     computed: {
+      totalRows() {
+        this.items.length
+      }
       sortOptions() {
         // Create an options list from our fields
         return this.fields

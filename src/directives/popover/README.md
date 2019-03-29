@@ -252,22 +252,26 @@ By default, popover will use the `title` attribute of the element as the popover
 content is passed as a string to the `v-b-popover` directive. The title and content can also be
 passed as an object to `v-b-popover` in the form of
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
-{
-   title: 'This is the title',
-   content: 'This is the content'
+const options = {
+  title: 'This is the title',
+  content: 'This is the content'
 }
 ```
 
 If your content has basic HTML markup, then you will also need to set the `html` property to true,
 or use the directive modifier `html`
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 // Object format with HTML:
-{
-   title: 'This is the <string>title</strong>',
-   content: 'This is the <em>content<em>',
-   html: true
+const options = {
+  title: 'This is the <string>title</strong>',
+  content: 'This is the <em>content<em>',
+  html: true
 }
 ```
 
