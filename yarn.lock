@@ -4355,10 +4355,10 @@ esm@^3.2.20:
   resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.20.tgz#44f125117863427cdece7223baa411fc739c1939"
   integrity sha512-NA92qDA8C/qGX/xMinDGa3+cSPs4wQoFxskRrSnDo/9UloifhONFm4sl4G+JsyCqM007z2K+BfQlH5rMta4K1Q==
 
-esm@^3.2.21:
-  version "3.2.21"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.21.tgz#9cf6f1d7c70e22a641534f88ac01d6a1de5ba0a5"
-  integrity sha512-DkNi6jYtrT/FdO8pPEH+GFtBE321T3nup8FWdgaYpzaf4tK6aVJiCfgxNotZjEbnZ32t2VEtqIfbjp5GBN65Nw==
+esm@^3.2.22:
+  version "3.2.22"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.22.tgz#5062c2e22fee3ccfee4e8f20da768330da90d6e3"
+  integrity sha512-z8YG7U44L82j1XrdEJcqZOLUnjxco8pO453gKOlaMD1/md1n/5QrscAmYG+oKUspsmDLuBFZrpbxI6aQ67yRxA==
 
 espree@^4.1.0:
   version "4.1.0"
