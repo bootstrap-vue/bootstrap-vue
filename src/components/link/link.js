@@ -114,6 +114,7 @@ function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
       // Stop event from bubbling up.
       evt.stopPropagation()
       // Kill the event loop attached to this specific EventTarget.
+      // Needed to prevent vue-router for doing its thing
       evt.stopImmediatePropagation()
     } else {
       if (isRouterLink(tag) && evt.target.__vue__) {
@@ -121,9 +122,12 @@ function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
         // add in an $emit('click', evt) on it's vue instance
         evt.target.__vue__.$emit('click', evt)
       }
-      if (typeof suppliedHandler === 'function') {
-        suppliedHandler(...arguments)
-      }
+      // Call the suppliedHanlder(s), if any provided
+      concat(suppliedHandler)
+        .filter(h => typeof h === 'function')
+        .forEach(handler => {
+          handler(...arguments)
+        })
       parent.$root.$emit('clicked::link', evt)
     }
 

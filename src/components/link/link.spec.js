@@ -90,6 +90,13 @@ describe('link', () => {
     expect(firstCallArguments[0]).toBeInstanceOf(Event)
   })
 
+  it('btn with href should invoke click handler when clicked on', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2938
+    const { app } = window
+    app.$refs.href.click()
+    expect(app.btnHrefClick).toHaveBeenCalled()
+  })
+
   it("should emit 'clicked::link' on $root when clicked on", async () => {
     const { app } = window
     const spy = jest.fn()
