@@ -34,13 +34,14 @@
         head-variant="default"
         striped
       >
-        <template slot="prop" slot-scope="{ value }">
+        <template slot="prop" slot-scope="{ value, item }">
           <code>{{ value }}</code>
+          <b-badge v-if="item.required" variant="info">required</b-badge>
         </template>
         <template slot="row-details" slot-scope="{ item }">
-          <p v-if="item.deprecated">
+          <p v-if="item.deprecated" class="mb-1">
             <b-badge variant="warning">
-              {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
+              {{ typeof item.deprecated === 'string' ? 'Deprecation' : 'Deprecated' }}
             </b-badge>
             <!-- If deprecated is a string, show the string value -->
             <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
@@ -82,7 +83,11 @@
         small
         head-variant="default"
         striped
-      ></b-table>
+      >
+        <template slot="name" slot-scope="{ value }">
+          <code>{{ value }}</code>
+        </template>
+      </b-table>
     </article>
 
     <article v-if="events && events.length > 0">
@@ -96,6 +101,9 @@
         head-variant="default"
         striped
       >
+        <template slot="event" slot-scope="{ value }">
+          <code>{{ value }}</code>
+        </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
@@ -123,6 +131,9 @@
         head-variant="default"
         striped
       >
+        <template slot="event" slot-scope="{ value }">
+          <code>{{ value }}</code>
+        </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
@@ -205,22 +216,11 @@ export default {
       return this.componentOptions.props || {}
     },
     propsFields() {
-      const props = this.componentProps
-      const hasRequired = Object.keys(props).some(p => props[p].required)
-
-      const fields = [
+      return = [
         { key: 'prop', label: 'Property' },
         { key: 'type', label: 'Type' },
         { key: 'defaultValue', label: 'Default Value' }
       ]
-
-      // Add the required column if there are required field(s)
-      if (hasRequired) {
-        // Insert required field after prop name
-        fields.splice(1, 0, { key: 'required', label: 'Required' })
-      }
-
-      return fields
     },
     eventsFields() {
       return [
@@ -269,19 +269,14 @@ export default {
         }
         defaultVal = (defaultVal || '').replace(/"/g, "'")
 
-        // Requied prop?
-        const required = p.required ? 'Yes' : ''
-        // Deprecation?
-        const deprecated = p.deprecated || false
-
         return {
           prop: kebabCase(prop),
           type,
-          required,
           typeClass,
           defaultValue: defaultVal,
-          deprecated,
-          _showDetails: !!deprecated
+          required: p.required || false,
+          deprecated: p.deprecated || false,
+          _showDetails: !!p.deprecated
         }
       })
     },
