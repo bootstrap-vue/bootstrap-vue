@@ -229,7 +229,7 @@ describe('card', () => {
     expect($img.is('img')).toBe(true)
     expect($img.attributes('src')).toBe('/foo/bar')
     expect($img.attributes('alt')).toBe('foobar')
-    expect($img.classes()).toContain('card-img-bott')
+    expect($img.classes()).toContain('card-img-bottom')
     expect($img.classes().length).toBe(1)
 
     // Expected order
