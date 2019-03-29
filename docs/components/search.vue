@@ -57,7 +57,7 @@ import { components, directives, reference, misc } from '~/content'
 const SEARCH = []
 
 const process = (readme, section, page) => {
-  const baseURL = ['docs', section, page].filter(v => !!v).join('/')
+  const baseURL = '/' + ['docs', section, page].filter(v => !!v).join('/')
   const { title, toc } = makeTOC(readme)
   ;[...toc].forEach(({ label, href }) => {
     SEARCH.push({
