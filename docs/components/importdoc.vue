@@ -10,17 +10,17 @@
         </anchored-heading>
 
         <b-table :items="componentImports" small head-variant="default" striped>
-          <template slot="component" slot-scope="field">
-            <code>{{ field.value }}</code>
+          <template slot="component" slot-scope="{ value }">
+            <code>{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="field">
-            <code>{{ field.value }}</code>
+          <template slot="importPath" slot-scope="{ value }">
+            <code>{{ value }}</code>
           </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode"></code></pre>
+        <pre class="hljs js text-monospace p-2">{ componentImportCode }</pre>
       </article>
     </template>
 
@@ -31,17 +31,17 @@
         </anchored-heading>
 
         <b-table :items="directiveImports" small head-variant="default" striped>
-          <template slot="directive" slot-scope="field">
-            <code>{{ field.value }}</code>
+          <template slot="directive" slot-scope="{ value }">
+            <code>{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="field">
-            <code>{{ field.value }}</code>
+          <template slot="importPath" slot-scope="{ value }">
+            <code>{{ value }}</code>
           </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode"></code></pre>
+        <pre class="hljs js text-monospace p-2">{{ directiveImportCode }}</pre>
       </article>
     </template>
 
@@ -59,7 +59,7 @@
         This plugin includes all of the above listed individual directives.
       </p>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode"></code></pre>
+      <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
 
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
@@ -70,6 +70,16 @@
     </article>
   </section>
 </template>
+
+<style scoped>
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 20px 0;
+}
+</style>
 
 <script>
 import hljs from 'highlightjs'
