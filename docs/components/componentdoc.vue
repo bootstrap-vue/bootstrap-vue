@@ -34,15 +34,19 @@
         head-variant="default"
         striped
       >
-        <template slot="prop" slot-scope="{ value }">
-          <code>{{ value }}</code>
+        <template slot="prop" slot-scope="{ value, item }">
+          <code class="text-nowrap">{{ value }}</code>
+          <b-badge v-if="item.required" variant="info">Required</b-badge>
+          <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
+          <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
         <template slot="row-details" slot-scope="{ item }">
-          <b-badge variant="warning">
-            {{ typeof item.deprecated === 'string' ? 'deprecation' : 'deprecated' }}
-          </b-badge>
-          <!-- If deprecated is a string, show the string value -->
-          <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
+          <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
+            {{ item.deprecated }}
+          </p>
+          <p v-if="typeof item.deprecation === 'string'" class="mb-1 small">
+            {{ item.deprecation }}
+          </p>
         </template>
         <template slot="defaultValue" slot-scope="{ value }">
           <code v-if="value">{{ value }}</code>
@@ -80,7 +84,11 @@
         small
         head-variant="default"
         striped
-      ></b-table>
+      >
+        <template slot="name" slot-scope="{ value }">
+          <code class="text-nowrap">{{ value }}</code>
+        </template>
+      </b-table>
     </article>
 
     <article v-if="events && events.length > 0">
@@ -94,13 +102,16 @@
         head-variant="default"
         striped
       >
+        <template slot="event" slot-scope="{ value }">
+          <code class="text-nowrap">{{ value }}</code>
+        </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description"></span>
+            <span>{{ arg.description }}</span>
           </div>
         </template>
       </b-table>
@@ -121,13 +132,18 @@
         head-variant="default"
         striped
       >
+        <template slot="event" slot-scope="{ value }">
+          <code class="text-nowrap">{{ value }}</code>
+        </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span v-html="arg.description"></span>
+            <template v-if="arg.arg">
+              <code>{{ arg.arg }}</code>
+              <span v-if="arg.description"> - {{ arg.description }}</span>
+            </template>
           </div>
         </template>
       </b-table>
@@ -203,22 +219,11 @@ export default {
       return this.componentOptions.props || {}
     },
     propsFields() {
-      const props = this.componentProps
-      const hasRequired = Object.keys(props).some(p => props[p].required)
-
-      const fields = [
+      return [
         { key: 'prop', label: 'Property' },
         { key: 'type', label: 'Type' },
         { key: 'defaultValue', label: 'Default Value' }
       ]
-
-      // Add the required column if there are required field(s)
-      if (hasRequired) {
-        // Insert required field after prop name
-        fields.splice(1, 0, { key: 'required', label: 'Required' })
-      }
-
-      return fields
     },
     eventsFields() {
       return [
@@ -267,19 +272,15 @@ export default {
         }
         defaultVal = (defaultVal || '').replace(/"/g, "'")
 
-        // Requied prop?
-        const required = p.required ? 'Yes' : ''
-        // Deprecation?
-        const deprecated = p.deprecated || false
-
         return {
           prop: kebabCase(prop),
           type,
-          required,
           typeClass,
           defaultValue: defaultVal,
-          deprecated,
-          _showDetails: !!deprecated
+          required: p.required || false,
+          deprecated: p.deprecated || false,
+          deprecation: p.deprecation || false,
+          _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
         }
       })
     },

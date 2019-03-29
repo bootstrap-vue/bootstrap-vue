@@ -3,7 +3,9 @@
     <b-form-input
       id="bd-search-input"
       v-model="search"
+      type="search"
       placeholder="Search keywords..."
+      aria-label="Search site"
     ></b-form-input>
     <button
       v-b-toggle.bd-docs-nav
@@ -38,6 +40,7 @@
         v-for="(results, section, idx) in results"
         :key="section"
         :class="idx > 0 ? 'mt-2' : ''"
+        role="group"
       >
         <h6 class="bd-text-purple my-1" v-html="section"></h6>
         <div v-for="t in results" :key="t.href" class="my-1">
