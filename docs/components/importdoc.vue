@@ -11,7 +11,7 @@
 
         <b-table :items="componentImports" small head-variant="default" striped>
           <template slot="component" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
             <code>{{ value }}</code>
@@ -20,7 +20,7 @@
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2">{ componentImportCode }</pre>
+        <pre class="hljs js text-monospace p-2">{{ componentImportCode }}</pre>
       </article>
     </template>
 
@@ -32,7 +32,7 @@
 
         <b-table :items="directiveImports" small head-variant="default" striped>
           <template slot="directive" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
             <code>{{ value }}</code>
