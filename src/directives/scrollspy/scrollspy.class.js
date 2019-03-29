@@ -335,7 +335,6 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
         if (!memo[item.target]) {
           this.$offsets.push(item.offset)
           this.$targets.push(item.target)
-          this.$hrefs.push(item.href)
           memo[item.target] = true
         }
         return memo
