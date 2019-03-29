@@ -9,7 +9,7 @@
         </b-col>
 
         <b-col xl="2" class="d-none d-xl-block bd-toc pt-4">
-         <m-toc></m-toc>
+          <m-toc></m-toc>
         </b-col>
 
         <b-col cols="12" md="9" xl="8" class="pb-md-3 pl-md-5 bd-content">
