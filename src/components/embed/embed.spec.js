@@ -22,7 +22,7 @@ describe('embed', () => {
       }
     })
 
-    expect(wrapper.is('aiside')).toBe(true)
+    expect(wrapper.is('aside')).toBe(true)
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-16by9')
     expect(wrapper.classes().length).toBe(2)
@@ -75,7 +75,6 @@ describe('embed', () => {
     expect(wrapper.find('iframe').attributes('baz')).toBeDefined()
     expect(wrapper.find('iframe').attributes('baz')).toBe('buz')
   })
-
 
   it('default slot should be rendered inside inner element', async () => {
     const wrapper = mount(Embed, {
