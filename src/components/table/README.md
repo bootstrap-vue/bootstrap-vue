@@ -926,7 +926,7 @@ scoped field slot
   <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
   <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
   user supplied string.
-</div>
+</p>
 
 ### Formatter callback
 
