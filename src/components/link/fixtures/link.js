@@ -8,6 +8,7 @@ window.app = new Vue({
     href: 'https://bootstrap-vue.github.io/',
     clickSpy,
     disabledClickSpy,
+    btnHrefClick,
     testData: {}
   },
   methods: {
