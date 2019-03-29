@@ -36,15 +36,15 @@
       >
         <template slot="prop" slot-scope="{ value, item }">
           <code class="text-nowrap">{{ value }}</code>
-          <b-badge v-if="item.required" variant="info">required</b-badge>
+          <b-badge v-if="item.required" variant="info">Required</b-badge>
+          <b-badge v-else-if="item.deprecated === true" variant="danger">Deprecated</b-badge>
+          <b-badge v-else-if="typeof item.deprecated === 'string'" variant="warning">
+            Deprecation
+          </b-badge>
         </template>
         <template slot="row-details" slot-scope="{ item }">
-          <p v-if="item.deprecated" class="mb-1">
-            <b-badge variant="warning">
-              {{ typeof item.deprecated === 'string' ? 'Deprecation' : 'Deprecated' }}
-            </b-badge>
-            <!-- If deprecated is a string, show the string value -->
-            <small v-if="typeof item.deprecated === 'string'">{{ item.deprecated }}</small>
+          <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
+            {{ item.deprecated }}
           </p>
         </template>
         <template slot="defaultValue" slot-scope="{ value }">
@@ -278,7 +278,7 @@ export default {
           defaultValue: defaultVal,
           required: p.required || false,
           deprecated: p.deprecated || false,
-          _showDetails: !!p.deprecated
+          _showDetails: p.deprecated && typeof p.deprecated === 'string'
         }
       })
     },
