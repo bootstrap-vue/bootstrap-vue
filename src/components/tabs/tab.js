@@ -135,7 +135,7 @@ export default {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
     // Deprecate use of `href` prop
-    if (this.href && this.href === '#') {
+    if (this.href && this.href !== '#') {
       /* istanbul ignore next */
       warn(`b-tab: ${DEPRECATED_MSG}`)
     }
