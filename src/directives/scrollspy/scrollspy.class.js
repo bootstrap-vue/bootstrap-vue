@@ -67,7 +67,7 @@ const OffsetMethod = {
 // HREFs must end with a hash followed by at least one non-hash character.
 // HREFs in the links are assumed to point to non-external links.
 // Comparison to the current page base URL is not performed!
-const HREF_REGEX =/^.*(#[^#]+)$/
+const HREF_REGEX = /^.*(#[^#]+)$/
 
 // Transition Events
 const TransitionEndEvents = [
