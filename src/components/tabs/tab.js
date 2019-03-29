@@ -2,7 +2,7 @@ import idMixin from '../../mixins/id'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 
-const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Us the <b-nav> component instead'
+const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead'
 
 // @vue/component
 export default {
@@ -64,7 +64,7 @@ export default {
       // And we dont support router-links here
       type: String,
       default: '#',
-      // deprecated: means don't use thiws prop
+      // deprecated: means don't use this prop
       // deprecation: refers to a change in prop usage
       deprecated: DEPRECATED_MSG
     },
