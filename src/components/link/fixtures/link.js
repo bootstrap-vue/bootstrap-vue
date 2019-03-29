@@ -1,5 +1,6 @@
 const clickSpy = jest.fn()
 const disabledClickSpy = jest.fn()
+const btnHrefClick = jest.fn()
 
 window.app = new Vue({
   el: '#app',
@@ -16,6 +17,9 @@ window.app = new Vue({
     handleDisabledClick(e) {
       this.testData.disabled_event = e
       disabledClickSpy.apply(this, arguments)
+    },
+    handleBtnHrefClick(e) {
+      btnHrefClick.apply(this, arguments)
     }
   }
 })
