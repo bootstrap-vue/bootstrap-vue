@@ -35,7 +35,7 @@
         striped
       >
         <template slot="prop" slot-scope="{ value, item }">
-          <code>{{ value }}</code>
+          <code class="text-nowrap">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">required</b-badge>
         </template>
         <template slot="row-details" slot-scope="{ item }">
@@ -85,7 +85,7 @@
         striped
       >
         <template slot="name" slot-scope="{ value }">
-          <code>{{ value }}</code>
+          <code class="text-nowrap">{{ value }}</code>
         </template>
       </b-table>
     </article>
@@ -102,7 +102,7 @@
         striped
       >
         <template slot="event" slot-scope="{ value }">
-          <code>{{ value }}</code>
+          <code class="text-nowrap">{{ value }}</code>
         </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
@@ -132,15 +132,17 @@
         striped
       >
         <template slot="event" slot-scope="{ value }">
-          <code>{{ value }}</code>
+          <code class="text-nowrap">{{ value }}</code>
         </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
-            <span>{{ arg.description }}</span>
+            <template v-if="arg.arg">
+              <code>{{ arg.arg }}</code>
+              <span v-if="arg.description"> - {{ arg.description }}</span>
+            </template>
           </div>
         </template>
       </b-table>
