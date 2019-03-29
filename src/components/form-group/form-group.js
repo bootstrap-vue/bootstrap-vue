@@ -384,8 +384,9 @@ export default (resolve, reject) => {
         }
       },
       setInputDescribedBy(add, remove) {
-        // Sets the `aria-describedby` attribute on the input if label-for is set
-        // Optionally accepts a string of IDs to remove as the second parameter
+        // Sets the `aria-describedby` attribute on the input if label-for is set.
+        // Optionally accepts a string of IDs to remove as the second parameter.
+        // Preserves any aria-describedby value(s) user may have on input.
         if (this.labelFor && inBrowser) {
           const input = select(`#${this.labelFor}`, this.$refs.content)
           if (input) {
@@ -420,9 +421,7 @@ export default (resolve, reject) => {
           ref: 'content',
           attrs: {
             tabindex: isFieldset ? '-1' : null,
-            role: isFieldset ? 'group' : null,
-            'aria-labelledby': isFieldset ? this.labelId : null,
-            'aria-describedby': isFieldset ? this.ariaDescribedBy : null
+            role: isFieldset ? 'group' : null
           }
         },
         [
