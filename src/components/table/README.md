@@ -926,7 +926,7 @@ scoped field slot
   <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
   <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
   user supplied string.
-</div>
+</p>
 
 ### Formatter callback
 
@@ -1306,3 +1306,790 @@ initially showing.
 
 <!-- b-table-details.vue -->
 ```
+## Sorting
+
+As mentioned in the [**Fields**](#fields-column-definitions-) section above, you can make columns
+sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
+first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
+column will clear the sorting. The prop `no-sort-reset` can be used to disable this feature.
+
+You can control which column is pre-sorted and the order of sorting (ascending or descending). To
+pre-specify the column to be sorted, set the `sort-by` prop to the field's key. Set the sort
+direction by setting `sort-desc` to either `true` (for descending) or `false` (for ascending, the
+default).
+
+- **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
+  lowest value in the first row with progressively higher values in the following rows. The header
+  indicator arrow will point in the direction of lowest to highest. (i.e. down for ascending).
+- **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
+  the highest value in the first row with progressively lower values in the following rows. The
+  header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
+
+The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
+`.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
+criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
+the `.sync` prop modifier.
+
+Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
+table not being sorted.
+
+When the prop `foot-clone` is set, the footer headings will also allow sorting by clicking, even if
+you have custom formatted footer field headers. To disable the sort icons and sorting via heading
+clicks in the footer, set the `no-footer-sorting` prop to true.
+
+**Note:** The built-in `sort-compare` routine **cannot** sort virtual columns, nor sort based on the
+custom rendering of the field data (formatter functions and/or scoped slots are used only for
+presentation only, and do not affect the underlying data). Refer to the
+[**Sort-compare routine**](#sort-compare-routine) section below for details on sorting by
+presentational data.
+
+```html
+<template>
+  <div>
+    <b-table
+      :items="items"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+    ></b-table>
+
+    <div>
+      Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
+      <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        sortBy: 'age',
+        sortDesc: false,
+        fields: [
+          { key: 'last_name', sortable: true },
+          { key: 'first_name', sortable: true },
+          { key: 'age', sortable: true },
+          { key: 'isActive', sortable: false }
+        ],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-sorting.vue -->
+```
+
+### Sort-Compare routine
+
+The built-in default `sort-compare` function sorts the specified field `key` based on the data in
+the underlying record object (not by the formatted value). The field value is first stringified if
+it is an object, and then sorted.
+
+The default `sort-compare` routine **cannot** sort virtual columns, nor sort based on the custom
+rendering of the field data (formatter functions and/or scoped slots are used only for
+presentation). For this reason, you can provide your own custom sort compare routine by passing a
+function reference to the prop `sort-compare`.
+
+The `sort-compare` routine is passed four arguments. The first two arguments (`a` and `b`) are the
+record objects for the rows being compared, the third argument is the field `key` being sorted on
+(`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
+(`true` for descending, `false` for ascending).
+
+The routine should always return either `-1` for `a < b` , `0` for `a === b`, or `1` for `a > b`
+(the fourth argument, sorting direction, should not be used, as `b-table` will handle the
+direction). The routine can also return `null` to fall back to the default built-in sort-compare
+routine. You can use this feature (i.e. by returning `null`) to have your custom sort-compare
+routine handle only certain fields (keys) or in the special case of virtual columns.
+
+The default sort-compare routine works similar to the following. Note the fourth argument (sorting
+direction) is **not** used in the sort comparison:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+function sortCompare(a, b, key) {
+  if (typeof a[key] === 'number' && typeof b[key] === 'number') {
+    // If both compared fields are native numbers
+    return a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0
+  } else {
+    // Stringify the field data and use String.localeCompare
+    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+      numeric: true
+    })
+  }
+}
+
+function toString(value) {
+  if (!value) {
+    return ''
+  } else if (value instanceof Object) {
+    return keys(value)
+      .sort()
+      .map(key => toString(value[key]))
+      .join(' ')
+  }
+  return String(value)
+}
+```
+
+### Disable local sorting
+
+If you want to handle sorting entirely in your app, you can disable the local sorting in `<b-table>`
+by setting the prop `no-local-sorting` to true, while still maintaining the sortable header
+functionality (via `sort-changed` or `context-changed` events as well as syncable props).
+
+You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect changes in sorting
+column and direction.
+
+Also, When a sortable column header (or footer) is clicked, the event `sort-changed` will be emitted
+with a single argument containing the context object of `<b-table>`. See the
+[Detection of sorting change](#detection-of-sorting-change) section below for details about the
+sort-changed event and the context object.
+
+### Change initial sort direction
+
+Control the order in which ascending and descending sorting is applied when a sortable column header
+is clicked, by using the `sort-direction` prop. The default value `'asc'` applies ascending sort
+first (when a column is not currently sorted). To reverse the behavior and sort in descending
+direction first, set it to `'desc'`.
+
+If you don't want the current sorting direction to change when clicking another sortable column
+header, set `sort-direction` to `'last'`. This will maintain the sorting direction of the previously
+sorted column.
+
+For individual column initial sort direction (which applies when the column transitions from
+unsorted to sorted), specify the property `sortDirection` in `fields`. See the
+[Complete Example](#complete-example) below for an example of using this feature.
+
+## Filtering
+
+Filtering, when used, is applied to the **original items** array data, and hence it is not currently
+possible to filter data based on custom rendering of virtual columns.
+
+### Built in filtering
+
+The item's row data values are stringified (see the sorting section above for how stringification is
+done) and the filter searches that stringified data (excluding any of the special properties that
+begin with an underscore `_`). The stringification also includes any data not shown in the presented
+columns.
+
+With the default built-in filter function, The `filter` prop value can either be a string or a
+`RegExp` object (regular expressions should _not_ have the `/g` global flag set).
+
+If the stringified row contains the provided string value or matches the RegExp expression then it
+is included in the displayed results.
+
+Set the `filter` prop to `null` or the empty string to clear the current filter.
+
+### Custom filter function
+
+You can also use a custom filter function, by setting the prop `filter-function` to a reference of
+custom filter test function. The filter function will be passed two arguments:
+
+- the original item row record data object. **Treat this argument as read-only.**
+- the content of the `filter` prop (could be a string, RegExp, array, or object)
+
+The function should return `true` if the record matches your criteria or `false` if the record is to
+be filtered out.
+
+For proper reactive updates to the displayed data, when not filtering you should set the `filter`
+prop to `null` or an empty string (and not an empty object or array). The filter function will not
+be called when the `filter` prop is a falsey value.
+
+The display of the `empty-filter-text` relies on the truthiness of the `filter` prop.
+
+**Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated and should be
+avoided. Use the `filter-function` prop instead.
+
+### Filter events
+
+When local filtering is applied, and the resultant number of items change, `<b-table>` will emit the
+`filtered` event with a two arguments:
+
+- an array reference which is the complete list of items passing the filter routine. **Treat this
+  argument as read-only.**
+- the number of records that passed the filter test (the length of the first argument)
+
+Setting the prop `filter` to null or an empty string will clear local items filtering.
+
+### Filtering notes
+
+You can disable local filtering completely by setting the `no-local-filtering` prop to `true`.
+
+See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
+
+## Pagination
+
+`<b-table>` supports built in pagination of item data. You can control how many rows are displayed
+at a time by setting the `per-page` prop to the maximum number of rows you would like displayed, and
+use the `current-page` prop to specify which page to display (starting from page `1`). If you set
+`current-page` to a value larger than the computed number of pages, then no rows will be shown.
+
+You can use the [`<b-pagination>`](/docs/components/pagination) component in conjunction with
+`<b-table>` for providing control over pagination.
+
+Setting `per-page` to `0` (default) will disable the local items pagination feature.
+
+## `v-model` binding
+
+If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
+displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
+should usually be treated as readonly.
+
+The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
+changes to a record's properties in the `v-model` will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the `v-model` will
+**not** remove the record from the original items array.
+
+**Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
+
+## Table body transition support
+
+Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
+Vue's `<transition-group>` component internally. Three props are available for transitions support
+(all three default to undefined):
+
+| Prop                        | Type   | Description                                                       |
+| --------------------------- | ------ | ----------------------------------------------------------------- |
+| `tbody-transition-props`    | Object | Object of transition-group properties                             |
+| `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
+| `primary-key`               | String | String specifying the field to use as a unique row key (required) |
+
+To enable transitions you need to specify `tbody-transition-props` and/or
+`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
+`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
+a **unique value per row** in order for transitions to work properly. The `primary-key` field's
+_value_ can either be a unique string or number. The field specified does not need to appear in the
+rendered table output, but it **must** exist in each row of your items data.
+
+You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
+
+For more information of Vue's list rendering transitions, see the
+[Vue JS official docs](https://vuejs.org/v2/guide/transitions.html#List-Move-Transitions).
+
+In the example below, we have used the following custom CSS:
+
+```css
+table#table-transition-example .flip-list-move {
+  transition: transform 1s;
+}
+```
+
+```html
+<template>
+  <div>
+    <b-table
+      id="table-transition-example"
+      :items="items"
+      :fields="fields"
+      striped
+      small
+      primary-key="a"
+      :tbody-transition-props="transProps"
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        transProps: {
+          // Transition name
+          name: 'flip-list'
+        },
+        items: [
+          { a: 2, b: 'Two', c: 'Moose' },
+          { a: 1, b: 'Three', c: 'Dog' },
+          { a: 3, b: 'Four', c: 'Cat' },
+          { a: 4, b: 'One', c: 'Mouse' }
+        ],
+        fields: [
+          { key: 'a', sortable: true },
+          { key: 'b', sortable: true },
+          { key: 'c', sortable: true }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-transitions.vue -->
+```
+
+## Using Items Provider Functions
+
+As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a
+function to provide the row data (items), by specifying a function reference via the `items` prop.
+
+The provider function is called with the following signature:
+
+<!-- eslint-disable no-undef -->
+
+```js
+provider(ctx, [callback])
+```
+
+The `ctx` is the context object associated with the table state, and contains the following five
+properties:
+
+| Property      | Type                         | Description                                                                       |
+| ------------- | ---------------------------- | --------------------------------------------------------------------------------- |
+| `currentPage` | Number                       | The current page number (starting from 1, the value of the `current-page` prop)   |
+| `perPage`     | Number                       | The maximum number of rows per page to display (the value of the `per-page` prop) |
+| `filter`      | String or RegExp or Function | the value of the `Filter` prop                                                    |
+| `sortBy`      | String                       | The current column key being sorted, or `null` if not sorting                     |
+| `sortDesc`    | Boolean                      | The current sort direction (`true` for descending, `false` for ascending)         |
+| `apiUrl`      | String                       | the value provided to the `api-url` prop. `null` if none provided.                |
+
+The second argument `callback` is an optional parameter for when using the callback asynchronous
+method.
+
+**Example: returning an array of data (synchronous):**
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+function myProvider(ctx) {
+  let items = []
+
+  // Perform any items processing needed
+
+  // Must return an array
+  return items || []
+}
+```
+
+**Example: Using callback to return data (asynchronous):**
+
+<!-- eslint-disable no-unused-vars, standard/no-callback-literal -->
+
+```js
+function myProvider(ctx, callback) {
+  const params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
+
+  this.fetchData('/some/url' + params)
+    .then(data => {
+      // Pluck the array of items off our axios response
+      const items = data.items
+      // Provide the array of items to the callback
+      callback(items)
+    })
+    .catch(() => {
+      callback([])
+    })
+
+  // Must return null or undefined to signal b-table that callback is being used
+  return null
+}
+```
+
+**Example: Using a Promise to return data (asynchronous):**
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+function myProvider(ctx) {
+  let promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
+
+  // Must return a promise that resolves to an array of items
+  return promise.then(data => {
+    // Pluck the array of items off our axios response
+    let items = data.items
+    // Must return an array of items or an empty array if an error occurred
+    return items || []
+  })
+}
+```
+
+### Automated table busy state
+
+`<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
+however it also provides a `busy` prop that can be used either to override the inner `busy` state,
+or to monitor `<b-pagination>`'s current busy state in your application using the 2-way `.sync`
+modifier.
+
+**Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
+function should handle errors from data sources and return an empty array to `<b-table>`.
+
+**Example: usage of busy state**
+
+```html
+<template>
+  <div>
+    <b-table
+      id="my-table"
+      :busy.sync="isBusy"
+      :items="myProvider"
+      :fields="fields"
+      ...
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        isBusy: false
+      }
+    }
+    methods: {
+      myProvider (ctx) {
+        // Here we don't set isBusy prop, so busy state will be
+        // handled by table itself
+        // this.isBusy = true
+        let promise = axios.get('/some/url')
+
+        return promise.then((data) => {
+          const items = data.items
+          // Here we could override the busy state, setting isBusy to false
+          // this.isBusy = false
+          return(items)
+        }).catch(error => {
+          // Here we could override the busy state, setting isBusy to false
+          // this.isBusy = false
+          // Returning an empty array, allows table to correctly handle
+          // internal busy state in case of error
+          return []
+        })
+      }
+    }
+  }
+</script>
+```
+
+**Notes:**
+
+- If you manually place the table in the `busy` state, the items provider will **not** be
+  called/refreshed until the `busy` state has been set to `false`.
+- All click related and hover events, and sort-changed events will **not** be emitted when in the
+  `busy` state (either set automatically during provider update, or when manually set).
+
+### Provider Paging, Filtering, and Sorting
+
+By default, the items provider function is responsible for **all paging, filtering, and sorting** of
+the data, before passing it to `b-table` for display.
+
+You can disable provider paging, filtering, and sorting (individually) by setting the following
+`b-table` prop(s) to `true`:
+
+| Prop                    | Type    | Default | Description                                                    |
+| ----------------------- | ------- | ------- | -------------------------------------------------------------- |
+| `no-provider-paging`    | Boolean | `false` | When `true` enables the use of `b-table` local data pagination |
+| `no-provider-sorting`   | Boolean | `false` | When `true` enables the use of `b-table` local sorting         |
+| `no-provider-filtering` | Boolean | `false` | When `true` enables the use of `b-table` local filtering       |
+
+When `no-provider-paging` is `false` (default), you should only return at maximum, `perPage` number
+of records.
+
+**Notes:**
+
+- `<b-table>` needs reference to your pagination and filtering values in order to trigger the
+  calling of the provider function. So be sure to bind to the `per-page`, `current-page` and
+  `filter` props on `b-table` to trigger the provider update function call (unless you have the
+  respective `no-provider-*` prop set to `true`).
+- The `no-local-sorting` prop has no effect when `items` is a provider function.
+
+### Force refreshing of table data
+
+You may also trigger the refresh of the provider function by emitting the event `refresh::table` on
+`$root` with the single argument being the `id` of your `b-table`. You must have a unique ID on your
+table for this to work.
+
+```js
+this.$root.$emit('bv::refresh::table', 'my-table')
+```
+
+Or by calling the `refresh()` method on the table reference
+
+```html
+<div>
+  <b-table ref="table" ... ></b-table>
+</div>
+```
+
+```js
+this.$refs.table.refresh()
+```
+
+**Note:** If the table is in the `busy` state (i.e. a provider update is currently running), the
+refresh will wait until the current update is completed. If there is currently a refresh pending and
+a new refresh is requested, then only one refresh will occur.
+
+### Detection of sorting change
+
+By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key and direction
+have changed.
+
+```html
+<div>
+  <b-table @sort-changed="sortingChanged" ... ></b-table>
+</div>
+```
+
+The `sort-changed` event provides a single argument of the table's current state context object.
+This context object has the same format as used by items provider functions.
+
+```js
+export default {
+  methods: {
+    sortingChanged(ctx) {
+      // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+      // ctx.sortDesc ==> true if sorting descending, false otherwise
+    }
+  }
+}
+```
+
+You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
+`:sort-desc.sync` two-way props respectively (see section [**Sorting**](#sorting) above for
+details).
+
+```html
+<div>
+  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... ></b-table>
+</div>
+```
+
+### Server Side Rendering
+
+Special care must be taken when using server side rendering (SSR) and an `items` provider function.
+Make sure you handle any special situations that may be needed server side when fetching your data!
+
+When `<b-table>` is mounted in the document, it will automatically trigger a provider update call.
+
+## Table accessibility notes
+
+When a column (field) is sortable, the header (and footer) heading cells will also be placed into
+the document tab sequence for accessibility.
+
+When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered,
+all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
+`tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
+
+When the table items rows are in the table sequence, they will also support basic keyboard
+navigation when focused:
+
+- <kbd>DOWN</kbd> will move to the next row
+- <kbd>UP</kbd> will move to the previous row
+- <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
+- <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row. <kbd>SHIFT</kbd> and <kbd>CTRL</kbd>
+  modifiers will also work (depending on the table selectable mode).
+
+Note the following row based events/actions are not considered accessible, and should only be used
+if the functionality is non critical or can be provided via other means:
+
+- `row-dblclicked`
+- `row-contextmenu`
+- `row-hovered`
+- `row-unhovered`
+- `row-middle-clicked`
+
+Also, `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most mobile
+browsers). When listening for `row-middle-clicked` events originating on elements that do not
+support input or navigation, you will often want to explicitly prevent other default actions mapped
+to the down action of the middle mouse button. On Windows this is usually autoscroll, and on macOS
+and Linux this is usually clipboard paste. This can be done by preventing the default behaviour of
+the `mousedown` or `pointerdown` event.
+
+Additionally, you may need to avoid opening a system context menu after a right click. Due to timing
+differences between operating systems, this too is not a preventable default behaviour of
+`row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the
+`contextmenu` event.
+
+## Complete Example
+
+```html
+<template>
+  <b-container fluid>
+    <!-- User Interface controls -->
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
+          <b-input-group>
+            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+            <b-input-group-append>
+              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col md="6" class="my-1">
+        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
+          <b-input-group>
+            <b-form-select v-model="sortBy" :options="sortOptions">
+              <option slot="first" :value="null">-- none --</option>
+            </b-form-select>
+            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
+              <option :value="false">Asc</option> <option :value="true">Desc</option>
+            </b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col md="6" class="my-1">
+        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
+          <b-input-group>
+            <b-form-select v-model="sortDirection" slot="append">
+              <option value="asc">Asc</option> <option value="desc">Desc</option>
+              <option value="last">Last</option>
+            </b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col md="6" class="my-1">
+        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
+          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
+        </b-form-group>
+      </b-col>
+    </b-row>
+
+    <!-- Main table element -->
+    <b-table
+      show-empty
+      stacked="md"
+      :items="items"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :sort-direction="sortDirection"
+      @filtered="onFiltered"
+    >
+      <template slot="name" slot-scope="row">
+        {{ row.value.first }} {{ row.value.last }}
+      </template>
+
+      <template slot="isActive" slot-scope="row">
+        {{ row.value ? 'Yes :)' : 'No :(' }}
+      </template>
+
+      <template slot="actions" slot-scope="row">
+        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
+          Info modal
+        </b-button>
+        <b-button size="sm" @click="row.toggleDetails">
+          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+        </b-button>
+      </template>
+
+      <template slot="row-details" slot-scope="row">
+        <b-card>
+          <ul>
+            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+          </ul>
+        </b-card>
+      </template>
+    </b-table>
+
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          class="my-0"
+        ></b-pagination>
+      </b-col>
+    </b-row>
+
+    <!-- Info modal -->
+    <b-modal id="modal-info" @hide="resetModal" :title="modalInfo.title" ok-only>
+      <pre>{{ modalInfo.content }}</pre>
+    </b-modal>
+  </b-container>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+          {
+            isActive: false,
+            age: 9,
+            name: { first: 'Mini', last: 'Navarro' },
+            _rowVariant: 'success'
+          },
+          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+          {
+            isActive: true,
+            age: 87,
+            name: { first: 'Larsen', last: 'Shaw' },
+            _cellVariants: { age: 'danger', isActive: 'warning' }
+          },
+          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        ],
+        fields: [
+          { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
+          { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
+          { key: 'isActive', label: 'is Active' },
+          { key: 'actions', label: 'Actions' }
+        ],
+        currentPage: 1,
+        perPage: 5,
+        pageOptions: [5, 10, 15],
+        sortBy: null,
+        sortDesc: false,
+        sortDirection: 'asc',
+        filter: null,
+        modalInfo: { title: '', content: '' }
+      }
+    },
+    computed: {
+      totalRows() {
+        this.items.length
+      }
+      sortOptions() {
+        // Create an options list from our fields
+        return this.fields
+          .filter(f => f.sortable)
+          .map(f => {
+            return { text: f.label, value: f.key }
+          })
+      }
+    },
+    methods: {
+      info(item, index, button) {
+        this.modalInfo.title = `Row index: ${index}`
+        this.modalInfo.content = JSON.stringify(item, null, 2)
+        this.$root.$emit('bv::show::modal', 'modalInfo', button)
+      },
+      resetModal() {
+        this.modalInfo.title = ''
+        this.modalInfo.content = ''
+      },
+      onFiltered(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
+      }
+    }
+  }
+</script>
+
+<!-- b-table-complete.vue -->
+```
+
+<!-- Component reference added automatically from component package.json -->
