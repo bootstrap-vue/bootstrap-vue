@@ -2,7 +2,7 @@ import Card from './card'
 import { mount } from '@vue/test-utils'
 
 describe('card', () => {
-  it('default has expected sructure', async () => {
+  it('default has expected structure', async () => {
     const wrapper = mount(Card)
 
     // Outer div
@@ -10,7 +10,7 @@ describe('card', () => {
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes().length).toBe(1)
 
-    // should have one child div.card-body
+    // Should have one child div.card-body
     expect(wrapper.findAll('.card > .card-body').length).toBe(1)
     expect(wrapper.findAll('.card-body').length).toBe(1)
     expect(wrapper.find('.card-body').is('div')).toBe(true)
