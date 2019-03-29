@@ -9,6 +9,7 @@ import warn from '../../utils/warn'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { arrayIncludes } from '../../utils/array'
 import { keys, create } from '../../utils/object'
+import { inBrowser } from '../../utils/env'
 // Sub components
 import BFormRow from '../layout/form-row'
 import BCol from '../layout/col'
@@ -19,7 +20,8 @@ import BFormValidFeedback from '../form/form-valid-feedback'
 // Selector for finding first input in the form-group
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
-// Memoize this function to return cached values to save time in computed functions
+// Memoize this function to return cached values to
+// save time in computed functions
 const makePropName = memoize((breakpoint = '', prefix) => {
   return `${prefix}${upperFirst(breakpoint)}`
 })
@@ -27,8 +29,8 @@ const makePropName = memoize((breakpoint = '', prefix) => {
 const DEPRECATED_MSG =
   'Props "horizontal" and "breakpoint" are deprecated. Use "label-cols(-{breakpoint})" props instead.'
 
-// render helper functions (here rather than polluting the instance with more methods)
-function renderInvalidFeedback(h, ctx) {
+// Render helper functions (here rather than polluting the instance with more methods)
+const renderInvalidFeedback = (h, ctx) => {
   let content = ctx.$slots['invalid-feedback'] || ctx.invalidFeedback
   let invalidFeedback = h(false)
   if (content) {
@@ -54,7 +56,7 @@ function renderInvalidFeedback(h, ctx) {
   return invalidFeedback
 }
 
-function renderValidFeedback(h, ctx) {
+const renderValidFeedback = (h, ctx) => {
   const content = ctx.$slots['valid-feedback'] || ctx.validFeedback
   let validFeedback = h(false)
   if (content) {
@@ -80,7 +82,7 @@ function renderValidFeedback(h, ctx) {
   return validFeedback
 }
 
-function renderHelpText(h, ctx) {
+const renderHelpText = (h, ctx) => {
   // Form help text (description)
   const content = ctx.$slots['description'] || ctx.description
   let description = h(false)
@@ -99,8 +101,8 @@ function renderHelpText(h, ctx) {
   return description
 }
 
-function renderLabel(h, ctx) {
-  // render label/legend inside b-col if necessary
+const renderLabel = (h, ctx) => {
+  // Render label/legend inside b-col if necessary
   const content = ctx.$slots['label'] || ctx.label
   const labelFor = ctx.labelFor
   const isLegend = !labelFor
@@ -132,17 +134,20 @@ function renderLabel(h, ctx) {
         attrs: {
           id: ctx.labelId,
           for: labelFor || null,
-          // We add a tab index to legend so that screen readers will properly read the aria-labelledby in IE.
+          // We add a tab index to legend so that screen readers
+          // will properly read the aria-labelledby in IE.
           tabindex: isLegend ? '-1' : null
         },
         class: [
-          // When horizontal or if a legend is rendered, add col-form-label for correct sizing
-          // as Bootstrap has inconsitent font styling for legend in non-horiontal form-groups.
+          // When horizontal or if a legend is rendered, add col-form-label
+          // for correct sizing as Bootstrap has inconsistent font styling
+          // for legend in non-horizontal form-groups.
           // See: https://github.com/twbs/bootstrap/issues/27805
           isHorizontal || isLegend ? 'col-form-label' : '',
           // Emulate label padding top of 0 on legend when not horizontal
           !isHorizontal && isLegend ? 'pt-0' : '',
-          // If not horizontal and not a legend, we add d-block to label so that label-align works
+          // If not horizontal and not a legend, we add d-block to label
+          // so that label-align works
           !isHorizontal && !isLegend ? 'd-block' : '',
           ctx.labelSize ? `col-form-label-${ctx.labelSize}` : '',
           ctx.labelAlignClasses,
@@ -154,10 +159,9 @@ function renderLabel(h, ctx) {
   }
 }
 
-//
 // Async (lazy) component for BFormGroup
-// Needed so that the breakpoint specific props can be computed once hte config is created
-//
+// Needed so that the breakpoint specific props can be computed
+// once the config is created
 export default (resolve, reject) => {
   // Grab the current config for breakpoints
   const BREAKPOINTS = getBreakpointsUp()
@@ -268,13 +272,14 @@ export default (resolve, reject) => {
           const bp = this.breakpoint || BREAKPOINTS[1] // 'sm'
           const cols = parseInt(this.labelCols, 10) || 3
           props[bp] = cols > 0 ? cols : 3
-          // We then return the single breakpoint prop for legacy compatability
+          // We then return the single breakpoint prop for legacy compatibility
           return props
         }
         BREAKPOINTS.forEach(breakpoint => {
           // Grab the value if the label column breakpoint prop
           let propVal = this[makePropName(breakpoint, 'labelCols')]
-          // Handle case where the prop's value is an empty string, which represents true
+          // Handle case where the prop's value is an empty string,
+          // which represents true
           propVal = propVal === '' ? true : propVal || false
           if (typeof propVal !== 'boolean') {
             // Convert to column size to number
@@ -283,8 +288,9 @@ export default (resolve, reject) => {
             propVal = propVal > 0 ? propVal : false
           }
           if (propVal) {
-            // Add the prop to the list of props to give to b-col.
-            // if breakpoint is '' (labelCols=true), then we use the col prop to make equal width at xs
+            // Add the prop to the list of props to give to b-col
+            // If breakpoint is '' (labelCols=true), then we use the
+            // col prop to make equal width at xs
             const bColPropName = breakpoint || (typeof propVal === 'boolean' ? 'col' : 'cols')
             // Add it to the props
             props[bColPropName] = propVal
@@ -295,7 +301,7 @@ export default (resolve, reject) => {
       labelAlignClasses() {
         const classes = []
         BREAKPOINTS.forEach(breakpoint => {
-          // assemble the label column breakpoint align classes
+          // Assemble the label column breakpoint align classes
           const propVal = this[makePropName(breakpoint, 'labelAlign')] || null
           if (propVal) {
             const className = breakpoint ? `text-${breakpoint}-${propVal}` : `text-${propVal}`
@@ -318,7 +324,7 @@ export default (resolve, reject) => {
           : null
       },
       hasInvalidFeedback() {
-        // used for computing aria-describedby
+        // Used for computing aria-describedby
         const $slots = this.$slots
         return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback)
       },
@@ -326,7 +332,7 @@ export default (resolve, reject) => {
         return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
       },
       hasValidFeedback() {
-        // used for computing aria-describedby
+        // Used for computing aria-describedby
         return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback)
       },
       validFeedbackId() {
@@ -334,7 +340,7 @@ export default (resolve, reject) => {
       },
       describedByIds() {
         // Screen readers will read out any content linked to by aria-describedby
-        // even if the content is hidden with 'display: none', hence we only include
+        // even if the content is hidden with `display: none;`, hence we only include
         // feedback IDs if the form-group's state is explicitly valid or invalid.
         return (
           [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId]
@@ -352,7 +358,7 @@ export default (resolve, reject) => {
     },
     mounted() {
       this.$nextTick(() => {
-        // Set the adia-describedby IDs on the input specified by label-for
+        // Set the aria-describedby IDs on the input specified by label-for
         // We do this in a nextTick to ensure the children have finished rendering
         this.setInputDescribedBy(this.describedByIds)
       })
@@ -360,13 +366,14 @@ export default (resolve, reject) => {
     methods: {
       legendClick(evt) {
         if (this.labelFor) {
-          // don't do anything if labelFor is set
+          // Don't do anything if labelFor is set
           /* istanbul ignore next: clicking a label will focus the input, so no need to test */
           return
         }
         const tagName = evt.target ? evt.target.tagName : ''
         if (/^(input|select|textarea|label|button|a)$/i.test(tagName)) {
-          // If clicked an interactive element inside legend, we just let the default happen
+          // If clicked an interactive element inside legend,
+          // we just let the default happen
           /* istanbul ignore next */
           return
         }
@@ -378,8 +385,9 @@ export default (resolve, reject) => {
       },
       setInputDescribedBy(add, remove) {
         // Sets the `aria-describedby` attribute on the input if label-for is set.
-        // Optionally accepts a string of IDs to remove as the second parameter
-        if (this.labelFor && typeof document !== 'undefined') {
+        // Optionally accepts a string of IDs to remove as the second parameter.
+        // Preserves any aria-describedby value(s) user may have on input.
+        if (this.labelFor && inBrowser) {
           const input = select(`#${this.labelFor}`, this.$refs.content)
           if (input) {
             const adb = 'aria-describedby'
@@ -413,9 +421,7 @@ export default (resolve, reject) => {
           ref: 'content',
           attrs: {
             tabindex: isFieldset ? '-1' : null,
-            role: isFieldset ? 'group' : null,
-            'aria-labelledby': isFieldset ? this.labelId : null,
-            'aria-describedby': isFieldset ? this.ariaDescribedBy : null
+            role: isFieldset ? 'group' : null
           }
         },
         [
@@ -434,14 +440,18 @@ export default (resolve, reject) => {
           disabled: isFieldset ? this.disabled : null,
           role: isFieldset ? null : 'group',
           'aria-invalid': this.computedState === false ? 'true' : null,
-          'aria-labelledby': this.labelId || null,
-          'aria-describedby': this.describedByIds || null
+          // Only apply aria-labelledby if we are a horizontal fieldset
+          // as the legend is no longer a direct child of fieldset
+          'aria-labelledby': isFieldset && isHorizontal ? this.labelId : null,
+          // Only apply aria-describedby IDs if we are a fieldset
+          // as the input will have the IDs when not a fieldset
+          'aria-describedby': isFieldset ? this.describedByIds : null
         }
       }
-      // Return it wrapped in a form-group.
-      // Note: fieldsets do not support adding `row` or `form-row` directly to them
-      // due to browser specific render issues, so we move the form-row to an
-      // inner wrapper div when horizontal and using a fieldset
+      // Return it wrapped in a form-group
+      // Note: Fieldsets do not support adding `row` or `form-row` directly
+      // to them due to browser specific render issues, so we move the `form-row`
+      // to an inner wrapper div when horizontal and using a fieldset
       return h(
         isFieldset ? 'fieldset' : isHorizontal ? 'b-form-row' : 'div',
         data,
@@ -450,6 +460,6 @@ export default (resolve, reject) => {
     }
   }
 
-  // Return the componwent options reference
+  // Return the component options reference
   resolve(BFormGroup)
 }

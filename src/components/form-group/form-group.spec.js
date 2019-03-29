@@ -7,19 +7,20 @@ describe('form-group', () => {
   it('app changes validation state when text supplied', async () => {
     const { app } = window
     const $group = app.$refs.group1
+    const $input = app.$refs.input1
 
     expect($group.$el.getAttribute('aria-invalid')).toBe('true')
 
-    const oldADB = $group.$el.getAttribute('aria-describedby')
+    const oldADB = $input.$el.getAttribute('aria-describedby')
 
     await setData(app, 'text', 'foobar doodle')
     await nextTick()
 
     expect($group.$el.getAttribute('aria-invalid')).toBe(null)
 
-    const newADB = $group.$el.getAttribute('aria-describedby')
+    const newADB = $input.$el.getAttribute('aria-describedby')
 
-    expect(oldADB).not.toBe(newADB)
+    expect(oldADB).not.toEqual(newADB)
   })
 
   describe('form-group > legend click', () => {
