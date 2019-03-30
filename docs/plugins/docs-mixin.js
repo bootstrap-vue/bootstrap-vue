@@ -2,6 +2,7 @@
  * docs-mixin: used by any page under /docs path
  */
 import { scrollTo, offsetTop } from '~/utils'
+import { bvDescription } from '~/content'
 
 // @vue/component
 export default {
@@ -13,14 +14,32 @@ export default {
 
   computed: {
     content() {
+      // NOTE: is this computed prop used anymore?
       return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
     },
     metaTitle() {
-      return `${(this.meta && this.meta.title) || 'Docs'} - BootstrapVue`
+      const routeName = this.$route.name
+      let title = 'Docs'
+      let section = ''
+      if (this.meta && this.meta.title) {
+        title = this.meta.title
+      }
+      if (routeName === 'docs-components-slug') {
+        section = 'Components'
+      } else if (routeName === 'docs-directives-slug') {
+        section = 'Directives'
+      } else if (routeName === 'docs-reference-slug') {
+        section = 'Reference'
+      } else if (routeName === 'docs-misc-slug') {
+        section = 'Misc'
+      }
+      return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
     metaDescription() {
       if (this.meta && this.meta.description) {
-        return { hid: 'description', name: 'description', content: this.meta.descripton }
+        return { hid: 'description', name: 'description', content: this.meta.description }
+      } else if (bvDescription) {
+        return { hid: 'description', name: 'description', content: bvDescription }
       }
       return null
     }
