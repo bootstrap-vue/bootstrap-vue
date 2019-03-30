@@ -14,4 +14,4 @@ export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || windo
 // Getters
 
 export const getNoWarn = () =>
-  typeof process !== 'undefined' && process.env && process.env.BOOTSTRAP_VUE_NO_WARN
+  typeof process !== 'undefined' && process && process.env && process.env.BOOTSTRAP_VUE_NO_WARN
