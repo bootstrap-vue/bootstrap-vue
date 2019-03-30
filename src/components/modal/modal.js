@@ -998,7 +998,7 @@ export default {
     )
     // Modal Backdrop
     let backdrop = h(false)
-    if (!this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
+    if (!this.hideBackdrop && (this.is_visible || this.is_transitioning || this.is_block)) {
       backdrop = h(
         'div',
         {
