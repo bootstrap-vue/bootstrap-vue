@@ -1,5 +1,5 @@
 <template>
-  <div class="bd-search d-flex align-items-center">
+  <form class="bd-search d-flex align-items-center">
     <b-form-input
       id="bd-search-input"
       autocomplete="off"
@@ -31,7 +31,7 @@
         />
       </svg>
     </button>
-  </div>
+  </form>
 </template>
 
 <script>
