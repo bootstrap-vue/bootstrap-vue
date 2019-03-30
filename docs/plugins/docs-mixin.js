@@ -2,6 +2,7 @@
  * docs-mixin: used by any page under /docs path
  */
 import { scrollTo, offsetTop } from '~/utils'
+import { bvDescription } from '~/content'
 
 // @vue/component
 export default {
@@ -21,6 +22,8 @@ export default {
     metaDescription() {
       if (this.meta && this.meta.description) {
         return { hid: 'description', name: 'description', content: this.meta.descripton }
+      } else if (bvDescription) {
+        return { hid: 'description', name: 'description', content: bvDescription }
       }
       return null
     }
