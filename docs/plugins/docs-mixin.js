@@ -19,19 +19,19 @@ export default {
     },
     metaTitle() {
       const routeName = this.$route.name
-      let title = 'Docs'
-      let section = ''
+      let title = ''
+      let section = 'Docs'
       if (this.meta && this.meta.title) {
         title = this.meta.title
       }
       if (routeName === 'docs-components-slug') {
-        section = 'Components'
+        section = 'Components | Docs'
       } else if (routeName === 'docs-directives-slug') {
-        section = 'Directives'
+        section = 'Directives | Docs'
       } else if (routeName === 'docs-reference-slug') {
-        section = 'Reference'
+        section = 'Reference | Docs'
       } else if (routeName === 'docs-misc-slug') {
-        section = 'Misc'
+        section = 'Misc | Docs'
       }
       return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
