@@ -35,20 +35,42 @@ export default {
       }
       return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
-    metaDescription() {
+    metaMeta() {
+      const meta = [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          property: 'og:title',
+          content: this.metaTitle
+        }
+      ]
       if (this.meta && this.meta.description) {
-        return { hid: 'description', name: 'description', content: this.meta.description }
+        meta.push({
+          hid: 'description',
+          name: 'description',
+          content: this.meta.description
+        })
+        meta.push({
+          hid: 'og:description',
+          name: 'og:description',
+          property: 'og:description',
+          content: this.meta.description
+        })
       } else if (bvDescription) {
-        return { hid: 'description', name: 'description', content: bvDescription }
+        meta.push({
+          hid: 'description',
+          name: 'description',
+          content: bvDescription
+        })
       }
-      return null
+      return meta
     }
   },
 
   head() {
     return {
       title: this.metaTitle,
-      meta: this.metaDescription ? [this.metaDescription] : []
+      meta: this.metaMeta
     }
   },
 
