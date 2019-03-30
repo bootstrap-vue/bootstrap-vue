@@ -14,12 +14,22 @@ export default {
   computed: {
     content() {
       return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
+    },
+    metaTitle() {
+      return `${(this.meta && this.meta.title) || 'Docs'} - BootstrapVue`
+    },
+    metaDescription() {
+      if (this.meta && this.meta.description) {
+        return { hid: 'description', name: 'description', content: this.meta.descripton }
+      }
+      return null
     }
   },
 
   head() {
     return {
-      title: `${(this.meta && this.meta.title) || 'Docs'} - BootstrapVue`
+      title: this.metaTitle,
+      meta: this.metaDescription ? [this.metaDescription] : []
     }
   },
 
