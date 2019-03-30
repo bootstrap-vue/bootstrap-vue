@@ -14,9 +14,15 @@ export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || windo
 // Getters
 
 export const getGlobal = () => {
-  if (typeof self !== 'undefined') { return self }
-  if (typeof window !== 'undefined') { return window } 
-  if (typeof global !== 'undefined') { return global }
+  if (typeof self !== 'undefined') {
+    return self
+  }
+  if (typeof window !== 'undefined') {
+    return window
+  }
+  if (typeof global !== 'undefined') {
+    return global
+  }
 }
 
 export const getProcess = () => {
