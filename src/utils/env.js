@@ -13,26 +13,5 @@ export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || windo
 
 // Getters
 
-export const getGlobal = () => {
-  if (typeof self !== 'undefined') {
-    return self
-  }
-  if (typeof window !== 'undefined') {
-    return window
-  }
-  if (typeof global !== 'undefined') {
-    return global
-  }
-}
-
-export const getProcess = () => {
-  const glob = getGlobal()
-  if (glob) {
-    return glob.process
-  }
-}
-
-export const getNoWarn = () => {
-  const proc = getProcess()
-  return proc && proc.env && proc.env.BOOTSTRAP_VUE_NO_WARN
-}
+export const getNoWarn = () => 
+  typeof process !== 'undefined' && process.env && process.env.BOOTSTRAP_VUE_NO_WARN
