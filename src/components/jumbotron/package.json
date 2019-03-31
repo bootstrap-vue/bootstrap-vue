@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Jumbotron",
+    "description": "A lightweight, flexible component that can optionally extend the entire viewport to showcase key marketing messages on your site.",
     "components": [
       {
         "component": "BJumbotron",

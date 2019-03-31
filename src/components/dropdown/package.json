@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Dropdown",
+    "description": "Dropdowns are toggleable, contextual overlays for displaying lists of links and actions in a dropdown menu format.",
     "components": [
       {
         "component": "BDropdown",
