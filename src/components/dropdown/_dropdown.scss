@@ -2,7 +2,7 @@ $bv-dropdown-no-caret-defined: false !default;
 
 @if $bv-dropdown-no-caret-defined == false {
   // This test will only include these style definitions once
-  $bv-dropdown-no-caret-defined: true
+  $bv-dropdown-no-caret-defined: true;
 
   // Hide the caret for no-caret setting
   // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/1473
