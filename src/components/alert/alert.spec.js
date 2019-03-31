@@ -271,7 +271,7 @@ describe('alert', () => {
 
     jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
-    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(1) // 3 - 3
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
