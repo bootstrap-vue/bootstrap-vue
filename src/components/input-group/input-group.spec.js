@@ -95,7 +95,7 @@ describe('input-group', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.text()).toEqual('foofobarbar')
+    expect(wrapper.text()).toEqual('foofoobarbar')
     expect(wrapper.findAll('.input-group > *').length).toBe(2)
     expect(wrapper.findAll('.input-group-prepend').length).toBe(1)
     expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(0)
