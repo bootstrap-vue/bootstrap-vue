@@ -6,9 +6,6 @@
     "components": [
       {
         "component": "BModal",
-        "directives": [
-          "vBModal"
-        ],
         "events": [
           {
             "event": "change",
@@ -208,6 +205,9 @@
           }
         ]
       }
+    ],
+    "directives": [
+      "vBModal"
     ]
   }
 }
