@@ -4,12 +4,7 @@
   "meta": {
     "title": "Nav",
     "components": [
-      {
-        "component": "BNav",
-        "plugins": [
-          "Dropdown"
-        ]
-      },
+      "BNav",
       "BNavItem",
       "BNavText",
       "BNavForm",
@@ -61,6 +56,9 @@
           }
         ]
       }
+    ],
+    "plugins": [
+      "Dropdown"
     ]
   }
 }
