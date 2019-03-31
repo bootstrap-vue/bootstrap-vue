@@ -123,7 +123,7 @@ describe('media', () => {
   it('sets vertialAlign prop on media-aside child', async () => {
     const wrapper = mount(Media, {
       propsData: {
-        vertialAlign: 'bottom'
+        verticalAlign: 'bottom'
       },
       slots: {
         aside: 'foobar'
