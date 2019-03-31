@@ -293,8 +293,9 @@ describe('alert', () => {
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
 
-    expect(wrapper.emitted('dismissed')).toBeDefined()
-    expect(wrapper.emitted('dismissed').length).toBe(1)
+    // dismissed wont be emitted unless dismissible=true or show is a number
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
