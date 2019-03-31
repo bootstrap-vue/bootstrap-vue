@@ -1,4 +1,5 @@
 {
   "title": "Router support",
+  "description": "Several BootstrapVue components support rendering <router-link> components compatible with Vue-Router and Nuxt.",
   "slug": "router-links"
 }
