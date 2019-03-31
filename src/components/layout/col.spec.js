@@ -1,6 +1,5 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
-// TODO: Export function from col.js
 function computeBkPtClass(type, breakpoint, val) {
   let className = type
   if (val === false || val === null || val === undefined) {
@@ -18,7 +17,7 @@ function computeBkPtClass(type, breakpoint, val) {
   return className.toLowerCase()
 }
 
-describe('col', () => {
+describe('layout > col', () => {
   beforeEach(loadFixture(__dirname, 'col'))
   testVM()
 
