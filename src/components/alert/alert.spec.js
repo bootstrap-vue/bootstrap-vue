@@ -263,7 +263,7 @@ describe('alert', () => {
 
     jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
-    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 3 - 1
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
