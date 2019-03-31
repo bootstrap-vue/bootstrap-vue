@@ -183,7 +183,7 @@ export default {
       return kebabCase(directive).replace(/^v-/, '')
     },
     directiveAttr(directive) {
-      return this.directiveName(directive)
+      return kebabCase(directive)
     },
     directivePath(directive) {
       const directiveName = this.directiveName(directive).replace(/^b-/, '')
