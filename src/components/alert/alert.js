@@ -85,15 +85,15 @@ export default {
     this.countDown = typeof this.show === 'number' ? this.show : 0
   },
   beforeDestroy() {
-    this.clearCounter()
+    this.clearTimer()
   },
   methods: {
     dismiss() {
-      this.clearCounter()
+      this.clearTimer()
       this.countDown = 0
       this.localShow = false
     },
-    clearCounter() {
+    clearTimer() {
       if (this.countDownTimerId) {
         clearInterval(this.countDownTimerId)
         this.countDownTimerId = null
