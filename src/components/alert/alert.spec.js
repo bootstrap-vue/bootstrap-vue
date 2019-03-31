@@ -12,6 +12,34 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
+  it('hidden alert (show = '0') renders comment node', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: '0'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('hidden alert (show = 0) renders comment node', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 0
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('visible alert has default class names and attributes', async () => {
     const wrapper = mount(Alert, {
       propsData: {
