@@ -30,6 +30,7 @@
       <b-table
         :items="propsItems"
         :fields="propsFields"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -60,6 +61,7 @@
         <b-table
           :items="[componentVModel]"
           :fields="['prop', 'event']"
+          responsive="sm"
           small
           head-variant="default"
           striped
@@ -81,6 +83,7 @@
       <b-table
         :items="slots"
         :fields="slotsFields"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -98,6 +101,7 @@
       <b-table
         :items="events"
         :fields="eventsFields"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -128,6 +132,7 @@
       <b-table
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
+        responsive="sm"
         small
         head-variant="default"
         striped
