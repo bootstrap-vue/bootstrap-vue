@@ -520,6 +520,7 @@ export default {
       const count = incrementModalOpenCount()
       if (count === 1) {
         this.setScrollbar()
+        this.setModalOpenClass(true)
       }
       this.adjustDialog()
       // this.setModalOpenClass(true)
@@ -787,7 +788,7 @@ export default {
         setAttr(body, 'data-padding-right', actualPadding)
         body.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
       }
-      this.setModalOpenClass(true)
+      // this.setModalOpenClass(true)
     },
     resetScrollbar() {
       const body = document.body
