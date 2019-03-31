@@ -50,6 +50,6 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('align-self-top')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('b').length).toBe(1)
-    expect(wrapper.find('b').text).toBe('foobar')
+    expect(wrapper.find('b').text()).toBe('foobar')
   })
 })
