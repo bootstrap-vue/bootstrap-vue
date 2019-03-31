@@ -1,7 +1,7 @@
 import InputGroupText from './input-group-text'
 import { mount } from '@vue/test-utils'
 
-describe('input-group-text', () => {
+describe('input-group > input-group-text', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(InputGroupText)
 
