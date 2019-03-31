@@ -12,10 +12,10 @@ describe('nav-item-dropdown', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
     const $toggle = wrapper.find('.dropdown-toggle')
-    
-    expect($toggle.classes()).toBeContain('nav-link')
-    expect($toggle.classes()).toBeContain('dropdown-toggle')
-    expect($toggle.classes()).toBeContain('nav-link-custom')
+
+    expect($toggle.classes()).toContain('nav-link')
+    expect($toggle.classes()).toContain('dropdown-toggle')
+    expect($toggle.classes()).toContain('nav-link-custom')
 
     wrapper.destroy()
   })
