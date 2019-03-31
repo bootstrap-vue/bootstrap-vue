@@ -63,6 +63,7 @@ export default {
     dismiss() {
       this.clearCounter()
       if (typeof this.show === 'number') {
+        this.$emit('dismiss-count-down', 0)
         this.$emit('dismiss', 0)
         this.$emit('input', 0)
       } else {
@@ -92,7 +93,6 @@ export default {
       let dismissCountDown = parseInt(show, 10) || 1
       this.countDownTimerId = setInterval(() => {
         if (dismissCountDown < 1) {
-          this.$emit('dismiss-count-down', dismissCountDown)
           this.dismiss()
           return
         }
