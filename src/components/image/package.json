@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Image",
+    "description": "Create responsive images, optionally adding lightweight styles to them — all via props. Support for rounded images, thumbnail styling, alignment, and even the ability to create blank images with an optional solid background color, and lazy loaded images.",
     "components": [
       "BImg",
       "BImgLazy"
