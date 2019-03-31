@@ -70,12 +70,14 @@ describe('input-group', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.text()).toEqual('foobar')
+    expect(wrapper.text()).toEqual('foofoobarbar')
     expect(wrapper.findAll('.input-group > *').length).toBe(2)
     expect(wrapper.findAll('.input-group-prepend').length).toBe(1)
     expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(1)
+    expect(wrapper.find('.input-group-prepend').text()).toBe('foo')
     expect(wrapper.findAll('.input-group-append').length).toBe(1)
     expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(1)
+    expect(wrapper.find('.input-group-append').text()).toBe('bar')
     expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
       true
     )
@@ -93,12 +95,14 @@ describe('input-group', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.text()).toEqual('foobar')
+    expect(wrapper.text()).toEqual('foofobarbar')
     expect(wrapper.findAll('.input-group > *').length).toBe(2)
     expect(wrapper.findAll('.input-group-prepend').length).toBe(1)
     expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(0)
+    expect(wrapper.find('.input-group-prepend').text()).toBe('foo')
     expect(wrapper.findAll('.input-group-append').length).toBe(1)
     expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(0)
+    expect(wrapper.find('.input-group-append').text()).toBe('bar')
     expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
       true
     )
