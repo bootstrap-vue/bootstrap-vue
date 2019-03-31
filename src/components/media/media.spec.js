@@ -5,7 +5,7 @@ describe('media', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(Media)
 
-    expect(wrapper.is('div')).tobe(true)
+    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(1)
@@ -27,7 +27,7 @@ describe('media', () => {
       }
     })
 
-    expect(wrapper.is('section')).tobe(true)
+    expect(wrapper.is('section')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
   })
@@ -39,7 +39,7 @@ describe('media', () => {
       }
     })
 
-    expect(wrapper.is('div')).tobe(true)
+    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(1)
@@ -61,7 +61,7 @@ describe('media', () => {
       }
     })
 
-    expect(wrapper.is('div')).tobe(true)
+    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(1)
@@ -76,7 +76,7 @@ describe('media', () => {
       }
     })
 
-    expect(wrapper.is('div')).tobe(true)
+    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(0)
@@ -95,7 +95,7 @@ describe('media', () => {
       }
     })
 
-    expect(wrapper.is('div')).tobe(true)
+    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(0)
@@ -112,7 +112,7 @@ describe('media', () => {
       }
     })
 
-    expect(wrapper.is('div')).tobe(true)
+    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(1)
