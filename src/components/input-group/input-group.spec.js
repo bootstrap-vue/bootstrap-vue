@@ -1,170 +1,102 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import Inputgroup from './input-group'
+import { mount } from '@vue/test-utils'
 
 describe('input-group', () => {
-  beforeEach(loadFixture(__dirname, 'input-group'))
-  testVM()
+  it('should have expected default structure', async () => {
+    const wrapper = mount(InputGroup)
 
-  it("should have '.input-group' class on root element", async () => {
-    const {
-      app: { $refs }
-    } = window
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.findAll('.input-group > *').length).toBe(0)
+    expect(wrapper.text()).toEqual('')
+  })
 
-    const refs = ['basic', 'components']
-
-    refs.forEach(ref => {
-      expect($refs[ref]).toHaveClass('input-group')
+  it('should render custom root element when prop tag is set', async () => {
+    const wrapper = mount(InputGroup, {
+      propsData: {
+        tag: 'span'
+      }
     })
+
+    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.findAll('.input-group > *').length).toBe(0)
   })
 
-  it("should have role 'group' on root element", async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const refs = ['basic', 'components']
-
-    refs.forEach(ref => {
-      expect($refs[ref].getAttribute('role')).toBe('group')
+  it('should apply size class when when prop size is set', async () => {
+    const wrapper = mount(InputGroup, {
+      propsData: {
+        size: 'lg'
+      }
     })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes()).toContain('input-group-lg')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('basic should have `div.input-group-prepend` as first child', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('should render default slot content', async () => {
+    const wrapper = mount(InputGroup, {
+      slots: {
+        default: 'foobar'
+      }
+    })
 
-    const left = $refs.basic.children[0]
-    expect(left).toBeDefined()
-    expect(left).toHaveClass('input-group-prepend')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
+    expect(wrapper.findAll('.input-group > *').length).toBe(0)
   })
 
-  it('basic should have content in left `.input-group-prepend`', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('renders input-group-prepend & input-group-append when prepend & append props set', async () => {
+    const wrapper = mount(InputGroup, {
+      propsData: {
+        prepend: 'foo',
+        append: 'bar'
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
 
-    const left = $refs.basic.children[0]
-    expect(left).toBeDefined()
-    expect(left.textContent).toContain('$')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
+    expect(wrapper.findAll('.input-group > *').length).toBe(2)
+    expect(wrapper.findAll('.input-group-prepend').length).toBe(1)
+    expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(1)
+    expect(wrapper.findAll('.input-group-append').length).toBe(1)
+    expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(1)
+    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(true)
   })
 
-  it('basic should have right `.input-group-append` as last child', async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('renders input-group-prepend & input-group-append when prepend & append slots present', async () => {
+    const wrapper = mount(InputGroup, {
+      slots: {
+        default: 'foobar',
+        prepend: 'foo',
+        append: 'bar'
+      }
+    })
 
-    const right = $refs.basic.children[2]
-    expect(right).toBeDefined()
-    expect(right).toHaveClass('input-group-append')
-  })
-
-  it('basic should have content in `.input-group-append`', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const right = $refs.basic.children[2]
-    expect(right).toBeDefined()
-    expect(right.textContent).toContain('.00')
-  })
-
-  it('basic should have input as second child', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const input = $refs.basic.children[1]
-    expect(input).toBeDefined()
-    expect(input.tagName).toBe('INPUT')
-  })
-
-  it('components should have `.input-group-prepend` as first child', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const left = $refs.components.children[0]
-    expect(left).toBeDefined()
-    expect(left).toHaveClass('input-group-prepend')
-  })
-
-  it('components should have content in left `.input-group-prepend`', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const left = $refs.components.children[0]
-    expect(left).toBeDefined()
-    expect(left.textContent).toContain('$')
-  })
-
-  it('components should have right `.input-group-append` as last child', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const right = $refs.components.children[2]
-    expect(right).toBeDefined()
-    expect(right).toHaveClass('input-group-append')
-  })
-
-  it('components should have button in right `.input-group-append`', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const right = $refs.components.children[2]
-    expect(right).toBeDefined()
-    const button = right.children[0]
-    expect(button).toBeDefined()
-    expect(button.tagName).toBe('BUTTON')
-  })
-
-  it('components should have input as second child', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const input = $refs.components.children[1]
-    expect(input).toBeDefined()
-    expect(input.tagName).toBe('INPUT')
-  })
-
-  it("large should have '.input-group-lg' class on root element", async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.large).toHaveClass('input-group-lg')
-  })
-
-  it("small should have '.input-group-sm' class on root element", async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.small).toHaveClass('input-group-sm')
-  })
-
-  it("tags should have root Element type of `fieldset'", async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const tags = $refs.tags
-    expect(tags).toBeDefined()
-    expect(tags.tagName).toBe('FIELDSET')
-  })
-
-  it("tags should have addon Element type of `span'", async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const tags = $refs.tags
-    expect(tags).toBeDefined()
-    const left = tags.children[0]
-    expect(left).toBeDefined()
-    expect(left.tagName).toBe('SPAN')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
+    expect(wrapper.findAll('.input-group > *').length).toBe(2)
+    expect(wrapper.findAll('.input-group-prepend').length).toBe(1)
+    expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(0)
+    expect(wrapper.findAll('.input-group-append').length).toBe(1)
+    expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(0)
+    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(true)
   })
 })
