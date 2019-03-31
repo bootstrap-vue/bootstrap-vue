@@ -7,7 +7,7 @@ const components = {
 }
 
 const directives = {
-  BToggleDirective
+  BToggle: BToggleDirective
 }
 
 export default {
