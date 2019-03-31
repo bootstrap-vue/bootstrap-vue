@@ -248,7 +248,7 @@ export default {
           property: 'og:description',
           content: description
         },
-        { hid: 'description', name: 'description', content: description },
+        { hid: 'description', name: 'description', content: description }
       ]
     }
   },
