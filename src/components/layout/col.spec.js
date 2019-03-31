@@ -1,71 +1,147 @@
-import { loadFixture, testVM } from '../../../tests/utils'
-
-function computeBkPtClass(type, breakpoint, val) {
-  let className = type
-  if (val === false || val === null || val === undefined) {
-    return undefined
-  }
-  if (breakpoint) {
-    className += `-${breakpoint}`
-  }
-  if (type === 'col' && (val === '' || val === true)) {
-    // .col-md
-    return className.toLowerCase()
-  }
-  // .order-md-6
-  className += `-${val}`
-  return className.toLowerCase()
-}
+import Col from './col'
+import { mount } from '@vue/test-utils'
 
 describe('layout > col', () => {
-  beforeEach(loadFixture(__dirname, 'col'))
-  testVM()
+  it('should have default expected structure', async () => {
+    const wrapper = mount(Col)
 
-  it("should apply '.col' when no props passed", async () => {
-    const { $refs } = window.app
-    expect($refs.basic).toHaveClass('col')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('.col > *').length).toBe(0)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it("should apply '.col-*' class with 'cols' prop", async () => {
-    const { $refs } = window.app
-    $refs.cols.forEach((vnode, i) => {
-      const size = i + 1
-      expect(vnode).toHaveClass(`col-${size}`)
-      expect(vnode).not.toHaveClass('col')
+  it('renders custom root element when tag prop set', async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        tag: 'span'
+      }
     })
+
+    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('.col > *').length).toBe(0)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it("should apply '.offset-*' class with 'offset' prop", async () => {
-    const { $refs } = window.app
-    $refs.offset.forEach((vnode, i) => {
-      const size = i + 1
-      expect(vnode).toHaveClass(`offset-${size}`)
+  it('should apply breakpoint specific col-{bp}-{#} classes', async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        cols: 6,
+        sm: 5,
+        md: 4,
+        lg: 3,
+        xl: 2
+      }
     })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col-6')
+    expect(wrapper.classes()).toContain('col-sm-5')
+    expect(wrapper.classes()).toContain('col-md-4')
+    expect(wrapper.classes()).toContain('col-lg-3')
+    expect(wrapper.classes()).toContain('col-xl-2')
+    expect(wrapper.classes().length).toBe(5)
   })
 
-  it("should apply '.order-*' class with 'order' prop", async () => {
-    const { $refs } = window.app
-    $refs.order.forEach((vnode, i) => {
-      const size = i + 1
-      expect(vnode).toHaveClass(`order-${size}`)
+  it('should apply ".offset-*" classes with "offset-{bp}-{#}" props', async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        offset: 6,
+        offsetSm: 5,
+        offsetMd: 4,
+        offsetLg: 3,
+        offsetXl: 2
+      }
     })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes()).toContain('offset-6')
+    expect(wrapper.classes()).toContain('offset-sm-5')
+    expect(wrapper.classes()).toContain('offset-md-4')
+    expect(wrapper.classes()).toContain('offset-lg-3')
+    expect(wrapper.classes()).toContain('offset-xl-2')
+    expect(wrapper.classes().length).toBe(6)
   })
 
-  it("should apply breakpoint classes for 'col', 'offset', 'order' props", async () => {
-    const { $refs } = window.app
-    for (const bkpt of ['sm', 'md', 'lg', 'xl']) {
-      $refs[`multi-${bkpt}`].forEach((vnode, i) => {
-        const size = i + 1
-        expect(vnode).toHaveAllClasses([
-          `col-${bkpt}-${size}`,
-          `offset-${bkpt}-${size}`,
-          `order-${bkpt}-${size}`
-        ])
-        expect(vnode).not.toHaveClass('col')
-      })
-    }
+  it('should apply ".order-*" classes with "order-{bp}-{#}" props', async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        order: 6,
+        orderSm: 5,
+        orderMd: 4,
+        orderLg: 3,
+        orderXl: 2
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes()).toContain('order-6')
+    expect(wrapper.classes()).toContain('order-sm-5')
+    expect(wrapper.classes()).toContain('order-md-4')
+    expect(wrapper.classes()).toContain('order-lg-3')
+    expect(wrapper.classes()).toContain('order-xl-2')
+    expect(wrapper.classes().length).toBe(6)
   })
 
+  it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop", async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        col: true,
+        sm: true,
+        md: true,
+        lg: true,
+        xl: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes()).toContain('col-sm')
+    expect(wrapper.classes()).toContain('col-md')
+    expect(wrapper.classes()).toContain('col-lg')
+    expect(wrapper.classes()).toContain('col-xl')
+    expect(wrapper.classes().length).toBe(5)
+  })
+
+  it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop set to empty string", async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        col: true, // col only accepts boolean
+        sm: '',
+        md: '',
+        lg: '',
+        xl: ''
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes()).toContain('col-sm')
+    expect(wrapper.classes()).toContain('col-md')
+    expect(wrapper.classes()).toContain('col-lg')
+    expect(wrapper.classes()).toContain('col-xl')
+    expect(wrapper.classes().length).toBe(5)
+  })
+
+  it('should apply ".align-self-*" class with "align-self" prop', async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        alignSelf: 'center'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col')
+    expect(wrapper.classes()).toContain('align-self-center')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  /*
   it('computeBkPtClass helper should compute boolean classes', async () => {
     expect(computeBkPtClass('col', 'sm', true)).toBe('col-sm')
     expect(computeBkPtClass('col', 'md', true)).toBe('col-md')
@@ -86,25 +162,5 @@ describe('layout > col', () => {
     expect(computeBkPtClass('col', 'lg', false)).toBe(undefined)
     expect(computeBkPtClass('col', 'xl', false)).toBe(undefined)
   })
-
-  it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop", async () => {
-    const { $refs } = window.app
-    ;['sm', 'md', 'lg', 'xl'].forEach((bkpt, idx) => {
-      // Shorthand binding <b-col sm></b-col>
-      expect($refs[bkpt]).toHaveClass(`col-${bkpt}`)
-      // Dynamically bound using object literals { sm: true }
-      expect($refs[`boolean-breakpoints`][idx]).toHaveClass(`col-${bkpt}`)
-      expect($refs[`boolean-breakpoints`][idx]).not.toHaveClass('col')
-    })
-  })
-
-  it("should apply 'tag'", async () => {
-    const { $refs } = window.app
-    expect($refs.tag).toBeElement('section')
-  })
-
-  it("should apply '.align-self-*' class with 'align-self' prop", async () => {
-    const { $refs } = window.app
-    expect($refs.alignSelf).toHaveClass('align-self-center')
-  })
+  */
 })
