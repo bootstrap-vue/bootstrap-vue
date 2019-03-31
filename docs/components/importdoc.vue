@@ -35,7 +35,13 @@
           Importing individual {{ pluginTitle }} Directives
         </anchored-heading>
 
-        <b-table :items="directiveImports" small responsive="sm" head-variant="default" striped>
+        <b-table
+          :items="directiveImports"
+          small
+          striped
+          responsive="sm"
+          head-variant="default"
+        >
           <template slot="directive" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
