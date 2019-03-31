@@ -93,7 +93,6 @@ export default {
       this.countDownTimerId = setInterval(() => {
         if (dismissCountDown < 1) {
           this.$emit('dismiss-count-down', dismissCountDown)
-          this.$emit('input', dismissCountDown)
           this.dismiss()
           return
         }
