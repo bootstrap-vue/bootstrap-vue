@@ -6,7 +6,7 @@ const NAME = 'BAlert'
 
 // Convert `show` value to a number
 const parseCountDown = show => {
-  if (typeof show === 'boolean' || show = '') {
+  if (show === '' || typeof show === 'boolean') {
     return 0
   }
   show = parseInt(show, 10)
