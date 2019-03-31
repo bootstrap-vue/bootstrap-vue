@@ -1,5 +1,19 @@
-import Col from './col'
+import ColAsync from './col'
 import { mount } from '@vue/test-utils'
+
+// Vue test utils doesnt currently support mounting Async Components
+// So we have to resolve the component ourselves
+// https://github.com/vuejs/vue-test-utils/issues/1012
+let Col
+if (typeof ColAsync === 'function') {
+  // is async, so call resolve
+  ColAsync((cmp) => {
+    Col = cmp
+  })
+} else {
+  // Not async function
+  Col = ColAsync
+}
 
 describe('layout > col', () => {
   it('should have default expected structure', async () => {
