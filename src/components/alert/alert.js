@@ -5,7 +5,7 @@ import { requestAF } from '../../utils/dom'
 const NAME = 'BAlert'
 
 // Helper functions
-const parseCountDown = value => typeof value === 'number' && value > 0 ? value : 0
+const parseCountDown = value => (typeof value === 'number' && value > 0 ? value : 0)
 const parseShow = value => Boolean(value)
 
 // @vue/component
@@ -77,12 +77,12 @@ export default {
     }
   },
   created() {
-    this.countDown = parseCountDown(newVal)
-    this.localShow = parseShow(newVal)
+    this.countDown = parseCountDown(this.show)
+    this.localShow = parseShow(this.show)
   },
   mounted() {
-    this.countDown = parseCountDown(newVal)
-    this.localShow = parseShow(newVal)
+    this.countDown = parseCountDown(this.show)
+    this.localShow = parseShow(this.show)
   },
   beforeDestroy() {
     this.clearTimer()
