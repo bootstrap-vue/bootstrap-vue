@@ -63,7 +63,9 @@ export default {
     dismiss() {
       this.clearCounter()
       if (typeof this.show === 'number') {
-        this.$emit('dismiss-count-down', 0)
+        if (parseInt(this.show) || 1) > 0 {
+           this.$emit('dismiss-count-down', 0)
+        }
         this.$emit('dismiss', 0)
         this.$emit('input', 0)
       } else {
