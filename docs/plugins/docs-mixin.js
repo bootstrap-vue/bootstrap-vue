@@ -17,31 +17,31 @@ export default {
       // NOTE: is this computed prop used anymore?
       return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
     },
-    metaTitle() {
+    headTitle() {
       const routeName = this.$route.name
       let title = ''
-      let section = 'Docs'
+      let section = ''
       if (this.meta && this.meta.title) {
         title = this.meta.title
       }
       if (routeName === 'docs-components-slug') {
-        section = 'Components | Docs'
+        section = 'Components'
       } else if (routeName === 'docs-directives-slug') {
-        section = 'Directives | Docs'
+        section = 'Directives'
       } else if (routeName === 'docs-reference-slug') {
-        section = 'Reference | Docs'
+        section = 'Reference'
       } else if (routeName === 'docs-misc-slug') {
-        section = 'Misc | Docs'
+        section = 'Misc'
       }
-      return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
+      return [title, section, 'Docs', 'BootstrapVue'].filter(Boolean).join(' | ')
     },
-    metaMeta() {
+    headMeta() {
       const meta = [
         {
           hid: 'og:title',
           name: 'og:title',
           property: 'og:title',
-          content: this.metaTitle
+          content: this.headTitle
         }
       ]
       if (this.meta && this.meta.description) {
@@ -69,8 +69,8 @@ export default {
 
   head() {
     return {
-      title: this.metaTitle,
-      meta: this.metaMeta
+      title: this.headTitle,
+      meta: this.headMeta
     }
   },
 
