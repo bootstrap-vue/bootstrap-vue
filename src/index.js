@@ -5,6 +5,7 @@ import { setConfig } from './utils/config'
 
 const install = (Vue, config = {}) => {
   if (install.installed) {
+    /* istanbul ignore next */
     return
   }
   install.installed = true
