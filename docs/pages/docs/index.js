@@ -13,6 +13,7 @@ export default {
       defaultConfig
     }
   },
-  template: `<main class="container bd-content">${readme}</main>`,
+  // We use a string template here so that the docs README can do interpolation
+  template: `<main class="container"><div class="bd-content">${readme}</div></main>`,
   layout: 'docs'
 }
