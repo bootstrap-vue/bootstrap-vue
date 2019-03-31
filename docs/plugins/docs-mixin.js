@@ -33,7 +33,7 @@ export default {
       } else if (routeName === 'docs-misc-slug') {
         section = 'Misc'
       }
-      return [title, section, 'Docs', 'BootstrapVue'].filter(Boolean).join(' | ')
+      return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
     headMeta() {
       const meta = [
