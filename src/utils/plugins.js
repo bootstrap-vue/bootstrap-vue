@@ -8,7 +8,7 @@ import { setConfig } from './config'
 export const installFactory = ({ components, directives, plugins }) => {
   const install = (Vue, config = {}) => {
     if (install.installed) {
-      /* instabul ignore next */
+      /* istanbul ignore next */
       return
     }
     install.installed = true
