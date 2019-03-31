@@ -1,7 +1,7 @@
 import InputGroupAppend from './input-group-append'
 import { mount } from '@vue/test-utils'
 
-describe('input-group-append', () => {
+describe('input-group > input-group-append', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(InputGroupAppend)
 
