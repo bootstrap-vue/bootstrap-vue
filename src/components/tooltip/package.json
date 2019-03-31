@@ -4,12 +4,12 @@
   "meta": {
     "title": "Tooltip",
     "description": "Easily add tooltips to elements or components via the <b-tooltip> component or v-b-tooltip directive.",
+    "directives": [
+      "vBTooltip"
+    ],
     "components": [
       {
         "component": "BTooltip",
-        "directives": [
-          "vBTooltip"
-        ],
         "events": [
           {
             "event": "show",

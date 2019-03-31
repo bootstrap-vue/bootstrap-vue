@@ -144,7 +144,7 @@ export default {
       const firstDirective = this.directives[0]
       const firstDirectiveImport = this.directiveImports[0]
       return [
-        "// <b>Note:</b> Vue automatically prefixes the directive name with 'v-'",
+        "// Note: Vue automatically prefixes the directive name with 'v-'",
         `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
@@ -183,7 +183,7 @@ export default {
       return kebabCase(directive).replace(/^v-/, '')
     },
     directiveAttr(directive) {
-      return this.directiveName(directive)
+      return kebabCase(directive)
     },
     directivePath(directive) {
       const directiveName = this.directiveName(directive).replace(/^b-/, '')
