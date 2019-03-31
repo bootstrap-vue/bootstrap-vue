@@ -136,9 +136,11 @@ export default (resolve, reject) => {
         }
       }
 
+      const hasColClasses = classList.some(className => /^col-/.test(className))
+
       classList.push({
-        // Default to .col if no other classes generated nor `cols` specified.
-        col: props.col || (classList.length === 0 && !props.cols),
+        // Default to .col if no other col-{bp}-* classes generated nor `cols` specified.
+        col: props.col || (!hasColClasses && !props.cols),
         [`col-${props.cols}`]: props.cols,
         [`offset-${props.offset}`]: props.offset,
         [`order-${props.order}`]: props.order,
