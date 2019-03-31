@@ -1,7 +1,7 @@
 import InputGroupPrepend from './input-group-prepend'
 import { mount } from '@vue/test-utils'
 
-describe('input-group-prepend', () => {
+describe('input-group > input-group-prepend', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(InputGroupPrepend)
 
