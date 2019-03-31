@@ -45,16 +45,18 @@ export default {
         }
       ]
       if (this.meta && this.meta.description) {
+        let desc = `${this.meta.description}. ${bvDescription || ''}`
+        desc = desc.replace('..', '.').trim()
         meta.push({
           hid: 'description',
           name: 'description',
-          content: this.meta.description
+          content: desc
         })
         meta.push({
           hid: 'og:description',
           name: 'og:description',
           property: 'og:description',
-          content: this.meta.description
+          content: desc
         })
       } else if (bvDescription) {
         meta.push({
