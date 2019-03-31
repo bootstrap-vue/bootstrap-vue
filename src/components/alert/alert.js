@@ -42,7 +42,7 @@ export default {
       countDownTimerId: null,
       countDown: 0,
       // If initially shown, we need to set these for SSR
-      localShow: Boolean(this.show),
+      localShow: parseShow(this.show),
       showClass: this.fade && this.show
     }
   },
