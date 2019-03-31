@@ -11,13 +11,8 @@ describe('media', () => {
     expect(wrapper.findAll('.media-body').length).toBe(1)
     expect(wrapper.findAll('.d-flex').length).toBe(1)
     expect(wrapper.text()).toEqual('')
-    // Should have only two child elements
-    expect(wrapper.findAll('.media > *').length).toBe(2)
-    // Has expected child order
-    expect(wrapper.find('.media > .d-flex + .media-body').exists()).toBe(true)
-    expect(wrapper.find('.media > .media-body + .d-flex').exists()).toBe(false)
-    // Aside has extra classes
-    expect(wrapper.find('.d-flex').classes()).toContain('mr-3')
+    // Should have only one child element
+    expect(wrapper.findAll('.media > *').length).toBe(1)
   })
 
   it('renders custom root element when tag prop set', async () => {
@@ -32,10 +27,10 @@ describe('media', () => {
     expect(wrapper.classes().length).toBe(1)
   })
 
-  it('has expected structure when prop right-align is set', async () => {
+  it('has expected structure when slot aside present', async () => {
     const wrapper = mount(Media, {
-      propsData: {
-        rightAlign: true
+      slots: {
+        aside: 'foobar'
       }
     })
 
@@ -44,7 +39,30 @@ describe('media', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(1)
     expect(wrapper.findAll('.d-flex').length).toBe(1)
-    expect(wrapper.text()).toEqual('')
+    // Should have only two child elements
+    expect(wrapper.findAll('.media > *').length).toBe(2)
+    // Has expected child order
+    expect(wrapper.find('.media > .d-flex + .media-body').exists()).toBe(true)
+    expect(wrapper.find('.media > .media-body + .d-flex').exists()).toBe(false)
+    // Aside has extra classes
+    expect(wrapper.find('.d-flex').classes()).toContain('mr-3')
+  })
+
+  it('has expected structure when prop right-align is set and slot aside present', async () => {
+    const wrapper = mount(Media, {
+      propsData: {
+        rightAlign: true
+      },
+      slots: {
+        aside: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('media')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('.media-body').length).toBe(1)
+    expect(wrapper.findAll('.d-flex').length).toBe(1)
     // Should have only two child elements
     expect(wrapper.findAll('.media > *').length).toBe(2)
     // Has expected child order
