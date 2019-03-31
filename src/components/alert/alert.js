@@ -85,8 +85,10 @@ export default {
         }, 1000)
       } else {
         // Slightly delay the hide to allow any UI updates
-        requestAF(() => {
-          this.localShow = false
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.localShow = false
+          })
         })
       }
     },
