@@ -1,7 +1,7 @@
 import Container from './container'
 import { mount } from '@vue/test-utils'
 
-describe('container', () => {
+describe('layout > container', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(Container)
 
