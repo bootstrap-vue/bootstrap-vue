@@ -13,6 +13,6 @@ export default {
       defaultConfig
     }
   },
-  template: `<div class="container bd-content">${readme}</div>`,
+  template: `<main class="container bd-content">${readme}</main>`,
   layout: 'docs'
 }
