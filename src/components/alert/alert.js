@@ -84,7 +84,8 @@ export default {
           this.countDown--
         }, 1000)
       } else {
-        this.$nextTick(() => {
+        // Slightly delay the hide to allow any UI updates
+        requestAF(() => {
           this.localShow = false
         })
       }
