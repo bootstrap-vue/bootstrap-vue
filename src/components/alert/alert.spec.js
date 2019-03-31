@@ -257,14 +257,21 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
 
-    expect(wrapper.emitted('dismiss-count-down')).not.toBeDefined()
-    jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 3 - 1
 
-    jest.runAllTimers()
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
+
+    jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(1) // 3 - 3
 
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
