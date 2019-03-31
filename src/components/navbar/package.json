@@ -4,6 +4,11 @@
   "meta": {
     "title": "Navbar",
     "description": "The component <b-navbar> is a responsive wrapper that positions branding, navigation, and other elements into a concise header. It’s easily extensible and thanks to the <b-collapse> component.",
+    "plugins": [
+      "Nav",
+      "Dropdown",
+      "Collapse"
+    ],
     "components": [
       "BNavbar",
       "BNavbarNav",
@@ -26,11 +31,6 @@
           }
         ]
       }
-    ],
-    "plugins": [
-      "Nav",
-      "Dropdown",
-      "Collapse"
     ]
   }
 }
