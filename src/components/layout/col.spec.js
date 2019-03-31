@@ -60,6 +60,18 @@ describe('layout > col', () => {
     expect(wrapper.classes().length).toBe(5)
   })
 
+  it('should not have class "col" when only single breakpoint prop specified', async () => {
+    const wrapper = mount(Col, {
+      propsData: {
+        sm: 5
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('col-sm-5')
+    expect(wrapper.classes().length).toBe(1)
+  })
+
   it('should apply ".offset-*" classes with "offset-{bp}-{#}" props', async () => {
     const wrapper = mount(Col, {
       propsData: {
@@ -125,7 +137,6 @@ describe('layout > col', () => {
   it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop set to empty string", async () => {
     const wrapper = mount(Col, {
       propsData: {
-        col: true, // col only accepts boolean
         sm: '',
         md: '',
         lg: '',
@@ -134,12 +145,11 @@ describe('layout > col', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes()).toContain('col-sm')
     expect(wrapper.classes()).toContain('col-md')
     expect(wrapper.classes()).toContain('col-lg')
     expect(wrapper.classes()).toContain('col-xl')
-    expect(wrapper.classes().length).toBe(5)
+    expect(wrapper.classes().length).toBe(4)
   })
 
   it('should apply ".align-self-*" class with "align-self" prop', async () => {
