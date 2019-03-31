@@ -1,5 +1,5 @@
 import Container from './container'
-import { mount } from '@/test-utils'
+import { mount } from '@vue/test-utils'
 
 describe('container', () => {
   it('should have expected default structure', async () => {
