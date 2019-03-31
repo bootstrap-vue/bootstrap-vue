@@ -44,11 +44,7 @@ export default {
   },
   watch: {
     show(newVal) {
-      if (typeof newVal === 'number' && newVal > 0) {
-        this.countDown = newVal
-      } else {
-        this.countDown = 0
-      }
+      this.countDown = typeof newVal === 'number' && newVal > 0 ? newVal : 0
       this.localShow = Boolean(newVal)
     },
     countDown(newVal) {
