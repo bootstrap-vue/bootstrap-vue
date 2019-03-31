@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form",
+    "description": "Form component and form helper components that optionally supports inline form styles and validation states",
     "slug": "form",
     "components": [
       {

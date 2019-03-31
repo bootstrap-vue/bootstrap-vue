@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "meta": {
     "title": "Tooltip",
+    "description": "Add custom BootstrapVue tooltips to any element. Tooltips can be triggered by hovering, focusing, or clicking an element.",
     "directive": "vBTooltip"
   }
 }
