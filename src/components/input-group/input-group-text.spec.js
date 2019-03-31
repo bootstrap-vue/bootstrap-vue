@@ -7,7 +7,7 @@ describe('input-group-text', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group-text')
-    expect(wrapper.classes().length()).toBe(1)
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
   })
 
@@ -20,7 +20,7 @@ describe('input-group-text', () => {
 
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('input-group-text')
-    expect(wrapper.classes().length()).toBe(1)
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
   })
 
@@ -33,7 +33,7 @@ describe('input-group-text', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group-text')
-    expect(wrapper.classes().length()).toBe(1)
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
   })
 })
