@@ -71,18 +71,18 @@ export default {
       if (!newVal && this.dismissible) {
         this.$emit('dismissed')
       }
-      if (typeof this.show !== number && this.show !== newVal) {
+      if (typeof this.show !== 'number' && this.show !== newVal) {
         this.$emit('input', newVal)
       }
     }
   },
   created() {
     this.localShow = Boolean(this.show)
-    this.countDown = typeof this.show === number ? this.show : 0
+    this.countDown = typeof this.show === 'number' ? this.show : 0
   },
   mounted() {
     this.localShow = Boolean(this.show)
-    this.countDown = typeof this.show === number ? this.show : 0
+    this.countDown = typeof this.show === 'number' ? this.show : 0
   },
   beforeDestroy() {
     this.clearCounter()
