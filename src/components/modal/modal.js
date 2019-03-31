@@ -522,7 +522,7 @@ export default {
         this.setScrollbar()
       }
       this.adjustDialog()
-      this.setModalOpenClass(true)
+      // this.setModalOpenClass(true)
       this.setResizeEvent(true)
     },
     onEnter() {
@@ -787,6 +787,7 @@ export default {
         setAttr(body, 'data-padding-right', actualPadding)
         body.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
       }
+      this.setModalOpenClass(true)
     },
     resetScrollbar() {
       const body = document.body
