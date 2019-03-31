@@ -293,6 +293,8 @@ describe('alert', () => {
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
 
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -309,6 +311,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
 
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
@@ -326,6 +329,9 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -342,6 +348,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
 
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
@@ -359,6 +366,9 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -375,6 +385,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
 
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
@@ -407,6 +418,9 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -424,6 +438,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
 
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
@@ -441,6 +456,9 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
