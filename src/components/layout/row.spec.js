@@ -1,7 +1,7 @@
 import Row from './row'
 import { mount } from '@vue/test-utils'
 
-describe('row', () => {
+describe('layout > row', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(Row)
 
