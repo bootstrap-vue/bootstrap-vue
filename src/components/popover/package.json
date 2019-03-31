@@ -6,9 +6,6 @@
     "components": [
       {
         "component": "BPopover",
-        "directives": [
-          "vBPopover"
-        ],
         "events": [
           {
             "event": "show",
@@ -168,6 +165,9 @@
           }
         ]
       }
+    ],
+    "directives": [
+      "vBPopover"
     ]
   }
 }
