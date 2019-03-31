@@ -15,8 +15,7 @@ const parseCountDown = show => {
 
 // Convert `show` value to a boolean
 const parseShow = show => {
-  if (show === '') {
-    /* istanbul ignore next */
+  if (show === '' || show === true) {
     return true
   }
   if (parseInt(show, 10) < 1) {
