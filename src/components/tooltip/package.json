@@ -6,9 +6,6 @@
     "components": [
       {
         "component": "BTooltip",
-        "directives": [
-          "vBTooltip"
-        ],
         "events": [
           {
             "event": "show",
@@ -162,6 +159,9 @@
           }
         ]
       }
+    ],
+    "directives": [
+      "vBTooltip"
     ]
   }
 }
