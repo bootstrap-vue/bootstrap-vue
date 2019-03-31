@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Alert",
+    "description": "Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.",
     "components": [
       {
         "component": "BAlert",

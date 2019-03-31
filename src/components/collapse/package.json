@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "meta": {
     "title": "Collapse",
+    "description": "Easily toggle content visibility on your pages. Includes support for making accordions.",
+    "directives": [
+      "vBToggle"
+    ],
     "components": [
       {
         "component": "BCollapse",
-        "directives": [
-          "vBToggle"
-        ],
         "events": [
           {
             "event": "show",

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Spinner",
+    "description": "The <b-spinner> component can be used to show the loading state in your projects. They're rendered only with basic HTML and CSS as a lightweight Vue functional component.",
     "slug": "spinner",
     "components": [
       {
