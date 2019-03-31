@@ -7,7 +7,7 @@ import { mount } from '@vue/test-utils'
 let Col
 if (typeof ColAsync === 'function') {
   // is async, so call resolve
-  ColAsync((cmp) => {
+  ColAsync(cmp => {
     Col = cmp
   })
 } else {
