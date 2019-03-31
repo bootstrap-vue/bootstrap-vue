@@ -385,18 +385,26 @@ describe('alert', () => {
 
     // Reset countdown
     wrapper.setProps({
-      show: 2
+      show: 3
     })
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
-    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(2) // 2 - 0
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
-    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(1) // 2 - 1
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(5)
-    expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(0) // 2 - 2
+    expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(1) // 3 - 2
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
+    expect(wrapper.emitted('dismiss-count-down')[5][0]).toBe(0) // 3 - 3
+
+    // Just to make sure there aren't any more timers pending
+    jest.runAllTimers()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
 
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
@@ -429,7 +437,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
 
     // Should not emit any new countdown values
-    jest.runAllPendingTimers()
+    jest.runAllTimers()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
     await wrapper.vm.$nextTick()
