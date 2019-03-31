@@ -151,3 +151,15 @@ table#table-transition-example {
     transition: transform 1s;
   }
 }
+
+/*
+ * Docsearch overrides
+ * See: https://github.com/twbs/bootstrap/blob/master/site/static/docs/4.3/assets/scss/_algolia.scss
+ */
+.algolia-autocomplete {
+  .ds-dropdown-menu {
+    background: #fff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
+  }
+}

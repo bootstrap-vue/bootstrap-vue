@@ -1,5 +1,8 @@
 <template>
-  <form class="bd-search d-flex align-items-center" @submit.prevent>
+  <form
+    class="bd-search d-flex align-items-center"
+    @submit.stop.prevent
+  >
     <b-form-input
       id="bd-search-input"
       autocomplete="off"
@@ -35,6 +38,8 @@
 </template>
 
 <script>
+import { relativeUrl } from '../utils'
+
 let scriptsInjected = false
 
 export default {
@@ -84,9 +89,17 @@ export default {
       }
       // Initialize docsearch
       this.docsearch = window.docsearch({
-        apiKey: 'XXX',
+        apiKey: 'c816d3054b015320f0cfb40042f7e2bc',
         indexName: 'bootstrap-vue',
         inputSelector: '#bd-search-input',
+        transformData(hits) {
+          return hits.map(function(hit) {
+            // Transform URL to a relative URL
+            hit.url = relativeUrl(hit.url)
+
+            return hit
+          })
+        },
         debug: true // Set debug to true if you want to inspect the dropdown
       })
     }
