@@ -1,4 +1,4 @@
-import Inputgroup from './input-group'
+import InputGroup from './input-group'
 import { mount } from '@vue/test-utils'
 
 describe('input-group', () => {
@@ -76,7 +76,9 @@ describe('input-group', () => {
     expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(1)
     expect(wrapper.findAll('.input-group-append').length).toBe(1)
     expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(1)
-    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(true)
+    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
+      true
+    )
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append slots present', async () => {
@@ -97,6 +99,8 @@ describe('input-group', () => {
     expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(0)
     expect(wrapper.findAll('.input-group-append').length).toBe(1)
     expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(0)
-    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(true)
+    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
+      true
+    )
   })
 })
