@@ -1,3 +1,10 @@
-@import "dropdown";
-@import "dropdown-form";
-@import "dropdown-text";
+$bv-dropdown-defined: false !default;
+
+@if $bv-dropdown-defined == false {
+  // This test will only include these style definitions once
+  $bv-dropdown-defined: true;
+
+  @import "dropdown";
+  @import "dropdown-form";
+  @import "dropdown-text";
+}
