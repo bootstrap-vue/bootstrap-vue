@@ -51,7 +51,7 @@ export default {
       this.clearTimer()
       this.$emit('dismiss-count-down', newVal)
       if (this.show !== newVal) {
-        // update the v-model if needed
+        // Update the v-model if needed
         this.$emit('input', newVal)
       }
       if (newVal > 0) {
