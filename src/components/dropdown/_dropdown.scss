@@ -4,7 +4,7 @@
 .dropdown {
   &:not(.dropleft) {
     .dropdown-toggle {
-      &.dropdown-toggle-no-caret:after {
+      &.dropdown-toggle-no-caret::after {
         display: none !important;
       }
     }
@@ -13,7 +13,7 @@
   // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2909
   &.dropleft {
     .dropdown-toggle {
-      &.dropdown-toggle-no-caret:before {
+      &.dropdown-toggle-no-caret::before {
         display: none !important;
       }
     }
