@@ -4,9 +4,29 @@ import { requestAF } from '../../utils/dom'
 
 const NAME = 'BAlert'
 
-// Helper functions
-const parseCountDown = value => (typeof value === 'number' && value > 0 ? value : 0)
-const parseShow = value => Boolean(value)
+// Convert `show` value to a number
+const parseCountDown = show => {
+  if (typeof show === 'boolean' || show = '') {
+    return 0
+  }
+  show = parseInt(show, 10)
+  return show > 0 ? show : 0
+}
+
+// Convert `show` value to a boolean
+const parseShow = show => {
+  if (show === '') {
+    return true
+  }
+  if (parseInt(show, 10) < 1) {
+    // Boolean will always return false for the above comparison
+    return false
+  }
+  return Boolean(show)
+}
+
+// Is a value number like (i.e. a number or a number as string)
+const isNumericLike = value => !isNaN(parseInt(value, 10))
 
 // @vue/component
 export default {
@@ -29,7 +49,7 @@ export default {
       default: () => getComponentConfig(NAME, 'dismissLabel')
     },
     show: {
-      type: [Boolean, Number],
+      type: [Boolean, Number, String],
       default: false
     },
     fade: {
@@ -71,7 +91,8 @@ export default {
       if (!newVal && this.dismissible) {
         this.$emit('dismissed')
       }
-      if (typeof this.show !== 'number' && this.show !== newVal) {
+      if (!isNumericLike(this.show) && this.show !== newVal) {
+        // Only emit booleans if we weren't passed a number via `this.show`
         this.$emit('input', newVal)
       }
     }
