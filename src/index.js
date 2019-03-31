@@ -20,6 +20,8 @@ const install = (Vue, config = {}) => {
   registerPlugins(Vue, directivePlugins)
 }
 
+install.installed = false
+
 const BootstrapVue = {
   install: install,
   setConfig: setConfig
