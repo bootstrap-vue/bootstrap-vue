@@ -520,9 +520,9 @@ export default {
       const count = incrementModalOpenCount()
       if (count === 1) {
         this.setScrollbar()
+        this.setModalOpenClass(true)
       }
       this.adjustDialog()
-      this.setModalOpenClass(true)
       this.setResizeEvent(true)
     },
     onEnter() {
