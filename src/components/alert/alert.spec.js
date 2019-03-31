@@ -64,6 +64,30 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
+  it('visible alert (show = "") has default class names and attributes', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: ''
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('show')
+
+    expect(wrapper.attributes('role')).toBe('alert')
+    expect(wrapper.attributes('aria-live')).toBe('polite')
+    expect(wrapper.attributes('aria-atomic')).toBe('true')
+
+    wrapper.destroy()
+  })
+
   it('visible alert has variant when prop variant is set', async () => {
     const wrapper = mount(Alert, {
       propsData: {
