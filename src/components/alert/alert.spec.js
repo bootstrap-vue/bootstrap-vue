@@ -12,7 +12,7 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
-  it(`hidden alert (show = '0') renders comment node`, async () => {
+  it('hidden alert (show = "0") renders comment node', async () => {
     const wrapper = mount(Alert, {
       propsData: {
         show: '0'
