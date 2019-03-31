@@ -6,6 +6,7 @@
     "components": [
       {
         "component": "BPagination",
+        "description": "Quick first, previous, next, last, and page buttons for pagination control of another component (such as <b-table> or lists).",
         "events": [
           {
             "event": "input",

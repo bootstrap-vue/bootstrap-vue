@@ -2,6 +2,7 @@
  * docs-mixin: used by any page under /docs path
  */
 import { scrollTo, offsetTop } from '~/utils'
+import { bvDescription } from '~/content'
 
 // @vue/component
 export default {
@@ -13,13 +14,64 @@ export default {
 
   computed: {
     content() {
+      // NOTE: is this computed prop used anymore?
       return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
+    },
+    headTitle() {
+      const routeName = this.$route.name
+      let title = ''
+      let section = ''
+      if (this.meta && this.meta.title) {
+        title = this.meta.title
+      }
+      if (routeName === 'docs-components-slug') {
+        section = 'Components'
+      } else if (routeName === 'docs-directives-slug') {
+        section = 'Directives'
+      } else if (routeName === 'docs-reference-slug') {
+        section = 'Reference'
+      } else if (routeName === 'docs-misc-slug') {
+        section = 'Misc'
+      }
+      return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
+    },
+    headMeta() {
+      const meta = [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          property: 'og:title',
+          content: this.headTitle
+        }
+      ]
+      if (this.meta && this.meta.description) {
+        const desc = this.meta.description
+        meta.push({
+          hid: 'description',
+          name: 'description',
+          content: desc
+        })
+        meta.push({
+          hid: 'og:description',
+          name: 'og:description',
+          property: 'og:description',
+          content: desc
+        })
+      } else if (bvDescription) {
+        meta.push({
+          hid: 'description',
+          name: 'description',
+          content: bvDescription
+        })
+      }
+      return meta
     }
   },
 
   head() {
     return {
-      title: `${(this.meta && this.meta.title) || 'Docs'} - BootstrapVue`
+      title: this.headTitle,
+      meta: this.headMeta
     }
   },
 
