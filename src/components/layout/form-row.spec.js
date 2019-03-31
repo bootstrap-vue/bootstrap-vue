@@ -1,5 +1,5 @@
 import FormRow from './form-row'
-import { mount } from '2vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 describe('layout > form-row', () => {
   it('has expected default structure', async () => {
