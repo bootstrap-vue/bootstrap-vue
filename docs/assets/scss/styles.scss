@@ -161,10 +161,10 @@ table#table-transition-example {
     background: #fff !important;
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
-  }
 
-  .ds-suggestions {
-    max-height: calc(100vh - 9rem);
-    overflow-y: auto
+    .ds-suggestions {
+      max-height: calc(100vh - 9rem);
+      overflow-y: auto
+    }
   }
 }
