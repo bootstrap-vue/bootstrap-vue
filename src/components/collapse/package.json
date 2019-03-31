@@ -6,9 +6,6 @@
     "components": [
       {
         "component": "BCollapse",
-        "directives": [
-          "vBToggle"
-        ],
         "events": [
           {
             "event": "show",
@@ -54,6 +51,9 @@
           }
         ]
       }
-    ]
+    ],
+    "directives": [
+      "vBToggle"
+    ],
   }
 }
