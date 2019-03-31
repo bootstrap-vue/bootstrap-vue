@@ -84,7 +84,9 @@ export default {
           this.countDown--
         }, 1000)
       } else {
-        this.localShow = false
+        this.$nextTick(() => {
+          this.localShow = false
+        })
       }
     },
     localShow(newVal) {
