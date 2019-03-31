@@ -331,4 +331,111 @@ describe('alert', () => {
 
     wrapper.destroy()
   })
+
+  it('dismiss countdown emits dismiss-count-down event when show is number as string', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: '3'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
+
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('dismiss countdown handles when show value is changed', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 2
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
+
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
+
+    // Reset countdown
+    wrapper.setProps({
+      show: 2
+    })
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(2) // 2 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(1) // 2 - 1
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(5)
+    expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(0) // 2 - 2
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('dismiss countdown handles when alert dismissed early', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 2,
+        dismissible: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
+
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
+
+    wrapper.find('button').trigger('click')
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
+
+    // Should not emit any new countdown values
+    jest.runAllPendingTimers()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
 })
