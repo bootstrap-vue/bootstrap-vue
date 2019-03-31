@@ -1,4 +1,4 @@
-import InputGroupText from './input-group.text'
+import InputGroupText from './input-group-text'
 import { mount } from '@vue/test-utils'
 
 describe('input-group-text', () => {
