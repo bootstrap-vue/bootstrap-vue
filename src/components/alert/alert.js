@@ -62,10 +62,11 @@ export default {
   methods: {
     dismiss() {
       this.clearCounter()
-      this.$emit('dismiss', 0)
       if (typeof this.show === 'number') {
+        this.$emit('dismiss', 0)
         this.$emit('input', 0)
       } else {
+        this.$emit('dismiss', false)
         this.$emit('input', false)
       }
       this.dismissed = true
