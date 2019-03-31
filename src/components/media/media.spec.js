@@ -9,7 +9,7 @@ describe('media', () => {
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(1)
-    expect(wrapper.findAll('.d-flex').length).toBe(1)
+    expect(wrapper.findAll('.d-flex').length).toBe(0)
     expect(wrapper.text()).toEqual('')
     // Should have only one child element
     expect(wrapper.findAll('.media > *').length).toBe(1)
@@ -139,8 +139,8 @@ describe('media', () => {
     // Should have only two child elements
     expect(wrapper.findAll('.media > *').length).toBe(2)
     // Should have media aside with self align bottom
-    expect(wrapper.find('d-flex').classes()).toContain('align-self-bottom')
+    expect(wrapper.find('.d-flex').classes()).toContain('align-self-bottom')
     // Should have content in aside
-    expect(wrapper.find('d-flex').text()).toEqual('foobar')
+    expect(wrapper.find('.d-flex').text()).toEqual('foobar')
   })
 })
