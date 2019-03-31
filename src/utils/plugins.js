@@ -6,12 +6,20 @@ import { setConfig } from './config'
  * @returns {function} plugin install function
  */
 export const installFactory = ({ components, directives, plugins }) => {
-  return (Vue, config = {}) => {
+  const install = (Vue, config = {}) => {
+    if (install.installed) {
+      /* instabul ignore next */
+      return
+    }
+    install.installed = true
     setConfig(config)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
   }
+  install.installed = false
+
+  return install
 }
 
 /**
