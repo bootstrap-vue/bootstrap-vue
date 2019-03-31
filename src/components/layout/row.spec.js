@@ -53,13 +53,13 @@ describe('layout > row', () => {
   it('has vertial align class when prop align-v is set', async () => {
     const wrapper = mount(Row, {
       propsData: {
-        alignV: 'bottom'
+        alignV: 'baseline'
       }
     })
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('row')
-    expect(wrapper.classes()).toContain('align-items-bottom')
+    expect(wrapper.classes()).toContain('align-items-baseline')
     expect(wrapper.classes().length).toBe(2)
   })
 
