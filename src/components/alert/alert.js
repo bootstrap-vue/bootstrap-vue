@@ -91,7 +91,8 @@ export default {
       }
     },
     localShow(newVal) {
-      if (!newVal && this.dismissible) {
+      if (!newVal && (this.dismissible || isNumericLike(this.show))) {
+        // Only emit dismissed events for dismissible or auto dismissing alerts
         this.$emit('dismissed')
       }
       if (!isNumericLike(this.show) && this.show !== newVal) {
