@@ -4,14 +4,7 @@
   "meta": {
     "title": "Navbar",
     "components": [
-      {
-        "component": "BNavbar",
-        "plugins": [
-          "Nav",
-          "Dropdown",
-          "Collapse"
-        ]
-      },
+      "BNavbar",
       "BNavbarNav",
       "BNavbarBrand",
       {
@@ -32,6 +25,11 @@
           }
         ]
       }
+    ],
+    "plugins": [
+      "Nav",
+      "Dropdown",
+      "Collapse"
     ]
   }
 }
