@@ -57,6 +57,9 @@ export default {
         return
       }
 
+      // Search indexing config stored at:
+      // https://github.com/algolia/docsearch-configs/blob/master/configs/bootstrap-vue.json
+
       const cdnBaseUrl = '//cdn.jsdelivr.net/docsearch.js/2/'
       const $body = document.body
 
