@@ -45,8 +45,7 @@ export default {
         }
       ]
       if (this.meta && this.meta.description) {
-        let desc = `${this.meta.description}. ${bvDescription || ''}`
-        desc = desc.replace('..', '.').trim()
+        const desc = this.meta.description
         meta.push({
           hid: 'description',
           name: 'description',
