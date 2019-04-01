@@ -8,6 +8,7 @@ describe('nav > nav-text', () => {
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('navbar-text')
     expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
   it('renders custom root element when prop tag is set', async () => {
@@ -20,5 +21,19 @@ describe('nav > nav-text', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('navbar-text')
     expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
+  })
+
+  it('renders default slot content', async () => {
+    const wrapper = mount(NavText, {
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.classes()).toContain('navbar-text')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
   })
 })
