@@ -114,7 +114,7 @@
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
+            <template v-if="arg.arg"><code class="text-nowrap">{{ arg.arg }}</code> - </template>
             <span>{{ arg.description }}</span>
           </div>
         </template>
@@ -146,7 +146,7 @@
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg">
-              <code>{{ arg.arg }}</code>
+              <code class="text-nowrap">{{ arg.arg }}</code>
               <span v-if="arg.description"> - {{ arg.description }}</span>
             </template>
           </div>
