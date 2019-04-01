@@ -145,9 +145,16 @@ pre.editable.error:after {
   background-color: rgba(255, 0, 0, 0.1);
 }
 
-/* Additional styling for markdown tables */
-.b-table.bv-docs-table > code {
-  white-space: nowrap !important;
+/* Additional styling for (responsive) markdown tables */
+.bv-docs-table.b-table {
+  td,
+  th {
+    min-width: 100px;
+  }
+
+  code {
+    white-space: nowrap !important;
+  }
 }
 
 /* CSS for table transition example */
