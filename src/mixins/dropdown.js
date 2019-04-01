@@ -323,7 +323,7 @@ export default {
       }
       this.$emit('click', evt)
     },
-    onKeydown(evt) /* istanbul ignore next: not easy to test */ {
+    onKeydown(evt) {
       // Called from dropdown menu context
       const key = evt.keyCode
       if (key === KeyCodes.ESC) {
@@ -331,6 +331,7 @@ export default {
         this.onEsc(evt)
       } else if (key === KeyCodes.TAB) {
         // Close on tab out
+        /* istanbul ignore next: not used and should be removed */
         this.onTab(evt)
       } else if (key === KeyCodes.DOWN) {
         // Down Arrow
@@ -340,7 +341,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    onEsc(evt) /* istanbul ignore next: not easy to test */ {
+    onEsc(evt) {
       if (this.visible) {
         this.visible = false
         evt.preventDefault()
