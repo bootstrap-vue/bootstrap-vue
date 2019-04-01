@@ -443,7 +443,7 @@ describe('dropdown', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('toggle')).not.toBeDefined()
 
     expect(wrapper.findAll('button').length).toBe(1)
     expect(wrapper.findAll('.dropdown').length).toBe(1)
@@ -455,13 +455,16 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
+    expect(wrapper.emitted('toggle')).not.toBeDefined()
+    expect(wrapper.emitted('show')).not.toBeDefined()
 
     // Should prevent menu from opening
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.emitted('show')).toBeDefined()
-    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('toggle')).toBeDefined()
+    expect(wrapper.emitted('toggle').length).toBe(1)
+    expect(wrapper.emitted('show')).not.toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
@@ -473,8 +476,9 @@ describe('dropdown', () => {
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
 
+    expect(wrapper.emitted('toggle')).toBeDefined()
+    expect(wrapper.emitted('toggle').length).toBe(2)
     expect(wrapper.emitted('show')).toBeDefined()
-    expect(wrapper.emitted('show').length).toBe(2)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
