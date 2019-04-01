@@ -129,4 +129,31 @@ describe('dropdown', () => {
 
     wrapper.destroy()
   })
+
+  it('has user supplied ID', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('test')
+    const wrapperId = wrapper.attributes('id')
+
+    expect(wrapper.findAll('button').length).toBe(1)
+    const $button = wrapper.find('button')
+    expect($button.attributes('id')).toEqual(`${wrapperId}__BV_toggle_`)
+
+    expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
+    const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.attributes('aria-labelledby')).toBeDefined()
+    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_toggle_`)
+
+    wrapper.destroy()
+  })
 })
