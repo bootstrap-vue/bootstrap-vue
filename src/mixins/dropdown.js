@@ -171,6 +171,7 @@ export default {
     },
     showMenu() {
       if (this.disabled) {
+        /* istanbul ignore next */
         return
       }
       // Ensure other menus are closed
@@ -382,6 +383,7 @@ export default {
     // Keyboard nav
     focusNext(evt, up) {
       if (!this.visible) {
+        /* istanbul ignore next: should never happen */
         return
       }
       evt.preventDefault()
@@ -389,6 +391,7 @@ export default {
       this.$nextTick(() => {
         const items = this.getItems()
         if (items.length < 1) {
+          /* istanbul ignore next: should never happen */
           return
         }
         let index = items.indexOf(evt.target)
@@ -398,6 +401,7 @@ export default {
           index++
         }
         if (index < 0) {
+          /* istanbul ignore next: should never happen */
           index = 0
         }
         this.focusItem(index, items)
