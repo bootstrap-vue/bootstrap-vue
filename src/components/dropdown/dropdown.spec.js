@@ -161,15 +161,7 @@ describe('dropdown', () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h(
-          'div',
-          {},
-          [h(
-            Dropdown,
-            { props: { id: 'test' } },
-            [h(DropdownItem, {}, 'item')]
-          )]
-        )
+        return h('div', {}, [h(Dropdown, { props: { id: 'test' } }, [h(DropdownItem, {}, 'item')])])
       }
     })
 
@@ -183,6 +175,45 @@ describe('dropdown', () => {
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(1)
+
+    const $dropdown = wrapper.find('.dropdown')
+    const $toggle = wrapper.find('.dropdown-toggle')
+    const $menu = wrapper.find('.dropdown-menu')
+    const $item = wrapper.find('.dropdown-item')
+
+    expect($dropdown.isVueInstance()).toBe(true)
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Open menu by clicking toggle
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    // Close menu by clicking toggle again
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Open menu again
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     wrapper.destroy()
   })
