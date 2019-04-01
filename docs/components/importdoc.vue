@@ -11,6 +11,7 @@
 
         <b-table
           :items="componentImports"
+          class="bv-docs-table"
           small
           striped
           head-variant="default"
@@ -37,6 +38,7 @@
 
         <b-table
           :items="directiveImports"
+          class="bv-docs-table"
           small
           striped
           responsive="sm"
