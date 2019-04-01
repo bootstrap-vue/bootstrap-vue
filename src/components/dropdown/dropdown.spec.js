@@ -177,6 +177,29 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('split mode emits click event when split button clicked', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        split: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.emitted('click')).not.toBeDefined()
+
+    expect(wrapper.findAll('button').length).toBe(2)
+    const $split = $buttons.at(0)
+
+    $split.trigger('click')
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('dropdown opens and closes', async () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
