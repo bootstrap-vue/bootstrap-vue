@@ -6,16 +6,15 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js')
 
-  return class {
-    static placements = PopperJS.placements
-
-    constructor() {
-      return {
-        destroy: () => {},
-        scheduleUpdate: () => {}
-      }
+  const Popper = () => {
+    return {
+      destroy: () => {},
+      scheduleUpdate: () => {}
     }
   }
+  Popper.placements = PopperJS.placements
+
+  return Popper
 })
 
 describe('dropdown', () => {
