@@ -2,6 +2,9 @@ import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 import Collapse from './collapse'
 import { mount } from '@vue/test-utils'
 
+// Helper method for awaiting an animation frame
+const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+
 describe('collapse', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(Collapse, {
@@ -15,8 +18,10 @@ describe('collapse', () => {
         transition: false
       }
     })
+    // const rootWrapper = createWrapper(wrapper.vm.$root)
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
+    await awaitAF()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -43,6 +48,7 @@ describe('collapse', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
+    await awaitAF()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -51,24 +57,45 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('should mount as visible when prop visible is true', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test',
+        visible: true
+      },
+      slots: {
+        default: '<div>foobar</div>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await awaitAF()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('test')
+    expect(wrapper.classes()).toContain('show')
+    expect(wrapper.classes()).toContain('collapse')
+    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.find('div > div').exists()).toBe(true)
+    expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })
 
 describe('collapse (legacy)', () => {
   beforeEach(loadFixture(__dirname, 'collapse'))
   testVM()
-
-  it('Initially open examples should not have CSS "display:none"', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const collapse = ['collapse_open', 'collapse_vmod', 'accordion_1']
-
-    collapse.forEach(col => {
-      expect($refs[col].$el.style.display).toBe('')
-    })
-  })
 
   it('Accordion example should have appropriate CSS "display"', async () => {
     const {
