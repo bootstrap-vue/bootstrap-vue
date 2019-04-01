@@ -235,7 +235,6 @@ describe('dropdown', () => {
     // Open menu by clicking toggle
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
@@ -245,56 +244,32 @@ describe('dropdown', () => {
     // Close menu by clicking toggle again
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu again
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
     // Close by clicking dropdown-item
     $item.trigger('click')
     await wrapper.vm.$nextTick()
-
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via .show() method
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Close menu via .hide() method
     $dropdown.vm.hide()
     await wrapper.vm.$nextTick()
-
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
@@ -302,10 +277,28 @@ describe('dropdown', () => {
     const focusInEvt = new FocusEvent('focusin')
     document.dispatchEvent(focusInEvt)
     await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
-    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    // Open menu via keydown.down event on toggle button
+    $toggle.trigger('keydown.down')
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect(document.activeElement).toBe($menu.element)
+
+    // Close menu by clicking outside of menu
+    const clickEvt = new MouseEvent('click')
+    document.dispatchEvent(clickEvt)
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Open menu via .show() method again
+    $dropdown.vm.show()
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    // Close menu by keydown.esc event on dropdown item
+    $item.trigger('keydown.esc')
+    await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     wrapper.destroy()
