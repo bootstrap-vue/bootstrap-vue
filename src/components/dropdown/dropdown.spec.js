@@ -300,7 +300,6 @@ describe('dropdown', () => {
     wrapper.vm.show()
     await wrapper.vm.$nextTick()
     expect(wrapper.classes()).toContain('dropdown')
-    expect(wrapper.classes()).toContain('dropup')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('dropdown-menu-right')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
