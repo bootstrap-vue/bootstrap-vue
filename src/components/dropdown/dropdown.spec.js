@@ -705,4 +705,60 @@ describe('dropdown', () => {
     expect(wrapper.classes()).toContain('position-static')
     wrapper.destroy()
   })
+
+  it('split mode has href when prop split-href set', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        split: true,
+        splitHref: '/foo'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(2)
+    const $buttons = wrapper.findAll('.btn')
+    const $split = $buttons.at(0)
+    const $toggle = $buttons.at(1)
+
+    expect($toggle.is('button')).toBe(true)
+
+    expect($split.is('a')).toBe(true)
+    expect($split.classes()).toContain('btn')
+    expect($split.classes()).toContain('btn-secondary')
+    expect($split.attributes('href')).toBeDefined()
+    expect($split.attributes('href')).toEqual('/foo')
+
+    wrapper.destroy()
+  })
+
+  it('split mode has href when prop split-to set', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        split: true,
+        splitTo: '/foo'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(2)
+    const $buttons = wrapper.findAll('.btn')
+    const $split = $buttons.at(0)
+    const $toggle = $buttons.at(1)
+
+    expect($toggle.is('button')).toBe(true)
+
+    expect($split.is('a')).toBe(true)
+    expect($split.classes()).toContain('btn')
+    expect($split.classes()).toContain('btn-secondary')
+    expect($split.attributes('href')).toBeDefined()
+    expect($split.attributes('href')).toEqual('/foo')
+
+    wrapper.destroy()
+  })
 })
