@@ -19,7 +19,7 @@
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
 
@@ -46,7 +46,7 @@
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
 
