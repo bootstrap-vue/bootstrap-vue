@@ -1,8 +1,6 @@
 import Img from './img'
 import { mount } from '@vue/test-utils'
 
-const src = 'https://picsum.photos/1024/400/?image=41'
-
 describe('img', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(Img)
