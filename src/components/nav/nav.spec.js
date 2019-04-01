@@ -107,4 +107,3 @@ describe('nav', () => {
     expect(wrapper.text()).toBe('')
   })
 })
-
