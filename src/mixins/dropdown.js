@@ -157,7 +157,7 @@ export default {
     this.whileOpenListen(false)
     this.removePopper()
   },
-  beforeDestroy() /* istanbul ignore next: not easy to test */ {
+  beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
@@ -182,9 +182,9 @@ export default {
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
-      /* istanbul ignore next: cant test popper in JSDOM */
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
+          /* istanbul ignore next */
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
         } else {
           // for dropup with alignment we use the parent element as popper container
@@ -212,18 +212,18 @@ export default {
       this.$emit('hidden')
       this.removePopper()
     },
-    createPopper(element) /* istanbul ignore next: cant test popper in JSDOM */ {
+    createPopper(element) {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper() /* istanbul ignore next: cant test popper in JSDOM */ {
+    removePopper() {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
     },
-    getPopperConfig() /* istanbul ignore next: can't test popper in JSDOM */ {
+    getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
         placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
@@ -316,7 +316,9 @@ export default {
     click(evt) {
       // Called only in split button mode, for the split button
       if (this.disabled) {
+        /* istanbul ignore next */
         this.visible = false
+        /* istanbul ignore next */
         return
       }
       this.$emit('click', evt)
