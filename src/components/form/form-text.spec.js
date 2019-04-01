@@ -48,8 +48,8 @@ describe('form > form-text', () => {
     })
 
     expect(wrapper.is('small')).toBe(true)
-    expect(wrapper.atributes('id')).toBeDefined()
-    expect(wrapper.atributes('id')).toEqual('foo')
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('foo')
   })
 
   it('does not have class form-text when prop inline set', async () => {
