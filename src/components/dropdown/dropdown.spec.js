@@ -92,7 +92,9 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($toggle.attributes('id')).toBeDefined()
     expect($toggle.attributes('id')).toEqual(`${wrapperId}__BV_toggle_`)
-    expect($toggle.text()).toEqual('')
+    expect($toggle.findAll('span.sr-only').length).toBe(1)
+    expect($toggle.find('span.sr-only').text()).toEqual('Toggle Dropdown')
+    expect($toggle.text()).toEqual('Toggle Dropdown')
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
