@@ -147,9 +147,8 @@ pre.editable.error:after {
 
 /* Additional styling for (responsive) markdown tables */
 .bv-docs-table.b-table {
-  td,
-  th {
-    min-width: 100px;
+  & > thead > tr > th {
+    min-width: 80px;
   }
 
   code {
