@@ -117,8 +117,8 @@ describe('jumbotron', () => {
     expect(wrapper.findAll('.jumbotron > *').length).toBe(1)
     expect(wrapper.findAll('.container').length).toBe(0)
     expect(wrapper.findAll('.container-fluid').length).toBe(1)
-    expect(wrapper.find('.container').is('div')).toBe(true)
-    expect(wrapper.find('.container').text()).toEqual('foobar')
+    expect(wrapper.find('.container-fluid').is('div')).toBe(true)
+    expect(wrapper.find('.container-fluid').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
   })
 
@@ -135,7 +135,7 @@ describe('jumbotron', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('jumbotron')
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('h1').length).toBe(1)
     expect(wrapper.find('h1').classes()).toContain('display-3')
     expect(wrapper.find('h1').classes().length).toBe(1)
@@ -160,7 +160,7 @@ describe('jumbotron', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('jumbotron')
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('h1').length).toBe(1)
     expect(wrapper.find('h1').classes()).toContain('display-3')
     expect(wrapper.find('h1').classes().length).toBe(1)
