@@ -1,15 +1,15 @@
 import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 import Collapse from './collapse'
-import { mount } from '@vue/test-utils'
+import { mount, createWrapper } from '@vue/test-utils'
 
 // Helper method for awaiting an animation frame
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'
-const EVENT_ACCORDION = 'bv::collapse::accordion'
+// const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events collapse listens to on $root
-const EVENT_TOGGLE = 'bv::toggle::collapse'
+// const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 describe('collapse', () => {
   it('should have expected default structure', async () => {
