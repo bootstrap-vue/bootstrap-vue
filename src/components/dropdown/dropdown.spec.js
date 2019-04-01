@@ -2,6 +2,7 @@ import Dropdown from './dropdown'
 import DropdownItem from './dropdown-item'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
+/*
 // Mock Popper so that tests will work
 jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js')
@@ -15,8 +16,26 @@ jest.mock('popper.js', () => {
 
   return Popper
 })
+*/
 
 describe('dropdown', () => {
+  const originalCreateRange = document.createRange
+
+  beforeEach(() => {
+    document.createRange = () => ({
+      setStart: () => {},
+      setEnd: () => {},
+      commonAncestorContainer: {
+        nodeName: 'BODY',
+        ownerDocument: document,
+      },
+    })
+  })
+
+  afterEach(() => {
+    document.createRange = originalCreateRange
+  })
+
   it('has expected default structure', async () => {
     const wrapper = mount(Dropdown, {
       attachToDocument: true
