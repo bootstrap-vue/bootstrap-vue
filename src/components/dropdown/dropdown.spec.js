@@ -195,7 +195,7 @@ describe('dropdown', () => {
 
     $split.trigger('click')
 
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeDefined()
     expect(wrapper.emitted('click').length).toBe(1)
 
     wrapper.destroy()
@@ -288,6 +288,59 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
+    wrapper.destroy()
+  })
+
+  it('preventDefault() forks on show event', async () => {
+    let prevent = true
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      listeners: {
+        show: bvEvt => {
+          if (prevent) {
+            bvEvt.preventDefault()
+          }
+        }
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('show')).not.toBeDefined()
+
+    expect(wrapper.findAll('button').length).toBe(1)
+    const $toggle = wrapper.find('button')
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Should prevent menu from opening
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Allow menu to open
+    prevent = false
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(2)
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+    
     wrapper.destroy()
   })
 })
