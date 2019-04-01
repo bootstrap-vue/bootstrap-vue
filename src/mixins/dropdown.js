@@ -179,6 +179,7 @@ export default {
 
       // Are we in a navbar ?
       if (this.inNavbar === null && this.isNav) {
+        /* istanbul ignore next */
         this.inNavbar = Boolean(closest('.navbar', this.$el))
       }
 
