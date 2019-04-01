@@ -2,33 +2,18 @@ import Dropdown from './dropdown'
 import DropdownItem from './dropdown-item'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
-/*
-// Mock Popper so that tests will work
-jest.mock('popper.js', () => {
-  const PopperJS = jest.requireActual('popper.js')
-
-  const Popper = () => {
-    this.destroy = () => {}
-    this.scheduleUpdate = () => {}
-    return this
-  }
-  Popper.placements = PopperJS.placements
-
-  return Popper
-})
-*/
-
 describe('dropdown', () => {
   const originalCreateRange = document.createRange
 
   beforeEach(() => {
+    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
     document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
       commonAncestorContainer: {
         nodeName: 'BODY',
-        ownerDocument: document,
-      },
+        ownerDocument: document
+      }
     })
   })
 
@@ -212,7 +197,7 @@ describe('dropdown', () => {
     const $dropdown = wrapper.find('.dropdown')
     const $toggle = wrapper.find('.dropdown-toggle')
     // const $menu = wrapper.find('.dropdown-menu')
-    // const $item = wrapper.find('.dropdown-item')
+    const $item = wrapper.find('.dropdown-item')
 
     expect($dropdown.isVueInstance()).toBe(true)
 
@@ -247,6 +232,15 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    // Close by clicking dropdown-item
+    $item.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     wrapper.destroy()
   })
