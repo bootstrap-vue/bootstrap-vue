@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <main class="container">
     <div class="mb-3 row">
       <div class="col-12 mb-3">
         <p class="mb-1">
@@ -148,7 +148,7 @@
         </div>
       </div>
     </transition-group>
-  </div>
+  </main>
 </template>
 
 <style scoped>
