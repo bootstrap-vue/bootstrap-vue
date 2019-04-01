@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 describe('nav > nav-text', () => {
   it('has expected default structure', async () => {
-    const wrapper = mouunt(NavText)
+    const wrapper = mount(NavText)
 
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('navbar-text')
@@ -11,7 +11,7 @@ describe('nav > nav-text', () => {
   })
 
   it('renders custom root element when prop tag is set', async () => {
-    const wrapper = mouunt(NavText, {
+    const wrapper = mount(NavText, {
       propsData: {
         tag: 'div'
       }
