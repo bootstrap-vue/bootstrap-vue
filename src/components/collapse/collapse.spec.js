@@ -180,8 +180,7 @@ describe('collapse', () => {
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await wrapper.vm.$nextTick()
     await waitAF()
-    expect(wrapper.emitted('show')).toBeDefined()
-    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('show')).not.toBeDefined() // does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
