@@ -409,10 +409,10 @@ describe('dropdown', () => {
       render(h) {
         return h('div', {}, [
           h(Dropdown, { props: { id: 'test' } }, [
-            h(DropdownItem, {}, 'item'),
-            h(DropdownItem, {}, 'item'),
-            h(DropdownItem, { disabled: true }, 'item'),
-            h(DropdownItem, {}, 'item')
+            h(DropdownItem, { id: 'item-1' }, 'item'),
+            h(DropdownItem, { id: 'item-2' }, 'item'),
+            h(DropdownItem, { id: 'item-3', disabled: true }, 'item'),
+            h(DropdownItem, { id: 'item-4' }, 'item')
           ])
         ])
       }
@@ -450,32 +450,32 @@ describe('dropdown', () => {
     expect(document.activeElement).toBe($items.at(0).element)
 
     // Move to second menu item
-    $menu.trigger('keydown.down')
+    $items.at(0).trigger('keydown.down')
     await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($items.at(1).element)
 
     // Move down to next menu item (should skip disabled item)
-    $menu.trigger('keydown.down')
+    $items.at(1).trigger('keydown.down')
     await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($items.at(3).element)
 
     // Move down to next menu item (should remain on same item)
-    $menu.trigger('keydown.down')
+    $items.at(3).trigger('keydown.down')
     await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($items.at(3).element)
 
     // Move up to previous menu item (should skip disabled item)
-    $menu.trigger('keydown.up')
+    $items.at(3).trigger('keydown.up')
     await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($items.at(1).element)
 
     // Move up to previous menu item
-    $menu.trigger('keydown.up')
+    $items.at(1).trigger('keydown.up')
     await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($items.at(0).element)
 
     // Move up to previous menu item (should remain on first item)
-    $menu.trigger('keydown.up')
+    $items.at(0).trigger('keydown.up')
     await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($items.at(0).element)
 
