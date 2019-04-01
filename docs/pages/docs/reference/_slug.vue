@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <main class="container">
     <div v-play class="bd-content" v-html="readme"></div>
-  </div>
+  </main>
 </template>
 
 <script>

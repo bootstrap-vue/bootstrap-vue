@@ -9,12 +9,18 @@
           Importing individual {{ pluginTitle }} Components
         </anchored-heading>
 
-        <b-table :items="componentImports" small head-variant="default" striped>
+        <b-table
+          :items="componentImports"
+          class="bv-docs-table"
+          small
+          striped
+          head-variant="default"
+        >
           <template slot="component" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
 
@@ -30,12 +36,19 @@
           Importing individual {{ pluginTitle }} Directives
         </anchored-heading>
 
-        <b-table :items="directiveImports" small head-variant="default" striped>
+        <b-table
+          :items="directiveImports"
+          class="bv-docs-table"
+          small
+          striped
+          responsive="sm"
+          head-variant="default"
+        >
           <template slot="directive" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
 

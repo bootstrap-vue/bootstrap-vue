@@ -145,9 +145,46 @@ pre.editable.error:after {
   background-color: rgba(255, 0, 0, 0.1);
 }
 
+/* Additional styling for (responsive) markdown tables */
+.bv-docs-table {
+  font-size: 90%;
+
+  thead > tr > th {
+    min-width: 80px;
+  }
+
+  code {
+    white-space: nowrap !important;
+  }
+}
+
 /* CSS for table transition example */
 table#table-transition-example {
   .flip-list-move {
     transition: transform 1s;
+  }
+}
+
+/*
+ * Docsearch overrides
+ * See: https://github.com/twbs/bootstrap/blob/master/site/static/docs/4.3/assets/scss/_algolia.scss
+ */
+.algolia-autocomplete {
+  .ds-dropdown-menu {
+    background: #fff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
+
+    .ds-suggestions {
+      @media (min-width: 768px) {
+        max-height: calc(100vh - 12rem);
+        overflow-y: auto;
+      }
+
+      .algolia-docsearch-suggestion--subcategory-inline,
+      .algolia-docsearch-suggestion--title {
+        display: inline-block !important;
+      }
+    }
   }
 }
