@@ -1,82 +1,62 @@
 import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
+import Collapse from './collapse'
+import { mount } from '@vue/test-utils'
 
 describe('collapse', () => {
+  it('should have expected default structure', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('test')
+    expect(wrapper.classes()).toContain('collapse')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.text()).toEqual('')
+  })
+
+  it('renders default slot content', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test'
+      },
+      slots: {
+        default: '<div>foobar</div>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('test')
+    expect(wrapper.classes()).toContain('collapse')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.find('div > div').exists()).toBe(true)
+    expect(wrapper.text()).toEqual('foobar')
+  })
+})
+
+describe('collapse (legacy)', () => {
   beforeEach(loadFixture(__dirname, 'collapse'))
   testVM()
-
-  it('v-b-toggle examples should have aria-controls ID', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const collapse = ['collapse_mod', 'collapse_arg', 'collapse_open']
-
-    collapse.forEach(col => {
-      expect($refs[col + '_btn'].getAttribute('aria-controls')).toBe($refs[col].id)
-    })
-  })
-
-  it('multi example should have aria-controls with two IDs', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain(
-      $refs.collapse_multi_1.id
-    )
-    expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain(
-      $refs.collapse_multi_2.id
-    )
-  })
-
-  it('v-b-toggle non open examples should have attribute aria-expanded="false"', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const buttons = [
-      'collapse_mod_btn',
-      'collapse_arg_btn',
-      'collapse_multi_btn',
-      'accordion_2_btn',
-      'accordion_3_btn'
-    ]
-
-    buttons.forEach(btn => {
-      expect($refs[btn].getAttribute('aria-expanded')).toBe('false')
-    })
-  })
-
-  it('v-b-toggle non open examples should have CSS "display:none"', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const collapse = [
-      'collapse_mod',
-      'collapse_arg',
-      'collapse_multi_1',
-      'collapse_multi_2',
-      'accordion_2',
-      'accordion_3'
-    ]
-
-    collapse.forEach(col => {
-      expect($refs[col].$el.style.display).toBe('none')
-    })
-  })
-
-  it('v-b-toggle open examples should have attribute aria-expanded="true"', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const buttons = ['collapse_open_btn', 'accordion_1_btn']
-
-    buttons.forEach(btn => {
-      expect($refs[btn].getAttribute('aria-expanded')).toBe('true')
-    })
-  })
 
   it('Initially open examples should not have CSS "display:none"', async () => {
     const {
