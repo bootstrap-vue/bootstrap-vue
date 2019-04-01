@@ -2,6 +2,22 @@ import Dropdown from './dropdown'
 import DropdownItem from './dropdown-item'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
+// Mock Popper so that tests will work
+jest.mock('popper.js', () => {
+  const PopperJS = jest.requireActual('popper.js')
+
+  return class {
+    static placements = PopperJS.placements
+
+    constructor() {
+      return {
+        destroy: () => {},
+        scheduleUpdate: () => {}
+      }
+    }
+  }
+})
+
 describe('dropdown', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(Dropdown, {
