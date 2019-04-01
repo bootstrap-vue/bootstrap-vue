@@ -426,6 +426,64 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('preventDefault() works on toggle event', async () => {
+    let prevent = true
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      listeners: {
+        toggle: evt => {
+          if (prevent) {
+            evt.preventDefault()
+          }
+        }
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('show')).not.toBeDefined()
+
+    expect(wrapper.findAll('button').length).toBe(1)
+    expect(wrapper.findAll('.dropdown').length).toBe(1)
+    const $toggle = wrapper.find('button')
+    const $dropdown = wrapper.find('.dropdown')
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
+
+    // Should prevent menu from opening
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
+
+    // Allow menu to open
+    prevent = false
+    $toggle.trigger('click')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(2)
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect($dropdown.classes()).toContain('show')
+
+    wrapper.destroy()
+  })
+
   it('Keyboard navigation works when open', async () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
