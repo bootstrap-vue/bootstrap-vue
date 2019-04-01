@@ -29,6 +29,36 @@ describe('collapse', () => {
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.element.style.display).toEqual('none')
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
+  })
+
+  it('"is-nav" should have expected default structure', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test',
+        isNav: true
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    // const rootWrapper = createWrapper(wrapper.vm.$root)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('test')
+    expect(wrapper.classes()).toContain('collapse')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
