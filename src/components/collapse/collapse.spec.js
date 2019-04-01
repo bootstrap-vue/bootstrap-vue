@@ -12,7 +12,6 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 
 describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
-  const origScrollHeight = Element.prototype.scrollHeight
 
   beforeEach(() => {
     // Mock getBCR so that the we can get a fake ehight for element
@@ -34,7 +33,6 @@ describe('collapse', () => {
   afterEach(() => {
     // Reset overrides
     Element.prototype.getBoundingClientRect = origGetBCR
-    Element.prototype.scrollHeight = origScrollHeight
   })
 
   it('should have expected default structure', async () => {
