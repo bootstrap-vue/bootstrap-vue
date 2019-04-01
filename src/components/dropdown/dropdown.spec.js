@@ -1,4 +1,5 @@
 import Dropdown from './dropdown'
+// import DropdownItem from './dropdown-item'
 import { mount } from '@vue/test-utils'
 
 describe('dropdown', () => {
@@ -83,7 +84,8 @@ describe('dropdown', () => {
     expect($toggle.classes()).toContain('btn')
     expect($toggle.classes()).toContain('btn-secondary')
     expect($toggle.classes()).toContain('dropdown-toggle')
-    expect($toggle.classes().length).toBe(3)
+    expect($toggle.classes()).toContain('dropdown-toggle-split')
+    expect($toggle.classes().length).toBe(4)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
