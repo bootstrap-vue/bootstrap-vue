@@ -1,4 +1,3 @@
-import { loadFixture, testVM, nextTick } from '../../../tests/utils'
 import Collapse from './collapse'
 import { mount, createWrapper } from '@vue/test-utils'
 
@@ -157,6 +156,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // visible state
+    expect(wrapper.element.style.display).toEqual('none')
 
     wrapper.destroy()
   })
@@ -189,6 +189,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // visible state
+    expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
   })
@@ -221,6 +222,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // visible state
+    expect(wrapper.element.style.display).toEqual('none')
 
     // Change visible prop
     wrapper.setProps({
@@ -236,64 +238,70 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
     expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // visible state
+    expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
   })
-})
 
-describe('collapse (legacy)', () => {
-  beforeEach(loadFixture(__dirname, 'collapse'))
-  testVM()
+  it('should respond to accodrion events', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test',
+        accordion: 'foo',
+        visible: true
+      },
+      slots: {
+        default: '<div>foobar</div>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    const rootWrapper = createWrapper(wrapper.vm.$root)
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
-  it('Accordion example should have appropriate CSS "display"', async () => {
-    const {
-      app: { $refs }
-    } = window
+    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // visible state
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[0][0]).toBe('test')
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[0][1]).toBe('foo')
 
-    expect($refs.accordion_1.$el.style.display).toBe('')
-    expect($refs.accordion_2.$el.style.display).toBe('none')
-    expect($refs.accordion_3.$el.style.display).toBe('none')
-  })
+    // Does not respond to accordion events for different accordion ID
+    wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'bar')
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
-  it('accordion example should change visibility on click', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const btn1 = $refs.accordion_1_btn
-    const col1 = $refs.accordion_1
-    const btn2 = $refs.accordion_2_btn
-    const col2 = $refs.accordion_2
-    const btn3 = $refs.accordion_3_btn
-    const col3 = $refs.accordion_3
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
+    expect(wrapper.element.style.display).toEqual('')
 
-    expect(btn1.getAttribute('aria-expanded')).toBe('true')
-    expect(btn2.getAttribute('aria-expanded')).toBe('false')
-    expect(btn3.getAttribute('aria-expanded')).toBe('false')
+    // Should respond to accordion events
+    wrapper.vm.$root.$emit(EVENT_ACCORDION, 'nottest', 'foo')
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
-    expect(col1.show).toBe(true)
-    expect(col2.show).toBe(false)
-    expect(col3.show).toBe(false)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe(false)
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
+    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // id
+    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // visible state
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
+    expect(wrapper.element.style.display).toEqual('none')
 
-    btn2.click()
-    await nextTick()
-
-    expect(btn1.getAttribute('aria-expanded')).toBe('false')
-    expect(btn2.getAttribute('aria-expanded')).toBe('true')
-    expect(btn3.getAttribute('aria-expanded')).toBe('false')
-
-    expect(col1.show).toBe(false)
-    expect(col2.show).toBe(true)
-    expect(col3.show).toBe(false)
-
-    btn2.click()
-    await nextTick()
-
-    expect(btn1.getAttribute('aria-expanded')).toBe('false')
-    expect(btn2.getAttribute('aria-expanded')).toBe('false')
-    expect(btn3.getAttribute('aria-expanded')).toBe('false')
-
-    expect(col1.show).toBe(false)
-    expect(col2.show).toBe(false)
-    expect(col3.show).toBe(false)
+    wrapper.destroy()
   })
 })
