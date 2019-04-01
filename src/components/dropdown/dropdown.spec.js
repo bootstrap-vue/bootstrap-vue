@@ -10,6 +10,7 @@ describe('dropdown', () => {
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
     // Hack to make Popper not bork out during tests.
     // Note popper still does not do any positiioning claculation in JSDOM though.
+    // So we cannpt test actual positioning of the menu... just detect when it is open.
     document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
@@ -703,6 +704,145 @@ describe('dropdown', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
     expect(wrapper.classes()).toContain('position-static')
+    wrapper.destroy()
+  })
+
+  it('toggle button size works', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        size: 'lg'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(1)
+    const $toggle = wrapper.find('.btn')
+
+    expect($toggle.is('button')).toBe(true)
+    expect($toggle.classes()).toContain('btn-lg')
+
+    wrapper.destroy()
+  })
+
+  it('split button size works', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        split: true,
+        size: 'lg'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(2)
+    const $split = wrapper.findAll('.btn').at(0)
+    const $toggle = wrapper.findAll('.btn').at(1)
+
+    expect($split.is('button')).toBe(true)
+    expect($split.classes()).toContain('btn-lg')
+    expect($toggle.is('button')).toBe(true)
+    expect($toggle.classes()).toContain('btn-lg')
+
+    wrapper.destroy()
+  })
+
+  it('toggle button content works', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        text: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(1)
+    const $toggle = wrapper.find('.btn')
+
+    expect($toggle.is('button')).toBe(true)
+    expect($toggle.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('split button content works', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        split: true,
+        text: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(2)
+    const $split = wrapper.findAll('.btn').at(0)
+
+    expect($split.is('button')).toBe(true)
+    expect($split.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('variant works on non-split button', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        varaint: 'primary'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(1)
+    const $toggle = wrapper.find('.btn')
+
+    expect($toggle.is('button')).toBe(true)
+    expect($toggle.classes()).toContain('btn-primary')
+    expect($toggle.classes()).not.toContain('btn-secondary')
+
+    wrapper.destroy()
+  })
+
+  it('variant works on split button', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        varaint: 'primary'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.btn').length).toBe(2)
+    const $split = wrapper.findAll('.btn').at(0)
+    const $toggle = wrapper.findAll('.btn').at(1)
+
+    expect($split.is('button')).toBe(true)
+    expect($split.classes()).toContain('btn-primary')
+    expect($split.classes()).not.toContain('btn-secondary')
+
+    expect($toggle.is('button')).toBe(true)
+    expect($toggle.classes()).toContain('btn-primary')
+    expect($toggle.classes()).not.toContain('btn-secondary')
+
+    // Change split button variant
+    wrapper.setProps({
+      splitVariant: 'danger'
+    })
+    expect($split.classes()).toContain('btn-danger')
+    expect($toggle.classes()).toContain('btn-primary')
+
     wrapper.destroy()
   })
 
