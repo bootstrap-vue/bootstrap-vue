@@ -103,7 +103,8 @@ export default {
             return hit
           })
         },
-        debug: true // Set debug to true if you want to inspect the dropdown
+        // Set debug to `true` if you want to inspect the dropdown
+        debug: false
       })
     }
   }
