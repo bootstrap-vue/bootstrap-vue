@@ -17,10 +17,10 @@
     data() {
       return {
         items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { age: 38, first_name: 'Jami', last_name: 'Carney' }
         ]
       }
     }
@@ -88,23 +88,21 @@ modifier properties (make sure your field keys do not conflict with these names)
     data() {
       return {
         items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
           {
-            isActive: false,
             age: 89,
             first_name: 'Geneva',
             last_name: 'Wilson',
             _rowVariant: 'danger'
           },
           {
-            isActive: true,
             age: 40,
             first_name: 'Thor',
             last_name: 'MacDonald',
-            _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
+            _cellVariants: { age: 'info', first_name: 'warning' }
           },
-          { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+          { age: 29, first_name: 'Dick', last_name: 'Dunlap' }
         ]
       }
     }
@@ -243,7 +241,7 @@ typically be in the order they were defined in the object, although **field orde
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <b-table striped hover small :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -251,7 +249,7 @@ typically be in the order they were defined in the object, although **field orde
   export default {
     data() {
       return {
-        // Note 'isActive' is left out and will not appear in the rendered table
+        // Note 'age' is left out and will not appear in the rendered table
         fields: {
           last_name: {
             label: 'Person last name',
@@ -261,14 +259,9 @@ typically be in the order they were defined in the object, although **field orde
             label: 'Person first name',
             sortable: false
           },
-          foo: {
-            // This key overrides `foo`!
-            key: 'age',
-            label: 'Person age',
-            sortable: true
-          },
           city: {
             key: 'address.city',
+            label: 'City',
             sortable: true
           },
           'address.country': {
@@ -278,28 +271,24 @@ typically be in the order they were defined in the object, although **field orde
         },
         items: [
           {
-            isActive: true,
             age: 40,
             first_name: 'Dickerson',
             last_name: 'Macdonald',
             address: { country: 'USA', city: 'New York' }
           },
           {
-            isActive: false,
             age: 21,
             first_name: 'Larsen',
             last_name: 'Shaw',
             address: { country: 'Canada', city: 'Toronto' }
           },
           {
-            isActive: false,
             age: 89,
             first_name: 'Geneva',
             last_name: 'Wilson',
             address: { country: 'Australia', city: 'Sydney' }
           },
           {
-            isActive: true,
             age: 38,
             first_name: 'Jami',
             last_name: 'Carney',
@@ -662,9 +651,6 @@ following custom CSS:
 
 ```css
 /* Busy table styling */
-table.b-table[aria-busy='false'] {
-  opacity: 1;
-}
 table.b-table[aria-busy='true'] {
   opacity: 0.6;
 }
@@ -818,7 +804,7 @@ field(s) in the scoped slot(s).
 ```html
 <template>
   <div>
-    <b-table :fields="fields" :items="items">
+    <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
       <template slot="index" slot-scope="data">
         {{ data.index + 1 }}
@@ -1090,6 +1076,7 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
     <b-table
       :items="items"
       :fields="fields"
+      responsive="sm"
     >
       <template slot="thead-top" slot-scope="data">
         <tr>
@@ -2061,7 +2048,7 @@ differences between operating systems, this too is not a preventable default beh
     computed: {
       totalRows() {
         this.items.length
-      }
+      },
       sortOptions() {
         // Create an options list from our fields
         return this.fields
