@@ -817,6 +817,7 @@ describe('dropdown', () => {
     const wrapper = mount(Dropdown, {
       attachToDocument: true,
       propsData: {
+        split: true,
         variant: 'primary'
       }
     })
