@@ -190,6 +190,7 @@ describe('dropdown', () => {
     expect(wrapper.emitted('click')).not.toBeDefined()
 
     expect(wrapper.findAll('button').length).toBe(2)
+    const $buttons = wrapper.findAll('button')
     const $split = $buttons.at(0)
 
     $split.trigger('click')
