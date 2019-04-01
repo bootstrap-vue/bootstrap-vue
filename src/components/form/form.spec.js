@@ -62,8 +62,7 @@ describe('form', () => {
     })
 
     expect(wrapper.is('form')).toBe(true)
-    expect(wrapper.classes()).toContain('was-validated')
-    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEequal('foo')
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
@@ -78,8 +77,7 @@ describe('form', () => {
     })
 
     expect(wrapper.is('form')).toBe(true)
-    expect(wrapper.classes()).toContain('was-validated')
-    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).toBeDefined()
     expect(wrapper.text()).toEqual('')
