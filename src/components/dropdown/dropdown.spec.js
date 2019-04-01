@@ -7,6 +7,8 @@ describe('dropdown', () => {
 
   beforeEach(() => {
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
+    // Hack to make Popper not bork out during tests.
+    // Note popper still does not do any positiioning claculation in JSDOM though.
     document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
@@ -224,8 +226,6 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
-    await wrapper.vm.$nextTick()
-    expect(document.activeElement).toBe($toggle.element)
 
     // Open menu again
     $toggle.trigger('click')
@@ -245,8 +245,6 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
-    await wrapper.vm.$nextTick()
-    expect(document.activeElement).toBe($toggle.element)
 
     // Open menu via .show() method
     $dropdown.vm.show()
