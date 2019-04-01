@@ -146,8 +146,8 @@ pre.editable.error:after {
 }
 
 /* Additional styling for (responsive) markdown tables */
-.bv-docs-table.b-table {
-  & > thead > tr > th {
+.bv-docs-table {
+  thead > tr > th {
     min-width: 80px;
   }
 
@@ -155,7 +155,7 @@ pre.editable.error:after {
     white-space: nowrap !important;
   }
 
-  fint-size: 90%;
+  font-size: 90%;
 }
 
 /* CSS for table transition example */
