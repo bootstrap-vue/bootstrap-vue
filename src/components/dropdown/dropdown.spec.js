@@ -192,6 +192,100 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('should have "dropdown-toggle-no-caret" class when no-caret is true', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        noCaret: true
+      }
+    })
+    expect(wrapper.find('.dropdown-toggle').classes()).toContain('dropdown-toggle-no-caret')
+    wrapper.destroy()
+  })
+
+  it('should not have "dropdown-toggle-no-caret" class when no-caret and split are true', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        noCaret: true,
+        split: true
+      }
+    })
+    expect(wrapper.find('.dropdown-toggle').classes()).not.toContain('dropdown-toggle-no-caret')
+    wrapper.destroy()
+  })
+
+  it('should have a toggle with the given toggle tag', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        toggleTag: 'div'
+      }
+    })
+    expect(wrapper.find('.dropdown-toggle').is('div')).toBe(true)
+    wrapper.destroy()
+  })
+
+  it('should have class dropup when prop dropup set', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        dropup: true
+      }
+    })
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).toContain('dropup')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+    wrapper.vm.show()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).toContain('dropup')
+    expect(wrapper.classes()).toContain('show')
+    expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+    wrapper.destroy()
+  })
+
+  it('should have class dropright when prop dropright set', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        dropright: true
+      }
+    })
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).toContain('dropright')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+    wrapper.vm.show()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).toContain('dropright')
+    expect(wrapper.classes()).toContain('show')
+    expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+    wrapper.destroy()
+  })
+
+  it('should have class dropleft when prop dropleft set', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        dropleft: true
+      }
+    })
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).toContain('dropleft')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+    wrapper.vm.show()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).toContain('dropleft')
+    expect(wrapper.classes()).toContain('show')
+    expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+    wrapper.destroy()
+  })
+
   it('split mode emits click event when split button clicked', async () => {
     const wrapper = mount(Dropdown, {
       attachToDocument: true,
