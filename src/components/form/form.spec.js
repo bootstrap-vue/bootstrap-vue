@@ -64,7 +64,7 @@ describe('form', () => {
     expect(wrapper.is('form')).toBe(true)
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).toBeDefined()
-    expect(wrapper.attributes('id')).toEequal('foo')
+    expect(wrapper.attributes('id')).toEqual('foo')
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
   })
