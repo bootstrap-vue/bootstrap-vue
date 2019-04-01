@@ -224,6 +224,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($toggle.element)
 
     // Open menu again
@@ -244,6 +245,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    await wrapper.vm.$nextTick()
     expect(document.activeElement).toBe($toggle.element)
 
     // Open menu via .show() method
