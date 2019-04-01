@@ -19,7 +19,7 @@ describe('dropdown', () => {
       }
     })
     // Mock getBCR so that the isVisible(el) test returns true
-    // In our test below, all pagination buttons would normally be visible
+    // Needed for keyboard navigation testing
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
         width: 24,
@@ -399,6 +399,85 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    wrapper.destroy()
+  })
+
+  it('Keyboard navigation works when open', async () => {
+    const localVue = new CreateLocalVue()
+    const App = localVue.extend({
+      render(h) {
+        return h('div', {}, [
+          h(Dropdown, { props: { id: 'test' } }, [
+            h(DropdownItem, {}, 'item'),
+            h(DropdownItem, {}, 'item'),
+            h(DropdownItem, { disabled: true }, 'item'),
+            h(DropdownItem, {}, 'item')
+          ])
+        ])
+      }
+    })
+
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('.dropdown').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(4)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
+    const $menu = wrapper.find('.dropdown-menu')
+    const $items = wrapper.findAll('.dropdown-item')
+
+    // Expect menu to be closed
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Trigger keydown.down on toggle to open menu
+    $toggle.trigger('keydown.down')
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect(document.activeElement).toBe($menu.element)
+
+    // Move to first menu item
+    $menu.trigger('keydown.down')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(0).element)
+
+    // Move to second menu item
+    $menu.trigger('keydown.down')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(1).element)
+
+    // Move down to next menu item (should skip disabled item)
+    $menu.trigger('keydown.down')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(3).element)
+
+    // Move down to next menu item (should remain on same item)
+    $menu.trigger('keydown.down')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(3).element)
+
+    // Move up to previous menu item (should skip disabled item)
+    $menu.trigger('keydown.up')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(1).element)
+
+    // Move up to previous menu item
+    $menu.trigger('keydown.up')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(0).element)
+
+    // Move up to previous menu item (should remain on first item)
+    $menu.trigger('keydown.up')
+    await wrapper.vm.$nextTick()
+    expect(document.activeElement).toBe($items.at(0).element)
 
     wrapper.destroy()
   })
