@@ -276,6 +276,7 @@ export default {
     hide(refocus = false) {
       // Public method to hide dropdown
       if (this.disabled) {
+        /* istanbul ignore next */
         return
       }
       this.visible = false
@@ -297,10 +298,13 @@ export default {
         )
       ) {
         // We only toggle on Click, Enter, Space, and Arrow Down
+        /* istanbul ignore next */
         return
       }
       if (this.disabled) {
+        /* istanbul ignore next */
         this.visible = false
+        /* istanbul ignore next */
         return
       }
       this.$emit('toggle', evt)
