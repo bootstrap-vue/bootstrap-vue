@@ -796,7 +796,7 @@ describe('dropdown', () => {
     const wrapper = mount(Dropdown, {
       attachToDocument: true,
       propsData: {
-        varaint: 'primary'
+        variant: 'primary'
       }
     })
 
@@ -817,7 +817,7 @@ describe('dropdown', () => {
     const wrapper = mount(Dropdown, {
       attachToDocument: true,
       propsData: {
-        varaint: 'primary'
+        variant: 'primary'
       }
     })
 
