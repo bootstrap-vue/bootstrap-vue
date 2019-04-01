@@ -37,6 +37,7 @@ describe('dropdown', () => {
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.is('div')).toBe(true)
     expect($menu.classes().length).toBe(1)
     expect($menu.attributes('role')).toBeDefined()
     expect($menu.attributes('role')).toEqual('menu')
@@ -98,6 +99,7 @@ describe('dropdown', () => {
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.is('div')).toBe(true)
     expect($menu.classes().length).toBe(1)
     expect($menu.attributes('role')).toBeDefined()
     expect($menu.attributes('role')).toEqual('menu')
@@ -106,6 +108,24 @@ describe('dropdown', () => {
     expect($menu.attributes('aria-labelledby')).toBeDefined()
     expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_button_`)
     expect($menu.text()).toEqual('')
+
+    wrapper.destroy()
+  })
+
+  it('renders default slot inside menu', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
+    const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.text()).toEqual('foobar')
 
     wrapper.destroy()
   })
