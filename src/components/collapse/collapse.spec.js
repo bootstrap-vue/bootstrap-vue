@@ -1,4 +1,4 @@
-import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
+import { loadFixture, testVM, nextTick } from '../../../tests/utils'
 import Collapse from './collapse'
 import { mount, createWrapper } from '@vue/test-utils'
 
