@@ -246,6 +246,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
 
     // Open menu by clicking toggle
     $toggle.trigger('click')
@@ -254,49 +255,58 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect($dropdown.classes()).toContain('show')
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by clicking toggle again
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
 
     // Open menu again
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
+    expect($dropdown.classes()).toContain('show')
 
     // Close by clicking dropdown-item
     $item.trigger('click')
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
 
     // Open menu via .show() method
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect($dropdown.classes()).toContain('show')
 
     // Close menu via .hide() method
     $dropdown.vm.hide()
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect($dropdown.classes()).toContain('show')
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by moving focus away from menu
     const focusInEvt = new FocusEvent('focusin')
     document.dispatchEvent(focusInEvt)
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via keydown.down event on toggle button
     $toggle.trigger('keydown.down')
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
@@ -304,21 +314,25 @@ describe('dropdown', () => {
     const clickEvt = new MouseEvent('click')
     document.dispatchEvent(clickEvt)
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Close menu by keydown.esc event on dropdown item
     $item.trigger('keydown.esc')
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // When disabled changes to true, menu should close
@@ -326,11 +340,13 @@ describe('dropdown', () => {
       disabled: true
     })
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // When disabled, show() wont open menu
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Re enable dropdown and open it
@@ -340,11 +356,13 @@ describe('dropdown', () => {
     await wrapper.vm.$nextTick()
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Should close on root emit when argument is not self
     wrapper.vm.$root.$emit('bv::dropdown::shown', {})
     await wrapper.vm.$nextTick()
+    expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     wrapper.destroy()
@@ -370,12 +388,15 @@ describe('dropdown', () => {
     expect(wrapper.emitted('show')).not.toBeDefined()
 
     expect(wrapper.findAll('button').length).toBe(1)
+    expect(wrapper.findAll('.dropdown').length).toBe(1)
     const $toggle = wrapper.find('button')
+    const $dropdown = wrapper.find('.dropdown')
 
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
 
     // Should prevent menu from opening
     $toggle.trigger('click')
@@ -387,6 +408,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
+    expect($dropdown.classes()).not.toContain('show')
 
     // Allow menu to open
     prevent = false
@@ -399,6 +421,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect($dropdown.classes()).toContain('show')
 
     wrapper.destroy()
   })
