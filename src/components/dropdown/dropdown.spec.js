@@ -301,6 +301,37 @@ describe('dropdown', () => {
     await wrapper.vm.$nextTick()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
+    // Open menu via .show() method again
+    $dropdown.vm.show()
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    // When disabled changes to true, menu should close
+    $dropdown.setProps({
+      disabled: true
+    })
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // When disabled, show() wont open menu
+    $dropdown.vm.show()
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    // Re enable dropdown and open it
+    $dropdown.setProps({
+      disabled: false
+    })
+    await wrapper.vm.$nextTick()
+    $dropdown.vm.show()
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    // Should close on root emit when argument is not self
+    wrapper.vm.$root.$emit('bv::dropdown::shown', {})
+    await wrapper.vm.$nextTick()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
     wrapper.destroy()
   })
 
