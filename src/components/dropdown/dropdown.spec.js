@@ -8,9 +8,10 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
 
     // Wait for auto ID to be generated
-    await wrapper.$nextTick()
+    await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('btn-group')
