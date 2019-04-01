@@ -681,7 +681,6 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
-
   it('when boundary not set should not have class position-static', async () => {
     const wrapper = mount(Dropdown, {
       attachToDocument: true
