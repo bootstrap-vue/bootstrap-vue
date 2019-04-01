@@ -193,8 +193,8 @@ describe('dropdown', () => {
 
     const $dropdown = wrapper.find('.dropdown')
     const $toggle = wrapper.find('.dropdown-toggle')
-    const $menu = wrapper.find('.dropdown-menu')
-    const $item = wrapper.find('.dropdown-item')
+    // const $menu = wrapper.find('.dropdown-menu')
+    // const $item = wrapper.find('.dropdown-item')
 
     expect($dropdown.isVueInstance()).toBe(true)
 
