@@ -30,6 +30,7 @@
       <b-table
         :items="propsItems"
         :fields="propsFields"
+        class="bv-docs-table"
         responsive="sm"
         small
         head-variant="default"
@@ -61,6 +62,7 @@
         <b-table
           :items="[componentVModel]"
           :fields="['prop', 'event']"
+          class="bv-docs-table"
           responsive="sm"
           small
           head-variant="default"
@@ -83,6 +85,7 @@
       <b-table
         :items="slots"
         :fields="slotsFields"
+        class="bv-docs-table"
         responsive="sm"
         small
         head-variant="default"
@@ -101,6 +104,7 @@
       <b-table
         :items="events"
         :fields="eventsFields"
+        class="bv-docs-table"
         responsive="sm"
         small
         head-variant="default"
@@ -132,6 +136,7 @@
       <b-table
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
+        class="bv-docs-table"
         responsive="sm"
         small
         head-variant="default"
