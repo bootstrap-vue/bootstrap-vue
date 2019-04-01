@@ -7,10 +7,9 @@ jest.mock('popper.js', () => {
   const PopperJS = jest.requireActual('popper.js')
 
   const Popper = () => {
-    return {
-      destroy: () => {},
-      scheduleUpdate: () => {}
-    }
+    this.destroy = () => {}
+    this.scheduleUpdate = () => {}
+    return this
   }
   Popper.placements = PopperJS.placements
 
