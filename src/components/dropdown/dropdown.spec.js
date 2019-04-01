@@ -100,7 +100,7 @@ describe('dropdown', () => {
     expect($menu.attributes('tabindex')).toBeDefined()
     expect($menu.attributes('tabindex')).toEqual('-1')
     expect($menu.attributes('aria-labelledby')).toBeDefined()
-    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_toggle_`)
+    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_button_`)
     expect($menu.text()).toEqual('')
 
     wrapper.destroy()
