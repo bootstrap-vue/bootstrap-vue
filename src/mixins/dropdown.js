@@ -157,7 +157,7 @@ export default {
     this.whileOpenListen(false)
     this.removePopper()
   },
-  beforeDestroy() /* istanbul ignore next: not easy to test */ {
+  beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
@@ -171,6 +171,7 @@ export default {
     },
     showMenu() {
       if (this.disabled) {
+        /* istanbul ignore next */
         return
       }
       // Ensure other menus are closed
@@ -178,13 +179,14 @@ export default {
 
       // Are we in a navbar ?
       if (this.inNavbar === null && this.isNav) {
+        /* istanbul ignore next */
         this.inNavbar = Boolean(closest('.navbar', this.$el))
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
-      /* istanbul ignore next: cant test popper in JSDOM */
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
+          /* istanbul ignore next */
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
         } else {
           // for dropup with alignment we use the parent element as popper container
@@ -212,18 +214,18 @@ export default {
       this.$emit('hidden')
       this.removePopper()
     },
-    createPopper(element) /* istanbul ignore next: cant test popper in JSDOM */ {
+    createPopper(element) {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper() /* istanbul ignore next: cant test popper in JSDOM */ {
+    removePopper() {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
     },
-    getPopperConfig() /* istanbul ignore next: can't test popper in JSDOM */ {
+    getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
         placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
@@ -276,6 +278,7 @@ export default {
     hide(refocus = false) {
       // Public method to hide dropdown
       if (this.disabled) {
+        /* istanbul ignore next */
         return
       }
       this.visible = false
@@ -297,10 +300,13 @@ export default {
         )
       ) {
         // We only toggle on Click, Enter, Space, and Arrow Down
+        /* istanbul ignore next */
         return
       }
       if (this.disabled) {
+        /* istanbul ignore next */
         this.visible = false
+        /* istanbul ignore next */
         return
       }
       this.$emit('toggle', evt)
@@ -316,12 +322,14 @@ export default {
     click(evt) {
       // Called only in split button mode, for the split button
       if (this.disabled) {
+        /* istanbul ignore next */
         this.visible = false
+        /* istanbul ignore next */
         return
       }
       this.$emit('click', evt)
     },
-    onKeydown(evt) /* istanbul ignore next: not easy to test */ {
+    onKeydown(evt) {
       // Called from dropdown menu context
       const key = evt.keyCode
       if (key === KeyCodes.ESC) {
@@ -329,6 +337,7 @@ export default {
         this.onEsc(evt)
       } else if (key === KeyCodes.TAB) {
         // Close on tab out
+        /* istanbul ignore next: not used and should be removed */
         this.onTab(evt)
       } else if (key === KeyCodes.DOWN) {
         // Down Arrow
@@ -338,7 +347,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    onEsc(evt) /* istanbul ignore next: not easy to test */ {
+    onEsc(evt) {
       if (this.visible) {
         this.visible = false
         evt.preventDefault()
@@ -375,6 +384,7 @@ export default {
     // Keyboard nav
     focusNext(evt, up) {
       if (!this.visible) {
+        /* istanbul ignore next: should never happen */
         return
       }
       evt.preventDefault()
@@ -382,6 +392,7 @@ export default {
       this.$nextTick(() => {
         const items = this.getItems()
         if (items.length < 1) {
+          /* istanbul ignore next: should never happen */
           return
         }
         let index = items.indexOf(evt.target)
@@ -391,6 +402,7 @@ export default {
           index++
         }
         if (index < 0) {
+          /* istanbul ignore next: should never happen */
           index = 0
         }
         this.focusItem(index, items)
