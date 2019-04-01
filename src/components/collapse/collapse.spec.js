@@ -11,6 +11,9 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 describe('collapse', () => {
+  const origGetBCR = Element.prototype.getBoundingClientRect
+  const origScrollHeight = Element.prototype.scrollHeight
+
   beforeEach(() => {
     // Mock getBCR so that the we can get a fake ehight for element
     // Needed for keyboard navigation testing
@@ -24,11 +27,14 @@ describe('collapse', () => {
         right: 0
       }
     })
+    // Mock Element.scrollHeight
+    Element.prototype.scrollHeight = 100
   })
 
   afterEach(() => {
     // Reset overrides
     Element.prototype.getBoundingClientRect = origGetBCR
+    Element.prototype.scrollHeight = origScrollHeight
   })
 
   it('should have expected default structure', async () => {
