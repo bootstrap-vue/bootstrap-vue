@@ -31,7 +31,7 @@ describe('dropdown', () => {
     expect($button.attributes('aria-expanded')).toBeDefined()
     expect($button.attributes('aria-expanded')).toEqual('false')
     expect($button.attributes('id')).toBeDefined()
-    expect($button.attributes('id')).toEqual(`${wrapperId}_BV_toggle_`)
+    expect($button.attributes('id')).toEqual(`${wrapperId}__BV_toggle_`)
     expect($button.text()).toEqual('')
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
@@ -42,7 +42,7 @@ describe('dropdown', () => {
     expect($menu.attributes('tabindex')).toBeDefined()
     expect($menu.attributes('tabindex')).toEqual('-1')
     expect($menu.attributes('aria-labelledby')).toBeDefined()
-    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}_BV_toggle_`)
+    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_toggle_`)
     expect($menu.text()).toEqual('')
 
     wrapper.destroy()
@@ -77,7 +77,7 @@ describe('dropdown', () => {
     expect($split.classes()).toContain('btn')
     expect($split.classes()).toContain('btn-secondary')
     expect($split.attributes('id')).toBeDefined()
-    expect($split.attributes('id')).toEqual(`${wrapperId}_BV_button_`)
+    expect($split.attributes('id')).toEqual(`${wrapperId}__BV_button_`)
     expect($split.text()).toEqual('')
 
     expect($toggle.classes()).toContain('btn')
@@ -89,7 +89,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($toggle.attributes('id')).toBeDefined()
-    expect($toggle.attributes('id')).toEqual(`${wrapperId}_BV_toggle_`)
+    expect($toggle.attributes('id')).toEqual(`${wrapperId}__BV_toggle_`)
     expect($toggle.text()).toEqual('')
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
@@ -100,7 +100,7 @@ describe('dropdown', () => {
     expect($menu.attributes('tabindex')).toBeDefined()
     expect($menu.attributes('tabindex')).toEqual('-1')
     expect($menu.attributes('aria-labelledby')).toBeDefined()
-    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}_BV_toggle_`)
+    expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_toggle_`)
     expect($menu.text()).toEqual('')
 
     wrapper.destroy()
