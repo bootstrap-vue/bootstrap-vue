@@ -1,5 +1,5 @@
 import Dropdown from './dropdown'
-// import DropdownItem from './dropdown-item'
+import DropdownItem from './dropdown-item'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('dropdown', () => {
