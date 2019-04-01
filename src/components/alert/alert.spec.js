@@ -12,10 +12,62 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
+  it('hidden alert (show = "0") renders comment node', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: '0'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('hidden alert (show = 0) renders comment node', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 0
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('visible alert has default class names and attributes', async () => {
     const wrapper = mount(Alert, {
       propsData: {
         show: true
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('show')
+
+    expect(wrapper.attributes('role')).toBe('alert')
+    expect(wrapper.attributes('aria-live')).toBe('polite')
+    expect(wrapper.attributes('aria-atomic')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('visible alert (show = "") has default class names and attributes', async () => {
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: ''
       }
     })
     expect(wrapper.is('div')).toBe(true)
@@ -241,6 +293,9 @@ describe('alert', () => {
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
 
+    // dismissed wont be emitted unless dismissible=true or show is a number
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -257,16 +312,154 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
 
-    expect(wrapper.emitted('dismiss-count-down')).not.toBeDefined()
-    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
-    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 3 - 1
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
 
-    jest.runAllTimers()
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
+
+    jest.runTimersToTime(1000)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('dismiss countdown emits dismiss-count-down event when show is number as string', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: '3'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
+
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
+
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('dismiss countdown handles when show value is changed', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 2
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
+
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
+
+    // Reset countdown
+    wrapper.setProps({
+      show: 3
+    })
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
+    expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(2) // 3 - 1
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(5)
+    expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(1) // 3 - 2
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
+    expect(wrapper.emitted('dismiss-count-down')[5][0]).toBe(0) // 3 - 3
+
+    // Just to make sure there aren't any more timers pending
+    jest.runAllTimers()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
+
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
+    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.html()).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('dismiss countdown handles when alert dismissed early', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(Alert, {
+      propsData: {
+        show: 2,
+        dismissible: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.html()).toBeDefined()
+
+    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
+    expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
+
+    jest.runTimersToTime(1000)
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
+    expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
+
+    wrapper.find('button').trigger('click')
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+    expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
+
+    // Should not emit any new countdown values
+    jest.runAllTimers()
+    expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
+
+    await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    expect(wrapper.emitted('dismissed')).toBeDefined()
+    expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 

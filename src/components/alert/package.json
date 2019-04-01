@@ -10,11 +10,11 @@
         "events": [
           {
             "event": "dismissed",
-            "description": "Alert dismissed"
+            "description": "Alert dismissed either via the dismiss close button or when the dismiss countdown has expired"
           },
           {
             "event": "dismiss-count-down",
-            "description": "When dismissAfterSeconds enabled, this event emits every second on countdown.",
+            "description": "When prop show is a number, this event emits every second on countdown.",
             "args": [
               {
                 "arg": "dismissCountDown",
