@@ -1,6 +1,6 @@
 import Dropdown from './dropdown'
 // import DropdownItem from './dropdown-item'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('dropdown', () => {
   it('has expected default structure', async () => {
@@ -153,6 +153,36 @@ describe('dropdown', () => {
     const $menu = wrapper.find('.dropdown-menu')
     expect($menu.attributes('aria-labelledby')).toBeDefined()
     expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_toggle_`)
+
+    wrapper.destroy()
+  })
+
+  it('dropdown opens and closes', async () => {
+    const localVue = new CreateLocalVue()
+    const App = localVue.extend({
+      render(h) {
+        return h(
+          'div',
+          {},
+          [h(
+            Dropdown,
+            { props: { id: 'test' } },
+            [h(DropdownItem, {}, 'item')]
+          )]
+        )
+      }
+    })
+
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.dropdown').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(1)
 
     wrapper.destroy()
   })
