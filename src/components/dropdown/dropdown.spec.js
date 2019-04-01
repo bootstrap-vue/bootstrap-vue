@@ -288,10 +288,30 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
+    // Open menu via .show() method again
+    $dropdown.vm.show()
+    await wrapper.vm.$nextTick()
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+    expect(document.activeElement).toBe($menu.element)
+
+    // Close menu by moving focus away from menu
+    const focusInEvt = new FocusEvent('focusin')
+    document.body.dispatchEvent(focusInEvt)
+    await wrapper.vm.$nextTick()
+
+    expect($toggle.attributes('aria-haspopup')).toBeDefined()
+    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-expanded')).toBeDefined()
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
     wrapper.destroy()
   })
 
-  it('preventDefault() forks on show event', async () => {
+  it('preventDefault() works on show event', async () => {
     let prevent = true
     const wrapper = mount(Dropdown, {
       attachToDocument: true,
