@@ -300,7 +300,7 @@ describe('dropdown', () => {
 
     // Close menu by moving focus away from menu
     const focusInEvt = new FocusEvent('focusin')
-    document.body.dispatchEvent(focusInEvt)
+    document.dispatchEvent(focusInEvt)
     await wrapper.vm.$nextTick()
 
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
