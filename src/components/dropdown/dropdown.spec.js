@@ -680,4 +680,30 @@ describe('dropdown', () => {
 
     wrapper.destroy()
   })
+
+
+  it('when boundary not set should not have class position-static', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true
+    })
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.classes()).not.toContain('position-static')
+    wrapper.destroy()
+  })
+
+  it('when boundary set to viewport should have class position-static', async () => {
+    const wrapper = mount(Dropdown, {
+      attachToDocument: true,
+      propsData: {
+        boundary: 'viewport'
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    expect(wrapper.classes()).toContain('position-static')
+    wrapper.destroy()
+  })
 })
