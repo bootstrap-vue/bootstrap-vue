@@ -177,7 +177,12 @@ table#table-transition-example {
 
     .ds-suggestions {
       max-height: calc(100vh - 12rem);
-      overflow-y: auto
+      overflow-y: auto;
+
+      .algolia-docsearch-suggestion--subcategory-inline,
+      .algolia-docsearch-suggestion--title {
+        display: inline-block !important;
+      }
     }
   }
 }
