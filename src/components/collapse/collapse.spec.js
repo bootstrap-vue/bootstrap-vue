@@ -11,6 +11,26 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 describe('collapse', () => {
+  beforeEach(() => {
+    // Mock getBCR so that the we can get a fake ehight for element
+    // Needed for keyboard navigation testing
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 100,
+        height: 100,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
+    })
+  })
+
+  afterEach(() => {
+    // Reset overrides
+    Element.prototype.getBoundingClientRect = origGetBCR
+  })
+
   it('should have expected default structure', async () => {
     const wrapper = mount(Collapse, {
       attachToDocument: true,
@@ -286,7 +306,9 @@ describe('collapse', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(2) // the event we just emitted
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[1][0]).toBe('test')
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[1][1]).toBe('bar')
     expect(wrapper.element.style.display).toEqual('')
 
     // Should respond to accordion events
@@ -299,7 +321,9 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
     expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // visible state
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(3) // the event we just emitted
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[2][0]).toBe('test')
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[2][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('none')
 
     wrapper.destroy()
