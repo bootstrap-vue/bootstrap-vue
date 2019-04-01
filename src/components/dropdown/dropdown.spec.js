@@ -4,6 +4,7 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('dropdown', () => {
   const originalCreateRange = document.createRange
+  const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
@@ -17,10 +18,24 @@ describe('dropdown', () => {
         ownerDocument: document
       }
     })
+    // Mock getBCR so that the isVisible(el) test returns true
+    // In our test below, all pagination buttons would normally be visible
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
+    })
   })
 
   afterEach(() => {
+    // Reset overrides
     document.createRange = originalCreateRange
+    Element.prototype.getBoundingClientRect = origGetBCR
   })
 
   it('has expected default structure', async () => {
