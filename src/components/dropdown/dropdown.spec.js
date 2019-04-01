@@ -409,10 +409,10 @@ describe('dropdown', () => {
       render(h) {
         return h('div', {}, [
           h(Dropdown, { props: { id: 'test' } }, [
-            h(DropdownItem, { id: 'item-1' }, 'item'),
-            h(DropdownItem, { id: 'item-2' }, 'item'),
-            h(DropdownItem, { id: 'item-3', disabled: true }, 'item'),
-            h(DropdownItem, { id: 'item-4' }, 'item')
+            h(DropdownItem, { attrs: { id: 'item-1' } }, 'item'),
+            h(DropdownItem, { attrs: { id: 'item-2' } }, 'item'),
+            h(DropdownItem, { attrs: { id: 'item-3' }, props: { disabled: true } }, 'item'),
+            h(DropdownItem, { attrs: { id: 'item-4' } }, 'item')
           ])
         ])
       }
