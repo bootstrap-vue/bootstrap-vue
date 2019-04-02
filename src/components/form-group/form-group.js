@@ -345,7 +345,7 @@ export default (resolve, reject) => {
     },
     watch: {
       describedByIds(add, remove) {
-        if (add !=== remove) {
+        if (add !== remove) {
           this.setInputDescribedBy(add, remove)
         }
       }
