@@ -272,6 +272,32 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-invalid')
   })
 
+  if('Label aignment works', async () => {
+    const wrapper = mount(FormGroup, {
+      propsData: {
+        id: 'group-id',
+        label: 'test',
+        labelFor: 'input-id',
+        labelAlign: 'left',
+        labelAlignMd: 'center',
+        labelAlignXl: 'right'
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.classes()).toContain('text-left')
+    expect($label.classes()).toContain('text-md-center')
+    expect($label.classes()).toContain('text-xl-right')
+
+    wrapper.destroy()
+  })
+
   describe('legend click handling', () => {
     // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
     const origGetBCR = Element.prototype.getBoundingClientRect
