@@ -50,7 +50,7 @@ describe('v-b-toggle directive', () => {
     wrapper.destroy()
   })
 
-  it('works on passing ID as value', async () => {
+  it('works on passing ID as directive value', async () => {
     const localVue = new CreateLocalVue()
     const spy = jest.fn()
 
@@ -67,7 +67,7 @@ describe('v-b-toggle directive', () => {
       beforeDestroy() {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
-      template: '<button v-b-toggle="'test'">button</button>'
+      template: `<button v-b-toggle="'test'">button</button>`
     })
 
     const wrapper = mount(App, {
