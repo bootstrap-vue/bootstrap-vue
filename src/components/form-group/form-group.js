@@ -3,6 +3,7 @@ import idMixin from '../../mixins/id'
 import formStateMixin from '../../mixins/form-state'
 // Utils
 import { getBreakpointsUp } from '../../utils/config'
+import looseEqual from '../../utils/loose-equal'
 import upperFirst from '../../utils/upper-first'
 import memoize from '../../utils/memoize'
 import warn from '../../utils/warn'
@@ -338,14 +339,14 @@ export default (resolve, reject) => {
         // feedback IDs if the form-group's state is explicitly valid or invalid.
         return (
           [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId]
-            .filter(i => i)
+            .filter(Boolean)
             .join(' ') || null
         )
       }
     },
     watch: {
       describedByIds(add, remove) {
-        if (add !== remove) {
+        if (!looseEqual(add, remove)) {
           this.setInputDescribedBy(add, remove)
         }
       }
@@ -386,11 +387,16 @@ export default (resolve, reject) => {
           if (input) {
             const adb = 'aria-describedby'
             let ids = (getAttr(input, adb) || '').split(/\s+/)
+            add = (add || '').split(/\s+/)
             remove = (remove || '').split(/\s+/)
             // Update ID list, preserving any original IDs
+            // and ensuring the ID's are unique
             ids = ids
               .filter(id => !arrayIncludes(remove, id))
-              .concat(add || '')
+              .concat(add)
+              .filter(Boolean)
+              .reduce((memo, id) => { memo[id] = true }, {})
+              .keys()
               .join(' ')
               .trim()
             if (ids) {
