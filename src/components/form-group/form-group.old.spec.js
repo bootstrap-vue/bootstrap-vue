@@ -1,4 +1,4 @@
-import { loadFixture, testVM, setData, nextTick } from '../../../tests/utils'
+import { loadFixture, testVM, nextTick } from '../../../tests/utils'
 
 describe('form-group (legacy tests)', () => {
   beforeEach(loadFixture(__dirname, 'form-group'))
