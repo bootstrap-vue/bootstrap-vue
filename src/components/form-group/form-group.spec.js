@@ -272,8 +272,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-invalid')
   })
 
-  /*
-  describe('form-group > legend click', () => {
+  describe('legend click handling', () => {
     // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
     const origGetBCR = Element.prototype.getBoundingClientRect
 
@@ -298,28 +297,30 @@ describe('form-group', () => {
     })
 
     it('clicking legend focuses input', async () => {
-      const { app } = window
-      const $group = app.$refs.group10
+      const wrapper = mount(FormGroup, {
+        propsData: {
+          id: 'group-id',
+          label: 'test'
+        },
+        slots: {
+          default: '<input id="input-id" type="text">'
+        }
+      })
 
-      const legend = $group.$el.querySelector('legend')
-      expect(legend).toBeDefined()
-      expect(legend.tagName).toBe('LEGEND')
-      expect(legend.textContent).toContain('legend-click')
-      const input = $group.$el.querySelector('input')
-      expect(input).toBeDefined()
+      expect(wrapper.isVueInstance()).toBe(true)
+      await wrapper.vm.$nextTick()
+
+      const $legend = wrapper.find('legend')
+      const $input = wrapper.find('input')
+      expect($legend.exists()).toBe(true)
+      expect($input.exists()).toBe(true)
 
       expect(document.activeElement).not.toBe(input)
 
-      // legend.click()
-      // legend.click() doesn't trigger the click event, since it is
-      // a non-interactive element
-      const clickEvt = new MouseEvent('click')
-      legend.dispatchEvent(clickEvt)
-      await nextTick()
+      $legend.trigger('click')
+      await wrapper.vm.$nextTick()
 
-      // Can't get this to work in the test environment for some reason
-      // expect(document.activeElement).toBe(input)
+      expect(document.activeElement).toBe($input.element)
     })
   })
-  */
 })
