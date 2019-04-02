@@ -347,6 +347,22 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_ACCORDION)[3][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('')
 
+    // Toggling this open collapse to be closed
+    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.element.style.display).toEqual('none')
+
+    // Should respond to accordion events targgeting this ID when closed
+    wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'foo')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.element.style.display).toEqual('')
+
     wrapper.destroy()
   })
 
