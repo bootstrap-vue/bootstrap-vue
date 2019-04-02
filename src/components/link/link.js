@@ -120,6 +120,7 @@ function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
       if (isRouterLink(tag) && evt.target.__vue__) {
         // Router links do not emit instance 'click' events, so we
         // add in an $emit('click', evt) on it's vue instance
+        /* istanbul ignore next: difficult to test, but we know it works */
         evt.target.__vue__.$emit('click', evt)
       }
       // Call the suppliedHanlder(s), if any provided
