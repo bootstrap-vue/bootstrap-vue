@@ -162,4 +162,46 @@ describe('form-group', () => {
 
     wrapper.destroy()
   })
+
+  it('horzontal layout without prop label-for set has expected structure', async () => {
+    const wrapper = mount(FormGroup, {
+      propsData: {
+        label: 'test',
+        labelCols: 1,
+        labelColsSm: 2,
+        labelColsMd: 3,
+        labelColsLg: 4,
+        labelColsXl: 5
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.is('fieldset')).toBe(true)
+    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.find('legend').exists()).toBe(true)
+    expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
+    expect(wrapper.classes()).toContain('form-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).toBeDefined()
+    expect(wrapper.find('legend').classes()).toContain('col-form-label')
+    expect(wrapper.find('legend').classes()).toContain('col-1')
+    expect(wrapper.find('legend').classes()).toContain('col-sm-2')
+    expect(wrapper.find('legend').classes()).toContain('col-md-3')
+    expect(wrapper.find('legend').classes()).toContain('col-lg-4')
+    expect(wrapper.find('legend').classes()).toContain('col-xl-5')
+    expect(wrapper.find('legend').classes().length).toBe(6)
+    expect(wrapper.find('legend').text()).toEqual('test')
+    expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
+    expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
+    expect(wrapper.find('fieldset > div > div').classes().length).toBe(1)
+    expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
+    expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
+
+    wrapper.destroy()
+  })
 })
