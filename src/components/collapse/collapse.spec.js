@@ -331,7 +331,9 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Toggling this closed collapse emits accordion event
-    wrapper.$root.$emit(EVENT_TOGGLE, 'test')
+    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
+    await wrapper.vm.$nextTick()
+    await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
 
