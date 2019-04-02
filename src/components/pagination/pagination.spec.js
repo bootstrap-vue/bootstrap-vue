@@ -678,7 +678,74 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('changing the pagesize handles when current page > num pages', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 10,
+        perPage: 1,
+        value: 10, // set to last page
+        limit: 20
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm.currentPage).toBe(10)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    wrapper.setProps({
+      perPage: 2
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(5)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(5)
+
+    wrapper.setProps({
+      perPage: 4
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe(3)
+
+    wrapper.setProps({
+      perPage: 10
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe(1)
+
+    wrapper.setProps({
+      perPage: 5
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(3) // no new input event
+
+    // Change to page 2
+    wrapper.setProps({
+      value: 2
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.emitted('input').length).toBe(3)
+
+    wrapper.setProps({
+      perPage: 10
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(2)
+    expect(wrapper.emitted('input').length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  //
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  //
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
