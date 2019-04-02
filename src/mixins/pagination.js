@@ -274,6 +274,14 @@ export default {
         this.$emit('input', newValue > 0 ? newValue : null)
       }
     },
+    localNumPags(newVal, oldVal) {
+      if (this.currentPage > newVal) {
+        // NOTE:
+        //   May not want to do this for pagination-nav though
+        //   as it should handle auto page detection
+        this.currentPage = newVal
+      }
+    },
     limit(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.localLimit = sanitizeLimit(newValue)
