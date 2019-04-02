@@ -731,14 +731,16 @@ describe('pagination', () => {
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(2)
-    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(4)
+    expect(wrapper.emitted('input')[3][0]).toBe(2)
 
+    // Increaing number of pages should preserve current page
     wrapper.setProps({
       perPage: 10
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(2)
-    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(4)
 
     wrapper.destroy()
   })
