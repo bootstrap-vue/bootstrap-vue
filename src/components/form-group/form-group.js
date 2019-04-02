@@ -22,7 +22,7 @@ import BFormValidFeedback from '../form/form-valid-feedback'
 const NAME = 'BFormGroup'
 
 // Selector for finding first input in the form-group
-const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
+const SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
 
 // Memoize this function to return cached values to
 // save time in computed functions
