@@ -43,8 +43,8 @@ export default {
   },
   watch: {
     numberOfPages(newVal, oldVal) {
+      this.localNumPages = newVal
       if (newVal !== oldVal) {
-        this.localNumPages = newVal
         this.currentPage = 1
       }
     }
