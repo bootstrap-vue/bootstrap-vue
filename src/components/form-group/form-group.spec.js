@@ -16,7 +16,7 @@ describe('form-group', () => {
 
   beforeEach(() => {
     // Mock getBCR so that the isVisible(el) test returns true
-    // In our test below, all pagination buttons would normally be visible
+    // Needed for input focusing
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
         width: 24,
@@ -30,7 +30,7 @@ describe('form-group', () => {
   })
 
   afterEach(() => {
-    // Restore prototype
+    // Reset overrides
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 
