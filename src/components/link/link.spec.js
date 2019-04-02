@@ -215,7 +215,7 @@ describe('link', () => {
     it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [h(Link, { props: { href: '/foo', disbled: true } }, 'link')])
+          return h('div', {}, [h(Link, { props: { href: '/foo', disabled: true } }, 'link')])
         }
       })
       const spy = jest.fn()
