@@ -21,7 +21,7 @@ import BFormValidFeedback from '../form/form-valid-feedback'
 const NAME = 'BFormGroup'
 
 // Selector for finding first input in the form-group
-const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
+const SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
 
 // Memoize this function to return cached values to
 // save time in computed functions
@@ -338,7 +338,7 @@ export default (resolve, reject) => {
         // feedback IDs if the form-group's state is explicitly valid or invalid.
         return (
           [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId]
-            .filter(i => i)
+            .filter(Boolean)
             .join(' ') || null
         )
       }
@@ -386,11 +386,15 @@ export default (resolve, reject) => {
           if (input) {
             const adb = 'aria-describedby'
             let ids = (getAttr(input, adb) || '').split(/\s+/)
+            add = (add || '').split(/\s+/)
             remove = (remove || '').split(/\s+/)
             // Update ID list, preserving any original IDs
+            // and ensuring the ID's are unique
             ids = ids
               .filter(id => !arrayIncludes(remove, id))
-              .concat(add || '')
+              .concat(add)
+              .filter(Boolean)
+            ids = keys(ids.reduce((memo, id) => ({ ...memo, [id]: true }), {}))
               .join(' ')
               .trim()
             if (ids) {
