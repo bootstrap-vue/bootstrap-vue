@@ -64,7 +64,7 @@ describe('form-group', () => {
         labelFor: 'input-id'
       },
       slots: {
-        default: '<input id="input-id" type="text">`
+        default: '<input id="input-id" type="text">'
       }
     })
 
