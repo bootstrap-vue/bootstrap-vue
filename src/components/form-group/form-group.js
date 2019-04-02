@@ -373,9 +373,11 @@ export default (resolve, reject) => {
           return
         }
         const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
-        if (inputs && inputs.length === 1 && inputs[0].focus) {
-          // if only a single input, focus it, emulating label behaviour
-          inputs[0].focus()
+        if (inputs && inputs.length === 1) {
+          try {
+            // if only a single input, focus it, emulating label behaviour
+            inputs[0].focus()
+          } catch (e) {}
         }
       },
       setInputDescribedBy(add, remove) {
