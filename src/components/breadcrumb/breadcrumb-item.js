@@ -11,8 +11,7 @@ export default {
       'li',
       mergeData(data, {
         staticClass: 'breadcrumb-item',
-        class: { active: props.active },
-        attrs: { role: 'presentation' }
+        class: { active: props.active }
       }),
       [h(BBreadcrumbLink, { props }, children)]
     )

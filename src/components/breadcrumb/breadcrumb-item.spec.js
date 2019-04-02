@@ -8,8 +8,6 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.attributes('role')).toBeDefined()
-    expect(wrapper.attributes('role')).toBe('presentation')
   })
 
   it('has class active when prop active is set', async () => {
@@ -22,8 +20,6 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.attributes('role')).toBeDefined()
-    expect(wrapper.attributes('role')).toBe('presentation')
   })
 
   it('has link as child', async () => {
