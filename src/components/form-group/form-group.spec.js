@@ -315,7 +315,8 @@ describe('form-group', () => {
       expect($legend.exists()).toBe(true)
       expect($input.exists()).toBe(true)
 
-      expect(document.activeElement).not.toBe(input)
+      expect(document.activeElement).not.toBe($input.element)
+      expect(document.activeElement).not.toBe($legend.element)
 
       $legend.trigger('click')
       await wrapper.vm.$nextTick()
