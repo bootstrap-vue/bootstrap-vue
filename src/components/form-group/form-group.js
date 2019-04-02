@@ -125,9 +125,7 @@ const renderLabel = (h, ctx) => {
         [content]
       )
     }
-    return h(isHorizontal ? BCol : 'div', { props: isHorizontal ? ctx.labelColProps : {} }, [
-      label
-    ])
+    return h(isHorizontal ? BCol : 'div', { props: isHorizontal ? ctx.labelColProps : {} }, [label])
   } else {
     return h(
       isHorizontal ? BCol : labelTag,
