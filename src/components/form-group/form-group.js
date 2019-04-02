@@ -395,6 +395,10 @@ export default (resolve, reject) => {
               .filter(id => !arrayIncludes(remove, id))
               .concat(add)
               .filter(Boolean)
+            ids = keys(ids.reduce((memo, id) => {
+              memo[id] = true
+              return memo
+            }, {}))
               .join(' ')
               .trim()
             if (ids) {
