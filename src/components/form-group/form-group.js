@@ -3,7 +3,6 @@ import idMixin from '../../mixins/id'
 import formStateMixin from '../../mixins/form-state'
 // Utils
 import { getBreakpointsUp } from '../../utils/config'
-import looseEqual from '../../utils/loose-equal'
 import upperFirst from '../../utils/upper-first'
 import memoize from '../../utils/memoize'
 import warn from '../../utils/warn'
@@ -346,7 +345,7 @@ export default (resolve, reject) => {
     },
     watch: {
       describedByIds(add, remove) {
-        if (!looseEqual(add, remove)) {
+        if (add !=== remove) {
           this.setInputDescribedBy(add, remove)
         }
       }
