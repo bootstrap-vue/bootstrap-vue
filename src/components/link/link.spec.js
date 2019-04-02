@@ -162,6 +162,22 @@ describe('link', () => {
       expect(evt).toBeInstanceOf(MouseEvent)
     })
 
+    it('should invoke multiple click handlers bound by Vue when clicked on', async () => {
+      const spy1 = jest.fn()
+      const spy2 = jest.fn()
+      const wrapper = mount(Link, {
+        listeners: {
+          click: [spy1, spy2]
+        }
+      })
+      expect(wrapper.is('a')).toBe(true)
+      expect(spy1).not.toHaveBeenCalled()
+      expect(spy2).not.toHaveBeenCalled()
+      wrapper.find('a').trigger('click')
+      expect(spy1).not.toHaveBeenCalled()
+      expect(spy2).not.toHaveBeenCalled()
+    })
+
     it('should NOT invoke click handler bound by Vue when disabled and clicked', async () => {
       let called = 0
       let evt = null
