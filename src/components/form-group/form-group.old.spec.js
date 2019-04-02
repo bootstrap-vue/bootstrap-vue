@@ -4,25 +4,6 @@ describe('form-group (legacy tests)', () => {
   beforeEach(loadFixture(__dirname, 'form-group'))
   testVM()
 
-  it('app changes validation state when text supplied', async () => {
-    const { app } = window
-    const $group = app.$refs.group1
-    const $input = app.$refs.input1
-
-    expect($group.$el.getAttribute('aria-invalid')).toBe('true')
-
-    const oldADB = $input.$el.getAttribute('aria-describedby')
-
-    await setData(app, 'text', 'foobar doodle')
-    await nextTick()
-
-    expect($group.$el.getAttribute('aria-invalid')).toBe(null)
-
-    const newADB = $input.$el.getAttribute('aria-describedby')
-
-    expect(oldADB).not.toEqual(newADB)
-  })
-
   describe('form-group > legend click', () => {
     // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
     const origGetBCR = Element.prototype.getBoundingClientRect
