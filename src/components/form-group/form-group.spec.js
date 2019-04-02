@@ -367,11 +367,8 @@ describe('form-group', () => {
 
     $legend.trigger('click')
     await wrapper.vm.$nextTick()
-    await wrapper.vm.$nextTick()
 
-    // For some reason JSDOM is not reporting the input as activeElement
-    // but in manual testing this works fine.
-    // expect(document.activeElement).toBe($input.element)
+    expect(document.activeElement).toBe($input.element)
 
     wrapper.destroy()
   })
