@@ -278,7 +278,8 @@ export default {
       if (this.currentPage > newVal) {
         // NOTE:
         //   May not want to do this for pagination-nav though
-        //   as it should handle auto page detection
+        //   as it should handle auto page detection.
+        //   Could be moved from here into the pagination.js component
         this.currentPage = newVal
       }
     },
