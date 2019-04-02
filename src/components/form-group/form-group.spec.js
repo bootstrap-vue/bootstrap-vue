@@ -1,5 +1,15 @@
-import FormGroup from './form-group'
+import asyncFormGroup from './form-group'
 import { mount } from '@vue/test-utils'
+
+// Vue test utils doesnt currently support mounting Async Components
+// So we have to resolve the component ourselves
+// https://github.com/vuejs/vue-test-utils/issues/1012
+let FormGroup = asyncFormGroup
+if (typeof asyncFormGroup === 'function') {
+  asyncFormGroup(cmp => {
+    FormGroup = cmp
+  })
+}
 
 describe('form-group', () => {
   it('has expected default structure', async () => {
