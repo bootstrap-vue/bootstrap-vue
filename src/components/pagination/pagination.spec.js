@@ -736,7 +736,7 @@ describe('pagination', () => {
 
     // Increaing number of pages should preserve current page
     wrapper.setProps({
-      perPage: 10
+      perPage: 1
     })
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.currentPage).toBe(2)
