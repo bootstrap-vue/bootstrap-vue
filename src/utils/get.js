@@ -37,7 +37,7 @@ const get = (obj, path, defaultValue = null) => {
   }
 
   // Traverse path in object to find result
-  return steps.every(step => isObject(obj) && obj.hasOwnProperty(step) && (obj = obj[step]))
+  return steps.every(step => isObject(obj) && obj.hasOwnProperty(step) && ((obj = obj[step]) != null))
     ? obj
     : defaultValue
 }
