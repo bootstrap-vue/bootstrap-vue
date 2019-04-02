@@ -399,7 +399,8 @@ export default (resolve, reject) => {
               ids.reduce((memo, id) => {
                 memo[id] = true
                 return memo
-              }, {}))
+              }, {})
+            )
               .join(' ')
               .trim()
             if (ids) {
