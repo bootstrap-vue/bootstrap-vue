@@ -130,7 +130,7 @@ describe('form-group', () => {
         labelColsSm: 2,
         labelColsMd: 3,
         labelColsLg: 4,
-        labelColsXl: 5,
+        labelColsXl: 5
       },
       slots: {
         default: '<input id="input-id" type="text">'
