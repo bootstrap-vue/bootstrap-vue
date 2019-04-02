@@ -1,6 +1,5 @@
-import Link from './link'
-import { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
-import { mount, createLocalVue as CreateLocalVue} from '@vue/test-utils'
+import Link, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('link', () => {
   it('has expected default structure', async () => {
