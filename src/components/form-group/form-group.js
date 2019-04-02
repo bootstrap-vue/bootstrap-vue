@@ -373,11 +373,10 @@ export default (resolve, reject) => {
           return
         }
         const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
-        if (inputs && inputs.length === 1) {
-          try {
-            // if only a single input, focus it, emulating label behaviour
-            inputs[0].focus()
-          } catch (e) {}
+        if (inputs && inputs.length === 1 && typeof inputs[0].focus === 'functon') {
+          // if only a single input, focus it, emulating label behaviour
+          /* istanbul ignore next: doesn't work in JSDOM for some reason */
+          inputs[0].focus()
         }
       },
       setInputDescribedBy(add, remove) {
