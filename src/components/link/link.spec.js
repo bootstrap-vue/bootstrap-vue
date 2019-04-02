@@ -174,8 +174,8 @@ describe('link', () => {
       expect(spy1).not.toHaveBeenCalled()
       expect(spy2).not.toHaveBeenCalled()
       wrapper.find('a').trigger('click')
-      expect(spy1).not.toHaveBeenCalled()
-      expect(spy2).not.toHaveBeenCalled()
+      expect(spy1).toHaveBeenCalled()
+      expect(spy2).toHaveBeenCalled()
     })
 
     it('should NOT invoke click handler bound by Vue when disabled and clicked', async () => {
