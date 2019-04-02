@@ -207,4 +207,54 @@ describe('form-group', () => {
 
     wrapper.destroy()
   })
+
+  it('validation and help text works', async () => {
+    const wrapper = mount(FormGroup, {
+      propsData: {
+        id: 'group-id',
+        label: 'test',
+        labelFor: 'input-id',
+        description: 'foo',
+        invalidFeedback: 'bar',
+        validFeedback: 'baz',
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    // Auto ID is created after mounted
+    await wrapper.vm.$nextTick()
+
+    // With state = null (default), all helpers are rendered
+    expect(wrapper.find('.invalid-feeback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feeback').text()).toEqual('bar')
+    expect(wrapper.find('.valid-feeback').exists()).toBe(true)
+    expect(wrapper.find('.valid-feeback').text()).toEqual('baz')
+    expect(wrapper.find('.form-text').exists()).toBe(true)
+    expect(wrapper.find('.form-text').text()).toEqual('foo')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('aria-describedby')).toBeDefined()
+    expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_')
+
+    // With state = true, description and valid are visible
+    wrapper.setProps({
+      state: true
+    })
+    await wrapper.vm.$nextTick()
+    expect($input.attributes('aria-describedby')).toBeDefined()
+    expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_ group-id__BV_feedback_valid_')
+
+    // With state = true, description and valid are visible
+    wrapper.setProps({
+      state: false
+    })
+    await wrapper.vm.$nextTick()
+    expect($input.attributes('aria-describedby')).toBeDefined()
+    expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_ group-id__BV_feedback_invalid_')
+  })
 })
