@@ -44,6 +44,10 @@ export default {
   watch: {
     numberOfPages(newVal, OldVal) {
       this.localNumPages = newVal
+      if (this.currentPage && this.currentPage > newVal) {
+        // Trigger an emit to the v-model
+        this.currentPage = newVal
+      }
     }
   },
   created() {
