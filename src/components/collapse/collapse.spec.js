@@ -410,7 +410,7 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Emit root event with different ID
-    wrapper.vm.$root.$emit('EVENT_TOGGLE', 'not-test')
+    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'not-test')
     await wrapper.vm.$nextTick()
     await waitAF()
     await wrapper.vm.$nextTick()
