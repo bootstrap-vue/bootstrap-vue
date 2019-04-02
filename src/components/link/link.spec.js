@@ -147,9 +147,6 @@ describe('link', () => {
       let called = 0
       let evt = null
       const wrapper = mount(Link, {
-        propsData: {
-          disabled: true
-        },
         listeners: {
           click: e => {
             evt = e
@@ -218,7 +215,7 @@ describe('link', () => {
     it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [h(Link, { props: { href: '/foo' } }, 'link')])
+          return h('div', {}, [h(Link, { props: { href: '/foo', disbled: true } }, 'link')])
         }
       })
       const spy = jest.fn()
