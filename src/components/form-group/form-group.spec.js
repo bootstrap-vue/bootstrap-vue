@@ -12,6 +12,28 @@ if (typeof asyncFormGroup === 'function') {
 }
 
 describe('form-group', () => {
+  const origGetBCR = Element.prototype.getBoundingClientRect
+
+  beforeEach(() => {
+    // Mock getBCR so that the isVisible(el) test returns true
+    // In our test below, all pagination buttons would normally be visible
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
+    })
+  })
+
+  afterEach(() => {
+    // Restore prototype
+    Element.prototype.getBoundingClientRect = origGetBCR
+  })
+
   it('has expected default structure', async () => {
     const wrapper = mount(FormGroup)
 
@@ -298,58 +320,58 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
-  describe('legend click handling', () => {
-    // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
-    const origGetBCR = Element.prototype.getBoundingClientRect
-
-    beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
-      // In our test below, all pagination buttons would normally be visible
-      Element.prototype.getBoundingClientRect = jest.fn(() => {
-        return {
-          width: 24,
-          height: 24,
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0
-        }
-      })
+  it('Label sr-only works', async () => {
+    const wrapper = mount(FormGroup, {
+      propsData: {
+        id: 'group-id',
+        label: 'test',
+        labelFor: 'input-id',
+        labelSrOnly: true
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
     })
 
-    afterEach(() => {
-      // Restore prototype
-      Element.prototype.getBoundingClientRect = origGetBCR
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.classes()).toContain('sr-only')
+    expect($label.text()).toEqual('test')
+  })
+
+  it('clicking legend focuses input', async () => {
+    const wrapper = mount(FormGroup, {
+      attachToDocument: true,
+      propsData: {
+        id: 'group-id',
+        label: 'test'
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
     })
 
-    it('clicking legend focuses input', async () => {
-      const wrapper = mount(FormGroup, {
-        attachToDocument: true,
-        propsData: {
-          id: 'group-id',
-          label: 'test'
-        },
-        slots: {
-          default: '<input id="input-id" type="text">'
-        }
-      })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
 
-      expect(wrapper.isVueInstance()).toBe(true)
-      await wrapper.vm.$nextTick()
+    const $legend = wrapper.find('legend')
+    const $input = wrapper.find('input')
+    expect($legend.exists()).toBe(true)
+    expect($input.exists()).toBe(true)
 
-      const $legend = wrapper.find('legend')
-      const $input = wrapper.find('input')
-      expect($legend.exists()).toBe(true)
-      expect($input.exists()).toBe(true)
+    expect(document.activeElement).not.toBe($input.element)
+    expect(document.activeElement).not.toBe($legend.element)
 
-      expect(document.activeElement).not.toBe($input.element)
-      expect(document.activeElement).not.toBe($legend.element)
+    $legend.trigger('click')
+    await wrapper.vm.$nextTick()
+    await wrapper.vm.$nextTick()
 
-      $legend.trigger('click')
-      await wrapper.vm.$nextTick()
+    // For some reason in JSDOM, this doesn't work, but it works when manually testing
+    // expect(document.activeElement).toBe($input.element)
 
-      // For some reason in JSDOM, this doesn't work, but it works when manually testing
-      // expect(document.activeElement).toBe($input.element)
-    })
+    wrapper.destroy()
   })
 })
