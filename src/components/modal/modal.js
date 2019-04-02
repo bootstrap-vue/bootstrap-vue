@@ -355,11 +355,9 @@ export default {
   },
   watch: {
     visible(newVal, oldVal) {
-      if (newVal === oldVal) {
-        /* istanbul ignore next */
-        return
+      if (newVal !== oldVal) {
+        this[newVal ? 'show' : 'hide']()
       }
-      this[newVal ? 'show' : 'hide']()
     }
   },
   created() {
