@@ -8,11 +8,11 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events collapse listens to on $root
-const EVENT_TOGGLE = 'bv::toggle::collapse'
+// const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
-  const origSCrollHeight = Object.getOwnPropertyDescriptor(Element.__proto__, 'scrollHeight')
+  const origScrollHeight = Object.getOwnPropertyDescriptor(Element.prototype, 'scrollHeight')
 
   beforeEach(() => {
     // Mock getBCR so that the we can get a fake ehight for element
