@@ -317,6 +317,8 @@ describe('collapse', () => {
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'nottest', 'foo')
     await wrapper.vm.$nextTick()
     await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(false)
