@@ -373,10 +373,44 @@ describe('collapse', () => {
     await waitAF()
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.element.style.display).toEqual('')
-    except(wrapper.find('.nav-link').exists()).toBe(true)
+    expect(wrapper.find('.nav-link').exists()).toBe(true)
 
     // Click on link
     wrapper.find('.nav-link').trigger('click')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.element.style.display).toEqual('none')
+
+    wrapper.destroy()
+  })
+
+  it('should not respond to root toggle event that does not match ID', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test'
+      },
+      slots: {
+        default: '<div>foobar</div>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    // const rootWrapper = createWrapper(wrapper.vm.$root)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.element.style.display).toEqual('none')
+
+    // Emit root event with different ID
+    wrapper.vm.$root.$emit('EVENT_TOGGLE', 'not-test')
     await wrapper.vm.$nextTick()
     await waitAF()
     await wrapper.vm.$nextTick()
