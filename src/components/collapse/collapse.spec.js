@@ -349,4 +349,41 @@ describe('collapse', () => {
 
     wrapper.destroy()
   })
+
+  it('should close when clicking on contained nav-link prop is-nav is set', async () => {
+    const wrapper = mount(Collapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test',
+        isNav: true,
+        visible: true
+      },
+      slots: {
+        default: '<div><a class="nav-link" href="#">nav link</a></div>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    // const rootWrapper = createWrapper(wrapper.vm.$root)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.classes()).toContain('show')
+    expect(wrapper.element.style.display).toEqual('')
+    except(wrapper.find('.nav-link').exists()).toBe(true)
+
+    // Click on link
+    wrapper.find('.nav-link').trigger('click')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.element.style.display).toEqual('none')
+
+    wrapper.destroy()
+  })
 })
