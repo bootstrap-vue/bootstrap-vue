@@ -180,6 +180,9 @@ describe('form-group', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
+    // Auto ID is created after mounted
+    await wrapper.vm.$nextTick()
+
     expect(wrapper.is('fieldset')).toBe(true)
     expect(wrapper.is('div')).toBe(false)
     expect(wrapper.find('legend').exists()).toBe(true)
