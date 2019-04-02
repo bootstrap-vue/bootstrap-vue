@@ -229,12 +229,15 @@ describe('form-group', () => {
     await wrapper.vm.$nextTick()
 
     // With state = null (default), all helpers are rendered
-    expect(wrapper.find('.invalid-feeback').exists()).toBe(true)
-    expect(wrapper.find('.invalid-feeback').text()).toEqual('bar')
-    expect(wrapper.find('.valid-feeback').exists()).toBe(true)
-    expect(wrapper.find('.valid-feeback').text()).toEqual('baz')
+    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
+    expect(wrapper.find('.valid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
     expect(wrapper.find('.form-text').exists()).toBe(true)
     expect(wrapper.find('.form-text').text()).toEqual('foo')
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
 
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
@@ -250,6 +253,9 @@ describe('form-group', () => {
     expect($input.attributes('aria-describedby')).toEqual(
       'group-id__BV_description_ group-id__BV_feedback_valid_'
     )
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
 
     // With state = true, description and valid are visible
     wrapper.setProps({
@@ -260,5 +266,9 @@ describe('form-group', () => {
     expect($input.attributes('aria-describedby')).toEqual(
       'group-id__BV_description_ group-id__BV_feedback_invalid_'
     )
+    expect(wrapper.attributes('aria-invalid')).toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toEqual('true')
+    expect(wrapper.classes()).not.toContain('is-valid')
+    expect(wrapper.classes()).toContain('is-invalid')
   })
 })
