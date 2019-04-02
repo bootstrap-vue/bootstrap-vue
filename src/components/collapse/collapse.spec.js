@@ -338,7 +338,7 @@ describe('collapse', () => {
     await waitAF()
 
     expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[1][0]).toBe(true)
+    expect(wrapper.emitted('input')[2][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(3)
     expect(rootWrapper.emitted(EVENT_STATE)[2][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[2][1]).toBe(true) // visible state
