@@ -27,18 +27,11 @@ describe('collapse', () => {
         right: 0
       }
     })
-    // Mock Element.scrollHeight
-    Object.defineProperty(Element, 'scrollHeight', {
-      get() {
-        return 100
-      }
-    })
   })
 
   afterEach(() => {
     // Reset overrides
     Element.prototype.getBoundingClientRect = origGetBCR
-    Object.defineProperty(Element, 'scrollHeight', origScrollHeight)
   })
 
   it('should have expected default structure', async () => {
