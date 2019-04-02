@@ -8,11 +8,10 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events collapse listens to on $root
-// const EVENT_TOGGLE = 'bv::toggle::collapse'
+const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
-  const origScrollHeight = Object.getOwnPropertyDescriptor(Element.prototype, 'scrollHeight')
 
   beforeEach(() => {
     // Mock getBCR so that the we can get a fake ehight for element
@@ -325,12 +324,25 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // id
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // visible state
     expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(3) // the event we just emitted
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[2][0]).toBe('test')
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[2][0]).toBe('nottest')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[2][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('none')
 
-    // Toggling collapse emits accordion event
-    // wrapper.$root.$emit(EVENT_TOGGLE, 'test')
+    // Toggling this closed collapse emits accordion event
+    wrapper.$root.$emit(EVENT_TOGGLE, 'test')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[1][0]).toBe(true)
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(3)
+    expect(rootWrapper.emitted(EVENT_STATE)[2][0]).toBe('test') // id
+    expect(rootWrapper.emitted(EVENT_STATE)[2][1]).toBe(true) // visible state
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(4) // the event emitted by collapse
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[3][0]).toBe('test')
+    expect(rootWrapper.emitted(EVENT_ACCORDION)[3][1]).toBe('foo')
+    expect(wrapper.element.style.display).toEqual('')
+
     wrapper.destroy()
   })
 })
