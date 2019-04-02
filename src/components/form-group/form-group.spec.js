@@ -272,7 +272,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-invalid')
   })
 
-  if('Label aignment works', async () => {
+  it('Label aignment works', async () => {
     const wrapper = mount(FormGroup, {
       propsData: {
         id: 'group-id',
