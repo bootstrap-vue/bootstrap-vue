@@ -57,6 +57,26 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
+  it('has user supplied ID', async () => {
+    const wrapper = mount(FormGroup, {
+      propsData: {
+        label: 'test',
+        labelFor: 'input-id',
+        id: 'foo'
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+    
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('foo')
+    expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
+
+    wrapper.destroy()
+  })
+
   it('does not render a fieldset if prop label-for set', async () => {
     const wrapper = mount(FormGroup, {
       propsData: {
