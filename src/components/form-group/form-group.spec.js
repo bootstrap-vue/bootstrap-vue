@@ -298,6 +298,7 @@ describe('form-group', () => {
 
     it('clicking legend focuses input', async () => {
       const wrapper = mount(FormGroup, {
+        attachToDocument: true,
         propsData: {
           id: 'group-id',
           label: 'test'
