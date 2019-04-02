@@ -369,8 +369,7 @@ describe('form-group', () => {
     await wrapper.vm.$nextTick()
     await wrapper.vm.$nextTick()
 
-    // For some reason in JSDOM, this doesn't work, but it works when manually testing
-    // expect(document.activeElement).toBe($input.element)
+    expect(document.activeElement).toBe($input.element)
 
     wrapper.destroy()
   })
