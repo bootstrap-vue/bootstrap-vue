@@ -42,11 +42,10 @@ export default {
     }
   },
   watch: {
-    numberOfPages(newVal, OldVal) {
-      this.localNumPages = newVal
-      if (this.currentPage && this.currentPage > newVal) {
-        // Trigger an emit to the v-model
-        this.currentPage = newVal
+    numberOfPages(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.localNumPages = newVal
+        this.currentPage = 1
       }
     }
   },
