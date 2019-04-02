@@ -68,7 +68,7 @@ describe('form-group', () => {
         default: '<input id="input-id" type="text">'
       }
     })
-    
+
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
@@ -117,6 +117,48 @@ describe('form-group', () => {
     const formGroupId = wrapper.attributes('id')
     expect(wrapper.find('label').attributes('id')).toBeDefined()
     expect(wrapper.find('label').attributes('id')).toEqual(`${formGroupId}__BV_label_`)
+
+    wrapper.destroy()
+  })
+
+  it('horzontal layout with prop label-for set has expected structure', async () => {
+    const wrapper = mount(FormGroup, {
+      propsData: {
+        label: 'test',
+        labelFor: 'input-id',
+        labelCols: 1,
+        labelColsSm: 2,
+        labelColsMd: 3,
+        labelColsLg: 4,
+        labelColsXl: 5,
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.is('fieldset')).toBe(false)
+    expect(wrapper.find('legend').exists()).toBe(false)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('form-group')
+    expect(wrapper.classes()).toContain('form-row')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.find('label').exists()).toBe(true)
+    expect(wrapper.find('label').classes()).toContain('col-form-label')
+    expect(wrapper.find('label').classes()).toContain('col-1')
+    expect(wrapper.find('label').classes()).toContain('col-sm-2')
+    expect(wrapper.find('label').classes()).toContain('col-md-3')
+    expect(wrapper.find('label').classes()).toContain('col-lg-4')
+    expect(wrapper.find('label').classes()).toContain('col-xl-5')
+    expect(wrapper.find('label').classes().length).toBe(6)
+    expect(wrapper.find('label').text()).toEqual('test')
+    expect(wrapper.find('div > div').exists()).toBe(true)
+    expect(wrapper.find('div > div').classes()).toContain('col')
+    expect(wrapper.find('div > div').classes().length).toBe(1)
 
     wrapper.destroy()
   })
