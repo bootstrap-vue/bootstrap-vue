@@ -373,9 +373,8 @@ export default (resolve, reject) => {
           return
         }
         const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
-        if (inputs && inputs.length === 1 && typeof inputs[0].focus === 'functon') {
+        if (inputs && inputs.length === 1 && inputs[0].focus) {
           // if only a single input, focus it, emulating label behaviour
-          /* istanbul ignore next: doesn't work in JSDOM for some reason */
           inputs[0].focus()
         }
       },
