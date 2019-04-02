@@ -216,7 +216,7 @@ describe('form-group', () => {
         labelFor: 'input-id',
         description: 'foo',
         invalidFeedback: 'bar',
-        validFeedback: 'baz',
+        validFeedback: 'baz'
       },
       slots: {
         default: '<input id="input-id" type="text">'
@@ -247,7 +247,9 @@ describe('form-group', () => {
     })
     await wrapper.vm.$nextTick()
     expect($input.attributes('aria-describedby')).toBeDefined()
-    expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_ group-id__BV_feedback_valid_')
+    expect($input.attributes('aria-describedby')).toEqual(
+      'group-id__BV_description_ group-id__BV_feedback_valid_'
+    )
 
     // With state = true, description and valid are visible
     wrapper.setProps({
@@ -255,6 +257,8 @@ describe('form-group', () => {
     })
     await wrapper.vm.$nextTick()
     expect($input.attributes('aria-describedby')).toBeDefined()
-    expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_ group-id__BV_feedback_invalid_')
+    expect($input.attributes('aria-describedby')).toEqual(
+      'group-id__BV_description_ group-id__BV_feedback_invalid_'
+    )
   })
 })
