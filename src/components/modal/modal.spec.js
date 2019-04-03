@@ -100,7 +100,7 @@ describe('modal', () => {
 
       // Should have a backdrop
       const $backdrop = $outer.find('div.modal-backdrop')
-      expect($backdrop.exists()).toBe(false)
+      expect($backdrop.exists()).toBe(true)
       expect($backdrop.classes()).toContain('fade')
       expect($backdrop.classes()).toContain('show')
 
