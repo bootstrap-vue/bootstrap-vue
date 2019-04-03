@@ -421,11 +421,11 @@ describe('modal', () => {
 
       // Modal should have emitted these events
       expect(wrapper.emitted('ok')).toBeDefined()
-      expect(wrapper.emitted('ok').legnth).toBe(1)
+      expect(wrapper.emitted('ok').length).toBe(1)
       expect(wrapper.emitted('cancel')).toBeDefined()
-      expect(wrapper.emitted('cancel').legnth).toBe(1)
+      expect(wrapper.emitted('cancel').length).toBe(1)
       expect(wrapper.emitted('hidden')).toBeDefined()
-      expect(wrapper.emitted('hidden').legnth).toBe(1)
+      expect(wrapper.emitted('hidden').length).toBe(1)
 
       wrapper.destroy()
     })
