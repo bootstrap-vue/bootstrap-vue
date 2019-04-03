@@ -854,6 +854,7 @@ class ToolTip {
     // Only needed because of broken event delegation on iOS
     // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
     if ('ontouchstart' in document.documentElement) {
+      /* istanbul ignore next: JSDOM does not support 'ontouchstart' event */
       arrayFrom(document.body.children).forEach(el => {
         if (on) {
           eventOn(el, 'mouseover', this._noop)
