@@ -827,10 +827,21 @@ describe('tooltip', () => {
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
-    // expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
+
+    // Try and show element via root event (using ID of trigger button)
+    wrapper.vm.$root.$emit('bv:show:tooltip', 'foo')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    // Tooltip element should not be in the document
     expect(document.querySelector(`#${adb}`)).toBe(null)
 
     wrapper.destroy()
