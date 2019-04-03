@@ -344,5 +344,89 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('footer OK and CANCEL buttons trigger modal close and are preventable', async () => {
+      let cancelHide = true
+      let trigger = null
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            if (cancelHide) {
+              bvEvent.preventDefault()
+            }
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('')
+
+      const $buttons = wrapper.findAll('footer button')
+      expect($buttons.length).toBe(2)
+
+      // Cancel button (left-most button)
+      const $cancel = $buttons.at(0)
+      expect($cancel.text()).toContain('Cancel')
+
+      // OK button (right-most button)
+      const $ok = $buttons.at(1)
+      expect($ok.text()).toContain('OK')
+
+      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(trigger).toEqual(null)
+
+      // Try and close modal (but we prevent it)
+      $ok.trigger('click')
+      expect(trigger).toEqual('ok')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should still be open
+      expect($modal.element.style.display).toEqual('')
+
+      // Try and close modal (and not prevent it)
+      cancelHide = false
+      trigger = null
+      $ok.trigger('click')
+      expect(trigger).toEqual('cancel')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be clsoed
+      expect($modal.element.style.display).toEqual('none')
+
+      expect(wrapper.emited('ok')).toBeDefined()
+      expect(wrapper.emited('ok').legnth).toBe(1)
+      expect(wrapper.emited('cancel')).toBeDefined()
+      expect(wrapper.emited('cancel').legnth).toBe(1)
+      expect(wrapper.emited('hidden')).toBeDefined()
+      expect(wrapper.emited('hidden').legnth).toBe(1)
+
+      wrapper.destroy()
+    })
   })
 })
