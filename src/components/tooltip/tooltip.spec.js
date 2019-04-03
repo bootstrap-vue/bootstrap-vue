@@ -34,7 +34,7 @@ const appDef = {
             title: this.title || null
           }
         },
-        this.$slots.default || undefined
+        this.$slots.default || ''
       )
     ])
   }
@@ -376,7 +376,9 @@ describe('tooltip', () => {
       propsData: {
         triggers: 'click',
         show: true,
-        title: 'title'
+        disabled: false,
+        title: 'title',
+        titleAttr: 'ignored'
       },
       slots: {
         default: ''
@@ -402,7 +404,7 @@ describe('tooltip', () => {
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('')
     expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
+    expect($button.attributes('data-original-title')).toEqual('ignored')
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
