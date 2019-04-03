@@ -8,11 +8,7 @@ const appDef = {
   props: ['trigger', 'show', 'disabed', 'title', 'titleAttr'],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
-      h(
-        'button',
-        { attrs: { id: 'foo', type: 'button', title: this.titleAttr || null } },
-        'text'
-      ),
+      h('button', { attrs: { id: 'foo', type: 'button', title: this.titleAttr || null } }, 'text'),
       h(
         Tooltip,
         {
