@@ -569,7 +569,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
 
       // Try and open modal via bv::show::modal
-      wrapper.vm.$root.emit('bv::show::modal', 'test')
+      wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -580,7 +580,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('')
 
       // Try and close modal via bv::hide::modal
-      wrapper.vm.$root.emit('bv::hide::modal', 'test')
+      wrapper.vm.$root.$emit('bv::hide::modal', 'test')
 
       await wrapper.vm.$nextTick()
       await waitAF()
