@@ -339,7 +339,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
 
-      // Modal should now be clsoed
+      // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
       wrapper.destroy()
@@ -416,7 +416,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
 
-      // Modal should now be clsoed
+      // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
       // Modal should have emitted these events
@@ -472,7 +472,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
 
-      // Modal should now be clsoed
+      // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
       // Modal should have emitted these events
@@ -529,7 +529,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
 
-      // Modal should now be clsoed
+      // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
       // Modal should have emitted these events
@@ -540,6 +540,55 @@ describe('modal', () => {
 
       expect(wrapper.emitted('ok')).not.toBeDefined()
       expect(wrapper.emitted('cancel')).not.toBeDefined()
+
+      wrapper.destroy()
+    })
+
+    it('$root bv::show::modal and bv::hide::modal work', async () => {
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+
+      // Try and open modal via bv::show::modal
+      wrapper.vm.$root.emit('bv::show::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+
+      // Try and close modal via bv::hide::modal
+      wrapper.vm.$root.emit('bv::hide::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
 
       wrapper.destroy()
     })
