@@ -101,9 +101,11 @@ class PopOver extends ToolTip {
 
   getContent() {
     let content = this.$config.content || ''
+    /* istanbul ignore next */
     if (typeof content === 'function') {
       content = content(this.$element)
     }
+    /* istanbul ignore next */
     if (typeof content === 'object' && content.nodeType && !content.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       content = ''
