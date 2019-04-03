@@ -91,6 +91,8 @@ describe('v-b-tooltip directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('button')).toBe(true)
+    const $button = wrapper.find('button')
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
     await wrapper.vm.$nextTick()
@@ -101,8 +103,6 @@ describe('v-b-tooltip directive', () => {
     expect($button.element[BV_TOOLTIP]).toBeDefined()
     expect($button.element[BV_TOOLTIP]).toBeInstanceOf(ToolTip)
 
-    expect(wrapper.is('button')).toBe(true)
-    const $button = wrapper.find('button')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Trigger click
