@@ -359,7 +359,6 @@ describe('tooltip', () => {
     wrapper.destroy()
   })
 
-
   it('activating trigger element (hover) opens tooltip', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
