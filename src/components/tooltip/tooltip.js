@@ -27,6 +27,7 @@ export default {
     createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
+      /* istanbul ignore else */
       if (target) {
         this._toolpop = new ToolTip(target, this.getConfig(), this.$root)
       } else {

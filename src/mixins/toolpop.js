@@ -114,20 +114,14 @@ export default {
   },
   watch: {
     show(show, old) {
-      /* istanbul ignore if */
-      if (show === old) {
-        /* istanbul ignore next */
-        return
+      if (show !== old) {
+        show ? this.onOpen() : this.onClose()
       }
-      show ? this.onOpen() : this.onClose()
     },
     disabled(disabled, old) {
-      /* istanbul ignore if */
-      if (disabled === old) {
-        /* istanbul ignore next */
-        return
+      if (disabled !== old) {
+        disabled ? this.onDisable() : this.onEnable()
       }
-      disabled ? this.onDisable() : this.onEnable()
     }
   },
   created() {
@@ -152,7 +146,7 @@ export default {
         this.$on('close', this.onClose)
         // Listen to disable signals from others
         this.$on('disable', this.onDisable)
-        // Listen to disable signals from others
+        // Listen to enable signals from others
         this.$on('enable', this.onEnable)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
@@ -165,25 +159,22 @@ export default {
   },
   updated() {
     // If content/props changes, etc
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
-  activated() {
+  activated() /* istanbul ignore next: can't easily test in JSDOM */ {
     // Called when component is inside a <keep-alive> and component brought offline
-    /* istanbul ignore next: can't test in JSDOM */
     this.setObservers(true)
   },
-  deactivated() {
+  deactivated() /* istanbul ignore next: can't easily test in JSDOM */ {
     // Called when component is inside a <keep-alive> and component taken offline
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
     }
   },
-  beforeDestroy() /* istanbul ignore next: not easy to test */ {
+  beforeDestroy() {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
@@ -223,23 +214,22 @@ export default {
       if (this._toolpop) {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
+        /* istanbul ignore next */
         callback()
       }
     },
     onDisable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable()
       }
     },
     onEnable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable()
       }
     },
     updatePosition() {
-      /* istanbul ignore next: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM until mutation observer is implemented */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update()
@@ -248,6 +238,7 @@ export default {
     getTarget() {
       let target = this.target
       if (typeof target === 'function') {
+        /* istanbul ignore next */
         target = target()
       }
       if (typeof target === 'string') {
@@ -255,11 +246,14 @@ export default {
         return getById(target)
       } else if (typeof target === 'object' && isElement(target.$el)) {
         // Component reference
+        /* istanbul ignore next */
         return target.$el
       } else if (typeof target === 'object' && isElement(target)) {
         // Element reference
+        /* istanbul ignore next */
         return target
       }
+      /* istanbul ignore next */
       return null
     },
     onShow(evt) {
@@ -282,6 +276,7 @@ export default {
       this.$emit('hidden', evt)
     },
     onEnabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'enabled') {
         // Prevent possible endless loop if user mistakienly fires enabled instead of enable
         return
@@ -290,6 +285,7 @@ export default {
       this.$emit('disabled')
     },
     onDisabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'disabled') {
         // Prevent possible endless loop if user mistakienly fires disabled instead of disable
         return
@@ -306,7 +302,7 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
-    setObservers(on) /* istanbul ignore next: can't test in JSDOM */ {
+    setObservers(on) {
       if (on) {
         if (this.$refs.title) {
           this._obs_title = observeDom(
