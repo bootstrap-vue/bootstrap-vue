@@ -34,12 +34,17 @@ const appDef = {
             title: this.title || null
           }
         },
-        this.$slots.default
+        this.$slots.default || undefined
       )
     ])
   }
 }
 
+//
+// Note:
+// wrapper.destroy() **MUST** be called at the end of each test in order for
+// the next test to function properly!
+//
 describe('tooltip', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
@@ -371,8 +376,7 @@ describe('tooltip', () => {
       propsData: {
         triggers: 'click',
         show: true,
-        title: 'title',
-        titleAttr: 'ignored'
+        title: 'title'
       }
     })
 
@@ -381,7 +385,6 @@ describe('tooltip', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
-    jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -396,7 +399,7 @@ describe('tooltip', () => {
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('')
     expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('ignored')
+    expect($button.attributes('data-original-title')).toEqual('')
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
@@ -421,7 +424,7 @@ describe('tooltip', () => {
     // this will be the title from the prop, not from the trigger button title attr
     expect(tip.innerText).toContain('title')
 
-    // Hide the tooltip by clickign button
+    // Hide the tooltip by clicking button
     $button.trigger('click')
     await wrapper.vm.$nextTick()
     await waitAF()
