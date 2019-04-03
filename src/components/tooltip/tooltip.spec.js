@@ -834,7 +834,7 @@ describe('tooltip', () => {
     expect(document.querySelector(`#${adb}`)).toBe(null)
 
     // Try and show element via root event (using ID of trigger button)
-    wrapper.vm.$root.$emit('bv:show:tooltip', 'foo')
+    wrapper.vm.$root.$emit('bv::show::tooltip', 'foo')
     await wrapper.vm.$nextTick()
     await waitAF()
     await wrapper.vm.$nextTick()
