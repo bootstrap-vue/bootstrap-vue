@@ -251,6 +251,7 @@ class ToolTip {
       /* istanbul ignore next */
       return
     }
+    /* istanbul ignore else */
     if (event) {
       this.$activeTrigger.click = !this.$activeTrigger.click
 
@@ -528,6 +529,7 @@ class ToolTip {
     this.$fadeTimeout = null
     const fnOnce = () => {
       if (called) {
+        /* istanbul ignore next */
         return
       }
       called = true
@@ -631,6 +633,7 @@ class ToolTip {
           container.appendChild(content)
         }
       } else {
+        /* istanbul ignore next */
         container.innerText = content.innerText
       }
     } else {
