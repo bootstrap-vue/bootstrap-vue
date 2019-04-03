@@ -248,6 +248,7 @@ class ToolTip {
   // Click toggler
   toggle(event) {
     if (!this.$isEnabled) {
+      /* istanbul ignore next */
       return
     }
     if (event) {
