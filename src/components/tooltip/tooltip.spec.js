@@ -425,7 +425,6 @@ describe('tooltip', () => {
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
-    expect(tip.innerText).toContain('title')
 
     // Hide the tooltip by emitting root event with no ID (forceHide)
     wrapper.vm.$root.$emit('bv::hide::tooltip')
