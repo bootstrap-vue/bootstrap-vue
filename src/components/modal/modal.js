@@ -738,14 +738,17 @@ export default {
       this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
     },
     setScrollbar() {
+      const body = document.body
+      // Storage place to cache changes to margins and padding
+      // Note: THis assumes the following element types are not added to the 
+      // document after hte modal has opened.
+      body._paddingChangedForModal = body._paddingChangedForModal || []
+      body._marginChangedForModal = body._marginChangedForModal || []
       /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
         //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-        const body = document.body
         const scrollbarWidth = this.scrollbarWidth
-        body._paddingChangedForModal = []
-        body._marginChangedForModal = []
         // Adjust fixed content padding
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
           const actualPadding = el.style.paddingRight
