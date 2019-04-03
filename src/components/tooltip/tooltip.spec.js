@@ -844,6 +844,17 @@ describe('tooltip', () => {
     // Tooltip element should not be in the document
     expect(document.querySelector(`#${adb}`)).toBe(null)
 
+    // Try and show element via root event (using show all)
+    wrapper.vm.$root.$emit('bv::show::tooltip')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    // Tooltip element should not be in the document
+    expect(document.querySelector(`#${adb}`)).toBe(null)
+
     wrapper.destroy()
   })
 })
