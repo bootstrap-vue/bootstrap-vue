@@ -740,7 +740,7 @@ export default {
     setScrollbar() {
       const body = document.body
       // Storage place to cache changes to margins and padding
-      // Note: THis assumes the following element types are not added to the 
+      // Note: THis assumes the following element types are not added to the
       // document after hte modal has opened.
       body._paddingChangedForModal = body._paddingChangedForModal || []
       body._marginChangedForModal = body._marginChangedForModal || []
