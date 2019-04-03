@@ -379,7 +379,7 @@ describe('tooltip', () => {
         title: 'title'
       },
       slots: {
-        default: undefined
+        default: ''
       }
     })
 
