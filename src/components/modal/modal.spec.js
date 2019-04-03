@@ -317,7 +317,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal (but we prevent it)
-      $close.trigger(click)
+      $close.trigger('click')
       expect(trigger).toEqual('headerclose')
 
       await wrapper.vm.$nextTick()
@@ -331,7 +331,7 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
-      $close.trigger(click)
+      $close.trigger('click')
       expect(trigger).toEqual('headerclose')
 
       await wrapper.vm.$nextTick()
