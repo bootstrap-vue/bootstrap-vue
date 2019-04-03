@@ -7,10 +7,21 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Our test application definition
 const appDef = {
-  props: ['triggers', 'show', 'disabled', 'title', 'titleAttr'],
+  props: ['triggers', 'show', 'disabled', 'title', 'titleAttr', 'btnDisabled'],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
-      h('button', { attrs: { id: 'foo', type: 'button', title: this.titleAttr || null } }, 'text'),
+      h(
+        'button',
+        {
+          attrs: {
+            id: 'foo',
+            type: 'button',
+            disabled: this.btnDisabled || null,
+            title: this.titleAttr || null
+          }
+        },
+        'text'
+      ),
       h(
         Tooltip,
         {
@@ -347,6 +358,83 @@ describe('tooltip', () => {
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('gets title from trigger element title attribute', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        titleAttr: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).toBeDefined()
+    expect($button.attributes('title')).toEqual('')
+    expect($button.attributes('data-original-title')).toBeDefined()
+    expect($button.attributes('data-original-title')).toEqual('title')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // b-tooltip wrapper
+    const $tipholder = wrapper.find('div#bar')
+    expect($tipholder.exists()).toBe(true)
+    expect($tipholder.classes()).toContain('d-none')
+    expect($tipholder.attributes('aria-hidden')).toBeDefined()
+    expect($tipholder.attributes('aria-hidden')).toEqual('true')
+    expect($tipholder.element.style.display).toEqual('none')
+
+    // title placeholder (from default slot) will ahve been moved to tooltip element
+    expect($tipholder.text()).toBe('')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.innerText).toContain('title')
+
+    // Hide the tooltip
+    wrapper.setProps({
+      show: false
+    })
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
 
     wrapper.destroy()
   })
