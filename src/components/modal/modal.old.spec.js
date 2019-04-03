@@ -4,20 +4,6 @@ describe('modal', () => {
   beforeEach(loadFixture(__dirname, 'modal'))
   testVM()
 
-  it('Should bind event handler on button', async () => {
-    const { app } = window
-
-    expect(app.$refs.modalButton).toHaveProperty('__BV_boundEventListeners__.click')
-  })
-
-  it('Should unbind event handler on button', async () => {
-    const { app } = window
-
-    app.enableModal = false
-    await nextTick()
-    expect(app.$refs.button).not.toHaveProperty('__BV_boundEventListeners__.click')
-  })
-
   it('Should show hide modal', async () => {
     const {
       app: { $refs }
@@ -34,6 +20,7 @@ describe('modal', () => {
     modal2.hide()
     await nextTick()
     // manually run resetScrollbar because JSDOM doesn't support it
+    // BUT it will under vue-test-utils with hte right tweaks
     modal2.resetScrollbar()
     expect(body._marginChangedForModal).toBe(null)
   })
