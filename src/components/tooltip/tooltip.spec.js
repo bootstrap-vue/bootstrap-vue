@@ -3,6 +3,40 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('tooltip', () => {
   const localVue = new CreateLocalVue()
+  const originalCreateRange = document.createRange
+  const origGetBCR = Element.prototype.getBoundingClientRect
+
+  beforeEach(() => {
+    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
+    // Hack to make Popper not bork out during tests.
+    // Note popper still does not do any positioning claculation in JSDOM though.
+    // So we cannot test actual positioning... just detect when it is open.
+    document.createRange = () => ({
+      setStart: () => {},
+      setEnd: () => {},
+      commonAncestorContainer: {
+        nodeName: 'BODY',
+        ownerDocument: document
+      }
+    })
+    // Mock getBCR so that the isVisible(el) test returns true
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
+    })
+  })
+
+  afterEach(() => {
+    // Reset overrides
+    document.createRange = originalCreateRange
+    Element.prototype.getBoundingClientRect = origGetBCR
+  })
 
   it('has expected default structure', async () => {
     const App = localVue.extend({
