@@ -371,7 +371,8 @@ describe('tooltip', () => {
       propsData: {
         triggers: 'click',
         show: true,
-        title: 'title'
+        title: 'title',
+        titleAttr: 'ignored'
       }
     })
 
@@ -395,7 +396,7 @@ describe('tooltip', () => {
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('')
     expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('title')
+    expect($button.attributes('data-original-title')).toEqual('ignored')
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
@@ -417,6 +418,7 @@ describe('tooltip', () => {
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    // this will be the title from the prop, not from the trigger button title attr
     expect(tip.innerText).toContain('title')
 
     // Hide the tooltip by clickign button
