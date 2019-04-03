@@ -113,6 +113,7 @@ describe('tooltip', () => {
   })
 
   it('initially open has expected structure', async () => {
+    jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachToDocument: true,
@@ -131,6 +132,7 @@ describe('tooltip', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
+    jest.runAllTimers()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -177,6 +179,7 @@ describe('tooltip', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
+    jest.runAllTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
     // title placeholder (from default slot) will be back here
