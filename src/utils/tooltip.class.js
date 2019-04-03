@@ -845,7 +845,6 @@ class ToolTip {
     }
   }
 
-  /* istanbul ignore next */
   setOnTouchStartListener(on) {
     // If this is a touch-enabled device we add extra
     // empty mouseover listeners to the body's immediate children
@@ -872,7 +871,6 @@ class ToolTip {
   }
 
   // Enter handler
-  /* istanbul ignore next */
   enter(e) {
     if (e) {
       this.$activeTrigger[e.type === 'focusin' ? 'focus' : 'hover'] = true
@@ -895,7 +893,6 @@ class ToolTip {
   }
 
   // Leave handler
-  /* istanbul ignore next */
   leave(e) {
     if (e) {
       this.$activeTrigger[e.type === 'focusout' ? 'focus' : 'hover'] = false
