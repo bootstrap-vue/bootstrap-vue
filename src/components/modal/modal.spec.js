@@ -408,7 +408,7 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
-      $ok.trigger('click')
+      $cancel.trigger('click')
       expect(trigger).toEqual('cancel')
 
       await wrapper.vm.$nextTick()
