@@ -367,7 +367,7 @@ describe('tooltip', () => {
     wrapper.destroy()
   })
 
-  it('gets title from title prop', async () => {
+  it('closes on $root close all event', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
@@ -377,11 +377,10 @@ describe('tooltip', () => {
         triggers: 'click',
         show: true,
         disabled: false,
-        title: 'title',
         titleAttr: 'ignored'
       },
       slots: {
-        default: ''
+        default: 'title'
       }
     })
 
@@ -417,7 +416,7 @@ describe('tooltip', () => {
     expect($tipholder.attributes('aria-hidden')).toEqual('true')
     expect($tipholder.element.style.display).toEqual('none')
 
-    // title placeholder... not used since title prop passed direct to tooltip class
+    // title placeholder...
     expect($tipholder.text()).toBe('')
 
     // Find the tooltip element in the document
@@ -426,11 +425,10 @@ describe('tooltip', () => {
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
-    // this will be the title from the prop, not from the trigger button title attr
     expect(tip.innerText).toContain('title')
 
-    // Hide the tooltip by clicking button
-    $button.trigger('click')
+    // Hide the tooltip by emitting root event with no ID (forceHide)
+    wrapper.vm.$root.$emit('bv::hide::tooltip')
     await wrapper.vm.$nextTick()
     await waitAF()
     await wrapper.vm.$nextTick()
