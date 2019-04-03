@@ -3,6 +3,8 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const localVue = new CreateLocalVue()
 
+const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+
 // Our test application definition
 const appDef = {
   props: ['trigger', 'show', 'disabed', 'title', 'titleAttr'],
@@ -126,6 +128,9 @@ describe('tooltip', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -160,6 +165,26 @@ describe('tooltip', () => {
     // Find the tooltip element in the document
     const tip = document.querySelector(`#${adb}`)
     expect(tip).not.toBe(null)
+    expect(tip.innerText).toEqual('title')
+
+    // Hide the tooltip
+    wrapper.setProps({
+      show: false
+    })
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    // title placeholder (from default slot) will be back here
+    expect($tipholder.findAll('div.d-none > div').length).toBe(1)
+    // title text will be moved into the tooltip
+    expect($tipholder.find('div.d-none > div').text()).toBe('title')
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
 
     wrapper.destroy()
   })
