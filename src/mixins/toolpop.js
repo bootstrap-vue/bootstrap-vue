@@ -214,6 +214,7 @@ export default {
       if (this._toolpop) {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
+        /* istanbul ignore next */
         callback()
       }
     },
@@ -228,7 +229,7 @@ export default {
       }
     },
     updatePosition() {
-      /* istanbul ignore next: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM until mutation observer is implemented */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update()
@@ -237,6 +238,7 @@ export default {
     getTarget() {
       let target = this.target
       if (typeof target === 'function') {
+        /* istanbul ignore next */
         target = target()
       }
       if (typeof target === 'string') {
@@ -244,11 +246,14 @@ export default {
         return getById(target)
       } else if (typeof target === 'object' && isElement(target.$el)) {
         // Component reference
+        /* istanbul ignore next */
         return target.$el
       } else if (typeof target === 'object' && isElement(target)) {
         // Element reference
+        /* istanbul ignore next */
         return target
       }
+      /* istanbul ignore next */
       return null
     },
     onShow(evt) {
@@ -271,6 +276,7 @@ export default {
       this.$emit('hidden', evt)
     },
     onEnabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'enabled') {
         // Prevent possible endless loop if user mistakienly fires enabled instead of enable
         return
@@ -279,6 +285,7 @@ export default {
       this.$emit('disabled')
     },
     onDisabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'disabled') {
         // Prevent possible endless loop if user mistakienly fires disabled instead of disable
         return
