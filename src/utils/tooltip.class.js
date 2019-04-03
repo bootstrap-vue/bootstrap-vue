@@ -389,6 +389,7 @@ class ToolTip {
   // Force hide of tip (internal method)
   forceHide() {
     if (!this.$tip || !hasClass(this.$tip, ClassName.SHOW)) {
+      /* istanbul ignore next */
       return
     }
     // Disable while open listeners/watchers
@@ -405,6 +406,7 @@ class ToolTip {
   hide(callback, force) {
     const tip = this.$tip
     if (!tip) {
+      /* istanbul ignore next */
       return
     }
 
@@ -422,7 +424,6 @@ class ToolTip {
     }
 
     // Transitionend callback
-    /* istanbul ignore next */
     const complete = () => {
       if (this.$hoverState !== HoverState.SHOW && tip.parentNode) {
         // Remove tip from DOM, and force recompile on next show
@@ -520,7 +521,6 @@ class ToolTip {
     this.$popper = null
   }
 
-  /* istanbul ignore next */
   transitionOnce(tip, complete) {
     const transEvents = this.getTransitionEndEvents()
     let called = false
@@ -619,6 +619,7 @@ class ToolTip {
   setElementContent(container, content) {
     if (!container) {
       // If container element doesn't exist, just return
+      /* istanbul ignore next */
       return
     }
     const allowHtml = this.$config.html
@@ -738,14 +739,14 @@ class ToolTip {
         /* istanbul ignore next */
         return
       }
+      /* istanbul ignore next: dificult to test */
       if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
         // If focus moves within $tip, don't trigger a leave
-        /* istanbul ignore next */
         return
       }
+      /* istanbul ignore next: dificult to test */
       if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
         // If focus moves within $element, don't trigger a leave
-        /* istanbul ignore next */
         return
       }
       // Otherwise trigger a leave
