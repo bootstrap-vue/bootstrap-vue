@@ -443,4 +443,79 @@ describe('tooltip', () => {
 
     wrapper.destroy()
   })
+
+  it('closes when trigger element is no longer visible', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        disabled: false
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).toBeDefined()
+    expect($button.attributes('data-original-title')).toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // b-tooltip wrapper
+    const $tipholder = wrapper.find('div#bar')
+    expect($tipholder.exists()).toBe(true)
+    expect($tipholder.classes()).toContain('d-none')
+    expect($tipholder.attributes('aria-hidden')).toBeDefined()
+    expect($tipholder.attributes('aria-hidden')).toEqual('true')
+    expect($tipholder.element.style.display).toEqual('none')
+
+    // title placeholder...
+    expect($tipholder.text()).toBe('')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    // Hide the tooltip by removing the trigger button from DOM
+    $button.element.parentNode.removeChild($button.element)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    // The visibility check runs on an intetrval of 100ms
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    // expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
+
+    wrapper.destroy()
+  })
 })
