@@ -43,7 +43,7 @@ describe('tooltip', () => {
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('')
     expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-oriignal-title')).toEqual('')
+    expect($button.attributes('data-original-title')).toEqual('')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     const $tipholder = wrapper.find('div#bar')
