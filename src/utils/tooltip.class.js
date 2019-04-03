@@ -159,6 +159,7 @@ class ToolTip {
 
     // Sanitize delay
     if (config.delay && typeof config.delay === 'number') {
+      /* istanbul ignore next */
       updatedConfig.delay = {
         show: config.delay,
         hide: config.delay
@@ -167,11 +168,13 @@ class ToolTip {
 
     // Title for tooltip and popover
     if (config.title && typeof config.title === 'number') {
+      /* istanbul ignore next */
       updatedConfig.title = config.title.toString()
     }
 
     // Content only for popover
     if (config.content && typeof config.content === 'number') {
+      /* istanbul ignore next */
       updatedConfig.content = config.content.toString()
     }
 
@@ -276,7 +279,9 @@ class ToolTip {
     this.setContent(tip)
     if (!this.isWithContent(tip)) {
       // If no content, don't bother showing
+      /* istanbul ignore next */
       this.$tip = null
+      /* istanbul ignore next */
       return
     }
 
@@ -500,6 +505,7 @@ class ToolTip {
       .join(' ')
       .trim()
     if (desc) {
+      /* istanbul ignore next */
       setAttr(this.$element, 'aria-describedby', desc)
     } else {
       removeAttr(this.$element, 'aria-describedby')
@@ -551,9 +557,11 @@ class ToolTip {
       }
     }
     // Fallback
+    /* istanbul ignore next */
     return []
   }
 
+  /* istanbul ignore next */
   update() {
     if (this.$popper !== null) {
       this.$popper.scheduleUpdate()
@@ -564,6 +572,7 @@ class ToolTip {
   isWithContent(tip) {
     tip = tip || this.$tip
     if (!tip) {
+      /* istanbul ignore next */
       return false
     }
     return Boolean((select(Selector.TOOLTIP_INNER, tip) || {}).innerHTML)
@@ -589,6 +598,7 @@ class ToolTip {
 
   compileTemplate(html) {
     if (!html || typeof html !== 'string') {
+      /* istanbul ignore next */
       return null
     }
     let div = document.createElement('div')
@@ -632,11 +642,13 @@ class ToolTip {
     let title = this.$config.title || ''
     if (typeof title === 'function') {
       // Call the function to get the title value
+      /* istanbul ignore next */
       title = title(this.$element)
     }
     if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
       // We have a DOM node, but without inner content,
       // so just return empty string
+      /* istanbul ignore next */
       title = ''
     }
     if (typeof title === 'string') {
@@ -696,6 +708,7 @@ class ToolTip {
     if (isDisabled(this.$element)) {
       // If disabled, don't do anything. Note: If tip is shown before element gets
       // disabled, then tip not close until no longer disabled or forcefully closed.
+      /* istanbul ignore next */
       return
     }
     if (!this.$isEnabled) {
@@ -716,18 +729,22 @@ class ToolTip {
       // and relatedTarget is the element gaining focus
       if ($tip && $element && $element.contains(target) && $tip.contains(relatedTarget)) {
         // If focus moves from $element to $tip, don't trigger a leave
+        /* istanbul ignore next */
         return
       }
       if ($tip && $element && $tip.contains(target) && $element.contains(relatedTarget)) {
         // If focus moves from $tip to $element, don't trigger a leave
+        /* istanbul ignore next */
         return
       }
       if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
         // If focus moves within $tip, don't trigger a leave
+        /* istanbul ignore next */
         return
       }
       if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
         // If focus moves within $element, don't trigger a leave
+        /* istanbul ignore next */
         return
       }
       // Otherwise trigger a leave
@@ -772,7 +789,6 @@ class ToolTip {
     }
   }
 
-  /* istanbul ignore next */
   setRootListener(on) {
     // Listen for global 'bv::{hide|show}::{tooltip|popover}' hide request event
     if (this.$root) {
@@ -917,17 +933,20 @@ class ToolTip {
       },
       onCreate: data => {
         // Handle flipping arrow classes
+        /* istanbul ignore next */
         if (data.originalPlacement !== data.placement) {
           this.handlePopperPlacementChange(data)
         }
       },
       onUpdate: data => {
         // Handle flipping arrow classes
+        /* istanbul ignore next */
         this.handlePopperPlacementChange(data)
       }
     }
   }
 
+  /* istanbul ignore next */
   getOffset(placement, tip) {
     if (!this.$config.offset) {
       const arrow = select(Selector.ARROW, tip)
@@ -947,6 +966,7 @@ class ToolTip {
   getPlacement() {
     const placement = this.$config.placement
     if (typeof placement === 'function') {
+      /* istanbul ignore next */
       return placement.call(this, this.$tip, this.$element)
     }
     return placement
@@ -962,6 +982,7 @@ class ToolTip {
   }
 
   // NOTE: Overridden by PopOver class
+  /* istanbul ignore next */
   cleanTipClass() {
     const tip = this.getTipElement()
     const tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX)
@@ -972,11 +993,13 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   handlePopperPlacementChange(data) {
     this.cleanTipClass()
     this.addAttachmentClass(this.constructor.getAttachment(data.placement))
   }
 
+  /* istanbul ignore next */
   fixTransition(tip) {
     const initConfigAnimation = this.$config.animation || false
     if (getAttr(tip, 'x-placement') !== null) {
