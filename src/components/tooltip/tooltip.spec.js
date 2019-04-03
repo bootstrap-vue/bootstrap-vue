@@ -1,8 +1,9 @@
 import Tooltip from './tooltip'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
+const localVue = new CreateLocalVue()
+
 describe('tooltip', () => {
-  const localVue = new CreateLocalVue()
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
