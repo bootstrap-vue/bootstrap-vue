@@ -7,12 +7,21 @@ describe('tooltip', () => {
   it('has expected default structure', async () => {
     const App = localVue.extend({
       render(h) {
-        'div',
-        { attrs: { id: 'wrapper' } },
-        [
-          h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
-          h(Tooltip, { attrs: { id: 'bar' }, props: { target: 'foo', trigger: 'click' } }, 'title')
-        ]
+        return h(
+          'div',
+          { attrs: { id: 'wrapper' } },
+          [
+            h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
+            h(
+              Tooltip,
+              {
+                attrs: { id: 'bar' },
+                props: { target: 'foo', trigger: 'click' }
+              },
+              'title'
+            )
+          ]
+        )
       }
     })
     const wrapper = mount(App, {
@@ -26,7 +35,7 @@ describe('tooltip', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
-    
+
     const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
