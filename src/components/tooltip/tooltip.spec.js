@@ -7,7 +7,7 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Our test application definition
 const appDef = {
-  props: ['triggers', 'show', 'disabed', 'title', 'titleAttr'],
+  props: ['triggers', 'show', 'disabled', 'title', 'titleAttr'],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
       h('button', { attrs: { id: 'foo', type: 'button', title: this.titleAttr || null } }, 'text'),
