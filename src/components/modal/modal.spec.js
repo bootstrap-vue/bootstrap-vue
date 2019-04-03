@@ -264,6 +264,85 @@ describe('modal', () => {
       expect($close.attributes('type')).toBe('button')
       expect($close.attributes('aria-label')).toBe('Close')
       expect($close.classes()).toContain('close')
+
+      wrapper.destroy()
+    })
+  })
+
+  describe('buton functionality/events', () => {
+    it('header close button triggers modal close and is preventable', async () => {
+      let cancelHide = true
+      let trigger = null
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            if (cancelHide) {
+              bvEvent.preventDefault()
+            }
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('')
+
+      const $buttons = wrapper.findAll('header button')
+      expect($buttons.length).toBe(1)
+
+      // Close button
+      const $close = $buttons.at(0)
+      expect($close.attributes('type')).toBe('button')
+      expect($close.attributes('aria-label')).toBe('Close')
+      expect($close.classes()).toContain('close')
+
+      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(trigger).toEqual(null)
+
+      // Try and close modal (but we prevent it)
+      $close.trigger(click)
+      expect(trigger).toEqual('headerclose')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should still be open
+      expect($modal.element.style.display).toEqual('')
+
+      // Try and close modal (and not prevent it)
+      cancelHide = false
+      trigger = null
+      $close.trigger(click)
+      expect(trigger).toEqual('headerclose')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be clsoed
+      expect($modal.element.style.display).toEqual('none')
+
+      wrapper.destroy()
     })
   })
 })
