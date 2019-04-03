@@ -27,7 +27,6 @@ const Selector = {
   CONTENT: '.popover-body'
 }
 
-/* istanbul ignore next: dificult to test in Jest/JSDOM environment */
 class PopOver extends ToolTip {
   // Getter overrides
 
@@ -41,7 +40,7 @@ class PopOver extends ToolTip {
 
   // Method overrides
 
-  isWithContent(tip) /* istanbul ignore next */ {
+  isWithContent(tip) {
     tip = tip || this.$tip
     if (!tip) {
       return false
@@ -55,7 +54,7 @@ class PopOver extends ToolTip {
     addClass(this.getTipElement(), `${CLASS_PREFIX}-${attachment}`)
   }
 
-  setContent(tip) /* istanbul ignore next */ {
+  setContent(tip) {
     // we use append for html objects to maintain js events/components
     this.setElementContent(select(Selector.TITLE, tip), this.getTitle())
     this.setElementContent(select(Selector.CONTENT, tip), this.getContent())
@@ -75,7 +74,7 @@ class PopOver extends ToolTip {
     }
   }
 
-  getTitle() /* istanbul ignore next */ {
+  getTitle() {
     let title = this.$config.title || ''
     if (typeof title === 'function') {
       title = title(this.$element)
@@ -97,7 +96,7 @@ class PopOver extends ToolTip {
 
   // New methods
 
-  getContent() /* istanbul ignore next */ {
+  getContent() {
     let content = this.$config.content || ''
     if (typeof content === 'function') {
       content = content(this.$element)
