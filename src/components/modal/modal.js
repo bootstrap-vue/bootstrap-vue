@@ -379,7 +379,7 @@ export default {
       this.show()
     }
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     // Ensure everything is back to normal
     if (this._observer) {
       this._observer.disconnect()
@@ -616,23 +616,15 @@ export default {
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {
-      const options = { passive: true, capture: false }
-      if (on) {
-        eventOn(document, 'focusin', this.focusHandler, options)
-      } else {
-        eventOff(document, 'focusin', this.focusHandler, options)
-      }
+      const method = on ? eventOn : eventOff
+      method(document, 'focusin', this.focusHandler, { passive: true, capture: false })
     },
     // Resize Listener
-    setResizeEvent(on) /* istanbul ignore next: can't easily test in JSDOM */ {
-      ;['resize', 'orientationchange'].forEach(evtName => {
-        const options = { passive: true, capture: false }
-        if (on) {
-          eventOn(window, evtName, this.adjustDialog, options)
-        } else {
-          eventOff(window, evtName, this.adjustDialog, options)
-        }
-      })
+    setResizeEvent(on) {
+      const options = { passive: true, capture: false }
+      const method = on ? eventOn : eventOff
+      method(window, 'resize', this.adjustDialog, options)
+      method(window, 'orientationchange', this.adjustDialog, options)
     },
     // Root Listener handlers
     showHandler(id, triggerEl) {
@@ -711,14 +703,12 @@ export default {
       document.body.removeChild(scrollDiv)
     },
     setModalOpenClass(open) {
-      if (open) {
-        addClass(document.body, 'modal-open')
-      } else {
-        removeClass(document.body, 'modal-open')
-      }
+      const method = open ? addClass : removeClass
+      method(document.body, 'modal-open')
     },
     adjustDialog() {
       if (!this.is_visible) {
+        /* istanbul ignore next */
         return
       }
       const modal = this.$refs.modal
