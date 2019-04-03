@@ -407,11 +407,14 @@ export default {
     show() {
       if (this.is_visible || this.is_opening) {
         // if already open, on in the process of opening, do nothing
+        /* istanbul ignore next */
         return
       }
       if (this.is_closing) {
         // if we are in the process of closing, wait until hidden before re-opening
+        /* istanbul ignore next: very difficult to test */
         this.$once('hidden', this.show)
+        /* istanbul ignore next */
         return
       }
       this.is_opening = true
@@ -431,11 +434,7 @@ export default {
       if (!this.noStacking) {
         // Find the z-index to use
         this.zIndex = getModalNextZIndex()
-        // Show the modal
-        this.doShow()
-        return
-      }
-      if (hasClass(document.body, 'modal-open')) {
+      } else if (hasClass(document.body, 'modal-open')) {
         // If another modal is already open, wait for it to close
         this.$root.$once('bv::modal::hidden', this.doShow)
         return
@@ -445,6 +444,7 @@ export default {
     },
     hide(trigger) {
       if (!this.is_visible || this.is_closing) {
+        /* istanbul ignore next */
         return
       }
       this.is_closing = true
@@ -663,6 +663,7 @@ export default {
     focusFirst() {
       // Don't try and focus if we are SSR
       if (typeof document === 'undefined') {
+        /* istanbul ignore next */
         return
       }
       const modal = this.$refs.modal
