@@ -2035,6 +2035,7 @@ differences between operating systems, this too is not a preventable default beh
           { key: 'isActive', label: 'is Active' },
           { key: 'actions', label: 'Actions' }
         ],
+        totalRows: 1,
         currentPage: 1,
         perPage: 5,
         pageOptions: [5, 10, 15],
@@ -2046,9 +2047,6 @@ differences between operating systems, this too is not a preventable default beh
       }
     },
     computed: {
-      totalRows() {
-        return this.items.length
-      },
       sortOptions() {
         // Create an options list from our fields
         return this.fields
@@ -2057,6 +2055,10 @@ differences between operating systems, this too is not a preventable default beh
             return { text: f.label, value: f.key }
           })
       }
+    },
+    mounted() {
+      // Set the initial number of items
+      totalRows = this.items.length
     },
     methods: {
       info(item, index, button) {
