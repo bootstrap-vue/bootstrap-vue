@@ -218,13 +218,11 @@ export default {
       }
     },
     onDisable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable()
       }
     },
     onEnable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable()
       }
