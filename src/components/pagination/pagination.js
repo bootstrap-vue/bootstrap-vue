@@ -42,11 +42,12 @@ export default {
     }
   },
   watch: {
-    numberOfPages(newVal, oldVal) {
-      this.localNumPages = newVal
-      if (newVal !== oldVal) {
-        this.currentPage = 1
+    numberOfPages(newVal) {
+      if (newVal === this.localNumPages) {
+        return
       }
+      this.localNumPages = newVal
+      this.currentPage = 1
     }
   },
   created() {
