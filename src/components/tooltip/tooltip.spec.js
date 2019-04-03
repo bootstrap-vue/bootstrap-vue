@@ -7,7 +7,7 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Our test application definition
 const appDef = {
-  props: ['triggers', 'show', 'disabled', 'title', 'titleAttr', 'btnDisabled'],
+  props: ['triggers', 'show', 'disabled', 'noFade', 'title', 'titleAttr', 'btnDisabled'],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
       h(
@@ -31,6 +31,7 @@ const appDef = {
             triggers: this.triggers,
             show: this.show,
             disabled: this.disabled,
+            noFade: this.noFade || false,
             title: this.title || null
           }
         },
@@ -367,7 +368,9 @@ describe('tooltip', () => {
       localVue: localVue,
       propsData: {
         triggers: 'hover',
-        show: false
+        show: false,
+        // Add no fade for coverage
+        noFade: true
       },
       slots: {
         default: 'title'
