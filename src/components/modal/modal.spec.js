@@ -1,7 +1,7 @@
 import Modal from './modal'
 import { mount, createWrapper } from '@vue/test-utils'
 
-const waitAF = new Promise(resolve => requestAnimationFrame(resolve))
+const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('modal', () => {
   describe('structure', () => {
