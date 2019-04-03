@@ -82,7 +82,7 @@ describe('v-b-popover directive', () => {
       data() {
         return {}
       },
-      template: `<button v-b-tooltip.click.html="'content'" title="<b>foobar</b>">button</button>`
+      template: `<button v-b-popover.click.html="'content'" title="<b>foobar</b>">button</button>`
     })
 
     const wrapper = mount(App, {
