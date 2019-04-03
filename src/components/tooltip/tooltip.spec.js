@@ -210,7 +210,7 @@ describe('tooltip', () => {
     wrapper.destroy()
   })
 
-  it('activating trigger element opens tooltip', async () => {
+  it('activating trigger element (click) opens tooltip', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
@@ -277,6 +277,86 @@ describe('tooltip', () => {
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
     expect(document.querySelector(`#${adb}`)).toBe(null)
+  })
+
+  it('activating trigger element (focus) opens tooltip', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'focus',
+        show: false
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // b-tooltip wrapper
+    const $tipholder = wrapper.find('div#bar')
+    expect($tipholder.exists()).toBe(true)
+
+    // title placeholder will be here until opened
+    expect($tipholder.findAll('div.d-none > div').length).toBe(1)
+    expect($tipholder.text()).toBe('title')
+
+    // Activate tooltip by trigger
+    $button.trigger('focusin')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    // Deactivate tooltip by trigger
+    $button.trigger('focusout')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    // Tooltip element should not be in the document
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
+
+    wrapper.destroy()
   })
 
   it('disabled tooltip does not open on trigger', async () => {
