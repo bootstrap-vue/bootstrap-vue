@@ -362,7 +362,7 @@ describe('tooltip', () => {
     wrapper.destroy()
   })
 
-  it('gets title from trigger element title attribute', async () => {
+  it('gets title from title prop', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
@@ -371,7 +371,7 @@ describe('tooltip', () => {
       propsData: {
         triggers: 'click',
         show: true,
-        titleAttr: 'title'
+        title: 'title'
       }
     })
 
@@ -408,7 +408,7 @@ describe('tooltip', () => {
     expect($tipholder.attributes('aria-hidden')).toEqual('true')
     expect($tipholder.element.style.display).toEqual('none')
 
-    // title placeholder (from default slot) will ahve been moved to tooltip element
+    // title placeholder... not used since title prop passed direct to tooltip class
     expect($tipholder.text()).toBe('')
 
     // Find the tooltip element in the document
@@ -419,10 +419,8 @@ describe('tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.innerText).toContain('title')
 
-    // Hide the tooltip
-    wrapper.setProps({
-      show: false
-    })
+    // Hide the tooltip by clickign button
+    $button.trigger('click')
     await wrapper.vm.$nextTick()
     await waitAF()
     await wrapper.vm.$nextTick()
