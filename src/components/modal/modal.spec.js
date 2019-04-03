@@ -419,12 +419,13 @@ describe('modal', () => {
       // Modal should now be clsoed
       expect($modal.element.style.display).toEqual('none')
 
-      expect(wrapper.emited('ok')).toBeDefined()
-      expect(wrapper.emited('ok').legnth).toBe(1)
-      expect(wrapper.emited('cancel')).toBeDefined()
-      expect(wrapper.emited('cancel').legnth).toBe(1)
-      expect(wrapper.emited('hidden')).toBeDefined()
-      expect(wrapper.emited('hidden').legnth).toBe(1)
+      // Modal should have emitted these events
+      expect(wrapper.emitted('ok')).toBeDefined()
+      expect(wrapper.emitted('ok').legnth).toBe(1)
+      expect(wrapper.emitted('cancel')).toBeDefined()
+      expect(wrapper.emitted('cancel').legnth).toBe(1)
+      expect(wrapper.emitted('hidden')).toBeDefined()
+      expect(wrapper.emitted('hidden').legnth).toBe(1)
 
       wrapper.destroy()
     })
