@@ -269,7 +269,7 @@ describe('modal', () => {
     })
   })
 
-  describe('buton functionality/events', () => {
+  describe('button and event functionality', () => {
     it('header close button triggers modal close and is preventable', async () => {
       let cancelHide = true
       let trigger = null
@@ -426,6 +426,120 @@ describe('modal', () => {
       expect(wrapper.emitted('cancel').length).toBe(1)
       expect(wrapper.emitted('hidden')).toBeDefined()
       expect(wrapper.emitted('hidden').length).toBe(1)
+
+      wrapper.destroy()
+    })
+
+    it('pressing ESC closes modal', async () => {
+      let trigger = null
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('')
+
+      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(trigger).toEqual(null)
+
+      // Try and close modal via ESC
+      $modal.trigger('keydown.esc')
+      expect(trigger).toEqual('esc')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be clsoed
+      expect($modal.element.style.display).toEqual('none')
+
+      // Modal should have emitted these events
+      expect(wrapper.emitted('hide')).toBeDefined()
+      expect(wrapper.emitted('hide').length).toBe(1)
+      expect(wrapper.emitted('hidden')).toBeDefined()
+      expect(wrapper.emitted('hidden').length).toBe(1)
+
+      expect(wrapper.emitted('ok')).not.toBeDefined()
+      expect(wrapper.emitted('cancel')).not.toBeDefined()
+
+      wrapper.destroy()
+    })
+
+    it('click outside closes modal', async () => {
+      let trigger = null
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('')
+
+      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(trigger).toEqual(null)
+
+      // Try and close modal via click out
+      wrapper.trigger('click')
+      expect(trigger).toEqual('backdrop')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be clsoed
+      expect($modal.element.style.display).toEqual('none')
+
+      // Modal should have emitted these events
+      expect(wrapper.emitted('hide')).toBeDefined()
+      expect(wrapper.emitted('hide').length).toBe(1)
+      expect(wrapper.emitted('hidden')).toBeDefined()
+      expect(wrapper.emitted('hidden').length).toBe(1)
+
+      expect(wrapper.emitted('ok')).not.toBeDefined()
+      expect(wrapper.emitted('cancel')).not.toBeDefined()
 
       wrapper.destroy()
     })
