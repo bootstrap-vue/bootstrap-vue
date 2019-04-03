@@ -8,7 +8,7 @@ describe('tooltip', () => {
     const App = localVue.extend({
       render(h) {
         'div',
-        { id: 'app' },
+        { attrs: { id: 'wrapper' } },
         [
           h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
           h(Tooltip, { attrs: { id: 'bar' }, props: { target: 'foo', trigger: 'click' } }, 'title')
@@ -23,18 +23,22 @@ describe('tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
 
-    const $button = wrapper.find('button#foo')
-    const $tipholder = wrapper.find('div#bar')
-
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+    
+    const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
-    expect($tipholder.exists()).toBe(true)
-
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('')
     expect($button.attributes('data-original-title')).toBeDefined()
     expect($button.attributes('data-oriignal-title')).toEqual('')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
+    const $tipholder = wrapper.find('div#bar')
+    expect($tipholder.exists()).toBe(true)
     expect($tipholder.classes()).toContain('d-none')
     expect($tipholder.attributes('aria-hidden')).toBeDefined()
     expect($tipholder.attributes('aria-hidden')).toEqual('true')
