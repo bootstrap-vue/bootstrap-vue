@@ -114,7 +114,6 @@ const generateId = name => `__BV_${name}_${NEXTID++}__`
 /*
  * ToolTip class definition
  */
-/* istanbul ignore next: difficult to test in Jest/JSDOM environment */
 class ToolTip {
   // Main constructor
   constructor(element, config, $root) {
