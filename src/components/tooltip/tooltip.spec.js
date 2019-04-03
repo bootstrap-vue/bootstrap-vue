@@ -53,7 +53,7 @@ describe('tooltip', () => {
 
     // title placeholder
     expect($tipholder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipholder.findAll('div.d-none > div').text()).toBe('title')
+    expect($tipholder.find('div.d-none > div').text()).toBe('title')
 
     wrapper.destroy()
   })
