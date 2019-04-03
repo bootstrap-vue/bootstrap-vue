@@ -297,7 +297,7 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
-    setObservers(on) /* istanbul ignore next: can't test in JSDOM */ {
+    setObservers(on) {
       if (on) {
         if (this.$refs.title) {
           this._obs_title = observeDom(
