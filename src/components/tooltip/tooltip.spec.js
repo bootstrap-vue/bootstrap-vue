@@ -169,9 +169,6 @@ describe('tooltip', () => {
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    expect(tip.innerText).toEqual('title')
-
     // Hide the tooltip
     wrapper.setProps({
       show: false
