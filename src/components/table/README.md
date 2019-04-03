@@ -2047,7 +2047,7 @@ differences between operating systems, this too is not a preventable default beh
     },
     computed: {
       totalRows() {
-        this.items.length
+        return this.items.length
       },
       sortOptions() {
         // Create an options list from our fields

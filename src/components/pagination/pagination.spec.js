@@ -678,7 +678,54 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('changing the pagesize resets to page 1', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
+    const wrapper = mount(Pagination, {
+      propsData: {
+        totalRows: 10,
+        perPage: 1,
+        value: 10, // set to last page
+        limit: 20
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm.currentPage).toBe(10)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    wrapper.setProps({
+      perPage: 3
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(1)
+
+    // Change to page 3
+    wrapper.setProps({
+      value: 3
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe(3)
+
+    // Increasing number of pages should reset to page 1
+    wrapper.setProps({
+      perPage: 1
+    })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  //
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  //
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 

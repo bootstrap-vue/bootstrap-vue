@@ -42,8 +42,13 @@ export default {
     }
   },
   watch: {
-    numberOfPages(newVal, OldVal) {
+    numberOfPages(newVal) {
+      if (newVal === this.localNumPages) {
+        /* istanbul ignore next */
+        return
+      }
       this.localNumPages = newVal
+      this.currentPage = 1
     }
   },
   created() {
