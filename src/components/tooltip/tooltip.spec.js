@@ -7,7 +7,7 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Our test application definition
 const appDef = {
-  props: ['trigger', 'show', 'disabed', 'title', 'titleAttr'],
+  props: ['triggers', 'show', 'disabed', 'title', 'titleAttr'],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
       h('button', { attrs: { id: 'foo', type: 'button', title: this.titleAttr || null } }, 'text'),
@@ -17,7 +17,7 @@ const appDef = {
           attrs: { id: 'bar' },
           props: {
             target: 'foo',
-            trigger: this.trigger,
+            triggers: this.triggers,
             show: this.show,
             disabled: this.disabled,
             title: this.title || null
@@ -72,7 +72,7 @@ describe('tooltip', () => {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
-        trigger: 'click'
+        triggers: 'click'
       },
       slots: {
         default: 'title'
@@ -119,7 +119,7 @@ describe('tooltip', () => {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
-        trigger: 'click',
+        triggers: 'click',
         show: true
       },
       slots: {
@@ -201,7 +201,7 @@ describe('tooltip', () => {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
-        trigger: 'click',
+        triggers: 'click',
         show: false
       },
       slots: {
@@ -266,7 +266,7 @@ describe('tooltip', () => {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
-        trigger: 'click',
+        triggers: 'click',
         show: false,
         disabled: true
       },
