@@ -44,6 +44,7 @@ export default {
   watch: {
     numberOfPages(newVal) {
       if (newVal === this.localNumPages) {
+        /* istanbul ignore next */
         return
       }
       this.localNumPages = newVal
