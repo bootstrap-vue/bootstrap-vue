@@ -153,6 +153,9 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      
+      // Modal should store cash of adjustments on body element
+      expect(Array.isArray(body._marginChangedForModal)).toBe(true)
 
       // This outer DIV will go away once we migrate to Portal-Vue
       // As all modals will be lazy
@@ -191,6 +194,8 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+
+      expect(body._marginChangedForModal).toBe(null)
 
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
