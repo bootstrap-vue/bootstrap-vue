@@ -377,6 +377,9 @@ describe('tooltip', () => {
         triggers: 'click',
         show: true,
         title: 'title'
+      },
+      slots: {
+        default: undefined
       }
     })
 
