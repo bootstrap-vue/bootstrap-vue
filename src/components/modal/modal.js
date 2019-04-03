@@ -732,7 +732,7 @@ export default {
         modal.style.paddingRight = ''
       }
     },
-    checkScrollbar() /* istanbul ignore next: getBCR can't be tested in JSDOM */ {
+    checkScrollbar() {
       const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
