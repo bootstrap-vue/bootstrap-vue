@@ -166,7 +166,7 @@ describe('tooltip', () => {
     const tip = document.querySelector(`#${adb}`)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
-    expect(tip.tagName).toEqual('div')
+    expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
 
     await wrapper.vm.$nextTick()
