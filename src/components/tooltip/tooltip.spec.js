@@ -257,6 +257,10 @@ describe('tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
 
     wrapper.destroy()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
   })
 
   it('disabled tooltip does not open on trigger', async () => {
@@ -320,6 +324,9 @@ describe('tooltip', () => {
     })
     await wrapper.vm.$nextTick()
     await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
 
     // Try to activate tooltip by trigger
     $button.trigger('click')
