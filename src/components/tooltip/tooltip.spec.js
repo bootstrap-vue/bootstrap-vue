@@ -3,6 +3,30 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const localVue = new CreateLocalVue()
 
+// Our test application definition
+const appDef = {
+  props: ['trigger', 'show', 'disabed', 'title'],
+  render(h) {
+    return h('article', { attrs: { id: 'wrapper' } }, [
+      h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
+      h(
+        Tooltip,
+        {
+          attrs: { id: 'bar' },
+          props: {
+            target: 'foo',
+            trigger: this.trigger,
+            show: this.show,
+            disabled: this.disabled,
+            title: this.title || null
+          }
+        },
+        this.$slots.default
+      )
+    ])
+  }
+}
+
 describe('tooltip', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
@@ -10,7 +34,7 @@ describe('tooltip', () => {
   beforeEach(() => {
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
     // Hack to make Popper not bork out during tests.
-    // Note popper still does not do any positioning claculation in JSDOM though.
+    // Note popper still does not do any positioning calculation in JSDOM though.
     // So we cannot test actual positioning... just detect when it is open.
     document.createRange = () => ({
       setStart: () => {},
@@ -21,6 +45,7 @@ describe('tooltip', () => {
       }
     })
     // Mock getBCR so that the isVisible(el) test returns true
+    // Needed for visibility checks of trigger element, etc.
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
         width: 24,
@@ -40,24 +65,16 @@ describe('tooltip', () => {
   })
 
   it('has expected default structure', async () => {
-    const App = localVue.extend({
-      render(h) {
-        return h('article', { attrs: { id: 'wrapper' } }, [
-          h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
-          h(
-            Tooltip,
-            {
-              attrs: { id: 'bar' },
-              props: { target: 'foo', trigger: 'click' }
-            },
-            'title'
-          )
-        ])
-      }
-    })
+    const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachToDocument: true,
-      localVue: localVue
+      localVue: localVue,
+      propsData: {
+        trigger: 'click'
+      },
+      slots: {
+        default: 'title'
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -86,7 +103,7 @@ describe('tooltip', () => {
     expect($tipholder.attributes('aria-hidden')).toEqual('true')
     expect($tipholder.element.style.display).toEqual('none')
 
-    // title placeholder
+    // title placeholder (from default slot)
     expect($tipholder.findAll('div.d-none > div').length).toBe(1)
     expect($tipholder.find('div.d-none > div').text()).toBe('title')
 
