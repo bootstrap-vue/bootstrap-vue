@@ -153,14 +153,16 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
 
       // Modal should store cache of adjustments on body element
       const $body = createWrapper(document.body)
+      expect(Array.isArray($body.element._marginChangedForModal)).toBe(true)
+      expect(Array.isArray($body.element._paddingChangedForModal)).toBe(true)
       expect($body.classes()).toContain('modal-open')
       expect($body.attributes('data-modal-open-count')).toBeDefined()
       expect($body.attributes('data-modal-open-count')).toEqual('1')
-      expect(Array.isArray($body.element._marginChangedForModal)).toBe(true)
-      expect(Array.isArray($body.element._paddingChangedForModal)).toBe(true)
 
       // This outer DIV will go away once we migrate to Portal-Vue
       // As all modals will be lazy
@@ -195,6 +197,8 @@ describe('modal', () => {
       wrapper.setProps({
         visible: false
       })
+      await wrapper.vm.$nextTick()
+      await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
       await wrapper.vm.$nextTick()
