@@ -74,6 +74,11 @@ describe('modal', () => {
     it('has expected structure when initially open', async () => {
       const wrapper = mount(Modal, {
         attachToDocument: true,
+        stubs: {
+          // Disable the use of transitionStub fake transition
+          // AS it doesn't run transition hooks
+          transition: false
+        },
         propsData: {
           id: 'test',
           visible: true
@@ -81,8 +86,6 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await wrapper.vm.$nextTick()
-      await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
       await wrapper.vm.$nextTick()
