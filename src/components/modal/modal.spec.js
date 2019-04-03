@@ -85,6 +85,8 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
 
       // This outer DIV will go away once we migrate to Portal-Vue
       // As all modals will be lazy
@@ -97,12 +99,6 @@ describe('modal', () => {
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
       expect($outer.element.style.zIndex).toEqual('2000')
-
-      // Should have a backdrop
-      const $backdrop = $outer.find('div.modal-backdrop')
-      expect($backdrop.exists()).toBe(true)
-      expect($backdrop.classes()).toContain('fade')
-      expect($backdrop.classes()).toContain('show')
 
       // Main modal wraper
       const $modal = $outer.find('div.modal')
@@ -121,6 +117,12 @@ describe('modal', () => {
       expect($modal.classes()).toContain('show')
       expect($modal.classes()).toContain('d-block')
       expect($modal.element.style.display).toEqual('')
+
+      // Should have a backdrop
+      const $backdrop = $outer.find('div.modal-backdrop')
+      expect($backdrop.exists()).toBe(true)
+      expect($backdrop.classes()).toContain('fade')
+      expect($backdrop.classes()).toContain('show')
 
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
