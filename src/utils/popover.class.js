@@ -30,11 +30,11 @@ const Selector = {
 class PopOver extends ToolTip {
   // Getter overrides
 
-  static get Default() /* istanbul ignore next */ {
+  static get Default() {
     return Defaults
   }
 
-  static get NAME() /* istanbul ignore next */ {
+  static get NAME() {
     return NAME
   }
 
@@ -43,6 +43,7 @@ class PopOver extends ToolTip {
   isWithContent(tip) {
     tip = tip || this.$tip
     if (!tip) {
+      /* istanbul ignore next */
       return false
     }
     const hasTitle = Boolean((select(Selector.TITLE, tip) || {}).innerHTML)
@@ -76,9 +77,11 @@ class PopOver extends ToolTip {
 
   getTitle() {
     let title = this.$config.title || ''
+    /* istanbul ignore next */
     if (typeof title === 'function') {
       title = title(this.$element)
     }
+    /* istanbul ignore next */
     if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       title = ''
