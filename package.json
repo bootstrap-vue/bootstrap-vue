@@ -92,7 +92,7 @@
     "babel-jest": "^24.7.0",
     "babel-plugin-istanbul": "^5.1.1",
     "clean-css-cli": "^4.2.1",
-    "codecov": "^3.2.0",
+    "codecov": "^3.3.0",
     "codemirror": "^5.45.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
