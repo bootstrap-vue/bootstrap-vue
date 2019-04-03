@@ -199,7 +199,8 @@ describe('modal', () => {
       expect($modal.classes()).not.toContain('d-block')
       expect($modal.element.style.display).toEqual('none')
 
-      expect($outer.find('div.modal-backdrop')).toBe(false)
+      // Backdrop should be removed
+      expect($outer.find('div.modal-backdrop').exists()).toBe(false)
 
       wrapper.destroy()
     })
