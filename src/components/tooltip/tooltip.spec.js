@@ -165,6 +165,11 @@ describe('tooltip', () => {
     // Find the tooltip element in the document
     const tip = document.querySelector(`#${adb}`)
     expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('div')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    await wrapper.vm.$nextTick()
     expect(tip.innerText).toEqual('title')
 
     // Hide the tooltip
