@@ -528,6 +528,160 @@ describe('tooltip', () => {
     wrapper.destroy()
   })
 
+  it('closes on $root close specific ID event', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        disabled: false,
+        titleAttr: 'ignored'
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).toBeDefined()
+    expect($button.attributes('title')).toEqual('')
+    expect($button.attributes('data-original-title')).toBeDefined()
+    expect($button.attributes('data-original-title')).toEqual('ignored')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // b-tooltip wrapper
+    const $tipholder = wrapper.find('div#bar')
+    expect($tipholder.exists()).toBe(true)
+    expect($tipholder.classes()).toContain('d-none')
+    expect($tipholder.attributes('aria-hidden')).toBeDefined()
+    expect($tipholder.attributes('aria-hidden')).toEqual('true')
+    expect($tipholder.element.style.display).toEqual('none')
+
+    // title placeholder...
+    expect($tipholder.text()).toBe('')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    // Hide the tooltip by emitting root event with correct ID (forceHide)
+    wrapper.vm.$root.$emit('bv::hide::tooltip', 'foo')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.querySelector(`#${adb}`)).toBe(null)
+
+    wrapper.destroy()
+  })
+
+  it('does not close on $root close specific other ID event', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        disabled: false,
+        titleAttr: 'ignored'
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).toBeDefined()
+    expect($button.attributes('title')).toEqual('')
+    expect($button.attributes('data-original-title')).toBeDefined()
+    expect($button.attributes('data-original-title')).toEqual('ignored')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // b-tooltip wrapper
+    const $tipholder = wrapper.find('div#bar')
+    expect($tipholder.exists()).toBe(true)
+    expect($tipholder.classes()).toContain('d-none')
+    expect($tipholder.attributes('aria-hidden')).toBeDefined()
+    expect($tipholder.attributes('aria-hidden')).toEqual('true')
+    expect($tipholder.element.style.display).toEqual('none')
+
+    // title placeholder...
+    expect($tipholder.text()).toBe('')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    // Tooltip should ignore when ID is not it's own
+    wrapper.vm.$root.$emit('bv::hide::tooltip', 'wrong-id')
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
+
+    expect($button.attributes('aria-describedby')).toBeDefined()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(true)
+    expect(document.querySelector(`#${adb}`)).not.toBe(null)
+
+    wrapper.destroy()
+  })
+
   it('closes on $root close all event', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
