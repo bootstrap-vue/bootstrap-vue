@@ -64,7 +64,7 @@ describe('modal', () => {
 
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-      expect(wrapper.find('div > *').length).toBe(0) // no content
+      expect(wrapper.findAll('div > *').length).toBe(0) // no content
 
       wrapper.destroy()
     })
