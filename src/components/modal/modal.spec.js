@@ -43,7 +43,7 @@ describe('modal', () => {
       expect($modal.classes()).toContain('fade')
       expect($modal.classes()).not.toContain('show')
       expect($modal.classes()).not.toContain('d-block')
-      expect($modal.style.display).toEqual('none')
+      expect($modal.element.style.display).toEqual('none')
 
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
