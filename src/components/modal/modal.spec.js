@@ -521,7 +521,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal via click out
-      wrapper.find('.modal-backdrop').trigger('click')
+      $modal.trigger('click')
       expect(trigger).toEqual('backdrop')
 
       await wrapper.vm.$nextTick()
