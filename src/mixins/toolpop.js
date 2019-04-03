@@ -114,20 +114,14 @@ export default {
   },
   watch: {
     show(show, old) {
-      /* istanbul ignore if */
-      if (show === old) {
-        /* istanbul ignore next */
-        return
+      if (show !== old) {
+        show ? this.onOpen() : this.onClose()
       }
-      show ? this.onOpen() : this.onClose()
     },
     disabled(disabled, old) {
-      /* istanbul ignore if */
-      if (disabled === old) {
-        /* istanbul ignore next */
-        return
+      if (disabled !== old) {
+        disabled ? this.onDisable() : this.onEnable()
       }
-      disabled ? this.onDisable() : this.onEnable()
     }
   },
   created() {
@@ -152,7 +146,7 @@ export default {
         this.$on('close', this.onClose)
         // Listen to disable signals from others
         this.$on('disable', this.onDisable)
-        // Listen to disable signals from others
+        // Listen to enable signals from others
         this.$on('enable', this.onEnable)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
@@ -165,25 +159,22 @@ export default {
   },
   updated() {
     // If content/props changes, etc
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
-  activated() {
+  activated() /* istanbul ignore next: can't easily test in JSDOM */ {
     // Called when component is inside a <keep-alive> and component brought offline
-    /* istanbul ignore next: can't test in JSDOM */
     this.setObservers(true)
   },
-  deactivated() {
+  deactivated() /* istanbul ignore next: can't easily test in JSDOM */ {
     // Called when component is inside a <keep-alive> and component taken offline
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
     }
   },
-  beforeDestroy() /* istanbul ignore next: not easy to test */ {
+  beforeDestroy() {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
