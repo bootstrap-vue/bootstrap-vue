@@ -7,21 +7,17 @@ describe('tooltip', () => {
   it('has expected default structure', async () => {
     const App = localVue.extend({
       render(h) {
-        return h(
-          'div',
-          { attrs: { id: 'wrapper' } },
-          [
-            h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
-            h(
-              Tooltip,
-              {
-                attrs: { id: 'bar' },
-                props: { target: 'foo', trigger: 'click' }
-              },
-              'title'
-            )
-          ]
-        )
+        return h('article', { attrs: { id: 'wrapper' } }, [
+          h('button', { attrs: { id: 'foo', type: 'button' } }, 'text'),
+          h(
+            Tooltip,
+            {
+              attrs: { id: 'bar' },
+              props: { target: 'foo', trigger: 'click' }
+            },
+            'title'
+          )
+        ])
       }
     })
     const wrapper = mount(App, {
@@ -32,10 +28,11 @@ describe('tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
+    // The trigger button
     const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
@@ -46,6 +43,7 @@ describe('tooltip', () => {
     expect($button.attributes('data-original-title')).toEqual('')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
+    // b-tooltip wrapper
     const $tipholder = wrapper.find('div#bar')
     expect($tipholder.exists()).toBe(true)
     expect($tipholder.classes()).toContain('d-none')
@@ -53,8 +51,9 @@ describe('tooltip', () => {
     expect($tipholder.attributes('aria-hidden')).toEqual('true')
     expect($tipholder.element.style.display).toEqual('none')
 
-    expect($tipholder.findAll('div > div').length).toBe(1)
-    expect($tipholder.findAll('div > div').text()).toBe('title')
+    // title placeholder
+    expect($tipholder.findAll('div.d-none > div').length).toBe(1)
+    expect($tipholder.findAll('div.d-none > div').text()).toBe('title')
 
     wrapper.destroy()
   })
