@@ -2,7 +2,7 @@ import Modal from './modal'
 import { mount, createWrapper } from '@vue/test-utils'
 
 describe('modal', () => {
-  describe('structure', () =>{
+  describe('structure', () => {
     it('has expected default structure', async () => {
       const wrapper = mount(Modal, {
         propsData: {
@@ -44,7 +44,7 @@ describe('modal', () => {
       expect($modal.classes()).not.toContain('show')
       expect($modal.classes()).not.toContain('d-block')
       expect($modal.style.display).toEqual('none')
-      
+
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
       expect($dialog.exists()).toBe(true)
