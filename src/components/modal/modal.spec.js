@@ -133,10 +133,83 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('has expected structure when closed after being initially open', async () => {
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          // Disable the use of transitionStub fake transition
+          // AS it doesn't run transition hooks
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: true
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // This outer DIV will go away once we migrate to Portal-Vue
+      // As all modals will be lazy
+      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.classes().length).toBe(0)
+
+      // Main outer wraper (has z-index, etc)... the stacker div
+      const $outer = createWrapper(wrapper.element.firstElementChild)
+      expect($outer.is('div')).toBe(true)
+      expect($outer.classes().length).toBe(0)
+      expect($outer.element.style.position).toEqual('absolute')
+      expect($outer.element.style.zIndex).toEqual('2000')
+
+      // Main modal wraper
+      const $modal = $outer.find('div.modal')
+      expect($modal.exists()).toBe(true)
+      expect($modal.attributes('aria-hidden')).not.toBeDefined()
+      expect($modal.attributes('aria-modal')).toBeDefined()
+      expect($modal.attributes('aria-modal')).toEqual('true')
+      expect($modal.classes()).toContain('fade')
+      expect($modal.classes()).toContain('show')
+      expect($modal.classes()).toContain('d-block')
+      expect($modal.element.style.display).toEqual('')
+
+      // Should have a backdrop
+      const $backdrop = $outer.find('div.modal-backdrop')
+      expect($backdrop.exists()).toBe(true)
+      expect($backdrop.classes()).toContain('fade')
+      expect($backdrop.classes()).toContain('show')
+
+      // Now we close the modal via the value prop
+      wrapper.setProps({
+        visible: false
+      })
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      expect($modal.attributes('aria-hidden')).toBeDefined()
+      expect($modal.attributes('aria-hidden')).toEqual('true')
+      expect($modal.attributes('aria-modal')).not.toBeDefined()
+      expect($modal.classes()).not.toContain('show')
+      expect($modal.classes()).not.toContain('d-block')
+      expect($modal.element.style.display).toEqual('none')
+
+      expect($outer.find('div.modal-backdrop')).toBe(false)
+
+      wrapper.destroy()
+    })
   })
 
   describe('default button content, classes and attributes', () => {
-    it('footer ok and cancel buttons', async () => {
+    //
+    // We may want to move these tests into individual files for managability
+    //
+    it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(Modal)
       expect(wrapper).toBeDefined()
 
@@ -160,7 +233,7 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('header close button', async () => {
+    it('default header close button', async () => {
       const wrapper = mount(Modal)
       expect(wrapper).toBeDefined()
 
