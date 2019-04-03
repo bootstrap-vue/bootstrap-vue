@@ -132,7 +132,7 @@ describe('tooltip', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
-    jest.runAllTimers()
+    jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -179,7 +179,7 @@ describe('tooltip', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
-    jest.runAllTimers()
+    jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
     // title placeholder (from default slot) will be back here
