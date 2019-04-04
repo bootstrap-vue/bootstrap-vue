@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import BImgLazy from '../image/img-lazy'
 import { omit } from '../../utils/object'
 import { mergeData } from 'vue-functional-data-merge'
@@ -46,7 +47,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCardImgLazy',
   functional: true,
   props,
@@ -72,4 +73,4 @@ export default {
       })
     )
   }
-}
+})
