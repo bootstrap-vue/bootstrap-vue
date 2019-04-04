@@ -360,7 +360,7 @@ class ToolTip {
     this.$visibleInterval = null
     if (on) {
       this.$visibleInterval = setInterval(() => {
-        const tip = this.getTipElement()
+        const tip = this.$tip
         if (tip && !isVisible(this.$element) && hasClass(tip, ClassName.SHOW)) {
           // Element is no longer visible, so force-hide the tooltip
           this.forceHide()
