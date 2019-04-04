@@ -3,7 +3,7 @@
  * Common props
  */
 import { isArray } from '../utils/array'
-import { isElement, getById } from '../utils/dom'
+import { isElement, getById, requestAF } from '../utils/dom'
 import { HTMLElement } from '../utils/ssr'
 import observeDom from '../utils/observe-dom'
 
