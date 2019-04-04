@@ -19,4 +19,17 @@ describe('nav-item-dropdown', () => {
 
     wrapper.destroy()
   })
+
+  it('should flag that we are in a nav', async () => {
+    const wrapper = mount(NavItemDropdown, {
+      propsData: {
+        text: 'toggle'
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm.isNav).toBe(true)
+
+    wrapper.destroy()
+  })
 })
