@@ -5,57 +5,6 @@ jest.useFakeTimers()
 describe('carousel', () => {
   beforeEach(loadFixture(__dirname, 'carousel'))
   testVM()
-
-  it('Arrow right keypress triggers next slide', async () => {
-    const { app } = window
-    const carousel = app.$refs.carousel
-
-    const spyBegin = jest.fn()
-    const spyEnd = jest.fn()
-
-    carousel.$on('sliding-start', spyBegin)
-    carousel.$on('sliding-end', spyEnd)
-
-    const event = new KeyboardEvent('keydown', { keyCode: 39 })
-    carousel.$el.dispatchEvent(event)
-
-    await nextTick()
-
-    expect(spyBegin).toHaveBeenCalledWith(1)
-    expect(carousel.isSliding).toBe(true)
-
-    jest.runAllTimers()
-    await nextTick()
-
-    expect(spyEnd).toHaveBeenCalledWith(app.slide)
-    expect(carousel.isSliding).toBe(false)
-  })
-
-  it('Arrow left keypress triggers prev slide', async () => {
-    const { app } = window
-    const carousel = app.$refs.carousel
-
-    const spyBegin = jest.fn()
-    const spyEnd = jest.fn()
-
-    carousel.$on('sliding-start', spyBegin)
-    carousel.$on('sliding-end', spyEnd)
-
-    const event = new KeyboardEvent('keydown', { keyCode: 37 })
-    carousel.$el.dispatchEvent(event)
-
-    await nextTick()
-
-    expect(spyBegin).toHaveBeenCalled()
-    expect(carousel.isSliding).toBe(true)
-
-    jest.runAllTimers()
-    await nextTick()
-
-    expect(spyEnd).toHaveBeenCalledWith(app.slide)
-    expect(carousel.isSliding).toBe(false)
-  })
-
   it('should emit paused and unpaused events when interval changed to 0', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
