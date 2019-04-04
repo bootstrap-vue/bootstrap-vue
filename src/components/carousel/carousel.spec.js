@@ -877,6 +877,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
+    // Transitions (or fallback timers) are not used when no-animation set
     wrapper.setProps({
       value: 1
     })
@@ -884,20 +885,15 @@ describe('carousel', () => {
     await wrapper.vm.$nextTick()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('sliding-start').length).toBe(1)
-    expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
-    expect($carousel.vm.isSliding).toBe(true)
-
-    await wrapper.vm.$nextTick()
-
-    expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
+    expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end').length).toBe(1)
+    expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
     expect($carousel.emitted('sliding-end')[0][0]).toEqual(1)
     expect($carousel.emitted('input')).toBeDefined()
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
+    expect($carousel.vm.index).toBe(1)
     expect($carousel.vm.isSliding).toBe(false)
 
     wrapper.setProps({
@@ -907,18 +903,13 @@ describe('carousel', () => {
     await wrapper.vm.$nextTick()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
-    expect($carousel.emitted('sliding-end').length).toBe(1)
-    expect($carousel.emitted('sliding-start')[1][0]).toEqual(3)
-    expect($carousel.vm.isSliding).toBe(true)
-
-    await wrapper.vm.$nextTick()
-
-    expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
+    expect($carousel.emitted('sliding-start')[1][0]).toEqual(3)
     expect($carousel.emitted('sliding-end')[1][0]).toEqual(3)
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(3)
-    expect($carousel.vm.isSliding).toBe(false)
+    expect($carousel.vm.index).toBe(3)
+    expect($carousel.vm.isSliding).toBe(true)
 
     wrapper.destroy()
   })
