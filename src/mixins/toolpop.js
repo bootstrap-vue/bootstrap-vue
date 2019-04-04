@@ -262,7 +262,7 @@ export default {
     onShown(evt) {
       this.setObservers(true)
       this.$emit('shown', evt)
-      this.$nextTick(() => {
+      requestAF(() => {
         this.$emit('update:show', true)
       })
     },
