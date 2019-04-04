@@ -980,7 +980,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input')[0][0]).toEqual(1)
     expect($carousel.emitted('input')[1][0]).toEqual(3)
     expect($carousel.vm.index).toBe(3)
-    expect($carousel.vm.isSliding).toBe(false)
+    expect($carousel.vm.isSliding).toBe(true)
 
     // next transition should happen
     jest.runOnlyPendingTimers()
