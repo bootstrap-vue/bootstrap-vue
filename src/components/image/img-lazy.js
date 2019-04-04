@@ -90,7 +90,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend{
+export default Vue.extend({
   name: NAME,
   props,
   data() {
