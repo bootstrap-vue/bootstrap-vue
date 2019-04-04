@@ -754,7 +754,7 @@ describe('carousel', () => {
     await waitAF()
     jest.runOnlyPendingTimers()
 
-    expect($carousel.vm.interval).toBe(0)
+    expect($carousel.vm.interval).toBe(1000)
     expect($carousel.emitted('unpaused').length).toBe(2)
     expect($carousel.emitted('paused').length).toBe(1)
 
