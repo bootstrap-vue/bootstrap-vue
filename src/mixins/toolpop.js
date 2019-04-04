@@ -274,7 +274,6 @@ export default {
       // bring our content back if needed to keep Vue happy
       // Tooltip class will move it back to tip when shown again
       this.bringItBack()
-      this.isShowing = false
       this.$emit('update:show', false)
       this.$emit('hidden', evt)
     },
