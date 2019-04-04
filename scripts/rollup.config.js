@@ -10,7 +10,7 @@ const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
 
-const externals = [].concat('vue', Object.keys(dependencies))
+const externals = ['vue', ...Object.keys(dependencies)]
 
 // Libs in `external` will not be bundled to dist,
 // since they are expected to be provided later.
