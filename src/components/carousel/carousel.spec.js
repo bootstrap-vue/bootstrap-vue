@@ -301,9 +301,9 @@ describe('carousel', () => {
     await wrapper.vm.$nextTick()
     await waitAF()
 
-    expect($carousel.emitted('sliding-start')).notToBeDefined()
-    expect($carousel.emitted('sliding-end')).notToBeDefined()
-    expect($carousel.emitted('input')).notToBeDefined()
+    expect($carousel.emitted('sliding-start')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('input')).not.toBeDefined()
 
     wrapper.destroy()
   })
