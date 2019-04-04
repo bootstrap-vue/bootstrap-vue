@@ -114,7 +114,7 @@ export default {
 
       // Probe scrollHeight by temporarily changing the height to the minimum
       const oldHeight = el.style.height
-      el.style.height = minHeight + 'px'
+      el.style.height = `${minHeight}px`
       const scrollHeight = el.scrollHeight
       el.style.height = oldHeight
 
