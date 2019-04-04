@@ -675,4 +675,89 @@ describe('carousel', () => {
 
     wrapper.destroy()
   })
+
+  it('should emit paused and unpaused events when interval changed to 0', async () => {
+    const wrapper = mount(localVue.extend(appDef), {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $carousel = wrapper.find(Carousel)
+    expect($carousel).toBeDefined()
+    expect($carousel.isVueInstance()).toBe(true)
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('unpaused')).not.toBeDefined()
+    expect($carousel.emitted('paused')).not.toBeDefined()
+    expect($carousel.emitted('input')).not.toBeDefined()
+
+    expect($carousel.vm.interval).toBe(0)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('unpaused')).not.toBeDefined()
+    expect($carousel.emitted('paused')).not.toBeDefined()
+
+    wrapper.setProps({
+      interval: 1000
+    })
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.vm.interval).toBe(1000)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('unpaused')).toBeDefined()
+    expect($carousel.emitted('unpaused').length).toBe(1)
+    expect($carousel.emitted('paused')).not.toBeDefined()
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    wrapper.setProps({
+      interval: 0
+    })
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    expect($carousel.vm.interval).toBe(0)
+    expect($carousel.emitted('unpaused').length).toBe(1)
+    expect($carousel.emitted('paused')).toBeDefined()
+    expect($carousel.emitted('paused').length).toBe(1)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    wrapper.setProps({
+      interval: 1000
+    })
+    await wrapper.vm.$nextTick()
+    await waitAF()
+    jest.runOnlyPendingTimers()
+
+    expect($carousel.vm.interval).toBe(0)
+    expect($carousel.emitted('unpaused').length).toBe(2)
+    expect($carousel.emitted('paused').length).toBe(1)
+
+    wrapper.destroy()
+  })
 })
