@@ -205,7 +205,7 @@ export default {
       }
 
       let options = {}
-      if (typeof component === 'function') {
+      if (!component.options && typeof component === 'function') {
         // Async component that hans't been resolved yet
         component(cmp => {
           if (Object.prototype.toString.call(cmp) === '[object Object]') {
