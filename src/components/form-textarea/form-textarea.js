@@ -108,7 +108,7 @@ export default {
       const padding =
         (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate offset
-      const offset = computedStyle.boxSizing === 'border-box' ? border + padding : 0
+      const offset = border + padding
       // Minimum height for min rows (browser dependant)
       const minHeight = lineHeight * this.computedMinRows + offset
 
