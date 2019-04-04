@@ -73,7 +73,7 @@
   "dependencies": {
     "@nuxt/opencollective": "^0.2.2",
     "bootstrap": "^4.3.1",
-    "popper.js": "^1.14.7",
+    "popper.js": "^1.15.0",
     "vue-functional-data-merge": "^2.0.7"
   },
   "devDependencies": {
@@ -116,12 +116,12 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.1",
     "node-sass": "^4.11.0",
-    "nuxt": "^2.5.1",
+    "nuxt": "^2.6.1",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
     "rollup": "^1.8.0",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.3.3",
+    "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
