@@ -260,9 +260,8 @@ export default {
       /* istanbul ignore else */
       if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         // Current route (if router available)
-        const currRoute = $router && $route
-          ? { path: $route.path, hash: $route.hash, query: $route.query }
-          : {}
+        const currRoute =
+          $router && $route ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
         const loc = inBrowser ? window.location || document.location : null
         const currLink = loc
