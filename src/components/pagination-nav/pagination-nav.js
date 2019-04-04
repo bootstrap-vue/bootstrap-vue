@@ -236,7 +236,7 @@ export default {
         /* istanbul ignore next */
         try {
           link && link.parentNode && link.parentNode.removeChild(link)
-        } catch e {}
+        } catch (e) {}
         /* istanbul ignore next */
         return {}
       }
