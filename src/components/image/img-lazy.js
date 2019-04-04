@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import BImg from './img'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
@@ -89,7 +90,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend{
   name: NAME,
   props,
   data() {
@@ -225,4 +226,4 @@ export default {
       }
     })
   }
-}
+})
