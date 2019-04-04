@@ -261,8 +261,10 @@ export default {
     },
     onShown(evt) {
       this.setObservers(true)
-      this.$emit('update:show', true)
-      this.$emit('shown', evt)
+      this.$nextTick(() => {
+        this.$emit('update:show', true)
+        this.$emit('shown', evt)
+      })
     },
     onHide(evt) {
       this.$emit('hide', evt)
