@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // Mixins
 import idMixin from '../../mixins/id'
 import formStateMixin from '../../mixins/form-state'
@@ -188,7 +189,7 @@ export default (resolve, reject) => {
   }, create(null))
 
   // @vue/component
-  const BFormGroup = {
+  const BFormGroup = Vue.extend({
     name: NAME,
     mixins: [idMixin, formStateMixin],
     props: {
@@ -456,7 +457,7 @@ export default (resolve, reject) => {
         isHorizontal && isFieldset ? [h(BFormRow, {}, [label, content])] : [label, content]
       )
     }
-  }
+  })
 
   // Return the component options reference
   resolve(BFormGroup)
