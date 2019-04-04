@@ -6,15 +6,6 @@ describe('carousel', () => {
   beforeEach(loadFixture(__dirname, 'carousel'))
   testVM()
 
-  it('Should have class carousel and slide by default', async () => {
-    const { app } = window
-    const carousel = app.$refs.carousel
-
-    expect(carousel.$el.classList.contains('carousel')).toBe(true)
-    expect(carousel.$el.classList.contains('slide')).toBe(true)
-    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
-  })
-
   it('Should have class carousel, slide and fade when prop fade=true', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
@@ -268,7 +259,7 @@ describe('carousel', () => {
     expect(carousel.isSliding).toBe(false)
   })
 
-  it('should emit paused and unpaused events when interval hcanged to 0', async () => {
+  it('should emit paused and unpaused events when interval changed to 0', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
