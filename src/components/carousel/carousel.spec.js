@@ -12,7 +12,8 @@ const appDef = {
   props: {
     interval: 0,
     fade: false,
-    noAnimation: false
+    noAnimation: false,
+    value: 0
   },
   render(h) {
     return h(
@@ -21,11 +22,8 @@ const appDef = {
         props: {
           interval: this.interval,
           fade: this.fade,
-          noAnimation: this.noAnimation
-        },
-        listeners: {
-          'sliding-start': () => this.$emit('sliding-start'),
-          'sliding-end': () => this.$emit('sliding-end')
+          noAnimation: this.noAnimation,
+          value: this.value
         }
       },
       [
@@ -281,8 +279,6 @@ describe('carousel', () => {
   })
 
   it('should not automatically scroll to next slide when interval=0', async () => {
-    const spyStart = jest.fn()
-    const spyEnd = jest.fn()
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
       attachToDocument: true,
@@ -290,14 +286,14 @@ describe('carousel', () => {
         interval: 0,
         fade: false,
         noAnimation: false
-      },
-      listeners: {
-        'sliding-start': spyStart,
-        'sliding-end': spyEnd
       }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    const $carousel = wrapper.find(Carousel)
+    expect($carousel).toBeDefined()
+    expect($carousel.isVueInstance()).toBe(true)
+
     await wrapper.vm.$nextTick()
     await waitAF()
 
@@ -305,8 +301,9 @@ describe('carousel', () => {
     await wrapper.vm.$nextTick()
     await waitAF()
 
-    expect(spyStart).not.toHaveBeenCalled()
-    expect(spyEnd).not.toHaveBeenCalled()
+    expect($carousel.emitted('sliding-start')).notToBeDefined()
+    expect($carousel.emitted('sliding-end')).notToBeDefined()
+    expect($carousel.emitted('input')).notToBeDefined()
 
     wrapper.destroy()
   })
