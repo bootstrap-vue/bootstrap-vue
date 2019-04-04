@@ -275,6 +275,11 @@ class ToolTip {
       // If trigger element isn't in the DOM or is not visible
       return
     }
+    if (this.$tip) {
+      // If there is already a tip built, then we assume it is already showing
+      /* istanbul ignore next */
+      return
+    }
     // Build tooltip element (also sets this.$tip)
     const tip = this.getTipElement()
     this.fixTitle()
