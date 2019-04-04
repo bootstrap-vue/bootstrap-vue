@@ -105,8 +105,8 @@ const TransitionEndEvents = {
   transition: ['transitionend']
 }
 
-// Options for Native Event Listeners
-const EvtOpts = { passive: true }
+// Options for Native Event Listeners (since we never call preventDefault)
+const EvtOpts = { passive: true, capture: false }
 
 // Client-side tip ID counter for aria-describedby attribute
 // Each tooltip requires a unique client side ID
