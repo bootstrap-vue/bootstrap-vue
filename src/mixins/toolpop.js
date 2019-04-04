@@ -3,7 +3,7 @@
  * Common props
  */
 import { isArray } from '../utils/array'
-import { isElement, getById, requestAF } from '../utils/dom'
+import { isElement, getById } from '../utils/dom'
 import { HTMLElement } from '../utils/ssr'
 import observeDom from '../utils/observe-dom'
 
@@ -279,9 +279,7 @@ export default {
       this.localShow = true
       this.setObservers(true)
       this.$emit('shown', evt)
-      requestAF(() => {
-        this.$emit('update:show', true)
-      })
+      this.$emit('update:show', true)
     },
     onHide(evt) {
       this.$emit('hide', evt)
