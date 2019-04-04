@@ -75,11 +75,6 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      isShowing: false
-    }
-  },
   computed: {
     baseConfig() {
       const cont = this.container
@@ -266,11 +261,10 @@ export default {
     },
     onShown(evt) {
       this.setObservers(true)
-      if (!this.isShowing) {
-        this.isShowing = true
+      this.$emit('shown', evt)
+      this.$nextTick(() => {
         this.$emit('update:show', true)
-        this.$emit('shown', evt)
-      }
+      })
     },
     onHide(evt) {
       this.$emit('hide', evt)
