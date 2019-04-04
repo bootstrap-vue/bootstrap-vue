@@ -760,4 +760,83 @@ describe('carousel', () => {
 
     wrapper.destroy()
   })
+
+  it('should scroll to specified slide when value (v-model) changed', async () => {
+    const wrapper = mount(localVue.extend(appDef), {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $carousel = wrapper.find(Carousel)
+    expect($carousel).toBeDefined()
+    expect($carousel.isVueInstance()).toBe(true)
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    const $indicators = $carousel.findAll('.carousel-indicators > li')
+    expect($indicators.length).toBe(4)
+
+    expect($carousel.emitted('sliding-start')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('input')).not.toBeDefined()
+
+    expect($carousel.vm.index).toBe(0)
+
+    wrapper.setProps({
+      value: 1
+    })
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start')).toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-end')).toBeDefined()
+    expect($carousel.emitted('sliding-end').length).toBe(1)
+    expect($carousel.emitted('sliding-end')[0][0]).toEqual(1)
+    expect($carousel.emitted('input')).toBeDefined()
+    expect($carousel.emitted('input').length).toBe(1)
+    expect($carousel.emitted('input')[0][0]).toEqual(1)
+
+    wrapper.setProps({
+      value: 3
+    })
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start').length).toBe(2)
+    expect($carousel.emitted('sliding-end').length).toBe(1)
+    expect($carousel.emitted('sliding-start')[1][0]).toEqual(3)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start').length).toBe(2)
+    expect($carousel.emitted('sliding-end').length).toBe(2)
+    expect($carousel.emitted('sliding-end')[1][0]).toEqual(3)
+    expect($carousel.emitted('input').length).toBe(2)
+    expect($carousel.emitted('input')[1][0]).toEqual(3)
+
+    wrapper.destroy()
+  })
 })
