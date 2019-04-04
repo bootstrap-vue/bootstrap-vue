@@ -372,8 +372,7 @@ describe('carousel', () => {
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
-    expect($carousel.emitted('sliding-start').length).toBe(1)
-    expect($carousel.emitted('sliding-start')[0][0]).toEqual(0)
+    expect($carousel.emitted('sliding-start')[1][0]).toEqual(0)
 
     jest.runOnlyPendingTimers()
     await wrapper.vm.$nextTick()
