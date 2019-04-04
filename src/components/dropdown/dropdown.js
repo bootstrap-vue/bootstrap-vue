@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
@@ -7,7 +8,7 @@ import BButton from '../button/button'
 const NAME = 'BDropdown'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   components: { BButton },
   mixins: [idMixin, dropdownMixin],
@@ -196,4 +197,4 @@ export default {
       menu
     ])
   }
-}
+})
