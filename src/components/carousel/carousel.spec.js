@@ -64,11 +64,11 @@ describe('carousel', () => {
     expect($indicators.attributes('id')).toBeDefined()
     expect($indicators.attributes('id')).toEqual(`${id}___BV_indicators_`)
     expect($indicators.attributes('aria-owns')).toBeDefined()
-    expect($indicators.attributes('aria-owns)).toEqual(`${id}___BV_inner_`)
+    expect($indicators.attributes('aria-owns')).toEqual(`${id}___BV_inner_`)
     expect($indicators.attributes('aria-hidden')).toBeDefined()
-    expect($indicators.attributes('aria-hidden)).toEqual('true')
+    expect($indicators.attributes('aria-hidden')).toEqual('true')
     expect($indicators.attributes('aria-label')).toBeDefined()
-    expect($indicators.attributes('aria-label)).toEqual('Select a slide to display')
+    expect($indicators.attributes('aria-label')).toEqual('Select a slide to display')
     expect($indicators.element.style.display).toEqual('none')
     expect($indicators.findAll('li').length).toBe(0) // no slides
     
