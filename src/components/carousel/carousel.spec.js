@@ -48,7 +48,7 @@ describe('carousel', () => {
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(0)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(0)
     expect(wrapper.findAll('a').length).toBe(0)
-    
+
     // indicators (hidden by default)
     // <ol
     //   aria-hidden="true"
@@ -71,7 +71,7 @@ describe('carousel', () => {
     expect($indicators.attributes('aria-label')).toEqual('Select a slide to display')
     expect($indicators.element.style.display).toEqual('none')
     expect($indicators.findAll('li').length).toBe(0) // no slides
-    
+
     wrapper.destroy()
   })
 
@@ -107,8 +107,8 @@ describe('carousel', () => {
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(1)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(1)
     expect(wrapper.findAll('a').length).toBe(2)
-    const $prev = wrapper.findAll('.carousel > .carousel-control-prev')
-    const $next = wrapper.findAll('.carousel > .carousel-control-next')
+    const $prev = wrapper.find('.carousel > .carousel-control-prev')
+    const $next = wrapper.find('.carousel > .carousel-control-next')
     expect($prev.is('a')).toBe(true)
     expect($next.is('a')).toBe(true)
     expect($prev.attributes('href')).toEqual('#')
@@ -121,7 +121,7 @@ describe('carousel', () => {
     expect($next.classes()).toContain('carousel-control-next')
     expect($prev.classes().length).toBe(1)
     expect($next.classes().length).toBe(1)
-    
+
     // indicators (hidden by default)
     // <ol
     //   aria-hidden="true"
@@ -135,7 +135,7 @@ describe('carousel', () => {
     expect($indicators.classes()).toContain('carousel-indicators')
     expect($indicators.classes().length).toBe(1)
     expect($indicators.element.style.display).toEqual('none')
-    
+
     wrapper.destroy()
   })
 
@@ -159,7 +159,6 @@ describe('carousel', () => {
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('id')).toBeDefined()
-    const id = wrapper.attributes('id')
 
     // slide wrapper
     // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
@@ -170,7 +169,7 @@ describe('carousel', () => {
     // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(0)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(0)
-    
+
     // indicators
     // <ol
     //   aria-hidden="true"
@@ -184,7 +183,7 @@ describe('carousel', () => {
     expect($indicators.classes()).toContain('carousel-indicators')
     expect($indicators.classes().length).toBe(1)
     expect($indicators.element.style.display).toEqual('')
-    
+
     wrapper.destroy()
   })
 })
