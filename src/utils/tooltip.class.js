@@ -105,6 +105,9 @@ const TransitionEndEvents = {
   transition: ['transitionend']
 }
 
+// Options for Native Event Listeners
+const EvtOpts = { passive: true }
+
 // Client-side tip ID counter for aria-describedby attribute
 // Each tooltip requires a unique client side ID
 let NEXTID = 1
@@ -381,9 +384,9 @@ class ToolTip {
     this.setOnTouchStartListener(on)
     if (on && /(focus|blur)/.test(this.$config.trigger)) {
       // If focus moves between trigger element and tip container, don't close
-      eventOn(this.$tip, 'focusout', this)
+      eventOn(this.$tip, 'focusout', this, EvtOpts)
     } else {
-      eventOff(this.$tip, 'focusout', this)
+      eventOff(this.$tip, 'focusout', this, EvtOpts)
     }
   }
 
@@ -536,14 +539,14 @@ class ToolTip {
       clearTimeout(this.$fadeTimeout)
       this.$fadeTimeout = null
       transEvents.forEach(evtName => {
-        eventOff(tip, evtName, fnOnce)
+        eventOff(tip, evtName, fnOnce, EvtOpts)
       })
       // Call complete callback
       complete()
     }
     if (hasClass(tip, ClassName.FADE)) {
       transEvents.forEach(evtName => {
-        eventOn(tip, evtName, fnOnce)
+        eventOn(tip, evtName, fnOnce, EvtOpts)
       })
       // Fallback to setTimeout()
       this.$fadeTimeout = setTimeout(fnOnce, TRANSITION_DURATION)
@@ -683,16 +686,16 @@ class ToolTip {
     // this.handleEvent and maintain our binding to 'this'
     triggers.forEach(trigger => {
       if (trigger === 'click') {
-        eventOn(el, 'click', this)
+        eventOn(el, 'click', this, EvtOpts)
       } else if (trigger === 'focus') {
-        eventOn(el, 'focusin', this)
-        eventOn(el, 'focusout', this)
+        eventOn(el, 'focusin', this, EvtOpts)
+        eventOn(el, 'focusout', this, EvtOpts)
       } else if (trigger === 'blur') {
         // Used to close $tip when element looses focus
-        eventOn(el, 'focusout', this)
+        eventOn(el, 'focusout', this, EvtOpts)
       } else if (trigger === 'hover') {
-        eventOn(el, 'mouseenter', this)
-        eventOn(el, 'mouseleave', this)
+        eventOn(el, 'mouseenter', this, EvtOpts)
+        eventOn(el, 'mouseleave', this, EvtOpts)
       }
     }, this)
   }
@@ -701,7 +704,7 @@ class ToolTip {
     const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
     // Using "this" as the handler will get automatically directed to this.handleEvent
     events.forEach(evt => {
-      eventOff(this.$element, evt, this)
+      eventOff(this.$element, evt, this, EvtOpts)
     }, this)
 
     // Stop listening for global show/hide/enable/disable events
