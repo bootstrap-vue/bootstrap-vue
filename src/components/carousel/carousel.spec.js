@@ -6,6 +6,8 @@ const localVue = new CreateLocalVue()
 
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
+jest.useFakeTimers()
+
 describe('carousel', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(Carousel, {
@@ -183,6 +185,67 @@ describe('carousel', () => {
     expect($indicators.classes()).toContain('carousel-indicators')
     expect($indicators.classes().length).toBe(1)
     expect($indicators.element.style.display).toEqual('')
+
+    wrapper.destroy()
+  })
+
+  it('should have class fade when prop fade=true', async () => {
+    const wrapper = mount(Carousel, {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        fade: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect(wrapper.classes()).toContain('carousel')
+    expect(wrapper.classes()).toContain('slide')
+    expect(wrapper.classes()).toContain('fade')
+
+    wrapper.destroy()
+  })
+
+  it('should not have class fade or slide when prop no-animation=true', async () => {
+    const wrapper = mount(Carousel, {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        noAnimation: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect(wrapper.classes()).toContain('carousel')
+    expect(wrapper.classes()).not.toContain('slide')
+    expect(wrapper.classes()).not.toContain('fade')
+
+    wrapper.destroy()
+  })
+
+  it('should not have class fade or slide when prop no-animation=true and fade=true', async () => {
+    const wrapper = mount(Carousel, {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        fade: true,
+        noAnimation: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect(wrapper.classes()).toContain('carousel')
+    expect(wrapper.classes()).not.toContain('slide')
+    expect(wrapper.classes()).not.toContain('fade')
 
     wrapper.destroy()
   })
