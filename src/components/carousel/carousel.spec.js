@@ -189,7 +189,7 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should have class fade when prop fade=true', async () => {
+  it('should have class carousel-fade when prop fade=true', async () => {
     const wrapper = mount(Carousel, {
       localVue: localVue,
       attachToDocument: true,
@@ -204,7 +204,7 @@ describe('carousel', () => {
 
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
-    expect(wrapper.classes()).toContain('fade')
+    expect(wrapper.classes()).toContain('carousel-fade')
 
     wrapper.destroy()
   })
@@ -224,7 +224,7 @@ describe('carousel', () => {
 
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).not.toContain('slide')
-    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('carousel-fade')
 
     wrapper.destroy()
   })
@@ -245,7 +245,7 @@ describe('carousel', () => {
 
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).not.toContain('slide')
-    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('carousel-fade')
 
     wrapper.destroy()
   })
