@@ -33,7 +33,7 @@ describe('utils/warn', () => {
 
   describe('without process object', () => {
     beforeEach(() => {
-      global.process = null
+      delete global.process
     })
 
     it('calls console.warn()', () => {

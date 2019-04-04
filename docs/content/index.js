@@ -1,5 +1,5 @@
 import { importAll, parseVersion } from '~/utils'
-import { version, dependencies, devDependencies } from '~/../package.json'
+import { version, dependencies, devDependencies, description } from '~/../package.json'
 import { getDefaults } from '~/../src/utils/config'
 
 const componentsContext = require.context('~/../src/components/', true, /package.json/)
@@ -46,5 +46,6 @@ export const bootstrapVersion = parseVersion(dependencies.bootstrap)
 export const vueVersion = parseVersion(devDependencies.vue)
 export const nuxtVersion = parseVersion(devDependencies.nuxt)
 export const defaultConfig = getDefaults()
+export const bvDescription = description
 
 export { version }

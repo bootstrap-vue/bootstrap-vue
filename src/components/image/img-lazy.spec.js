@@ -15,6 +15,21 @@ describe('img-lazy', () => {
     wrapper.destroy()
   })
 
+  it('is initially shown show prop is set', async () => {
+    const wrapper = mount(ImgLazy, {
+      propsData: {
+        src: src,
+        show: true
+      }
+    })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toBe(src)
+
+    wrapper.destroy()
+  })
+
   it('shows when show prop is set', async () => {
     const wrapper = mount(ImgLazy, {
       propsData: {

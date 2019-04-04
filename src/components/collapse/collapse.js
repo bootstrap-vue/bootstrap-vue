@@ -92,7 +92,7 @@ export default {
       this.setWindowEvents(true)
     }
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     // Trigger state emit if needed
     this.show = false
     if (this.isNav && inBrowser) {

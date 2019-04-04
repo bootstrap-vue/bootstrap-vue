@@ -4,10 +4,33 @@ import { requestAF } from '../../utils/dom'
 
 const NAME = 'BAlert'
 
+// Convert `show` value to a number
+const parseCountDown = show => {
+  if (show === '' || typeof show === 'boolean') {
+    return 0
+  }
+  show = parseInt(show, 10)
+  return show > 0 ? show : 0
+}
+
+// Convert `show` value to a boolean
+const parseShow = show => {
+  if (show === '' || show === true) {
+    return true
+  }
+  if (parseInt(show, 10) < 1) {
+    // Boolean will always return false for the above comparison
+    return false
+  }
+  return Boolean(show)
+}
+
+// Is a value number like (i.e. a number or a number as string)
+const isNumericLike = value => !isNaN(parseInt(value, 10))
+
 // @vue/component
 export default {
   name: NAME,
-  components: { BButtonClose },
   model: {
     prop: 'show',
     event: 'input'
@@ -26,7 +49,7 @@ export default {
       default: () => getComponentConfig(NAME, 'dismissLabel')
     },
     show: {
-      type: [Boolean, Number],
+      type: [Boolean, Number, String],
       default: false
     },
     fade: {
@@ -37,71 +60,74 @@ export default {
   data() {
     return {
       countDownTimerId: null,
-      dismissed: false,
-      localShow: this.show,
+      countDown: 0,
+      // If initially shown, we need to set these for SSR
+      localShow: parseShow(this.show),
       showClass: this.fade && this.show
     }
   },
   watch: {
     show(newVal) {
-      this.showChanged(newVal)
+      this.countDown = parseCountDown(newVal)
+      this.localShow = parseShow(newVal)
     },
-    dismissed(newVal) {
-      if (newVal) {
-        this.localShow = false
+    countDown(newVal) {
+      this.clearTimer()
+      this.$emit('dismiss-count-down', newVal)
+      if (this.show !== newVal) {
+        // Update the v-model if needed
+        this.$emit('input', newVal)
+      }
+      if (newVal > 0) {
+        this.localShow = true
+        this.countDownTimerId = setTimeout(() => {
+          this.countDown--
+        }, 1000)
+      } else {
+        // Slightly delay the hide to allow any UI updates
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.localShow = false
+          })
+        })
+      }
+    },
+    localShow(newVal) {
+      if (!newVal && (this.dismissible || isNumericLike(this.show))) {
+        // Only emit dismissed events for dismissible or auto dismissing alerts
         this.$emit('dismissed')
+      }
+      if (!isNumericLike(this.show) && this.show !== newVal) {
+        // Only emit booleans if we weren't passed a number via `this.show`
+        this.$emit('input', newVal)
       }
     }
   },
-  mounted() {
-    this.showChanged(this.show)
+  created() {
+    this.countDown = parseCountDown(this.show)
+    this.localShow = parseShow(this.show)
   },
-  destroyed /* istanbul ignore next */() {
-    this.clearCounter()
+  mounted() {
+    this.countDown = parseCountDown(this.show)
+    this.localShow = parseShow(this.show)
+  },
+  beforeDestroy() {
+    this.clearTimer()
   },
   methods: {
     dismiss() {
-      this.clearCounter()
-      if (typeof this.show === 'number') {
-        this.$emit('dismiss-count-down', 0)
-        this.$emit('input', 0)
-      } else {
-        this.$emit('input', false)
-      }
-      this.dismissed = true
+      this.clearTimer()
+      this.countDown = 0
+      this.localShow = false
     },
-    clearCounter() {
+    clearTimer() {
       if (this.countDownTimerId) {
         clearInterval(this.countDownTimerId)
         this.countDownTimerId = null
       }
     },
-    showChanged(show) {
-      // Reset counter status
-      this.clearCounter()
-      // Reset dismiss status
-      this.dismissed = false
-      // Set localShow state
-      this.localShow = Boolean(show)
-      // No timer for boolean values
-      if (show === true || show === false || show === null || show === 0) {
-        return
-      }
-      // Start counter (ensure we have an integer value)
-      let dismissCountDown = parseInt(show, 10) || 1
-      this.countDownTimerId = setInterval(() => {
-        if (dismissCountDown < 1) {
-          this.dismiss()
-          return
-        }
-        dismissCountDown--
-        this.$emit('dismiss-count-down', dismissCountDown)
-        this.$emit('input', dismissCountDown)
-      }, 1000)
-    },
     onBeforeEnter() {
       if (this.fade) {
-        // Add show class one frame after inserted, to make transitions work
         requestAF(() => {
           this.showClass = true
         })
@@ -113,12 +139,13 @@ export default {
   },
   render(h) {
     const $slots = this.$slots
-    let $alert = h(false)
+    let $alert // undefined
     if (this.localShow) {
       let $dismissBtn = h(false)
       if (this.dismissible) {
+        // Add dismiss button
         $dismissBtn = h(
-          'b-button-close',
+          BButtonClose,
           { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
           [$slots.dismiss]
         )
@@ -143,8 +170,6 @@ export default {
       'transition',
       {
         props: {
-          mode: 'out-in',
-          // Disable use of built-in transition classes
           'enter-class': '',
           'enter-active-class': '',
           'enter-to-class': '',

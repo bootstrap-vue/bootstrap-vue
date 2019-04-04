@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Table",
+    "description": "For displaying tabular data. <b-table> supports pagination, filtering, sorting, custom rendering, events, and asynchronous data.",
     "components": [
       {
         "component": "BTable",

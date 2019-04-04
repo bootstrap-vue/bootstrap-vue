@@ -1,4 +1,5 @@
 {
   "title": "Component img src resolving",
+  "description": "Using project relative image URLs for BootstrapVue custom components with vue-loader",
   "slug": "images"
 }

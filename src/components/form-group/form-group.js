@@ -17,8 +17,11 @@ import BFormText from '../form/form-text'
 import BFormInvalidFeedback from '../form/form-invalid-feedback'
 import BFormValidFeedback from '../form/form-valid-feedback'
 
+// Component name
+const NAME = 'BFormGroup'
+
 // Selector for finding first input in the form-group
-const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
+const SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
 
 // Memoize this function to return cached values to
 // save time in computed functions
@@ -35,7 +38,7 @@ const renderInvalidFeedback = (h, ctx) => {
   let invalidFeedback = h(false)
   if (content) {
     invalidFeedback = h(
-      'b-form-invalid-feedback',
+      BFormInvalidFeedback,
       {
         props: {
           id: ctx.invalidFeedbackId,
@@ -61,7 +64,7 @@ const renderValidFeedback = (h, ctx) => {
   let validFeedback = h(false)
   if (content) {
     validFeedback = h(
-      'b-form-valid-feedback',
+      BFormValidFeedback,
       {
         props: {
           id: ctx.validFeedbackId,
@@ -88,7 +91,7 @@ const renderHelpText = (h, ctx) => {
   let description = h(false)
   if (content) {
     description = h(
-      'b-form-text',
+      BFormText,
       {
         attrs: {
           id: ctx.descriptionId,
@@ -122,12 +125,10 @@ const renderLabel = (h, ctx) => {
         [content]
       )
     }
-    return h(isHorizontal ? 'b-col' : 'div', { props: isHorizontal ? ctx.labelColProps : {} }, [
-      label
-    ])
+    return h(isHorizontal ? BCol : 'div', { props: isHorizontal ? ctx.labelColProps : {} }, [label])
   } else {
     return h(
-      isHorizontal ? 'b-col' : labelTag,
+      isHorizontal ? BCol : labelTag,
       {
         on: isLegend ? { click: ctx.legendClick } : {},
         props: isHorizontal ? { tag: labelTag, ...ctx.labelColProps } : {},
@@ -188,14 +189,7 @@ export default (resolve, reject) => {
 
   // @vue/component
   const BFormGroup = {
-    name: 'BFormGroup',
-    components: {
-      BFormRow,
-      BCol,
-      BFormInvalidFeedback,
-      BFormValidFeedback,
-      BFormText
-    },
+    name: NAME,
     mixins: [idMixin, formStateMixin],
     props: {
       label: {
@@ -344,7 +338,7 @@ export default (resolve, reject) => {
         // feedback IDs if the form-group's state is explicitly valid or invalid.
         return (
           [this.descriptionId, this.invalidFeedbackId, this.validFeedbackId]
-            .filter(i => i)
+            .filter(Boolean)
             .join(' ') || null
         )
       }
@@ -392,11 +386,15 @@ export default (resolve, reject) => {
           if (input) {
             const adb = 'aria-describedby'
             let ids = (getAttr(input, adb) || '').split(/\s+/)
+            add = (add || '').split(/\s+/)
             remove = (remove || '').split(/\s+/)
             // Update ID list, preserving any original IDs
+            // and ensuring the ID's are unique
             ids = ids
               .filter(id => !arrayIncludes(remove, id))
-              .concat(add || '')
+              .concat(add)
+              .filter(Boolean)
+            ids = keys(ids.reduce((memo, id) => ({ ...memo, [id]: true }), {}))
               .join(' ')
               .trim()
             if (ids) {
@@ -416,7 +414,7 @@ export default (resolve, reject) => {
       const label = renderLabel(h, this)
       // Generate the content
       const content = h(
-        isHorizontal ? 'b-col' : 'div',
+        isHorizontal ? BCol : 'div',
         {
           ref: 'content',
           attrs: {
@@ -453,9 +451,9 @@ export default (resolve, reject) => {
       // to them due to browser specific render issues, so we move the `form-row`
       // to an inner wrapper div when horizontal and using a fieldset
       return h(
-        isFieldset ? 'fieldset' : isHorizontal ? 'b-form-row' : 'div',
+        isFieldset ? 'fieldset' : isHorizontal ? BFormRow : 'div',
         data,
-        isHorizontal && isFieldset ? [h('b-form-row', {}, [label, content])] : [label, content]
+        isHorizontal && isFieldset ? [h(BFormRow, {}, [label, content])] : [label, content]
       )
     }
   }

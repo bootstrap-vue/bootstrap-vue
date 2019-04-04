@@ -1,119 +1,259 @@
-import { loadFixture, testVM } from '../../../tests/utils'
-import { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
+import Link, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('link', () => {
-  beforeEach(loadFixture(__dirname, 'link'))
-  testVM()
+  it('has expected default structure', async () => {
+    const wrapper = mount(Link)
 
-  it('should render <a>', async () => {
-    const { app } = window
-    expect(app.$refs.plain).toBeElement('a')
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('#')
+    expect(wrapper.attributes('target')).toEqual('_self')
+    expect(wrapper.attributes('rel')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('should default href to `#`', async () => {
-    const { app } = window
-    expect(app.$refs.plain.getAttribute('href')).toBe('#')
+  it('renders content from default slot', async () => {
+    const wrapper = mount(Link, {
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('#')
+    expect(wrapper.attributes('target')).toEqual('_self')
+    expect(wrapper.attributes('rel')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('should apply given href', async () => {
-    const { app } = window
-    expect(app.$refs.href.getAttribute('href')).toBe(app.href)
-  })
+  it('sets atribute href to user supplied value', async () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        href: '/foobar'
+      }
+    })
 
-  it("should default rel to `noopener` when target==='_blank'", async () => {
-    const { app } = window
-    expect(app.$refs.target.getAttribute('rel')).toBe('noopener')
-  })
-
-  it("should render the given rel to when target==='_blank'", async () => {
-    const { app } = window
-    expect(app.$refs.rel.getAttribute('rel')).toBe('alternate')
-  })
-
-  it("should add '.active' class when prop active=true", async () => {
-    const { app } = window
-    expect(app.$refs.active).toHaveClass('active')
-  })
-
-  it('should not add aria-disabled when not disabled', async () => {
-    const { app } = window
-    expect(app.$refs.plain.hasAttribute('aria-disabled')).toBe(false)
-  })
-
-  it("should add aria-disabled==='true' when disabled", async () => {
-    const { app } = window
-    expect(app.$refs.disabled.getAttribute('aria-disabled')).toBe('true')
-  })
-
-  it("should add '.disabled' class when prop disabled=true", async () => {
-    const { app } = window
-    expect(app.$refs.disabled).toHaveClass('disabled')
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('/foobar')
+    expect(wrapper.attributes('target')).toEqual('_self')
+    expect(wrapper.attributes('rel')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.text()).toEqual('')
   })
 
   it('should set href to string `to` prop', async () => {
-    const { app } = window
-    expect(app.$refs.to_string.getAttribute('href')).toBe(app.href)
+    const wrapper = mount(Link, {
+      propsData: {
+        to: '/foobar'
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('/foobar')
+    expect(wrapper.attributes('target')).toEqual('_self')
+    expect(wrapper.attributes('rel')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.text()).toEqual('')
   })
 
   it('should set href to path from `to` prop', async () => {
-    const { app } = window
-    expect(app.$refs.to_path.getAttribute('href')).toBe(app.href)
+    const wrapper = mount(Link, {
+      propsData: {
+        to: { path: '/foobar' }
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('/foobar')
+    expect(wrapper.attributes('target')).toEqual('_self')
+    expect(wrapper.attributes('rel')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('should NOT invoke click handler bound by Vue when disabled and clicked on', async () => {
-    const { app } = window
-    app.$refs.click_disabled.click()
-    expect(app.disabledClickSpy).not.toHaveBeenCalled()
+  it('should default rel to `noopener` when target==="_blank"', async () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        href: '/foobar',
+        target: '_blank'
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('/foobar')
+    expect(wrapper.attributes('target')).toEqual('_blank')
+    expect(wrapper.attributes('rel')).toEqual('noopener')
+    expect(wrapper.classes().length).toBe(0)
   })
 
-  it("should NOT invoke click handler bound using 'addEventListener' when disabled and clicked on", async () => {
-    const { app } = window
-    const spy = jest.fn()
-    app.$refs.click_disabled.addEventListener('click', spy)
-    app.$refs.click_disabled.click()
-    expect(spy).not.toHaveBeenCalled()
+  it('should render the given rel to when target==="_blank"', async () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        href: '/foobar',
+        target: '_blank',
+        rel: 'alternate'
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('/foobar')
+    expect(wrapper.attributes('target')).toEqual('_blank')
+    expect(wrapper.attributes('rel')).toEqual('alternate')
+    expect(wrapper.classes().length).toBe(0)
   })
 
-  it("should NOT emit 'clicked::link' on $root when clicked on", async () => {
-    const { app } = window
-    const spy = jest.fn()
-    app.$root.$on('clicked::link', spy)
-    app.$refs.click_disabled.click()
-    expect(spy).not.toHaveBeenCalled()
+  it('should add "active" class when prop active=true', async () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        active: true
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.classes()).toContain('active')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it('should invoke click handler when clicked on', async () => {
-    const { app } = window
-    app.$refs.click.click()
-    expect(app.clickSpy).toHaveBeenCalled()
-    const firstCallArguments = app.clickSpy.mock.calls[0]
-    expect(firstCallArguments[0]).toBeInstanceOf(Event)
+  it('should add aria-disabled="true" when disabled', async () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        disabled: true
+      }
+    })
+    expect(wrapper.attributes('aria-disabled')).toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).toEqual('true')
   })
 
-  it('btn with href should invoke click handler when clicked on', async () => {
-    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2938
-    const { app } = window
-    app.$refs.href.click()
-    expect(app.btnHrefClick).toHaveBeenCalled()
+  it("should add '.disabled' class when prop disabled=true", async () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        disabled: true
+      }
+    })
+    expect(wrapper.classes()).toContain('disabled')
   })
 
-  it("should emit 'clicked::link' on $root when clicked on", async () => {
-    const { app } = window
-    const spy = jest.fn()
-    app.$root.$on('clicked::link', spy)
-    app.$refs.click.click()
-    expect(spy).toHaveBeenCalled()
-  })
+  describe('click handling', () => {
+    const localVue = new CreateLocalVue()
 
-  describe('propsFactory() helper', () => {
-    it('works', async () => {
-      expect(propsFactory()).toEqual(linkProps)
-      expect(propsFactory()).not.toBe(linkProps)
+    it('should invoke click handler bound by Vue when clicked on', async () => {
+      let called = 0
+      let evt = null
+      const wrapper = mount(Link, {
+        listeners: {
+          click: e => {
+            evt = e
+            called++
+          }
+        }
+      })
+      expect(wrapper.is('a')).toBe(true)
+      expect(called).toBe(0)
+      expect(evt).toEqual(null)
+      wrapper.find('a').trigger('click')
+      expect(called).toBe(1)
+      expect(evt).toBeInstanceOf(MouseEvent)
+    })
+
+    it('should invoke multiple click handlers bound by Vue when clicked on', async () => {
+      const spy1 = jest.fn()
+      const spy2 = jest.fn()
+      const wrapper = mount(Link, {
+        listeners: {
+          click: [spy1, spy2]
+        }
+      })
+      expect(wrapper.is('a')).toBe(true)
+      expect(spy1).not.toHaveBeenCalled()
+      expect(spy2).not.toHaveBeenCalled()
+      wrapper.find('a').trigger('click')
+      expect(spy1).toHaveBeenCalled()
+      expect(spy2).toHaveBeenCalled()
+    })
+
+    it('should NOT invoke click handler bound by Vue when disabled and clicked', async () => {
+      let called = 0
+      let evt = null
+      const wrapper = mount(Link, {
+        propsData: {
+          disabled: true
+        },
+        listeners: {
+          click: e => {
+            evt = e
+            called++
+          }
+        }
+      })
+      expect(wrapper.is('a')).toBe(true)
+      expect(called).toBe(0)
+      expect(evt).toEqual(null)
+      wrapper.find('a').trigger('click')
+      expect(called).toBe(0)
+      expect(evt).toEqual(null)
+    })
+
+    it('should NOT invoke click handler bound via "addEventListener" when disabled and clicked', async () => {
+      const wrapper = mount(Link, {
+        propsData: {
+          disabled: true
+        }
+      })
+      const spy = jest.fn()
+      expect(wrapper.is('a')).toBe(true)
+      wrapper.find('a').element.addEventListener('click', spy)
+      wrapper.find('a').trigger('click')
+      expect(spy).not.toHaveBeenCalled()
+    })
+
+    it('should emit "clicked::link" on $root when clicked on', async () => {
+      const App = localVue.extend({
+        render(h) {
+          return h('div', {}, [h(Link, { props: { href: '/foo' } }, 'link')])
+        }
+      })
+      const spy = jest.fn()
+      const wrapper = mount(App)
+      wrapper.vm.$root.$on('clicked::link', spy)
+      wrapper.find('a').trigger('click')
+      expect(spy).toHaveBeenCalled()
+
+      wrapper.destroy()
+    })
+
+    it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
+      const App = localVue.extend({
+        render(h) {
+          return h('div', {}, [h(Link, { props: { href: '/foo', disabled: true } }, 'link')])
+        }
+      })
+      const spy = jest.fn()
+      const wrapper = mount(App)
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      wrapper.vm.$root.$on('clicked::link', spy)
+      wrapper.find('a').trigger('click')
+      expect(spy).not.toHaveBeenCalled()
+
+      wrapper.destroy()
     })
   })
 
-  describe('pickLinkProps() helper', () => {
-    it('works', async () => {
+  describe('helper methods', () => {
+    it('propsFactory() helper', async () => {
+      expect(propsFactory()).toEqual(linkProps)
+      expect(propsFactory()).not.toBe(linkProps)
+    })
+
+    it('pickLinkProps() helper', async () => {
       expect(pickLinkProps([])).toEqual({})
       expect(pickLinkProps(['append'])).toEqual({ append: linkProps.append })
       expect(pickLinkProps('to')).toEqual({ to: linkProps.to })
@@ -122,10 +262,8 @@ describe('link', () => {
         routerTag: linkProps.routerTag
       })
     })
-  })
 
-  describe('omitLinkProps() helper', () => {
-    it('works', async () => {
+    it('omitLinkProps() helper', async () => {
       expect(omitLinkProps([])).toEqual({ ...linkProps })
       const propsOmitted = Object.keys(linkProps).filter(p => p !== 'to' && p !== 'append')
       expect(omitLinkProps(propsOmitted)).toEqual({

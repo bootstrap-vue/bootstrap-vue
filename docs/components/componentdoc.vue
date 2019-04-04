@@ -30,6 +30,8 @@
       <b-table
         :items="propsItems"
         :fields="propsFields"
+        class="bv-docs-table"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -60,6 +62,8 @@
         <b-table
           :items="[componentVModel]"
           :fields="['prop', 'event']"
+          class="bv-docs-table"
+          responsive="sm"
           small
           head-variant="default"
           striped
@@ -81,6 +85,8 @@
       <b-table
         :items="slots"
         :fields="slotsFields"
+        class="bv-docs-table"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -98,6 +104,8 @@
       <b-table
         :items="events"
         :fields="eventsFields"
+        class="bv-docs-table"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -110,7 +118,7 @@
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
+            <template v-if="arg.arg"><code class="text-nowrap">{{ arg.arg }}</code> - </template>
             <span>{{ arg.description }}</span>
           </div>
         </template>
@@ -128,6 +136,8 @@
       <b-table
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
+        class="bv-docs-table"
+        responsive="sm"
         small
         head-variant="default"
         striped
@@ -141,7 +151,7 @@
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg">
-              <code>{{ arg.arg }}</code>
+              <code class="text-nowrap">{{ arg.arg }}</code>
               <span v-if="arg.description"> - {{ arg.description }}</span>
             </template>
           </div>

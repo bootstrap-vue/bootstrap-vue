@@ -1,158 +1,193 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import Img from './img'
+import { mount } from '@vue/test-utils'
 
 describe('img', () => {
-  beforeEach(loadFixture(__dirname, 'image'))
-  testVM()
+  it('has expected default structure', async () => {
+    const wrapper = mount(Img)
 
-  it("all should be rendered with an 'img' tag", async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;[
-      'default',
-      'fluid',
-      'thumbnail',
-      'rounded',
-      'roundedTop',
-      'left',
-      'right',
-      'center',
-      'blank',
-      'blankSize',
-      'blankSrc'
-    ].forEach(ref => {
-      const img = $refs[ref]
-      expect(img).toBeDefined()
-      expect(img).toBeElement('img')
-    })
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.attributes('width')).not.toBeDefined()
+    expect(wrapper.attributes('height')).not.toBeDefined()
   })
 
-  it("all but blanks should  have 'src' starting with 'https://picsum.photos'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['default', 'fluid', 'thumbnail', 'rounded', 'roundedTop', 'left', 'right', 'center'].forEach(
-      ref => {
-        const img = $refs[ref]
-        expect(img).toBeDefined()
-        expect(img.getAttribute('src')).toContain('https://picsum.photos')
+  it('has src attribute when prop src is set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar'
       }
-    )
-    ;['blank', 'blankSize', 'blankSrc'].forEach(ref => {
-      const img = $refs[ref]
-      expect(img).toBeDefined()
-      expect(img.getAttribute('src')).not.toContain('https://picsum.photos')
     })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toEqual('/foo/bar')
+    expect(wrapper.attributes('width')).not.toBeDefined()
+    expect(wrapper.attributes('height')).not.toBeDefined()
   })
 
-  it('default should not have any classes', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.default
-    expect(img).toBeDefined()
-    expect(img.className).toBe('')
+  it('should have class "img-fluid" when prop fluid set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        fluid: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('img-fluid')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it("fluid should have class 'img-fluid'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.fluid
-    expect(img).toBeDefined()
-    expect(img).toHaveClass('img-fluid')
+  it('should have class "img-fluid" and "w-100" when prop fluid-grow set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        fluidGrow: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('img-fluid')
+    expect(wrapper.classes()).toContain('w-100')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it("thumbnail should have class 'img-thumbnail'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.thumbnail
-    expect(img).toBeDefined()
-    expect(img).toHaveClass('img-thumbnail')
+  it('should have class "img-thumbnail" when prop thumbnail set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        thumbnail: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('img-thumbnail')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it("left should have class 'float-left'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.left
-    expect(img).toBeDefined()
-    expect(img).toHaveClass('float-left')
+  it('should have class "rounded" when prop rounded true', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        rounded: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('rounded')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it("right should have class 'float-right'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.right
-    expect(img).toBeDefined()
-    expect(img).toHaveClass('float-right')
+  it('should have class "rounded-circle" when prop rounded=circle', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        rounded: 'circle'
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('rounded-circle')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it("center should have classes 'mx-auto' and 'd-block'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.center
-    expect(img).toBeDefined()
-    expect(img).toHaveClass('mx-auto')
-    expect(img).toHaveClass('d-block')
+  it('should have class "float-left" when prop left set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        left: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('float-left')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it('blank should have data URI as SRC', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.blank
-    expect(img).toBeDefined()
-    expect(img.getAttribute('src')).toContain('data:image/svg+xml;charset=UTF-8,')
+  it('should have class "float-right" when prop right set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        right: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('float-right')
+    expect(wrapper.classes().length).toBe(1)
   })
 
-  it("blank should have width and height set to '1'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.blank
-    expect(img).toBeDefined()
-    expect(img.getAttribute('width')).toBe('1')
-    expect(img.getAttribute('height')).toBe('1')
+  it('should have classes "mx-auto" and "d-block" when prop center set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        center: true
+      }
+    })
+
+    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.classes()).toContain('mx-auto')
+    expect(wrapper.classes()).toContain('d-block')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('blankSize should have data URI as SRC', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.blankSize
-    expect(img).toBeDefined()
-    expect(img.getAttribute('src')).toContain('data:image/svg+xml;charset=UTF-8,')
+  it('has data URI when blank is true', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        blank: true
+      }
+    })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    expect(wrapper.attributes('width')).toBe('1')
+    expect(wrapper.attributes('height')).toBe('1')
   })
 
-  it("blankSize should have color 'blue'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.blankSize
-    expect(img).toBeDefined()
-    expect(img.getAttribute('src')).toContain('blue')
+  it('has color when blank is true and blank-color set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        blank: true,
+        blankColor: 'blue'
+      }
+    })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    expect(wrapper.attributes('src')).toContain('blue')
   })
 
-  it("blankSize should have width set to '200' and height set to '250'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.blankSize
-    expect(img).toBeDefined()
-    expect(img.getAttribute('width')).toBe('200')
-    expect(img.getAttribute('height')).toBe('250')
+  it('has width and height when blank is true and width/height props set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        blank: true,
+        width: 300,
+        height: 200
+      }
+    })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    expect(wrapper.attributes('width')).toBe('300')
+    expect(wrapper.attributes('height')).toBe('200')
   })
 
-  it('blankSrc should have data URI as SRC', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const img = $refs.blankSrc
-    expect(img).toBeDefined()
-    expect(img.getAttribute('src')).toContain('data:image/svg+xml;charset=UTF-8,')
+  it('has width and height when src set and width/height props set', async () => {
+    const wrapper = mount(Img, {
+      propsData: {
+        src: '/foo/bar',
+        width: 300,
+        height: 200
+      }
+    })
+    expect(wrapper.is('img')).toBe(true)
+
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toEqual('/foo/bar')
+    expect(wrapper.attributes('width')).toBe('300')
+    expect(wrapper.attributes('height')).toBe('200')
   })
 })
