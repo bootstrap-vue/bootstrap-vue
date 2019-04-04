@@ -909,7 +909,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(3)
     expect($carousel.vm.index).toBe(3)
-    expect($carousel.vm.isSliding).toBe(true)
+    expect($carousel.vm.isSliding).toBe(false)
 
     wrapper.destroy()
   })
