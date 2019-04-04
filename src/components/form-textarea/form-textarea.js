@@ -97,36 +97,39 @@ export default {
         return null
       }
 
-      // Remember old height (includes `px` units) and reset it temporarily to `auto`
-      const oldHeight = el.style.height
-      el.style.height = 'auto'
-
       // Get current computed styles
       const computedStyle = getCS(el)
       // Height of one line of text in px
       const lineHeight = parseFloat(computedStyle.lineHeight)
-      // Minimum height for min rows (browser dependant)
-      const minHeight = parseInt(computedStyle.height, 10) || lineHeight * this.computedMinRows
-      // Calculate height of content
-      const offset =
+      // calculate height of border and padding
+      const border = (
         (parseFloat(computedStyle.borderTopWidth) || 0) +
-        (parseFloat(computedStyle.borderBottomWidth) || 0) +
+        (parseFloat(computedStyle.borderBottomWidth) || 0)
+      )
+      const padding = (
         (parseFloat(computedStyle.paddingTop) || 0) +
         (parseFloat(computedStyle.paddingBottom) || 0)
-      // Calculate content height in "rows"
-      const contentRows = Math.max((el.scrollHeight - offset) / lineHeight, 2)
+      )
+      // calculate offset
+      const offset = (computedStyle.boxSizing === 'border-box' ? border + padding : 0 )
+      // Minimum height for min rows (browser dependant)
+      const minHeight = lineHeight * this.computedMinRows + offset
+
+      // Probe scrollHeight by temporarily changing the height to the minimum
+      const oldHeight = el.style.height
+      el.style.height = minHeight + 'px'
+      const scrollHeight = el.scrollHeight
+      el.style.height = oldHeight
+
+      // Calculate content height in "rows" (scrollHeight includes padding but not border)
+      const contentRows = Math.max((scrollHeight - padding) / lineHeight, 2)
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // Place old height back on element, just in case this computed prop returns the same value
-      el.style.height = oldHeight
-
-      // Value of previous height (without px units appended)
-      const oldHeightPx = parseFloat(oldHeight) || 0
-
-      if (this.noAutoShrink && oldHeightPx > height) {
+      // noAutoShrink
+      if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
         // Computed height remains the larger of oldHeight and new height
         // When height is `sticky` (no-auto-shrink is true)
         return oldHeight
