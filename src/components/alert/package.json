@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "meta": {
     "title": "Alert",
+    "description": "Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.",
     "components": [
       {
         "component": "BAlert",
         "events": [
           {
             "event": "dismissed",
-            "description": "Alert dismissed"
+            "description": "Alert dismissed either via the dismiss close button or when the dismiss countdown has expired"
           },
           {
             "event": "dismiss-count-down",
-            "description": "When dismissAfterSeconds enabled, this event emits every second on countdown.",
+            "description": "When prop show is a number, this event emits every second on countdown.",
             "args": [
               {
                 "arg": "dismissCountDown",

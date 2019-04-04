@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import idMixin from '../../mixins/id'
+import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
+
+const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead'
 
 // @vue/component
 export default Vue.extend({
@@ -61,7 +64,10 @@ export default Vue.extend({
       // <b-nav> + <b-card> + <router-view>/<nuxt-child> should be used instead
       // And we dont support router-links here
       type: String,
-      default: '#'
+      default: '#',
+      // deprecated: means don't use this prop
+      // deprecation: refers to a change in prop usage
+      deprecated: DEPRECATED_MSG
     },
     lazy: {
       type: Boolean,
@@ -129,6 +135,11 @@ export default Vue.extend({
   mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
+    // Deprecate use of `href` prop
+    if (this.href && this.href !== '#') {
+      /* istanbul ignore next */
+      warn(`b-tab: ${DEPRECATED_MSG}`)
+    }
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)

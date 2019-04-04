@@ -19,6 +19,8 @@ describe('get', () => {
     expect(get({}, [], 0)).toBe(0)
     expect(get({ a: 'b' }, 'b', {})).toEqual({})
     expect(get({ a: { c: 'd' } }, 'a.d', [])).toEqual([])
+    expect(get({ a: { c: undefined } }, 'a.c')).toBe(null)
+    expect(get({ a: 0, b: false }, 'c')).toBe(null)
   })
 
   it('returns expected value', async () => {
@@ -26,6 +28,8 @@ describe('get', () => {
     const obj2 = { a: { b: { c: { d: 'e' } } } }
     const obj3 = { a: [{ b: 'c' }] }
     const obj4 = { a: [[{ b: 'c' }], [{ d: { e: ['f'] } }]] }
+    const obj5 = { a: { b: 0, c: '', d: false } }
+    const obj6 = { a: 0, b: false }
 
     expect(get(obj1, 'a')).toBe('b')
     expect(get(obj1, ['a'])).toBe('b')
@@ -36,6 +40,11 @@ describe('get', () => {
     expect(get(obj4, 'a[1][0].d.e[0]')).toBe('f')
     expect(get(obj4, ['a', 1, 0, 'd', 'e', 0])).toBe('f')
     expect(get(obj4, ['a[1]', 0, 'd', 'e[0]'])).toBe('f')
+    expect(get(obj5, 'a.b')).toBe(0)
+    expect(get(obj5, 'a.c')).toBe('')
+    expect(get(obj5, 'a.d')).toBe(false)
+    expect(get(obj6, 'a')).toBe(0)
+    expect(get(obj6, 'b')).toBe(false)
   })
 
   it('handles when field name has dot', async () => {

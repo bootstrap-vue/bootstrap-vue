@@ -1,9 +1,14 @@
 <template>
-  <div class="bd-search d-flex align-items-center">
+  <form
+    class="bd-search d-flex align-items-center"
+    @submit.stop.prevent
+  >
     <b-form-input
       id="bd-search-input"
-      v-model="search"
-      placeholder="Search keywords..."
+      autocomplete="off"
+      type="search"
+      placeholder="Search..."
+      aria-label="Search docs"
     ></b-form-input>
     <button
       v-b-toggle.bd-docs-nav
@@ -29,118 +34,78 @@
         />
       </svg>
     </button>
-    <b-popover target="bd-search-input" placement="bottom" triggers="focus">
-      <span v-if="search.length && Object.keys(results).length === 0">No results found</span>
-      <span v-else-if="search.length"></span>
-      <span v-else>Type something to start search</span>
-
-      <div
-        v-for="(results, section, idx) in results"
-        :key="section"
-        :class="idx > 0 ? 'mt-2' : ''"
-      >
-        <h6 class="bd-text-purple my-1" v-html="section"></h6>
-        <div v-for="t in results" :key="t.href" class="my-1">
-          <b-link :to="t.href" @click="search = ''" v-html="t.title"></b-link>
-        </div>
-      </div>
-    </b-popover>
-  </div>
+  </form>
 </template>
 
 <script>
-import groupBy from 'lodash/groupBy'
-import intersectionBy from 'lodash/intersectionBy'
-import { makeTOC } from '~/utils'
-import { components, directives, reference, misc } from '~/content'
+import { relativeUrl } from '../utils'
 
-const SEARCH = []
-
-const process = (readme, section, page) => {
-  const baseURL = ['docs', section, page].filter(v => !!v).join('/')
-  const { title, toc } = makeTOC(readme)
-  ;[...toc].forEach(({ label, href }) => {
-    SEARCH.push({
-      section: title,
-      title: label,
-      href: `${baseURL}${href}`.replace('/#', '#')
-    })
-  })
-}
-
-// Async build the search database
-import('~/markdown/intro/README.md' /* webpackChunkName: "docs/intro" */).then(readme =>
-  process(readme.default, '', '')
-)
-Object.keys(components).forEach(page => {
-  import(`~/../src/components/${page}/README.md` /* webpackChunkName: "docs/components" */).then(
-    readme => process(readme.default, 'components', page)
-  )
-})
-Object.keys(directives).forEach(page => {
-  import(`~/../src/directives/${page}/README.md` /* webpackChunkName: "docs/directives" */).then(
-    readme => process(readme.default, 'directives', page)
-  )
-})
-Object.keys(reference).forEach(page => {
-  import(`~/markdown/reference/${page}/README.md` /* webpackChunkName: "docs/reference" */).then(
-    readme => process(readme.default, 'reference', page)
-  )
-})
-Object.keys(misc).forEach(page => {
-  import(`~/markdown/misc/${page}/README.md` /* webpackChunkName: "docs/misc" */).then(readme =>
-    process(readme.default, 'misc', page)
-  )
-})
+let scriptsInjected = false
 
 export default {
   data() {
     return {
-      search: ''
+      docsearch: null
     }
   },
-  computed: {
-    results() {
-      if (!this.search.length) {
-        return {}
-      }
-
-      // Break the searh into individual terms
-      const terms = this.search
-        .replace(/\s+/g, ' ')
-        .split(/\s+/)
-        .filter(t => t)
-      if (terms.length === 0) {
-        return {}
-      }
-
-      // Find results for each term
-      let results = terms.map(term => this.resultsFor(term))
-
-      // If no results return emptiness
-      if (results.length === 0) {
-        return {}
-      }
-
-      // Add our intersectionBy 'iteratee' key as the last array entry
-      results.push('href')
-      // Find the intersection (common) of all individual term results (all retults ANDed)
-      results = intersectionBy(...results)
-
-      // Return the first 6 results or an empty array
-      return groupBy(results.slice(0, 6), 'section')
-    }
+  mounted() {
+    this.loadDocsearch().then(this.initDocsearch)
   },
   methods: {
-    resultsFor(term) {
-      // Return the search entries for a particular search term
-      const regex = new RegExp(`\\b${term}`, 'i')
-      return SEARCH.reduce((results, item) => {
-        if (regex.test(item.title) || regex.test(item.section)) {
-          results.push(item)
-        }
-        return results
-      }, [])
+    async loadDocsearch() {
+      if (scriptsInjected) {
+        return
+      }
+
+      // Search indexing config stored at:
+      // https://github.com/algolia/docsearch-configs/blob/master/configs/bootstrap-vue.json
+
+      const cdnBaseUrl = '//cdn.jsdelivr.net/docsearch.js/2/'
+      const $body = document.body
+
+      // Load JS
+      const loadJs = new Promise(resolve => {
+        let $script = document.createElement('script')
+        $script.setAttribute('type', 'text/javascript')
+        $script.setAttribute('src', `${cdnBaseUrl}docsearch.min.js`)
+        $body.appendChild($script)
+        $script.onload = resolve
+      })
+
+      // Load CSS
+      const loadCss = new Promise(resolve => {
+        let $link = document.createElement('link')
+        $link.setAttribute('rel', 'stylesheet')
+        $link.setAttribute('type', 'text/css')
+        $link.setAttribute('href', `${cdnBaseUrl}docsearch.min.css`)
+        $body.appendChild($link)
+        $link.onload = resolve
+      })
+
+      await Promise.all([loadJs, loadCss])
+
+      scriptsInjected = true
+    },
+    initDocsearch() {
+      if (this.docsearch) {
+        return
+      }
+      // Initialize docsearch
+      this.docsearch = window.docsearch({
+        apiKey: 'c816d3054b015320f0cfb40042f7e2bc',
+        indexName: 'bootstrap-vue',
+        inputSelector: '#bd-search-input',
+        transformData(hits) {
+          return hits.map(function(hit) {
+            // Transform URL to a relative URL
+            hit.url = relativeUrl(hit.url)
+
+            return hit
+          })
+        },
+        // Set debug to `true` if you want to inspect the dropdown
+        debug: false
+      })
     }
   }
 }

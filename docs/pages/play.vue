@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <main class="container">
     <div class="mb-3 row">
       <div class="col-12 mb-3">
         <p class="mb-1">
@@ -148,7 +148,7 @@
         </div>
       </div>
     </transition-group>
-  </div>
+  </main>
 </template>
 
 <style scoped>
@@ -231,8 +231,25 @@ export default {
     }
   },
   head() {
+    const title = 'Online Playground | BootstrapVue'
+    const description = 'Interactively play and test BootstrapVue components online.'
     return {
-      title: 'Playground - BootstrapVue'
+      title: title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          property: 'og:title',
+          content: title
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          property: 'og:description',
+          content: description
+        },
+        { hid: 'description', name: 'description', content: description }
+      ]
     }
   },
   computed: {

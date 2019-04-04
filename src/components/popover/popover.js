@@ -31,6 +31,7 @@ export default {
     createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
+      /* istanbul ignore else */
       if (target) {
         this._toolpop = new PopOver(target, this.getConfig(), this.$root)
       } else {

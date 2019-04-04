@@ -208,7 +208,7 @@ export default {
       attributeFilter: ['id']
     })
   },
-  beforeDestroy() /* istanbul ignore next: difficult to test */ {
+  beforeDestroy() {
     clearTimeout(this._animationTimeout)
     clearTimeout(this._touchTimeout)
     clearInterval(this._intervalId)
@@ -275,8 +275,7 @@ export default {
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
-    restart(evt) {
-      /* istanbul ignore if: difficult to test */
+    restart(evt) /* istanbul ignore next: difficult to test */ {
       if (!this.$el.contains(document.activeElement)) {
         this.start()
       }
@@ -570,7 +569,7 @@ export default {
     }
     // Touch support event handlers for environment
     if (!this.noTouch && hasTouchSupport) {
-      // Attach appropriate listeners (passive mode)
+      // Attach appropriate listeners (prepend event name with '&' for passive mode)
       /* istanbul ignore next: JSDOM doesn't support touch events */
       if (hasPointerEvent) {
         on['&pointerdown'] = this.touchStart

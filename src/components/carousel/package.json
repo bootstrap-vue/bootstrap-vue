@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Carousel",
+    "description": "The <b-carousel> component is a slideshow for cycling through a series of content, built with CSS 3D transforms. It works with a series of images, text, or custom markup.",
     "components": [
       {
         "component": "BCarousel",

@@ -1,7 +1,7 @@
 import ListGroupItem from './list-group-item'
 import { mount } from '@vue/test-utils'
 
-describe('list-group-item', () => {
+describe('list-group > list-group-item', () => {
   it('default should have tag div', async () => {
     const wrapper = mount(ListGroupItem)
     expect(wrapper.is('div')).toBe(true)

@@ -27,23 +27,23 @@ const Selector = {
   CONTENT: '.popover-body'
 }
 
-/* istanbul ignore next: dificult to test in Jest/JSDOM environment */
 class PopOver extends ToolTip {
   // Getter overrides
 
-  static get Default() /* istanbul ignore next */ {
+  static get Default() {
     return Defaults
   }
 
-  static get NAME() /* istanbul ignore next */ {
+  static get NAME() {
     return NAME
   }
 
   // Method overrides
 
-  isWithContent(tip) /* istanbul ignore next */ {
+  isWithContent(tip) {
     tip = tip || this.$tip
     if (!tip) {
+      /* istanbul ignore next */
       return false
     }
     const hasTitle = Boolean((select(Selector.TITLE, tip) || {}).innerHTML)
@@ -55,7 +55,7 @@ class PopOver extends ToolTip {
     addClass(this.getTipElement(), `${CLASS_PREFIX}-${attachment}`)
   }
 
-  setContent(tip) /* istanbul ignore next */ {
+  setContent(tip) {
     // we use append for html objects to maintain js events/components
     this.setElementContent(select(Selector.TITLE, tip), this.getTitle())
     this.setElementContent(select(Selector.CONTENT, tip), this.getContent())
@@ -75,11 +75,13 @@ class PopOver extends ToolTip {
     }
   }
 
-  getTitle() /* istanbul ignore next */ {
+  getTitle() {
     let title = this.$config.title || ''
+    /* istanbul ignore next */
     if (typeof title === 'function') {
       title = title(this.$element)
     }
+    /* istanbul ignore next */
     if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       title = ''
@@ -97,11 +99,13 @@ class PopOver extends ToolTip {
 
   // New methods
 
-  getContent() /* istanbul ignore next */ {
+  getContent() {
     let content = this.$config.content || ''
+    /* istanbul ignore next */
     if (typeof content === 'function') {
       content = content(this.$element)
     }
+    /* istanbul ignore next */
     if (typeof content === 'object' && content.nodeType && !content.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       content = ''

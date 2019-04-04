@@ -238,7 +238,6 @@ Use the `fade` prop to enable animation. By default alerts are not animated.
       dismissible
       fade
       variant="warning"
-      @dismissed="dismissCountDown=0"
       @dismiss-count-down="countDownChanged"
     >
       This alert will dismiss after {{ dismissCountDown }} seconds...
