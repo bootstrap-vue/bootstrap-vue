@@ -11,6 +11,8 @@ jest.useFakeTimers()
 const appDef = {
   props: {
     interval: 0,
+    indicators: false,
+    controls: false,
     fade: false,
     noAnimation: false,
     value: 0
@@ -21,6 +23,8 @@ const appDef = {
       {
         props: {
           interval: this.interval,
+          indicators: this.indicators,
+          controls: this.controls,
           fade: this.fade,
           noAnimation: this.noAnimation,
           value: this.value
@@ -285,7 +289,9 @@ describe('carousel', () => {
       propsData: {
         interval: 0,
         fade: false,
-        noAnimation: false
+        noAnimation: false,
+        indicators: true,
+        controls: true
       }
     })
 
@@ -304,6 +310,80 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start')).not.toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('should scroll to next/prev slide when next/prev clicked', async () => {
+    const wrapper = mount(localVue.extend(appDef), {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $carousel = wrapper.find(Carousel)
+    expect($carousel).toBeDefined()
+    expect($carousel.isVueInstance()).toBe(true)
+
+    const $next = $carousel.find('.carousel-control-next')
+    const $prev = $carousel.find('.carousel-control-prev')
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('input')).not.toBeDefined()
+
+    $next.trigger('click')
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start')).toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-end')).toBeDefined()
+    expect($carousel.emitted('sliding-end').length).toBe(1)
+    expect($carousel.emitted('sliding-end')[0][0]).toEqual(1)
+    expect($carousel.emitted('input')).toBeDefined()
+    expect($carousel.emitted('input').length).toBe(1)
+    expect($carousel.emitted('input')[0][0]).toEqual(1)
+
+    $prev.trigger('click')
+
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start').length).toBe(2)
+    expect($carousel.emitted('sliding-end').length).toBe(1)
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-start')[0][0]).toEqual(0)
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect($carousel.emitted('sliding-start').length).toBe(2)
+    expect($carousel.emitted('sliding-end').length).toBe(2)
+    expect($carousel.emitted('sliding-end')[1][0]).toEqual(0)
+    expect($carousel.emitted('input').length).toBe(2)
+    expect($carousel.emitted('input')[1][0]).toEqual(0)
 
     wrapper.destroy()
   })
