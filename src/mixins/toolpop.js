@@ -224,11 +224,11 @@ export default {
     },
     onClose(callback) {
       // What is callback for ? it is not documented
+      /* istanbul ignore else */
       if (this._toolpop && this.localShow) {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
         // Is this even used?
-        /* istanbul ignore next */
         callback()
       }
     },
@@ -273,11 +273,7 @@ export default {
     // Callbacks called by Tooltip/Popover class instance
     onShow(evt) {
       this.$emit('show', evt)
-      if (evt && evt.defaultPrevented) {
-        this.localShow = false
-      } else {
-        this.localShow = true
-      }
+      this.localShow = !(evt && evt.defaultPrevented)
     },
     onShown(evt) {
       this.setObservers(true)
@@ -286,11 +282,7 @@ export default {
     },
     onHide(evt) {
       this.$emit('hide', evt)
-      if (evt && evt.defaultPrevented) {
-        this.localShow = true
-      } else {
-        this.localShow = false
-      }
+      this.localShow = !!(evt && evt.defaultPrevented)
     },
     onHidden(evt) {
       this.setObservers(false)
