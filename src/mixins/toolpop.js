@@ -128,6 +128,11 @@ export default {
       if (disabled !== old) {
         disabled ? this.onDisable() : this.onEnable()
       }
+    },
+    localShow(show, old) {
+      if (show !== this.show) {
+        this.$emit('update:show', show)
+      }
     }
   },
   created() {
@@ -219,7 +224,7 @@ export default {
     },
     onClose(callback) {
       // What is callback for ? it is not documented
-      if (this._toolpop) {
+      if (this._toolpop && this.localShow) {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
         // Is this even used?
@@ -265,27 +270,24 @@ export default {
       /* istanbul ignore next */
       return null
     },
-    // Callbacks passed to class instance
+    // Callbacks called by Tooltip/Popover class instance
     onShow(evt) {
       this.$emit('show', evt)
       if (evt && evt.defaultPrevented) {
         this.localShow = false
-        this.$emit('update:show', false)
       } else {
         this.localShow = true
       }
     },
     onShown(evt) {
-      this.localShow = true
       this.setObservers(true)
       this.$emit('shown', evt)
-      this.$emit('update:show', true)
+      this.localShow = true
     },
     onHide(evt) {
       this.$emit('hide', evt)
       if (evt && evt.defaultPrevented) {
         this.localShow = true
-        this.$emit('update:show', true)
       } else {
         this.localShow = false
       }
@@ -297,7 +299,6 @@ export default {
       this.bringItBack()
       this.$emit('hidden', evt)
       this.localShow = false
-      this.$emit('update:show', false)
     },
     onEnabled(evt) {
       /* istanbul ignore next */
