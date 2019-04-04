@@ -975,8 +975,9 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-start')[1][0]).toEqual(3)
     expect($carousel.emitted('input')).toBeDefined()
-    expect($carousel.emitted('input').length).toBe(1)
+    expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
+    expect($carousel.emitted('input')[1][0]).toEqual(3)
     expect($carousel.vm.index).toBe(1)
     expect($carousel.vm.isSliding).toBe(false)
 
