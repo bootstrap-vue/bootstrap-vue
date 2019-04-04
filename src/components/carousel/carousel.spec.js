@@ -8,6 +8,36 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 jest.useFakeTimers()
 
+const appDef = {
+  props: {
+    interval: 0,
+    fade: false,
+    noAnimation: false
+  },
+  render(h) {
+    return h(
+      Carousel,
+      {
+        props: {
+          interval: this.interval,
+          fade: this.fade,
+          noAnimation: this.noAnimation
+        },
+        listeners: {
+          'sliding-start': () => this.$emit('sliding-start'),
+          'sliding-end': () => this.$emit('sliding-end')
+        }
+      },
+      [
+        h(Slide, {}, 'slide 1'),
+        h(Slide, {}, 'slide 2'),
+        h(Slide, {}, 'slide 3'),
+        h(Slide, {}, 'slide 4')
+      ]
+    )
+  }
+}
+
 describe('carousel', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(Carousel, {
@@ -246,6 +276,37 @@ describe('carousel', () => {
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).not.toContain('slide')
     expect(wrapper.classes()).not.toContain('carousel-fade')
+
+    wrapper.destroy()
+  })
+
+  it('should not automatically scroll to next slide when interval=0', async () => {
+    const spyStart = jest.fn()
+    const spyEnd = jest.fn()
+    const wrapper = mount(localVue.extend(App), {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false
+      },
+      listeners: {
+        'sliding-start': spyStart,
+        'sliding-end': spyEnd
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    jest.runOnlyPendingTimers()
+    await wrapper.vm.$nextTick()
+    await waitAF()
+
+    expect(spyStart).not.toHaveBeenCalled()
+    expect(spyEnd).not.toHaveBeenCalled()
 
     wrapper.destroy()
   })
