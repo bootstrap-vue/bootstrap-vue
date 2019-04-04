@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import noop from '../../utils/noop'
@@ -63,7 +64,7 @@ function getTransitionEndEvent(el) {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCarousel',
   mixins: [idMixin],
   provide() {
@@ -602,4 +603,4 @@ export default {
       [inner, controls, indicators]
     )
   }
-}
+})
