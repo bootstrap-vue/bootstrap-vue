@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 
@@ -19,7 +20,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -33,4 +34,4 @@ export default {
       children || props.subTitle
     )
   }
-}
+})
