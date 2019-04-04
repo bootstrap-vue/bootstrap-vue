@@ -1,8 +1,9 @@
+import Vue from 'vue'
 import formOptionsMixin from '../../mixins/form-options'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormDatalist',
   mixins: [formOptionsMixin],
   props: {
@@ -22,4 +23,4 @@ export default {
     })
     return h('datalist', { attrs: { id: this.id } }, [options, this.$slots.default])
   }
-}
+})
