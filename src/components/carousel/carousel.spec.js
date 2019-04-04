@@ -1,5 +1,5 @@
 import Carousel from './carousel'
-// import Slide from './carousel-slide'
+import Slide from './carousel-slide'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const localVue = new CreateLocalVue()
@@ -283,7 +283,7 @@ describe('carousel', () => {
   it('should not automatically scroll to next slide when interval=0', async () => {
     const spyStart = jest.fn()
     const spyEnd = jest.fn()
-    const wrapper = mount(localVue.extend(App), {
+    const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
