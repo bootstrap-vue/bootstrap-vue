@@ -92,7 +92,7 @@ export default {
       const el = this.$el
 
       // Element must be visible (not hidden) and in document
-      // *Must* be checked after above checks
+      // Must be checked after above checks
       if (!isVisible(el)) {
         return null
       }
@@ -101,17 +101,14 @@ export default {
       const computedStyle = getCS(el)
       // Height of one line of text in px
       const lineHeight = parseFloat(computedStyle.lineHeight)
-      // calculate height of border and padding
-      const border = (
+      // Calculate height of border and padding
+      const border =
         (parseFloat(computedStyle.borderTopWidth) || 0) +
         (parseFloat(computedStyle.borderBottomWidth) || 0)
-      )
-      const padding = (
-        (parseFloat(computedStyle.paddingTop) || 0) +
-        (parseFloat(computedStyle.paddingBottom) || 0)
-      )
-      // calculate offset
-      const offset = (computedStyle.boxSizing === 'border-box' ? border + padding : 0 )
+      const padding =
+        (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0)
+      // Calculate offset
+      const offset = computedStyle.boxSizing === 'border-box' ? border + padding : 0
       // Minimum height for min rows (browser dependant)
       const minHeight = lineHeight * this.computedMinRows + offset
 
@@ -128,10 +125,9 @@ export default {
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // noAutoShrink
+      // Computed height remains the larger of oldHeight and new height
+      // When height is `sticky` (no-auto-shrink is true)
       if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
-        // Computed height remains the larger of oldHeight and new height
-        // When height is `sticky` (no-auto-shrink is true)
         return oldHeight
       }
 
