@@ -271,7 +271,6 @@ export default {
       if (evt && evt.defaultPrevented) {
         this.localShow = false
         this.$emit('update:show', false)
-        return
       } else {
         this.localShow = true
       }
@@ -289,9 +288,9 @@ export default {
       if (evt && evt.defaultPrevented) {
         this.localShow = true
         this.$emit('update:show', true)
-        return
+      } else {
+        this.localShow = false
       }
-      this.localShow = false
     },
     onHidden(evt) {
       this.setObservers(false)
