@@ -1,10 +1,11 @@
+import Vue from 'vue'
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCarouselSlide',
   components: { BImg },
   mixins: [idMixin],
@@ -151,4 +152,4 @@ export default {
       [img, content]
     )
   }
-}
+})
