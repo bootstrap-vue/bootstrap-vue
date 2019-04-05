@@ -1,9 +1,9 @@
-import Divider from './dropdown-divider'
+import BDropdownDivider from './dropdown-divider'
 import { mount } from '@vue/test-utils'
 
 describe('dropdown > dropdown-divider', () => {
   it('works', async () => {
-    const wrapper = mount(Divider)
+    const wrapper = mount(BDropdownDivider)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('dropdown-divider')
@@ -14,7 +14,7 @@ describe('dropdown > dropdown-divider', () => {
   })
 
   it('renders custom root element when prop tag set', async () => {
-    const wrapper = mount(Divider, {
+    const wrapper = mount(BDropdownDivider, {
       propsData: {
         tag: 'span'
       }
@@ -29,7 +29,7 @@ describe('dropdown > dropdown-divider', () => {
   })
 
   it('does not render default slot content', async () => {
-    const wrapper = mount(Divider, {
+    const wrapper = mount(BDropdownDivider, {
       slots: {
         default: 'foobar'
       }

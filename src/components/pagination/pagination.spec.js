@@ -1,10 +1,10 @@
-import Pagination from './pagination'
+import BPagination from './pagination'
 import { isVisible, getBCR, contains } from '../../utils/dom'
 import { mount } from '@vue/test-utils'
 
 describe('pagination', () => {
   it('renders with correct basic structure for root element', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 1,
         perPage: 1
@@ -27,7 +27,7 @@ describe('pagination', () => {
   })
 
   it('renders with correct basic inner structure', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 1,
         perPage: 1,
@@ -84,7 +84,7 @@ describe('pagination', () => {
 
   it('renders scopedSlot page', async () => {
     let scopes = []
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 3,
         perPage: 1,
@@ -134,8 +134,8 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('renders corerct number of elements when total-rows changes', async () => {
-    const wrapper = mount(Pagination, {
+  it('renders correct number of elements when total-rows changes', async () => {
+    const wrapper = mount(BPagination, {
       propsData: {
         size: 'sm',
         totalRows: 1,
@@ -164,7 +164,7 @@ describe('pagination', () => {
   })
 
   it('has class "pagination-sm" when prop size="sm"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         size: 'sm',
         totalRows: 1,
@@ -188,7 +188,7 @@ describe('pagination', () => {
   })
 
   it('has class "pagination-lg" when prop size="lg"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         size: 'lg',
         totalRows: 1,
@@ -212,7 +212,7 @@ describe('pagination', () => {
   })
 
   it('has class "pagination-foo" when prop size="foo"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         size: 'foo',
         totalRows: 1,
@@ -237,7 +237,7 @@ describe('pagination', () => {
   })
 
   it('has class "justify-content-center" when prop align="center"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         align: 'center',
         totalRows: 1,
@@ -261,7 +261,7 @@ describe('pagination', () => {
   })
 
   it('has class "justify-content-end" when prop align="right"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         align: 'right',
         totalRows: 1,
@@ -285,7 +285,7 @@ describe('pagination', () => {
   })
 
   it('has class "justify-content-end" when prop align="end"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         align: 'end',
         totalRows: 1,
@@ -309,7 +309,7 @@ describe('pagination', () => {
   })
 
   it('has class "text-center" and "flex-fill" when prop align="fill"', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         align: 'fill',
         totalRows: 5,
@@ -335,7 +335,7 @@ describe('pagination', () => {
   })
 
   it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         hideGotoEndButtons: true,
         hideEllipsis: true,
@@ -362,7 +362,7 @@ describe('pagination', () => {
   })
 
   it('has attribute aria-label on page links', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         hideGotoEndButtons: true,
         hideEllipsis: true,
@@ -403,7 +403,7 @@ describe('pagination', () => {
   })
 
   it('has all links disabled when prop disabled set', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 3,
         perPage: 1,
@@ -439,7 +439,7 @@ describe('pagination', () => {
   })
 
   it('renders classes bv-d-xs-down-none when more than 3 pages', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 70,
         perPage: 10,
@@ -541,10 +541,10 @@ describe('pagination', () => {
       expect(li.attributes('role')).toContain('presentation')
       // Page number buttons
       if (index >= 2 && index <= 5) {
-        // pages 1 to 4
+        // Pages 1 to 4
         expect(li.classes()).toContain('bv-d-xs-down-none')
       } else if (index >= 6 && index <= 8) {
-        // pages 5 to 7
+        // Pages 5 to 7
         expect(li.classes()).not.toContain('bv-d-xs-down-none')
       }
     })
@@ -553,7 +553,7 @@ describe('pagination', () => {
   })
 
   it('places ellipsis in correct places', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 70,
         perPage: 10,
@@ -598,7 +598,7 @@ describe('pagination', () => {
   })
 
   it('clicking buttons updates the v-model', async () => {
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 3,
         perPage: 1,
@@ -633,7 +633,7 @@ describe('pagination', () => {
       .findAll('li')
       .at(6)
       .find('a')
-      .trigger('keydown.space') /* generates a click event */
+      .trigger('keydown.space') // Generates a click event
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
@@ -653,8 +653,8 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('changing the limit changes the nuber of buttons shown', async () => {
-    const wrapper = mount(Pagination, {
+  it('changing the limit changes the number of buttons shown', async () => {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 9,
         perPage: 1,
@@ -664,7 +664,7 @@ describe('pagination', () => {
     })
     expect(wrapper.is('ul')).toBe(true)
 
-    // Should be 13 <LI> total
+    // Should be 13 <li> total
     expect(wrapper.findAll('li').length).toBe(13)
 
     wrapper.setProps({
@@ -672,7 +672,7 @@ describe('pagination', () => {
     })
     await wrapper.vm.$nextTick()
 
-    // Should be 8 <LI> total
+    // Should be 8 <li> total
     expect(wrapper.findAll('li').length).toBe(8)
 
     wrapper.destroy()
@@ -680,11 +680,11 @@ describe('pagination', () => {
 
   it('changing the pagesize resets to page 1', async () => {
     // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
-    const wrapper = mount(Pagination, {
+    const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 10,
         perPage: 1,
-        value: 10, // set to last page
+        value: 10, // Set to last page
         limit: 20
       }
     })
@@ -723,9 +723,7 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  //
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
-  //
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
@@ -749,7 +747,7 @@ describe('pagination', () => {
     })
 
     it('keyboard navigation works', async () => {
-      const wrapper = mount(Pagination, {
+      const wrapper = mount(BPagination, {
         propsData: {
           totalRows: 3,
           perPage: 1,
@@ -801,7 +799,7 @@ describe('pagination', () => {
     })
 
     it('internal method focusCurrent() works', async () => {
-      const wrapper = mount(Pagination, {
+      const wrapper = mount(BPagination, {
         propsData: {
           totalRows: 3,
           perPage: 1,
@@ -829,7 +827,7 @@ describe('pagination', () => {
     })
 
     it('Current page button is focused when button display changes', async () => {
-      const wrapper = mount(Pagination, {
+      const wrapper = mount(BPagination, {
         propsData: {
           totalRows: 10,
           perPage: 1,

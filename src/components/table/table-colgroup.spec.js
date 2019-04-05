@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import normalizeFields from './helpers/normalize-fields'
 import { mount } from '@vue/test-utils'
 
@@ -7,7 +7,7 @@ const testFields = ['a', 'b', 'c']
 
 describe('table > colgroup', () => {
   it('should not have colgroup by default', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -21,7 +21,7 @@ describe('table > colgroup', () => {
   })
 
   it('should render named slot `table-colgroup`', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -47,7 +47,7 @@ describe('table > colgroup', () => {
   it('should render scoped slot `table-colgroup`', async () => {
     let fields = []
     let columns
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems

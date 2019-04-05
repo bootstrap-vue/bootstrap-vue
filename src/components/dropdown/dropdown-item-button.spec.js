@@ -1,9 +1,9 @@
-import DropdownItemBtn from './dropdown-item-button'
+import BDropdownItemButton from './dropdown-item-button'
 import { mount } from '@vue/test-utils'
 
 describe('dropdown-item-button', () => {
   it('renders with tag "button" and type="button" by default', async () => {
-    const wrapper = mount(DropdownItemBtn)
+    const wrapper = mount(BDropdownItemButton)
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.attributes('type')).toBe('button')
 
@@ -11,7 +11,7 @@ describe('dropdown-item-button', () => {
   })
 
   it('has class "dropdown-item"', async () => {
-    const wrapper = mount(DropdownItemBtn)
+    const wrapper = mount(BDropdownItemButton)
     expect(wrapper.classes()).toContain('dropdown-item')
     expect(wrapper.classes()).not.toContain('active')
 
@@ -19,7 +19,7 @@ describe('dropdown-item-button', () => {
   })
 
   it('has class "active" when active=true', async () => {
-    const wrapper = mount(DropdownItemBtn, {
+    const wrapper = mount(BDropdownItemButton, {
       propsData: { active: true }
     })
     expect(wrapper.classes()).toContain('active')
@@ -29,7 +29,7 @@ describe('dropdown-item-button', () => {
   })
 
   it('has attribute "disabled" when disabled=true', async () => {
-    const wrapper = mount(DropdownItemBtn, {
+    const wrapper = mount(BDropdownItemButton, {
       propsData: { disabled: true }
     })
     expect(wrapper.attributes('disabled')).toBeDefined()
@@ -40,7 +40,7 @@ describe('dropdown-item-button', () => {
   it('calls dropdown hide(true) method when clicked', async () => {
     let called = false
     let refocus = null
-    const wrapper = mount(DropdownItemBtn, {
+    const wrapper = mount(BDropdownItemButton, {
       provide: {
         bvDropdown: {
           hide(arg) {
@@ -63,7 +63,7 @@ describe('dropdown-item-button', () => {
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
     let called = false
     let refocus = null
-    const wrapper = mount(DropdownItemBtn, {
+    const wrapper = mount(BDropdownItemButton, {
       provide: {
         bvDropdown: {
           hide(arg) {

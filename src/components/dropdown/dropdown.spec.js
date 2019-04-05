@@ -1,5 +1,5 @@
-import Dropdown from './dropdown'
-import DropdownItem from './dropdown-item'
+import BDropdown from './dropdown'
+import BDropdownItem from './dropdown-item'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('dropdown', () => {
@@ -8,9 +8,9 @@ describe('dropdown', () => {
 
   beforeEach(() => {
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
-    // Hack to make Popper not bork out during tests.
-    // Note popper still does not do any positiioning claculation in JSDOM though.
-    // So we cannpt test actual positioning of the menu... just detect when it is open.
+    // Hack to make Popper not bork out during tests
+    // Note popper still does not do any positioning calculation in JSDOM though
+    // So we cannot test actual positioning of the menu, just detect when it is open
     document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
@@ -40,7 +40,7 @@ describe('dropdown', () => {
   })
 
   it('has expected default structure', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true
     })
 
@@ -87,7 +87,7 @@ describe('dropdown', () => {
   })
 
   it('split mode has expected default structure', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true
@@ -149,7 +149,7 @@ describe('dropdown', () => {
   })
 
   it('renders default slot inside menu', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       slots: {
         default: 'foobar'
@@ -167,7 +167,7 @@ describe('dropdown', () => {
   })
 
   it('has user supplied ID', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         id: 'test'
@@ -194,7 +194,7 @@ describe('dropdown', () => {
   })
 
   it('should have "dropdown-toggle-no-caret" class when no-caret is true', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         noCaret: true
@@ -205,7 +205,7 @@ describe('dropdown', () => {
   })
 
   it('should not have "dropdown-toggle-no-caret" class when no-caret and split are true', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         noCaret: true,
@@ -217,7 +217,7 @@ describe('dropdown', () => {
   })
 
   it('should have a toggle with the given toggle tag', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         toggleTag: 'div'
@@ -228,7 +228,7 @@ describe('dropdown', () => {
   })
 
   it('should have class dropup when prop dropup set', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         dropup: true
@@ -248,7 +248,7 @@ describe('dropdown', () => {
   })
 
   it('should have class dropright when prop dropright set', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         dropright: true
@@ -268,7 +268,7 @@ describe('dropdown', () => {
   })
 
   it('should have class dropleft when prop dropleft set', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         dropleft: true
@@ -288,7 +288,7 @@ describe('dropdown', () => {
   })
 
   it('menu should have class dropdown-menu-right when prop right set', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         right: true
@@ -308,7 +308,7 @@ describe('dropdown', () => {
   })
 
   it('split mode emits click event when split button clicked', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true
@@ -335,7 +335,9 @@ describe('dropdown', () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, [h(Dropdown, { props: { id: 'test' } }, [h(DropdownItem, {}, 'item')])])
+        return h('div', {}, [
+          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, {}, 'item')])
+        ])
       }
     })
 
@@ -464,7 +466,7 @@ describe('dropdown', () => {
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    // Re enable dropdown and open it
+    // Re-enable dropdown and open it
     $dropdown.setProps({
       disabled: false
     })
@@ -485,7 +487,7 @@ describe('dropdown', () => {
 
   it('preventDefault() works on show event', async () => {
     let prevent = true
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       listeners: {
         show: bvEvt => {
@@ -543,7 +545,7 @@ describe('dropdown', () => {
 
   it('preventDefault() works on toggle event', async () => {
     let prevent = true
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       listeners: {
         toggle: evt => {
@@ -608,11 +610,11 @@ describe('dropdown', () => {
     const App = localVue.extend({
       render(h) {
         return h('div', {}, [
-          h(Dropdown, { props: { id: 'test' } }, [
-            h(DropdownItem, { attrs: { id: 'item-1' } }, 'item'),
-            h(DropdownItem, { attrs: { id: 'item-2' } }, 'item'),
-            h(DropdownItem, { attrs: { id: 'item-3' }, props: { disabled: true } }, 'item'),
-            h(DropdownItem, { attrs: { id: 'item-4' } }, 'item')
+          h(BDropdown, { props: { id: 'test' } }, [
+            h(BDropdownItem, { attrs: { id: 'item-1' } }, 'item'),
+            h(BDropdownItem, { attrs: { id: 'item-2' } }, 'item'),
+            h(BDropdownItem, { attrs: { id: 'item-3' }, props: { disabled: true } }, 'item'),
+            h(BDropdownItem, { attrs: { id: 'item-4' } }, 'item')
           ])
         ])
       }
@@ -683,7 +685,7 @@ describe('dropdown', () => {
   })
 
   it('when boundary not set should not have class position-static', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true
     })
     expect(wrapper.is('div')).toBe(true)
@@ -694,7 +696,7 @@ describe('dropdown', () => {
   })
 
   it('when boundary set to viewport should have class position-static', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         boundary: 'viewport'
@@ -708,7 +710,7 @@ describe('dropdown', () => {
   })
 
   it('toggle button size works', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         size: 'lg'
@@ -728,7 +730,7 @@ describe('dropdown', () => {
   })
 
   it('split button size works', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true,
@@ -752,7 +754,7 @@ describe('dropdown', () => {
   })
 
   it('toggle button content works', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         text: 'foobar'
@@ -772,7 +774,7 @@ describe('dropdown', () => {
   })
 
   it('split button content works', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true,
@@ -793,7 +795,7 @@ describe('dropdown', () => {
   })
 
   it('variant works on non-split button', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         variant: 'primary'
@@ -814,7 +816,7 @@ describe('dropdown', () => {
   })
 
   it('variant works on split button', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true,
@@ -848,7 +850,7 @@ describe('dropdown', () => {
   })
 
   it('split mode has href when prop split-href set', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true,
@@ -876,7 +878,7 @@ describe('dropdown', () => {
   })
 
   it('split mode has href when prop split-to set', async () => {
-    const wrapper = mount(Dropdown, {
+    const wrapper = mount(BDropdown, {
       attachToDocument: true,
       propsData: {
         split: true,

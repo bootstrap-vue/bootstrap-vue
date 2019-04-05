@@ -1,9 +1,9 @@
-import ProgressBar from './progress-bar'
+import BProgressBar from './progress-bar'
 import { mount } from '@vue/test-utils'
 
 describe('progress-bar', () => {
   it('has correct base class and structure', async () => {
-    const wrapper = mount(ProgressBar)
+    const wrapper = mount(BProgressBar)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('progress-bar')
@@ -23,7 +23,7 @@ describe('progress-bar', () => {
   })
 
   it('has class bg-primary when variant=primary', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         variant: 'primary'
       }
@@ -36,7 +36,7 @@ describe('progress-bar', () => {
   })
 
   it('has class bg-info when parent variant=info', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       provide: {
         bvProgress: {
           variant: 'info'
@@ -51,7 +51,7 @@ describe('progress-bar', () => {
   })
 
   it('has class bg-primary when prop variant=primary and parent variant=info', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       provide: {
         bvProgress: {
           variant: 'info'
@@ -68,7 +68,7 @@ describe('progress-bar', () => {
     wrapper.destroy()
   })
   it('has class progress-bar-striped when prop striped set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         striped: true
       }
@@ -81,7 +81,7 @@ describe('progress-bar', () => {
   })
 
   it('has class progress-bar-striped when parent prop striped set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       provide: {
         bvProgress: {
           striped: true
@@ -96,7 +96,7 @@ describe('progress-bar', () => {
   })
 
   it('has class progress-bar-animated and progress-bar-striped when prop animated set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         animated: true
       }
@@ -110,7 +110,7 @@ describe('progress-bar', () => {
   })
 
   it('has class progress-bar-animated and progress-bar-striped when parent prop animated set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       provide: {
         bvProgress: {
           animated: true
@@ -126,7 +126,7 @@ describe('progress-bar', () => {
   })
 
   it('has style width set when value set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         value: 50
       }
@@ -141,7 +141,7 @@ describe('progress-bar', () => {
   })
 
   it('has max set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         value: 25,
         max: 50
@@ -157,7 +157,7 @@ describe('progress-bar', () => {
   })
 
   it('has max set when parent max set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       provide: {
         bvProgress: {
           max: 50
@@ -177,7 +177,7 @@ describe('progress-bar', () => {
   })
 
   it('has label when prop label set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         label: 'foobar'
       }
@@ -189,7 +189,7 @@ describe('progress-bar', () => {
   })
 
   it('has label when prop labelHtml set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         labelHtml: 'foobar'
       }
@@ -201,7 +201,7 @@ describe('progress-bar', () => {
   })
 
   it('has label from default slot', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       slots: {
         default: 'foobar'
       }
@@ -213,7 +213,7 @@ describe('progress-bar', () => {
   })
 
   it('has label when show-value set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         value: 50,
         showValue: true
@@ -226,7 +226,7 @@ describe('progress-bar', () => {
   })
 
   it('has label with precision when show-value and precision set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         value: 50,
         showValue: true,
@@ -240,7 +240,7 @@ describe('progress-bar', () => {
   })
 
   it('has label when show-progress set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         value: 25,
         showProgress: true,
@@ -254,7 +254,7 @@ describe('progress-bar', () => {
   })
 
   it('has label when show-progress and precision set', async () => {
-    const wrapper = mount(ProgressBar, {
+    const wrapper = mount(BProgressBar, {
       propsData: {
         value: 25,
         showProgress: true,

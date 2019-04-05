@@ -1,9 +1,9 @@
-import FormText from './form-text'
+import BFormText from './form-text'
 import { mount } from '@vue/test-utils'
 
 describe('form > form-text', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(FormText)
+    const wrapper = mount(BFormText)
 
     expect(wrapper.is('small')).toBe(true)
     expect(wrapper.classes()).toContain('form-text')
@@ -13,7 +13,7 @@ describe('form > form-text', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(FormText, {
+    const wrapper = mount(BFormText, {
       slots: {
         default: 'foobar'
       }
@@ -27,7 +27,7 @@ describe('form > form-text', () => {
   })
 
   it('renders custom root element when prop tag set', async () => {
-    const wrapper = mount(FormText, {
+    const wrapper = mount(BFormText, {
       propsData: {
         tag: 'p'
       }
@@ -41,7 +41,7 @@ describe('form > form-text', () => {
   })
 
   it('has user supplied ID', async () => {
-    const wrapper = mount(FormText, {
+    const wrapper = mount(BFormText, {
       propsData: {
         id: 'foo'
       }
@@ -53,7 +53,7 @@ describe('form > form-text', () => {
   })
 
   it('does not have class form-text when prop inline set', async () => {
-    const wrapper = mount(FormText, {
+    const wrapper = mount(BFormText, {
       propsData: {
         inline: true
       }
@@ -66,7 +66,7 @@ describe('form > form-text', () => {
   })
 
   it('has variant class applied when prop text-variant is set', async () => {
-    const wrapper = mount(FormText, {
+    const wrapper = mount(BFormText, {
       propsData: {
         textVariant: 'info'
       }

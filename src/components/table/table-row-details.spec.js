@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 describe('table > row details', () => {
@@ -9,7 +9,7 @@ describe('table > row details', () => {
       { a: 7, b: 8, c: 9, _showDetails: false }
     ]
     const testFields = ['a', 'b', 'c']
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -34,13 +34,13 @@ describe('table > row details', () => {
       { a: 7, b: 8, c: 9, _showDetails: false }
     ]
     const testFields = ['a', 'b', 'c']
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
       },
       slots: {
-        // named slots get turned into scopedSlots in Vue 2.6.x
+        // Named slots get turned into scopedSlots in Vue 2.6.x
         'row-details': '<div>foobar</div>'
       }
     })
@@ -65,13 +65,13 @@ describe('table > row details', () => {
       { a: 7, b: 8, c: 9, _showDetails: false }
     ]
     const testFields = ['a', 'b', 'c']
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
       },
       slots: {
-        // named slots get turned into scopedSlots in Vue 2.6.x
+        // Named slots get turned into scopedSlots in Vue 2.6.x
         'row-details': '<div>foobar</div>'
       }
     })
@@ -101,7 +101,7 @@ describe('table > row details', () => {
       { a: 7, b: 8, c: 9, _showDetails: false }
     ]
     const testFields = ['a', 'b', 'c']
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -140,14 +140,14 @@ describe('table > row details', () => {
       { a: 7, b: 8, c: 9, _showDetails: false }
     ]
     const testFields = ['a', 'b', 'c']
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
         striped: true
       },
       slots: {
-        // named slots get turned into scopedSlots in Vue 2.6.x
+        // Named slots get turned into scopedSlots in Vue 2.6.x
         'row-details': '<div>foobar</div>'
       }
     })
@@ -176,7 +176,7 @@ describe('table > row details', () => {
     const testFields = ['a', 'b', 'c']
     let scopeDetails = null
     let scopeField = null
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems

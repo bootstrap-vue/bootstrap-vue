@@ -1,9 +1,9 @@
-import MediaBody from './media-body'
+import BMediaBody from './media-body'
 import { mount } from '@vue/test-utils'
 
 describe('media-body', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(MediaBody)
+    const wrapper = mount(BMediaBody)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media-body')
@@ -12,7 +12,7 @@ describe('media-body', () => {
   })
 
   it('custom root element when prop tag is set', async () => {
-    const wrapper = mount(MediaBody, {
+    const wrapper = mount(BMediaBody, {
       propsData: {
         tag: 'article'
       }
@@ -25,7 +25,7 @@ describe('media-body', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(MediaBody, {
+    const wrapper = mount(BMediaBody, {
       slots: {
         default: '<b>foobar</b>'
       }

@@ -1,9 +1,9 @@
-import NavbarToggle from './navbar-toggle'
+import BNavbarToggle from './navbar-toggle'
 import { mount } from '@vue/test-utils'
 
 describe('navbar-toggle', () => {
   it('default has tag "button"', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -12,7 +12,7 @@ describe('navbar-toggle', () => {
   })
 
   it('default has class "navbar-toggler"', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -22,7 +22,7 @@ describe('navbar-toggle', () => {
   })
 
   it('default has default attributes', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -34,7 +34,7 @@ describe('navbar-toggle', () => {
   })
 
   it('default has inner button-close', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -43,7 +43,7 @@ describe('navbar-toggle', () => {
   })
 
   it('accepts custom label when label prop is set', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target',
         label: 'foobar'
@@ -53,7 +53,7 @@ describe('navbar-toggle', () => {
   })
 
   it('emits click event', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -75,7 +75,7 @@ describe('navbar-toggle', () => {
   })
 
   it('sets aria-expanded when receives root emit for target', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }

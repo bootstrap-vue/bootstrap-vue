@@ -1,9 +1,9 @@
-import InputGroup from './input-group'
+import BInputGroup from './input-group'
 import { mount } from '@vue/test-utils'
 
 describe('input-group', () => {
   it('should have expected default structure', async () => {
-    const wrapper = mount(InputGroup)
+    const wrapper = mount(BInputGroup)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group')
@@ -15,7 +15,7 @@ describe('input-group', () => {
   })
 
   it('should render custom root element when prop tag is set', async () => {
-    const wrapper = mount(InputGroup, {
+    const wrapper = mount(BInputGroup, {
       propsData: {
         tag: 'span'
       }
@@ -30,7 +30,7 @@ describe('input-group', () => {
   })
 
   it('should apply size class when when prop size is set', async () => {
-    const wrapper = mount(InputGroup, {
+    const wrapper = mount(BInputGroup, {
       propsData: {
         size: 'lg'
       }
@@ -43,7 +43,7 @@ describe('input-group', () => {
   })
 
   it('should render default slot content', async () => {
-    const wrapper = mount(InputGroup, {
+    const wrapper = mount(BInputGroup, {
       slots: {
         default: 'foobar'
       }
@@ -57,7 +57,7 @@ describe('input-group', () => {
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append props set', async () => {
-    const wrapper = mount(InputGroup, {
+    const wrapper = mount(BInputGroup, {
       propsData: {
         prepend: 'foo',
         append: 'bar'
@@ -84,7 +84,7 @@ describe('input-group', () => {
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append slots present', async () => {
-    const wrapper = mount(InputGroup, {
+    const wrapper = mount(BInputGroup, {
       slots: {
         default: 'foobar',
         prepend: 'foo',

@@ -1,9 +1,9 @@
-import Tab from './tab'
+import BTab from './tab'
 import { mount } from '@vue/test-utils'
 
 describe('tab', () => {
   it('default has expected classes, attributes and structure', async () => {
-    const wrapper = mount(Tab)
+    const wrapper = mount(BTab)
 
     expect(wrapper).toBeDefined()
 
@@ -27,7 +27,7 @@ describe('tab', () => {
   })
 
   it('default has expected data state', async () => {
-    const wrapper = mount(Tab)
+    const wrapper = mount(BTab)
 
     expect(wrapper.vm._isTab).toBe(true)
     expect(wrapper.vm.localActive).toBe(false)
@@ -37,7 +37,7 @@ describe('tab', () => {
   })
 
   it('has class disabled when disabled=true', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       propsData: { disabled: true }
     })
 
@@ -52,7 +52,7 @@ describe('tab', () => {
   })
 
   it('has class active when active=true', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       propsData: { active: true }
     })
 
@@ -66,7 +66,7 @@ describe('tab', () => {
   })
 
   it('does not have class active when active=true and disabled=true', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       propsData: {
         active: true,
         disabled: true
@@ -84,10 +84,10 @@ describe('tab', () => {
   })
 
   it('has class active and show when localActive becomes true', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       mountToDocument: true,
       stubs: {
-        // the builtin stub doesn't execute the transition hooks
+        // The builtin stub doesn't execute the transition hooks
         // so we let it use the real transition component
         transition: false
       }
@@ -123,7 +123,7 @@ describe('tab', () => {
   })
 
   it('emits event "update:active" when localActive becomes true', async () => {
-    const wrapper = mount(Tab)
+    const wrapper = mount(BTab)
 
     let called = false
     let value = null
@@ -144,7 +144,7 @@ describe('tab', () => {
   })
 
   it('has class fade when parent has fade=true', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -168,7 +168,7 @@ describe('tab', () => {
   })
 
   it('has class card-body when parent has card=true', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -193,7 +193,7 @@ describe('tab', () => {
   })
 
   it('does not have class card-body when parent has card=true and prop no-body is set', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -221,7 +221,7 @@ describe('tab', () => {
   })
 
   it('has attribute tabindex="0" when parent has keynav enabled and active', async () => {
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -244,7 +244,7 @@ describe('tab', () => {
   it("calls parent's updateButton() when title slot provided", async () => {
     let called = false
     let vm = null
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -279,7 +279,7 @@ describe('tab', () => {
     let deactivateCalled = false
     let deactivateVm = null
 
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -335,7 +335,7 @@ describe('tab', () => {
     let activateCalled = false
     let activateVm = null
 
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {
@@ -370,7 +370,7 @@ describe('tab', () => {
     let deactivateCalled = false
     let deactivateVm = null
 
-    const wrapper = mount(Tab, {
+    const wrapper = mount(BTab, {
       provide() {
         return {
           bvTabs: {

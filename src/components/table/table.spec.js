@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
@@ -6,7 +6,7 @@ const fields1 = ['a', 'b', 'c']
 
 describe('table', () => {
   it('has expected default classes', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1
@@ -14,7 +14,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -24,7 +24,7 @@ describe('table', () => {
   })
 
   it('has class "table-striped" when striped=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -33,7 +33,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table-striped')
     expect(wrapper.classes()).toContain('table')
@@ -44,7 +44,7 @@ describe('table', () => {
   })
 
   it('has class "table-bordered" when bordered=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -53,7 +53,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table-bordered')
     expect(wrapper.classes()).toContain('table')
@@ -64,7 +64,7 @@ describe('table', () => {
   })
 
   it('has class "table-borderless" when borderless=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -73,7 +73,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table-borderless')
     expect(wrapper.classes()).toContain('table')
@@ -84,7 +84,7 @@ describe('table', () => {
   })
 
   it('has class "table-hover" when hover=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -93,7 +93,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table-hover')
     expect(wrapper.classes()).toContain('table')
@@ -104,7 +104,7 @@ describe('table', () => {
   })
 
   it('has class "table-sm" when small=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -113,7 +113,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table-sm')
     expect(wrapper.classes()).toContain('table')
@@ -124,7 +124,7 @@ describe('table', () => {
   })
 
   it('has class "table-dark" when dark=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -133,7 +133,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('table-dark')
     expect(wrapper.classes()).toContain('table')
@@ -144,7 +144,7 @@ describe('table', () => {
   })
 
   it('has class "border" when outlined=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -153,7 +153,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('border')
     expect(wrapper.classes()).toContain('table')
@@ -164,7 +164,7 @@ describe('table', () => {
   })
 
   it('has class "b-table-fixed" when fixed=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -173,7 +173,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-fixed')
     expect(wrapper.classes()).toContain('table')
@@ -184,7 +184,7 @@ describe('table', () => {
   })
 
   it('has class "b-table-stacked" when stacked=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -193,7 +193,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-stacked')
     expect(wrapper.classes()).toContain('table')
@@ -204,7 +204,7 @@ describe('table', () => {
   })
 
   it('has class "b-table-stacked-md" when stacked=md', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -213,7 +213,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-stacked-md')
     expect(wrapper.classes()).toContain('table')
@@ -224,7 +224,7 @@ describe('table', () => {
   })
 
   it('has class "table-responsive" when responsive=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -233,7 +233,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('table-responsive')
     expect(wrapper.classes().length).toBe(1)
@@ -245,7 +245,7 @@ describe('table', () => {
   })
 
   it('has class "table-responsive-md" when responsive=md', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -254,7 +254,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('table-responsive-md')
     expect(wrapper.classes().length).toBe(1)
@@ -266,7 +266,7 @@ describe('table', () => {
   })
 
   it('stacked has precedence over responsive', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -276,7 +276,7 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is(Table)).toBe(true)
+    expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).not.toContain('table-responsive')
     expect(wrapper.classes()).toContain('b-table-stacked')
@@ -288,7 +288,7 @@ describe('table', () => {
   })
 
   it('stacked has data-label attribute on all tbody > tr td', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: fields1,
@@ -343,7 +343,7 @@ describe('table', () => {
   })
 
   it('item _rowVariant works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 1, _rowVariant: 'primary' }],
         fields: ['a'],
@@ -366,7 +366,7 @@ describe('table', () => {
   })
 
   it('item _cellVariants works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 1, _cellVariants: { a: 'info' } }],
         fields: ['a'],
@@ -393,7 +393,7 @@ describe('table', () => {
   it('changing items array works', async () => {
     const items1 = [{ a: 1, b: 2 }, { a: 3, b: 4 }]
     const items2 = [{ a: 3, b: 4 }]
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: items1,
         fields: ['a', 'b']
@@ -411,7 +411,7 @@ describe('table', () => {
   })
 
   it('tbody-tr-class works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 1, b: 2 }, { a: 3, b: 4 }],
         fields: ['a', 'b'],
@@ -421,7 +421,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
 
-    // prop as a string
+    // Prop as a string
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     let $trs = wrapper.findAll('tbody > tr')
     expect($trs.at(0).classes()).toContain('foobar')
@@ -445,7 +445,7 @@ describe('table', () => {
   })
 
   it('thead and tfoot variant and classes work', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 1, b: 2 }],
         fields: ['a', 'b'],
@@ -496,7 +496,7 @@ describe('table', () => {
   })
 
   it('item field isRowHeader works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 1, b: 2 }],
         fields: [{ key: 'a', isRowHeader: true }, 'b']
@@ -551,12 +551,12 @@ describe('table', () => {
   it('item field tdAttr and tdClass works', async () => {
     const Parent = {
       methods: {
-        parentTdAttrs(value, key, item) {
+        parentTdAttrs() {
           return { 'data-parent': 'parent' }
         }
       }
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       parentComponent: Parent,
       propsData: {
         items: [{ a: 1, b: 2, c: 3 }],
@@ -590,7 +590,7 @@ describe('table', () => {
   })
 
   it('item field formatter as function works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 1, b: 2 }],
         fields: [
@@ -623,7 +623,7 @@ describe('table', () => {
         }
       }
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       parentComponent: Parent,
       propsData: {
         items: [{ a: 1, b: 2 }],

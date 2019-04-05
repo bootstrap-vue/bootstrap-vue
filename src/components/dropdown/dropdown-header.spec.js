@@ -1,9 +1,9 @@
-import Header from './dropdown-header'
+import BDropdownHeader from './dropdown-header'
 import { mount } from '@vue/test-utils'
 
 describe('dropdown > dropdown-header', () => {
   it('works', async () => {
-    const wrapper = mount(Header)
+    const wrapper = mount(BDropdownHeader)
 
     expect(wrapper.is('h6')).toBe(true)
     expect(wrapper.classes()).toContain('dropdown-header')
@@ -13,7 +13,7 @@ describe('dropdown > dropdown-header', () => {
   })
 
   it('renders custom root element when prop tag set', async () => {
-    const wrapper = mount(Header, {
+    const wrapper = mount(BDropdownHeader, {
       propsData: {
         tag: 'h2'
       }
@@ -27,7 +27,7 @@ describe('dropdown > dropdown-header', () => {
   })
 
   it('user supplied id when prop id set', async () => {
-    const wrapper = mount(Header, {
+    const wrapper = mount(BDropdownHeader, {
       propsData: {
         id: 'foo'
       }
@@ -41,7 +41,7 @@ describe('dropdown > dropdown-header', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(Header, {
+    const wrapper = mount(BDropdownHeader, {
       slots: {
         default: 'foobar'
       }

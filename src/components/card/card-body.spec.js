@@ -1,20 +1,20 @@
-import CardBody from './card-body'
+import BCardBody from './card-body'
 import { mount } from '@vue/test-utils'
 
 describe('card-body', () => {
   it('has root element "div"', async () => {
-    const wrapper = mount(CardBody)
+    const wrapper = mount(BCardBody)
     expect(wrapper.is('div')).toBe(true)
   })
 
   it('has class card-body', async () => {
-    const wrapper = mount(CardBody)
+    const wrapper = mount(BCardBody)
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes().length).toBe(1)
   })
 
   it('has custom root element when prop bodyTag is set', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: {
           bodyTag: 'article'
@@ -26,7 +26,7 @@ describe('card-body', () => {
   })
 
   it('has class bg-info when prop bodyBgVariant=info', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: { bodyBgVariant: 'info' }
       }
@@ -37,7 +37,7 @@ describe('card-body', () => {
   })
 
   it('has class text-info when prop bodyTextVariant=info', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: { bodyTextVariant: 'info' }
       }
@@ -48,7 +48,7 @@ describe('card-body', () => {
   })
 
   it('has class border-info when prop bodyBorderVariant=info', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: { bodyBorderVariant: 'info' }
       }
@@ -59,7 +59,7 @@ describe('card-body', () => {
   })
 
   it('has all variant classes when all variant props set', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: {
           bodyTextVariant: 'info',
@@ -76,7 +76,7 @@ describe('card-body', () => {
   })
 
   it('has class "card-img-overlay" when overlay="true"', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: {
           overlay: true
@@ -89,7 +89,7 @@ describe('card-body', () => {
   })
 
   it('has card-title when title prop is set', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: {
           title: 'title'
@@ -100,7 +100,7 @@ describe('card-body', () => {
   })
 
   it('has card-sub-title when sub-title prop is set', async () => {
-    const wrapper = mount(CardBody, {
+    const wrapper = mount(BCardBody, {
       context: {
         props: {
           subTitle: 'sub title'

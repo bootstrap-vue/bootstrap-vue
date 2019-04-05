@@ -1,9 +1,9 @@
-import ButtonGroup from './button-group'
+import BButtonGroup from './button-group'
 import { mount } from '@vue/test-utils'
 
 describe('button-group', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(ButtonGroup)
+    const wrapper = mount(BButtonGroup)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes().length).toBe(1)
@@ -13,7 +13,7 @@ describe('button-group', () => {
   })
 
   it('should render default slot', async () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = mount(BButtonGroup, {
       slots: {
         default: '<span>foobar</span>'
       }
@@ -28,7 +28,7 @@ describe('button-group', () => {
   })
 
   it('should apply vertical class', async () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = mount(BButtonGroup, {
       propsData: {
         vertical: true
       }
@@ -40,7 +40,7 @@ describe('button-group', () => {
   })
 
   it('should apply size class', async () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = mount(BButtonGroup, {
       propsData: {
         size: 'sm'
       }
@@ -52,7 +52,7 @@ describe('button-group', () => {
   })
 
   it('should apply size class when vertical', async () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = mount(BButtonGroup, {
       propsData: {
         size: 'sm',
         vertical: true
@@ -66,7 +66,7 @@ describe('button-group', () => {
   })
 
   it('has custom role when aria-role prop set', async () => {
-    const wrapper = mount(ButtonGroup, {
+    const wrapper = mount(BButtonGroup, {
       propsData: {
         ariaRole: 'foobar'
       }
