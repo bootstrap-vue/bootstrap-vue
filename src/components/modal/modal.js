@@ -67,12 +67,14 @@ const getModalMaxZIndex = () => {
 }
 
 const getModalZIndexOffset = () => getComponentConfig(NAME, 'zIndexOffset')
+const getModalZIndexIncrement = () => getComponentConfig(NAME, 'zIndexIncrement')
 
 // Returns the next z-index to be used by a modal to ensure proper
 // stacking regardless of document order.
-// The first modal open will be given a z-index of 0
 const getModalNextZIndex = () =>
-  getModalOpenCount() === 0 ? 0 : getModalMaxZIndex() + getModalZIndexOffset()
+  getModalOpenCount() === 0
+    ? getModalZIndexOffset()
+    : getModalMaxZIndex() + getModalZIndexIncrement()
 
 // @vue/component
 export default {
@@ -272,7 +274,7 @@ export default {
       is_opening: false, // Semaphore for preventing incorrect modal open counts
       is_closing: false, // Semaphore for preventing incorrect modal open counts
       scrollbarWidth: 0,
-      zIndex: 0, // z-index for modal stacking
+      zIndex: getModalZIndexOffset(), // z-index for modal stacking
       isTop: true, // If the modal is the topmost opened modal
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
@@ -567,7 +569,7 @@ export default {
       this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
-        this.zIndex = 0
+        this.zIndex = getModalZIndexOffset()
         this.returnFocusTo()
         this.is_closing = false
         const hiddenEvt = new BvEvent('hidden', {
@@ -659,8 +661,18 @@ export default {
       this.isTop = this.zIndex >= getModalMaxZIndex()
     },
     modalListener(bvEvt) {
-      // If another modal opens, close this one
+      // If another modal opens, close this one if stacking not permitted
       if (this.noStacking && bvEvt.vueTarget !== this) {
+        // The next modal will have an incorrectly higher z-index than needed,
+        // because this modal will still be open when teh next zIndex is calculated.
+        //
+        // We need a way to postpone the next modal from opening until this
+        // one has closed, while maintaning the context of the original event
+        // that triggered the next modal to open.
+        //
+        // Perhaps a method on the BvEvent object that can be used to trigger a
+        // postpone, similar to preventDefault(), but delays the modal opening until
+        // a specific bv::modal::hidden event is triggered
         this.hide()
       }
     },
