@@ -708,11 +708,13 @@ export default {
       }
       const modal = this.$refs.modal
       const isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
+      /* istanbul ignore if: can't test in JSDOM */
       if (!this.isBodyOverflowing && isModalOverflowing) {
         modal.style.paddingLeft = `${this.scrollbarWidth}px`
       } else {
         modal.style.paddingLeft = ''
       }
+      /* istanbul ignore else: can't test in JSDOM */
       if (this.isBodyOverflowing && !isModalOverflowing) {
         modal.style.paddingRight = `${this.scrollbarWidth}px`
       } else {
@@ -780,6 +782,7 @@ export default {
       if (body._paddingChangedForModal) {
         // Restore fixed content padding
         body._paddingChangedForModal.forEach(el => {
+          /* istanbul ignore next: can't test in JSDOM */
           if (hasAttr(el, 'data-padding-right')) {
             el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
             removeAttr(el, 'data-padding-right')
@@ -789,6 +792,7 @@ export default {
       if (body._marginChangedForModal) {
         // Restore sticky content and navbar-toggler margin
         body._marginChangedForModal.forEach(el => {
+          /* istanbul ignore next: can't test in JSDOM */
           if (hasAttr(el, 'data-margin-right')) {
             el.style.marginRight = getAttr(el, 'data-margin-right') || ''
             removeAttr(el, 'data-margin-right')
