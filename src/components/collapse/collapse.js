@@ -73,12 +73,14 @@ export default {
     }
   },
   created() {
+    this.show = this.visible
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
   },
   mounted() {
+    this.show = this.visible
     if (this.isNav && inBrowser) {
       // Set up handlers
       this.setWindowEvents(true)
@@ -90,7 +92,8 @@ export default {
   },
   updated() {
     // Emit a private event every time this component updates
-    // to ensure the toggle button is in sync with the collapse's state
+    // to ensure the toggle button is in sync with the collapse's state.
+    // It is emitted regardless if the visible state changes.
     this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
   },
   deactivated() /* istanbul ignore next */ {
