@@ -7,6 +7,7 @@ const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Private event we emit on $root to ensure the toggle state is always synced
 // Gets emited even if the state has not changed!
+// This event is NOT to be documented as people should not be using it.
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
