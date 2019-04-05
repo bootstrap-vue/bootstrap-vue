@@ -5,7 +5,7 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { getCS, isVisible } from '../../utils/dom'
+import { getCS, isVisible, reflow } from '../../utils/dom'
 
 // @vue/component
 export default {
@@ -77,7 +77,7 @@ export default {
       // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
-    computedHeight() /* istanbul ignore next: can't test getComputedProperties */ {
+    computedHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
       // We compare `computedRows` and `localValue` to `true`, a value
       // they both can't have at any time, to ensure reactivity
       if (
@@ -115,6 +115,14 @@ export default {
       // Probe scrollHeight by temporarily changing the height to the minimum
       const oldHeight = el.style.height
       el.style.height = `${minHeight}px`
+      // `reflow()` is now needed because the previous line used to be 'auto' for
+      // the temporary height, which would automatically trigger a reflow calculation
+      // on the textarea, but setting it to a specific height breaks this on some browsers.
+      // Bue now having to do the two steps may cause the textarea to flicker/jump
+      // due to the time needed to process both commands.
+      // Putting this in here for now to do testing... performance may suffer as this
+      // computed props is calculated for every single keystroke a user types.
+      reflow(el)
       const scrollHeight = el.scrollHeight
       el.style.height = oldHeight
 
@@ -125,8 +133,8 @@ export default {
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // Computed height remains the larger of oldHeight and new height
-      // When height is `sticky` (no-auto-shrink is true)
+      // Computed height remains the larger of oldHeight and new height,
+      // when height is `sticky` (prop no-auto-shrink is true)
       if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
         return oldHeight
       }
