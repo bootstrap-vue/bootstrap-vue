@@ -13,7 +13,7 @@ class BvEvent {
     }
     // Assign defaults first, the eventInit,
     // and the type last so it can't be overwritten.
-    assign(this, BvEvent.defaults(), eventInit, { type })
+    assign(this, BvEvent.defaults(), constructor.defaults(), eventInit, { type })
     // Freeze some props as readonly, but leave them enumerable.
     defineProperties(this, {
       type: readonlyDescriptor(),
@@ -53,4 +53,41 @@ class BvEvent {
   }
 }
 
+class BvModalEvent extends BvEvent {
+  constructor(type, eventInit = {}) {
+    super(type, eventInit)
+    // Freeze our new props as readonly, but leave them enumerable.
+    defineProperties(this, {
+      modalId: readonlyDescriptor(),
+      trigger: readonlyDescriptor()
+    })
+  }
+
+  get isOK() /* istanbul ignore next */ {
+    warn(`b-modal: evt.isOK is deprecated. Please use evt.trigger === 'ok'.`)
+    return this.trigger === 'ok'
+  }
+
+  cancel() /* istanbul ignore next */ {
+    // Backwards compatibility
+    warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
+    this.preventDefault()
+  }
+
+  static defaults() {
+    return {
+      ...super.defaults(),
+      modalId: null,
+      trigger: null
+    }
+  }
+}
+
+// Named Exports
+export {
+  BvEvent,
+  BvModalEvent
+}
+
+// Default Export
 export default BvEvent
