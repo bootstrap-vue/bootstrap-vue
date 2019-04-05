@@ -16,21 +16,21 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
 
       // This outer DIV will go away once we migrate to Portal-Vue
-      // As all modals will be lazy
+      // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wraper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... the stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual('2000')
+      expect($outer.element.style.zIndex).toEqual('1040')
 
       // Should not have a backdrop
       expect($outer.find('div.modal-backdrop').exists()).toBe(false)
 
-      // Main modal wraper
+      // Main modal wrapper
       const $modal = $outer.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
@@ -92,18 +92,18 @@ describe('modal', () => {
       await waitAF()
 
       // This outer DIV will go away once we migrate to Portal-Vue
-      // As all modals will be lazy
+      // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wraper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... the stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
       expect($outer.element.style.zIndex).toEqual('2000')
 
-      // Main modal wraper
+      // Main modal wrapper
       const $modal = $outer.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
@@ -139,7 +139,7 @@ describe('modal', () => {
         attachToDocument: true,
         stubs: {
           // Disable the use of transitionStub fake transition
-          // AS it doesn't run transition hooks
+          // as it doesn't run transition hooks
           transition: false
         },
         propsData: {
@@ -165,18 +165,18 @@ describe('modal', () => {
       // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
 
       // This outer DIV will go away once we migrate to Portal-Vue
-      // As all modals will be lazy
+      // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wraper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... the stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
       expect($outer.element.style.zIndex).toEqual('2000')
 
-      // Main modal wraper
+      // Main modal wrapper
       const $modal = $outer.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
@@ -225,9 +225,7 @@ describe('modal', () => {
   })
 
   describe('default button content, classes and attributes', () => {
-    //
-    // We may want to move these tests into individual files for managability
-    //
+    // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(Modal)
       expect(wrapper).toBeDefined()
@@ -568,7 +566,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('none')
 
-      // Try and open modal via bv::show::modal
+      // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
       await wrapper.vm.$nextTick()
@@ -579,7 +577,7 @@ describe('modal', () => {
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
 
-      // Try and close modal via bv::hide::modal
+      // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
 
       await wrapper.vm.$nextTick()
