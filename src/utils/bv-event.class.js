@@ -14,7 +14,7 @@ class BvEvent {
     }
     // Assign defaults first, the eventInit,
     // and the type last so it can't be overwritten.
-    assign(this, BvEvent.defaults(), constructor.defaults(), eventInit, { type })
+    assign(this, BvEvent.Defaults, this.constructor.Defaults, eventInit, { type })
     // Freeze some props as readonly, but leave them enumerable.
     defineProperties(this, {
       type: readonlyDescriptor(),
@@ -42,7 +42,7 @@ class BvEvent {
     })
   }
 
-  static defaults() {
+  static get Defaults() {
     return {
       type: '',
       cancelable: true,
@@ -75,7 +75,7 @@ class BvModalEvent extends BvEvent {
     this.preventDefault()
   }
 
-  static defaults() {
+  static get Defaults() {
     return {
       ...super.defaults(),
       modalId: null,
