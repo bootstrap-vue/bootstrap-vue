@@ -1,9 +1,9 @@
-import FormRow from './form-row'
+import BFormRow from './form-row'
 import { mount } from '@vue/test-utils'
 
 describe('layout > form-row', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(FormRow)
+    const wrapper = mount(BFormRow)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('form-row')
@@ -12,7 +12,7 @@ describe('layout > form-row', () => {
   })
 
   it('custom root element when prop tag set', async () => {
-    const wrapper = mount(FormRow, {
+    const wrapper = mount(BFormRow, {
       propsData: {
         tag: 'span'
       }
@@ -25,7 +25,7 @@ describe('layout > form-row', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(FormRow, {
+    const wrapper = mount(BFormRow, {
       slots: {
         default: 'foobar'
       }

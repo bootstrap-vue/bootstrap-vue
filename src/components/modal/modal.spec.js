@@ -1,4 +1,4 @@
-import Modal from './modal'
+import BModal from './modal'
 import { mount, createWrapper } from '@vue/test-utils'
 
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
@@ -6,7 +6,7 @@ const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 describe('modal', () => {
   describe('structure', () => {
     it('has expected default structure', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         propsData: {
           id: 'test'
         }
@@ -16,11 +16,11 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
 
       // This outer DIV will go away once we migrate to Portal-Vue
-      // As all modals will be lazy
+      // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wraper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... the stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
@@ -30,7 +30,7 @@ describe('modal', () => {
       // Should not have a backdrop
       expect($outer.find('div.modal-backdrop').exists()).toBe(false)
 
-      // Main modal wraper
+      // Main modal wrapper
       const $modal = $outer.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
@@ -55,7 +55,7 @@ describe('modal', () => {
     })
 
     it('has expected structure when lazy', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         propsData: {
           lazy: true
         }
@@ -66,17 +66,17 @@ describe('modal', () => {
 
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-      expect(wrapper.findAll('div > *').length).toBe(0) // no content
+      expect(wrapper.findAll('div > *').length).toBe(0) // No content
 
       wrapper.destroy()
     })
 
     it('has expected structure when initially open', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           // Disable the use of transitionStub fake transition
-          // AS it doesn't run transition hooks
+          // as it doesn't run transition hooks
           transition: false
         },
         propsData: {
@@ -92,18 +92,18 @@ describe('modal', () => {
       await waitAF()
 
       // This outer DIV will go away once we migrate to Portal-Vue
-      // As all modals will be lazy
+      // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wraper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... The stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
       expect($outer.element.style.zIndex).toEqual('2000')
 
-      // Main modal wraper
+      // Main modal wrapper
       const $modal = $outer.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
@@ -135,11 +135,11 @@ describe('modal', () => {
     })
 
     it('has expected structure when closed after being initially open', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           // Disable the use of transitionStub fake transition
-          // AS it doesn't run transition hooks
+          // as it doesn't run transition hooks
           transition: false
         },
         propsData: {
@@ -165,18 +165,18 @@ describe('modal', () => {
       // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
 
       // This outer DIV will go away once we migrate to Portal-Vue
-      // As all modals will be lazy
+      // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wraper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... The stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
       expect($outer.element.style.zIndex).toEqual('2000')
 
-      // Main modal wraper
+      // Main modal wrapper
       const $modal = $outer.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
@@ -225,11 +225,9 @@ describe('modal', () => {
   })
 
   describe('default button content, classes and attributes', () => {
-    //
-    // We may want to move these tests into individual files for managability
-    //
+    // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
-      const wrapper = mount(Modal)
+      const wrapper = mount(BModal)
       expect(wrapper).toBeDefined()
 
       const $buttons = wrapper.findAll('footer button')
@@ -253,7 +251,7 @@ describe('modal', () => {
     })
 
     it('default header close button', async () => {
-      const wrapper = mount(Modal)
+      const wrapper = mount(BModal)
       expect(wrapper).toBeDefined()
 
       const $buttons = wrapper.findAll('header button')
@@ -273,7 +271,7 @@ describe('modal', () => {
     it('header close button triggers modal close and is preventable', async () => {
       let cancelHide = true
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -348,7 +346,7 @@ describe('modal', () => {
     it('footer OK and CANCEL buttons trigger modal close and are preventable', async () => {
       let cancelHide = true
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -432,7 +430,7 @@ describe('modal', () => {
 
     it('pressing ESC closes modal', async () => {
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -489,7 +487,7 @@ describe('modal', () => {
 
     it('click outside closes modal', async () => {
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -545,7 +543,7 @@ describe('modal', () => {
     })
 
     it('$root bv::show::modal and bv::hide::modal work', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -568,7 +566,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('none')
 
-      // Try and open modal via bv::show::modal
+      // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
       await wrapper.vm.$nextTick()
@@ -579,7 +577,7 @@ describe('modal', () => {
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
 
-      // Try and close modal via bv::hide::modal
+      // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
 
       await wrapper.vm.$nextTick()

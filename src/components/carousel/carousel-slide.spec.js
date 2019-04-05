@@ -1,16 +1,16 @@
-import CarouselSlide from './carousel-slide'
+import BCarouselSlide from './carousel-slide'
 import { mount } from '@vue/test-utils'
 
 describe('carousel-slide', () => {
   it('has root element "div"', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.is('div')).toBe(true)
 
     wrapper.destroy()
   })
 
   it('has class carousel-item', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.classes()).toContain('carousel-item')
     expect(wrapper.classes().length).toBe(1)
 
@@ -18,7 +18,7 @@ describe('carousel-slide', () => {
   })
 
   it('has role=listitem', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('listitem')
 
@@ -26,7 +26,7 @@ describe('carousel-slide', () => {
   })
 
   it('has child div.carousel-caption by default', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
     expect(wrapper.find('.carousel-caption').is('div')).toBe(true)
 
@@ -34,28 +34,28 @@ describe('carousel-slide', () => {
   })
 
   it('does not have image by default', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.find('img').exists()).toBe(false)
 
     wrapper.destroy()
   })
 
   it('does not have caption tag h3 by default', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.find('h3').exists()).toBe(false)
 
     wrapper.destroy()
   })
 
   it('does not have text tag p by default', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     expect(wrapper.find('p').exists()).toBe(false)
 
     wrapper.destroy()
   })
 
   it('renders default slot inside carousel-caption', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       slots: {
         default: 'foobar'
       }
@@ -67,7 +67,7 @@ describe('carousel-slide', () => {
   })
 
   it('has caption tag h3 when prop caption is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         caption: 'foobar'
       }
@@ -80,7 +80,7 @@ describe('carousel-slide', () => {
   })
 
   it('has text tag p when prop text is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         text: 'foobar'
       }
@@ -93,7 +93,7 @@ describe('carousel-slide', () => {
   })
 
   it('has custom content tag when prop contentTag is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         contentTag: 'span'
       }
@@ -105,7 +105,7 @@ describe('carousel-slide', () => {
   })
 
   it('has display classes on .carousel-caption when prop contentVisibleUp is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         contentVisibleUp: 'lg'
       }
@@ -119,7 +119,7 @@ describe('carousel-slide', () => {
   })
 
   it('does not have style background when prop background not set', async () => {
-    const wrapper = mount(CarouselSlide)
+    const wrapper = mount(BCarouselSlide)
     if (wrapper.attributes('style')) {
       // Vue always includes a style attr when passed an empty style object
       expect(wrapper.attributes('style')).not.toContain('background:')
@@ -132,7 +132,7 @@ describe('carousel-slide', () => {
   })
 
   it('has style background when prop background is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         background: 'rgb(1, 2, 3)'
       }
@@ -145,7 +145,7 @@ describe('carousel-slide', () => {
   })
 
   it('has style background inherited from carousel parent', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       provide: {
         bvCarousel: {
           background: 'rgb(1, 2, 3)'
@@ -160,7 +160,7 @@ describe('carousel-slide', () => {
   })
 
   it('has custom caption tag when prop captionTag is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         captionTag: 'h1',
         caption: 'foobar'
@@ -174,7 +174,7 @@ describe('carousel-slide', () => {
   })
 
   it('has custom text tag when prop textTag is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         textTag: 'span',
         text: 'foobar'
@@ -188,7 +188,7 @@ describe('carousel-slide', () => {
   })
 
   it('has image when prop img-src is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52'
       }
@@ -201,7 +201,7 @@ describe('carousel-slide', () => {
   })
 
   it('has image when prop img-blank is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         imgBlank: true
       }
@@ -214,7 +214,7 @@ describe('carousel-slide', () => {
   })
 
   it('has image with alt attribute when prop img-alt is set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52',
         imgAlt: 'foobar'
@@ -229,7 +229,7 @@ describe('carousel-slide', () => {
   })
 
   it('has image with width and height attrs when props img-width and img-height are set', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       propsData: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52',
         imgWidth: '1024',
@@ -247,7 +247,7 @@ describe('carousel-slide', () => {
   })
 
   it('has image with width and height attrs inherited from carousel parent', async () => {
-    const wrapper = mount(CarouselSlide, {
+    const wrapper = mount(BCarouselSlide, {
       provide: {
         // Mock carousel injection
         bvCarousel: {

@@ -1,9 +1,9 @@
-import InputGroupPrepend from './input-group-prepend'
+import BInputGroupPrepend from './input-group-prepend'
 import { mount } from '@vue/test-utils'
 
 describe('input-group > input-group-prepend', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(InputGroupPrepend)
+    const wrapper = mount(BInputGroupPrepend)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group-prepend')
@@ -13,7 +13,7 @@ describe('input-group > input-group-prepend', () => {
   })
 
   it('renders custom root element when tag prop is set', async () => {
-    const wrapper = mount(InputGroupPrepend, {
+    const wrapper = mount(BInputGroupPrepend, {
       propsData: {
         tag: 'span'
       }
@@ -27,7 +27,7 @@ describe('input-group > input-group-prepend', () => {
   })
 
   it('renders content of default slot', async () => {
-    const wrapper = mount(InputGroupPrepend, {
+    const wrapper = mount(BInputGroupPrepend, {
       slots: {
         default: 'foobar'
       }
@@ -40,7 +40,7 @@ describe('input-group > input-group-prepend', () => {
   })
 
   it('renders child input-group-text when prop is-text set', async () => {
-    const wrapper = mount(InputGroupPrepend, {
+    const wrapper = mount(BInputGroupPrepend, {
       propsData: {
         isText: true
       }
@@ -55,7 +55,7 @@ describe('input-group > input-group-prepend', () => {
   })
 
   it('renders default slot inside child input-group-text when prop is-text set', async () => {
-    const wrapper = mount(InputGroupPrepend, {
+    const wrapper = mount(BInputGroupPrepend, {
       propsData: {
         isText: true
       },

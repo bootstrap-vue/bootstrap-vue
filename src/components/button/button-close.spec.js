@@ -1,30 +1,30 @@
-import ButtonClose from './button-close'
+import BButtonClose from './button-close'
 import { mount } from '@vue/test-utils'
 
 describe('button-close', () => {
   it('has root element "button"', async () => {
-    const wrapper = mount(ButtonClose)
+    const wrapper = mount(BButtonClose)
     expect(wrapper.is('button')).toBe(true)
   })
 
   it('has class close', async () => {
-    const wrapper = mount(ButtonClose)
+    const wrapper = mount(BButtonClose)
     expect(wrapper.classes()).toContain('close')
     expect(wrapper.classes().length).toBe(1)
   })
 
   it('has attribute type=button', async () => {
-    const wrapper = mount(ButtonClose)
+    const wrapper = mount(BButtonClose)
     expect(wrapper.attributes('type')).toBe('button')
   })
 
   it('does not have attribute disabled by default', async () => {
-    const wrapper = mount(ButtonClose)
+    const wrapper = mount(BButtonClose)
     expect(wrapper.attributes('disabled')).not.toBeDefined()
   })
 
   it('has attribute disabled when prop disabled is set', async () => {
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       context: {
         props: { disabled: true }
       }
@@ -33,12 +33,12 @@ describe('button-close', () => {
   })
 
   it('has attribute aria-label=Close by default', async () => {
-    const wrapper = mount(ButtonClose)
+    const wrapper = mount(BButtonClose)
     expect(wrapper.attributes('aria-label')).toBe('Close')
   })
 
   it('has custom attribute aria-label=Close when prop aria-label set', async () => {
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       context: {
         props: { ariaLabel: 'foobar' }
       }
@@ -47,7 +47,7 @@ describe('button-close', () => {
   })
 
   it('has variant class when variant prop set', async () => {
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       context: {
         props: { textVariant: 'primary' }
       }
@@ -58,13 +58,13 @@ describe('button-close', () => {
   })
 
   it('should have default content', async () => {
-    const wrapper = mount(ButtonClose)
+    const wrapper = mount(BButtonClose)
     // '&times;' gets converted to '×'
     expect(wrapper.text()).toContain('×')
   })
 
   it('should have custom content from default slot', async () => {
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       slots: {
         default: '<i>foobar</i>'
       }
@@ -77,7 +77,7 @@ describe('button-close', () => {
     const spy1 = jest.fn(e => {
       event = e
     })
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       context: {
         on: { click: spy1 }
       },
@@ -106,7 +106,7 @@ describe('button-close', () => {
 
   it('should not emit "click" event when disabled and clicked', async () => {
     const spy1 = jest.fn()
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       context: {
         props: {
           disabled: true
@@ -126,24 +126,22 @@ describe('button-close', () => {
 
     expect(spy1).not.toHaveBeenCalled()
 
-    /*
-     * For some reason, JSDOM emits a click on button when clicking inner element
-     * Although testing in docs, this click is not emitted when disabled.
-     * Appears to be a bug in JSDOM
-     *
-    // Does not emit click on inner element clicks
-    const span = wrapper.find('span')
-    expect(span).toBeDefined()
-    span.trigger('click')
-
-    expect(spy1).not.toHaveBeenCalled()
-     */
+    // For some reason, JSDOM emits a click on button when clicking inner element
+    // Although testing in docs, this click is not emitted when disabled
+    // Appears to be a bug in JSDOM
+    //
+    // // Does not emit click on inner element clicks
+    // const span = wrapper.find('span')
+    // expect(span).toBeDefined()
+    // span.trigger('click')
+    //
+    // expect(spy1).not.toHaveBeenCalled()
   })
 
   it('handles multiple click listeners', async () => {
     const spy1 = jest.fn()
     const spy2 = jest.fn()
-    const wrapper = mount(ButtonClose, {
+    const wrapper = mount(BButtonClose, {
       context: {
         on: { click: [spy1, spy2] }
       }

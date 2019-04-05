@@ -1,9 +1,9 @@
-import Media from './media'
+import BMedia from './media'
 import { mount } from '@vue/test-utils'
 
 describe('media', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(Media)
+    const wrapper = mount(BMedia)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('media')
@@ -16,7 +16,7 @@ describe('media', () => {
   })
 
   it('renders custom root element when tag prop set', async () => {
-    const wrapper = mount(Media, {
+    const wrapper = mount(BMedia, {
       propsData: {
         tag: 'section'
       }
@@ -28,7 +28,7 @@ describe('media', () => {
   })
 
   it('has expected structure when slot aside present', async () => {
-    const wrapper = mount(Media, {
+    const wrapper = mount(BMedia, {
       slots: {
         aside: 'foobar'
       }
@@ -49,7 +49,7 @@ describe('media', () => {
   })
 
   it('has expected structure when prop right-align is set and slot aside present', async () => {
-    const wrapper = mount(Media, {
+    const wrapper = mount(BMedia, {
       propsData: {
         rightAlign: true
       },
@@ -73,7 +73,7 @@ describe('media', () => {
   })
 
   it('places default slot inside media-body', async () => {
-    const wrapper = mount(Media, {
+    const wrapper = mount(BMedia, {
       slots: {
         default: '<b>foobar</b>'
       }
@@ -88,7 +88,7 @@ describe('media', () => {
   })
 
   it('does not have child media-body is prop no-body set', async () => {
-    const wrapper = mount(Media, {
+    const wrapper = mount(BMedia, {
       propsData: {
         noBody: true
       }
@@ -104,7 +104,7 @@ describe('media', () => {
   })
 
   it('places default slot inside self when no-body set', async () => {
-    const wrapper = mount(Media, {
+    const wrapper = mount(BMedia, {
       propsData: {
         noBody: true
       },
@@ -120,8 +120,8 @@ describe('media', () => {
     expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('sets vertialAlign prop on media-aside child', async () => {
-    const wrapper = mount(Media, {
+  it('sets verticalAlign prop on media-aside child', async () => {
+    const wrapper = mount(BMedia, {
       propsData: {
         verticalAlign: 'bottom'
       },

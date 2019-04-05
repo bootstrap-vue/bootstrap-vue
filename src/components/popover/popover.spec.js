@@ -1,4 +1,4 @@
-import Popover from './popover'
+import BPopover from './popover'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const localVue = new CreateLocalVue()
@@ -23,7 +23,7 @@ const appDef = {
         'text'
       ),
       h(
-        Popover,
+        BPopover,
         {
           attrs: { id: 'bar' },
           props: {
@@ -41,23 +41,20 @@ const appDef = {
 }
 
 // The majority of functionality has been tested in the tooltip component tests
-// as popover shares a common mixin with tooltip.
+// as popover shares a common mixin with tooltip
 // So we just test a few key differences
 
-//
-// Note:
-// wrapper.destroy() **MUST** be called at the end of each test in order for
+// Note: `wrapper.destroy()` MUST be called at the end of each test in order for
 // the next test to function properly!
-//
 describe('tooltip', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
-    // Hack to make Popper not bork out during tests.
-    // Note popper still does not do any positioning calculation in JSDOM though.
-    // So we cannot test actual positioning... just detect when it is open.
+    // Hack to make Popper not bork out during tests
+    // Note popper still does not do any positioning calculation in JSDOM though
+    // So we cannot test actual positioning, just detect when it is open
     document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
@@ -67,7 +64,7 @@ describe('tooltip', () => {
       }
     })
     // Mock getBCR so that the isVisible(el) test returns true
-    // Needed for visibility checks of trigger element, etc.
+    // Needed for visibility checks of trigger element, etc
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
         width: 24,
@@ -118,17 +115,17 @@ describe('tooltip', () => {
     expect($button.attributes('data-original-title')).toEqual('')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
-    // b-popover wrapper
-    const $tipholder = wrapper.find('div#bar')
-    expect($tipholder.exists()).toBe(true)
-    expect($tipholder.classes()).toContain('d-none')
-    expect($tipholder.attributes('aria-hidden')).toBeDefined()
-    expect($tipholder.attributes('aria-hidden')).toEqual('true')
-    expect($tipholder.element.style.display).toEqual('none')
+    // <b-popover> wrapper
+    const $tipHolder = wrapper.find('div#bar')
+    expect($tipHolder.exists()).toBe(true)
+    expect($tipHolder.classes()).toContain('d-none')
+    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
+    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
+    expect($tipHolder.element.style.display).toEqual('none')
 
-    // content placeholders
-    expect($tipholder.findAll('div.d-none > div').length).toBe(2)
-    const $holders = $tipholder.findAll('div.d-none > div')
+    // Content placeholders
+    expect($tipHolder.findAll('div.d-none > div').length).toBe(2)
+    const $holders = $tipHolder.findAll('div.d-none > div')
     expect($holders.at(0).text()).toEqual('title')
     expect($holders.at(1).text()).toEqual('content')
 
@@ -175,17 +172,17 @@ describe('tooltip', () => {
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
 
-    // b-popover wrapper
-    const $tipholder = wrapper.find('div#bar')
-    expect($tipholder.exists()).toBe(true)
-    expect($tipholder.classes()).toContain('d-none')
-    expect($tipholder.attributes('aria-hidden')).toBeDefined()
-    expect($tipholder.attributes('aria-hidden')).toEqual('true')
-    expect($tipholder.element.style.display).toEqual('none')
+    // <b-popover> wrapper
+    const $tipHolder = wrapper.find('div#bar')
+    expect($tipHolder.exists()).toBe(true)
+    expect($tipHolder.classes()).toContain('d-none')
+    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
+    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
+    expect($tipHolder.element.style.display).toEqual('none')
 
-    // content placeholders should be moved
-    expect($tipholder.findAll('div.d-none > div').length).toBe(0)
-    expect($tipholder.text()).toBe('')
+    // Content placeholders should be moved
+    expect($tipHolder.findAll('div.d-none > div').length).toBe(0)
+    expect($tipHolder.text()).toBe('')
 
     // Find the popover element in the document
     const tip = document.querySelector(`#${adb}`)
@@ -205,9 +202,9 @@ describe('tooltip', () => {
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
-    // title placeholder (from default slot) will be back here
-    expect($tipholder.findAll('div.d-none > div').length).toBe(2)
-    const $holders = $tipholder.findAll('div.d-none > div')
+    // Title placeholder (from default slot) will be back here
+    expect($tipHolder.findAll('div.d-none > div').length).toBe(2)
+    const $holders = $tipHolder.findAll('div.d-none > div')
     expect($holders.at(0).text()).toEqual('title')
     expect($holders.at(1).text()).toEqual('content')
 

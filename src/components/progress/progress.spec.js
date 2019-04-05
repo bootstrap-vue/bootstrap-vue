@@ -1,9 +1,9 @@
-import Progress from './progress'
+import BProgress from './progress'
 import { mount } from '@vue/test-utils'
 
 describe('progress', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(Progress)
+    const wrapper = mount(BProgress)
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
@@ -22,7 +22,7 @@ describe('progress', () => {
   })
 
   it('renders content from default slot', async () => {
-    const wrapper = mount(Progress, {
+    const wrapper = mount(BProgress, {
       slots: {
         default: '<b>foobar</b>'
       }
@@ -36,7 +36,7 @@ describe('progress', () => {
   })
 
   it('has progress-bar child with expected parameters', async () => {
-    const wrapper = mount(Progress, {
+    const wrapper = mount(BProgress, {
       propsData: {
         value: 25,
         max: 50,

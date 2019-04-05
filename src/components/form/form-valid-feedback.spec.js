@@ -1,34 +1,34 @@
-import Feedback from './form-valid-feedback'
+import BFormValidFeedback from './form-valid-feedback'
 import { mount } from '@vue/test-utils'
 
 describe('form-valid-feedback', () => {
   it('default should have tag div', async () => {
-    const feedback = mount(Feedback)
+    const feedback = mount(BFormValidFeedback)
     expect(feedback.is('div')).toBe(true)
   })
 
   it('default should contain base class', async () => {
-    const feedback = mount(Feedback)
+    const feedback = mount(BFormValidFeedback)
     expect(feedback.classes()).toContain('valid-feedback')
   })
 
   it('default should not have class d-block', async () => {
-    const feedback = mount(Feedback)
+    const feedback = mount(BFormValidFeedback)
     expect(feedback.classes()).not.toContain('d-block')
   })
 
   it('default should not have class valid-tooltip', async () => {
-    const feedback = mount(Feedback)
+    const feedback = mount(BFormValidFeedback)
     expect(feedback.classes()).not.toContain('valid-tooltip')
   })
 
   it('default should not have id', async () => {
-    const feedback = mount(Feedback)
+    const feedback = mount(BFormValidFeedback)
     expect(feedback.attributes('id')).not.toBeDefined()
   })
 
   it('default should have user supplied id', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           id: 'foobar'
@@ -39,7 +39,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should have tag small when tag=small', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           tag: 'small'
@@ -50,7 +50,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should contain class d-block when force-show is set', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           forceShow: true
@@ -61,7 +61,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should contain class d-block when state is true', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           state: true
@@ -72,7 +72,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should contain class d-block when state is "valid"', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           state: 'valid'
@@ -83,7 +83,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should not contain class d-block when state is false', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           state: false
@@ -94,7 +94,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should not contain class d-block when state is "invalid"', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           state: 'invalid'
@@ -105,7 +105,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should contain class d-block when force-show is true and state is false', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           forceShow: true,
@@ -117,7 +117,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should contain class valid-tooltip when tooltip is set', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           tooltip: true
@@ -128,7 +128,7 @@ describe('form-valid-feedback', () => {
   })
 
   it('should not contain class alid-feedback when tooltip is set', async () => {
-    const feedback = mount(Feedback, {
+    const feedback = mount(BFormValidFeedback, {
       context: {
         props: {
           tooltip: true

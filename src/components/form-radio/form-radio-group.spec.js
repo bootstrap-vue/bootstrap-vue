@@ -1,13 +1,13 @@
-import Group from './form-radio-group'
-import Radio from './form-radio'
+import BFormRadioGroup from './form-radio-group'
+import BFormRadio from './form-radio'
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 
 describe('form-radio-group', () => {
-  /* Structure, class and attributes tests */
+  // --- Structure, class and attributes tests ---
 
   it('default has structure <div></div>', async () => {
-    const wrapper = mount(Group)
+    const wrapper = mount(BFormRadioGroup)
     expect(wrapper).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     const children = wrapper.element.children
@@ -17,14 +17,14 @@ describe('form-radio-group', () => {
   })
 
   it('default has no classes on wrapper', async () => {
-    const wrapper = mount(Group)
+    const wrapper = mount(BFormRadioGroup)
     expect(wrapper.classes().length).toEqual(0)
 
     wrapper.destroy()
   })
 
   it('default has auto ID set', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true
     })
     await wrapper.vm.$nextTick()
@@ -35,7 +35,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has tabindex set to -1', async () => {
-    const wrapper = mount(Group)
+    const wrapper = mount(BFormRadioGroup)
     expect(wrapper.attributes('tabindex')).toBeDefined()
     expect(wrapper.attributes('tabindex')).toBe('-1')
 
@@ -43,21 +43,21 @@ describe('form-radio-group', () => {
   })
 
   it('default does not have aria-required set', async () => {
-    const wrapper = mount(Group)
+    const wrapper = mount(BFormRadioGroup)
     expect(wrapper.attributes('aria-required')).not.toBeDefined()
 
     wrapper.destroy()
   })
 
   it('default does not have aria-invalid set', async () => {
-    const wrapper = mount(Group)
+    const wrapper = mount(BFormRadioGroup)
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
   })
 
   it('default has attribute role=radiogroup', async () => {
-    const wrapper = mount(Group)
+    const wrapper = mount(BFormRadioGroup)
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('radiogroup')
 
@@ -65,7 +65,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has user provided ID', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         id: 'test'
@@ -78,7 +78,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has class was-validated when validated=true', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         validated: true
@@ -91,7 +91,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has attribute aria-invalid=true when state=false', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         state: false
@@ -104,7 +104,7 @@ describe('form-radio-group', () => {
   })
 
   it('default does not have attribute aria-invalid when state=true', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         state: true
@@ -116,7 +116,7 @@ describe('form-radio-group', () => {
   })
 
   it('default does not have attribute aria-invalid when state=null', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         state: null
@@ -128,7 +128,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has attribute aria-invalid=true when aria-invalid=true', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         ariaInvalid: true
@@ -141,7 +141,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has attribute aria-invalid=true when aria-invalid="true"', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         ariaInvalid: 'true'
@@ -154,7 +154,7 @@ describe('form-radio-group', () => {
   })
 
   it('default has attribute aria-invalid=true when aria-invalid=""', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         ariaInvalid: ''
@@ -166,10 +166,10 @@ describe('form-radio-group', () => {
     wrapper.destroy()
   })
 
-  /* button mode structure */
+  // --- Button mode structure ---
 
   it('button mode has classes button-group and button-group-toggle', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         buttons: true
@@ -184,7 +184,7 @@ describe('form-radio-group', () => {
   })
 
   it('button mode has classes button-group-vertical and button-group-toggle when stacked=true', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         buttons: true,
@@ -200,7 +200,7 @@ describe('form-radio-group', () => {
   })
 
   it('button mode has size class when size prop set', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         buttons: true,
@@ -217,7 +217,7 @@ describe('form-radio-group', () => {
   })
 
   it('button mode has size class when size prop set and stacked', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         buttons: true,
@@ -238,7 +238,7 @@ describe('form-radio-group', () => {
     const App = Vue.extend({
       render(h) {
         return h(
-          Group,
+          BFormRadioGroup,
           {
             props: {
               checked: '',
@@ -247,9 +247,9 @@ describe('form-radio-group', () => {
             }
           },
           [
-            h(Radio, { props: { value: 'one' } }, 'button 1'),
-            h(Radio, { props: { value: 'two' } }, 'button 2'),
-            h(Radio, { props: { value: 'three', buttonVariant: 'danger' } }, 'button 3')
+            h(BFormRadio, { props: { value: 'one' } }, 'button 1'),
+            h(BFormRadio, { props: { value: 'two' } }, 'button 2'),
+            h(BFormRadio, { props: { value: 'three', buttonVariant: 'danger' } }, 'button 3')
           ]
         )
       }
@@ -273,10 +273,10 @@ describe('form-radio-group', () => {
     wrapper.destroy()
   })
 
-  /* functionality testing */
+  // --- Functionality testing ---
 
   it('has radios via options array', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         options: ['one', 'two', 'three'],
@@ -293,7 +293,7 @@ describe('form-radio-group', () => {
   })
 
   it('has radios via options array which respect disabled', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         options: [{ text: 'one' }, { text: 'two' }, { text: 'three', disabled: true }],
@@ -313,7 +313,7 @@ describe('form-radio-group', () => {
   })
 
   it('has radios with attribute required when prop required set', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         options: ['one', 'two', 'three'],
@@ -321,7 +321,8 @@ describe('form-radio-group', () => {
         required: true
       }
     })
-    // We need nextTick here since auto generated name is computed in a nextTick on mount
+    // We need `$nextTick()` here since auto generated name is
+    // computed in a `$nextTick()` on mount
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toBeDefined()
@@ -336,7 +337,7 @@ describe('form-radio-group', () => {
   })
 
   it('emits change event when radio clicked', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         options: ['one', 'two', 'three'],
@@ -375,7 +376,7 @@ describe('form-radio-group', () => {
   })
 
   it('radios reflect group checked v-model', async () => {
-    const wrapper = mount(Group, {
+    const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true,
       propsData: {
         options: ['one', 'two', 'three'],

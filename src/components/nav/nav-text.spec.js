@@ -1,9 +1,9 @@
-import NavText from './nav-text'
+import BNavText from './nav-text'
 import { mount } from '@vue/test-utils'
 
 describe('nav > nav-text', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(NavText)
+    const wrapper = mount(BNavText)
 
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('navbar-text')
@@ -12,7 +12,7 @@ describe('nav > nav-text', () => {
   })
 
   it('renders custom root element when prop tag is set', async () => {
-    const wrapper = mount(NavText, {
+    const wrapper = mount(BNavText, {
       propsData: {
         tag: 'div'
       }
@@ -25,7 +25,7 @@ describe('nav > nav-text', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(NavText, {
+    const wrapper = mount(BNavText, {
       slots: {
         default: 'foobar'
       }

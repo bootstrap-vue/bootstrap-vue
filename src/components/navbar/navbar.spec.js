@@ -1,16 +1,16 @@
-import Navbar from './navbar'
+import BNavbar from './navbar'
 import { mount } from '@vue/test-utils'
 
 describe('navbar', () => {
   it('default has tag "nav"', async () => {
-    const wrapper = mount(Navbar)
+    const wrapper = mount(BNavbar)
     expect(wrapper.is('nav')).toBe(true)
-    // no role added if default tag is used
+    // No role added if default tag is used
     expect(wrapper.attributes('role')).not.toBeDefined()
   })
 
   it('default has class "navbar", "navbar-expand", "navbar-light"', async () => {
-    const wrapper = mount(Navbar)
+    const wrapper = mount(BNavbar)
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand')
     expect(wrapper.classes()).toContain('navbar-light')
@@ -18,7 +18,7 @@ describe('navbar', () => {
   })
 
   it('accepts custom tag', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { tag: 'div' }
       }
@@ -29,7 +29,7 @@ describe('navbar', () => {
   })
 
   it('accepts breakpoint via toggleable prop', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { toggleable: 'lg' }
       }
@@ -41,7 +41,7 @@ describe('navbar', () => {
   })
 
   it('toggleable=true has expected classes', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { toggleable: true }
       }
@@ -52,7 +52,7 @@ describe('navbar', () => {
   })
 
   it('toggleable=xs has expected classes', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { toggleable: 'xs' }
       }
@@ -63,7 +63,7 @@ describe('navbar', () => {
   })
 
   it('has class "fixed-top" when fixed="top"', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { fixed: 'top' }
       }
@@ -76,7 +76,7 @@ describe('navbar', () => {
   })
 
   it('has class "fixed-top" when fixed="top"', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { fixed: 'top' }
       }
@@ -89,7 +89,7 @@ describe('navbar', () => {
   })
 
   it('has class "sticky-top" when sticky=true', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { sticky: true }
       }
@@ -102,7 +102,7 @@ describe('navbar', () => {
   })
 
   it('accepts variant prop', async () => {
-    const wrapper = mount(Navbar, {
+    const wrapper = mount(BNavbar, {
       context: {
         props: { variant: 'primary' }
       }
