@@ -56,7 +56,7 @@ export const isElement = el => {
 }
 
 // Determine if an HTML element is visible - Faster than CSS check
-export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */ {
+export const isVisible = el => {
   if (!isElement(el) || !contains(document.body, el)) {
     return false
   }
@@ -66,6 +66,7 @@ export const isVisible = el => /* istanbul ignore next: getBoundingClientRect() 
   }
   // All browsers support getBoundingClientRect(), except JSDOM as it returns all 0's for values :(
   // So any tests that need isVisible will fail in JSDOM
+  // Except when we override the getBCR prototype in some tests
   const bcr = getBCR(el)
   return Boolean(bcr && bcr.height > 0 && bcr.width > 0)
 }
