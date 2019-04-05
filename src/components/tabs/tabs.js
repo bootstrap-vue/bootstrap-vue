@@ -6,7 +6,7 @@ import idMixin from '../../mixins/id'
 
 // Private Helper component
 // @vue/component
-const BTabButtonHelper = {
+const BTabButtonHelper = Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
@@ -120,7 +120,7 @@ const BTabButtonHelper = {
       [link]
     )
   }
-}
+})
 
 // Filter function to filter out disabled tabs
 function notDisabled(tab) {
