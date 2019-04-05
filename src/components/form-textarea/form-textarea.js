@@ -60,6 +60,9 @@ export default {
         // The computed height for auto resize.
         // We avoid setting the style to null, which can override user manual resize.
         styles.height = this.computedHeight
+        // We always add a vertical scrollbar to the textarea when auto-resize is
+        // enabled so that the computed height calcaultion returns a stable value.
+        styles.overflowY = 'scroll'
       }
       return styles
     },
@@ -77,9 +80,10 @@ export default {
       // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
-    computedHeight() /* istanbul ignore next: can't test getComputedProperties */ {
+    computedHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
       // We compare `computedRows` and `localValue` to `true`, a value
-      // they both can't have at any time, to ensure reactivity
+      // they both can't have at any time, to ensure reactivity of this
+      // computed property.
       if (
         this.$isServer ||
         this.dontResize ||
@@ -91,48 +95,50 @@ export default {
 
       const el = this.$el
 
-      // Element must be visible (not hidden) and in document
-      // *Must* be checked after above checks
+      // Element must be visible (not hidden) and in document.
+      // Must be checked after above checks
       if (!isVisible(el)) {
         return null
       }
-
-      // Remember old height (includes `px` units) and reset it temporarily to `auto`
-      const oldHeight = el.style.height
-      el.style.height = 'auto'
 
       // Get current computed styles
       const computedStyle = getCS(el)
       // Height of one line of text in px
       const lineHeight = parseFloat(computedStyle.lineHeight)
-      // Minimum height for min rows (browser dependant)
-      const minHeight = parseInt(computedStyle.height, 10) || lineHeight * this.computedMinRows
-      // Calculate height of content
-      const offset =
+      // Calculate height of border and padding
+      const border =
         (parseFloat(computedStyle.borderTopWidth) || 0) +
-        (parseFloat(computedStyle.borderBottomWidth) || 0) +
-        (parseFloat(computedStyle.paddingTop) || 0) +
-        (parseFloat(computedStyle.paddingBottom) || 0)
-      // Calculate content height in "rows"
-      const contentRows = Math.max((el.scrollHeight - offset) / lineHeight, 2)
+        (parseFloat(computedStyle.borderBottomWidth) || 0)
+      const padding =
+        (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0)
+      // Calculate offset
+      const offset = border + padding
+      // Minimum height for min rows (which must be 2 rows or greater for cross-browser support)
+      const minHeight = lineHeight * this.computedMinRows + offset
+
+      // Get the current style height (with `px` units)
+      const oldHeight = el.style.height || computedStyle.height
+      // Probe scrollHeight by temporarily changing the height to `auto`
+      el.style.height = 'auto'
+      const scrollHeight = el.scrollHeight
+      // Place the original old height back on the element, just in case this computedProp
+      // returns the same value as before.
+      el.style.height = oldHeight
+
+      // Calculate content height in "rows" (scrollHeight includes padding but not border)
+      const contentRows = Math.max((scrollHeight - padding) / lineHeight, 2)
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // Place old height back on element, just in case this computed prop returns the same value
-      el.style.height = oldHeight
-
-      // Value of previous height (without px units appended)
-      const oldHeightPx = parseFloat(oldHeight) || 0
-
-      if (this.noAutoShrink && oldHeightPx > height) {
-        // Computed height remains the larger of oldHeight and new height
-        // When height is `sticky` (no-auto-shrink is true)
+      // Computed height remains the larger of oldHeight and new height,
+      // when height is in `sticky` mode (prop `no-auto-shrink` is true)
+      if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
         return oldHeight
       }
 
-      // Return the new computed height in px units
+      // Return the new computed CSS height in px units
       return `${height}px`
     }
   },
