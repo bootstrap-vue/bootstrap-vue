@@ -82,7 +82,20 @@ const DEFAULTS = {
     // inside the modal (such has popovers and tooltips).
     // The modal's stacking div z-index will be set to:
     // zIndexOffset + ((NumModalsOpened - 1) * zIndexIncrement)
-    zIndexIncrement: 10,
+    // In default bootstrao the z-indexes are as follows:
+    //   - modal-backdrop 1040,
+    //   - modal 1050
+    //   - popover 1060
+    //   - tooltip 1070
+    // and intermdiat elements inside those components will add 1 to 5 to their z-index.
+    // https://getbootstrap.com/docs/4.3/layout/overview/#z-index
+    //
+    // This accouts for aproximately 35 z-index change between the backdrop and highest
+    // z-index value in a modal construct. So we use an increment value of 40 as a buffer
+    // between stacked modals.  If modals are always guaranteed to be in the document in
+    // the order that they will be opened, then this increment value could be reduced to
+    // a value of 5 or even 0
+    zIndexIncrement: 40,
     // Props defaults
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
