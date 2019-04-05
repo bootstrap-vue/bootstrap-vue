@@ -4,7 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 const NAME = 'BNavbarToggle'
 
 // Events we emit on $root
-const EVENT_TOGGLE 'bv::toggle::collapse'
+const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 // Events we listen to on $root
 const EVENT_STATE = 'bv::collapse::state'
