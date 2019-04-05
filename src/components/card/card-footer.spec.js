@@ -1,20 +1,20 @@
-import CardFooter from './card-footer'
+import BCardFooter from './card-footer'
 import { mount } from '@vue/test-utils'
 
 describe('card-footer', () => {
   it('has root element "div"', async () => {
-    const wrapper = mount(CardFooter)
+    const wrapper = mount(BCardFooter)
     expect(wrapper.is('div')).toBe(true)
   })
 
   it('has class card-header', async () => {
-    const wrapper = mount(CardFooter)
+    const wrapper = mount(BCardFooter)
     expect(wrapper.classes()).toContain('card-footer')
     expect(wrapper.classes().length).toBe(1)
   })
 
   it('has custom root element when prop footerTag is set', async () => {
-    const wrapper = mount(CardFooter, {
+    const wrapper = mount(BCardFooter, {
       context: {
         props: {
           footerTag: 'footer'
@@ -26,7 +26,7 @@ describe('card-footer', () => {
   })
 
   it('has class bg-info when prop footerBgVariant=info', async () => {
-    const wrapper = mount(CardFooter, {
+    const wrapper = mount(BCardFooter, {
       context: {
         props: { footerBgVariant: 'info' }
       }
@@ -37,7 +37,7 @@ describe('card-footer', () => {
   })
 
   it('has class text-info when prop footerTextVariant=info', async () => {
-    const wrapper = mount(CardFooter, {
+    const wrapper = mount(BCardFooter, {
       context: {
         props: { footerTextVariant: 'info' }
       }
@@ -48,7 +48,7 @@ describe('card-footer', () => {
   })
 
   it('has class border-info when prop footerBorderVariant=info', async () => {
-    const wrapper = mount(CardFooter, {
+    const wrapper = mount(BCardFooter, {
       context: {
         props: { footerBorderVariant: 'info' }
       }
@@ -59,7 +59,7 @@ describe('card-footer', () => {
   })
 
   it('has all variant classes when all variant props set', async () => {
-    const wrapper = mount(CardFooter, {
+    const wrapper = mount(BCardFooter, {
       context: {
         props: {
           footerTextVariant: 'info',

@@ -1,4 +1,4 @@
-import Collapse from './collapse'
+import BCollapse from './collapse'
 import { mount, createWrapper } from '@vue/test-utils'
 
 // Helper method for awaiting an animation frame
@@ -14,7 +14,7 @@ describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // Mock getBCR so that the we can get a fake ehight for element
+    // Mock getBCR so that the we can get a fake height for element
     // Needed for keyboard navigation testing
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
@@ -34,7 +34,7 @@ describe('collapse', () => {
   })
 
   it('should have expected default structure', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -62,7 +62,7 @@ describe('collapse', () => {
   })
 
   it('should have expected structure when prop is-nav is set', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -91,7 +91,7 @@ describe('collapse', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -121,7 +121,7 @@ describe('collapse', () => {
   })
 
   it('should mount as visible when prop visible is true', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -152,7 +152,7 @@ describe('collapse', () => {
   })
 
   it('should emit its state on mount (initialy hidden)', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -176,15 +176,15 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // visible state
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
     expect(wrapper.element.style.display).toEqual('none')
 
     wrapper.destroy()
   })
 
-  it('should emit its state on mount (initialy visible)', async () => {
-    const wrapper = mount(Collapse, {
+  it('should emit its state on mount (initially visible)', async () => {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -202,22 +202,22 @@ describe('collapse', () => {
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await wrapper.vm.$nextTick()
     await waitAF()
-    expect(wrapper.emitted('show')).not.toBeDefined() // does not emit show when initially visible
+    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // visible state
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
   })
 
   it('setting visible to true after mount shows collapse', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -242,8 +242,8 @@ describe('collapse', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(false)
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // visible state
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
     expect(wrapper.element.style.display).toEqual('none')
 
     // Change visible prop
@@ -258,15 +258,15 @@ describe('collapse', () => {
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
-    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // visible state
+    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
   })
 
-  it('should respond to accodrion events', async () => {
-    const wrapper = mount(Collapse, {
+  it('should respond to according events', async () => {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -293,8 +293,8 @@ describe('collapse', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // visible state
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
     expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_ACCORDION)[0][0]).toBe('test')
@@ -308,7 +308,7 @@ describe('collapse', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(2) // the event we just emitted
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(2) // The event we just emitted
     expect(rootWrapper.emitted(EVENT_ACCORDION)[1][0]).toBe('test')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[1][1]).toBe('bar')
     expect(wrapper.element.style.display).toEqual('')
@@ -323,9 +323,9 @@ describe('collapse', () => {
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(false)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
-    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // visible state
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(3) // the event we just emitted
+    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // Visible state
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(3) // The event we just emitted
     expect(rootWrapper.emitted(EVENT_ACCORDION)[2][0]).toBe('nottest')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[2][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('none')
@@ -340,9 +340,9 @@ describe('collapse', () => {
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(3)
-    expect(rootWrapper.emitted(EVENT_STATE)[2][0]).toBe('test') // id
-    expect(rootWrapper.emitted(EVENT_STATE)[2][1]).toBe(true) // visible state
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(4) // the event emitted by collapse
+    expect(rootWrapper.emitted(EVENT_STATE)[2][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[2][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(4) // The event emitted by collapse
     expect(rootWrapper.emitted(EVENT_ACCORDION)[3][0]).toBe('test')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[3][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('')
@@ -355,7 +355,7 @@ describe('collapse', () => {
     await waitAF()
     expect(wrapper.element.style.display).toEqual('none')
 
-    // Should respond to accordion events targgeting this ID when closed
+    // Should respond to accordion events targeting this ID when closed
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'foo')
     await wrapper.vm.$nextTick()
     await waitAF()
@@ -367,7 +367,7 @@ describe('collapse', () => {
   })
 
   it('should close when clicking on contained nav-link prop is-nav is set', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop
@@ -404,7 +404,7 @@ describe('collapse', () => {
   })
 
   it('should not respond to root toggle event that does not match ID', async () => {
-    const wrapper = mount(Collapse, {
+    const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
         // 'id' is a required prop

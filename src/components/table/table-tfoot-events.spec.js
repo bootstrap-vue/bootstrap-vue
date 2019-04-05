@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1, b: 2, c: 3 }]
@@ -6,14 +6,15 @@ const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: '
 
 describe('table > tfoot events', () => {
   it('should emit head-clicked event when a head cell is clicked', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
         footClone: true
       },
       listeners: {
-        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        // Head-clicked will not be emitted unless there is a
+        // registered head-clicked listener
         'head-clicked': () => {}
       }
     })
@@ -26,23 +27,23 @@ describe('table > tfoot events', () => {
     $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeDefined()
     expect(wrapper.emitted('head-clicked').length).toBe(1)
-    expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) /* field key */
-    expect(wrapper.emitted('head-clicked')[0][1]).toEqual(testFields[0]) /* field def */
-    expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
-    expect(wrapper.emitted('head-clicked')[0][3]).toBe(true) /* is footer */
+    expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) // Field key
+    expect(wrapper.emitted('head-clicked')[0][1]).toEqual(testFields[0]) // Field definition
+    expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) // Event
+    expect(wrapper.emitted('head-clicked')[0][3]).toBe(true) // Is footer
 
     $ths.at(2).trigger('click')
     expect(wrapper.emitted('head-clicked').length).toBe(2)
-    expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) /* field key */
-    expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) /* field def */
-    expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) /* event */
-    expect(wrapper.emitted('head-clicked')[1][3]).toBe(true) /* is footer */
+    expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) // Field key
+    expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) // Field definition
+    expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) // Event
+    expect(wrapper.emitted('head-clicked')[1][3]).toBe(true) // Is footer
 
     wrapper.destroy()
   })
 
   it('should not emit head-clicked event when prop busy is set', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -50,7 +51,8 @@ describe('table > tfoot events', () => {
         busy: true
       },
       listeners: {
-        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        // Head-clicked will not be emitted unless there is a
+        // registered head-clicked listener
         'head-clicked': () => {}
       }
     })
@@ -65,14 +67,15 @@ describe('table > tfoot events', () => {
   })
 
   it('should not emit head-clicked event when vm.localBusy is true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
         footClone: true
       },
       listeners: {
-        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        // Head-clicked will not be emitted unless there is a
+        // registered head-clicked listener
         'head-clicked': () => {}
       }
     })
@@ -90,18 +93,19 @@ describe('table > tfoot events', () => {
   })
 
   it('should not emit head-clicked event when clicking on a button or other interactive element', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
         footClone: true
       },
       listeners: {
-        // head-clicked will not be emitted unless there is a registered head-clicked listener
+        // Head-clicked will not be emitted unless there is a
+        // registered head-clicked listener
         'head-clicked': () => {}
       },
       slots: {
-        // in Vue 2.6x, slots get translated into scopedSlots
+        // In Vue 2.6x, slots get translated into scopedSlots
         FOOT_a: '<button id="a">button</button>',
         FOOT_b: '<input id="b">',
         // Will use HEAD slot if foot slot not defined

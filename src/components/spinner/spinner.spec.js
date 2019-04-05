@@ -1,16 +1,16 @@
-import Spinner from './spinner'
+import BSpinner from './spinner'
 import { mount } from '@vue/test-utils'
 
 describe('spinner', () => {
   it('default has root element of span, and no children', async () => {
-    const spinner = mount(Spinner)
+    const spinner = mount(BSpinner)
     expect(spinner).toBeDefined()
     expect(spinner.is('span')).toBe(true)
     expect(spinner.find('span.sr-only').exists()).toBe(false)
   })
 
   it('renders custom root element when tag prop is set', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: { tag: 'aside' }
       }
@@ -19,7 +19,7 @@ describe('spinner', () => {
   })
 
   it('default has inner span when label is set', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           tag: 'div',
@@ -34,7 +34,7 @@ describe('spinner', () => {
   })
 
   it('accepts custom label text via label slot', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       slots: { label: 'foobar' },
       context: {}
     })
@@ -42,7 +42,7 @@ describe('spinner', () => {
   })
 
   it('has inner span class "sr-only" when label is set', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           tag: 'div',
@@ -57,13 +57,13 @@ describe('spinner', () => {
   })
 
   it('default has class "spinner-border"', async () => {
-    const spinner = mount(Spinner)
+    const spinner = mount(BSpinner)
     expect(spinner.classes().length).toBe(1)
     expect(spinner.classes()).toContain('spinner-border')
   })
 
   it('default has class "spinner-border-sm" when prop small=true', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: { small: true }
       }
@@ -74,7 +74,7 @@ describe('spinner', () => {
   })
 
   it('default has classes "spinner-border" and "text-danger" when prop variant="danger"', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: { variant: 'danger' }
       }
@@ -85,7 +85,7 @@ describe('spinner', () => {
   })
 
   it('default has class "text-danger" and "spinner-border-sm" when prop variant="danger" and small=true', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           variant: 'danger',
@@ -100,12 +100,12 @@ describe('spinner', () => {
   })
 
   it('does not have role "status" when no label provided', async () => {
-    const spinner = mount(Spinner)
+    const spinner = mount(BSpinner)
     expect(spinner.attributes('role')).not.toBeDefined()
   })
 
   it('has role "status" when label provided', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: { label: 'Loading' }
       }
@@ -115,7 +115,7 @@ describe('spinner', () => {
   })
 
   it('does not add custom role when role prop is set and no label', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           role: 'foobar'
@@ -126,7 +126,7 @@ describe('spinner', () => {
   })
 
   it('adds custom role when role prop is set and label provided', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           role: 'foobar',
@@ -139,13 +139,13 @@ describe('spinner', () => {
   })
 
   it('has attribute "aria-hidden" when no label provided', async () => {
-    const spinner = mount(Spinner)
+    const spinner = mount(BSpinner)
     expect(spinner.attributes('aria-hidden')).toBeDefined()
     expect(spinner.attributes('aria-hidden')).toEqual('true')
   })
 
   it('does not have attribute "aria-hidden" when label provided', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: { label: 'loading' }
       }
@@ -154,7 +154,7 @@ describe('spinner', () => {
   })
 
   it('does not have attribute "aria-hidden" when label slot provided', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       slots: {
         label: 'loading'
       }
@@ -163,7 +163,7 @@ describe('spinner', () => {
   })
 
   it('places user supplied attributes on root element', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         attrs: { id: 'foobar' }
       }
@@ -173,7 +173,7 @@ describe('spinner', () => {
   })
 
   it('places user supplied class on root element', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         class: ['foo', 'bar']
       }
@@ -184,7 +184,7 @@ describe('spinner', () => {
   })
 
   it('has class "spinner-grow" when prop type="grow"', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: { type: 'grow' }
       }
@@ -194,7 +194,7 @@ describe('spinner', () => {
   })
 
   it('has class "spinner-grow-sm" when props small=true and type="grow"', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           small: true,
@@ -208,7 +208,7 @@ describe('spinner', () => {
   })
 
   it('has classes "spinner-grow" and "text-danger" when props type="grow" and variant="danger"', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           type: 'grow',
@@ -222,7 +222,7 @@ describe('spinner', () => {
   })
 
   it('has classes "text-info", "spinner-grow" and "spinner-grow-sm" when props type="grow", variant="info" and small=true', async () => {
-    const spinner = mount(Spinner, {
+    const spinner = mount(BSpinner, {
       context: {
         props: {
           type: 'grow',

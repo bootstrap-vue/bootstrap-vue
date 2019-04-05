@@ -1,9 +1,9 @@
-import InputGroupAppend from './input-group-append'
+import BInputGroupAppend from './input-group-append'
 import { mount } from '@vue/test-utils'
 
 describe('input-group > input-group-append', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(InputGroupAppend)
+    const wrapper = mount(BInputGroupAppend)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group-append')
@@ -13,7 +13,7 @@ describe('input-group > input-group-append', () => {
   })
 
   it('renders custom root element when tag prop is set', async () => {
-    const wrapper = mount(InputGroupAppend, {
+    const wrapper = mount(BInputGroupAppend, {
       propsData: {
         tag: 'span'
       }
@@ -27,7 +27,7 @@ describe('input-group > input-group-append', () => {
   })
 
   it('renders content of default slot', async () => {
-    const wrapper = mount(InputGroupAppend, {
+    const wrapper = mount(BInputGroupAppend, {
       slots: {
         default: 'foobar'
       }
@@ -40,7 +40,7 @@ describe('input-group > input-group-append', () => {
   })
 
   it('renders child input-group-text when prop is-text set', async () => {
-    const wrapper = mount(InputGroupAppend, {
+    const wrapper = mount(BInputGroupAppend, {
       propsData: {
         isText: true
       }
@@ -55,7 +55,7 @@ describe('input-group > input-group-append', () => {
   })
 
   it('renders default slot inside child input-group-text when prop is-text set', async () => {
-    const wrapper = mount(InputGroupAppend, {
+    const wrapper = mount(BInputGroupAppend, {
       propsData: {
         isText: true
       },

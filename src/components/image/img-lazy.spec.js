@@ -1,11 +1,11 @@
-import ImgLazy from './img-lazy'
+import BImgLazy from './img-lazy'
 import { mount } from '@vue/test-utils'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
 
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
-    const wrapper = mount(ImgLazy, {
+    const wrapper = mount(BImgLazy, {
       propsData: {
         src: src
       }
@@ -16,7 +16,7 @@ describe('img-lazy', () => {
   })
 
   it('is initially shown show prop is set', async () => {
-    const wrapper = mount(ImgLazy, {
+    const wrapper = mount(BImgLazy, {
       propsData: {
         src: src,
         show: true
@@ -31,7 +31,7 @@ describe('img-lazy', () => {
   })
 
   it('shows when show prop is set', async () => {
-    const wrapper = mount(ImgLazy, {
+    const wrapper = mount(BImgLazy, {
       propsData: {
         src: src,
         show: false
@@ -59,7 +59,7 @@ describe('img-lazy', () => {
 
   it('triggers check on resize event event', async () => {
     const src = 'https://picsum.photos/1024/400/?image=41'
-    const wrapper = mount(ImgLazy, {
+    const wrapper = mount(BImgLazy, {
       attachToDocument: true,
       propsData: {
         src: src
@@ -77,7 +77,8 @@ describe('img-lazy', () => {
 
     expect(wrapper.vm.scrollTimeout).not.toBe(null)
 
-    // Since JEST doesnt support getBCR, we fake it by setting the data prop to shown
+    // Since JEST doesnt support getBCR, we fake it by setting
+    // the data prop to shown
     wrapper.setData({
       isShown: true
     })

@@ -1,20 +1,20 @@
-import CardHeader from './card-header'
+import BCardHeader from './card-header'
 import { mount } from '@vue/test-utils'
 
 describe('card-header', () => {
   it('has root element "div"', async () => {
-    const wrapper = mount(CardHeader)
+    const wrapper = mount(BCardHeader)
     expect(wrapper.is('div')).toBe(true)
   })
 
   it('has class card-header', async () => {
-    const wrapper = mount(CardHeader)
+    const wrapper = mount(BCardHeader)
     expect(wrapper.classes()).toContain('card-header')
     expect(wrapper.classes().length).toBe(1)
   })
 
   it('has custom root element when prop headerTag is set', async () => {
-    const wrapper = mount(CardHeader, {
+    const wrapper = mount(BCardHeader, {
       context: {
         props: {
           headerTag: 'header'
@@ -26,7 +26,7 @@ describe('card-header', () => {
   })
 
   it('has class bg-info when prop headerBgVariant=info', async () => {
-    const wrapper = mount(CardHeader, {
+    const wrapper = mount(BCardHeader, {
       context: {
         props: { headerBgVariant: 'info' }
       }
@@ -37,7 +37,7 @@ describe('card-header', () => {
   })
 
   it('has class text-info when prop headerTextVariant=info', async () => {
-    const wrapper = mount(CardHeader, {
+    const wrapper = mount(BCardHeader, {
       context: {
         props: { headerTextVariant: 'info' }
       }
@@ -48,7 +48,7 @@ describe('card-header', () => {
   })
 
   it('has class border-info when prop headerBorderVariant=info', async () => {
-    const wrapper = mount(CardHeader, {
+    const wrapper = mount(BCardHeader, {
       context: {
         props: { headerBorderVariant: 'info' }
       }
@@ -59,7 +59,7 @@ describe('card-header', () => {
   })
 
   it('has all variant classes when all variant props set', async () => {
-    const wrapper = mount(CardHeader, {
+    const wrapper = mount(BCardHeader, {
       context: {
         props: {
           headerTextVariant: 'info',

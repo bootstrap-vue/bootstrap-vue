@@ -1,9 +1,9 @@
-import Badge from './badge'
+import BBadge from './badge'
 import { mount } from '@vue/test-utils'
 
 describe('badge', () => {
   it('should have base classes', async () => {
-    const wrapper = mount(Badge)
+    const wrapper = mount(BBadge)
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -14,7 +14,7 @@ describe('badge', () => {
   })
 
   it('should have default slot content', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       slots: {
         default: 'foobar'
       }
@@ -30,7 +30,7 @@ describe('badge', () => {
   })
 
   it('should apply variant class', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       propsData: {
         variant: 'danger'
       }
@@ -44,7 +44,7 @@ describe('badge', () => {
   })
 
   it('should apply pill class', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       propsData: {
         pill: true
       }
@@ -58,7 +58,7 @@ describe('badge', () => {
   })
 
   it('should have active class when prop active set', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       propsData: {
         active: true
       }
@@ -72,7 +72,7 @@ describe('badge', () => {
   })
 
   it('should have disabled class when prop disabled set', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       propsData: {
         disabled: true
       }
@@ -86,7 +86,7 @@ describe('badge', () => {
   })
 
   it('renders custom root element', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       propsData: {
         tag: 'small'
       }
@@ -100,7 +100,7 @@ describe('badge', () => {
   })
 
   it('renders link when href provided', async () => {
-    const wrapper = mount(Badge, {
+    const wrapper = mount(BBadge, {
       propsData: {
         href: '/foo/bar'
       }

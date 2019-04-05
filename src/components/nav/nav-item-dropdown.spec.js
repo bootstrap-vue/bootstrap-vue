@@ -1,9 +1,9 @@
-import NavItemDropdown from './nav-item-dropdown'
+import BNavItemDropdown from './nav-item-dropdown'
 import { mount } from '@vue/test-utils'
 
 describe('nav-item-dropdown', () => {
   it('should have custom toggle class in nav-item-dropdown', async () => {
-    const wrapper = mount(NavItemDropdown, {
+    const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'toggle',
         extraToggleClasses: 'nav-link-custom'
@@ -21,7 +21,7 @@ describe('nav-item-dropdown', () => {
   })
 
   it('should flag that we are in a nav', async () => {
-    const wrapper = mount(NavItemDropdown, {
+    const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'toggle'
       }

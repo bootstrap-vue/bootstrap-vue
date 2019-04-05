@@ -1,9 +1,9 @@
-import MediaAside from './media-aside'
+import BMediaAside from './media-aside'
 import { mount } from '@vue/test-utils'
 
 describe('media-aside', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(MediaAside)
+    const wrapper = mount(BMediaAside)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('d-flex')
@@ -12,7 +12,7 @@ describe('media-aside', () => {
   })
 
   it('has custom root element when prop tag set', async () => {
-    const wrapper = mount(MediaAside, {
+    const wrapper = mount(BMediaAside, {
       propsData: {
         tag: 'span'
       }
@@ -26,7 +26,7 @@ describe('media-aside', () => {
   })
 
   it('has alignment class when prop vertical-align set', async () => {
-    const wrapper = mount(MediaAside, {
+    const wrapper = mount(BMediaAside, {
       propsData: {
         verticalAlign: 'bottom'
       }
@@ -39,7 +39,7 @@ describe('media-aside', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(MediaAside, {
+    const wrapper = mount(BMediaAside, {
       slots: {
         default: '<b>foobar</b>'
       }
