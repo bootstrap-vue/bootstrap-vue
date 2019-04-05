@@ -76,8 +76,14 @@ const DEFAULTS = {
     blankColor: 'transparent'
   },
   BModal: {
-    // Defaults to the Boostrap default for the modal backdrop
+    // Defaults to the Boostrap default of the modal backdrop
     zIndexOffset: 1040,
+    // The following needs to be higher than the largest z-index element
+    // inside the modal (such has popovers and tooltips).
+    // The modal's stacking div z-index will be set to:
+    // zIndexOffset + ((NumModalsOpened - 1) * zIndexIncrement)
+    zIndexIncrement: 2000,
+    // Props defaults
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
     okTitle: 'OK',
