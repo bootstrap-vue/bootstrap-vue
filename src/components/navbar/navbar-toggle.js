@@ -1,13 +1,24 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import { getComponentConfig } from '../../utils/config'
+
+const NAME = 'BNavbarToggle'
+
+// Events we emit on $root
+const EVENT_TOGGLE 'bv::toggle::collapse'
+
+// Events we listen to on $root
+const EVENT_STATE = 'bv::collapse::state'
+// This private event is NOT to be documented as people should not be using it.
+const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 // @vue/component
 export default {
-  name: 'BNavbarToggle',
+  name: NAME,
   mixins: [listenOnRootMixin],
   props: {
     label: {
       type: String,
-      default: 'Toggle navigation'
+      default: () => String(getComponentConfig(NAME, 'label') || '')
     },
     target: {
       type: String,
@@ -20,14 +31,14 @@ export default {
     }
   },
   created() {
-    this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
-    this.listenOnRoot('bv::collapse::sync::state', this.handleStateEvt)
+    this.listenOnRoot(EVENT_STATE, this.handleStateEvt)
+    this.listenOnRoot(EVENT_STATE_SYNC, this.handleStateEvt)
   },
   methods: {
     onClick(evt) {
       this.$emit('click', evt)
       if (!evt.defaultPrevented) {
-        this.$root.$emit('bv::toggle::collapse', this.target)
+        this.$root.$emit(EVENT_TOGGLE, this.target)
       }
     },
     handleStateEvt(id, state) {
