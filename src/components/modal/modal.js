@@ -69,8 +69,10 @@ const getModalMaxZIndex = () => {
 const getModalZIndexOffset = () => getComponentConfig(NAME, 'zIndexOffset')
 
 // Returns the next z-index to be used by a modal to ensure proper
-// stacking regardless of document order
-const getModalNextZIndex = () => getModalMaxZIndex() + getModalZIndexOffset()
+// stacking regardless of document order.
+// The first modal open will be given a z-index of 0
+const getModalNextZIndex = () =>
+  getModalOpenCount() === 0 ? 0 : getModalMaxZIndex() + getModalZIndexOffset()
 
 // @vue/component
 export default {
@@ -336,8 +338,8 @@ export default {
       ]
     },
     modalOuterStyle() {
+      // Styles needed for proper stacking of modals
       return {
-        // We only set these styles on the stacked modals (z-index > 0)
         position: 'absolute',
         zIndex: this.zIndex
       }
@@ -442,13 +444,22 @@ export default {
       }
       this.is_closing = true
       const hideEvt = new BvEvent('hide', {
+        // BvEvent standard properties
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
-        modalId: this.safeId(),
         // This could be the trigger element/component reference
         relatedTarget: null,
-        isOK: trigger || null,
+        // Modal specific properties and methods
+        modalId: this.safeId(),
+        // `isOK` should be deprecated:
+        // isOK: {
+        //   get() {
+        //     warn(`b-modal: evt.isOK is deprecated. Please check evt.trigger === 'ok'`)
+        //     return trigger === 'ok'
+        //   }
+        // }
+        isOK: trigger === 'ok',
         trigger: trigger || null,
         cancel() /* istanbul ignore next */ {
           // Backwards compatibility
@@ -556,7 +567,7 @@ export default {
       this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
-        this.zIndex = getModalZIndexOffset()
+        this.zIndex = 0
         this.returnFocusTo()
         this.is_closing = false
         const hiddenEvt = new BvEvent('hidden', {
