@@ -82,7 +82,7 @@ const DEFAULTS = {
     // inside the modal (such has popovers and tooltips).
     // The modal's stacking div z-index will be set to:
     // zIndexOffset + ((NumModalsOpened - 1) * zIndexIncrement)
-    zIndexIncrement: 2000,
+    zIndexIncrement: 10,
     // Props defaults
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
