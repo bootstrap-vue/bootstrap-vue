@@ -11,7 +11,7 @@ export const props = {
   toggleText: {
     // This really should be toggleLabel
     type: String,
-    default: () => getComponentConfig(NAME, 'toggleText')
+    default: () => String(getComponentConfig(NAME, 'toggleText'))
   },
   size: {
     type: String,
@@ -19,7 +19,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => String(getComponentConfig(NAME, 'variant') || '') || null
   },
   menuClass: {
     type: [String, Array],
