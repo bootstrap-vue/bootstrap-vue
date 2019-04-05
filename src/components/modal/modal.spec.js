@@ -4,9 +4,32 @@ import { mount, createWrapper } from '@vue/test-utils'
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('modal', () => {
+  const origGetBCR = Element.prototype.getBoundingClientRect
+
+  beforeEach(() => {
+    // Mock getBCR so that the isVisible(el) test returns true
+    // Needed for z-index checks
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
+    })
+  })
+
+  afterEach(() => {
+    // Restore prototype
+    Element.prototype.getBoundingClientRect = origGetBCR
+  })
+
   describe('structure', () => {
     it('has expected default structure', async () => {
       const wrapper = mount(Modal, {
+        attachToDocument: true,
         propsData: {
           id: 'test'
         }
@@ -56,6 +79,7 @@ describe('modal', () => {
 
     it('has expected structure when lazy', async () => {
       const wrapper = mount(Modal, {
+        attachToDocument: true,
         propsData: {
           lazy: true
         }
@@ -227,7 +251,9 @@ describe('modal', () => {
   describe('default button content, classes and attributes', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
-      const wrapper = mount(Modal)
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+      })
       expect(wrapper).toBeDefined()
 
       const $buttons = wrapper.findAll('footer button')
@@ -251,7 +277,9 @@ describe('modal', () => {
     })
 
     it('default header close button', async () => {
-      const wrapper = mount(Modal)
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+      })
       expect(wrapper).toBeDefined()
 
       const $buttons = wrapper.findAll('header button')
