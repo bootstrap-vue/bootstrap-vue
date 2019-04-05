@@ -1,7 +1,8 @@
+import Vue from 'vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BNavbarToggle',
   mixins: [listenOnRootMixin],
   props: {
@@ -52,4 +53,4 @@ export default {
       [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
     )
   }
-}
+})
