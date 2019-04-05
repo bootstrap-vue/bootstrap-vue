@@ -11,11 +11,11 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaLabel')
+    default: () => String(getComponentConfig(NAME, 'ariaLabel'))
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => String(getComponentConfig(NAME, 'textVariant') || '') || null
   }
 }
 
