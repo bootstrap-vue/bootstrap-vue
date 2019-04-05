@@ -101,7 +101,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual('2000')
+      expect($outer.element.style.zIndex).toEqual('1040')
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
@@ -174,7 +174,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual('2000')
+      expect($outer.element.style.zIndex).toEqual('1040')
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
