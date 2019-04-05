@@ -76,6 +76,8 @@ const DEFAULTS = {
     blankColor: 'transparent'
   },
   BModal: {
+    // Defaults to the Boostrap default for the modal backdrop
+    zIndexOffset: 1040,
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
     okTitle: 'OK',

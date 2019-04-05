@@ -44,8 +44,8 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
-// modal wrapper ZINDEX offset incrememnt
-const ZINDEX_OFFSET = 2000
+// Modal wrapper ZINDEX offset
+const ZINDEX_OFFSET = getComponentConfig(NAME, 'zIndexOffset')
 
 // Modal open count helpers
 function getModalOpenCount() {
@@ -67,17 +67,17 @@ function decrementModalOpenCount() {
 
 // Returns the current visible modal highest z-index
 function getModalMaxZIndex() {
-  return selectAll('div.modal') /* find all modals that are in document */
-    .filter(isVisible) /* filter only visible ones */
-    .map(m => m.parentElement) /* select the outer div */
-    .reduce((max, el) => {
-      /* compute the highest z-index */
-      return Math.max(max, parseInt(el.style.zIndex || 0, 10))
-    }, 0)
+  return (
+    selectAll('div.modal') // Find all modals that are in document
+      .filter(isVisible) // Filter only visible ones
+      .map(m => m.parentElement) // Select the outer div
+      // Compute the highest z-index
+      .reduce((max, el) => Math.max(max, parseInt(el.style.zIndex || 0, 10)), 0)
+  )
 }
 
-// Returns the next z-index to be used by a modal to ensure proper stacking
-// regardless of document order. Increments by 2000
+// Returns the next z-index to be used by a modal to ensure proper
+// stacking regardless of document order
 function getModalNextZIndex() {
   return getModalMaxZIndex() + ZINDEX_OFFSET
 }
@@ -259,7 +259,10 @@ export default {
     },
     okVariant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'okVariant')
+      default: () => {
+        console.log(getComponentConfig(NAME, 'zIndexOffset'))
+        return getComponentConfig(NAME, 'okVariant')
+      }
     },
     lazy: {
       type: Boolean,
@@ -272,13 +275,13 @@ export default {
   },
   data() {
     return {
-      is_hidden: this.lazy || false, // for lazy modals
-      is_visible: false, // controls modal visible state
+      is_hidden: this.lazy || false, // For lazy modals
+      is_visible: false, // Controls modal visible state
       is_transitioning: false, // Used for style control
       is_show: false, // Used for style control
       is_block: false, // Used for style control
-      is_opening: false, // Semaphore for previnting incorrect modal open counts
-      is_closing: false, // Semapbore for preventing incorrect modal open counts
+      is_opening: false, // Semaphore for preventing incorrect modal open counts
+      is_closing: false, // Semaphore for preventing incorrect modal open counts
       scrollbarWidth: 0,
       zIndex: ZINDEX_OFFSET, // z-index for modal stacking
       isTop: true, // If the modal is the topmost opened modal
@@ -347,7 +350,7 @@ export default {
     },
     modalOuterStyle() {
       return {
-        // We only set these styles on the stacked modals (ones with next z-index > 0).
+        // We only set these styles on the stacked modals (z-index > 0)
         position: 'absolute',
         zIndex: this.zIndex
       }
@@ -366,13 +369,14 @@ export default {
   },
   mounted() {
     // Listen for events from others to either open or close ourselves
-    // And listen to all modals to enable/disable enforce focus
+    // and listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
     this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
     this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
-    // Listen for bv:modal::show events, and close ourselves if the opening modal not us
+    // Listen for `bv:modal::show events`, and close ourselves if the
+    // opening modal not us
     this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
@@ -385,7 +389,7 @@ export default {
       this._observer.disconnect()
       this._observer = null
     }
-    // Ensure our root "once" listener is gone
+    // Ensure our root 'once' listener is gone
     this.$root.$off('bv::modal::hidden', this.doShow)
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
@@ -406,12 +410,12 @@ export default {
     // Public Methods
     show() {
       if (this.is_visible || this.is_opening) {
-        // if already open, on in the process of opening, do nothing
+        // If already open, on in the process of opening, do nothing
         /* istanbul ignore next */
         return
       }
       if (this.is_closing) {
-        // if we are in the process of closing, wait until hidden before re-opening
+        // If we are in the process of closing, wait until hidden before re-opening
         /* istanbul ignore next: very difficult to test */
         this.$once('hidden', this.show)
         /* istanbul ignore next */
@@ -453,7 +457,7 @@ export default {
         vueTarget: this,
         target: this.$refs.modal,
         modalId: this.safeId(),
-        // this could be the trigger element/component reference
+        // This could be the trigger element/component reference
         relatedTarget: null,
         isOK: trigger || null,
         trigger: trigger || null,
@@ -474,7 +478,7 @@ export default {
         this.is_closing = false
         return
       }
-      // stop observing for content changes
+      // Stop observing for content changes
       if (this._observer) {
         this._observer.disconnect()
         this._observer = null
@@ -498,7 +502,8 @@ export default {
       // Place modal in DOM if lazy
       this.is_hidden = false
       this.$nextTick(() => {
-        // We do this in nextTick to ensure the modal is in DOM first before we show it
+        // We do this in `$nextTick()` to ensure the modal is in DOM first
+        // before we show it
         this.is_visible = true
         this.is_opening = false
         this.$emit('change', true)
@@ -510,7 +515,7 @@ export default {
         )
       })
     },
-    // Transition Handlers
+    // Transition handlers
     onBeforeEnter() {
       this.getScrollbarWidth()
       this.is_transitioning = true
@@ -581,10 +586,10 @@ export default {
       this.$emit(type, bvEvt)
       this.$root.$emit(`bv::modal::${type}`, bvEvt, this.safeId())
     },
-    // UI Event Handlers
+    // UI event handlers
     onClickOut(evt) {
-      // Do nothing if not visible, backdrop click disabled, or element that generated
-      // click event is no longer in document
+      // Do nothing if not visible, backdrop click disabled, or element
+      // that generated click event is no longer in document
       if (!this.is_visible || this.noCloseOnBackdrop || !contains(document, evt.target)) {
         return
       }
@@ -619,14 +624,14 @@ export default {
       const method = on ? eventOn : eventOff
       method(document, 'focusin', this.focusHandler, { passive: true, capture: false })
     },
-    // Resize Listener
+    // Resize listener
     setResizeEvent(on) {
       const options = { passive: true, capture: false }
       const method = on ? eventOn : eventOff
       method(window, 'resize', this.adjustDialog, options)
       method(window, 'orientationchange', this.adjustDialog, options)
     },
-    // Root Listener handlers
+    // Root listener handlers
     showHandler(id, triggerEl) {
       if (id === this.id) {
         this.return_focus = triggerEl || null
@@ -669,12 +674,12 @@ export default {
       const modal = this.$refs.modal
       const activeElement = document.activeElement
       if (activeElement && contains(modal, activeElement)) {
-        // If activeElement is child of modal or is modal, no need to change focus
+        // If `activeElement` is child of modal or is modal, no need to change focus
         return
       }
       if (modal) {
-        // make sure top of modal is showing (if longer than the viewport) and
-        // focus the modal content wrapper
+        // Make sure top of modal is showing (if longer than the viewport)
+        // and focus the modal content wrapper
         this.$nextTick(() => {
           modal.scrollTop = 0
           modal.focus()
@@ -682,7 +687,7 @@ export default {
       }
     },
     returnFocusTo() {
-      // Prefer returnFocus prop over event specified return_focus value
+      // Prefer `returnFocus` prop over event specified `return_focus` value
       let el = this.returnFocus || this.return_focus || null
       if (typeof el === 'string') {
         // CSS Selector
@@ -740,14 +745,15 @@ export default {
     setScrollbar() {
       const body = document.body
       // Storage place to cache changes to margins and padding
-      // Note: THis assumes the following element types are not added to the
-      // document after hte modal has opened.
+      // Note: This assumes the following element types are not added
+      // to the document after the modal has opened.
       body._paddingChangedForModal = body._paddingChangedForModal || []
       body._marginChangedForModal = body._marginChangedForModal || []
       /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
-        // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
-        //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
+        // Note: `DOMNode.style.paddingRight returns` the actual value or ''
+        // if not set while `$(DOMNode).css('padding-right')` returns the
+        // calculated value or 0 if not set
         const scrollbarWidth = this.scrollbarWidth
         // Adjust fixed content padding
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
@@ -811,7 +817,7 @@ export default {
   },
   render(h) {
     const $slots = this.$slots
-    // Modal Header
+    // Modal header
     let header = h(false)
     if (!this.hideHeader) {
       let modalHeader = $slots['modal-header']
@@ -853,7 +859,7 @@ export default {
         [modalHeader]
       )
     }
-    // Modal Body
+    // Modal body
     const body = h(
       'div',
       {
@@ -917,7 +923,7 @@ export default {
         [modalFooter]
       )
     }
-    // Assemble Modal Content
+    // Assemble modal content
     const modalContent = h(
       'div',
       {
@@ -932,7 +938,7 @@ export default {
       },
       [header, body, footer]
     )
-    // Modal Dialog wrapper
+    // Modal dialog wrapper
     const modalDialog = h(
       'div',
       {
@@ -1003,7 +1009,8 @@ export default {
         [$slots['modal-backdrop']]
       )
     }
-    // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
+    // Tab trap to prevent page from scrolling to next element in tab index
+    // during enforce focus tab cycle
     let tabTrap = h(false)
     if (this.is_visible && this.isTop && !this.noEnforceFocus) {
       tabTrap = h('div', { attrs: { tabindex: '0' } })
@@ -1021,7 +1028,7 @@ export default {
         [modal, tabTrap, backdrop]
       )
     }
-    // Wrap in DIV to maintain thi.$el reference for hide/show method aceess
+    // Wrap in DIV to maintain `this.$el` reference for hide/show method access
     return h('div', {}, [outer])
   }
 }
