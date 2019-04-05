@@ -9,7 +9,7 @@ const listenTypes = { click: true }
 const BV_TOGGLE = '__BV_toggle__'
 const BV_TOGGLE_STATE = '__BV_toggle_STATE__'
 const BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'
-const BV_TOGGLE_TARGETS = '__BV_toggle_CONTROLS__'
+const BV_TOGGLE_TARGETS = '__BV_toggle_TARGETS__'
 
 // Emitted control event for collapse (emitted to collapse)
 const EVENT_TOGGLE = 'bv::toggle::collapse'
