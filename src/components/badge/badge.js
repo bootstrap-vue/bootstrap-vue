@@ -18,7 +18,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => String(getComponentConfig(NAME, 'variant'))
   },
   pill: {
     type: Boolean,
