@@ -1,6 +1,6 @@
 import Modal from './modal'
 import { mount, createWrapper } from '@vue/test-utils'
-import { getComponentConfig } from `../../utils/config'
+import { getComponentConfig } from '../../utils/config'
 
 // Grab the configured base index
 const CONFIG_ZINDEX = getComponentConfig('BModal', 'zIndexOffset')
