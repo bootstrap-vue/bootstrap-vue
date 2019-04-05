@@ -74,7 +74,7 @@ describe('navbar-toggle', () => {
     wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
   })
 
-  it('sets area-expanded when receives root emit for target', async () => {
+  it('sets aria-expanded when receives root emit for target', async () => {
     const wrapper = mount(NavbarToggle, {
       propsData: {
         target: 'target'
