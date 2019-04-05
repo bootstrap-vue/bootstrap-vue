@@ -1,9 +1,9 @@
-import NavForm from './nav-form'
+import BNavForm from './nav-form'
 import { mount } from '@vue/test-utils'
 
 describe('nav > nav-form', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(NavForm)
+    const wrapper = mount(BNavForm)
 
     expect(wrapper.is('form')).toBe(true)
     expect(wrapper.classes()).toContain('form-inline')
@@ -12,7 +12,7 @@ describe('nav > nav-form', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(NavForm, {
+    const wrapper = mount(BNavForm, {
       slots: {
         default: 'foobar'
       }

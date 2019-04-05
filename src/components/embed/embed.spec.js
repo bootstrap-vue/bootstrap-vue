@@ -1,9 +1,9 @@
-import Embed from './embed'
+import BEmbed from './embed'
 import { mount } from '@vue/test-utils'
 
 describe('embed', () => {
   it('default should have expected default structure', async () => {
-    const wrapper = mount(Embed)
+    const wrapper = mount(BEmbed)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('embed-responsive')
@@ -16,7 +16,7 @@ describe('embed', () => {
   })
 
   it('has custom root element when tag prop set', async () => {
-    const wrapper = mount(Embed, {
+    const wrapper = mount(BEmbed, {
       propsData: {
         tag: 'aside'
       }
@@ -30,7 +30,7 @@ describe('embed', () => {
   })
 
   it('it renders specified inner element when type set', async () => {
-    const wrapper = mount(Embed, {
+    const wrapper = mount(BEmbed, {
       propsData: {
         type: 'video'
       }
@@ -46,7 +46,7 @@ describe('embed', () => {
   })
 
   it('renders specified aspect ratio class', async () => {
-    const wrapper = mount(Embed, {
+    const wrapper = mount(BEmbed, {
       propsData: {
         aspect: '4by3'
       }
@@ -59,7 +59,7 @@ describe('embed', () => {
   })
 
   it('non-prop attributes should rendered on on inner element', async () => {
-    const wrapper = mount(Embed, {
+    const wrapper = mount(BEmbed, {
       attrs: {
         src: '/foo/bar',
         baz: 'buz'
@@ -77,7 +77,7 @@ describe('embed', () => {
   })
 
   it('default slot should be rendered inside inner element', async () => {
-    const wrapper = mount(Embed, {
+    const wrapper = mount(BEmbed, {
       propsData: {
         type: 'video'
       },

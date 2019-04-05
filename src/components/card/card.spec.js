@@ -1,9 +1,9 @@
-import Card from './card'
+import BCard from './card'
 import { mount } from '@vue/test-utils'
 
 describe('card', () => {
   it('default has expected structure', async () => {
-    const wrapper = mount(Card)
+    const wrapper = mount(BCard)
 
     // Outer div
     expect(wrapper.is('div')).toBe(true)
@@ -22,7 +22,7 @@ describe('card', () => {
   })
 
   it('should not contain "card-body" if prop no-body set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         noBody: true
       }
@@ -40,7 +40,7 @@ describe('card', () => {
   })
 
   it('renders custom root element when tag prop set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         tag: 'article',
         noBody: true
@@ -55,7 +55,7 @@ describe('card', () => {
   })
 
   it('applies variant classes to root element', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         noBody: true,
         bgVariant: 'info',
@@ -75,7 +75,7 @@ describe('card', () => {
   })
 
   it('applies text align class to when align prop set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         noBody: true,
         align: 'right'
@@ -91,7 +91,7 @@ describe('card', () => {
   })
 
   it('should have content from default slot', async () => {
-    const wrapperBody = mount(Card, {
+    const wrapperBody = mount(BCard, {
       propsData: {
         noBody: false
       },
@@ -99,7 +99,7 @@ describe('card', () => {
         default: 'foobar'
       }
     })
-    const wrapperNoBody = mount(Card, {
+    const wrapperNoBody = mount(BCard, {
       propsData: {
         noBody: true
       },
@@ -120,7 +120,7 @@ describe('card', () => {
   })
 
   it('should have class flex-row when img-left set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         noBody: true,
         imgLeft: true
@@ -134,7 +134,7 @@ describe('card', () => {
   })
 
   it('should have class flex-row-reverse when img-right set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         noBody: true,
         imgRight: true
@@ -148,7 +148,7 @@ describe('card', () => {
   })
 
   it('should have class flex-row when img-left and img-right set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         noBody: true,
         imgLeft: true,
@@ -164,7 +164,7 @@ describe('card', () => {
   })
 
   it('should have header and footer when header and footer props are set', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         header: 'foo',
         footer: 'bar'
@@ -189,7 +189,7 @@ describe('card', () => {
   })
 
   it('should have img at top', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',
@@ -213,7 +213,7 @@ describe('card', () => {
   })
 
   it('should have img at bottom', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',
@@ -237,7 +237,7 @@ describe('card', () => {
   })
 
   it('should have img overlay', async () => {
-    const wrapper = mount(Card, {
+    const wrapper = mount(BCard, {
       propsData: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',

@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
@@ -6,7 +6,7 @@ const testFields = [{ key: 'a', sortable: true }]
 
 describe('table > row select', () => {
   it('should not emit row-selected event default', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -19,8 +19,8 @@ describe('table > row select', () => {
     wrapper.destroy()
   })
 
-  it('should not have aria-selected/tabindex attribute when not selctable and no row-clicked listener', async () => {
-    const wrapper = mount(Table, {
+  it('should not have aria-selected/tabindex attribute when not selectable and no row-clicked listener', async () => {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -45,7 +45,7 @@ describe('table > row select', () => {
   })
 
   it('should have tabindex but not aria-selected when not selectable and has row-clicked listener', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -73,7 +73,7 @@ describe('table > row select', () => {
   })
 
   it('select mode single works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -162,7 +162,7 @@ describe('table > row select', () => {
   })
 
   it('select mode multi works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -266,7 +266,7 @@ describe('table > row select', () => {
   })
 
   it('select mode range works', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -457,7 +457,7 @@ describe('table > row select', () => {
   })
 
   it('sort change clears selection', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -504,7 +504,7 @@ describe('table > row select', () => {
   })
 
   it('filter change clears selection', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -551,7 +551,7 @@ describe('table > row select', () => {
   })
 
   it('pagination change clears selection', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -604,7 +604,7 @@ describe('table > row select', () => {
   })
 
   it('change in select mode clears selection', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -649,7 +649,7 @@ describe('table > row select', () => {
   })
 
   it('disabling selectable clears selection', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,

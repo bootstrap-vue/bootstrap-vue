@@ -1,13 +1,13 @@
-import asyncFormGroup from './form-group'
+import BFormGroupAsync from './form-group'
 import { mount } from '@vue/test-utils'
 
 // Vue test utils doesnt currently support mounting Async Components
 // So we have to resolve the component ourselves
 // https://github.com/vuejs/vue-test-utils/issues/1012
-let FormGroup = asyncFormGroup
-if (typeof asyncFormGroup === 'function') {
-  asyncFormGroup(cmp => {
-    FormGroup = cmp
+let BFormGroup = BFormGroupAsync
+if (typeof BFormGroupAsync === 'function') {
+  BFormGroupAsync(cmp => {
+    BFormGroup = cmp
   })
 }
 
@@ -35,7 +35,7 @@ describe('form-group', () => {
   })
 
   it('has expected default structure', async () => {
-    const wrapper = mount(FormGroup)
+    const wrapper = mount(BFormGroup)
 
     expect(wrapper.isVueInstance()).toBe(true)
 
@@ -59,7 +59,7 @@ describe('form-group', () => {
   })
 
   it('renders content from default slot', async () => {
-    const wrapper = mount(FormGroup, {
+    const wrapper = mount(BFormGroup, {
       slots: {
         default: 'foobar'
       }
@@ -80,7 +80,7 @@ describe('form-group', () => {
   })
 
   it('has user supplied ID', async () => {
-    const wrapper = mount(FormGroup, {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         label: 'test',
         labelFor: 'input-id',
@@ -100,7 +100,7 @@ describe('form-group', () => {
   })
 
   it('does not render a fieldset if prop label-for set', async () => {
-    const wrapper = mount(FormGroup, {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         label: 'test',
         labelFor: 'input-id'
@@ -143,8 +143,8 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
-  it('horzontal layout with prop label-for set has expected structure', async () => {
-    const wrapper = mount(FormGroup, {
+  it('horizontal layout with prop label-for set has expected structure', async () => {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         label: 'test',
         labelFor: 'input-id',
@@ -185,8 +185,8 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
-  it('horzontal layout without prop label-for set has expected structure', async () => {
-    const wrapper = mount(FormGroup, {
+  it('horizontal layout without prop label-for set has expected structure', async () => {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         label: 'test',
         labelCols: 1,
@@ -231,7 +231,7 @@ describe('form-group', () => {
   })
 
   it('validation and help text works', async () => {
-    const wrapper = mount(FormGroup, {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         id: 'group-id',
         label: 'test',
@@ -294,8 +294,8 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-invalid')
   })
 
-  it('Label aignment works', async () => {
-    const wrapper = mount(FormGroup, {
+  it('Label alignment works', async () => {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         id: 'group-id',
         label: 'test',
@@ -321,7 +321,7 @@ describe('form-group', () => {
   })
 
   it('Label sr-only works', async () => {
-    const wrapper = mount(FormGroup, {
+    const wrapper = mount(BFormGroup, {
       propsData: {
         id: 'group-id',
         label: 'test',
@@ -343,7 +343,7 @@ describe('form-group', () => {
   })
 
   it('clicking legend focuses input', async () => {
-    const wrapper = mount(FormGroup, {
+    const wrapper = mount(BFormGroup, {
       attachToDocument: true,
       propsData: {
         id: 'group-id',

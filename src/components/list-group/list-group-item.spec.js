@@ -1,45 +1,45 @@
-import ListGroupItem from './list-group-item'
+import BListGroupItem from './list-group-item'
 import { mount } from '@vue/test-utils'
 
 describe('list-group > list-group-item', () => {
   it('default should have tag div', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.is('div')).toBe(true)
   })
 
   it('default should contain only single class of list-group-item', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.classes()).toContain('list-group-item')
   })
 
   it('default should not have class list-group-item-action', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.classes()).not.toContain('list-group-item-action')
   })
 
   it('default should not have class active', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.classes()).not.toContain('active')
   })
 
   it('default should not have class disabled', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.classes()).not.toContain('disabled')
   })
 
   it('default should not have type attribute', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.attributes('type')).not.toBeDefined()
   })
 
   it('default should not have disabled attribute', async () => {
-    const wrapper = mount(ListGroupItem)
+    const wrapper = mount(BListGroupItem)
     expect(wrapper.attributes('disabled')).not.toBeDefined()
   })
 
   it('should have disabled class when disabled=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { disabled: true }
       }
@@ -48,7 +48,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have active class when active=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { active: true }
       }
@@ -57,7 +57,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have variant class and base class when variant set', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { variant: 'danger' }
       }
@@ -67,7 +67,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have tag a when href is set', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { href: '/foobar' }
       }
@@ -76,7 +76,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have class list-group-item-action when href is set', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { href: '/foobar' }
       }
@@ -85,7 +85,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have class list-group-item-action when action=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { action: true }
       }
@@ -94,7 +94,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have class list-group-item-action when tag=a', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { tag: 'a' }
       }
@@ -103,7 +103,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have href attribute when href is set', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { href: '/foobar' }
       }
@@ -112,7 +112,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have tag button when tag=button', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { tag: 'button' }
       }
@@ -121,7 +121,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have tag a when tag=a', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { tag: 'a' }
       }
@@ -130,7 +130,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have tag button when button=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { button: true }
       }
@@ -139,7 +139,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have tag button when button=true and tag=foo', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: {
           button: true,
@@ -151,7 +151,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should not have href when button=true and href set', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: {
           button: true,
@@ -164,7 +164,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have class list-group-item-action when button=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { button: true }
       }
@@ -173,7 +173,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have type=button when button=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { button: true }
       }
@@ -182,7 +182,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have type=submit when button=true and attr type=submit', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { button: true },
         attrs: { type: 'submit' }
@@ -192,7 +192,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should not have attribute disabled when button=true and disabled not set', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: { button: true }
       }
@@ -201,7 +201,7 @@ describe('list-group > list-group-item', () => {
   })
 
   it('should have attribute disabled when button=true and disabled=true', async () => {
-    const wrapper = mount(ListGroupItem, {
+    const wrapper = mount(BListGroupItem, {
       context: {
         props: {
           button: true,

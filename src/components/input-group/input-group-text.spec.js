@@ -1,9 +1,9 @@
-import InputGroupText from './input-group-text'
+import BInputGroupText from './input-group-text'
 import { mount } from '@vue/test-utils'
 
 describe('input-group > input-group-text', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(InputGroupText)
+    const wrapper = mount(BInputGroupText)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('input-group-text')
@@ -12,7 +12,7 @@ describe('input-group > input-group-text', () => {
   })
 
   it('has custom root element when prop tag set', async () => {
-    const wrapper = mount(InputGroupText, {
+    const wrapper = mount(BInputGroupText, {
       propsData: {
         tag: 'span'
       }
@@ -25,7 +25,7 @@ describe('input-group > input-group-text', () => {
   })
 
   it('renders content of default slot', async () => {
-    const wrapper = mount(InputGroupText, {
+    const wrapper = mount(BInputGroupText, {
       slots: {
         default: 'foobar'
       }

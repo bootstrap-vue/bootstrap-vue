@@ -1,5 +1,5 @@
-import Carousel from './carousel'
-import Slide from './carousel-slide'
+import BCarousel from './carousel'
+import BCarouselSlide from './carousel-slide'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const localVue = new CreateLocalVue()
@@ -19,7 +19,7 @@ const appDef = {
   },
   render(h) {
     return h(
-      Carousel,
+      BCarousel,
       {
         props: {
           interval: this.interval,
@@ -31,10 +31,10 @@ const appDef = {
         }
       },
       [
-        h(Slide, {}, 'slide 1'),
-        h(Slide, {}, 'slide 2'),
-        h(Slide, {}, 'slide 3'),
-        h(Slide, {}, 'slide 4')
+        h(BCarouselSlide, {}, 'slide 1'),
+        h(BCarouselSlide, {}, 'slide 2'),
+        h(BCarouselSlide, {}, 'slide 3'),
+        h(BCarouselSlide, {}, 'slide 4')
       ]
     )
   }
@@ -42,7 +42,7 @@ const appDef = {
 
 describe('carousel', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(Carousel, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
       attachToDocument: true
     })
@@ -65,7 +65,7 @@ describe('carousel', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     const id = wrapper.attributes('id')
 
-    // slide wrapper
+    // Slide wrapper
     // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
     expect(wrapper.findAll('.carousel > .carousel-inner').length).toBe(1)
     const $inner = wrapper.find('.carousel > .carousel-inner')
@@ -76,14 +76,14 @@ describe('carousel', () => {
     expect($inner.attributes('id')).toBeDefined()
     expect($inner.attributes('id')).toEqual(`${id}___BV_inner_`)
 
-    // controls (none by default)
+    // Controls (none by default)
     // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55___BV_inner_"></a>
     // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(0)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(0)
     expect(wrapper.findAll('a').length).toBe(0)
 
-    // indicators (hidden by default)
+    // Indicators (hidden by default)
     // <ol
     //   aria-hidden="true"
     //   aria-label="Select a slide to display"
@@ -110,7 +110,7 @@ describe('carousel', () => {
   })
 
   it('has prev/next controls when prop controls is set', async () => {
-    const wrapper = mount(Carousel, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
@@ -131,11 +131,11 @@ describe('carousel', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     const id = wrapper.attributes('id')
 
-    // slide wrapper
+    // Slide wrapper
     // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
     expect(wrapper.findAll('.carousel > .carousel-inner').length).toBe(1)
 
-    // controls
+    // Controls
     // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55___BV_inner_"></a>
     // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(1)
@@ -156,7 +156,7 @@ describe('carousel', () => {
     expect($prev.classes().length).toBe(1)
     expect($next.classes().length).toBe(1)
 
-    // indicators (hidden by default)
+    // Indicators (hidden by default)
     // <ol
     //   aria-hidden="true"
     //   aria-label="Select a slide to display"
@@ -174,7 +174,7 @@ describe('carousel', () => {
   })
 
   it('has indicators showing when prop indicators is set', async () => {
-    const wrapper = mount(Carousel, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
@@ -194,17 +194,17 @@ describe('carousel', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('id')).toBeDefined()
 
-    // slide wrapper
+    // Slide wrapper
     // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
     expect(wrapper.findAll('.carousel > .carousel-inner').length).toBe(1)
 
-    // controls (none by default)
+    // Controls (none by default)
     // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55___BV_inner_"></a>
     // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(0)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(0)
 
-    // indicators
+    // Indicators
     // <ol
     //   aria-hidden="true"
     //   aria-label="Select a slide to display"
@@ -222,7 +222,7 @@ describe('carousel', () => {
   })
 
   it('should have class carousel-fade when prop fade=true', async () => {
-    const wrapper = mount(Carousel, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
@@ -242,7 +242,7 @@ describe('carousel', () => {
   })
 
   it('should not have class fade or slide when prop no-animation=true', async () => {
-    const wrapper = mount(Carousel, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
@@ -262,7 +262,7 @@ describe('carousel', () => {
   })
 
   it('should not have class fade or slide when prop no-animation=true and fade=true', async () => {
-    const wrapper = mount(Carousel, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
@@ -296,7 +296,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -329,7 +329,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -402,7 +402,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -475,7 +475,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -548,7 +548,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -621,7 +621,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -691,7 +691,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -776,7 +776,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -860,7 +860,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -929,7 +929,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(Carousel)
+    const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
@@ -960,7 +960,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(1)
     expect($carousel.vm.isSliding).toBe(true)
 
-    // set new slide while sliding
+    // Set new slide while sliding
     wrapper.setProps({
       value: 3
     })
@@ -982,7 +982,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(true)
 
-    // next transition should happen
+    // Next transition should happen
     jest.runOnlyPendingTimers()
     await wrapper.vm.$nextTick()
     await waitAF()

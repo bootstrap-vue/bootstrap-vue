@@ -1,21 +1,21 @@
-import CardSubTitle from './card-sub-title'
+import BCardSubTitle from './card-sub-title'
 import { mount } from '@vue/test-utils'
 
 describe('card-sub-title', () => {
   it('default has tag "h6"', async () => {
-    const wrapper = mount(CardSubTitle)
+    const wrapper = mount(BCardSubTitle)
     expect(wrapper.is('h6')).toBe(true)
   })
 
   it('default has class "card-subtitle" and "text-muted"', async () => {
-    const wrapper = mount(CardSubTitle)
+    const wrapper = mount(BCardSubTitle)
     expect(wrapper.classes()).toContain('card-subtitle')
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
   })
 
   it('renders custom tag', async () => {
-    const wrapper = mount(CardSubTitle, {
+    const wrapper = mount(BCardSubTitle, {
       context: {
         props: { subTitleTag: 'div' }
       }
@@ -24,7 +24,7 @@ describe('card-sub-title', () => {
   })
 
   it('accepts subTitleTextVariant value', async () => {
-    const wrapper = mount(CardSubTitle, {
+    const wrapper = mount(BCardSubTitle, {
       context: {
         props: { subTitleTextVariant: 'info' }
       }
@@ -35,7 +35,7 @@ describe('card-sub-title', () => {
   })
 
   it('has content from default slot', async () => {
-    const wrapper = mount(CardSubTitle, {
+    const wrapper = mount(BCardSubTitle, {
       slots: {
         default: 'foobar'
       }

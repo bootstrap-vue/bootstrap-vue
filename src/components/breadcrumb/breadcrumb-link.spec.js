@@ -1,9 +1,9 @@
-import BreadcrumbLink from './breadcrumb-link'
+import BBreadcrumbLink from './breadcrumb-link'
 import { mount } from '@vue/test-utils'
 
 describe('breadcrumb-link', () => {
   it('has default classes and structure', async () => {
-    const wrapper = mount(BreadcrumbLink)
+    const wrapper = mount(BBreadcrumbLink)
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('#')
@@ -13,7 +13,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('has content from default slot', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       slots: {
         default: 'foobar'
       }
@@ -22,7 +22,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('has content from text prop', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       propsData: {
         text: 'foobar'
       }
@@ -31,7 +31,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('has content from html prop', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       propsData: {
         html: 'foobar'
       }
@@ -40,7 +40,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('has attribute aria-current when active', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       propsData: {
         active: true
       }
@@ -52,7 +52,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('has attribute aria-current with custom value when active', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       propsData: {
         active: true,
         ariaCurrent: 'foobar'
@@ -65,7 +65,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('renders link when href is set', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       propsData: {
         href: '/foo/bar'
       }
@@ -78,7 +78,7 @@ describe('breadcrumb-link', () => {
   })
 
   it('does not render a link when href is set and active', async () => {
-    const wrapper = mount(BreadcrumbLink, {
+    const wrapper = mount(BBreadcrumbLink, {
       propsData: {
         active: true,
         href: '/foo/bar'
