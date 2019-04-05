@@ -3,7 +3,6 @@ import BProgressBar from './progress-bar'
 // @vue/component
 export default {
   name: 'BProgress',
-  components: { BProgressBar },
   provide() {
     return { bvProgress: this }
   },
@@ -55,7 +54,7 @@ export default {
   render(h) {
     let childNodes = this.$slots.default
     if (!childNodes) {
-      childNodes = h('b-progress-bar', {
+      childNodes = h(BProgressBar, {
         props: {
           value: this.value,
           max: this.max,

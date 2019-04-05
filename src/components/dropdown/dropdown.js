@@ -7,68 +7,69 @@ import BButton from '../button/button'
 
 const NAME = 'BDropdown'
 
+export const props = {
+  toggleText: {
+    // This really should be toggleLabel
+    type: String,
+    default: () => getComponentConfig(NAME, 'toggleText')
+  },
+  size: {
+    type: String,
+    default: null
+  },
+  variant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'variant')
+  },
+  menuClass: {
+    type: [String, Array],
+    default: null
+  },
+  toggleTag: {
+    type: String,
+    default: 'button'
+  },
+  toggleClass: {
+    type: [String, Array],
+    default: null
+  },
+  noCaret: {
+    type: Boolean,
+    default: false
+  },
+  split: {
+    type: Boolean,
+    default: false
+  },
+  splitHref: {
+    type: String
+    // default: undefined
+  },
+  splitTo: {
+    type: [String, Object]
+    // default: undefined
+  },
+  splitVariant: {
+    type: String,
+    default: null
+  },
+  role: {
+    type: String,
+    default: 'menu'
+  },
+  boundary: {
+    // String: `scrollParent`, `window` or `viewport`
+    // Object: HTML Element reference
+    type: [String, Object],
+    default: 'scrollParent'
+  }
+}
+
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  components: { BButton },
   mixins: [idMixin, dropdownMixin],
-  props: {
-    toggleText: {
-      // This really should be toggleLabel
-      type: String,
-      default: () => getComponentConfig(NAME, 'toggleText')
-    },
-    size: {
-      type: String,
-      default: null
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'variant')
-    },
-    menuClass: {
-      type: [String, Array],
-      default: null
-    },
-    toggleTag: {
-      type: String,
-      default: 'button'
-    },
-    toggleClass: {
-      type: [String, Array],
-      default: null
-    },
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    split: {
-      type: Boolean,
-      default: false
-    },
-    splitHref: {
-      type: String
-      // default: undefined
-    },
-    splitTo: {
-      type: [String, Object]
-      // default: undefined
-    },
-    splitVariant: {
-      type: String,
-      default: null
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    },
-    boundary: {
-      // String: `scrollParent`, `window` or `viewport`
-      // Object: HTML Element reference
-      type: [String, Object],
-      default: 'scrollParent'
-    }
-  },
+  props,
   computed: {
     dropdownClasses() {
       // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
@@ -133,7 +134,7 @@ export default Vue.extend({
         btnProps.href = this.splitHref
       }
       split = h(
-        'b-button',
+        BButton,
         {
           ref: 'button',
           props: btnProps,
@@ -148,7 +149,7 @@ export default Vue.extend({
       )
     }
     const toggle = h(
-      'b-button',
+      BButton,
       {
         ref: 'toggle',
         class: this.toggleClasses,

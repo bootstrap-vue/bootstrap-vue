@@ -6,12 +6,16 @@ import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 
-import BFormRadio from './form-radio'
+export const props = {
+  checked: {
+    type: [String, Object, Number, Boolean],
+    default: null
+  }
+}
 
 // @vue/component
 export default Vue.extend({
   name: 'BFormRadioGroup',
-  components: { BFormRadio },
   mixins: [
     idMixin,
     formMixin,
@@ -25,12 +29,7 @@ export default Vue.extend({
       bvRadioGroup: this
     }
   },
-  props: {
-    checked: {
-      type: [String, Object, Number, Boolean],
-      default: null
-    }
-  },
+  props,
   data() {
     return {
       localChecked: this.checked
