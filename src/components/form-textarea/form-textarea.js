@@ -5,7 +5,7 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { getCS, isVisible, reflow } from '../../utils/dom'
+import { getCS, isVisible } from '../../utils/dom'
 
 // @vue/component
 export default {
@@ -79,7 +79,8 @@ export default {
     },
     computedHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
       // We compare `computedRows` and `localValue` to `true`, a value
-      // they both can't have at any time, to ensure reactivity
+      // they both can't have at any time, to ensure reactivity of this
+      // computed property.
       if (
         this.$isServer ||
         this.dontResize ||
@@ -91,7 +92,7 @@ export default {
 
       const el = this.$el
 
-      // Element must be visible (not hidden) and in document
+      // Element must be visible (not hidden) and in document.
       // Must be checked after above checks
       if (!isVisible(el)) {
         return null
@@ -109,21 +110,16 @@ export default {
         (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate offset
       const offset = border + padding
-      // Minimum height for min rows (browser dependant)
+      // Minimum height for min rows (which must be 2 rows or greater for cross-browser support)
       const minHeight = lineHeight * this.computedMinRows + offset
 
-      // Probe scrollHeight by temporarily changing the height to the minimum
-      const oldHeight = el.style.height
-      el.style.height = `${minHeight}px`
-      // `reflow()` is now needed because the previous line used to be 'auto' for
-      // the temporary height, which would automatically trigger a reflow calculation
-      // on the textarea, but setting it to a specific height breaks this on some browsers.
-      // Bue now having to do the two steps may cause the textarea to flicker/jump
-      // due to the time needed to process both commands.
-      // Putting this in here for now to do testing... performance may suffer as this
-      // computed props is calculated for every single keystroke a user types.
-      reflow(el)
+      // Get the current style height (with `px` units)
+      const oldHeight = el.style.height || computedStyle.height
+      // Probe scrollHeight by temporarily changing the height to `auto`
+      el.style.height = 'auto'
       const scrollHeight = el.scrollHeight
+      // Place the original old height back on the element, just in case this computedProp
+      // returns the same value as before.
       el.style.height = oldHeight
 
       // Calculate content height in "rows" (scrollHeight includes padding but not border)
@@ -134,12 +130,12 @@ export default {
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
       // Computed height remains the larger of oldHeight and new height,
-      // when height is `sticky` (prop no-auto-shrink is true)
+      // when height is in `sticky` mode (prop `no-auto-shrink` is true)
       if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
         return oldHeight
       }
 
-      // Return the new computed height in px units
+      // Return the new computed CSS height in px units
       return `${height}px`
     }
   },
