@@ -6,6 +6,10 @@ import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../.
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
+// Private event we emit on $root to ensure the toggle state is always synced
+// Gets emited even if the state has not changed!
+// This event is NOT to be documented as people should not be using it.
+const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
@@ -70,18 +74,28 @@ export default Vue.extend({
     }
   },
   created() {
+    this.show = this.visible
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
   },
   mounted() {
+    this.show = this.visible
     if (this.isNav && inBrowser) {
       // Set up handlers
       this.setWindowEvents(true)
       this.handleResize()
     }
-    this.emitState()
+    this.$nextTick(() => {
+      this.emitState()
+    })
+  },
+  updated() {
+    // Emit a private event every time this component updates
+    // to ensure the toggle button is in sync with the collapse's state.
+    // It is emitted regardless if the visible state changes.
+    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
   },
   deactivated() /* istanbul ignore next */ {
     if (this.isNav && inBrowser) {
@@ -92,6 +106,7 @@ export default Vue.extend({
     if (this.isNav && inBrowser) {
       this.setWindowEvents(true)
     }
+    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
   },
   beforeDestroy() {
     // Trigger state emit if needed

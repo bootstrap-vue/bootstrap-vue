@@ -87,6 +87,9 @@ const DEFAULTS = {
     okTitle: 'OK',
     okVariant: 'primary',
     headerCloseLabel: 'Close'
+  },
+  BNavbarToggle: {
+    label: 'Toggle navigation'
   }
 }
 
