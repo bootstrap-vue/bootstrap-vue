@@ -5,6 +5,9 @@ import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../.
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
+// Private event we emit on $root to ensure the toggle state is always synced
+// Gets emited even if the state has not changed!
+const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
@@ -80,7 +83,14 @@ export default {
       this.setWindowEvents(true)
       this.handleResize()
     }
-    this.emitState()
+    this.$nextTick(() => {
+      this.emitState()
+    })
+  },
+  updated() {
+    // Emit a private event every time this component updates
+    // to ensure the toggle button is in sync with the collapse's state
+    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
   },
   deactivated() /* istanbul ignore next */ {
     if (this.isNav && inBrowser) {
@@ -91,6 +101,7 @@ export default {
     if (this.isNav && inBrowser) {
       this.setWindowEvents(true)
     }
+    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
   },
   beforeDestroy() {
     // Trigger state emit if needed
