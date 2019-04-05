@@ -229,29 +229,29 @@ export const props = {
   },
   headerCloseLabel: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerCloseLabel')
+    default: () => String(getComponentConfig(NAME, 'headerCloseLabel') || '')
   },
   cancelTitle: {
     type: String,
-    default: () => getComponentConfig(NAME, 'cancelTitle')
+    default: () => String(getComponentConfig(NAME, 'cancelTitle') || '')
   },
   cancelTitleHtml: {
     type: String
   },
   okTitle: {
     type: String,
-    default: () => getComponentConfig(NAME, 'okTitle')
+    default: () => String(getComponentConfig(NAME, 'okTitle') || '')
   },
   okTitleHtml: {
     type: String
   },
   cancelVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'cancelVariant')
+    default: () => String(getComponentConfig(NAME, 'cancelVariant') || '')
   },
   okVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'okVariant')
+    default: () => String(getComponentConfig(NAME, 'okVariant') || '')
   },
   lazy: {
     type: Boolean,
