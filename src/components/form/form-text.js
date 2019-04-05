@@ -15,7 +15,7 @@ export const props = {
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => String(getComponentConfig(NAME, 'textVariant') || '')
   },
   inline: {
     type: Boolean,
