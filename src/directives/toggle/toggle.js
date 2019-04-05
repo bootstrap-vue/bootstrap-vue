@@ -18,7 +18,8 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 const EVENT_STATE = 'bv::collapse::state'
 
 // Private event emitted on $root to ensure the toggle state is always synced.
-// Gets emitted even if the state of b-collapse has not changed
+// Gets emitted even if the state of b-collapse has not changed.
+// This event is NOT to be documented as people should not be using it.
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 // Reset and remove a property from the provided element
