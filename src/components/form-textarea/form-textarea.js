@@ -54,7 +54,10 @@ export default {
       const styles = {
         // Setting `noResize` to true will disable the ability for the user to
         // manually resize the textarea. We also disable when in auto resize mode
-        resize: !this.computedRows || this.noResize ? 'none' : null
+        resize: !this.computedRows || this.noResize ? 'none' : null,
+        // We always add a vertical scrollbar to the textarea when auto-resize is
+        // enabled so that the computed height calcaultion returns a stable value.
+        'overflow-y': this.computedRows ? 'scroll' : null
       }
       if (!this.computedRows) {
         // The computed height for auto resize.
