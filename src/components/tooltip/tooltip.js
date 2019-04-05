@@ -1,9 +1,10 @@
+import Vue from 'vue'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
 import toolpopMixin from '../../mixins/toolpop'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BTooltip',
   mixins: [toolpopMixin],
   props: {
@@ -44,4 +45,4 @@ export default {
       [h('div', { ref: 'title' }, this.$slots.default)]
     )
   }
-}
+})
