@@ -44,29 +44,19 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
-// Modal wrapper ZINDEX offset
-const ZINDEX_OFFSET = getComponentConfig(NAME, 'zIndexOffset')
-
 // Modal open count helpers
-function getModalOpenCount() {
-  return parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
-}
+const getModalOpenCount = () => parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
 
-function setModalOpenCount(count) {
+const setModalOpenCount = count => {
   setAttr(document.body, 'data-modal-open-count', String(count))
   return count
 }
 
-function incrementModalOpenCount() {
-  return setModalOpenCount(getModalOpenCount() + 1)
-}
-
-function decrementModalOpenCount() {
-  return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
-}
+const incrementModalOpenCount = () => setModalOpenCount(getModalOpenCount() + 1)
+const decrementModalOpenCount = () => setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
 
 // Returns the current visible modal highest z-index
-function getModalMaxZIndex() {
+const getModalMaxZIndex = () => {
   return (
     selectAll('div.modal') // Find all modals that are in document
       .filter(isVisible) // Filter only visible ones
@@ -76,11 +66,11 @@ function getModalMaxZIndex() {
   )
 }
 
+const getModalZIndexOffset = () => getComponentConfig(NAME, 'zIndexOffset')
+
 // Returns the next z-index to be used by a modal to ensure proper
 // stacking regardless of document order
-function getModalNextZIndex() {
-  return getModalMaxZIndex() + ZINDEX_OFFSET
-}
+const getModalNextZIndex = () => getModalMaxZIndex() + getModalZIndexOffset()
 
 // @vue/component
 export default {
@@ -259,10 +249,7 @@ export default {
     },
     okVariant: {
       type: String,
-      default: () => {
-        console.log(getComponentConfig(NAME, 'zIndexOffset'))
-        return getComponentConfig(NAME, 'okVariant')
-      }
+      default: () => getComponentConfig(NAME, 'okVariant')
     },
     lazy: {
       type: Boolean,
@@ -283,7 +270,7 @@ export default {
       is_opening: false, // Semaphore for preventing incorrect modal open counts
       is_closing: false, // Semaphore for preventing incorrect modal open counts
       scrollbarWidth: 0,
-      zIndex: ZINDEX_OFFSET, // z-index for modal stacking
+      zIndex: 0, // z-index for modal stacking
       isTop: true, // If the modal is the topmost opened modal
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
@@ -364,8 +351,10 @@ export default {
     }
   },
   created() {
-    // create non-reactive property
+    // Define non-reactive properties
     this._observer = null
+    // Set initial z-index defined in the config
+    this.zIndex = getModalZIndexOffset()
   },
   mounted() {
     // Listen for events from others to either open or close ourselves
@@ -567,7 +556,7 @@ export default {
       this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
-        this.zIndex = ZINDEX_OFFSET
+        this.zIndex = getModalZIndexOffset()
         this.returnFocusTo()
         this.is_closing = false
         const hiddenEvt = new BvEvent('hidden', {
