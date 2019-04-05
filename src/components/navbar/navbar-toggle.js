@@ -21,11 +21,11 @@ export default {
   },
   created() {
     this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
+    this.listenOnRoot('bv::collapse::sync::state', this.handleStateEvt)
   },
   methods: {
     onClick(evt) {
       this.$emit('click', evt)
-      /* istanbul ignore next */
       if (!evt.defaultPrevented) {
         this.$root.$emit('bv::toggle::collapse', this.target)
       }
