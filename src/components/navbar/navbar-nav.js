@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
@@ -16,7 +17,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BNavbarNav',
   functional: true,
   props,
@@ -33,4 +34,4 @@ export default {
       children
     )
   }
-}
+})
