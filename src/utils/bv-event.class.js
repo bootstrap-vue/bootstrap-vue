@@ -1,4 +1,5 @@
-import { assign, defineProperty, defineProperties, readonlyDescriptor } from '../utils/object'
+import { assign, defineProperty, defineProperties, readonlyDescriptor } from './object'
+import warn from './warn'
 
 class BvEvent {
   constructor(type, eventInit = {}) {
@@ -84,10 +85,7 @@ class BvModalEvent extends BvEvent {
 }
 
 // Named Exports
-export {
-  BvEvent,
-  BvModalEvent
-}
+export { BvEvent, BvModalEvent }
 
 // Default Export
 export default BvEvent
