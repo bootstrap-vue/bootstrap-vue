@@ -80,11 +80,21 @@ describe('navbar-toggle', () => {
         target: 'target'
       }
     })
+
+    // Private state event
     wrapper.vm.$root.$emit('bv::collapse::state', 'target', true)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
     wrapper.vm.$root.$emit('bv::collapse::state', 'target', false)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
     wrapper.vm.$root.$emit('bv::collapse::state', 'foo', true)
+    expect(wrapper.attributes('aria-expanded')).toBe('false')
+
+    // Private sync event
+    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target', true)
+    expect(wrapper.attributes('aria-expanded')).toBe('true')
+    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target', false)
+    expect(wrapper.attributes('aria-expanded')).toBe('false')
+    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'foo', true)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
   })
 })
