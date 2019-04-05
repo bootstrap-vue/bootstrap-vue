@@ -33,7 +33,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => getComponentConfig(NAME, 'blankColor')
+    default: () => String(getComponentConfig(NAME, 'blankColor'))
   },
   blankWidth: {
     type: [Number, String],
