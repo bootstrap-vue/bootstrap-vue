@@ -14,7 +14,8 @@ import {
   removeClass,
   getBCR,
   getCS,
-  selectAll
+  selectAll,
+  requestAF
 } from '../../../utils/dom'
 
 // Default modal backdrop z-index
@@ -62,7 +63,9 @@ const ModalManager = Vue.extend({
     },
     modals(newVal, oldVal) {
       this.checkScrollbar()
-      this.updateModals(newVal || [])
+      requestAF(() => {
+        this.updateModals(newVal || [])
+      })
     }
   },
   methods: {
