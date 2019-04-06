@@ -76,11 +76,6 @@ const DEFAULTS = {
     blankColor: 'transparent'
   },
   BModal: {
-    // Since each modal stacking wrapper creates a new stacking context, we
-    // just need to make sure the next stacked modal has a slighly higher
-    // z-index value. In most cases 1 should suffice.
-    zIndexIncrement: 1,
-    // Props defaults
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
     okTitle: 'OK',
