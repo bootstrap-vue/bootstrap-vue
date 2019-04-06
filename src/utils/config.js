@@ -76,11 +76,9 @@ const DEFAULTS = {
     blankColor: 'transparent'
   },
   BModal: {
-    // Defaults to the Boostrap default of the modal backdrop
-    zIndexOffset: 1040,
-    // Since each modal wrapper creates a new stacking context, we jsut need to
-    // make sure the next stacked modal has a slighly higher z-index.
-    // in most cases 1 should suffice.
+    // Since each modal stacking wrapper creates a new stacking context, we
+    // just need to make sure the next stacked modal has a slighly higher
+    // z-index value. In most cases 1 should suffice.
     zIndexIncrement: 1,
     // Props defaults
     cancelTitle: 'Cancel',
