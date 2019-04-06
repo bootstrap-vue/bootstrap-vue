@@ -96,7 +96,7 @@ const getModalMaxZIndex = () => {
 // Returns the next z-index to be used by a modal to ensure proper
 // stacking regardless of document order.
 const getModalNextZIndex = () =>
-  getModalOpenCount() === 0 ? getModalZIndexOffset() : (getModalMaxZIndex() + 1)
+  getModalOpenCount() === 0 ? getModalZIndexOffset() : getModalMaxZIndex() + 1
 
 // @vue/component
 export default {
