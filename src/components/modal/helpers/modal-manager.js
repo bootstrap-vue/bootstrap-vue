@@ -48,6 +48,7 @@ const ModalManager = Vue.extend({
   watch: {
     modalCount(newCount, oldCount) {
       if (inBrowser) {
+        this.getScrollbarWidth()
         if (newCount > 0 && oldCount === 0) {
           // Transitioning to modal(s) open
           this.checkScrollbar()
