@@ -1,5 +1,5 @@
 import Modal from './modal'
-import BvEvent from '../../utils/bv-event'
+import BvEvent from '../../utils/bv-event.class'
 import { mount, createWrapper } from '@vue/test-utils'
 
 // The defautl Z-INDEX for modal backdrop
