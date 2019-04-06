@@ -475,7 +475,7 @@ export default {
           vueTarget: this,
           target: this.$refs.modal,
           relatedTarget: null,
-          modalId: this.safeId(),
+          modalId: this.safeId()
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
