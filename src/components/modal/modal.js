@@ -434,6 +434,7 @@ export default {
     },
     // Private method to finish showing modal
     doShow() {
+      /* istanbul ignore next: commenting out for now until we can test stacking */
       if (modalManager.modalsAreOpen && this.noStacking) {
         // If another modal(s) is already open, wait for it(them) to close
         this.listenOnRootOnce('bv::modal::hidden', this.doShow)
