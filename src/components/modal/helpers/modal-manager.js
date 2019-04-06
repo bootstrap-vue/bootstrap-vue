@@ -71,6 +71,9 @@ const ModalManager = Vue.extend({
       if (modal && this.modals.indexOf(modal) === -1) {
         // Add modal to modals array
         this.modals.push(modal)
+        modal.$once('hook:beforeDestroy', () => {
+          this.unregisterModal(modal)
+        })
       }
     },
     unregisterModal(modal) {
@@ -79,7 +82,9 @@ const ModalManager = Vue.extend({
         // Remove modal from modals arary
         this.modals.splice(index, 1)
         // Reset the modal's data
-        this.resetModal(modal)
+        if (!(modal._isBeingDestroyed || modal._isDestroyed)) {
+          this.resetModal(modal)
+        }
       }
     },
     getBaseZIndex() {
