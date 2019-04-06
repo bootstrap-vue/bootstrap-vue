@@ -622,5 +622,69 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('show event is cancellable', async () => {
+      let cancel = true
+      const wrapper = mount(Modal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+
+      wrapper.vm.$on('show', bvEvt => {
+        if (cancel) {
+          this.bvEvt.preventDefault()
+        }
+      })
+
+      // Try and open modal via `bv::show::modal`
+      wrapper.vm.$root.$emit('bv::show::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should not open
+      expect($modal.element.style.display).toEqual('none')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Allow modal to open
+      cancel = false
+
+      // Try and open modal via `bv::show::modal`
+      wrapper.vm.$root.$emit('bv::show::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+
+      wrapper.destroy()
+    })
   })
 })
