@@ -1,8 +1,8 @@
 import listenOnRootMixin from './listen-on-root'
-import { mount, createLOcalVue as CreateLocalVue } from '@vue-test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue-test-utils'
 
 describe('mixins/listen-on-root', () => {
-  const localVue = new LocalVue()
+  const localVue = new CreateLocalVue()
   it('works', async () => {
     const spyOn = jest.fn()
     const spyOnce = jest.fn()
