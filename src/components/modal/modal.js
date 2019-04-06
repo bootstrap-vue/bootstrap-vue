@@ -336,8 +336,10 @@ export default {
       this._observer.disconnect()
       this._observer = null
     }
-    // Ensure our root 'once' listener is gone
-    this.$root.$off('bv::modal::hidden', this.doShow)
+    // Ensure our $root '$once' listener is gone
+    if (this.$root && this.$root.$off) {
+      this.$root.$off('bv::modal::hidden', this.doShow)
+    }
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
     if (this.is_visible) {
