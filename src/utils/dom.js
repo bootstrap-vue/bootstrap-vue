@@ -62,6 +62,7 @@ export const isVisible = el => {
   }
   if (el.style.display === 'none') {
     // We do this check to help with vue-test-utils when using v-show
+    /* istanbul ignore next */
     return false
   }
   // All browsers support getBoundingClientRect(), except JSDOM as it returns all 0's for values :(
