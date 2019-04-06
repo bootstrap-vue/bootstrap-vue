@@ -364,8 +364,9 @@ export default {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
-        modalId: this.safeId(),
-        relatedTarget: null
+        relatedTarget: null,
+        // Modal specifi properties
+        modalId: this.safeId()
       })
       this.emitEvent(showEvt)
       // Don't show if canceled
@@ -387,7 +388,6 @@ export default {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
-        // This could be the trigger element/component reference
         relatedTarget: null,
         // Modal specific properties and methods
         modalId: this.safeId(),
@@ -398,7 +398,7 @@ export default {
           this.preventDefault()
         }
       })
-      // We emit specific event for one of the three build it buttons
+      // We emit specific event for one of the three built-in buttons
       if (trigger === 'ok') {
         this.$emit('ok', hideEvt)
       } else if (trigger === 'cancel') {
@@ -474,8 +474,8 @@ export default {
           cancelable: false,
           vueTarget: this,
           target: this.$refs.modal,
+          relatedTarget: null,
           modalId: this.safeId(),
-          relatedTarget: null
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
@@ -502,8 +502,8 @@ export default {
           cancelable: false,
           vueTarget: this,
           target: this.lazy ? null : this.$refs.modal,
-          modalId: this.safeId(),
-          relatedTarget: null
+          relatedTarget: null,
+          modalId: this.safeId()
         })
         this.emitEvent(hiddenEvt)
         modalManager.unregisterModal(this)
@@ -513,7 +513,7 @@ export default {
     emitEvent(bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.emitOnRoot(`bv::modal::${type}`, bvEvt, this.safeId())
+      this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
     onClickOut(evt) {
