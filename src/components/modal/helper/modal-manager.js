@@ -58,7 +58,7 @@ const ModalManager = Vue.extend({
       }
     },
     modals(newVal, oldVal) {
-      this.checkScrollbar()
+      // this.checkScrollbar()
       this.updateModals()
     }
   },
@@ -80,10 +80,7 @@ const ModalManager = Vue.extend({
       }
     },
     getBaseZIndex() {
-      if (!inBrowser) {
-        return DEFAULT_ZINDEX
-      }
-      if (this.baseZIndex === null) {
+      if (this.baseZIndex === null && inBrowser) {
         // Create a temporary div.modal-backdrop to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-backdrop d-none'
@@ -92,13 +89,10 @@ const ModalManager = Vue.extend({
         this.baseZIndex = getCS(div).zIndex || DEFAULT_ZINDEX
         document.body.removeChild(div)
       }
-      return this.baseZIndex
+      return this.baseZIndex || DEFAULT_ZINDEX
     },
     getScrollBarWidth() {
-      if (!inBrowser) {
-        return 0
-      }
-      if (this.scrollbarWidth === null) {
+      if (this.scrollbarWidth === null && inBrowser) {
         // Create a temporary div.measure-scrollbar to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-scrollbar-measure'
@@ -106,7 +100,7 @@ const ModalManager = Vue.extend({
         this.scrollbarWidth = getBCR(div).width - div.clientWidth
         document.body.removeChild(div)
       }
-      return this.baseZIndex
+      return this.scrollbarWidth || 0
     },
     // Private methods
     updateModals() {
@@ -121,28 +115,28 @@ const ModalManager = Vue.extend({
       })
     },
     resetModal(modal) {
-      if (modal)
+      if (modal) {
         modal.zIndex = this.getBaseZIndex()
         modal.isTop = false
         modal.isBodyOverflowing = false
       }
     },
     checkScrollbar() {
+      // Determien if the body element is overflowing
       const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
-      this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
+      // this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
+      this.isBodyOverflowing = left + right < window.innerWidth
     },
     setScrollbar() {
       const body = document.body
       // Storage place to cache changes to margins and padding
       // Note: This assumes the following element types are not added to the
-      // document after hte modal has opened.
+      // document after the modal has opened.
       body._paddingChangedForModal = body._paddingChangedForModal || []
       body._marginChangedForModal = body._marginChangedForModal || []
       /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
-        // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
-        //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
         const scrollbarWidth = this.scrollbarWidth
         // Adjust fixed content padding
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
