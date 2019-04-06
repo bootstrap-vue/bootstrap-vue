@@ -148,7 +148,6 @@ const ModalManager = Vue.extend({
       // document after the modal has opened.
       body._paddingChangedForModal = body._paddingChangedForModal || []
       body._marginChangedForModal = body._marginChangedForModal || []
-      /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
         const scrollbarWidth = this.scrollbarWidth
         // Adjust fixed content padding
