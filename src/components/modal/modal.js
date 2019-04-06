@@ -391,14 +391,6 @@ export default {
         relatedTarget: null,
         // Modal specific properties and methods
         modalId: this.safeId(),
-        // `isOK` should be deprecated:
-        // isOK: {
-        //   get() {
-        //     warn(`b-modal: evt.isOK is deprecated. Please check evt.trigger === 'ok'`)
-        //     return trigger === 'ok'
-        //   }
-        // }
-        isOK: trigger === 'ok',
         trigger: trigger || null,
         cancel() /* istanbul ignore next */ {
           // Backwards compatibility
@@ -406,10 +398,13 @@ export default {
           this.preventDefault()
         }
       })
+      // We emit specific event for one of the three build it buttons
       if (trigger === 'ok') {
         this.$emit('ok', hideEvt)
       } else if (trigger === 'cancel') {
         this.$emit('cancel', hideEvt)
+      } else if (trigger === 'close') {
+        this.$emit('close', hideEvt)
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
@@ -423,6 +418,7 @@ export default {
         this._observer = null
       }
       this.is_visible = false
+      // Update the v-model
       this.$emit('change', false)
     },
     // Public method to toggle modal visibility
@@ -450,6 +446,7 @@ export default {
         // before we show it
         this.is_visible = true
         this.is_opening = false
+        // update the v-model
         this.$emit('change', true)
         // Observe changes in modal content and adjust if necessary
         this._observer = observeDom(
