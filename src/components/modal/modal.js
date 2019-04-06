@@ -513,8 +513,10 @@ export default {
     // Event emitter
     emitEvent(bvEvt) {
       const type = bvEvt.type
-      this.$emit(type, bvEvt)
-      this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
+      const rootType = `bv::modal::${type}`
+      const self = bvEvt.vuetarget
+      self.$emit(type, bvEvt)
+      self.emitOnRoot(rootType, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
     onClickOut(evt) {
