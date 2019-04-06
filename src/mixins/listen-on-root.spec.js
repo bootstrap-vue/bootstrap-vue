@@ -32,7 +32,7 @@ describe('mixins/listen-on-root', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue: localVue,
       propsData: {
         destroy: false
       }
