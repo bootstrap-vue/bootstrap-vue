@@ -336,10 +336,6 @@ export default {
       this._observer.disconnect()
       this._observer = null
     }
-    // Ensure our $root '$once' listener is gone
-    if (this.$root && this.$root.$off) {
-      this.$root.$off('bv::modal::hidden', this.doShow)
-    }
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
     if (this.is_visible) {
@@ -444,7 +440,7 @@ export default {
     doShow() {
       if (this.noStacking && modalManager.modalsAreOpen) {
         // If another modal(s) is already open, wait for it(them) to close
-        this.$root.$once('bv::modal::hidden', this.doShow)
+        this.listenOnRootOnce('bv::modal::hidden', this.doShow)
         return
       }
       // Place modal in DOM if lazy
