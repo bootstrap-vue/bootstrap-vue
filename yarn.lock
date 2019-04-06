@@ -2981,10 +2981,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-clean-css-cli@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/clean-css-cli/-/clean-css-cli-4.2.1.tgz#0a367077ad85cb4451148ac1f2edb4eb1992b4ed"
-  integrity sha512-ST2yi9F2kAmLRs9phSpGRUm44SbRy29QGm1OuAKfTU0KCLilFMTcz+/Fxhbdi5GrsjIMhTBdFUQhc55CjM3Isw==
+clean-css-cli@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/clean-css-cli/-/clean-css-cli-4.3.0.tgz#8502aa86d1879e5b111af51b3c2abb799e0684ce"
+  integrity sha512-8GHZfr+mG3zB/Lgqrr27qHBFsPSn0fyEI3f2rIZpxPxUbn2J6A8xyyeBRVTW8duDuXigN0s80vsXiXJOEFIO5Q==
   dependencies:
     clean-css "^4.2.1"
     commander "2.x"
@@ -9782,10 +9782,10 @@ rollup-plugin-commonjs@^9.3.4:
     resolve "^1.10.0"
     rollup-pluginutils "^2.6.0"
 
-rollup-plugin-node-resolve@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-4.1.0.tgz#2f1534c0057b2db0219d271daf887c4e062a7e56"
-  integrity sha512-N7eBrK0gpdAVQTk5SmsO2h39LlLQMNXalu6Mo6RGWx/hZtq0+gwssT+W2IdF9im2rDNGjUF7HLnxMd9uLiI5+Q==
+rollup-plugin-node-resolve@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-4.2.0.tgz#f1f38392a97360195be04d3c3d791ddd9715d755"
+  integrity sha512-JhD9hcOFv4oPQ5zViwP3Z79WSXCvcoSDmtZ1tn2pOKry28+XpoRRzWZHp5qz1aPKtTHRLRoMMnrMxnwDhbtuUw==
   dependencies:
     "@types/resolve" "0.0.8"
     builtin-modules "^3.0.0"
