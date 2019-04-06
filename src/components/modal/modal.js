@@ -498,9 +498,6 @@ export default {
       this.is_transitioning = false
       this.setEnforceFocus(false)
       this.isModalOverflowing = false
-      // This might need to be placed in the nextTick below
-      // but it must happen before the hidden emit.
-      modalManager.unregisterModal(this)
       this.$nextTick(() => {
         this.returnFocusTo()
         this.is_closing = false
@@ -512,13 +509,14 @@ export default {
           relatedTarget: null
         })
         this.emitEvent(hiddenEvt)
+        modalManager.unregisterModal(this)
       })
     },
     // Event emitter
     emitEvent(bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::modal::${type}`, bvEvt, this.safeId())
+      this.emitOnRoot(`bv::modal::${type}`, bvEvt, this.safeId())
     },
     // UI event handlers
     onClickOut(evt) {
