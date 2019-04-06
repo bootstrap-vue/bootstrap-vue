@@ -94,7 +94,7 @@ const ModalManager = Vue.extend({
         div.className = 'modal-backdrop d-none'
         div.style.display = 'none'
         document.body.appendChild(div)
-        this.baseZIndex = getCS(div).zIndex || DEFAULT_ZINDEX
+        this.baseZIndex = parseInt(getCS(div).zIndex || DEFAULT_ZINDEX, 10)
         document.body.removeChild(div)
       }
       return this.baseZIndex || DEFAULT_ZINDEX
