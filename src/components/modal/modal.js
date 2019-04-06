@@ -36,7 +36,8 @@ const Selector = {
   NAVBAR_TOGGLER: '.navbar-toggler'
 }
 
-// ObserveDom config
+// ObserveDom config to detect changes in modal content
+// so that we can adjust the modal padding if needed
 const OBSERVER_CONFIG = {
   subtree: true,
   childList: true,
@@ -48,7 +49,7 @@ const OBSERVER_CONFIG = {
 // Default z-index of .modal-backdrop
 const DEFAULT_ZINDEX = 1040
 
-// Query a backdrop for it's default Z-Index from defined CSS styles
+// Query the .modal-backdrop for it's default Z-Index from defined CSS styles
 let BASE_ZINDEX = null
 const getModalZIndexOffset = () => {
   if (!inBrowser) {
@@ -92,14 +93,10 @@ const getModalMaxZIndex = () => {
   )
 }
 
-const getModalZIndexIncrement = () => getComponentConfig(NAME, 'zIndexIncrement')
-
 // Returns the next z-index to be used by a modal to ensure proper
 // stacking regardless of document order.
 const getModalNextZIndex = () =>
-  getModalOpenCount() === 0
-    ? getModalZIndexOffset()
-    : getModalMaxZIndex() + getModalZIndexIncrement()
+  getModalOpenCount() === 0 ? getModalZIndexOffset() : (getModalMaxZIndex() + 1)
 
 // @vue/component
 export default {
@@ -299,9 +296,10 @@ export default {
       is_opening: false, // Semaphore for preventing incorrect modal open counts
       is_closing: false, // Semaphore for preventing incorrect modal open counts
       scrollbarWidth: 0,
-      zIndex: DEFAULT_ZINDEX, // z-index for modal stacking
+      zIndex: getModalZIndexOffset(), // z-index for modal stacking
       isTop: true, // If the modal is the topmost opened modal
       isBodyOverflowing: false,
+      isModalOverflowing: false,
       return_focus: this.returnFocus || null
     }
   },
@@ -318,6 +316,13 @@ export default {
         },
         this.modalClass
       ]
+    },
+    modalStyles() {
+      const sbWidth = `${this.scrollbarWidth}px`
+      return {
+        paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
+        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : ''
+      }
     },
     dialogClasses() {
       return [
@@ -420,7 +425,6 @@ export default {
         // Re-adjust body/navbar/fixed padding/margins (as we are the last modal open)
         this.setModalOpenClass(false)
         this.resetScrollbar()
-        this.resetDialogAdjustments()
       }
     }
   },
@@ -537,7 +541,7 @@ export default {
         // Observe changes in modal content and adjust if necessary
         this._observer = observeDom(
           this.$refs.content,
-          this.adjustDialog.bind(this),
+          this.checkModalOverflow.bind(this),
           OBSERVER_CONFIG
         )
       })
@@ -552,7 +556,7 @@ export default {
         this.setScrollbar()
         this.setModalOpenClass(true)
       }
-      this.adjustDialog()
+      this.checkModalOverflow()
       this.setResizeEvent(true)
     },
     onEnter() {
@@ -656,8 +660,9 @@ export default {
     setResizeEvent(on) {
       const options = { passive: true, capture: false }
       const method = on ? eventOn : eventOff
-      method(window, 'resize', this.adjustDialog, options)
-      method(window, 'orientationchange', this.adjustDialog, options)
+      // These events should probably also check if body is overflowing
+      method(window, 'resize', this.checkModalOverflow, options)
+      method(window, 'orientationchange', this.checkModalOverflow, options)
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
@@ -676,6 +681,7 @@ export default {
         this.toggle(triggerEl)
       }
     },
+    // Move the next three methods' logic into modalManager instance
     shownHandler() {
       this.setTop()
     },
@@ -689,17 +695,6 @@ export default {
     modalListener(bvEvt) {
       // If another modal opens, close this one if stacking not permitted
       if (this.noStacking && bvEvt.vueTarget !== this) {
-        // The next modal will have an incorrectly higher z-index than needed,
-        // because this modal will still be open when the next zIndex is calculated.
-        //
-        // We need a way to postpone the next modal from opening until this
-        // one has closed, while maintaning the context of the original event
-        // that triggered the next modal to open.
-        //
-        // Perhaps a method on the BvEvent object that can be used to trigger a
-        // postpone, similar to preventDefault(), but delays the modal opening until
-        // a specific bv::modal::hidden event is triggered.
-        // Maybe bvEvt.postponeUntilHidden()
         this.hide()
       }
     },
@@ -751,32 +746,15 @@ export default {
       const method = open ? addClass : removeClass
       method(document.body, 'modal-open')
     },
-    adjustDialog() {
-      if (!this.is_visible) {
-        /* istanbul ignore next */
-        return
-      }
-      const modal = this.$refs.modal
-      const isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
-      /* istanbul ignore if: can't test in JSDOM */
-      if (!this.isBodyOverflowing && isModalOverflowing) {
-        modal.style.paddingLeft = `${this.scrollbarWidth}px`
-      } else {
-        modal.style.paddingLeft = ''
-      }
-      /* istanbul ignore else: can't test in JSDOM */
-      if (this.isBodyOverflowing && !isModalOverflowing) {
-        modal.style.paddingRight = `${this.scrollbarWidth}px`
-      } else {
-        modal.style.paddingRight = ''
+    checkModalOverflow() {
+      if (this.is_visible) {
+        const modal = this.$refs.modal
+        this.isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
       }
     },
     resetDialogAdjustments() {
-      const modal = this.$refs.modal
-      if (modal) {
-        modal.style.paddingLeft = ''
-        modal.style.paddingRight = ''
-      }
+      this.paddingLeft = ''
+      this.paddingRight = ''
     },
     checkScrollbar() {
       const { left, right, height } = getBCR(document.body)
@@ -785,16 +763,14 @@ export default {
     },
     setScrollbar() {
       const body = document.body
-      // Storage place to cache changes to margins and padding
-      // Note: This assumes the following element types are not added
-      // to the document after the modal has opened.
+      // Storage place to cache changes to margins and padding to speed up resetting
+      // them once the last modal closes.
+      // Note: This assumes the following element types are not added to the document
+      // after the modal has opened.
       body._paddingChangedForModal = body._paddingChangedForModal || []
       body._marginChangedForModal = body._marginChangedForModal || []
       /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
-        // Note: `DOMNode.style.paddingRight returns` the actual value or ''
-        // if not set while `$(DOMNode).css('padding-right')` returns the
-        // calculated value or 0 if not set
         const scrollbarWidth = this.scrollbarWidth
         // Adjust fixed content padding
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
@@ -997,6 +973,7 @@ export default {
         ref: 'modal',
         staticClass: 'modal',
         class: this.modalClasses,
+        style: this.modalStyles,
         directives: [
           { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
         ],
