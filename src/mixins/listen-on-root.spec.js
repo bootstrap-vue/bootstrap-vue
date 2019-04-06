@@ -8,7 +8,7 @@ describe('mixins/listen-on-root', () => {
     const spyOnce = jest.fn()
 
     const TestComponent = localVue.extend({
-      mixins: [listenOnRootMixin]
+      mixins: [listenOnRootMixin],
       created() {
         this.listenOnRoot('root-on', spyOn)
         this.listenOnRootOnce('root-once', spyOnce)
