@@ -123,9 +123,10 @@ const ModalManager = Vue.extend({
     },
     checkScrollbar() {
       // Determien if the body element is overflowing
-      const { left, right, height } = getBCR(document.body)
+      // const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       // this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
+      const { left, right } = getBCR(document.body)
       this.isBodyOverflowing = left + right < window.innerWidth
     },
     setScrollbar() {
