@@ -6,6 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
+import { inBrowser } from '../../utils/env'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import {
@@ -50,6 +51,10 @@ const DEFAULT_ZINDEX = 1040
 // Query a backdrop for it's default Z-Index from defined CSS styles
 let BASE_ZINDEX = null
 const getModalZIndexOffset = () => {
+  if (!inBrowser) {
+    /* istanbul ignore next */
+    return DEFAULT_ZINDEX
+  }
   if (BASE_ZINDEX) {
     return BASE_ZINDEX
   }
@@ -701,7 +706,7 @@ export default {
     // Focus control handlers
     focusFirst() {
       // Don't try and focus if we are SSR
-      if (typeof document === 'undefined') {
+      if (!inBrowser) {
         /* istanbul ignore next */
         return
       }
