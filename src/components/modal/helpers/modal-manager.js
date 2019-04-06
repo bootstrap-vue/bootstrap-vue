@@ -99,7 +99,7 @@ const ModalManager = Vue.extend({
       }
       return this.baseZIndex || DEFAULT_ZINDEX
     },
-    getScrollBarWidth() {
+    getScrollbarWidth() {
       if (this.scrollbarWidth === null && inBrowser) {
         // Create a temporary div.measure-scrollbar to get computed z-index
         const div = document.createElement('div')
