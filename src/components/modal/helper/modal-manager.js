@@ -118,7 +118,7 @@ const ModalManager = Vue.extend({
         modal.scrollbarWidth = scrollbarWidth
         modal.isTop = index === this.modals.length - 1
         modal.isBodyOverflowing = this.isBodyOverflowing
-      }
+      })
     },
     resetModal(modal) {
       if (modal)
