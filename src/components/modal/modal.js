@@ -340,7 +340,6 @@ export default {
     this.$root.$off('bv::modal::hidden', this.doShow)
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
-    modalManager.unregisterModal(this)
     if (this.is_visible) {
       this.is_visible = false
       this.is_show = false
