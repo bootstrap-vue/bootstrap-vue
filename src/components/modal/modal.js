@@ -318,9 +318,7 @@ export default {
     // Listen for events from others to either open or close ourselves
     // and listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
     // Listen for `bv:modal::show events`, and close ourselves if the
     // opening modal not us
@@ -445,7 +443,6 @@ export default {
       this.$nextTick(() => {
         // We do this in `$nextTick()` to ensure the modal is in DOM first
         // before we show it
-        modalManager.registerModal(this)
         this.is_visible = true
         this.is_opening = false
         // Update the v-model
@@ -461,6 +458,7 @@ export default {
     // Transition handlers
     onBeforeEnter() {
       this.is_transitioning = true
+      modalManager.registerModal(this)
       this.checkModalOverflow()
       this.setResizeEvent(true)
     },
@@ -513,10 +511,8 @@ export default {
     // Event emitter
     emitEvent(bvEvt) {
       const type = bvEvt.type
-      const rootType = `bv::modal::${type}`
-      const self = bvEvt.vueTarget
-      self.$emit(type, bvEvt)
-      self.emitOnRoot(rootType, bvEvt, bvEvt.modalId)
+      this.$emit(type, bvEvt)
+      this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
     onClickOut(evt) {
