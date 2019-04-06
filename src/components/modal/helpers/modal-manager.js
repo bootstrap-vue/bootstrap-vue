@@ -62,7 +62,7 @@ const ModalManager = Vue.extend({
     },
     modals(newVal, oldVal) {
       // this.checkScrollbar()
-      this.updateModals()
+      this.updateModals(newVal || [])
     }
   },
   methods: {
@@ -111,10 +111,10 @@ const ModalManager = Vue.extend({
       return this.scrollbarWidth || 0
     },
     // Private methods
-    updateModals() {
+    updateModals(modals) {
       const baseZIndex = this.getBaseZIndex()
       const scrollbarWidth = this.getScrollbarWidth()
-      this.modals.forEach((modal, index) => {
+      modals.forEach((modal, index) => {
         // We update data values on each modal
         modal.zIndex = baseZIndex + index
         modal.scrollbarWidth = scrollbarWidth
