@@ -445,9 +445,10 @@ export default {
       this.$nextTick(() => {
         // We do this in `$nextTick()` to ensure the modal is in DOM first
         // before we show it
+        modalManager.registerModal(this)
         this.is_visible = true
         this.is_opening = false
-        // update the v-model
+        // Update the v-model
         this.$emit('change', true)
         // Observe changes in modal content and adjust if necessary
         this._observer = observeDom(
@@ -460,7 +461,6 @@ export default {
     // Transition handlers
     onBeforeEnter() {
       this.is_transitioning = true
-      modalManager.registerModal(this)
       this.checkModalOverflow()
       this.setResizeEvent(true)
     },
@@ -514,7 +514,7 @@ export default {
     emitEvent(bvEvt) {
       const type = bvEvt.type
       const rootType = `bv::modal::${type}`
-      const self = bvEvt.vuetarget
+      const self = bvEvt.vueTarget
       self.$emit(type, bvEvt)
       self.emitOnRoot(rootType, bvEvt, bvEvt.modalId)
     },
