@@ -403,7 +403,7 @@ export default {
         this.$emit('ok', hideEvt)
       } else if (trigger === 'cancel') {
         this.$emit('cancel', hideEvt)
-      } else if (trigger === 'close') {
+      } else if (trigger === 'headerclose') {
         this.$emit('close', hideEvt)
       }
       this.emitEvent(hideEvt)
