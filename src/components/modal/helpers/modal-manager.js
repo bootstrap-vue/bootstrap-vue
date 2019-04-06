@@ -183,6 +183,7 @@ const ModalManager = Vue.extend({
       if (body._paddingChangedForModal) {
         // Restore fixed content padding
         body._paddingChangedForModal.forEach(el => {
+          /* istanbul ignore next: difficult to test in JSDOM */
           if (hasAttr(el, 'data-padding-right')) {
             el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
             removeAttr(el, 'data-padding-right')
@@ -192,6 +193,7 @@ const ModalManager = Vue.extend({
       if (body._marginChangedForModal) {
         // Restore sticky content and navbar-toggler margin
         body._marginChangedForModal.forEach(el => {
+          /* istanbul ignore next: difficult to test in JSDOM */
           if (hasAttr(el, 'data-margin-right')) {
             el.style.marginRight = getAttr(el, 'data-margin-right') || ''
             removeAttr(el, 'data-margin-right')
