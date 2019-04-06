@@ -1,6 +1,6 @@
 import Modal from './modal'
 import { mount, createWrapper } from '@vue/test-utils'
-import { getComponentConfig } from '../../utils/config'
+// import { getComponentConfig } from '../../utils/config'
 
 // The defautl Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
