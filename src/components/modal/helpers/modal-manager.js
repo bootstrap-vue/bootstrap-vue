@@ -39,6 +39,9 @@ const ModalManager = Vue.extend({
   computed: {
     modalCount() {
       return this.modals.length
+    },
+    modalsAreOpen() {
+      return this.modalCount > 0
     }
   },
   watch: {
@@ -117,12 +120,12 @@ const ModalManager = Vue.extend({
     resetModal(modal) {
       if (modal) {
         modal.zIndex = this.getBaseZIndex()
-        modal.isTop = false
+        modal.isTop = true
         modal.isBodyOverflowing = false
       }
     },
     checkScrollbar() {
-      // Determien if the body element is overflowing
+      // Determine if the body element is overflowing
       // const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       // this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
