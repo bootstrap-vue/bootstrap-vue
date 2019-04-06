@@ -77,7 +77,7 @@ class BvModalEvent extends BvEvent {
 
   static get Defaults() {
     return {
-      ...super.defaults(),
+      ...super.Defaults,
       modalId: null,
       trigger: null
     }
