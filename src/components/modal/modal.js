@@ -44,6 +44,9 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
+// Default z-index of .modal-backdrop
+const DEFAULT_ZINDEX = 1040
+
 // Query a backdrop for it's default Z-Index from defined CSS styles
 let BASE_ZINDEX = null
 const getModalZIndexOffset = () => {
@@ -56,7 +59,7 @@ const getModalZIndexOffset = () => {
   $backdrop.style.display = 'none'
   document.body.appendChild($backdrop)
   // Query the backdrop for it's z-index, or fallback to default of 1040
-  BASE_ZINDEX = getCS($backdrop).zIndex || 1040
+  BASE_ZINDEX = getCS($backdrop).zIndex || DEFAULT_ZINDEX
   document.body.removeChild($backdrop)
   // Return the value
   return BASE_ZINDEX
@@ -291,7 +294,7 @@ export default {
       is_opening: false, // Semaphore for preventing incorrect modal open counts
       is_closing: false, // Semaphore for preventing incorrect modal open counts
       scrollbarWidth: 0,
-      zIndex: getModalZIndexOffset(), // z-index for modal stacking
+      zIndex: DEFAULT_ZINDEX, // z-index for modal stacking
       isTop: true, // If the modal is the topmost opened modal
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
@@ -374,10 +377,10 @@ export default {
   created() {
     // Define non-reactive properties
     this._observer = null
-    // Set initial z-index defined in the config
-    this.zIndex = getModalZIndexOffset()
   },
   mounted() {
+    // Set initial z-index as queried from the DOM
+    this.zIndex = getModalZIndexOffset()
     // Listen for events from others to either open or close ourselves
     // and listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
@@ -409,7 +412,7 @@ export default {
       this.is_transitioning = false
       const count = decrementModalOpenCount()
       if (count === 0) {
-        // Re-adjust body/navbar/fixed padding/margins (as we were the last modal open)
+        // Re-adjust body/navbar/fixed padding/margins (as we are the last modal open)
         this.setModalOpenClass(false)
         this.resetScrollbar()
         this.resetDialogAdjustments()
@@ -586,6 +589,7 @@ export default {
       this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
+        // Reset modal z-index to the base value
         this.zIndex = getModalZIndexOffset()
         this.returnFocusTo()
         this.is_closing = false
@@ -681,7 +685,7 @@ export default {
       // If another modal opens, close this one if stacking not permitted
       if (this.noStacking && bvEvt.vueTarget !== this) {
         // The next modal will have an incorrectly higher z-index than needed,
-        // because this modal will still be open when teh next zIndex is calculated.
+        // because this modal will still be open when the next zIndex is calculated.
         //
         // We need a way to postpone the next modal from opening until this
         // one has closed, while maintaning the context of the original event
@@ -689,7 +693,8 @@ export default {
         //
         // Perhaps a method on the BvEvent object that can be used to trigger a
         // postpone, similar to preventDefault(), but delays the modal opening until
-        // a specific bv::modal::hidden event is triggered
+        // a specific bv::modal::hidden event is triggered.
+        // Maybe bvEvt.postponeUntilHidden()
         this.hide()
       }
     },
