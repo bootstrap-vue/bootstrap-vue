@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { keys } from '../../utils/object'
 import { arrayIncludes, concat } from '../../utils/array'
 import { isRouterLink, computeTag, computeRel, computeHref } from '../../utils/router'
@@ -141,7 +142,7 @@ function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BLink',
   functional: true,
   props: propsFactory(),
@@ -178,4 +179,4 @@ export default {
 
     return h(tag, componentData, children)
   }
-}
+})

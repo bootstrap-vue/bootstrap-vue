@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
 import prefixPropName from '../../utils/prefix-prop-name'
@@ -22,7 +23,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCardFooter',
   functional: true,
   props,
@@ -43,4 +44,4 @@ export default {
       children || [h('div', { domProps: htmlOrText(props.footerHtml, props.footer) })]
     )
   }
-}
+})

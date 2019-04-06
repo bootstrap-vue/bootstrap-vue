@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
@@ -23,7 +24,7 @@ const btnProps = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => String(getComponentConfig(NAME, 'variant'))
   },
   type: {
     type: String,
@@ -138,7 +139,7 @@ function computeAttrs(props, data) {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -179,4 +180,4 @@ export default {
 
     return h(link ? BLink : props.tag, mergeData(data, componentData), children)
   }
-}
+})

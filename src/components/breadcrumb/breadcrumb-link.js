@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
@@ -20,7 +21,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BBreadcrumbLink',
   functional: true,
   props,
@@ -38,4 +39,4 @@ export default {
 
     return h(tag, mergeData(data, componentData), children)
   }
-}
+})

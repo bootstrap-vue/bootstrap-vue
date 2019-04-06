@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import BButton from '../button/button'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
@@ -82,194 +83,195 @@ function getModalNextZIndex() {
   return getModalMaxZIndex() + ZINDEX_OFFSET
 }
 
+export const props = {
+  title: {
+    type: String,
+    default: ''
+  },
+  titleHtml: {
+    type: String
+  },
+  titleTag: {
+    type: String,
+    default: 'h5'
+  },
+  size: {
+    type: String,
+    default: 'md'
+  },
+  centered: {
+    type: Boolean,
+    default: false
+  },
+  scrollable: {
+    type: Boolean,
+    default: false
+  },
+  buttonSize: {
+    type: String,
+    default: ''
+  },
+  noStacking: {
+    type: Boolean,
+    default: false
+  },
+  noFade: {
+    type: Boolean,
+    default: false
+  },
+  noCloseOnBackdrop: {
+    type: Boolean,
+    default: false
+  },
+  noCloseOnEsc: {
+    type: Boolean,
+    default: false
+  },
+  noEnforceFocus: {
+    type: Boolean,
+    default: false
+  },
+  headerBgVariant: {
+    type: String,
+    default: null
+  },
+  headerBorderVariant: {
+    type: String,
+    default: null
+  },
+  headerTextVariant: {
+    type: String,
+    default: null
+  },
+  headerCloseVariant: {
+    type: String,
+    default: null
+  },
+  headerClass: {
+    type: [String, Array],
+    default: null
+  },
+  bodyBgVariant: {
+    type: String,
+    default: null
+  },
+  bodyTextVariant: {
+    type: String,
+    default: null
+  },
+  modalClass: {
+    type: [String, Array],
+    default: null
+  },
+  dialogClass: {
+    type: [String, Array],
+    default: null
+  },
+  contentClass: {
+    type: [String, Array],
+    default: null
+  },
+  bodyClass: {
+    type: [String, Array],
+    default: null
+  },
+  footerBgVariant: {
+    type: String,
+    default: null
+  },
+  footerBorderVariant: {
+    type: String,
+    default: null
+  },
+  footerTextVariant: {
+    type: String,
+    default: null
+  },
+  footerClass: {
+    type: [String, Array],
+    default: null
+  },
+  hideHeader: {
+    type: Boolean,
+    default: false
+  },
+  hideFooter: {
+    type: Boolean,
+    default: false
+  },
+  hideHeaderClose: {
+    type: Boolean,
+    default: false
+  },
+  hideBackdrop: {
+    type: Boolean,
+    default: false
+  },
+  okOnly: {
+    type: Boolean,
+    default: false
+  },
+  okDisabled: {
+    type: Boolean,
+    default: false
+  },
+  cancelDisabled: {
+    type: Boolean,
+    default: false
+  },
+  visible: {
+    type: Boolean,
+    default: false
+  },
+  returnFocus: {
+    // type: Object,
+    default: null
+  },
+  headerCloseLabel: {
+    type: String,
+    default: () => String(getComponentConfig(NAME, 'headerCloseLabel') || '')
+  },
+  cancelTitle: {
+    type: String,
+    default: () => String(getComponentConfig(NAME, 'cancelTitle') || '')
+  },
+  cancelTitleHtml: {
+    type: String
+  },
+  okTitle: {
+    type: String,
+    default: () => String(getComponentConfig(NAME, 'okTitle') || '')
+  },
+  okTitleHtml: {
+    type: String
+  },
+  cancelVariant: {
+    type: String,
+    default: () => String(getComponentConfig(NAME, 'cancelVariant') || '')
+  },
+  okVariant: {
+    type: String,
+    default: () => String(getComponentConfig(NAME, 'okVariant') || '')
+  },
+  lazy: {
+    type: Boolean,
+    default: false
+  },
+  busy: {
+    type: Boolean,
+    default: false
+  }
+}
+
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
-  components: { BButton, BButtonClose },
   mixins: [idMixin, listenOnRootMixin],
   model: {
     prop: 'visible',
     event: 'change'
   },
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    titleHtml: {
-      type: String
-    },
-    titleTag: {
-      type: String,
-      default: 'h5'
-    },
-    size: {
-      type: String,
-      default: 'md'
-    },
-    centered: {
-      type: Boolean,
-      default: false
-    },
-    scrollable: {
-      type: Boolean,
-      default: false
-    },
-    buttonSize: {
-      type: String,
-      default: ''
-    },
-    noStacking: {
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnEsc: {
-      type: Boolean,
-      default: false
-    },
-    noEnforceFocus: {
-      type: Boolean,
-      default: false
-    },
-    headerBgVariant: {
-      type: String,
-      default: null
-    },
-    headerBorderVariant: {
-      type: String,
-      default: null
-    },
-    headerTextVariant: {
-      type: String,
-      default: null
-    },
-    headerCloseVariant: {
-      type: String,
-      default: null
-    },
-    headerClass: {
-      type: [String, Array],
-      default: null
-    },
-    bodyBgVariant: {
-      type: String,
-      default: null
-    },
-    bodyTextVariant: {
-      type: String,
-      default: null
-    },
-    modalClass: {
-      type: [String, Array],
-      default: null
-    },
-    dialogClass: {
-      type: [String, Array],
-      default: null
-    },
-    contentClass: {
-      type: [String, Array],
-      default: null
-    },
-    bodyClass: {
-      type: [String, Array],
-      default: null
-    },
-    footerBgVariant: {
-      type: String,
-      default: null
-    },
-    footerBorderVariant: {
-      type: String,
-      default: null
-    },
-    footerTextVariant: {
-      type: String,
-      default: null
-    },
-    footerClass: {
-      type: [String, Array],
-      default: null
-    },
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    hideFooter: {
-      type: Boolean,
-      default: false
-    },
-    hideHeaderClose: {
-      type: Boolean,
-      default: false
-    },
-    hideBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    okOnly: {
-      type: Boolean,
-      default: false
-    },
-    okDisabled: {
-      type: Boolean,
-      default: false
-    },
-    cancelDisabled: {
-      type: Boolean,
-      default: false
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    returnFocus: {
-      // type: Object,
-      default: null
-    },
-    headerCloseLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'headerCloseLabel')
-    },
-    cancelTitle: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'cancelTitle')
-    },
-    cancelTitleHtml: {
-      type: String
-    },
-    okTitle: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'okTitle')
-    },
-    okTitleHtml: {
-      type: String
-    },
-    cancelVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'cancelVariant')
-    },
-    okVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'okVariant')
-    },
-    lazy: {
-      type: Boolean,
-      default: false
-    },
-    busy: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props,
   data() {
     return {
       is_hidden: this.lazy || false, // for lazy modals
@@ -819,7 +821,7 @@ export default {
         let closeButton = h(false)
         if (!this.hideHeaderClose) {
           closeButton = h(
-            'b-button-close',
+            BButtonClose,
             {
               props: {
                 disabled: this.is_transitioning,
@@ -872,7 +874,7 @@ export default {
         let cancelButton = h(false)
         if (!this.okOnly) {
           cancelButton = h(
-            'b-button',
+            BButton,
             {
               props: {
                 variant: this.cancelVariant,
@@ -889,7 +891,7 @@ export default {
           )
         }
         const okButton = h(
-          'b-button',
+          BButton,
           {
             props: {
               variant: this.okVariant,
@@ -1024,4 +1026,4 @@ export default {
     // Wrap in DIV to maintain thi.$el reference for hide/show method aceess
     return h('div', {}, [outer])
   }
-}
+})

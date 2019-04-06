@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import { getComponentConfig } from '../../utils/config'
 
@@ -12,7 +13,7 @@ const EVENT_STATE = 'bv::collapse::state'
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   mixins: [listenOnRootMixin],
   props: {
@@ -63,4 +64,4 @@ export default {
       [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
     )
   }
-}
+})

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
@@ -29,7 +30,7 @@ const parseShow = show => {
 const isNumericLike = value => !isNaN(parseInt(value, 10))
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   model: {
     prop: 'show',
@@ -38,7 +39,7 @@ export default {
   props: {
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => String(getComponentConfig(NAME, 'variant'))
     },
     dismissible: {
       type: Boolean,
@@ -46,7 +47,7 @@ export default {
     },
     dismissLabel: {
       type: String,
-      default: () => getComponentConfig(NAME, 'dismissLabel')
+      default: () => String(getComponentConfig(NAME, 'dismissLabel'))
     },
     show: {
       type: [Boolean, Number, String],
@@ -185,4 +186,4 @@ export default {
       $alert
     )
   }
-}
+})

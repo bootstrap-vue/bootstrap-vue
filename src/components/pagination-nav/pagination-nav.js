@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import warn from '../../utils/warn'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
@@ -78,7 +79,7 @@ const props = {
 
 // Our render function is brought in via the pagination mixin
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BPaginationNav',
   mixins: [paginationMixin],
   props,
@@ -291,4 +292,4 @@ export default {
       this.currentPage = guess > 0 ? guess : 0
     }
   }
-}
+})
