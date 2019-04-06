@@ -2,8 +2,8 @@ import Modal from './modal'
 import { mount, createWrapper } from '@vue/test-utils'
 import { getComponentConfig } from '../../utils/config'
 
-// Grab the configured base index
-const CONFIG_ZINDEX = getComponentConfig('BModal', 'zIndexOffset')
+// The defautl Z-INDEX for modal backdrop
+const DEFAULT_ZINDEX = 1040
 
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
@@ -39,8 +39,6 @@ describe('modal', () => {
         }
       })
 
-      expect(CONFIG_ZINDEX).toBeGreaterThan(0)
-
       expect(wrapper.isVueInstance()).toBe(true)
       await wrapper.vm.$nextTick()
 
@@ -54,7 +52,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${CONFIG_ZINDEX}`)
+      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Should not have a backdrop
       expect($outer.find('div.modal-backdrop').exists()).toBe(false)
@@ -131,7 +129,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${CONFIG_ZINDEX}`)
+      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
@@ -204,7 +202,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${CONFIG_ZINDEX}`)
+      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
