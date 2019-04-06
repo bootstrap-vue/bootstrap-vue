@@ -624,7 +624,8 @@ describe('modal', () => {
     })
 
     it('show event is cancellable', async () => {
-      let cancel = true
+      let prevent = true
+      let called = 0
       const wrapper = mount(Modal, {
         attachToDocument: true,
         stubs: {
@@ -649,8 +650,9 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
 
       wrapper.vm.$on('show', bvEvt => {
-        if (cancel) {
-          this.bvEvt.preventDefault()
+        called = true
+        if (prevent) {
+          bvEvt.preventDefault()
         }
       })
 
@@ -663,6 +665,7 @@ describe('modal', () => {
       await waitAF()
 
       // Modal should not open
+      expect(called).toBe(true)
       expect($modal.element.style.display).toEqual('none')
 
       await wrapper.vm.$nextTick()
@@ -671,7 +674,8 @@ describe('modal', () => {
       await waitAF()
 
       // Allow modal to open
-      cancel = false
+      prevent = false
+      called = false
 
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
@@ -682,6 +686,7 @@ describe('modal', () => {
       await waitAF()
 
       // Modal should now be open
+      expect(called).toBe(true)
       expect($modal.element.style.display).toEqual('')
 
       wrapper.destroy()
