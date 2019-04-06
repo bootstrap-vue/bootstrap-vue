@@ -61,7 +61,7 @@ const ModalManager = Vue.extend({
       }
     },
     modals(newVal, oldVal) {
-      // this.checkScrollbar()
+      this.checkScrollbar()
       this.updateModals(newVal || [])
     }
   },
