@@ -1,6 +1,6 @@
 import Modal from './modal'
+import BvEvent from '../../utils/bv-event'
 import { mount, createWrapper } from '@vue/test-utils'
-// import { getComponentConfig } from '../../utils/config'
 
 // The defautl Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
@@ -303,6 +303,7 @@ describe('modal', () => {
     it('header close button triggers modal close and is preventable', async () => {
       let cancelHide = true
       let trigger = null
+      let evt = null
       const wrapper = mount(Modal, {
         attachToDocument: true,
         stubs: {
@@ -318,6 +319,7 @@ describe('modal', () => {
               bvEvent.preventDefault()
             }
             trigger = bvEvent.trigger
+            evt = bvEvent
           }
         }
       })
@@ -345,10 +347,12 @@ describe('modal', () => {
 
       expect(wrapper.emitted('hide')).not.toBeDefined()
       expect(trigger).toEqual(null)
+      expect(evt).toEqual(null)
 
       // Try and close modal (but we prevent it)
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
+      expect(evt).toBeInstanceOf(BvEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -361,8 +365,10 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
+      evt = null
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
+      expect(evt).toBeInstanceOf(BvEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
