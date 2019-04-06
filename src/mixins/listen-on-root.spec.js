@@ -9,9 +9,9 @@ describe('mixins/listen-on-root', () => {
 
     const TestComponent = localVue.extend({
       mixins: [listenOnRootMixin]
-      created: {
+      created() {
         this.listenOnRoot('root-on', spyOn)
-        this.listenOnRootOnce('root-once', spyOn)
+        this.listenOnRootOnce('root-once', spyOnce)
       },
       render(h) {
         return h('div', {}, this.$slots.default)
