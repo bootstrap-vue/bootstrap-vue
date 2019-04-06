@@ -44,6 +44,24 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
+// Query a backdrop for it's default Z-Index from defined CSS styles
+let BASE_ZINDEX = null
+const getModalZIndexOffset = () => {
+  if (BASE_ZINDEX) {
+    return BASE_ZINDEX
+  }
+  // Create a temporary backdrop element
+  const $backdrop = document.createElement('div')
+  $backdrop.className = 'modal-backdrop'
+  $backdrop.style.display = 'none'
+  document.body.appendChild($backdrop)
+  // Query the backdrop for it's z-index, or fallback to default of 1040
+  BASE_ZINDEX = getCS($backdrop).zIndex || 1040
+  document.body.removeChild($backdrop)
+  // Return the value
+  return BASE_ZINDEX
+}
+
 // Modal open count helpers
 const getModalOpenCount = () => parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
 
@@ -66,7 +84,6 @@ const getModalMaxZIndex = () => {
   )
 }
 
-const getModalZIndexOffset = () => getComponentConfig(NAME, 'zIndexOffset')
 const getModalZIndexIncrement = () => getComponentConfig(NAME, 'zIndexIncrement')
 
 // Returns the next z-index to be used by a modal to ensure proper
