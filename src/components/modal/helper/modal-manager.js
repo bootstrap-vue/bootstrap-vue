@@ -4,7 +4,7 @@
 // Handles controlling modal stacking zIndexes and body adjustments/classes
 //
 import Vue from 'vue'
-import ( inBrowser } from '../../../utils/env'
+import { inBrowser } from '../../../utils/env'
 import {
   getAttr,
   hasAttr,
