@@ -630,10 +630,8 @@ export default Vue.extend({
     returnFocusTo() {
       // Prefer `returnFocus` prop over event specified `return_focus` value
       let el = this.returnFocus || this.return_focus || document.activeElement || null
-      if (typeof el === 'string') {
-        // CSS Selector
-        el = select(el)
-      }
+      // Is el a string CSS Selector?
+      el = typeof el === 'string' ? select(el) : el
       if (el) {
         // Possibly could be a component reference
         el = el.$el || el
