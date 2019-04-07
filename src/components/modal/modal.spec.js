@@ -902,9 +902,15 @@ describe('modal', () => {
   })
 
   describe('return focus support', () => {
+    const localVue = new CreateLOcalVue()
+
     it('returns focus to document.body when no return focus set and not using v-b-toggle', async () => {
+      // JSDOM won't focus the document unless it has a tab index
+      document.body.tabIndex = 0
+
       const wrapper = mount(BModal, {
         attachToDocument: true,
+        localVue: localVue,
         stubs: {
           transition: false
         },
@@ -960,10 +966,9 @@ describe('modal', () => {
     })
 
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
-      const localVue = new CreateLocalVue()
       const App = localVue.extend({
         render(h) {
-          h('div', {}, [
+          return h('div', {}, [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
           ])
@@ -971,6 +976,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachToDocument: true,
+        localVue: localVue,
         stubs: {
           transition: false
         }
@@ -1033,10 +1039,9 @@ describe('modal', () => {
     })
 
     it('returns focus to element specified in toggle() method', async () => {
-      const localVue = new CreateLocalVue()
       const App = localVue.extend({
         render(h) {
-          h('div', {}, [
+          return h('div', {}, [
             h('button', { class: 'trigegr', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(
               'button',
@@ -1049,6 +1054,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachToDocument: true,
+        localVue: localVue,
         stubs: {
           transition: false
         }
