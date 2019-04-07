@@ -1,5 +1,5 @@
 import BModal from './modal'
-import BvEvent from '../../utils/bv-event.class'
+import BvModalEvent from './helpers/bv-modal-event.class'
 
 import { mount, createWrapper } from '@vue/test-utils'
 
@@ -353,7 +353,7 @@ describe('modal', () => {
       // Try and close modal (but we prevent it)
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
-      expect(evt).toBeInstanceOf(BvEvent)
+      expect(evt).toBeInstanceOf(BvModalEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -369,7 +369,7 @@ describe('modal', () => {
       evt = null
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
-      expect(evt).toBeInstanceOf(BvEvent)
+      expect(evt).toBeInstanceOf(BvModalEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
