@@ -934,6 +934,8 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -947,6 +949,8 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -978,6 +982,8 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1001,6 +1007,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
       await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -1016,6 +1023,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
       await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1030,7 +1038,11 @@ describe('modal', () => {
         render(h) {
           h('div', {}, [
             h('button', { class: 'trigegr', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h('button', { class: 'return-to', attrs: { id: 'return-to', type: 'button' } }, 'trigger'),
+            h(
+              'button',
+              { class: 'return-to', attrs: { id: 'return-to', type: 'button' } },
+              'trigger'
+            ),
             h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
           ])
         }
@@ -1048,6 +1060,8 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1075,6 +1089,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
       await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -1090,6 +1105,7 @@ describe('modal', () => {
       await waitAF()
       await wrapper.vm.$nextTick()
       await waitAF()
+      await wrapper.vm.$nextTick()
       await wrapper.vm.$nextTick()
 
       // Modal should now be closed
