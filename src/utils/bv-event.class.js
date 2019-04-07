@@ -64,11 +64,6 @@ class BvModalEvent extends BvEvent {
     })
   }
 
-  get isOK() /* istanbul ignore next */ {
-    warn(`b-modal: evt.isOK is deprecated. Please use evt.trigger === 'ok'.`)
-    return this.trigger === 'ok'
-  }
-
   cancel() /* istanbul ignore next */ {
     // Backwards compatibility
     warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
