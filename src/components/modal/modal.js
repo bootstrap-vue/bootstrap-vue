@@ -363,6 +363,13 @@ export default Vue.extend({
         return
       }
       this.is_opening = true
+      if (inBrowser && document.activeElement.focus) {
+        // Preset the fallback return focus value if it is not set.
+        // document.activeElement should be the trigger element that was clicked or
+        // in the case of using the v-model, which ever element has current focus.
+        // Will be overridden by some commands such as toggle, etc.
+        this.return_focus = this.return_focus || document.activeElement
+      }
       const showEvt = new BvModalEvent('show', {
         cancelable: true,
         vueTarget: this,
@@ -577,7 +584,7 @@ export default Vue.extend({
     // Root listener handlers
     showHandler(id, triggerEl) {
       if (id === this.id) {
-        this.return_focus = triggerEl || null
+        this.return_focus = triggerEl || document.activeElement || null
         this.show()
       }
     },
@@ -606,11 +613,8 @@ export default Vue.extend({
       if (inBrowser) {
         const modal = this.$refs.modal
         const activeElement = document.activeElement
-        if (activeElement && contains(modal, activeElement)) {
-          // If `activeElement` is child of modal or is modal, no need to change focus
-          return
-        }
-        if (modal) {
+        // If the modal contains the activeElement, we don't do anything
+        if (modal && !(activeElement && contains(modal, activeElement))) {
           // Make sure top of modal is showing (if longer than the viewport)
           // and focus the modal content wrapper
           this.$nextTick(() => {
@@ -622,14 +626,13 @@ export default Vue.extend({
     },
     returnFocusTo() {
       // Prefer `returnFocus` prop over event specified `return_focus` value
-      let el = this.returnFocus || this.return_focus || null
-      if (typeof el === 'string') {
-        // CSS Selector
-        el = select(el)
-      }
+      let el = this.returnFocus || this.return_focus || document.activeElement || null
+      // Is el a string CSS Selector?
+      el = typeof el === 'string' ? select(el) : el
       if (el) {
+        // Possibly could be a component reference
         el = el.$el || el
-        if (isVisible(el)) {
+        if (isVisible(el) && el.focus) {
           el.focus()
         }
       }
