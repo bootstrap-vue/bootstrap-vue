@@ -613,11 +613,8 @@ export default Vue.extend({
       if (inBrowser) {
         const modal = this.$refs.modal
         const activeElement = document.activeElement
-        if (activeElement && contains(modal, activeElement)) {
-          // If `activeElement` is child of modal or is modal, no need to change focus
-          return
-        }
-        if (modal) {
+        // If the modal contains the activeElement, we don't do anything
+        if (modal && !(activeElement && contains(modal, activeElement))) {
           // Make sure top of modal is showing (if longer than the viewport)
           // and focus the modal content wrapper
           this.$nextTick(() => {
