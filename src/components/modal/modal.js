@@ -25,6 +25,9 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
+// Options for DOM event listeners
+const EVT_OPTIONS = { passive: true, capture: false }
+
 export const props = {
   title: {
     type: String,
@@ -221,8 +224,9 @@ export default Vue.extend({
       is_transitioning: false, // Used for style control
       is_show: false, // Used for style control
       is_block: false, // Used for style control
-      is_opening: false, // Semaphore for preventing incorrect modal open counts
-      is_closing: false, // Semaphore for preventing incorrect modal open counts
+      is_opening: false, // To sginal that modal is in the process of opening
+      is_closing: false, // To signal that the modal is in the process of closing
+      ignoreBackdropClick: false, // Used to signify if click out listener should ignore the click
       isModalOverflowing: false,
       return_focus: this.returnFocus || null,
       // The following items are controlled by the modalManager instance
@@ -517,10 +521,28 @@ export default Vue.extend({
       this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
+    onDialogMousedown(evt) {
+      // Watch to see if the matching mouseup event occurs outside the dialog
+      // And if it does, cancel the clickout handler
+      const modal = this.$refs.modal
+      const onceModalMouseup = evt => {
+        eventOff(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
+        if (evt.target === modal) {
+          this.ignoreBackdropClick = true
+        }
+      }
+      eventOn(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
+    },
     onClickOut(evt) {
       // Do nothing if not visible, backdrop click disabled, or element
       // that generated click event is no longer in document
       if (!this.is_visible || this.noCloseOnBackdrop || !contains(document, evt.target)) {
+        return
+      }
+      if (this.ignoreBackdropClick) {
+        // Click was initiated inside the modal content, but finished outside
+        // Set by the above onDialogMousedown handler
+        this.ignoreBackdropClick = false
         return
       }
       // If backdrop clicked, hide modal
@@ -552,15 +574,14 @@ export default Vue.extend({
     // Turn on/off focusin listener
     setEnforceFocus(on) {
       const method = on ? eventOn : eventOff
-      method(document, 'focusin', this.focusHandler, { passive: true, capture: false })
+      method(document, 'focusin', this.focusHandler, EVT_OPTIONS)
     },
     // Resize listener
     setResizeEvent(on) {
-      const options = { passive: true, capture: false }
       const method = on ? eventOn : eventOff
       // These events should probably also check if body is overflowing
-      method(window, 'resize', this.checkModalOverflow, options)
-      method(window, 'orientationchange', this.checkModalOverflow, options)
+      method(window, 'resize', this.checkModalOverflow, EVT_OPTIONS)
+      method(window, 'orientationchange', this.checkModalOverflow, EVT_OPTIONS)
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
@@ -758,7 +779,10 @@ export default Vue.extend({
       'div',
       {
         staticClass: 'modal-dialog',
-        class: this.dialogClasses
+        class: this.dialogClasses,
+        on: {
+          mousedown: this.onDialogMousedown
+        }
       },
       [modalContent]
     )
