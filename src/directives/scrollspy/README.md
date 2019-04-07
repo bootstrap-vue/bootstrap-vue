@@ -101,8 +101,8 @@ as well.
 
 ### Example using nested navs
 
-Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is active, its parent()s
-will also be active. Scroll the area next to the navbar and watch the active class change.
+Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is active, its parent()s will
+also be active. Scroll the area next to the navbar and watch the active class change.
 
 ```html
 <template>
@@ -243,8 +243,8 @@ of the following methods to generate the apropriate `href` on the rendered link:
 <b-nav-item :to="{ hash: '#id-of-element' }">link text</b-nav-item>
 ```
 
-Scrollspy works with both `history` and `hash` routing modes, as long as the generated URL ends
-with `#id-of-element`.
+Scrollspy works with both `history` and `hash` routing modes, as long as the generated URL ends with
+`#id-of-element`.
 
 ## Directive syntax and usage
 

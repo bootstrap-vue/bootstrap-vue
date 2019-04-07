@@ -27,9 +27,9 @@ Set the type of embed you would like via the `type` prop.
 
 ## Aspect ratios
 
-Aspect ratios can be set via the `aspect` prop. Supported aspect ratios are: `21by9` (21:9),
-`16by9` (16:9), `4by3` (4:3) and `1by1` (1:1). The default aspect is `16by9`. Aspect ratios are
-defined in Bootstrap's SCSS and translate to the classname `embed-responsive-{aspect}` (i.e.
+Aspect ratios can be set via the `aspect` prop. Supported aspect ratios are: `21by9` (21:9), `16by9`
+(16:9), `4by3` (4:3) and `1by1` (1:1). The default aspect is `16by9`. Aspect ratios are defined in
+Bootstrap's SCSS and translate to the classname `embed-responsive-{aspect}` (i.e.
 `embed-responsive-16by9`, `embed-responsive-4by3`, excetera).
 
 ## Wrapper element
