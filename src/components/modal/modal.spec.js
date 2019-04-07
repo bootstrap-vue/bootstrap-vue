@@ -656,6 +656,20 @@ describe('modal', () => {
       // Modal should not be closed
       expect($modal.element.style.display).toEqual('')
 
+      // Try and close modal via click out
+      $modal.trigger('click')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      expect(called).toEqual(true)
+      expect(trigger).toEqual('backdrop')
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+
       wrapper.destroy()
     })
 
