@@ -1,41 +1,21 @@
 import BButton from '../button/button'
 import BButtonClose from '../button/button-close'
+import modalManager from './helpers/modal-manager'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
+import { inBrowser } from '../../utils/env'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-import {
-  addClass,
-  contains,
-  eventOff,
-  eventOn,
-  getAttr,
-  getBCR,
-  getCS,
-  hasAttr,
-  hasClass,
-  isVisible,
-  removeAttr,
-  removeClass,
-  select,
-  selectAll,
-  setAttr
-} from '../../utils/dom'
+import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
 
 const NAME = 'BModal'
 
-// Selectors for padding/margin adjustments
-const Selector = {
-  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-  STICKY_CONTENT: '.sticky-top',
-  NAVBAR_TOGGLER: '.navbar-toggler'
-}
-
-// ObserveDom config
+// ObserveDom config to detect changes in modal content
+// so that we can adjust the modal padding if needed
 const OBSERVER_CONFIG = {
   subtree: true,
   childList: true,
@@ -43,34 +23,6 @@ const OBSERVER_CONFIG = {
   attributes: true,
   attributeFilter: ['style', 'class']
 }
-
-// Modal open count helpers
-const getModalOpenCount = () => parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
-
-const setModalOpenCount = count => {
-  setAttr(document.body, 'data-modal-open-count', String(count))
-  return count
-}
-
-const incrementModalOpenCount = () => setModalOpenCount(getModalOpenCount() + 1)
-const decrementModalOpenCount = () => setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
-
-// Returns the current visible modal highest z-index
-const getModalMaxZIndex = () => {
-  return (
-    selectAll('div.modal') // Find all modals that are in document
-      .filter(isVisible) // Filter only visible ones
-      .map(m => m.parentElement) // Select the outer div
-      // Compute the highest z-index
-      .reduce((max, el) => Math.max(max, parseInt(el.style.zIndex || 0, 10)), 0)
-  )
-}
-
-const getModalZIndexOffset = () => getComponentConfig(NAME, 'zIndexOffset')
-
-// Returns the next z-index to be used by a modal to ensure proper
-// stacking regardless of document order
-const getModalNextZIndex = () => getModalMaxZIndex() + getModalZIndexOffset()
 
 // @vue/component
 export default {
@@ -269,17 +221,16 @@ export default {
       is_block: false, // Used for style control
       is_opening: false, // Semaphore for preventing incorrect modal open counts
       is_closing: false, // Semaphore for preventing incorrect modal open counts
+      isModalOverflowing: false,
+      return_focus: this.returnFocus || null,
+      // The following items are controlled by the modalManager instance
       scrollbarWidth: 0,
-      zIndex: 0, // z-index for modal stacking
-      isTop: true, // If the modal is the topmost opened modal
-      isBodyOverflowing: false,
-      return_focus: this.returnFocus || null
+      zIndex: modalManager.getBaseZIndex(),
+      isTop: true,
+      isBodyOverflowing: false
     }
   },
   computed: {
-    contentClasses() {
-      return ['modal-content', this.contentClass]
-    },
     modalClasses() {
       return [
         {
@@ -289,6 +240,13 @@ export default {
         },
         this.modalClass
       ]
+    },
+    modalStyles() {
+      const sbWidth = `${this.scrollbarWidth}px`
+      return {
+        paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
+        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : ''
+      }
     },
     dialogClasses() {
       return [
@@ -336,8 +294,8 @@ export default {
       ]
     },
     modalOuterStyle() {
+      // Styles needed for proper stacking of modals
       return {
-        // We only set these styles on the stacked modals (z-index > 0)
         position: 'absolute',
         zIndex: this.zIndex
       }
@@ -353,16 +311,14 @@ export default {
   created() {
     // Define non-reactive properties
     this._observer = null
-    // Set initial z-index defined in the config
-    this.zIndex = getModalZIndexOffset()
   },
   mounted() {
+    // Set initial z-index as queried from the DOM
+    this.zIndex = modalManager.getBaseZIndex()
     // Listen for events from others to either open or close ourselves
     // and listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
     // Listen for `bv:modal::show events`, and close ourselves if the
     // opening modal not us
@@ -378,21 +334,12 @@ export default {
       this._observer.disconnect()
       this._observer = null
     }
-    // Ensure our root 'once' listener is gone
-    this.$root.$off('bv::modal::hidden', this.doShow)
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
     if (this.is_visible) {
       this.is_visible = false
       this.is_show = false
       this.is_transitioning = false
-      const count = decrementModalOpenCount()
-      if (count === 0) {
-        // Re-adjust body/navbar/fixed padding/margins (as we were the last modal open)
-        this.setModalOpenClass(false)
-        this.resetScrollbar()
-        this.resetDialogAdjustments()
-      }
     }
   },
   methods: {
@@ -415,21 +362,14 @@ export default {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
-        modalId: this.safeId(),
-        relatedTarget: null
+        relatedTarget: null,
+        // Modal specifi properties
+        modalId: this.safeId()
       })
       this.emitEvent(showEvt)
       // Don't show if canceled
       if (showEvt.defaultPrevented || this.is_visible) {
         this.is_opening = false
-        return
-      }
-      if (!this.noStacking) {
-        // Find the z-index to use
-        this.zIndex = getModalNextZIndex()
-      } else if (hasClass(document.body, 'modal-open')) {
-        // If another modal is already open, wait for it to close
-        this.$root.$once('bv::modal::hidden', this.doShow)
         return
       }
       // Show the modal
@@ -442,13 +382,13 @@ export default {
       }
       this.is_closing = true
       const hideEvt = new BvEvent('hide', {
+        // BvEvent standard properties
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
-        modalId: this.safeId(),
-        // This could be the trigger element/component reference
         relatedTarget: null,
-        isOK: trigger || null,
+        // Modal specific properties and methods
+        modalId: this.safeId(),
         trigger: trigger || null,
         cancel() /* istanbul ignore next */ {
           // Backwards compatibility
@@ -456,10 +396,13 @@ export default {
           this.preventDefault()
         }
       })
+      // We emit specific event for one of the three built-in buttons
       if (trigger === 'ok') {
         this.$emit('ok', hideEvt)
       } else if (trigger === 'cancel') {
         this.$emit('cancel', hideEvt)
+      } else if (trigger === 'headerclose') {
+        this.$emit('close', hideEvt)
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
@@ -473,6 +416,7 @@ export default {
         this._observer = null
       }
       this.is_visible = false
+      // Update the v-model
       this.$emit('change', false)
     },
     // Public method to toggle modal visibility
@@ -488,6 +432,12 @@ export default {
     },
     // Private method to finish showing modal
     doShow() {
+      /* istanbul ignore next: commenting out for now until we can test stacking */
+      if (modalManager.modalsAreOpen && this.noStacking) {
+        // If another modal(s) is already open, wait for it(them) to close
+        this.listenOnRootOnce('bv::modal::hidden', this.doShow)
+        return
+      }
       // Place modal in DOM if lazy
       this.is_hidden = false
       this.$nextTick(() => {
@@ -495,26 +445,21 @@ export default {
         // before we show it
         this.is_visible = true
         this.is_opening = false
+        // Update the v-model
         this.$emit('change', true)
         // Observe changes in modal content and adjust if necessary
         this._observer = observeDom(
           this.$refs.content,
-          this.adjustDialog.bind(this),
+          this.checkModalOverflow.bind(this),
           OBSERVER_CONFIG
         )
       })
     },
     // Transition handlers
     onBeforeEnter() {
-      this.getScrollbarWidth()
       this.is_transitioning = true
-      this.checkScrollbar()
-      const count = incrementModalOpenCount()
-      if (count === 1) {
-        this.setScrollbar()
-        this.setModalOpenClass(true)
-      }
-      this.adjustDialog()
+      modalManager.registerModal(this)
+      this.checkModalOverflow()
       this.setResizeEvent(true)
     },
     onEnter() {
@@ -528,8 +473,8 @@ export default {
           cancelable: false,
           vueTarget: this,
           target: this.$refs.modal,
-          modalId: this.safeId(),
-          relatedTarget: null
+          relatedTarget: null,
+          modalId: this.safeId()
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
@@ -546,34 +491,28 @@ export default {
     },
     onAfterLeave() {
       this.is_block = false
-      this.resetDialogAdjustments()
       this.is_transitioning = false
-      const count = decrementModalOpenCount()
-      if (count === 0) {
-        this.resetScrollbar()
-        this.setModalOpenClass(false)
-      }
       this.setEnforceFocus(false)
+      this.isModalOverflowing = false
       this.$nextTick(() => {
-        this.is_hidden = this.lazy || false
-        this.zIndex = getModalZIndexOffset()
         this.returnFocusTo()
         this.is_closing = false
         const hiddenEvt = new BvEvent('hidden', {
           cancelable: false,
           vueTarget: this,
           target: this.lazy ? null : this.$refs.modal,
-          modalId: this.safeId(),
-          relatedTarget: null
+          relatedTarget: null,
+          modalId: this.safeId()
         })
         this.emitEvent(hiddenEvt)
+        modalManager.unregisterModal(this)
       })
     },
     // Event emitter
     emitEvent(bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::modal::${type}`, bvEvt, this.safeId())
+      this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
     onClickOut(evt) {
@@ -617,8 +556,9 @@ export default {
     setResizeEvent(on) {
       const options = { passive: true, capture: false }
       const method = on ? eventOn : eventOff
-      method(window, 'resize', this.adjustDialog, options)
-      method(window, 'orientationchange', this.adjustDialog, options)
+      // These events should probably also check if body is overflowing
+      method(window, 'resize', this.checkModalOverflow, options)
+      method(window, 'orientationchange', this.checkModalOverflow, options)
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
@@ -637,42 +577,33 @@ export default {
         this.toggle(triggerEl)
       }
     },
-    shownHandler() {
-      this.setTop()
-    },
-    hiddenHandler() {
-      this.setTop()
-    },
-    setTop() {
-      // Determine if we are the topmost visible modal
-      this.isTop = this.zIndex >= getModalMaxZIndex()
-    },
     modalListener(bvEvt) {
-      // If another modal opens, close this one
+      // If another modal opens, close this one if stacking not permitted
       if (this.noStacking && bvEvt.vueTarget !== this) {
         this.hide()
       }
     },
     // Focus control handlers
     focusFirst() {
+      // TODO:
+      //   Add support for finding input element with 'autofocus' attribute set
+      //   and focus that element
       // Don't try and focus if we are SSR
-      if (typeof document === 'undefined') {
-        /* istanbul ignore next */
-        return
-      }
-      const modal = this.$refs.modal
-      const activeElement = document.activeElement
-      if (activeElement && contains(modal, activeElement)) {
-        // If `activeElement` is child of modal or is modal, no need to change focus
-        return
-      }
-      if (modal) {
-        // Make sure top of modal is showing (if longer than the viewport)
-        // and focus the modal content wrapper
-        this.$nextTick(() => {
-          modal.scrollTop = 0
-          modal.focus()
-        })
+      if (inBrowser) {
+        const modal = this.$refs.modal
+        const activeElement = document.activeElement
+        if (activeElement && contains(modal, activeElement)) {
+          // If `activeElement` is child of modal or is modal, no need to change focus
+          return
+        }
+        if (modal) {
+          // Make sure top of modal is showing (if longer than the viewport)
+          // and focus the modal content wrapper
+          this.$nextTick(() => {
+            modal.scrollTop = 0
+            modal.focus()
+          })
+        }
       }
     },
     returnFocusTo() {
@@ -689,122 +620,10 @@ export default {
         }
       }
     },
-    // Utility methods
-    getScrollbarWidth() {
-      const scrollDiv = document.createElement('div')
-      scrollDiv.className = 'modal-scrollbar-measure'
-      document.body.appendChild(scrollDiv)
-      this.scrollbarWidth = getBCR(scrollDiv).width - scrollDiv.clientWidth
-      document.body.removeChild(scrollDiv)
-    },
-    setModalOpenClass(open) {
-      const method = open ? addClass : removeClass
-      method(document.body, 'modal-open')
-    },
-    adjustDialog() {
-      if (!this.is_visible) {
-        /* istanbul ignore next */
-        return
-      }
-      const modal = this.$refs.modal
-      const isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
-      /* istanbul ignore if: can't test in JSDOM */
-      if (!this.isBodyOverflowing && isModalOverflowing) {
-        modal.style.paddingLeft = `${this.scrollbarWidth}px`
-      } else {
-        modal.style.paddingLeft = ''
-      }
-      /* istanbul ignore else: can't test in JSDOM */
-      if (this.isBodyOverflowing && !isModalOverflowing) {
-        modal.style.paddingRight = `${this.scrollbarWidth}px`
-      } else {
-        modal.style.paddingRight = ''
-      }
-    },
-    resetDialogAdjustments() {
-      const modal = this.$refs.modal
-      if (modal) {
-        modal.style.paddingLeft = ''
-        modal.style.paddingRight = ''
-      }
-    },
-    checkScrollbar() {
-      const { left, right, height } = getBCR(document.body)
-      // Extra check for body.height needed for stacked modals
-      this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
-    },
-    setScrollbar() {
-      const body = document.body
-      // Storage place to cache changes to margins and padding
-      // Note: This assumes the following element types are not added
-      // to the document after the modal has opened.
-      body._paddingChangedForModal = body._paddingChangedForModal || []
-      body._marginChangedForModal = body._marginChangedForModal || []
-      /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
-      if (this.isBodyOverflowing) {
-        // Note: `DOMNode.style.paddingRight returns` the actual value or ''
-        // if not set while `$(DOMNode).css('padding-right')` returns the
-        // calculated value or 0 if not set
-        const scrollbarWidth = this.scrollbarWidth
-        // Adjust fixed content padding
-        selectAll(Selector.FIXED_CONTENT).forEach(el => {
-          const actualPadding = el.style.paddingRight
-          const calculatedPadding = getCS(el).paddingRight || 0
-          setAttr(el, 'data-padding-right', actualPadding)
-          el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
-          body._paddingChangedForModal.push(el)
-        })
-        // Adjust sticky content margin
-        selectAll(Selector.STICKY_CONTENT).forEach(el => {
-          const actualMargin = el.style.marginRight
-          const calculatedMargin = getCS(el).marginRight || 0
-          setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`
-          body._marginChangedForModal.push(el)
-        })
-        // Adjust navbar-toggler margin
-        selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
-          const actualMargin = el.style.marginRight
-          const calculatedMargin = getCS(el).marginRight || 0
-          setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${parseFloat(calculatedMargin) + scrollbarWidth}px`
-          body._marginChangedForModal.push(el)
-        })
-        // Adjust body padding
-        const actualPadding = body.style.paddingRight
-        const calculatedPadding = getCS(body).paddingRight
-        setAttr(body, 'data-padding-right', actualPadding)
-        body.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
-      }
-    },
-    resetScrollbar() {
-      const body = document.body
-      if (body._paddingChangedForModal) {
-        // Restore fixed content padding
-        body._paddingChangedForModal.forEach(el => {
-          /* istanbul ignore next: can't test in JSDOM */
-          if (hasAttr(el, 'data-padding-right')) {
-            el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
-            removeAttr(el, 'data-padding-right')
-          }
-        })
-      }
-      if (body._marginChangedForModal) {
-        // Restore sticky content and navbar-toggler margin
-        body._marginChangedForModal.forEach(el => {
-          /* istanbul ignore next: can't test in JSDOM */
-          if (hasAttr(el, 'data-margin-right')) {
-            el.style.marginRight = getAttr(el, 'data-margin-right') || ''
-            removeAttr(el, 'data-margin-right')
-          }
-        })
-      }
-      body._paddingChangedForModal = null
-      body._marginChangedForModal = null
-      // Restore body padding
-      if (hasAttr(body, 'data-padding-right')) {
-        body.style.paddingRight = getAttr(body, 'data-padding-right') || ''
-        removeAttr(body, 'data-padding-right')
+    checkModalOverflow() {
+      if (this.is_visible) {
+        const modal = this.$refs.modal
+        this.isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
       }
     }
   },
@@ -921,7 +740,8 @@ export default {
       'div',
       {
         ref: 'content',
-        class: this.contentClasses,
+        staticClass: 'modal-content',
+        class: this.contentClass,
         attrs: {
           role: 'document',
           id: this.safeId('__BV_modal_content_'),
@@ -947,6 +767,7 @@ export default {
         ref: 'modal',
         staticClass: 'modal',
         class: this.modalClasses,
+        style: this.modalStyles,
         directives: [
           { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
         ],
