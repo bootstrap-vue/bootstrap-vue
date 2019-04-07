@@ -902,7 +902,7 @@ describe('modal', () => {
   })
 
   describe('return focus support', () => {
-    const localVue = new CreateLOcalVue()
+    const localVue = new CreateLocalVue()
 
     it('returns focus to document.body when no return focus set and not using v-b-toggle', async () => {
       // JSDOM won't focus the document unless it has a tab index
