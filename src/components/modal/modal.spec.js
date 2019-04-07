@@ -901,7 +901,7 @@ describe('modal', () => {
     })
   })
 
-  describe('return focus support', () => {
+  describe('focus management', () => {
     const localVue = new CreateLocalVue()
 
     it('returns focus to document.body when no return focus set and not using v-b-toggle', async () => {
@@ -1117,6 +1117,60 @@ describe('modal', () => {
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
       expect(document.activeElement).toBe($button2.element)
+
+      wrapper.destroy()
+    })
+
+    it('if focus leave modal it reutrns to modal', async () => {
+      const App = localVue.extend({
+        render(h) {
+          return h('div', {}, [
+            h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h(BModal, { props: { id: 'test', visible: true } }, 'modal content')
+          ])
+        }
+      })
+      const wrapper = mount(App, {
+        attachToDocument: true,
+        localVue: localVue,
+        stubs: {
+          transition: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+
+      const $button = wrapper.find('button.trigger')
+      expect($button.exists()).toBe(true)
+      expect($button.is('button')).toBe(true)
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('')
+      expect(document.activeElement).not.toBe(document.body)
+      expect(document.activeElement).toBe($modal.element)
+
+      // Try anf set focusin on external button
+      $button.trigger('focusin')
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).not.toBe($button.element)
+      expect(document.activeElement).toBe($modal.element)
+
+      // Try anf set focusin on external button
+      $button.trigger('focus')
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+      expect(document.activeElement).not.toBe($button.element)
+      expect(document.activeElement).toBe($modal.element)
 
       wrapper.destroy()
     })
