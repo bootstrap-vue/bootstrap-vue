@@ -52,6 +52,11 @@ renderer.table = function(header, body) {
   return `<div class="table-responsive-sm">${table}</div>`
 }
 
+// Convert lead-in blockquote paragraphs to true bootstrap docs leads
+renderer.blockquote = function(text) {
+  return `<p class="bd-lead">${text}</p>`
+}
+
 module.exports = {
   srcDir: __dirname,
 
