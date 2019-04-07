@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
@@ -5,7 +6,7 @@ import { requestAF } from '../../utils/dom'
 const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BTab',
   mixins: [idMixin],
   inject: {
@@ -227,4 +228,4 @@ export default {
       [content]
     )
   }
-}
+})

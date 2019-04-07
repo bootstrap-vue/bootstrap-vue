@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { arrayIncludes } from '../../utils/array'
 
@@ -19,7 +20,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BEmbed',
   functional: true,
   props,
@@ -36,4 +37,4 @@ export default {
       [h(props.type, mergeData(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
     )
   }
-}
+})

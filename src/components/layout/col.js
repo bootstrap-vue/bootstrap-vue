@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
@@ -91,7 +92,7 @@ export default (resolve, reject) => {
    * but always render when col=true.
    */
   // @vue/component
-  const BCol = {
+  const BCol = Vue.extend({
     name: 'BCol',
     functional: true,
     props: {
@@ -149,7 +150,7 @@ export default (resolve, reject) => {
 
       return h(props.tag, mergeData(data, { class: classList }), children)
     }
-  }
+  })
 
   // Return the config on demand
   resolve(BCol)

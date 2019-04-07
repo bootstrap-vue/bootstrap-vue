@@ -1,7 +1,7 @@
 # Tables
 
-> For displaying tabular data. `<b-table>` supports pagination, filtering, sorting, custom
-> rendering, events, and asynchronous data.
+> For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
+> rendering, various style options, events, and asynchronous data.
 
 **Example: Basic usage**
 
@@ -2058,7 +2058,7 @@ differences between operating systems, this too is not a preventable default beh
     },
     mounted() {
       // Set the initial number of items
-      totalRows = this.items.length
+      this.totalRows = this.items.length
     },
     methods: {
       info(item, index, button) {

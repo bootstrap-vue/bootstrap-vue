@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { isArray } from '../../utils/array'
 import toString from '../../utils/to-string'
@@ -11,7 +12,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BBreadcrumb',
   functional: true,
   props,
@@ -40,4 +41,4 @@ export default {
 
     return h('ol', mergeData(data, { staticClass: 'breadcrumb' }), childNodes)
   }
-}
+})

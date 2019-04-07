@@ -1,4 +1,6 @@
 import { htmlOrText } from '../utils/html'
+import BFormCheckbox from '../components/form-checkbox/form-checkbox'
+import BFormRadio from '../components/form-radio/form-radio'
 
 // @vue/component
 export default {
@@ -76,7 +78,7 @@ export default {
     const inputs = this.formOptions.map((option, idx) => {
       const uid = `_BV_option_${idx}_`
       return h(
-        this.is_RadioGroup ? 'b-form-radio' : 'b-form-checkbox',
+        this.is_RadioGroup ? BFormRadio : BFormCheckbox,
         {
           key: uid,
           props: {

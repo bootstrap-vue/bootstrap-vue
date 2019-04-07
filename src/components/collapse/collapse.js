@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import { inBrowser } from '../../utils/env'
 import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
@@ -16,7 +17,7 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 const EventOptions = { passive: true, capture: false }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCollapse',
   mixins: [listenOnRootMixin],
   model: {
@@ -230,4 +231,4 @@ export default {
       [content]
     )
   }
-}
+})

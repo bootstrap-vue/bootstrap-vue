@@ -42,6 +42,11 @@ renderer.heading = function(text, level, raw, slugger) {
   return `<h${level} id="${link}">${getTextMarkup(text + anchor)}</h${level}>\n`
 }
 
+// Convert lead-in blockquote paragraphs to true bootstrap docs leads
+renderer.blockquote = function(text) {
+  return text.replace('<p>', '<p class="bd-lead">')
+}
+
 // BS4 table support for markdown renderer
 const originalTable = renderer.table
 renderer.table = function(header, body) {

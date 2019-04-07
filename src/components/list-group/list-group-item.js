@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
@@ -28,7 +29,7 @@ export const props = {
   ...linkProps
 }
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BListGroupItem',
   functional: true,
   props,
@@ -65,4 +66,4 @@ export default {
 
     return h(tag, mergeData(data, componentData), children)
   }
-}
+})

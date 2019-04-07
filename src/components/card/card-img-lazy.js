@@ -1,10 +1,11 @@
-import BImgLazy from '../image/img-lazy'
+import Vue from 'vue'
+import BImgLazy, { props as imgLazyProps } from '../image/img-lazy'
 import { omit } from '../../utils/object'
 import { mergeData } from 'vue-functional-data-merge'
 
 // Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
 // The `omit()` util creates a new object, so we can just pass the original props
-const lazyProps = omit(BImgLazy.props, [
+const lazyProps = omit(imgLazyProps, [
   'left',
   'right',
   'center',
@@ -46,7 +47,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCardImgLazy',
   functional: true,
   props,
@@ -72,4 +73,4 @@ export default {
       })
     )
   }
-}
+})
