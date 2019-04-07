@@ -960,7 +960,7 @@ describe('modal', () => {
       const App = localVue.extend({
         render(h) {
           h('div', {}, [
-            h('button', { attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
           ])
         }
@@ -979,7 +979,7 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
 
-      const $button = wrapper.find('button#trigger')
+      const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
       expect($button.is('button')).toBe(true)
 
@@ -1027,8 +1027,8 @@ describe('modal', () => {
       const App = localVue.extend({
         render(h) {
           h('div', {}, [
-            h('button', { attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h('button', { attrs: { id: 'return-to', type: 'button' } }, 'trigger'),
+            h('button', { class: 'trigegr', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h('button', { classL 'return-to', attrs: { id: 'return-to', type: 'button' } }, 'trigger'),
             h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
           ])
         }
@@ -1047,11 +1047,11 @@ describe('modal', () => {
       await wrapper.vm.$nextTick()
       await waitAF()
 
-      const $button = wrapper.find('button#trigger')
+      const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
       expect($button.is('button')).toBe(true)
 
-      const $button2 = wrapper.find('button#return-to')
+      const $button2 = wrapper.find('button.return-to')
       expect($button2.exists()).toBe(true)
       expect($button2.is('button')).toBe(true)
 
@@ -1066,7 +1066,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via .toggle() method
-      $modal.vm.toggle('#return-to')
+      $modal.vm.toggle('button.return-to')
 
       await wrapper.vm.$nextTick()
       await waitAF()
