@@ -581,7 +581,6 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-
     it('mousedown inside followed by mouse up outside (click) does not close modal', async () => {
       let trigger = null
       let called = false
