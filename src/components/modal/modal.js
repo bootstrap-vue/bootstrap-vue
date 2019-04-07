@@ -521,7 +521,7 @@ export default Vue.extend({
       this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
-    onDialogMousedown(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDialogMousedown(evt) {
       // Watch to see if the matching mouseup event occurs outside the dialog
       // And if it does, cancel the clickout handler
       const modal = this.$refs.modal
@@ -539,7 +539,6 @@ export default Vue.extend({
       if (!this.is_visible || this.noCloseOnBackdrop || !contains(document, evt.target)) {
         return
       }
-      /* istanbul ignore next: difficult to simulate in JSDOM */
       if (this.ignoreBackdropClick) {
         // Click was initiated inside the modal content, but finished outside
         // Set by the above onDialogMousedown handler
