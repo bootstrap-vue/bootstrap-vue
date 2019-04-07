@@ -1,5 +1,4 @@
 import { assign, defineProperty, defineProperties, readonlyDescriptor } from './object'
-import warn from './warn'
 
 class BvEvent {
   constructor(type, eventInit = {}) {
