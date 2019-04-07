@@ -1,5 +1,5 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
-
 import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copy-props'
 import { htmlOrText } from '../../utils/html'
@@ -22,7 +22,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCardHeader',
   functional: true,
   props,
@@ -43,4 +43,4 @@ export default {
       children || [h('div', { domProps: htmlOrText(props.headerHtml, props.header) })]
     )
   }
-}
+})

@@ -1,9 +1,9 @@
-import Form from './form'
+import BForm from './form'
 import { mount } from '@vue/test-utils'
 
 describe('form', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(Form)
+    const wrapper = mount(BForm)
 
     expect(wrapper.is('form')).toBe(true)
     expect(wrapper.classes().length).toBe(0)
@@ -11,7 +11,7 @@ describe('form', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(Form, {
+    const wrapper = mount(BForm, {
       slots: {
         default: 'foobar'
       }
@@ -25,7 +25,7 @@ describe('form', () => {
   })
 
   it('has class form-inline when prop inline set', async () => {
-    const wrapper = mount(Form, {
+    const wrapper = mount(BForm, {
       propsData: {
         inline: true
       }
@@ -40,7 +40,7 @@ describe('form', () => {
   })
 
   it('has class was-validation when prop validated set', async () => {
-    const wrapper = mount(Form, {
+    const wrapper = mount(BForm, {
       propsData: {
         validated: true
       }
@@ -55,7 +55,7 @@ describe('form', () => {
   })
 
   it('has user supplied id', async () => {
-    const wrapper = mount(Form, {
+    const wrapper = mount(BForm, {
       propsData: {
         id: 'foo'
       }
@@ -70,7 +70,7 @@ describe('form', () => {
   })
 
   it('has attribute novalidate when prop novalidate set', async () => {
-    const wrapper = mount(Form, {
+    const wrapper = mount(BForm, {
       propsData: {
         novalidate: true
       }

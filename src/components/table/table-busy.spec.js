@@ -1,11 +1,11 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 
 describe('table > busy state', () => {
   it('default should have attribute aria-busy=false', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems
       }
@@ -17,7 +17,7 @@ describe('table > busy state', () => {
   })
 
   it('default should have item rows rendered', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems
       }
@@ -35,7 +35,7 @@ describe('table > busy state', () => {
   })
 
   it('should have attribute aria-busy=true when prop busy=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         busy: true,
         items: testItems
@@ -48,7 +48,7 @@ describe('table > busy state', () => {
   })
 
   it('should have attribute aria-busy=true when data localBusy=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems
       }
@@ -67,7 +67,7 @@ describe('table > busy state', () => {
   })
 
   it('should emit update:busy event when data localBusy is toggled', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems
       }
@@ -85,13 +85,13 @@ describe('table > busy state', () => {
   })
 
   it('should render table-busy slot when prop busy=true and slot provided', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         busy: false,
         items: testItems
       },
       slots: {
-        // Note slot data needs to be wrapped in an element.
+        // Note: Slot data needs to be wrapped in an element
         // https://github.com/vue/vue-test-utils/issues:992
         // Will be fixed in v1.0.0-beta.26
         'table-busy': '<span>busy slot content</span>'

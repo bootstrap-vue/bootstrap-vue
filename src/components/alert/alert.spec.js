@@ -1,9 +1,9 @@
-import Alert from './alert'
+import BAlert from './alert'
 import { mount } from '@vue/test-utils'
 
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
-    const wrapper = mount(Alert)
+    const wrapper = mount(BAlert)
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
     expect(wrapper.isEmpty()).toBe(true)
@@ -13,7 +13,7 @@ describe('alert', () => {
   })
 
   it('hidden alert (show = "0") renders comment node', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: '0'
       }
@@ -27,7 +27,7 @@ describe('alert', () => {
   })
 
   it('hidden alert (show = 0) renders comment node', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: 0
       }
@@ -41,7 +41,7 @@ describe('alert', () => {
   })
 
   it('visible alert has default class names and attributes', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true
       }
@@ -65,7 +65,7 @@ describe('alert', () => {
   })
 
   it('visible alert (show = "") has default class names and attributes', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: ''
       }
@@ -89,7 +89,7 @@ describe('alert', () => {
   })
 
   it('visible alert has variant when prop variant is set', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true,
         variant: 'success'
@@ -110,7 +110,7 @@ describe('alert', () => {
   })
 
   it('renders content from default slot', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true
       },
@@ -130,7 +130,7 @@ describe('alert', () => {
   })
 
   it('hidden alert shows when show prop set', async () => {
-    const wrapper = mount(Alert)
+    const wrapper = mount(BAlert)
 
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
@@ -151,7 +151,7 @@ describe('alert', () => {
   })
 
   it('dismissible alert should have class alert-dismissible', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true,
         dismissible: true
@@ -168,7 +168,7 @@ describe('alert', () => {
   })
 
   it('dismissible alert should have close button', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true,
         dismissible: true
@@ -185,7 +185,7 @@ describe('alert', () => {
   })
 
   it('dismissible alert should have close button with custom aria-label', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true,
         dismissible: true,
@@ -203,7 +203,7 @@ describe('alert', () => {
   })
 
   it('dismiss button click should close alert', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true,
         dismissible: true
@@ -234,13 +234,13 @@ describe('alert', () => {
   })
 
   it('should have class fade when prop fade=true', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: true,
         fade: true
       },
       stubs: {
-        // the builtin stub doesn't execute the transition hooks
+        // The builtin stub doesn't execute the transition hooks
         // so we let it use the real transition component
         transition: false
       }
@@ -259,13 +259,13 @@ describe('alert', () => {
   })
 
   it('fade transition works', async () => {
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: false,
         fade: true
       },
       stubs: {
-        // the builtin stub doesn't execute the transition hooks
+        // The builtin stub doesn't execute the transition hooks
         // so we let it use the real transition component
         transition: false
       }
@@ -293,7 +293,7 @@ describe('alert', () => {
     await wrapper.vm.$nextTick()
     await new Promise(resolve => requestAnimationFrame(resolve))
 
-    // dismissed wont be emitted unless dismissible=true or show is a number
+    // Dismissed won't be emitted unless dismissible=true or show is a number
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
 
     expect(wrapper.isEmpty()).toBe(true)
@@ -304,7 +304,7 @@ describe('alert', () => {
 
   it('dismiss countdown emits dismiss-count-down event', async () => {
     jest.useFakeTimers()
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: 3
       }
@@ -341,7 +341,7 @@ describe('alert', () => {
 
   it('dismiss countdown emits dismiss-count-down event when show is number as string', async () => {
     jest.useFakeTimers()
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: '3'
       }
@@ -378,7 +378,7 @@ describe('alert', () => {
 
   it('dismiss countdown handles when show value is changed', async () => {
     jest.useFakeTimers()
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: 2
       }
@@ -430,7 +430,7 @@ describe('alert', () => {
 
   it('dismiss countdown handles when alert dismissed early', async () => {
     jest.useFakeTimers()
-    const wrapper = mount(Alert, {
+    const wrapper = mount(BAlert, {
       propsData: {
         show: 2,
         dismissible: true

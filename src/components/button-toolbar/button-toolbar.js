@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { isVisible, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 
@@ -10,7 +11,7 @@ const ITEM_SELECTOR = [
 ].join(',')
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BButtonToolbar',
   props: {
     justify: {
@@ -111,4 +112,4 @@ export default {
       [this.$slots.default]
     )
   }
-}
+})

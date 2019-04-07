@@ -1,11 +1,11 @@
-import Datalist from './form-datalist'
+import BFormDatalist from './form-datalist'
 import { mount } from '@vue/test-utils'
 
 describe('form-datalist', () => {
   it('has root element datalist', async () => {
-    const wrapper = mount(Datalist, {
+    const wrapper = mount(BFormDatalist, {
       propsData: {
-        id: 'testlist'
+        id: 'test-list'
       }
     })
     expect(wrapper.is('datalist')).toBe(true)
@@ -14,20 +14,20 @@ describe('form-datalist', () => {
   })
 
   it('has user supplied ID', async () => {
-    const wrapper = mount(Datalist, {
+    const wrapper = mount(BFormDatalist, {
       propsData: {
-        id: 'testlist'
+        id: 'test-list'
       }
     })
-    expect(wrapper.attributes('id')).toBe('testlist')
+    expect(wrapper.attributes('id')).toBe('test-list')
 
     wrapper.destroy()
   })
 
   it('has no oprion elements by default', async () => {
-    const wrapper = mount(Datalist, {
+    const wrapper = mount(BFormDatalist, {
       propsData: {
-        id: 'testlist'
+        id: 'test-list'
       }
     })
     expect(wrapper.findAll('option').length).toBe(0)
@@ -36,9 +36,9 @@ describe('form-datalist', () => {
   })
 
   it('has options when options set', async () => {
-    const wrapper = mount(Datalist, {
+    const wrapper = mount(BFormDatalist, {
       propsData: {
-        id: 'testlist',
+        id: 'test-list',
         options: ['one', 'two']
       }
     })

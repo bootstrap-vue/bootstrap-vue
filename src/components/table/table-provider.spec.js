@@ -1,5 +1,5 @@
+import BTable from './table'
 import Vue from 'vue'
-import Table from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [
@@ -13,11 +13,11 @@ const testItems = [
 const testFields = Object.keys(testItems[0]).sort()
 
 describe('table > provider functions', () => {
-  it('syncronous items provider works', async () => {
+  it('synchronous items provider works', async () => {
     function provider(ctx) {
       return testItems.slice()
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: provider
@@ -44,13 +44,13 @@ describe('table > provider functions', () => {
 
   it('promise items provider works', async () => {
     let doResolve
-    const promise = new Promise((resolve, reject) => {
+    const promise = new Promise(resolve => {
       doResolve = resolve
     })
     function provider(ctx) {
       return promise
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: provider,
@@ -97,7 +97,7 @@ describe('table > provider functions', () => {
       callback = cb
       return null
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: provider,
@@ -142,7 +142,7 @@ describe('table > provider functions', () => {
     function provider(ctx) {
       return Promise.resolve(null)
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: provider,
@@ -187,9 +187,9 @@ describe('table > provider functions', () => {
     function provider(ctx) {
       return testItems.slice()
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
-        id: 'thetable',
+        id: 'the-table',
         fields: testFields,
         items: provider
       }
@@ -208,7 +208,7 @@ describe('table > provider functions', () => {
     expect(wrapper.emitted('refreshed').length).toBe(2)
 
     // Root event refreshing
-    wrapper.vm.$root.$emit('bv::refresh::table', 'thetable')
+    wrapper.vm.$root.$emit('bv::refresh::table', 'the-table')
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed').length).toBe(3)
 
@@ -221,7 +221,7 @@ describe('table > provider functions', () => {
       callback = cb
       return null
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields.map(f => ({ key: f, sortable: true })),
         items: provider,
@@ -251,7 +251,8 @@ describe('table > provider functions', () => {
     callback(testItems.slice())
     await Vue.nextTick()
 
-    // refreshed event should happen only once, even though thriggered 3 times while busy
+    // Refreshed event should happen only once, even though
+    // triggered 3 times while busy
     expect(wrapper.emitted('refreshed')).toBeDefined()
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
@@ -273,7 +274,7 @@ describe('table > provider functions', () => {
       return testItems.slice(testItems.length - 1)
     }
 
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: provider1

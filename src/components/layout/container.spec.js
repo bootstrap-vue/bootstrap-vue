@@ -1,9 +1,9 @@
-import Container from './container'
+import BContainer from './container'
 import { mount } from '@vue/test-utils'
 
 describe('layout > container', () => {
   it('should have expected default structure', async () => {
-    const wrapper = mount(Container)
+    const wrapper = mount(BContainer)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('container')
@@ -12,7 +12,7 @@ describe('layout > container', () => {
   })
 
   it('renders custom root element when prop tag set', async () => {
-    const wrapper = mount(Container, {
+    const wrapper = mount(BContainer, {
       propsData: {
         tag: 'section'
       }
@@ -25,7 +25,7 @@ describe('layout > container', () => {
   })
 
   it('should have container-fluid class when prop fluid set', async () => {
-    const wrapper = mount(Container, {
+    const wrapper = mount(BContainer, {
       propsData: {
         fluid: true
       }
@@ -38,7 +38,7 @@ describe('layout > container', () => {
   })
 
   it('has content from default slot', async () => {
-    const wrapper = mount(Container, {
+    const wrapper = mount(BContainer, {
       slots: {
         default: 'foobar'
       }

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
@@ -8,11 +9,11 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCardText',
   functional: true,
   props,
   render(h, { props, data, children }) {
     return h(props.textTag, mergeData(data, { staticClass: 'card-text' }), children)
   }
-}
+})

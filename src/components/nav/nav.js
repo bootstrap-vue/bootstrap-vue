@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import warn from '../../utils/warn'
 
@@ -33,7 +34,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BNav',
   functional: true,
   props,
@@ -58,4 +59,4 @@ export default {
       children
     )
   }
-}
+})

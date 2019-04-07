@@ -1,9 +1,9 @@
-import Link, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
+import BLink, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('link', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(Link)
+    const wrapper = mount(BLink)
 
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.attributes('href')).toEqual('#')
@@ -15,7 +15,7 @@ describe('link', () => {
   })
 
   it('renders content from default slot', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       slots: {
         default: 'foobar'
       }
@@ -30,8 +30,8 @@ describe('link', () => {
     expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('sets atribute href to user supplied value', async () => {
-    const wrapper = mount(Link, {
+  it('sets attribute href to user supplied value', async () => {
+    const wrapper = mount(BLink, {
       propsData: {
         href: '/foobar'
       }
@@ -47,7 +47,7 @@ describe('link', () => {
   })
 
   it('should set href to string `to` prop', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         to: '/foobar'
       }
@@ -63,7 +63,7 @@ describe('link', () => {
   })
 
   it('should set href to path from `to` prop', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         to: { path: '/foobar' }
       }
@@ -79,7 +79,7 @@ describe('link', () => {
   })
 
   it('should default rel to `noopener` when target==="_blank"', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         href: '/foobar',
         target: '_blank'
@@ -94,7 +94,7 @@ describe('link', () => {
   })
 
   it('should render the given rel to when target==="_blank"', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         href: '/foobar',
         target: '_blank',
@@ -110,7 +110,7 @@ describe('link', () => {
   })
 
   it('should add "active" class when prop active=true', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         active: true
       }
@@ -122,7 +122,7 @@ describe('link', () => {
   })
 
   it('should add aria-disabled="true" when disabled', async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         disabled: true
       }
@@ -132,7 +132,7 @@ describe('link', () => {
   })
 
   it("should add '.disabled' class when prop disabled=true", async () => {
-    const wrapper = mount(Link, {
+    const wrapper = mount(BLink, {
       propsData: {
         disabled: true
       }
@@ -146,7 +146,7 @@ describe('link', () => {
     it('should invoke click handler bound by Vue when clicked on', async () => {
       let called = 0
       let evt = null
-      const wrapper = mount(Link, {
+      const wrapper = mount(BLink, {
         listeners: {
           click: e => {
             evt = e
@@ -165,7 +165,7 @@ describe('link', () => {
     it('should invoke multiple click handlers bound by Vue when clicked on', async () => {
       const spy1 = jest.fn()
       const spy2 = jest.fn()
-      const wrapper = mount(Link, {
+      const wrapper = mount(BLink, {
         listeners: {
           click: [spy1, spy2]
         }
@@ -181,7 +181,7 @@ describe('link', () => {
     it('should NOT invoke click handler bound by Vue when disabled and clicked', async () => {
       let called = 0
       let evt = null
-      const wrapper = mount(Link, {
+      const wrapper = mount(BLink, {
         propsData: {
           disabled: true
         },
@@ -201,7 +201,7 @@ describe('link', () => {
     })
 
     it('should NOT invoke click handler bound via "addEventListener" when disabled and clicked', async () => {
-      const wrapper = mount(Link, {
+      const wrapper = mount(BLink, {
         propsData: {
           disabled: true
         }
@@ -216,7 +216,7 @@ describe('link', () => {
     it('should emit "clicked::link" on $root when clicked on', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [h(Link, { props: { href: '/foo' } }, 'link')])
+          return h('div', {}, [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
       })
       const spy = jest.fn()
@@ -231,7 +231,7 @@ describe('link', () => {
     it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [h(Link, { props: { href: '/foo', disabled: true } }, 'link')])
+          return h('div', {}, [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
       })
       const spy = jest.fn()

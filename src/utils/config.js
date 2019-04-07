@@ -56,6 +56,12 @@ const DEFAULTS = {
     // BCard and BCardBody also inherit this prop
     subTitleTextVariant: 'muted'
   },
+  BCarousel: {
+    labelPrev: 'Previous Slide',
+    labelNext: 'Next Slide',
+    labelGotoSlide: 'Goto Slide',
+    labelIndicators: 'Select a slide to display'
+  },
   BDropdown: {
     toggleText: 'Toggle Dropdown',
     variant: 'secondary'
@@ -81,6 +87,9 @@ const DEFAULTS = {
     okTitle: 'OK',
     okVariant: 'primary',
     headerCloseLabel: 'Close'
+  },
+  BNavbarToggle: {
+    label: 'Toggle navigation'
   }
 }
 

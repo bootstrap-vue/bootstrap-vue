@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import stringifyRecordValues from './helpers/stringify-record-values'
 import { mount } from '@vue/test-utils'
 
@@ -7,7 +7,7 @@ const testFields = ['a', 'b', 'c']
 
 describe('table > filtering', () => {
   it('should not be filtered by default', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -37,7 +37,7 @@ describe('table > filtering', () => {
   })
 
   it('should be filtered when filter is a string', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -63,7 +63,7 @@ describe('table > filtering', () => {
   })
 
   it('should emit filtered event when filter string is changed', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -143,7 +143,7 @@ describe('table > filtering', () => {
       // We are passing a regexp for this test
       return regexp.test(stringifyRecordValues(item))
     }
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -191,7 +191,7 @@ describe('table > filtering', () => {
   })
 
   it('should be filtered with no rows when no matches', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -207,7 +207,7 @@ describe('table > filtering', () => {
   })
 
   it('should show empty filtered message when no matches and show-empty=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,

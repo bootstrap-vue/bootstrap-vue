@@ -1,5 +1,6 @@
-import Modal from './modal'
+import BModal from './modal'
 import BvEvent from '../../utils/bv-event.class'
+
 import { mount, createWrapper } from '@vue/test-utils'
 
 // The defautl Z-INDEX for modal backdrop
@@ -32,7 +33,7 @@ describe('modal', () => {
 
   describe('structure', () => {
     it('has expected default structure', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
           id: 'test'
@@ -82,7 +83,7 @@ describe('modal', () => {
     })
 
     it('has expected structure when lazy', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
           lazy: true
@@ -94,17 +95,17 @@ describe('modal', () => {
 
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-      expect(wrapper.findAll('div > *').length).toBe(0) // no content
+      expect(wrapper.findAll('div > *').length).toBe(0) // No content
 
       wrapper.destroy()
     })
 
     it('has expected structure when initially open', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           // Disable the use of transitionStub fake transition
-          // AS it doesn't run transition hooks
+          // as it doesn't run transition hooks
           transition: false
         },
         propsData: {
@@ -163,7 +164,7 @@ describe('modal', () => {
     })
 
     it('has expected structure when closed after being initially open', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           // Disable the use of transitionStub fake transition
@@ -197,7 +198,7 @@ describe('modal', () => {
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wrapper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... The stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
@@ -255,7 +256,7 @@ describe('modal', () => {
   describe('default button content, classes and attributes', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true
       })
       expect(wrapper).toBeDefined()
@@ -281,7 +282,7 @@ describe('modal', () => {
     })
 
     it('default header close button', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true
       })
       expect(wrapper).toBeDefined()
@@ -304,7 +305,7 @@ describe('modal', () => {
       let cancelHide = true
       let trigger = null
       let evt = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -384,7 +385,7 @@ describe('modal', () => {
     it('footer OK and CANCEL buttons trigger modal close and are preventable', async () => {
       let cancelHide = true
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -468,7 +469,7 @@ describe('modal', () => {
 
     it('pressing ESC closes modal', async () => {
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -525,7 +526,7 @@ describe('modal', () => {
 
     it('click outside closes modal', async () => {
       let trigger = null
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -581,7 +582,7 @@ describe('modal', () => {
     })
 
     it('$root bv::show::modal and bv::hide::modal work', async () => {
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false
@@ -632,7 +633,7 @@ describe('modal', () => {
     it('show event is cancellable', async () => {
       let prevent = true
       let called = 0
-      const wrapper = mount(Modal, {
+      const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
           transition: false

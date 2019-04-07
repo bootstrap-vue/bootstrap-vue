@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'
@@ -30,7 +31,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BInputGroup',
   functional: true,
   props: props,
@@ -101,4 +102,4 @@ export default {
       childNodes
     )
   }
-}
+})

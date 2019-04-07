@@ -1,9 +1,9 @@
-import DropdownItem from './dropdown-item'
+import BDropdownItem from './dropdown-item'
 import { mount } from '@vue/test-utils'
 
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
-    const wrapper = mount(DropdownItem)
+    const wrapper = mount(BDropdownItem)
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.attributes('href')).toBe('#')
 
@@ -11,7 +11,7 @@ describe('dropdown-item', () => {
   })
 
   it('has class "dropdown-item"', async () => {
-    const wrapper = mount(DropdownItem)
+    const wrapper = mount(BDropdownItem)
     expect(wrapper.classes()).toContain('dropdown-item')
     expect(wrapper.attributes('href')).toBe('#')
 
@@ -21,7 +21,7 @@ describe('dropdown-item', () => {
   it('calls dropdown hide(true) method when clicked', async () => {
     let called = false
     let refocus = null
-    const wrapper = mount(DropdownItem, {
+    const wrapper = mount(BDropdownItem, {
       provide: {
         bvDropdown: {
           hide(arg) {
@@ -44,7 +44,7 @@ describe('dropdown-item', () => {
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
     let called = false
     let refocus = null
-    const wrapper = mount(DropdownItem, {
+    const wrapper = mount(BDropdownItem, {
       provide: {
         bvDropdown: {
           hide(arg) {

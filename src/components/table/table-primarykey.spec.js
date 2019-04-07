@@ -1,11 +1,11 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 
 describe('table > primary key', () => {
   it('default should not have ids on table rows', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems,
         id: 'test'
@@ -29,7 +29,7 @@ describe('table > primary key', () => {
   })
 
   it('should have ids on table rows when primary key set to field', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems,
         id: 'foo',
@@ -57,7 +57,7 @@ describe('table > primary key', () => {
   })
 
   it('should not have ids on table rows when primary key set to nonexistent field', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems,
         id: 'foo',

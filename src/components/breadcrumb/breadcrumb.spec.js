@@ -1,9 +1,9 @@
-import Breadcrumb from './breadcrumb'
+import BBreadcrumb from './breadcrumb'
 import { mount } from '@vue/test-utils'
 
 describe('breadcrumb', () => {
   it('should have expected default structure', async () => {
-    const wrapper = mount(Breadcrumb)
+    const wrapper = mount(BBreadcrumb)
 
     expect(wrapper.is('ol')).toBe(true)
     expect(wrapper.classes()).toContain('breadcrumb')
@@ -12,7 +12,7 @@ describe('breadcrumb', () => {
   })
 
   it('should render default slot when no items provided', async () => {
-    const wrapper = mount(Breadcrumb, {
+    const wrapper = mount(BBreadcrumb, {
       slots: {
         default: 'foobar'
       }
@@ -24,8 +24,8 @@ describe('breadcrumb', () => {
     expect(wrapper.text()).toBe('foobar')
   })
 
-  it('should accpet items', () => {
-    const wrapper = mount(Breadcrumb, {
+  it('should accept items', () => {
+    const wrapper = mount(BBreadcrumb, {
       propsData: {
         items: [
           { text: 'Home', href: '/' },
@@ -87,7 +87,7 @@ describe('breadcrumb', () => {
     ).toBe('/admin/manage')
     expect($lis.at(2).text()).toBe('Manage')
 
-    // last item should have active state
+    // Last item should have active state
     expect($lis.at(3).classes()).toContain('active')
     expect(
       $lis
@@ -99,7 +99,7 @@ describe('breadcrumb', () => {
   })
 
   it('should apply active class to active item', async () => {
-    const wrapper = mount(Breadcrumb, {
+    const wrapper = mount(BBreadcrumb, {
       propsData: {
         items: [
           { text: 'Home', href: '/' },
@@ -156,7 +156,7 @@ describe('breadcrumb', () => {
     ).toBe('/admin/manage')
     expect($lis.at(2).text()).toBe('Manage')
 
-    // last item should have active state
+    // Last item should have active state
     expect($lis.at(3).classes()).not.toContain('active')
     expect(
       $lis

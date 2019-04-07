@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -8,7 +9,7 @@ import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormTextarea',
   mixins: [
     idMixin,
@@ -202,4 +203,4 @@ export default {
       }
     })
   }
-}
+})

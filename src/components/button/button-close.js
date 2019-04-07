@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 
@@ -10,16 +11,16 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaLabel')
+    default: () => String(getComponentConfig(NAME, 'ariaLabel'))
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => String(getComponentConfig(NAME, 'textVariant') || '') || null
   }
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -51,4 +52,4 @@ export default {
     }
     return h('button', mergeData(data, componentData), slots().default)
   }
-}
+})

@@ -1,9 +1,9 @@
-import Jumbotron from './jumbotron'
+import BJumbotron from './jumbotron'
 import { mount } from '@vue/test-utils'
 
 describe('jumbotron', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(Jumbotron)
+    const wrapper = mount(BJumbotron)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('jumbotron')
@@ -12,7 +12,7 @@ describe('jumbotron', () => {
   })
 
   it('renders with custom root element when props tag is set', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         tag: 'article'
       }
@@ -25,7 +25,7 @@ describe('jumbotron', () => {
   })
 
   it('has border when prop border-variant is set', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         borderVariant: 'danger'
       }
@@ -39,7 +39,7 @@ describe('jumbotron', () => {
   })
 
   it('has background variant when prop bg-variant is set', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         bgVariant: 'info'
       }
@@ -52,7 +52,7 @@ describe('jumbotron', () => {
   })
 
   it('has text variant when prop text-variant is set', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         textVariant: 'primary'
       }
@@ -65,7 +65,7 @@ describe('jumbotron', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       slots: {
         default: 'foobar'
       }
@@ -79,7 +79,7 @@ describe('jumbotron', () => {
   })
 
   it('renders default slot content inside container when fluid prop set', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         fluid: true
       },
@@ -100,7 +100,7 @@ describe('jumbotron', () => {
   })
 
   it('renders default slot content inside container-fluid when fluid prop and container-fluid set', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         fluid: true,
         containerFluid: true
@@ -123,7 +123,7 @@ describe('jumbotron', () => {
   })
 
   it('renders header lead and content when using props', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       propsData: {
         header: 'foo',
         lead: 'bar'
@@ -150,7 +150,7 @@ describe('jumbotron', () => {
   })
 
   it('renders header lead and content when using slots', async () => {
-    const wrapper = mount(Jumbotron, {
+    const wrapper = mount(BJumbotron, {
       slots: {
         header: 'foo',
         lead: 'bar',

@@ -10,6 +10,8 @@ const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
 
+const externals = ['vue', ...Object.keys(dependencies)]
+
 // Libs in `external` will not be bundled to dist,
 // since they are expected to be provided later.
 // We want to include some of them in the build, so we exclude it here.
@@ -31,19 +33,22 @@ export default [
   // UMD
   {
     ...baseConfig,
-    external: Object.keys(dependencies).filter(dep => !externalExcludes.includes(dep)),
+    external: externals.filter(dep => !externalExcludes.includes(dep)),
     output: {
       format: 'umd',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.js`),
-      sourcemap: true
+      sourcemap: true,
+      globals: {
+        vue: 'Vue'
+      }
     }
   },
 
   // COMMON
   {
     ...baseConfig,
-    external: Object.keys(dependencies).filter(dep => !externalExcludes.includes(dep)),
+    external: externals.filter(dep => !externalExcludes.includes(dep)),
     output: {
       format: 'cjs',
       name: camelCase(name),

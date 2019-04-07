@@ -1,9 +1,10 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin],
   props: {
@@ -99,4 +100,4 @@ export default {
     )
     return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [button, menu])
   }
-}
+})

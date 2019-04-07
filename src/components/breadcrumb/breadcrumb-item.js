@@ -1,8 +1,9 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import BBreadcrumbLink, { props } from './breadcrumb-link'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BBreadcrumbItem',
   functional: true,
   props,
@@ -16,4 +17,4 @@ export default {
       [h(BBreadcrumbLink, { props }, children)]
     )
   }
-}
+})

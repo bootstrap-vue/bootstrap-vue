@@ -1,6 +1,8 @@
+import Vue from 'vue'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import noop from '../../utils/noop'
+import { getComponentConfig } from '../../utils/config'
 import {
   selectAll,
   reflow,
@@ -12,6 +14,8 @@ import {
 } from '../../utils/dom'
 import { inBrowser, hasTouchSupport, hasPointerEvent } from '../../utils/env'
 import idMixin from '../../mixins/id'
+
+const NAME = 'BCarousel'
 
 // Slide directional classes
 const DIRECTION = {
@@ -63,7 +67,7 @@ function getTransitionEndEvent(el) {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCarousel',
   mixins: [idMixin],
   provide() {
@@ -76,19 +80,19 @@ export default {
   props: {
     labelPrev: {
       type: String,
-      default: 'Previous Slide'
+      default: () => String(getComponentConfig(NAME, 'labelPrev'))
     },
     labelNext: {
       type: String,
-      default: 'Next Slide'
+      default: () => String(getComponentConfig(NAME, 'labelNext'))
     },
     labelGotoSlide: {
       type: String,
-      default: 'Goto Slide'
+      default: () => String(getComponentConfig(NAME, 'labelGotoSlide'))
     },
     labelIndicators: {
       type: String,
-      default: 'Select a slide to display'
+      default: () => String(getComponentConfig(NAME, 'labelIndicators'))
     },
     interval: {
       type: Number,
@@ -602,4 +606,4 @@ export default {
       [inner, controls, indicators]
     )
   }
-}
+})
