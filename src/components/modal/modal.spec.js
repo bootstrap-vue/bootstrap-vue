@@ -581,6 +581,85 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
+
+    it('mousedown inside followed by mouse up outside (click) does not close modal', async () => {
+      let trigger = null
+      let called = false
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            called = true
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      const $dialog = wrapper.find('div.modal-dialog')
+      expect($dialog.exists()).toBe(true)
+
+      const $footer = wrapper.find('div.modal-footer')
+      expect($dialog.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('')
+
+      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(trigger).toEqual(null)
+
+      // Try and close modal via a "dragged" click out
+      // starting from inside modal and finishing on backdrop
+      $dialog.trigger('mousedown')
+      $modal.trigger('mouseup')
+      $modal.trigger('click')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      expect(called).toEqual(false)
+      expect(trigger).toEqual(null)
+
+      // Modal should not be closed
+      expect($modal.element.style.display).toEqual('')
+
+      // Try and close modal via a "dragged" click out
+      // starting from inside modal and finishing on backdrop
+      $footer.trigger('mousedown')
+      $modal.trigger('mouseup')
+      $modal.trigger('click')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      expect(called).toEqual(false)
+      expect(trigger).toEqual(null)
+
+      // Modal should not be closed
+      expect($modal.element.style.display).toEqual('')
+
+      wrapper.destroy()
+    })
+
     it('$root bv::show::modal and bv::hide::modal work', async () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
