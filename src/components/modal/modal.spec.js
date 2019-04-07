@@ -959,7 +959,7 @@ describe('modal', () => {
       const localVue = new CreateLocalVue()
       const App = localVue.extend({
         render(h) {
-          h('div', {} [
+          h('div', {}, [
             h('button', { attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
           ])
@@ -1026,7 +1026,7 @@ describe('modal', () => {
       const localVue = new CreateLocalVue()
       const App = localVue.extend({
         render(h) {
-          h('div', {} [
+          h('div', {}, [
             h('button', { attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h('button', { attrs: { id: 'return-to', type: 'button' } }, 'trigger'),
             h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
