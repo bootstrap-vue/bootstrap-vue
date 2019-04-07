@@ -363,6 +363,13 @@ export default Vue.extend({
         return
       }
       this.is_opening = true
+      if (inBrowser && document.activeElement.focus) {
+        // Preset the fallback return focus value if it is not set.
+        // document.activeElement should be the trigger element that was clicked or
+        // in the case of using the v-model, which ever element has current focus.
+        // Will be overridden by some commands such as toggle, etc.
+        this.return_focus = this.return_focus || document.activeElement
+      }
       const showEvt = new BvModalEvent('show', {
         cancelable: true,
         vueTarget: this,
@@ -628,8 +635,9 @@ export default Vue.extend({
         el = select(el)
       }
       if (el) {
+        // Possibly could be a component reference
         el = el.$el || el
-        if (isVisible(el)) {
+        if (isVisible(el) && el.focus) {
           el.focus()
         }
       }
