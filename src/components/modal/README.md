@@ -180,8 +180,8 @@ export default {
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call the
 `.preventDefault()` method of the event object passed to your `ok` (**OK** button), `cancel`
-(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, **must**
-be called synchronously, as async is not supported.
+(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, **must** be
+called synchronously, as async is not supported.
 
 ```html
 <template>
@@ -255,8 +255,8 @@ emitted.
 
 The `ok`, `cancel`, and `hide` event object contains several properties and methods:
 
-| Property or Method   | Type     | Description                                                                                                                                                                                                                                                                                                |
-| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                |
+| ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                |
 | `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise. |
 | `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                           |

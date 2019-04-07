@@ -10,15 +10,15 @@ images is available via the `<b-img-lazy>` complimentary component.
 
 ## Image src resolving
 
-The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works only with
-absolute or fully-qualified-domain-name URLs. If you are using project assets as image sources,
-please refer to [Component img src resolving](/docs/reference/images) for configuring `vue-loader`
-to understand custom component props that specify image sources.
+The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works only with absolute or
+fully-qualified-domain-name URLs. If you are using project assets as image sources, please refer to
+[Component img src resolving](/docs/reference/images) for configuring `vue-loader` to understand
+custom component props that specify image sources.
 
 ## Syling images
 
-Several props are available for styling the rendered image element. The following sub-sections
-cover the various options.
+Several props are available for styling the rendered image element. The following sub-sections cover
+the various options.
 
 ### Responsive images
 
