@@ -1,12 +1,40 @@
 import BModal from './modal'
+import BvEvent from '../../utils/bv-event.class'
+
 import { mount, createWrapper } from '@vue/test-utils'
+
+// The defautl Z-INDEX for modal backdrop
+const DEFAULT_ZINDEX = 1040
 
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('modal', () => {
+  const origGetBCR = Element.prototype.getBoundingClientRect
+
+  beforeEach(() => {
+    // Mock getBCR so that the isVisible(el) test returns true
+    // Needed for z-index checks
+    Element.prototype.getBoundingClientRect = jest.fn(() => {
+      return {
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
+    })
+  })
+
+  afterEach(() => {
+    // Restore prototype
+    Element.prototype.getBoundingClientRect = origGetBCR
+  })
+
   describe('structure', () => {
     it('has expected default structure', async () => {
       const wrapper = mount(BModal, {
+        attachToDocument: true,
         propsData: {
           id: 'test'
         }
@@ -25,7 +53,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual('2000')
+      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Should not have a backdrop
       expect($outer.find('div.modal-backdrop').exists()).toBe(false)
@@ -56,6 +84,7 @@ describe('modal', () => {
 
     it('has expected structure when lazy', async () => {
       const wrapper = mount(BModal, {
+        attachToDocument: true,
         propsData: {
           lazy: true
         }
@@ -96,12 +125,12 @@ describe('modal', () => {
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wrapper (has z-index, etc)... The stacker div
+      // Main outer wrapper (has z-index, etc)... the stacker div
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual('2000')
+      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
@@ -174,7 +203,7 @@ describe('modal', () => {
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
       expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual('2000')
+      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
@@ -227,7 +256,9 @@ describe('modal', () => {
   describe('default button content, classes and attributes', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
-      const wrapper = mount(BModal)
+      const wrapper = mount(BModal, {
+        attachToDocument: true
+      })
       expect(wrapper).toBeDefined()
 
       const $buttons = wrapper.findAll('footer button')
@@ -251,7 +282,9 @@ describe('modal', () => {
     })
 
     it('default header close button', async () => {
-      const wrapper = mount(BModal)
+      const wrapper = mount(BModal, {
+        attachToDocument: true
+      })
       expect(wrapper).toBeDefined()
 
       const $buttons = wrapper.findAll('header button')
@@ -271,6 +304,7 @@ describe('modal', () => {
     it('header close button triggers modal close and is preventable', async () => {
       let cancelHide = true
       let trigger = null
+      let evt = null
       const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
@@ -286,6 +320,7 @@ describe('modal', () => {
               bvEvent.preventDefault()
             }
             trigger = bvEvent.trigger
+            evt = bvEvent
           }
         }
       })
@@ -313,10 +348,12 @@ describe('modal', () => {
 
       expect(wrapper.emitted('hide')).not.toBeDefined()
       expect(trigger).toEqual(null)
+      expect(evt).toEqual(null)
 
       // Try and close modal (but we prevent it)
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
+      expect(evt).toBeInstanceOf(BvEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -329,8 +366,10 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
+      evt = null
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
+      expect(evt).toBeInstanceOf(BvEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -587,6 +626,75 @@ describe('modal', () => {
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
+
+      wrapper.destroy()
+    })
+
+    it('show event is cancellable', async () => {
+      let prevent = true
+      let called = 0
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+
+      wrapper.vm.$on('show', bvEvt => {
+        called = true
+        if (prevent) {
+          bvEvt.preventDefault()
+        }
+      })
+
+      // Try and open modal via `bv::show::modal`
+      wrapper.vm.$root.$emit('bv::show::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should not open
+      expect(called).toBe(true)
+      expect($modal.element.style.display).toEqual('none')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Allow modal to open
+      prevent = false
+      called = false
+
+      // Try and open modal via `bv::show::modal`
+      wrapper.vm.$root.$emit('bv::show::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect(called).toBe(true)
+      expect($modal.element.style.display).toEqual('')
 
       wrapper.destroy()
     })
