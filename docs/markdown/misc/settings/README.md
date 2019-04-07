@@ -1,5 +1,7 @@
 # Settings
 
+> BootstrapVue provides a few options for customizing component default values, and more.
+
 ## Configuring BootstrapVue defaults
 
 BootstrapVue is pre-configured for the default Bootstrap V4.x configuration. It assumes the
