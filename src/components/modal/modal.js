@@ -584,7 +584,7 @@ export default Vue.extend({
     // Root listener handlers
     showHandler(id, triggerEl) {
       if (id === this.id) {
-        this.return_focus = triggerEl || null
+        this.return_focus = triggerEl || document.activeElement || null
         this.show()
       }
     },
@@ -629,7 +629,7 @@ export default Vue.extend({
     },
     returnFocusTo() {
       // Prefer `returnFocus` prop over event specified `return_focus` value
-      let el = this.returnFocus || this.return_focus || null
+      let el = this.returnFocus || this.return_focus || document.activeElement || null
       if (typeof el === 'string') {
         // CSS Selector
         el = select(el)
