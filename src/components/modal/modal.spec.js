@@ -1,5 +1,5 @@
 import BModal from './modal'
-import BvEvent from '../../utils/bv-event.class'
+import BvModalEvent from './helpers/bv-modal-event.class'
 
 import { mount, createWrapper } from '@vue/test-utils'
 
@@ -353,7 +353,7 @@ describe('modal', () => {
       // Try and close modal (but we prevent it)
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
-      expect(evt).toBeInstanceOf(BvEvent)
+      expect(evt).toBeInstanceOf(BvModalEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -369,7 +369,7 @@ describe('modal', () => {
       evt = null
       $close.trigger('click')
       expect(trigger).toEqual('headerclose')
-      expect(evt).toBeInstanceOf(BvEvent)
+      expect(evt).toBeInstanceOf(BvModalEvent)
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -722,6 +722,66 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
+    it('$root bv::toggle::modal works', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+
+      // Try and open modal via `bv::toggle::modal`
+      wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+
+      // Try and close modal via `bv::toggle::modal`
+      wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+
+      // Try and open modal via `bv::toggle::modal` with wrong ID
+      wrapper.vm.$root.$emit('bv::toggle::modal', 'not-test')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('none')
+
+      wrapper.destroy()
+    })
+
     it('show event is cancellable', async () => {
       let prevent = true
       let called = 0
@@ -788,6 +848,54 @@ describe('modal', () => {
       expect(called).toBe(true)
       expect($modal.element.style.display).toEqual('')
 
+      wrapper.destroy()
+    })
+
+    it('instance .toggle() methods works', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+
+      // Try and open modal via .toggle() method
+      wrapper.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+
+      // Try and close modal via .toggle()
+      wrapper.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
       wrapper.destroy()
     })
   })

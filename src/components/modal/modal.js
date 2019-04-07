@@ -1,13 +1,12 @@
 import Vue from 'vue'
+import modalManager from './helpers/modal-manager'
+import BvModalEvent from './helpers/bv-modal-event.class'
 import BButton from '../button/button'
 import BButtonClose from '../button/button-close'
-import modalManager from './helpers/modal-manager'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import observeDom from '../../utils/observe-dom'
-import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
-import BvEvent from '../../utils/bv-event.class'
 import { inBrowser } from '../../utils/env'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
@@ -364,12 +363,11 @@ export default Vue.extend({
         return
       }
       this.is_opening = true
-      const showEvt = new BvEvent('show', {
+      const showEvt = new BvModalEvent('show', {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
         relatedTarget: null,
-        // Modal specifi properties
         modalId: this.safeId()
       })
       this.emitEvent(showEvt)
@@ -387,20 +385,13 @@ export default Vue.extend({
         return
       }
       this.is_closing = true
-      const hideEvt = new BvEvent('hide', {
-        // BvEvent standard properties
+      const hideEvt = new BvModalEvent('hide', {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
         relatedTarget: null,
-        // Modal specific properties and methods
         modalId: this.safeId(),
-        trigger: trigger || null,
-        cancel() /* istanbul ignore next */ {
-          // Backwards compatibility
-          warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
-          this.preventDefault()
-        }
+        trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
       if (trigger === 'ok') {
@@ -475,7 +466,7 @@ export default Vue.extend({
       this.is_show = true
       this.is_transitioning = false
       this.$nextTick(() => {
-        const shownEvt = new BvEvent('shown', {
+        const shownEvt = new BvModalEvent('shown', {
           cancelable: false,
           vueTarget: this,
           target: this.$refs.modal,
@@ -503,7 +494,7 @@ export default Vue.extend({
       this.$nextTick(() => {
         this.returnFocusTo()
         this.is_closing = false
-        const hiddenEvt = new BvEvent('hidden', {
+        const hiddenEvt = new BvModalEvent('hidden', {
           cancelable: false,
           vueTarget: this,
           target: this.lazy ? null : this.$refs.modal,

@@ -1,4 +1,4 @@
-import { assign, defineProperty, defineProperties, readonlyDescriptor } from '../utils/object'
+import { assign, defineProperty, defineProperties, readonlyDescriptor } from './object'
 
 class BvEvent {
   constructor(type, eventInit = {}) {
@@ -13,7 +13,7 @@ class BvEvent {
     }
     // Assign defaults first, the eventInit,
     // and the type last so it can't be overwritten.
-    assign(this, BvEvent.defaults(), eventInit, { type })
+    assign(this, BvEvent.Defaults, this.constructor.Defaults, eventInit, { type })
     // Freeze some props as readonly, but leave them enumerable.
     defineProperties(this, {
       type: readonlyDescriptor(),
@@ -41,7 +41,7 @@ class BvEvent {
     })
   }
 
-  static defaults() {
+  static get Defaults() {
     return {
       type: '',
       cancelable: true,
@@ -53,4 +53,8 @@ class BvEvent {
   }
 }
 
+// Named Exports
+export { BvEvent }
+
+// Default Export
 export default BvEvent
