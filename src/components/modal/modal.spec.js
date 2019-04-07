@@ -614,8 +614,8 @@ describe('modal', () => {
       const $dialog = wrapper.find('div.modal-dialog')
       expect($dialog.exists()).toBe(true)
 
-      const $footer = wrapper.find('div.modal-footer')
-      expect($dialog.exists()).toBe(true)
+      const $footer = wrapper.find('footer.modal-footer')
+      expect($footer.exists()).toBe(true)
 
       expect($modal.element.style.display).toEqual('')
 
