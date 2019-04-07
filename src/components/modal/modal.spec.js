@@ -1,7 +1,7 @@
 import BModal from './modal'
 import BvModalEvent from './helpers/bv-modal-event.class'
 
-import { mount, createWrapper } from '@vue/test-utils'
+import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 // The defautl Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
@@ -896,6 +896,202 @@ describe('modal', () => {
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
+
+      wrapper.destroy()
+    })
+  })
+
+  describe('return focus support', () => {
+    it('returns focus to document.body when no return focus set and not using v-b-toggle', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          id: 'test',
+          visible: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+      expect(document.activeElement).toBe(document.body)
+
+      // Try and open modal via .toggle() method
+      wrapper.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+      expect(document.activeElement).not.toBe(document.body)
+      expect(wrapper.element.contains(document.activeElement)).toBe(true)
+
+      // Try and close modal via .toggle()
+      wrapper.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+      expect(document.activeElement).toBe(document.body)
+
+      wrapper.destroy()
+    })
+
+    it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
+      const localVue = new CreateLocalVue()
+      const App = localVue.extend({
+        render(h) {
+          h('div', {} [
+            h('button', { attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
+          ])
+        }
+      })
+      const wrapper = mount(App, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $button = wrapper.find('button#trigger')
+      expect($button.exists()).toBe(true)
+      expect($button.is('button')).toBe(true)
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+      expect(document.activeElement).toBe(document.body)
+
+      // Set the active element to the button
+      $button.element.focus()
+      expect(document.activeElement).toBe($button.element)
+
+      // Try and open modal via .toggle() method
+      $modal.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+      expect(document.activeElement).not.toBe(document.body)
+      expect(document.activeElement).not.toBe($button.element)
+      expect($modal.element.contains(document.activeElement)).toBe(true)
+
+      // Try and close modal via .toggle()
+      wrapper.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+      expect(document.activeElement).toBe($button.element)
+
+      wrapper.destroy()
+    })
+
+    it('returns focus to element specified in toggle() method', async () => {
+      const localVue = new CreateLocalVue()
+      const App = localVue.extend({
+        render(h) {
+          h('div', {} [
+            h('button', { attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h('button', { attrs: { id: 'return-to', type: 'button' } }, 'trigger'),
+            h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
+          ])
+        }
+      })
+      const wrapper = mount(App, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      const $button = wrapper.find('button#trigger')
+      expect($button.exists()).toBe(true)
+      expect($button.is('button')).toBe(true)
+
+      const $button2 = wrapper.find('button#return-to')
+      expect($button2.exists()).toBe(true)
+      expect($button2.is('button')).toBe(true)
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('none')
+      expect(document.activeElement).toBe(document.body)
+
+      // Set the active element to the button
+      $button.element.focus()
+      expect(document.activeElement).toBe($button.element)
+
+      // Try and open modal via .toggle() method
+      $modal.vm.toggle('#return-to')
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be open
+      expect($modal.element.style.display).toEqual('')
+      expect(document.activeElement).not.toBe(document.body)
+      expect(document.activeElement).not.toBe($button.element)
+      expect(document.activeElement).not.toBe($button2.element)
+      expect($modal.element.contains(document.activeElement)).toBe(true)
+
+      // Try and close modal via .toggle()
+      wrapper.vm.toggle()
+
+      await wrapper.vm.$nextTick()
+      await waitAF()
+      await wrapper.vm.$nextTick()
+      await waitAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+      expect(document.activeElement).toBe($button2.element)
+
       wrapper.destroy()
     })
   })
