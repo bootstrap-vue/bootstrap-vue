@@ -1006,7 +1006,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via .toggle() method
-      $modal.vm.toggle()
+      wrapper.find(BModal).vm.toggle()
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -1022,7 +1022,7 @@ describe('modal', () => {
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
       // Try and close modal via .toggle()
-      wrapper.vm.toggle()
+      wrapper.find(BModal).vm.toggle()
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -1042,7 +1042,7 @@ describe('modal', () => {
       const App = localVue.extend({
         render(h) {
           return h('div', {}, [
-            h('button', { class: 'trigegr', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(
               'button',
               { class: 'return-to', attrs: { id: 'return-to', type: 'button' } },
@@ -1088,7 +1088,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via .toggle() method
-      $modal.vm.toggle('button.return-to')
+      wrapper.find(BModal).vm.toggle('button.return-to')
 
       await wrapper.vm.$nextTick()
       await waitAF()
@@ -1105,7 +1105,7 @@ describe('modal', () => {
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
       // Try and close modal via .toggle()
-      wrapper.vm.toggle()
+      wrapper.find(BModal).vm.toggle()
 
       await wrapper.vm.$nextTick()
       await waitAF()
