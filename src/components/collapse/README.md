@@ -1,6 +1,7 @@
 # Collapse
 
-> Esily toggle content visibility on your pages. Includes support for making accordions.
+> Easily toggle visibility of almost any content on your pages. Includes support for making
+> accordions.
 
 ```html
 <div>
