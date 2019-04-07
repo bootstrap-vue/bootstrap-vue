@@ -70,7 +70,6 @@ describe('utils/BvEvent', () => {
       expect(evt).toBeInstanceOf(BvModalEvent)
       expect(evt).toBeInstanceOf(BvEvent)
       expect(evt.type).toBe('foobar')
-      expect(evt.isOK).toBe(false)
     })
 
     it('throws exception if no type given', async () => {
@@ -121,7 +120,6 @@ describe('utils/BvEvent', () => {
       expect(evt.cancelable).toBe(true)
       expect(evt.target).toBe('baz')
       expect(evt.trigger).toBe('ok')
-      expect(evt.isOK).toBe(true)
       let failed = false
       try {
         evt.trigger = 'foobar'
