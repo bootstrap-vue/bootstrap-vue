@@ -521,7 +521,7 @@ export default Vue.extend({
       this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
     },
     // UI event handlers
-    onDialogMousedown(evt) {
+    onDialogMousedown(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Watch to see if the matching mouseup event occurs outside the dialog
       // And if it does, cancel the clickout handler
       const modal = this.$refs.modal
