@@ -1,7 +1,7 @@
 # Theming Bootstrap & BootstrapVue
 
-Theming is accomplished by Sass variables, Sass maps, and custom CSS. There’s no dedicated theme
-stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
+> Theming is accomplished by Sass variables, Sass maps, and custom CSS. There’s no dedicated theme
+> stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
 
 While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue uses custom CSS (i.e.
 stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap V4.x SCSS. The
