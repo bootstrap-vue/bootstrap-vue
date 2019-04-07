@@ -2058,7 +2058,7 @@ differences between operating systems, this too is not a preventable default beh
     },
     mounted() {
       // Set the initial number of items
-      totalRows = this.items.length
+      this.totalRows = this.items.length
     },
     methods: {
       info(item, index, button) {
