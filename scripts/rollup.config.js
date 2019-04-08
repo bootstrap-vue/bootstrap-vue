@@ -10,11 +10,12 @@ const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
 
-const externals = [...Object.keys(peerDependencies), ...Object.keys(dependencies)]
+const externals = [...Object.keys(peerDependencies || {}), ...Object.keys(dependencies || {})]
 
 // Libs in `external` will not be bundled to dist,
 // since they are expected to be provided later.
-// We want to include some of them in the build, so we exclude it here.
+// In some cases, wee want to include some of them in the build, so we
+// exclude the external here.
 const externalExcludes = ['popper.js', 'vue-functional-data-merge']
 
 // The base rollup configuration
