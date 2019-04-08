@@ -20,9 +20,9 @@ const externalExcludes = ['popper.js', 'vue-functional-data-merge']
 // The base rollup configuration
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
-  external: Object.keys(dependencies),
+  external: externals,
   plugins: [
-    resolve({ external: ['vue'], dedupe: ['vue'] }),
+    resolve({ external: ['vue'] }),
     commonjs(),
     babel({ exclude: 'node_modules/**' })
   ]
