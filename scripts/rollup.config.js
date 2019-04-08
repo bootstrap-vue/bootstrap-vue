@@ -58,7 +58,7 @@ export default [
     }
   },
 
-  // ES
+  // ESM
   {
     ...baseConfig,
     output: {
