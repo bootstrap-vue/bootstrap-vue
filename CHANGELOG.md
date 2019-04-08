@@ -13,19 +13,19 @@ Released 2019-04-08
 ### Bug Fixes v2.0.0-rc.18
 
 - **build:** enable babel option to interop default (fixes
-  [#3038](https://github.com/bootstrap-vue/bootstrap-vue/issues/3038))
-  ([#3046](https://github.com/bootstrap-vue/bootstrap-vue/issues/3046))
-  ([4e981c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/4e981c2))
+  [#3038](https://github.com/bootstrap-vue/bootstrap-vue/issues/3038)) 
+  ([#3046](https://github.com/bootstrap-vue/bootstrap-vue/issues/3046)
+  [4e981c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/4e981c2))
 - **typescript:** replaced invalid `mixed` keyword with `any` (fixes
-  [#3041](https://github.com/bootstrap-vue/bootstrap-vue/issues/3041))
-  ([#3043](https://github.com/bootstrap-vue/bootstrap-vue/issues/3043))
-  ([36e8246](https://github.com/bootstrap-vue/bootstrap-vue/commit/36e8246))
+  [#3041](https://github.com/bootstrap-vue/bootstrap-vue/issues/3041)) 
+  ([#3043](https://github.com/bootstrap-vue/bootstrap-vue/issues/3043)
+  [36e8246](https://github.com/bootstrap-vue/bootstrap-vue/commit/36e8246))
 
 ### Features v2.0.0-rc.18
 
 - **nuxt:** add `usePretranspiled` option
-  ([#3048](https://github.com/bootstrap-vue/bootstrap-vue/issues/3048))
-  ([8022481](https://github.com/bootstrap-vue/bootstrap-vue/commit/8022481))
+  ([#3048](https://github.com/bootstrap-vue/bootstrap-vue/issues/3048)
+  [8022481](https://github.com/bootstrap-vue/bootstrap-vue/commit/8022481))
 
 <a name="2.0.0-rc.17"></a>
 
