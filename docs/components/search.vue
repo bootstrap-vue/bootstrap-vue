@@ -50,7 +50,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.form.addEventListener('click', this.suggestionClick)
+    this.$refs.form.addEventListener('click', this.suggestionClick, true)
     this.loadDocsearch().then(this.initDocsearch)
   },
   methods: {
