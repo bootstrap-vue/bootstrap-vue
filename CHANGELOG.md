@@ -12,7 +12,7 @@ Released 2019-04-07
 
 ### Bug Fixes v2.0.0-rc.17
 
-- **breadcrumb-item:** remove `role="presentation"`
+- **breadcrumb-item:** remove atribute `role="presentation"` for better ARIA support
   ([#2991](https://github.com/bootstrap-vue/bootstrap-vue/issues/2991))
   ([e84c4a7](https://github.com/bootstrap-vue/bootstrap-vue/commit/e84c4a7))
 - **docs:** add back missing leading slash to search urls
@@ -29,7 +29,7 @@ Released 2019-04-07
   [#2958](https://github.com/bootstrap-vue/bootstrap-vue/issues/2958))
   ([#2959](https://github.com/bootstrap-vue/bootstrap-vue/issues/2959))
   ([0c3a7b0](https://github.com/bootstrap-vue/bootstrap-vue/commit/0c3a7b0))
-- **form-group:** don't render aria-labelledby on group when label-for provided (fixes
+- **form-group:** don't render `aria-labelledby` on group when `label-for` provided (fixes
   [#2933](https://github.com/bootstrap-vue/bootstrap-vue/issues/2933))
   ([#2936](https://github.com/bootstrap-vue/bootstrap-vue/issues/2936))
   ([8058c03](https://github.com/bootstrap-vue/bootstrap-vue/commit/8058c03))
@@ -47,18 +47,18 @@ Released 2019-04-07
 - **modal:** prevent page scroll as modal opens
   ([#2963](https://github.com/bootstrap-vue/bootstrap-vue/issues/2963))
   ([3bf3622](https://github.com/bootstrap-vue/bootstrap-vue/commit/3bf3622))
-- **modal:** stacked modal z-index calculations (closes
+- **modal:** improve stacked modal z-index calculations (closes
   [#3015](https://github.com/bootstrap-vue/bootstrap-vue/issues/3015))
   ([#3017](https://github.com/bootstrap-vue/bootstrap-vue/issues/3017))
   ([891e8cc](https://github.com/bootstrap-vue/bootstrap-vue/commit/891e8cc))
-- **pagination:** reset to page 1 when total-rows or per-page changes (closes
+- **pagination:** reset to page 1 when `total-rows` or `per-page` changes (closes
   [#2987](https://github.com/bootstrap-vue/bootstrap-vue/issues/2987))
   ([#2993](https://github.com/bootstrap-vue/bootstrap-vue/issues/2993))
   ([df2e77a](https://github.com/bootstrap-vue/bootstrap-vue/commit/df2e77a))
 - **pagination-nav:** better current page detection in IE
   ([#3006](https://github.com/bootstrap-vue/bootstrap-vue/issues/3006))
   ([f742aa9](https://github.com/bootstrap-vue/bootstrap-vue/commit/f742aa9))
-- **tooltip/popover:** prevent double show/shown event emits when .sync modifier used (fixes
+- **tooltip/popover:** prevent double show/shown event emits when `.sync` modifier used (fixes
   [#1637](https://github.com/bootstrap-vue/bootstrap-vue/issues/1637))
   ([#3001](https://github.com/bootstrap-vue/bootstrap-vue/issues/3001))
   ([0d3599a](https://github.com/bootstrap-vue/bootstrap-vue/commit/0d3599a))
@@ -72,22 +72,23 @@ Released 2019-04-07
 
 ### Features v2.0.0-rc.17
 
-- **BvEvent:** subclass BvEvent as BvModalEvent
-  ([#3024](https://github.com/bootstrap-vue/bootstrap-vue/issues/3024))
-  ([502eba9](https://github.com/bootstrap-vue/bootstrap-vue/commit/502eba9))
 - **docs:** algolia powered search
   ([#2952](https://github.com/bootstrap-vue/bootstrap-vue/issues/2952))
   ([0417f7b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0417f7b))
-- **modal:** auto return focus to trigger elements using document.activeElement if no return focus
-  provided ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
+- **modal:** auto return focus to trigger element using previous document.activeElement if no
+  return focus element provided 
+  ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
   ([e5c0aa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/e5c0aa5))
-- **scrollspy:** support when vue-router is in `hash` based route mode (closes
-  [#2722](https://github.com/bootstrap-vue/bootstrap-vue/issues/2722))
-  ([#2953](https://github.com/bootstrap-vue/bootstrap-vue/issues/2953))
-  ([a713dd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/a713dd4))
+- **modal:** subclass `BvEvent` as `BvModalEvent` for modal specific properties
+  ([#3024](https://github.com/bootstrap-vue/bootstrap-vue/issues/3024))
+  ([502eba9](https://github.com/bootstrap-vue/bootstrap-vue/commit/502eba9))
 - **table:** add TypeScript definitions for table fields
   ([#2867](https://github.com/bootstrap-vue/bootstrap-vue/issues/2867))
   ([436e8c1](https://github.com/bootstrap-vue/bootstrap-vue/commit/436e8c1))
+- **v-b-scrollspy:** support when vue-router is in `hash` based route mode (closes
+  [#2722](https://github.com/bootstrap-vue/bootstrap-vue/issues/2722))
+  ([#2953](https://github.com/bootstrap-vue/bootstrap-vue/issues/2953))
+  ([a713dd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/a713dd4))
 
 <a name="2.0.0-rc.16"></a>
 
