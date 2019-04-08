@@ -3,6 +3,7 @@
     class="bd-search d-flex align-items-center"
     ref="form"
     @submit.stop.prevent
+    @click.capture="suggestionClick"
   >
     <b-form-input
       id="bd-search-input"
@@ -51,10 +52,6 @@ export default {
   },
   mounted() {
     this.loadDocsearch().then(this.initDocsearch)
-    this.$nextTick(() => {
-      const options = { passive: false, capture: false }
-      this.$refs.form.addEventListener('click', this.suggestionClick, options)
-    })
   },
   methods: {
     suggestionClick(evt) {
@@ -120,12 +117,11 @@ export default {
           return hits.map(function(hit) {
             // Transform URL to a relative URL
             hit.url = relativeUrl(hit.url)
-
             return hit
           })
         },
         // Set debug to `true` if you want to inspect the dropdown
-        debug: false
+        debug: true
       })
     }
   }
