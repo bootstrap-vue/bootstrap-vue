@@ -55,7 +55,9 @@ export default {
   },
   methods: {
     suggestionClick(evt) {
+      console.log('Click', evt)
       if (evt && evt.target && evt.target.tagName === 'A') {
+        console.log('Link Clicked', evt)
         const link = evt.target
         // We use hte HREF attribute ather than the link.href property
         // As we just want a relative URL not the FQDN URL
