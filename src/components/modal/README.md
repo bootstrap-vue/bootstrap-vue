@@ -186,26 +186,38 @@ called synchronously, as async is not supported.
 ```html
 <template>
   <div>
-    <b-button v-b-modal.modal-prevent>Launch demo modal</b-button>
+    <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button>
 
-    <!-- Main UI -->
-    <div class="mt-3 mb-3">
+    <div class="mt-3">
       Submitted Names:
-      <ul>
-        <li v-for="n in names">{{ n }}</li>
+      <div v-if="submittedNames.length === 0">--</div>
+      <ul v-else class="mb-0 pl-3">
+        <li v-for="name in submittedNames">{{ name }}</li>
       </ul>
     </div>
 
-    <!-- Modal Component -->
     <b-modal
-      id="modal-prevent"
+      id="modal-prevent-closing"
       ref="modal"
-      title="Submit your name"
+      title="Submit Your Name"
+      @show="resetModal"
+      @hidden="resetModal"
       @ok="handleOk"
-      @shown="clearName"
     >
-      <form @submit.stop.prevent="handleSubmit">
-        <b-form-input v-model="name" placeholder="Enter your name"></b-form-input>
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+          :state="nameState"
+          label="Name"
+          label-for="name-input"
+          invalid-feedback="Name is required"
+        >
+          <b-form-input
+            id="name-input"
+            v-model="name"
+            :state="nameState"
+            required
+          ></b-form-input>
+        </b-form-group>
       </form>
     </b-modal>
   </div>
@@ -216,27 +228,35 @@ called synchronously, as async is not supported.
     data() {
       return {
         name: '',
-        names: []
+        nameState: null,
+        submittedNames: []
       }
     },
     methods: {
-      clearName() {
+      checkFormValidity() {
+        const valid = this.$refs.form.checkValidity()
+        this.nameState = valid ? 'valid' : 'invalid'
+        return valid
+      },
+      resetModal() {
         this.name = ''
+        this.nameState = null
       },
       handleOk(bvModalEvt) {
         // Prevent modal from closing
         bvModalEvt.preventDefault()
-        if (!this.name) {
-          alert('Please enter your name')
-        } else {
-          this.handleSubmit()
-        }
+        // Trigger submit handler
+        this.handleSubmit()
       },
       handleSubmit() {
-        this.names.push(this.name)
-        this.clearName()
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
         this.$nextTick(() => {
-          // Wrapped in $nextTick to ensure DOM is rendered before closing
           this.$refs.modal.hide()
         })
       }
