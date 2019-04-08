@@ -3,7 +3,6 @@
     class="bd-search d-flex align-items-center"
     ref="form"
     @submit.stop.prevent
-    @click.native.capture="suggestionClick"
   >
     <b-form-input
       id="bd-search-input"
@@ -51,6 +50,7 @@ export default {
     }
   },
   mounted() {
+    this.$refs.form.addEventListener('click', this.suggestionClick)
     this.loadDocsearch().then(this.initDocsearch)
   },
   methods: {
