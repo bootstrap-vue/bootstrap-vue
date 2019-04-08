@@ -3,14 +3,14 @@
 // Definitions by: Nicola Bosco <https://github.com/nicolabosco87>
 
 declare module 'bootstrap-vue' {
-  import Vue, { PluginFunction, PluginObject } from 'vue'
+  import Vue, { PluginFunction, PluginObject } from 'vue';
 
   class BootstrapVue implements PluginObject<{}> {
     [key: string]: any
     public install: PluginFunction<{}>
   }
 
-  const VuePlugin: BootstrapVue
+  const VuePlugin: BootstrapVue;
 
   export default VuePlugin
 
@@ -25,7 +25,7 @@ declare module 'bootstrap-vue' {
     | 'light'
     | 'dark'
   type SortDirection = 'asc' | 'desc' | 'last'
-  type FormatterCallback = ((value: mixed, key: string, item: mixed) => any)
+  type FormatterCallback = ((value: any, key: string, item: any) => any)
 
   export interface TableField {
     label?: string
@@ -37,9 +37,9 @@ declare module 'bootstrap-vue' {
     sortDirection?: SortDirection
     tdClass?: string | string[] | FormatterCallback
     thClass?: string | string[]
-    thStyle?: mixed
+    thStyle?: any
     variant?: TableVariant | string
-    tdAttr?: mixed | ((value: mixed, key: string, item: mixed) => mixed)
+    tdAttr?: any | ((value: any, key: string, item: any) => any)
     isRowHeader?: boolean
   }
   export interface TableFieldObject {
