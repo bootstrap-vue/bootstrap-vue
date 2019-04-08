@@ -60,6 +60,7 @@ export default [
   // ES
   {
     ...baseConfig,
+    external: ['vue'],
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),
