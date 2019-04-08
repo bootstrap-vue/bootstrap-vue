@@ -10,7 +10,7 @@ module.exports = api => {
     presets,
     env: {
       es: {
-        plugins: [['@babel/plugin-transform-modules-commonjs', { noInterop: true, loose: true }]]
+        plugins: [['@babel/plugin-transform-modules-commonjs', { loose: true }]]
       },
       test: {
         presets: [['@babel/env', { targets: { node: 'current' } }]]
