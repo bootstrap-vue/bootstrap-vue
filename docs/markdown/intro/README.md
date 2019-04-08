@@ -56,7 +56,7 @@ _after_ Bootstrap SCSS to ensure variables are set up correctly.
 **Note**: _Requires webpack configuration to load CSS/SCSS files
 ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_.
 
-## Nuxt.js plugin module
+## Nuxt.js Module
 
 [Nuxt.js](https://nuxtjs.org) version {{ nuxtVersion }} (or greater) is recommended.
 
@@ -152,6 +152,13 @@ module.exports = {
   }
 }
 ```
+
+### Using pretranspiled version of BootstrapVue for Nuxt.js
+
+Nuxt module uses precompiled version of BootstrapVue for faster development builds and source of
+BootstrapVue for higher quality production builds.
+
+You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead of `src/`. By default is enabled for development mode only.
 
 ## Vue CLI 2
 
