@@ -1,7 +1,7 @@
 # Tables
 
-> For displaying tabular data. `<b-table>` supports pagination, filtering, sorting, custom
-> rendering, events, and asynchronous data.
+> For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
+> rendering, various style options, events, and asynchronous data.
 
 **Example: Basic usage**
 
@@ -17,10 +17,10 @@
     data() {
       return {
         items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { age: 38, first_name: 'Jami', last_name: 'Carney' }
         ]
       }
     }
@@ -68,11 +68,11 @@ Record data may also have additional special reserved name keys for colorizing r
 cells (variants), and for triggering additional row detail. The supported optional item record
 modifier properties (make sure your field keys do not conflict with these names):
 
-| Property        | Type    | Description                                                                                                                                                                                                                                     |
-| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `_cellVariants` | Object  | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set). |
-| `_rowVariant`   | String  | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set)                    |
-| `_showDetails`  | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information                                                                                          |
+| Property        | Type    | Description                                                                                                                                                                                                                                                |
+| --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `_cellVariants` | Object  | Bootstrap contextual state applied to individual cells. Keyed by field (See the [Color Variants](/docs/reference/color-variants) for supported values). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set). |
+| `_rowVariant`   | String  | Bootstrap contextual state applied to the entire row (See the [Color Variants](/docs/reference/color-variants) for supported values). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set)                    |
+| `_showDetails`  | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information                                                                                                     |
 
 **Example: Using variants for table cells**
 
@@ -88,23 +88,21 @@ modifier properties (make sure your field keys do not conflict with these names)
     data() {
       return {
         items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
           {
-            isActive: false,
             age: 89,
             first_name: 'Geneva',
             last_name: 'Wilson',
             _rowVariant: 'danger'
           },
           {
-            isActive: true,
             age: 40,
             first_name: 'Thor',
             last_name: 'MacDonald',
-            _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
+            _cellVariants: { age: 'info', first_name: 'warning' }
           },
-          { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+          { age: 29, first_name: 'Dick', last_name: 'Dunlap' }
         ]
       }
     }
@@ -243,7 +241,7 @@ typically be in the order they were defined in the object, although **field orde
 ```html
 <template>
   <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <b-table striped hover small :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -251,7 +249,7 @@ typically be in the order they were defined in the object, although **field orde
   export default {
     data() {
       return {
-        // Note 'isActive' is left out and will not appear in the rendered table
+        // Note 'age' is left out and will not appear in the rendered table
         fields: {
           last_name: {
             label: 'Person last name',
@@ -261,14 +259,9 @@ typically be in the order they were defined in the object, although **field orde
             label: 'Person first name',
             sortable: false
           },
-          foo: {
-            // This key overrides `foo`!
-            key: 'age',
-            label: 'Person age',
-            sortable: true
-          },
           city: {
             key: 'address.city',
+            label: 'City',
             sortable: true
           },
           'address.country': {
@@ -278,28 +271,24 @@ typically be in the order they were defined in the object, although **field orde
         },
         items: [
           {
-            isActive: true,
             age: 40,
             first_name: 'Dickerson',
             last_name: 'Macdonald',
             address: { country: 'USA', city: 'New York' }
           },
           {
-            isActive: false,
             age: 21,
             first_name: 'Larsen',
             last_name: 'Shaw',
             address: { country: 'Canada', city: 'Toronto' }
           },
           {
-            isActive: false,
             age: 89,
             first_name: 'Geneva',
             last_name: 'Wilson',
             address: { country: 'Australia', city: 'Sydney' }
           },
           {
-            isActive: true,
             age: 38,
             first_name: 'Jami',
             last_name: 'Carney',
@@ -662,9 +651,6 @@ following custom CSS:
 
 ```css
 /* Busy table styling */
-table.b-table[aria-busy='false'] {
-  opacity: 1;
-}
 table.b-table[aria-busy='true'] {
   opacity: 0.6;
 }
@@ -818,7 +804,7 @@ field(s) in the scoped slot(s).
 ```html
 <template>
   <div>
-    <b-table :fields="fields" :items="items">
+    <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
       <template slot="index" slot-scope="data">
         {{ data.index + 1 }}
@@ -1090,6 +1076,7 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
     <b-table
       :items="items"
       :fields="fields"
+      responsive="sm"
     >
       <template slot="thead-top" slot-scope="data">
         <tr>
@@ -2015,44 +2002,42 @@ differences between operating systems, this too is not a preventable default beh
 </template>
 
 <script>
-  const items = [
-    { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-    { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-    {
-      isActive: false,
-      age: 9,
-      name: { first: 'Mini', last: 'Navarro' },
-      _rowVariant: 'success'
-    },
-    { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-    { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-    { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-    { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-    {
-      isActive: true,
-      age: 87,
-      name: { first: 'Larsen', last: 'Shaw' },
-      _cellVariants: { age: 'danger', isActive: 'warning' }
-    },
-    { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-    { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-    { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-    { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-  ]
-
   export default {
     data() {
       return {
-        items: items,
+        items: [
+          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+          {
+            isActive: false,
+            age: 9,
+            name: { first: 'Mini', last: 'Navarro' },
+            _rowVariant: 'success'
+          },
+          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+          {
+            isActive: true,
+            age: 87,
+            name: { first: 'Larsen', last: 'Shaw' },
+            _cellVariants: { age: 'danger', isActive: 'warning' }
+          },
+          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        ],
         fields: [
           { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
           { key: 'isActive', label: 'is Active' },
           { key: 'actions', label: 'Actions' }
         ],
+        totalRows: 1,
         currentPage: 1,
         perPage: 5,
-        totalRows: items.length,
         pageOptions: [5, 10, 15],
         sortBy: null,
         sortDesc: false,
@@ -2070,6 +2055,10 @@ differences between operating systems, this too is not a preventable default beh
             return { text: f.label, value: f.key }
           })
       }
+    },
+    mounted() {
+      // Set the initial number of items
+      this.totalRows = this.items.length
     },
     methods: {
       info(item, index, button) {

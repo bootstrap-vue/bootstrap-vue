@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 
@@ -14,12 +15,12 @@ export const props = {
   },
   subTitleTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'subTitleTextVariant')
+    default: () => String(getComponentConfig(NAME, 'subTitleTextVariant') || '') || null
   }
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -33,4 +34,4 @@ export default {
       children || props.subTitle
     )
   }
-}
+})

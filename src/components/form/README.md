@@ -1,6 +1,17 @@
 # Form
 
-> Bootstrap form component that optionally supports inline form styles and validation states
+> BootstrapVue form component and helper components that optionally support inline form styles and
+> validation states. Pair them up with other BootstrapVue form cotrol components for an easy
+> customized, and responsive, layout with a consistent look and feel.
+
+## Introduction to forms and controls
+
+Be sure to use an appropriate `type` on all inputs (e.g., `email` for email address or `number` for
+numerical information) to take advantage of newer input controls like email verification, number
+selection, and more.
+
+Here’s a quick example to demonstrate BootstrapVue’s form styles. Keep reading for documentation on
+supported components, form layout, and more.
 
 ```html
 <template>
@@ -49,6 +60,9 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
+    <b-card class="mt-3" header="Form Data Result">
+      <pre class="m-0">{{ form }}</pre>
+    </b-card>
   </div>
 </template>
 

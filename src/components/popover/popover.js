@@ -1,29 +1,32 @@
+import Vue from 'vue'
 import PopOver from '../../utils/popover.class'
 import warn from '../../utils/warn'
 import toolpopMixin from '../../mixins/toolpop'
 
+export const props = {
+  title: {
+    type: String,
+    default: ''
+  },
+  content: {
+    type: String,
+    default: ''
+  },
+  triggers: {
+    type: [String, Array],
+    default: 'click'
+  },
+  placement: {
+    type: String,
+    default: 'right'
+  }
+}
+
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BPopover',
   mixins: [toolpopMixin],
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    content: {
-      type: String,
-      default: ''
-    },
-    triggers: {
-      type: [String, Array],
-      default: 'click'
-    },
-    placement: {
-      type: String,
-      default: 'right'
-    }
-  },
+  props,
   data() {
     return {}
   },
@@ -31,6 +34,7 @@ export default {
     createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
+      /* istanbul ignore else */
       if (target) {
         this._toolpop = new PopOver(target, this.getConfig(), this.$root)
       } else {
@@ -54,4 +58,4 @@ export default {
       ]
     )
   }
-}
+})

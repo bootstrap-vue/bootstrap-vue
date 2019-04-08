@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { keys } from '../../utils/object'
 import { arrayIncludes, concat } from '../../utils/array'
 import { isRouterLink, computeTag, computeRel, computeHref } from '../../utils/router'
@@ -114,16 +115,21 @@ function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
       // Stop event from bubbling up.
       evt.stopPropagation()
       // Kill the event loop attached to this specific EventTarget.
+      // Needed to prevent vue-router for doing its thing
       evt.stopImmediatePropagation()
     } else {
       if (isRouterLink(tag) && evt.target.__vue__) {
         // Router links do not emit instance 'click' events, so we
         // add in an $emit('click', evt) on it's vue instance
+        /* istanbul ignore next: difficult to test, but we know it works */
         evt.target.__vue__.$emit('click', evt)
       }
-      if (typeof suppliedHandler === 'function') {
-        suppliedHandler(...arguments)
-      }
+      // Call the suppliedHanlder(s), if any provided
+      concat(suppliedHandler)
+        .filter(h => typeof h === 'function')
+        .forEach(handler => {
+          handler(...arguments)
+        })
       parent.$root.$emit('clicked::link', evt)
     }
 
@@ -136,7 +142,7 @@ function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BLink',
   functional: true,
   props: propsFactory(),
@@ -173,4 +179,4 @@ export default {
 
     return h(tag, componentData, children)
   }
-}
+})

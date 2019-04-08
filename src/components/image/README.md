@@ -2,17 +2,25 @@
 
 > Documentation and examples for opting images (via `<b-img>` component) into responsive behavior
 > (so they never become larger than their parent elements), optionally adding lightweight styles to
-> them — all via props. Support for rounded images, thumbnail styling, alignment, and even the
-> ability to create blank images with an optional solid background color.
+> them — all via props.
+
+BootstapVue's image components support rounded images, thumbnail styling, alignment, and even the
+ability to create blank images with an optional solid background color. Support for lazy loaded
+images is available via the `<b-img-lazy>` complimentary component.
 
 ## Image src resolving
 
-The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works only with
-absolute/fully-qualified-domain-name URLs. If you are using project assets as image sources, please
-refer to [Component img src resolving](/docs/reference/images) for configuring `vue-loader` to
-understand custom component props that specify image sources.
+The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works only with absolute or
+fully-qualified-domain-name URLs. If you are using project assets as image sources, please refer to
+[Component img src resolving](/docs/reference/images) for configuring `vue-loader` to understand
+custom component props that specify image sources.
 
-## Responsive images
+## Syling images
+
+Several props are available for styling the rendered image element. The following sub-sections cover
+the various options.
+
+### Responsive images
 
 Images in BootstrapVue can be made responsive with the `fluid` prop (which sets
 `max-width: 100%; height: auto;` via CSS classes) so that it scales with the parent element - up to
@@ -48,7 +56,7 @@ default of inline-block element.
 this, add the style `width: 100% \9;` where necessary. This fix improperly sizes other image
 formats, so Bootstrap V4 doesn’t apply it automatically._
 
-## Image thumbnails
+### Image thumbnails
 
 You can use prop `thumbnail` to give an image a rounded light border appearance.
 
@@ -70,7 +78,7 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 <!-- b-img-thumbnail.vue -->
 ```
 
-## Rounded corners
+### Rounded corners
 
 You can control which corners are rounded by setting the rounded prop to one of the following
 values:
@@ -110,7 +118,7 @@ values:
 <!-- b-img-rounded.vue -->
 ```
 
-## Aligning images
+### Aligning images
 
 Align images with the boolean props `left` (floats left) `right`(floats right), and `center` (auto
 left+right margins). You can also center images by placing them in a container that has the class

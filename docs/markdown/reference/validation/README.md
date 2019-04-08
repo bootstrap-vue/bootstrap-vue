@@ -1,7 +1,7 @@
 # Form Validation
 
-BootstrapVue does not include form validation by default; we leave that up to the many existing form
-validation plugins. Below are some examples of plugins and how they may be integrated.
+> BootstrapVue does not include form validation by default; we leave that up to the many existing
+> form validation plugins. Below are some examples of plugins and how they may be integrated.
 
 ## Vuelidate
 

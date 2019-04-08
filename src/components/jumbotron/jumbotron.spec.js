@@ -1,211 +1,176 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import BJumbotron from './jumbotron'
+import { mount } from '@vue/test-utils'
 
 describe('jumbotron', () => {
-  beforeEach(loadFixture(__dirname, 'jumbotron'))
-  testVM()
+  it('has expected default structure', async () => {
+    const wrapper = mount(BJumbotron)
 
-  it('All examples should contain base class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['default', 'tags', 'level', 'slots', 'content', 'fluid', 'containerFluid'].forEach(ref => {
-      expect($refs[ref]).toHaveClass('jumbotron')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
+  })
+
+  it('renders with custom root element when props tag is set', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        tag: 'article'
+      }
     })
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('fluid and containerFluid should contain jumbotron-fluid class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['fluid', 'containerFluid'].forEach(ref => {
-      expect($refs[ref]).toHaveClass('jumbotron-fluid')
+  it('has border when prop border-variant is set', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        borderVariant: 'danger'
+      }
     })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes()).toContain('border')
+    expect(wrapper.classes()).toContain('border-danger')
+    expect(wrapper.classes().length).toBe(3)
   })
 
-  it('All others should not contain jumbotron-fluid  class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['default', 'tags', 'level', 'slots', 'content'].forEach(ref => {
-      expect($refs[ref]).not.toHaveClass('jumbotron-fluid')
+  it('has background variant when prop bg-variant is set', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        bgVariant: 'info'
+      }
     })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes()).toContain('bg-info')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it("All examples except tags should have root elemwnt of type 'div'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['default', 'level', 'slots', 'content', 'fluid', 'containerFluid'].forEach(ref => {
-      expect($refs[ref]).toBeElement('div')
+  it('has text variant when prop text-variant is set', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        textVariant: 'primary'
+      }
     })
-    expect($refs.tags).not.toBeElement('div')
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes()).toContain('text-primary')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it("default should have first child h1 with content and class 'display-3'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const h1 = $refs.default.children[0]
-    expect(h1).toBeDefined()
-    expect(h1).toBeElement('h1')
-    expect(h1).toHaveClass('display-3')
-    expect(h1.textContent).toContain('header prop')
+  it('renders default slot content', async () => {
+    const wrapper = mount(BJumbotron, {
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
+    expect(wrapper.findAll('.jumbotron > *').length).toBe(0)
   })
 
-  it('default should have second child with tag p with class lead and have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const p = $refs.default.children[1]
-    expect(p).toBeDefined()
-    expect(p).toBeElement('p')
-    expect(p).toHaveClass('lead')
-    expect(p.textContent).toContain('lead prop')
+  it('renders default slot content inside container when fluid prop set', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        fluid: true
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes()).toContain('jumbotron-fluid')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.findAll('.jumbotron > *').length).toBe(1)
+    expect(wrapper.findAll('.container').length).toBe(1)
+    expect(wrapper.find('.container').is('div')).toBe(true)
+    expect(wrapper.find('.container').text()).toEqual('foobar')
+    expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('default should have third child with content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const p = $refs.default.children[2]
-    expect(p).toBeDefined()
-    expect(p).toBeElement('p')
-    expect(p.textContent).toContain('content')
+  it('renders default slot content inside container-fluid when fluid prop and container-fluid set', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        fluid: true,
+        containerFluid: true
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes()).toContain('jumbotron-fluid')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.findAll('.jumbotron > *').length).toBe(1)
+    expect(wrapper.findAll('.container').length).toBe(0)
+    expect(wrapper.findAll('.container-fluid').length).toBe(1)
+    expect(wrapper.find('.container-fluid').is('div')).toBe(true)
+    expect(wrapper.find('.container-fluid').text()).toEqual('foobar')
+    expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('slots should have first child h1 with content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const h1 = $refs.slots.children[0]
-    expect(h1).toBeDefined()
-    expect(h1).toBeElement('h1')
-    expect(h1.textContent).toContain('header slot')
+  it('renders header lead and content when using props', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        header: 'foo',
+        lead: 'bar'
+      },
+      slots: {
+        default: '<span>baz</span>'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('h1').length).toBe(1)
+    expect(wrapper.find('h1').classes()).toContain('display-3')
+    expect(wrapper.find('h1').classes().length).toBe(1)
+    expect(wrapper.find('h1').text()).toEqual('foo')
+    expect(wrapper.findAll('p').length).toBe(1)
+    expect(wrapper.find('p').classes()).toContain('lead')
+    expect(wrapper.find('p').classes().length).toBe(1)
+    expect(wrapper.find('p').text()).toEqual('bar')
+    expect(wrapper.findAll('span').length).toBe(1)
+    expect(wrapper.find('span').text()).toEqual('baz')
+    expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
   })
 
-  it('slots should have second child with tag p with class lead and have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const p = $refs.slots.children[1]
-    expect(p).toBeDefined()
-    expect(p).toBeElement('p')
-    expect(p).toHaveClass('lead')
-    expect(p.textContent).toContain('lead slot')
-  })
+  it('renders header lead and content when using slots', async () => {
+    const wrapper = mount(BJumbotron, {
+      slots: {
+        header: 'foo',
+        lead: 'bar',
+        default: '<span>baz</span>'
+      }
+    })
 
-  it('slots should have third child with content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    const p = $refs.slots.children[2]
-    expect(p).toBeDefined()
-    expect(p).toBeElement('p')
-    expect(p.textContent).toContain('content')
-  })
-
-  it("level should have first child h1 with content and class 'display-4'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const level = $refs.level
-    expect(level).toBeDefined()
-    const h1 = level.children[0]
-    expect(h1).toBeDefined()
-    expect(h1).toBeElement('h1')
-    expect(h1).toHaveClass('display-4')
-    expect(h1.textContent).toContain('header prop')
-  })
-
-  it("tags should have custom root tag of 'article'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const tags = $refs.tags
-    expect(tags).toBeDefined()
-    expect(tags).toBeElement('article')
-  })
-
-  it("tags should have custom header tag of 'h2' with content", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const header = $refs.tags.children[0]
-    expect(header).toBeDefined()
-    expect(header).toBeElement('h2')
-    expect(header).toHaveClass('display-3')
-    expect(header.textContent).toContain('header prop')
-  })
-
-  it("tags should have custom lead tag of 'div' with content and class 'lead'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const lead = $refs.tags.children[1]
-    expect(lead).toBeDefined()
-    expect(lead).toBeElement('div')
-    expect(lead).toHaveClass('lead')
-    expect(lead.textContent).toContain('lead prop')
-  })
-
-  it("content should have one child with tag p and text 'content'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const content = $refs.content
-    expect(content).toBeDefined()
-    expect(content.children.length).toBe(1)
-    expect(content.children[0]).toBeElement('p')
-    expect(content.children[0].textContent).toContain('content')
-  })
-
-  it("fluid should have child with class 'container`", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const fluid = $refs.fluid
-    expect(fluid).toBeDefined()
-    expect(fluid.children.length).toBe(1)
-    const container = fluid.children[0]
-    expect(container).toBeDefined()
-    expect(container).toBeElement('div')
-    expect(container).toHaveClass('container')
-  })
-
-  it("containerFluid should have child with class 'container-fluid`", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const fluid = $refs.containerFluid
-    expect(fluid).toBeDefined()
-    expect(fluid.children.length).toBe(1)
-    const container = fluid.children[0]
-    expect(container).toBeDefined()
-    expect(container).toBeElement('div')
-    expect(container).toHaveClass('container-fluid')
-  })
-
-  it("fluid should have child 'container' with content", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const fluid = $refs.fluid
-    const container = fluid.children[0]
-    expect(container.children.length).toBe(3)
-    expect(container.children[0].textContent).toContain('header')
-    expect(container.children[1].textContent).toContain('lead')
-    expect(container.children[2].textContent).toContain('content')
-  })
-
-  it("containerFluid should have child 'container-fluid' with content", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const fluid = $refs.containerFluid
-    const container = fluid.children[0]
-    expect(container.children.length).toBe(3)
-    expect(container.children[0].textContent).toContain('header')
-    expect(container.children[1].textContent).toContain('lead')
-    expect(container.children[2].textContent).toContain('content')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('h1').length).toBe(1)
+    expect(wrapper.find('h1').classes()).toContain('display-3')
+    expect(wrapper.find('h1').classes().length).toBe(1)
+    expect(wrapper.find('h1').text()).toEqual('foo')
+    expect(wrapper.findAll('p').length).toBe(1)
+    expect(wrapper.find('p').classes()).toContain('lead')
+    expect(wrapper.find('p').classes().length).toBe(1)
+    expect(wrapper.find('p').text()).toEqual('bar')
+    expect(wrapper.findAll('span').length).toBe(1)
+    expect(wrapper.find('span').text()).toEqual('baz')
+    expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
   })
 })

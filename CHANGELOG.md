@@ -1,10 +1,96 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See
-[standard-version](https://github.com/conventional-changelog/standard-version) for commit
-guidelines.
+> All notable changes to this project will be documented in this file. See
+> [standard-version](https://github.com/conventional-changelog/standard-version) for commit
+> guidelines.
 
-<a name="2.0.0-rc.15"></a>
+<a name="2.0.0-rc.17"></a>
+
+## [v2.0.0-rc.17](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.16...v2.0.0-rc.17)
+
+Released 2019-04-07
+
+### Bug Fixes v2.0.0-rc.17
+
+- **breadcrumb-item:** remove atribute `role="presentation"` for better ARIA support
+  ([#2991](https://github.com/bootstrap-vue/bootstrap-vue/issues/2991))
+  ([e84c4a7](https://github.com/bootstrap-vue/bootstrap-vue/commit/e84c4a7))
+- **docs:** add back missing leading slash to search urls
+  ([#2947](https://github.com/bootstrap-vue/bootstrap-vue/issues/2947))
+  ([fff8795](https://github.com/bootstrap-vue/bootstrap-vue/commit/fff8795))
+- **docs:** fix component plugin's included plugins and directives
+  ([#2966](https://github.com/bootstrap-vue/bootstrap-vue/issues/2966))
+  ([cbf24c3](https://github.com/bootstrap-vue/bootstrap-vue/commit/cbf24c3))
+- **docs:** fix issue with table docs page (closes
+  [#2939](https://github.com/bootstrap-vue/bootstrap-vue/issues/2939))
+  ([#2940](https://github.com/bootstrap-vue/bootstrap-vue/issues/2940))
+  ([c6abfd0](https://github.com/bootstrap-vue/bootstrap-vue/commit/c6abfd0))
+- **env:** check for undefined on process (closes
+  [#2958](https://github.com/bootstrap-vue/bootstrap-vue/issues/2958))
+  ([#2959](https://github.com/bootstrap-vue/bootstrap-vue/issues/2959))
+  ([0c3a7b0](https://github.com/bootstrap-vue/bootstrap-vue/commit/0c3a7b0))
+- **form-group:** don't render `aria-labelledby` on group when `label-for` provided (fixes
+  [#2933](https://github.com/bootstrap-vue/bootstrap-vue/issues/2933))
+  ([#2936](https://github.com/bootstrap-vue/bootstrap-vue/issues/2936))
+  ([8058c03](https://github.com/bootstrap-vue/bootstrap-vue/commit/8058c03))
+- **form-textarea:** improved computedHeight calculation when in auto resize mode
+  ([#3012](https://github.com/bootstrap-vue/bootstrap-vue/issues/3012))
+  ([0043b92](https://github.com/bootstrap-vue/bootstrap-vue/commit/0043b92))
+- **link:** support handling multiple click event listeners (fixes
+  [#2938](https://github.com/bootstrap-vue/bootstrap-vue/issues/2938))
+  ([#2943](https://github.com/bootstrap-vue/bootstrap-vue/issues/2943))
+  ([97e8ece](https://github.com/bootstrap-vue/bootstrap-vue/commit/97e8ece))
+- **modal:** prevent close on backdrop when click initiated inside modal content (fixes
+  [#3025](https://github.com/bootstrap-vue/bootstrap-vue/issues/3025))
+  ([#3029](https://github.com/bootstrap-vue/bootstrap-vue/issues/3029))
+  ([ad57e8c](https://github.com/bootstrap-vue/bootstrap-vue/commit/ad57e8c))
+- **modal:** prevent page scroll as modal opens
+  ([#2963](https://github.com/bootstrap-vue/bootstrap-vue/issues/2963))
+  ([3bf3622](https://github.com/bootstrap-vue/bootstrap-vue/commit/3bf3622))
+- **modal:** improve stacked modal z-index calculations (closes
+  [#3015](https://github.com/bootstrap-vue/bootstrap-vue/issues/3015))
+  ([#3017](https://github.com/bootstrap-vue/bootstrap-vue/issues/3017))
+  ([891e8cc](https://github.com/bootstrap-vue/bootstrap-vue/commit/891e8cc))
+- **pagination:** reset to page 1 when `total-rows` or `per-page` changes (closes
+  [#2987](https://github.com/bootstrap-vue/bootstrap-vue/issues/2987))
+  ([#2993](https://github.com/bootstrap-vue/bootstrap-vue/issues/2993))
+  ([df2e77a](https://github.com/bootstrap-vue/bootstrap-vue/commit/df2e77a))
+- **pagination-nav:** better current page detection in IE
+  ([#3006](https://github.com/bootstrap-vue/bootstrap-vue/issues/3006))
+  ([f742aa9](https://github.com/bootstrap-vue/bootstrap-vue/commit/f742aa9))
+- **tooltip/popover:** prevent double show/shown event emits when `.sync` modifier used (fixes
+  [#1637](https://github.com/bootstrap-vue/bootstrap-vue/issues/1637))
+  ([#3001](https://github.com/bootstrap-vue/bootstrap-vue/issues/3001))
+  ([0d3599a](https://github.com/bootstrap-vue/bootstrap-vue/commit/0d3599a))
+- **utils/get:** handle case when nested value is falsy
+  ([#2982](https://github.com/bootstrap-vue/bootstrap-vue/issues/2982))
+  ([40f6cb7](https://github.com/bootstrap-vue/bootstrap-vue/commit/40f6cb7))
+- **v-b-toggle/b-collapse:** ensure toggle remains in sync with collapse (Closes
+  [#3020](https://github.com/bootstrap-vue/bootstrap-vue/issues/3020))
+  ([#3021](https://github.com/bootstrap-vue/bootstrap-vue/issues/3021))
+  ([6b36d0d](https://github.com/bootstrap-vue/bootstrap-vue/commit/6b36d0d))
+
+### Features v2.0.0-rc.17
+
+- **docs:** algolia powered search
+  ([#2952](https://github.com/bootstrap-vue/bootstrap-vue/issues/2952))
+  ([0417f7b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0417f7b))
+- **modal:** auto return focus to trigger element using previous document.activeElement if no
+  return focus element provided 
+  ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
+  ([e5c0aa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/e5c0aa5))
+- **modal:** subclass `BvEvent` as `BvModalEvent` for modal specific properties
+  ([#3024](https://github.com/bootstrap-vue/bootstrap-vue/issues/3024))
+  ([502eba9](https://github.com/bootstrap-vue/bootstrap-vue/commit/502eba9))
+- **table:** add TypeScript definitions for table fields
+  ([#2867](https://github.com/bootstrap-vue/bootstrap-vue/issues/2867))
+  ([436e8c1](https://github.com/bootstrap-vue/bootstrap-vue/commit/436e8c1))
+- **v-b-scrollspy:** support when vue-router is in `hash` based route mode (closes
+  [#2722](https://github.com/bootstrap-vue/bootstrap-vue/issues/2722))
+  ([#2953](https://github.com/bootstrap-vue/bootstrap-vue/issues/2953))
+  ([a713dd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/a713dd4))
+
+<a name="2.0.0-rc.16"></a>
 
 ## [v2.0.0-rc.16](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.15...v2.0.0-rc.16)
 

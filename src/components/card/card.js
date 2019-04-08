@@ -1,5 +1,5 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
-
 import prefixPropName from '../../utils/prefix-prop-name'
 import unPrefixPropName from '../../utils/unprefix-prop-name'
 import copyProps from '../../utils/copy-props'
@@ -30,7 +30,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCard',
   functional: true,
   props,
@@ -93,4 +93,4 @@ export default {
       [imgFirst, header, ...content, footer, imgLast]
     )
   }
-}
+})

@@ -1,9 +1,9 @@
-import Button from './button'
+import BButton from './button'
 import { mount } from '@vue/test-utils'
 
 describe('button', () => {
   it('has default structure and classes', async () => {
-    const wrapper = mount(Button)
+    const wrapper = mount(BButton)
 
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.attributes('type')).toBeDefined()
@@ -21,7 +21,7 @@ describe('button', () => {
   })
 
   it('renders a link when href provided', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         href: '/foo/bar'
       }
@@ -43,7 +43,7 @@ describe('button', () => {
   })
 
   it('renders default slot content', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       slots: {
         default: '<span>foobar</span>'
       }
@@ -60,7 +60,7 @@ describe('button', () => {
   })
 
   it('applies variant class', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         variant: 'danger'
       }
@@ -75,7 +75,7 @@ describe('button', () => {
   })
 
   it('applies block class', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         block: true
       }
@@ -91,7 +91,7 @@ describe('button', () => {
   })
 
   it('renders custom root element', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         tag: 'div'
       }
@@ -114,7 +114,7 @@ describe('button', () => {
   })
 
   it('button has attribute disabled when disabled set', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         disabled: true
       }
@@ -130,7 +130,7 @@ describe('button', () => {
   })
 
   it('link has attribute aria-disabled when disabled set', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         href: '/foo/bar',
         disabled: true
@@ -141,10 +141,10 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).toContain('disabled')
-    // Both b-button and b-link add hte class 'disabled'
-    // vue-functional-data-merge or Vue doesn't appear to de-dup classes
+    // Both <b-button> and <b-link> add the class 'disabled'
+    // `vue-functional-data-merge` or Vue doesn't appear to de-dup classes
     // expect(wrapper.classes().length).toBe(3)
-    // actually returns 4, as disabled is there twice
+    // Actually returns 4, as disabled is there twice
     expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toBe('true')
   })
@@ -152,7 +152,7 @@ describe('button', () => {
   it('should emit click event when clicked', async () => {
     let called = 0
     let evt = null
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       listeners: {
         click: e => {
           evt = e
@@ -171,7 +171,7 @@ describe('button', () => {
 
   it('should not emit click event when clicked and disabled', async () => {
     let called = 0
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         disabled: true
       },
@@ -189,7 +189,7 @@ describe('button', () => {
   })
 
   it('should not have `.active` class and `aria-pressed` when pressed is null', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         pressed: null
       }
@@ -204,7 +204,7 @@ describe('button', () => {
   })
 
   it('should not have `.active` class and have `aria-pressed="false"` when pressed is false', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         pressed: false
       }
@@ -218,7 +218,7 @@ describe('button', () => {
   })
 
   it('should have `.active` class and have `aria-pressed="true"` when pressed is true', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         pressed: true
       }
@@ -232,7 +232,7 @@ describe('button', () => {
   })
 
   it('pressed should have `.focus` class when focused', async () => {
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         pressed: false
       }
@@ -248,7 +248,7 @@ describe('button', () => {
   it('should update the parent sync value on click and when pressed is not null', async () => {
     let called = 0
     const values = []
-    const wrapper = mount(Button, {
+    const wrapper = mount(BButton, {
       propsData: {
         pressed: false
       },

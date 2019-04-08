@@ -1,9 +1,10 @@
+import Vue from 'vue'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
 import toolpopMixin from '../../mixins/toolpop'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BTooltip',
   mixins: [toolpopMixin],
   props: {
@@ -27,6 +28,7 @@ export default {
     createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
+      /* istanbul ignore else */
       if (target) {
         this._toolpop = new ToolTip(target, this.getConfig(), this.$root)
       } else {
@@ -43,4 +45,4 @@ export default {
       [h('div', { ref: 'title' }, this.$slots.default)]
     )
   }
-}
+})

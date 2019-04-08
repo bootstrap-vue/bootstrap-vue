@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
@@ -91,7 +92,7 @@ export default (resolve, reject) => {
    * but always render when col=true.
    */
   // @vue/component
-  const BCol = {
+  const BCol = Vue.extend({
     name: 'BCol',
     functional: true,
     props: {
@@ -136,9 +137,11 @@ export default (resolve, reject) => {
         }
       }
 
+      const hasColClasses = classList.some(className => /^col-/.test(className))
+
       classList.push({
-        // Default to .col if no other classes generated nor `cols` specified.
-        col: props.col || (classList.length === 0 && !props.cols),
+        // Default to .col if no other col-{bp}-* classes generated nor `cols` specified.
+        col: props.col || (!hasColClasses && !props.cols),
         [`col-${props.cols}`]: props.cols,
         [`offset-${props.offset}`]: props.offset,
         [`order-${props.order}`]: props.order,
@@ -147,7 +150,7 @@ export default (resolve, reject) => {
 
       return h(props.tag, mergeData(data, { class: classList }), children)
     }
-  }
+  })
 
   // Return the config on demand
   resolve(BCol)

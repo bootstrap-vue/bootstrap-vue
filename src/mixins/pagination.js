@@ -143,7 +143,6 @@ const props = {
 
 // @vue/component
 export default {
-  components: { BLink },
   mixins: [normalizeSlotMixin],
   model: {
     prop: 'value',
@@ -373,7 +372,7 @@ export default {
       const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
       const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h(false)
       const inner = h(
-        isDisabled ? 'span' : 'b-link',
+        isDisabled ? 'span' : BLink,
         {
           staticClass: 'page-link',
           props: isDisabled ? {} : this.linkProps(linkTo),
@@ -478,7 +477,7 @@ export default {
         disabled
       }
       const inner = h(
-        disabled ? 'span' : 'b-link',
+        disabled ? 'span' : BLink,
         {
           props: disabled ? {} : this.linkProps(page.number),
           staticClass: 'page-link',

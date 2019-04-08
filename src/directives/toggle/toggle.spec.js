@@ -7,6 +7,9 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 // Listen to event for toggle state update (emitted by collapse)
 const EVENT_STATE = 'bv::collapse::state'
 
+// Listen to event for toggle sync state update (emitted by collapse)
+const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
+
 describe('v-b-toggle directive', () => {
   it('works on buttons', async () => {
     const localVue = new CreateLocalVue()
@@ -26,6 +29,47 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: '<button v-b-toggle.test>button</button>'
+    })
+
+    const wrapper = mount(App, {
+      localVue: localVue
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(spy).not.toHaveBeenCalled()
+
+    const $button = wrapper.find('button')
+    $button.trigger('click')
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toBeCalledWith('test')
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+
+    wrapper.destroy()
+  })
+  it('works on passing ID as directive value', async () => {
+    const localVue = new CreateLocalVue()
+    const spy = jest.fn()
+
+    const App = localVue.extend({
+      directives: {
+        bToggle: toggleDirective
+      },
+      data() {
+        return {}
+      },
+      mounted() {
+        this.$root.$on(EVENT_TOGGLE, spy)
+      },
+      beforeDestroy() {
+        this.$root.$off(EVENT_TOGGLE, spy)
+      },
+      template: `<button v-b-toggle="'test'">button</button>`
     })
 
     const wrapper = mount(App, {
@@ -106,6 +150,7 @@ describe('v-b-toggle directive', () => {
 
     wrapper.destroy()
   })
+
   it('responds to state update events', async () => {
     const localVue = new CreateLocalVue()
 
@@ -139,6 +184,48 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     $root.$emit(EVENT_STATE, 'test', false)
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+
+    wrapper.destroy()
+  })
+
+  it('responds to private sync state update events', async () => {
+    const localVue = new CreateLocalVue()
+
+    const App = localVue.extend({
+      directives: {
+        bToggle: toggleDirective
+      },
+      data() {
+        return {}
+      },
+      template: '<button v-b-toggle.test>button</button>'
+    })
+
+    const wrapper = mount(App, {
+      localVue: localVue
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+
+    const $root = wrapper.vm.$root
+
+    $root.$emit(EVENT_STATE_SYNC, 'test', true)
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+
+    $root.$emit(EVENT_STATE_SYNC, 'test', false)
     await wrapper.vm.$nextTick()
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')

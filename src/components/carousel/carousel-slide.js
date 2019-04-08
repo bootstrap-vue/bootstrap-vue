@@ -1,12 +1,69 @@
+import Vue from 'vue'
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
 
+export const props = {
+  imgSrc: {
+    type: String
+    // default: undefined
+  },
+  imgAlt: {
+    type: String
+    // default: undefined
+  },
+  imgWidth: {
+    type: [Number, String]
+    // default: undefined
+  },
+  imgHeight: {
+    type: [Number, String]
+    // default: undefined
+  },
+  imgBlank: {
+    type: Boolean,
+    default: false
+  },
+  imgBlankColor: {
+    type: String,
+    default: 'transparent'
+  },
+  contentVisibleUp: {
+    type: String
+  },
+  contentTag: {
+    type: String,
+    default: 'div'
+  },
+  caption: {
+    type: String
+  },
+  captionHtml: {
+    type: String
+  },
+  captionTag: {
+    type: String,
+    default: 'h3'
+  },
+  text: {
+    type: String
+  },
+  textHtml: {
+    type: String
+  },
+  textTag: {
+    type: String,
+    default: 'p'
+  },
+  background: {
+    type: String
+  }
+}
+
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BCarouselSlide',
-  components: { BImg },
   mixins: [idMixin],
   inject: {
     bvCarousel: {
@@ -18,62 +75,7 @@ export default {
       }
     }
   },
-  props: {
-    imgSrc: {
-      type: String
-      // default: undefined
-    },
-    imgAlt: {
-      type: String
-      // default: undefined
-    },
-    imgWidth: {
-      type: [Number, String]
-      // default: undefined
-    },
-    imgHeight: {
-      type: [Number, String]
-      // default: undefined
-    },
-    imgBlank: {
-      type: Boolean,
-      default: false
-    },
-    imgBlankColor: {
-      type: String,
-      default: 'transparent'
-    },
-    contentVisibleUp: {
-      type: String
-    },
-    contentTag: {
-      type: String,
-      default: 'div'
-    },
-    caption: {
-      type: String
-    },
-    captionHtml: {
-      type: String
-    },
-    captionTag: {
-      type: String,
-      default: 'h3'
-    },
-    text: {
-      type: String
-    },
-    textHtml: {
-      type: String
-    },
-    textTag: {
-      type: String,
-      default: 'p'
-    },
-    background: {
-      type: String
-    }
-  },
+  props,
   data() {
     return {}
   },
@@ -99,7 +101,7 @@ export default {
 
     let img = $slots.img
     if (!img && (this.imgSrc || this.imgBlank)) {
-      img = h('b-img', {
+      img = h(BImg, {
         props: {
           fluidGrow: true,
           block: true,
@@ -151,4 +153,4 @@ export default {
       [img, content]
     )
   }
-}
+})

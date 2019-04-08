@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 
@@ -85,12 +86,12 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => getComponentConfig(NAME, 'blankColor')
+    default: () => String(getComponentConfig(NAME, 'blankColor'))
   }
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BImg',
   functional: true,
   props,
@@ -142,4 +143,4 @@ export default {
       })
     )
   }
-}
+})

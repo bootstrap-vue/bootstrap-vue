@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import paginationMixin from '../../mixins/pagination'
 import { isVisible } from '../../utils/dom'
 
@@ -31,7 +32,7 @@ const props = {
 
 // Our render function is brought in from the pagination mixin
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BPagination',
   mixins: [paginationMixin],
   props,
@@ -42,8 +43,13 @@ export default {
     }
   },
   watch: {
-    numberOfPages(newVal, OldVal) {
+    numberOfPages(newVal) {
+      if (newVal === this.localNumPages) {
+        /* istanbul ignore next */
+        return
+      }
       this.localNumPages = newVal
+      this.currentPage = 1
     }
   },
   created() {
@@ -99,4 +105,4 @@ export default {
       return { href: '#' }
     }
   }
-}
+})

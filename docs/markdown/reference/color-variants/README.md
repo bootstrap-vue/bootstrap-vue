@@ -72,7 +72,9 @@ Note the `link` variant does not have an outline version.
 
 ### Table variants
 
-All the **base variants**:
+All the **base variants** plus:
+
+- `active`
 
 These variants translate to class names `table-<variant>`.
 

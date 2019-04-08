@@ -1,90 +1,52 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import BContainer from './container'
+import { mount } from '@vue/test-utils'
 
-describe('container', () => {
-  beforeEach(loadFixture(__dirname, 'container'))
-  testVM()
+describe('layout > container', () => {
+  it('should have expected default structure', async () => {
+    const wrapper = mount(BContainer)
 
-  it('default should contain default class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toHaveClass('container')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('container')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('default should not contain fluid class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).not.toHaveClass('container-fluid')
+  it('renders custom root element when prop tag set', async () => {
+    const wrapper = mount(BContainer, {
+      propsData: {
+        tag: 'section'
+      }
+    })
+
+    expect(wrapper.is('section')).toBe(true)
+    expect(wrapper.classes()).toContain('container')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('custom should contain default class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom).toHaveClass('container')
+  it('should have container-fluid class when prop fluid set', async () => {
+    const wrapper = mount(BContainer, {
+      propsData: {
+        fluid: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('container-fluid')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('custom should not contain fluid class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom).not.toHaveClass('container-fluid')
-  })
+  it('has content from default slot', async () => {
+    const wrapper = mount(BContainer, {
+      slots: {
+        default: 'foobar'
+      }
+    })
 
-  it('fluid should not contain default class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.fluid).not.toHaveClass('container')
-  })
-
-  it('fluid should contain fluid class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.fluid).toHaveClass('container-fluid')
-  })
-
-  it('default should have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default.textContent).toContain('default')
-  })
-
-  it('custom should have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom.textContent).toContain('custom')
-  })
-
-  it('fluid should have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.fluid.textContent).toContain('fluid')
-  })
-
-  it('default should have tag div', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toBeElement('div')
-  })
-
-  it('custom should have tag p', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom).toBeElement('p')
-  })
-
-  it('fluid should have tag div', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.fluid).toBeElement('div')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('container')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
   })
 })

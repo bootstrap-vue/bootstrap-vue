@@ -1,9 +1,10 @@
+import Vue from 'vue'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
 export const props = linkPropsFactory()
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BDropdownItem',
   inject: {
     bvDropdown: {
@@ -34,4 +35,4 @@ export default {
       this.$slots.default
     )
   }
-}
+})

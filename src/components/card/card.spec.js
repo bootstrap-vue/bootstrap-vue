@@ -1,157 +1,269 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import BCard from './card'
+import { mount } from '@vue/test-utils'
 
 describe('card', () => {
-  beforeEach(loadFixture(__dirname, 'card'))
-  testVM()
+  it('default has expected structure', async () => {
+    const wrapper = mount(BCard)
 
-  it("should contain '.card-body' class in the default slot", async () => {
-    const {
-      app: { $refs }
-    } = window
+    // Outer div
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes().length).toBe(1)
 
-    const refs = ['simple_card', 'standard_card', 'img_card', 'img_overlay_card']
+    // Should have one child div.card-body
+    expect(wrapper.findAll('.card > .card-body').length).toBe(1)
+    expect(wrapper.findAll('.card-body').length).toBe(1)
+    expect(wrapper.find('.card-body').is('div')).toBe(true)
+    expect(wrapper.find('.card-body').classes()).toContain('card-body')
+    expect(wrapper.find('.card-body').classes().length).toBe(1)
 
-    refs.forEach(ref => {
-      const childNodes = [...$refs[ref].childNodes]
-      const cardBody = childNodes.find(el => el.classList && el.classList.contains('card-body'))
+    // Should have no content by default
+    expect(wrapper.text()).toEqual('')
+  })
 
-      expect(cardBody).toBeDefined()
+  it('should not contain "card-body" if prop no-body set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        noBody: true
+      }
     })
+
+    // Outer div
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes().length).toBe(1)
+
+    // Should no have a card body
+    expect(wrapper.findAll('.card-body').length).toBe(0)
+    // Should have no content by default
+    expect(wrapper.text()).toEqual('')
   })
 
-  it("should not contain '.card-body' class if no-body specified", async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.no_body.classList.contains('card-body')).toBe(false)
-    expect($refs.no_body_default_slot).toEqual($refs.no_body.children[0])
-  })
-
-  it('should contain class names', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.simple_card).toHaveAllClasses(['card', 'bg-success', 'border-success'])
-    expect($refs.standard_card).toHaveClass('card')
-    expect($refs.img_card).toHaveClass('card')
-    expect($refs.img_overlay_card).toHaveAllClasses(['card'])
-
-    const cardBodyEl = [...$refs.img_overlay_card.childNodes].find(
-      el => el.classList && el.classList.contains('card-body')
-    )
-
-    expect(cardBodyEl.classList.contains('card-img-overlay')).toBe(true)
-  })
-
-  it('should contain text content', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    expect($refs.simple_card.textContent).toContain('Simple Card')
-    expect($refs.standard_card.textContent).toContain('Last updated 3 mins ago')
-    expect($refs.img_card.textContent).toContain('This is my opinion :)')
-    expect($refs.img_overlay_card.textContent).toContain('Overlay cards are cute!')
-  })
-
-  it('standard_card should display card header', async () => {
-    const { app } = window
-
-    const childNodes = [...app.$refs.standard_card.childNodes]
-    const headerEl = childNodes.find(el => el.classList && el.classList.contains('card-header'))
-
-    expect(headerEl).toBeDefined()
-    expect(headerEl.textContent).toContain(app.headerText)
-  })
-
-  it('standard_card should display card footer', async () => {
-    const {
-      app: { $refs }
-    } = window
-
-    const childNodes = [...$refs.standard_card.childNodes]
-    const footerEl = childNodes.find(el => el.classList && el.classList.contains('card-footer'))
-    const footerText = 'Last updated 3 mins ago'
-
-    expect(footerEl).toBeDefined()
-    expect(footerEl.textContent).toContain(footerText)
-  })
-
-  it('should contain <img> with matching src', async () => {
-    const { app } = window
-
-    const refsWithImg = ['img_card', 'img_overlay_card']
-
-    refsWithImg.forEach((ref, i) => {
-      const node = app.$refs[ref]
-      const src = app['img' + i]
-      const childNodes = [...node.childNodes]
-      const imgEl = childNodes.find(el => el.tagName && el.tagName === 'IMG')
-
-      expect(imgEl).toBeDefined()
-      expect(imgEl.src).toEqual(src)
+  it('renders custom root element when tag prop set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        tag: 'article',
+        noBody: true
+      }
     })
+
+    // Outer div
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('should add flex-row to a img-left or img-right image', async () => {
-    const { app } = window
-    const node = app.$refs['img_card']
-    const childNodes = [...node.childNodes]
-    const imgEl = childNodes.find(el => el.tagName && el.tagName === 'IMG')
+  it('applies variant classes to root element', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        noBody: true,
+        bgVariant: 'info',
+        borderVariant: 'danger',
+        textVariant: 'dark'
+      }
+    })
 
-    expect(imgEl).toBeDefined()
-    expect(imgEl.classList).toEqual(expect.objectContaining(/^flex-row/))
+    // Outer div
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes()).toContain('bg-info')
+    expect(wrapper.classes()).toContain('border-danger')
+    expect(wrapper.classes()).toContain('text-dark')
+    expect(wrapper.classes().length).toBe(4)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it("should use the 'tag' for element tag", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const $titleCard = $refs.card_group.querySelector('#title-tag-test')
-    // Card ref -> .card-body -> title el
-    expect($titleCard).toBeElement('article')
+  it('applies text align class to when align prop set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        noBody: true,
+        align: 'right'
+      }
+    })
+
+    // Outer div
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes()).toContain('text-right')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it("should use the 'title-tag' for element tag", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const $titleCard = $refs.card_group.querySelector('#title-tag-test')
-    // Card ref -> .card-body -> title el
-    expect($titleCard.children[0].children[0]).toBeElement('h1')
+  it('should have content from default slot', async () => {
+    const wrapperBody = mount(BCard, {
+      propsData: {
+        noBody: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const wrapperNoBody = mount(BCard, {
+      propsData: {
+        noBody: true
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    // With body
+    expect(wrapperBody.is('div')).toBe(true)
+    expect(wrapperBody.findAll('.card-body').length).toBe(1)
+    expect(wrapperBody.find('.card-body').text()).toBe('foobar')
+
+    // With no body
+    expect(wrapperNoBody.is('div')).toBe(true)
+    expect(wrapperNoBody.findAll('.card-body').length).toBe(0)
+    expect(wrapperNoBody.text()).toBe('foobar')
   })
 
-  it("should use the 'sub-title-tag' for element tag", async () => {
-    const {
-      app: { $refs }
-    } = window
-    const $subtitleCard = $refs.card_group.querySelector('#sub-title-tag-test')
-    // Card ref -> .card-body -> subtitle el
-    expect($subtitleCard.children[0].children[0]).toBeElement('h2')
+  it('should have class flex-row when img-left set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        noBody: true,
+        imgLeft: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes()).toContain('flex-row')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it("CardGroup: should apply '.card-group' class", async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('should have class flex-row-reverse when img-right set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        noBody: true,
+        imgRight: true
+      }
+    })
 
-    expect($refs.card_group.classList.contains('card-group')).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes()).toContain('flex-row-reverse')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it("CardGroup: should use the 'tag' for element tag", async () => {
-    const {
-      app: { $refs }
-    } = window
+  it('should have class flex-row when img-left and img-right set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        noBody: true,
+        imgLeft: true,
+        imgRight: true
+      }
+    })
 
-    expect($refs.card_group).toBeElement('section')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes()).toContain('flex-row')
+    expect(wrapper.classes()).not.toContain('flex-row-reverse')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('CardBody should have assigned class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.body).toHaveClass('card-text')
+  it('should have header and footer when header and footer props are set', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        header: 'foo',
+        footer: 'bar'
+      },
+      slots: {
+        default: 'fizzle'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+
+    expect(wrapper.findAll('.card-header').length).toBe(1)
+    expect(wrapper.find('.card-header').text()).toBe('foo')
+    expect(wrapper.findAll('.card-body').length).toBe(1)
+    expect(wrapper.find('.card-body').text()).toBe('fizzle')
+    expect(wrapper.findAll('.card-footer').length).toBe(1)
+    expect(wrapper.find('.card-footer').text()).toBe('bar')
+
+    // Expected order
+    expect(wrapper.find('.card-header+.card-body+.card-footer').exists()).toBe(true)
+  })
+
+  it('should have img at top', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        imgSrc: '/foo/bar',
+        imgAlt: 'foobar',
+        imgTop: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+
+    expect(wrapper.findAll('img').length).toBe(1)
+    const $img = wrapper.find('img')
+    expect($img.is('img')).toBe(true)
+    expect($img.attributes('src')).toBe('/foo/bar')
+    expect($img.attributes('alt')).toBe('foobar')
+    expect($img.classes()).toContain('card-img-top')
+    expect($img.classes().length).toBe(1)
+
+    // Expected order
+    expect(wrapper.find('img + .card-body').exists()).toBe(true)
+  })
+
+  it('should have img at bottom', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        imgSrc: '/foo/bar',
+        imgAlt: 'foobar',
+        imgBottom: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+
+    expect(wrapper.findAll('img').length).toBe(1)
+    const $img = wrapper.find('img')
+    expect($img.is('img')).toBe(true)
+    expect($img.attributes('src')).toBe('/foo/bar')
+    expect($img.attributes('alt')).toBe('foobar')
+    expect($img.classes()).toContain('card-img-bottom')
+    expect($img.classes().length).toBe(1)
+
+    // Expected order
+    expect(wrapper.find('.card-body + img').exists()).toBe(true)
+  })
+
+  it('should have img overlay', async () => {
+    const wrapper = mount(BCard, {
+      propsData: {
+        imgSrc: '/foo/bar',
+        imgAlt: 'foobar',
+        overlay: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('card')
+    expect(wrapper.classes().length).toBe(1)
+
+    expect(wrapper.findAll('img').length).toBe(1)
+    const $img = wrapper.find('img')
+    expect($img.is('img')).toBe(true)
+    expect($img.attributes('src')).toBe('/foo/bar')
+    expect($img.attributes('alt')).toBe('foobar')
+    expect($img.classes()).toContain('card-img')
+    expect($img.classes().length).toBe(1)
+
+    expect(wrapper.findAll('.card-body').length).toBe(1)
+    const $body = wrapper.find('.card-body')
+    expect($body.classes()).toContain('card-body')
+    expect($body.classes()).toContain('card-img-overlay')
+    expect($body.classes().length).toBe(2)
+
+    // Expected order
+    expect(wrapper.find('img + .card-body').exists()).toBe(true)
   })
 })

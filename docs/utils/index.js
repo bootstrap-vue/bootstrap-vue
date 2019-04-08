@@ -14,6 +14,61 @@ const stripHTML = (str = '') => str.replace(/<[^>]+>/g, '')
 // Remove any double quotes from a string
 const stripQuotes = (str = '') => str.replace(/"/g, '')
 
+export const parseUrl = value => {
+  let anchor = document.createElement('a')
+  anchor.href = value
+
+  // We need to add the anchor to the document to make sure the
+  // `pathname` is correctly detected in any browser
+  document.body.appendChild(anchor)
+
+  let result = ['hash', 'host', 'hostname', 'pathname', 'port', 'protocol', 'search'].reduce(
+    (result, prop) => {
+      result[prop] = anchor[prop] || null
+      return result
+    },
+    {}
+  )
+
+  // Make sure to remove the anchor from document as soon as possible
+  document.body.removeChild(anchor)
+
+  // Normalize port
+  if (!result.port && result.protocol) {
+    if (result.protocol === 'https:') {
+      result.port = '443'
+    }
+    if (result.protocol === 'http:') {
+      result.port = '80'
+    }
+  }
+
+  // Return early for browsers that resolved a non-existing `hostname` correctly
+  if (result.hostname) {
+    return result
+  }
+
+  // Handle relative URL's
+  if (value.charAt(0) === '/') {
+    return parseUrl(window.location.origin + value)
+  }
+
+  // Handle all other URL's
+  let baseUrl = window.location.href
+  baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'))
+
+  return parseUrl(`${baseUrl}/${value}`)
+}
+
+export const relativeUrl = url => {
+  const { pathname, hash } = parseUrl(url)
+  if (!pathname) {
+    return url
+  }
+
+  return pathname + (hash || '')
+}
+
 // Process an HTML readme and create a page TOC array
 // IDs are the only attribute on auto generated heading tags, so we take
 // advantage of that when using our RegExpr matches

@@ -1,50 +1,52 @@
 <template>
-  <nav
-    v-if="toc.toc && toc.toc.length > 0"
-    aria-label="Page table of contents"
-  >
-    <b-nav v-b-scrollspy.72 vertical class="m-toc section-nav">
-      <b-nav-item
-        v-if="toc.title && toc.top"
-        :href="toc.top"
-        class="toc-entry font-weight-bold mb-2"
-        @click="scrollIntoView($event, toc.top)"
-      >
-        <span v-html="toc.title"></span>
-      </b-nav-item>
-
-      <template v-for="(h2, index) in toc.toc">
-        <b-nav
-          v-if="isArray(h2) && h2.length > 0"
-          :key="index"
-          vertical
-          class="mb-1"
-        >
-          <b-nav-item
-            v-for="h3 in h2"
-            :key="h3.href"
-            vertical
-            pills
-            :href="h3.href"
-            class="toc-entry toc-h3 mb-2"
-            @click="scrollIntoView($event, h3.href)"
-          >
-            <span v-html="h3.label"></span>
-          </b-nav-item>
-        </b-nav>
-
+  <div>
+    <nav
+      v-if="toc.toc && toc.toc.length > 0"
+      aria-label="Page table of contents"
+    >
+      <b-nav v-b-scrollspy.72 vertical class="m-toc section-nav">
         <b-nav-item
-          v-else
-          :key="h2.href"
-          :href="h2.href"
-          class="toc-entry toc-h2 mb-2"
-          @click="scrollIntoView($event, h2.href)"
+          v-if="toc.title && toc.top"
+          :href="toc.top"
+          class="toc-entry font-weight-bold mb-2"
+          @click="scrollIntoView($event, toc.top)"
         >
-          <span v-html="h2.label"></span>
+          <span v-html="toc.title"></span>
         </b-nav-item>
-      </template>
-    </b-nav>
-  </nav>
+
+        <template v-for="(h2, index) in toc.toc">
+          <b-nav
+            v-if="isArray(h2) && h2.length > 0"
+            :key="index"
+            vertical
+            class="mb-1"
+          >
+            <b-nav-item
+              v-for="h3 in h2"
+              :key="h3.href"
+              vertical
+              pills
+              :href="h3.href"
+              class="toc-entry toc-h3 mb-2"
+              @click="scrollIntoView($event, h3.href)"
+            >
+              <span v-html="h3.label"></span>
+            </b-nav-item>
+          </b-nav>
+
+          <b-nav-item
+            v-else
+            :key="h2.href"
+            :href="h2.href"
+            class="toc-entry toc-h2 mb-2"
+            @click="scrollIntoView($event, h2.href)"
+          >
+            <span v-html="h2.label"></span>
+          </b-nav-item>
+        </template>
+      </b-nav>
+    </nav>
+  </div>
 </template>
 
 <style scoped>

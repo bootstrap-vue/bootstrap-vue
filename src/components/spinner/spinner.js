@@ -1,7 +1,8 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BSpinner',
   functional: true,
   props: {
@@ -52,4 +53,4 @@ export default {
       [label]
     )
   }
-}
+})

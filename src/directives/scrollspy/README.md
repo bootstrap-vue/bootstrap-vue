@@ -13,7 +13,9 @@ The `v-b-scrollspy` directive has a few requirements to function properly:
 - When spying on elements other than the `<body>`, be sure to have a `height` set and
   `overflow-y: scroll;` applied.
 - Anchors (`<a>`, `<b-nav-item>`, `<b-dropdown-item>`, `<b-list-group-item>`) are required and must
-  have an `href` that points to an element with that id in the container you are spying on.
+  have an `href` (either via the `href` or `to` props) that points to an element with that `id` in
+  the container you are spying on. When using the `to` prop, either set the `path` ending with
+  `#id-of-element`, or set the location property `hash` to `#id-of-element`.
 
 When successfully implemented, your nav or list group will update accordingly, moving the `active`
 state from one item to the next based on their associated targets.
@@ -99,7 +101,7 @@ as well.
 
 ### Example using nested navs
 
-Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is active, its parents will
+Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is active, its parent()s will
 also be active. Scroll the area next to the navbar and watch the active class change.
 
 ```html
@@ -172,7 +174,7 @@ also be active. Scroll the area next to the navbar and watch the active class ch
 ### Example using list group
 
 Scrollspy also works with `<b-list-group>` when it contains `<b-list-group-item>`s that have a
-_local_ `href` . Scroll the area next to the list group and watch the active state change.
+_local_ `href` or `to`. Scroll the area next to the list group and watch the active state change.
 
 ```html
 <template>
@@ -228,6 +230,22 @@ _local_ `href` . Scroll the area next to the list group and watch the active sta
 <!-- b-scrollspy-listgroup.vue -->
 ```
 
+## Using Scrollspy on components with the `to` prop
+
+When Vue Router (or Nuxt.js) is used, and you are generating your links with the `to` prop, use one
+of the following methods to generate the apropriate `href` on the rendered link:
+
+```html
+<!-- using a string path -->
+<b-nav-item to="#id-of-element">link text</b-nav-item>
+
+<!-- using a router `to` location object -->
+<b-nav-item :to="{ hash: '#id-of-element' }">link text</b-nav-item>
+```
+
+Scrollspy works with both `history` and `hash` routing modes, as long as the generated URL ends with
+`#id-of-element`.
+
 ## Directive syntax and usage
 
 ```
@@ -249,8 +267,8 @@ and the arg or option specifies which element to monitor (spy) scrolling on.
 
 The directive an be applied to any containing element or component that has `<nav-item>`,
 `<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the appropriate classes), a long as
-they have `href` attributes that point to elements with the respective `id`s in the scrolling
-element.
+they have rendered `href` attributes that point to elements with the respective `id`s in the
+scrolling element.
 
 ### Config object properties
 
@@ -372,7 +390,7 @@ node reference
 ## Events
 
 Whenever a target is activated, the event `bv:scrollspy::activate` is emitted on `$root` with the
-targets HREF (ID) as the argument (i.e. `#bar`)
+target's ID as the argument (i.e. `#bar`)
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -384,7 +402,7 @@ const app = new Vue({
   },
   methods: {
     onActivate(target) {
-      console.log('Receved Event: scrollspy::activate for target ', target)
+      console.log('Receved Event: bv::scrollspy::activate for target ', target)
     }
   }
 })

@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export const props = {
   active: {
     type: Boolean,
@@ -14,7 +16,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BDropdownItemButton',
   inject: {
     bvDropdown: {
@@ -45,4 +47,4 @@ export default {
       this.$slots.default
     )
   }
-}
+})

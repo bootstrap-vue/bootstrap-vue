@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import defaultSortCompare from './helpers/default-sort-compare'
 import { mount } from '@vue/test-utils'
 
@@ -11,7 +11,7 @@ const testFields = [
 
 describe('table > sorting', () => {
   it('should not be sorted by default', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -41,7 +41,7 @@ describe('table > sorting', () => {
   })
 
   it('should sort column descending when sortBy set and sortDesc changed, with proper attributes', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -73,19 +73,19 @@ describe('table > sorting', () => {
 
     let $ths = wrapper.findAll('thead > tr > th')
 
-    // currently sorted as ascending
+    // Currently sorted as ascending
     expect($ths.at(0).attributes('aria-sort')).toBe('ascending')
-    // for switching to descending
+    // For switching to descending
     expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
 
-    // not sorted by this column
+    // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
-    // for sorting by ascending
+    // For sorting by ascending
     expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
 
-    // not a sortable column
+    // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
-    // for clearing sorting
+    // For clearing sorting
     expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     // Change sort direction
@@ -109,19 +109,19 @@ describe('table > sorting', () => {
 
     $ths = wrapper.findAll('thead > tr > th')
 
-    // currently sorted as descending
+    // Currently sorted as descending
     expect($ths.at(0).attributes('aria-sort')).toBe('descending')
-    // for switching to ascending
+    // For switching to ascending
     expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
 
-    // not sorted by this column
+    // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
-    // for sorting by ascending
+    // For sorting by ascending
     expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
 
-    // not a sortable column
+    // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
-    // for clearing sorting
+    // For clearing sorting
     expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     // Clear sort
@@ -146,26 +146,26 @@ describe('table > sorting', () => {
 
     $ths = wrapper.findAll('thead > tr > th')
 
-    // currently not sorted
+    // Currently not sorted
     expect($ths.at(0).attributes('aria-sort')).toBe('none')
-    // for sorting by ascending
+    // For sorting by ascending
     expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
 
-    // not sorted by this column
+    // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
-    // for sorting by ascending
+    // For sorting by ascending
     expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
 
-    // not a sortable column
+    // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
-    // for clearing sorting
+    // For clearing sorting
     expect($ths.at(2).attributes('aria-label')).not.toBeDefined()
 
     wrapper.destroy()
   })
 
   it('should accept custom sort compare', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -203,7 +203,7 @@ describe('table > sorting', () => {
   })
 
   it('should sort columns when clicking headers', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems
@@ -322,7 +322,7 @@ describe('table > sorting', () => {
   })
 
   it('should sort columns when clicking footers', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -454,7 +454,7 @@ describe('table > sorting', () => {
   })
 
   it('should not sort columns when clicking footers and no-footer-sorting set', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -538,7 +538,7 @@ describe('table > sorting', () => {
   })
 
   it('should sort column descending first, when sort-direction=desc', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
@@ -568,19 +568,19 @@ describe('table > sorting', () => {
 
     let $ths = wrapper.findAll('thead > tr > th')
 
-    // currently not sorted
+    // Currently not sorted
     expect($ths.at(0).attributes('aria-sort')).toBe('none')
-    // for switching to descending
+    // For switching to descending
     expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
 
-    // not sorted by this column
+    // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
-    // for sorting by ascending
+    // For sorting by ascending
     expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
 
-    // not a sortable column
+    // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
-    // for clearing sorting
+    // For clearing sorting
     expect($ths.at(2).attributes('aria-label')).not.toBeDefined()
 
     // Change sort direction (should be descending first)
@@ -605,26 +605,26 @@ describe('table > sorting', () => {
 
     $ths = wrapper.findAll('thead > tr > th')
 
-    // currently sorted as descending
+    // Currently sorted as descending
     expect($ths.at(0).attributes('aria-sort')).toBe('descending')
-    // for switching to ascending
+    // For switching to ascending
     expect($ths.at(0).attributes('aria-label')).toBe(wrapper.vm.labelSortAsc)
 
-    // not sorted by this column
+    // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
-    // for sorting by ascending
+    // For sorting by ascending
     expect($ths.at(1).attributes('aria-label')).toBe(wrapper.vm.labelSortDesc)
 
-    // not a sortable column
+    // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
-    // for clearing sorting
+    // For clearing sorting
     expect($ths.at(2).attributes('aria-label')).toBe(wrapper.vm.labelSortClear)
 
     wrapper.destroy()
   })
 
   it('non-sortable header th should not emit a sort-changed event when clicked and prop no-sort-reset is set', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,

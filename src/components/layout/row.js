@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { arrayIncludes } from '../../utils/array'
 
@@ -30,7 +31,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BRow',
   functional: true,
   props,
@@ -49,4 +50,4 @@ export default {
       children
     )
   }
-}
+})

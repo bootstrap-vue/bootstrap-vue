@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import InputGroupText from './input-group-text'
 
@@ -17,7 +18,7 @@ export const commonProps = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BInputGroupAddon',
   functional: true,
   props: {
@@ -42,4 +43,4 @@ export default {
       props.isText ? [h(InputGroupText, children)] : children
     )
   }
-}
+})

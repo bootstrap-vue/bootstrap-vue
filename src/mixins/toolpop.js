@@ -75,6 +75,12 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      // semaphore for preventing multiple show events
+      localShow: false
+    }
+  },
   computed: {
     baseConfig() {
       const cont = this.container
@@ -114,20 +120,19 @@ export default {
   },
   watch: {
     show(show, old) {
-      /* istanbul ignore if */
-      if (show === old) {
-        /* istanbul ignore next */
-        return
+      if (show !== old) {
+        show ? this.onOpen() : this.onClose()
       }
-      show ? this.onOpen() : this.onClose()
     },
     disabled(disabled, old) {
-      /* istanbul ignore if */
-      if (disabled === old) {
-        /* istanbul ignore next */
-        return
+      if (disabled !== old) {
+        disabled ? this.onDisable() : this.onEnable()
       }
-      disabled ? this.onDisable() : this.onEnable()
+    },
+    localShow(show, old) {
+      if (show !== this.show) {
+        this.$emit('update:show', show)
+      }
     }
   },
   created() {
@@ -152,7 +157,7 @@ export default {
         this.$on('close', this.onClose)
         // Listen to disable signals from others
         this.$on('disable', this.onDisable)
-        // Listen to disable signals from others
+        // Listen to enable signals from others
         this.$on('enable', this.onEnable)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
@@ -165,25 +170,22 @@ export default {
   },
   updated() {
     // If content/props changes, etc
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
-  activated() {
+  activated() /* istanbul ignore next: can't easily test in JSDOM */ {
     // Called when component is inside a <keep-alive> and component brought offline
-    /* istanbul ignore next: can't test in JSDOM */
     this.setObservers(true)
   },
-  deactivated() {
+  deactivated() /* istanbul ignore next: can't easily test in JSDOM */ {
     // Called when component is inside a <keep-alive> and component taken offline
-    /* istanbul ignore next: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
     }
   },
-  beforeDestroy() /* istanbul ignore next: not easy to test */ {
+  beforeDestroy() {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
@@ -215,31 +217,33 @@ export default {
       return cfg
     },
     onOpen() {
-      if (this._toolpop) {
+      if (this._toolpop && !this.localShow) {
+        this.localShow = true
         this._toolpop.show()
       }
     },
     onClose(callback) {
-      if (this._toolpop) {
+      // What is callback for ? it is not documented
+      /* istanbul ignore else */
+      if (this._toolpop && this.localShow) {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
+        // Is this even used?
         callback()
       }
     },
     onDisable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable()
       }
     },
     onEnable() {
-      /* istanbul ignore next: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable()
       }
     },
     updatePosition() {
-      /* istanbul ignore next: can't test in JSDOM */
+      /* istanbul ignore next: can't test in JSDOM until mutation observer is implemented */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update()
@@ -248,6 +252,7 @@ export default {
     getTarget() {
       let target = this.target
       if (typeof target === 'function') {
+        /* istanbul ignore next */
         target = target()
       }
       if (typeof target === 'string') {
@@ -255,33 +260,40 @@ export default {
         return getById(target)
       } else if (typeof target === 'object' && isElement(target.$el)) {
         // Component reference
+        /* istanbul ignore next */
         return target.$el
       } else if (typeof target === 'object' && isElement(target)) {
         // Element reference
+        /* istanbul ignore next */
         return target
       }
+      /* istanbul ignore next */
       return null
     },
+    // Callbacks called by Tooltip/Popover class instance
     onShow(evt) {
       this.$emit('show', evt)
+      this.localShow = !(evt && evt.defaultPrevented)
     },
     onShown(evt) {
       this.setObservers(true)
-      this.$emit('update:show', true)
       this.$emit('shown', evt)
+      this.localShow = true
     },
     onHide(evt) {
       this.$emit('hide', evt)
+      this.localShow = !!(evt && evt.defaultPrevented)
     },
     onHidden(evt) {
       this.setObservers(false)
       // bring our content back if needed to keep Vue happy
       // Tooltip class will move it back to tip when shown again
       this.bringItBack()
-      this.$emit('update:show', false)
       this.$emit('hidden', evt)
+      this.localShow = false
     },
     onEnabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'enabled') {
         // Prevent possible endless loop if user mistakienly fires enabled instead of enable
         return
@@ -290,6 +302,7 @@ export default {
       this.$emit('disabled')
     },
     onDisabled(evt) {
+      /* istanbul ignore next */
       if (!evt || evt.type !== 'disabled') {
         // Prevent possible endless loop if user mistakienly fires disabled instead of disable
         return
@@ -306,7 +319,7 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
-    setObservers(on) /* istanbul ignore next: can't test in JSDOM */ {
+    setObservers(on) {
       if (on) {
         if (this.$refs.title) {
           this._obs_title = observeDom(

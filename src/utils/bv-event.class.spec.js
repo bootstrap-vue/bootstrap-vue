@@ -1,6 +1,6 @@
 import BvEvent from './bv-event.class'
 
-describe('utils/BvEvent', () => {
+describe('utils/BvEvent class', () => {
   it('works', async () => {
     const evt = new BvEvent('foobar')
     expect(evt).toBeInstanceOf(BvEvent)

@@ -1,20 +1,20 @@
-import NavbarNav from './navbar-nav'
+import BNavbarNav from './navbar-nav'
 import { mount } from '@vue/test-utils'
 
 describe('navbar-nav', () => {
   it('default has tag "ul"', async () => {
-    const wrapper = mount(NavbarNav)
+    const wrapper = mount(BNavbarNav)
     expect(wrapper.is('ul')).toBe(true)
   })
 
   it('default has class "navbar-nav"', async () => {
-    const wrapper = mount(NavbarNav)
+    const wrapper = mount(BNavbarNav)
     expect(wrapper.classes()).toContain('navbar-nav')
     expect(wrapper.classes().length).toBe(1)
   })
 
   it('accepts custom tag', async () => {
-    const wrapper = mount(NavbarNav, {
+    const wrapper = mount(BNavbarNav, {
       context: {
         props: { tag: 'div' }
       }
@@ -25,7 +25,7 @@ describe('navbar-nav', () => {
   })
 
   it('has class "nav-fill" when fill=true', async () => {
-    const wrapper = mount(NavbarNav, {
+    const wrapper = mount(BNavbarNav, {
       context: {
         props: { fill: true }
       }
@@ -36,7 +36,7 @@ describe('navbar-nav', () => {
   })
 
   it('has class "nav-justified" when justified=true', async () => {
-    const wrapper = mount(NavbarNav, {
+    const wrapper = mount(BNavbarNav, {
       context: {
         props: { justified: true }
       }

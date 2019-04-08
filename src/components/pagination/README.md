@@ -26,7 +26,7 @@ For pagination that changes to a new URL, use the
       :per-page="perPage"
       :current-page="currentPage"
       small
-    ></b-pagination>
+    ></b-table>
   </div>
 </template>
 

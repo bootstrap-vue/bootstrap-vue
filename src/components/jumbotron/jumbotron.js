@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { stripTags } from '../../utils/html'
 import Container from '../layout/container'
@@ -58,7 +59,7 @@ export const props = {
 }
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BJumbotron',
   functional: true,
   props,
@@ -120,4 +121,4 @@ export default {
       childNodes
     )
   }
-}
+})

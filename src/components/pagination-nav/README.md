@@ -5,7 +5,7 @@
 
 `b-pagination-nav` will try and auto-detect which page link is active page button based on the
 current page's URL (via either `$route` detection or, if no `$router` detected, the browser location
-URL.
+URL).
 
 **Note:** `<b-pagination-nav>` is used for navigating to new page URLs. For controlling in page
 component pagination (such as table or list pagination), use the

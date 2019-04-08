@@ -9,18 +9,24 @@
           Importing individual {{ pluginTitle }} Components
         </anchored-heading>
 
-        <b-table :items="componentImports" small head-variant="default" striped>
-          <template slot="component" slot-scope="field">
-            <code>{{ field.value }}</code>
+        <b-table
+          :items="componentImports"
+          class="bv-docs-table"
+          small
+          striped
+          head-variant="default"
+        >
+          <template slot="component" slot-scope="{ value }">
+            <code class="text-nowrap">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="field">
-            <code>{{ field.value }}</code>
+          <template slot="importPath" slot-scope="{ value }">
+            <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2"><code v-html="componentImportCode"></code></pre>
+        <pre class="hljs js text-monospace p-2">{{ componentImportCode }}</pre>
       </article>
     </template>
 
@@ -30,18 +36,25 @@
           Importing individual {{ pluginTitle }} Directives
         </anchored-heading>
 
-        <b-table :items="directiveImports" small head-variant="default" striped>
-          <template slot="directive" slot-scope="field">
-            <code>{{ field.value }}</code>
+        <b-table
+          :items="directiveImports"
+          class="bv-docs-table"
+          small
+          striped
+          responsive="sm"
+          head-variant="default"
+        >
+          <template slot="directive" slot-scope="{ value }">
+            <code class="text-nowrap">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="field">
-            <code>{{ field.value }}</code>
+          <template slot="importPath" slot-scope="{ value }">
+            <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
 
-        <pre class="hljs js text-monospace p-2"><code v-html="directiveImportCode"></code></pre>
+        <pre class="hljs js text-monospace p-2">{{ directiveImportCode }}</pre>
       </article>
     </template>
 
@@ -59,7 +72,7 @@
         This plugin includes all of the above listed individual directives.
       </p>
 
-      <pre class="hljs js text-monospace p-2"><code v-html="pluginImportCode"></code></pre>
+      <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
 
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
@@ -70,6 +83,16 @@
     </article>
   </section>
 </template>
+
+<style scoped>
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 20px 0;
+}
+</style>
 
 <script>
 import hljs from 'highlightjs'
@@ -134,7 +157,7 @@ export default {
       const firstDirective = this.directives[0]
       const firstDirectiveImport = this.directiveImports[0]
       return [
-        "// <b>Note:</b> Vue automatically prefixes the directive name with 'v-'",
+        "// Note: Vue automatically prefixes the directive name with 'v-'",
         `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
@@ -173,7 +196,7 @@ export default {
       return kebabCase(directive).replace(/^v-/, '')
     },
     directiveAttr(directive) {
-      return this.directiveName(directive)
+      return kebabCase(directive)
     },
     directivePath(directive) {
       const directiveName = this.directiveName(directive).replace(/^b-/, '')

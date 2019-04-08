@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formOptionsMixin from '../../mixins/form-options'
@@ -5,12 +6,21 @@ import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 
-import BFormCheckbox from './form-checkbox'
+export const props = {
+  switches: {
+    // Custom switch styling
+    type: Boolean,
+    default: false
+  },
+  checked: {
+    type: [String, Number, Object, Array, Boolean],
+    default: null
+  }
+}
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BFormCheckboxGroup',
-  components: { BFormCheckbox },
   mixins: [
     idMixin,
     formMixin,
@@ -24,17 +34,7 @@ export default {
       bvCheckGroup: this
     }
   },
-  props: {
-    switches: {
-      // Custom switch styling
-      type: Boolean,
-      default: false
-    },
-    checked: {
-      type: [String, Number, Object, Array, Boolean],
-      default: null
-    }
-  },
+  props,
   data() {
     return {
       localChecked: this.checked || []
@@ -45,4 +45,4 @@ export default {
       return false
     }
   }
-}
+})

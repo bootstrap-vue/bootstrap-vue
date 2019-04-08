@@ -1,17 +1,21 @@
-import BForm from '../form/form'
+import Vue from 'vue'
+import BForm, { props as BFormProps } from '../form/form'
 import { mergeData } from 'vue-functional-data-merge'
+import copyProps from '../../utils/copy-props'
+
+const formProps = copyProps(BFormProps)
+delete formProps.inline
+
+export const props = {
+  ...formProps
+}
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BNavForm',
   functional: true,
-  props: {
-    id: {
-      type: String,
-      default: null
-    }
-  },
+  props,
   render(h, { props, data, children }) {
-    return h(BForm, mergeData(data, { attrs: { id: props.id }, props: { inline: true } }), children)
+    return h(BForm, mergeData(data, { props: { ...props, inline: true } }), children)
   }
-}
+})

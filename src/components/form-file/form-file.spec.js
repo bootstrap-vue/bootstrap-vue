@@ -1,9 +1,9 @@
-import Input from './form-file'
+import BFormFile from './form-file'
 import { mount } from '@vue/test-utils'
 
 describe('form-file', () => {
   it('default has expected structure, classes and attributes', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo'
       }
@@ -39,7 +39,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute multiple when multiple=true', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         multiple: true
@@ -52,7 +52,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute required when required=true', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         required: true
@@ -67,7 +67,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute disabled when disabled=true', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         disabled: true
@@ -80,7 +80,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute capture when capture=true', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         capture: true
@@ -93,7 +93,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute accept when accept is set', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         accept: 'image/*'
@@ -107,7 +107,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute name when name is set', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         name: 'bar'
@@ -121,7 +121,7 @@ describe('form-file', () => {
   })
 
   it('default has input attribute form when form is set', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         form: 'bar'
@@ -135,7 +135,7 @@ describe('form-file', () => {
   })
 
   it('default has class focus when input focused', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo'
       }
@@ -157,7 +157,7 @@ describe('form-file', () => {
   })
 
   it('has no wrapper div or label when plain=true', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         plain: true
@@ -174,7 +174,7 @@ describe('form-file', () => {
   })
 
   it('emits input event when file changed', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo'
       }
@@ -199,7 +199,7 @@ describe('form-file', () => {
   })
 
   it('emits input event when files changed in multiple mode', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         multiple: true
@@ -238,7 +238,7 @@ describe('form-file', () => {
   })
 
   it('native change event works', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo'
       }
@@ -266,7 +266,7 @@ describe('form-file', () => {
   })
 
   it('reset() method works in single mode', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         multiple: false
@@ -292,7 +292,7 @@ describe('form-file', () => {
   })
 
   it('reset() method works in multiple mode', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         multiple: true
@@ -322,7 +322,7 @@ describe('form-file', () => {
   })
 
   it('reset works in single mode by setting value', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         value: ''
@@ -350,7 +350,7 @@ describe('form-file', () => {
   })
 
   it('reset works in multiple mode by setting value', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         value: [],
@@ -393,7 +393,7 @@ describe('form-file', () => {
   })
 
   it('native reset event works', async () => {
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         value: null
@@ -422,7 +422,7 @@ describe('form-file', () => {
   it('file-name-formatter works', async () => {
     let called = false
     let filesIsArray = false
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         fileNameFormatter: files => {
@@ -454,7 +454,7 @@ describe('form-file', () => {
 
   it('file-name slot works', async () => {
     let slotScope = null
-    const wrapper = mount(Input, {
+    const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo'
       },
@@ -476,7 +476,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
-    // scoped slot should have been called, with expected scope
+    // Scoped slot should have been called, with expected scope
     expect(slotScope).toEqual({ files: [file], names: [file.name] })
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('foobar')

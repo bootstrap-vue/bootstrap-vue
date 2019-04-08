@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import warn from '../../utils/warn'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
@@ -78,7 +79,7 @@ const props = {
 
 // Our render function is brought in via the pagination mixin
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BPaginationNav',
   mixins: [paginationMixin],
   props,
@@ -218,13 +219,25 @@ export default {
     resolveLink(to = '') {
       // Given a to (or href string), convert to normalized route-like structure
       // Works only client side!!
+      let link
       try {
-        const link = document.createElement('a')
         // Convert the `to` to a HREF via a temporary `a` tag
+        link = document.createElement('a')
         link.href = computeHref({ to }, 'a', '/', '/')
-        // Once href is assigned, the returned href will be normalized to the full URL bits
-        return { path: link.pathname, hash: link.hash, query: parseQuery(link.search) }
+        // We need to add the anchor to the document to make sure the
+        // `pathname` is correctly detected in any browser (i.e. IE)
+        document.body.appendChild(link)
+        // Once href is assigned, the link will be normalized to the full URL bits
+        const { pathname, hash, search } = link
+        // Remove link from document
+        document.body.removeChild(link)
+        // Return the location in a route-like object
+        return { path: pathname, hash: hash, query: parseQuery(search) }
       } catch (e) {
+        /* istanbul ignore next */
+        try {
+          link && link.parentNode && link.parentNode.removeChild(link)
+        } catch (e) {}
         /* istanbul ignore next */
         return {}
       }
@@ -248,9 +261,8 @@ export default {
       /* istanbul ignore else */
       if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
         // Current route (if router available)
-        const currRoute = $router
-          ? { path: $route.path, hash: $route.hash, query: $route.query }
-          : {}
+        const currRoute =
+          $router && $route ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
         const loc = inBrowser ? window.location || document.location : null
         const currLink = loc
@@ -267,7 +279,8 @@ export default {
             // we compare using parsed URIs
             guess = looseEqual(this.resolveLink(to), currLink) ? page : null
           } else {
-            // probably SSR, but no $router so we can't guess, so lets break out of loop
+            // probably SSR, but no $router so we can't guess, so lets break out of
+            // the loop early
             /* istanbul ignore next */
             guess = -1
           }
@@ -279,4 +292,4 @@ export default {
       this.currentPage = guess > 0 ? guess : 0
     }
   }
-}
+})

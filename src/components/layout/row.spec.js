@@ -1,94 +1,91 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import BRow from './row'
+import { mount } from '@vue/test-utils'
 
-describe('form-row', () => {
-  beforeEach(loadFixture(__dirname, 'row'))
-  testVM()
+describe('layout > row', () => {
+  it('has expected default structure', async () => {
+    const wrapper = mount(BRow)
 
-  it('default should contain base class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toHaveClass('row')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('custom should contain base class', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom).toHaveClass('row')
+  it('renders custom root element when prop tag is set', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        tag: 'p'
+      }
+    })
+
+    expect(wrapper.is('p')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
   })
 
-  it('noGutters should contain classes', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.noGutters).toHaveClass('row')
-    expect($refs.noGutters).toHaveClass('no-gutters')
+  it('renders default slot content', async () => {
+    const wrapper = mount(BRow, {
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('alignV should contain classes', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.alignV).toHaveClass('row')
-    expect($refs.alignV).toHaveClass('align-items-center')
+  it('has class no-guttens when prop no-gutters is set', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        noGutters: true
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('no-gutters')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('alignH should contain classes', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.alignH).toHaveClass('row')
-    expect($refs.alignH).toHaveClass('justify-content-center')
+  it('has vertial align class when prop align-v is set', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        alignV: 'baseline'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('align-items-baseline')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('alignContent should contain classes', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.alignContent).toHaveClass('row')
-    expect($refs.alignContent).toHaveClass('align-content-center')
+  it('has horizontal align class when prop align-h is set', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        alignH: 'center'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('justify-content-center')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it('default should have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default.textContent).toContain('default')
-  })
+  it('has content align class when prop align-content is set', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        alignContent: 'stretch'
+      }
+    })
 
-  it('custom should have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom.textContent).toContain('custom')
-  })
-
-  it('noGutters should have content', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.noGutters.textContent).toContain('no gutters')
-  })
-
-  it('default should have tag div', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toBeElement('div')
-  })
-
-  it('custom should have tag p', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.custom).toBeElement('p')
-  })
-
-  it('noGutters should have tag div', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.noGutters).toBeElement('div')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('align-content-stretch')
+    expect(wrapper.classes().length).toBe(2)
   })
 })

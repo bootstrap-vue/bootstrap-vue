@@ -1,7 +1,8 @@
+import Vue from 'vue'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-export default {
+export default Vue.extend({
   name: 'BProgressBar',
   inject: {
     bvProgress: {
@@ -130,4 +131,4 @@ export default {
       [childNodes]
     )
   }
-}
+})

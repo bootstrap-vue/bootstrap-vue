@@ -1,4 +1,4 @@
-import Table from './table'
+import BTable from './table'
 import { mount } from '@vue/test-utils'
 
 const testItems = [
@@ -11,7 +11,7 @@ const testItems = [
 
 describe('table > pagination', () => {
   it('default should not be paginated', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems
       }
@@ -22,7 +22,7 @@ describe('table > pagination', () => {
   })
 
   it('should have 3 rows when per-page=3', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems,
         perPage: 3,
@@ -54,7 +54,7 @@ describe('table > pagination', () => {
   })
 
   it('changing pages should update rows', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems,
         perPage: 3,
@@ -111,7 +111,7 @@ describe('table > pagination', () => {
   })
 
   it('setting current-page to more than pages shows empty row when show-empty=true', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = mount(BTable, {
       propsData: {
         items: testItems,
         perPage: 3,

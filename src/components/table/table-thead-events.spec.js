@@ -34,7 +34,7 @@ describe('table > thead events', () => {
         items: testItems
       },
       listeners: {
-        // head-clicked will only be emitted if there is a registered listener
+        // Head-clicked will only be emitted if there is a registered listener
         'head-clicked': () => {}
       }
     })
@@ -47,17 +47,17 @@ describe('table > thead events', () => {
     $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeDefined()
     expect(wrapper.emitted('head-clicked').length).toBe(1)
-    expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) /* field key */
-    expect(wrapper.emitted('head-clicked')[0][1]).toEqual(testFields[0]) /* field def */
-    expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) /* event */
-    expect(wrapper.emitted('head-clicked')[0][3]).toBe(false) /* is footer */
+    expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) // Field key
+    expect(wrapper.emitted('head-clicked')[0][1]).toEqual(testFields[0]) // Field definition
+    expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) // Event
+    expect(wrapper.emitted('head-clicked')[0][3]).toBe(false) // Is footer
 
     $ths.at(2).trigger('click')
     expect(wrapper.emitted('head-clicked').length).toBe(2)
-    expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) /* field key */
-    expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) /* field def */
-    expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) /* event */
-    expect(wrapper.emitted('head-clicked')[1][3]).toBe(false) /* is footer */
+    expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) // Field key
+    expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) // Field definition
+    expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) // Event
+    expect(wrapper.emitted('head-clicked')[1][3]).toBe(false) // Is footer
 
     wrapper.destroy()
   })
@@ -70,7 +70,7 @@ describe('table > thead events', () => {
         busy: true
       },
       listeners: {
-        // head-clicked will only be emitted if there is a registered listener
+        // Head-clicked will only be emitted if there is a registered listener
         'head-clicked': () => {}
       }
     })
@@ -91,7 +91,7 @@ describe('table > thead events', () => {
         items: testItems
       },
       listeners: {
-        // head-clicked will only be emitted if there is a registered listener
+        // Head-clicked will only be emitted if there is a registered listener
         'head-clicked': () => {}
       }
     })
@@ -115,11 +115,11 @@ describe('table > thead events', () => {
         items: testItems
       },
       listeners: {
-        // head-clicked will only be emitted if there is a registered listener
+        // Head-clicked will only be emitted if there is a registered listener
         'head-clicked': () => {}
       },
       slots: {
-        // in Vue 2.6x, slots get translated into scopedSlots
+        // In Vue 2.6x, slots get translated into scopedSlots
         HEAD_a: '<button id="a">button</button>',
         HEAD_b: '<input id="b">',
         HEAD_c: '<a href="#" id="c">link</a>'

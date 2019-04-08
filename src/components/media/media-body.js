@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
@@ -7,7 +8,7 @@ export const props = {
   }
 }
 
-export default {
+export default Vue.extend({
   name: 'BMediaBody',
   functional: true,
   props,
@@ -20,4 +21,4 @@ export default {
       children
     )
   }
-}
+})

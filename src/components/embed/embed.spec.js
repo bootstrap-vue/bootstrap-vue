@@ -1,88 +1,98 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import BEmbed from './embed'
+import { mount } from '@vue/test-utils'
 
 describe('embed', () => {
-  beforeEach(loadFixture(__dirname, 'embed'))
-  testVM()
+  it('default should have expected default structure', async () => {
+    const wrapper = mount(BEmbed)
 
-  it("default should be rendered with outer tag 'div'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toBeElement('div')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('embed-responsive')
+    expect(wrapper.classes()).toContain('embed-responsive-16by9')
+    expect(wrapper.classes().length).toBe(2)
+
+    expect(wrapper.findAll('iframe').length).toBe(1)
+    expect(wrapper.find('iframe').classes()).toContain('embed-responsive-item')
+    expect(wrapper.find('iframe').classes().length).toBe(1)
   })
 
-  it("tag should be rendered with outer tag 'aside'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.tag).toBeElement('aside')
-  })
-
-  it("default should be rendered with inner tag 'iframe'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default.children[0]).toBeElement('iframe')
-  })
-
-  it("type should be rendered with inner tag 'video'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.type.children[0]).toBeElement('video')
-  })
-
-  it("all should be rendered with default outer class 'embed-responsive'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['default', 'tag', 'type', 'aspect', 'attributes', 'children'].forEach(ref => {
-      expect($refs[ref]).toHaveClass('embed-responsive')
+  it('has custom root element when tag prop set', async () => {
+    const wrapper = mount(BEmbed, {
+      propsData: {
+        tag: 'aside'
+      }
     })
+
+    expect(wrapper.is('aside')).toBe(true)
+    expect(wrapper.classes()).toContain('embed-responsive')
+    expect(wrapper.classes()).toContain('embed-responsive-16by9')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.findAll('iframe').length).toBe(1)
   })
 
-  it("all should be rendered with default inner class 'embed-responsive-item'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    ;['default', 'tag', 'type', 'aspect', 'attributes', 'children'].forEach(ref => {
-      expect($refs[ref].children[0]).toHaveClass('embed-responsive-item')
+  it('it renders specified inner element when type set', async () => {
+    const wrapper = mount(BEmbed, {
+      propsData: {
+        type: 'video'
+      }
     })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('embed-responsive')
+    expect(wrapper.classes()).toContain('embed-responsive-16by9')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.findAll('video').length).toBe(1)
+    expect(wrapper.find('video').classes()).toContain('embed-responsive-item')
+    expect(wrapper.find('video').classes().length).toBe(1)
   })
 
-  it("default should be rendered with outer class 'embed-responsive-16by9'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.default).toHaveClass('embed-responsive-16by9')
+  it('renders specified aspect ratio class', async () => {
+    const wrapper = mount(BEmbed, {
+      propsData: {
+        aspect: '4by3'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('embed-responsive')
+    expect(wrapper.classes()).toContain('embed-responsive-4by3')
+    expect(wrapper.classes().length).toBe(2)
   })
 
-  it("aspect should be rendered with outer class 'embed-responsive-4by3'", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.aspect).toHaveClass('embed-responsive-4by3')
+  it('non-prop attributes should rendered on on inner element', async () => {
+    const wrapper = mount(BEmbed, {
+      attrs: {
+        src: '/foo/bar',
+        baz: 'buz'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('embed-responsive')
+    expect(wrapper.findAll('iframe').length).toBe(1)
+    expect(wrapper.find('iframe').classes()).toContain('embed-responsive-item')
+    expect(wrapper.find('iframe').attributes('src')).toBeDefined()
+    expect(wrapper.find('iframe').attributes('src')).toBe('/foo/bar')
+    expect(wrapper.find('iframe').attributes('baz')).toBeDefined()
+    expect(wrapper.find('iframe').attributes('baz')).toBe('buz')
   })
 
-  it("attributes should have attribute 'foo=bar' on inner tag", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.attributes.children[0].hasAttribute('foo')).toBe(true)
-    expect($refs.attributes.children[0].getAttribute('foo')).toBe('bar')
-  })
+  it('default slot should be rendered inside inner element', async () => {
+    const wrapper = mount(BEmbed, {
+      propsData: {
+        type: 'video'
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
 
-  it("attributes should have attribute 'baz' on inner tag", async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.attributes.children[0].hasAttribute('baz')).toBe(true)
-  })
-
-  it('children should be rendered inside inner element', async () => {
-    const {
-      app: { $refs }
-    } = window
-    expect($refs.children.children[0].children[0]).toBeElement('source')
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('embed-responsive')
+    expect(wrapper.classes()).toContain('embed-responsive-16by9')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.findAll('video').length).toBe(1)
+    expect(wrapper.find('video').classes()).toContain('embed-responsive-item')
+    expect(wrapper.find('video').classes().length).toBe(1)
+    expect(wrapper.find('video').text()).toBe('foobar')
   })
 })

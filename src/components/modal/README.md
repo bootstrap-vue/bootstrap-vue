@@ -180,7 +180,7 @@ export default {
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call the
 `.preventDefault()` method of the event object passed to your `ok` (**OK** button), `cancel`
-(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, must be
+(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, **must** be
 called synchronously, as async is not supported.
 
 ```html
@@ -223,9 +223,9 @@ called synchronously, as async is not supported.
       clearName() {
         this.name = ''
       },
-      handleOk(evt) {
+      handleOk(bvModalEvt) {
         // Prevent modal from closing
-        evt.preventDefault()
+        bvModalEvt.preventDefault()
         if (!this.name) {
           alert('Please enter your name')
         } else {
@@ -255,15 +255,16 @@ emitted.
 
 The `ok`, `cancel`, and `hide` event object contains several properties and methods:
 
-| Property or Method   | Type     | Description                                                                                                                                                                                                                                                                                                |
-| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `e.preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                |
-| `trigger`            | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise. |
-| `target`             | Property | A reference to the modal element                                                                                                                                                                                                                                                                           |
-| `vueTarget`          | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                 |
+| Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                |
+| ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                |
+| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise. |
+| `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                           |
+| `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                 |
+| `modalId`          | property | The modal's ID                                                                                                                                                                                                                                                                                             |
 
 You can set the value of `trigger` by passing an argument to the component's `hide()` method for
-advanced control.
+advanced control (i.e. detecting what button or action triggerd the modal to hide).
 
 **Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly
 `'ok'` or `'cancel'` respectively. The argument passed to `hide()` will be placed into the `trigger`

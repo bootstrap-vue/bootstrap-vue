@@ -1,9 +1,9 @@
-import NavbarToggle from './navbar-toggle'
+import BNavbarToggle from './navbar-toggle'
 import { mount } from '@vue/test-utils'
 
 describe('navbar-toggle', () => {
   it('default has tag "button"', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -12,7 +12,7 @@ describe('navbar-toggle', () => {
   })
 
   it('default has class "navbar-toggler"', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -22,7 +22,7 @@ describe('navbar-toggle', () => {
   })
 
   it('default has default attributes', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -34,7 +34,7 @@ describe('navbar-toggle', () => {
   })
 
   it('default has inner button-close', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -43,7 +43,7 @@ describe('navbar-toggle', () => {
   })
 
   it('accepts custom label when label prop is set', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target',
         label: 'foobar'
@@ -53,7 +53,7 @@ describe('navbar-toggle', () => {
   })
 
   it('emits click event', async () => {
-    const wrapper = mount(NavbarToggle, {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
@@ -74,17 +74,27 @@ describe('navbar-toggle', () => {
     wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
   })
 
-  it('sets areia-expanded when receives root emit for target', async () => {
-    const wrapper = mount(NavbarToggle, {
+  it('sets aria-expanded when receives root emit for target', async () => {
+    const wrapper = mount(BNavbarToggle, {
       propsData: {
         target: 'target'
       }
     })
+
+    // Private state event
     wrapper.vm.$root.$emit('bv::collapse::state', 'target', true)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
     wrapper.vm.$root.$emit('bv::collapse::state', 'target', false)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
     wrapper.vm.$root.$emit('bv::collapse::state', 'foo', true)
+    expect(wrapper.attributes('aria-expanded')).toBe('false')
+
+    // Private sync event
+    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target', true)
+    expect(wrapper.attributes('aria-expanded')).toBe('true')
+    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target', false)
+    expect(wrapper.attributes('aria-expanded')).toBe('false')
+    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'foo', true)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
   })
 })
