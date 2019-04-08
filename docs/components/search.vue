@@ -60,12 +60,16 @@ export default {
     suggestionClick(evt) {
       if (evt && evt.target && evt.target.tagName === 'A') {
         const link = evt.target
-        if (link.href && link.href.length > 0) {
+        // We use hte HREF attribute ather than the link.href property
+        // As we just want a relative URL not the FQDN URL
+        const href = link.getAttribute('href')
+        if (href && href.length > 0) {
           // Prevent the click from causing the page to reload
           evt.preventDefault()
           // We don't stop propagation as we want Algolia to provide stats on clicks.
-          // Use the $router to go to the link, so that the page isn't reloaded.
-          this.$router.push(link.href)
+          // Use the $router to go to the href, so that the page isn't reloaded.
+          console.log('Search Link Clicked:', href, link)
+          this.$router.push(href)
         }
       }
     },
