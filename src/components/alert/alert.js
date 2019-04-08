@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
