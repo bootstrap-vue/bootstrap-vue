@@ -1,6 +1,7 @@
 <template>
   <form
     class="bd-search d-flex align-items-center"
+    ref="form"
     @submit.stop.prevent
   >
     <b-form-input
@@ -50,8 +51,24 @@ export default {
   },
   mounted() {
     this.loadDocsearch().then(this.initDocsearch)
+    this.$nextTick(() => {
+      const options = { passive: false, capture: false }
+      this.$refs.form.addEventListener('click', this.suggestionClick, options)
+    })
   },
   methods: {
+    suggestionClick(evt) {
+      if (evt && evt.target && evt.target.tagName === 'A') {
+        const link = evt.target
+        if (link.href and link.href.length > 0) {
+          // Prevent the click from causing the page to reload
+          evt.preventDefault()
+          // We don't stop propagation as we want Algolia to provide stats on clicks.
+          // Use the $router to go to the link, so that the page isn't reloaded.
+          this.$router.push(link.href)
+        }
+      }
+    },
     async loadDocsearch() {
       if (scriptsInjected) {
         return
