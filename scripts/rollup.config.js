@@ -14,13 +14,14 @@ const externals = ['vue', ...Object.keys(dependencies)]
 
 // Libs in `external` will not be bundled to dist,
 // since they are expected to be provided later.
-// We want to include some of them in the build, so we exclude it here.
+// In some cases, wee want to include some of them in the build, so we
+// exclude the external here.
 const externalExcludes = ['popper.js', 'vue-functional-data-merge']
 
 // The base rollup configuration
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
-  external: Object.keys(dependencies),
+  external: externals,
   plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
 }
 
@@ -57,10 +58,9 @@ export default [
     }
   },
 
-  // ES
+  // ESM
   {
     ...baseConfig,
-    external: ['vue'],
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),

@@ -15,7 +15,7 @@ echo 'Done.'
 echo ''
 
 echo 'Build ES modules...'
-NODE_ENV=es babel src --out-dir es --ignore 'src/**/*/fixtures,src/**/*.spec.js'
+NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
 echo 'Done.'
 echo ''
 

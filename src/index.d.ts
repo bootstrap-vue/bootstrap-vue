@@ -25,7 +25,7 @@ declare module 'bootstrap-vue' {
     | 'light'
     | 'dark'
   type SortDirection = 'asc' | 'desc' | 'last'
-  type FormatterCallback = ((value: mixed, key: string, item: mixed) => any)
+  type FormatterCallback = ((value: any, key: string, item: any) => any)
 
   export interface TableField {
     label?: string
@@ -37,9 +37,9 @@ declare module 'bootstrap-vue' {
     sortDirection?: SortDirection
     tdClass?: string | string[] | FormatterCallback
     thClass?: string | string[]
-    thStyle?: mixed
+    thStyle?: any
     variant?: TableVariant | string
-    tdAttr?: mixed | ((value: mixed, key: string, item: mixed) => mixed)
+    tdAttr?: any | ((value: any, key: string, item: any) => any)
     isRowHeader?: boolean
   }
   export interface TableFieldObject {

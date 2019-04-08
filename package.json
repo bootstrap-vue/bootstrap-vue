@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.0.0-rc.17",
+  "version": "2.0.0-rc.18",
   "description": "BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "types": "src/index.d.ts",
@@ -129,7 +129,7 @@
     "terser": "^3.17.0",
     "vue": "^2.6.10",
     "vue-jest": "^3.0.4",
-    "vue-router": "^3.0.2",
+    "vue-router": "^3.0.3",
     "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
