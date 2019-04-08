@@ -4,13 +4,13 @@ import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
-import { name, dependencies } from '../package.json'
+import { name, dependencies, peerDependencies } from '../package.json'
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
 
-const externals = ['vue', ...Object.keys(dependencies)]
+const externals = [...Object.keys(peerDependencies), ...Object.keys(dependencies)]
 
 // Libs in `external` will not be bundled to dist,
 // since they are expected to be provided later.
@@ -21,7 +21,11 @@ const externalExcludes = ['popper.js', 'vue-functional-data-merge']
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
   external: Object.keys(dependencies),
-  plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
+  plugins: [
+    resolve({ external: ['vue'], dedupe: ['vue'] }),
+    commonjs(),
+    babel({ exclude: 'node_modules/**' })
+  ]
 }
 
 // Ensure dist directory exists
@@ -60,7 +64,6 @@ export default [
   // ES
   {
     ...baseConfig,
-    external: ['vue'],
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),
