@@ -21,11 +21,7 @@ const externalExcludes = ['popper.js', 'vue-functional-data-merge']
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
   external: externals,
-  plugins: [
-    resolve({ external: ['vue'] }),
-    commonjs(),
-    babel({ exclude: 'node_modules/**' })
-  ]
+  plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
 }
 
 // Ensure dist directory exists
