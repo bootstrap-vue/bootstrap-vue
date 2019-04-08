@@ -60,7 +60,7 @@ export default {
     suggestionClick(evt) {
       if (evt && evt.target && evt.target.tagName === 'A') {
         const link = evt.target
-        if (link.href and link.href.length > 0) {
+        if (link.href && link.href.length > 0) {
           // Prevent the click from causing the page to reload
           evt.preventDefault()
           // We don't stop propagation as we want Algolia to provide stats on clicks.
