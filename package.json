@@ -76,6 +76,9 @@
     "popper.js": "^1.15.0",
     "vue-functional-data-merge": "^2.0.7"
   },
+  "peerDependencies": {
+    "vue": "^2.5.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
