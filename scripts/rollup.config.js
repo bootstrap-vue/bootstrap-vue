@@ -4,13 +4,13 @@ import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
-import { name, dependencies, peerDependencies } from '../package.json'
+import { name, dependencies } from '../package.json'
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
 
-const externals = [...Object.keys(peerDependencies || {}), ...Object.keys(dependencies || {})]
+const externals = ['vue', ...Object.keys(dependencies)]
 
 // Libs in `external` will not be bundled to dist,
 // since they are expected to be provided later.
