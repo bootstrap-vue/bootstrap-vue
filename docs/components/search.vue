@@ -3,7 +3,7 @@
     class="bd-search d-flex align-items-center"
     ref="form"
     @submit.stop.prevent
-    @click.capture="suggestionClick"
+    @click.native.capture="suggestionClick"
   >
     <b-form-input
       id="bd-search-input"
