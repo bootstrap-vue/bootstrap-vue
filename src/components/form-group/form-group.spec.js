@@ -331,10 +331,12 @@ describe('form-group', () => {
     expect(wrapper.find('.valid-feedback').attributes('aria-live')).toEqual('polite')
     expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
 
-    // With feedback-aria-live set to null 
+    // With feedback-aria-live set to null
     wrapper.setProps({
       feedbackAriaLive: null
     })
+    await wrapper.vm.$nextTick()
+
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
     expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
     expect(wrapper.find('.invalid-feedback').attributes('role')).not.toBeDefined()
