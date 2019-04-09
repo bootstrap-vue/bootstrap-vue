@@ -307,21 +307,11 @@ export default Vue.extend({
       }
     },
     slotScope() {
-      // We use arrow functions here to preserve our "this" binding
       return {
-        ok: () => {
-          this.hide('ok')
-        },
-        cancel: () => {
-          this.hide('cancel')
-        },
-        close: () => {
-          this.hide('close')
-        },
-        hide: trigger => {
-          this.hide(trigger)
-        },
-        id: this.id || null
+        ok: this.onOk,
+        cancel: this.onCancel,
+        close: this.onClose,
+        hide: this.hide
       }
     }
   },
@@ -570,6 +560,15 @@ export default Vue.extend({
         this.hide('backdrop')
       }
     },
+    onOk() {
+      this.hide('ok')
+    },
+    onCancel() {
+      this.hide('cancel')
+    },
+    onClose() {
+      this.hide('headerclose')
+    },
     onEsc(evt) {
       // If ESC pressed, hide modal
       if (evt.keyCode === KeyCodes.ESC && this.is_visible && !this.noCloseOnEsc) {
@@ -685,7 +684,7 @@ export default Vue.extend({
               },
               on: {
                 click: evt => {
-                  this.hide('headerclose')
+                  this.onClose()
                 }
               }
             },
@@ -740,7 +739,7 @@ export default Vue.extend({
               },
               on: {
                 click: evt => {
-                  this.hide('cancel')
+                  this.onCancel()
                 }
               }
             },
@@ -757,7 +756,7 @@ export default Vue.extend({
             },
             on: {
               click: evt => {
-                this.hide('ok')
+                this.onOk()
               }
             }
           },
