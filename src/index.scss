@@ -1,13 +1,9 @@
 /*!
  * BootstrapVue Custom CSS (https://bootstrap-vue.js.org)
  */
-// Bootstrap
 
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-
-// Bootstrap Vue
+// Requires Bootstrap Function, Variables and Mixins to be imported first
+// Or the full Bootstrap SCSS before importing this file.
 
 @import "variables";
 @import "utilities";
