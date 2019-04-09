@@ -1,6 +1,6 @@
 // Temporary fix for cssnano bug: https://github.com/cssnano/cssnano/issues/712
-// By moving center to last value in background-position property
-// Bug will/may affect Nuxt.js users and docs site https://github.com/bootstrap-vue/bootstrap-vue/issues/2599
+// By moving center to last value in `background-position` property
+// See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2599
 @if $enable-validation-icons {
   .form-control {
     .was-validated &:invalid,
@@ -39,7 +39,7 @@ input[type="color"].form-control:disabled {
   opacity: $btn-disabled-opacity;
 }
 
-/* Base .input-group > .custom-range styling (no PR yet on BS V4) */
+// --- Base `.input-group > .custom-range` styling (no PR yet on BS V4) ---
 .input-group {
   > .custom-range {
     position: relative;
@@ -116,8 +116,8 @@ input[type="color"].form-control:disabled {
   @include border-radius($input-border-radius-sm);
 }
 
-/* b-form-input: custom-range validation styling - valid (no PR yet for BS V4.2) */
-// Mixin for generating .input-group .custom-range validation styling
+// --- <b-form-input>: custom-range validation styling - valid (no PR yet for BS V4.2) ---
+// Mixin for generating `.input-group .custom-range` validation styling
 @mixin bv-custom-range-validation-state($state, $color) {
   .input-group .custom-range {
     .was-validated &:#{$state},
@@ -134,7 +134,7 @@ input[type="color"].form-control:disabled {
   .custom-range {
     .was-validated &:#{$state},
     &.is-#{$state} {
-      // Pseudo-elements must be split across multiple rulesets to have an affect.
+      // Pseudo-elements must be split across multiple rulesets to have an affect
       &:focus {
         &::-webkit-slider-thumb {
           box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($color, 35%);
@@ -173,8 +173,6 @@ input[type="color"].form-control:disabled {
 
       &::-moz-range-track {
         background: rgba($color, 0.35);
-      }
-      &::-moz-range-thumb {
       }
 
       ~ .#{$state}-feedback,
