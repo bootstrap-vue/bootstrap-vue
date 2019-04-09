@@ -309,10 +309,18 @@ export default Vue.extend({
     slotScope() {
       // We use arrow functions here to preserve our "this" binding
       return {
-        ok: () => { this.hide('ok') },
-        cancel: () => { this.hide('cancel') },
-        close: () => { this.hide('close') },
-        hide: trigger => { this.hide(trigger) },
+        ok: () => {
+          this.hide('ok')
+        },
+        cancel: () => {
+          this.hide('cancel')
+        },
+        close: () => {
+          this.hide('close')
+        },
+        hide: trigger => {
+          this.hide(trigger)
+        },
         id: this.id || null
       }
     }
@@ -684,8 +692,8 @@ export default Vue.extend({
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
             this.normalizeSlot('modal-title', this.slotScope) ||
-            this.titleHtml ||
-            stripTags(this.title)
+              this.titleHtml ||
+              stripTags(this.title)
           ]),
           closeButton
         ]
