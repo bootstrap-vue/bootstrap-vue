@@ -25,6 +25,10 @@ export const props = {
   ariaLive: {
     type: String,
     default: null
+  },
+  role: {
+    type: String,
+    default: null
   }
 }
 
@@ -45,6 +49,7 @@ export default Vue.extend({
         },
         attrs: {
           id: props.id,
+          role: props.role,
           'aria-live': props.ariaLive,
           'aria-atomic': 'true'
         }
