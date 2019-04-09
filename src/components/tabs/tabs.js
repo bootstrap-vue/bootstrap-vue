@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import BLink from '../link/link'
+import BNav, { props as BNavProps } from '../nav/nav'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
+import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
+
+// -- Constants --
+
+const navProps = omit(BNavProps, ['tabs', 'isNavBar'])
 
 // -- Utils --
 
 // Filter function to filter out disabled tabs
 const notDisabled = tab => !tab.disabled
 
-// --- Helper Components ---
+// --- Helper components ---
 
 // @vue/component
 const BTabButtonHelper = Vue.extend({
@@ -142,31 +148,16 @@ export default Vue.extend({
     event: 'input'
   },
   props: {
+    ...navProps,
     tag: {
       type: String,
       default: 'div'
-    },
-    fill: {
-      type: Boolean,
-      default: false
-    },
-    justified: {
-      type: Boolean,
-      default: false
     },
     card: {
       type: Boolean,
       default: false
     },
     small: {
-      type: Boolean,
-      default: false
-    },
-    pills: {
-      type: Boolean,
-      default: false
-    },
-    vertical: {
       type: Boolean,
       default: false
     },
@@ -536,21 +527,17 @@ export default Vue.extend({
       })
     })
 
-    // Nav 'button' wrapper
-    let navs = h(
-      'ul',
+    // Nav
+    let nav = h(
+      BNav,
       {
-        ref: 'navs',
+        ref: 'nav',
         class: [
-          'nav',
           {
             [`nav-${this.navStyle}`]: !this.noNavStyle,
             [`card-header-${this.navStyle}`]: this.card && !this.vertical,
             'card-header': this.card && this.vertical,
             'h-100': this.card && this.vertical,
-            'flex-column': this.vertical,
-            'nav-fill': this.fill,
-            'nav-justified': this.justified,
             'border-bottom-0': this.vertical,
             'rounded-0': this.vertical,
             small: this.small
@@ -560,14 +547,21 @@ export default Vue.extend({
         attrs: {
           role: 'tablist',
           id: this.safeId('_BV_tab_controls_')
+        },
+        props: {
+          fill: this.fill,
+          justified: this.justified,
+          align: this.align,
+          pills: this.pills,
+          vertical: this.vertical
         }
       },
       [buttons, this.$slots.tabs]
     )
-    navs = h(
+    nav = h(
       'div',
       {
-        key: 'bv-tabs-navs',
+        key: 'bv-tabs-nav',
         class: [
           {
             'card-header': this.card && !this.vertical && !(this.end || this.bottom),
@@ -577,7 +571,7 @@ export default Vue.extend({
           this.navWrapperClass
         ]
       },
-      [navs]
+      [nav]
     )
 
     let empty = h(false)
@@ -616,7 +610,7 @@ export default Vue.extend({
       },
       [
         this.end || this.bottom ? content : h(false),
-        [navs],
+        [nav],
         this.end || this.bottom ? h(false) : content
       ]
     )
