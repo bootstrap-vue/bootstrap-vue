@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Button",
-    "description": "Use Bootstrap Vue’s <b-button> component for actions in forms, dialogs, and more. Includes support for a handful of contextual variations, sizes, states, and more.",
+    "description": "Use BootstrapVue’s <b-button> component for actions in forms, dialogs, and more. Includes support for a handful of contextual variations, sizes, states, and more.",
     "components": [
       {
         "component": "BButton",

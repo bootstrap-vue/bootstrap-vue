@@ -4,7 +4,7 @@ import warn from './warn'
 import { isArray } from './array'
 import { keys, isObject } from './object'
 
-// General Bootstrap Vue configuration
+// General BootstrapVue configuration
 //
 // BREAKPOINT DEFINITIONS
 //

@@ -4,8 +4,8 @@ $bv-dropdown-text-defined: false !default;
   // This test will only include these style definitions once
   $bv-dropdown-text-defined: true;
 
-  // Custom styles for b-dropdown-text
-  // Based on class .dropdown-item
+  // Custom styles for <b-dropdown-text>
+  // Based on class `.dropdown-item`
   .b-dropdown-text {
     display: inline-block;
     padding: $dropdown-item-padding-y $dropdown-item-padding-x;
