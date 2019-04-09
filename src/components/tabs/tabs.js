@@ -4,7 +4,13 @@ import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
-// Private Helper component
+// -- Utils --
+
+// Filter function to filter out disabled tabs
+const notDisabled = tab => !tab.disabled
+
+// --- Helper Components ---
+
 // @vue/component
 const BTabButtonHelper = Vue.extend({
   name: 'BTabButtonHelper',
@@ -16,7 +22,7 @@ const BTabButtonHelper = Vue.extend({
     }
   },
   props: {
-    // Reference to the child b-tab instance
+    // Reference to the child <b-tab> instance
     tab: { default: null },
     tabs: {
       type: Array,
@@ -122,11 +128,6 @@ const BTabButtonHelper = Vue.extend({
   }
 })
 
-// Filter function to filter out disabled tabs
-function notDisabled(tab) {
-  return !tab.disabled
-}
-
 // @vue/component
 export default Vue.extend({
   name: 'BTabs',
@@ -144,6 +145,14 @@ export default Vue.extend({
     tag: {
       type: String,
       default: 'div'
+    },
+    fill: {
+      type: Boolean,
+      default: false
+    },
+    justified: {
+      type: Boolean,
+      default: false
     },
     card: {
       type: Boolean,
@@ -183,7 +192,7 @@ export default Vue.extend({
       default: false
     },
     lazy: {
-      // This prop is sniffed by the tab child
+      // This prop is sniffed by the <b-tab> child
       type: Boolean,
       default: false
     },
@@ -199,6 +208,12 @@ export default Vue.extend({
       type: [String, Array, Object],
       default: null
     },
+    activeClass: {
+      // Only applied to the currently active <b-tab>
+      // This prop is sniffed by the <b-tab> child
+      type: [String, Array, Object],
+      default: null
+    },
     value: {
       // v-model
       type: Number,
@@ -211,7 +226,7 @@ export default Vue.extend({
     return {
       // Index of current tab
       currentTab: tabIdx,
-      // Array of direct child b-tab instances
+      // Array of direct child <b-tab> instances
       tabs: []
     }
   },
@@ -271,9 +286,9 @@ export default Vue.extend({
   },
   mounted() {
     this.$nextTick(() => {
-      // Call updateTabs jsut in case....
+      // Call `updateTabs()` just in case...
       this.updateTabs()
-      // Observe Child changes so we can update list of tabs
+      // Observe child changes so we can update list of tabs
       this.setObserver(true)
     })
   },
@@ -296,7 +311,7 @@ export default Vue.extend({
       if (on) {
         // Make sure no existing observer running
         this.setObserver(false)
-        // Watch for changes to b-tab sub components
+        // Watch for changes to <b-tab> sub components
         this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
           childList: true,
           subtree: false,
@@ -315,7 +330,7 @@ export default Vue.extend({
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
     },
-    // Update list of b-tab children
+    // Update list of <b-tab> children
     updateTabs() {
       // Probe tabs
       const tabs = this.getTabs()
@@ -370,16 +385,16 @@ export default Vue.extend({
     getButtonForTab(tab) {
       return (this.$refs.buttons || []).find(btn => btn.tab === tab)
     },
-    // Force a button to re-render it's content, given a b-tab instance
-    // Called by b-tab on update()
+    // Force a button to re-render it's content, given a <b-tab> instance
+    // Called by <b-tab> on `update()`
     updateButton(tab) {
       const button = this.getButtonForTab(tab)
       if (button && button.$forceUpdate) {
         button.$forceUpdate()
       }
     },
-    // Activate a tab given a b-tab instance
-    // Also accessed by b-tab
+    // Activate a tab given a <b-tab> instance
+    // Also accessed by <b-tab>
     activateTab(tab) {
       let result = false
       if (tab) {
@@ -390,28 +405,28 @@ export default Vue.extend({
         }
       }
       if (!result) {
-        // Couldn't set tab, so ensure v-model is set to this.currentTab
+        // Couldn't set tab, so ensure v-model is set to `this.currentTab`
         /* istanbul ignore next: should rarely happen */
         this.$emit('input', this.currentTab)
       }
       return result
     },
-    // Deactivate a tab given a b-tab instance
-    // Accessed by b-tab
+    // Deactivate a tab given a <b-tab> instance
+    // Accessed by <b-tab>
     deactivateTab(tab) {
       if (tab) {
         // Find first non-disabled tab that isn't the one being deactivated
-        // If no available tabs, then don't deactivate current tab
+        // If no tabs are available, then don't deactivate current tab
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
         // No tab specified
-        /* istanbull ignore next: should never happen */
+        /* istanbul ignore next: should never happen */
         return false
       }
     },
-    // Focus a tab button given it's b-tab instance
+    // Focus a tab button given it's <b-tab> instance
     focusButton(tab) {
-      // Wrap in nextTick to ensure DOM has completed rendering/updating before focusing
+      // Wrap in `$nextTick()` to ensure DOM has completed rendering/updating before focusing
       this.$nextTick(() => {
         const button = this.getButtonForTab(tab)
         if (button && button.focus) {
@@ -419,13 +434,13 @@ export default Vue.extend({
         }
       })
     },
-    // Emit a click event on a specified b-tab component instance
+    // Emit a click event on a specified <b-tab> component instance
     emitTabClick(tab, evt) {
       if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
         tab.$emit('click', evt)
       }
     },
-    // Click Handler
+    // Click handler
     clickTab(tab, evt) {
       this.activateTab(tab)
       this.emitTabClick(tab, evt)
@@ -495,7 +510,7 @@ export default Vue.extend({
       return h(BTabButtonHelper, {
         key: tab._uid || index,
         ref: 'buttons',
-        // Needed to make this.$refs.buttons an array
+        // Needed to make `this.$refs.buttons` an array
         refInFor: true,
         props: {
           tab: tab,
@@ -534,6 +549,8 @@ export default Vue.extend({
             'card-header': this.card && this.vertical,
             'h-100': this.card && this.vertical,
             'flex-column': this.vertical,
+            'nav-fill': this.fill,
+            'nav-justified': this.justified,
             'border-bottom-0': this.vertical,
             'rounded-0': this.vertical,
             small: this.small
