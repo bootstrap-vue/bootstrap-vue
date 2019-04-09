@@ -44,7 +44,7 @@ node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
           --precision 6 \
-          src/index.scss \
+          scripts/build.scss \
           dist/bootstrap-vue.css
 postcss --config scripts/postcss.config.js \
         --replace dist/bootstrap-vue.css
