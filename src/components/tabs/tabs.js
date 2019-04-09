@@ -224,6 +224,17 @@ export default Vue.extend({
     },
     navStyle() {
       return this.pills ? 'pills' : 'tabs'
+    },
+    localNavClass() {
+      let classes = []
+      if (this.card) {
+        if (this.vertical) {
+          classes.push('card-header', 'h-100', 'border-bottom-0', 'rounded-0')
+        } else {
+          classes.push(`card-header-${this.navStyle}`)
+        }
+      }
+      return [...classes, this.navClass]
     }
   },
   watch: {
@@ -528,16 +539,7 @@ export default Vue.extend({
       BNav,
       {
         ref: 'nav',
-        class: [
-          {
-            [`card-header-${this.navStyle}`]: this.card && !this.vertical,
-            'card-header': this.card && this.vertical,
-            'h-100': this.card && this.vertical,
-            'border-bottom-0': this.vertical,
-            'rounded-0': this.vertical
-          },
-          this.navClass
-        ],
+        class: this.localNavClass,
         attrs: {
           role: 'tablist',
           id: this.safeId('_BV_tab_controls_')
