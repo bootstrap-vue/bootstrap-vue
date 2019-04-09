@@ -47,12 +47,9 @@ const renderInvalidFeedback = (h, ctx) => {
           state: ctx.computedState,
           tooltip: ctx.tooltip,
           ariaLive: ctx.feedbackAriaLive,
-          role: 'alert'
+          role: ctx.feedbackAriaLive ? 'alert' : null
         },
-        attrs: {
-          tabindex: content ? '-1' : null,
-          role: 'alert'
-        }
+        attrs: { tabindex: content ? '-1' : null }
       },
       [content]
     )
@@ -73,12 +70,9 @@ const renderValidFeedback = (h, ctx) => {
           state: ctx.computedState,
           tooltip: ctx.tooltip,
           ariaLive: ctx.feedbackAriaLive,
-          role: 'alert'
+          role: ctx.feedbackAriaLive ? 'alert' : null
         },
-        attrs: {
-          tabindex: '-1',
-          role: 'alert'
-        }
+        attrs: { tabindex: content ? '-1' : null }
       },
       [content]
     )
@@ -96,7 +90,7 @@ const renderHelpText = (h, ctx) => {
       {
         attrs: {
           id: ctx.descriptionId,
-          tabindex: '-1'
+          tabindex: content ? '-1' : null
         }
       },
       [content]
