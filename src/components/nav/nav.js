@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
+// -- Constants --
+
 const DEPRECATED_MSG =
   'Setting prop "is-nav-bar" is deprecated. Use the <b-navbar-nav> component instead.'
 
@@ -46,6 +48,17 @@ export const props = {
   }
 }
 
+// -- Utils --
+
+const computeJustifyContent = value => {
+  if (value === 'left') {
+    value = 'start'
+  } else if (value === 'right') {
+    value = 'end'
+  }
+  return `justify-content-${value}`
+}
+
 // @vue/component
 export default Vue.extend({
   name: 'BNav',
@@ -63,7 +76,7 @@ export default Vue.extend({
           'flex-column': props.vertical && !props.isNavBar,
           'nav-fill': !props.vertical && props.fill,
           'nav-justified': !props.vertical && props.justified,
-          [`justify-content-${props.align}`]: !props.vertical && props.align,
+          [computeJustifyContent(props.align)]: !props.vertical && props.align,
           small: props.small
         }
       }),
