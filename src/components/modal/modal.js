@@ -5,6 +5,7 @@ import BButton from '../button/button'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixin/normalize-slot'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import { inBrowser } from '../../utils/env'
@@ -210,7 +211,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
     event: 'change'
@@ -303,6 +304,15 @@ export default Vue.extend({
       return {
         position: 'absolute',
         zIndex: this.zIndex
+      }
+    },
+    slotScope() {
+      // We use arrow functions here to preserve our "this" binding
+      return {
+        ok: () => { this.hide('ok') },
+        cancel: () => { this.hide('cancel') },
+        close: () => { this.hide('close') },
+        hide: trigger => { this.hide(trigger) }
       }
     }
   },
@@ -649,7 +659,7 @@ export default Vue.extend({
     // Modal header
     let header = h(false)
     if (!this.hideHeader) {
-      let modalHeader = $slots['modal-header']
+      let modalHeader = this.normalizeSlot('modal-header', this.slotScope)
       if (!modalHeader) {
         let closeButton = h(false)
         if (!this.hideHeaderClose) {
@@ -672,7 +682,9 @@ export default Vue.extend({
         }
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || this.titleHtml || stripTags(this.title)
+            this.normalizeSlot('modal-title', this.slotScope) ||
+            this.titleHtml ||
+            stripTags(this.title)
           ]),
           closeButton
         ]
@@ -697,12 +709,12 @@ export default Vue.extend({
         class: this.bodyClasses,
         attrs: { id: this.safeId('__BV_modal_body_') }
       },
-      [$slots.default]
+      this.normalizeSlot('default', this.slotScope)
     )
     // Modal Footer
     let footer = h(false)
     if (!this.hideFooter) {
-      let modalFooter = $slots['modal-footer']
+      let modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
       if (!modalFooter) {
         let cancelButton = h(false)
         if (!this.okOnly) {
