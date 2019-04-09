@@ -82,6 +82,16 @@
             ]
           },
           {
+            "event": "close",
+            "description": "when default header close button pressed, just before modal has hidden. Cancelable",
+            "args": [
+              {
+                "arg": "bvModalEvt",
+                "description": "BvModalEvent object. Call bvEvt.preventDefault() to cancel hide"
+              }
+            ]
+          },
+          {
             "event": "bv::modal::show",
             "description": "Emitted on $root when modal is about to be shown",
             "args": [
