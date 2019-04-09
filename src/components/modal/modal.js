@@ -520,6 +520,9 @@ export default Vue.extend({
       this.$nextTick(() => {
         this.returnFocusTo()
         this.is_closing = false
+        // TODO:
+        //   Need to find a way to pass the `trigger` property
+        //   to the `hidden` event, not just only the `hide` event
         const hiddenEvt = new BvModalEvent('hidden', {
           cancelable: false,
           vueTarget: this,
