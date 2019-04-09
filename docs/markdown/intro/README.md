@@ -50,8 +50,9 @@ Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 import 'custom.scss'
 ```
 
-Be sure to `@import` or defined your custom variable values _before_ `bootstrap.scss`, and
-include BootstrapVue SCSS _after_ `bootstrap.scss` to ensure variables are set up correctly.
+Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
+(`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
+variables are set up correctly.
 
 Make sure you place all the SCSS `@import`s into a single SCSS file, and import that single file
 into your project. Importing individual SCSS files into your project will **not** share variable
