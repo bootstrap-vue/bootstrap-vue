@@ -51,7 +51,7 @@ export default Vue.extend({
           id: props.id,
           role: props.role,
           'aria-live': props.ariaLive,
-          'aria-atomic': 'true'
+          'aria-atomic': props.ariaLive ? 'true' : null
         }
       }),
       children
