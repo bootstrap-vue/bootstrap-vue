@@ -45,13 +45,13 @@ const renderInvalidFeedback = (h, ctx) => {
           id: ctx.invalidFeedbackId,
           // If state is explicitly false, always show the feedback
           state: ctx.computedState,
-          tooltip: ctx.tooltip
+          tooltip: ctx.tooltip,
+          ariaLive: ctx.feedbackAriaLive,
+          role: 'alert'
         },
         attrs: {
           tabindex: content ? '-1' : null,
-          role: 'alert',
-          'aria-live': 'assertive',
-          'aria-atomic': 'true'
+          role: 'alert'
         }
       },
       [content]
@@ -71,13 +71,13 @@ const renderValidFeedback = (h, ctx) => {
           id: ctx.validFeedbackId,
           // If state is explicitly true, always show the feedback
           state: ctx.computedState,
-          tooltip: ctx.tooltip
+          tooltip: ctx.tooltip,
+          ariaLive: ctx.feedbackAriaLive,
+          role: 'alert'
         },
         attrs: {
           tabindex: '-1',
-          role: 'alert',
-          'aria-live': 'assertive',
-          'aria-atomic': 'true'
+          role: 'alert'
         }
       },
       [content]
@@ -233,6 +233,10 @@ export default (resolve, reject) => {
         // Enable tooltip style feedback
         type: Boolean,
         default: false
+      },
+      feedbackAriaLive: {
+        type: String,
+        default: 'assertive'
       },
       validated: {
         type: Boolean,
