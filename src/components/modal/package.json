@@ -27,7 +27,7 @@
             "args": [
               {
                 "arg": "bvModalEvt",
-                "description": "BvModalEvent object. Call bvEvt.preventDefault() to cancel show"
+                "description": "BvModalEvent object. Call bvModalEvt.preventDefault() to cancel show"
               }
             ]
           },
@@ -47,7 +47,7 @@
             "args": [
               {
                 "arg": "bvModalEvt",
-                "description": "BvModalEvent object. Call bvEvt.preventDefault() to cancel hide"
+                "description": "BvModalEvent object. Call bvModalEvt.preventDefault() to cancel hide"
               }
             ]
           },
@@ -67,7 +67,7 @@
             "args": [
               {
                 "arg": "bvModalEvt",
-                "description": "BvModalEvent object. Call bvEvt.preventDefault() to cancel hide"
+                "description": "BvModalEvent object. Call bvModalEvt.preventDefault() to cancel hide"
               }
             ]
           },
@@ -77,7 +77,7 @@
             "args": [
               {
                 "arg": "bvModalEvt",
-                "description": "BvModalEvent object. Call bvEvt.preventDefault() to cancel hide"
+                "description": "BvModalEvent object. Call bvModalEvt.preventDefault() to cancel hide"
               }
             ]
           },
@@ -87,7 +87,7 @@
             "args": [
               {
                 "arg": "bvModalEvt",
-                "description": "BvModalEvent object. Call bvEvt.preventDefault() to cancel hide"
+                "description": "BvModalEvent object. Call bvModalEvt.preventDefault() to cancel hide"
               }
             ]
           },
@@ -219,7 +219,7 @@
           },
           {
             "name": "default",
-            "description": "Content of modal. Optionally scoped."
+            "description": "Content of modal body. Optionally scoped."
           }
         ]
       }
