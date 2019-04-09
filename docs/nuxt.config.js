@@ -161,7 +161,7 @@ module.exports = {
     'highlightjs/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
     'bootstrap/dist/css/bootstrap.css',
-    '../build/index.scss', // BootstrapVue SCSS
+    '../scripts/build.scss', // BootstrapVue SCSS
     '@assets/css/docs.min.css',
     '@assets/scss/styles.scss'
   ]
