@@ -38,7 +38,7 @@ via the `modal-header` slot, and override the footer completely via the `modal-f
 present. Also, if you use the `modal-header` slot, the default header `X` close button will not be
 present, nor can you use the `modal-title` slot.
 
-## Toggle Modal Visibility
+## Toggle modal visibility
 
 There are several methods that you can employ to toggle the visibility of `<b-modal>`.
 
@@ -62,10 +62,10 @@ Other elements can easily show modals using the `v-b-modal` directive.
 ```
 
 This approach will automatically return focus to the trigger element once the modal closes (similar
-to default Bootstrap functionality). Other approaches for toggling modal visibility will require
+to default Bootstrap functionality). Other approaches for toggling modal visibility may require
 additional code to implement this accessibility feature.
 
-See the **Accessibility** section below for details.
+See the [Accessibility](#accessibility) section below for details.
 
 ### Using `show()`, `hide()`, and `toggle()` component methods
 
@@ -109,7 +109,8 @@ methods.
 <!-- b-modal-methods.vue -->
 ```
 
-The `hide()` method accepts an optional argument. See section **Prevent Closing** below for details.
+The `hide()` method accepts an optional string `trigger` argument for defining what triggered the
+modal to close. See section [Prevent Closing](#prevent-closing) below for details.
 
 ### Using `v-model` property
 
@@ -140,7 +141,7 @@ show/hide using `v-model`.
 
 When using the `v-model` property, do not use the `visible` property at the same time.
 
-### Emitting Events on \$root
+### Emitting events on \$root
 
 You can emit `bv::show::modal`, `bv::hide::modal`, and `bv::toggle::modal` events on `$root` with
 the first argument set to the modal's id. An optional second argument can specify the element to
@@ -176,7 +177,7 @@ export default {
 }
 ```
 
-### Prevent Closing
+### Prevent closing
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call the
 `.preventDefault()` method of the event object passed to your `ok` (**OK** button), `cancel`
@@ -278,7 +279,7 @@ The `ok`, `cancel`, and `hide` event object contains several properties and meth
 | Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                |
 | ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                |
-| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise. |
+| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
 | `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                           |
 | `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                 |
 | `modalId`          | property | The modal's ID                                                                                                                                                                                                                                                                                             |
@@ -612,7 +613,7 @@ For `aria-labelledby` and `aria-described` by attributes to appear on the modal,
 an `id` attribute on `<b-modal>`. `aria-labelledby` will not be present if you have the header
 hidden.
 
-### Auto Focus on open
+### Auto focus on open
 
 `<b-modal>` will autofocus the modal container when opened.
 
@@ -665,7 +666,7 @@ and will return the focus to that element when the modal has hidden if possible.
 methods and options are provided to allow you to specify the element to return focus to once the
 modal has hidden.
 
-#### Specify Return Focus Element via the `return-focus` Prop
+#### Specify return focus element via the `return-focus` prop
 
 You can also specify an element to return focus to, when modal closes, by setting the `return-focus`
 prop to one of the following:
@@ -681,13 +682,13 @@ This method for returning focus is handy when you use the `<b-modal>` methods `s
 or the `v-model` prop. Note this property takes precedence over other methods of specifying the
 return focus element.
 
-#### Auto Return Focus
+#### Auto return focus
 
 When `<b-modal>` is opened via the `v-b-modal` directive on an element, focus will be returned to
 this element automatically when `<b-modal>` closes, unless an element has been specified via the
 `return-focus` prop.
 
-#### Specify Return Focus via Event
+#### Specify return focus via event
 
 When using the `bv::show::modal` event (emitted on `$root`), you can specify a second argument which
 is the element to return focus to. This argument accepts the same types as the `return-focus` prop.
@@ -708,7 +709,7 @@ property:
 **Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified via the
 event will be ignored.
 
-### Keyboard Navigation
+### Keyboard navigation
 
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the
 document, it will be brought back into the modal.
