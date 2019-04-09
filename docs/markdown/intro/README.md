@@ -99,8 +99,8 @@ BootstrapVue pre-compiled CSS files by setting the following option(s) to `false
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    bootstrapCSS: false, // or `css`
-    bootstrapVueCSS: false // or `bvCSS`
+    bootstrapCSS: false, // Or css: false,
+    bootstrapVueCSS: false // Or bvCSS: false
   }
 }
 ```
@@ -148,8 +148,9 @@ module.exports = {
 }
 ```
 
-Refer to the reference section at the bottom of the component and directive docs for details on
-the plugin names available.
+Refer to the reference section at the bottom of each of the [component](/docs/components) and
+[directive](/docs/directives) docs for details on the plugin names available and which components
+and directives are included in each plugin.
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
