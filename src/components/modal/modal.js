@@ -312,7 +312,8 @@ export default Vue.extend({
         ok: () => { this.hide('ok') },
         cancel: () => { this.hide('cancel') },
         close: () => { this.hide('close') },
-        hide: trigger => { this.hide(trigger) }
+        hide: trigger => { this.hide(trigger) },
+        id: this.id || null
       }
     }
   },
