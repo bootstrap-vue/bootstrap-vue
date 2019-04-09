@@ -1,20 +1,9 @@
 import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { props as BNavProps } from '../nav/nav'
+import { pick } from '../../utils/object'
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'ul'
-  },
-  fill: {
-    type: Boolean,
-    default: false
-  },
-  justified: {
-    type: Boolean,
-    default: false
-  }
-}
+export const props = pick(BNavProps, ['tag', 'fill', 'justified', 'align', 'small'])
 
 // @vue/component
 export default Vue.extend({
@@ -28,7 +17,9 @@ export default Vue.extend({
         staticClass: 'navbar-nav',
         class: {
           'nav-fill': props.fill,
-          'nav-justified': props.justified
+          'nav-justified': props.justified,
+          [`justify-content-${props.align}`]: props.align,
+          small: props.small
         }
       }),
       children

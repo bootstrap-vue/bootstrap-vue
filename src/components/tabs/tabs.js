@@ -157,10 +157,6 @@ export default Vue.extend({
       type: Boolean,
       default: false
     },
-    small: {
-      type: Boolean,
-      default: false
-    },
     bottom: {
       type: Boolean,
       default: false
@@ -534,13 +530,11 @@ export default Vue.extend({
         ref: 'nav',
         class: [
           {
-            [`nav-${this.navStyle}`]: !this.noNavStyle,
             [`card-header-${this.navStyle}`]: this.card && !this.vertical,
             'card-header': this.card && this.vertical,
             'h-100': this.card && this.vertical,
             'border-bottom-0': this.vertical,
-            'rounded-0': this.vertical,
-            small: this.small
+            'rounded-0': this.vertical
           },
           this.navClass
         ],
@@ -552,8 +546,10 @@ export default Vue.extend({
           fill: this.fill,
           justified: this.justified,
           align: this.align,
-          pills: this.pills,
-          vertical: this.vertical
+          tabs: !this.noNavStyle && !this.pills,
+          pills: !this.noNavStyle && this.pills,
+          vertical: this.vertical,
+          small: this.small
         }
       },
       [buttons, this.$slots.tabs]

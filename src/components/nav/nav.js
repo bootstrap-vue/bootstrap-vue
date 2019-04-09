@@ -33,6 +33,10 @@ export const props = {
     type: Boolean,
     default: false
   },
+  small: {
+    type: Boolean,
+    default: false
+  },
   isNavBar: {
     type: Boolean,
     default: false,
@@ -59,7 +63,8 @@ export default Vue.extend({
           'flex-column': props.vertical && !props.isNavBar,
           'nav-fill': !props.vertical && props.fill,
           'nav-justified': !props.vertical && props.justified,
-          [`justify-content-${props.align}`]: !props.vertical && props.align
+          [`justify-content-${props.align}`]: !props.vertical && props.align,
+          small: props.small
         }
       }),
       children
