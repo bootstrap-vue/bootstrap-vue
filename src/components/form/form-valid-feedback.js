@@ -21,6 +21,10 @@ export const props = {
   state: {
     type: [Boolean, String],
     default: null
+  },
+  ariaLive: {
+    type: String,
+    default: null
   }
 }
 
@@ -39,7 +43,11 @@ export default Vue.extend({
           'valid-tooltip': props.tooltip,
           'd-block': show
         },
-        attrs: { id: props.id }
+        attrs: {
+          id: props.id,
+          'aria-live': props.ariaLive,
+          'aria-atomic': props.ariaLive ? 'true' : null
+        }
       }),
       children
     )
