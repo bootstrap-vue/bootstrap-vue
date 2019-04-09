@@ -181,19 +181,19 @@
         "slots": [
           {
             "name": "modal-header",
-            "description": "Entire modal header container contents. Also removes the top right X close button."
+            "description": "Entire modal header container contents. Also removes the top right X close button. Optionally scoped."
           },
           {
             "name": "modal-title",
-            "description": "Modal title. If modal-header slot is used, this slot will not be shown."
+            "description": "Modal title. If modal-header slot is used, this slot will not be shown. Optionally scoped."
+          },
+          {
+            "name": "modal-footer",
+            "description": "Modal footer content. Also removes default OK and CANCEL buttons. Optionally scoped."
           },
           {
             "name": "modal-header-close",
             "description": "Content of Modal header close button. If modal-header slot is used, this slot will not be shown."
-          },
-          {
-            "name": "modal-footer",
-            "description": "Modal footer content. Also removes default OK and CANCEL buttons."
           },
           {
             "name": "modal-ok",
@@ -206,6 +206,10 @@
           {
             "name": "modal-backdrop",
             "description": "Modal Backdrop content."
+          },
+          {
+            "name": "default",
+            "description": "Content of modal. Optionally scoped."
           }
         ]
       }
