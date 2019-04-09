@@ -12,7 +12,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 
 ```html
 <div>
-  <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2">
+  <b-jumbotron header="BootstrapVue" lead="Bootstrap 4 Components for Vue.js 2">
     <p>For more information visit website</p>
     <b-button variant="primary" href="#">More Info</b-button>
   </b-jumbotron>
@@ -26,7 +26,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 ```html
 <div>
   <b-jumbotron>
-    <template slot="header">Bootstrap Vue</template>
+    <template slot="header">BootstrapVue</template>
 
     <template slot="lead">
       This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
@@ -87,7 +87,7 @@ jumbotron to use the default styling.
 ```html
 <div>
   <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
-    <template slot="header">Bootstrap Vue</template>
+    <template slot="header">BootstrapVue</template>
 
     <template slot="lead">
       This is a simple hero unit, a simple jumbotron-style component for calling extra attention to

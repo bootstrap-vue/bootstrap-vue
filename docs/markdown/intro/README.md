@@ -1,8 +1,12 @@
 # Getting Started
 
-- [Vue.js](https://vuejs.org) version {{ vueVersion }} (or greater) is recommended
-- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version {{ bootstrapVersion }} (or
-  greater) SCSS/CSS
+> Get started with BootstrapVue, based on the world’s most popular framework - Bootstrap V4, for
+> building responsive, mobile-first sites using Vue.js.
+
+- [Vue.js](https://vuejs.org) version <code>{{ vueVersion }}</code> (or greater) is recommended
+- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version
+  <code>{{ bootstrapVersion }}</code> SCSS/CSS
+- jQuery is **not** required
 
 ## General
 
@@ -37,7 +41,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
+Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 
 ```scss
 // custom.scss
@@ -50,15 +54,23 @@ Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
 import 'custom.scss'
 ```
 
-Be sure to include your custom variables before `bootstrap.scss` and include BootstrapVue SCSS
-_after_ Bootstrap SCSS to ensure variables are set up correctly.
+Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
+(`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
+variables are set up correctly.
+
+Make sure you place all the SCSS `@import`s into a single SCSS file, and import that single file
+into your project. Importing individual SCSS files into your project will **not** share variable
+values and functions between files by default.
 
 **Note**: _Requires webpack configuration to load CSS/SCSS files
 ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_.
 
+For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
+section.
+
 ## Nuxt.js Module
 
-[Nuxt.js](https://nuxtjs.org) version {{ nuxtVersion }} (or greater) is recommended.
+[Nuxt.js](https://nuxtjs.org) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
 Install dependencies:
 
@@ -87,14 +99,14 @@ BootstrapVue pre-compiled CSS files by setting the following option(s) to `false
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    bootstrapCSS: false, // or `css`
-    bootstrapVueCSS: false // or `bvCSS`
+    bootstrapCSS: false, // Or css: false,
+    bootstrapVueCSS: false // Or bvCSS: false
   }
 }
 ```
 
-BootstrapVue's custom CSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
-BootstrapVue SCSS in your project's custom SCSS file:
+BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap
+and BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss
 // custom.scss
@@ -130,16 +142,20 @@ want to globally install in your Nuxt.js project.
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    componentPlugins: ['Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
+    componentPlugins: ['Layout', 'Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
     directivePlugins: ['Popover']
   }
 }
 ```
 
+Refer to the reference section at the bottom of each of the [component](/docs/components) and
+[directive](/docs/directives) docs for details on the plugin names available and which components
+and directives are included in each plugin.
+
 ### Passing custom BootstrapVue config with Nuxt.js
 
 If you need to pass a custom
-[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may due so
+[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may do so
 by setting the `config` property in your `nuxt.config.js`:
 
 ```js
@@ -155,11 +171,11 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt module uses precompiled version of BootstrapVue for faster development builds and source of
+Nuxt module uses precompiled version of BootstrapVue for faster development builds and the source of
 BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
-of `src/`. By default is enabled for development mode only.
+of `src/`. By default `usePretranspiled` is enabled in development mode only.
 
 ## Vue CLI 2
 

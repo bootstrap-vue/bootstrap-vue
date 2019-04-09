@@ -253,8 +253,14 @@ describe('form-group', () => {
     // With state = null (default), all helpers are rendered
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
     expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
+    expect(wrapper.find('.invalid-feedback').attributes('role')).toEqual('alert')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('assertive')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.valid-feedback').exists()).toBe(true)
     expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
+    expect(wrapper.find('.valid-feedback').attributes('role')).toEqual('alert')
+    expect(wrapper.find('.valid-feedback').attributes('aria-live')).toEqual('assertive')
+    expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(true)
     expect(wrapper.find('.form-text').text()).toEqual('foo')
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
@@ -292,6 +298,55 @@ describe('form-group', () => {
     expect(wrapper.attributes('aria-invalid')).toEqual('true')
     expect(wrapper.classes()).not.toContain('is-valid')
     expect(wrapper.classes()).toContain('is-invalid')
+  })
+
+  it('validation elemetns respect feedback-aria-live attribute', async () => {
+    const wrapper = mount(BFormGroup, {
+      propsData: {
+        id: 'group-id',
+        label: 'test',
+        labelFor: 'input-id',
+        invalidFeedback: 'bar',
+        validFeedback: 'baz',
+        feedbackAriaLive: 'polite'
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    // Auto ID is created after mounted
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
+    expect(wrapper.find('.invalid-feedback').attributes('role')).toEqual('alert')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('polite')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
+    expect(wrapper.find('.valid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
+    expect(wrapper.find('.valid-feedback').attributes('role')).toEqual('alert')
+    expect(wrapper.find('.valid-feedback').attributes('aria-live')).toEqual('polite')
+    expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
+
+    // With feedback-aria-live set to null
+    wrapper.setProps({
+      feedbackAriaLive: null
+    })
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
+    expect(wrapper.find('.invalid-feedback').attributes('role')).not.toBeDefined()
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).not.toBeDefined()
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).not.toBeDefined()
+    expect(wrapper.find('.valid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
+    expect(wrapper.find('.valid-feedback').attributes('role')).not.toBeDefined()
+    expect(wrapper.find('.valid-feedback').attributes('aria-live')).not.toBeDefined()
+    expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).not.toBeDefined()
   })
 
   it('Label alignment works', async () => {
