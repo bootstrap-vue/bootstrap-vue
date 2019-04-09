@@ -113,12 +113,12 @@ variant.
 
 ## Fill and justify
 
-Force your `<b-tabs>` content to extend the full available width.
+Force your `<b-tabs>` controls to extend the full available width.
 
 ### Fill
 
-To proportionately fill all available space with your `<b-tab>` components, set the `fill` prop.
-Notice that all horizontal space is occupied, but not every nav item has the same width.
+To proportionately fill all available space with your tab controls, set the `fill` prop. Notice that
+all horizontal space is occupied, but not every control has the same width.
 
 ```html
 <div>
@@ -135,8 +135,8 @@ Notice that all horizontal space is occupied, but not every nav item has the sam
 
 ### Justified
 
-For equal-width elements, set prop `justified` instead. All horizontal space will be occupied by nav
-items, but unlike `fill` above, every `<b-tab>` will be the same width.
+For equal-width controls, use the `justified` prop instead. All horizontal space will be occupied by
+the controls, but unlike using `fill` above, every control will be the same width.
 
 ```html
 <div>
