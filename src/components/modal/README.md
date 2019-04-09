@@ -331,7 +331,7 @@ Modal will always render its HTML markup in the document at the location that th
 component is placed (even if it is not shown). You can hide the modal markup from being in the DOM
 while modal is in the hidden state by setting the `lazy` prop.
 
-## Styling and customiation
+## Styling, options, and customization
 
 ### Modal sizing
 
