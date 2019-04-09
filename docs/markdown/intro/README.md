@@ -1,8 +1,12 @@
 # Getting Started
 
-- [Vue.js](https://vuejs.org) version {{ vueVersion }} (or greater) is recommended
-- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version {{ bootstrapVersion }} (or
-  greater) SCSS/CSS
+> Get started with BootstrapVue, based on the world’s most popular framework - Bootstrap V4, for
+> building responsive, mobile-first sites using Vue.js.
+
+- [Vue.js](https://vuejs.org) version <code>{{ vueVersion }}</code> (or greater) is recommended
+- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version
+  <code>{{ bootstrapVersion }}</code> SCSS/CSS
+- jQuery is **not** required
 
 ## General
 
@@ -66,7 +70,7 @@ section.
 
 ## Nuxt.js Module
 
-[Nuxt.js](https://nuxtjs.org) version {{ nuxtVersion }} (or greater) is recommended.
+[Nuxt.js](https://nuxtjs.org) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
 Install dependencies:
 
@@ -101,8 +105,8 @@ module.exports = {
 }
 ```
 
-BootstrapVue's custom CSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
-BootstrapVue SCSS in your project's custom SCSS file:
+BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap
+and BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss
 // custom.scss
@@ -138,16 +142,19 @@ want to globally install in your Nuxt.js project.
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    componentPlugins: ['Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
+    componentPlugins: ['Layout', 'Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
     directivePlugins: ['Popover']
   }
 }
 ```
 
+Refer to the reference section at the bottom of the component and directive docs for details on
+the plugin names available.
+
 ### Passing custom BootstrapVue config with Nuxt.js
 
 If you need to pass a custom
-[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may due so
+[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may do so
 by setting the `config` property in your `nuxt.config.js`:
 
 ```js
@@ -163,11 +170,11 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt module uses precompiled version of BootstrapVue for faster development builds and source of
+Nuxt module uses precompiled version of BootstrapVue for faster development builds and the source of
 BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
-of `src/`. By default is enabled for development mode only.
+of `src/`. By default `usePretranspiled` is enabled in development mode only.
 
 ## Vue CLI 2
 
