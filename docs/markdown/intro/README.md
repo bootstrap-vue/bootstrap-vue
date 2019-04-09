@@ -37,7 +37,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
+Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 
 ```scss
 // custom.scss
@@ -50,7 +50,9 @@ Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
 import 'custom.scss'
 ```
 
-Be sure to include your custom variables before `bootstrap.scss` and include BootstrapVue SCSS
+Make sure you place all the SCSS `@import`s into a single SCSS file!
+
+Be sure to include your custom variables _before_ `bootstrap.scss` and include BootstrapVue SCSS
 _after_ Bootstrap SCSS to ensure variables are set up correctly.
 
 **Note**: _Requires webpack configuration to load CSS/SCSS files
