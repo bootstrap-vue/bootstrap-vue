@@ -24,7 +24,7 @@ export const props = {
   },
   ariaLive: {
     type: String,
-    default: 'assertive'
+    default: null
   }
 }
 
