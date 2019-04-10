@@ -42,7 +42,7 @@
       >
         <!-- Export to CodePen -->
         <b-form
-          class="d-inline-block mt-2 mt-mb-0 mr-2"
+          class="d-inline-block mt-2 mt-md-0 mr-2"
           method="post"
           action="https://codepen.io/pen/define"
           target="_blank"
@@ -53,7 +53,7 @@
 
         <!-- Export to CodeSandbox -->
         <b-form
-          class="d-inline-block mt-2 mt-mb-0 mr-2"
+          class="d-inline-block mt-2 mt-md-0 mr-2"
           method="post"
           action="https://codesandbox.io/api/v1/sandboxes/define"
           target="_blank"
@@ -64,7 +64,7 @@
 
         <!-- Export to JSFiddle -->
         <b-form
-          class="d-inline-block mt-2 mt-mb-0"
+          class="d-inline-block mt-2 mt-md-0"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
