@@ -62,11 +62,11 @@ const MsgBox = Vue.extend({
       this.$nextTick(() => {
         this.$nextTick(() => {
           setTimeout(this.$destroy, 0)
-        ))
+        })
       })
     })
-    // Show the modal message box once mounted
-    // As these modals are created on demand
+    // Show the modal message box once mounted,
+    // as these modals are created on demand
     this.show()
   },
   render(h) {
