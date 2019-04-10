@@ -165,6 +165,13 @@ table#table-transition-example {
   }
 }
 
+.card {
+  .CodeMirror {
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+}
+
 /*
  * Docsearch overrides
  * See: https://github.com/twbs/bootstrap/blob/master/site/static/docs/4.3/assets/scss/_algolia.scss
