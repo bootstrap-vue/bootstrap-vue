@@ -28,7 +28,7 @@
 import AnchoredHeading from '~/components/anchored-heading'
 import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
-import { components as _meta } from '~/content'
+import { components as componentsMeta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
 
@@ -45,7 +45,7 @@ export default {
   layout: 'docs',
   async asyncData({ params }) {
     const readme = await getReadMe(params.slug)
-    const meta = _meta[params.slug]
+    const meta = componentsMeta[params.slug]
 
     return {
       readme: readme.default,
@@ -56,7 +56,7 @@ export default {
     startCase
   },
   validate({ params }) {
-    return Boolean(_meta[params.slug])
+    return Boolean(componentsMeta[params.slug])
   }
 }
 </script>
