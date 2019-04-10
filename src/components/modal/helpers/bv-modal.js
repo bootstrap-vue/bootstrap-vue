@@ -82,12 +82,14 @@ const MsgBox = Vue.extend({
 
 // Base Modal Props that are allowed
 // (some may be ignored on some message boxes)
+// TODO: This could be an import of BModal props, run through
+//       omit and reduced to an array of keys
 const BASE_PROPS = [
   'title',
   'okTitle',
   'okVariant',
   'cancelTitle',
-  'cancelVariant'
+  'cancelVariant',
   'size',
   'buttonSize',
   'centered',
@@ -96,20 +98,20 @@ const BASE_PROPS = [
   'noFade',
   'hideBackdrop',
   'modalClass',
-  'headerClass'
+  'headerClass',
   'headerBgVariant',
   'headerBgVariant',
-  'headerBorderVariant'
-  'headerTextVariant'
-  'bodyClass'
+  'headerBorderVariant',
+  'headerTextVariant',
+  'bodyClass',
   'bodyBgVariant',
   'bodyBgVariant',
-  'bodyBorderVariant'
-  'bodyTextVariant'
-  'footerClass'
+  'bodyBorderVariant',
+  'bodyTextVariant',
+  'footerClass',
   'footerBgVariant',
-  'footerBorderVariant'
-  'footerTextVariant'
+  'footerBorderVariant',
+  'footerTextVariant',
   'returnFocus'
 ]
 
@@ -189,10 +191,12 @@ class BvModal {
       return
     }
     // Pick the modal props we support from options
-    const props = pluckProps(options, BASE_PROPS)
-    // Add in overrides and our content prop
-    props.okOnly = true
-    props.content = message
+    const props = {
+      ...pluckProps(options, BASE_PROPS),
+      // Add in overrides and our content prop
+      okOnly: true,
+      content: message
+    }
     // Return a promise
     return new Promise(resolve => {
       makeMsgBox(props, this._vm).$on('hide', evt => {
@@ -210,9 +214,12 @@ class BvModal {
       return
     }
     // Pick the modal props we support from options
-    const props = pluckProps(options, BASE_PROPS)
-    // Add in our content prop
-    props.content = message
+    const props = {
+      ...pluckProps(options, BASE_PROPS),
+      // Add in overrides and our content prop
+      okOnly: false,
+      content: message
+    }
     return new Promise(resolve => {
       makeMsgBox(props, this._vm).$on('hide', evt => {
         // Value could be null if pressing ESC or clicking Backdrop
