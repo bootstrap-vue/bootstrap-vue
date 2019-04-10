@@ -74,7 +74,12 @@ const MsgBox = Vue.extend({
       {
         ref: 'modal',
         props: this.$props,
-        on: this.$listeners
+        on: {
+          show: (...args) => this.$emit('show', ...args),
+          shown: (...args) => this.$emit('shown', ...args),
+          hide: (...args) => this.$emit('hide', ...args),
+          hidden: (...args) => this.$emit('hidden', ...args)
+        }
       },
       [this.content]
     )
@@ -117,6 +122,7 @@ const BASE_PROPS = [
 ]
 
 // Method to generate the modal message box
+/* istanbul ignore next: for now */
 const makeMsgBox = (props, $parent) => {
   const msgBox = new MsgBox({
     // Create a fresh DIV to attach the modal to
@@ -185,7 +191,7 @@ class BvModal {
   // should have a Polyfill loaded.
 
   // Open a message box with OK button only
-  msgBoxOk(message, options = {}) {
+  msgBoxOk(message, options = {}) /* istanbul ignore next: for now */ {
     if (!message || noPromises('msgBoxOk') || notClient('msgBoxOk')) {
       // Should this throw an error?
       /* istanbul ignore next */
@@ -208,7 +214,7 @@ class BvModal {
   }
 
   // Open a message box modal with OK and CANCEL buttons
-  msgBoxConfirm(message, options = {}) {
+  msgBoxConfirm(message, options = {}) /* istanbul ignore next: for now */ {
     if (!message || noPromises('msgBoxConfirm') || notClient('msgBoxConfirm')) {
       // Should this throw an error?
       /* istanbul ignore next */
