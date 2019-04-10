@@ -13,7 +13,7 @@
 <script>
 import AnchoredHeading from '~/components/anchored-heading'
 import Importdoc from '~/components/importdoc.vue'
-import { directives as directivesMeta } from '~/content'
+import { directives as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 import startCase from 'lodash/startCase'
 
@@ -33,11 +33,11 @@ export default {
   },
   layout: 'docs',
   validate({ params }) {
-    return Boolean(directivesMeta[params.slug])
+    return Boolean(_meta[params.slug])
   },
   async asyncData({ params }) {
     const readme = await getReadMe(params.slug)
-    const meta = directivesMeta[params.slug]
+    const meta = _meta[params.slug]
     return {
       readme: readme.default,
       meta
