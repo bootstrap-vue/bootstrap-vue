@@ -426,7 +426,7 @@ export default {
         '',
         '<script>',
         this.indent(`export default ${js}`, 2),
-        '<\/script>'
+        '<\/script>' // eslint-disable-line
       ]
         .join('\r\n')
         .replace(/\\\//g, '/')
