@@ -331,7 +331,7 @@ markup:
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information and
 features of the directive format.
 
-## Hiding and showing tooltips via \$root events
+## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
 `<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
