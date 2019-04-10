@@ -90,15 +90,8 @@
       name="flip"
     >
       <!-- Left/Top column -->
-      <b-col
-        key="A"
-        :cols="full ? 12 : null"
-      >
-        <transition-group
-          tag="div"
-          class="row"
-          name="flip"
-        >
+      <b-col key="A" :cols="full ? 12 : null">
+        <transition-group tag="div" class="row" name="flip">
           <!-- Template column -->
           <b-col
             key="A1"
@@ -123,10 +116,7 @@
                 </b-btn>
               </div>
 
-              <codemirror
-                v-model="html"
-                mode="htmlmixed"
-              ></codemirror>
+              <codemirror v-model="html" mode="htmlmixed"></codemirror>
             </b-card>
           </b-col>
 
@@ -154,27 +144,17 @@
                 </b-btn>
               </div>
 
-              <codemirror
-                v-model="js"
-                mode="javascript"
-              ></codemirror>
+              <codemirror v-model="js" mode="javascript"></codemirror>
             </b-card>
           </b-col>
         </transition-group>
       </b-col>
 
       <!-- Right/bottom column -->
-      <b-col
-        key="B"
-        :md="vertical || full ? 12 : 6"
-        sm="12"
-      >
+      <b-col key="B" :md="vertical || full ? 12 : 6" sm="12">
         <b-row>
           <!-- Result column -->
-          <b-col
-            cols="12"
-            class="mt-3"
-          >
+          <b-col cols="12" class="mt-3">
             <!-- Result -->
             <b-card>
               <div
@@ -198,10 +178,7 @@
           </b-col>
 
           <!-- Console column -->
-          <b-col
-            cols="12"
-            class="mt-3"
-          >
+          <b-col cols="12" class="mt-3">
             <!-- Console -->
             <b-card>
               <div
