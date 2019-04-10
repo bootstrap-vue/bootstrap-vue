@@ -193,7 +193,7 @@ import Vue from 'vue'
 import dedent from 'dedent'
 import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
-import needsTranspiler from '../utils/needs-transpiler'
+import needsTranspiler from '~/utils/needs-transpiler'
 import {
   version as bootstrapVueVersion,
   bootstrapVersion,
@@ -311,16 +311,21 @@ export default {
     },
     codesandbox_data() {
       const html = this.html.trim() || '<div></div>'
+      const css = 'body { padding: 1rem; }'
       const js = this.js.trim() || '{}'
       const vueContent = dedent`
         <template>
           ${html}
-        </template>
+        <\/template>
+
+        <style>
+          ${css}
+        <\/style>
 
         <script>
           export default ${js}
         <\/script>
-      `.replace('\\/', '/')
+      `.replace(/\\\//g, '/')
       const htmlContent = '<div id="app"></div>'
       const jsContent = dedent`
         import Vue from 'vue'
