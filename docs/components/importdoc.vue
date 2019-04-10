@@ -95,7 +95,7 @@ h5 {
 </style>
 
 <script>
-import hljs from 'highlightjs'
+import hljs from 'highlight.js'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'

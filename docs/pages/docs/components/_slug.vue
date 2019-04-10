@@ -4,7 +4,7 @@
 
     <section class="bd-content">
       <anchored-heading id="component-reference" level="2">
-        {{ startCase(meta.title) }} Component Reference
+        {{ metaTitle }} Component Reference
       </anchored-heading>
 
       <!-- Component reference information -->
@@ -25,38 +25,36 @@
 </template>
 
 <script>
+import startCase from 'lodash/startCase'
 import AnchoredHeading from '~/components/anchored-heading'
 import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
-import { components as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
-import startCase from 'lodash/startCase'
+import { components as _meta } from '~/content'
 
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
 export default {
+  layout: 'docs',
   components: {
     Componentdoc,
     Importdoc,
     AnchoredHeading
   },
   mixins: [docsMixin],
-  layout: 'docs',
-  async asyncData({ params }) {
-    const readme = await getReadMe(params.slug)
-    const meta = _meta[params.slug]
-
-    return {
-      readme: readme.default,
-      meta
+  computed: {
+    metaTitle() {
+      return startCase(this.meta.title)
     }
-  },
-  methods: {
-    startCase
   },
   validate({ params }) {
     return Boolean(_meta[params.slug])
+  },
+  async asyncData({ params }) {
+    const readme = (await getReadMe(params.slug)).default
+    const meta = _meta[params.slug]
+    return { readme, meta }
   }
 }
 </script>
