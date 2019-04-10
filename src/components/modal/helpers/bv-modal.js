@@ -78,7 +78,7 @@ const MsgBox = Vue.extend({
       [this.content]
     )
   }
-}
+})
 
 // Base Modal Props that are allowed
 // (some may be ignored on some message boxes)
