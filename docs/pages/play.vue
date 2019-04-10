@@ -345,7 +345,6 @@ export default {
       const dependencies = {
         bootstrap: bootstrapVersion,
         'bootstrap-vue': bootstrapVueVersion,
-        'popper.js': popperJSVersion,
         vue: vueVersion
       }
       return getCodeSandboxParameters({

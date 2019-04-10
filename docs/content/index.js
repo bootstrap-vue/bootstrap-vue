@@ -43,9 +43,8 @@ export const nav = [
 ]
 
 export const bootstrapVersion = parseVersion(dependencies.bootstrap)
-export const nuxtVersion = parseVersion(devDependencies.nuxt)
-export const popperJSVersion = parseVersion(dependencies['popper.js'])
 export const vueVersion = parseVersion(devDependencies.vue)
+export const nuxtVersion = parseVersion(devDependencies.nuxt)
 export const defaultConfig = getDefaults()
 export const bvDescription = description
 
