@@ -194,6 +194,12 @@ import dedent from 'dedent'
 import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '../utils/needs-transpiler'
+import {
+  version as bootstrapVueVersion,
+  bootstrapVersion,
+  popperJSVersion,
+  vueVersion
+} from '~/content'
 
 const defaultJS = `{
   data() {
@@ -289,13 +295,13 @@ export default {
         js_pre_processor: 'babel',
         head: '<meta name="viewport" content="width=device-width">',
         css_external: [
-          '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
-          '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css'
+          `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.css`
         ].join(';'),
         js_external: [
-          '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js',
-          '//unpkg.com/vue@latest/dist/vue.min.js',
-          '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
+          '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
+          `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
         ].join(';'),
         html: this.fiddle_html,
         js: this.fiddle_js,
@@ -332,10 +338,10 @@ export default {
         })
       `
       const dependencies = {
-        bootstrap: 'latest',
-        'bootstrap-vue': 'latest',
-        'popper.js': 'latest',
-        vue: 'latest'
+        bootstrap: bootstrapVersion,
+        'bootstrap-vue': bootstrapVueVersion,
+        'popper.js': popperJSVersion,
+        vue: vueVersion
       }
       return getCodeSandboxParameters({
         files: {
@@ -348,11 +354,11 @@ export default {
     },
     fiddle_dependencies() {
       return [
-        '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
-        '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js',
-        '//unpkg.com/vue@latest/dist/vue.min.js',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
+        `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
+        `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.css`,
+        '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
+        `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
+        `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
       ].join(',')
     },
     fiddle_js() {
