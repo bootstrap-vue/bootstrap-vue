@@ -56,6 +56,8 @@ const MsgBox = Vue.extend({
     }
   },
   mounted() {
+    // Self destruct if our parent is destroyed
+    this.$parent.$once('hook:beforeDestroy', this.$destroy)
     // Self destruct after hidden
     this.$once('hidden', () => {
       // Done in a double $nextTick for safety
@@ -67,7 +69,7 @@ const MsgBox = Vue.extend({
     })
     // Show the modal message box once mounted,
     // as these modals are created on demand
-    this.show()
+    this.$nextTick(this.show)
   },
   render(h) {
     // Override render with our own render function
@@ -131,7 +133,7 @@ const makeMsgBox = (props, $parent) => {
       cancelTitle: props.cancelTitle || undefined,
       // Enable/Disable some features
       hideHeaderClose: true,
-      hideHeader: !!props.title
+      hideHeader: !props.title
     }
   })
   return msgBox
