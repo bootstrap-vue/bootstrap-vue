@@ -50,14 +50,17 @@ const MsgBox = Vue.extend({
     }
   },
   destroyed() {
+    console.log('Destroying...', this.$el)
     // Make sure we not in document any more
     if (this.$el && this.$el.parentNode) {
+      console.log('Removing element', this.$el)
       this.$el.parentNode.removeChild(this.$el)
     }
   },
   mounted() {
     // Self destruct after hidden
     this.$refs.modal.$once('hidden', () => {
+      console.log('Hidden...')
       this.$nextTick(() => this.$destroy)
     })
     // Show the modal message box once mounted,
