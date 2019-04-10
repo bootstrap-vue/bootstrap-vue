@@ -34,6 +34,8 @@ const notClient = method => {
 // @vue/component
 const MsgBox = Vue.extend({
   name: 'BMsgBox',
+  // Instead of Extending Modal, maybe we should just import it's props,
+  // But we would need to make sure listners are propagated up.
   extends: BModal,
   props: {
     // Inherits all the b-modal props.
@@ -59,7 +61,7 @@ const MsgBox = Vue.extend({
     // Self destruct if our parent is destroyed
     this.$parent.$once('hook:beforeDestroy', this.$destroy)
     // Self destruct after hidden
-    this.$once('hidden', () => {
+    this.$refs.$modal.$once('hidden', () => {
       // Done in a double $nextTick for safety
       this.$nextTick(() => {
         this.$nextTick(() => {
@@ -69,12 +71,12 @@ const MsgBox = Vue.extend({
     })
     // Show the modal message box once mounted,
     // as these modals are created on demand
-    this.$nextTick(this.show)
+    this.$nextTick(this.$refs.modal.show)
   },
   render(h) {
     // Override render with our own render function
     // Passing all of our props and listeneres to BModal
-    return h(BModal, { props: this.$props, listeners: this.$listeners }, [this.content])
+    return h(BModal, { ref: 'modal', props: this.$props, listeners: this.$listeners }, [this.content])
   }
 })
 
