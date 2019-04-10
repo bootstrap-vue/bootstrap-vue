@@ -194,12 +194,7 @@ import dedent from 'dedent'
 import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
-import {
-  version as bootstrapVueVersion,
-  bootstrapVersion,
-  popperJSVersion,
-  vueVersion
-} from '~/content'
+import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
 
 const defaultJS = `{
   data() {
