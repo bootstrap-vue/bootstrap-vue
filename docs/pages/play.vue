@@ -39,6 +39,15 @@
           <form
             class="d-inline-block ml-2 mr-0 p-0 float-right"
             method="post"
+            action="https://codesandbox.io/api/v1/sandboxes/define"
+            target="_blank"
+          >
+            <input type="hidden" name="parameters" :value="codesandbox_data">
+            <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodeSandbox</b-btn>
+          </form>
+          <form
+            class="d-inline-block ml-2 mr-0 p-0 float-right"
+            method="post"
             action="https://codepen.io/pen/define"
             target="_blank"
           >
@@ -181,7 +190,9 @@
 
 <script>
 import Vue from 'vue'
+import dedent from 'dedent'
 import debounce from 'lodash/debounce'
+import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '../utils/needs-transpiler'
 
 const defaultJS = `{
@@ -291,6 +302,49 @@ export default {
         css: 'body { padding: 1rem; }'
       }
       return JSON.stringify(data)
+    },
+    codesandbox_data() {
+      const html = this.html.trim() || '<div></div>'
+      const js = this.js.trim() || '{}'
+      const vueContent = dedent`
+        <template>
+          ${html}
+        </template>
+
+        <script>
+          export default ${js}
+        <\/script>
+      `.replace('\\/', '/')
+      const htmlContent = '<div id="app"></div>'
+      const jsContent = dedent`
+        import Vue from 'vue'
+        import BootstrapVue from 'bootstrap-vue'
+        import App from './App'
+
+        import 'bootstrap/dist/css/bootstrap.css'
+        import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+        Vue.use(BootstrapVue)
+
+        new Vue({
+          el: '#app',
+          render: h => h(App)
+        })
+      `
+      const dependencies = {
+        bootstrap: 'latest',
+        'bootstrap-vue': 'latest',
+        'popper.js': 'latest',
+        vue: 'latest'
+      }
+      return getCodeSandboxParameters({
+        files: {
+          'App.vue': { content: vueContent },
+          'index.html': { content: htmlContent },
+          'index.js': { content: jsContent },
+          'package.json': { content: { dependencies } }
+        }
+      })
     },
     fiddle_dependencies() {
       return [
