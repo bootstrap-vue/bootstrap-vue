@@ -30,7 +30,7 @@ import AnchoredHeading from '~/components/anchored-heading'
 import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
 import docsMixin from '~/plugins/docs-mixin'
-import { components as _meta } from '~/content'
+import { components as componentsMeta } from '~/content'
 
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
@@ -49,11 +49,11 @@ export default {
     }
   },
   validate({ params }) {
-    return Boolean(_meta[params.slug])
+    return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
-    const meta = _meta[params.slug]
+    const meta = componentsMeta[params.slug]
     return { readme, meta }
   }
 }

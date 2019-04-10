@@ -18,7 +18,7 @@ import startCase from 'lodash/startCase'
 import AnchoredHeading from '~/components/anchored-heading'
 import Importdoc from '~/components/importdoc.vue'
 import docsMixin from '~/plugins/docs-mixin'
-import { directives as _meta } from '~/content'
+import { directives as directivesMeta } from '~/content'
 
 const getReadMe = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
@@ -36,11 +36,11 @@ export default {
     }
   },
   validate({ params }) {
-    return Boolean(_meta[params.slug])
+    return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
-    const meta = _meta[params.slug]
+    const meta = directivesMeta[params.slug]
     return { readme, meta }
   }
 }

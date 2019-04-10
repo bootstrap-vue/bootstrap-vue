@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { reference as _meta } from '~/content'
+import { reference as referenceMeta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
 
 const getReadMe = name =>
@@ -15,11 +15,11 @@ export default {
   layout: 'docs',
   mixins: [docsMixin],
   validate({ params }) {
-    return Boolean(_meta[params.slug])
+    return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
-    const meta = _meta[params.slug]
+    const meta = referenceMeta[params.slug]
     return { readme, meta }
   }
 }
