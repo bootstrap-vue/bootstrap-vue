@@ -501,6 +501,7 @@ export default Vue.extend({
       this.$nextTick(() => {
         this.returnFocusTo()
         this.is_closing = false
+        this.return_focus = null
         const hiddenEvt = new BvModalEvent('hidden', {
           cancelable: false,
           vueTarget: this,
