@@ -1,6 +1,6 @@
 // For adding $bvModal property to all Vue isntances
 import Vue from 'vue'
-import BModal from '../modal'
+import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import pluckProps from '../../../utils/pluck-props'
 import { inBrowser, hasPromise } from '../../../utils/env'
@@ -34,14 +34,12 @@ const notClient = method => {
 // @vue/component
 const MsgBox = Vue.extend({
   name: 'BMsgBox',
-  // Instead of Extending Modal, maybe we should just import it's props,
-  // But we would need to make sure listners are propagated up.
-  extends: BModal,
   props: {
-    // Inherits all the b-modal props.
+    // Has all the b-modal props
+    ...modalProps,
     // Plus we add a new prop for the content.
-    // Could be a string or a VNode or array of vNodes
     content: {
+      // type: [String, VNode, Array],
       default: ''
     }
   },
@@ -82,7 +80,7 @@ const MsgBox = Vue.extend({
 
 // Base Modal Props that are allowed
 // (some may be ignored on some message boxes)
-// TODO: This could be an import of BModal props, run through
+// TODO: This could be BModal props, run through
 //       omit and reduced to an array of keys
 const BASE_PROPS = [
   'title',
