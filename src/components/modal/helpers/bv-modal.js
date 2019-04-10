@@ -4,7 +4,7 @@ import BModal from '../modal'
 import warn from '../../../utils/warn'
 import pluckProps from '../../../utils/pluck-props'
 import { inBrowser, hasPromise } from '../../../utils/env'
-import { assign } from '../../../utils/object'
+import { assign, defineProperty, defineProperties } from '../../../utils/object'
 
 // Utility methods that produce warns
 const noPromises = (method) => {
@@ -116,7 +116,7 @@ const BASE_PROPS = [
 ]
 
 // Method to generate the modal message box
-const makeMsgBox = (props, $parent) => (
+const makeMsgBox = (props, $parent) => {
   const msgBox = new MsgBox({
     // Create a fresh DIV to attach the modal to
     el: document.createElement('div'),
@@ -139,20 +139,20 @@ const makeMsgBox = (props, $parent) => (
     }
   })
   return msgBox
-)
+}
 
 // Private Read Only descriptor helper
-const privateRO = () => ({ enumerable: false, configurable: false, writable: false })
+const privateRODescriptor = () => ({ enumerable: false, configurable: false, writable: false })
 
 // BvModal instance property class
 class BvModal {
   constructor(vm) {
-    // Assign the new property to this instance
+    // Assign the new properties to this instance
     assign(this, { _vm: vm, _root: vm.$root })
-    // Set up properties as readOnly and not emumerable
+    // Set these properties as read-only and non-emumerable
     defineProperties(this, {
-      _vm: privateRO(),
-      _root: privateRO()
+      _vm: privateRODescriptor(),
+      _root: privateRODescriptor()
     })
   }
 
@@ -249,7 +249,7 @@ const install = _Vue => {
   })
 
   // Define out $bvModal instance property
-  Object.defineProperty(_Vue.prototype, '$bvModal', {
+  defineProperty(_Vue.prototype, '$bvModal', {
     get() {
       return this._bv__modal
     }
