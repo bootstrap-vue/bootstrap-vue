@@ -58,10 +58,8 @@ const MsgBox = Vue.extend({
     }
   },
   mounted() {
-    // Self destruct if our parent is destroyed
-    this.$parent.$once('hook:beforeDestroy', this.$destroy)
     // Self destruct after hidden
-    this.$refs.$modal.$once('hidden', () => {
+    this.$refs.modal.$once('hidden', () => {
       // Done in a double $nextTick for safety
       this.$nextTick(() => {
         this.$nextTick(() => {
@@ -76,7 +74,9 @@ const MsgBox = Vue.extend({
   render(h) {
     // Override render with our own render function
     // Passing all of our props and listeneres to BModal
-    return h(BModal, { ref: 'modal', props: this.$props, listeners: this.$listeners }, [this.content])
+    return h(BModal, { ref: 'modal', props: this.$props, listeners: this.$listeners }, [
+      this.content
+    ])
   }
 })
 
