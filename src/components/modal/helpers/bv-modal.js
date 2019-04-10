@@ -58,23 +58,22 @@ const MsgBox = Vue.extend({
   mounted() {
     // Self destruct after hidden
     this.$refs.modal.$once('hidden', () => {
-      // Done in a double $nextTick for safety
-      this.$nextTick(() => {
-        this.$nextTick(() => {
-          setTimeout(this.$destroy, 0)
-        })
-      })
+      this.$nextTick(() => this.$destroy)
     })
     // Show the modal message box once mounted,
     // as these modals are created on demand
-    this.$nextTick(this.$refs.modal.show)
+    this.$refs.modal.show()
   },
   render(h) {
-    // Override render with our own render function
-    // Passing all of our props and listeneres to BModal
-    return h(BModal, { ref: 'modal', props: this.$props, listeners: this.$listeners }, [
-      this.content
-    ])
+    return h(
+      BModal,
+      {
+        ref: 'modal',
+        props: this.$props,
+        listeners: this.$listeners
+      },
+      [this.content]
+    )
   }
 })
 
@@ -190,7 +189,7 @@ class BvModal {
     }
     // Pick the modal props we support from options
     const props = {
-      ...pluckProps(options, BASE_PROPS),
+      ...pluckProps(BASE_PROPS, options),
       // Add in overrides and our content prop
       okOnly: true,
       content: message
@@ -213,7 +212,7 @@ class BvModal {
     }
     // Pick the modal props we support from options
     const props = {
-      ...pluckProps(options, BASE_PROPS),
+      ...pluckProps(BASE_PROPS, options),
       // Add in overrides and our content prop
       okOnly: false,
       content: message
