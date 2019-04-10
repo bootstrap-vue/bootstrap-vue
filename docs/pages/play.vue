@@ -41,10 +41,11 @@
         md="auto"
         class="mt-2 mt-md-0"
       >
-        Export To:
+        <b class="mr-1">Export to</b>
+
         <!-- Export to CodePen -->
         <b-form
-          class="d-inline-block mr-2"
+          class="d-inline-block mr-1"
           method="post"
           action="https://codepen.io/pen/define"
           target="_blank"
@@ -55,7 +56,7 @@
 
         <!-- Export to CodeSandbox -->
         <b-form
-          class="d-inline-block mr-2"
+          class="d-inline-block mr-1"
           method="post"
           action="https://codesandbox.io/api/v1/sandboxes/define"
           target="_blank"
