@@ -2,9 +2,11 @@
 import Vue from 'vue'
 import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
-import pluckProps from '../../../utils/pluck-props'
+import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromise } from '../../../utils/env'
-import { assign, defineProperty, defineProperties } from '../../../utils/object'
+import { assign, keys, defineProperty, defineProperties } from '../../../utils/object'
+
+/* istanbul ignore file: for now, until tests are created */
 
 // Utility methods that produce warns
 const noPromises = method => {
@@ -29,7 +31,56 @@ const notClient = method => {
   }
 }
 
-// Create a private sub-component that extends BModal
+// Base Modal Props that are allowed
+// (some may be ignored on some message boxes)
+// TODO: This could be BModal props, run through
+//       omit and reduced to an array of keys
+const BASE_PROPS = [
+  'id',
+  'title',
+  'titleTag',
+  'okTitle',
+  'okVariant',
+  'cancelTitle',
+  'cancelVariant',
+  'size',
+  'buttonSize',
+  'centered',
+  'scrollable',
+  'noCloseOnBackdrop',
+  'noCloseOnEsc',
+  'noFade',
+  'hideBackdrop',
+  'modalClass',
+  'headerClass',
+  'headerBgVariant',
+  'headerBgVariant',
+  'headerBorderVariant',
+  'headerTextVariant',
+  'bodyClass',
+  'bodyBgVariant',
+  'bodyBgVariant',
+  'bodyBorderVariant',
+  'bodyTextVariant',
+  'footerClass',
+  'footerBgVariant',
+  'footerBorderVariant',
+  'footerTextVariant',
+  // Return Focus is not really needed as the modal will
+  // return focus to the previously active element.
+  'returnFocus'
+]
+
+// Method to filter only recognized props that are not undefined
+const filterOptions = options => {
+  return BASE_PROPS.reduce((memo, key) => {
+    if (options[key] !== undefined) {
+      memo[key] = options[key]
+    }
+  }, {})
+}
+
+// Create a private sub-component that wraps BModal
 // that self-destructs after hidden.
 // @vue/component
 const MsgBox = Vue.extend({
@@ -56,14 +107,20 @@ const MsgBox = Vue.extend({
     }
   },
   mounted() {
-    // Self destruct after hidden
-    this.$refs.modal.$once('hidden', () => {
+    const handleDestroy = () => {
       const self = this
       this.$nextTick(() => {
         // in a setTimeout to release control back to application
         setTimeout(() => self.$destroy(), 0)
       })
-    })
+    }
+    // Self destruct if parent destroyed
+    this.$parent.$once('hook:destroyed', handleDestroy)
+    // Self destruct after hidden
+    this.$refs.modal.$once('hidden', handleDestroy)
+    // TODO:
+    //    Add in route watcher to destroy modal on route change
+    //    But may need to add in an option to reject promise
     // Show the modal message box once mounted,
     // as these modals are created on demand
     this.$refs.modal.show()
@@ -86,64 +143,32 @@ const MsgBox = Vue.extend({
   }
 })
 
-// Base Modal Props that are allowed
-// (some may be ignored on some message boxes)
-// TODO: This could be BModal props, run through
-//       omit and reduced to an array of keys
-const BASE_PROPS = [
-  'title',
-  'okTitle',
-  'okVariant',
-  'cancelTitle',
-  'cancelVariant',
-  'size',
-  'buttonSize',
-  'centered',
-  'noCloseOnBackdrop',
-  'noCloseOnEsc',
-  'noFade',
-  'hideBackdrop',
-  'modalClass',
-  'headerClass',
-  'headerBgVariant',
-  'headerBgVariant',
-  'headerBorderVariant',
-  'headerTextVariant',
-  'bodyClass',
-  'bodyBgVariant',
-  'bodyBgVariant',
-  'bodyBorderVariant',
-  'bodyTextVariant',
-  'footerClass',
-  'footerBgVariant',
-  'footerBorderVariant',
-  'footerTextVariant',
-  'returnFocus'
-]
-
-// Method to generate the modal message box
-/* istanbul ignore next: for now */
+// Method to generate the on-demand modal message box
 const makeMsgBox = (props, $parent) => {
   const msgBox = new MsgBox({
     // Create a fresh DIV to attach the modal to
     el: document.createElement('div'),
-    // We set parent as the local VM so these modals
-    // will emit $root events on the global $root
-    // as needed by things like tooltips and dropdowns
+    // We set parent as the local VM so these modals can emit events
+    // on the app $root, as needed by things like tooltips and dropdowns.
+    // And it ensures this component gets destroyed when parent does
     parent: $parent,
-    // Preset the props
+    // Preset the prop values
     propsData: {
+      // Add in optional global config for modal defaults before the following.
+      // TODO:
+      //   Add in specific defaults for BMsgBox
+      //   Will need special handling as most defaults are undefined
+      ...filterOptions(getComponentConfig('BModal') || {}),
+      // Defaults that user can override
+      hideHeaderClose: true,
+      hideHeader: !props.title,
       // Add in (filtered) user supplied props
       ...props,
-      // We fallback to undefined here so that the defaults will be used.
-      // We may not need to do this if users don't provide the props.
-      // Or we may need to filter undefined props out of here.
-      okTitle: props.okTitle || undefined,
-      cancelTitle: props.cancelTitle || undefined,
-      // Enable/Disable some features
-      hideHeaderClose: true,
-      hideHeader: !props.title
+      noStacking: false,
     }
+  })
+  $parent.$once('hook:destroyed', () => {
+    msgBox 
   })
   return msgBox
 }
@@ -162,6 +187,8 @@ class BvModal {
       _root: privateRODescriptor()
     })
   }
+
+  // Instance Methods
 
   // Show modal with the specified ID
   // args are for future use
@@ -191,7 +218,7 @@ class BvModal {
   // should have a Polyfill loaded.
 
   // Open a message box with OK button only
-  msgBoxOk(message, options = {}) /* istanbul ignore next: for now */ {
+  msgBoxOk(message, options = {}) {
     if (!message || noPromises('msgBoxOk') || notClient('msgBoxOk')) {
       // Should this throw an error?
       /* istanbul ignore next */
@@ -199,7 +226,7 @@ class BvModal {
     }
     // Pick the modal props we support from options
     const props = {
-      ...pluckProps(BASE_PROPS, options),
+      ...fitlerOptions(options),
       // Add in overrides and our content prop
       okOnly: true,
       content: message
@@ -214,7 +241,7 @@ class BvModal {
   }
 
   // Open a message box modal with OK and CANCEL buttons
-  msgBoxConfirm(message, options = {}) /* istanbul ignore next: for now */ {
+  msgBoxConfirm(message, options = {}) {
     if (!message || noPromises('msgBoxConfirm') || notClient('msgBoxConfirm')) {
       // Should this throw an error?
       /* istanbul ignore next */
@@ -222,7 +249,7 @@ class BvModal {
     }
     // Pick the modal props we support from options
     const props = {
-      ...pluckProps(BASE_PROPS, options),
+      ...fitlerOptions(options),
       // Add in overrides and our content prop
       okOnly: false,
       content: message
@@ -244,18 +271,25 @@ class BvModal {
   }
 }
 
-// Method to install $bvModal injection
+// Method to install $bvModal vm injection
 const install = _Vue => {
+  if (install._installed) {
+    // Only install once
+    /* istanbul ignore next */
+    return
+  }
+  install._installed = true
+
   // Add our instance mixin
   _Vue.mixin({
     beforeCreate() {
-      // Because we need access to $root for $emits, we have to
-      // create a fresh instance of BvModal for each VM.
+      // Because we need access to $root for $emits, and vm for parenting,
+      // we have to create a fresh instance of BvModal for each VM.
       this._bv__modal = new BvModal(this)
     }
   })
 
-  // Define out $bvModal instance property
+  // Define our read-only $bvModal instance property
   defineProperty(_Vue.prototype, '$bvModal', {
     get() {
       return this._bv__modal
