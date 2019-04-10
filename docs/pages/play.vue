@@ -339,6 +339,14 @@ const STORAGE_MAX_RETENTION = 7 * 24 * 60 * 60 * 1000 // 7 days
 // Remove a node from it's parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
+// Indent a value by the given count
+const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
+  if (count === 0) {
+    return value
+  }
+  return value.replace(/^(?!\s*$)/gm, indent.repeat(count))
+}
+
 export default {
   data() {
     return {
@@ -395,13 +403,13 @@ export default {
 
       let extendedJs = js === '{}' ? "{ el: '#app' }" : js.replace(/^\{/, "{\r\n  el: '#app',")
       extendedJs = `new Vue(${extendedJs})`
-      extendedJs = `window.onload = () => {\r\n${this.indent(extendedJs, 2)}\r\n}`
+      extendedJs = `window.onload = () => {\r\n${indent(extendedJs, 2)}\r\n}`
 
       return {
         html,
         js,
         css: 'body { padding: 1rem; }',
-        extendedHtml: `<div id="app">\r\n${this.indent(html, 2)}\r\n</div>`,
+        extendedHtml: `<div id="app">\r\n${indent(html, 2)}\r\n</div>`,
         extendedJs,
         externalCss: [
           `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
@@ -436,15 +444,15 @@ export default {
       const { html, js, css } = this.exportData
       const vueContent = [
         '<template>',
-        this.indent(html, 2),
+        indent(html, 2),
         '</template>',
         '',
         '<style>',
-        this.indent(css, 2),
+        indent(css, 2),
         '</style>',
         '',
         '<script>',
-        this.indent(`export default ${js}`, 2),
+        indent(`export default ${js}`, 2),
         // prettier-ignore
         '<\/script>' // eslint-disable-line
       ]
@@ -569,12 +577,6 @@ export default {
     }
   },
   methods: {
-    indent(value, count = 2, { indent } = { indent: ' ' }) {
-      if (count === 0) {
-        return value
-      }
-      return value.replace(/^(?!\s*$)/gm, indent.repeat(count))
-    },
     doSetup() {
       // Create our debounced runner
       this.run = debounce(this._run, 500)
