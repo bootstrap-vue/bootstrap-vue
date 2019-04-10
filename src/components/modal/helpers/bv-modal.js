@@ -78,6 +78,7 @@ const filterOptions = options => {
   return BASE_PROPS.reduce((memo, key) => {
     if (options[key] !== undefined) {
       memo[key] = options[key]
+      return memo
     }
   }, {})
 }
