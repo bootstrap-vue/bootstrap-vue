@@ -74,7 +74,7 @@ const MsgBox = Vue.extend({
       {
         ref: 'modal',
         props: this.$props,
-        listeners: this.$listeners
+        on: this.$listeners
       },
       [this.content]
     )
