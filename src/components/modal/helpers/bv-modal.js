@@ -1,10 +1,12 @@
-// For adding $bvModal property to all Vue isntances
+//
+// Plugin for adding $bvModal property to all Vue isntances
+//
 import Vue from 'vue'
 import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromise } from '../../../utils/env'
-import { assign, keys, defineProperty, defineProperties } from '../../../utils/object'
+import { assign, defineProperty, defineProperties } from '../../../utils/object'
 
 /* istanbul ignore file: for now, until tests are created */
 
@@ -162,13 +164,10 @@ const makeMsgBox = (props, $parent) => {
       // Defaults that user can override
       hideHeaderClose: true,
       hideHeader: !props.title,
-      // Add in (filtered) user supplied props
-      ...props,
       noStacking: false,
+      // Add in (filtered) user supplied props
+      ...props
     }
-  })
-  $parent.$once('hook:destroyed', () => {
-    msgBox 
   })
   return msgBox
 }
@@ -226,7 +225,7 @@ class BvModal {
     }
     // Pick the modal props we support from options
     const props = {
-      ...fitlerOptions(options),
+      ...filterOptions(options),
       // Add in overrides and our content prop
       okOnly: true,
       content: message
@@ -249,7 +248,7 @@ class BvModal {
     }
     // Pick the modal props we support from options
     const props = {
-      ...fitlerOptions(options),
+      ...filterOptions(options),
       // Add in overrides and our content prop
       okOnly: false,
       content: message
