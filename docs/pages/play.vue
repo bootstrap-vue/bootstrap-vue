@@ -274,7 +274,7 @@ export default {
         editors: '101',
         layout: 'left', // left, right, top
         html_pre_processor: 'none',
-        css_pre_processor: 'sass',
+        css_pre_processor: 'none',
         css_prefix: 'autoprefixer',
         js_pre_processor: 'babel',
         head: '<meta name="viewport" content="width=device-width">',
