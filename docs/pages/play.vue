@@ -43,10 +43,7 @@
             target="_blank"
           >
             <input type="hidden" name="data" :value="codepen_data">
-            <b-btn size="sm" type="submit" :disabled="!isOk">
-              Export to CodePen
-              <img src="https://s.cdpn.io/3/cp-arrow-right.svg" style="width:1em;height:1em">
-            </b-btn>
+            <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodePen</b-btn>
           </form>
           <b-btn size="sm" variant="danger" :disabled="isDefault" @click="reset">
             Reset to default
