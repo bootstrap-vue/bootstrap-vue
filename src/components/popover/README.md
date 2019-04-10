@@ -806,8 +806,8 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component and directive versions of popover.
 
-> **Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or
-> disabled._
+**Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or
+disabled._
 
 ### Listening to popover changes via \$root events
 
