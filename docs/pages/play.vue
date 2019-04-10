@@ -283,7 +283,23 @@ import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/d
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
 
-const defaultJS = `{
+// --- Constants ---
+
+const DEFAULT_HTML = `<div>
+  <b-button size="sm" @click="toggle">
+    {{ show ? 'Hide' : 'Show' }} Alert
+  </b-button>
+  <b-alert
+    v-model="show"
+    class="mt-3"
+    dismissible
+    @dismissed="dismissed"
+  >
+    Hello {{ name }}!
+  </b-alert>
+</div>`
+
+const DEFAULT_JS = `{
   data() {
     return {
       name: 'BootstrapVue',
@@ -306,24 +322,21 @@ const defaultJS = `{
   }
 }`
 
-const defaultHTML = `<div>
-  <b-button size="sm" @click="toggle">
-    {{ show ? 'Hide' : 'Show' }} Alert
-  </b-button>
-  <b-alert
-    v-model="show"
-    class="mt-3"
-    dismissible
-    @dismissed="dismissed"
-  >
-    Hello {{ name }}!
-  </b-alert>
-</div>`
+const storage = typeof window !== 'undefined' ? window.localStorage || null : null
+const STORAGE_KEY_PREFIX = 'BV_playground'
+const STORAGE_KEYS = {
+  html: `${STORAGE_KEY_PREFIX}_html`,
+  js: `${STORAGE_KEY_PREFIX}_js`,
+  layout: `${STORAGE_KEY_PREFIX}_layout`,
+  timestamp: `${STORAGE_KEY_PREFIX}_ts`
+}
 
 // Maximum age of localStorage before we revert back to defaults
-const maxRetention = 7 * 24 * 60 * 60 * 1000 // 7 days
+const STORAGE_MAX_RETENTION = 7 * 24 * 60 * 60 * 1000 // 7 days
 
-// Helper function to remove a node from it's parent's children
+// --- Helper functions ---
+
+// Remove a node from it's parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 export default {
@@ -371,7 +384,10 @@ export default {
     },
     isDefault() {
       // Check if editors contain default JS and Template
-      return this.js.trim() === defaultJS.trim() && this.html.trim() === defaultHTML.trim()
+      return this.js.trim() === DEFAULT_JS.trim() && this.html.trim() === DEFAULT_HTML.trim()
+    },
+    layout() {
+      return this.full ? 'full' : this.vertical ? 'vertical' : 'horizontal'
     },
     exportData() {
       const html = this.html.trim()
@@ -429,6 +445,7 @@ export default {
         '',
         '<script>',
         this.indent(`export default ${js}`, 2),
+        // prettier-ignore
         '<\/script>' // eslint-disable-line
       ]
         .join('\r\n')
@@ -507,6 +524,13 @@ export default {
       }
     }
   },
+  watch: {
+    layout(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.saveToStorage()
+      }
+    }
+  },
   created() {
     // Create some non reactive properties
     this.playVM = null
@@ -562,7 +586,7 @@ export default {
         }
       )
       // Load our content into the editors
-      this.$nextTick(this.load)
+      this.$nextTick(this.loadFromStorage)
     },
     destroyVM() {
       let vm = this.playVM
@@ -684,7 +708,7 @@ export default {
       // We got this far, so save the JS/HTML changes to
       // localStorage and enable export buttons
       this.isOk = true
-      this.save()
+      this.saveToStorage()
     },
     errHandler(err, info) {
       this.log('danger', `Error in ${info}: ${String(err)}`)
@@ -735,36 +759,51 @@ export default {
       // Needed to trick codemirror component to reload contents
       this.js = this.html = ''
       this.$nextTick(() => {
-        this.js = defaultJS.trim()
-        this.html = defaultHTML.trim()
-        this.save()
+        this.js = DEFAULT_JS.trim()
+        this.html = DEFAULT_HTML.trim()
+        this.saveToStorage()
       })
     },
-    load() {
-      const ls = window && window.localStorage
-      if (!ls) {
-        this.js = defaultJS.trim()
-        this.html = defaultHTML.trim()
+    clearStorage() {
+      if (!storage) {
         return
       }
-      const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
-      if (Date.now() - ts > maxRetention) {
-        // Clear local storage if it is old
-        ls.removeItem('playground_js')
-        ls.removeItem('playground_html')
-        ls.removeItem('playground_ts')
-      }
-      this.js = ls.getItem('playground_js') || defaultJS.trim()
-      this.html = ls.getItem('playground_html') || defaultHTML.trim()
+      Object.keys(STORAGE_KEYS).forEach(key => {
+        storage.removeItem(key)
+      })
     },
-    save() {
-      if (typeof window === 'undefined' || !window.localStorage) {
+    loadFromStorage() {
+      if (!storage) {
+        this.js = DEFAULT_JS.trim()
+        this.html = DEFAULT_HTML.trim()
+        return
+      }
+      const timestamp = parseInt(storage.getItem(STORAGE_KEYS.timestamp), 10) || 0
+      if (Date.now() - timestamp > STORAGE_MAX_RETENTION) {
+        this.clearStorage()
+      }
+      this.html = storage.getItem(STORAGE_KEYS.html) || DEFAULT_HTML.trim()
+      this.js = storage.getItem(STORAGE_KEYS.js) || DEFAULT_JS.trim()
+      const layout = storage.getItem(STORAGE_KEYS.layout) || 'horizontal'
+      if (layout === 'full') {
+        this.full = true
+      } else if (layout === 'vertical') {
+        this.vertical = true
+        this.full = false
+      } else if (layout === 'horizontal') {
+        this.vertical = false
+        this.full = false
+      }
+    },
+    saveToStorage() {
+      if (!storage) {
         return
       }
       try {
-        window.localStorage.setItem('playground_js', this.js)
-        window.localStorage.setItem('playground_html', this.html)
-        window.localStorage.setItem('playground_ts', String(Date.now()))
+        storage.setItem(STORAGE_KEYS.html, this.html)
+        storage.setItem(STORAGE_KEYS.js, this.js)
+        storage.setItem(STORAGE_KEYS.layout, this.layout)
+        storage.setItem(STORAGE_KEYS.timestamp, String(Date.now()))
       } catch (err) {
         // Silently ignore errors on safari iOS private mode
       }
