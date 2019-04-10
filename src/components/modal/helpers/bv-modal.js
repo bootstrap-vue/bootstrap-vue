@@ -256,4 +256,4 @@ const install = _Vue => {
   })
 }
 
-return default install
+export default install
