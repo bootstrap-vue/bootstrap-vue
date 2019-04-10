@@ -41,7 +41,7 @@
         md="auto"
         class="mt-2 mt-md-0"
       >
-        <b class="mr-1">Export to</b>
+        <b class="d-block d-sm-inline-block mr-sm-2 mb-1 mb-sm-0">Export to</b>
 
         <!-- Export to CodePen -->
         <b-form
