@@ -1577,10 +1577,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.4.tgz#8808bd5a82bbf6f5d412eff1c228d178e7c24bb3"
   integrity sha512-02tIL+QIi/RW4E5xILdoAMjeJ9kYq5t5S2vciUdFPXv/ikFTb0zK8q9vXkg4+WAJuYXGiVT1H28AkD2C+IkXVw==
 
-"@types/node@^11.13.0":
-  version "11.13.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.0.tgz#b0df8d6ef9b5001b2be3a94d909ce3c29a80f9e1"
-  integrity sha512-rx29MMkRdVmzunmiA4lzBYJNnXsW/PhG4kMBy2ATsYaDjGGR75dCFEVVROKpNwlVdcUX3xxlghKQOeDPBJobng==
+"@types/node@^11.13.2":
+  version "11.13.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.2.tgz#dc85dde46aa8740bb4aed54b8104250f8f849503"
+  integrity sha512-HOtU5KqROKT7qX/itKHuTtt5fV0iXbheQvrgbLNXFJQBY/eh+VS5vmmTAVlo3qIGMsypm0G4N1t2AXjy1ZicaQ==
 
 "@types/q@^1.5.1":
   version "1.5.2"
@@ -9838,13 +9838,13 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.9.1.tgz#4075abc5cef3972377c4c69e72b59204ef9df5d4"
-  integrity sha512-eqID6rAL7R9Jyrt10TvZr1/NUNesGmUlMcDoiPX9e7YK9Sjqi2oTRV1YuV5UFZ4WeJ0u0R8kk8JWjWWdRFia7A==
+rollup@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.9.2.tgz#9b4cd2f04ca2052e38a54994a6977c492b7abd10"
+  integrity sha512-qgAdFJ3Latpw2teP0ByEJcyIYkGgT192hXl42Q7tfyMiexvUqsOEOGVCPZOeHT/HJ9QZMDOfTq0W5a4ET3A6UA==
   dependencies:
     "@types/estree" "0.0.39"
-    "@types/node" "^11.13.0"
+    "@types/node" "^11.13.2"
     acorn "^6.1.1"
 
 rsvp@^4.8.4:
