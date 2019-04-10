@@ -2,7 +2,7 @@
   <b-container tag="main">
     <!-- Introduction -->
     <div class="bd-content mb-4">
-      <h1><span class="bd-content-title">Online Playground</span></h1>
+      <h1><span class="bd-content-title">{{ title }}</span></h1>
       <p class="bd-lead">
         Here you can interactively play and test components with a fresh Vue.js instance. Please
         refer to the <router-link to="/docs">Docs</router-link> section for more information about
@@ -47,7 +47,7 @@
           action="https://codepen.io/pen/define"
           target="_blank"
         >
-          <input type="hidden" name="data" :value="codepen_data">
+          <input type="hidden" name="data" :value="codepenData">
           <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodePen</b-btn>
         </b-form>
 
@@ -58,7 +58,7 @@
           action="https://codesandbox.io/api/v1/sandboxes/define"
           target="_blank"
         >
-          <input type="hidden" name="parameters" :value="codesandbox_data">
+          <input type="hidden" name="parameters" :value="codesandboxData">
           <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodeSandbox</b-btn>
         </b-form>
 
@@ -69,10 +69,10 @@
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
         >
-          <input type="hidden" name="html" :value="fiddle_html">
-          <input type="hidden" name="js" :value="fiddle_js">
-          <input type="hidden" name="resources" :value="fiddle_dependencies">
-          <input type="hidden" name="css" value="body { padding: 1rem; }">
+          <input type="hidden" name="html" :value="exportData.extendedHtml">
+          <input type="hidden" name="js" :value="exportData.extendedJs">
+          <input type="hidden" name="resources" :value="[...exportData.externalCss, exportData.externalJs].join(',')">
+          <input type="hidden" name="css" :value="exportData.css">
           <input type="hidden" name="js_wrap" value="l">
           <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
         </b-form>
@@ -275,7 +275,6 @@
 
 <script>
 import Vue from 'vue'
-import dedent from 'dedent'
 import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
@@ -329,19 +328,19 @@ export default {
     return {
       html: '',
       js: '',
-      isOk: false,
-      messages: [],
       logIdx: 1, // Used as the ":key" on console section for transition hooks
+      messages: [],
+      isOk: false,
       vertical: false,
       full: false,
       loading: false
     }
   },
   head() {
-    const title = 'Online Playground | BootstrapVue'
+    const title = `${this.title} | BootstrapVue`
     const description = 'Interactively play and test BootstrapVue components online.'
     return {
-      title: title,
+      title,
       meta: [
         {
           hid: 'og:title',
@@ -355,16 +354,49 @@ export default {
           property: 'og:description',
           content: description
         },
-        { hid: 'description', name: 'description', content: description }
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        }
       ]
     }
   },
   computed: {
+    title() {
+      return 'Online Playground'
+    },
     isDefault() {
       // Check if editors contain default JS and Template
       return this.js.trim() === defaultJS.trim() && this.html.trim() === defaultHTML.trim()
     },
-    codepen_data() {
+    exportData() {
+      const html = this.html.trim()
+      const js = this.js.trim() || '{}'
+
+      let extendedJs = js === '{}' ? "{ el: '#app' }" : js.replace(/^\{/, "{\r\n  el: '#app',")
+      extendedJs = `new Vue(${extendedJs})`
+      extendedJs = `window.onload = () => {\r\n${this.indent(extendedJs, 2)}\r\n}`
+
+      return {
+        html,
+        js,
+        css: 'body { padding: 1rem; }',
+        extendedHtml: `<div id="app">\r\n${this.indent(html, 2)}\r\n</div>`,
+        extendedJs,
+        externalCss: [
+          `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.css`
+        ],
+        externalJs: [
+          '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
+          `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
+        ]
+      }
+    },
+    codepenData() {
+      const { css, extendedHtml, extendedJs, externalCss, externalJs } = this.exportData
       const data = {
         editors: '101',
         layout: 'left', // left, right, top
@@ -373,54 +405,44 @@ export default {
         css_prefix: 'autoprefixer',
         js_pre_processor: 'babel',
         head: '<meta name="viewport" content="width=device-width">',
-        css_external: [
-          `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
-          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.css`
-        ].join(';'),
-        js_external: [
-          '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
-          `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
-          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
-        ].join(';'),
-        html: this.fiddle_html,
-        js: this.fiddle_js,
-        css: 'body { padding: 1rem; }'
+        css_external: externalCss.join(';'),
+        js_external: externalJs.join(';'),
+        html: extendedHtml,
+        js: extendedJs,
+        css
       }
       return JSON.stringify(data)
     },
-    codesandbox_data() {
-      const html = this.html.trim() || '<div></div>'
-      const css = 'body { padding: 1rem; }'
-      const js = this.js.trim() || '{}'
-      const vueContent = dedent`
-        <template>
-          ${html}
-        <\/template>
-
-        <style>
-          ${css}
-        <\/style>
-
-        <script>
-          export default ${js}
-        <\/script>
-      `.replace(/\\\//g, '/')
+    codesandboxData() {
+      const { html, js, css } = this.exportData
+      const vueContent = [
+        '<template>',
+        this.indent(html, 2),
+        '</template>',
+        '',
+        '<style>',
+        this.indent(css, 2),
+        '</style>',
+        '',
+        '<script>',
+        this.indent(`export default ${js}`, 2),
+        '<\/script>'
+      ]
+        .join('\r\n')
+        .replace(/\\\//g, '/')
       const htmlContent = '<div id="app"></div>'
-      const jsContent = dedent`
-        import Vue from 'vue'
-        import BootstrapVue from 'bootstrap-vue'
-        import App from './App'
-
-        import 'bootstrap/dist/css/bootstrap.css'
-        import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-        Vue.use(BootstrapVue)
-
-        new Vue({
-          el: '#app',
-          render: h => h(App)
-        })
-      `
+      const jsContent = [
+        "import Vue from 'vue'",
+        "import BootstrapVue from 'bootstrap-vue'",
+        "import App from './App'",
+        '',
+        "import 'bootstrap/dist/css/bootstrap.css'",
+        "import 'bootstrap-vue/dist/bootstrap-vue.css'",
+        '',
+        'Vue.use(BootstrapVue)',
+        '',
+        "new Vue({ el: '#app', render: h => h(App) })"
+      ].join('\r\n')
       const dependencies = {
         bootstrap: bootstrapVersion,
         'bootstrap-vue': bootstrapVueVersion,
@@ -434,25 +456,6 @@ export default {
           'package.json': { content: { dependencies } }
         }
       })
-    },
-    fiddle_dependencies() {
-      return [
-        `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
-        `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.css`,
-        '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
-        `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
-        `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
-      ].join(',')
-    },
-    fiddle_js() {
-      let js = this.js.trim() || '{}'
-      const comma = js === '{}' ? '' : ','
-      js = js.replace(/^\{/, `{\r\n  el: '#app'${comma}\r\n`)
-      js = `new Vue(${js})`
-      return `window.onload = function() {\r\n${js}\r\n}`
-    },
-    fiddle_html() {
-      return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
     },
     fakeConsole() {
       const logger = this.log
@@ -539,6 +542,12 @@ export default {
     }
   },
   methods: {
+    indent(value, count = 2, { indent } = { indent: ' ' }) {
+      if (count === 0) {
+        return value
+      }
+      return value.replace(/^(?!\s*$)/gm, indent.repeat(count))
+    },
     doSetup() {
       // Create our debounced runner
       this.run = debounce(this._run, 500)
@@ -575,7 +584,7 @@ export default {
       const html = this.html.trim()
       let options = {}
 
-      // Disable the export to fiddle button
+      // Disable the export buttons
       this.isOk = false
 
       // Test and assign options JavaScript
@@ -670,7 +679,7 @@ export default {
       }
 
       // We got this far, so save the JS/HTML changes to
-      // localStorage and enable export button
+      // localStorage and enable export buttons
       this.isOk = true
       this.save()
     },
