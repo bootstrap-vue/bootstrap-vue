@@ -39,32 +39,34 @@
       <b-col
         v-if="!loading"
         md="auto"
+        class="mt-2 mt-md-0"
       >
+        Export To:
         <!-- Export to CodePen -->
         <b-form
-          class="d-inline-block mt-2 mt-md-0 mr-2"
+          class="d-inline-block mr-2"
           method="post"
           action="https://codepen.io/pen/define"
           target="_blank"
         >
           <input type="hidden" name="data" :value="codepenData">
-          <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodePen</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk">CodePen</b-btn>
         </b-form>
 
         <!-- Export to CodeSandbox -->
         <b-form
-          class="d-inline-block mt-2 mt-md-0 mr-2"
+          class="d-inline-block mr-2"
           method="post"
           action="https://codesandbox.io/api/v1/sandboxes/define"
           target="_blank"
         >
           <input type="hidden" name="parameters" :value="codesandboxData">
-          <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodeSandbox</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk">CodeSandbox</b-btn>
         </b-form>
 
         <!-- Export to JSFiddle -->
         <b-form
-          class="d-inline-block mt-2 mt-md-0"
+          class="d-inline-block"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
@@ -74,7 +76,7 @@
           <input type="hidden" name="resources" :value="[...exportData.externalCss, exportData.externalJs].join(',')">
           <input type="hidden" name="css" :value="exportData.css">
           <input type="hidden" name="js_wrap" value="l">
-          <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk">JSFiddle</b-btn>
         </b-form>
       </b-col>
     </b-row>
