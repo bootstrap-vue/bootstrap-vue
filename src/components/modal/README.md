@@ -276,13 +276,13 @@ emitted.
 
 The `ok`, `cancel`, and `hide` event object contains several properties and methods:
 
-| Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                |
-| ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                |
+| Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                 |
+| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                 |
 | `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
-| `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                           |
-| `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                 |
-| `modalId`          | property | The modal's ID                                                                                                                                                                                                                                                                                             |
+| `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                            |
+| `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                  |
+| `modalId`          | property | The modal's ID                                                                                                                                                                                                                                                                                              |
 
 You can set the value of `trigger` by passing an argument to the component's `hide()` method for
 advanced control (i.e. detecting what button or action triggerd the modal to hide).
@@ -661,10 +661,10 @@ focus the modal container.
 For accessibility reasons, it is desirable to return focus to the element that triggered the opening
 of the modal, when the modal closes.
 
-`<b-modal>` will try and automatically determine which element had focus before the modal was opened,
-and will return the focus to that element when the modal has hidden if possible. However, several
-methods and options are provided to allow you to specify the element to return focus to once the
-modal has hidden.
+`<b-modal>` will try and automatically determine which element had focus before the modal was
+opened, and will return the focus to that element when the modal has hidden if possible. However,
+several methods and options are provided to allow you to specify the element to return focus to once
+the modal has hidden.
 
 #### Specify return focus element via the `return-focus` prop
 
