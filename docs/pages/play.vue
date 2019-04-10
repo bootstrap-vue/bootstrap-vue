@@ -185,36 +185,38 @@ import debounce from 'lodash/debounce'
 import needsTranspiler from '../utils/needs-transpiler'
 
 const defaultJS = `{
-  data () {
+  data() {
     return {
       name: 'BootstrapVue',
       show: true
     }
   },
   watch: {
-    show (newVal, oldVal) {
-      console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
+    show(newVal) {
+      console.log('Alert is now ' + (newVal ? 'visible' : 'hidden'))
     }
   },
   methods: {
-    toggle () {
+    toggle() {
       console.log('Toggle button clicked')
       this.show = !this.show
     },
-    dismissed () {
+    dismissed() {
       console.log('Dismiss button clicked')
     }
   }
 }`
 
 const defaultHTML = `<div>
-  <b-button @click="toggle" size="sm">
+  <b-button size="sm" @click="toggle">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
-  <b-alert v-model="show"
-           dismissible
-           @dismissed="dismissed"
-           class="mt-3">
+  <b-alert
+    v-model="show"
+    class="mt-3"
+    dismissible
+    @dismissed="dismissed"
+  >
     Hello {{ name }}!
   </b-alert>
 </div>`
