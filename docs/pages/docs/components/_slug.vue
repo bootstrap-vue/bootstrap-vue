@@ -4,7 +4,7 @@
 
     <section class="bd-content">
       <anchored-heading id="component-reference" level="2">
-        {{ metaTitle }} Component Reference
+        Component reference
       </anchored-heading>
 
       <!-- Component reference information -->
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import startCase from 'lodash/startCase'
 import AnchoredHeading from '~/components/anchored-heading'
 import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
@@ -43,11 +42,6 @@ export default {
     AnchoredHeading
   },
   mixins: [docsMixin],
-  computed: {
-    metaTitle() {
-      return startCase(this.meta.title)
-    }
-  },
   validate({ params }) {
     return Boolean(componentsMeta[params.slug])
   },

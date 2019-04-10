@@ -6,7 +6,7 @@
     <template v-if="components.length > 0">
       <article>
         <anchored-heading id="importing-individual-components" level="3">
-          Importing individual {{ pluginTitle }} Components
+          Importing individual components
         </anchored-heading>
 
         <b-table
@@ -34,7 +34,7 @@
     <template v-if="directives.length > 0">
       <article>
         <anchored-heading id="importing-individual-directives" level="3">
-          Importing individual {{ pluginTitle }} Directives
+          Importing individual directives
         </anchored-heading>
 
         <b-table
@@ -61,7 +61,7 @@
 
     <article>
       <anchored-heading id="importing-as-a-plugin" level="3">
-        Importing {{ pluginTitle }} as a Vue plugin
+        Importing as a Vue.js plugin
       </anchored-heading>
 
       <p v-if="isComponentRoute">
@@ -115,9 +115,6 @@ export default {
     },
     pluginName() {
       return startCase(this.pluginDir).replace(/\s+/g, '')
-    },
-    pluginTitle() {
-      return startCase(this.meta.title)
     },
     componentImports() {
       return this.components.map(c => {

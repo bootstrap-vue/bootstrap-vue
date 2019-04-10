@@ -4,7 +4,7 @@
 
     <section class="bd-content">
       <anchored-heading id="directive-reference" level="2">
-        {{ metaTitle }} Directive Reference
+        Directive reference
       </anchored-heading>
 
       <!-- Directive importing information -->
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import startCase from 'lodash/startCase'
 import AnchoredHeading from '~/components/anchored-heading'
 import Importdoc from '~/components/importdoc.vue'
 import docsMixin from '~/plugins/docs-mixin'
@@ -30,11 +29,6 @@ export default {
     AnchoredHeading
   },
   mixins: [docsMixin],
-  computed: {
-    metaTitle() {
-      return startCase(this.meta.title)
-    }
-  },
   validate({ params }) {
     return Boolean(directivesMeta[params.slug])
   },
