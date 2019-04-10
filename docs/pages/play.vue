@@ -36,6 +36,18 @@
             <input type="hidden" name="js_wrap" value="l">
             <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
           </form>
+          <form
+            class="d-inline-block ml-2 mr-0 p-0 float-right"
+            method="post"
+            action="https://codepen.io/pen/define"
+            target="_blank"
+          >
+            <input type="hidden" name="data" :value="codepen_data">
+            <b-btn size="sm" type="submit" :disabled="!isOk">
+              Export to CodePen
+              <img src="https://s.cdpn.io/3/cp-arrow-right.svg" style="width:1em;height:1em">
+            </b-btn>
+          </form>
           <b-btn size="sm" variant="danger" :disabled="isDefault" @click="reset">
             Reset to default
           </b-btn>
@@ -256,6 +268,30 @@ export default {
     isDefault() {
       // Check if editors contain default JS and Template
       return this.js.trim() === defaultJS.trim() && this.html.trim() === defaultHTML.trim()
+    },
+    codepen_data() {
+      const data = {
+        editors: '101',
+        layout: 'left', // left, right, top
+        html_pre_processor: 'none',
+        css_pre_processor: 'sass',
+        css_prefix: 'autoprefixer',
+        js_pre_processor: 'babel',
+        head: '<meta name="viewport" content="width=device-width">',
+        css_external: [
+          '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
+          '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css'
+        ].join(';'),
+        js_external: [
+          '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js',
+          '//unpkg.com/vue@latest/dist/vue.min.js',
+          '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
+        ].join(';'),
+        html: this.fiddle_html,
+        js: this.fiddle_js,
+        css: 'body { padding: 1rem; }'
+      }
+      return JSON.stringify(data)
     },
     fiddle_dependencies() {
       return [
