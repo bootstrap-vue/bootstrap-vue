@@ -1,172 +1,257 @@
 <template>
-  <main class="container">
-    <div class="mb-3 row">
-      <div class="col-12 mb-3">
-        <p class="mb-1">
-          Here you can interactively play and test components with a fresh vue instance. Please
-          refer to the <router-link to="/docs">Docs</router-link> section for more info about
-          available tags and usage.
-        </p>
-        <p class="mb-1">
-          <strong>TIP:</strong> You can clone docs repo, to hack and develop components. changes
-          will be reflected and hot-reloaded instantly.
-        </p>
-      </div>
-      <div class="col-12">
-        <div
-          v-if="loading"
-          class="alert alert-info show text-center"
-        >
-          <strong>Loading JavaScript Compiler...</strong>
-        </div>
-        <div
-          v-else
-          class="clearfix"
-        >
-          <form
-            class="d-inline-block ml-2 mr-0 p-0 float-right"
-            method="post"
-            action="https://jsfiddle.net/api/post/library/pure/"
-            target="_blank"
-          >
-            <input type="hidden" name="html" :value="fiddle_html">
-            <input type="hidden" name="js" :value="fiddle_js">
-            <input type="hidden" name="resources" :value="fiddle_dependencies">
-            <input type="hidden" name="css" value="body { padding: 1rem; }">
-            <input type="hidden" name="js_wrap" value="l">
-            <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
-          </form>
-          <form
-            class="d-inline-block ml-2 mr-0 p-0 float-right"
-            method="post"
-            action="https://codesandbox.io/api/v1/sandboxes/define"
-            target="_blank"
-          >
-            <input type="hidden" name="parameters" :value="codesandbox_data">
-            <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodeSandbox</b-btn>
-          </form>
-          <form
-            class="d-inline-block ml-2 mr-0 p-0 float-right"
-            method="post"
-            action="https://codepen.io/pen/define"
-            target="_blank"
-          >
-            <input type="hidden" name="data" :value="codepen_data">
-            <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodePen</b-btn>
-          </form>
-          <b-btn size="sm" variant="danger" :disabled="isDefault" @click="reset">
-            Reset to default
-          </b-btn>
-        </div>
-      </div>
+  <b-container tag="main">
+    <!-- Introduction -->
+    <div class="bd-content mb-4">
+      <h1><span class="bd-content-title">Online Playground</span></h1>
+      <p class="bd-lead">
+        Here you can interactively play and test components with a fresh Vue.js instance. Please
+        refer to the <router-link to="/docs">Docs</router-link> section for more information about
+        available components and usage.
+      </p>
     </div>
 
-    <transition-group class="row" tag="div" name="flip">
-      <div key="A" :class="full ? 'col-12' : 'col'">
-        <transition-group class="row" tag="div" name="flip">
-          <div key="A1" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
+    <!-- Actions -->
+    <b-row>
+      <b-col class="mb-2 mb-md-0">
+        <!-- Loading indicator -->
+        <b-alert
+          v-if="loading"
+          variant="info"
+          class="text-center"
+          show
+        >
+          Loading JavaScript compiler...
+        </b-alert>
+
+        <!-- Reset action -->
+        <b-btn
+          v-else
+          size="sm"
+          variant="danger"
+          :disabled="isDefault"
+          @click="reset"
+        >
+          Reset to default
+        </b-btn>
+      </b-col>
+
+      <!-- Export actions -->
+      <b-col
+        v-if="!loading"
+        md="auto"
+      >
+        <!-- Export to CodePen -->
+        <b-form
+          class="d-inline-block mt-2 mt-mb-0 mr-2"
+          method="post"
+          action="https://codepen.io/pen/define"
+          target="_blank"
+        >
+          <input type="hidden" name="data" :value="codepen_data">
+          <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodePen</b-btn>
+        </b-form>
+
+        <!-- Export to CodeSandbox -->
+        <b-form
+          class="d-inline-block mt-2 mt-mb-0 mr-2"
+          method="post"
+          action="https://codesandbox.io/api/v1/sandboxes/define"
+          target="_blank"
+        >
+          <input type="hidden" name="parameters" :value="codesandbox_data">
+          <b-btn size="sm" type="submit" :disabled="!isOk">Export to CodeSandbox</b-btn>
+        </b-form>
+
+        <!-- Export to JSFiddle -->
+        <b-form
+          class="d-inline-block mt-2 mt-mb-0"
+          method="post"
+          action="https://jsfiddle.net/api/post/library/pure/"
+          target="_blank"
+        >
+          <input type="hidden" name="html" :value="fiddle_html">
+          <input type="hidden" name="js" :value="fiddle_js">
+          <input type="hidden" name="resources" :value="fiddle_dependencies">
+          <input type="hidden" name="css" value="body { padding: 1rem; }">
+          <input type="hidden" name="js_wrap" value="l">
+          <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
+        </b-form>
+      </b-col>
+    </b-row>
+
+    <!-- Editors -->
+    <transition-group
+      v-if="!loading"
+      tag="div"
+      class="row"
+      name="flip"
+    >
+      <!-- Left/Top column -->
+      <b-col
+        key="A"
+        :cols="full ? 12 : null"
+      >
+        <transition-group
+          tag="div"
+          class="row"
+          name="flip"
+        >
+          <!-- Template column -->
+          <b-col
+            key="A1"
+            :md="vertical && !full ? 6 : 12"
+            sm="12"
+            class="mt-3"
+          >
             <!-- Template -->
-            <div class="card mt-2">
-              <div class="card-header card-outline-info">
+            <b-card no-body>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
+              >
                 <span>Template</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
-                  class="float-right d-none d-md-inline-block"
+                  class="d-none d-md-inline-block"
                   @click="toggleFull"
                 >
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="html" mode="htmlmixed"></codemirror>
-            </div>
-          </div>
-          <div key="A2" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
-            <!-- JS -->
-            <div class="card mt-2">
-              <div class="card-header card-outline-warning">
+
+              <codemirror
+                v-model="html"
+                mode="htmlmixed"
+              ></codemirror>
+            </b-card>
+          </b-col>
+
+          <!-- JavaScript column -->
+          <b-col
+            key="A2"
+            :md="vertical && !full ? 6 : 12"
+            sm="12"
+            class="mt-3"
+          >
+            <!-- JavaScript -->
+            <b-card no-body>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
+              >
                 <span>JS</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
-                  class="float-right d-none d-md-inline-block"
+                  class="d-none d-md-inline-block"
                   @click="toggleFull"
                 >
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="js" mode="javascript"></codemirror>
-            </div>
-          </div>
+
+              <codemirror
+                v-model="js"
+                mode="javascript"
+              ></codemirror>
+            </b-card>
+          </b-col>
         </transition-group>
-      </div>
+      </b-col>
 
-      <div key="B" :class="`col-md-${vertical || full ? 12 : 6} col-sm-12`">
-        <!-- Result -->
-        <div class="card mt-2">
-          <div class="card-header card-outline-success">
-            <span>Result</span>
-            <b-btn
-              v-if="!full"
-              size="sm"
-              variant="outline-info"
-              class="float-right d-none d-md-inline-block"
-              @click="toggleVertical"
-            >
-              <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
-            </b-btn>
-          </div>
-          <div ref="result" class="card-body"></div>
-        </div>
-
-        <!-- Console -->
-        <div class="card mt-2">
-          <div class="card-header card-outline-secondary">
-            <span>Console</span>
-            <b-btn
-              v-if="messages.length"
-              size="sm"
-              variant="outline-danger"
-              class="float-right"
-              @click="clear"
-            >
-              <span>Clear</span>
-            </b-btn>
-          </div>
-          <transition-group
-            tag="ul"
-            name="flip-list"
-            class="list-group list-group-flush play-log"
+      <!-- Right/bottom column -->
+      <b-col
+        key="B"
+        :md="vertical || full ? 12 : 6"
+        sm="12"
+      >
+        <b-row>
+          <!-- Result column -->
+          <b-col
+            cols="12"
+            class="mt-3"
           >
-            <li
-              v-if="!messages.length"
-              key="empty-console"
-              class="list-group-item"
-            >
-              &nbsp;
-            </li>
-            <li
-              v-for="msg in messages"
-              :key="`console-${msg[2]}`"
-              class="list-group-item py-2 d-flex"
-            >
-              <b-badge
-                :variant="msg[0]"
-                class="mr-1"
-                style="font-size:90%;"
+            <!-- Result -->
+            <b-card>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
               >
-                {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
-              </b-badge>
-              <span
-                :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
-                style="white-space: pre-wrap;"
-              >{{ msg[1] }}</span>
-            </li>
-          </transition-group>
-        </div>
-      </div>
+                <span>Result</span>
+                <b-btn
+                  v-if="!full"
+                  size="sm"
+                  variant="outline-info"
+                  class="d-none d-md-inline-block"
+                  @click="toggleVertical"
+                >
+                  <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
+                </b-btn>
+              </div>
+
+              <div ref="result"></div>
+            </b-card>
+          </b-col>
+
+          <!-- Console column -->
+          <b-col
+            cols="12"
+            class="mt-3"
+          >
+            <!-- Console -->
+            <b-card>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
+              >
+                <span>Console</span>
+                <b-btn
+                  v-if="messages.length"
+                  size="sm"
+                  variant="outline-danger"
+                  @click="clear"
+                >
+                  <span>Clear</span>
+                </b-btn>
+              </div>
+
+              <transition-group
+                tag="ul"
+                name="flip-list"
+                class="list-group list-group-flush play-log"
+              >
+                <li
+                  v-if="!messages.length"
+                  key="empty-console"
+                  class="list-group-item"
+                >
+                  &nbsp;
+                </li>
+                <li
+                  v-for="msg in messages"
+                  :key="`console-${msg[2]}`"
+                  class="list-group-item py-2 d-flex"
+                >
+                  <b-badge
+                    :variant="msg[0]"
+                    class="mr-1"
+                    style="font-size:90%;"
+                  >
+                    {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
+                  </b-badge>
+                  <span
+                    :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
+                    style="white-space: pre-wrap;"
+                  >{{ msg[1] }}</span>
+                </li>
+              </transition-group>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-col>
     </transition-group>
-  </main>
+  </b-container>
 </template>
 
 <style scoped>
@@ -233,9 +318,8 @@ const defaultHTML = `<div>
   </b-alert>
 </div>`
 
-// Maximum age of localstorage before we revert back to defaults
-// 7 days
-const maxRetention = 7 * 24 * 60 * 60 * 1000
+// Maximum age of localStorage before we revert back to defaults
+const maxRetention = 7 * 24 * 60 * 60 * 1000 // 7 days
 
 // Helper function to remove a node from it's parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
@@ -247,7 +331,7 @@ export default {
       js: '',
       isOk: false,
       messages: [],
-      logIdx: 1, // used as the ":key" on console section for transition hooks
+      logIdx: 1, // Used as the ":key" on console section for transition hooks
       vertical: false,
       full: false,
       loading: false
@@ -460,7 +544,7 @@ export default {
       this.run = debounce(this._run, 500)
       // Set up our editor content watcher
       this.contentUnWatch = this.$watch(
-        () => this.js.trim() + '::' + this.html.trim(),
+        () => `${this.js.trim()}::${this.html.trim()}`,
         (newVal, oldVal) => {
           this.run()
         }
@@ -534,8 +618,9 @@ export default {
         delete options.template
       }
 
-      // Vue's errorCapture doesn't always handle errors in methods, so we wrap any
-      // methods with a try/catch handler so we can show the error in our GUI console
+      // Vue's errorCapture doesn't always handle errors in methods,
+      // so we wrap any methods with a try/catch handler so we can
+      // show the error in our GUI console
       // Doesn't handle errors in async methods
       // See: https://github.com/vuejs/vue/issues/8568
       if (options.methods) {
@@ -563,7 +648,8 @@ export default {
         this.playVM = new Vue({
           ...options,
           el: holder,
-          // Router needed for tooltips/popovers so they hide when docs route changes
+          // Router needed for tooltips/popovers so they hide when
+          // docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
           // render errors (error boundary)
@@ -583,8 +669,8 @@ export default {
         return
       }
 
-      // We got this far, so save the JS/HTML changes to localStorage
-      // and enable export button
+      // We got this far, so save the JS/HTML changes to
+      // localStorage and enable export button
       this.isOk = true
       this.save()
     },
@@ -610,8 +696,8 @@ export default {
       this.full = !this.full
     },
     log(tag, ...args) {
-      // We have to ignore props mutation warning due to a Vue bug
-      // when we have two instances
+      // We have to ignore props mutation warning due to a
+      // Vue.js bug when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
@@ -621,7 +707,7 @@ export default {
         msg.indexOf('Error in render') !== -1 &&
         msg === this.messages[0][1]
       ) {
-        // prevent duplicate render error messages
+        // Prevent duplicate render error messages
         return
       }
       if (this.messages.length > 10) {
