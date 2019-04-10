@@ -11,6 +11,8 @@ export const hasTouchSupport =
 
 export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)
 
+export hasPromise = typeof Promise !== 'undefined'
+
 // Getters
 
 export const getNoWarn = () =>
