@@ -7,7 +7,7 @@ import { inBrowser, hasPromise } from '../../../utils/env'
 import { assign, defineProperty, defineProperties } from '../../../utils/object'
 
 // Utility methods that produce warns
-const noPromises = (method) => {
+const noPromises = method => {
   /* istanbul ignore if */
   if (!hasPromise) {
     method = method ? `.${method}` : ''
@@ -18,7 +18,7 @@ const noPromises = (method) => {
   }
 }
 
-const notClient = () => {
+const notClient = method => {
   /* istanbul ignore if */
   if (!inBrowser) {
     method = method ? `.${method}` : ''
@@ -33,8 +33,8 @@ const notClient = () => {
 // that self-destructs after hidden.
 // @vue/component
 const MsgBox = Vue.extend({
-  extends: BModal,
   name: 'BMsgBox',
+  extends: BModal,
   props: {
     // Inherits all the b-modal props.
     // Plus we add a new prop for the content.
@@ -72,11 +72,7 @@ const MsgBox = Vue.extend({
   render(h) {
     // Override render with our own render function
     // Passing all of our props and listeneres to BModal
-    return h(
-      BModal,
-      { props: this.$props, listeners: this.$listeners },
-      [this.content]
-    )
+    return h(BModal, { props: this.$props, listeners: this.$listeners }, [this.content])
   }
 })
 
@@ -135,7 +131,7 @@ const makeMsgBox = (props, $parent) => {
       cancelTitle: props.cancelTitle || undefined,
       // Enable/Disable some features
       hideHeaderClose: true,
-      hideHeader: props.title ? false : true
+      hideHeader: !!props.title
     }
   })
   return msgBox
@@ -182,10 +178,10 @@ class BvModal {
   // The following methods require Promise Support!
   // IE 11 and others do not support Promise natively, so users
   // should have a Polyfill loaded.
-  
+
   // Open a message box with OK button only
   msgBoxOk(message, options = {}) {
-    if (!message || noPromises() || notClient()) {
+    if (!message || noPromises('msgBoxOk') || notClient('msgBoxOk')) {
       // Should this throw an error?
       /* istanbul ignore next */
       return
@@ -205,10 +201,10 @@ class BvModal {
       })
     })
   }
-  
+
   // Open a message box modal with OK and CANCEL buttons
   msgBoxConfirm(message, options = {}) {
-    if (!message || noPromises() || notClient()) {
+    if (!message || noPromises('msgBoxConfirm') || notClient('msgBoxConfirm')) {
       // Should this throw an error?
       /* istanbul ignore next */
       return
@@ -223,7 +219,7 @@ class BvModal {
     return new Promise(resolve => {
       makeMsgBox(props, this._vm).$on('hide', evt => {
         // Value could be null if pressing ESC or clicking Backdrop
-        const value = null
+        let value = null
         if (evt.trigger === 'ok') {
           // Return explicit true if user clicked OK button
           value = true
