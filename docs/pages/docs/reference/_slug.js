@@ -1,17 +1,13 @@
-<template>
-  <main class="container">
-    <div v-play class="bd-content" v-html="readme"></div>
-  </main>
-</template>
-
-<script>
-import { reference as referenceMeta } from '~/content'
+import Main from '~/components/main'
+import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
+import { reference as referenceMeta } from '~/content'
 
 const getReadMe = name =>
   import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
 
 export default {
+  name: 'BDReference',
   layout: 'docs',
   mixins: [docsMixin],
   validate({ params }) {
@@ -21,6 +17,13 @@ export default {
     const readme = (await getReadMe(params.slug)).default
     const meta = referenceMeta[params.slug]
     return { readme, meta }
+  },
+  render(h) {
+    // Readme section
+    const $readmeSection = h(Section, {
+      props: { play: true },
+      domProps: { innerHTML: this.readme }
+    })
+    return h(Main, { staticClass: 'bd-components' }, [$readmeSection])
   }
 }
-</script>
