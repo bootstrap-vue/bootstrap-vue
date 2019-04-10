@@ -52,7 +52,7 @@ const originalTable = renderer.table
 renderer.table = function(header, body) {
   let table = originalTable.apply(this, arguments)
   table = table
-    .replace('<table>', '<table class="table b-table table-striped table-sm bv-docs-table">')
+    .replace('<table>', '<table class="b-table table table-bordered table-striped bv-docs-table">')
     .replace('<thead>', '<thead class="thead-default">')
   return `<div class="table-responsive-sm">${table}</div>`
 }

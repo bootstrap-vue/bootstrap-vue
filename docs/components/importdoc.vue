@@ -12,9 +12,10 @@
         <b-table
           :items="componentImports"
           class="bv-docs-table"
-          small
-          striped
+          responsive="sm"
           head-variant="default"
+          bordered
+          striped
         >
           <template slot="component" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
@@ -39,10 +40,10 @@
         <b-table
           :items="directiveImports"
           class="bv-docs-table"
-          small
-          striped
           responsive="sm"
           head-variant="default"
+          bordered
+          striped
         >
           <template slot="directive" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>

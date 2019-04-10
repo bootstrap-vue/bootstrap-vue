@@ -149,6 +149,11 @@ pre.editable.error:after {
 .bv-docs-table {
   font-size: 90%;
 
+  th,
+  td {
+    padding: 0.5rem;
+  }
+
   thead > tr > th {
     min-width: 80px;
   }
