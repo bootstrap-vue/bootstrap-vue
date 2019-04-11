@@ -2,7 +2,7 @@ import Vue from 'vue'
 import warn from '../../utils/warn'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
-import { requestAnimationFrame } from '../../utils/dom'
+import { requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isObject } from '../../utils/object'
 import { isArray } from '../../utils/array'
@@ -118,7 +118,7 @@ export default Vue.extend({
       // We only add the watcher if vue router is detected
       this.$watch('$route', (to, from) => {
         this.$nextTick(() => {
-          requestAnimationFrame(() => {
+          requestAF(() => {
             this.guessCurrentPage()
           })
         })
@@ -138,9 +138,9 @@ export default Vue.extend({
       if (pageNum === this.currentPage) {
         return
       }
-      requestAnimationFrame(() => {
+      requestAF(() => {
         // Update the v-model
-        // Done in in requestAnimationFrame() to allow browser to complete the
+        // Done in in requestAF() to allow browser to complete the
         // native browser click handling of a link
         this.currentPage = pageNum
         this.$emit('change', pageNum)

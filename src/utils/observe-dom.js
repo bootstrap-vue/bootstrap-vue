@@ -1,4 +1,4 @@
-import { MutationObserver, isElement, eventOn, eventOff } from './dom'
+import { MutationObs, isElement, eventOn, eventOff } from './dom'
 import { hasEventListenerSupport } from './env'
 
 // Fallback observation for legacy browsers
@@ -32,9 +32,9 @@ const observeDom = (el, callback, opts) => /* istanbul ignore next: difficult to
 
   let obs = null
 
-  if (MutationObserver) {
+  if (MutationObs) {
     // Define a new observer
-    obs = new MutationObserver(mutations => {
+    obs = new MutationObs(mutations => {
       let changed = false
       // A Mutation can contain several change records, so we loop through them to see what has changed.
       // We break out of the loop early if any "significant" change has been detected

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import idMixin from '../../mixins/id'
 import warn from '../../utils/warn'
-import { requestAnimationFrame } from '../../utils/dom'
+import { requestAF } from '../../utils/dom'
 
 const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead'
 
@@ -153,7 +153,7 @@ export default Vue.extend({
     beforeEnter() {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
-      requestAnimationFrame(() => {
+      requestAF(() => {
         this.show = true
       })
     },

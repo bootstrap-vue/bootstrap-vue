@@ -51,7 +51,7 @@ export const elementClosest =
 
 // `requestAnimationFrame()` convenience method
 // We don't have a version for cancelAnimationFrame, but we don't call it anywhere
-export const requestAnimationFrame =
+export const requestAF =
   w.requestAnimationFrame ||
   w.webkitRequestAnimationFrame ||
   w.mozRequestAnimationFrame ||
@@ -65,7 +65,7 @@ export const requestAnimationFrame =
     return setTimeout(cb, 16)
   })
 
-export const MutationObserver =
+export const MutationObs =
   w.MutationObserver || w.WebKitMutationObserver || w.MozMutationObserver || null
 
 // --- Utils ---

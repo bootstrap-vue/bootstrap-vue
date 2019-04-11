@@ -15,7 +15,7 @@ import {
   getBCR,
   getCS,
   selectAll,
-  requestAnimationFrame
+  requestAF
 } from '../../../utils/dom'
 
 // Default modal backdrop z-index
@@ -64,7 +64,7 @@ const ModalManager = Vue.extend({
     },
     modals(newVal, oldVal) {
       this.checkScrollbar()
-      requestAnimationFrame(() => {
+      requestAF(() => {
         this.updateModals(newVal || [])
       })
     }
