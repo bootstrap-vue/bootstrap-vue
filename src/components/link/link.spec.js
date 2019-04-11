@@ -288,7 +288,7 @@ describe('link', () => {
       expect(wrapper.isVueInstance()).toBe(true)
       expect(wrapper.is('main')).toBe(true)
 
-      expect(wrapper.findAll('a').length).tobe(4)
+      expect(wrapper.findAll('a').length).toBe(4)
 
       const $links = wrapper.findAll('a')
 
