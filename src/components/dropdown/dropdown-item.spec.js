@@ -35,6 +35,7 @@ describe('dropdown-item', () => {
     expect(link).toBeDefined()
     link.trigger('click')
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
     expect(called).toBe(true)
     expect(refocus).toBe(true)
 
@@ -59,6 +60,7 @@ describe('dropdown-item', () => {
     expect(link).toBeDefined()
     link.trigger('click')
     await wrapper.vm.$nextTick()
+    await new Promise(resolve => requestAnimationFrame(resolve))
     expect(called).toBe(false)
     expect(refocus).toBe(null)
 
