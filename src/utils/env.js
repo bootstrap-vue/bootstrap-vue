@@ -43,6 +43,7 @@ export const hasPointerEventSupport =
 export const getEnv = (key, fallback = null) => {
   const env = typeof process !== 'undefined' && process ? process.env || {} : {}
   if (!key) {
+    /* istanbul ignore next */
     return env
   }
   return env[key] || fallback
