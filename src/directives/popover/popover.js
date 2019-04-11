@@ -1,6 +1,6 @@
 import Popper from 'popper.js'
 import PopOver from '../../utils/popover.class'
-import { inBrowser } from '../../utils/env'
+import { isBrowser } from '../../utils/env'
 import { keys } from '../../utils/object'
 import warn from '../../utils/warn'
 
@@ -107,7 +107,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 
 // Add or update PopOver on our element
 const applyPopover = (el, bindings, vnode) => {
-  if (!inBrowser) {
+  if (!isBrowser) {
     /* istanbul ignore next */
     return
   }

@@ -1,5 +1,5 @@
 import ScrollSpy from './scrollspy.class'
-import { inBrowser } from '../../utils/env'
+import { isBrowser } from '../../utils/env'
 import { keys } from '../../utils/object'
 
 // Key we use to store our instance
@@ -51,7 +51,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 
 // Add or update ScrollSpy on our element
 const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
-  if (!inBrowser) {
+  if (!isBrowser) {
     /* istanbul ignore next */
     return
   }

@@ -1,6 +1,6 @@
 import Popper from 'popper.js'
 import ToolTip from '../../utils/tooltip.class'
-import { inBrowser } from '../../utils/env'
+import { isBrowser } from '../../utils/env'
 import { keys } from '../../utils/object'
 import warn from '../../utils/warn'
 
@@ -107,7 +107,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 
 // Add or update ToolTip on our element
 const applyTooltip = (el, bindings, vnode) => {
-  if (!inBrowser) {
+  if (!isBrowser) {
     /* istanbul ignore next */
     return
   }

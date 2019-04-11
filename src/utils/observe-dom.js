@@ -1,10 +1,5 @@
-import { isElement, eventOn, eventOff } from './dom'
-import { inBrowser } from './env'
-
-const eventListenerSupported = inBrowser && window.addEventListener
-const MutationObserver =
-  inBrowser &&
-  (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver)
+import { MutationObserver, isElement, eventOn, eventOff } from './dom'
+import { hasEventListenerSupport } from './env'
 
 // Fallback observation for legacy browsers
 // Emulate observer disconnect() method so that we can detach the events later
@@ -71,7 +66,7 @@ const observeDom = (el, callback, opts) => /* istanbul ignore next: difficult to
 
     // Have the observer observe foo for changes in children, etc
     obs.observe(el, { childList: true, subtree: true, ...opts })
-  } else if (eventListenerSupported) {
+  } else if (hasEventListenerSupport) {
     // Legacy interface. most likely not used in modern browsers
     obs = fakeObserverFactory(el, callback)
   }

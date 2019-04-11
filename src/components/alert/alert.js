@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
-import { requestAF } from '../../utils/dom'
+import { requestAnimationFrame } from '../../utils/dom'
 
 const NAME = 'BAlert'
 
@@ -87,7 +87,7 @@ export default Vue.extend({
       } else {
         // Slightly delay the hide to allow any UI updates
         this.$nextTick(() => {
-          requestAF(() => {
+          requestAnimationFrame(() => {
             this.localShow = false
           })
         })
@@ -129,7 +129,7 @@ export default Vue.extend({
     },
     onBeforeEnter() {
       if (this.fade) {
-        requestAF(() => {
+        requestAnimationFrame(() => {
           this.showClass = true
         })
       }

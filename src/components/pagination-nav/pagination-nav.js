@@ -2,8 +2,8 @@ import Vue from 'vue'
 import warn from '../../utils/warn'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
-import { requestAF } from '../../utils/dom'
-import { inBrowser } from '../../utils/env'
+import { requestAnimationFrame } from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
 import { isObject } from '../../utils/object'
 import { isArray } from '../../utils/array'
 import { computeHref, parseQuery } from '../../utils/router'
@@ -118,7 +118,7 @@ export default Vue.extend({
       // We only add the watcher if vue router is detected
       this.$watch('$route', (to, from) => {
         this.$nextTick(() => {
-          requestAF(() => {
+          requestAnimationFrame(() => {
             this.guessCurrentPage()
           })
         })
@@ -138,9 +138,9 @@ export default Vue.extend({
       if (pageNum === this.currentPage) {
         return
       }
-      requestAF(() => {
+      requestAnimationFrame(() => {
         // Update the v-model
-        // Done in in requestAF() to allow browser to complete the
+        // Done in in requestAnimationFrame() to allow browser to complete the
         // native browser click handling of a link
         this.currentPage = pageNum
         this.$emit('change', pageNum)
@@ -259,12 +259,12 @@ export default Vue.extend({
       const $route = this.$route
       // This section only occurs if we are client side, or server-side with $router
       /* istanbul ignore else */
-      if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
+      if (!this.noPageDetect && !guess && (isBrowser || (!isBrowser && $router))) {
         // Current route (if router available)
         const currRoute =
           $router && $route ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
-        const loc = inBrowser ? window.location || document.location : null
+        const loc = isBrowser ? window.location || document.location : null
         const currLink = loc
           ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) }
           : {}
@@ -274,7 +274,7 @@ export default Vue.extend({
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
             guess = looseEqual(this.resolveRoute(to), currRoute) ? page : null
-          } else if (inBrowser) {
+          } else if (isBrowser) {
             // If no $router available (or !this.useRouter when `to` is a string)
             // we compare using parsed URIs
             guess = looseEqual(this.resolveLink(to), currLink) ? page : null

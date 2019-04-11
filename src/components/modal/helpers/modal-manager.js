@@ -4,7 +4,7 @@
 // Handles controlling modal stacking zIndexes and body adjustments/classes
 //
 import Vue from 'vue'
-import { inBrowser } from '../../../utils/env'
+import { isBrowser } from '../../../utils/env'
 import {
   getAttr,
   hasAttr,
@@ -15,7 +15,7 @@ import {
   getBCR,
   getCS,
   selectAll,
-  requestAF
+  requestAnimationFrame
 } from '../../../utils/dom'
 
 // Default modal backdrop z-index
@@ -47,7 +47,7 @@ const ModalManager = Vue.extend({
   },
   watch: {
     modalCount(newCount, oldCount) {
-      if (inBrowser) {
+      if (isBrowser) {
         this.getScrollbarWidth()
         if (newCount > 0 && oldCount === 0) {
           // Transitioning to modal(s) open
@@ -64,7 +64,7 @@ const ModalManager = Vue.extend({
     },
     modals(newVal, oldVal) {
       this.checkScrollbar()
-      requestAF(() => {
+      requestAnimationFrame(() => {
         this.updateModals(newVal || [])
       })
     }
@@ -92,7 +92,7 @@ const ModalManager = Vue.extend({
       }
     },
     getBaseZIndex() {
-      if (this.baseZIndex === null && inBrowser) {
+      if (this.baseZIndex === null && isBrowser) {
         // Create a temporary div.modal-backdrop to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-backdrop d-none'
@@ -104,7 +104,7 @@ const ModalManager = Vue.extend({
       return this.baseZIndex || DEFAULT_ZINDEX
     },
     getScrollbarWidth() {
-      if (this.scrollbarWidth === null && inBrowser) {
+      if (this.scrollbarWidth === null && isBrowser) {
         // Create a temporary div.measure-scrollbar to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-scrollbar-measure'

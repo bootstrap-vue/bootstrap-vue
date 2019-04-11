@@ -12,7 +12,7 @@ import {
   eventOn,
   eventOff
 } from '../../utils/dom'
-import { inBrowser, hasTouchSupport, hasPointerEvent } from '../../utils/env'
+import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
 import idMixin from '../../mixins/id'
 
 const NAME = 'BCarousel'
@@ -225,7 +225,7 @@ export default Vue.extend({
     setSlide(slide, direction = null) {
       // Don't animate when page is not visible
       /* istanbul ignore if: difficult to test */
-      if (inBrowser && document.visibilityState && document.hidden) {
+      if (isBrowser && document.visibilityState && document.hidden) {
         return
       }
       const len = this.slides.length
@@ -413,9 +413,9 @@ export default Vue.extend({
       }
     },
     touchStart(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+      if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX
-      } else if (!hasPointerEvent) {
+      } else if (!hasPointerEventSupport) {
         this.touchStartX = evt.touches[0].clientX
       }
     },
@@ -428,7 +428,7 @@ export default Vue.extend({
       }
     },
     touchEnd(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+      if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX
       }
       this.handleSwipe()
@@ -575,7 +575,7 @@ export default Vue.extend({
     if (!this.noTouch && hasTouchSupport) {
       // Attach appropriate listeners (prepend event name with '&' for passive mode)
       /* istanbul ignore next: JSDOM doesn't support touch events */
-      if (hasPointerEvent) {
+      if (hasPointerEventSupport) {
         on['&pointerdown'] = this.touchStart
         on['&pointerup'] = this.touchEnd
       } else {
@@ -593,7 +593,7 @@ export default Vue.extend({
         class: {
           slide: !this.noAnimation,
           'carousel-fade': !this.noAnimation && this.fade,
-          'pointer-event': !this.noTouch && hasTouchSupport && hasPointerEvent
+          'pointer-event': !this.noTouch && hasTouchSupport && hasPointerEventSupport
         },
         style: { background: this.background },
         attrs: {

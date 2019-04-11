@@ -7,7 +7,7 @@ import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
-import { inBrowser } from '../../utils/env'
+import { isBrowser } from '../../utils/env'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
@@ -363,7 +363,7 @@ export default Vue.extend({
         return
       }
       this.is_opening = true
-      if (inBrowser && document.activeElement.focus) {
+      if (isBrowser && document.activeElement.focus) {
         // Preset the fallback return focus value if it is not set.
         // document.activeElement should be the trigger element that was clicked or
         // in the case of using the v-model, which ever element has current focus.
@@ -610,7 +610,7 @@ export default Vue.extend({
       //   Add support for finding input element with 'autofocus' attribute set
       //   and focus that element
       // Don't try and focus if we are SSR
-      if (inBrowser) {
+      if (isBrowser) {
         const modal = this.$refs.modal
         const activeElement = document.activeElement
         // If the modal contains the activeElement, we don't do anything
