@@ -121,7 +121,7 @@ export const makeTOC = (readme, meta = null) => {
     if (comps.length) {
       // Add the reference heading
       toc.push({
-        label: `${startCase(meta.title)} Component Reference`,
+        label: 'Component reference',
         href: '#component-reference'
       })
       // Add component sub entries
@@ -136,19 +136,19 @@ export const makeTOC = (readme, meta = null) => {
       )
       // Add component import sub entry
       toc[toc.length - 1].push({
-        label: `Importing Individual ${startCase(meta.title)} Components`,
+        label: 'Importing individual components',
         href: '#importing-individual-components'
       })
       // Add directive import sub entry
       if (meta.directives && meta.directives.length) {
         toc[toc.length - 1].push({
-          label: `Importing Individual ${startCase(meta.title)} Directives`,
+          label: 'Importing individual directives',
           href: '#importing-individual-directives'
         })
       }
       // Add plugin import sub entry
       toc[toc.length - 1].push({
-        label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
+        label: 'Importing as a Vue.js plugin',
         href: '#importing-as-a-plugin'
       })
     }

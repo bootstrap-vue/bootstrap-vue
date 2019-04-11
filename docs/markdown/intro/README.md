@@ -105,8 +105,8 @@ module.exports = {
 }
 ```
 
-BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap
-and BootstrapVue SCSS in your project's custom SCSS file:
+BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
+BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss
 // custom.scss
