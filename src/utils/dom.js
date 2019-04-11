@@ -8,44 +8,26 @@ const w = isBrowser ? window : {}
 const d = isBrowser ? document : {}
 const elProto = isBrowser ? Element.prototype : {}
 
-// --- Polyfills ---
+// --- Normalization utils ---
 
-// Prefer native implementations over polyfill function
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+// See: https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
 /* istanbul ignore next */
-export const elementMatches =
-  elProto.matches ||
-  elProto.matchesSelector ||
-  elProto.mozMatchesSelector ||
-  elProto.msMatchesSelector ||
-  elProto.oMatchesSelector ||
-  elProto.webkitMatchesSelector ||
-  function(sel) /* istanbul ignore next */ {
-    const element = this
-    const m = selectAll(sel, element.document || element.ownerDocument)
-    let i = m.length
-    // eslint-disable-next-line no-empty
-    while (--i >= 0 && m.item(i) !== element) {}
-    return i > -1
-  }
+export const matchesEl =
+  elProto.matches || elProto.msMatchesSelector || elProto.webkitMatchesSelector
 
-// Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
-// Prefer native implementation over polyfill function
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-export const elementClosest =
+// See: https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+/* istanbul ignore next */
+export const closestEl =
   elProto.closest ||
   function(sel) /* istanbul ignore next */ {
-    let element = this
-    if (!contains(d.documentElement, element)) {
-      return null
-    }
+    let el = this
     do {
       // Use our "patched" matches function
-      if (matches(element, sel)) {
-        return element
+      if (matches(el, sel)) {
+        return el
       }
-      element = element.parentElement || element.parentNode
-    } while (element !== null && element.nodeType === Node.ELEMENT_NODE)
+      el = el.parentElement || el.parentNode
+    } while (el !== null && el.nodeType === Node.ELEMENT_NODE)
     return null
   }
 
@@ -140,7 +122,7 @@ export const matches = (el, selector) => {
   if (!isElement(el)) {
     return false
   }
-  return elementMatches.call(el, selector)
+  return matchesEl.call(el, selector)
 }
 
 // Finds closest element matching selector. Returns `null` if not found
@@ -148,7 +130,7 @@ export const closest = (selector, root) => {
   if (!isElement(root)) {
     return null
   }
-  const el = elementClosest.call(root, selector)
+  const el = closestEl.call(root, selector)
   // Emulate jQuery closest and return `null` if match is the passed in element (root)
   return el === root ? null : el
 }
