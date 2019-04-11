@@ -479,4 +479,41 @@ describe('tabs', () => {
 
     wrapper.destroy()
   })
+
+  it('"active-class" is applied to active tab', async () => {
+    const activeClass = 'text-success'
+    const App = Vue.extend({
+      render(h) {
+        return h(BTabs, { props: { value: 0, activeClass } }, [
+          h(BTab, { props: {} }, 'tab 0'),
+          h(BTab, { props: {} }, 'tab 1'),
+          h(BTab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    // Expect 1st tab to have "active-class" applied
+    expect(tabs.vm.tabs[0].$el.classList.contains(activeClass)).toBe(true)
+
+    // Set 2nd tab to be active
+    tabs.setProps({ value: 1 })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(1)
+    // Expect 2nd tab to have "active-class" applied
+    expect(tabs.vm.tabs[1].$el.classList.contains(activeClass)).toBe(true)
+    // Expect 1st tab to don't have "active-class" applied anymore
+    expect(tabs.vm.tabs[0].$el.classList.contains(activeClass)).toBe(false)
+
+    wrapper.destroy()
+  })
 })
