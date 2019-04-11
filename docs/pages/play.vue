@@ -1,154 +1,237 @@
 <template>
-  <main class="container">
-    <div class="mb-3 row">
-      <div class="col-12 mb-3">
-        <p class="mb-1">
-          Here you can interactively play and test components with a fresh vue instance. Please
-          refer to the <router-link to="/docs">Docs</router-link> section for more info about
-          available tags and usage.
-        </p>
-        <p class="mb-1">
-          <strong>TIP:</strong> You can clone docs repo, to hack and develop components. changes
-          will be reflected and hot-reloaded instantly.
-        </p>
-      </div>
-      <div class="col-12">
-        <div
-          v-if="loading"
-          class="alert alert-info show text-center"
-        >
-          <strong>Loading JavaScript Compiler...</strong>
-        </div>
-        <div
-          v-else
-          class="clearfix"
-        >
-          <form
-            class="d-inline-block ml-2 mr-0 p-0 float-right"
-            method="post"
-            action="https://jsfiddle.net/api/post/library/pure/"
-            target="_blank"
-          >
-            <input type="hidden" name="html" :value="fiddle_html">
-            <input type="hidden" name="js" :value="fiddle_js">
-            <input type="hidden" name="resources" :value="fiddle_dependencies">
-            <input type="hidden" name="css" value="body { padding: 1rem; }">
-            <input type="hidden" name="js_wrap" value="l">
-            <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
-          </form>
-          <b-btn size="sm" variant="danger" :disabled="isDefault" @click="reset">
-            Reset to default
-          </b-btn>
-        </div>
-      </div>
+  <b-container tag="main">
+    <!-- Introduction -->
+    <div class="bd-content mb-4">
+      <h1><span class="bd-content-title">{{ title }}</span></h1>
+      <p class="bd-lead">
+        Here you can interactively play and test components with a fresh Vue.js instance. Please
+        refer to the <router-link to="/docs">Docs</router-link> section for more information about
+        available components and usage.
+      </p>
     </div>
 
-    <transition-group class="row" tag="div" name="flip">
-      <div key="A" :class="full ? 'col-12' : 'col'">
-        <transition-group class="row" tag="div" name="flip">
-          <div key="A1" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
+    <!-- Actions -->
+    <b-row>
+      <b-col class="mb-2 mb-md-0">
+        <!-- Loading indicator -->
+        <b-alert
+          v-if="loading"
+          variant="info"
+          class="text-center"
+          show
+        >
+          Loading JavaScript compiler...
+        </b-alert>
+
+        <!-- Reset action -->
+        <b-btn
+          v-else
+          size="sm"
+          variant="danger"
+          :disabled="isDefault"
+          @click="reset"
+        >
+          Reset to default
+        </b-btn>
+      </b-col>
+
+      <!-- Export actions -->
+      <b-col
+        v-if="!loading"
+        md="auto"
+        class="mt-2 mt-md-0"
+      >
+        <b class="d-block d-sm-inline-block mr-sm-2 mb-1 mb-sm-0">Export to</b>
+
+        <!-- Export to CodePen -->
+        <b-form
+          class="d-inline-block mr-1"
+          method="post"
+          action="https://codepen.io/pen/define"
+          target="_blank"
+        >
+          <input type="hidden" name="data" :value="codepenData">
+          <b-btn size="sm" type="submit" :disabled="!isOk">CodePen</b-btn>
+        </b-form>
+
+        <!-- Export to CodeSandbox -->
+        <b-form
+          class="d-inline-block mr-1"
+          method="post"
+          action="https://codesandbox.io/api/v1/sandboxes/define"
+          target="_blank"
+        >
+          <input type="hidden" name="parameters" :value="codesandboxData">
+          <b-btn size="sm" type="submit" :disabled="!isOk">CodeSandbox</b-btn>
+        </b-form>
+
+        <!-- Export to JSFiddle -->
+        <b-form
+          class="d-inline-block"
+          method="post"
+          action="https://jsfiddle.net/api/post/library/pure/"
+          target="_blank"
+        >
+          <input type="hidden" name="html" :value="exportData.extendedHtml">
+          <input type="hidden" name="js" :value="exportData.extendedJs">
+          <input type="hidden" name="resources" :value="[...exportData.externalCss, exportData.externalJs].join(',')">
+          <input type="hidden" name="css" :value="exportData.css">
+          <input type="hidden" name="js_wrap" value="l">
+          <b-btn size="sm" type="submit" :disabled="!isOk">JSFiddle</b-btn>
+        </b-form>
+      </b-col>
+    </b-row>
+
+    <!-- Editors -->
+    <transition-group
+      v-if="!loading"
+      tag="div"
+      class="row"
+      name="flip"
+    >
+      <!-- Left/Top column -->
+      <b-col key="A" :cols="full ? 12 : null">
+        <transition-group tag="div" class="row" name="flip">
+          <!-- Template column -->
+          <b-col
+            key="A1"
+            :md="vertical && !full ? 6 : 12"
+            sm="12"
+            class="mt-3"
+          >
             <!-- Template -->
-            <div class="card mt-2">
-              <div class="card-header card-outline-info">
+            <b-card no-body>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
+              >
                 <span>Template</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
-                  class="float-right d-none d-md-inline-block"
+                  class="d-none d-md-inline-block"
                   @click="toggleFull"
                 >
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
+
               <codemirror v-model="html" mode="htmlmixed"></codemirror>
-            </div>
-          </div>
-          <div key="A2" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
-            <!-- JS -->
-            <div class="card mt-2">
-              <div class="card-header card-outline-warning">
+            </b-card>
+          </b-col>
+
+          <!-- JavaScript column -->
+          <b-col
+            key="A2"
+            :md="vertical && !full ? 6 : 12"
+            sm="12"
+            class="mt-3"
+          >
+            <!-- JavaScript -->
+            <b-card no-body>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
+              >
                 <span>JS</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
-                  class="float-right d-none d-md-inline-block"
+                  class="d-none d-md-inline-block"
                   @click="toggleFull"
                 >
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
+
               <codemirror v-model="js" mode="javascript"></codemirror>
-            </div>
-          </div>
+            </b-card>
+          </b-col>
         </transition-group>
-      </div>
+      </b-col>
 
-      <div key="B" :class="`col-md-${vertical || full ? 12 : 6} col-sm-12`">
-        <!-- Result -->
-        <div class="card mt-2">
-          <div class="card-header card-outline-success">
-            <span>Result</span>
-            <b-btn
-              v-if="!full"
-              size="sm"
-              variant="outline-info"
-              class="float-right d-none d-md-inline-block"
-              @click="toggleVertical"
-            >
-              <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
-            </b-btn>
-          </div>
-          <div ref="result" class="card-body"></div>
-        </div>
-
-        <!-- Console -->
-        <div class="card mt-2">
-          <div class="card-header card-outline-secondary">
-            <span>Console</span>
-            <b-btn
-              v-if="messages.length"
-              size="sm"
-              variant="outline-danger"
-              class="float-right"
-              @click="clear"
-            >
-              <span>Clear</span>
-            </b-btn>
-          </div>
-          <transition-group
-            tag="ul"
-            name="flip-list"
-            class="list-group list-group-flush play-log"
-          >
-            <li
-              v-if="!messages.length"
-              key="empty-console"
-              class="list-group-item"
-            >
-              &nbsp;
-            </li>
-            <li
-              v-for="msg in messages"
-              :key="`console-${msg[2]}`"
-              class="list-group-item py-2 d-flex"
-            >
-              <b-badge
-                :variant="msg[0]"
-                class="mr-1"
-                style="font-size:90%;"
+      <!-- Right/bottom column -->
+      <b-col key="B" :md="vertical || full ? 12 : 6" sm="12">
+        <b-row>
+          <!-- Result column -->
+          <b-col cols="12" class="mt-3">
+            <!-- Result -->
+            <b-card>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
               >
-                {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
-              </b-badge>
-              <span
-                :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
-                style="white-space: pre-wrap;"
-              >{{ msg[1] }}</span>
-            </li>
-          </transition-group>
-        </div>
-      </div>
+                <span>Result</span>
+                <b-btn
+                  v-if="!full"
+                  size="sm"
+                  variant="outline-info"
+                  class="d-none d-md-inline-block"
+                  @click="toggleVertical"
+                >
+                  <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
+                </b-btn>
+              </div>
+
+              <div ref="result"></div>
+            </b-card>
+          </b-col>
+
+          <!-- Console column -->
+          <b-col cols="12" class="mt-3">
+            <!-- Console -->
+            <b-card>
+              <div
+                slot="header"
+                class="d-flex justify-content-between align-items-center"
+              >
+                <span>Console</span>
+                <b-btn
+                  v-if="messages.length"
+                  size="sm"
+                  variant="outline-danger"
+                  @click="clear"
+                >
+                  <span>Clear</span>
+                </b-btn>
+              </div>
+
+              <transition-group
+                tag="ul"
+                name="flip-list"
+                class="list-group list-group-flush play-log"
+              >
+                <li
+                  v-if="!messages.length"
+                  key="empty-console"
+                  class="list-group-item"
+                >
+                  &nbsp;
+                </li>
+                <li
+                  v-for="msg in messages"
+                  :key="`console-${msg[2]}`"
+                  class="list-group-item py-2 d-flex"
+                >
+                  <b-badge
+                    :variant="msg[0]"
+                    class="mr-1"
+                    style="font-size:90%;"
+                  >
+                    {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
+                  </b-badge>
+                  <span
+                    :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
+                    style="white-space: pre-wrap;"
+                  >{{ msg[1] }}</span>
+                </li>
+              </transition-group>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-col>
     </transition-group>
-  </main>
+  </b-container>
 </template>
 
 <style scoped>
@@ -173,68 +256,92 @@
 <script>
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
-import needsTranspiler from '../utils/needs-transpiler'
+import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
+import needsTranspiler from '~/utils/needs-transpiler'
+import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
 
-const defaultJS = `{
-  data () {
+// --- Constants ---
+
+const DEFAULT_HTML = `<div>
+  <b-button size="sm" @click="toggle">
+    {{ show ? 'Hide' : 'Show' }} Alert
+  </b-button>
+  <b-alert
+    v-model="show"
+    class="mt-3"
+    dismissible
+    @dismissed="dismissed"
+  >
+    Hello {{ name }}!
+  </b-alert>
+</div>`
+
+const DEFAULT_JS = `{
+  data() {
     return {
       name: 'BootstrapVue',
       show: true
     }
   },
   watch: {
-    show (newVal, oldVal) {
-      console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
+    show(newVal) {
+      console.log('Alert is now ' + (newVal ? 'visible' : 'hidden'))
     }
   },
   methods: {
-    toggle () {
+    toggle() {
       console.log('Toggle button clicked')
       this.show = !this.show
     },
-    dismissed () {
+    dismissed() {
       console.log('Dismiss button clicked')
     }
   }
 }`
 
-const defaultHTML = `<div>
-  <b-button @click="toggle" size="sm">
-    {{ show ? 'Hide' : 'Show' }} Alert
-  </b-button>
-  <b-alert v-model="show"
-           dismissible
-           @dismissed="dismissed"
-           class="mt-3">
-    Hello {{ name }}!
-  </b-alert>
-</div>`
+const storage = typeof window !== 'undefined' ? window.localStorage || null : null
+const STORAGE_KEY_PREFIX = 'BV_playground'
+const STORAGE_KEYS = {
+  html: `${STORAGE_KEY_PREFIX}_html`,
+  js: `${STORAGE_KEY_PREFIX}_js`,
+  layout: `${STORAGE_KEY_PREFIX}_layout`,
+  timestamp: `${STORAGE_KEY_PREFIX}_ts`
+}
 
-// Maximum age of localstorage before we revert back to defaults
-// 7 days
-const maxRetention = 7 * 24 * 60 * 60 * 1000
+// Maximum age of localStorage before we revert back to defaults
+const STORAGE_MAX_RETENTION = 7 * 24 * 60 * 60 * 1000 // 7 days
 
-// Helper function to remove a node from it's parent's children
+// --- Helper functions ---
+
+// Remove a node from it's parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
+
+// Indent a value by the given count
+const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
+  if (count === 0) {
+    return value
+  }
+  return value.replace(/^(?!\s*$)/gm, indent.repeat(count))
+}
 
 export default {
   data() {
     return {
       html: '',
       js: '',
-      isOk: false,
+      logIdx: 1, // Used as the ":key" on console section for transition hooks
       messages: [],
-      logIdx: 1, // used as the ":key" on console section for transition hooks
+      isOk: false,
       vertical: false,
       full: false,
       loading: false
     }
   },
   head() {
-    const title = 'Online Playground | BootstrapVue'
+    const title = `${this.title} | BootstrapVue`
     const description = 'Interactively play and test BootstrapVue components online.'
     return {
-      title: title,
+      title,
       meta: [
         {
           hid: 'og:title',
@@ -248,33 +355,112 @@ export default {
           property: 'og:description',
           content: description
         },
-        { hid: 'description', name: 'description', content: description }
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        }
       ]
     }
   },
   computed: {
+    title() {
+      return 'Online Playground'
+    },
     isDefault() {
       // Check if editors contain default JS and Template
-      return this.js.trim() === defaultJS.trim() && this.html.trim() === defaultHTML.trim()
+      return this.js.trim() === DEFAULT_JS.trim() && this.html.trim() === DEFAULT_HTML.trim()
     },
-    fiddle_dependencies() {
-      return [
-        '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
-        '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js',
-        '//unpkg.com/vue@latest/dist/vue.min.js',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
-      ].join(',')
+    layout() {
+      return this.full ? 'full' : this.vertical ? 'vertical' : 'horizontal'
     },
-    fiddle_js() {
-      let js = this.js.trim() || '{}'
-      const comma = js === '{}' ? '' : ','
-      js = js.replace(/^\{/, `{\r\n  el: '#app'${comma}\r\n`)
-      js = `new Vue(${js})`
-      return `window.onload = function() {\r\n${js}\r\n}`
+    exportData() {
+      const html = this.html.trim()
+      const js = this.js.trim() || '{}'
+
+      let extendedJs = js === '{}' ? "{ el: '#app' }" : js.replace(/^\{/, "{\r\n  el: '#app',")
+      extendedJs = `new Vue(${extendedJs})`
+      extendedJs = `window.onload = () => {\r\n${indent(extendedJs, 2)}\r\n}`
+
+      return {
+        html,
+        js,
+        css: 'body { padding: 1rem; }',
+        extendedHtml: `<div id="app">\r\n${indent(html, 2)}\r\n</div>`,
+        extendedJs,
+        externalCss: [
+          `//unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.css`
+        ],
+        externalJs: [
+          '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
+          `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
+        ]
+      }
     },
-    fiddle_html() {
-      return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
+    codepenData() {
+      const { css, extendedHtml, extendedJs, externalCss, externalJs } = this.exportData
+      const data = {
+        editors: '101',
+        layout: 'left', // left, right, top
+        html_pre_processor: 'none',
+        css_pre_processor: 'none',
+        css_prefix: 'autoprefixer',
+        js_pre_processor: 'babel',
+        head: '<meta name="viewport" content="width=device-width">',
+        css_external: externalCss.join(';'),
+        js_external: externalJs.join(';'),
+        html: extendedHtml,
+        js: extendedJs,
+        css
+      }
+      return JSON.stringify(data)
+    },
+    codesandboxData() {
+      const { html, js, css } = this.exportData
+      const vueContent = [
+        '<template>',
+        indent(html, 2),
+        '</template>',
+        '',
+        '<style>',
+        indent(css, 2),
+        '</style>',
+        '',
+        '<script>',
+        indent(`export default ${js}`, 2),
+        // prettier-ignore
+        '<\/script>' // eslint-disable-line
+      ]
+        .join('\r\n')
+        .replace(/\\\//g, '/')
+      const htmlContent = '<div id="app"></div>'
+      const jsContent = [
+        "import Vue from 'vue'",
+        "import BootstrapVue from 'bootstrap-vue'",
+        "import App from './App'",
+        '',
+        "import 'bootstrap/dist/css/bootstrap.css'",
+        "import 'bootstrap-vue/dist/bootstrap-vue.css'",
+        '',
+        'Vue.use(BootstrapVue)',
+        '',
+        "new Vue({ el: '#app', render: h => h(App) })"
+      ].join('\r\n')
+      const dependencies = {
+        bootstrap: bootstrapVersion,
+        'bootstrap-vue': bootstrapVueVersion,
+        vue: vueVersion
+      }
+      return getCodeSandboxParameters({
+        files: {
+          'App.vue': { content: vueContent },
+          'index.html': { content: htmlContent },
+          'index.js': { content: jsContent },
+          'package.json': { content: { dependencies } }
+        }
+      })
     },
     fakeConsole() {
       const logger = this.log
@@ -323,6 +509,13 @@ export default {
       }
     }
   },
+  watch: {
+    layout(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.saveToStorage()
+      }
+    }
+  },
   created() {
     // Create some non reactive properties
     this.playVM = null
@@ -366,13 +559,13 @@ export default {
       this.run = debounce(this._run, 500)
       // Set up our editor content watcher
       this.contentUnWatch = this.$watch(
-        () => this.js.trim() + '::' + this.html.trim(),
+        () => `${this.js.trim()}::${this.html.trim()}`,
         (newVal, oldVal) => {
           this.run()
         }
       )
       // Load our content into the editors
-      this.$nextTick(this.load)
+      this.$nextTick(this.loadFromStorage)
     },
     destroyVM() {
       let vm = this.playVM
@@ -397,7 +590,7 @@ export default {
       const html = this.html.trim()
       let options = {}
 
-      // Disable the export to fiddle button
+      // Disable the export buttons
       this.isOk = false
 
       // Test and assign options JavaScript
@@ -440,8 +633,9 @@ export default {
         delete options.template
       }
 
-      // Vue's errorCapture doesn't always handle errors in methods, so we wrap any
-      // methods with a try/catch handler so we can show the error in our GUI console
+      // Vue's errorCapture doesn't always handle errors in methods,
+      // so we wrap any methods with a try/catch handler so we can
+      // show the error in our GUI console
       // Doesn't handle errors in async methods
       // See: https://github.com/vuejs/vue/issues/8568
       if (options.methods) {
@@ -469,7 +663,8 @@ export default {
         this.playVM = new Vue({
           ...options,
           el: holder,
-          // Router needed for tooltips/popovers so they hide when docs route changes
+          // Router needed for tooltips/popovers so they hide when
+          // docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
           // render errors (error boundary)
@@ -489,10 +684,10 @@ export default {
         return
       }
 
-      // We got this far, so save the JS/HTML changes to localStorage
-      // and enable export button
+      // We got this far, so save the JS/HTML changes to
+      // localStorage and enable export buttons
       this.isOk = true
-      this.save()
+      this.saveToStorage()
     },
     errHandler(err, info) {
       this.log('danger', `Error in ${info}: ${String(err)}`)
@@ -516,8 +711,8 @@ export default {
       this.full = !this.full
     },
     log(tag, ...args) {
-      // We have to ignore props mutation warning due to a Vue bug
-      // when we have two instances
+      // We have to ignore props mutation warning due to a
+      // Vue.js bug when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
@@ -527,7 +722,7 @@ export default {
         msg.indexOf('Error in render') !== -1 &&
         msg === this.messages[0][1]
       ) {
-        // prevent duplicate render error messages
+        // Prevent duplicate render error messages
         return
       }
       if (this.messages.length > 10) {
@@ -543,36 +738,51 @@ export default {
       // Needed to trick codemirror component to reload contents
       this.js = this.html = ''
       this.$nextTick(() => {
-        this.js = defaultJS.trim()
-        this.html = defaultHTML.trim()
-        this.save()
+        this.js = DEFAULT_JS.trim()
+        this.html = DEFAULT_HTML.trim()
+        this.saveToStorage()
       })
     },
-    load() {
-      const ls = window && window.localStorage
-      if (!ls) {
-        this.js = defaultJS.trim()
-        this.html = defaultHTML.trim()
+    clearStorage() {
+      if (!storage) {
         return
       }
-      const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
-      if (Date.now() - ts > maxRetention) {
-        // Clear local storage if it is old
-        ls.removeItem('playground_js')
-        ls.removeItem('playground_html')
-        ls.removeItem('playground_ts')
-      }
-      this.js = ls.getItem('playground_js') || defaultJS.trim()
-      this.html = ls.getItem('playground_html') || defaultHTML.trim()
+      Object.keys(STORAGE_KEYS).forEach(key => {
+        storage.removeItem(key)
+      })
     },
-    save() {
-      if (typeof window === 'undefined' || !window.localStorage) {
+    loadFromStorage() {
+      if (!storage) {
+        this.js = DEFAULT_JS.trim()
+        this.html = DEFAULT_HTML.trim()
+        return
+      }
+      const timestamp = parseInt(storage.getItem(STORAGE_KEYS.timestamp), 10) || 0
+      if (Date.now() - timestamp > STORAGE_MAX_RETENTION) {
+        this.clearStorage()
+      }
+      this.html = storage.getItem(STORAGE_KEYS.html) || DEFAULT_HTML.trim()
+      this.js = storage.getItem(STORAGE_KEYS.js) || DEFAULT_JS.trim()
+      const layout = storage.getItem(STORAGE_KEYS.layout) || 'horizontal'
+      if (layout === 'full') {
+        this.full = true
+      } else if (layout === 'vertical') {
+        this.vertical = true
+        this.full = false
+      } else if (layout === 'horizontal') {
+        this.vertical = false
+        this.full = false
+      }
+    },
+    saveToStorage() {
+      if (!storage) {
         return
       }
       try {
-        window.localStorage.setItem('playground_js', this.js)
-        window.localStorage.setItem('playground_html', this.html)
-        window.localStorage.setItem('playground_ts', String(Date.now()))
+        storage.setItem(STORAGE_KEYS.html, this.html)
+        storage.setItem(STORAGE_KEYS.js, this.js)
+        storage.setItem(STORAGE_KEYS.layout, this.layout)
+        storage.setItem(STORAGE_KEYS.timestamp, String(Date.now()))
       } catch (err) {
         // Silently ignore errors on safari iOS private mode
       }

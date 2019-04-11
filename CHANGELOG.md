@@ -13,11 +13,11 @@ Released 2019-04-08
 ### Bug Fixes v2.0.0-rc.18
 
 - **build:** enable babel option to interop default (fixes
-  [#3038](https://github.com/bootstrap-vue/bootstrap-vue/issues/3038)) 
+  [#3038](https://github.com/bootstrap-vue/bootstrap-vue/issues/3038))
   ([#3046](https://github.com/bootstrap-vue/bootstrap-vue/issues/3046)
   [4e981c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/4e981c2))
 - **typescript:** replaced invalid `mixed` keyword with `any` (fixes
-  [#3041](https://github.com/bootstrap-vue/bootstrap-vue/issues/3041)) 
+  [#3041](https://github.com/bootstrap-vue/bootstrap-vue/issues/3041))
   ([#3043](https://github.com/bootstrap-vue/bootstrap-vue/issues/3043)
   [36e8246](https://github.com/bootstrap-vue/bootstrap-vue/commit/36e8246))
 
@@ -98,9 +98,8 @@ Released 2019-04-07
 - **docs:** algolia powered search
   ([#2952](https://github.com/bootstrap-vue/bootstrap-vue/issues/2952))
   ([0417f7b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0417f7b))
-- **modal:** auto return focus to trigger element using previous document.activeElement if no
-  return focus element provided 
-  ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
+- **modal:** auto return focus to trigger element using previous document.activeElement if no return
+  focus element provided ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
   ([e5c0aa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/e5c0aa5))
 - **modal:** subclass `BvEvent` as `BvModalEvent` for modal specific properties
   ([#3024](https://github.com/bootstrap-vue/bootstrap-vue/issues/3024))
