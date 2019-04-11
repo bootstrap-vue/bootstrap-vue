@@ -1,24 +1,37 @@
+import { mergeData } from 'vue-functional-data-merge'
+
 export default {
+  name: 'BDAnchoredHeading',
+  functional: true,
   props: {
-    level: {
-      type: [Number, String],
-      default: 2
-    },
     id: {
       type: String,
       default: ''
+    },
+    level: {
+      type: [Number, String],
+      default: 2
     }
   },
-  render(h) {
+  render(h, { props, data, children }) {
     const $anchor = h(
       'b-link',
       {
         staticClass: 'anchorjs-link',
-        attrs: { to: { hash: `#${this.id}` }, 'aria-label': 'Anchor' }
+        attrs: { to: { hash: `#${props.id}` }, 'aria-label': 'Anchor' }
       },
       [h(false)]
     )
-    const $content = h('span', { staticClass: 'bd-content-title' }, [this.$slots.default, $anchor])
-    return h(`h${this.level}`, { attrs: { id: this.id, tabindex: '-1' } }, [$content])
+    const $content = h('span', { staticClass: 'bd-content-title' }, [children, $anchor])
+    return h(
+      `h${props.level}`,
+      mergeData(data, {
+        attrs: {
+          id: props.id,
+          tabindex: '-1'
+        }
+      }),
+      [$content]
+    )
   }
 }

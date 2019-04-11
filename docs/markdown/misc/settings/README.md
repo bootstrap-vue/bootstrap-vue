@@ -19,9 +19,9 @@ keyed by their <samp>PascalCase</samp> name with the props as <samp>camelCase</s
 Only properties defined in the default configuration can be overridden. Attempting to set a config
 property that is not defined in the default will generate a console warning.
 
-<pre class="hljs json text-monospace p-2">
+```json
 {{ defaultConfig }}
-</pre>
+```
 
 ### Setting new configuration values
 

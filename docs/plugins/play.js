@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
-import hljs from 'highlightjs'
+import hljs from 'highlight.js'
 import needsTranspiler from '../utils/needs-transpiler'
+
+// --- Constants ---
 
 const NAME_REGEX = /<!-- (.*)\.vue -->/
 const NAME_DEFINITION_REGEX = /<!-- .*\.vue -->/
@@ -13,6 +15,8 @@ const CLASS_NAMES = {
   live: 'live',
   error: 'error'
 }
+
+// --- Helper functions ---
 
 // Default "transpiler" function
 let compiler = code => code
@@ -30,7 +34,7 @@ const parseVueTemplate = text => {
     template = text
   }
 
-  // Try to evalue script
+  // Try to evaluate script
   if (script && script.includes('export default')) {
     try {
       const code = compiler(script.replace('export default', ';options = '))
@@ -104,7 +108,7 @@ const processExamples = (el, binding, vnode, oldVnode) => {
       return
     }
 
-    // Remove name defintion
+    // Remove name definition
     let text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
     pre.textContent = text
 
@@ -117,7 +121,7 @@ const processExamples = (el, binding, vnode, oldVnode) => {
     // Initial load
     let vm = createVM(name, pre, vnode)
 
-    // Ensure we destroy the VM when parent is destroued
+    // Ensure we destroy the VM when parent is destroyed
     vnode.context.$options['beforeDestroy'].push(() => destroyVM(name, vm))
 
     // Enable live edit on double click
@@ -128,7 +132,7 @@ const processExamples = (el, binding, vnode, oldVnode) => {
       pre.contentEditable = true
 
       pre.onblur = () => {
-        // Rehighlight
+        // Re-highlight
         hljs.highlightBlock(pre)
       }
 
