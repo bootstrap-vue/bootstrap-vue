@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
-import { requstAF } from '../../utils/dom'
+import { requestAF } from '../../utils/dom'
 
 export const props = linkPropsFactory()
 
