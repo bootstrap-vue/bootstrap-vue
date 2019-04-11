@@ -18,12 +18,14 @@ export const hasPassiveEventSupport = (() => {
         get passive() {
           // This function will be called when the browser
           // attempts to access the passive property.
+          /* istanbul ignore next: will never be called in JSDOM */
           passiveEventSupported = true
         }
       }
       window.addEventListener('test', options, options)
       window.removeEventListener('test', options, options)
     } catch (err) {
+      /* istanbul ignore next: will never be called in JSDOM */
       passiveEventSupported = false
     }
   }
