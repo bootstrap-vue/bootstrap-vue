@@ -258,7 +258,7 @@ describe('link', () => {
       localVue.use(VueRouter)
 
       const router = new VueRouter({
-        mode: abstract,
+        mode: 'abstract',
         routes: [
           { path: '/', component: { name: 'R', template: '<div class="r">ROOT</div>' } },
           { path: '/a', component: { name: 'A', template: '<div class="a">A</div>' } },
@@ -266,10 +266,10 @@ describe('link', () => {
         ]
       })
 
-      const App = new localVue({
+      const App = localVue.extend({
         router,
         components: { BLink },
-        render (h) {
+        render(h) {
           return h('main', {}, [
             h('b-link', { props: { to: '/a' } }, ['to-a']),
             h('b-link', { props: { href: '/a' } }, ['href-a']),
@@ -292,10 +292,10 @@ describe('link', () => {
 
       const $links = wrapper.findAll('a')
 
-      expect ($links.at(0).isVueInstance()).toBe(true)
-      expect ($links.at(1).isVueInstance()).toBe(false)
-      expect ($links.at(2).isVueInstance()).toBe(true)
-      expect ($links.at(3).isVueInstance()).toBe(false)
+      expect($links.at(0).isVueInstance()).toBe(true)
+      expect($links.at(1).isVueInstance()).toBe(false)
+      expect($links.at(2).isVueInstance()).toBe(true)
+      expect($links.at(3).isVueInstance()).toBe(false)
 
       // TODO: more tests here to verify router-links vs a tags
 
