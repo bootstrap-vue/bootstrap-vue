@@ -176,7 +176,7 @@ export default Vue.extend({
       ]
     )
     const menu = h(
-      'div',
+      'ul',
       {
         ref: 'menu',
         class: this.menuClasses,

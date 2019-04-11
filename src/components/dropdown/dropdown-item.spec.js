@@ -4,16 +4,22 @@ import { mount } from '@vue/test-utils'
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
     const wrapper = mount(BDropdownItem)
-    expect(wrapper.is('a')).toBe(true)
-    expect(wrapper.attributes('href')).toBe('#')
+    expect(wrapper.is('li')).toBe(true)
+
+    const item = wrapper.find('a')
+    expect(item.is('a')).toBe(true)
+    expect(item.attributes('href')).toBe('#')
 
     wrapper.destroy()
   })
 
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(BDropdownItem)
-    expect(wrapper.classes()).toContain('dropdown-item')
-    expect(wrapper.attributes('href')).toBe('#')
+    expect(wrapper.is('li')).toBe(true)
+
+    const item = wrapper.find('a')
+    expect(item.classes()).toContain('dropdown-item')
+    expect(item.attributes('href')).toBe('#')
 
     wrapper.destroy()
   })
@@ -31,9 +37,11 @@ describe('dropdown-item', () => {
         }
       }
     })
-    const link = wrapper.find('a')
-    expect(link).toBeDefined()
-    link.trigger('click')
+    expect(wrapper.is('li')).toBe(true)
+
+    const item = wrapper.find('a')
+    expect(item).toBeDefined()
+    item.trigger('click')
     await wrapper.vm.$nextTick()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
@@ -45,6 +53,7 @@ describe('dropdown-item', () => {
     let called = false
     let refocus = null
     const wrapper = mount(BDropdownItem, {
+      propsData: { disabled: true },
       provide: {
         bvDropdown: {
           hide(arg) {
@@ -52,12 +61,13 @@ describe('dropdown-item', () => {
             refocus = arg
           }
         }
-      },
-      propsData: { disabled: true }
+      }
     })
-    const link = wrapper.find('a')
-    expect(link).toBeDefined()
-    link.trigger('click')
+    expect(wrapper.is('li')).toBe(true)
+
+    const item = wrapper.find('a')
+    expect(item).toBeDefined()
+    item.trigger('click')
     await wrapper.vm.$nextTick()
     expect(called).toBe(false)
     expect(refocus).toBe(null)

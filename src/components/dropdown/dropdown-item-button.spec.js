@@ -4,16 +4,22 @@ import { mount } from '@vue/test-utils'
 describe('dropdown-item-button', () => {
   it('renders with tag "button" and type="button" by default', async () => {
     const wrapper = mount(BDropdownItemButton)
-    expect(wrapper.is('button')).toBe(true)
-    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button.is('button')).toBe(true)
+    expect(button.attributes('type')).toBe('button')
 
     wrapper.destroy()
   })
 
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(BDropdownItemButton)
-    expect(wrapper.classes()).toContain('dropdown-item')
-    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button.classes()).toContain('dropdown-item')
+    expect(button.classes()).not.toContain('active')
 
     wrapper.destroy()
   })
@@ -22,8 +28,11 @@ describe('dropdown-item-button', () => {
     const wrapper = mount(BDropdownItemButton, {
       propsData: { active: true }
     })
-    expect(wrapper.classes()).toContain('active')
-    expect(wrapper.classes()).toContain('dropdown-item')
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button.classes()).toContain('active')
+    expect(button.classes()).toContain('dropdown-item')
 
     wrapper.destroy()
   })
@@ -32,7 +41,10 @@ describe('dropdown-item-button', () => {
     const wrapper = mount(BDropdownItemButton, {
       propsData: { disabled: true }
     })
-    expect(wrapper.attributes('disabled')).toBeDefined()
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button.attributes('disabled')).toBeDefined()
 
     wrapper.destroy()
   })
@@ -50,9 +62,11 @@ describe('dropdown-item-button', () => {
         }
       }
     })
-    const btn = wrapper.find('button')
-    expect(btn).toBeDefined()
-    btn.trigger('click')
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button).toBeDefined()
+    button.trigger('click')
     await wrapper.vm.$nextTick()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
@@ -64,6 +78,9 @@ describe('dropdown-item-button', () => {
     let called = false
     let refocus = null
     const wrapper = mount(BDropdownItemButton, {
+      propsData: {
+        disabled: true
+      },
       provide: {
         bvDropdown: {
           hide(arg) {
@@ -71,12 +88,13 @@ describe('dropdown-item-button', () => {
             refocus = arg
           }
         }
-      },
-      propsData: { disabled: true }
+      }
     })
-    const btn = wrapper.find('button')
-    expect(btn).toBeDefined()
-    btn.trigger('click')
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button).toBeDefined()
+    button.trigger('click')
     await wrapper.vm.$nextTick()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
