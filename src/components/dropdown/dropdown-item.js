@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
+import { requstAF } from '../../utils/dom'
 
 export const props = linkPropsFactory()
 
@@ -14,9 +15,12 @@ export default Vue.extend({
   props,
   methods: {
     closeDropdown() {
-      if (this.bvDropdown) {
-        this.bvDropdown.hide(true)
-      }
+      // Close on next animation frame to allow BLink time to process
+      requestAF(() => {
+        if (this.bvDropdown) {
+          this.bvDropdown.hide(true)
+        }
+      })
     },
     onClick(evt) {
       this.$emit('click', evt)
