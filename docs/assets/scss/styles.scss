@@ -149,6 +149,11 @@ pre.editable.error:after {
 .bv-docs-table {
   font-size: 90%;
 
+  th,
+  td {
+    padding: 0.5rem;
+  }
+
   thead > tr > th {
     min-width: 80px;
   }
@@ -162,6 +167,13 @@ pre.editable.error:after {
 table#table-transition-example {
   .flip-list-move {
     transition: transform 1s;
+  }
+}
+
+.card {
+  .CodeMirror {
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
   }
 }
 
