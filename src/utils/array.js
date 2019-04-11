@@ -1,9 +1,9 @@
-import formPolyfill from 'core-js/library/fn/array/from'
+import fromPolyfill from 'core-js/library/fn/array/from'
 import isArrayPolyfill from 'core-js/library/fn/array/is-array'
 
 // --- Static ---
 
-export const from = Array.from || formPolyfill
+export const from = Array.from || fromPolyfill
 export const isArray = Array.isArray || isArrayPolyfill
 
 // --- Instance ---
