@@ -393,9 +393,15 @@ Add a header to label sections of actions in any dropdown menu.
 ```html
 <div>
   <b-dropdown id="dropdown-header" text="Dropdown with header" class="m-2">
-    <b-dropdown-header>Dropdown header</b-dropdown-header>
-    <b-dropdown-item-button>First item</b-dropdown-item-button>
-    <b-dropdown-item-button>Second Item</b-dropdown-item-button>
+    <b-dropdown-header id="dropdown-header-label">
+      Dropdown header
+    </b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      First item
+    </b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      Second Item
+    </b-dropdown-item-button>
   </b-dropdown>
 </div>
 
@@ -447,7 +453,7 @@ regular form.
   <div>
     <b-dropdown id="dropdown-form" text="Dropdown with form" ref="dropdown" class="m-2">
       <b-dropdown-form>
-        <b-form-group label="Email" label-for="dropdown-form-email">
+        <b-form-group label="Email" label-for="dropdown-form-email" @submit.prevent>
           <b-form-input
             id="dropdown-form-email"
             size="sm"
@@ -536,28 +542,27 @@ as a link to the user).
 
 When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an `id`
 attribute to each of the headers, and then set the `aria-describedby` attribute (set to the `id`
-value of the associated header) on each following dropdown items under that header. To improve on
-this, wrap the header and related menu items in a `<div>` with `role="group"`. This will provide
+value of the associated header) on each following dropdown items under that header. This will provide
 users of assistive technologies (i.e. sight-impaired users) additional context about the dropdown
 item:
 
 ```html
 <div>
   <b-dropdown id="dropdown-aria" text="Dropdown ARIA" variant="primary" class="m-2">
-    <div role="group" aria-labelledby="dropdown-header-1">
-      <b-dropdown-header id="dropdown-header-1">Groups</b-dropdown-header>
-      <b-dropdown-item-button aria-describedby="dropdown-header-1">Add</b-dropdown-item-button>
-      <b-dropdown-item-button aria-describedby="dropdown-header-1">Delete</b-dropdown-item-button>
-    </div>
-    <div role="group" aria-labelledby="dropdown-header-2">
-      <b-dropdown-header id="dropdown-header-2">Users</b-dropdown-header>
-      <b-dropdown-item-button aria-describedby="dropdown-header-2">Add</b-dropdown-item-button>
-      <b-dropdown-item-button aria-describedby="dropdown-header-2">Delete</b-dropdown-item-button>
-    </div>
+    <b-dropdown-header id="dropdown-header-1">Groups</b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-1">Add</b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-1">Delete</b-dropdown-item-button>
+
+    <b-dropdown-header id="dropdown-header-2">Users</b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-2">Add</b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-2">Delete</b-dropdown-item-button>
+
     <b-dropdown-divider></b-dropdown-divider>
+
     <b-dropdown-item-button>
-      Something <strong>not</strong> associated with user
+      Something <strong>not</strong> associated with Users
     </b-dropdown-item-button>
+
   </b-dropdown>
 </div>
 
