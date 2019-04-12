@@ -36,15 +36,22 @@ export default Vue.extend({
     }
   },
   render(h) {
-    return h(
-      'button',
-      {
-        staticClass: 'dropdown-item',
-        class: { [this.activeClass]: this.active },
-        attrs: { role: 'menuitem', type: 'button', disabled: this.disabled },
-        on: { click: this.onClick }
-      },
-      this.$slots.default
-    )
+    return h('li', [
+      h(
+        'button',
+        {
+          staticClass: 'dropdown-item',
+          class: { [this.activeClass]: this.active },
+          attrs: {
+            role: 'menuitem',
+            type: 'button',
+            disabled: this.disabled
+          },
+          on: { click: this.onClick },
+          ref: 'button'
+        },
+        this.$slots.default
+      )
+    ])
   }
 })

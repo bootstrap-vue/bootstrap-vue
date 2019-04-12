@@ -24,15 +24,18 @@ export default Vue.extend({
     }
   },
   render(h) {
-    return h(
-      BLink,
-      {
-        props: this.$props,
-        staticClass: 'dropdown-item',
-        attrs: { role: 'menuitem' },
-        on: { click: this.onClick }
-      },
-      this.$slots.default
-    )
+    return h('li', [
+      h(
+        BLink,
+        {
+          props: this.$props,
+          staticClass: 'dropdown-item',
+          attrs: { role: 'menuitem' },
+          on: { click: this.onClick },
+          ref: 'item'
+        },
+        this.$slots.default
+      )
+    ])
   }
 })
