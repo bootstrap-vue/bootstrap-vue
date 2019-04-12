@@ -1,32 +1,36 @@
 import Vue from 'vue'
+import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import { pick } from '../../utils/object'
 import { htmlOrText } from '../../utils/html'
+
+// -- Constants --
+
+export const props = {
+  ...pick(BDropdownProps, ['menuClass', 'toggleClass', 'noCaret', 'role']),
+  extraMenuClasses: {
+    type: String,
+    default: '',
+    // `deprecated` -> Don't use this prop
+    // `deprecation` -> Refers to a change in prop usage
+    deprecated: 'Setting prop "extra-menu-classes" is deprecated. Use "menu-class" prop instead.'
+  },
+  extraToggleClasses: {
+    type: String,
+    default: '',
+    // `deprecated` -> Don't use this prop
+    // `deprecation` -> Refers to a change in prop usage
+    deprecated:
+      'Setting prop "extra-toggle-classes" is deprecated. Use "toggle-class" prop instead.'
+  }
+}
 
 // @vue/component
 export default Vue.extend({
   name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin],
-  props: {
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    extraToggleClasses: {
-      // Extra Toggle classes
-      type: String,
-      default: ''
-    },
-    extraMenuClasses: {
-      // Extra Menu classes
-      type: String,
-      default: ''
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    }
-  },
+  props,
   computed: {
     isNav() {
       // Signal to dropdown mixin that we are in a navbar
@@ -37,24 +41,32 @@ export default Vue.extend({
         'nav-item',
         'b-nav-dropdown',
         'dropdown',
-        this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : ''
-      ]
-    },
-    toggleClasses() {
-      return [
-        'nav-link',
-        this.noCaret ? '' : 'dropdown-toggle',
-        this.disabled ? 'disabled' : '',
-        this.extraToggleClasses ? this.extraToggleClasses : ''
+        this.directionClass,
+        {
+          show: this.visible
+        }
       ]
     },
     menuClasses() {
       return [
         'dropdown-menu',
-        this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
-        this.visible ? 'show' : '',
-        this.extraMenuClasses ? this.extraMenuClasses : ''
+        {
+          'dropdown-menu-right': this.right,
+          show: this.visible
+        },
+        this.extraMenuClasses, // Deprecated
+        this.menuClass
+      ]
+    },
+    toggleClasses() {
+      return [
+        'nav-link',
+        'dropdown-toggle',
+        {
+          'dropdown-toggle-no-caret': this.noCaret
+        },
+        this.extraToggleClasses, // Deprecated
+        this.toggleClass
       ]
     }
   },
@@ -69,7 +81,7 @@ export default Vue.extend({
           id: this.safeId('_BV_button_'),
           disabled: this.disabled,
           'aria-haspopup': 'true',
-          'aria-expanded': this.visible ? 'true' : 'false'
+          'aria-expanded': String(this.visible)
         },
         on: {
           click: this.toggle,
@@ -83,7 +95,7 @@ export default Vue.extend({
       ]
     )
     const menu = h(
-      'div',
+      'ul',
       {
         class: this.menuClasses,
         ref: 'menu',

@@ -77,20 +77,11 @@ export default Vue.extend({
       // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
       const positionStatic = this.boundary !== 'scrollParent' || !this.boundary
 
-      let direction = ''
-      if (this.dropup) {
-        direction = 'dropup'
-      } else if (this.dropright) {
-        direction = 'dropright'
-      } else if (this.dropleft) {
-        direction = 'dropleft'
-      }
-
       return [
         'btn-group',
         'b-dropdown',
         'dropdown',
-        direction,
+        this.directionClass,
         {
           show: this.visible,
           'position-static': positionStatic
