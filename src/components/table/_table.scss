@@ -17,18 +17,6 @@
     border-top: none !important;
   }
 
-  // Busy/empty row styling
-  > tbody > tr {
-    // Dont' make empty row hoverable
-    &.b-table-busy-slot,
-    &.b-table-empty-row {
-      &:hover {
-        color: inherit;
-        background-color: inherit;
-      }
-    }
-  }
-
   // Caption positioning
   > caption {
     caption-side: bottom;
