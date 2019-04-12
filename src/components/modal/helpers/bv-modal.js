@@ -107,7 +107,8 @@ const makeMsgBox = (props, $parent) => {
       // Props that can't be overridden
       lazy: false,
       visible: false,
-      noStacking: false
+      noStacking: false,
+      noEnforceFocus: false
     }
   })
   // Add in our slots
