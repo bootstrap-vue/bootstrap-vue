@@ -82,14 +82,8 @@ export const isPlainObject = obj => Object.prototype.toString.call(obj) === '[ob
 
 // @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
 export const omit = (obj, props) =>
-  Object.keys(obj)
+  keys(obj)
     .filter(key => props.indexOf(key) === -1)
-    .reduce((result, key) => ({ ...result, [key]: obj[key] }), {})
-
-// @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
-export const pick = (obj, props) =>
-  Object.keys(obj)
-    .filter(key => props.indexOf(key) !== -1)
     .reduce((result, key) => ({ ...result, [key]: obj[key] }), {})
 
 export const readonlyDescriptor = () => ({ enumerable: true, configurable: false, writable: false })

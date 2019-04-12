@@ -2,13 +2,13 @@ import Vue from 'vue'
 import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import { pick } from '../../utils/object'
+import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
 
 // -- Constants --
 
 export const props = {
-  ...pick(BDropdownProps, ['menuClass', 'toggleClass', 'noCaret', 'role']),
+  ...pluckProps(['menuClass', 'toggleClass', 'noCaret', 'role'], BDropdownProps),
   extraMenuClasses: {
     type: String,
     default: '',
