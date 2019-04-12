@@ -48,10 +48,6 @@
     "es"
   ],
   "sideEffects": [
-    "./es/utils/object.js",
-    "./src/utils/object.js",
-    "./es/utils/array.js",
-    "./src/utils/array.js",
     "**/*.scss",
     "**/*.css",
     "**/*.vue",
