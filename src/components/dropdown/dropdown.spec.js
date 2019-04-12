@@ -2,6 +2,8 @@ import BDropdown from './dropdown'
 import BDropdownItem from './dropdown-item'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
+const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+
 describe('dropdown', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
@@ -368,7 +370,7 @@ describe('dropdown', () => {
     // Open menu by clicking toggle
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
@@ -379,14 +381,14 @@ describe('dropdown', () => {
     // Close menu by clicking toggle again
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
     // Open menu again
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
     expect($dropdown.classes()).toContain('show')
@@ -394,28 +396,28 @@ describe('dropdown', () => {
     // Close by clicking dropdown-item
     $item.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
     // Open menu via .show() method
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
 
     // Close menu via .hide() method
     $dropdown.vm.hide()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
     expect(document.activeElement).toBe($menu.element)
@@ -424,14 +426,14 @@ describe('dropdown', () => {
     const focusInEvt = new FocusEvent('focusin')
     document.dispatchEvent(focusInEvt)
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via keydown.down event on toggle button
     $toggle.trigger('keydown.down')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
@@ -440,28 +442,28 @@ describe('dropdown', () => {
     const clickEvt = new MouseEvent('click')
     document.dispatchEvent(clickEvt)
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Close menu by keydown.esc event on dropdown item
     $item.trigger('keydown.esc')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via .show() method again
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
@@ -470,14 +472,14 @@ describe('dropdown', () => {
       disabled: true
     })
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // When disabled, show() wont open menu
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
@@ -486,17 +488,17 @@ describe('dropdown', () => {
       disabled: false
     })
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     $dropdown.vm.show()
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Should close on root emit when argument is not self
     wrapper.vm.$root.$emit('bv::dropdown::shown', {})
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
@@ -519,7 +521,7 @@ describe('dropdown', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.emitted('show')).not.toBeDefined()
 
@@ -537,7 +539,7 @@ describe('dropdown', () => {
     // Should prevent menu from opening
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
@@ -551,7 +553,7 @@ describe('dropdown', () => {
     prevent = false
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(2)
@@ -580,7 +582,7 @@ describe('dropdown', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.emitted('toggle')).not.toBeDefined()
 
@@ -600,7 +602,7 @@ describe('dropdown', () => {
     // Should prevent menu from opening
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.emitted('toggle')).toBeDefined()
     expect(wrapper.emitted('toggle').length).toBe(1)
@@ -615,7 +617,7 @@ describe('dropdown', () => {
     prevent = false
     $toggle.trigger('click')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.emitted('toggle')).toBeDefined()
     expect(wrapper.emitted('toggle').length).toBe(2)
@@ -650,7 +652,7 @@ describe('dropdown', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
 
     expect(wrapper.findAll('.dropdown').length).toBe(1)
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
@@ -668,50 +670,50 @@ describe('dropdown', () => {
     // Trigger keydown.down on toggle to open menu
     $toggle.trigger('keydown.down')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
     // Move to first menu item
     $menu.trigger('keydown.down')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(0).element)
 
     // Move to second menu item
     $items.at(0).trigger('keydown.down')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(1).element)
 
     // Move down to next menu item (should skip disabled item)
     $items.at(1).trigger('keydown.down')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(3).element)
 
     // Move down to next menu item (should remain on same item)
     $items.at(3).trigger('keydown.down')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(3).element)
 
     // Move up to previous menu item (should skip disabled item)
     $items.at(3).trigger('keydown.up')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(1).element)
 
     // Move up to previous menu item
     $items.at(1).trigger('keydown.up')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(0).element)
 
     // Move up to previous menu item (should remain on first item)
     $items.at(0).trigger('keydown.up')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitAF()
     expect(document.activeElement).toBe($items.at(0).element)
 
     wrapper.destroy()
