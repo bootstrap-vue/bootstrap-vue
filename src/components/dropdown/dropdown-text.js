@@ -11,6 +11,16 @@ export default Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    return h(props.tag, mergeData(data, { props, staticClass: 'b-dropdown-text' }), children)
+    return h('li', [
+      h(
+        props.tag,
+        mergeData(data, {
+          staticClass: 'b-dropdown-text',
+          props,
+          ref: 'text'
+        }),
+        children
+      )
+    ])
   }
 })
