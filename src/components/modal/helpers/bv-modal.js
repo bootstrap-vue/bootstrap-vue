@@ -7,6 +7,7 @@ import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { assign, defineProperty, defineProperties } from '../../../utils/object'
+import { concat } from '../../../utils/array'
 
 /* istanbul ignore file: for now, until tests are created */
 
@@ -83,26 +84,12 @@ const filterOptions = options => {
   }, {})
 }
 
-// Create a private sub-component that wraps BModal
-// that self-destructs after hidden.
+// Create a private sub-component that extends BModal
+// which self-destructs after hidden.
 // @vue/component
 const MsgBox = Vue.extend({
   name: 'BMsgBox',
-  props: {
-    // Has all the b-modal props
-    ...modalProps,
-    // Plus we add a new prop for the content.
-    content: {
-      // type: [String, VNode, Array],
-      default: ''
-    }
-  },
-  beforeMount() {
-    // Make sure we are in document before mount
-    if (this.$el && document && document.body) {
-      document.body.appendChild(this.$el)
-    }
-  },
+  extends: BModal,
   destroyed() {
     // Make sure we not in document any more
     if (this.$el && this.$el.parentNode) {
@@ -110,6 +97,7 @@ const MsgBox = Vue.extend({
     }
   },
   mounted() {
+    // Self destruct handler
     const handleDestroy = () => {
       const self = this
       this.$nextTick(() => {
@@ -120,40 +108,26 @@ const MsgBox = Vue.extend({
     // Self destruct if parent destroyed
     this.$parent.$once('hook:destroyed', handleDestroy)
     // Self destruct after hidden
-    this.$refs.modal.$once('hidden', handleDestroy)
-    // TODO:
-    //    Add in route watcher to destroy modal on route change
-    //    But may need to add in an option to reject promise
-    // Show the modal message box once mounted,
-    // as these modals are created on demand
-    this.$refs.modal.show()
-  },
-  render(h) {
-    return h(
-      BModal,
-      {
-        ref: 'modal',
-        props: this.$props,
-        on: {
-          show: (...args) => this.$emit('show', ...args),
-          shown: (...args) => this.$emit('shown', ...args),
-          hide: (...args) => this.$emit('hide', ...args),
-          hidden: (...args) => this.$emit('hidden', ...args)
-        }
-      },
-      [this.content]
-    )
+    this.$once('hidden', handleDestroy)
+    // Self destruct on route change
+    if (this.$router && this.$route) {
+      const unwatch = this.$watch('$router', handleDestroy)
+      this.$once('hook:beforeDestroy', unwatch)
+    }
+    this.show()
   }
 })
+
+const isFunction = fn => typeof fn === 'function'
+
+const scopify(content) => isFunction(content) ? content : (scope => concat(content))
 
 // Method to generate the on-demand modal message box
 const makeMsgBox = (props, $parent) => {
   const msgBox = new MsgBox({
-    // Create a fresh DIV to attach the modal to
-    el: document.createElement('div'),
     // We set parent as the local VM so these modals can emit events
     // on the app $root, as needed by things like tooltips and dropdowns.
-    // And it ensures this component gets destroyed when parent does
+    // And it helps to ensure MsgBox is destroyed when parent destroyed.
     parent: $parent,
     // Preset the prop values
     propsData: {
@@ -167,9 +141,30 @@ const makeMsgBox = (props, $parent) => {
       hideHeader: !props.title,
       noStacking: false,
       // Add in (filtered) user supplied props
-      ...props
+      ...props,
+      // Props that can't be overridden
+      lazy: false,
+      visible: false
     }
   })
+  // Add in our slots
+  if (props.content) {
+    msgBox.$scopedSlots.default = scopify(props.content)
+  }
+  if (props.title) {
+    msgBox.$scopedSlots.['modal-title'] = scopify(props.title)
+  }
+  if (prop.okTitle) {
+    msgBox.$scopedSlots.['modal-ok'] = scopify(props.okTitle)
+  }
+  if (props.cancelTitle) {
+    msgBox.$scopedSlots.['modal-cancel'] = scopify(props.cancelTitle)
+  }
+  // Create a mount point
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  // Mount the MsgBox, which will trigger it to show
+  msgBox.$mount(div)
   return msgBox
 }
 
@@ -193,7 +188,7 @@ class BvModal {
   // Show modal with the specified ID
   // args are for future use
   show(id, ...args) {
-    if (id) {
+    if (id && this._root) {
       this._root.$emit('bv::show::modal', id, ...args)
     }
   }
@@ -201,7 +196,7 @@ class BvModal {
   // Hide modal with the specified ID
   // args are for future use
   hide(id, ...args) {
-    if (id) {
+    if (id && this._root) {
       this._root.$emit('bv::hide::modal', id, ...args)
     }
   }
@@ -215,7 +210,7 @@ class BvModal {
 
   // The following methods require Promise Support!
   // IE 11 and others do not support Promise natively, so users
-  // should have a Polyfill loaded.
+  // should have a Polyfill loaded (which they need anyways)
 
   // Open a message box with OK button only
   msgBoxOk(message, options = {}) {
