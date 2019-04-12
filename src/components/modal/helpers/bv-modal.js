@@ -13,9 +13,9 @@ import { assign, defineProperty, defineProperties } from '../../../utils/object'
 // Utility methods that produce warns
 const noPromises = method => {
   /* istanbul ignore if */
-  if (!hasPromise) {
+  if (!hasPromiseSupport) {
     method = method ? `.${method}` : ''
-    warn(`$bvModal${method}: requires promise support`)
+    warn(`$bvModal${method}: requires Promise support`)
     return true
   } else {
     return false
