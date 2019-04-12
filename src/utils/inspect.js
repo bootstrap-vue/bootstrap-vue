@@ -2,9 +2,9 @@
 import { isObject, isPlainObject } from './object'
 import { isArray } from './array'
 
-export const toType = val => (typeof val)
+export const toType = val => typeof val
 
-export const toRawType = val => Object.prototype.toString.call(value).slice(8, -1)
+export const toRawType = val => Object.prototype.toString.call(val).slice(8, -1)
 
 export const toRawTypeLC = val => toRawType(val).toLowerCase()
 
@@ -29,8 +29,4 @@ export const isRegExp = val => toRawType(val) === 'RegExp'
 export const isPromise = val => isDef(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
-export {
-  isObject,
-  isPlainObject,
-  isArray
-}
+export { isObject, isPlainObject, isArray }
