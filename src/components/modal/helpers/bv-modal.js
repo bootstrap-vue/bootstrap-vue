@@ -6,7 +6,7 @@ import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
-import { assign, heys, omit, defineProperty, defineProperties } from '../../../utils/object'
+import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { concat } from '../../../utils/array'
 import { isDef, isFunction } from '../../utils/inspect'
 
