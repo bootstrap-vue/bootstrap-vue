@@ -297,7 +297,8 @@ describe('link', () => {
       expect($links.at(2).isVueInstance()).toBe(true)
       expect($links.at(3).isVueInstance()).toBe(false)
 
-      // TODO: more tests here to verify router-links vs a tags
+      expect($links.at(0).vm.$options.name).toBe('RouterLink')
+      expect($links.at(2).vm.$options.name).toBe('RouterLink')
 
       wrapper.destroy()
     })
