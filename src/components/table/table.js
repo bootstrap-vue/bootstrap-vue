@@ -118,7 +118,7 @@ export default Vue.extend({
       return [
         {
           'table-striped': this.striped,
-          'table-hover': this.hover,
+          'table-hover': this.hover && this.computedItems.length > 0 && !this.computedBusy,
           'table-dark': this.dark,
           'table-bordered': this.bordered,
           'table-borderless': this.borderless,
