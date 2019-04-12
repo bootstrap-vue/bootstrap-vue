@@ -5,7 +5,7 @@ import Vue from 'vue'
 import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
-import { isBrowser, hasPromiseSupport } from '../../../utils/env'
+import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { assign, defineProperty, defineProperties } from '../../../utils/object'
 
 /* istanbul ignore file: for now, until tests are created */
