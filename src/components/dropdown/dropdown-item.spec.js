@@ -1,5 +1,6 @@
 import BDropdownItem from './dropdown-item'
-import { mount } from '@vue/test-utils'
+import VueRouter from 'vue-router'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
