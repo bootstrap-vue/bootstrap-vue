@@ -107,6 +107,16 @@ export default {
     toggler() {
       const toggle = this.$refs.toggle
       return toggle ? toggle.$el || toggle : null
+    },
+    directionClass() {
+      if (this.dropup) {
+        return 'dropup'
+      } else if (this.dropright) {
+        return 'dropright'
+      } else if (this.dropleft) {
+        return 'dropleft'
+      }
+      return ''
     }
   },
   watch: {

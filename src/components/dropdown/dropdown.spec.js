@@ -73,7 +73,7 @@ describe('dropdown', () => {
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
-    expect($menu.is('div')).toBe(true)
+    expect($menu.is('ul')).toBe(true)
     expect($menu.classes().length).toBe(1)
     expect($menu.attributes('role')).toBeDefined()
     expect($menu.attributes('role')).toEqual('menu')
@@ -135,7 +135,7 @@ describe('dropdown', () => {
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
-    expect($menu.is('div')).toBe(true)
+    expect($menu.is('ul')).toBe(true)
     expect($menu.classes().length).toBe(1)
     expect($menu.attributes('role')).toBeDefined()
     expect($menu.attributes('role')).toEqual('menu')
