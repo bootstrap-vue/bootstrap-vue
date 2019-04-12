@@ -151,13 +151,13 @@ const makeMsgBox = (props, $parent) => {
     msgBox.$scopedSlots.default = scopify(props.content)
   }
   if (props.title) {
-    msgBox.$scopedSlots.['modal-title'] = scopify(props.title)
+    msgBox.$scopedSlots['modal-title'] = scopify(props.title)
   }
   if (prop.okTitle) {
-    msgBox.$scopedSlots.['modal-ok'] = scopify(props.okTitle)
+    msgBox.$scopedSlots['modal-ok'] = scopify(props.okTitle)
   }
   if (props.cancelTitle) {
-    msgBox.$scopedSlots.['modal-cancel'] = scopify(props.cancelTitle)
+    msgBox.$scopedSlots['modal-cancel'] = scopify(props.cancelTitle)
   }
   // Create a mount point
   const div = document.createElement('div')
