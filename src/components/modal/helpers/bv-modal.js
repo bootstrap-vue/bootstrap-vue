@@ -119,7 +119,7 @@ const MsgBox = Vue.extend({
   }
 })
 
-const scopify(content) => isFunction(content) ? content : (scope => concat(content))
+const scopify = content => isFunction(content) ? content : (scope => concat(content))
 
 // Method to generate the on-demand modal message box
 const makeMsgBox = (props, $parent) => {
