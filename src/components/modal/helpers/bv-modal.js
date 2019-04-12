@@ -8,6 +8,7 @@ import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { assign, defineProperty, defineProperties } from '../../../utils/object'
 import { concat } from '../../../utils/array'
+import { isDef, isFunction } from '../../utils/inspect'
 
 /* istanbul ignore file: for now, until tests are created */
 
@@ -77,7 +78,7 @@ const BASE_PROPS = [
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
   return BASE_PROPS.reduce((memo, key) => {
-    if (options[key] !== undefined) {
+    if (isDef(options[key])) {
       memo[key] = options[key]
     }
     return memo
@@ -117,8 +118,6 @@ const MsgBox = Vue.extend({
     this.show()
   }
 })
-
-const isFunction = fn => typeof fn === 'function'
 
 const scopify(content) => isFunction(content) ? content : (scope => concat(content))
 
