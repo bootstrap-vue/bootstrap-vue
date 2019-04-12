@@ -6,7 +6,7 @@ import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
-import { assign, defineProperty, defineProperties } from '../../../utils/object'
+import { assign, heys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { concat } from '../../../utils/array'
 import { isDef, isFunction } from '../../utils/inspect'
 
@@ -36,44 +36,8 @@ const notClient = method => {
 }
 
 // Base Modal Props that are allowed
-// (some may be ignored on some message boxes)
-// TODO: This could be BModal props, run through
-//       omit and reduced to an array of keys
-const BASE_PROPS = [
-  'id',
-  'title',
-  'titleTag',
-  'okTitle',
-  'okVariant',
-  'cancelTitle',
-  'cancelVariant',
-  'size',
-  'buttonSize',
-  'centered',
-  'scrollable',
-  'noCloseOnBackdrop',
-  'noCloseOnEsc',
-  'noFade',
-  'hideBackdrop',
-  'modalClass',
-  'headerClass',
-  'headerBgVariant',
-  'headerBgVariant',
-  'headerBorderVariant',
-  'headerTextVariant',
-  'bodyClass',
-  'bodyBgVariant',
-  'bodyBgVariant',
-  'bodyBorderVariant',
-  'bodyTextVariant',
-  'footerClass',
-  'footerBgVariant',
-  'footerBorderVariant',
-  'footerTextVariant',
-  // Return Focus is not really needed as the modal will
-  // return focus to the previously active element.
-  'returnFocus'
-]
+// (some may be ignored or overridden on some message boxes)
+const BASE_PROPS = keys(omit(modalProps, ['lazy', 'busy', 'noStacking', 'visible']))
 
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
@@ -119,7 +83,7 @@ const MsgBox = Vue.extend({
   }
 })
 
-const scopify = content => isFunction(content) ? content : (scope => concat(content))
+const scopify = content => (isFunction(content) ? content : scope => concat(content))
 
 // Method to generate the on-demand modal message box
 const makeMsgBox = (props, $parent) => {
@@ -137,13 +101,13 @@ const makeMsgBox = (props, $parent) => {
       ...filterOptions(getComponentConfig('BModal') || {}),
       // Defaults that user can override
       hideHeaderClose: true,
-      hideHeader: !props.title,
-      noStacking: false,
+      hideHeader: !(props.title && props.titleHtml),
       // Add in (filtered) user supplied props
       ...props,
       // Props that can't be overridden
       lazy: false,
-      visible: false
+      visible: false,
+      noStacking: false
     }
   })
   // Add in our slots
@@ -153,7 +117,7 @@ const makeMsgBox = (props, $parent) => {
   if (props.title) {
     msgBox.$scopedSlots['modal-title'] = scopify(props.title)
   }
-  if (prop.okTitle) {
+  if (props.okTitle) {
     msgBox.$scopedSlots['modal-ok'] = scopify(props.okTitle)
   }
   if (props.cancelTitle) {
