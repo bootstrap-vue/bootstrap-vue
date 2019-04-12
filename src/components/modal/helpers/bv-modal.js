@@ -86,7 +86,7 @@ const MsgBox = Vue.extend({
 const scopify = content => (isFunction(content) ? content : scope => concat(content))
 
 // Method to generate the on-demand modal message box
-const makeMsgBox = (props, $parent) => {
+const makeMsgBox = (message, props, $parent) => {
   const msgBox = new MsgBox({
     // We set parent as the local VM so these modals can emit events
     // on the app $root, as needed by things like tooltips and dropdowns.
@@ -112,16 +112,21 @@ const makeMsgBox = (props, $parent) => {
     }
   })
   // Add in our slots
-  if (props.content) {
-    msgBox.$scopedSlots.default = scopify(props.content)
-  }
+  // Can be a string, or array of VNodes, or a function that returns either
+  msgBox.$scopedSlots.default = scopify(message || '')
   if (props.title) {
+    // Can be a string, or array of VNodes, or a function that returns either.
+    // User can use prop titleHtml to pass an HTML string
     msgBox.$scopedSlots['modal-title'] = scopify(props.title)
   }
   if (props.okTitle) {
+    // Can be a string, or array of VNodes, or a function that returns either
+    // User can use prop okTitleHtml to pass an HTML string
     msgBox.$scopedSlots['modal-ok'] = scopify(props.okTitle)
   }
   if (props.cancelTitle) {
+    // Can be a string, or array of VNodes, or a function that returns either
+    // User can use prop cancelTitleHtml to pass an HTML string
     msgBox.$scopedSlots['modal-cancel'] = scopify(props.cancelTitle)
   }
   // Create a mount point
@@ -188,6 +193,7 @@ class BvModal {
       ...filterOptions(options),
       // Add in overrides and our content prop
       okOnly: true,
+      hideFooter: false,
       content: message
     }
     // Return a promise
@@ -211,6 +217,7 @@ class BvModal {
       ...filterOptions(options),
       // Add in overrides and our content prop
       okOnly: false,
+      hideFooter: false,
       content: message
     }
     return new Promise(resolve => {
