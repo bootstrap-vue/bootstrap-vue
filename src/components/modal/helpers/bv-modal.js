@@ -134,16 +134,13 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
   // Convert certain props to scoped slots
   keys(propsToSlots).forEach(prop => {
     if (isDef(props[prop])) {
-      // Can be a string, or array of VNodes, or a scoped function that returns VNodes.
+      // Can be a string, or array of VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
       let content = props[prop]
       if (isString(content)) {
         content = msgBox.$createElement(content)
       }
-      if (!isFunction(content)) {
-        content = scope => concat(content)
-      }
-      msgBox.$scopedSlots[propsToSlots[prop]] = content
+      msgBox.$slots[propsToSlots[prop]] = concat(content)
     }
   })
 
