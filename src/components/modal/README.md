@@ -618,7 +618,8 @@ component. This will hide the modal before another modal is shown.
 ## Modal Message Boxes
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
-These methods provide a way to generate simple OK and Confirm style messages.
+These methods provide a way to generate simple OK and Confirm style messages, from anywhere
+in your app without having to explicitly place a `<b-modal>` in your pages.
 
 | Method                                          | Description                                                          |
 | ----------------------------------------------- | -------------------------------------------------------------------- |
@@ -647,11 +648,11 @@ Example OK Message boxes
 <template>
   <div>
     <div class="mb-2">
-     <b-button @click="showMsgBoxOne">Simple MessageBox</b-button>
+     <b-button @click="showMsgBoxOne">Simple msgBoxOk</b-button>
      Return value: {{ String(boxOne) }}
     </div>
     <div class="mb-1">
-     <b-button @click="showMsgBoxTwo">MessageBox with options</b-button>
+     <b-button @click="showMsgBoxTwo">msgBoxOk with options</b-button>
      Return value: {{ String(boxTwo) }}
     </div>
   </div>
@@ -697,6 +698,7 @@ Example OK Message boxes
     }
   }
 </script>
+
 <!-- msg-box-ok.vue ->
 ```
 
@@ -705,9 +707,65 @@ Example OK Message boxes
 Example Confirm Message boxes
 
 ```html
+<template>
+  <div>
+    <div class="mb-2">
+     <b-button @click="showMsgBoxOne">Simple msgBoxConfirm</b-button>
+     Return value: {{ String(boxOne) }}
+    </div>
+    <div class="mb-1">
+     <b-button @click="showMsgBoxTwo">msgBoxConfirm with options</b-button>
+     Return value: {{ String(boxTwo) }}
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        boxOne: '',
+        boxTwo: ''
+      }
+    },
+    methods: {
+      showMsgBoxOne() {
+        this.boxOne = ''
+        this.$bvModal.msgBoxConfirm('Are you sure?')
+          .then(value => {
+            this.boxOne = value
+          })
+          .catch(err => {
+            // an error occured
+          })
+      },
+      showMsgBoxTwo() {
+        this.boxTwo = ''
+        this.$bvModal.msgBoxConfirm('Please confirm that you want to delete everything.', {
+          title: 'Please Confirm',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'YES',
+          cancelTitle: 'NO',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true
+        })
+          .then(value => {
+            this.boxTwo = value
+          })
+          .catch(err => {
+            // an error occured
+          })
+      }
+    }
+  }
+</script>
 
 <!-- msg-box-confirm.vue ->
 ```
+
 
 
 ## Listening to modal changes via \$root events
