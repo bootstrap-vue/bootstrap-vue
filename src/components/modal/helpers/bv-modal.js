@@ -73,6 +73,7 @@ const MsgBox = Vue.extend({
     // Self destruct after hidden
     this.$once('hidden', handleDestroy)
     // Self destruct on route change
+    /* istanbul ignore if */
     if (this.$router && this.$route) {
       const unwatch = this.$watch('$router', handleDestroy)
       this.$once('hook:beforeDestroy', unwatch)
@@ -148,6 +149,7 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
     let resolved = false
     msgBox.$once('hook:destroyed', () => {
       if (!resolved) {
+        /* istanbul ignore next */
         reject(new Error('BootstrapVue MsgBox destroyed before resolve'))
       }
     })
