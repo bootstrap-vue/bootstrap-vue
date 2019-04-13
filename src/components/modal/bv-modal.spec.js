@@ -10,7 +10,7 @@ describe('$bvModal', () => {
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('b-modal', { id: 'test1' }, 'content')
+        return h('b-modal', { props: { id: 'test1' } }, 'content')
       }
     })
     const wrapper = mount(App, {
@@ -85,10 +85,13 @@ describe('$bvModal', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
     // Find the modal
     const modal = document.querySelector('#test2')
     expect(modal).toBeDefined()
+    expect(modal).not.toEqual(null)
     const $modal = createWrapper(modal)
     expect($modal.is('div')).toBe(true)
 
@@ -143,10 +146,13 @@ describe('$bvModal', () => {
     await waitAF()
     await wrapper.vm.$nextTick()
     await waitAF()
+    await wrapper.vm.$nextTick()
+    await waitAF()
 
     // Find the modal
     const modal = document.querySelector('#test3')
     expect(modal).toBeDefined()
+    expect(modal).not.toEqual(null)
     const $modal = createWrapper(modal)
     expect($modal.is('div')).toBe(true)
 
