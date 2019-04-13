@@ -107,7 +107,7 @@ describe('utils/inspect', () => {
     expect(isFunction([])).toEqual(false)
     expect(isFunction(/abc/)).toEqual(false)
     expect(isFunction(() => {})).toEqual(true)
-    expect(isFunction(Date).toEqual(true)
+    expect(isFunction(Date)).toEqual(true)
     expect(isFunction(new Date())).toEqual(false)
     expect(isFunction(undefined)).toEqual(false)
     expect(isFunction(null)).toEqual(false)
