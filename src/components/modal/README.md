@@ -609,6 +609,8 @@ The scope available to the slots that support optional scoping are:
 | `close()`          | Closes the modal and fires the `close` and `hide` events, with `bvModalEvent.trigger = 'headerclose'`        |
 | `hide(trigger)`    | Closes the modal and fires the `hide` event, with the `bvModalEvent.trigger = trigger` (trigger is optional) |
 
+#### Example modal using custom scoped slots
+
 ```html
 <template>
   <b-button @click="$bvModal.show('modal-scoped')">Open Modal</b-button>
