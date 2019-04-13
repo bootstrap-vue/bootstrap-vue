@@ -152,10 +152,10 @@ describe('$bvModal', () => {
 
     // Find the CANCEL button and click it
     expect($modal.findAll('button').length).toBe(2)
-    $buttons = $modal.findAll('button')
-    expect($button.at(0).text()).toEqual('Cancel')
-    expect($button.at(1).text()).toEqual('OK')
-    $button.at(0).trigger('click')
+    const $buttons = $modal.findAll('button')
+    expect($buttons.at(0).text()).toEqual('Cancel')
+    expect($buttons.at(1).text()).toEqual('OK')
+    $buttons.at(0).trigger('click')
 
     // Promise should now resolve.
     const result = await p
