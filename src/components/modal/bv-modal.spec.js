@@ -103,7 +103,7 @@ describe('$bvModal', () => {
 
     // Promise should now resolve.
     const result = await p
-    expect(result).toEqual('true')
+    expect(result).toEqual(true)
 
     await wrapper.vm.$nextTick()
     await waitAF()
@@ -165,7 +165,7 @@ describe('$bvModal', () => {
 
     // Promise should now resolve.
     const result = await p
-    expect(result).toEqual('false') // cancel button
+    expect(result).toEqual(false) // cancel button
 
     await wrapper.vm.$nextTick()
     await waitAF()
