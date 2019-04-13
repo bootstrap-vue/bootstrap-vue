@@ -15,7 +15,7 @@ export default Vue.extend({
   props,
   methods: {
     closeDropdown() {
-      // Close on next animation frame to allow BLink time to process
+      // Close on next animation frame to allow <b-link> time to process
       requestAF(() => {
         if (this.bvDropdown) {
           this.bvDropdown.hide(true)
