@@ -766,7 +766,31 @@ Example Confirm Message boxes
 <!-- msg-box-confirm.vue -->
 ```
 
+### Message Box Notes
 
+- Message Boxes require `Promise` support in the browser. If targetting your app for older
+  browsers, such as IE 11, please include a polyfill that provides `Prmoise` support. If
+  `Promise` support is not detected, then the message box methods will immediately return
+  `undefined`.
+- Message Boxes are an extension of the `<b-modal>` component, and hence support the majority
+  of `<b-modal>` props (using <samp>camelCase</samp> format), with the exception of the
+  following props: `lazy`, `busy`, `visible`, `noStacking` and `okOnly`.
+- When a `title` (or `titleHtml`) _is not_ provided in the options, the header will not be shown.
+- When a `title` (or `titleHtml`) _is_ provided in the options, the header close button is not
+  shown by default. You can enable the header close button by setting `noHeaderClose: true` in
+  the options.
+- Message Boxes will throw an error (promise rejection) if they are closed/destroyed before
+  they are hidden. Always include a `.catch(error => { /* handler code */ })` reject handler,
+  event if using the async `await` style code.
+- When using Vue-Router (or similar), Message Boxes will close and reject if the route
+  changes before the modal hides.
+- Message boxes cannot be generated during Server Side Rendeering (SSR).
+- The Message Box `message` currently does not support HTML strings, however, you can pass an
+  array of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
+  [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
+  method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
+  `title` option), OK button text (via the `okTitle` option), and the CANCEL button text
+  (via the `cancelTitle` option).
 
 ## Listening to modal changes via \$root events
 
