@@ -136,11 +136,7 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
     if (isDef(props[prop])) {
       // Can be a string, or array of VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
-      let content = props[prop]
-      if (isString(content)) {
-        content = msgBox.$createElement(content)
-      }
-      msgBox.$slots[propsToSlots[prop]] = concat(content)
+      msgBox.$slots[propsToSlots[prop]] = props[prop]
     }
   })
 
