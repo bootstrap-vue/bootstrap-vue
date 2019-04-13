@@ -35,7 +35,9 @@ const notClient = method => {
 // Base Modal Props that are allowed
 // (some may be ignored or overridden on some message boxes)
 // Prop ID is allowed, but really only should be used for testing
-const BASE_PROPS = keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))
+// We need to add it in explicitly as it comes from the IdMixin
+const BASE_PROPS =
+  concat('id', keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible'])))
 
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
