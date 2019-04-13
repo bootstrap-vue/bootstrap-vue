@@ -644,7 +644,7 @@ The scope available to the slots that support optional scoping are:
   </b-modal>
 </template>
 
-<!-- modal-scoped-slots -->
+<!-- modal-scoped-slots.vue -->
 ```
 
 ## Multiple modal support
