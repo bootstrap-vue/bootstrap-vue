@@ -67,6 +67,34 @@ additional code to implement this accessibility feature.
 
 See the [Accessibility](#accessibility) section below for details.
 
+### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
+
+When BootstrapVue is installed as a plugin, or hte Modal plugin is used, BoostrapVue will inject
+a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes several
+methods, of which two are for showing and hiding modals:
+
+| Method                   | Description                            |
+| ------------------------ | -------------------------------------- |
+| `this.$bvModal.show(id)` | Show the modal with the specified `id` |
+| `this.$bvModal.hide(id)` | Hide the modal with the specified `id` |
+
+Both methods return immediately after being called.
+
+```html
+<div>
+  <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
+
+  <b-modal id="bv-modal-example" hide-footer title="Using $bvModal Methods">
+    <div class="d-block text-center">
+      <h3>Hello From This Modal!</h3>
+    </div>
+    <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+  </b-modal>
+</div>
+
+<!-- b-modal-bv-modal-hide-show.vue -->
+```
+
 ### Using `show()`, `hide()`, and `toggle()` component methods
 
 You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()`
@@ -586,6 +614,101 @@ component. This will hide the modal before another modal is shown.
 - For multiple modals to stack properly, they **must** be defined in the document in the order they
   will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open
   modal.
+
+## Modal Message Boxes
+
+BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
+These methods provide a way to generate simple OK and Confirm style messages.
+
+| Method                                          | Description                                                          |
+| ----------------------------------------------- | -------------------------------------------------------------------- |
+| `this.$bvModal.msgBoxOk(message, options)`      | Open a modal with `message` as the content and a single OK button    |
+| `this.$bvModal.msgBoxConfirm(message, options)` | Open a modal with `message` as the content and CANCEL and OK buttons |
+
+The `options` argument is an optional configuration object for adding titles and styling the modal.
+The object properties corresepond to `<b-modal>` props, except in <samp>camelCase</samp> format
+instead of <samp>kebab-case</samp>.
+
+Both methods return a `Promise` (requires a polyfill for IE 11 support) which resolve into a value
+when the modal hides. `.msgBoxOk()` always resolves to the value `true`, while `.msgBoxConfirm()`
+resolves to either `true` (OK button pressed), `false` (CANCEL button pressed), or `null` (if
+the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some other means.
+
+If `message` is not provided, both methods will return immediately with the value `undefined`.
+
+You can use either the `.then(..).catch(...)` or async `await` code styles (async awiat requires
+modern browsers or a transpiler).
+
+### OK Message Box
+
+Example OK Message boxes
+
+```html
+<template>
+  <div>
+    <div class="mb-2">
+     <b-button @click="showMsgBoxOne">Simple MessageBox</b-button>
+     Return value: {{ String(boxOne) }}
+    </div>
+    <div class="mb-1">
+     <b-button @click="showMsgBoxTwo">MessageBox with options</b-button>
+     Return value: {{ String(boxTwo) }}
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        boxOne: '',
+        boxTwo: ''
+      }
+    },
+    methods: {
+      showMsgBoxOne() {
+        this.boxOne = ''
+        this.$bvModal.msgBoxOk('Action completed')
+          .then(value => {
+            this.boxOne = value
+          })
+          .catch(err => {
+            // an error occured
+          })
+      },
+      showMsgBoxTwo() {
+        this.boxTwo = ''
+        this.$bvModal.msgBoxOk('Data was submitted successfully', {
+          title: 'Confirmation',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'success',
+          headerClass: 'p-2 border-bottom-0',
+          footerClass: 'p-2 border-top-0',
+          centered: true
+        })
+          .then(value => {
+            this.boxTwo = value
+          })
+          .catch(err => {
+            // an error occured
+          })
+      }
+    }
+  }
+</script>
+<!-- msg-box-ok.vue ->
+```
+
+### Confirm Message Box
+
+Example Confirm Message boxes
+
+```html
+
+<!-- msg-box-confirm.vue ->
+```
+
 
 ## Listening to modal changes via \$root events
 
