@@ -13,31 +13,30 @@ import { isDef, isFunction } from '../../../utils/inspect'
 /* istanbul ignore file: for now, until tests are created */
 
 // Utility methods that produce warns
-const noPromises = method => {
-  /* istanbul ignore if */
-  if (!hasPromiseSupport) {
-    method = method ? `.${method}` : ''
-    warn(`$bvModal${method}: requires Promise support`)
-    return true
-  } else {
+const noPromises = () => {
+  /* istanbul ignore else */
+  if (hasPromiseSupport) {
     return false
+  } else {
+    warn('this.$bvModal: Requires Promise support for Message Boxes')
+    return true
   }
 }
 
 const notClient = method => {
-  /* istanbul ignore if */
-  if (!inBrowser) {
-    method = method ? `.${method}` : ''
-    warn(`$bvModal${method}: methods can not be called on the server`)
-    return true
-  } else {
+  /* istanbul ignore else */
+  if (hasPromiseSupport) {
     return false
+  } else {
+    warn('this.$bvModal$: Message Boxes can not be called during SSR')
+    return true
   }
 }
 
 // Base Modal Props that are allowed
 // (some may be ignored or overridden on some message boxes)
-const BASE_PROPS = keys(omit(modalProps, ['lazy', 'busy', 'noStacking', 'visible']))
+// Prop ID is allowed, but really only should be used for testing
+const BASE_PROPS = keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))
 
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
@@ -79,18 +78,40 @@ const MsgBox = Vue.extend({
       const unwatch = this.$watch('$router', handleDestroy)
       this.$once('hook:beforeDestroy', unwatch)
     }
+    // Should we also self destruct on parent deactivation?
+
+    // Show the MsgBox
     this.show()
   }
 })
 
+// Utility to convert content to a scoped slot function
 const scopify = content => (isFunction(content) ? content : scope => concat(content))
 
+// Fallback event resolver (returns undefined)
+const defautlResolver = bvModalEvt => { return }
+
+// Map prop names to modal slot names
+const propsToSlots = {
+  msgBoxContent: 'default',
+  title: 'modal-title',
+  okTitle: 'modal-ok',
+  cancelTitle: 'modal-cancel'
+}
+
 // Method to generate the on-demand modal message box
-const makeMsgBox = (message, props, $parent) => {
+// returns a promise that resolves to a value returned by the resolve
+const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
+  if (noPromises() || notClient()) {
+    // Should this throw an error?
+    /* istanbul ignore next */
+    return
+  }
+  // Create an instance of MsgBox component
   const msgBox = new MsgBox({
     // We set parent as the local VM so these modals can emit events
-    // on the app $root, as needed by things like tooltips and dropdowns.
-    // And it helps to ensure MsgBox is destroyed when parent destroyed.
+    // on the app $root, as needed by things like tooltips and popovers.
+    // And it helps to ensure MsgBox is destroyed when parent is destroyed.
     parent: $parent,
     // Preset the prop values
     propsData: {
@@ -103,38 +124,46 @@ const makeMsgBox = (message, props, $parent) => {
       hideHeaderClose: true,
       hideHeader: !(props.title && props.titleHtml),
       // Add in (filtered) user supplied props
-      ...props,
+      ...omit(props, ['msgBoxContent']),
       // Props that can't be overridden
       lazy: false,
+      busy: false,
       visible: false,
       noStacking: false,
       noEnforceFocus: false
     }
   })
-  // Add in our slots
-  // Can be a string, or array of VNodes, or a function that returns either
-  msgBox.$scopedSlots.default = scopify(message || '')
-  if (props.title) {
-    // Can be a string, or array of VNodes, or a function that returns either.
-    // User can use prop titleHtml to pass an HTML string
-    msgBox.$scopedSlots['modal-title'] = scopify(props.title)
-  }
-  if (props.okTitle) {
-    // Can be a string, or array of VNodes, or a function that returns either
-    // User can use prop okTitleHtml to pass an HTML string
-    msgBox.$scopedSlots['modal-ok'] = scopify(props.okTitle)
-  }
-  if (props.cancelTitle) {
-    // Can be a string, or array of VNodes, or a function that returns either
-    // User can use prop cancelTitleHtml to pass an HTML string
-    msgBox.$scopedSlots['modal-cancel'] = scopify(props.cancelTitle)
-  }
-  // Create a mount point
+
+  // Convert certain props to scoped slots
+  keys(propsToSlots).forEach(prop => {
+    if (isDef(props[prop])) {
+      // Can be a string, or array of VNodes, or a scoped function that returns either.
+      // Alternatively, user can use HTML version of prop to pass an HTML string.
+      msgBox.$scopedSlots[propsToSlots[prop]] = scopify(props[prop])
+    }
+  })
+
+  // Create a mount point (a DIV)
   const div = document.createElement('div')
   document.body.appendChild(div)
-  // Mount the MsgBox, which will trigger it to show
-  msgBox.$mount(div)
-  return msgBox
+  
+  // Return a promise that resolves when hidden, or rejects on destroyed
+  return new Promise((resolve, reject) => {
+    let resolved = false
+    msgBox.$once('hook:destroyed', () => !resolved && reject('destroyed'))
+    msgBox.$on('hide', bvModalEvt => {
+      if (!bvModalEvt.defaultPrevented) {
+        const result = resolver(bvModalEvt)
+        // If resolver didn't cancel hide, we resolve
+        if (!bvModalEvt.defaultPrevented) {
+          resolved = true
+          resolve(result)
+        }
+      }
+    })
+    // Mount the MsgBox, which will auto-trigger it to show
+    msgBox.$mount(div)
+  })
 }
 
 // Private Read Only descriptor helper
@@ -179,65 +208,60 @@ class BvModal {
 
   // The following methods require Promise Support!
   // IE 11 and others do not support Promise natively, so users
-  // should have a Polyfill loaded (which they need anyways)
+  // should have a Polyfill loaded (which they need anyways for IE 11 support)
 
-  // Open a message box with OK button only
-  msgBoxOk(message, options = {}) {
-    if (!message || noPromises('msgBoxOk') || notClient('msgBoxOk')) {
+  // Opens a user defined message box and returns a promise
+  msgBox(content, options = {}, resolver) {
+    if (!content || noPromises() || notClient() || !isFunction(resolver)) {
       // Should this throw an error?
       /* istanbul ignore next */
       return
     }
-    // Pick the modal props we support from options
     const props = {
       ...filterOptions(options),
+      msgBoxContent: content
+    }
+    return asyncMsgBox(props, this._vm, resolver)
+  }
+
+  // Open a message box with OK button only and returns a promise
+  msgBoxOk(message, options = {}) {
+    // Pick the modal props we support from options
+    const props = {
+      ...options,
       // Add in overrides and our content prop
       okOnly: true,
+      okDisabled: false,
       hideFooter: false,
-      content: message
+      msgBoxContent: message
     }
-    // Return a promise
-    return new Promise(resolve => {
-      makeMsgBox(props, this._vm).$on('hide', evt => {
-        // Always returns true when closed
-        resolve(true)
-      })
+    return this.msgBox(message, props, bvModalEvt => {
+      // Always resolve to true for OK
+      return true
     })
   }
 
-  // Open a message box modal with OK and CANCEL buttons
+  // Open a message box modal with OK and CANCEL buttons and returns a promise
   msgBoxConfirm(message, options = {}) {
-    if (!message || noPromises('msgBoxConfirm') || notClient('msgBoxConfirm')) {
-      // Should this throw an error?
-      /* istanbul ignore next */
-      return
-    }
-    // Pick the modal props we support from options
+    // Set the modal props we support from options
     const props = {
-      ...filterOptions(options),
+      ...options,
       // Add in overrides and our content prop
       okOnly: false,
-      hideFooter: false,
-      content: message
+      okDisabled: false,
+      cancelDisabled: false,
+      hideFooter: false
     }
-    return new Promise(resolve => {
-      makeMsgBox(props, this._vm).$on('hide', evt => {
-        // Value could be null if pressing ESC or clicking Backdrop
-        let value = null
-        if (evt.trigger === 'ok') {
-          // Return explicit true if user clicked OK button
-          value = true
-        } else if (evt.trigger === 'cancel') {
-          // Return explicit false if user clicked CANCEL button
-          value = false
-        }
-        resolve(value)
-      })
+    return this.msgBox(message, props, bvModalEvt => {
+      const trigger = bvModalEvt.trigger
+      return trigger === 'ok' ? true : trigger === 'cancel' ? false : null
     })
   }
 }
 
+//
 // Method to install $bvModal vm injection
+//
 const install = _Vue => {
   if (install._installed) {
     // Only install once
