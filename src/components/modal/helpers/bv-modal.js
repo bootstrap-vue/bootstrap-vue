@@ -9,8 +9,6 @@ import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { isDef, isFunction } from '../../../utils/inspect'
 
-/* istanbul ignore file: for now, until tests are created */
-
 // Utility methods that produce warns
 const noPromises = () => {
   /* istanbul ignore else */
