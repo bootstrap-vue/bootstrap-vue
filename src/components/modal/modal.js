@@ -9,6 +9,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import { inBrowser } from '../../utils/env'
+import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
@@ -652,7 +653,7 @@ export default Vue.extend({
       // Prefer `returnFocus` prop over event specified `return_focus` value
       let el = this.returnFocus || this.return_focus || document.activeElement || null
       // Is el a string CSS Selector?
-      el = typeof el === 'string' ? select(el) : el
+      el = isString(el) ? select(el) : el
       if (el) {
         // Possibly could be a component reference
         el = el.$el || el
