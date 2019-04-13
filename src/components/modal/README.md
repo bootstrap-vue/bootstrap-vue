@@ -69,9 +69,9 @@ See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
 
-When BootstrapVue is installed as a plugin, or hte Modal plugin is used, BoostrapVue will inject
-a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes several
-methods, of which two are for showing and hiding modals:
+When BootstrapVue is installed as a plugin, or the <samp>Modal</samp> plugin is used, BoostrapVue
+will inject a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes
+several methods, of which two are for showing and hiding modals:
 
 | Method                   | Description                            |
 | ------------------------ | -------------------------------------- |
@@ -84,7 +84,10 @@ Both methods return immediately after being called.
 <div>
   <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
 
-  <b-modal id="bv-modal-example" hide-footer title="Using $bvModal Methods">
+  <b-modal id="bv-modal-example" hide-footer>
+    <template slot="modal-title">
+      Using <code>$bvModal</code> Methods
+    </template>
     <div class="d-block text-center">
       <h3>Hello From This Modal!</h3>
     </div>
@@ -169,6 +172,11 @@ show/hide using `v-model`.
 
 When using the `v-model` property, do not use the `visible` property at the same time.
 
+### Using scoped slot scope methods
+
+Refer to the [Custom rendering with slots](#custom-rendering-with-slots) section on using the 
+various methods passed to scoped slots for closing modals.
+
 ### Emitting events on \$root
 
 You can emit `bv::show::modal`, `bv::hide::modal`, and `bv::toggle::modal` events on `$root` with
@@ -209,8 +217,8 @@ export default {
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call the
 `.preventDefault()` method of the event object passed to your `ok` (**OK** button), `cancel`
-(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, **must** be
-called synchronously, as async is not supported.
+(**Cancel** button), `close` (modal header close button) and `hide` event handlers. Note that
+`.preventDefault()`, when used, **must** be called synchronously, as async is not supported.
 
 ```html
 <template>
@@ -296,13 +304,14 @@ called synchronously, as async is not supported.
 <!-- b-modal-prevent-closing.vue -->
 ```
 
-**Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel** buttons
-respectively. These events will not be emitted, by default, if you have provided your own buttons in
-the `modal-footer` slot or have hidden the footer. In this case use the `hide` event to control
-cancelling of the modal close. Event `hide` is always emitted, even if `ok` and `cancel` are
-emitted.
+**Note**: events `ok`, `cancel`, and `close` are emitted by modal's built in **OK**, **Cancel**, and
+header close (**X**) buttons respectively. These events will not be emitted, by default, if you have
+provided your own buttons in the `modal-footer` slot or have hidden the footer. In this case use the
+`hide` event to control cancelling of the modal close. Event `hide` is always emitted, even if `ok`,
+`cancel`, and `close` are emitted.
 
-The `ok`, `cancel`, and `hide` event object contains several properties and methods:
+The `ok`, `cancel`, `close` and `hide` event object (`BvModalevent`) contains several properties and
+methods:
 
 | Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -315,9 +324,9 @@ The `ok`, `cancel`, and `hide` event object contains several properties and meth
 You can set the value of `trigger` by passing an argument to the component's `hide()` method for
 advanced control (i.e. detecting what button or action triggerd the modal to hide).
 
-**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly
-`'ok'` or `'cancel'` respectively. The argument passed to `hide()` will be placed into the `trigger`
-property of the event object.
+**Note:** `ok`, `cancel`, or `close` events will be only emitted when the argument to `hide()` is
+strictly `'ok'`, `'cancel'`, or `headerclose` respectively. The argument passed to `hide()` will be
+placed into the `trigger` property of the event object.
 
 ## Modal content
 
