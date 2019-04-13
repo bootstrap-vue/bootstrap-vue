@@ -1,5 +1,5 @@
 import modalPlugin from './index'
-import ( mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
