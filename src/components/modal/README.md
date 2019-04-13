@@ -699,7 +699,7 @@ Example OK Message boxes
   }
 </script>
 
-<!-- msg-box-ok.vue ->
+<!-- msg-box-ok.vue -->
 ```
 
 ### Confirm Message Box
@@ -763,7 +763,7 @@ Example Confirm Message boxes
   }
 </script>
 
-<!-- msg-box-confirm.vue ->
+<!-- msg-box-confirm.vue -->
 ```
 
 
