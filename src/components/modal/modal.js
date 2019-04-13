@@ -526,10 +526,12 @@ export default Vue.extend({
       })
     },
     // Event emitter
-    emitEvent(bvEvt) {
-      const type = bvEvt.type
-      this.$emit(type, bvEvt)
-      this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
+    emitEvent(bvModalEvt) {
+      const type = bvModalEvt.type
+      // We emit on root first incase a global listener wants to cancel
+      // the event first before the instance emits it's event
+      this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.modalId)
+      this.$emit(type, bvModalEvt)
     },
     // UI event handlers
     onDialogMousedown(evt) {
