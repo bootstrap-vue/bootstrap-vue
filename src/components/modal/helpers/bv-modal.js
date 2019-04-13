@@ -7,8 +7,7 @@ import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
-import { concat } from '../../../utils/array'
-import { isDef, isFunction, isString } from '../../../utils/inspect'
+import { isDef, isFunction } from '../../../utils/inspect'
 
 /* istanbul ignore file: for now, until tests are created */
 
