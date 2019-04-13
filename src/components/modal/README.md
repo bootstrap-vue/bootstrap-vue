@@ -325,8 +325,8 @@ You can set the value of `trigger` by passing an argument to the component's `hi
 advanced control (i.e. detecting what button or action triggerd the modal to hide).
 
 **Note:** `ok`, `cancel`, or `close` events will be only emitted when the argument to `hide()` is
-strictly `'ok'`, `'cancel'`, or `headerclose` respectively. The argument passed to `hide()` will be
-placed into the `trigger` property of the event object.
+strictly `'ok'`, `'cancel'`, or `'headerclose'` respectively. The argument passed to `hide()` will
+be placed into the `trigger` property of the event object.
 
 ## Modal content
 
