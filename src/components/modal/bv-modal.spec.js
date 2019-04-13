@@ -113,7 +113,7 @@ describe('$bvModal', () => {
     await waitAF()
 
     // Modal should be gone from DOM
-    expect($modal.$el.parentNode).toBe(null)
+    expect(document.querySelector('#test2')).toBe(null)
   })
 
   it('$bvModal.msgBoxConfirm() works', async () => {
@@ -175,6 +175,6 @@ describe('$bvModal', () => {
     await waitAF()
 
     // Modal should be gone from DOM
-    expect($modal.$el.parentNode).toBe(null)
+    expect(document.querySelector('#test3')).toBe(null)
   })
 })
