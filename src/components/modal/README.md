@@ -609,6 +609,42 @@ The scope available to the slots that support optional scoping are:
 | `close()`          | Closes the modal and fires the `close` and `hide` events, with `bvModalEvent.trigger = 'headerclose'`        |
 | `hide(trigger)`    | Closes the modal and fires the `hide` event, with the `bvModalEvent.trigger = trigger` (trigger is optional) |
 
+```html
+<template>
+  <b-button @click="$bvModal.show('modal-scoped')">Open Modal</b-button>
+
+  <b-modal id="modal-scoped">
+    <template slot="modal-header" slot-scope="{ close }">
+      <!-- emulate built in modal header close button action -->
+      <b-button size="sm" variant="outline-danger" @click="close()">
+        Close Modal
+      </b-button>
+      <h5>Modal Header</h5>
+    </template>
+    <template slot="default" slot-scope="{ hide }">
+      <p>Modal Body with button</p>
+      <b-button @click="hide()">Hide Modal</b-button>
+    </template>
+    <template slot="modal-footer" slot-scope="{ ok, cancel, hide }">
+      <b>Custom Footer</b>
+      <!-- emulate built in modal footer ok and cancel button actions -->
+      <b-button size="sm" variant="success" @click="ok()">
+        OK
+      </b-button>
+      <b-button size="sm" variant="danger" @click="cancel()">
+        Cancel
+      </b-button>
+      <!-- button with custom close trigger value -->
+      <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
+        Forget it
+      </b-button>
+    </template>
+  </b-modal>
+</template>
+
+<!-- modal-scoped-slots -->
+```
+
 ## Multiple modal support
 
 Unlike native Bootstrap V4, BootstrapVue supports multiple modals opened at the same time.
