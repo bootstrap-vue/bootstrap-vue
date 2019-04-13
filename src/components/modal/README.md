@@ -576,6 +576,30 @@ You can disable the **Cancel** and **OK** buttons individually by setting the `c
 To disable both **Cancel** and **OK** buttons at the same time, simply set the `busy` prop to
 `true`. Set it to `false` to re-enable both buttons.
 
+### Custom rendering with slots
+
+`<b-modal>` provides several named slots (of which some are optionally scoped) that you can
+use to customize the content of various sections of the modal.
+
+| Slot                 | Optionally Scoped | Description                                                                           |
+| -------------------- | ----------------- | ------------------------------------------------------------------------------------- |
+| `default`            | Yes               | Main content of the modal                                                             |
+| `modal-title`        | Yes               | Content to place in the modal's title                                                 |
+| `modal-header`       | Yes               | Content to place in the header. Replaces the entire header including the close button |
+| `modal-footer`       | Yes               | Content to place in the footer. Replaces the entire footer including the button(s)    |
+| `modal-ok`           | No                | Content to place inside the footer OK button                                          |
+| `modal-cancel`       | No                | Content to place inside the footer CANCEL button                                      |
+| `modal-header-close` | No                | Content to place inside the header CLOSE (`x`) button                                 |
+
+The scope available to the slots that support optional scoping are:
+
+| Method or Property | Description                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ok()`             | Closes the modal and fires the `ok` and `hide` events, with `bvModalEvent.trigger = 'ok'`                    |
+| `cancel()`         | Closes the modal and fires the `cancel` and `hide` events, with `bvModalEvent.trigger = 'cancel'`            |
+| `close()`          | Closes the modal and fires the `close` and `hide` events, with `bvModalEvent.trigger = 'headerclose'`        |
+| `hide(trigger)`    | Closes the modal and fires the `hide` event, with the `bvModalEvent.trigger = trigger` (trigger is optional) |
+
 ## Multiple modal support
 
 Unlike native Bootstrap V4, BootstrapVue supports multiple modals opened at the same time.
@@ -619,7 +643,7 @@ component. This will hide the modal before another modal is shown.
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
 These methods provide a way to generate simple OK and Confirm style messages, from anywhere
-in your app without having to explicitly place a `<b-modal>` in your pages.
+in your app without having to explicitly place a `<b-modal>` component in your pages.
 
 | Method                                          | Description                                                          |
 | ----------------------------------------------- | -------------------------------------------------------------------- |
@@ -637,7 +661,7 @@ the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some other mea
 
 If `message` is not provided, both methods will return immediately with the value `undefined`.
 
-You can use either the `.then(..).catch(...)` or async `await` code styles (async awiat requires
+You can use either the `.then(..).catch(...)` or async `await` code styles (async await requires
 modern browsers or a transpiler).
 
 ### OK Message Box
@@ -774,7 +798,8 @@ Example Confirm Message boxes
   `undefined`.
 - Message Boxes are an extension of the `<b-modal>` component, and hence support the majority
   of `<b-modal>` props (using <samp>camelCase</samp> format), with the exception of the
-  following props: `lazy`, `busy`, `visible`, `noStacking` and `okOnly`.
+  following props: `lazy`, `busy`, `visible`, `noStacking`, `okOnly`, `okDisabled`, and
+  `cancelDisabled`.
 - When a `title` (or `titleHtml`) _is not_ provided in the options, the header will not be shown.
 - When a `title` (or `titleHtml`) _is_ provided in the options, the header close button is not
   shown by default. You can enable the header close button by setting `noHeaderClose: true` in
