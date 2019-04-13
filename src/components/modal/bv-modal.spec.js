@@ -32,7 +32,7 @@ describe('$bvModal', () => {
     const $modal = wrapper.find('.modal')
     expect($modal.exists()).toBe(true)
 
-    expect($modal.element.style('display').toEqual('none')
+    expect($modal.element.style('display')).toEqual('none')
 
     wrapper.vm.$bvModal.show('test1')
 
@@ -41,7 +41,7 @@ describe('$bvModal', () => {
     await wrapper.vm.nextTick()
     await waitAF()
 
-    expect($modal.element.style('display').toEqual('')
+    expect($modal.element.style('display')).toEqual('')
 
     wrapper.vm.$bvModal.hide('test1')
 
@@ -50,7 +50,7 @@ describe('$bvModal', () => {
     await wrapper.vm.nextTick()
     await waitAF()
 
-    expect($modal.element.style('display').toEqual('none')
+    expect($modal.element.style('display')).toEqual('none')
 
     wrapper.destroy()
   })
