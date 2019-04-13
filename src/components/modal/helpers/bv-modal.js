@@ -133,7 +133,7 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
       noEnforceFocus: false
     }
   })
-
+  /*
   // Convert certain props to scoped slots
   keys(propsToSlots).forEach(prop => {
     if (isDef(props[prop])) {
@@ -142,7 +142,7 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
       msgBox.$scopedSlots[propsToSlots[prop]] = scopify(props[prop])
     }
   })
-
+  */
   // Create a mount point (a DIV)
   const div = document.createElement('div')
   document.body.appendChild(div)
