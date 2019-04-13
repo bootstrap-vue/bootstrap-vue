@@ -8,7 +8,7 @@ import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { concat } from '../../../utils/array'
-import { isDef, isFunction } from '../../../utils/inspect'
+import { isDef, isFunction, isString } from '../../../utils/inspect'
 
 /* istanbul ignore file: for now, until tests are created */
 
@@ -85,9 +85,6 @@ const MsgBox = Vue.extend({
   }
 })
 
-// Utility to convert content to a scoped slot function
-const scopify = content => (isFunction(content) ? content : scope => concat(content))
-
 // Fallback event resolver (returns undefined)
 const defautlResolver = bvModalEvt => {}
 
@@ -122,7 +119,7 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
       ...filterOptions(getComponentConfig('BModal') || {}),
       // Defaults that user can override
       hideHeaderClose: true,
-      hideHeader: !(props.title && props.titleHtml),
+      hideHeader: !(props.title || props.titleHtml),
       // Add in (filtered) user supplied props
       ...omit(props, ['msgBoxContent']),
       // Props that can't be overridden
@@ -137,11 +134,16 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
   // Convert certain props to scoped slots
   keys(propsToSlots).forEach(prop => {
     if (isDef(props[prop])) {
-      // Can be a string, or array of VNodes, or a scoped function that returns either.
+      // Can be a string, or array of VNodes, or a scoped function that returns VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
-      /*
-      msgBox.$scopedSlots[propsToSlots[prop]] = scopify(props[prop])
-      */
+      let content = props[prop]
+      if (isString(content)) {
+        content = msgBox.$createElement(content)
+      }
+      if (!isFunction(content)) {
+        content = scope => concat(content)
+      }
+      msgBox.$scopedSlots[propsToSlots[prop]] = content
     }
   })
 
