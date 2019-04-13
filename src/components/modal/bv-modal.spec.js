@@ -1,5 +1,5 @@
 import modalPlugin from './index'
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
@@ -80,7 +80,7 @@ describe('$bvModal', () => {
     })
     expect(p).toBeDefined()
     expect(p).toBeInstanceOf(Promise)
-    
+
     await wrapper.vm.nextTick()
     await waitAF()
     await wrapper.vm.nextTick()
@@ -89,7 +89,7 @@ describe('$bvModal', () => {
     // Find the modal
     const modal = document.select('#test2')
     expect(modal).toBeDefined()
-    $modal = createWrapper(modal)
+    const $modal = createWrapper(modal)
     expect($modal.is('div')).toBe(true)
 
     // Find the OK button and click it
@@ -101,7 +101,7 @@ describe('$bvModal', () => {
     // Promise should now resolve.
     const result = await p
     expect(result).toEqual('true')
-    
+
     await wrapper.vm.nextTick()
     await waitAF()
     await wrapper.vm.nextTick()
@@ -138,7 +138,7 @@ describe('$bvModal', () => {
     })
     expect(p).toBeDefined()
     expect(p).toBeInstanceOf(Promise)
-    
+
     await wrapper.vm.nextTick()
     await waitAF()
     await wrapper.vm.nextTick()
@@ -147,7 +147,7 @@ describe('$bvModal', () => {
     // Find the modal
     const modal = document.select('#test3')
     expect(modal).toBeDefined()
-    $modal = createWrapper(modal)
+    const $modal = createWrapper(modal)
     expect($modal.is('div')).toBe(true)
 
     // Find the CANCEL button and click it
@@ -160,7 +160,7 @@ describe('$bvModal', () => {
     // Promise should now resolve.
     const result = await p
     expect(result).toEqual('false') // cancel button
-    
+
     await wrapper.vm.nextTick()
     await waitAF()
     await wrapper.vm.nextTick()
