@@ -20,7 +20,7 @@ describe('$bvModal', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     expect(wrapper.vm.$bvModal).toBeDefined()
@@ -36,18 +36,18 @@ describe('$bvModal', () => {
 
     wrapper.vm.$bvModal.show('test1')
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     expect($modal.element.style('display')).toEqual('')
 
     wrapper.vm.$bvModal.hide('test1')
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     expect($modal.element.style('display')).toEqual('none')
@@ -81,9 +81,9 @@ describe('$bvModal', () => {
     expect(p).toBeDefined()
     expect(p).toBeInstanceOf(Promise)
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     // Find the modal
@@ -102,11 +102,11 @@ describe('$bvModal', () => {
     const result = await p
     expect(result).toEqual('true')
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     // Modal should be gone from DOM
@@ -139,9 +139,9 @@ describe('$bvModal', () => {
     expect(p).toBeDefined()
     expect(p).toBeInstanceOf(Promise)
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     // Find the modal
@@ -161,11 +161,11 @@ describe('$bvModal', () => {
     const result = await p
     expect(result).toEqual('false') // cancel button
 
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
-    await wrapper.vm.nextTick()
+    await wrapper.vm.$nextTick()
     await waitAF()
 
     // Modal should be gone from DOM
