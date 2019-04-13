@@ -26,7 +26,7 @@ export const isPrimitive = val => isBoolean(val) || isString(val) || isNumber(va
 
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
-export const isPromise = val => isDef(val) && isFunction(val.then) && isFunction(val.catch)
+export const isPromise = val => isDef(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
 export { isObject, isPlainObject, isArray }
