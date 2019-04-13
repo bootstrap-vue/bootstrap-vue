@@ -44,17 +44,17 @@ describe('utils/inspect', () => {
   })
 
   it('toRawTypeLC', async () => {
-    expect(toRawType(123)).toEqual('number')
-    expect(toRawType('123')).toEqual('string')
-    expect(toRawType(true)).toEqual('boolean')
-    expect(toRawType({})).toEqual('object')
-    expect(toRawType([])).toEqual('array')
-    expect(toRawType(/abc/)).toEqual('regexp')
-    expect(toRawType(() => {})).toEqual('function')
-    expect(toRawType(Date)).toEqual('function')
-    expect(toRawType(new Date())).toEqual('date')
-    expect(toRawType(undefined)).toEqual('undefined')
-    expect(toRawType(null)).toEqual('null')
+    expect(toRawTypeLC(123)).toEqual('number')
+    expect(toRawTypeLC('123')).toEqual('string')
+    expect(toRawTypeLC(true)).toEqual('boolean')
+    expect(toRawTypeLC({})).toEqual('object')
+    expect(toRawTypeLC([])).toEqual('array')
+    expect(toRawTypeLC(/abc/)).toEqual('regexp')
+    expect(toRawTypeLC(() => {})).toEqual('function')
+    expect(toRawTypeLC(Date)).toEqual('function')
+    expect(toRawTypeLC(new Date())).toEqual('date')
+    expect(toRawTypeLC(undefined)).toEqual('undefined')
+    expect(toRawTypeLC(null)).toEqual('null')
   })
 
   it('isUndef', async () => {
