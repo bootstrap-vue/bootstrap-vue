@@ -2,6 +2,9 @@ import BDropdownItem from './dropdown-item'
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
+const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
+const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
     const wrapper = mount(BDropdownItem)
@@ -43,8 +46,8 @@ describe('dropdown-item', () => {
     const item = wrapper.find('a')
     expect(item).toBeDefined()
     item.trigger('click')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
 
@@ -70,8 +73,8 @@ describe('dropdown-item', () => {
     const item = wrapper.find('a')
     expect(item).toBeDefined()
     item.trigger('click')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
 
