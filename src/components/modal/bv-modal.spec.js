@@ -50,7 +50,7 @@ describe('$bvModal', () => {
     await wrapper.vm.$nextTick()
     await waitAF()
 
-    expect($modal.element.style.display.).toEqual('none')
+    expect($modal.element.style.display).toEqual('none')
 
     wrapper.destroy()
   })
