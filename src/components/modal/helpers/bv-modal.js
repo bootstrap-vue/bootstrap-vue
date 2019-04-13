@@ -25,7 +25,7 @@ const noPromises = () => {
 
 const notClient = method => {
   /* istanbul ignore else */
-  if (hasPromiseSupport) {
+  if (inBrowser) {
     return false
   } else {
     warn('this.$bvModal$: Message Boxes can not be called during SSR')
@@ -89,7 +89,7 @@ const MsgBox = Vue.extend({
 const scopify = content => (isFunction(content) ? content : scope => concat(content))
 
 // Fallback event resolver (returns undefined)
-const defautlResolver = bvModalEvt => { return }
+const defautlResolver = bvModalEvt => {}
 
 // Map prop names to modal slot names
 const propsToSlots = {
@@ -146,11 +146,15 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
   // Create a mount point (a DIV)
   const div = document.createElement('div')
   document.body.appendChild(div)
-  
+
   // Return a promise that resolves when hidden, or rejects on destroyed
   return new Promise((resolve, reject) => {
     let resolved = false
-    msgBox.$once('hook:destroyed', () => !resolved && reject('destroyed'))
+    msgBox.$once('hook:destroyed', () => {
+      if (!resolved) {
+        reject(new Error('BootstrapVue MsgBox destroyed before resolve'))
+      }
+    })
     msgBox.$on('hide', bvModalEvt => {
       if (!bvModalEvt.defaultPrevented) {
         const result = resolver(bvModalEvt)
