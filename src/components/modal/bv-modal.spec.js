@@ -9,7 +9,9 @@ describe('$bvModal', () => {
 
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = localVue.extend({
-      render h('b-modal', { id: 'test1' }, 'content')
+      render(h) {
+        return h('b-modal', { id: 'test1' }, 'content')
+      }
     })
     const wrapper = mount(App, {
       attachToDocument: true,
@@ -55,7 +57,9 @@ describe('$bvModal', () => {
 
   it('$bvModal.msgBoxOk() works', async () => {
     const App = localVue.extend({
-      render h('div', {}, 'app')
+      render(h) {
+        return h('div', {}, 'app')
+      }
     })
     const wrapper = mount(App, {
       attachToDocument: true,
@@ -111,7 +115,9 @@ describe('$bvModal', () => {
 
   it('$bvModal.msgBoxConfirm() works', async () => {
     const App = localVue.extend({
-      render h('div', {}, 'app')
+      render(h) {
+        return h('div', {}, 'app')
+      }
     })
     const wrapper = mount(App, {
       attachToDocument: true,
