@@ -45,7 +45,7 @@ export default Vue.extend({
         }
       })
     } else {
-      return h(false)
+      return h('div', {})
     }
   }
 })
