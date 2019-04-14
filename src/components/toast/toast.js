@@ -44,6 +44,18 @@ export const props = {
     type: Boolean,
     default: false
   },
+  toastClass: {
+    type: [String, Object, Array],
+    default: ''
+  },
+  headerClass: {
+    type: [String, Object, Array],
+    default: ''
+  },
+  bodyClass: {
+    type: [String, Object, Array],
+    default: ''
+  },
   isStatus: {
     // Switches role to 'status' and aria-live to 'polite'
     type: Boolean,
