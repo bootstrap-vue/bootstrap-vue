@@ -8,6 +8,8 @@ import { inBrowser } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { isDef, isFunction } from '../../../utils/inspect'
 
+/* istanbul ignore file: for now until we are ready to test */
+
 const notClient = method => {
   /* istanbul ignore else */
   if (inBrowser) {
