@@ -223,7 +223,7 @@ export default Vue.extend({
       is_transitioning: false, // Used for style control
       is_show: false, // Used for style control
       is_block: false, // Used for style control
-      is_opening: false, // To sginal that modal is in the process of opening
+      is_opening: false, // To signal that the modal is in the process of opening
       is_closing: false, // To signal that the modal is in the process of closing
       ignoreBackdropClick: false, // Used to signify if click out listener should ignore the click
       isModalOverflowing: false,
