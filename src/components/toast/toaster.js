@@ -18,21 +18,16 @@ export default Vue.extend({
     }
   },
   render(h) {
-    return h(
-      Portaltarget,
-      {
-        class: [ this.name ],
-        attrs: {
-          id: this.name
-        },
-        props: {
-          name: this.name,
-          multiple: true,
-          tag: 'div',
-          slim: false,
-          transition: this.transition
-        }
+    return h(Portaltarget, {
+      class: [ this.name ],
+      attrs: { id: this.name },
+      props: {
+        name: this.name,
+        multiple: true,
+        tag: 'div',
+        slim: false,
+        transition: this.transition
       }
-    )
+    })
   }
 })
