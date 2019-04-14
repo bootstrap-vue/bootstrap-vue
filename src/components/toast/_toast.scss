@@ -3,6 +3,7 @@
 .b-toaster {
   position: absolute;
   display: flex;
+  z-index: $b-toaster-zindex;
 
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
