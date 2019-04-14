@@ -14,8 +14,20 @@ Toast headers use `display: flex;`, allowing easy alignment of content thanks to
 [margin and flexbox utility classes](/docs/reference/utility-classes).
 
 Toasts are slightly translucent, too, so they blend over whatever they might appear over. For
-browsers that support the `backdrop-filte`r CSS property, we’ll also attempt to blur the
+browsers that support the `backdrop-filter` CSS property, we’ll also attempt to blur the
 elements under a toast.
+
+```html
+<template>
+  <div>
+    <b-toast toaster="" title="BootstrapVue" show>
+      Hello, world! This is a toast message.
+    </b-toast>
+  </div>
+</template>
+
+<!-- toast-intro.vue -->
+```
 
 ## Accessibility
 
