@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import { MountingPortal } from 'portal-vue'
+import { Portal, wormhole } from 'portal-vue'
+import BToaster from './toaster'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BvEvent from '../../utils/bv-event.class'
-import { requestAF } from '../../utils/dom'
+import { getById, requestAF } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 
 /* istanbul ignore file: for now until ready for testing */
@@ -88,7 +89,8 @@ export default Vue.extend({
       showClass: false,
       isTransitioning: false,
       order: 0,
-      timer: null
+      timer: null,
+      dismissStarted: null
     }
   },
   computed: {
@@ -104,6 +106,9 @@ export default Vue.extend({
         // TODO
         hide: this.hide
       }
+    },
+    computedDuration() {
+      return parseInt(this.autoHideDelay, 10) || 5000
     },
     transitionProps() {
       return {
@@ -132,7 +137,7 @@ export default Vue.extend({
     }
   },
   watch: {
-    show(newVal, oldVal) {
+    visible(newVal, oldVal) {
       newVal ? this.show() : this.hide()
     },
     localShow(newVal, oldVal) {
@@ -140,6 +145,10 @@ export default Vue.extend({
         this.$emit('change', newVal)
       }
     }
+  },
+  beforeMount() {
+    // Make sure our destination toaster exists in DOM
+    this.ensureToaster()
   },
   mounted() {
     // TODO
@@ -150,6 +159,7 @@ export default Vue.extend({
   methods: {
     show() {
       if (!this.localShow) {
+        this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
         this.order = Date.now() * (this.prepend ? -1 : 1)
@@ -182,6 +192,31 @@ export default Vue.extend({
       this.$root.$emit(`bv::toast:${type}`, bvEvt)
       this.$emit(type, bvEvt)
     },
+    ensureToaster() {
+      if (!getById(this.toaster)) {
+        const  div = document.createElement('div')
+        document.body.append(div)
+        const target = new BToaster({
+          el: div,
+          propsData: {
+            name: this.toaster
+          }
+        })
+      }
+    },
+    startDismissTimer(duration = 0) {
+      this.clearDismissTimer()
+      if (!this.noAutoHide) {
+        this.dismissStarted = Date.now()
+        duration = duration || this.computedDuration
+        this.timer = setTimeout(() => {}, duration)
+      }
+    },
+    clearDismissTimer() {
+      this.clearTimeout(this.timer)
+      this.timer = null
+      this.dismissStarted = null
+    },
     onPause(evt) {
       // TODO: pause auto-hide on hover/focus
       // Determine time remaining, and then pause timer
@@ -201,9 +236,11 @@ export default Vue.extend({
       this.isTransitining = false
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
+      this.startDismissTimer()
     },
     onBeforeLeave() {
       this.isTransitining = true
+      this.clearDismissTimer()
       requestAF(() => {
         this.showClass = false
       })
@@ -219,6 +256,7 @@ export default Vue.extend({
     makeToast(h) {
       // Render helper for generating the toast
       if (!this.localShow) {
+        // Return nothing if not showing
         return
       }
       // Assemble the header content
@@ -273,19 +311,18 @@ export default Vue.extend({
     }
   },
   render(h) {
+    /*
     if (!this.doRender) {
       return h(false)
     }
+    */
     return h(
-      MountingPortal,
+      Portal,
       {
         props: {
           name: this.safeId(),
           to: this.toaster,
           slim: true,
-          mountTo: 'body',
-          append: true,
-          targetTag: 'div',
           disabled: this.static
         }
       },
