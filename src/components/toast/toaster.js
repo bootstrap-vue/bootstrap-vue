@@ -33,6 +33,12 @@ export default Vue.extend({
       this.doRender = true
     }
   },
+  destroyed() {
+    // Remove from DOM if needed
+    if (this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el)
+    }
+  },
   render(h) {
     /* istanbul ignore else */
     if (this.doRender) {
