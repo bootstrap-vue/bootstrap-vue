@@ -114,7 +114,7 @@ export default Vue.extend({
   methods: {
     show() {
       if (!this.localShow) {
-        const showEvt = this.buildEvt('show')
+        const showEvt = this.buildEvent('show')
         this.emitEvt(showEvt)
         this.localShow = true
         // TODO
@@ -125,7 +125,7 @@ export default Vue.extend({
     },
     doHide(relatedTarget = null) {
       if (this.localShow) {
-        const hideEvt = this.buildEvt('hide', { relatedTarget })
+        const hideEvt = this.buildEvent('hide', { relatedTarget })
         this.emitEvt(hideEvt)
         this.localShow = false
         // TODO
@@ -162,7 +162,7 @@ export default Vue.extend({
     },
     onAfterEnter() {
       // TODO
-      const hiddenEvt = this.buildEvt('shown')
+      const hiddenEvt = this.buildEvent('shown')
       this.emitEvt(hiddenEvt)
     },
     onBeforeLeave() {
@@ -172,7 +172,7 @@ export default Vue.extend({
     },
     onAfterLeave() {
       // TODO
-      const hiddenEvt = this.buildEvt('hidden')
+      const hiddenEvt = this.buildEvent('hidden')
       this.emitEvt(hiddenEvt)
     }
   },
