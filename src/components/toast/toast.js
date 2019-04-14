@@ -2,7 +2,7 @@ import Vue from 'vue'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BvEvent from '../../utils/bv-event'
+import BvEvent from '../../utils/bv-event.class'
 import { requestAF } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 
