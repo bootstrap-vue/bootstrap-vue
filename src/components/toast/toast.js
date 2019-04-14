@@ -73,6 +73,17 @@ export const props = {
   }
 }
 
+// Transition Props defaults:
+const DEFAULT_TRANSITION_PROPS = {
+  name: '',
+  enterClass: '',
+  enterActiveClass: '',
+  enterToClass: '',
+  leaveClass: '',
+  leaveActiveClass: '',
+  leaveToClass: ''
+}
+
 // @vue/component
 export default Vue.extend({
   name: NAME,
@@ -109,31 +120,6 @@ export default Vue.extend({
     },
     computedDuration() {
       return parseInt(this.autoHideDelay, 10) || 5000
-    },
-    transitionProps() {
-      return {
-        name: '',
-        enterClass: '',
-        enterActiveClass: '',
-        enterToClass: '',
-        leaveClass: '',
-        leaveActiveClass: '',
-        leaveToClass: ''
-      }
-    },
-    transitionHandlers() {
-      return {
-        beforeEnter: this.onBeforeEnter,
-        afterEnter: this.onAfterEnter,
-        beforeLeave: this.onBeforeLeave,
-        afterLeave: this.onAfterLeave
-      }
-    },
-    transitionData() {
-      return {
-        props: this.transitionProps,
-        on: this.transitionHandlers
-      }
     }
   },
   watch: {
@@ -157,6 +143,9 @@ export default Vue.extend({
         this.show()
       }
     })
+  },
+  beforeDestroy() {
+    this.clearDismissTimer()
   },
   methods: {
     show() {
@@ -320,7 +309,21 @@ export default Vue.extend({
           disabled: this.static
         }
       },
-      [h('transition', this.transitionData, [this.localShow ? this.makeToast(h) : h(false)])]
+      [
+        h(
+          'transition',
+          {
+            props: DEFAULT_TRANSITION_PROPS,
+            on: {
+              beforeEnter: this.onBeforeEnter,
+              afterEnter: this.onAfterEnter,
+              beforeLeave: this.onBeforeLeave,
+              afterLeave: this.onAfterLeave
+            }
+          },
+          [this.localShow ? this.makeToast(h) : null]
+        )
+      ]
     )
   }
 })
