@@ -28,7 +28,7 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') // 'b-toaster-bottom-right'
   },
-  append: {
+  prepend: {
     type: Boolean,
     default: false
   },
@@ -86,6 +86,7 @@ export default Vue.extend({
       localShow: false,
       showClass: false,
       isTransitioning: false,
+      order: 0,
       timer: null
     }
   },
@@ -109,7 +110,7 @@ export default Vue.extend({
         enterClass: '',
         enterActiveClass: '',
         enterToClass: '',
-        leaveClass: '', // 'show'
+        leaveClass: '',
         leaveActiveClass: '',
         leaveToClass: ''
       }
@@ -120,6 +121,12 @@ export default Vue.extend({
         afterEnter: this.onAfterEnter,
         beforeLeave: this.onBeforeLeave,
         afterLeave: this.onAfterLeave
+      }
+    },
+    transitionData() {
+      return {
+        props: this.transitionProps,
+        on: this.transitionHandlers
       }
     }
   },
@@ -139,6 +146,7 @@ export default Vue.extend({
       if (!this.localShow) {
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
+        this.order = Date.now() * (this.prepend ? -1 : 1)
         this.localShow = true
         // TODO
       }
@@ -179,80 +187,102 @@ export default Vue.extend({
       // restart with max of time remaining or 1 second
     },
     onBeforeEnter() {
+      this.isTransitining = true,
       requestAF(() => {
         this.showClass = true
       })
     },
     onAfterEnter() {
       // TODO
+      this.isTransitining = false,
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
     },
     onBeforeLeave() {
+      this.isTransitining = true,
       requestAF(() => {
         this.showClass = false
       })
     },
     onAfterLeave() {
       // TODO
+      this.isTransitining = false,
+      this.order = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
+    },
+    makeToast(h) {
+      // Render helper for generating the toast
+      if (!this.localShow) {
+        return h(false)
+      }
+      // Assemble the header content
+      const $headerContent = []
+      let $title = this.normalizeSlot('toast-title', this.slotScope)
+      if ($title) {
+        $headerContent.push($title)
+      } else if (this.title) {
+        $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
+      } else if (this.titleHtml) {
+        $headerContent.push(
+          h('strong', {
+            staticClass: 'mr-auto',
+            domProps: { innerHtml: this.titleHtml }
+          })
+        )
+      }
+      if (!this.noCloseButton) {
+        $headerContent.push(
+          h(BButtonClose, {
+            staticClass: 'ml-auto mb-1',
+            on: { click: evt => this.doHide(evt.target) }
+          })
+        )
+      }
+      // Assemble the header (if needed)
+      let $header = h(false)
+      if ($headerContent.length > 0) {
+        $header = h('header', { staticClass: 'toast-header' }, $headerContent)
+      }
+      // Toast body
+      const $body = h('div', { staticClass: 'toast-body' }, [
+        this.normalizeSlot('default', this.slotScope) || h(false)
+      ])
+      // Build the toast
+      return h(
+        'div',
+        {
+          staticClass: 'toast',
+          class: this.toastClasses,
+          attrs: {
+            id: this.safeId(),
+            tabindex: '-1',
+            role: this.isStatus ? 'status' : 'alert',
+            'aria-live': this.isStatus ? 'polite' : 'assertive',
+            'aria-atomic': 'true'
+          }
+        },
+        [$header, $body]
+      )
     }
   },
   render(h) {
-    // Assemble the header content
-    const $headerContent = []
-    let $title = this.normalizeSlot('toast-title', this.slotScope)
-    if ($title) {
-      $headerContent.push($title)
-    } else if (this.title) {
-      $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
-    } else if (this.titleHtml) {
-      $headerContent.push(h('strong', {
-        staticClass: 'mr-auto',
-        domProps: { innerHtml: this.titleHtml }
-      }))
-    }
-    if (!this.noCloseButton) {
-      $headerContent.push(
-        h(BButtonClose, {
-          staticClass: 'ml-auto mb-1',
-          on: { click: evt => this.doHide(evt.target) }
-        })
-      )
-    }
-    // Assemble the header (if needed)
-    let $header = h(false)
-    if ($headerContent.length > 0) {
-      $header = h('header', { staticClass: 'toast-header' }, $headerContent)
-    }
-    // Toast body
-    const $body = h('div', { staticClass: 'toast-body' }, [
-      this.normalizeSlot('default', this.slotScope) || h(false)
-    ])
-    // Build the toast
-    let $toast = h(
-      'div',
+    // Wrap toast in a transition
+    const $toast = h('transition', this.transitionData, [this.makeToast(h)])
+    return h(
+      MontingPortal,
       {
-        staticClass: 'toast',
-        class: this.toastClasses,
-        directives: [
-          { name: 'show', rawName: 'v-show', value: this.localShow, expression: 'localShow' }
-        ],
-        attrs: {
-          id: this.safeId(),
-          tabindex: '-1',
-          role: this.isStatus ? 'status' : 'alert',
-          'aria-live': this.isStatus ? 'polite' : 'assertive',
-          'aria-atomic': 'true'
+        props: {
+          name: this.safeId(),
+          to: this.toaster,
+          slim: true,
+          mountTo: 'body',
+          append: true,
+          targettag: 'div',
+          disabled: this.static || !(this.localShow || this.isTransitioning)
         }
       },
-      [$header, $body]
+      [$toast]
     )
-    // Wrap in a transition
-    $toast = h('transition', { props: this.transitionProps, on: this.transitionHandlers }, [$toast])
-    // TODO: Wrap in a <portal> with specified target
-    //       once initial testing is complete
-    return $toast
   }
 })
