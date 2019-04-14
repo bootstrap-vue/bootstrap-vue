@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import { Portal, MountingPortal, Wormhole } from 'portal-vue'
+import { MountingPortal } from 'portal-vue'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -187,26 +187,26 @@ export default Vue.extend({
       // restart with max of time remaining or 1 second
     },
     onBeforeEnter() {
-      this.isTransitining = true,
+      this.isTransitining = true
       requestAF(() => {
         this.showClass = true
       })
     },
     onAfterEnter() {
       // TODO
-      this.isTransitining = false,
+      this.isTransitining = false
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
     },
     onBeforeLeave() {
-      this.isTransitining = true,
+      this.isTransitining = true
       requestAF(() => {
         this.showClass = false
       })
     },
     onAfterLeave() {
       // TODO
-      this.isTransitining = false,
+      this.isTransitining = false
       this.order = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
