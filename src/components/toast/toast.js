@@ -256,10 +256,12 @@ export default Vue.extend({
     },
     makeToast(h) {
       // Render helper for generating the toast
+      /*
       if (!this.localShow) {
         // Return nothing if not showing
         return
       }
+      */
       // Assemble the header content
       const $headerContent = []
       let $title = this.normalizeSlot('toast-title', this.slotScope)
