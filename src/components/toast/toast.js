@@ -64,7 +64,7 @@ export default Vue.extend({
     toastClasses() {
       return {
         // TODO
-        'fade': !this.noFade
+        fade: !this.noFade
       }
     },
     slotScope() {
@@ -101,7 +101,7 @@ export default Vue.extend({
   methods: {
     show() {
       if (!this.localShow) {
-        const showEvt = buildEvt('show')
+        const showEvt = this.buildEvt('show')
         this.emitEvt(showEvt)
         this.localShow = true
         // TODO
@@ -112,7 +112,7 @@ export default Vue.extend({
     },
     doHide(relatedTarget = null) {
       if (this.localShow) {
-        const hideEvt = buildEvt('hide', { relatedTarget })
+        const hideEvt = this.buildEvt('hide', { relatedTarget })
         this.emitEvt(hideEvt)
         this.localShow = false
         // TODO
@@ -130,7 +130,7 @@ export default Vue.extend({
       })
     },
     emitEvent(bvEvt) {
-      const type = evt.type
+      const type = bvEvt.type
       this.$root.$emit(`bv::toast:${type}`, bvEvt)
       this.$emit(type, bvEvt)
     },
@@ -168,7 +168,7 @@ export default Vue.extend({
     const $headerContent = []
     let $title = this.normalizeSlot('toast-title', this.slotScope)
     if ($title) {
-      $headerContent.push(title)
+      $headerContent.push($title)
     } else if (this.title) {
       $headerContent.push(h('strong', { staticClass: 'mr-auto' }, this.title))
     }
@@ -180,14 +180,12 @@ export default Vue.extend({
     // Assemble the header (if needed)
     let $header = h(false)
     if ($headerContent.length > 0) {
-      $header = h('header', { staticClass: 'toast-header'}, $headerContent)
+      $header = h('header', { staticClass: 'toast-header' }, $headerContent)
     }
     // Toast body
-    const $body = h(
-      'div',
-      { staticClass: 'toast-body' },
-      [this.normalizeSlot('default', this.slotScope) || h(false)]
-    )
+    const $body = h('div', { staticClass: 'toast-body' }, [
+      this.normalizeSlot('default', this.slotScope) || h(false)
+    ])
     // Build the toast
     const $toast = h(
       'div',
@@ -209,10 +207,6 @@ export default Vue.extend({
     )
     // TODO: Wrap in a <portal> with specified target
     //       once initial testing is complete
-    return h(
-      'transition',
-      { props: this.transitionProps, on: this.transitionHandlers },
-      [$toast]
-    )
+    return h('transition', { props: this.transitionProps, on: this.transitionHandlers }, [$toast])
   }
 })
