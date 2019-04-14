@@ -4,8 +4,8 @@
  */
 import { isArray } from '../utils/array'
 import { isElement, getById } from '../utils/dom'
-import { HTMLElement } from '../utils/ssr'
 import observeDom from '../utils/observe-dom'
+import { HTMLElement } from '../utils/safe-types'
 
 const PLACEMENTS = {
   top: 'top',
