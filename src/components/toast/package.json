@@ -71,6 +71,9 @@
             "description": "Toast body content. Optionally scoped."
           }
         ]
+      },
+      {
+        "component": "BToast",
       }
     ]
   }
