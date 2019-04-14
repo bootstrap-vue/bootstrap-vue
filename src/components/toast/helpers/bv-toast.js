@@ -24,7 +24,7 @@ const notClient = method => {
 // Base Toast Props that are allowed
 // (some may be ignored or overridden on some message boxes)
 // We need to add ID in explicitly as it comes from the IdMixin
-const BASE_PROPS = keys(omit(toastProps, ['show']))
+const BASE_PROPS = keys(omit(toastProps, ['show', 'static']))
 BASE_PROPS.push('id')
 
 // Method to filter only recognized props that are not undefined
