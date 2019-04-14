@@ -206,7 +206,7 @@ export default Vue.extend({
     if ($title) {
       $headerContent.push($title)
     } else if (this.title) {
-      $headerContent.push(h('strong', { staticClass: 'mr-auto' }, this.title))
+      $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
     } else if (this.titleHtml) {
       $headerContent.push(h('strong', {
         staticClass: 'mr-auto',
