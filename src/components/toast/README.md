@@ -13,7 +13,7 @@ contain minimal, to-the-point, content.
 ## Overview
 
 To encourage extensible and predictable toasts, we recommend providing a header (title) and body.
-Toast headers use `display: flex;`, allowing easy alignment of content thanks to Bootstrap's
+Toast headers use STYLE `'display: flex'`, allowing easy alignment of content thanks to Bootstrap's
 [margin and flexbox utility classes](/docs/reference/utility-classes).
 
 Toasts are slightly translucent, too, so they blend over whatever they might appear over. For
