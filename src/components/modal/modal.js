@@ -312,7 +312,8 @@ export default Vue.extend({
         ok: this.onOk,
         cancel: this.onCancel,
         close: this.onClose,
-        hide: this.hide
+        hide: this.hide,
+        visible: this.is_visible
       }
     }
   },
