@@ -1,12 +1,12 @@
 import { from as arrayFrom } from './array'
-import { isBrowser, hasPassiveEventSupport } from './env'
+import { hasWindowSupport, hasDocumentSupport, hasPassiveEventSupport } from './env'
 import { isObject } from './object'
 
 // --- Constants ---
 
-const w = isBrowser ? window : {}
-const d = isBrowser ? document : {}
-const elProto = isBrowser ? Element.prototype : {}
+const w = hasWindowSupport ? window : {}
+const d = hasDocumentSupport ? document : {}
+const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
 
 // --- Normalization utils ---
 
@@ -206,7 +206,7 @@ export const getBCR = el => (isElement(el) ? el.getBoundingClientRect() : null)
 
 // Get computed style object for an element
 /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
-export const getCS = el => (isElement(el) ? w.getComputedStyle(el) : {})
+export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedStyle(el) : {})
 
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset

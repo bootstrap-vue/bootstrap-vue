@@ -2,18 +2,18 @@
  * Utilities to get information about the current environment
  */
 
-import { MutationObs } from './dom'
-
 // --- Constants ---
 
-export const isBrowser =
-  typeof window !== 'undefined' &&
-  typeof document !== 'undefined' &&
-  typeof navigator !== 'undefined'
-
+export const hasWindowSupport = typeof window !== 'undefined'
+export const hasDocumentSupport = typeof document !== 'undefined'
+export const hasNavigatorSupport = typeof navigator !== 'undefined'
 export const hasPromiseSupport = typeof Promise !== 'undefined'
+export const hasMutationObserverSupport =
+  typeof MutationObserver !== 'undefined' ||
+  typeof WebKitMutationObserver !== 'undefined' ||
+  typeof MozMutationObserver !== 'undefined'
 
-export const hasMutationObserverSupport = MutationObs !== null
+export const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
 
 // Determine if the browser supports the option passive for events
 export const hasPassiveEventSupport = (() => {
