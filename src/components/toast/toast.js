@@ -199,7 +199,9 @@ export default Vue.extend({
       if (!this.noAutoHide) {
         this.dismissStarted = Date.now()
         duration = duration || this.computedDuration
-        this.timer = setTimeout(() => {}, duration)
+        this.timer = setTimeout(() => {
+          this.hide()
+        }, duration)
       }
     },
     clearDismissTimer() {
