@@ -22,7 +22,7 @@ elements under a toast.
 
 ```html
 <template>
-  <div class="bg-light p-2>
+  <div class="bg-light p-2">
     <b-toast title="BootstrapVue" show static>
       Hello, world! This is a toast message.
     </b-toast>
