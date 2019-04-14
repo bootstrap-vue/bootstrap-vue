@@ -6,6 +6,8 @@ import BvEvent from '../../utils/bv-event.class'
 import { requestAF } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 
+/* istanbul ignore file: for now until ready for testing */
+
 const NAME = 'BToast'
 
 export const props = {
@@ -49,7 +51,6 @@ export const props = {
 }
 
 // @vue/component
-/* istanbul ignore next: for now until ready for testing */
 export default Vue.extend({
   name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
