@@ -1,13 +1,36 @@
-//
-// Plugin for adding $bvModal property to all Vue isntances
-//
+/**
+ * Plugin for adding `$bvModal` property to all Vue instances
+ */
+
 import Vue from 'vue'
 import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser, hasPromiseSupport } from '../../../utils/env'
+import { isUndefined, isFunction } from '../../../utils/inspect'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
-import { isDef, isFunction } from '../../../utils/inspect'
+
+// --- Constants ---
+
+// Base Modal Props that are allowed
+// Some may be ignored or overridden on some message boxes
+// Prop ID is allowed, but really only should be used for testing
+// We need to add it in explicitly as it comes from the IdMixin
+const BASE_PROPS = keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))
+BASE_PROPS.push('id')
+
+// Fallback event resolver (returns undefined)
+const defaultResolver = bvModalEvt => {}
+
+// Map prop names to modal slot names
+const propsToSlots = {
+  msgBoxContent: 'default',
+  title: 'modal-title',
+  okTitle: 'modal-ok',
+  cancelTitle: 'modal-cancel'
+}
+
+// --- Utility methods ---
 
 // Utility methods that produce warns
 const noPromises = () => {
@@ -30,25 +53,21 @@ const notClient = method => {
   }
 }
 
-// Base Modal Props that are allowed
-// (some may be ignored or overridden on some message boxes)
-// Prop ID is allowed, but really only should be used for testing
-// We need to add it in explicitly as it comes from the IdMixin
-const BASE_PROPS = keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))
-BASE_PROPS.push('id')
-
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
   return BASE_PROPS.reduce((memo, key) => {
-    if (isDef(options[key])) {
+    if (!isUndefined(options[key])) {
       memo[key] = options[key]
     }
     return memo
   }, {})
 }
 
+// Private read-only descriptor helper
+const privateRODescriptor = () => ({ enumerable: false, configurable: false, writable: false })
+
 // Create a private sub-component that extends BModal
-// which self-destructs after hidden.
+// which self-destructs after hidden
 // @vue/component
 const MsgBox = Vue.extend({
   name: 'BMsgBox',
@@ -64,7 +83,7 @@ const MsgBox = Vue.extend({
     const handleDestroy = () => {
       const self = this
       this.$nextTick(() => {
-        // in a setTimeout to release control back to application
+        // In a `setTimeout()` to release control back to application
         setTimeout(() => self.$destroy(), 0)
       })
     }
@@ -80,42 +99,30 @@ const MsgBox = Vue.extend({
     }
     // Should we also self destruct on parent deactivation?
 
-    // Show the MsgBox
+    // Show the `MsgBox`
     this.show()
   }
 })
 
-// Fallback event resolver (returns undefined)
-const defautlResolver = bvModalEvt => {}
-
-// Map prop names to modal slot names
-const propsToSlots = {
-  msgBoxContent: 'default',
-  title: 'modal-title',
-  okTitle: 'modal-ok',
-  cancelTitle: 'modal-cancel'
-}
-
 // Method to generate the on-demand modal message box
-// returns a promise that resolves to a value returned by the resolve
-const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
+// Returns a promise that resolves to a value returned by the resolve
+const asyncMsgBox = (props, $parent, resolver = defaultResolver) => {
   if (noPromises() || notClient()) {
     // Should this throw an error?
     /* istanbul ignore next */
     return
   }
-  // Create an instance of MsgBox component
+  // Create an instance of `MsgBox` component
   const msgBox = new MsgBox({
-    // We set parent as the local VM so these modals can emit events
-    // on the app $root, as needed by things like tooltips and popovers.
-    // And it helps to ensure MsgBox is destroyed when parent is destroyed.
+    // We set parent as the local VM so these modals can emit events on
+    // the app `$root`, as needed by things like tooltips and popovers
+    // And it helps to ensure `MsgBox` is destroyed when parent is destroyed
     parent: $parent,
     // Preset the prop values
     propsData: {
-      // Add in optional global config for modal defaults before the following.
-      // TODO:
-      //   Add in specific defaults for BMsgBox
-      //   Will need special handling as most defaults are undefined
+      // Add in optional global config for modal defaults before the following
+      // TODO: Add in specific defaults for `BMsgBox`
+      //       Will need special handling as most defaults are undefined
       ...filterOptions(getComponentConfig('BModal') || {}),
       // Defaults that user can override
       hideHeaderClose: true,
@@ -133,7 +140,7 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
 
   // Convert certain props to scoped slots
   keys(propsToSlots).forEach(prop => {
-    if (isDef(props[prop])) {
+    if (!isUndefined(props[prop])) {
       // Can be a string, or array of VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
       msgBox.$slots[propsToSlots[prop]] = props[prop]
@@ -163,52 +170,46 @@ const asyncMsgBox = (props, $parent, resolver = defautlResolver) => {
         }
       }
     })
-    // Mount the MsgBox, which will auto-trigger it to show
+    // Mount the `MsgBox`, which will auto-trigger it to show
     msgBox.$mount(div)
   })
 }
-
-// Private Read Only descriptor helper
-const privateRODescriptor = () => ({ enumerable: false, configurable: false, writable: false })
 
 // BvModal instance property class
 class BvModal {
   constructor(vm) {
     // Assign the new properties to this instance
     assign(this, { _vm: vm, _root: vm.$root })
-    // Set these properties as read-only and non-emumerable
+    // Set these properties as read-only and non-enumerable
     defineProperties(this, {
       _vm: privateRODescriptor(),
       _root: privateRODescriptor()
     })
   }
 
-  // Instance Methods
+  // --- Instance methods ---
 
-  // Show modal with the specified ID
-  // args are for future use
+  // Show modal with the specified ID args are for future use
   show(id, ...args) {
     if (id && this._root) {
       this._root.$emit('bv::show::modal', id, ...args)
     }
   }
 
-  // Hide modal with the specified ID
-  // args are for future use
+  // Hide modal with the specified ID args are for future use
   hide(id, ...args) {
     if (id && this._root) {
       this._root.$emit('bv::hide::modal', id, ...args)
     }
   }
 
-  // TODO:
-  //   Could make Promise Versions of above
-  //   that first check if modal is in document (by ID)
-  //   and if not found reject the promise
-  //   else waits for hide/hidden event and then resolve
-  //   returning the BvModalEvent object (which contains the details)
+  // TODO: Could make Promise versions of above that first checks
+  //       if modal is in document (by ID) and if not found reject
+  //       the Promise. Otherwise waits for hide/hidden event and
+  //       then resolves returning the `BvModalEvent` object
+  //       (which contains the details)
 
-  // The following methods require Promise Support!
+  // The following methods require Promise support!
   // IE 11 and others do not support Promise natively, so users
   // should have a Polyfill loaded (which they need anyways for IE 11 support)
 
@@ -243,7 +244,8 @@ class BvModal {
     })
   }
 
-  // Open a message box modal with OK and CANCEL buttons and returns a promise
+  // Open a message box modal with OK and CANCEL buttons
+  // and returns a promise
   msgBoxConfirm(message, options = {}) {
     // Set the modal props we support from options
     const props = {
@@ -261,9 +263,7 @@ class BvModal {
   }
 }
 
-//
-// Method to install $bvModal vm injection
-//
+// Method to install `$bvModal` VM injection
 const install = _Vue => {
   if (install._installed) {
     // Only install once
@@ -275,13 +275,13 @@ const install = _Vue => {
   // Add our instance mixin
   _Vue.mixin({
     beforeCreate() {
-      // Because we need access to $root for $emits, and vm for parenting,
-      // we have to create a fresh instance of BvModal for each VM.
+      // Because we need access to `$root` for `$emits`, and VM for parenting,
+      // we have to create a fresh instance of `BvModal` for each VM
       this._bv__modal = new BvModal(this)
     }
   })
 
-  // Define our read-only $bvModal instance property
+  // Define our read-only `$bvModal` instance property
   defineProperty(_Vue.prototype, '$bvModal', {
     get() {
       return this._bv__modal

@@ -3,16 +3,17 @@ import BvModalEvent from './helpers/bv-modal-event.class'
 
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
-// The defautl Z-INDEX for modal backdrop
+// The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
 
-const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
+const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('modal', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBCR()` so that the `isVisible(el)` test returns `true`
     // Needed for z-index checks
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
@@ -41,14 +42,14 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
 
-      // This outer DIV will go away once we migrate to Portal-Vue
+      // This outer <div> will go away once we migrate to Portal-Vue
       // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wrapper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
@@ -91,7 +92,7 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
 
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
@@ -115,17 +116,17 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
-      // This outer DIV will go away once we migrate to Portal-Vue
+      // This outer <div> will go away once we migrate to Portal-Vue
       // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wrapper (has z-index, etc)... the stacker div
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
@@ -178,12 +179,12 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should store cache of adjustments on body element
       // const body = document.body
@@ -193,12 +194,12 @@ describe('modal', () => {
       // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
       // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
 
-      // This outer DIV will go away once we migrate to Portal-Vue
+      // This outer <div> will go away once we migrate to Portal-Vue
       // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
 
-      // Main outer wrapper (has z-index, etc)... The stacker div
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       const $outer = createWrapper(wrapper.element.firstElementChild)
       expect($outer.is('div')).toBe(true)
       expect($outer.classes().length).toBe(0)
@@ -226,12 +227,12 @@ describe('modal', () => {
       wrapper.setProps({
         visible: false
       })
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // expect(body._marginChangedForModal).toBe(null)
       // expect(body._paddingChangedForModal).toBe(null)
@@ -327,10 +328,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -355,10 +356,10 @@ describe('modal', () => {
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should still be open
       expect($modal.element.style.display).toEqual('')
@@ -371,10 +372,10 @@ describe('modal', () => {
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -406,10 +407,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -434,10 +435,10 @@ describe('modal', () => {
       $ok.trigger('click')
       expect(trigger).toEqual('ok')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should still be open
       expect($modal.element.style.display).toEqual('')
@@ -448,10 +449,10 @@ describe('modal', () => {
       $cancel.trigger('click')
       expect(trigger).toEqual('cancel')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -487,10 +488,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -504,10 +505,10 @@ describe('modal', () => {
       $modal.trigger('keydown.esc')
       expect(trigger).toEqual('esc')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -544,10 +545,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -561,10 +562,10 @@ describe('modal', () => {
       $modal.trigger('click')
       expect(trigger).toEqual('backdrop')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -603,10 +604,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -628,10 +629,10 @@ describe('modal', () => {
       $modal.trigger('mouseup')
       $modal.trigger('click')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -645,10 +646,10 @@ describe('modal', () => {
       $modal.trigger('mouseup')
       $modal.trigger('click')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -659,10 +660,10 @@ describe('modal', () => {
       // Try and close modal via click out
       $modal.trigger('click')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(true)
       expect(trigger).toEqual('backdrop')
@@ -687,10 +688,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -700,10 +701,10 @@ describe('modal', () => {
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -711,10 +712,10 @@ describe('modal', () => {
       // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -736,10 +737,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -749,10 +750,10 @@ describe('modal', () => {
       // Try and open modal via `bv::toggle::modal`
       wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -760,10 +761,10 @@ describe('modal', () => {
       // Try and close modal via `bv::toggle::modal`
       wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -771,10 +772,10 @@ describe('modal', () => {
       // Try and open modal via `bv::toggle::modal` with wrong ID
       wrapper.vm.$root.$emit('bv::toggle::modal', 'not-test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('none')
@@ -798,10 +799,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -818,19 +819,19 @@ describe('modal', () => {
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should not open
       expect(called).toBe(true)
       expect($modal.element.style.display).toEqual('none')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Allow modal to open
       prevent = false
@@ -839,10 +840,10 @@ describe('modal', () => {
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect(called).toBe(true)
@@ -865,34 +866,34 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
       expect($modal.element.style.display).toEqual('none')
 
-      // Try and open modal via .toggle() method
+      // Try and open modal via `.toggle()` method
       wrapper.vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
 
-      // Try and close modal via .toggle()
+      // Try and close modal via `.toggle()` method
       wrapper.vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -922,10 +923,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -933,30 +934,30 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
       expect(document.activeElement).toBe(document.body)
 
-      // Try and open modal via .toggle() method
+      // Try and open modal via `.toggle()` method
       wrapper.vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
       expect(document.activeElement).not.toBe(document.body)
       expect(wrapper.element.contains(document.activeElement)).toBe(true)
 
-      // Try and close modal via .toggle()
+      // Try and close modal via `.toggle()` method
       wrapper.vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -984,12 +985,12 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1005,15 +1006,15 @@ describe('modal', () => {
       $button.element.focus()
       expect(document.activeElement).toBe($button.element)
 
-      // Try and open modal via .toggle() method
+      // Try and open modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -1021,15 +1022,15 @@ describe('modal', () => {
       expect(document.activeElement).not.toBe($button.element)
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
-      // Try and close modal via .toggle()
+      // Try and close modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1062,12 +1063,12 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1087,15 +1088,15 @@ describe('modal', () => {
       $button.element.focus()
       expect(document.activeElement).toBe($button.element)
 
-      // Try and open modal via .toggle() method
+      // Try and open modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle('button.return-to')
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('')
@@ -1104,15 +1105,15 @@ describe('modal', () => {
       expect(document.activeElement).not.toBe($button2.element)
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
-      // Try and close modal via .toggle()
+      // Try and close modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1121,7 +1122,7 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('if focus leave modal it reutrns to modal', async () => {
+    it('if focus leave modal it returns to modal', async () => {
       const App = localVue.extend({
         render(h) {
           return h('div', {}, [
@@ -1140,12 +1141,12 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await waitAF()
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1160,15 +1161,15 @@ describe('modal', () => {
 
       // Try anf set focusin on external button
       $button.trigger('focusin')
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($modal.element)
 
       // Try anf set focusin on external button
       $button.trigger('focus')
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($modal.element)
 

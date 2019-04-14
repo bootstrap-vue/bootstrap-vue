@@ -1,7 +1,8 @@
-import modalPlugin from './index'
+import modalPlugin from '../index'
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
-const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
+const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('$bvModal', () => {
   const localVue = new CreateLocalVue()
@@ -20,8 +21,8 @@ describe('$bvModal', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.vm.$bvModal).toBeDefined()
     expect(wrapper.vm.$bvModal.show).toBeDefined()
@@ -36,19 +37,19 @@ describe('$bvModal', () => {
 
     wrapper.vm.$bvModal.show('test1')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($modal.element.style.display).toEqual('')
 
     wrapper.vm.$bvModal.hide('test1')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($modal.element.style.display).toEqual('none')
 
@@ -68,7 +69,7 @@ describe('$bvModal', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
-    // $bvModal.msgBoxOk
+    // `$bvModal.msgBoxOk`
     expect(wrapper.vm.$bvModal).toBeDefined()
     const bvModal = wrapper.vm.$bvModal
     expect(bvModal.msgBoxOk).toBeDefined()
@@ -81,12 +82,12 @@ describe('$bvModal', () => {
     expect(p).toBeDefined()
     expect(p).toBeInstanceOf(Promise)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Find the modal
     const modal = document.querySelector('#test2')
@@ -101,16 +102,16 @@ describe('$bvModal', () => {
     expect($button.text()).toEqual('OK')
     $button.trigger('click')
 
-    // Promise should now resolve.
+    // Promise should now resolve
     const result = await p
     expect(result).toEqual(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Modal should be gone from DOM
     expect(document.querySelector('#test2')).toBe(null)
@@ -129,7 +130,7 @@ describe('$bvModal', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
-    // $bvModal.msgBoxConfirm
+    // `$bvModal.msgBoxConfirm`
     expect(wrapper.vm.$bvModal).toBeDefined()
     const bvModal = wrapper.vm.$bvModal
     expect(bvModal.msgBoxConfirm).toBeDefined()
@@ -142,12 +143,12 @@ describe('$bvModal', () => {
     expect(p).toBeDefined()
     expect(p).toBeInstanceOf(Promise)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Find the modal
     const modal = document.querySelector('#test3')
@@ -163,16 +164,16 @@ describe('$bvModal', () => {
     expect($buttons.at(1).text()).toEqual('OK')
     $buttons.at(0).trigger('click')
 
-    // Promise should now resolve.
+    // Promise should now resolve
     const result = await p
-    expect(result).toEqual(false) // cancel button
+    expect(result).toEqual(false) // Cancel button
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Modal should be gone from DOM
     expect(document.querySelector('#test3')).toBe(null)

@@ -1,6 +1,9 @@
-// Convenience inspection utilities
-import { isObject, isPlainObject } from './object'
+/**
+ * Convenience inspection utilities
+ */
+
 import { isArray } from './array'
+import { isObject, isPlainObject } from './object'
 
 export const toType = val => typeof val
 
@@ -8,9 +11,7 @@ export const toRawType = val => Object.prototype.toString.call(val).slice(8, -1)
 
 export const toRawTypeLC = val => toRawType(val).toLowerCase()
 
-export const isUndef = val => val === undefined
-
-export const isDef = val => !isUndef(val)
+export const isUndefined = val => val === undefined
 
 export const isNull = val => val === null
 
@@ -27,7 +28,7 @@ export const isPrimitive = val => isBoolean(val) || isString(val) || isNumber(va
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
 export const isPromise = val =>
-  isDef(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch)
+  !isUndefined(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
 export { isObject, isPlainObject, isArray }

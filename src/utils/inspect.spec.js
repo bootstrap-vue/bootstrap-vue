@@ -2,8 +2,7 @@ import {
   toType,
   toRawType,
   toRawTypeLC,
-  isUndef,
-  isDef,
+  isUndefined,
   isNull,
   isFunction,
   isBoolean,
@@ -57,32 +56,18 @@ describe('utils/inspect', () => {
     expect(toRawTypeLC(null)).toEqual('null')
   })
 
-  it('isUndef', async () => {
-    expect(isUndef(123)).toEqual(false)
-    expect(isUndef('123')).toEqual(false)
-    expect(isUndef(true)).toEqual(false)
-    expect(isUndef({})).toEqual(false)
-    expect(isUndef([])).toEqual(false)
-    expect(isUndef(/abc/)).toEqual(false)
-    expect(isUndef(() => {})).toEqual(false)
-    expect(isUndef(Date)).toEqual(false)
-    expect(isUndef(new Date())).toEqual(false)
-    expect(isUndef(undefined)).toEqual(true)
-    expect(isUndef(null)).toEqual(false)
-  })
-
-  it('isDef', async () => {
-    expect(isDef(123)).toEqual(true)
-    expect(isDef('123')).toEqual(true)
-    expect(isDef(true)).toEqual(true)
-    expect(isDef({})).toEqual(true)
-    expect(isDef([])).toEqual(true)
-    expect(isDef(/abc/)).toEqual(true)
-    expect(isDef(() => {})).toEqual(true)
-    expect(isDef(Date)).toEqual(true)
-    expect(isDef(new Date())).toEqual(true)
-    expect(isDef(undefined)).toEqual(false)
-    expect(isDef(null)).toEqual(true)
+  it('isUndefined', async () => {
+    expect(isUndefined(123)).toEqual(false)
+    expect(isUndefined('123')).toEqual(false)
+    expect(isUndefined(true)).toEqual(false)
+    expect(isUndefined({})).toEqual(false)
+    expect(isUndefined([])).toEqual(false)
+    expect(isUndefined(/abc/)).toEqual(false)
+    expect(isUndefined(() => {})).toEqual(false)
+    expect(isUndefined(Date)).toEqual(false)
+    expect(isUndefined(new Date())).toEqual(false)
+    expect(isUndefined(undefined)).toEqual(true)
+    expect(isUndefined(null)).toEqual(false)
   })
 
   it('isNull', async () => {
