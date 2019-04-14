@@ -13,7 +13,7 @@ export default Vue.extend({
       required: true
     },
     transition: {
-      type: [Boolean, String, Object]
+      type: [Boolean, String, Object],
       default: false
     }
   },
