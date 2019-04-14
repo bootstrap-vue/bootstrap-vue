@@ -1,0 +1,26 @@
+// b-toast and b-toaster custom SCSS
+
+.b-toaster {
+  position: absolute;
+  display: flex;
+
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left {
+    bottom: 0;
+    top: 0;
+    height: 100vh;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    overflow-y: hidden;
+  }
+
+  &.b-toaster-bottom-right {
+    right: 0;
+    flex-align: flex-end !important;
+  }
+
+  &.b-toaster-bottom-left {
+    left: 0;
+    flex-align: flex-start !important;
+  }
+}
