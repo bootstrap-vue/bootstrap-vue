@@ -1,25 +1,43 @@
 // b-toast and b-toaster custom SCSS
+//
+// Configured "toasters".
+// The following are columnar toasters (vertically stacked)
+//   b-toaster-top-right
+//   b-toaster-top-left
+//   b-toaster-bottom-right
+//   b-toaster-bottom-left
 
 .b-toaster {
   position: absolute;
   display: flex;
   z-index: $b-toaster-zindex;
 
+  &.b-toaster-top-right,
+  &.b-toaster-top-left {
+    top: 0;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow-y: hidden;
+  }
+
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
+    position: fixed;
     bottom: 0;
-    top: 0;
-    height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
     flex-direction: column !important;
     justify-content: flex-end !important;
     overflow-y: hidden;
   }
 
+  &.b-toaster-top-right,
   &.b-toaster-bottom-right {
     right: 0;
     flex-align: flex-end !important;
   }
 
+  &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: 0;
     flex-align: flex-start !important;
