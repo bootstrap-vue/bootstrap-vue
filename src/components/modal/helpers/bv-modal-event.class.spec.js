@@ -36,6 +36,10 @@ describe('modal > BvModalEvent', () => {
   })
 
   it('supports cancelable events via deprecated evt.cancel()', async () => {
+    // Mock `console.warn()` to prevent a console warning and
+    // check wether a warning about the `evt.cancel()` call
+    // was made
+    console.warn = jest.fn()
     const evt = new BvModalEvent('foobar', {
       cancelable: true
     })
@@ -45,6 +49,7 @@ describe('modal > BvModalEvent', () => {
     expect(evt.defaultPrevented).toBe(false)
     evt.cancel()
     expect(evt.defaultPrevented).toBe(true)
+    expect(console.warn).toHaveBeenCalled()
   })
 
   it('supports non cancelable events', async () => {
