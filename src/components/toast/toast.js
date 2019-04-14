@@ -20,6 +20,10 @@ export const props = {
     type: String,
     default: null
   },
+  titleHtml: {
+    type: String,
+    default: null
+  },
   toaster: {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') // 'b-toaster-bottom-right'
@@ -105,7 +109,7 @@ export default Vue.extend({
         enterClass: '',
         enterActiveClass: '',
         enterToClass: '',
-        leaveClass: 'show',
+        leaveClass: '', // 'show'
         leaveActiveClass: '',
         leaveToClass: ''
       }
@@ -203,10 +207,14 @@ export default Vue.extend({
       $headerContent.push($title)
     } else if (this.title) {
       $headerContent.push(h('strong', { staticClass: 'mr-auto' }, this.title))
+    } else if (this.titleHtml) {
+      $headerContent.push(h('strong', {
+        staticClass: 'mr-auto', domProps: { innerHtml: this.titleHtml }
+      }))
     }
     if (!this.noCloseButton) {
       $headerContent.push(
-        h(BButtonClose, { staticClass: 'ml-2 mb-1', on: { click: evt => this.doHide(evt.target) } })
+        h(BButtonClose, { staticClass: 'ml-auto mb-1', on: { click: evt => this.doHide(evt.target) } })
       )
     }
     // Assemble the header (if needed)
@@ -219,7 +227,7 @@ export default Vue.extend({
       this.normalizeSlot('default', this.slotScope) || h(false)
     ])
     // Build the toast
-    const $toast = h(
+    let $toast = h(
       'div',
       {
         staticClass: 'toast',
@@ -237,8 +245,9 @@ export default Vue.extend({
       },
       [$header, $body]
     )
+    // Wrap in a transition
+    $toast = h('transition', { props: this.transitionProps, on: this.transitionHandlers }, [$toast])
     // TODO: Wrap in a <portal> with specified target
-    //       once initial testing is complete
-    return h('transition', { props: this.transitionProps, on: this.transitionHandlers }, [$toast])
-  }
+    //       once initial testing is complete  }
+    return $toast
 })
