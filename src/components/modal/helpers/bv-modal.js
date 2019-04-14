@@ -14,7 +14,7 @@ import {
   defineProperties,
   readonlyDescriptor
 } from '../../../utils/object'
-import { warnNotClient, warnNoPromiseSupport } from './warn'
+import { warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 
 // --- Constants ---
 
