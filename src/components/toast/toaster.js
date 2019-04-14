@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { PortalTarget } from 'portal-vue'
+import { requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -17,17 +18,35 @@ export default Vue.extend({
       default: false
     }
   },
-  render(h) {
-    return h(Portaltarget, {
-      class: [ this.name ],
-      attrs: { id: this.name },
-      props: {
-        name: this.name,
-        multiple: true,
-        tag: 'div',
-        slim: false,
-        transition: this.transition
-      }
+  data() {
+    return: {
+      doRender: false
+    }
+  },
+  beforeMount() {
+    // TODO: Check for already existing <portal-target> with same
+    //       name/id and don't set doRender to true
+    requestAF(() => {
+      // We don't render on SSR
+      this.doRender = true
     })
+  },
+  render(h) {
+    /* istanbul ignore else */
+    if (doRender) {
+      return h(PortalTarget, {
+        class: [this.name],
+        attrs: { id: this.name },
+        props: {
+          name: this.name,
+          multiple: true,
+          tag: 'div',
+          slim: false,
+          transition: this.transition
+        }
+      })
+    } else {
+      return h(false)
+    }
   }
 })
