@@ -19,7 +19,7 @@ export default Vue.extend({
     }
   },
   data() {
-    return: {
+    return {
       doRender: false
     }
   },
@@ -33,7 +33,7 @@ export default Vue.extend({
   },
   render(h) {
     /* istanbul ignore else */
-    if (doRender) {
+    if (this.doRender) {
       return h(PortalTarget, {
         class: [this.name],
         attrs: { id: this.name },
