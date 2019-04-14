@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Portal, wormhole } from 'portal-vue'
+import { Portal } from 'portal-vue'
 import BToaster from './toaster'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
@@ -194,9 +194,9 @@ export default Vue.extend({
     },
     ensureToaster() {
       if (!getById(this.toaster)) {
-        const  div = document.createElement('div')
+        const div = document.createElement('div')
         document.body.append(div)
-        const target = new BToaster({
+        new BToaster({
           el: div,
           parent: this.$root,
           propsData: {
