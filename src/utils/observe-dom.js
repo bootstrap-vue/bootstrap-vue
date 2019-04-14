@@ -20,7 +20,7 @@ const observeDom = (el, callback, opts) => /* istanbul ignore next: difficult to
 
   // Exit and throw a warning when `MutationObserver` isn't available
   if (warnNoMutationObserverSupport('observeDom')) {
-    return
+    return null
   }
 
   // Define a new observer
