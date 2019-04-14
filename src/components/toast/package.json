@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Toast",
+    "beta": true,
+    "new": true,
     "description": "Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.",
     "components": [
       {
