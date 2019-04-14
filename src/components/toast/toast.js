@@ -209,12 +209,16 @@ export default Vue.extend({
       $headerContent.push(h('strong', { staticClass: 'mr-auto' }, this.title))
     } else if (this.titleHtml) {
       $headerContent.push(h('strong', {
-        staticClass: 'mr-auto', domProps: { innerHtml: this.titleHtml }
+        staticClass: 'mr-auto',
+        domProps: { innerHtml: this.titleHtml }
       }))
     }
     if (!this.noCloseButton) {
       $headerContent.push(
-        h(BButtonClose, { staticClass: 'ml-auto mb-1', on: { click: evt => this.doHide(evt.target) } })
+        h(BButtonClose, {
+          staticClass: 'ml-auto mb-1',
+          on: { click: evt => this.doHide(evt.target) }
+        })
       )
     }
     // Assemble the header (if needed)
