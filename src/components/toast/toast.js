@@ -198,6 +198,7 @@ export default Vue.extend({
         document.body.append(div)
         const target = new BToaster({
           el: div,
+          parent: this.$root,
           propsData: {
             name: this.toaster
           }
