@@ -151,8 +151,8 @@ export default Vue.extend({
     this.ensureToaster()
   },
   mounted() {
+    this.doRender = true
     this.$nextTick(() => {
-      this.doRender = true
       if (this.visible) {
         this.show()
       }
@@ -165,9 +165,7 @@ export default Vue.extend({
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
         this.order = Date.now() * (this.prepend ? -1 : 1)
-        this.$nextTick(() => {
-          this.localShow = true
-        })
+        this.localShow = true
       }
     },
     hide() {
@@ -256,12 +254,6 @@ export default Vue.extend({
     },
     makeToast(h) {
       // Render helper for generating the toast
-      /*
-      if (!this.localShow) {
-        // Return nothing if not showing
-        return
-      }
-      */
       // Assemble the header content
       const $headerContent = []
       let $title = this.normalizeSlot('toast-title', this.slotScope)
@@ -299,6 +291,7 @@ export default Vue.extend({
         'div',
         {
           staticClass: 'toast',
+          key: 'b-toast',
           class: this.toastClasses,
           attrs: {
             id: this.safeId(),
@@ -327,7 +320,7 @@ export default Vue.extend({
           disabled: this.static
         }
       },
-      [h('transition', this.transitionData, this.makeToast(h))]
+      [h('transition', this.transitionData, [this.localShow ? this.makeToast(h) : h(false)])]
     )
   }
 })
