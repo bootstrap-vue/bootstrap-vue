@@ -35,6 +35,7 @@ export default Vue.extend({
     /* istanbul ignore else */
     if (this.doRender) {
       return h(PortalTarget, {
+        staticClass: 'b-toaster',
         class: [this.name],
         attrs: { id: this.name },
         props: {
