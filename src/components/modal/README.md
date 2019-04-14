@@ -851,7 +851,7 @@ Example Confirm Message boxes
   `cancelDisabled`.
 - When a `title` (or `titleHtml`) _is not_ provided in the options, the header will not be shown.
 - When a `title` (or `titleHtml`) _is_ provided in the options, the header close button is not
-  shown by default. You can enable the header close button by setting `noHeaderClose: true` in
+  shown by default. You can enable the header close button by setting `hideHeaderClose: false` in
   the options.
 - Message Boxes will throw an error (promise rejection) if they are closed/destroyed before
   they are hidden. Always include a `.catch(error => { /* handler code */ })` reject handler,
