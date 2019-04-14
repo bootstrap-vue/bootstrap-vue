@@ -196,13 +196,13 @@ export default Vue.extend({
       if (!getById(this.toaster)) {
         const div = document.createElement('div')
         document.body.append(div)
-        new BToaster({
-          el: div,
+        const toaster = new BToaster({
           parent: this.$root,
           propsData: {
             name: this.toaster
           }
         })
+        toaster.$mount(div)
       }
     },
     startDismissTimer(duration = 0) {
