@@ -151,10 +151,12 @@ export default Vue.extend({
     this.ensureToaster()
   },
   mounted() {
-    // TODO
-    if (this.visible) {
-      this.show()
-    }
+    this.$nextTick(() => {
+      this.doRender = true
+      if (this.visible) {
+        this.show()
+      }
+    })
   },
   methods: {
     show() {
@@ -163,7 +165,6 @@ export default Vue.extend({
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
         this.order = Date.now() * (this.prepend ? -1 : 1)
-        this.doRender = true
         this.$nextTick(() => {
           this.localShow = true
         })
@@ -252,7 +253,6 @@ export default Vue.extend({
       this.order = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
-      this.doRender = false
     },
     makeToast(h) {
       // Render helper for generating the toast
@@ -312,11 +312,9 @@ export default Vue.extend({
     }
   },
   render(h) {
-    /*
     if (!this.doRender) {
       return h(false)
     }
-    */
     return h(
       Portal,
       {
