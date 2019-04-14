@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import { PortalTarget } from 'portal-vue'
-import { requestAF } from '../../utils/dom'
+import { PortalTarget, wormhole } from 'portal-vue'
+import warn from '../../utils/warn'
+import { getById } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -20,14 +21,17 @@ export default Vue.extend({
   },
   data() {
     return {
+      // We don't render on SSR or if a an existing target found
       doRender: false
     }
   },
   beforeMount() {
-    // TODO: Check for already existing <portal-target> with same
-    //       name/id and don't set doRender to true
-    // We don't render on SSR
-    this.doRender = true
+    /* istanbul ignore if */
+    if (getById(this.name) || wormhole.targets[this.name] ) {
+      warn(`b-toaster: A <portal-target> name '${this.name}' already eixsts in the document`)
+    } else {
+      this.doRender = true
+    }
   },
   render(h) {
     /* istanbul ignore else */
