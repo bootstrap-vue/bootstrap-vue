@@ -54,6 +54,10 @@ export const props = {
 export default Vue.extend({
   name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
+  model: {
+    props: 'show',
+    event: 'change'
+  },
   props,
   data() {
     return {
