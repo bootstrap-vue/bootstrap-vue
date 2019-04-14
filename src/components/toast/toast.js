@@ -64,7 +64,7 @@ export default Vue.extend({
     toastClasses() {
       return {
         // TODO
-        'fade' !this.noFade
+        'fade': !this.noFade
       }
     },
     slotScope() {
