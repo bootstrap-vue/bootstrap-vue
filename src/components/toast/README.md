@@ -7,6 +7,9 @@ Toasts are lightweight notifications designed to mimic the push notifications th
 popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy
 to align and position inside a `<b-toaster>` target component.
 
+Toasts are intended to be small interruptions to your visitors or users, and therefore should
+contain minimal, to-the-point, content.
+
 ## Overview
 
 To encourage extensible and predictable toasts, we recommend providing a header (title) and body.
@@ -57,7 +60,7 @@ a later point in time).
 If the information needed is important for the process, e.g. for a list of errors in a form, then
 use the [`<b-alert>`](/docs/components/alert) component instead of `<b-toast>`.
 
-`<b-taost>`, by default, sets the `role` attribute to `'alert'` and `aria-live` to `'assertive'`.
+`<b-taost>`, by default, sets the attributes `role` to `'alert'` and `aria-live` to `'assertive'`.
 If it’s an important message like an error, this default setting is appropriate, otherwise set the
 prop `is-status` to `true` to change the attributes  `role` to `'status'` and `aria-live` to `'polite'`.
 
