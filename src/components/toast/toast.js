@@ -47,6 +47,11 @@ export const props = {
     // Switches role to 'status' and aria-live to 'polite'
     type: Boolean,
     default: false
+  },
+  static: {
+    // Render the toast in place, rather than in a portal-taget
+    type: Boolean,
+    default: false
   }
 }
 
