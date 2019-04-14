@@ -105,6 +105,12 @@ export default Vue.extend({
       newVal ? this.show() : this.hide()
     }
   },
+  mounted() {
+    // TODO
+    if (this.show) {
+      this.localShow = true
+    }
+  },
   methods: {
     show() {
       if (!this.localShow) {
