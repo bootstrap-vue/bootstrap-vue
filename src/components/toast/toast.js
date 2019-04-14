@@ -51,7 +51,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, normalizeSlotMixin]
+  mixins: [idMixin, normalizeSlotMixin],
   props,
   data() {
     return {
@@ -67,7 +67,7 @@ export default Vue.extend({
         'fade' !this.noFade
       }
     },
-    slotScope: {
+    slotScope() {
       return {
         // TODO
         hide: this.hide
@@ -75,7 +75,7 @@ export default Vue.extend({
     },
     transitionProps() {
       return {
-        name: ''
+        name: '',
         enterClass: '',
         enterActiveClass: '',
         enterToClass: '',
@@ -95,7 +95,7 @@ export default Vue.extend({
   },
   watch: {
     show(newVal, oldVal) {
-      newval ? this.show() : this.hide()
+      newVal ? this.show() : this.hide()
     }
   },
   methods: {
@@ -162,14 +162,14 @@ export default Vue.extend({
       const hiddenEvt = this.buildEvt('hidden')
       this.emitEvt(hiddenEvt)
     }
-  }
+  },
   render(h) {
     // Assemble the header content
     const $headerContent = []
     let $title = this.normalizeSlot('title', this.slotScope)
     if ($title) {
       $headerContent.push(title)
-    } else if (this.title)
+    } else if (this.title) {
       $headerContent.push(h('strong', { staticClass: 'mr-auto' }, this.title))
     }
     if (!this.noCloseButton) {
