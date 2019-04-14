@@ -7,6 +7,8 @@ export const isBrowser =
   typeof document !== 'undefined' &&
   typeof navigator !== 'undefined'
 
+export const hasPromiseSupport = typeof Promise !== 'undefined'
+
 export const hasEventListenerSupport = isBrowser && window.addEventListener
 
 // Determine if the browser supports the option passive for events

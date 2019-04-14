@@ -5,12 +5,16 @@ import BButton from '../button/button'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import { isBrowser } from '../../utils/env'
+import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
+
+// --- Constants ---
 
 const NAME = 'BModal'
 
@@ -210,7 +214,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
     event: 'change'
@@ -304,6 +308,15 @@ export default Vue.extend({
         position: 'absolute',
         zIndex: this.zIndex
       }
+    },
+    slotScope() {
+      return {
+        ok: this.onOk,
+        cancel: this.onCancel,
+        close: this.onClose,
+        hide: this.hide,
+        visible: this.is_visible
+      }
     }
   },
   watch: {
@@ -364,9 +377,9 @@ export default Vue.extend({
       }
       this.is_opening = true
       if (isBrowser && document.activeElement.focus) {
-        // Preset the fallback return focus value if it is not set.
-        // document.activeElement should be the trigger element that was clicked or
-        // in the case of using the v-model, which ever element has current focus.
+        // Preset the fallback return focus value if it is not set
+        // `document.activeElement` should be the trigger element that was clicked or
+        // in the case of using the v-model, which ever element has current focus
         // Will be overridden by some commands such as toggle, etc.
         this.return_focus = this.return_focus || document.activeElement
       }
@@ -502,6 +515,8 @@ export default Vue.extend({
         this.returnFocusTo()
         this.is_closing = false
         this.return_focus = null
+        // TODO: Need to find a way to pass the `trigger` property
+        //       to the `hidden` event, not just only the `hide` event
         const hiddenEvt = new BvModalEvent('hidden', {
           cancelable: false,
           vueTarget: this,
@@ -514,15 +529,17 @@ export default Vue.extend({
       })
     },
     // Event emitter
-    emitEvent(bvEvt) {
-      const type = bvEvt.type
-      this.$emit(type, bvEvt)
-      this.emitOnRoot(`bv::modal::${type}`, bvEvt, bvEvt.modalId)
+    emitEvent(bvModalEvt) {
+      const type = bvModalEvt.type
+      // We emit on root first incase a global listener wants to cancel
+      // the event first before the instance emits it's event
+      this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.modalId)
+      this.$emit(type, bvModalEvt)
     },
     // UI event handlers
     onDialogMousedown(evt) {
       // Watch to see if the matching mouseup event occurs outside the dialog
-      // And if it does, cancel the clickout handler
+      // And if it does, cancel the clickOut handler
       const modal = this.$refs.modal
       const onceModalMouseup = evt => {
         eventOff(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
@@ -548,6 +565,15 @@ export default Vue.extend({
       if (!contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
+    },
+    onOk() {
+      this.hide('ok')
+    },
+    onCancel() {
+      this.hide('cancel')
+    },
+    onClose() {
+      this.hide('headerclose')
     },
     onEsc(evt) {
       // If ESC pressed, hide modal
@@ -578,7 +604,8 @@ export default Vue.extend({
     // Resize listener
     setResizeEvent(on) {
       const method = on ? eventOn : eventOff
-      // These events should probably also check if body is overflowing
+      // These events should probably also check if
+      // body is overflowing
       method(window, 'resize', this.checkModalOverflow, EVT_OPTIONS)
       method(window, 'orientationchange', this.checkModalOverflow, EVT_OPTIONS)
     },
@@ -607,9 +634,8 @@ export default Vue.extend({
     },
     // Focus control handlers
     focusFirst() {
-      // TODO:
-      //   Add support for finding input element with 'autofocus' attribute set
-      //   and focus that element
+      // TODO: Add support for finding input element with 'autofocus'
+      //       attribute set and focus that element
       // Don't try and focus if we are SSR
       if (isBrowser) {
         const modal = this.$refs.modal
@@ -626,10 +652,11 @@ export default Vue.extend({
       }
     },
     returnFocusTo() {
-      // Prefer `returnFocus` prop over event specified `return_focus` value
+      // Prefer `returnFocus` prop over event specified
+      // `return_focus` value
       let el = this.returnFocus || this.return_focus || document.activeElement || null
-      // Is el a string CSS Selector?
-      el = typeof el === 'string' ? select(el) : el
+      // Is el a string CSS selector?
+      el = isString(el) ? select(el) : el
       if (el) {
         // Possibly could be a component reference
         el = el.$el || el
@@ -650,7 +677,7 @@ export default Vue.extend({
     // Modal header
     let header = h(false)
     if (!this.hideHeader) {
-      let modalHeader = $slots['modal-header']
+      let modalHeader = this.normalizeSlot('modal-header', this.slotScope)
       if (!modalHeader) {
         let closeButton = h(false)
         if (!this.hideHeaderClose) {
@@ -664,7 +691,7 @@ export default Vue.extend({
               },
               on: {
                 click: evt => {
-                  this.hide('headerclose')
+                  this.onClose()
                 }
               }
             },
@@ -673,7 +700,9 @@ export default Vue.extend({
         }
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || this.titleHtml || stripTags(this.title)
+            this.normalizeSlot('modal-title', this.slotScope) ||
+              this.titleHtml ||
+              stripTags(this.title)
           ]),
           closeButton
         ]
@@ -698,12 +727,12 @@ export default Vue.extend({
         class: this.bodyClasses,
         attrs: { id: this.safeId('__BV_modal_body_') }
       },
-      [$slots.default]
+      this.normalizeSlot('default', this.slotScope)
     )
-    // Modal Footer
+    // Modal footer
     let footer = h(false)
     if (!this.hideFooter) {
-      let modalFooter = $slots['modal-footer']
+      let modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
       if (!modalFooter) {
         let cancelButton = h(false)
         if (!this.okOnly) {
@@ -717,7 +746,7 @@ export default Vue.extend({
               },
               on: {
                 click: evt => {
-                  this.hide('cancel')
+                  this.onCancel()
                 }
               }
             },
@@ -734,7 +763,7 @@ export default Vue.extend({
             },
             on: {
               click: evt => {
-                this.hide('ok')
+                this.onOk()
               }
             }
           },
@@ -829,7 +858,7 @@ export default Vue.extend({
       },
       [modal]
     )
-    // Modal Backdrop
+    // Modal backdrop
     let backdrop = h(false)
     if (!this.hideBackdrop && (this.is_visible || this.is_transitioning || this.is_block)) {
       backdrop = h(
@@ -844,13 +873,14 @@ export default Vue.extend({
         [$slots['modal-backdrop']]
       )
     }
-    // Tab trap to prevent page from scrolling to next element in tab index
-    // during enforce focus tab cycle
+    // Tab trap to prevent page from scrolling to next element in
+    // tab index during enforce focus tab cycle
     let tabTrap = h(false)
     if (this.is_visible && this.isTop && !this.noEnforceFocus) {
       tabTrap = h('div', { attrs: { tabindex: '0' } })
     }
-    // Assemble modal and backdrop in an outer div needed for lazy modals
+    // Assemble modal and backdrop in an outer <div>
+    // Needed for lazy modals
     let outer = h(false)
     if (!this.is_hidden) {
       outer = h(
@@ -863,7 +893,8 @@ export default Vue.extend({
         [modal, tabTrap, backdrop]
       )
     }
-    // Wrap in DIV to maintain `this.$el` reference for hide/show method access
+    // Wrap in <div> to maintain `this.$el` reference for
+    // hide/show method access
     return h('div', {}, [outer])
   }
 })
