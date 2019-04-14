@@ -1,5 +1,5 @@
-import BInputGroupText from './input-group-text'
 import { mount } from '@vue/test-utils'
+import BInputGroupText from './input-group-text'
 
 describe('input-group > input-group-text', () => {
   it('has expected default structure', async () => {

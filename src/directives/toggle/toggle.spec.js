@@ -1,5 +1,6 @@
-import toggleDirective from './toggle'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import toggleDirective from './toggle'
 
 // Emitted control event for collapse (emitted to collapse)
 const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -177,14 +178,14 @@ describe('v-b-toggle directive', () => {
     const $root = wrapper.vm.$root
 
     $root.$emit(EVENT_STATE, 'test', true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     $root.$emit(EVENT_STATE, 'test', false)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
@@ -219,14 +220,14 @@ describe('v-b-toggle directive', () => {
     const $root = wrapper.vm.$root
 
     $root.$emit(EVENT_STATE_SYNC, 'test', true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     $root.$emit(EVENT_STATE_SYNC, 'test', false)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')

@@ -1,5 +1,5 @@
-import BNavItemDropdown from './nav-item-dropdown'
 import { mount } from '@vue/test-utils'
+import BNavItemDropdown from './nav-item-dropdown'
 
 describe('nav-item-dropdown', () => {
   it('should have custom toggle class in nav-item-dropdown', async () => {

@@ -1,5 +1,5 @@
-import BCardHeader from './card-header'
 import { mount } from '@vue/test-utils'
+import BCardHeader from './card-header'
 
 describe('card-header', () => {
   it('has root element "div"', async () => {

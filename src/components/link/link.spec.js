@@ -1,6 +1,6 @@
-import BLink, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import BLink, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
 
 describe('link', () => {
   it('has expected default structure', async () => {

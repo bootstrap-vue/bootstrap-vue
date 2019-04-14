@@ -6,8 +6,8 @@ module.exports = {
     '.*\\.(vue)$': 'vue-jest'
   },
   coverageDirectory: './coverage/',
+  testEnvironment: 'jest-environment-jsdom-fourteen',
   testEnvironmentOptions: {
     pretendToBeVisual: true
-  },
-  setupFiles: ['./tests/setup.js']
+  }
 }

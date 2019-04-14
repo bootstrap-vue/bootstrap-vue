@@ -1,5 +1,5 @@
-import BvModalEvent from './bv-modal-event.class'
 import BvEvent from '../../../utils/bv-event.class'
+import BvModalEvent from './bv-modal-event.class'
 
 describe('modal > BvModalEvent', () => {
   it('works', async () => {
