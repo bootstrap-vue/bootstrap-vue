@@ -161,6 +161,7 @@ export default Vue.extend({
       if (this.localShow) {
         const hideEvt = this.buildEvent('hide')
         this.emitEvent(hideEvt)
+        this.clearDismissTimer()
         this.localShow = false
       }
     },
@@ -202,7 +203,7 @@ export default Vue.extend({
       }
     },
     clearDismissTimer() {
-      this.clearTimeout(this.timer)
+      clearTimeout(this.timer)
       this.timer = null
       this.dismissStarted = null
     },
