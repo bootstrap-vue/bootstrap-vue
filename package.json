@@ -74,6 +74,7 @@
     "@nuxt/opencollective": "^0.2.2",
     "bootstrap": "^4.3.1",
     "popper.js": "^1.15.0",
+    "portal-vue": "^2.0.0",
     "vue-functional-data-merge": "^2.0.7"
   },
   "devDependencies": {
