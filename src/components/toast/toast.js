@@ -12,7 +12,7 @@ import { getComponentConfig } from '../../utils/config'
 const NAME = 'BToast'
 
 export const props = {
-  show: {
+  visible: {
     type: Boolean,
     default: false
   },
@@ -77,7 +77,7 @@ export default Vue.extend({
   name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
   model: {
-    props: 'show',
+    prop: 'visible',
     event: 'change'
   },
   props,
@@ -134,12 +134,17 @@ export default Vue.extend({
   watch: {
     show(newVal, oldVal) {
       newVal ? this.show() : this.hide()
+    },
+    localShow(newVal, oldVal) {
+      if (newVal !== this.show) {
+        this.$emit('change', newVal)
+      }
     }
   },
   mounted() {
     // TODO
-    if (this.show) {
-      this.localShow = true
+    if (this.visible) {
+      this.show()
     }
   },
   methods: {
@@ -149,21 +154,16 @@ export default Vue.extend({
         this.emitEvent(showEvt)
         this.order = Date.now() * (this.prepend ? -1 : 1)
         this.doRender = true
-        requestAF(() => {
+        this.$nextTick(() => {
           this.localShow = true
         })
-        // TODO
       }
     },
     hide() {
-      this.doHide()
-    },
-    doHide(relatedTarget = null) {
       if (this.localShow) {
-        const hideEvt = this.buildEvent('hide', { relatedTarget })
+        const hideEvt = this.buildEvent('hide')
         this.emitEvent(hideEvt)
         this.localShow = false
-        // TODO
       }
     },
     buildEvent(type, opts = {}) {
@@ -219,7 +219,7 @@ export default Vue.extend({
     makeToast(h) {
       // Render helper for generating the toast
       if (!this.localShow) {
-        return [h('transition', this.transitionData)]
+        return
       }
       // Assemble the header content
       const $headerContent = []
@@ -240,7 +240,7 @@ export default Vue.extend({
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
-            on: { click: evt => this.doHide(evt.target) }
+            on: { click: evt => this.hide }
           })
         )
       }
@@ -269,13 +269,12 @@ export default Vue.extend({
         },
         [$header, $body]
       )
-      return [h('transition', this.transitionData, $toast)]
+      return $toast
     }
   },
   render(h) {
-    let $content
-    if (this.doRender) {
-      $content = this.makeToast(h)
+    if (!this.doRender) {
+      return h(false)
     }
     return h(
       MountingPortal,
@@ -290,7 +289,7 @@ export default Vue.extend({
           disabled: this.static
         }
       },
-      $content
+      [h('transition', this.transitionData, this.makeToast(h))
     )
   }
 })
