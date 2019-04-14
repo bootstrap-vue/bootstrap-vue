@@ -858,7 +858,7 @@ Example Confirm Message boxes
   event if using the async `await` style code.
 - When using Vue-Router (or similar), Message Boxes will close and reject if the route
   changes before the modal hides.
-- Message boxes cannot be generated during Server Side Rendeering (SSR).
+- Message boxes cannot be generated during Server Side Rendering (SSR).
 - The Message Box `message` currently does not support HTML strings, however, you can pass an
   array of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
   [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
