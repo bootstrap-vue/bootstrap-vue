@@ -83,6 +83,7 @@ export default Vue.extend({
   props,
   data() {
     return {
+      doRender: false,
       localShow: false,
       showClass: false,
       isTransitioning: false,
@@ -147,7 +148,10 @@ export default Vue.extend({
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
         this.order = Date.now() * (this.prepend ? -1 : 1)
-        this.localShow = true
+        this.doRender = true
+        requestAF(() => {
+          this.localShow = true
+        })
         // TODO
       }
     },
@@ -210,11 +214,12 @@ export default Vue.extend({
       this.order = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
+      this.doRender = false
     },
     makeToast(h) {
       // Render helper for generating the toast
       if (!this.localShow) {
-        return h(false)
+        return [h('transition', this.transitionData)]
       }
       // Assemble the header content
       const $headerContent = []
@@ -249,7 +254,7 @@ export default Vue.extend({
         this.normalizeSlot('default', this.slotScope) || h(false)
       ])
       // Build the toast
-      return h(
+      const $toast = h(
         'div',
         {
           staticClass: 'toast',
@@ -264,11 +269,14 @@ export default Vue.extend({
         },
         [$header, $body]
       )
+      return [h('transition', this.transitionData, $toast)]
     }
   },
   render(h) {
-    // Wrap toast in a transition
-    const $toast = h('transition', this.transitionData, [this.makeToast(h)])
+    let $content
+    if (this.doRender) {
+      $content = this.makeToast(h)
+    }
     return h(
       MountingPortal,
       {
@@ -278,11 +286,11 @@ export default Vue.extend({
           slim: true,
           mountTo: 'body',
           append: true,
-          targettag: 'div',
-          disabled: this.static || !(this.localShow || this.isTransitioning)
+          targetTag: 'div',
+          disabled: this.static
         }
       },
-      [$toast]
+      $content
     )
   }
 })
