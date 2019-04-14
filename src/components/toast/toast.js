@@ -289,7 +289,7 @@ export default Vue.extend({
           disabled: this.static
         }
       },
-      [h('transition', this.transitionData, this.makeToast(h))
+      [h('transition', this.transitionData, this.makeToast(h))]
     )
   }
 })
