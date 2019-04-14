@@ -26,10 +26,8 @@ export default Vue.extend({
   beforeMount() {
     // TODO: Check for already existing <portal-target> with same
     //       name/id and don't set doRender to true
-    requestAF(() => {
-      // We don't render on SSR
-      this.doRender = true
-    })
+    // We don't render on SSR
+    this.doRender = true
   },
   render(h) {
     /* istanbul ignore else */
