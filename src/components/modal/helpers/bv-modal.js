@@ -6,7 +6,7 @@ import Vue from 'vue'
 import BModal, { props as modalProps } from '../modal'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
-import { inBrowser, hasPromiseSupport } from '../../../utils/env'
+import { isBrowser, hasPromiseSupport } from '../../../utils/env'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 
@@ -45,7 +45,7 @@ const noPromises = () => {
 
 const notClient = method => {
   /* istanbul ignore else */
-  if (inBrowser) {
+  if (isBrowser) {
     return false
   } else {
     warn('this.$bvModal$: Message Boxes can not be called during SSR')
