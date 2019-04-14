@@ -171,6 +171,9 @@ export default Vue.extend({
     // So we explicitly add it here if needed (i.e. if computeHref() is truthy)
     if (href) {
       componentData.attrs.href = href
+    } else {
+      // Ensure the prop HREF does not exist for router links
+      delete componentData.props.href
     }
 
     // We want to overwrite any click handler since our callback

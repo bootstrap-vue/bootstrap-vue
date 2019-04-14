@@ -8,7 +8,6 @@
 <div>
   <b-button v-b-modal.modal-1>Launch demo modal</b-button>
 
-  <!-- Modal Component -->
   <b-modal id="modal-1" title="BootstrapVue">
     <p class="my-4">Hello from modal!</p>
   </b-modal>
@@ -66,6 +65,37 @@ to default Bootstrap functionality). Other approaches for toggling modal visibil
 additional code to implement this accessibility feature.
 
 See the [Accessibility](#accessibility) section below for details.
+
+### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
+
+When BootstrapVue is installed as a plugin, or the <samp>Modal</samp> plugin is used, BoostrapVue
+will inject a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes
+several methods, of which two are for showing and hiding modals:
+
+| Method                   | Description                            |
+| ------------------------ | -------------------------------------- |
+| `this.$bvModal.show(id)` | Show the modal with the specified `id` |
+| `this.$bvModal.hide(id)` | Hide the modal with the specified `id` |
+
+Both methods return immediately after being called.
+
+```html
+<div>
+  <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
+
+  <b-modal id="bv-modal-example" hide-footer>
+    <template slot="modal-title">
+      Using <code>$bvModal</code> Methods
+    </template>
+    <div class="d-block text-center">
+      <h3>Hello From This Modal!</h3>
+    </div>
+    <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+  </b-modal>
+</div>
+
+<!-- b-modal-bv-modal-hide-show.vue -->
+```
 
 ### Using `show()`, `hide()`, and `toggle()` component methods
 
@@ -141,6 +171,11 @@ show/hide using `v-model`.
 
 When using the `v-model` property, do not use the `visible` property at the same time.
 
+### Using scoped slot scope methods
+
+Refer to the [Custom rendering with slots](#custom-rendering-with-slots) section on using the
+various methods passed to scoped slots for closing modals.
+
 ### Emitting events on \$root
 
 You can emit `bv::show::modal`, `bv::hide::modal`, and `bv::toggle::modal` events on `$root` with
@@ -181,8 +216,8 @@ export default {
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call the
 `.preventDefault()` method of the event object passed to your `ok` (**OK** button), `cancel`
-(**Cancel** button) and `hide` event handlers. Note that `.preventDefault()`, when used, **must** be
-called synchronously, as async is not supported.
+(**Cancel** button), `close` (modal header close button) and `hide` event handlers. Note that
+`.preventDefault()`, when used, **must** be called synchronously, as async is not supported.
 
 ```html
 <template>
@@ -268,13 +303,14 @@ called synchronously, as async is not supported.
 <!-- b-modal-prevent-closing.vue -->
 ```
 
-**Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel** buttons
-respectively. These events will not be emitted, by default, if you have provided your own buttons in
-the `modal-footer` slot or have hidden the footer. In this case use the `hide` event to control
-cancelling of the modal close. Event `hide` is always emitted, even if `ok` and `cancel` are
-emitted.
+**Note**: events `ok`, `cancel`, and `close` are emitted by modal's built in **OK**, **Cancel**, and
+header close (**X**) buttons respectively. These events will not be emitted, by default, if you have
+provided your own buttons in the `modal-footer` slot or have hidden the footer. In this case use the
+`hide` event to control cancelling of the modal close. Event `hide` is always emitted, even if `ok`,
+`cancel`, and `close` are emitted.
 
-The `ok`, `cancel`, and `hide` event object contains several properties and methods:
+The `ok`, `cancel`, `close` and `hide` event object (`BvModalEvent`) contains several properties and
+methods:
 
 | Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -285,11 +321,11 @@ The `ok`, `cancel`, and `hide` event object contains several properties and meth
 | `modalId`          | property | The modal's ID                                                                                                                                                                                                                                                                                              |
 
 You can set the value of `trigger` by passing an argument to the component's `hide()` method for
-advanced control (i.e. detecting what button or action triggerd the modal to hide).
+advanced control (i.e. detecting what button or action triggered the modal to hide).
 
-**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly
-`'ok'` or `'cancel'` respectively. The argument passed to `hide()` will be placed into the `trigger`
-property of the event object.
+**Note:** `ok`, `cancel`, or `close` events will be only emitted when the argument to `hide()` is
+strictly `'ok'`, `'cancel'`, or `'headerclose'` respectively. The argument passed to `hide()` will
+be placed into the `trigger` property of the event object.
 
 ## Modal content
 
@@ -402,7 +438,6 @@ Vertically center your modal in the viewport by setting the `centered` prop.
 <div>
   <b-button v-b-modal.modal-center>Launch centered modal</b-button>
 
-  <!-- Modal Component -->
   <b-modal id="modal-center" centered title="BootstrapVue">
     <p class="my-4">Vertically centered modal!</p>
   </b-modal>
@@ -548,6 +583,71 @@ You can disable the **Cancel** and **OK** buttons individually by setting the `c
 To disable both **Cancel** and **OK** buttons at the same time, simply set the `busy` prop to
 `true`. Set it to `false` to re-enable both buttons.
 
+### Custom rendering with slots
+
+`<b-modal>` provides several named slots (of which some are optionally scoped) that you can use to
+customize the content of various sections of the modal.
+
+| Slot                 | Optionally Scoped | Description                                                                           |
+| -------------------- | ----------------- | ------------------------------------------------------------------------------------- |
+| `default`            | Yes               | Main content of the modal                                                             |
+| `modal-title`        | Yes               | Content to place in the modal's title                                                 |
+| `modal-header`       | Yes               | Content to place in the header. Replaces the entire header including the close button |
+| `modal-footer`       | Yes               | Content to place in the footer. Replaces the entire footer including the button(s)    |
+| `modal-ok`           | No                | Content to place inside the footer OK button                                          |
+| `modal-cancel`       | No                | Content to place inside the footer CANCEL button                                      |
+| `modal-header-close` | No                | Content to place inside the header CLOSE (`x`) button                                 |
+
+The scope available to the slots that support optional scoping are:
+
+| Method or Property | Description                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ok()`             | Closes the modal and fires the `ok` and `hide` events, with `bvModalEvent.trigger = 'ok'`                    |
+| `cancel()`         | Closes the modal and fires the `cancel` and `hide` events, with `bvModalEvent.trigger = 'cancel'`            |
+| `close()`          | Closes the modal and fires the `close` and `hide` events, with `bvModalEvent.trigger = 'headerclose'`        |
+| `hide(trigger)`    | Closes the modal and fires the `hide` event, with the `bvModalEvent.trigger = trigger` (trigger is optional) |
+| `visible`          | The visibility state of the modal. `true` if the modal is visible and `false` if not visible                 |
+
+#### Example modal using custom scoped slots
+
+```html
+<template>
+  <b-button @click="$bvModal.show('modal-scoped')">Open Modal</b-button>
+
+  <b-modal id="modal-scoped">
+    <template slot="modal-header" slot-scope="{ close }">
+      <!-- Emulate built in modal header close button action -->
+      <b-button size="sm" variant="outline-danger" @click="close()">
+        Close Modal
+      </b-button>
+      <h5>Modal Header</h5>
+    </template>
+
+    <template slot="default" slot-scope="{ hide }">
+      <p>Modal Body with button</p>
+      <b-button @click="hide()">Hide Modal</b-button>
+    </template>
+
+    <template slot="modal-footer" slot-scope="{ ok, cancel, hide }">
+      <b>Custom Footer</b>
+      <!-- Emulate built in modal footer ok and cancel button actions -->
+      <b-button size="sm" variant="success" @click="ok()">
+        OK
+      </b-button>
+      <b-button size="sm" variant="danger" @click="cancel()">
+        Cancel
+      </b-button>
+      <!-- Button with custom close trigger value -->
+      <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
+        Forget it
+      </b-button>
+    </template>
+  </b-modal>
+</template>
+
+<!-- b-modal-scoped-slots.vue -->
+```
+
 ## Multiple modal support
 
 Unlike native Bootstrap V4, BootstrapVue supports multiple modals opened at the same time.
@@ -586,6 +686,182 @@ component. This will hide the modal before another modal is shown.
 - For multiple modals to stack properly, they **must** be defined in the document in the order they
   will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open
   modal.
+
+## Modal message boxes
+
+BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
+These methods provide a way to generate simple OK and Confirm style modal messages, from anywhere in
+your app without having to explicitly place a `<b-modal>` component in your pages.
+
+| Method                                          | Description                                                          |
+| ----------------------------------------------- | -------------------------------------------------------------------- |
+| `this.$bvModal.msgBoxOk(message, options)`      | Open a modal with `message` as the content and a single OK button    |
+| `this.$bvModal.msgBoxConfirm(message, options)` | Open a modal with `message` as the content and CANCEL and OK buttons |
+
+The `options` argument is an optional configuration object for adding titles and styling the Message
+Box modal. The object properties correspond to `<b-modal>` props, except in <samp>camelCase</samp>
+format instead of <samp>kebab-case</samp>.
+
+Both methods return a `Promise` (requires a polyfill for IE 11 and older browser support) which
+resolve into a value when the modal hides. `.msgBoxOk()` always resolves to the value `true`, while
+`.msgBoxConfirm()` resolves to either `true` (OK button pressed), `false` (CANCEL button pressed),
+or `null` (if the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some other means.
+
+If `message` is not provided, both methods will return immediately with the value `undefined`.
+
+You can use either the `.then(..).catch(...)` or async `await` code styles (async `await` requires
+modern browsers or a transpiler).
+
+### OK message box
+
+Example OK Message boxes
+
+```html
+<template>
+  <div>
+    <div class="mb-2">
+     <b-button @click="showMsgBoxOne">Simple msgBoxOk</b-button>
+     Return value: {{ String(boxOne) }}
+    </div>
+    <div class="mb-1">
+     <b-button @click="showMsgBoxTwo">msgBoxOk with options</b-button>
+     Return value: {{ String(boxTwo) }}
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        boxOne: '',
+        boxTwo: ''
+      }
+    },
+    methods: {
+      showMsgBoxOne() {
+        this.boxOne = ''
+        this.$bvModal.msgBoxOk('Action completed')
+          .then(value => {
+            this.boxOne = value
+          })
+          .catch(err => {
+            // An error occurred
+          })
+      },
+      showMsgBoxTwo() {
+        this.boxTwo = ''
+        this.$bvModal.msgBoxOk('Data was submitted successfully', {
+          title: 'Confirmation',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'success',
+          headerClass: 'p-2 border-bottom-0',
+          footerClass: 'p-2 border-top-0',
+          centered: true
+        })
+          .then(value => {
+            this.boxTwo = value
+          })
+          .catch(err => {
+            // An error occurred
+          })
+      }
+    }
+  }
+</script>
+
+<!-- b-modal-msg-box-ok.vue -->
+```
+
+### Confirm message box
+
+Example Confirm Message boxes
+
+```html
+<template>
+  <div>
+    <div class="mb-2">
+     <b-button @click="showMsgBoxOne">Simple msgBoxConfirm</b-button>
+     Return value: {{ String(boxOne) }}
+    </div>
+    <div class="mb-1">
+     <b-button @click="showMsgBoxTwo">msgBoxConfirm with options</b-button>
+     Return value: {{ String(boxTwo) }}
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        boxOne: '',
+        boxTwo: ''
+      }
+    },
+    methods: {
+      showMsgBoxOne() {
+        this.boxOne = ''
+        this.$bvModal.msgBoxConfirm('Are you sure?')
+          .then(value => {
+            this.boxOne = value
+          })
+          .catch(err => {
+            // An error occurred
+          })
+      },
+      showMsgBoxTwo() {
+        this.boxTwo = ''
+        this.$bvModal.msgBoxConfirm('Please confirm that you want to delete everything.', {
+          title: 'Please Confirm',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'YES',
+          cancelTitle: 'NO',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true
+        })
+          .then(value => {
+            this.boxTwo = value
+          })
+          .catch(err => {
+            // An error occurred
+          })
+      }
+    }
+  }
+</script>
+
+<!-- b-modal-msg-box-confirm.vue -->
+```
+
+### Message box notes
+
+- Message Boxes require `Promise` support in the browser. If targeting your app for older browsers,
+  such as IE 11, please include a polyfill that provides `Promise` support. If `Promise` support is
+  not detected, then the message box methods will immediately return `undefined`.
+- Message Boxes are an extension of the `<b-modal>` component, and hence support the majority of
+  `<b-modal>` props (using <samp>camelCase</samp> format), with the exception of the following
+  props: `lazy`, `busy`, `visible`, `noStacking`, `okOnly`, `okDisabled`, and `cancelDisabled`.
+- When a `title` (or `titleHtml`) _is not_ provided in the options, the header will not be shown.
+- When a `title` (or `titleHtml`) _is_ provided in the options, the header close button is not shown
+  by default. You can enable the header close button by setting `hideHeaderClose: false` in the
+  options.
+- Message Boxes will throw an error (promise rejection) if they are closed/destroyed before they are
+  hidden. Always include a `.catch(error => { /* handler code */ })` reject handler, event if using
+  the async `await` style code.
+- When using Vue-Router (or similar), Message Boxes will close and reject if the route changes
+  before the modal hides.
+- Message boxes cannot be generated during Server Side Rendering (SSR).
+- The Message Box `message` currently does not support HTML strings, however, you can pass an array
+  of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
+  [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
+  method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
+  `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
+  `cancelTitle` option).
 
 ## Listening to modal changes via \$root events
 
@@ -652,7 +928,7 @@ export default {
 }
 ```
 
-Note: it is not reccommended to autofocus an input inside a modal for accessibility reasons, as
+Note: it is not recommended to autofocus an input inside a modal for accessibility reasons, as
 screen reader users will not know the context of where the input is. It is best to let `<b-modal>`
 focus the modal container.
 
