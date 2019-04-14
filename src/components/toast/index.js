@@ -1,11 +1,11 @@
 import BToast from './toast'
-// import BToaster from './toaster'
+import BToaster from './toaster'
 import bvToastInstall from './helpers/bv-toast'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
-  BToast
-  // BToaster
+  BToast,
+  BToaster
 }
 
 const install = installFactory({ components })
