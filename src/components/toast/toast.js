@@ -248,6 +248,7 @@ export default Vue.extend({
     // Wrap in a transition
     $toast = h('transition', { props: this.transitionProps, on: this.transitionHandlers }, [$toast])
     // TODO: Wrap in a <portal> with specified target
-    //       once initial testing is complete  }
+    //       once initial testing is complete
     return $toast
+  }
 })
