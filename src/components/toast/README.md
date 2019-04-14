@@ -22,7 +22,7 @@ elements under a toast.
 
 ```html
 <template>
-  <div class="bg-light p-2">
+  <div class="bg-light p-3">
     <b-toast title="BootstrapVue" show static>
       Hello, world! This is a toast message.
     </b-toast>
@@ -33,7 +33,7 @@ elements under a toast.
 ```
 
 **Note:** we are using the `static` prop in the above example to render the toast in-pace in the
-document, rather than transporting it to a `<b-toaster>` target container
+document, rather than transporting it to a `<b-toaster>` target container.
 
 ## `<b-toaster>` target component
 
@@ -42,7 +42,7 @@ TBD
 ## Using `this.$bvToast` helper instance object
 
 Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance
-injection.
+injection, without the need to place a `<b-toast>` in your app.
 
 TBD
 
