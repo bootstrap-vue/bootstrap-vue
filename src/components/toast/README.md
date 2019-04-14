@@ -5,7 +5,7 @@
 
 Toasts are lightweight notifications designed to mimic the push notifications that have been
 popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy
-to align and position.
+to align and position inside a `<b-toaster>` target component.
 
 ## Overview
 
@@ -20,7 +20,7 @@ elements under a toast.
 ```html
 <template>
   <div>
-    <b-toast toaster="" title="BootstrapVue" show>
+    <b-toast title="BootstrapVue" show static>
       Hello, world! This is a toast message.
     </b-toast>
   </div>
@@ -28,6 +28,20 @@ elements under a toast.
 
 <!-- toast-intro.vue -->
 ```
+
+**Note:** we are using the `static` prop in the above example to render teh toast in-pace in the
+document, rather than transporting it to a `<b-toaster>` target container
+
+## `<b-toaster>` target component
+
+TBD
+
+## Using `this.$bvToast` helper instance object
+
+Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance
+injection.
+
+TBD
 
 ## Accessibility
 
