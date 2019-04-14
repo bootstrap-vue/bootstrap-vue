@@ -23,6 +23,9 @@ export default Vue.extend({
         Portaltarget,
         {
           class: [ this.name ],
+          attrs: {
+            id: this.name
+          },
           props: {
             name: this.name,
             multiple: true,
