@@ -19,7 +19,7 @@ elements under a toast.
 
 ```html
 <template>
-  <div>
+  <div class="bg-light p-2>
     <b-toast title="BootstrapVue" show static>
       Hello, world! This is a toast message.
     </b-toast>
@@ -29,7 +29,7 @@ elements under a toast.
 <!-- toast-intro.vue -->
 ```
 
-**Note:** we are using the `static` prop in the above example to render teh toast in-pace in the
+**Note:** we are using the `static` prop in the above example to render the toast in-pace in the
 document, rather than transporting it to a `<b-toaster>` target container
 
 ## `<b-toaster>` target component
