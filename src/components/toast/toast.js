@@ -71,6 +71,7 @@ export default Vue.extend({
     toastClasses() {
       return {
         // TODO
+        show: this.showClass,
         fade: !this.noFade
       }
     },
