@@ -1,4 +1,8 @@
-// Information about the current environment
+/**
+ * Utilities to get information about the current environment
+ */
+
+import { MutationObs } from './dom'
 
 // --- Constants ---
 
@@ -9,7 +13,7 @@ export const isBrowser =
 
 export const hasPromiseSupport = typeof Promise !== 'undefined'
 
-export const hasEventListenerSupport = isBrowser && window.addEventListener
+export const hasMutationObserverSupport = MutationObs !== null
 
 // Determine if the browser supports the option passive for events
 export const hasPassiveEventSupport = (() => {

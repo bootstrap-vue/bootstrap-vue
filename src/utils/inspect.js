@@ -31,4 +31,4 @@ export const isPromise = val =>
   !isUndefined(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
-export { isObject, isPlainObject, isArray }
+export { isArray, isObject, isPlainObject }
