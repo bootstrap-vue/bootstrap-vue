@@ -647,6 +647,7 @@ export default Vue.extend({
   },
   render(h) {
     const $slots = this.$slots
+    const $scopedSlots = this.$scopedSlots
     // Modal header
     let header = h(false)
     if (!this.hideHeader) {
@@ -698,7 +699,11 @@ export default Vue.extend({
         class: this.bodyClasses,
         attrs: { id: this.safeId('__BV_modal_body_') }
       },
-      [$slots.default]
+      [
+        $scopedSlots.default({
+          visible: this.is_visible
+        })
+      ]
     )
     // Modal Footer
     let footer = h(false)
