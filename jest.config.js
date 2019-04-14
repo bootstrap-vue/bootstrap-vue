@@ -8,5 +8,6 @@ module.exports = {
   coverageDirectory: './coverage/',
   testEnvironmentOptions: {
     pretendToBeVisual: true
-  }
+  },
+  setupFiles: ['./tests/setup.js']
 }

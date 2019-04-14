@@ -113,6 +113,7 @@
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.11",
     "marked": "^0.6.2",
+    "mutationobserver-shim": "^0.3.3",
     "node-sass": "^4.11.0",
     "nuxt": "^2.6.1",
     "postcss-cli": "^6.1.2",
