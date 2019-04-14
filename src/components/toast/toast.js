@@ -180,7 +180,7 @@ export default Vue.extend({
     // Assemble the header (if needed)
     let $header = h(false)
     if ($headerContent.length > 0) {
-      $header = h('header', { staticClass = 'toast-header'}, $headerContent)
+      $header = h('header', { staticClass: 'toast-header'}, $headerContent)
     }
     // Toast body
     const $body = h(
