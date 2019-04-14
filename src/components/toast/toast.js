@@ -270,7 +270,7 @@ export default Vue.extend({
     // Wrap toast in a transition
     const $toast = h('transition', this.transitionData, [this.makeToast(h)])
     return h(
-      MontingPortal,
+      MountingPortal,
       {
         props: {
           name: this.safeId(),
