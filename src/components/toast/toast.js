@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// import { Portal, MountingPortal } from 'portal-vue'
 import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
