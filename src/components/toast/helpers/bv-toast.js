@@ -3,10 +3,11 @@
 //
 import Vue from 'vue'
 import BToast, { props as toastProps } from '../toast'
+import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { inBrowser } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
-import { isDef, isFunction } from '../../../utils/inspect'
+import { isDef } from '../../../utils/inspect'
 
 /* istanbul ignore file: for now until we are ready to test */
 
@@ -79,7 +80,7 @@ const makeToast = (props, $parent) => {
     return
   }
   // Create an instance of BToast component
-  const toast = new BToast({
+  const toast = new BToastPop({
     // We set parent as the local VM so these toasts can emit events
     // on the app $root.
     // And it helps to ensure Toast is destroyed when parent is destroyed.
@@ -90,7 +91,7 @@ const makeToast = (props, $parent) => {
       // Add in (filtered) user supplied props
       ...omit(props, ['toastContent']),
       // Props that can't be overridden
-      show: false,
+      show: false
     }
   })
 
@@ -98,7 +99,7 @@ const makeToast = (props, $parent) => {
   keys(propsToSlots).forEach(prop => {
     if (isDef(props[prop])) {
       // Can be a string, or array of VNodes.
-      msgBox.$slots[propsToSlots[prop]] = props[prop]
+      toast.$slots[propsToSlots[prop]] = props[prop]
     }
   })
 
