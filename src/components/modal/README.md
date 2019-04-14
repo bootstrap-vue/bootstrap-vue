@@ -608,6 +608,7 @@ The scope available to the slots that support optional scoping are:
 | `cancel()`         | Closes the modal and fires the `cancel` and `hide` events, with `bvModalEvent.trigger = 'cancel'`            |
 | `close()`          | Closes the modal and fires the `close` and `hide` events, with `bvModalEvent.trigger = 'headerclose'`        |
 | `hide(trigger)`    | Closes the modal and fires the `hide` event, with the `bvModalEvent.trigger = trigger` (trigger is optional) |
+| `visible`          | The visbility state of the modal. `true` if the modal is visible and `false` if not visible                  |
 
 #### Example modal using custom scoped slots
 
