@@ -166,7 +166,7 @@ export default Vue.extend({
   render(h) {
     // Assemble the header content
     const $headerContent = []
-    let $title = this.normalizeSlot('title', this.slotScope)
+    let $title = this.normalizeSlot('toast-title', this.slotScope)
     if ($title) {
       $headerContent.push(title)
     } else if (this.title) {
