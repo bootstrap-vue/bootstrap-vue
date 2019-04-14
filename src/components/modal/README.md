@@ -699,7 +699,7 @@ in your app without having to explicitly place a `<b-modal>` component in your p
 | `this.$bvModal.msgBoxConfirm(message, options)` | Open a modal with `message` as the content and CANCEL and OK buttons |
 
 The `options` argument is an optional configuration object for adding titles and styling the
-Message Box modal. The object properties corresepond to `<b-modal>` props, except in
+Message Box modal. The object properties correspond to `<b-modal>` props, except in
 <samp>camelCase</samp> format instead of <samp>kebab-case</samp>.
 
 Both methods return a `Promise` (requires a polyfill for IE 11 and older browser support) which
@@ -842,7 +842,7 @@ Example Confirm Message boxes
 ### Message Box Notes
 
 - Message Boxes require `Promise` support in the browser. If targetting your app for older
-  browsers, such as IE 11, please include a polyfill that provides `Prmoise` support. If
+  browsers, such as IE 11, please include a polyfill that provides `Promise` support. If
   `Promise` support is not detected, then the message box methods will immediately return
   `undefined`.
 - Message Boxes are an extension of the `<b-modal>` component, and hence support the majority
