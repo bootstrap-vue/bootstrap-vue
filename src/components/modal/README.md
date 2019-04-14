@@ -689,7 +689,7 @@ component. This will hide the modal before another modal is shown.
 ## Modal Message Boxes
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
-These methods provide a way to generate simple OK and Confirm style messages, from anywhere
+These methods provide a way to generate simple OK and Confirm style modal messages, from anywhere
 in your app without having to explicitly place a `<b-modal>` component in your pages.
 
 | Method                                          | Description                                                          |
@@ -697,19 +697,20 @@ in your app without having to explicitly place a `<b-modal>` component in your p
 | `this.$bvModal.msgBoxOk(message, options)`      | Open a modal with `message` as the content and a single OK button    |
 | `this.$bvModal.msgBoxConfirm(message, options)` | Open a modal with `message` as the content and CANCEL and OK buttons |
 
-The `options` argument is an optional configuration object for adding titles and styling the modal.
-The object properties corresepond to `<b-modal>` props, except in <samp>camelCase</samp> format
-instead of <samp>kebab-case</samp>.
+The `options` argument is an optional configuration object for adding titles and styling the
+Message Box modal. The object properties corresepond to `<b-modal>` props, except in
+<samp>camelCase</samp> format instead of <samp>kebab-case</samp>.
 
-Both methods return a `Promise` (requires a polyfill for IE 11 support) which resolve into a value
-when the modal hides. `.msgBoxOk()` always resolves to the value `true`, while `.msgBoxConfirm()`
-resolves to either `true` (OK button pressed), `false` (CANCEL button pressed), or `null` (if
-the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some other means.
+Both methods return a `Promise` (requires a polyfill for IE 11 and older browser support) which
+resolve into a value when the modal hides. `.msgBoxOk()` always resolves to the value `true`,
+while `.msgBoxConfirm()` resolves to either `true` (OK button pressed), `false` (CANCEL button
+pressed), or `null` (if the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some
+other means.
 
 If `message` is not provided, both methods will return immediately with the value `undefined`.
 
-You can use either the `.then(..).catch(...)` or async `await` code styles (async await requires
-modern browsers or a transpiler).
+You can use either the `.then(..).catch(...)` or async `await` code styles (async `await`
+requires modern browsers or a transpiler).
 
 ### OK Message Box
 
