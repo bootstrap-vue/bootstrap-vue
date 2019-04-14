@@ -49,14 +49,16 @@ export const props = {
 }
 
 // @vue/component
+/* istanbul ignore next: for now until ready for testing */
 export default Vue.extend({
   name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
   props,
   data() {
     return {
-      localShow: this.show || false,
+      localShow: false,
       showClass: false,
+      isTransitioning: false,
       timer: null
     }
   },
