@@ -22,7 +22,7 @@ elements under a toast.
 
 ```html
 <template>
-  <div class="bg-seconary p-3 progress-bar-striped">
+  <div class="p-3 bg-secondary progress-bar-striped">
     <b-toast title="BootstrapVue" show static>
       Hello, world! This is a toast message.
     </b-toast>
@@ -34,8 +34,8 @@ elements under a toast.
 
 **Note:** we are using the `static` prop in the above example to render the toast in-pace in the
 document, rather than transporting it to a `<b-toaster>` target container. And we have added
-class `progress-bar-striped` to the outer <samp>&lt;div&gt;</samp> for illustrative purposes of
-toast transparency only.
+classes `bg-secondary` and `progress-bar-striped` to the outer <samp>&lt;div&gt;</samp> for
+illustrative purposes of toast transparency only.
 
 ## `<b-toaster>` target component
 
