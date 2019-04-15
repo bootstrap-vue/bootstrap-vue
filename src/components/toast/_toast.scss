@@ -13,6 +13,9 @@
   &.b-toast-move {
     transition: transform 0.15s;
   }
+  &.b-toast-leave-active {
+    position: absolute;
+  }
 }
 
 // Configured "toasters".
