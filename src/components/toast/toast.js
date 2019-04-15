@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Portal } from 'portal-vue'
+// import { Portal } from 'portal-vue'
 import BToaster from './toaster'
 import BButtonClose from '../button/button-close'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -342,7 +342,8 @@ export default Vue.extend({
       },
       [
         h(
-          'transition',
+          // 'transition',
+          'div',
           {
             props: DEFAULT_TRANSITION_PROPS,
             on: {
