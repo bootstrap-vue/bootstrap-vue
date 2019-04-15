@@ -258,6 +258,7 @@ export default {
         /* istanbul ignore next */
         target = target()
       }
+      /* istanbul ignore else */
       if (isString(target)) {
         // Assume ID of element
         return getById(target)
