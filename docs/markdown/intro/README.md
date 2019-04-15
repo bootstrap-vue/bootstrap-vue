@@ -447,8 +447,6 @@ import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
-
-...
 ```
 
 Alternatively use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
