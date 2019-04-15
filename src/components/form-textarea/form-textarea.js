@@ -48,7 +48,7 @@ export default Vue.extend({
   data() {
     return {
       dontResize: true,
-      height: null
+      heightPx: null
     }
   },
   computed: {
@@ -61,7 +61,7 @@ export default Vue.extend({
       if (!this.computedRows) {
         // The computed height for auto resize.
         // We avoid setting the style to null, which can override user manual resize.
-        styles.height = this.height
+        styles.height = this.heightPx
         // We always add a vertical scrollbar to the textarea when auto-resize is
         // enabled so that the computed height calcaultion returns a stable value.
         styles.overflowY = 'scroll'
@@ -86,11 +86,11 @@ export default Vue.extend({
   watch: {
     dontResize(newVal, oldval) {
       if (!newVal) {
-        this.height = this.computeHeight()
+        this.heightPx = this.computeHeight()
       }
     },
     localValue(newVal, oldVal) {
-      this.height = this.computeHeight()
+      this.heightPx = this.computeHeight()
     }
   },
   mounted() {
@@ -115,7 +115,7 @@ export default Vue.extend({
   },
   methods: {
     computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      if (this.$isServer || this.dontResize || this.computedRows === null) {
+      if (this.$isServer) {
         return null
       }
 
