@@ -69,7 +69,8 @@
 
   .b-toaster-slot {
     display: inline-block;
+    position: relative;
     max-width: $toast-max-width;
-    height: auto;
+    min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
   }
 }
