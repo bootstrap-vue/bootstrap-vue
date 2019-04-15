@@ -11,11 +11,8 @@
   position: fixed;
   padding: $b-toaster-padding;
   overflow: visible;
+  transition: transform 0.15s;
   z-index: $b-toaster-zindex;
-
-  &.b-toaster-move {
-    transition: transform 0.16s;
-  }
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
