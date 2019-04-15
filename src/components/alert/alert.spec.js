@@ -1,11 +1,12 @@
-import BAlert from './alert'
 import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BAlert from './alert'
 
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
     const wrapper = mount(BAlert)
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -19,7 +20,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -33,7 +34,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -48,8 +49,8 @@ describe('alert', () => {
     })
     expect(wrapper.is('div')).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -72,8 +73,8 @@ describe('alert', () => {
     })
     expect(wrapper.is('div')).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -97,7 +98,7 @@ describe('alert', () => {
     })
     expect(wrapper.is('div')).toBe(true)
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -121,7 +122,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('article').exists()).toBe(true)
     expect(wrapper.find('article').text()).toBe('foobar')
@@ -133,7 +134,7 @@ describe('alert', () => {
     const wrapper = mount(BAlert)
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
@@ -141,7 +142,7 @@ describe('alert', () => {
       show: true
     })
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.html()).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -158,7 +159,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
@@ -175,7 +176,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
@@ -193,7 +194,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
@@ -210,7 +211,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert-dismissible')
     expect(wrapper.classes()).toContain('alert')
@@ -220,7 +221,7 @@ describe('alert', () => {
 
     wrapper.find('button').trigger('click')
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
@@ -246,8 +247,8 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -277,8 +278,8 @@ describe('alert', () => {
       show: true
     })
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -290,8 +291,8 @@ describe('alert', () => {
       show: false
     })
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Dismissed won't be emitted unless dismissible=true or show is a number
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
@@ -329,8 +330,8 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
@@ -366,8 +367,8 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
@@ -418,8 +419,8 @@ describe('alert', () => {
     jest.runAllTimers()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
@@ -456,8 +457,8 @@ describe('alert', () => {
     jest.runAllTimers()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)

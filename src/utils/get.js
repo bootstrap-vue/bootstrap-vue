@@ -1,5 +1,4 @@
-import { isArray } from './array'
-import { isObject } from './object'
+import { isArray, isObject } from './inspect'
 
 /**
  * Get property defined by dot/array notation in string.

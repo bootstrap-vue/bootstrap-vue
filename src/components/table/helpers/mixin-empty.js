@@ -1,4 +1,5 @@
 import { htmlOrText } from '../../../utils/html'
+import { isFunction } from '../../../utils/inspect'
 
 export default {
   props: {
@@ -65,7 +66,7 @@ export default {
             key: this.isFiltered ? '_b-table-empty-filtered-row_' : '_b-table-empty-row_',
             staticClass: 'b-table-empty-row',
             class: [
-              typeof this.tbodyTrClass === 'function'
+              isFunction(this.tbodyTrClass)
                 ? this.tbodyTrClass(null, 'row-empty')
                 : this.tbodyTrClass
             ],

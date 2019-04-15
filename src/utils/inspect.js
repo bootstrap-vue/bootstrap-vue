@@ -25,10 +25,12 @@ export const isNumber = val => toType(val) === 'number'
 
 export const isPrimitive = val => isBoolean(val) || isString(val) || isNumber(val)
 
+export const isDate = val => val instanceof Date
+
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
 export const isPromise = val =>
   !isUndefined(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
-export { isObject, isPlainObject, isArray }
+export { isArray, isObject, isPlainObject }

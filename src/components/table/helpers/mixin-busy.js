@@ -1,3 +1,5 @@
+import { isFunction } from '../../../utils/inspect'
+
 export default {
   props: {
     busy: {
@@ -33,7 +35,7 @@ export default {
       }
       return false
     },
-    // Renter the busy indecator or return null if not busy
+    // Renter the busy indicator or return null if not busy
     renderBusy() {
       const h = this.$createElement
 
@@ -53,7 +55,7 @@ export default {
             key: 'table-busy-slot',
             staticClass: 'b-table-busy-slot',
             class: [
-              typeof this.tbodyTrClass === 'function'
+              isFunction(this.tbodyTrClass)
                 ? this.tbodyTrClass(null, 'table-busy')
                 : this.tbodyTrClass
             ],

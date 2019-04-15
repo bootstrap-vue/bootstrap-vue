@@ -1,5 +1,5 @@
-import BJumbotron from './jumbotron'
 import { mount } from '@vue/test-utils'
+import BJumbotron from './jumbotron'
 
 describe('jumbotron', () => {
   it('has expected default structure', async () => {

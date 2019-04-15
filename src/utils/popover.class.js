@@ -1,5 +1,6 @@
 import ToolTip from './tooltip.class'
 import { select, addClass, removeClass, getAttr } from './dom'
+import { isFunction, isNull, isObject, isString } from './inspect'
 
 const NAME = 'popover'
 const CLASS_PREFIX = 'bs-popover'
@@ -28,7 +29,7 @@ const Selector = {
 }
 
 class PopOver extends ToolTip {
-  // Getter overrides
+  // --- Getter overrides ---
 
   static get Default() {
     return Defaults
@@ -38,7 +39,7 @@ class PopOver extends ToolTip {
     return NAME
   }
 
-  // Method overrides
+  // --- Method overrides ---
 
   isWithContent(tip) {
     tip = tip || this.$tip
@@ -68,7 +69,7 @@ class PopOver extends ToolTip {
   cleanTipClass() /* istanbul ignore next */ {
     const tip = this.getTipElement()
     const tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX)
-    if (tabClass !== null && tabClass.length > 0) {
+    if (!isNull(tabClass) && tabClass.length > 0) {
       tabClass.forEach(cls => {
         removeClass(tip, cls)
       })
@@ -78,15 +79,15 @@ class PopOver extends ToolTip {
   getTitle() {
     let title = this.$config.title || ''
     /* istanbul ignore next */
-    if (typeof title === 'function') {
+    if (isFunction(title)) {
       title = title(this.$element)
     }
     /* istanbul ignore next */
-    if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
+    if (isObject(title) && title.nodeType && !title.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       title = ''
     }
-    if (typeof title === 'string') {
+    if (isString(title)) {
       title = title.trim()
     }
     if (!title) {
@@ -102,15 +103,15 @@ class PopOver extends ToolTip {
   getContent() {
     let content = this.$config.content || ''
     /* istanbul ignore next */
-    if (typeof content === 'function') {
+    if (isFunction(content)) {
       content = content(this.$element)
     }
     /* istanbul ignore next */
-    if (typeof content === 'object' && content.nodeType && !content.innerHTML.trim()) {
+    if (isObject(content) && content.nodeType && !content.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       content = ''
     }
-    if (typeof content === 'string') {
+    if (isString(content)) {
       content = content.trim()
     }
     return content

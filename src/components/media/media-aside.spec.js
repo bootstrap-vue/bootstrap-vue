@@ -1,5 +1,5 @@
-import BMediaAside from './media-aside'
 import { mount } from '@vue/test-utils'
+import BMediaAside from './media-aside'
 
 describe('media-aside', () => {
   it('has expected default structure', async () => {

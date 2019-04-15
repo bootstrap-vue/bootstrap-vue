@@ -4,7 +4,6 @@
  */
 
 import Vue from 'vue'
-import { inBrowser } from '../../../utils/env'
 import {
   getAttr,
   hasAttr,
@@ -17,6 +16,8 @@ import {
   selectAll,
   requestAF
 } from '../../../utils/dom'
+import { isBrowser } from '../../../utils/env'
+import { isNull } from '../../../utils/inspect'
 
 // --- Constants ---
 
@@ -50,7 +51,7 @@ const ModalManager = Vue.extend({
   },
   watch: {
     modalCount(newCount, oldCount) {
-      if (inBrowser) {
+      if (isBrowser) {
         this.getScrollbarWidth()
         if (newCount > 0 && oldCount === 0) {
           // Transitioning to modal(s) open
@@ -95,7 +96,7 @@ const ModalManager = Vue.extend({
       }
     },
     getBaseZIndex() {
-      if (this.baseZIndex === null && inBrowser) {
+      if (isNull(this.baseZIndex) && isBrowser) {
         // Create a temporary `div.modal-backdrop` to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-backdrop d-none'
@@ -107,7 +108,7 @@ const ModalManager = Vue.extend({
       return this.baseZIndex || DEFAULT_ZINDEX
     },
     getScrollbarWidth() {
-      if (this.scrollbarWidth === null && inBrowser) {
+      if (isNull(this.scrollbarWidth) && isBrowser) {
         // Create a temporary `div.measure-scrollbar` to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-scrollbar-measure'

@@ -1,6 +1,7 @@
-import BPagination from './pagination'
-import { isVisible, getBCR, contains } from '../../utils/dom'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import { isVisible, getBCR, contains } from '../../utils/dom'
+import BPagination from './pagination'
 
 describe('pagination', () => {
   it('renders with correct basic structure for root element', async () => {
@@ -101,7 +102,7 @@ describe('pagination', () => {
     })
 
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(scopes.length).toBe(3)
     expect(scopes[0]).toEqual({
       page: 1,
@@ -353,7 +354,7 @@ describe('pagination', () => {
     wrapper.setProps({
       ariaControls: null
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('a.page-link').length).toBe(4)
     expect(wrapper.findAll('a.page-link').is('[aria-controls]')).toBe(false)
@@ -493,7 +494,7 @@ describe('pagination', () => {
     wrapper.setProps({
       value: '4'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(4)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
@@ -532,7 +533,7 @@ describe('pagination', () => {
     wrapper.setProps({
       value: '7'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(7)
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
@@ -576,7 +577,7 @@ describe('pagination', () => {
     wrapper.setProps({
       value: '4'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(4)
     lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
@@ -587,7 +588,7 @@ describe('pagination', () => {
     wrapper.setProps({
       value: 5
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(5)
     lis = wrapper.findAll('li')
     expect(lis.length).toBe(9)
@@ -621,7 +622,7 @@ describe('pagination', () => {
       .at(3)
       .find('a')
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -634,7 +635,7 @@ describe('pagination', () => {
       .at(6)
       .find('a')
       .trigger('keydown.space') // Generates a click event
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
@@ -645,7 +646,7 @@ describe('pagination', () => {
       .at(1)
       .find('a')
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
@@ -670,7 +671,7 @@ describe('pagination', () => {
     wrapper.setProps({
       limit: 4
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Should be 8 <li> total
     expect(wrapper.findAll('li').length).toBe(8)
@@ -696,7 +697,7 @@ describe('pagination', () => {
     wrapper.setProps({
       perPage: 3
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -706,7 +707,7 @@ describe('pagination', () => {
     wrapper.setProps({
       value: 3
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
@@ -715,7 +716,7 @@ describe('pagination', () => {
     wrapper.setProps({
       perPage: 1
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe(1)
@@ -756,9 +757,9 @@ describe('pagination', () => {
         },
         attachToDocument: true
       })
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       let links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(7)
@@ -771,28 +772,28 @@ describe('pagination', () => {
 
       // Focus the active button
       links.at(3).element.focus()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // LEFT
       // links.at(3).trigger('keydown.left')
       wrapper.trigger('keydown.left')
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // RIGHT
       links.at(2).trigger('keydown.right')
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // SHIFT-RIGHT
       links.at(2).trigger('keydown.right', { shiftKey: true })
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(6).element)
 
       // SHIFT-LEFT
       links.at(6).trigger('keydown.left', { shiftKey: true })
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(0).element)
 
       wrapper.destroy()
@@ -808,7 +809,7 @@ describe('pagination', () => {
         },
         attachToDocument: true
       })
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       let links = wrapper.findAll('a.page-link')
@@ -816,11 +817,11 @@ describe('pagination', () => {
 
       // Focus the last button
       links.at(6).element.focus()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(6).element)
 
       wrapper.vm.focusCurrent()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(3).element)
 
       wrapper.destroy()
@@ -838,7 +839,7 @@ describe('pagination', () => {
       })
       let links
 
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
       // Grab the button links (2 disabled bookends + 4 pages + (-ellipsis) + 2 bookends)
       links = wrapper.findAll('a.page-link')
@@ -846,7 +847,7 @@ describe('pagination', () => {
 
       // Click on the 4th button (page 4, index 3)
       links.at(3).element.click()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       // Links re-rendered with first bookends enabled and an ellipsis
       links = wrapper.findAll('a.page-link')
       // The 4th link should be page 4, and retain focus

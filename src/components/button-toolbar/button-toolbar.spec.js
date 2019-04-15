@@ -1,8 +1,9 @@
-import BButtonToolbar from './button-toolbar'
-import BButtonGroup from '../button-group/button-group'
-import BButton from '../button/button'
-import { mount } from '@vue/test-utils'
 import Vue from 'vue'
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BButton from '../button/button'
+import BButtonGroup from '../button-group/button-group'
+import BButtonToolbar from './button-toolbar'
 
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {
@@ -101,7 +102,7 @@ describe('button-toolbar', () => {
         attachToDocument: true
       })
 
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
 
       expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
@@ -130,7 +131,7 @@ describe('button-toolbar', () => {
         attachToDocument: true
       })
 
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
 
       expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
@@ -143,7 +144,7 @@ describe('button-toolbar', () => {
       expect(document.activeElement).not.toBe($btns.at(0).element)
 
       wrapper.trigger('focusin')
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()
@@ -154,7 +155,7 @@ describe('button-toolbar', () => {
         attachToDocument: true
       })
 
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
 
       expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
@@ -169,27 +170,27 @@ describe('button-toolbar', () => {
 
       // Cursor right
       $btns.at(0).trigger('keydown.right')
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toBe($btns.at(1).element)
 
       // Cursor right (skips disabled button)
       $btns.at(1).trigger('keydown.right')
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toBe($btns.at(3).element)
 
       // Cursor shift-right (focuses last button)
       $btns.at(1).trigger('keydown.right', { shiftKey: true })
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toBe($btns.at(5).element)
 
       // Cursor left
       $btns.at(5).trigger('keydown.left')
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toBe($btns.at(4).element)
 
       // Cursor shift left (focuses first button)
       $btns.at(5).trigger('keydown.left', { shiftKey: true })
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
       expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()

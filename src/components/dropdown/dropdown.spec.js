@@ -1,9 +1,7 @@
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import BDropdown from './dropdown'
 import BDropdownItem from './dropdown-item'
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-
-const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
-const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('dropdown', () => {
   const originalCreateRange = document.createRange

@@ -1,5 +1,5 @@
-import BColAsync from './col'
 import { mount } from '@vue/test-utils'
+import BColAsync from './col'
 
 // Vue test utils doesnt currently support mounting Async Components
 // So we have to resolve the component ourselves

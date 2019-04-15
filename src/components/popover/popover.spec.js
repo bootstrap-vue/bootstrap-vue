@@ -1,9 +1,8 @@
-import BPopover from './popover'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BPopover from './popover'
 
 const localVue = new CreateLocalVue()
-
-const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Our test application definition
 const appDef = {
@@ -98,7 +97,7 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -149,10 +148,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -195,10 +194,10 @@ describe('tooltip', () => {
     wrapper.setProps({
       show: false
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
