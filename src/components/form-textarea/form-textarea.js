@@ -7,6 +7,7 @@ import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
+import { isNull } from '../../utils/inspect'
 
 // @vue/component
 export default Vue.extend({
@@ -48,7 +49,7 @@ export default Vue.extend({
   data() {
     return {
       dontResize: true,
-      heightPx: null
+      heightInPx: null
     }
   },
   computed: {
@@ -61,7 +62,7 @@ export default Vue.extend({
       if (!this.computedRows) {
         // The computed height for auto resize.
         // We avoid setting the style to null, which can override user manual resize.
-        styles.height = this.heightPx
+        styles.height = this.heightInPx
         // We always add a vertical scrollbar to the textarea when auto-resize is
         // enabled so that the computed height calcaultion returns a stable value.
         styles.overflowY = 'scroll'
@@ -86,15 +87,11 @@ export default Vue.extend({
   watch: {
     dontResize(newVal, oldval) {
       if (!newVal) {
-        this.$nextTick(() => {
-          this.heightPx = this.computeHeight()
-        })
+        this.setHeight()
       }
     },
     localValue(newVal, oldVal) {
-      this.$nextTick(() => {
-        this.heightPx = this.computeHeight()
-      })
+      this.setHeight()
     }
   },
   mounted() {
@@ -118,8 +115,13 @@ export default Vue.extend({
     this.dontResize = true
   },
   methods: {
+    setHeight() {
+      this.$nextTick(() => {
+        this.heightInPx = this.computeHeight()
+      })
+    },
     computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      if (this.$isServer) {
+      if (this.$isServer || !isNull(this.computedRows)) {
         return null
       }
 
