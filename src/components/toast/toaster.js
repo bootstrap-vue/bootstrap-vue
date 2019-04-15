@@ -73,7 +73,7 @@ export default Vue.extend({
           id: this.name,
           role: this.role,
           'aria-live': this.ariaLive,
-          'aria-atomic': this.ariaAtomic,
+          'aria-atomic': this.ariaAtomic
         },
         props: {
           name: this.name,
