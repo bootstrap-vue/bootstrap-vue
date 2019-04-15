@@ -53,8 +53,13 @@ const BToastPop = Vue.extend({
     const handleDestroy = () => {
       const self = this
       this.$nextTick(() => {
-        // in a setTimeout to release control back to application
-        setTimeout(() => self.$destroy(), 0)
+        // In a setTimeout to release control back to application
+        // and to allow the portal-target time to remove the content
+        setTimeout(() => {
+          self.$nextTick(() => {
+            self.$destroy()
+          })
+        }, 0)
       })
     }
     // Self destruct if parent destroyed
