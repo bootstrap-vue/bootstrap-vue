@@ -115,7 +115,7 @@ export default Vue.extend({
   },
   methods: {
     computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      const setHeight(val) {
+      const setHeight = val => {
         this.$nextTick(() => {
           this.heightPx = val
         })
