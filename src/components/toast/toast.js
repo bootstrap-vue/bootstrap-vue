@@ -101,7 +101,8 @@ export default Vue.extend({
       isTransitioning: false,
       order: 0,
       timer: null,
-      dismissStarted: null
+      dismissStarted: 0,
+      resumeDismiss: 0
     }
   },
   computed: {
@@ -194,26 +195,41 @@ export default Vue.extend({
         toaster.$mount(div)
       }
     },
-    startDismissTimer(duration = 0) {
+    startDismissTimer() {
       this.clearDismissTimer()
       if (!this.noAutoHide) {
         this.dismissStarted = Date.now()
-        duration = duration || this.computedDuration
-        this.timer = setTimeout(this.hide, duration)
+        this.timer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
+        this.resumeDismiss = 0
       }
     },
     clearDismissTimer() {
       clearTimeout(this.timer)
       this.timer = null
-      this.dismissStarted = null
+      this.dismissStarted = 0
+      this.resumeDismiss = 0
     },
     onPause(evt) {
       // TODO: pause auto-hide on hover/focus
       // Determine time remaining, and then pause timer
+      if (this.noAutoHide || !this.timer) {
+        return
+      }
+      const now = Date.now()
+      const passed = now - this.dismissStarted
+      if (passed > 0 && passed < this.computedDuration) {
+        this.clearDismissTimer()
+        this.resumeDismiss = Math.max(passed, 1000)
+      }
     },
     onUnpause(evt) {
       // TODO: un-pause auto-hide on un-hover/blur
       // restart with max of time remaining or 1 second
+      if (this.noAutoHide || this.resumeDismiss === 0 || this.dismissStarted === 0) {
+        this.resumeDismiss = this.dismissStarted = 0
+        return
+      }
+      this.startDismissTimer()
     },
     onBeforeEnter() {
       this.isTransitining = true
@@ -239,6 +255,7 @@ export default Vue.extend({
       // TODO
       this.isTransitining = false
       this.order = 0
+      this.resumeDismiss = this.dismissStarted = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
     },
@@ -289,6 +306,12 @@ export default Vue.extend({
             role: this.isStatus ? 'status' : 'alert',
             'aria-live': this.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
+          },
+          on: {
+            '&mouseenter': this.onPause,
+            '&mouseleave': this.onUnPause,
+            '&focusin': this.onPause,
+            '&focusout': this.onUnPause,
           }
         },
         [$header, $body]
