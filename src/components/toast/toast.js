@@ -32,7 +32,7 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
   },
-  prepend: {
+  append: {
     type: Boolean,
     default: false
   },
@@ -165,7 +165,7 @@ export default Vue.extend({
         this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
-        this.order = Date.now() * (this.prepend ? -1 : 1)
+        this.order = Date.now() * (this.append ? 1 : -1)
         this.localShow = true
       }
     },
@@ -360,8 +360,8 @@ export default Vue.extend({
             key: name,
             staticClass: 'b-toast',
             class: {
-              'b-toast-prepend': this.prepend,
-              'b-toast-append': !this.prepend
+              'b-toast-append': this.append,
+              'b-toast-prepend': !this.append
             }
           },
           [
