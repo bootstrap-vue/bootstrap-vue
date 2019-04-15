@@ -848,21 +848,18 @@ describe('form-textarea', () => {
 
     // Check that the internal dontResize flag is now false
     await keepalive.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
     expect(textarea.vm.dontResize).toEqual(false)
 
     // v-if the component out of document
     keepalive.setProps({ show: false })
     // Check that the internal dontResize flag is now true
     await keepalive.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
     expect(textarea.vm.dontResize).toEqual(true)
 
     // v-if the component out of document
     keepalive.setProps({ show: true })
     // Check that the internal dontResize flag is now false
     await keepalive.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
     expect(textarea.vm.dontResize).toEqual(false)
 
     keepalive.destroy()
