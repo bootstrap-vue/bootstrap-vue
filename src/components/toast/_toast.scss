@@ -1,12 +1,22 @@
 // b-toast and b-toaster custom SCSS
 //
+
+// toast wrapper element class (needed for list tranitions in toasters)
+.b-toast {
+  display: block;
+  max-width: $toast-max-width;
+
+  &.b-toast-move {
+    transition: transform 0.15s;
+  }
+}
+
 // Configured "toasters".
 // The following are columnar toasters (vertically stacked)
 //   b-toaster-top-right
 //   b-toaster-top-left
 //   b-toaster-bottom-right
 //   b-toaster-bottom-left
-
 .b-toaster {
   position: fixed;
   padding: $b-toaster-padding;
@@ -31,14 +41,5 @@
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: 0;
-  }
-
-  > .b-toast {
-    display: block;
-    max-width: $toast-max-width;
-
-    &.b-toast-move {
-      transition: transform 0.15s;
-    }
   }
 }
