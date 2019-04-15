@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
+import pluckProps from '../../utils/pluck-props'
 import { props as BNavProps } from '../nav/nav'
-import { pick } from '../../utils/object'
 
 // -- Constants --
 
-export const props = pick(BNavProps, ['tag', 'fill', 'justified', 'align', 'small'])
+export const props = pluckProps(['tag', 'fill', 'justified', 'align', 'small'], BNavProps)
 
 // -- Utils --
 
