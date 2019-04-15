@@ -14,7 +14,7 @@
   &.b-toaster-enter-active,
   &.b-toaster-leave-active,
   &.b-toaster-move {
-    transition: all 0.3s;
+    transition: transform 0.3s;
   }
 
   &.b-toaster-enter,
