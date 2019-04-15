@@ -353,7 +353,7 @@ export default Vue.extend({
         }
       },
       [
-        h(
+        h('div', { staticClass: 'b-toast' }, [h(
           'transition',
           {
             props: DEFAULT_TRANSITION_PROPS,
@@ -365,7 +365,7 @@ export default Vue.extend({
             }
           },
           [this.localShow ? this.makeToast(h) : null]
-        )
+        )])
       ]
     )
   }
