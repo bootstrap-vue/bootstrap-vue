@@ -53,9 +53,9 @@ export default Vue.extend({
     }
   },
   render(h) {
-    /* istanbul ignore else */
+    let $target = h('div', {})
     if (this.doRender) {
-      return h(PortalTarget, {
+      $target = h(PortalTarget, {
         staticClass: 'b-toaster',
         class: [this.name],
         attrs: {
@@ -70,10 +70,9 @@ export default Vue.extend({
           tag: 'div',
           slim: false,
           transition: this.transition
-        }
+        },
       })
-    } else {
-      return h('div', {})
     }
+    return h('div', { staticClass: 'position-relative' }, [$target])
   }
 })
