@@ -7,31 +7,47 @@ import { getById } from '../../utils/dom'
 
 const NAME = 'BToaster'
 
+// @vue/component
+const DefaultTransition = Vue.extend({
+    functional: true,
+    render(h, context) {
+      return h(
+        'transition-group',
+        { props: { moveClass: 'b-toaster-move' } },
+        context.children
+      )
+    }
+  }
+})
+
+export const props = {
+  name: {
+    type: String,
+    required: true
+  },
+  ariaLive: {
+    type: String,
+    default: 'polite'
+  },
+  ariaAtomic: {
+    type: String,
+    default: 'true' // allowed: 'true' or 'false'
+  },
+  role: {
+    // Aria role
+    type: String,
+    default: null
+  },
+  transition: {
+    type: [Boolean, String, Object],
+    default: false
+  }
+}
+
+// @vue/component
 export default Vue.extend({
   name: NAME,
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    ariaLive: {
-      type: String,
-      default: 'polite'
-    },
-    ariaAtomic: {
-      type: String,
-      default: 'true' // allowed: 'true' or 'false'
-    },
-    role: {
-      // Aria role
-      type: String,
-      default: null
-    },
-    transition: {
-      type: [Boolean, String, Object],
-      default: false
-    }
-  },
+  props,
   data() {
     return {
       // We don't render on SSR or if a an existing target found
@@ -69,7 +85,7 @@ export default Vue.extend({
           multiple: true,
           tag: 'div',
           slim: false,
-          transition: this.transition
+          transition: this.transition || DefaultTransition
         }
       })
     }
