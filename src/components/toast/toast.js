@@ -281,7 +281,7 @@ export default Vue.extend({
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
-            on: { click: () => self.hide() }
+            on: { click: self.hide }
           })
         )
       }
