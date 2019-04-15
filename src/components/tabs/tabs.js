@@ -32,7 +32,7 @@ const BTabButtonHelper = Vue.extend({
     tab: { default: null },
     tabs: {
       type: Array,
-      default() {
+      default() /* istanbul ignore next */ {
         return []
       }
     },
