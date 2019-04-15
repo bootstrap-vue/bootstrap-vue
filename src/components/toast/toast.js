@@ -341,19 +341,19 @@ export default Vue.extend({
     if (!this.doRender) {
       return h(false)
     }
+    const name = this.id || `b-toast-${this._uid}`
     return h(
       Portal,
       {
-        key: this.id || `b-toast-${this._uid}`,
         props: {
-          name: this.id || `b-toast-${this._uid}`,
+          name: name,
           to: this.toaster,
           slim: true,
           disabled: this.static
         }
       },
       [
-        h('div', { staticClass: 'b-toast' }, [
+        h('div', { key: name, staticClass: 'b-toast' }, [
           h(
             'transition',
             {
