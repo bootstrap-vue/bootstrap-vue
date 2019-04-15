@@ -261,18 +261,19 @@ export default Vue.extend({
     },
     makeToast(h) {
       // Render helper for generating the toast
+      const self = this
       // Assemble the header content
       const $headerContent = []
-      let $title = this.normalizeSlot('toast-title', this.slotScope)
+      let $title = self.normalizeSlot('toast-title', self.slotScope)
       if ($title) {
         $headerContent.push($title)
-      } else if (this.title) {
-        $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
-      } else if (this.titleHtml) {
+      } else if (self.title) {
+        $headerContent.push(h('strong', { staticClass: 'mr-2' }, self.title))
+      } else if (self.titleHtml) {
         $headerContent.push(
           h('strong', {
             staticClass: 'mr-auto',
-            domProps: { innerHtml: this.titleHtml }
+            domProps: { innerHtml: self.titleHtml }
           })
         )
       }
@@ -280,7 +281,7 @@ export default Vue.extend({
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
-            on: { click: () => this.hide() }
+            on: { click: () => self.hide() }
           })
         )
       }
@@ -291,7 +292,7 @@ export default Vue.extend({
       }
       // Toast body
       const $body = h('div', { staticClass: 'toast-body' }, [
-        this.normalizeSlot('default', this.slotScope) || h(false)
+        this.normalizeSlot('default', self.slotScope) || h(false)
       ])
       // Build the toast
       const $toast = h(
@@ -299,19 +300,19 @@ export default Vue.extend({
         {
           staticClass: 'toast',
           key: 'b-toast',
-          class: this.toastClasses,
+          class: self.toastClasses,
           attrs: {
-            id: this.safeId(),
+            id: self.safeId(),
             tabindex: '-1',
-            role: this.isStatus ? 'status' : 'alert',
-            'aria-live': this.isStatus ? 'polite' : 'assertive',
+            role: self.isStatus ? 'status' : 'alert',
+            'aria-live': self.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
           },
           on: {
-            '&mouseenter': this.onPause,
-            '&mouseleave': this.onUnPause,
-            '&focusin': this.onPause,
-            '&focusout': this.onUnPause
+            '&mouseenter': self.onPause,
+            '&mouseleave': self.onUnPause,
+            '&focusin': self.onPause,
+            '&focusout': self.onUnPause
           }
         },
         [$header, $body]
@@ -323,14 +324,15 @@ export default Vue.extend({
     if (!this.doRender) {
       return h(false)
     }
+    const self = this
     return h(
       Portal,
       {
         props: {
-          // name: this.safeId(),
-          to: this.toaster,
+          name: self.safeId(),
+          to: self.toaster,
           slim: true,
-          disabled: this.static
+          disabled: self.static
         }
       },
       [
@@ -339,13 +341,13 @@ export default Vue.extend({
           {
             props: DEFAULT_TRANSITION_PROPS,
             on: {
-              beforeEnter: this.onBeforeEnter,
-              afterEnter: this.onAfterEnter,
-              beforeLeave: this.onBeforeLeave,
-              afterLeave: this.onAfterLeave
+              beforeEnter: self.onBeforeEnter,
+              afterEnter: self.onAfterEnter,
+              beforeLeave: self.onBeforeLeave,
+              afterLeave: self.onAfterLeave
             }
           },
-          [this.localShow ? this.makeToast(h) : null]
+          [self.localShow ? self.makeToast(h) : null]
         )
       ]
     )
