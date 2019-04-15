@@ -132,7 +132,7 @@ class BvToast {
   // Instance Methods
 
   // Opens a user defined toast and returns immediately
-  toast(content, options = {}, resolver) {
+  toast(content, options = {}) {
     if (!content || notClient()) {
       // Should this throw an error?
       /* istanbul ignore next */
