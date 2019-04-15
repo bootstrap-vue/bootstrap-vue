@@ -6,15 +6,11 @@
   display: block;
   position: relative;
   max-width: $toast-max-width;
+  backface-visibility: hidden;
+  z-index: 1;
 
   &:not(:last-child) {
     margin-bottom: $toast-padding-x;
-  }
-
-  &.b-toaster-enter-active,
-  &.b-toaster-leave-active,
-  &.b-toaster-move {
-    transition: transform 0.3s;
   }
 
   &.b-toaster-enter,
@@ -24,13 +20,17 @@
   }
 
   &.b-toaster-enter-active {
-  }
-
-  &.b-toaster-enter-to {
+    transition: all 0.15s ease-out;
   }
 
   &.b-toaster-leave-active {
     position: absolute;
+    transition: all 0.15s ease-in;
+    z-index: 0;
+  }
+
+  &.b-toaster-move {
+    transition: all 0.15s ease-in-out 0.05s;
   }
 }
 
