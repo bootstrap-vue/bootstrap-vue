@@ -10,11 +10,8 @@ export const props = pluckProps(['tag', 'fill', 'justified', 'align', 'small'], 
 // -- Utils --
 
 const computeJustifyContent = value => {
-  if (value === 'left') {
-    value = 'start'
-  } else if (value === 'right') {
-    value = 'end'
-  }
+  // Normalize value
+  value = value === 'left' ? 'start' : value === 'right' ? 'end' : value
   return `justify-content-${value}`
 }
 
