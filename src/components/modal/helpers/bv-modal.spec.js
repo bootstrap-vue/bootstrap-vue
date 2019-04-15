@@ -1,8 +1,6 @@
-import modalPlugin from '../index'
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-
-const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
-const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+import { waitNT, waitRAF } from '../../../../tests/utils'
+import modalPlugin from '../index'
 
 describe('$bvModal', () => {
   const localVue = new CreateLocalVue()

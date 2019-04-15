@@ -1,9 +1,7 @@
-import BDropdownItem from './dropdown-item'
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-
-const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
-const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BDropdownItem from './dropdown-item'
 
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {

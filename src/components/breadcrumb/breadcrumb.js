@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { isArray } from '../../utils/array'
 import toString from '../../utils/to-string'
+import { isArray, isObject } from '../../utils/inspect'
 import BBreadcrumbItem from './breadcrumb-item'
 
 export const props = {
@@ -22,7 +22,7 @@ export default Vue.extend({
     if (isArray(props.items)) {
       let activeDefined = false
       childNodes = props.items.map((item, idx) => {
-        if (typeof item !== 'object') {
+        if (!isObject(item)) {
           item = { text: toString(item) }
         }
         // Copy the value here so we can normalize it.

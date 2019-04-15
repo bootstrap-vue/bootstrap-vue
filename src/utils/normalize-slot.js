@@ -1,3 +1,5 @@
+import { isFunction } from './inspect'
+
 /**
  * Returns vNodes for named slot either scoped or unscoped
  *
@@ -10,7 +12,7 @@
 const normalizeSlot = (name, scope = {}, $scopedSlots = {}, $slots = {}) => {
   // Note: in Vue 2.6.x, all names slots are also scoped slots
   const slot = $scopedSlots[name] || $slots[name]
-  return typeof slot === 'function' ? slot(scope) : slot
+  return isFunction(slot) ? slot(scope) : slot
 }
 
 export default normalizeSlot

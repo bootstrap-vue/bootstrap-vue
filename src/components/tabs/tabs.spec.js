@@ -1,8 +1,9 @@
 import Vue from 'vue'
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BLink from '../link/link'
 import BTab from './tab'
 import BTabs from './tabs'
-import Link from '../link/link'
-import { mount } from '@vue/test-utils'
 
 describe('tabs', () => {
   it('default has expected classes and structure', async () => {
@@ -10,7 +11,7 @@ describe('tabs', () => {
 
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('tabs')
@@ -37,7 +38,7 @@ describe('tabs', () => {
       slots: { default: [BTab, BTab, BTab] }
     })
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm.currentTab).toBe(tabIndex)
     expect(wrapper.vm.tabs.length).toBe(3)
@@ -59,7 +60,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -89,7 +90,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -119,7 +120,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -140,7 +141,7 @@ describe('tabs', () => {
       .findAll(BTab)
       .at(1)
       .setProps({ active: false })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Expect last tab (index 2) to be active
     expect(tabs.vm.currentTab).toBe(2)
@@ -166,7 +167,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -179,7 +180,7 @@ describe('tabs', () => {
 
     // Set 2nd BTab to be active
     tabs.setProps({ value: 1 })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(1)
     expect(tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
@@ -187,7 +188,7 @@ describe('tabs', () => {
 
     // Set 3rd BTab to be active
     tabs.setProps({ value: 2 })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(2)
     expect(tabs.emitted('input').length).toBe(2)
     // Should emit index of 2 (3rd tab)
@@ -209,7 +210,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -221,7 +222,7 @@ describe('tabs', () => {
 
     // Try to set 2nd (disabled) BTab to be active
     tabs.setProps({ value: 1 })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // Will try activate next non-disabled tab instead (3rd tab, index 2)
     expect(tabs.vm.currentTab).toBe(2)
     expect(tabs.emitted('input').length).toBe(1)
@@ -230,10 +231,10 @@ describe('tabs', () => {
 
     // Needed for test since value not bound to actual v-model on App
     tabs.setProps({ value: 2 })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // Try and set 2nd BTab to be active
     tabs.setProps({ value: 1 })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // Will find the previous non-disabled tab (1st tab, index 0)
     expect(tabs.vm.currentTab).toBe(0)
     expect(tabs.emitted('input').length).toBe(2)
@@ -256,7 +257,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -280,7 +281,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(1)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
@@ -293,7 +294,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
@@ -306,7 +307,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(0)
       .trigger('keydown.space')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
@@ -329,7 +330,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -349,10 +350,10 @@ describe('tabs', () => {
 
     // RIGHT moves to next tab
     wrapper
-      .findAll(Link)
+      .findAll(BLink)
       .at(0)
       .trigger('keydown.right')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
@@ -360,10 +361,10 @@ describe('tabs', () => {
 
     // END key moves to last tab
     wrapper
-      .findAll(Link)
+      .findAll(BLink)
       .at(1)
       .trigger('keydown.end')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
@@ -371,10 +372,10 @@ describe('tabs', () => {
 
     // LEFT moves to previous tab
     wrapper
-      .findAll(Link)
+      .findAll(BLink)
       .at(2)
       .trigger('keydown.left')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
@@ -382,10 +383,10 @@ describe('tabs', () => {
 
     // HOME moves to first tab
     wrapper
-      .findAll(Link)
+      .findAll(BLink)
       .at(1)
       .trigger('keydown.home')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
@@ -407,7 +408,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(3)
@@ -424,7 +425,7 @@ describe('tabs', () => {
 
     // Disable 3rd tab
     tab3.setProps({ disabled: true })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Expect 1st tab to be active
     expect(tabs.vm.currentTab).toBe(0)
@@ -435,7 +436,7 @@ describe('tabs', () => {
     // Enable 3rd tab and Disable 1st tab
     tab3.setProps({ disabled: false })
     tab1.setProps({ disabled: true })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Expect 2nd tab to be active
     expect(tabs.vm.currentTab).toBe(1)
@@ -457,7 +458,7 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     const tabs = wrapper.find(BTabs)
     expect(tabs).toBeDefined()
     expect(tabs.findAll(BTab).length).toBe(1)
@@ -472,7 +473,7 @@ describe('tabs', () => {
     // Change title slot content
     tabVm.$slots.title = [tabVm.$createElement('span', {}, 'foobar')]
     tabVm.$forceUpdate()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Expect tab button content to be `foobar`
     expect(wrapper.find('.nav-link').text()).toBe('foobar')

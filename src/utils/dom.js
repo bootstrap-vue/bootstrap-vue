@@ -1,39 +1,65 @@
 import { from as arrayFrom } from './array'
-import { isObject } from './object'
-import { inBrowser } from './env'
+import { hasWindowSupport, hasDocumentSupport, hasPassiveEventSupport } from './env'
+import { isFunction, isNull, isObject } from '../utils/inspect'
 
-// Determine if the browser supports the option passive for events
-let passiveEventSupported = false
-/* istanbul ignore if */
-if (inBrowser) {
-  try {
-    const options = {
-      get passive() {
-        // This function will be called when the browser
-        // attempts to access the passive property.
-        passiveEventSupported = true
+// --- Constants ---
+
+const w = hasWindowSupport ? window : {}
+const d = hasDocumentSupport ? document : {}
+const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
+
+// --- Normalization utils ---
+
+// See: https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+/* istanbul ignore next */
+export const matchesEl =
+  elProto.matches || elProto.msMatchesSelector || elProto.webkitMatchesSelector
+
+// See: https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+/* istanbul ignore next */
+export const closestEl =
+  elProto.closest ||
+  function(sel) /* istanbul ignore next */ {
+    let el = this
+    do {
+      // Use our "patched" matches function
+      if (matches(el, sel)) {
+        return el
       }
-    }
-    window.addEventListener('test', options, options)
-    window.removeEventListener('test', options, options)
-  } catch (err) {
-    passiveEventSupported = false
+      el = el.parentElement || el.parentNode
+    } while (!isNull(el) && el.nodeType === Node.ELEMENT_NODE)
+    return null
   }
-}
 
-// Exported only for testing purposes
-export const isPassiveSupported = () => passiveEventSupported
+// `requestAnimationFrame()` convenience method
+// We don't have a version for cancelAnimationFrame, but we don't call it anywhere
+export const requestAF =
+  w.requestAnimationFrame ||
+  w.webkitRequestAnimationFrame ||
+  w.mozRequestAnimationFrame ||
+  w.msRequestAnimationFrame ||
+  w.oRequestAnimationFrame ||
+  (cb => {
+    // Fallback, but not a true polyfill
+    // All browsers we support (other than Opera Mini) support
+    // `requestAnimationFrame()` without a polyfill
+    /* istanbul ignore next */
+    return setTimeout(cb, 16)
+  })
+
+export const MutationObs =
+  w.MutationObserver || w.WebKitMutationObserver || w.MozMutationObserver || null
+
+// --- Utils ---
 
 // Normalize event options based on support of passive option
 // Exported only for testing purposes
 export const parseEventOptions = options => {
-  if (!passiveEventSupported) {
+  if (!hasPassiveEventSupport) {
     // Need to translate to actual Boolean value
     return Boolean(isObject(options) ? options.useCapture : options)
   }
-  /* istanbul ignore next: JSDOM doesn't support above detection of passive */
-  return options || { useCapture: false }
-  // So we can't reach this anymore for unit testing due to the above if statement
+  return isObject(options) ? options : { useCapture: Boolean(options || false) }
 }
 
 // Attach an event listener to an element
@@ -51,13 +77,11 @@ export const eventOff = (el, evtName, handler, options) => {
 }
 
 // Determine if an element is an HTML Element
-export const isElement = el => {
-  return Boolean(el && el.nodeType === Node.ELEMENT_NODE)
-}
+export const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE)
 
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
-  if (!isElement(el) || !contains(document.body, el)) {
+  if (!isElement(el) || !contains(d.body, el)) {
     return false
   }
   if (el.style.display === 'none') {
@@ -73,11 +97,8 @@ export const isVisible = el => {
 }
 
 // Determine if an element is disabled
-export const isDisabled = el => {
-  return (
-    !isElement(el) || el.disabled || hasClass(el, 'disabled') || Boolean(getAttr(el, 'disabled'))
-  )
-}
+export const isDisabled = el =>
+  !isElement(el) || el.disabled || Boolean(getAttr(el, 'disabled')) || hasClass(el, 'disabled')
 
 // Cause/wait-for an element to reflow it's content (adjusting it's height/width)
 export const reflow = el => {
@@ -87,48 +108,19 @@ export const reflow = el => {
 }
 
 // Select all elements matching selector. Returns `[]` if none found
-export const selectAll = (selector, root) => {
-  if (!isElement(root)) {
-    root = document
-  }
-  return arrayFrom(root.querySelectorAll(selector))
-}
+export const selectAll = (selector, root) =>
+  arrayFrom((isElement(root) ? root : d).querySelectorAll(selector))
 
 // Select a single element, returns `null` if not found
-export const select = (selector, root) => {
-  if (!isElement(root)) {
-    root = document
-  }
-  return root.querySelector(selector) || null
-}
+export const select = (selector, root) =>
+  (isElement(root) ? root : d).querySelector(selector) || null
 
 // Determine if an element matches a selector
 export const matches = (el, selector) => {
   if (!isElement(el)) {
     return false
   }
-
-  // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
-  // Prefer native implementations over polyfill function
-  const proto = Element.prototype
-  /* istanbul ignore next */
-  const Matches =
-    proto.matches ||
-    proto.matchesSelector ||
-    proto.mozMatchesSelector ||
-    proto.msMatchesSelector ||
-    proto.oMatchesSelector ||
-    proto.webkitMatchesSelector ||
-    function(sel) /* istanbul ignore next */ {
-      const element = this
-      const m = selectAll(sel, element.document || element.ownerDocument)
-      let i = m.length
-      // eslint-disable-next-line no-empty
-      while (--i >= 0 && m.item(i) !== element) {}
-      return i > -1
-    }
-
-  return Matches.call(el, selector)
+  return matchesEl.call(el, selector)
 }
 
 // Finds closest element matching selector. Returns `null` if not found
@@ -136,44 +128,21 @@ export const closest = (selector, root) => {
   if (!isElement(root)) {
     return null
   }
-
-  // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-  // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
-  // Prefer native implementation over polyfill function
-  const Closest =
-    Element.prototype.closest ||
-    function(sel) /* istanbul ignore next */ {
-      let element = this
-      if (!contains(document.documentElement, element)) {
-        return null
-      }
-      do {
-        // Use our "patched" matches function
-        if (matches(element, sel)) {
-          return element
-        }
-        element = element.parentElement || element.parentNode
-      } while (element !== null && element.nodeType === Node.ELEMENT_NODE)
-      return null
-    }
-
-  const el = Closest.call(root, selector)
+  const el = closestEl.call(root, selector)
   // Emulate jQuery closest and return `null` if match is the passed in element (root)
   return el === root ? null : el
 }
 
 // Returns true if the parent element contains the child element
 export const contains = (parent, child) => {
-  if (!parent || typeof parent.contains !== 'function') {
+  if (!parent || !isFunction(parent.contains)) {
     return false
   }
   return parent.contains(child)
 }
 
 // Get an element given an ID
-export const getById = id => {
-  return document.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
-}
+export const getById = id => d.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
 
 // Add a class to an element
 export const addClass = (el, className) => {
@@ -220,34 +189,22 @@ export const removeAttr = (el, attr) => {
   }
 }
 
-// Get an attribute value from an element (returns `null` if not found)
-export const getAttr = (el, attr) => {
-  if (attr && isElement(el)) {
-    return el.getAttribute(attr)
-  }
-  return null
-}
+// Get an attribute value from an element
+// Returns `null` if not found
+export const getAttr = (el, attr) => (attr && isElement(el) ? el.getAttribute(attr) : null)
 
-// Determine if an attribute exists on an element (returns `true`
-// or `false`, or `null` if element not found)
-export const hasAttr = (el, attr) => {
-  if (attr && isElement(el)) {
-    return el.hasAttribute(attr)
-  }
-  return null
-}
+// Determine if an attribute exists on an element
+// Returns `true` or `false`, or `null` if element not found
+export const hasAttr = (el, attr) => (attr && isElement(el) ? el.hasAttribute(attr) : null)
 
-// Return the Bounding Client Rect of an element. Returns `null` if not an element
-export const getBCR = el => {
-  /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
-  return isElement(el) ? el.getBoundingClientRect() : null
-}
+// Return the Bounding Client Rect of an element
+// Returns `null` if not an element
+/* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */
+export const getBCR = el => (isElement(el) ? el.getBoundingClientRect() : null)
 
 // Get computed style object for an element
-export const getCS = el => {
-  /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
-  return isElement(el) ? window.getComputedStyle(el) : {}
-}
+/* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
+export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedStyle(el) : {})
 
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
@@ -298,24 +255,4 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
     top: _offset.top - parentOffset.top - parseFloat(elStyles.marginTop),
     left: _offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
   }
-}
-
-// requestAnimationFrame convenience method
-// We don't have a version for cancelAnimationFrame, but we don't call it anywhere
-export const requestAF = cb => {
-  const w = inBrowser ? window : {}
-  const rAF =
-    w.requestAnimationFrame ||
-    w.webkitRequestAnimationFrame ||
-    w.mozRequestAnimationFrame ||
-    w.msRequestAnimationFrame ||
-    w.oRequestAnimationFrame ||
-    (cb => {
-      // Fallback, but not a true polyfill.
-      // But all browsers we support (other than Opera Mini) support rAF
-      // without a polyfill.
-      /* istanbul ignore next */
-      return setTimeout(cb, 16)
-    })
-  return rAF(cb)
 }

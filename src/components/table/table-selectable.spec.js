@@ -1,5 +1,6 @@
-import BTable from './table'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BTable from './table'
 
 const testItems = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
 const testFields = [{ key: 'a', sortable: true }]
@@ -13,7 +14,7 @@ describe('table > row select', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
 
     wrapper.destroy()
@@ -27,7 +28,7 @@ describe('table > row select', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).not.toBeDefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
@@ -55,7 +56,7 @@ describe('table > row select', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).not.toBeDefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
@@ -84,7 +85,7 @@ describe('table > row select', () => {
     let $rows
 
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).toBe('false')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-single')
@@ -102,7 +103,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -123,7 +124,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[2]])
     $rows = wrapper.findAll('tbody > tr')
@@ -143,7 +144,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([])
     $rows = wrapper.findAll('tbody > tr')
@@ -172,7 +173,7 @@ describe('table > row select', () => {
     })
     let $rows
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).toBe('true')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-multi')
@@ -186,7 +187,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -207,7 +208,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[0], testItems[2]])
     $rows = wrapper.findAll('tbody > tr')
@@ -227,7 +228,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[0]])
     $rows = wrapper.findAll('tbody > tr')
@@ -247,7 +248,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(4)
     expect(wrapper.emitted('row-selected')[3][0]).toEqual([])
     $rows = wrapper.findAll('tbody > tr')
@@ -276,7 +277,7 @@ describe('table > row select', () => {
     })
     let $rows
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).toBe('true')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-range')
@@ -293,7 +294,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -314,7 +315,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(2)
       .trigger('click', { shiftKey: true })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([
       testItems[0],
@@ -338,7 +339,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[2]])
     $rows = wrapper.findAll('tbody > tr')
@@ -358,7 +359,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(3)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(4)
     expect(wrapper.emitted('row-selected')[3][0]).toEqual([testItems[3]])
     $rows = wrapper.findAll('tbody > tr')
@@ -378,7 +379,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(3)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // No change to selected rows
     expect(wrapper.emitted('row-selected').length).toBe(4)
     $rows = wrapper.findAll('tbody > tr')
@@ -398,7 +399,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(1)
       .trigger('click', { ctrlKey: true })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(5)
     expect(wrapper.emitted('row-selected')[4][0]).toEqual([testItems[1], testItems[3]])
     $rows = wrapper.findAll('tbody > tr')
@@ -418,7 +419,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(1)
       .trigger('click', { ctrlKey: true })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(6)
     expect(wrapper.emitted('row-selected')[5][0]).toEqual([testItems[3]])
     $rows = wrapper.findAll('tbody > tr')
@@ -438,7 +439,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(3)
       .trigger('click', { ctrlKey: true })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(7)
     expect(wrapper.emitted('row-selected')[6][0]).toEqual([])
     $rows = wrapper.findAll('tbody > tr')
@@ -467,7 +468,7 @@ describe('table > row select', () => {
     })
     let $rows
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
 
     // Click first row
@@ -475,7 +476,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -491,7 +492,7 @@ describe('table > row select', () => {
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('row-selected').length).toBe(2)
@@ -514,7 +515,7 @@ describe('table > row select', () => {
     })
     let $rows
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
@@ -525,7 +526,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -540,7 +541,7 @@ describe('table > row select', () => {
     wrapper.setProps({
       filter: '2'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
     $rows = wrapper.findAll('tbody > tr')
@@ -564,7 +565,7 @@ describe('table > row select', () => {
     let $rows
 
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
@@ -576,7 +577,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -592,7 +593,7 @@ describe('table > row select', () => {
     wrapper.setProps({
       currentPage: 2
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
     $rows = wrapper.findAll('tbody > tr')
@@ -614,7 +615,7 @@ describe('table > row select', () => {
     })
     let $rows
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
 
     // Click first row
@@ -622,7 +623,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -637,7 +638,7 @@ describe('table > row select', () => {
     wrapper.setProps({
       selectMode: 'range'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([])
@@ -659,7 +660,7 @@ describe('table > row select', () => {
     })
     let $rows
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
 
     // Click first row
@@ -667,7 +668,7 @@ describe('table > row select', () => {
       .findAll('tbody > tr')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
@@ -684,7 +685,7 @@ describe('table > row select', () => {
     wrapper.setProps({
       selectable: false
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // Does not emit a row-selected event
     expect(wrapper.emitted('row-selected').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr')

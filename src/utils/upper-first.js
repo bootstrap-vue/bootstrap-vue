@@ -1,8 +1,11 @@
+import { isString } from './inspect'
+
 /**
+ * Transform the first character to uppercase
  * @param {string} str
  */
 const upperFirst = str => {
-  if (typeof str !== 'string') {
+  if (!isString(str)) {
     str = String(str)
   }
   str = str.trim()

@@ -1,5 +1,6 @@
-import BImgLazy from './img-lazy'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BImgLazy from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
 
@@ -45,13 +46,13 @@ describe('img-lazy', () => {
     wrapper.setProps({
       show: true
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('src')).toBe(src)
 
     wrapper.setProps({
       show: false
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
 
     wrapper.destroy()

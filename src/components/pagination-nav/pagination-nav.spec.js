@@ -1,6 +1,7 @@
-import BPaginationNav from './pagination-nav'
 import VueRouter from 'vue-router'
 import { mount, createLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BPaginationNav from './pagination-nav'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
@@ -21,8 +22,8 @@ describe('pagination-nav', () => {
         value: 1
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // <pagination-nav> has an outer wrapper of nav
     expect(wrapper.is('nav')).toBe(true)
@@ -55,8 +56,8 @@ describe('pagination-nav', () => {
         limit: 10
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -84,8 +85,8 @@ describe('pagination-nav', () => {
         limit: 10
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -108,8 +109,8 @@ describe('pagination-nav', () => {
         disabled: true
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // <pagination-nav> has an outer wrapper of nav
     expect(wrapper.is('nav')).toBe(true)
@@ -149,8 +150,8 @@ describe('pagination-nav', () => {
         limit: 10
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     let $links = wrapper.findAll('a.page-link')
@@ -160,7 +161,7 @@ describe('pagination-nav', () => {
       numberOfPages: 5
     })
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -176,8 +177,8 @@ describe('pagination-nav', () => {
         baseUrl: '/foo/'
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -206,8 +207,8 @@ describe('pagination-nav', () => {
         linkGen: page => `?${page}`
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -236,8 +237,8 @@ describe('pagination-nav', () => {
         linkGen: page => ({ path: `/baz?${page}` })
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -266,8 +267,8 @@ describe('pagination-nav', () => {
         pageGen: page => `Page ${page}`
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -290,8 +291,8 @@ describe('pagination-nav', () => {
         pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4', '/baz?5']
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -332,8 +333,8 @@ describe('pagination-nav', () => {
         ]
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     const $links = wrapper.findAll('a.page-link')
@@ -368,8 +369,8 @@ describe('pagination-nav', () => {
         pages: ['/baz?1', '/baz?2', '/baz?3']
       }
     })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('nav')).toBe(true)
     let $links = wrapper.findAll('a.page-link')
@@ -387,7 +388,7 @@ describe('pagination-nav', () => {
     wrapper.setProps({
       pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4']
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(8)
@@ -425,8 +426,8 @@ describe('pagination-nav', () => {
       .at(2)
       .find('a')
       .trigger('click')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
@@ -436,8 +437,8 @@ describe('pagination-nav', () => {
       .at(3)
       .find('a')
       .trigger('click')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
@@ -448,8 +449,8 @@ describe('pagination-nav', () => {
       .at(6)
       .find('a')
       .trigger('keydown.space') // Generates a click event
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
 
@@ -459,8 +460,8 @@ describe('pagination-nav', () => {
       .at(1)
       .find('a')
       .trigger('click')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
 
@@ -483,9 +484,9 @@ describe('pagination-nav', () => {
           linkGen: page => (page === 2 ? '/' : `/#${page}`)
         }
       })
-      await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
 
       expect(wrapper.vm.$router).not.toBeDefined()
       expect(wrapper.vm.$route).not.toBeDefined()
@@ -538,9 +539,9 @@ describe('pagination-nav', () => {
       await new Promise(resolve => router.onReady(resolve))
 
       // Wait for the guessCurrentPage to complete
-      await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
 
       // The pagination-nav component should exist
       expect(wrapper.find(BPaginationNav).exists()).toBe(true)
@@ -551,9 +552,9 @@ describe('pagination-nav', () => {
       wrapper.vm.$router.push('/3')
 
       // Wait for the guessCurrentPage to complete
-      await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
 
       // The pagination-nav component should exist
       expect(wrapper.find(BPaginationNav).exists()).toBe(true)
@@ -599,9 +600,9 @@ describe('pagination-nav', () => {
       await new Promise(resolve => router.onReady(resolve))
 
       // Wait for the guessCurrentPage to complete
-      await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
 
       // The <pagination-nav> component should exist
       expect(wrapper.find(BPaginationNav).exists()).toBe(true)
@@ -612,9 +613,9 @@ describe('pagination-nav', () => {
       wrapper.vm.$router.push('/3')
 
       // Wait for the guessCurrentPage to complete
-      await wrapper.vm.$nextTick()
-      await new Promise(resolve => requestAnimationFrame(resolve))
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
 
       // The pagination-nav component should exist
       expect(wrapper.find(BPaginationNav).exists()).toBe(true)

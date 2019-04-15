@@ -1,5 +1,5 @@
-import BDropdownForm from './dropdown-form'
 import { mount } from '@vue/test-utils'
+import BDropdownForm from './dropdown-form'
 
 describe('dropdown-form', () => {
   it('renders with tag "form"', async () => {

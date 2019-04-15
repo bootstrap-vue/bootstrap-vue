@@ -1,5 +1,5 @@
-import listenOnRootMixin from './listen-on-root'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import listenOnRootMixin from './listen-on-root'
 
 describe('mixins/listen-on-root', () => {
   const localVue = new CreateLocalVue()

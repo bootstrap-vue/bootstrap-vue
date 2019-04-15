@@ -1,5 +1,5 @@
-import BCardText from './card-text'
 import { mount } from '@vue/test-utils'
+import BCardText from './card-text'
 
 describe('card-text', () => {
   it('has root element "p"', async () => {

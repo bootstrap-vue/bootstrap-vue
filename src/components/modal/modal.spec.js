@@ -1,13 +1,10 @@
+import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import BModal from './modal'
 import BvModalEvent from './helpers/bv-modal-event.class'
 
-import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
-
-const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
-const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 describe('modal', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect

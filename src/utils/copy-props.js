@@ -1,6 +1,5 @@
-import { isArray } from './array'
-import { isObject } from './object'
 import identity from './identity'
+import { isArray, isObject } from './inspect'
 
 /**
  * Copies props from one array/object to a new array/object. Prop values

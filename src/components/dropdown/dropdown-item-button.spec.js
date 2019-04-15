@@ -1,5 +1,6 @@
-import BDropdownItemButton from './dropdown-item-button'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BDropdownItemButton from './dropdown-item-button'
 
 describe('dropdown-item-button', () => {
   it('renders with tag "button" and type="button" by default', async () => {
@@ -67,7 +68,7 @@ describe('dropdown-item-button', () => {
     const button = wrapper.find('button')
     expect(button).toBeDefined()
     button.trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(called).toBe(true)
     expect(refocus).toBe(true)
 
@@ -95,7 +96,7 @@ describe('dropdown-item-button', () => {
     const button = wrapper.find('button')
     expect(button).toBeDefined()
     button.trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(called).toBe(false)
     expect(refocus).toBe(null)
 

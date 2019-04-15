@@ -1,5 +1,5 @@
-import BDropdownHeader from './dropdown-header'
 import { mount } from '@vue/test-utils'
+import BDropdownHeader from './dropdown-header'
 
 describe('dropdown > dropdown-header', () => {
   it('works', async () => {

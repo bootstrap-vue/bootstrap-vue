@@ -1,5 +1,6 @@
-import BFormFile from './form-file'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BFormFile from './form-file'
 
 describe('form-file', () => {
   it('default has expected structure, classes and attributes', async () => {
@@ -146,11 +147,11 @@ describe('form-file', () => {
     expect(input.classes()).not.toContain('focus')
 
     input.trigger('focusin')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.classes()).toContain('focus')
 
     input.trigger('focusout')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.classes()).not.toContain('focus')
 
     wrapper.destroy()
@@ -335,13 +336,13 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.setProps({ value: null })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
@@ -369,23 +370,23 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     wrapper.setProps({ value: null })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
     wrapper.vm.setFiles(files)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual(files)
 
     wrapper.setProps({ value: [] })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
 
@@ -406,13 +407,13 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.find('input').trigger('reset')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
