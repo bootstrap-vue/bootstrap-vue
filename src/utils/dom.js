@@ -1,6 +1,6 @@
 import { from as arrayFrom } from './array'
 import { hasWindowSupport, hasDocumentSupport, hasPassiveEventSupport } from './env'
-import { isObject } from './object'
+import { isFunction, isNull, isObject } from '../utils/inspect'
 
 // --- Constants ---
 
@@ -27,7 +27,7 @@ export const closestEl =
         return el
       }
       el = el.parentElement || el.parentNode
-    } while (el !== null && el.nodeType === Node.ELEMENT_NODE)
+    } while (!isNull(el) && el.nodeType === Node.ELEMENT_NODE)
     return null
   }
 
@@ -135,7 +135,7 @@ export const closest = (selector, root) => {
 
 // Returns true if the parent element contains the child element
 export const contains = (parent, child) => {
-  if (!parent || typeof parent.contains !== 'function') {
+  if (!parent || !isFunction(parent.contains)) {
     return false
   }
   return parent.contains(child)

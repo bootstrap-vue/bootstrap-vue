@@ -1,6 +1,7 @@
 import ScrollSpy from './scrollspy.class'
 import { isBrowser } from '../../utils/env'
 import { keys } from '../../utils/object'
+import { isNumber, isObject, isString } from '../../utils/inspect'
 
 // Key we use to store our instance
 const BV_SCROLLSPY = '__BV_ScrollSpy__'
@@ -30,13 +31,13 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   })
 
   // Process value
-  if (typeof bindings.value === 'string') {
+  if (isString(bindings.value)) {
     // Value is a CSS ID or selector
     config.element = bindings.value
-  } else if (typeof bindings.value === 'number') {
+  } else if (isNumber(bindings.value)) {
     // Value is offset
     config.offset = Math.round(bindings.value)
-  } else if (typeof bindings.value === 'object') {
+  } else if (isObject(bindings.value)) {
     // Value is config object
     // Filter the object based on our supported config options
     keys(bindings.value)

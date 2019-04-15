@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import noop from '../../utils/noop'
+import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
 import {
   selectAll,
@@ -13,6 +13,7 @@ import {
   eventOff
 } from '../../utils/dom'
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
+import { isUndefined } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 
 const NAME = 'BCarousel'
@@ -57,7 +58,7 @@ const EventOptions = { passive: true, capture: false }
 // Return the browser specific transitionEnd event name
 function getTransitionEndEvent(el) {
   for (const name in TransitionEndEvents) {
-    if (el.style[name] !== undefined) {
+    if (!isUndefined(el.style[name])) {
       return TransitionEndEvents[name]
     }
   }

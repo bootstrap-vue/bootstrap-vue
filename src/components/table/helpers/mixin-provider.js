@@ -1,7 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
-import { isArray } from '../../../utils/array'
 import warn from '../../../utils/warn'
-
+import { isArray, isFunction } from '../../../utils/inspect'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
@@ -33,7 +32,7 @@ export default {
       // Used to trigger the provider function via a watcher. Only the fields that
       // are needed for triggering a provider update are included. Note that the
       // regular this.context is sent to the provider during fetches though, as they
-      // may neeed all the prop info.
+      // may need all the prop info.
       const ctx = {
         apiUrl: this.apiUrl
       }
@@ -116,7 +115,7 @@ export default {
         // Do nothing if no provider
         return
       }
-      // If table is busy, wait until refereshed before calling again
+      // If table is busy, wait until refreshed before calling again
       if (this.computedBusy) {
         // Schedule a new refresh once `refreshed` is emitted
         this.$nextTick(this.refresh)
@@ -131,7 +130,7 @@ export default {
         try {
           // Call provider function passing it the context and optional callback
           const data = this.items(this.context, this._providerSetLocal)
-          if (data && data.then && typeof data.then === 'function') {
+          if (data && data.then && isFunction(data.then)) {
             // Provider returned Promise
             data.then(items => {
               // Provider resolved with items
@@ -146,7 +145,7 @@ export default {
             // busy state as most likely there was an error in the provider function
             /* istanbul ignore next */
             warn(
-              "b-table provider function didn't request calback and did not return a promise or data"
+              "b-table provider function didn't request callback and did not return a promise or data"
             )
             /* istanbul ignore next */
             this.localBusy = false

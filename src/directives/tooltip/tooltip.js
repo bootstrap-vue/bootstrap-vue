@@ -1,8 +1,9 @@
 import Popper from 'popper.js'
 import ToolTip from '../../utils/tooltip.class'
-import { isBrowser } from '../../utils/env'
-import { keys } from '../../utils/object'
 import warn from '../../utils/warn'
+import { isBrowser } from '../../utils/env'
+import { isFunction, isObject, isString } from '../../utils/inspect'
+import { keys } from '../../utils/object'
 
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_ToolTip__'
@@ -23,13 +24,13 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   let config = {}
 
   // Process bindings.value
-  if (typeof bindings.value === 'string') {
+  if (isString(bindings.value)) {
     // Value is tooltip content (html optionally supported)
     config.title = bindings.value
-  } else if (typeof bindings.value === 'function') {
+  } else if (isFunction(bindings.value)) {
     // Title generator function
     config.title = bindings.value
-  } else if (typeof bindings.value === 'object') {
+  } else if (isObject(bindings.value)) {
     // Value is config object, so merge
     config = { ...config, ...bindings.value }
   }
@@ -77,7 +78,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   const selectedTriggers = {}
 
   // Parse current config object trigger
-  let triggers = typeof config.trigger === 'string' ? config.trigger.trim().split(/\s+/) : []
+  let triggers = isString(config.trigger) ? config.trigger.trim().split(/\s+/) : []
   triggers.forEach(trigger => {
     if (validTriggers[trigger]) {
       selectedTriggers[trigger] = true

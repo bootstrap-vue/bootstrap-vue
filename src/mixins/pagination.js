@@ -1,12 +1,14 @@
 /*
- * Comon props, computed, data, render function, and methods for b-pagination and b-pagination-nav
+ * Common props, computed, data, render function, and methods
+ * for <b-pagination> and <b-pagination-nav>
  */
 
-import warn from '../utils/warn'
-import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
-import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
+import range from '../utils/range'
 import toString from '../utils/to-string'
+import warn from '../utils/warn'
+import { isFunction, isNull } from '../utils/inspect'
+import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import BLink from '../components/link/link'
 
@@ -59,7 +61,7 @@ const props = {
     validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
-      if (value !== null && (isNaN(num) || num < 1)) {
+      if (!isNull(value) && (isNaN(num) || num < 1)) {
         warn('pagination: v-model value must be a number greater than 0')
         return false
       }
@@ -414,7 +416,7 @@ export default {
       return h(
         'li',
         {
-          key: `elipsis-${isLast ? 'last' : 'first'}`,
+          key: `ellipsis-${isLast ? 'last' : 'first'}`,
           staticClass: 'page-item',
           class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : ''],
           attrs: { role: 'separator' }
@@ -458,10 +460,9 @@ export default {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
-        'aria-label':
-          typeof this.labelPage === 'function'
-            ? this.labelPage(page.number)
-            : `${this.labelPage} ${page.number}`,
+        'aria-label': isFunction(this.labelPage)
+          ? this.labelPage(page.number)
+          : `${this.labelPage} ${page.number}`,
         'aria-checked': active ? 'true' : 'false',
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
@@ -536,7 +537,7 @@ export default {
           )
     )
 
-    // Assemble the paginatiom buttons
+    // Assemble the pagination buttons
     const pagination = h(
       'ul',
       {

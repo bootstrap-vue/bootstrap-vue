@@ -17,6 +17,7 @@ import {
   eventOn,
   eventOff
 } from './dom'
+import { isFunction, isNull, isNumber, isObject, isString, isUndefined } from './inspect'
 
 const NAME = 'tooltip'
 const CLASS_PREFIX = 'bs-tooltip'
@@ -161,7 +162,7 @@ class ToolTip {
     let updatedConfig = { ...this.constructor.Default, ...config }
 
     // Sanitize delay
-    if (config.delay && typeof config.delay === 'number') {
+    if (config.delay && isNumber(config.delay)) {
       /* istanbul ignore next */
       updatedConfig.delay = {
         show: config.delay,
@@ -170,13 +171,13 @@ class ToolTip {
     }
 
     // Title for tooltip and popover
-    if (config.title && typeof config.title === 'number') {
+    if (config.title && isNumber(config.title)) {
       /* istanbul ignore next */
       updatedConfig.title = config.title.toString()
     }
 
     // Content only for popover
-    if (config.content && typeof config.content === 'number') {
+    if (config.content && isNumber(config.content)) {
       /* istanbul ignore next */
       updatedConfig.content = config.content.toString()
     }
@@ -475,7 +476,7 @@ class ToolTip {
       this.$root.$emit(`bv::${this.constructor.NAME}::${evtName}`, evt)
     }
     const callbacks = this.$config.callbacks || {}
-    if (typeof callbacks[evtName] === 'function') {
+    if (isFunction(callbacks[evtName])) {
       callbacks[evtName](evt)
     }
   }
@@ -558,7 +559,7 @@ class ToolTip {
   // What transitionend event(s) to use? (returns array of event names)
   getTransitionEndEvents() {
     for (const name in TransitionEndEvents) {
-      if (this.$element.style[name] !== undefined) {
+      if (!isUndefined(this.$element.style[name])) {
         return TransitionEndEvents[name]
       }
     }
@@ -569,7 +570,7 @@ class ToolTip {
 
   /* istanbul ignore next */
   update() {
-    if (this.$popper !== null) {
+    if (!isNull(this.$popper)) {
       this.$popper.scheduleUpdate()
     }
   }
@@ -603,7 +604,7 @@ class ToolTip {
   }
 
   compileTemplate(html) {
-    if (!html || typeof html !== 'string') {
+    if (!html || !isString(html)) {
       /* istanbul ignore next */
       return null
     }
@@ -628,7 +629,7 @@ class ToolTip {
       return
     }
     const allowHtml = this.$config.html
-    if (typeof content === 'object' && content.nodeType) {
+    if (isObject(content) && content.nodeType) {
       // Content is a DOM node
       if (allowHtml) {
         if (content.parentElement !== container) {
@@ -648,18 +649,18 @@ class ToolTip {
   // NOTE: Overridden by PopOver class
   getTitle() {
     let title = this.$config.title || ''
-    if (typeof title === 'function') {
+    if (isFunction(title)) {
       // Call the function to get the title value
       /* istanbul ignore next */
       title = title(this.$element)
     }
-    if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
+    if (isObject(title) && title.nodeType && !title.innerHTML.trim()) {
       // We have a DOM node, but without inner content,
       // so just return empty string
       /* istanbul ignore next */
       title = ''
     }
-    if (typeof title === 'string') {
+    if (isString(title)) {
       title = title.trim()
     }
     if (!title) {
@@ -745,12 +746,12 @@ class ToolTip {
         /* istanbul ignore next */
         return
       }
-      /* istanbul ignore next: dificult to test */
+      /* istanbul ignore next: difficult to test */
       if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
         // If focus moves within $tip, don't trigger a leave
         return
       }
-      /* istanbul ignore next: dificult to test */
+      /* istanbul ignore next: difficult to test */
       if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
         // If focus moves within $element, don't trigger a leave
         return
@@ -870,8 +871,7 @@ class ToolTip {
 
   fixTitle() {
     const el = this.$element
-    const titleType = typeof getAttr(el, 'data-original-title')
-    if (getAttr(el, 'title') || titleType !== 'string') {
+    if (getAttr(el, 'title') || !isString(getAttr(el, 'data-original-title'))) {
       setAttr(el, 'data-original-title', getAttr(el, 'title') || '')
       setAttr(el, 'title', '')
     }
@@ -971,7 +971,7 @@ class ToolTip {
 
   getPlacement() {
     const placement = this.$config.placement
-    if (typeof placement === 'function') {
+    if (isFunction(placement)) {
       /* istanbul ignore next */
       return placement.call(this, this.$tip, this.$element)
     }
@@ -992,7 +992,7 @@ class ToolTip {
   cleanTipClass() {
     const tip = this.getTipElement()
     const tabClass = tip.className.match(BS_CLASS_PREFIX_REGEX)
-    if (tabClass !== null && tabClass.length > 0) {
+    if (!isNull(tabClass) && tabClass.length > 0) {
       tabClass.forEach(cls => {
         removeClass(tip, cls)
       })
@@ -1008,7 +1008,7 @@ class ToolTip {
   /* istanbul ignore next */
   fixTransition(tip) {
     const initConfigAnimation = this.$config.animation || false
-    if (getAttr(tip, 'x-placement') !== null) {
+    if (!isNull(getAttr(tip, 'x-placement'))) {
       return
     }
     removeClass(tip, ClassName.FADE)

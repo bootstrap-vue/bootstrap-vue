@@ -1,5 +1,5 @@
+import { isArray, isNull, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
-import { isArray } from '../../../utils/array'
 
 export default {
   props: {
@@ -48,7 +48,7 @@ export default {
       if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = newItems.slice()
-      } else if (newItems === null || newItems === undefined) {
+      } else if (isUndefined(newItems) || isNull(newItems)) {
         /* istanbul ignore next */
         this.localItems = []
       }
