@@ -353,19 +353,21 @@ export default Vue.extend({
         }
       },
       [
-        h('div', { staticClass: 'b-toast' }, [h(
-          'transition',
-          {
-            props: DEFAULT_TRANSITION_PROPS,
-            on: {
-              beforeEnter: this.onBeforeEnter,
-              afterEnter: this.onAfterEnter,
-              beforeLeave: this.onBeforeLeave,
-              afterLeave: this.onAfterLeave
-            }
-          },
-          [this.localShow ? this.makeToast(h) : null]
-        )])
+        h('div', { staticClass: 'b-toast' }, [
+          h(
+            'transition',
+            {
+              props: DEFAULT_TRANSITION_PROPS,
+              on: {
+                beforeEnter: this.onBeforeEnter,
+                afterEnter: this.onAfterEnter,
+                beforeLeave: this.onBeforeLeave,
+                afterLeave: this.onAfterLeave
+              }
+            },
+            [this.localShow ? this.makeToast(h) : null]
+          )
+        ])
       ]
     )
   }
