@@ -331,7 +331,8 @@ export default Vue.extend({
     }
     const self = this
     return h(
-      Portal,
+      // Portal,
+      'div',
       {
         props: {
           // name: this.id || undefined,
@@ -342,8 +343,7 @@ export default Vue.extend({
       },
       [
         h(
-          // 'transition',
-          'div',
+          'transition',
           {
             props: DEFAULT_TRANSITION_PROPS,
             on: {
