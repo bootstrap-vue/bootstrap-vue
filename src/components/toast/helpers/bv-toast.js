@@ -55,6 +55,7 @@ const BToastPop = Vue.extend({
     const handleDestroy = () => {
       // Ensure the toast has been force hidden
       self.localShow = false
+      self.doRender = false
       self.$nextTick(() => {
         self.$nextTick(() => {
           // In a setTimeout to release control back to application
