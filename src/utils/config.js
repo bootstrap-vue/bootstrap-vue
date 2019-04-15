@@ -92,7 +92,7 @@ const DEFAULTS = {
     label: 'Toggle navigation'
   },
   BToast: {
-    toaster: 'b-toaster-bottom-right'
+    toaster: 'b-toaster-top-right'
   }
 }
 
