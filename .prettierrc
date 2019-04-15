@@ -6,6 +6,12 @@
   "tabWidth": 2,
   "overrides": [
     {
+      "files": ".github/**/*.md",
+      "options": {
+        "proseWrap": "preserve"
+      }
+    },
+    {
       "files": "*.scss",
       "options": {
         "singleQuote": false
