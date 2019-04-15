@@ -6,7 +6,7 @@ about: Create a bug report to help us improve.
 **Versions**
 
 - BootstrapVue: 2.#.#
-- Bootstrap: 3.#.#
+- Bootstrap: 4.#.#
 - Vue: 2.#.#
 
 **Describe the bug**
