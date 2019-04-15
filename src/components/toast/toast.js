@@ -30,7 +30,7 @@ export const props = {
   },
   toaster: {
     type: String,
-    default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-bottom-right'
+    default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
   },
   prepend: {
     type: Boolean,
