@@ -142,7 +142,7 @@ export default Vue.extend({
     this.$nextTick(() => {
       if (this.visible) {
         requestAF(() => {
-         this.show()
+          this.show()
         })
       }
     })
