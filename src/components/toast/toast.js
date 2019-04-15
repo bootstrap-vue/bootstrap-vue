@@ -344,6 +344,7 @@ export default Vue.extend({
     return h(
       Portal,
       {
+        key: this._uid,
         props: {
           // name: this.id || undefined,
           to: this.toaster,
