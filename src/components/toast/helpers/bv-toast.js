@@ -5,6 +5,7 @@ import Vue from 'vue'
 import BToast, { props as toastProps } from '../toast'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
+import { requestAF } from '../../../utils/dom'
 import { inBrowser } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { isDef } from '../../../utils/inspect'
@@ -50,16 +51,18 @@ const BToastPop = Vue.extend({
   },
   mounted() {
     // Self destruct handler
+    const self = this
     const handleDestroy = () => {
-      const self = this
-      this.$nextTick(() => {
+      // Ensure the toast has been force hidden
+      self.localShow = false
+      self.$nextTick(() => {
+        self.$nextTick(() => {
         // In a setTimeout to release control back to application
         // and to allow the portal-target time to remove the content
-        setTimeout(() => {
-          self.$nextTick(() => {
+          requestAF(() => {
             self.$destroy()
           })
-        }, 0)
+        })
       })
     }
     // Self destruct if parent destroyed
