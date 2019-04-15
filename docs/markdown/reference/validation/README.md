@@ -9,7 +9,7 @@
 validation for Vue.js". Installation instructions and other documentation can be found at
 https://vuelidate.netlify.com/.
 
-### Vuelidate Example
+### Vuelidate example
 
 This example shows how to add different validation and feedback to two form fields, as well as
 dynamically disable the submit button based on the form validity.
@@ -110,7 +110,7 @@ Vue.use(VeeValidate, {
 })
 ```
 
-### VeeValidate Example
+### VeeValidate example
 
 Same example as above, just modified for VeeValidate:
 

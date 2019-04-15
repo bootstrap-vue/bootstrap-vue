@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Media",
-    "description": "The media object helps build complex and repetitive components where some media is positioned alongside content that doesn’t wrap around said media.",
+    "description": "The media object helps build complex and repetitive components where some media is positioned alongside content that doesn't wrap around said media.",
     "components": [
       {
         "component": "BMedia",

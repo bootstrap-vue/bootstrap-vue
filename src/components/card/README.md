@@ -9,7 +9,7 @@ Cards are built with as little markup and styles as possible, but still manage t
 control and customization. Built with flexbox, they offer easy alignment and mix well with other
 components.
 
-`<b-card>` has no fixed width to start, so they’ll naturally fill the full width of its parent
+`<b-card>` has no fixed width to start, so they'll naturally fill the full width of its parent
 element. This is easily customized via styles or standard Bootstrap V4 sizing classes.
 
 Change the default `div` root tag to any other HTML element by specifying via the `tag` prop
@@ -39,9 +39,9 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ## Content types
 
 Cards support a wide variety of content, including images, text, list groups, links and more. The
-following are examples of what’s supported inside a `<b-card>`
+following are examples of what's supported inside a `<b-card>`
 
-### Card Body
+### Card body
 
 The building block of a `<b-card>` is the `<b-card-body>` section which provides a padded section
 within a card.
@@ -228,7 +228,7 @@ You can control the wrapper element tags used by setting the `header-tag` and `f
 <!-- b-card-header-footer.vue -->
 ```
 
-### Kitchen sink Example
+### Kitchen sink example
 
 Mix and match multiple content types to create the card you need, or throw everything in there.
 Shown below are image styles, blocks, text styles, and a list group—all wrapped in a fixed-width
@@ -310,7 +310,7 @@ may be needed depending on your card content.
 ## Text variants
 
 By default, cards use dark text and assume a light background. You can reverse that by toggling the
-color of text within, as well as that of the card’s sub-components, via the prop `text-variant`.
+color of text within, as well as that of the card's sub-components, via the prop `text-variant`.
 Then, specify a dark background variant.
 
 ```html
@@ -324,7 +324,7 @@ Then, specify a dark background variant.
 <!-- b-card-text-variants.vue -->
 ```
 
-## Background and Border variants
+## Background and border variants
 
 Cards include their own variant style for quickly changing the background-color and of a card via
 the `bg-variant` and `border-variant` props. Darker solid variants my require setting the prop
@@ -461,7 +461,7 @@ the `bg-variant` and `border-variant` props. Darker solid variants my require se
 BootstrapVue `<b-card>` variants are directly mapped to Bootstrap V4 card classes by pre-pending
 `bg-` (for solid) or `border-` (for bordered) to the above variant names.
 
-### Header and Footer variants
+### Header and footer variants
 
 You can also apply the solid and border variants individually to card headers and footers via the
 `header-bg-variant`, `header-border-variant`, `header-text-variant`, `footer-bg-variant`,
@@ -495,7 +495,7 @@ assistive technologies – such as screen readers. Ensure that information denot
 either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden with the `.sr-only` class.
 
-## Card Groups
+## Card groups
 
 In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>` component
 for laying out series of cards. For the time being, these layout options are not yet responsive.
@@ -540,7 +540,7 @@ When using card groups with footers, their content will automatically line up.
 
 ### Card deck groups
 
-Need a set of equal width and height cards that aren’t attached to one another? Use card decks by
+Need a set of equal width and height cards that aren't attached to one another? Use card decks by
 setting the `deck` prop. And just like with regular card groups, card footers in decks will
 automatically line up.
 
@@ -582,7 +582,7 @@ the prop `columns` set. Cards are built with CSS column properties instead of fl
 alignment. Cards are ordered from top to bottom and left to right.
 
 Heads up! Your mileage with card columns may vary. To prevent cards breaking across columns, we must
-set them to display: inline-block as column-break-inside: avoid isn’t a bulletproof solution yet.
+set them to display: inline-block as column-break-inside: avoid isn't a bulletproof solution yet.
 
 ```html
 <div>

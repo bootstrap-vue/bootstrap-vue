@@ -441,7 +441,7 @@ order to use these methods.
 <!-- b-tabs-controls.vue -->
 ```
 
-### Dynamic tabs & tabs slot
+### Dynamic tabs + tabs slot
 
 ```html
 <template>

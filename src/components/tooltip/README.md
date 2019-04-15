@@ -110,7 +110,7 @@ If a tooltip has more than one trigger, then all triggers must be cleared before
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
-## `<b-tooltip>` Component Usage
+## `<b-tooltip>` component usage
 
 ```html
 <b-container fluid>
@@ -141,7 +141,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <!-- b-tooltip-component.vue -->
 ```
 
-### Component Options
+### Component options
 
 | Prop              | Default          | Description                                                                                                                                                                                                | Supported values                                                                                                                                 |
 | ----------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -300,7 +300,7 @@ You can also emit `$root` events to trigger disabling and enabling of tooltip(s)
 You can also emit `$root` events to trigger disabling and enabling of popover(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
 
-## `v-b-tooltip` Directive Usage
+## `v-b-tooltip` directive usage
 
 The `v-b-tooltip` directive makes adding tooltips even easier, without additional placeholder
 markup:

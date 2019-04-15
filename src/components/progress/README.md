@@ -132,7 +132,7 @@ Precedence order for label methods (top-most has precedence):
 - `show-value` prop of `<b-progress>`
 - no label
 
-## Width and Height
+## Width and height
 
 `<b-progress>` will always expand to the maximum with of it's parent container. To change the width,
 place `<b-progress>` in a standard Bootstrap column or apply one of the standard Bootstrap width
@@ -245,7 +245,7 @@ Use background variants to change the appearance of individual progress bars. Th
 
 ### Striped backgrounds
 
-Set `striped` to apply a stripe via CSS gradient over the progress bar’s background variant.
+Set `striped` to apply a stripe via CSS gradient over the progress bar's background variant.
 
 ```html
 <template>
@@ -308,7 +308,7 @@ The striped gradient can also be animated by setting the `animated`prop.
 Notes:
 
 - if `animated` is true, `striped` will automatically be enabled.
-- Animated progress bars don’t work in Opera 12 — as they don’t support CSS3 animations.
+- Animated progress bars don't work in Opera 12 — as they don't support CSS3 animations.
 
 ## Multiple bars
 
