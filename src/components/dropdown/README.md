@@ -542,9 +542,9 @@ as a link to the user).
 
 When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an `id`
 attribute to each of the headers, and then set the `aria-describedby` attribute (set to the `id`
-value of the associated header) on each following dropdown items under that header. This will provide
-users of assistive technologies (i.e. sight-impaired users) additional context about the dropdown
-item:
+value of the associated header) on each following dropdown items under that header. This will
+provide users of assistive technologies (i.e. sight-impaired users) additional context about the
+dropdown item:
 
 ```html
 <div>
