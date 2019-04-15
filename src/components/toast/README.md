@@ -95,9 +95,9 @@ injection, without the need to place a `<b-toast>` in your app.
     methods: {
       makeToast() {
         const number = this.toastCount++
-        this.$bvToast.toast(`Toast Number {$number}`, {
+        this.$bvToast.toast(`This is toast number ${number}`, {
           title: 'BootstrapVue Toast',
-          autoHideDelay: 2000 
+          autoHideDelay: 5000
         })
       }
     }
