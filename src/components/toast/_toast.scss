@@ -10,10 +10,10 @@
     margin-bottom: $toast-padding-x;
   }
 
-  &.b-toast-move {
+  &.b-toaster-move {
     transition: transform 0.15s;
   }
-  &.b-toast-leave-active {
+  &.b-toaster-leave-active {
     position: absolute;
   }
 }
