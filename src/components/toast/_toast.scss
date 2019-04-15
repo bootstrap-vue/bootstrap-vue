@@ -9,7 +9,7 @@
 
 .b-toaster {
   position: fixed;
-  padding: 1rem;
+  padding: $b-toaster-padding;
   overflow: visible;
   z-index: $b-toaster-zindex;
 
