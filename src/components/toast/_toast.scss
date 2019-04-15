@@ -10,11 +10,27 @@
     margin-bottom: $toast-padding-x;
   }
 
+  &.b-toaster-enter-active,
+  &.b-toaster-leave-active,
   &.b-toaster-move {
     transition: transform 0.3s;
   }
+
+  &.b-toaster-enter {
+    transform: scaleY(0.5);
+  }
+
+  &.b-toaster-enter-to {
+    opacity: 1;
+  }
+
   &.b-toaster-leave-active {
-    // position: absolute;
+    position: absolute;
+  }
+
+  &.b-toaster-leave-to {
+    transform: scaleY(0);
+    transform-origin: center top;
   }
 }
 
