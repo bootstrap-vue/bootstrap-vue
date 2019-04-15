@@ -84,7 +84,7 @@ export default Vue.extend({
     }
   },
   watch: {
-    dontResize(newval, oldval) {
+    dontResize(newVal, oldval) {
       if (newVal) {
         this.height = this.computeheight()
       }
@@ -115,8 +115,6 @@ export default Vue.extend({
   },
   methods: {
     computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      // We compare `localValue` to `true`, a value it can't have at
-      // any time, to ensure reactivity of this computed property.
       if (this.$isServer || this.dontResize || this.computedRows === null) {
         return null
       }
