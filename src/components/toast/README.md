@@ -23,7 +23,7 @@ elements under a toast.
 ```html
 <template>
   <div class="p-3 bg-secondary progress-bar-striped" style="min-height: 150px;">
-    <b-toast title="BootstrapVue" visible static>
+    <b-toast title="BootstrapVue" visible static no-auto-hide>
       Hello, world! This is a toast message.
     </b-toast>
   </div>
