@@ -24,8 +24,7 @@ const notClient = method => {
 // Base Toast Props that are allowed
 // (some may be ignored or overridden on some message boxes)
 // We need to add ID in explicitly as it comes from the IdMixin
-const BASE_PROPS = keys(omit(toastProps, ['show', 'static']))
-BASE_PROPS.push('id')
+const BASE_PROPS = ['id', ...keys(omit(toastProps, ['static', 'visible']))]
 
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
@@ -62,8 +61,6 @@ const BToastPop = Vue.extend({
     this.$parent.$once('hook:destroyed', handleDestroy)
     // Self destruct after hidden
     this.$once('hidden', handleDestroy)
-    // Show the Toast
-    this.show()
   }
 })
 
@@ -90,8 +87,9 @@ const makeToast = (props, $parent) => {
       ...filterOptions(getComponentConfig('BToast') || {}),
       // Add in (filtered) user supplied props
       ...omit(props, ['toastContent']),
-      // Props that can't be overridden
-      show: false
+      // Props that can't be overridden,
+      static: false,
+      visible: true
     }
   })
 
