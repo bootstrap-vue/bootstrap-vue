@@ -8,7 +8,7 @@ import { getById } from '../../utils/dom'
 const NAME = 'BToaster'
 
 // @vue/component
-const DefaultTransition = Vue.extend({
+export const DefaultTransition = Vue.extend({
   functional: true,
   render(h, { children }) {
     return h('transition-group', { props: { tag: 'div', moveClass: 'b-toaster-move' } }, children)
@@ -80,7 +80,7 @@ export default Vue.extend({
           multiple: true,
           tag: 'div',
           slim: false,
-          transition: this.transition || DefaultTransition
+          transition: 'transition-group' // || DefaultTransition
         }
       })
     }
