@@ -4,6 +4,7 @@
 // toast wrapper element class (needed for list tranitions in toasters)
 .b-toast {
   display: block;
+  position: relative;
   max-width: $toast-max-width;
 
   &:not(:last-child) {
