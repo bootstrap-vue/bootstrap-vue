@@ -13,13 +13,11 @@ about: Create a bug report to help us improve.
 
 A clear and concise description of what the bug is.
 
-**To reproduce**
+**Steps to reproduce the bug**
 
-Steps to reproduce the behavior:
-
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+1. Go to [...]
+2. Click on [...]
+3. Scroll down to [...]
 4. See error
 
 **Expected behavior**
@@ -28,24 +26,26 @@ A clear and concise description of what you expected to happen.
 
 **Demo link**
 
-If applicable, add a minimal demo link to help explain your problem. You can use
-[CodePen](https://codepen.io/), [CodeSandbox](https://codesandbox.io/),
-[JS Bin](https://jsbin.com/), or [JSFiddle](https://jsfiddle.net/) (You can export markup from the
-[online playground](https://bootstrap-vue.js.org/play) to CodePen, CodeSandbox and JSFiddle).
+If applicable, add a minimal demo link to help explain your problem. Some options for that are
+[CodePen](https://codepen.io/), [CodeSandbox](https://codesandbox.io/), [JS Bin](https://jsbin.com/)
+or [JSFiddle](https://jsfiddle.net/).
+
+You can also export markup from the [Online Playground](https://bootstrap-vue.js.org/play) to
+_CodePen_, _CodeSandbox_ or _JSFiddle_.
 
 **Desktop (please complete the following information):**
 
-- OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
+- OS: [e.g. macOS Mojave]
+- Browser [e.g. Chrome]
+- Version [e.g. 70]
 
 **Smartphone (please complete the following information):**
 
-- Device: [e.g. iPhone6]
-- OS: [e.g. iOS8.1]
-- Browser [e.g. stock browser, safari]
-- Version [e.g. 22]
+- OS: [e.g. iOS 12]
+- Device: [e.g. iPhone X]
+- Browser [e.g. Chrome]
+- Version [e.g. 70]
 
 **Additional context**
 
-Add any other context about the problem here.
+Add any other context about the bug here.
