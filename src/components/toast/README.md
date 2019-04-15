@@ -37,7 +37,36 @@ document, rather than transporting it to a `<b-toaster>` target container. And w
 classes `bg-secondary` and `progress-bar-striped` to the outer <samp>&lt;div&gt;</samp> for
 illustrative purposes of toast transparency only.
 
+## `<b-toast>` component
+
+TBD
+
 ## `<b-toaster>` target component
+
+The `<b-toaster>` component provides a container where toasts will appear (the _Toaster_).
+Toasters require a unique name, and toasts can be targeted to appear in a specific named toaster.
+
+In most cases you will not need to directly use this component, as `<b-toast>` will automatically
+insert a `<t-toaster>` component (appended to `<body>`) if one is not found in the document. But
+sometimes you may want to explicity place a toaster in your app.
+
+The toaster `name` becomes the ID of the inserted container, and will also be placed as a class
+name on the container
+
+Toaster positioning and teh positioning of toasts inside the toaster is driven completely by CSS
+classes.
+
+The following "built-in" toaster names (and associated styles) are defined in BootstrapVue's
+custom SCSS:
+
+- `b-toaster-top-right`
+- `b-toaster-top-left`
+- `b-toaster-bottom-right`
+- `b-toaster-bottom-left`
+
+The above toasters place the toasts in a stacked (columnar format).
+
+`<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
 TBD
 
