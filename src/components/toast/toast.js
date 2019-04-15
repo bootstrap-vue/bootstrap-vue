@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { Portal } from 'portal-vue'
 import BToaster from './toaster'
 import BButtonClose from '../button/button-close'
-import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BvEvent from '../../utils/bv-event.class'
 import { getById, requestAF } from '../../utils/dom'
@@ -13,6 +12,10 @@ import { getComponentConfig } from '../../utils/config'
 const NAME = 'BToast'
 
 export const props = {
+  id: {
+    type: string,
+    default: null
+  },
   visible: {
     type: Boolean,
     default: false
@@ -175,8 +178,8 @@ export default Vue.extend({
         relatedTarget: null,
         ...opts,
         vueTarget: this,
-        componentId: this.safeId(),
-        toastId: this.safeId()
+        componentId: this.id || null,
+        toastId: this.id || null
       })
     },
     emitEvent(bvEvt) {
@@ -304,7 +307,7 @@ export default Vue.extend({
           key: 'b-toast',
           class: self.toastClasses,
           attrs: {
-            id: self.safeId(),
+            id: this.id || null,
             tabindex: '-1',
             role: self.isStatus ? 'status' : 'alert',
             'aria-live': self.isStatus ? 'polite' : 'assertive',
@@ -331,7 +334,7 @@ export default Vue.extend({
       Portal,
       {
         props: {
-          name: self.safeId(),
+          // name: this.id || undefined,
           to: self.toaster,
           slim: true,
           disabled: self.static
