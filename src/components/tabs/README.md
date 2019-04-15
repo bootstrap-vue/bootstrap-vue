@@ -24,7 +24,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a special Vue
 attribute, see https://vuejs.org/v2/api/#key).
 
-## Cards Integration
+## Cards integration
 
 Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
 it inside a `<b-card>` component. Note that you should add the`no-body` prop on the `<b-card>`
@@ -204,7 +204,7 @@ additional custom styling._
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
-## Add Tabs without content
+## Add tabs without content
 
 If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
 
@@ -301,7 +301,7 @@ need to accommodate your custom classes for this._
 <!-- b-tabs-with-classes.vue -->
 ```
 
-## Keyboard Navigation
+## Keyboard navigation
 
 Keyboard navigation is enabled by default for ARIA compliance with tablists when a tab button has
 focus.
@@ -340,7 +340,7 @@ methods are `.activate()` and `.deactivate()`, respectively. If activation or de
 will remain active and the method will return `false`. You will need a reference to the `<b-tab>` in
 order to use these methods.
 
-## Advanced Examples
+## Advanced examples
 
 ### External controls using `v-model`
 
@@ -385,7 +385,7 @@ order to use these methods.
 <!-- b-tabs-controls.vue -->
 ```
 
-### Dynamic Tabs + tabs slot
+### Dynamic tabs + tabs slot
 
 ```html
 <template>

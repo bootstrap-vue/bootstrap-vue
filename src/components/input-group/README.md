@@ -104,7 +104,7 @@ subcomponent inside the `<b-input-group-prepend>` or `<b-input-group-append>`.
 
 ## Checkbox and radio addons
 
-Place any native checkbox or radio within an input group’s addon instead of text.
+Place any native checkbox or radio within an input group's addon instead of text.
 
 **Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and `<b-form-checkbox>`
 include additional markup not required in input groups.

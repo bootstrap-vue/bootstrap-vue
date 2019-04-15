@@ -185,7 +185,7 @@ The slot `page` is always scoped, while the slots `first-text`, `prev-text`, `ne
 | `index`    | Number  | Page number (indexed from `0` to `numberOfPages -1`) |
 | `disabled` | Boolean | If the page button is disabled                       |
 
-### Button Size
+### Button size
 
 Optionally change from the default button size by setting the `size` prop to either `'sm'` for
 smaller buttons or `'lg'` for larger buttons.
@@ -309,7 +309,7 @@ recommended unless the content of the button textually conveys it's purpose.
   page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
   focused page button
 
-## See Also
+## See also
 
 For navigation based pagination, please see the
 [`<b-pagination-nav>`](/docs/components/pagination-nav) component.

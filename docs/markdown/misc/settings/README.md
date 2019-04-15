@@ -2,7 +2,7 @@
 
 > BootstrapVue provides a few options for customizing component default values, and more.
 
-## Configuring BootstrapVue defaults
+## Configuring defaults
 
 BootstrapVue is pre-configured for the default Bootstrap V4.x configuration. It assumes the
 breakpoints are the standard breakpoint names of `xs`, `sm`, `md`, `lg`, and `xl`. Also various
@@ -12,7 +12,7 @@ BootstrapVue provides several methods for changing the default configuration.
 
 Note that it is not possible to change the defaults when using BootstrapVue via a `<script>` tag.
 
-### Default BootstrapVue configuration
+### Default configuration
 
 Default breakpoint names are stored in the `breakpoints` property, while component defaults are
 keyed by their <samp>PascalCase</samp> name with the props as <samp>camelCase</samp> properties.
