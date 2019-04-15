@@ -57,8 +57,8 @@ const BToastPop = Vue.extend({
       self.localShow = false
       self.$nextTick(() => {
         self.$nextTick(() => {
-        // In a setTimeout to release control back to application
-        // and to allow the portal-target time to remove the content
+          // In a setTimeout to release control back to application
+          // and to allow the portal-target time to remove the content
           requestAF(() => {
             self.$destroy()
           })
