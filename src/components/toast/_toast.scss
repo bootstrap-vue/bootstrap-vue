@@ -6,6 +6,10 @@
   display: block;
   max-width: $toast-max-width;
 
+  &:not(:last-child) {
+    margin-bottom: $toast-padding-x;
+  }
+
   &.b-toast-move {
     transition: transform 0.15s;
   }
@@ -19,27 +23,28 @@
 //   b-toaster-bottom-left
 .b-toaster {
   position: fixed;
-  padding: $b-toaster-padding;
+  min-width: calc($toast-max-width - $b-toaster-padding);
+  max-width: $toast-max-width;
   overflow: visible;
   z-index: $b-toaster-zindex;
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
-    top: 0;
+    top: $b-toaster-offset-y;
   }
 
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
-    bottom: 0;
+    bottom: $b-toaster-offset-y;
   }
 
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
-    right: 0;
+    right: $b-toaster-offset-x;
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
-    left: 0;
+    left: $b-toaster-offset-x;
   }
 }
