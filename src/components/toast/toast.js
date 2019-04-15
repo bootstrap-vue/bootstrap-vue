@@ -90,7 +90,7 @@ const DEFAULT_TRANSITION_PROPS = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, normalizeSlotMixin],
+  mixins: [normalizeSlotMixin],
   model: {
     prop: 'visible',
     event: 'change'
