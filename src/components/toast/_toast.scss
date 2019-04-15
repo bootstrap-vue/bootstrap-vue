@@ -13,10 +13,6 @@
   overflow: visible;
   z-index: $b-toaster-zindex;
 
-  .toast.b-toast-move {
-    transition: transform 0.15s;
-  }
-
   &.b-toaster-top-right,
   &.b-toaster-top-left {
     top: 0;
@@ -35,5 +31,14 @@
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: 0;
+  }
+
+  > .b-toast {
+    display: block;
+    max-width: $toast-max-width;
+
+    &.b-toast-move {
+      transition: transform 0.15s;
+    }
   }
 }
