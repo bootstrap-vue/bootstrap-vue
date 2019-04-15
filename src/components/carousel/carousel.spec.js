@@ -1,10 +1,9 @@
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import BCarousel from './carousel'
 import BCarouselSlide from './carousel-slide'
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 
 const localVue = new CreateLocalVue()
-
-const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 jest.useFakeTimers()
 
@@ -48,8 +47,8 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
@@ -119,8 +118,8 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
@@ -183,8 +182,8 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
@@ -231,8 +230,8 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
@@ -251,8 +250,8 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).not.toContain('slide')
@@ -272,8 +271,8 @@ describe('carousel', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).not.toContain('slide')
@@ -300,12 +299,12 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).not.toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -336,8 +335,8 @@ describe('carousel', () => {
     const $next = $carousel.find('.carousel-control-next')
     const $prev = $carousel.find('.carousel-control-prev')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).not.toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -345,8 +344,8 @@ describe('carousel', () => {
 
     $next.trigger('click')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -354,8 +353,8 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -367,16 +366,16 @@ describe('carousel', () => {
 
     $prev.trigger('click')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
     expect($carousel.emitted('sliding-start')[1][0]).toEqual(0)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -409,8 +408,8 @@ describe('carousel', () => {
     const $next = $carousel.find('.carousel-control-next')
     const $prev = $carousel.find('.carousel-control-prev')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).not.toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -418,8 +417,8 @@ describe('carousel', () => {
 
     $next.trigger('keydown.space')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -427,8 +426,8 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -440,16 +439,16 @@ describe('carousel', () => {
 
     $prev.trigger('keydown.space')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
     expect($carousel.emitted('sliding-start')[1][0]).toEqual(0)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -479,8 +478,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
@@ -491,8 +490,8 @@ describe('carousel', () => {
 
     $indicators.at(3).trigger('click')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -500,8 +499,8 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(3)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -513,16 +512,16 @@ describe('carousel', () => {
 
     $indicators.at(1).trigger('click')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
     expect($carousel.emitted('sliding-start')[1][0]).toEqual(1)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -552,8 +551,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
@@ -564,8 +563,8 @@ describe('carousel', () => {
 
     $indicators.at(3).trigger('keydown.space')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -573,8 +572,8 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(3)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -586,16 +585,16 @@ describe('carousel', () => {
 
     $indicators.at(1).trigger('keydown.enter')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
     expect($carousel.emitted('sliding-start')[1][0]).toEqual(1)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -625,8 +624,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).not.toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -634,8 +633,8 @@ describe('carousel', () => {
 
     $carousel.trigger('keydown.right')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -643,8 +642,8 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -656,16 +655,16 @@ describe('carousel', () => {
 
     $carousel.trigger('keydown.left')
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
     expect($carousel.emitted('sliding-start')[1][0]).toEqual(0)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -695,8 +694,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('unpaused')).not.toBeDefined()
     expect($carousel.emitted('paused')).not.toBeDefined()
@@ -705,8 +704,8 @@ describe('carousel', () => {
     expect($carousel.vm.interval).toBe(0)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('unpaused')).not.toBeDefined()
     expect($carousel.emitted('paused')).not.toBeDefined()
@@ -714,28 +713,28 @@ describe('carousel', () => {
     wrapper.setProps({
       interval: 1000
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.vm.interval).toBe(1000)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('unpaused')).toBeDefined()
     expect($carousel.emitted('unpaused').length).toBe(1)
     expect($carousel.emitted('paused')).not.toBeDefined()
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     wrapper.setProps({
       interval: 0
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect($carousel.vm.interval).toBe(0)
@@ -744,14 +743,14 @@ describe('carousel', () => {
     expect($carousel.emitted('paused').length).toBe(1)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     wrapper.setProps({
       interval: 1000
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect($carousel.vm.interval).toBe(1000)
@@ -780,8 +779,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
@@ -797,8 +796,8 @@ describe('carousel', () => {
       value: 1
     })
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -807,8 +806,8 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(true)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -823,8 +822,8 @@ describe('carousel', () => {
       value: 3
     })
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -832,8 +831,8 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(true)
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -864,8 +863,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
@@ -882,7 +881,7 @@ describe('carousel', () => {
       value: 1
     })
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).toBeDefined()
@@ -900,7 +899,7 @@ describe('carousel', () => {
       value: 3
     })
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)
@@ -933,8 +932,8 @@ describe('carousel', () => {
     expect($carousel).toBeDefined()
     expect($carousel.isVueInstance()).toBe(true)
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
@@ -950,8 +949,8 @@ describe('carousel', () => {
       value: 1
     })
 
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -966,8 +965,8 @@ describe('carousel', () => {
     })
 
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-end')).toBeDefined()
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -984,8 +983,8 @@ describe('carousel', () => {
 
     // Next transition should happen
     jest.runOnlyPendingTimers()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(2)

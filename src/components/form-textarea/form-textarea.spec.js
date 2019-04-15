@@ -1,5 +1,5 @@
-import BFormTextarea from './form-textarea'
 import { mount } from '@vue/test-utils'
+import BFormTextarea from './form-textarea'
 
 describe('form-textarea', () => {
   it('root element is textarea', async () => {

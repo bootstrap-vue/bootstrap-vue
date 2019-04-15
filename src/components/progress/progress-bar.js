@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { htmlOrText } from '../../utils/html'
+import { isBoolean, isNumber } from '../../utils/inspect'
 
 // @vue/component
 export default Vue.extend({
@@ -73,7 +74,7 @@ export default Vue.extend({
     },
     computedMax() {
       // Prefer our max over parent setting
-      return typeof this.max === 'number' ? this.max : this.bvProgress.max || 100
+      return isNumber(this.max) ? this.max : this.bvProgress.max || 100
     },
     computedVariant() {
       // Prefer our variant over parent setting
@@ -81,27 +82,25 @@ export default Vue.extend({
     },
     computedPrecision() {
       // Prefer our precision over parent setting
-      return typeof this.precision === 'number' ? this.precision : this.bvProgress.precision || 0
+      return isNumber(this.precision) ? this.precision : this.bvProgress.precision || 0
     },
     computedStriped() {
       // Prefer our striped over parent setting
-      return typeof this.striped === 'boolean' ? this.striped : this.bvProgress.striped || false
+      return isBoolean(this.striped) ? this.striped : this.bvProgress.striped || false
     },
     computedAnimated() {
       // Prefer our animated over parent setting
-      return typeof this.animated === 'boolean' ? this.animated : this.bvProgress.animated || false
+      return isBoolean(this.animated) ? this.animated : this.bvProgress.animated || false
     },
     computedShowProgress() {
       // Prefer our showProgress over parent setting
-      return typeof this.showProgress === 'boolean'
+      return isBoolean(this.showProgress)
         ? this.showProgress
         : this.bvProgress.showProgress || false
     },
     computedShowValue() {
       // Prefer our showValue over parent setting
-      return typeof this.showValue === 'boolean'
-        ? this.showValue
-        : this.bvProgress.showValue || false
+      return isBoolean(this.showValue) ? this.showValue : this.bvProgress.showValue || false
     }
   },
   render(h) {

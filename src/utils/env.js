@@ -1,19 +1,58 @@
-// Info about the current environment
+/**
+ * Utilities to get information about the current environment
+ */
 
-// Constants
+// --- Constants ---
 
-export const inBrowser = typeof document !== 'undefined' && typeof window !== 'undefined'
+export const hasWindowSupport = typeof window !== 'undefined'
+export const hasDocumentSupport = typeof document !== 'undefined'
+export const hasNavigatorSupport = typeof navigator !== 'undefined'
+export const hasPromiseSupport = typeof Promise !== 'undefined'
+export const hasMutationObserverSupport =
+  typeof MutationObserver !== 'undefined' ||
+  typeof WebKitMutationObserver !== 'undefined' ||
+  typeof MozMutationObserver !== 'undefined'
 
-export const isServer = !inBrowser
+export const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
+
+// Determine if the browser supports the option passive for events
+export const hasPassiveEventSupport = (() => {
+  let passiveEventSupported = false
+  if (isBrowser) {
+    try {
+      const options = {
+        get passive() {
+          // This function will be called when the browser
+          // attempts to access the passive property.
+          /* istanbul ignore next: will never be called in JSDOM */
+          passiveEventSupported = true
+        }
+      }
+      window.addEventListener('test', options, options)
+      window.removeEventListener('test', options, options)
+    } catch (err) {
+      /* istanbul ignore next: will never be called in JSDOM */
+      passiveEventSupported = false
+    }
+  }
+  return passiveEventSupported
+})()
 
 export const hasTouchSupport =
-  inBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
+  isBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
 
-export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)
+export const hasPointerEventSupport =
+  isBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)
 
-export const hasPromiseSupport = typeof Promise !== 'undefined'
+// --- Getters ---
 
-// Getters
+export const getEnv = (key, fallback = null) => {
+  const env = typeof process !== 'undefined' && process ? process.env || {} : {}
+  if (!key) {
+    /* istanbul ignore next */
+    return env
+  }
+  return env[key] || fallback
+}
 
-export const getNoWarn = () =>
-  typeof process !== 'undefined' && process && process.env && process.env.BOOTSTRAP_VUE_NO_WARN
+export const getNoWarn = () => getEnv('BOOTSTRAP_VUE_NO_WARN')

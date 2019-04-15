@@ -4,20 +4,27 @@
 
 import Vue from 'vue'
 import BModal, { props as modalProps } from '../modal'
-import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
-import { inBrowser, hasPromiseSupport } from '../../../utils/env'
 import { isUndefined, isFunction } from '../../../utils/inspect'
-import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
+import {
+  assign,
+  keys,
+  omit,
+  defineProperty,
+  defineProperties,
+  readonlyDescriptor
+} from '../../../utils/object'
+import { warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 
 // --- Constants ---
 
-// Base Modal Props that are allowed
+const PROP_NAME = '$bvModal'
+
+// Base modal props that are allowed
 // Some may be ignored or overridden on some message boxes
 // Prop ID is allowed, but really only should be used for testing
-// We need to add it in explicitly as it comes from the IdMixin
-const BASE_PROPS = keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))
-BASE_PROPS.push('id')
+// We need to add it in explicitly as it comes from the `idMixin`
+const BASE_PROPS = ['id', ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))]
 
 // Fallback event resolver (returns undefined)
 const defaultResolver = bvModalEvt => {}
@@ -32,27 +39,6 @@ const propsToSlots = {
 
 // --- Utility methods ---
 
-// Utility methods that produce warns
-const noPromises = () => {
-  /* istanbul ignore else */
-  if (hasPromiseSupport) {
-    return false
-  } else {
-    warn('this.$bvModal: Requires Promise support for Message Boxes')
-    return true
-  }
-}
-
-const notClient = method => {
-  /* istanbul ignore else */
-  if (inBrowser) {
-    return false
-  } else {
-    warn('this.$bvModal$: Message Boxes can not be called during SSR')
-    return true
-  }
-}
-
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
   return BASE_PROPS.reduce((memo, key) => {
@@ -62,9 +48,6 @@ const filterOptions = options => {
     return memo
   }, {})
 }
-
-// Private read-only descriptor helper
-const privateRODescriptor = () => ({ enumerable: false, configurable: false, writable: false })
 
 // Create a private sub-component that extends BModal
 // which self-destructs after hidden
@@ -107,7 +90,7 @@ const MsgBox = Vue.extend({
 // Method to generate the on-demand modal message box
 // Returns a promise that resolves to a value returned by the resolve
 const asyncMsgBox = (props, $parent, resolver = defaultResolver) => {
-  if (noPromises() || notClient()) {
+  if (warnNotClient(PROP_NAME) || warnNoPromiseSupport(PROP_NAME)) {
     // Should this throw an error?
     /* istanbul ignore next */
     return
@@ -182,8 +165,8 @@ class BvModal {
     assign(this, { _vm: vm, _root: vm.$root })
     // Set these properties as read-only and non-enumerable
     defineProperties(this, {
-      _vm: privateRODescriptor(),
-      _root: privateRODescriptor()
+      _vm: readonlyDescriptor(),
+      _root: readonlyDescriptor()
     })
   }
 
@@ -215,7 +198,12 @@ class BvModal {
 
   // Opens a user defined message box and returns a promise
   msgBox(content, options = {}, resolver) {
-    if (!content || noPromises() || notClient() || !isFunction(resolver)) {
+    if (
+      !content ||
+      warnNoPromiseSupport(PROP_NAME) ||
+      warnNotClient(PROP_NAME) ||
+      !isFunction(resolver)
+    ) {
       // Should this throw an error?
       /* istanbul ignore next */
       return
@@ -282,7 +270,7 @@ const install = _Vue => {
   })
 
   // Define our read-only `$bvModal` instance property
-  defineProperty(_Vue.prototype, '$bvModal', {
+  defineProperty(_Vue.prototype, PROP_NAME, {
     get() {
       return this._bv__modal
     }

@@ -1,5 +1,5 @@
-import BForm from './form'
 import { mount } from '@vue/test-utils'
+import BForm from './form'
 
 describe('form', () => {
   it('has expected default structure', async () => {

@@ -48,10 +48,6 @@
     "es"
   ],
   "sideEffects": [
-    "./es/utils/object.js",
-    "./src/utils/object.js",
-    "./es/utils/array.js",
-    "./src/utils/array.js",
     "**/*.scss",
     "**/*.css",
     "**/*.vue",
@@ -73,6 +69,7 @@
   "dependencies": {
     "@nuxt/opencollective": "^0.2.2",
     "bootstrap": "^4.3.1",
+    "core-js": "^2.6.5",
     "popper.js": "^1.15.0",
     "vue-functional-data-merge": "^2.0.7"
   },
@@ -113,6 +110,7 @@
     "highlight.js": "^9.15.6",
     "html-loader": "^0.5.5",
     "jest": "^24.7.1",
+    "jest-environment-jsdom-fourteen": "^0.1.0",
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.11",
     "marked": "^0.6.2",

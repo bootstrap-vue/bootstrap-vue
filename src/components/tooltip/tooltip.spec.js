@@ -1,9 +1,8 @@
-import BTooltip from './tooltip'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BTooltip from './tooltip'
 
 const localVue = new CreateLocalVue()
-
-const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
 
 // Our test application definition
 const appDef = {
@@ -94,7 +93,7 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -142,10 +141,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -190,10 +189,10 @@ describe('tooltip', () => {
     wrapper.setProps({
       show: false
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
@@ -225,10 +224,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -252,10 +251,10 @@ describe('tooltip', () => {
 
     // Activate tooltip by trigger
     $button.trigger('click')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('id')).toBeDefined()
@@ -294,10 +293,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -321,10 +320,10 @@ describe('tooltip', () => {
 
     // Activate tooltip by trigger
     $button.trigger('focusin')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -343,10 +342,10 @@ describe('tooltip', () => {
 
     // Deactivate tooltip by trigger
     $button.trigger('focusout')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -376,10 +375,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -403,10 +402,10 @@ describe('tooltip', () => {
 
     // Activate tooltip by trigger
     $button.trigger('mouseenter')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -425,10 +424,10 @@ describe('tooltip', () => {
 
     // Deactivate tooltip by trigger
     $button.trigger('mouseleave')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -457,10 +456,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -484,10 +483,10 @@ describe('tooltip', () => {
 
     // Try to activate tooltip by trigger
     $button.trigger('click')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     // Tooltip should not have opened
@@ -499,18 +498,18 @@ describe('tooltip', () => {
     wrapper.setProps({
       disabled: false
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     // Try to activate tooltip by trigger
     $button.trigger('click')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -546,10 +545,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -589,10 +588,10 @@ describe('tooltip', () => {
 
     // Hide the tooltip by emitting root event with correct ID (forceHide)
     wrapper.vm.$root.$emit('bv::hide::tooltip', 'foo')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -623,10 +622,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -666,10 +665,10 @@ describe('tooltip', () => {
 
     // Tooltip should ignore when ID is not it's own
     wrapper.vm.$root.$emit('bv::hide::tooltip', 'wrong-id')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -700,10 +699,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -743,10 +742,10 @@ describe('tooltip', () => {
 
     // Hide the tooltip by emitting root event with no ID (forceHide)
     wrapper.vm.$root.$emit('bv::hide::tooltip')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
 
@@ -776,10 +775,10 @@ describe('tooltip', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
@@ -817,10 +816,10 @@ describe('tooltip', () => {
 
     // Hide the tooltip by removing the trigger button from DOM
     $button.element.parentNode.removeChild($button.element)
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     // The visibility check runs on an interval of 100ms
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
@@ -833,10 +832,10 @@ describe('tooltip', () => {
 
     // Try and show element via root event (using ID of trigger button)
     wrapper.vm.$root.$emit('bv::show::tooltip', 'foo')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     // Tooltip element should not be in the document
@@ -844,10 +843,10 @@ describe('tooltip', () => {
 
     // Try and show element via root event (using show all)
     wrapper.vm.$root.$emit('bv::show::tooltip')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     // Tooltip element should not be in the document

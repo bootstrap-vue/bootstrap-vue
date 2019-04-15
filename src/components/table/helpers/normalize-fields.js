@@ -1,18 +1,18 @@
 import startCase from '../../../utils/startcase'
+import { isArray, isFunction, isObject, isString } from '../../../utils/inspect'
 import { keys } from '../../../utils/object'
-import { isArray } from '../../../utils/array'
 import { IGNORED_FIELD_KEYS } from './constants'
 
-// private function to massage field entry into common object format
-function processField(key, value) {
+// Private function to massage field entry into common object format
+const processField = (key, value) => {
   let field = null
-  if (typeof value === 'string') {
+  if (isString(value)) {
     // Label shortcut
     field = { key: key, label: value }
-  } else if (typeof value === 'function') {
+  } else if (isFunction(value)) {
     // Formatter shortcut
     field = { key: key, formatter: value }
-  } else if (typeof value === 'object') {
+  } else if (isObject(value)) {
     field = { ...value }
     field.key = field.key || key
   } else if (value !== false) {
@@ -25,19 +25,18 @@ function processField(key, value) {
 
 // We normalize fields into an array of objects
 // [ { key:..., label:..., ...}, {...}, ..., {..}]
-
-export default function normalizeFields(origFields, items) {
+const normalizeFields = (origFields, items) => {
   let fields = []
 
   if (isArray(origFields)) {
     // Normalize array Form
     origFields.filter(f => f).forEach(f => {
-      if (typeof f === 'string') {
+      if (isString(f)) {
         fields.push({ key: f, label: startCase(f) })
-      } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
+      } else if (isObject(f) && f.key && isString(f.key)) {
         // Full object definition. We use assign so that we don't mutate the original
         fields.push({ ...f })
-      } else if (typeof f === 'object' && keys(f).length === 1) {
+      } else if (isObject(f) && keys(f).length === 1) {
         // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
         const key = keys(f)[0]
         const field = processField(key, f[key])
@@ -46,7 +45,7 @@ export default function normalizeFields(origFields, items) {
         }
       }
     })
-  } else if (origFields && typeof origFields === 'object' && keys(origFields).length > 0) {
+  } else if (origFields && isObject(origFields) && keys(origFields).length > 0) {
     // Normalize object Form (deprecated)
     keys(origFields).forEach(key => {
       let field = processField(key, origFields[key])
@@ -71,9 +70,11 @@ export default function normalizeFields(origFields, items) {
   return fields.filter(f => {
     if (!memo[f.key]) {
       memo[f.key] = true
-      f.label = typeof f.label === 'string' ? f.label : startCase(f.key)
+      f.label = isString(f.label) ? f.label : startCase(f.key)
       return true
     }
     return false
   })
 }
+
+export default normalizeFields

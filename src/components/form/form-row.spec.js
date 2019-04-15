@@ -1,5 +1,5 @@
-import BFormRow from './form-row'
 import { mount } from '@vue/test-utils'
+import BFormRow from './form-row'
 
 // This component is also fully tested under the layout tests
 
