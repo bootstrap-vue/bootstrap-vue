@@ -11,7 +11,7 @@ const NAME = 'BToaster'
 export const DefaultTransition = Vue.extend({
   functional: true,
   render(h, { children }) {
-    return h('transition-group', { props: { tag: 'div', moveClass: 'b-toaster-move' } }, children)
+    return h('transition-group', { props: { tag: 'div', moveClass: 'b-toast-move' } }, children)
   }
 })
 
@@ -81,7 +81,7 @@ export default Vue.extend({
           multiple: true,
           tag: 'div',
           slim: false,
-          transition: 'transition-group' // || DefaultTransition
+          transition: this.transition || DefaultTransition
         }
       })
     }
