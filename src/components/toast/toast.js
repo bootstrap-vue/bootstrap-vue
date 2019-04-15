@@ -13,7 +13,7 @@ const NAME = 'BToast'
 
 export const props = {
   id: {
-    type: string,
+    type: String,
     default: null
   },
   visible: {
