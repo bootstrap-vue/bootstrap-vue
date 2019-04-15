@@ -6,7 +6,7 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { getCS, isVisible } from '../../utils/dom'
+import { getCS, isVisible, requestAF } from '../../utils/dom'
 
 // @vue/component
 export default Vue.extend({
@@ -82,14 +82,13 @@ export default Vue.extend({
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
     computedHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      // We compare `computedRows` and `localValue` to `true`, a value
-      // they both can't have at any time, to ensure reactivity of this
-      // computed property.
+      // We compare `localValue` to `true`, a value it can't have at
+      // any time, to ensure reactivity of this computed property.
       if (
         this.$isServer ||
         this.dontResize ||
-        this.computedRows === true ||
-        this.localValue === true
+        this.localValue === true ||
+        this.computedRows === null
       ) {
         return null
       }
@@ -146,13 +145,17 @@ export default Vue.extend({
   mounted() {
     // Enable opt-in resizing once mounted
     this.$nextTick(() => {
-      this.dontResize = false
+      requestAF(() => {
+        this.dontResize = false
+      })
     })
   },
   activated() {
     // If we are being re-activated in <keep-alive>, enable opt-in resizing
     this.$nextTick(() => {
-      this.dontResize = false
+      requestAF(() => {
+        this.dontResize = false
+      })
     })
   },
   deactivated() {
