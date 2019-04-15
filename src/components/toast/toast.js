@@ -311,7 +311,7 @@ export default Vue.extend({
             '&mouseenter': this.onPause,
             '&mouseleave': this.onUnPause,
             '&focusin': this.onPause,
-            '&focusout': this.onUnPause,
+            '&focusout': this.onUnPause
           }
         },
         [$header, $body]
