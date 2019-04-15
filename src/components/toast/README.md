@@ -47,14 +47,14 @@ The `<b-toaster>` component provides a container where toasts will appear (the _
 Toasters require a unique name, and toasts can be targeted to appear in a specific named toaster.
 
 In most cases you will not need to directly use this component, as `<b-toast>` will automatically
-insert a `<t-toaster>` component (appended to `<body>`) if one is not found in the document. But
-sometimes you may want to explicity place a toaster in your app.
+insert a `<t-toaster>` component (appended to `<body>`) with the requested toaster name. if one is
+not found in the document. But sometimes you may want to explicity place a toaster in your app.
 
-The toaster `name` becomes the ID of the inserted container, and will also be placed as a class
-name on the container
+The toaster `name` becomes the ID of the inserted container, and will also be used a class
+name on the rendered toaster container.
 
-Toaster positioning and teh positioning of toasts inside the toaster is driven completely by CSS
-classes.
+Toaster positioning and the positioning of toasts inside the toaster is driven completely by CSS
+classes (based on the name of the toaster)
 
 The following "built-in" toaster names (and associated styles) are defined in BootstrapVue's
 custom SCSS:
@@ -64,7 +64,9 @@ custom SCSS:
 - `b-toaster-bottom-right`
 - `b-toaster-bottom-left`
 
-The above toasters place the toasts in a stacked (columnar format).
+The above toasters place the toasts in a stacked (columnar format), fixed within the viewport
+(meaning they will always be in view regardless of viewport scroll position). If htere are more
+toasts than can fit on the viewport screen, some will be hidden until other toasts are hidden.
 
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
