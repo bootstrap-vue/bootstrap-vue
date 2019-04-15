@@ -90,8 +90,8 @@ export default Vue.extend({
           disabled: this.disabled,
           'card-body': this.bvTabs.card && !this.noBody
         },
-        // Apply <b-tabs> `activeClass` styles when this tab is active
-        this.localActive ? this.bvTabs.activeClass : null
+        // Apply <b-tabs> `activeTabClass` styles when this tab is active
+        this.localActive ? this.bvTabs.activeTabClass : null
       ]
     },
     controlledBy() {
