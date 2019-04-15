@@ -3,8 +3,8 @@
 import fs from 'fs'
 import path from 'path'
 import assert from 'assert'
+import startCase from 'lodash/startCase'
 import { promisify } from 'util'
-import startCase from '../src/utils/startcase'
 
 const readDir = promisify(fs.readdir)
 const stat = promisify(fs.stat)

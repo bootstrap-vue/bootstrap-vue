@@ -1,3 +1,5 @@
+import { isFunction } from '../../../utils/inspect'
+
 export default {
   methods: {
     renderBottomRow() {
@@ -17,7 +19,7 @@ export default {
           key: '__b-table-bottom-row__',
           staticClass: 'b-table-bottom-row',
           class: [
-            typeof this.tbodyTrClass === 'function'
+            isFunction(this.tbodyTrClass)
               ? this.tbodyTrClass(null, 'row-bottom')
               : this.tbodyTrClass
           ],

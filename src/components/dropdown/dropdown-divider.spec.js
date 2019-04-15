@@ -1,5 +1,5 @@
-import BDropdownDivider from './dropdown-divider'
 import { mount } from '@vue/test-utils'
+import BDropdownDivider from './dropdown-divider'
 
 describe('dropdown > dropdown-divider', () => {
   it('works', async () => {

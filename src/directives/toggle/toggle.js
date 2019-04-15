@@ -1,5 +1,5 @@
 import { setAttr, removeAttr, addClass, removeClass } from '../../utils/dom'
-import { inBrowser } from '../../utils/env'
+import { isBrowser } from '../../utils/env'
 import { bindTargets, unbindTargets } from '../../utils/target'
 
 // Target listen types
@@ -31,7 +31,7 @@ const resetProp = (el, prop) => {
 // Handle directive updates
 /* istanbul ignore next: not easy to test */
 const handleUpdate = (el, binding, vnode) => {
-  if (!inBrowser) {
+  if (!isBrowser) {
     return
   }
   // Ensure the collapse class and aria-* attributes persist
@@ -58,7 +58,7 @@ export default {
       })
     })
 
-    if (inBrowser && vnode.context && targets.length > 0) {
+    if (isBrowser && vnode.context && targets.length > 0) {
       // Add targets array to element
       el[BV_TOGGLE_TARGETS] = targets
       // Add aria attributes to element

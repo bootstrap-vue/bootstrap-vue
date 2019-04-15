@@ -1,5 +1,5 @@
-import BTable from './table'
 import { mount } from '@vue/test-utils'
+import BTable from './table'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
 const fields1 = ['a', 'b', 'c']

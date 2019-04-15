@@ -2,8 +2,9 @@ import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
-import { keys, assign, create } from '../../utils/object'
 import { arrayIncludes } from '../../utils/array'
+import { isUndefined, isNull } from '../../utils/inspect'
+import { keys, assign, create } from '../../utils/object'
 import { getBreakpointsUp } from '../../utils/config'
 
 /**
@@ -39,7 +40,7 @@ export default (resolve, reject) => {
   // Memoized function for better performance on generating class names
   const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
     let className = type
-    if (val === false || val === null || val === undefined) {
+    if (isUndefined(val) || isNull(val) || val === false) {
       return undefined
     }
     if (breakpoint) {

@@ -1,7 +1,5 @@
-import { isArray } from './array'
-import { isObject, keys } from './object'
-
-const isDate = obj => obj instanceof Date
+import { keys } from './object'
+import { isArray, isDate, isObject } from './inspect'
 
 // Assumes both a and b are arrays!
 // Handles when arrays are "sparse" (array.every(...) doesn't handle sparse)

@@ -11,9 +11,9 @@ import {
   hasAttr,
   getAttr,
   hasClass,
-  isPassiveSupported,
   parseEventOptions
 } from './dom'
+import { hasPassiveEventSupport } from './env'
 
 const template1 = `
 <div id="a" class="foo">
@@ -267,7 +267,7 @@ describe('utils/dom', () => {
 
   it('event options parsing works', async () => {
     // JSDOM probably does not support passive mode
-    if (isPassiveSupported()) {
+    if (hasPassiveEventSupport) {
       // Converts boolean to object
       expect(parseEventOptions(true)).toEqual({ useCapture: true })
       expect(parseEventOptions(false)).toEqual({ useCapture: false })

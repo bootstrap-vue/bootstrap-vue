@@ -1,21 +1,22 @@
 import Vue from 'vue'
-// Mixins
-import idMixin from '../../mixins/id'
-import formStateMixin from '../../mixins/form-state'
 // Utils
-import { getBreakpointsUp } from '../../utils/config'
-import upperFirst from '../../utils/upper-first'
 import memoize from '../../utils/memoize'
+import upperFirst from '../../utils/upper-first'
 import warn from '../../utils/warn'
-import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { arrayIncludes } from '../../utils/array'
+import { getBreakpointsUp } from '../../utils/config'
+import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
+import { isBoolean } from '../../utils/inspect'
 import { keys, create } from '../../utils/object'
-import { inBrowser } from '../../utils/env'
+// Mixins
+import formStateMixin from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 // Sub components
-import BFormRow from '../layout/form-row'
 import BCol from '../layout/col'
-import BFormText from '../form/form-text'
 import BFormInvalidFeedback from '../form/form-invalid-feedback'
+import BFormRow from '../layout/form-row'
+import BFormText from '../form/form-text'
 import BFormValidFeedback from '../form/form-valid-feedback'
 
 // Component name
@@ -274,7 +275,7 @@ export default (resolve, reject) => {
           // Handle case where the prop's value is an empty string,
           // which represents true
           propVal = propVal === '' ? true : propVal || false
-          if (typeof propVal !== 'boolean') {
+          if (!isBoolean(propVal)) {
             // Convert to column size to number
             propVal = parseInt(propVal, 10) || 0
             // Ensure column size is greater than 0
@@ -284,7 +285,7 @@ export default (resolve, reject) => {
             // Add the prop to the list of props to give to b-col
             // If breakpoint is '' (labelCols=true), then we use the
             // col prop to make equal width at xs
-            const bColPropName = breakpoint || (typeof propVal === 'boolean' ? 'col' : 'cols')
+            const bColPropName = breakpoint || (isBoolean(propVal) ? 'col' : 'cols')
             // Add it to the props
             props[bColPropName] = propVal
           }
@@ -380,7 +381,7 @@ export default (resolve, reject) => {
         // Sets the `aria-describedby` attribute on the input if label-for is set.
         // Optionally accepts a string of IDs to remove as the second parameter.
         // Preserves any aria-describedby value(s) user may have on input.
-        if (this.labelFor && inBrowser) {
+        if (this.labelFor && isBrowser) {
           const input = select(`#${this.labelFor}`, this.$refs.content)
           if (input) {
             const adb = 'aria-describedby'

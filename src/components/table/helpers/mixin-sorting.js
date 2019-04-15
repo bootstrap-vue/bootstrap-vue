@@ -1,6 +1,7 @@
 import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
 import { arrayIncludes } from '../../../utils/array'
+import { isFunction, isNull, isUndefined } from '../../../utils/inspect'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
@@ -81,11 +82,11 @@ export default {
         // stableSort returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
-          if (typeof sortCompare === 'function') {
+          if (isFunction(sortCompare)) {
             // Call user provided sortCompare routine
             result = sortCompare(a, b, sortBy, sortDesc)
           }
-          if (result === null || result === undefined || result === false) {
+          if (isUndefined(result) || isNull(result) || result === false) {
             // Fallback to built-in defaultSortCompare if sortCompare
             // is not defined or returns null/false
             result = defaultSortCompare(a, b, sortBy)
@@ -194,7 +195,7 @@ export default {
     },
     sortTheadThAttrs(key, field, isFoot) {
       if (!this.isSortable || (isFoot && this.noFooterSorting)) {
-        // No atributes if not a sortable table
+        // No attributes if not a sortable table
         return {}
       }
       const sortable = field.sortable
@@ -202,7 +203,7 @@ export default {
       if ((!field.label || !field.label.trim()) && !field.headerTitle) {
         // In case field's label and title are empty/blank, we need to
         // add a hint about what the column is about for non-sighted users.
-        // This is dulicated code from tbody-row mixin, but we need it
+        // This is duplicated code from tbody-row mixin, but we need it
         // here as well, since we overwrite the original aria-label.
         /* istanbul ignore next */
         ariaLabel = startCase(key)

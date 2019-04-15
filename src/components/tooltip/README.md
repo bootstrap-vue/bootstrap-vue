@@ -292,8 +292,7 @@ long as you have provided the `.sync` prop modifier.
 ```
 
 **Note:** _In the above example, since we are using the default tooltip triggers of `focus hover`,
-the tooltip will close before it is disabled due to loosing focus (and hover) to the toggle
-button._
+the tooltip will close before it is disabled due to loosing focus (and hover) to the toggle button._
 
 You can also emit `$root` events to trigger disabling and enabling of tooltip(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
@@ -364,8 +363,8 @@ event.
 
 These events work for both the component **and** directive versions of tooltip.
 
-**Note:** _the **trigger element** must exist in the DOM and be in a visible state in order for
-the tooltip to show._
+**Note:** _the **trigger element** must exist in the DOM and be in a visible state in order for the
+tooltip to show._
 
 ### Disabling and enabling tooltips via \$root events
 

@@ -1,6 +1,7 @@
-import clickOutMixin from './click-out'
-import { mount } from '@vue/test-utils'
 import Vue from 'vue'
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../tests/utils'
+import clickOutMixin from './click-out'
 
 describe('utils/click-out', () => {
   it('works', async () => {
@@ -38,7 +39,7 @@ describe('utils/click-out', () => {
     wrapper.trigger('click')
     expect(count).toBe(0)
     document.dispatchEvent(clickEvt)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(count).toBe(1)
 
     // When this.listenForClickOut is false
@@ -46,7 +47,7 @@ describe('utils/click-out', () => {
       listenForClickOut: false
     })
     document.dispatchEvent(clickEvt)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(count).toBe(1)
 
     wrapper.destroy()

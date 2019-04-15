@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import idMixin from '../../mixins/id'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
-import formMixin from '../../mixins/form'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
-import { isArray } from '../../utils/array'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
+import { isArray } from '../../utils/inspect'
+import formMixin from '../../mixins/form'
+import formRadioCheckMixin from '../../mixins/form-radio-check'
+import formSizeMixin from '../../mixins/form-size'
+import formStateMixin from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 
 // @vue/component
 export default Vue.extend({

@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import BFormInput from './form-input'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BFormInput from './form-input'
 
 describe('form-input', () => {
   it('has class form-control', async () => {
@@ -129,7 +130,7 @@ describe('form-input', () => {
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.attributes('id')).toBeDefined()
 
     wrapper.destroy()
@@ -712,7 +713,7 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     input.element.value = '123.450'
     input.trigger('input')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(input.element.value).toBe('123.450')
     // Pre converted value as string
@@ -729,7 +730,7 @@ describe('form-input', () => {
     // Update the input to be different string-wise, but same numerically
     input.element.value = '123.4500'
     input.trigger('input')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(input.element.value).toBe('123.4500')
     // Should emit a new input event
@@ -743,7 +744,7 @@ describe('form-input', () => {
     wrapper.setProps({
       value: 45.6
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element.value).toBe('45.6')
 
     wrapper.destroy()

@@ -1,6 +1,7 @@
-import stringifyRecordValues from './stringify-record-values'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
+import { isFunction, isString, isRegExp } from '../../../utils/inspect'
+import stringifyRecordValues from './stringify-record-values'
 
 const DEPRECATION_MSG =
   'Supplying a function to prop "filter" is deprecated. Use "filter-function" instead.'
@@ -8,11 +9,11 @@ const DEPRECATION_MSG =
 export default {
   props: {
     filter: {
-      // Pasing a function to filter is deprecated and should be avoided
+      // Passing a function to filter is deprecated and should be avoided
       type: [String, RegExp, Object, Array, Function],
       default: null,
-      // depreaction: refers to a change in prop's usage
-      // deprecated: means don't use prop any more
+      // `deprecated` -> Don't use this prop
+      // `deprecation` -> Refers to a change in prop usage
       deprecation: DEPRECATION_MSG
     },
     filterFunction: {
@@ -40,14 +41,14 @@ export default {
     },
     localFilter() {
       // Returns a sanitized/normalized version of filter prop
-      if (typeof this.filter === 'function') {
+      if (isFunction(this.filter)) {
         // this.localFilterFn will contain the correct function ref.
         // Deprecate setting prop filter to a function
         /* istanbul ignore next */
         return ''
       } else if (
-        typeof this.filterFunction !== 'function' &&
-        !(typeof this.filter === 'string' || this.filter instanceof RegExp)
+        !isFunction(this.filterFunction) &&
+        !(isString(this.filter) || isRegExp(this.filter))
       ) {
         // Using internal filter function, which only accepts string or regexp at the moment
         return ''
@@ -60,9 +61,9 @@ export default {
       let filter = this.filter
       let filterFn = this.filterFunction
       // Sanitized/normalize filter-function prop
-      if (typeof filterFn === 'function') {
+      if (isFunction(filterFn)) {
         return filterFn
-      } else if (typeof filter === 'function') {
+      } else if (isFunction(filter)) {
         // Deprecate setting prop filter to a function
         /* istanbul ignore next */
         warn(`b-table: ${DEPRECATION_MSG}`)
@@ -139,7 +140,7 @@ export default {
       // in the original filter-function (as this routine is a method)
       if (
         !filterFn ||
-        typeof filterFn !== 'function' ||
+        !isFunction(filterFn) ||
         !criteria ||
         looseEqual(criteria, []) ||
         looseEqual(criteria, {})
@@ -159,14 +160,14 @@ export default {
     },
     defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given filter criteria
-      if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
+      if (!criteria || !(isString(criteria) || isRegExp(criteria))) {
         // Built in filter can only support strings or RegExp criteria (at the moment)
         return null
       }
 
       // Build the regexp needed for filtering
       let regexp = criteria
-      if (typeof regexp === 'string') {
+      if (isString(regexp)) {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
         const pattern = criteria
