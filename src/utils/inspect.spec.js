@@ -9,6 +9,7 @@ import {
   isString,
   isNumber,
   isPrimitive,
+  isDate,
   isRegExp,
   isPromise
 } from './inspect'
@@ -152,6 +153,20 @@ describe('utils/inspect', () => {
     expect(isPrimitive(new Date())).toEqual(false)
     expect(isPrimitive(undefined)).toEqual(false)
     expect(isPrimitive(null)).toEqual(false)
+  })
+
+  it('isDate', async () => {
+    expect(isDate(123)).toEqual(false)
+    expect(isDate('123')).toEqual(false)
+    expect(isDate(true)).toEqual(false)
+    expect(isDate({})).toEqual(false)
+    expect(isDate([])).toEqual(false)
+    expect(isDate(/abc/)).toEqual(false)
+    expect(isDate(() => {})).toEqual(false)
+    expect(isDate(Date)).toEqual(false)
+    expect(isDate(new Date())).toEqual(true)
+    expect(isDate(undefined)).toEqual(false)
+    expect(isDate(null)).toEqual(false)
   })
 
   it('isRegExp', async () => {
