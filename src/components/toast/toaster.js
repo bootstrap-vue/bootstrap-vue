@@ -11,7 +11,7 @@ const NAME = 'BToaster'
 export const DefaultTransition = Vue.extend({
   functional: true,
   render(h, { children }) {
-    return h('transition-group', { props: { tag: 'div', moveClass: 'b-toast-move' } }, children)
+    return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
   }
 })
 
