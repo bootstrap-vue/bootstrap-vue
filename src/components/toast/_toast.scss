@@ -13,15 +13,19 @@
   &.b-toaster-enter-active,
   &.b-toaster-leave-active,
   &.b-toaster-move {
-    transition: transform 0.3s;
+    // transition: transform 0.3s;
+    transition: transform 0.75s;
   }
 
   &.b-toaster-enter {
-    transform: scaleY(0.5);
+    transform: scaleY(0);
+  }
+
+  &.b-toaster-enter-active {
+    position: absolute;
   }
 
   &.b-toaster-enter-to {
-    opacity: 1;
   }
 
   &.b-toaster-leave-active {
