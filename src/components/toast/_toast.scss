@@ -8,28 +8,19 @@
 //   b-toaster-bottom-left
 
 .b-toaster {
-  position: absolute;
-  display: flex;
-  flex-direction: column important;
+  position: fixed;
   padding: 1rem;
+  overflow: visible;
   z-index: $b-toaster-zindex;
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
     top: 0;
-    bottom: 0;
-    justify-content: flex-start !important;
-    overflow: visible;
   }
 
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
-    position: fixed;
     bottom: 0;
-    max-height: 100vh;
-    flex-direction: column !important;
-    justify-content: flex-end !important;
-    overflow-y: hidden;
   }
 
   &.b-toaster-top-right,
