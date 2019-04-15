@@ -11,10 +11,10 @@
   }
 
   &.b-toaster-move {
-    transition: transform 0.15s;
+    transition: transform 0.3s;
   }
   &.b-toaster-leave-active {
-    position: absolute;
+    // position: absolute;
   }
 }
 
