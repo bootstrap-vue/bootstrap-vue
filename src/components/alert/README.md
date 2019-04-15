@@ -74,13 +74,13 @@ The `show` prop accepts boolean `true` or `false` to show and hide the alert res
 also be set to a positive integer (representing seconds) to create a self dismissing alert. See the
 [Auto Dismissing Alerts](#auto-dismissing-alerts) section below for details.
 
-### Alert `v-model` support
+### `v-model` support
 
 You can use the `v-model` directive to create two-way data bindings on the `show` prop as in
 `v-model="showDismissibleAlert"` above. Useful when you use dismissible because when user closes the
 alert, your variable will be updated. Do not use the `show` prop when using `v-model`.
 
-## Alert contextual variants
+## Contextual variants
 
 For proper styling of `<b-alert>`, use one of the four required contextual variants by setting the
 `variant` prop to one of the following: `info`, `success`, `warning` or `danger`. The default is
@@ -101,7 +101,7 @@ For proper styling of `<b-alert>`, use one of the four required contextual varia
 <!-- b-alert-variants.vue -->
 ```
 
-### Conveying meaning to assistive technologies:
+### Conveying meaning to assistive technologies
 
 Using color variants to add meaning only provides a visual indication, which will not be conveyed to
 users of assistive technologies – such as screen readers. Ensure that information denoted by the
@@ -154,7 +154,7 @@ Use on `<a>` or `<b-link>`.
 
 ## Dismissible alerts
 
-Using the `dismissible` prop it’s possible to dismiss any `<b-alert>` inline. This will add a close
+Using the `dismissible` prop it's possible to dismiss any `<b-alert>` inline. This will add a close
 `X` button. Use the `dismiss-label` prop to change the hidden label text associated with the dismiss
 button.
 

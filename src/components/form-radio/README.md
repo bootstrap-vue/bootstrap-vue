@@ -312,13 +312,13 @@ by setting the `plain` prop.
 
 **Note:** `plain` will have no effect if `buttons`/`button` is set.
 
-## Contextual States
+## Contextual states
 
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
-Generally speaking, you’ll want to use a particular state for specific types of feedback:
+Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` is great for when there’s a blocking or required field. A user must fill in this field
+- `'invalid'` is great for when there's a blocking or required field. A user must fill in this field
   properly to submit the form.
 - `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
   encourage a user through the rest of the fields.
@@ -377,7 +377,7 @@ enables native browser keyboard navigation), hence `required` will only work if 
 `<b-form-radio-group>` will automatically generate a unique input name if one is not provided on the
 group.
 
-### Conveying contextual validation state to assistive technologies and colorblind users:
+### Conveying contextual validation state to assistive technologies and colorblind users
 
 Using these contextual states to denote the state of a form control only provides a visual,
 color-based indication, which will not be conveyed to users of assistive technologies - such as

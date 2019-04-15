@@ -90,7 +90,7 @@ Please be aware that nested carousels are **not** supported.
 
 ## Sizing
 
-Carousels don’t automatically normalize slide dimensions. As such, you may need to use additional
+Carousels don't automatically normalize slide dimensions. As such, you may need to use additional
 utilities or custom styles to appropriately size content. When using images in each slide, ensure
 they all have the same dimensions (or aspect ratio).
 
@@ -127,7 +127,7 @@ When the users mouse hovers the carousel it will automatically pause, and will a
 when the mouse leaves the carousel. To disable this feature, set the `no-hover-pause` prop on
 <b-carousel>`.
 
-## Controls and Indicators
+## Controls and indicators
 
 Set the prop `controls` to enable the previous and next control buttons.
 

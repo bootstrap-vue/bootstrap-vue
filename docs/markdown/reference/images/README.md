@@ -5,7 +5,7 @@
 vue-loader automatically converts project relative `src` attributes on `<img>` tags, but doesn't
 automatically for BootstrapVue custom components that accept image src url tags.
 
-## Vue-loader `transformAssetUrls` to resolve img paths
+## Vue Loader `transformAssetUrls` to resolve img paths
 
 To have your project convert these custom component image URLs for you, you will need to customize
 the [`transformAssetUrls`](https://vue-loader.vuejs.org/options.html#transformasseturls) `option`
@@ -90,7 +90,7 @@ module.exports = {
 }
 ```
 
-### Configuring `transformAssetUrls` in Nuxt
+### Configuring `transformAssetUrls` in Nuxt.js
 
 In your `nuxt.config.js` file, add the following to your build section:
 

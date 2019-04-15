@@ -4,7 +4,7 @@
 > dropdown menu format.
 
 `<b-dropdown>` (or known by its shorter alias of `<b-dd>`) components are toggleable, contextual
-overlays for displaying lists of links and more. They’re toggled by clicking (or pressing space or
+overlays for displaying lists of links and more. They're toggled by clicking (or pressing space or
 enter when focused), not by hovering; this is an
 [intentional design decision](http://markdotto.com/2012/02/27/bootstrap-explained-dropdowns/).
 
@@ -23,7 +23,7 @@ enter when focused), not by hovering; this is an
 <!-- b-dropdown.vue -->
 ```
 
-## Dropdown button content
+## Button content
 
 You can customize the text of the dropdown button by using either the `text` prop (shown in previous
 examples), or use the `button-content` slot instead of the `text` prop. The `button-content` slot
@@ -57,7 +57,7 @@ Dropdown supports various positioning such as left and right aligned, dropdown a
 supports auto-flipping (dropdown to dropup, and vice-versa) when the menu would overflow off of the
 visible screen area.
 
-### Menu left and right alignment
+### Menu alignment
 
 The dropdown menu can either be left aligned (default) or right aligned with respect to the button
 above it. To have the dropdown aligned on the right, set the `right` prop.
@@ -297,7 +297,7 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 **Note:** _changing the size of the button(s) does not affect the size of the menu items!_
 
-## Hidden Caret
+## Hidden caret
 
 The dropdown can be created with the toggle's caret visually hidden by setting the `no-caret` prop
 to `true`. This is useful when the dropdown is to be displayed as an icon.
@@ -346,7 +346,7 @@ Disabled the dropdown item by setting the `disabled` prop.
 
 ### `<b-dropdown-item-button>`
 
-Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that’s no longer the
+Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that's no longer the
 case with Bootstrap v4. Now you can optionally create `<button>` elements in your dropdowns by using
 the `<b-dropdown-item-button>` sub-component. `<b-dropdown-item-button>` does not support the `href`
 or `to` props.
@@ -414,7 +414,7 @@ making headers more accessible for users of assistive technologies.
 ### `<b-dropdown-text>`
 
 Place any freeform text within a dropdown menu using the `<b-dropdown-text>` sub component or use
-text and use spacing utilities. Note that you’ll likely need additional sizing styles to
+text and use spacing utilities. Note that you'll likely need additional sizing styles to
 constrain/set the menu width.
 
 ```html
@@ -453,7 +453,7 @@ regular form.
   <div>
     <b-dropdown id="dropdown-form" text="Dropdown with form" ref="dropdown" class="m-2">
       <b-dropdown-form>
-        <b-form-group label="Email" label-for="dropdown-form-email" @submit.prevent>
+        <b-form-group label="Email" label-for="dropdown-form-email" @submit.stop.prevent>
           <b-form-input
             id="dropdown-form-email"
             size="sm"
@@ -538,7 +538,7 @@ When a menu item doesn't trigger navigation, it is recommended to use the `<b-dr
 sub-component (which is not announced as a link) instead of `<b-dropdown-item>` (which is presented
 as a link to the user).
 
-### Dropdown headers and accessibility
+### Headers and accessibility
 
 When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an `id`
 attribute to each of the headers, and then set the `aria-describedby` attribute (set to the `id`
@@ -569,7 +569,7 @@ dropdown item:
 <!-- b-dropdown-aria.vue -->
 ```
 
-### Dropdown keyboard navigation
+### Keyboard navigation
 
 Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 
@@ -577,16 +577,16 @@ Note that <kbd>DOWN</kbd> and <kbd>UP</kbd> will not move focus into `<b-dropdow
 components, but users can still use <kbd>TAB</kbd> or <kbd>SHIFT</kbd>+<kbd>TAB</kbd> to move into
 form controls within the menu.
 
-## Implementation Note
+## Implementation note
 
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover` handlers to the
 immediate children of the `<body>` element. This admittedly ugly hack is necessary to work around a
-[quirk in iOS’ event delegation](https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html),
+[quirk in iOS' event delegation](https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html),
 which would otherwise prevent a tap anywhere outside of the dropdown from triggering the code that
 closes the dropdown. Once the dropdown is closed, these additional empty `mouseover` handlers are
 removed.
 
-## See Also
+## See also
 
 - [`<b-nav-item-dropdown>`](/docs/components/nav#dropdown-support) for dropdown support inside
   `<b-nav>` and `<n-navbar>`
