@@ -83,7 +83,7 @@ export const props = {
 // Transition Props defaults:
 const DEFAULT_TRANSITION_PROPS = {
   name: '',
-  appear: true,
+  appear: false,
   enterClass: '',
   enterActiveClass: '',
   enterToClass: '',
