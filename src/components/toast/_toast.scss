@@ -66,4 +66,10 @@
     left: $b-toaster-offset-x;
     margin-right: $b-toaster-offset-x;
   }
+
+  .b-toaster-slot {
+    display: inline-block;
+    max-width: $toast-max-width;
+    height: auto;
+  }
 }
