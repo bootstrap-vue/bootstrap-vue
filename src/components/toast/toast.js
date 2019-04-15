@@ -30,7 +30,7 @@ export const props = {
   },
   toaster: {
     type: String,
-    default: () => getComponentConfig(NAME, 'toaster') // 'b-toaster-bottom-right'
+    default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-bottom-right'
   },
   prepend: {
     type: Boolean,
@@ -83,11 +83,10 @@ export const props = {
 // Transition Props defaults:
 const DEFAULT_TRANSITION_PROPS = {
   name: '',
-  appear: false,
   enterClass: '',
   enterActiveClass: '',
   enterToClass: '',
-  leaveClass: '',
+  leaveClass: 'show',
   leaveActiveClass: '',
   leaveToClass: ''
 }
