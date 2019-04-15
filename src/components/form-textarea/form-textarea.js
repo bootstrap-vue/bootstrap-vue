@@ -85,12 +85,12 @@ export default Vue.extend({
   },
   watch: {
     dontResize(newVal, oldval) {
-      if (newVal) {
-        this.height = this.computeheight()
+      if (!newVal) {
+        this.height = this.computeHeight()
       }
     },
     localValue(newVal, oldVal) {
-      this.height = this.computeheight()
+      this.height = this.computeHeight()
     }
   },
   mounted() {
