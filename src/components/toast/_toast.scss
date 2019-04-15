@@ -13,6 +13,10 @@
   overflow: visible;
   z-index: $b-toaster-zindex;
 
+  &.b-toaster-move {
+    transition: transform 0.16s;
+  }
+
   &.b-toaster-top-right,
   &.b-toaster-top-left {
     top: 0;
