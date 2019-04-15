@@ -442,6 +442,8 @@ If you want to support older IE, Android and iOS devices, you may want to use
 - `npm install @babel/polyfill mutationobserver-shim`
 - Import the polyfills in your app main entry point:
 
+<!-- eslint-disable no-unused-vars -->
+
 ```js
 import '@babel/polyfill'
 import 'mutationobserver-shim'
