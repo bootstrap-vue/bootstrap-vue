@@ -280,7 +280,7 @@ export default Vue.extend({
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
-            on: { click: this.hide }
+            on: { click: () => this.hide() }
           })
         )
       }
@@ -327,7 +327,7 @@ export default Vue.extend({
       Portal,
       {
         props: {
-          name: this.safeId(),
+          // name: this.safeId(),
           to: this.toaster,
           slim: true,
           disabled: this.static
