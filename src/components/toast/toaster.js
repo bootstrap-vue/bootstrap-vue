@@ -84,6 +84,6 @@ export default Vue.extend({
         }
       })
     }
-    return h('div', { staticClass: 'position-relative' }, [$target])
+    return $target
   }
 })
