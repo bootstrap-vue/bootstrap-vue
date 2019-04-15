@@ -23,8 +23,8 @@
 //   b-toaster-bottom-left
 .b-toaster {
   position: fixed;
-  min-width: calc($toast-max-width - $b-toaster-padding);
-  max-width: $toast-max-width;
+  min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
+  max-width: calc(100vw - #{$b-toaster-offset-x * 2});
   overflow: visible;
   z-index: $b-toaster-zindex;
 
@@ -41,10 +41,12 @@
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
     right: $b-toaster-offset-x;
+    margin-left: $b-toaster-offset-x;
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: $b-toaster-offset-x;
+    margin-right: $b-toaster-offset-x;
   }
 }
