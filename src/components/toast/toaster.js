@@ -14,6 +14,19 @@ export default Vue.extend({
       type: String,
       required: true
     },
+    ariaLive: {
+      type: String,
+      default: 'polite'
+    },
+    ariaAtomic: {
+      type: String,
+      default: 'true' // allowed: 'true' or 'false'
+    },
+    role: {
+      // Aria role
+      type: String,
+      default: null
+    },
     transition: {
       type: [Boolean, String, Object],
       default: false
@@ -45,7 +58,12 @@ export default Vue.extend({
       return h(PortalTarget, {
         staticClass: 'b-toaster',
         class: [this.name],
-        attrs: { id: this.name },
+        attrs: {
+          id: this.name,
+          role: this.role,
+          'aria-live': this.ariaLive,
+          'aria-atomic': this.ariaAtomic
+        },
         props: {
           name: this.name,
           multiple: true,
