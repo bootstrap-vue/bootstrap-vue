@@ -86,11 +86,15 @@ export default Vue.extend({
   watch: {
     dontResize(newVal, oldval) {
       if (!newVal) {
-        this.computeHeight()
+        this.$nextTick(() => {
+          this.heightPx = this.computeHeight()
+        })
       }
     },
     localValue(newVal, oldVal) {
-      this.computeHeight()
+      this.$nextTick(() => {
+        this.heightPx = this.computeHeight()
+      })
     }
   },
   mounted() {
@@ -115,14 +119,8 @@ export default Vue.extend({
   },
   methods: {
     computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      const setHeight = val => {
-        this.$nextTick(() => {
-          this.heightPx = val
-        })
-      }
       if (this.$isServer) {
-        setHeight(null)
-        return
+        return null
       }
 
       const el = this.$el
@@ -130,8 +128,7 @@ export default Vue.extend({
       // Element must be visible (not hidden) and in document.
       // Must be checked after above checks
       if (!isVisible(el)) {
-        setHeight(null)
-        return
+        return null
       }
 
       // Get current computed styles
@@ -168,11 +165,11 @@ export default Vue.extend({
       // Computed height remains the larger of oldHeight and new height,
       // when height is in `sticky` mode (prop `no-auto-shrink` is true)
       if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
-        setHeight(oldHeight)
-      } else {
-        // Return the new computed CSS height in px units
-        setHeight(`${height}px`)
+        return oldHeight
       }
+
+      // Return the new computed CSS height in px units
+      return `${height}px`
     }
   },
   render(h) {
