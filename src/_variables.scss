@@ -5,9 +5,6 @@ $bv-alert-transition: $transition-fade !default;
 $b-table-busy-opacity: 0.55 !default;
 
 // --- Toasts ---
-
 $b-toaster-zindex: 1100 !default;
-$b-toaster-padding: 1rem !default;
 $b-toaster-offest-x: 0.5rem !default;
-$b-toaster-offest-y: 0.5rem !default;
-
+$b-toaster-offest-y: $b-toaster-offest-x !default;
