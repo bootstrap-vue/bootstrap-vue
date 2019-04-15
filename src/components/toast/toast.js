@@ -293,7 +293,7 @@ export default Vue.extend({
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
             on: {
-              click: (evt) => {
+              click: evt => {
                 this.hide()
               }
             }
