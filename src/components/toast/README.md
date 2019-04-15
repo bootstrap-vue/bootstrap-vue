@@ -81,7 +81,8 @@ injection, without the need to place a `<b-toast>` in your app.
 ```html
 <template>
   <div>
-    <b-button @click="makeToast">Show Toast</b-button>
+    <b-button @click="makeToast()">Show Toast</b-button>
+    <b-button @click="makeToast(true)">Show Toast (appended)</b-button>
   </div>
 </template>
 
@@ -93,11 +94,12 @@ injection, without the need to place a `<b-toast>` in your app.
       }
     },
     methods: {
-      makeToast() {
+      makeToast(append) {
         const number = this.toastCount++
         this.$bvToast.toast(`This is toast number ${number}`, {
           title: 'BootstrapVue Toast',
-          autoHideDelay: 5000
+          autoHideDelay: 5000,
+          append: append
         })
       }
     }
