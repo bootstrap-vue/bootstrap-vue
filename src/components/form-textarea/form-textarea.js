@@ -47,7 +47,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      dontResize: true
+      dontResize: true,
+      height: null
     }
   },
   computed: {
@@ -60,7 +61,7 @@ export default Vue.extend({
       if (!this.computedRows) {
         // The computed height for auto resize.
         // We avoid setting the style to null, which can override user manual resize.
-        styles.height = this.computedHeight
+        styles.height = this.height
         // We always add a vertical scrollbar to the textarea when auto-resize is
         // enabled so that the computed height calcaultion returns a stable value.
         styles.overflowY = 'scroll'
@@ -80,16 +81,43 @@ export default Vue.extend({
       // This is used to set the attribute 'rows' on the textarea.
       // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
+    }
+  },
+  watch: {
+    dontResize(newval, oldval) {
+      if (newVal) {
+        this.height = this.computeheight()
+      }
     },
-    computedHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
+    localValue(newVal, oldVal) {
+      this.height = this.computeheight()
+    }
+  },
+  mounted() {
+    // Enable opt-in resizing once mounted
+    this.$nextTick(() => {
+      this.dontResize = false
+    })
+  },
+  activated() {
+    // If we are being re-activated in <keep-alive>, enable opt-in resizing
+    this.$nextTick(() => {
+      this.dontResize = false
+    })
+  },
+  deactivated() {
+    // If we are in a deactivated <keep-alive>, disable opt-in resizing
+    this.dontResize = true
+  },
+  beforeDestroy() {
+    /* istanbul ignore next */
+    this.dontResize = true
+  },
+  methods: {
+    computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
       // We compare `localValue` to `true`, a value it can't have at
       // any time, to ensure reactivity of this computed property.
-      if (
-        this.$isServer ||
-        this.dontResize ||
-        this.localValue === true ||
-        this.computedRows === null
-      ) {
+      if (this.$isServer || this.dontResize || this.computedRows === null) {
         return null
       }
 
@@ -141,30 +169,6 @@ export default Vue.extend({
       // Return the new computed CSS height in px units
       return `${height}px`
     }
-  },
-  mounted() {
-    // Enable opt-in resizing once mounted
-    this.$nextTick(() => {
-      requestAF(() => {
-        this.dontResize = false
-      })
-    })
-  },
-  activated() {
-    // If we are being re-activated in <keep-alive>, enable opt-in resizing
-    this.$nextTick(() => {
-      requestAF(() => {
-        this.dontResize = false
-      })
-    })
-  },
-  deactivated() {
-    // If we are in a deactivated <keep-alive>, disable opt-in resizing
-    this.dontResize = true
-  },
-  beforeDestroy() {
-    /* istanbul ignore next */
-    this.dontResize = true
   },
   render(h) {
     // Using self instead of this helps reduce code size during minification
