@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import { Portal } from 'portal-vue'
+import { Portal } from 'portal-vue'
 import BToaster from './toaster'
 import BButtonClose from '../button/button-close'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -83,6 +83,7 @@ export const props = {
 // Transition Props defaults:
 const DEFAULT_TRANSITION_PROPS = {
   name: '',
+  appear: true,
   enterClass: '',
   enterActiveClass: '',
   enterToClass: '',
@@ -292,7 +293,9 @@ export default Vue.extend({
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
             on: {
-              click: (evt) => { this.hide() }
+              click: (evt) => {
+                this.hide()
+              }
             }
           })
         )
@@ -320,7 +323,7 @@ export default Vue.extend({
             role: this.isStatus ? 'status' : 'alert',
             'aria-live': this.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
-          },
+          }
           /*
           on: {
             '&mouseenter': this.onPause,
