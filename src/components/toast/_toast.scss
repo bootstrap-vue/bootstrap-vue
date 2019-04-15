@@ -13,16 +13,16 @@
   &.b-toaster-enter-active,
   &.b-toaster-leave-active,
   &.b-toaster-move {
-    // transition: transform 0.3s;
-    transition: transform 0.75s;
+    transition: all 0.3s;
   }
 
-  &.b-toaster-enter {
+  &.b-toaster-enter,
+  &.b-toaster-leave-to {
     transform: scaleY(0);
+    transform-origin: center top;
   }
 
   &.b-toaster-enter-active {
-    position: absolute;
   }
 
   &.b-toaster-enter-to {
@@ -30,11 +30,6 @@
 
   &.b-toaster-leave-active {
     position: absolute;
-  }
-
-  &.b-toaster-leave-to {
-    transform: scaleY(0);
-    transform-origin: center top;
   }
 }
 
@@ -47,7 +42,6 @@
 .b-toaster {
   position: fixed;
   min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
-  max-width: calc(100vw - #{$b-toaster-offset-x * 2});
   overflow: visible;
   z-index: $b-toaster-zindex;
 
