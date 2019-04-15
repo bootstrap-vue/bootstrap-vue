@@ -348,6 +348,7 @@ export default Vue.extend({
         props: {
           name: name,
           to: this.toaster,
+          order: this.order,
           slim: true,
           disabled: this.static
         }
