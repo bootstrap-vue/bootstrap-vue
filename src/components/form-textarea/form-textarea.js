@@ -6,7 +6,7 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { getCS, isVisible, requestAF } from '../../utils/dom'
+import { getCS, isVisible } from '../../utils/dom'
 
 // @vue/component
 export default Vue.extend({
