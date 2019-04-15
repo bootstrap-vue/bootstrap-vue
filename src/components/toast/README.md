@@ -70,12 +70,42 @@ toasts than can fit on the viewport screen, some will be hidden until other toas
 
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
-TBD
+**Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created
+by `<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element.
 
 ## Using `this.$bvToast` helper instance object
 
 Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance
 injection, without the need to place a `<b-toast>` in your app.
+
+```html
+<template>
+  <div>
+    <b-button @click="maketoast">Show Toast</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        toastCount: 1
+      }
+    }.
+    methods: {
+      makeToast() {
+        const number = this.toastCount++
+        this.$bvToaster.toast(`Toast Number {$number}`, {
+          title: 'BootstraVue Toast',
+          toaster: 'b-toaster-top-right',
+          autoHideDelay: 2000
+        })
+      }
+    }
+  }
+</script>
+<!-- toasts-bvtoast-example.vue -->
+```
 
 TBD
 
