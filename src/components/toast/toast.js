@@ -344,9 +344,9 @@ export default Vue.extend({
     return h(
       Portal,
       {
-        key: this._uid,
+        key: this.id || `b-toast-${this._uid}`,
         props: {
-          // name: this.id || undefined,
+          name: this.id || `b-toast-${this._uid}`,
           to: this.toaster,
           slim: true,
           disabled: this.static
