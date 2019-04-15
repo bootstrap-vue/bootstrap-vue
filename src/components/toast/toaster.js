@@ -70,7 +70,7 @@ export default Vue.extend({
           tag: 'div',
           slim: false,
           transition: this.transition
-        },
+        }
       })
     }
     return h('div', { staticClass: 'position-relative' }, [$target])
