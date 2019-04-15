@@ -52,6 +52,10 @@ export const props = {
     type: Boolean,
     default: false
   },
+  noHoverPause: {
+    type: Boolean,
+    default: false
+  },
   toastClass: {
     type: [String, Object, Array],
     default: ''
@@ -91,6 +95,7 @@ const DEFAULT_TRANSITION_PROPS = {
 export default Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'visible',
     event: 'change'
@@ -110,15 +115,16 @@ export default Vue.extend({
   },
   computed: {
     toastClasses() {
-      return {
-        // TODO
-        show: this.showClass,
-        fade: !this.noFade
-      }
+      return [
+        this.toastClass,
+        {
+          show: this.showClass,
+          fade: !this.noFade
+        }
+      ]
     },
     slotScope() {
       return {
-        // TODO
         hide: this.hide
       }
     },
@@ -217,7 +223,7 @@ export default Vue.extend({
     onPause(evt) {
       // TODO: pause auto-hide on hover/focus
       // Determine time remaining, and then pause timer
-      if (this.noAutoHide || !this.timer) {
+      if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
       }
       const now = Date.now()
@@ -230,7 +236,7 @@ export default Vue.extend({
     onUnpause(evt) {
       // TODO: un-pause auto-hide on un-hover/blur
       // restart with max of time remaining or 1 second
-      if (this.noAutoHide || this.resumeDismiss === 0 || this.dismissStarted === 0) {
+      if (this.noAutoHide || this.noHoverPause || this.resumeDismiss === 0) {
         this.resumeDismiss = this.dismissStarted = 0
         return
       }
@@ -266,27 +272,28 @@ export default Vue.extend({
     },
     makeToast(h) {
       // Render helper for generating the toast
-      const self = this
       // Assemble the header content
       const $headerContent = []
-      let $title = self.normalizeSlot('toast-title', self.slotScope)
+      let $title = this.normalizeSlot('toast-title', this.slotScope)
       if ($title) {
         $headerContent.push($title)
-      } else if (self.title) {
-        $headerContent.push(h('strong', { staticClass: 'mr-2' }, self.title))
-      } else if (self.titleHtml) {
+      } else if (this.titleHtml) {
         $headerContent.push(
           h('strong', {
-            staticClass: 'mr-auto',
-            domProps: { innerHtml: self.titleHtml }
+            staticClass: 'mr-2',
+            domProps: { innerHtml: this.titleHtml }
           })
         )
+      } else if (this.title) {
+        $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
       }
       if (!this.noCloseButton) {
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
-            on: { click: self.hide }
+            on: {
+              click: (evt) => { this.hide() }
+            }
           })
         )
       }
@@ -297,28 +304,31 @@ export default Vue.extend({
       }
       // Toast body
       const $body = h('div', { staticClass: 'toast-body' }, [
-        this.normalizeSlot('default', self.slotScope) || h(false)
+        this.normalizeSlot('default', this.slotScope) || h(false)
       ])
       // Build the toast
       const $toast = h(
         'div',
         {
-          staticClass: 'toast',
           key: 'b-toast',
-          class: self.toastClasses,
+          staticClass: 'toast',
+          class: this.toastClasses,
           attrs: {
+            ...this.$attrs,
             id: this.id || null,
             tabindex: '-1',
-            role: self.isStatus ? 'status' : 'alert',
-            'aria-live': self.isStatus ? 'polite' : 'assertive',
+            role: this.isStatus ? 'status' : 'alert',
+            'aria-live': this.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
           },
+          /*
           on: {
-            '&mouseenter': self.onPause,
-            '&mouseleave': self.onUnPause,
-            '&focusin': self.onPause,
-            '&focusout': self.onUnPause
+            '&mouseenter': this.onPause,
+            '&mouseleave': this.onUnPause,
+            '&focusin': this.onPause,
+            '&focusout': this.onUnPause
           }
+          */
         },
         [$header, $body]
       )
@@ -329,16 +339,14 @@ export default Vue.extend({
     if (!this.doRender) {
       return h(false)
     }
-    const self = this
     return h(
-      // Portal,
-      'div',
+      Portal,
       {
         props: {
           // name: this.id || undefined,
-          to: self.toaster,
+          to: this.toaster,
           slim: true,
-          disabled: self.static
+          disabled: this.static
         }
       },
       [
@@ -347,13 +355,13 @@ export default Vue.extend({
           {
             props: DEFAULT_TRANSITION_PROPS,
             on: {
-              beforeEnter: self.onBeforeEnter,
-              afterEnter: self.onAfterEnter,
-              beforeLeave: self.onBeforeLeave,
-              afterLeave: self.onAfterLeave
+              beforeEnter: this.onBeforeEnter,
+              afterEnter: this.onAfterEnter,
+              beforeLeave: this.onBeforeLeave,
+              afterLeave: this.onAfterLeave
             }
           },
-          [self.localShow ? self.makeToast(h) : null]
+          [this.localShow ? this.makeToast(h) : null]
         )
       ]
     )
