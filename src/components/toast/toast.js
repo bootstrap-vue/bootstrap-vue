@@ -141,7 +141,9 @@ export default Vue.extend({
     this.doRender = true
     this.$nextTick(() => {
       if (this.visible) {
-        this.show()
+        requestAF(() => {
+         this.show()
+        })
       }
     })
   },
