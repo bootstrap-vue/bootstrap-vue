@@ -10,14 +10,16 @@
 .b-toaster {
   position: absolute;
   display: flex;
+  flex-direction: column important;
+  padding: 1rem;
   z-index: $b-toaster-zindex;
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
     top: 0;
-    flex-direction: column !important;
+    bottom: 0;
     justify-content: flex-start !important;
-    overflow-y: hidden;
+    overflow: visible;
   }
 
   &.b-toaster-bottom-right,
@@ -25,7 +27,6 @@
     position: fixed;
     bottom: 0;
     max-height: 100vh;
-    overflow-y: hidden;
     flex-direction: column !important;
     justify-content: flex-end !important;
     overflow-y: hidden;
@@ -34,12 +35,10 @@
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
     right: 0;
-    flex-align: flex-end !important;
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: 0;
-    flex-align: flex-start !important;
   }
 }
