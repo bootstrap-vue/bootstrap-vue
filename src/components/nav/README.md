@@ -23,7 +23,7 @@ types of navigation components. It includes some style overrides (for working wi
 padding for larger hit areas, and basic disabled styling. No active states are included in the base
 nav.
 
-## Link Appearance
+## Link appearance
 
 Two style variations are supported: `tabs` and `pills`, which support `active` state styling. These
 variants are mutually exclusive - use only one style or the other.
@@ -165,7 +165,7 @@ add them (like above) which will produce something like:
 
 Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub-components.
 
-## Using in Navbar
+## Using in navbar
 
 Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
@@ -176,7 +176,7 @@ See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable pane
 
 ## Accessibility
 
-If you’re using `<b-nav>` to provide a navigation bar, be sure to add a `role="navigation"` to the
+If you're using `<b-nav>` to provide a navigation bar, be sure to add a `role="navigation"` to the
 most logical parent container of `<b-nav>`, or wrap a `<nav>` element around `<b-nav>`. Do **not**
 add the role to the `<b-nav>` itself, as this would prevent it from being announced as an actual
 list by assistive technologies.
@@ -185,7 +185,7 @@ When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a uniq
 to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can be automatically
 generated.
 
-## See Also
+## See also
 
 - [`<b-tabs>`](/docs/components/tabs) to create tabbable panes of local content, even via dropdown
   menus.

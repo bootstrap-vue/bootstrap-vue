@@ -21,12 +21,12 @@ generate a `<router-link>` instead, specify the route location via the `to` prop
 Router links support various additional props. Refer to the
 [Router support](/docs/reference/router-links) reference section for details.
 
-If your app is running under [Nuxt](https://nuxtjs.org), the
+If your app is running under [Nuxt.js](https://nuxtjs.org), the
 [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) component will be used instead of
 `<router-link>`. The `<nuxt-link>` component supports all the same features as `<router-link>` (as
 it is a wrapper component for `<router-link>`) and more.
 
-## Links with href="#"
+## Links with `href="#"`
 
 Typically `<a href="#">` will cause the document to scroll to the top of page when clicked.
 `<b-link>` addresses this by preventing the default action (scroll to top) when `href` is set to

@@ -1,11 +1,11 @@
 <!-- PULL REQUEST TEMPLATE -->
 
-## Description of Pull Request:
+## Description:
 
 Please replace this line with a detailed description of your pull request. If no description your PR
 may be rejected.
 
-## PR checklist:
+## Checklist:
 
 <!-- (Update "[ ]" to "[x]" to check a box) -->
 

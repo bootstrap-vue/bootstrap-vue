@@ -73,7 +73,7 @@
 ## Usage
 
 Feel free to mix input groups and dropdowns with button groups in your toolbars. Similar to the
-example above, you’ll likely need some utility classes though to space things properly.
+example above, you'll likely need some utility classes though to space things properly.
 
 ## Sizing
 
@@ -85,7 +85,7 @@ Note, if you want smaller or larger buttons or controls, set the `size` prop dir
 Make the toolbar span the maximum available width, by increasing spacing between the button groups,
 input groups and dropdowns, by setting the prop `justify`.
 
-## Keyboard Navigation
+## Keyboard navigation
 
 Enable optional keyboard navigation by setting the prop `key-nav`.
 
@@ -101,7 +101,7 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 **Caution:** If you have text or text-like inputs in your toolbar, leave keyboard navigation off, as
 it is not possible to use key presses to jump out of a text (or test-like) inputs.
 
-## See Also
+## See also
 
 - [`<b-button-group>`](/docs/components/button-group)
 - [`<b-dropdown>`](/docs/components/dropdown)

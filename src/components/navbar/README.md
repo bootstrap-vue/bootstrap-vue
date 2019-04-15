@@ -1,7 +1,7 @@
 # Navbar
 
 > The component `<b-navbar>` is a wrapper that positions branding, navigation, and other elements
-> into a concise header. It’s easily extensible and thanks to the `<b-collapse>` component, it can
+> into a concise header. It's easily extensible and thanks to the `<b-collapse>` component, it can
 > easily integrate responsive behaviors.
 
 **Example:**
@@ -72,7 +72,7 @@ Control the placement of the navbar by setting one of two props:
 - CSS `position: sticky` (used for `sticky`) is not fully supported in every browser. For browsers
   that do not support `position: sticky`, it will fallback natively to `position: relative`.
 
-## Supported Content
+## Supported content
 
 Navbars come with built-in support for a handful of sub-components. Choose from the following as
 needed:
@@ -275,7 +275,7 @@ automatically expand at. Possible `toggleable` values are `sm`, `md`, `lg` and `
 setting it to `false` (the default) will disable collapsing (always expanded).
 
 `<b-navbar-toggle>` components are left-aligned by default, but should they follow a sibling element
-like `<b-navbar-brand>`, they’ll automatically be aligned to the far right. Reversing your markup
+like `<b-navbar-brand>`, they'll automatically be aligned to the far right. Reversing your markup
 will reverse the placement of the toggler.
 
 See the first example on this page for reference, and also refer to

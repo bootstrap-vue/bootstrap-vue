@@ -394,7 +394,7 @@ The `size` prop maps the size to the `.modal-<size>` classes.
 
 ### Scrolling long content
 
-When modals become too long for the user’s viewport or device, they scroll independent of the page
+When modals become too long for the user's viewport or device, they scroll independent of the page
 itself. Try the demo below to see what we mean.
 
 ```html
@@ -853,7 +853,7 @@ Example Confirm Message boxes
 - Message Boxes will throw an error (promise rejection) if they are closed/destroyed before they are
   hidden. Always include a `.catch(error => { /* handler code */ })` reject handler, event if using
   the async `await` style code.
-- When using Vue-Router (or similar), Message Boxes will close and reject if the route changes
+- When using Vue Router (or similar), Message Boxes will close and reject if the route changes
   before the modal hides.
 - Message boxes cannot be generated during Server Side Rendering (SSR).
 - The Message Box `message` currently does not support HTML strings, however, you can pass an array

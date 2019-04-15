@@ -1,7 +1,7 @@
 # Media
 
 > The media object helps build complex and repetitive components where some media is positioned
-> alongside content that doesn’t wrap around said media. Plus, it does this with only two required
+> alongside content that doesn't wrap around said media. Plus, it does this with only two required
 > classes thanks to flexbox.
 
 ```html
@@ -52,7 +52,7 @@
 </div>
 ```
 
-## No Body (with sub-components)
+## No body (with sub-components)
 
 ```html
 <div>
@@ -113,7 +113,7 @@ Change the order of content in media objects by adding `right-align` property.
 
 You can easily nest media objects by including another `<b-media>` inside parent's body.
 
-## Vertical Align
+## Vertical align
 
 Aside can be vertical aligned using `vertical-align` should be either `top`, `center` or `end`.
 Default is `top`.

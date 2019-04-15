@@ -117,7 +117,7 @@ multiple target IDs using modifiers:
 <!-- b-collapse-trigger-multiple.vue -->
 ```
 
-## Accordion Support
+## Accordion support
 
 Turn a group of `<b-collapse>` components into an accordion by supplying an accordion group
 identifier via the `accordion` prop:

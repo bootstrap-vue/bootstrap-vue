@@ -1,6 +1,6 @@
 # Getting Started
 
-> Get started with BootstrapVue, based on the world’s most popular framework - Bootstrap V4, for
+> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
 > building responsive, mobile-first sites using Vue.js.
 
 - [Vue.js](https://vuejs.org) version <code>{{ vueVersion }}</code> (or greater) is recommended
@@ -68,7 +68,7 @@ values and functions between files by default.
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
 
-## Nuxt.js Module
+## Nuxt.js module
 
 [Nuxt.js](https://nuxtjs.org) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
@@ -171,8 +171,8 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt module uses precompiled version of BootstrapVue for faster development builds and the source of
-BootstrapVue for higher quality production builds.
+Nuxt.js module uses precompiled version of BootstrapVue for faster development builds and the source
+of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
 of `src/`. By default `usePretranspiled` is enabled in development mode only.
@@ -262,10 +262,10 @@ various BootstrapVue components, refer to the Vue CLI 3 section of the
 When using a module bundler you can optionally import only specific components groups, components
 and/or directives.
 
-### Component groups and Directives as Vue plugins
+### Component groups and directives as Vue plugins
 
-You can import component groups and directives as Vue plugins by importing the component group
-or directive directory:
+You can import component groups and directives as Vue plugins by importing the component group or
+directive directory:
 
 <!-- eslint-disable import/first, import/no-duplicates -->
 
@@ -368,12 +368,12 @@ module.exports = {
 
 ## Browser
 
-Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the
-required JavaScript files.
+Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the required
+JavaScript files.
 
-When supporting older browsers (see [Browser Support](#browser-support) below), you will need
-to include a polyfill for handling modern JavaScript features before loading Vue and
-BoostrapVue JavaScript files.
+When supporting older browsers (see [Browser Support](#browser-support) below), you will need to
+include a polyfill for handling modern JavaScript features before loading Vue and BoostrapVue
+JavaScript files.
 
 ```html
 <!-- Add this to <head> -->
@@ -394,7 +394,7 @@ BoostrapVue JavaScript files.
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 ```
 
-## Build Variants
+## Build variants
 
 Choosing the best variant for your build environment / packager helps less bundle sizes. If your
 bundler supports es modules, it will automatically prefer it over commonjs.
@@ -407,8 +407,8 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 | UMD            | Browser               | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), and
-`vue-functional-data-merge` (for functional components). These two dependencies are included in
-the `commonjs2` and `UMD` bundles.
+`vue-functional-data-merge` (for functional components). These two dependencies are included in the
+`commonjs2` and `UMD` bundles.
 
 ## Migrating a project already using Bootstrap
 
@@ -420,7 +420,7 @@ your project:
   not** depend on jQuery
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
 
-## Browser Support
+## Browser support
 
 ### CSS
 
@@ -439,10 +439,10 @@ If you want to support older IE, Android and IOS devices, you may want to use
 - `npm install @babel/polyfill`
 - Import it in your app main entry point with `import '@babel/polyfill'`
 
-Or use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific polyfills via `<script>`
-tags in the HTML `<head>` section.
+Or use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific polyfills via
+`<script>` tags in the HTML `<head>` section.
 
-## Tooling Support
+## Tooling support
 
 ### VS Code + Vetur
 
