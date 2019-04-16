@@ -175,11 +175,14 @@ const install = _Vue => {
   })
 
   // Define our read-only `$bvToast` instance property
-  defineProperty(_Vue.prototype, PROP_NAME, {
-    get() {
-      return this._bv__toast
-    }
-  })
+  // Placed in an if just in case in HMR mode
+  if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
+    defineProperty(_Vue.prototype, PROP_NAME, {
+      get() {
+        return this._bv__toast
+      }
+    })
+  }
 }
 
 export default install
