@@ -20,6 +20,7 @@ const getVue = () => {
 }
 
 // Utilty method to clear out hte VUE reference, mainly for testing purposes
+/* istanbul ignore next */
 const clearVue = () => {
   VUE = undefined
 }
