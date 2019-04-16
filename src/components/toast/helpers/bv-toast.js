@@ -109,10 +109,15 @@ const makeToast = (props, $parent) => {
 
   // Convert certain props to slots
   keys(propsToSlots).forEach(prop => {
-    if (!isUndefined(props[prop])) {
+    let value = props[prop]
+    if (!isUndefined(value)) {
       // Can be a string, or array of VNodes
       // Alternatively, user can use HTML version of prop to pass an HTML string
-      toast.$slots[propsToSlots[prop]] = props[prop]
+      if (prop === 'title' && isString(value)) {
+        // Special case for title if it is a string, we wrap in a <strong>
+        value = [$parent.$createElement('strong', { class: 'mr-2' }, value)]
+      }
+      toast.$slots[propsToSlots[prop]] = value
     }
   })
 
