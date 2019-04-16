@@ -54,7 +54,7 @@ describe('tabs', () => {
 
   it('has correct card classes when props card and vertical are true', async () => {
     const wrapper = mount(BTabs, {
-      propsData: { card: true. vertical: true },
+      propsData: { card: true, vertical: true },
       slots: { default: [BTab, BTab, BTab] }
     })
 
