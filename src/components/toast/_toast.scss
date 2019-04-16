@@ -83,7 +83,7 @@
       z-index: 1;
 
       &.b-toaster-enter-active,
-      &.b-toaster-leave-active {
+      &.b-toaster-leave-active,
       &.b-toaster-move {
         transition: transform 0.35s;
         // transition: $transition-base;
