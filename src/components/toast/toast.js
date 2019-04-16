@@ -29,7 +29,7 @@ export const props = {
     default: null
   },
   variant: {
-    type: string,
+    type: String,
     default: null
   },
   toaster: {
