@@ -31,6 +31,57 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('has correct card classes when prop card is true', async () => {
+    const wrapper = mount(BTabs, {
+      propsData: { card: true },
+      slots: { default: [BTab, BTab, BTab] }
+    })
+
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('tabs')
+    expect(wrapper.findAll('.card-header').length).toBe(1)
+    expect(wrapper.findAll('ul').length).toBe(1)
+    expect(wrapper.find('ul').classes()).toContain('nav')
+    expect(wrapper.find('ul').classes()).toContain('nav-tabs')
+    expect(wrapper.find('ul').classes()).toContain('card-header-tabs')
+
+    wrapper.destroy()
+  })
+
+  it('has correct card classes when props card and vertical are true', async () => {
+    const wrapper = mount(BTabs, {
+      propsData: { card: true. vertical: true },
+      slots: { default: [BTab, BTab, BTab] }
+    })
+
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('tabs')
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('no-gutters')
+    expect(wrapper.findAll('.card-header').length).toBe(1)
+    expect(wrapper.findAll('ul').length).toBe(1)
+    expect(wrapper.find('ul').classes()).toContain('nav')
+    expect(wrapper.find('ul').classes()).toContain('nav-tabs')
+    expect(wrapper.find('ul').classes()).toContain('card-header')
+    expect(wrapper.find('ul').classes()).toContain('flex-column')
+    expect(wrapper.find('ul').classes()).toContain('h-100')
+    expect(wrapper.find('ul').classes()).toContain('border-bottom-0')
+    expect(wrapper.find('ul').classes()).toContain('rounded-0')
+    expect(wrapper.find('ul').classes()).toContain('')
+    expect(wrapper.findAll('.tab-content.col').length).toBe(1)
+    expect(wrapper.findAll('.col-auto').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('sets correct tab active for initial value', async () => {
     const tabIndex = 1
     const wrapper = mount(BTabs, {
