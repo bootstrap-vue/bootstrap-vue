@@ -154,7 +154,7 @@ module.exports = {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
       {
-        src: '//polyfill.io/v3/polyfill.min.js?features=default%2CMutationObserver%2CPromise',
+        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver',
         crossorigin: 'anonymous'
       }
     ]
