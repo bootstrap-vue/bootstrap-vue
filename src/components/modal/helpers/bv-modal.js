@@ -270,11 +270,14 @@ const install = _Vue => {
   })
 
   // Define our read-only `$bvModal` instance property
-  defineProperty(_Vue.prototype, PROP_NAME, {
-    get() {
-      return this._bv__modal
-    }
-  })
+  // Placed in an if just in case in HMR mode
+  if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
+    defineProperty(_Vue.prototype, PROP_NAME, {
+      get() {
+        return this._bv__modal
+      }
+    })
+  }
 }
 
 export default install
