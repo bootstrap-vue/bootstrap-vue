@@ -13,7 +13,9 @@
     margin-bottom: $toast-padding-x;
   }
 
-  &.b-toaster-enter,
+  &.b-toaster-enter {
+  }
+
   &.b-toaster-leave-to {
     transform: scaleY(0);
     transform-origin: center top;
@@ -43,8 +45,15 @@
 .b-toaster {
   position: fixed;
   height: 0;
+  max-width: $toast-max-width;
+  min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
   overflow: visible;
+  padding: $b-toaster-offset-y $b-toaster-offset-x;
   z-index: $b-toaster-zindex;
+
+  &:empty {
+    padding: 0 0;
+  }
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
@@ -64,15 +73,5 @@
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: 0;
-  }
-
-  .b-toaster-slot {
-    display: block;
-    position: relative;
-    max-width: $toast-max-width;
-    min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
-    max-height: 100vh;
-    padding: $b-toaster-offset-y $b-toaster-offset-x;
-    overflow-y: auto;
   }
 }
