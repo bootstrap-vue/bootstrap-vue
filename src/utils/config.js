@@ -9,7 +9,7 @@ let VUE
 
 // Stores a reference to Vue if not already defined
 const setVue = _vue => {
-  if (!isUndefined(VUE) && !isUndefined(_vue) && !isNull(_vue)) {
+  if (isUndefined(VUE) && !isUndefined(_vue) && !isNull(_vue)) {
     VUE = _vue
   }
 }
