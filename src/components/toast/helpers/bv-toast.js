@@ -8,7 +8,7 @@ import Vue from 'vue'
 import BToast, { props as toastProps } from '../toast'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
-import { isUndefined } from '../../../utils/inspect'
+import { isUndefined, isString } from '../../../utils/inspect'
 import {
   assign,
   defineProperties,
