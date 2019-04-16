@@ -99,8 +99,8 @@ BootstrapVue pre-compiled CSS files by setting the following option(s) to `false
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    bootstrapCSS: false, // Or css: false,
-    bootstrapVueCSS: false // Or bvCSS: false
+    bootstrapCSS: false, // Or `css: false`
+    bootstrapVueCSS: false // Or `bvCSS: false`
   }
 }
 ```
@@ -357,7 +357,7 @@ module.exports = {
         include: [
           // Use `include` vs `exclude` to whitelist vs blacklist
           path.resolve(__dirname, 'src'), // Whitelist your app source files
-          require.resolve('bootstrap-vue') // Whitelist bootstrap-vue
+          require.resolve('bootstrap-vue') // Whitelist `bootstrap-vue`
         ],
         loader: 'babel-loader'
       }
