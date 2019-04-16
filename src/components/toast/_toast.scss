@@ -12,24 +12,6 @@
   &:not(:last-child) {
     margin-bottom: $toast-padding-x;
   }
-
-  &.b-toaster-enter {
-  }
-
-  &.b-toaster-leave-to {
-    // transform: scaleY(0.25);
-    // transform-origin: center top;
-  }
-
-  &.b-toaster-leave-active,
-  &.b-toaster-move {
-    transition: transform 0.15s;
-  }
-
-  &.b-toaster-leave-active {
-    position: absolute;
-    z-index: 0;
-  }
 }
 
 // Configured "toasters".
@@ -68,5 +50,44 @@
   &.b-toaster-bottom-left {
     left: $b-toaster-offset-left;
     min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-left * 2});
+  }
+
+  // Transitions
+  &.b-toaster-top-right,
+  &.b-toaster-top-left,
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left {
+    .b-toast {
+      &.b-toaster-enter-active,
+      &.b-toaster-leave-active,
+      &.b-toaster-move {
+        //transition: transform 0.15s;
+        transition: $transition-base;
+      }
+
+      &.b-toaster-leave-active {
+        position: absolute;
+        z-index: 0;
+      }
+    }
+
+  &.b-toaster-top-right,
+  &.b-toaster-bottom-right {
+    .b-toast {
+      &.b-toaster-enter,
+      &.b-toaster-leave-to {
+        transform: translateX(100%)
+      }
+    }
+  }
+
+  &.b-toaster-top-left,
+  &.b-toaster-bottom-left {
+    .b-toast {
+      &.b-toaster-enter,
+      &.b-toaster-leave-to {
+        transform: translateX(-100%)
+      }
+    }
   }
 }
