@@ -96,6 +96,21 @@ const DEFAULTS = {
 // This contains user defined configuration
 let CONFIG = {}
 
+// This contains a reference to the gloab Vue in use
+let VUE
+
+// Stores a reference to Vue if not already defined
+const setVue = _vue => {
+  if (!isUndefined(VUE) && !isUndefined(_vue)) {
+    VUE = _vue
+  }
+}
+
+// returns a reference to Vue or undefined
+const getVue = () {
+  return VUE
+}
+
 // Method to get a deep clone (immutable) copy of the defaults
 const getDefaults = () => cloneDeep(DEFAULTS)
 
@@ -203,6 +218,8 @@ const getBreakpointsDown = () => {
 
 // Named Exports
 export {
+  setVue,
+  getVue,
   setConfig,
   resetConfig,
   getConfig,
