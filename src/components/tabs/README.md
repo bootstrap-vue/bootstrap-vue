@@ -256,6 +256,27 @@ tab controls will always be placed on the top of the tabs content.
 **Note:** _overflowing text may occur if your width is narrower than the tab title. You may need
 additional custom styling._
 
+## Active classes
+
+To apply classes to the currently active control or tab use the `active-nav-item-class` and
+`active-tab-class` props.
+
+```html
+<div>
+  <b-tabs
+    active-nav-item-class="font-weight-bold text-uppercase text-danger"
+    active-tab-class="font-weight-bold text-success"
+    content-class="mt-3"
+  >
+    <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+  </b-tabs>
+</div>
+
+<!-- b-tabs-classes.vue -->
+```
+
 ## Fade animation
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
