@@ -269,12 +269,15 @@ const install = _Vue => {
     }
   })
 
-  // Define our read-only `$bvModal` instance property
-  defineProperty(_Vue.prototype, PROP_NAME, {
-    get() {
-      return this._bv__modal
-    }
-  })
+  if (isUndefined(_Vue.prototype[PROP_NAME])) {
+    // Placed in an if just in case in DEV mode / hot module releoad
+    // Define our read-only `$bvModal` instance property
+    defineProperty(_Vue.prototype, PROP_NAME, {
+      get() {
+        return this._bv__modal
+      }
+    })
+  }
 }
 
 export default install
