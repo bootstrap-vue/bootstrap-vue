@@ -75,7 +75,6 @@ describe('tabs', () => {
     expect(wrapper.find('ul').classes()).toContain('h-100')
     expect(wrapper.find('ul').classes()).toContain('border-bottom-0')
     expect(wrapper.find('ul').classes()).toContain('rounded-0')
-    expect(wrapper.find('ul').classes()).toContain('')
     expect(wrapper.findAll('.tab-content.col').length).toBe(1)
     expect(wrapper.findAll('.col-auto').length).toBe(1)
 
