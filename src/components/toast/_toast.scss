@@ -108,6 +108,11 @@
       &.b-toaster-leave-active {
         position: absolute;
         z-index: 0;
+        transition-delay: 0.175s;
+
+        .toast.fade {
+          transition-delay: 0s;
+        }
       }
 
       &.b-toaster-leave-to {
