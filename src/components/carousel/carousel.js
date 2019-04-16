@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
