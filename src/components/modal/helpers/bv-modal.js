@@ -269,7 +269,7 @@ const install = _Vue => {
     }
   })
 
-  if (isUndefined(_Vue.prototype[PROP_NAME])) {
+  if (!_Vue.hasOwnProperty(PROP_NAME)) {
     // Placed in an if just in case in DEV mode / hot module releoad
     // Define our read-only `$bvModal` instance property
     defineProperty(_Vue.prototype, PROP_NAME, {
