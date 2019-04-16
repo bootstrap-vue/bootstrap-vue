@@ -1,7 +1,6 @@
-// b-toast and b-toaster custom SCSS
-//
+// --- <b-toast> and <b-toaster> custom SCSS ---
 
-// toast wrapper element class (needed for list tranitions in toasters)
+// Toast wrapper element class (needed for list transition in toasters)
 .b-toast {
   display: block;
   position: relative;
@@ -17,12 +16,12 @@
 @mixin b-toast-variant($background, $border, $color) {
   .toast-header {
     color: $color;
-    background-color: rgba($background, .85);
-    border-bottom-color: rgba($border, .85);
+    background-color: rgba($background, 0.85);
+    border-bottom-color: rgba($border, 0.85);
   }
 }
 
-// Toast variants 
+// Toast variants
 @each $color, $value in $theme-colors {
   .b-toast-#{$color} {
     @include b-toast-variant(
