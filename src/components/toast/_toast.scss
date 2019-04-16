@@ -85,12 +85,13 @@
       &.b-toaster-enter-active,
       &.b-toaster-leave-active,
       &.b-toaster-move {
-        transition: transform 0.35s;
-        // transition: $transition-base;
+        // transition: transform 0.35s;
+        transition: $transition-base;
       }
 
       &.b-toaster-move {
-        transition-delay: 0.05s;
+        // transition-delay: 0.05s;
+        transition: transform 0.5s;
       }
 
       &.b-toaster-enter-active {
