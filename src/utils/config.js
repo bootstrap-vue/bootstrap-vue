@@ -225,6 +225,7 @@ const getBreakpointsDown = () => {
 export {
   setVue,
   getVue,
+  clearVue,
   setConfig,
   resetConfig,
   getConfig,
