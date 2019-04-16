@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import { getComponentConfig } from '../../utils/config'
 

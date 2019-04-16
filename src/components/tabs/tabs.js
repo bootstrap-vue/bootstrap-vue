@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
 import KeyCodes from '../../utils/key-codes'

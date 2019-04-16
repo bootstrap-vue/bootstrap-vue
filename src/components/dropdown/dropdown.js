@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'

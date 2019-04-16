@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 
 // Utilities
 import looseEqual from '../../utils/loose-equal'

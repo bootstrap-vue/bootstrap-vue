@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BProgressBar from './progress-bar'
 
 // @vue/component

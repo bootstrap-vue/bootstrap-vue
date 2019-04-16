@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
 import warn from '../../utils/warn'

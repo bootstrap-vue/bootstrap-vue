@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 // Utils
 import memoize from '../../utils/memoize'
 import upperFirst from '../../utils/upper-first'

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formOptionsMixin from '../../mixins/form-options'
 import formMixin from '../../mixins/form'

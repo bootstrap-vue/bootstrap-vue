@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BForm, { props as formProps } from '../form/form'
 import { mergeData } from 'vue-functional-data-merge'
 

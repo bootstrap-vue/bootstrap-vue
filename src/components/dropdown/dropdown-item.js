@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 import { requestAF } from '../../utils/dom'
 
