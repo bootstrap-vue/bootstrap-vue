@@ -48,32 +48,31 @@
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
-    top: $b-toaster-offset-y;
+    top: 0;
   }
 
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
-    bottom: $b-toaster-offset-y;
+    bottom: 0;
   }
 
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
-    right: $b-toaster-offset-x;
-    margin-left: $b-toaster-offset-x;
+    right: 0;
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
-    left: $b-toaster-offset-x;
-    margin-right: $b-toaster-offset-x;
+    left: 0;
   }
 
   .b-toaster-slot {
-    display: inline-block;
+    display: block;
     position: relative;
     max-width: $toast-max-width;
     min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
-    max-height: calc(100vh - #{$b-toaster-offset-y});
+    max-height: 100vh;
+    padding: $b-toaster-offset-y $b-toaster-offset-x;
     overflow-y: auto;
   }
 }
