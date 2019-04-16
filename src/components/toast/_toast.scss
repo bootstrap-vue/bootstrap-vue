@@ -17,7 +17,8 @@
   // Based on alert-variant mixin
   .toast {
     background-color: rgba($background, 0.85);
-    $toast-border-color: rgba($border, .85);
+    border-color: rgba($border, .85);
+    color: $color;
 
     .toast-header {
       color: $color;
