@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import { Portal } from 'portal-vue'
-import BToaster from './toaster'
-import BButtonClose from '../button/button-close'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BvEvent from '../../utils/bv-event.class'
-import { getById, requestAF } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
+import { getById, requestAF } from '../../utils/dom'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import BButtonClose from '../button/button-close'
+import BToaster from './toaster'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -78,7 +78,7 @@ export const props = {
     default: false
   },
   static: {
-    // Render the toast in place, rather than in a portal-taget
+    // Render the toast in place, rather than in a portal-target
     type: Boolean,
     default: false
   }
@@ -253,19 +253,19 @@ export default Vue.extend({
       this.startDismissTimer()
     },
     onBeforeEnter() {
-      this.isTransitining = true
+      this.isTransitioning = true
       requestAF(() => {
         this.showClass = true
       })
     },
     onAfterEnter() {
-      this.isTransitining = false
+      this.isTransitioning = false
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
       this.startDismissTimer()
     },
     onBeforeLeave() {
-      this.isTransitining = true
+      this.isTransitioning = true
       this.clearDismissTimer()
       requestAF(() => {
         this.showClass = false
@@ -273,7 +273,7 @@ export default Vue.extend({
     },
     onAfterLeave() {
       // TODO
-      this.isTransitining = false
+      this.isTransitioning = false
       this.order = 0
       this.resumeDismiss = this.dismissStarted = 0
       const hiddenEvt = this.buildEvent('hidden')

@@ -12,7 +12,7 @@ const install = installFactory({ components })
 
 export default {
   install: Vue => {
-    // Inject $bvToast into Vue prototype
+    // Inject `$bvToast` into Vue prototype
     bvToastInstall(Vue)
     // Install components
     install(Vue)

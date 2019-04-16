@@ -52,7 +52,7 @@ export default Vue.extend({
   beforeMount() {
     /* istanbul ignore if */
     if (getById(this.name) || Wormhole.targets[this.name]) {
-      warn(`b-toaster: A <portal-target> name '${this.name}' already eixsts in the document`)
+      warn(`b-toaster: A <portal-target> name '${this.name}' already exists in the document.`)
     } else {
       this.doRender = true
     }
