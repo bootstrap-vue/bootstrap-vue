@@ -16,7 +16,7 @@
 @mixin b-toast-variant($background, $border, $color) {
   // Based on alert-variant mixin
   .toast {
-    background-color: rgba($background, 0.85);
+    background-color: rgba(lighten($background, 10%), 0.85);
     border-color: rgba($border, .85);
     color: $color;
 
