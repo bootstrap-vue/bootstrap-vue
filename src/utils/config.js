@@ -4,7 +4,6 @@ import warn from './warn'
 import { isArray, isObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 
-
 // This contains a reference to the gloab Vue in use
 let VUE
 
