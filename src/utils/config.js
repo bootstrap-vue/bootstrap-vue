@@ -19,6 +19,11 @@ const getVue = () => {
   return VUE
 }
 
+// Utilty method to clear out hte VUE reference, mainly for testing purposes
+const clearVue = () => {
+  VUE = undefined
+}
+
 // General BootstrapVue configuration
 //
 // BREAKPOINT DEFINITIONS
