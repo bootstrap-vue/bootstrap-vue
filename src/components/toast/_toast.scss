@@ -6,7 +6,9 @@
   position: relative;
   max-width: $toast-max-width;
   backface-visibility: hidden;
+  background-clip: padding-box;
   z-index: 1;
+  @include border-radius($toast-border-radius);
 
   &:not(:last-child) {
     margin-bottom: $toast-padding-x;
@@ -16,7 +18,7 @@
 @mixin b-toast-variant($background, $border, $color) {
   // Based on alert-variant mixin
   .toast {
-    background-color: rgba(lighten($background, 10%), 0.85);
+    background-color: rgba(lighten($background, 2.5%), 0.85);
     border-color: rgba($border, .85);
     color: $color;
 
