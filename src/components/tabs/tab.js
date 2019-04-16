@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
