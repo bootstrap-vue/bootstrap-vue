@@ -77,7 +77,7 @@
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     .b-toast {
-      // &.b-toaster-move,
+      &.b-toaster-move,
       // &.b-toaster-enter-active,
       &.b-toaster-leave-active {
         //transition: transform 0.15s;
