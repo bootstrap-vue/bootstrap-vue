@@ -82,16 +82,16 @@
       backface-visibility: hidden;
       z-index: 1;
 
+      
       &.b-toaster-enter-active,
-      &.b-toaster-leave-active,
-      &.b-toaster-move {
-        // transition: transform 0.35s;
-        transition: $transition-base;
+      &.b-toaster-leave-active {
+        .toast.fade {
+          transition-delay: 0.15s;
+        }
       }
 
       &.b-toaster-move {
-        // transition-delay: 0.05s;
-        transition: transform 0.5s;
+        transition: transform 0.15s;
       }
 
       &.b-toaster-enter-active {
