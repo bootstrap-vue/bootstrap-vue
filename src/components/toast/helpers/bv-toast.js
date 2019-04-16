@@ -2,6 +2,8 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
+/* istanbul ignore file: not ready for testing yet as things are still changing */
+
 import Vue from 'vue'
 import BToast, { props as toastProps } from '../toast'
 import { getComponentConfig } from '../../../utils/config'
