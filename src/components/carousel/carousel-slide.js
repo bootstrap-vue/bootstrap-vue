@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 import { hasTouchSupport } from '../../utils/env'
