@@ -1,11 +1,12 @@
 import Vue from 'vue'
-import idMixin from '../../mixins/id'
-import formMixin from '../../mixins/form'
-import formStateMixin from '../../mixins/form-state'
-import formCustomMixin from '../../mixins/form-custom'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { isFunction } from '../../utils/inspect'
+import formCustomMixin from '../../mixins/form-custom'
+import formMixin from '../../mixins/form'
+import formStateMixin from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BFormFile'
 
@@ -96,7 +97,7 @@ export default Vue.extend({
         ]
       } else {
         // Use the user supplied formatter, or the built in one.
-        return typeof this.fileNameFormatter === 'function'
+        return isFunction(this.fileNameFormatter)
           ? String(this.fileNameFormatter(files))
           : files.map(file => file.name).join(', ')
       }

@@ -1,6 +1,7 @@
-import popoverDirective from './popover'
-import PopOver from '../../utils/popover.class'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import PopOver from '../../utils/popover.class'
+import popoverDirective from './popover'
 
 // Key which we use to store tooltip object on element
 const BV_POPOVER = '__BV_PopOver__'
@@ -93,10 +94,10 @@ describe('v-b-popover directive', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     // Should have instance of popover class on it
@@ -107,10 +108,10 @@ describe('v-b-popover directive', () => {
 
     // Trigger click
     $button.trigger('click')
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).toBeDefined()

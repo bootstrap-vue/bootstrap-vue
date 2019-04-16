@@ -1,3 +1,5 @@
+import { isFunction, isNull, isUndefined } from '../utils/inspect'
+
 // @vue/component
 export default {
   model: {
@@ -96,11 +98,11 @@ export default {
   },
   methods: {
     stringifyValue(value) {
-      return value === null || typeof value === 'undefined' ? '' : String(value)
+      return isUndefined(value) || isNull(value) ? '' : String(value)
     },
     getFormatted(value, event, force = false) {
       value = this.stringifyValue(value)
-      if ((!this.lazyFormatter || force) && typeof this.formatter === 'function') {
+      if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
         value = this.formatter(value, event)
       }
       return value

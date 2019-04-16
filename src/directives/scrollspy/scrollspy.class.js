@@ -21,6 +21,7 @@ import {
   eventOn,
   eventOff
 } from '../../utils/dom'
+import { isString, isUndefined } from '../../utils/inspect'
 
 /*
  * Constants / Defaults
@@ -203,7 +204,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       eventOn(window, evtName, this, EventOptions)
     })
     this.setObservers(true)
-    // Scedule a refresh
+    // Schedule a refresh
     this.handleEvent('refresh')
   }
 
@@ -262,7 +263,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
 
   // general event handler
   handleEvent(evt) {
-    const type = typeof evt === 'string' ? evt : evt.type
+    const type = isString(evt) ? evt : evt.type
 
     const self = this
     function resizeThrottle() {
@@ -304,15 +305,15 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
 
     this.$scrollHeight = this.getScrollHeight()
 
-    // Find all the unique link href's that we will control
+    // Find all the unique link HREFs that we will control
     selectAll(this.$selector, this.$el)
       // Get HREF value
       .map(link => getAttr(link, 'href'))
-      // Filter out HREFs taht do not match our RegExp
+      // Filter out HREFs that do not match our RegExp
       .filter(href => href && HREF_REGEX.test(href || ''))
       // Find all elements with ID that match HREF hash
       .map(href => {
-        // Convert HREF into an ID (including # at begining)
+        // Convert HREF into an ID (including # at beginning)
         const id = href.replace(HREF_REGEX, '$1').trim()
         if (!id) {
           return null
@@ -372,7 +373,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       const isActiveTarget =
         this.$activeTarget !== this.$targets[i] &&
         scrollTop >= this.$offsets[i] &&
-        (typeof this.$offsets[i + 1] === 'undefined' || scrollTop < this.$offsets[i + 1])
+        (isUndefined(this.$offsets[i + 1]) || scrollTop < this.$offsets[i + 1])
 
       if (isActiveTarget) {
         this.activate(this.$targets[i])
@@ -389,7 +390,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       return null
     } else if (isElement(scroller.$el)) {
       scroller = scroller.$el
-    } else if (typeof scroller === 'string') {
+    } else if (isString(scroller)) {
       scroller = select(scroller)
     }
     if (!scroller) {
@@ -467,7 +468,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       }
     })
 
-    // Signal event to via $root, passing ID of activaed target and reference to array of links
+    // Signal event to via $root, passing ID of activated target and reference to array of links
     if (links && links.length > 0 && this.$root) {
       this.$root.$emit(ACTIVATE_EVENT, target, links)
     }

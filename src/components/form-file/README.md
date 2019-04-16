@@ -36,7 +36,7 @@
 ```
 
 For cross browser consistency, Form file defaults to the Bootstrap custom file input to replace the
-browser defaults. They’re built on top of semantic and accessible markup, so it is a solid
+browser defaults. They're built on top of semantic and accessible markup, so it is a solid
 replacement for the default file input.
 
 ## Single file (default)
@@ -195,9 +195,9 @@ that many of the customer form-file features do not apply when `plain` is set.
 
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
-Generally speaking, you’ll want to use a particular state for specific types of feedback:
+Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` is great for when there’s a blocking or required field. A user must fill in this field
+- `'invalid'` is great for when there's a blocking or required field. A user must fill in this field
   properly to submit the form.
 - `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
   encourage a user through the rest of the fields.

@@ -1,6 +1,7 @@
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import BTable from './table'
 import stringifyRecordValues from './helpers/stringify-record-values'
-import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
 const testFields = ['a', 'b', 'c']
@@ -16,7 +17,7 @@ describe('table > filtering', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
@@ -45,7 +46,7 @@ describe('table > filtering', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -71,7 +72,7 @@ describe('table > filtering', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
@@ -80,7 +81,7 @@ describe('table > filtering', () => {
     wrapper.setProps({
       filter: 'z'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -95,7 +96,7 @@ describe('table > filtering', () => {
     wrapper.setProps({
       filter: ''
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
@@ -109,7 +110,7 @@ describe('table > filtering', () => {
     wrapper.setProps({
       filter: '3'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -124,7 +125,7 @@ describe('table > filtering', () => {
       // Setting to null will also clear the filter
       filter: null
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
@@ -152,7 +153,7 @@ describe('table > filtering', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
@@ -161,7 +162,7 @@ describe('table > filtering', () => {
     wrapper.setProps({
       filter: /z/
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -176,7 +177,7 @@ describe('table > filtering', () => {
     wrapper.setProps({
       filter: []
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
@@ -199,7 +200,7 @@ describe('table > filtering', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
 
@@ -216,13 +217,13 @@ describe('table > filtering', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length)
 
     wrapper.setProps({
       filter: 'ZZZZZZ'
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.find('tbody > tr').text()).toBe(wrapper.vm.emptyFilteredText)

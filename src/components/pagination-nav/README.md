@@ -322,7 +322,7 @@ The slot `page` is always scoped, while the slots `first-text`, `prev-text`, `ne
 | `index`    | Number  | Page number (indexed from `0` to `numberOfPages -1`) |
 | `disabled` | Boolean | If the page button is disabled                       |
 
-### Button Size
+### Button size
 
 Optionally change from the default button size by setting the `size` prop to either `'sm'` for
 smaller buttons or `'lg'` for larger buttons.
@@ -429,7 +429,7 @@ passed a single argument which is the page number (indexed from 1 to number of p
 You can remove any label by setting the prop to an empty string (`''`), although this is not
 recommended unless the content of the button textually conveys it's purpose.
 
-### Keyboard navigation support
+### Keyboard navigation
 
 `<b-pagination-nav>` supports keyboard navigation out of the box.
 

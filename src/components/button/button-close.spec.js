@@ -1,5 +1,5 @@
-import BButtonClose from './button-close'
 import { mount } from '@vue/test-utils'
+import BButtonClose from './button-close'
 
 describe('button-close', () => {
   it('has root element "button"', async () => {

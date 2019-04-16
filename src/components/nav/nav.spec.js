@@ -1,5 +1,5 @@
-import BNav from './nav'
 import { mount } from '@vue/test-utils'
+import BNav from './nav'
 
 describe('nav', () => {
   it('has expected default structure', async () => {

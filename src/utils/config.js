@@ -1,8 +1,8 @@
 import cloneDeep from './clone-deep'
 import get from './get'
 import warn from './warn'
-import { isArray } from './array'
-import { keys, isObject } from './object'
+import { isArray, isObject, isString, isUndefined } from './inspect'
+import { keys } from './object'
 
 // General BootstrapVue configuration
 //
@@ -131,7 +131,7 @@ const setConfig = (config = {}) => {
         if (
           !isArray(breakpoints) ||
           breakpoints.length < 2 ||
-          breakpoints.some(b => typeof b !== 'string' || b.length === 0)
+          breakpoints.some(b => !isString(b) || b.length === 0)
         ) {
           /* istanbul ignore next */
           warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
@@ -148,7 +148,7 @@ const setConfig = (config = {}) => {
             } else {
               // If we pre-populate the config with defaults, we can skip this line
               CONFIG[cmpName] = CONFIG[cmpName] || {}
-              if (cmpConfig[key] !== undefined) {
+              if (!isUndefined(cmpConfig[key])) {
                 CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
               }
             }

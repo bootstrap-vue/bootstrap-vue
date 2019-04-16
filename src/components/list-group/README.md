@@ -201,7 +201,7 @@ prop when using cards with `no-body` to make the sides of the list group flush w
 
 Set the prop `horizontal` to `true` to change the layout of list group items from vertical to
 horizontal across all breakpoints. Alternatively, set `horizontal` to a responsive breakpoint (`sm`,
-`md`, `lg` or `xl`) to make a list group horizontal starting at that breakpoint’s min-width.
+`md`, `lg` or `xl`) to make a list group horizontal starting at that breakpoint's min-width.
 Currently horizontal list groups cannot be combined with `flush` list groups.
 
 **ProTip:** Want equal-width list group items when horizontal? Add the class `flex-fill` to each

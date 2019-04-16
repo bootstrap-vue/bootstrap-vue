@@ -1,10 +1,6 @@
-import { isArray } from '../utils/array'
-import { keys } from '../utils/object'
 import { stripTags } from '../utils/html'
-
-function isObject(obj) {
-  return obj && {}.toString.call(obj) === '[object Object]'
-}
+import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
+import { keys } from '../utils/object'
 
 // @vue/component
 export default {
@@ -44,11 +40,11 @@ export default {
       if (isArray(options)) {
         // Normalize flat-ish arrays to Array of Objects
         return options.map(option => {
-          if (isObject(option)) {
+          if (isPlainObject(option)) {
             const value = option[valueField]
             const text = String(option[textField])
             return {
-              value: typeof value === 'undefined' ? text : value,
+              value: isUndefined(value) ? text : value,
               text: stripTags(text),
               html: option[htmlField],
               disabled: Boolean(option[disabledField])
@@ -65,12 +61,12 @@ export default {
         // Normalize Objects to Array of Objects
         return keys(options).map(key => {
           let option = options[key] || {}
-          if (isObject(option)) {
+          if (isPlainObject(option)) {
             const value = option[valueField]
             const text = option[textField]
             return {
-              value: typeof value === 'undefined' ? key : value,
-              text: typeof text === 'undefined' ? stripTags(String(key)) : stripTags(String(text)),
+              value: isUndefined(value) ? key : value,
+              text: isUndefined(text) ? stripTags(String(key)) : stripTags(String(text)),
               html: option[htmlField],
               disabled: Boolean(option[disabledField])
             }

@@ -59,7 +59,7 @@ tag. If both the prop and the slot are specified, the slot will be shown.
 Control the overall size of the header text by setting the `header-level` prop to a value between
 `1` and `4` - with `1` being the largest and `4` being smallest. The default value is `3`.
 
-### Lead Text
+### Lead text
 
 Control which tag is rendered for the lead text by setting the `lead-tag` to the desired HTML
 element. The default is `p`. Both the prop `lead` and slot `lead` will be rendered inside this tag.

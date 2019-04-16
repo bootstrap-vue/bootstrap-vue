@@ -9,10 +9,10 @@ simplify your complex page markup compared to traditional Bootstrap V4 markup. F
 back and forth between traditional Bootstrap V4 markup (i.e. `<div>`s and classes) and BootstrapVue
 functional layout components.
 
-## How It Works
+## How it works
 
-Bootstrap’s grid system uses a series of containers, rows, and columns to lay out and align content.
-It’s built with flexbox and is fully responsive. Below is an example and an in-depth look at how the
+Bootstrap's grid system uses a series of containers, rows, and columns to lay out and align content.
+It's built with flexbox and is fully responsive. Below is an example and an in-depth look at how the
 grid comes together.
 
 ```html
@@ -31,9 +31,9 @@ The above example creates three equal-width columns on small, medium, large, and
 using BS4's predefined grid classes. Those columns are centered in the page with the parent
 .container.
 
-Here’s how it works:
+Here's how it works:
 
-- Containers provide a means to center your site’s contents. Use `<b-container>` for fixed width or
+- Containers provide a means to center your site's contents. Use `<b-container>` for fixed width or
   `<b-container fluid>` for full width.
 - Rows are horizontal groups of columns that ensure your columns are lined up properly. We use the
   negative margin method on `<b-row>` to ensure all your content is aligned properly down the left
@@ -43,14 +43,14 @@ Here’s how it works:
 - Thanks to flexbox, grid columns without a set width will automatically layout with equal widths.
   For example, four instances of `<b-col sm="auto">` will each automatically be 25% wide for small
   breakpoints.
-- Column prop `cols` indicates the number of columns you’d like to use out of the possible 12 per
+- Column prop `cols` indicates the number of columns you'd like to use out of the possible 12 per
   row regardless of breakpoint (starting at breakpoint `xs`). So, if you want three equal-width
   columns at any breakpoint, you can use `<b-col cols="4">`.
-- Column props `sm`, `md`, `lg`, `xl` indicate the number of columns you’d like to use out of the
+- Column props `sm`, `md`, `lg`, `xl` indicate the number of columns you'd like to use out of the
   possible 12 per row. at the various breakpoints. So, if you want three equal-width columns at
   breakpoint `sm`, you can use `<b-col sm="4">`. the special value `auto` can be used to take up the
   remaining available column space in a row.
-- Column widths, internally, are set in percentages, so they’re always fluid and sized relative to
+- Column widths, internally, are set in percentages, so they're always fluid and sized relative to
   their parent element.
 - Columns have horizontal padding to create the gutters between individual columns, however, you can
   remove the margin from `<b-row>` and padding from `<b-col>` by setting the `no-gutters` prop on
@@ -69,7 +69,7 @@ like the
 
 Containers (`<b-container>`) are the most basic layout element in Bootstrap and is **required when
 using the grid system**. Choose from a responsive, fixed-width container (meaning its max-width
-changes at each breakpoint) by default, or fluid-width (meaning it’s 100% wide all the time) by
+changes at each breakpoint) by default, or fluid-width (meaning it's 100% wide all the time) by
 setting 'fluid' prop.
 
 While containers can be nested, most layouts do not require a nested container.
@@ -194,7 +194,7 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
 Utilize breakpoint-specific column classes for easy column sizing without an explicit numbered prop
 like `<b-col sm="6">`.
 
-### Equal-Width
+### Equal-width columns
 
 For example, here are two grid layouts that apply to every device and viewport, from xs to xl. Add
 any number of unit-less classes for each breakpoint you need and every column will be the same
@@ -290,7 +290,7 @@ Use `${breakpoint}-auto` props to size columns based on the natural width of the
 
 ## Responsive classes
 
-Bootstrap’s grid includes five tiers of predefined classes for building complex responsive layouts.
+Bootstrap's grid includes five tiers of predefined classes for building complex responsive layouts.
 Customize the size of your columns on extra small, small, medium, large, or extra large devices
 however you see fit.
 
@@ -343,7 +343,7 @@ grid system that starts out stacked on extra small devices before becoming horiz
 
 ### Mix and match
 
-Don’t want your columns to simply stack in some grid tiers? Use a combination of different props for
+Don't want your columns to simply stack in some grid tiers? Use a combination of different props for
 each tier as needed. See the example below for a better idea of how it all works.
 
 ```html
@@ -375,7 +375,7 @@ each tier as needed. See the example below for a better idea of how it all works
 
 Use flexbox alignment utilities to vertically and horizontally align columns.
 
-### Vertical Alignment
+### Vertical alignment
 
 ```html
 <b-container class="bv-example-row bv-example-row-flex-cols">
@@ -413,7 +413,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 <!-- b-grid-align-self.vue -->
 ```
 
-### Horizontal Alignment
+### Horizontal alignment
 
 ```html
 <b-container class="bv-example-row">
@@ -448,7 +448,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 
 ## Reordering
 
-### Ordering Columns
+### Ordering columns
 
 Use `order-*` props for controlling the visual order of your content. These props are responsive, so
 you can set the order by breakpoint (e.g., `order="1" order-md="2"`). Includes support for 1 through

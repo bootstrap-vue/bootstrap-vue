@@ -1,19 +1,12 @@
 import Vue from 'vue'
-import warn from '../../utils/warn'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
+import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
-import { inBrowser } from '../../utils/env'
-import { isObject } from '../../utils/object'
-import { isArray } from '../../utils/array'
+import { isBrowser } from '../../utils/env'
+import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
 import { computeHref, parseQuery } from '../../utils/router'
 import paginationMixin from '../../mixins/pagination'
-
-// TODO: move this to an instance method in pagination mixin
-function sanitizeNumPages(value) {
-  let num = parseInt(value, 10) || 1
-  return num < 1 ? 1 : num
-}
 
 // Props object
 const props = {
@@ -75,6 +68,12 @@ const props = {
     type: Boolean,
     default: false
   }
+}
+
+// TODO: move this to an instance method in pagination mixin
+const sanitizeNumPages = value => {
+  let num = parseInt(value, 10) || 1
+  return num < 1 ? 1 : num
 }
 
 // Our render function is brought in via the pagination mixin
@@ -156,11 +155,7 @@ export default Vue.extend({
       })
     },
     getPageInfo(pageNum) {
-      if (
-        !isArray(this.pages) ||
-        this.pages.length === 0 ||
-        this.pages[pageNum - 1] === undefined
-      ) {
+      if (!isArray(this.pages) || this.pages.length === 0 || isUndefined(this.pages[pageNum - 1])) {
         const link = `${this.baseUrl}${pageNum}`
         return {
           link: this.useRouter ? { path: link } : link,
@@ -171,7 +166,7 @@ export default Vue.extend({
       if (isObject(info)) {
         const link = info.link
         return {
-          // Mormalize link for router use
+          // Normalize link for router use
           link: isObject(link) ? link : this.useRouter ? { path: link } : link,
           // Make sure text has a value
           text: toString(info.text || pageNum)
@@ -182,14 +177,14 @@ export default Vue.extend({
     },
     makePage(pageNum) {
       const info = this.getPageInfo(pageNum)
-      if (this.pageGen && typeof this.pageGen === 'function') {
+      if (this.pageGen && isFunction(this.pageGen)) {
         return this.pageGen(pageNum, info)
       }
       return info.text
     },
     makeLink(pageNum) {
       const info = this.getPageInfo(pageNum)
-      if (this.linkGen && typeof this.linkGen === 'function') {
+      if (this.linkGen && isFunction(this.linkGen)) {
         return this.linkGen(pageNum, info)
       }
       return info.link
@@ -209,7 +204,7 @@ export default Vue.extend({
         // nuxt-link specific prop
         noPrefetch: this.noPrefetch
       }
-      if (this.useRouter || typeof link === 'object') {
+      if (this.useRouter || isObject(link)) {
         props.to = link
       } else {
         props.href = link
@@ -259,12 +254,12 @@ export default Vue.extend({
       const $route = this.$route
       // This section only occurs if we are client side, or server-side with $router
       /* istanbul ignore else */
-      if (!this.noPageDetect && !guess && (inBrowser || (!inBrowser && $router))) {
+      if (!this.noPageDetect && !guess && (isBrowser || (!isBrowser && $router))) {
         // Current route (if router available)
         const currRoute =
           $router && $route ? { path: $route.path, hash: $route.hash, query: $route.query } : {}
         // Current page full HREF (if client side). Can't be done as a computed prop!
-        const loc = inBrowser ? window.location || document.location : null
+        const loc = isBrowser ? window.location || document.location : null
         const currLink = loc
           ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) }
           : {}
@@ -274,7 +269,7 @@ export default Vue.extend({
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router
             guess = looseEqual(this.resolveRoute(to), currRoute) ? page : null
-          } else if (inBrowser) {
+          } else if (isBrowser) {
             // If no $router available (or !this.useRouter when `to` is a string)
             // we compare using parsed URIs
             guess = looseEqual(this.resolveLink(to), currLink) ? page : null

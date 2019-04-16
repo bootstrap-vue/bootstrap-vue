@@ -1,8 +1,6 @@
-import BCollapse from './collapse'
 import { mount, createWrapper } from '@vue/test-utils'
-
-// Helper method for awaiting an animation frame
-const waitAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BCollapse from './collapse'
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -47,8 +45,8 @@ describe('collapse', () => {
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -76,8 +74,8 @@ describe('collapse', () => {
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -106,8 +104,8 @@ describe('collapse', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -137,8 +135,8 @@ describe('collapse', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -167,8 +165,8 @@ describe('collapse', () => {
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('show')).not.toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -200,8 +198,8 @@ describe('collapse', () => {
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -233,8 +231,8 @@ describe('collapse', () => {
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('show')).not.toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
@@ -250,8 +248,8 @@ describe('collapse', () => {
     wrapper.setProps({
       visible: true
     })
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
@@ -283,8 +281,8 @@ describe('collapse', () => {
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.element.style.display).toEqual('')
     expect(wrapper.emitted('show')).not.toBeDefined()
@@ -302,8 +300,8 @@ describe('collapse', () => {
 
     // Does not respond to accordion events for different accordion ID
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'bar')
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
@@ -315,10 +313,10 @@ describe('collapse', () => {
 
     // Should respond to accordion events
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'nottest', 'foo')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(false)
@@ -332,10 +330,10 @@ describe('collapse', () => {
 
     // Toggling this closed collapse emits accordion event
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe(true)
@@ -349,18 +347,18 @@ describe('collapse', () => {
 
     // Toggling this open collapse to be closed
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.element.style.display).toEqual('none')
 
     // Should respond to accordion events targeting this ID when closed
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'foo')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
@@ -385,18 +383,18 @@ describe('collapse', () => {
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.element.style.display).toEqual('')
     expect(wrapper.find('.nav-link').exists()).toBe(true)
 
     // Click on link
     wrapper.find('.nav-link').trigger('click')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.element.style.display).toEqual('none')
 
@@ -420,17 +418,17 @@ describe('collapse', () => {
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
     expect(wrapper.isVueInstance()).toBe(true)
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.element.style.display).toEqual('none')
 
     // Emit root event with different ID
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'not-test')
-    await wrapper.vm.$nextTick()
-    await waitAF()
-    await wrapper.vm.$nextTick()
-    await waitAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.element.style.display).toEqual('none')
 

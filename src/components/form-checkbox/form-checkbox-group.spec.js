@@ -1,7 +1,8 @@
-import BFormCheckboxGroup from './form-checkbox-group'
-import BFormCheckbox from './form-checkbox'
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BFormCheckboxGroup from './form-checkbox-group'
+import BFormCheckbox from './form-checkbox'
 
 describe('form-checkbox-group', () => {
   // --- Structure, class and attributes tests ---
@@ -27,7 +28,7 @@ describe('form-checkbox-group', () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachToDocument: true
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // Auto ID not generated until after mount
     expect(wrapper.attributes('id')).toBeDefined()
 
@@ -259,7 +260,7 @@ describe('form-checkbox-group', () => {
       attachToDocument: true
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Find all the labels with .btn class
     const btns = wrapper.findAll('label.btn')

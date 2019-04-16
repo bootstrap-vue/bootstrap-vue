@@ -1,5 +1,6 @@
-import BFormSelect from './form-select'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BFormSelect from './form-select'
 
 describe('form-select', () => {
   it('has select as root element', async () => {
@@ -88,7 +89,7 @@ describe('form-select', () => {
 
   it('has auto ID attr by default', async () => {
     const wrapper = mount(BFormSelect)
-    await wrapper.vm.$nextTick() // Auto-ID assigned after mount
+    await waitNT(wrapper.vm) // Auto-ID assigned after mount
     expect(wrapper.attributes('id')).toBeDefined()
 
     wrapper.destroy()
@@ -309,12 +310,12 @@ describe('form-select', () => {
     expect(document.activeElement).not.toBe(wrapper.element)
 
     wrapper.vm.focus()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(document.activeElement).toBe(wrapper.element)
 
     wrapper.vm.blur()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(document.activeElement).not.toBe(wrapper.element)
 
@@ -423,7 +424,7 @@ describe('form-select', () => {
 
     // select 3rd option
     $options.at(2).setSelected()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -480,7 +481,7 @@ describe('form-select', () => {
 
     // Select 3rd option
     $options.at(2).setSelected()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -509,7 +510,7 @@ describe('form-select', () => {
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
     wrapper.trigger('change')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -542,7 +543,7 @@ describe('form-select', () => {
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
     wrapper.trigger('change')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()

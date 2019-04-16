@@ -5,7 +5,7 @@ import { defineProperties, readonlyDescriptor } from '../../../utils/object'
 class BvModalEvent extends BvEvent {
   constructor(type, eventInit = {}) {
     super(type, eventInit)
-    // Freeze our new props as readonly, but leave them enumerable.
+    // Freeze our new props as readonly, but leave them enumerable
     defineProperties(this, {
       modalId: readonlyDescriptor(),
       trigger: readonlyDescriptor()
@@ -13,7 +13,7 @@ class BvModalEvent extends BvEvent {
   }
 
   cancel() /* istanbul ignore next */ {
-    // Backwards compatibility for 1.x BootstrapVue
+    // Backwards compatibility for BootstrapVue 1.x
     warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
     this.preventDefault()
   }
@@ -27,8 +27,8 @@ class BvModalEvent extends BvEvent {
   }
 }
 
-// Named Exports
+// Named exports
 export { BvModalEvent }
 
-// Default Export
+// Default export
 export default BvModalEvent

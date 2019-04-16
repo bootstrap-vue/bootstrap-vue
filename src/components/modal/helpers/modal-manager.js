@@ -1,10 +1,9 @@
-//
-// private modalManager helper
-//
-// Handles controlling modal stacking zIndexes and body adjustments/classes
-//
+/**
+ * Private ModalManager helper
+ * Handles controlling modal stacking zIndexes and body adjustments/classes
+ */
+
 import Vue from 'vue'
-import { inBrowser } from '../../../utils/env'
 import {
   getAttr,
   hasAttr,
@@ -17,6 +16,10 @@ import {
   selectAll,
   requestAF
 } from '../../../utils/dom'
+import { isBrowser } from '../../../utils/env'
+import { isNull } from '../../../utils/inspect'
+
+// --- Constants ---
 
 // Default modal backdrop z-index
 const DEFAULT_ZINDEX = 1040
@@ -28,6 +31,7 @@ const Selector = {
   NAVBAR_TOGGLER: '.navbar-toggler'
 }
 
+// @vue/component
 const ModalManager = Vue.extend({
   data() {
     return {
@@ -47,7 +51,7 @@ const ModalManager = Vue.extend({
   },
   watch: {
     modalCount(newCount, oldCount) {
-      if (inBrowser) {
+      if (isBrowser) {
         this.getScrollbarWidth()
         if (newCount > 0 && oldCount === 0) {
           // Transitioning to modal(s) open
@@ -83,7 +87,7 @@ const ModalManager = Vue.extend({
     unregisterModal(modal) {
       const index = this.modals.indexOf(modal)
       if (index > -1) {
-        // Remove modal from modals arary
+        // Remove modal from modals array
         this.modals.splice(index, 1)
         // Reset the modal's data
         if (!(modal._isBeingDestroyed || modal._isDestroyed)) {
@@ -92,8 +96,8 @@ const ModalManager = Vue.extend({
       }
     },
     getBaseZIndex() {
-      if (this.baseZIndex === null && inBrowser) {
-        // Create a temporary div.modal-backdrop to get computed z-index
+      if (isNull(this.baseZIndex) && isBrowser) {
+        // Create a temporary `div.modal-backdrop` to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-backdrop d-none'
         div.style.display = 'none'
@@ -104,8 +108,8 @@ const ModalManager = Vue.extend({
       return this.baseZIndex || DEFAULT_ZINDEX
     },
     getScrollbarWidth() {
-      if (this.scrollbarWidth === null && inBrowser) {
-        // Create a temporary div.measure-scrollbar to get computed z-index
+      if (isNull(this.scrollbarWidth) && isBrowser) {
+        // Create a temporary `div.measure-scrollbar` to get computed z-index
         const div = document.createElement('div')
         div.className = 'modal-scrollbar-measure'
         document.body.appendChild(div)
@@ -168,7 +172,7 @@ const ModalManager = Vue.extend({
           el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`
           body._marginChangedForModal.push(el)
         })
-        // Adjust navbar-toggler margin
+        // Adjust <b-navbar-toggler> margin
         /* istanbul ignore next: difficult to test in JSDOM */
         selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
           const actualMargin = el.style.marginRight
@@ -217,5 +221,5 @@ const ModalManager = Vue.extend({
   }
 })
 
-// Export our Modal Manager
+// Export our ModalManager
 export default new ModalManager()

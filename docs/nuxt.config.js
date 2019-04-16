@@ -153,7 +153,10 @@ module.exports = {
   head: {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
-      { type: 'text/javascript', src: '//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js' }
+      {
+        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver',
+        crossorigin: 'anonymous'
+      }
     ]
   },
 

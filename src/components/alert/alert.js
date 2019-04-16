@@ -1,13 +1,14 @@
 import Vue from 'vue'
-import BButtonClose from '../button/button-close'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
+import { isBoolean } from '../../utils/inspect'
+import BButtonClose from '../button/button-close'
 
 const NAME = 'BAlert'
 
 // Convert `show` value to a number
 const parseCountDown = show => {
-  if (show === '' || typeof show === 'boolean') {
+  if (show === '' || isBoolean(show)) {
     return 0
   }
   show = parseInt(show, 10)
