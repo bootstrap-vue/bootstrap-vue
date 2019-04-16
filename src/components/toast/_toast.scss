@@ -70,13 +70,18 @@
     left: $b-toaster-offset-left;
     min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-left * 2});
   }
+}
 
-  // Transitions
+// Transitions
+.b-toaster {
   &.b-toaster-top-right,
   &.b-toaster-top-left,
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     .b-toast {
+      backface-visibility: hidden;
+      z-index: 1;
+
       &.b-toaster-move,
       // &.b-toaster-enter-active,
       &.b-toaster-leave-active {
@@ -87,6 +92,10 @@
       &.b-toaster-leave-active {
         position: absolute;
         z-index: 0;
+      }
+
+      &.b-toaster-leave-to {
+        transform: scaleY(0);
       }
     }
   }
