@@ -8,7 +8,7 @@ import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
 import { isBrowser } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
-import { isDef } from '../../../utils/inspect'
+import { isUndefined } from '../../../utils/inspect'
 
 /* istanbul ignore file: for now until we are ready to test */
 
@@ -30,7 +30,7 @@ const BASE_PROPS = ['id', ...keys(omit(toastProps, ['static', 'visible']))]
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
   return BASE_PROPS.reduce((memo, key) => {
-    if (isDef(options[key])) {
+    if (!isUndefined(options[key])) {
       memo[key] = options[key]
     }
     return memo
@@ -104,7 +104,7 @@ const makeToast = (props, $parent) => {
 
   // Convert certain props to slots
   keys(propsToSlots).forEach(prop => {
-    if (isDef(props[prop])) {
+    if (!isUndefined(props[prop])) {
       // Can be a string, or array of VNodes.
       toast.$slots[propsToSlots[prop]] = props[prop]
     }
