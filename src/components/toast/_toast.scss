@@ -84,8 +84,7 @@
       backface-visibility: hidden;
       z-index: 1;
 
-      // &.b-toaster-leave-active,
-      // &.b-toaster-enter-active,
+      &.b-toaster-enter-active,
       &.b-toaster-enter-to {
         .toast.fade {
           transition-delay: 0.175s;
@@ -94,7 +93,7 @@
 
       &.b-toaster-move {
         transition: transform 0.15s;
-        transition-delay: 0.175s;
+        // transition-delay: 0.175s;
 
         // .toast.fade {
         //   transition-delay: 0s;
