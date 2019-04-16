@@ -92,7 +92,7 @@
       }
 
       &.b-toaster-move {
-        transition: transform 0.15s;
+        transition: transform 0.175s;
         // transition-delay: 0.175s;
 
         // .toast.fade {
@@ -102,6 +102,10 @@
 
       &.b-toaster-enter-active {
         z-index: 0;
+      }
+
+      &.b-toaster-leave-active {
+        transition: transform 0.175s;
       }
 
       &.b-toaster-leave,
