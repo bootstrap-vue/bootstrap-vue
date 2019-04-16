@@ -94,7 +94,7 @@
 
       &.b-toaster-move {
         transition: transform 0.15s;
-        transition-delay: 0.2s;
+        transition-delay: 0.15s;
 
         .toast.fade {
           transition-delay: 0s;
@@ -108,12 +108,7 @@
       &.b-toaster-leave,
       &.b-toaster-leave-active {
         position: absolute;
-        transition-delay: 0.2s;
         z-index: 0;
-
-        .toast.fade {
-          transition-delay: 0s;
-        }
       }
 
       &.b-toaster-leave-to {
