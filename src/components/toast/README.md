@@ -37,46 +37,10 @@ document, rather than transporting it to a `<b-toaster>` target container. And w
 `bg-secondary` and `progress-bar-striped` to the outer <samp>&lt;div&gt;</samp> for illustrative
 purposes of toast transparency only.
 
-## `<b-toast>` component
-
-TBD
-
-## `<b-toaster>` target component
-
-The `<b-toaster>` component provides a container where toasts will appear (the _Toaster_). Toasters
-require a unique name, and toasts can be targeted to appear in a specific named toaster.
-
-In most cases you will not need to directly use this component, as `<b-toast>` will automatically
-insert a `<t-toaster>` component (appended to `<body>`) with the requested toaster name. if one is
-not found in the document. But sometimes you may want to explicitly place a toaster in your app.
-
-The toaster `name` becomes the ID of the inserted container, and will also be used a class name on
-the rendered toaster container.
-
-Toaster positioning and the positioning of toasts inside the toaster is driven completely by CSS
-classes (based on the name of the toaster)
-
-The following "built-in" toaster names (and associated styles) are defined in BootstrapVue's custom
-SCSS:
-
-- `b-toaster-top-right`
-- `b-toaster-top-left`
-- `b-toaster-bottom-right`
-- `b-toaster-bottom-left`
-
-The above toasters place the toasts in a stacked (columnar format), fixed within the viewport
-(meaning they will always be in view regardless of viewport scroll position). If there are more
-toasts than can fit on the viewport screen, some will be hidden until other toasts are hidden.
-
-`<b-toast>` uses the `b-toaster-top-right` toaster by default.
-
-**Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created by
-`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element.
-
-## Using `this.$bvToast` helper instance object
+## On demand toasts
 
 Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance injection,
-without the need to place a `<b-toast>` in your app.
+without the need to place a `<b-toast>` component in your app.
 
 ```html
 <template>
@@ -110,6 +74,76 @@ without the need to place a `<b-toast>` in your app.
 ```
 
 TBD
+
+## Variants
+
+Toasts support the standard Bootstrap V4 color variants.
+
+```html
+<template>
+  <div>
+    <b-button @click="makeToast()">Default</b-button>
+    <b-button @click="makeToast('primary')">Primary</b-button>
+    <b-button @click="makeToast('secondary')">Secondary</b-button>
+    <b-button @click="makeToast('danger')">Danger</b-button>
+    <b-button @click="makeToast('warning')">warning</b-button>
+    <b-button @click="makeToast('success')">success</b-button>
+    <b-button @click="makeToast('info')">Info</b-button>
+    <b-button @click="makeToast('dark')">Dark</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      makeToast(variant) {
+        this.$bvToast('Toast body content', {
+          title: `Variant ${variant}`,
+          variant: variant
+        })
+      }
+    }
+  }
+</script>
+
+<!-- toast-variants.vue -->
+```
+
+## `<b-toast>` component
+
+TBD
+
+## Toaster target component
+
+The `<b-toaster>` component provides a container where toasts will appear (the _Toaster_). Toasters
+require a unique name, and toasts can be targeted to appear in a specific named toaster.
+
+In most cases you will not need to directly use this component, as `<b-toast>` will automatically
+insert a `<b-toaster>` component (appended to `<body>`) with the requested toaster name, if one is
+not found in the document. But sometimes you may want to explicitly place a toaster in your app.
+
+The toaster `name` becomes the ID of the inserted container, and will also be used a class name on
+the rendered toaster container.
+
+Toaster positioning and the positioning of toasts inside the toaster is driven completely by CSS
+classes (based on the name of the toaster)
+
+The following "built-in" toaster names (and associated styles) are defined in BootstrapVue's custom
+SCSS:
+
+- `b-toaster-top-right`
+- `b-toaster-top-left`
+- `b-toaster-bottom-right`
+- `b-toaster-bottom-left`
+
+The above toasters place the toasts in a stacked (columnar format), fixed within the viewport
+(meaning they will always be in view regardless of viewport scroll position). If there are more
+toasts than can fit on the viewport screen, some will be hidden until other toasts are hidden.
+
+`<b-toast>` uses the `b-toaster-top-right` toaster by default.
+
+**Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created by
+`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element.
 
 ## Accessibility
 
