@@ -226,6 +226,9 @@ export default Vue.extend({
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
       }
+      if (evt.target !== this.$el) {
+        return
+      }
       const now = Date.now()
       const passed = now - this.dismissStarted
       if (passed > 0 && passed < this.computedDuration) {
@@ -238,6 +241,9 @@ export default Vue.extend({
       // restart with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || this.resumeDismiss === 0) {
         this.resumeDismiss = this.dismissStarted = 0
+        return
+      }
+      if (evt.target !== this.$el) {
         return
       }
       this.startDismissTimer()
