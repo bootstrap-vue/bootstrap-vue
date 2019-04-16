@@ -64,11 +64,13 @@ export default Vue.extend({
     }
   },
   render(h) {
-    let $target = h('div', {})
+    let $target = h('div', { class: 'd-none' })
     if (this.doRender) {
       $target = h(PortalTarget, {
-        staticClass: 'b-toaster-slot',
+        staticClass: 'b-toaster',
+        class: this.name,
         attrs: {
+          id: this.name,
           role: this.role,
           'aria-live': this.ariaLive,
           'aria-atomic': this.ariaAtomic
@@ -82,14 +84,6 @@ export default Vue.extend({
         }
       })
     }
-    return h(
-      'div',
-      {
-        staticClass: 'b-toaster',
-        class: this.name,
-        attrs: { id: this.name }
-      },
-      [$target]
-    )
+    return $target
   }
 })
