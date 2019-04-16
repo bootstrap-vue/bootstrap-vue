@@ -93,7 +93,7 @@
 
       &.b-toaster-move {
         transition: transform 0.15s;
-        // transition-delay: 0.175s;
+        transition-delay: 0.175s;
 
         // .toast.fade {
         //   transition-delay: 0s;
@@ -116,7 +116,7 @@
       }
 
       &.b-toaster-leave-to {
-        // transform: scaleY(0);
+        transform: scaleY(0.25);
       }
     }
   }
