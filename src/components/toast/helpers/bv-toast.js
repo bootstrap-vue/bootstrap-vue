@@ -6,7 +6,7 @@ import BToast, { props as toastProps } from '../toast'
 import warn from '../../../utils/warn'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
-import { inBrowser } from '../../../utils/env'
+import { isBrowser } from '../../../utils/env'
 import { assign, keys, omit, defineProperty, defineProperties } from '../../../utils/object'
 import { isDef } from '../../../utils/inspect'
 
@@ -14,7 +14,7 @@ import { isDef } from '../../../utils/inspect'
 
 const notClient = method => {
   /* istanbul ignore else */
-  if (inBrowser) {
+  if (isBrowser) {
     return false
   } else {
     warn('this.$bvToast: on demand toasts can not be called during SSR')
