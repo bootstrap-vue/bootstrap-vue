@@ -89,7 +89,6 @@ Toasts support the standard Bootstrap V4 color variants.
     <b-button @click="makeToast('warning')">warning</b-button>
     <b-button @click="makeToast('success')">success</b-button>
     <b-button @click="makeToast('info')">Info</b-button>
-    <b-button @click="makeToast('dark')">Dark</b-button>
   </div>
 </template>
 
@@ -97,8 +96,8 @@ Toasts support the standard Bootstrap V4 color variants.
   export default {
     methods: {
       makeToast(variant) {
-        this.$bvToast('Toast body content', {
-          title: `Variant ${variant}`,
+        this.$bvToast.toast('Toast body content', {
+          title: `Variant ${variant || 'default'}`,
           variant: variant
         })
       }
