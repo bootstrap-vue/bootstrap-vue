@@ -42,11 +42,8 @@
 //   b-toaster-bottom-left
 .b-toaster {
   position: fixed;
-  // min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
   width: 0;
-  max-height: calc(100vh - #{$b-toaster-offset-y});
-  overflow-x: visible;
-  overflow-y: auto;
+  overflow: visible;
   z-index: $b-toaster-zindex;
 
   &.b-toaster-top-right,
@@ -76,5 +73,7 @@
     position: relative;
     max-width: $toast-max-width;
     min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-x * 2});
+    max-height: calc(100vh - #{$b-toaster-offset-y});
+    overflow-y: auto;
   }
 }
