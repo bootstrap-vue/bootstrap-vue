@@ -90,8 +90,8 @@ const makeToast = (props, $parent) => {
   }
   // Create an instance of `BToast` component
   const toast = new BToastPop({
-    // We set parent as the local VM so these modals can emit events on
-    // the app `$root`, as needed by things like tooltips and popovers
+    // We set parent as the local VM so these toasts can emit events on
+    // the app `$root`
     // And it helps to ensure `BToast` is destroyed when parent is destroyed
     parent: $parent,
     // Preset the prop values
