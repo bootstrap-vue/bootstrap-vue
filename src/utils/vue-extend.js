@@ -12,6 +12,4 @@ const vueExtend = Vue.extend
 export default vueExtend
 
 // Named export(s)
-export {
-  vueExtend
-}
+export { vueExtend }
