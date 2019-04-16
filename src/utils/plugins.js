@@ -1,4 +1,4 @@
-import { setConfig, setVue } from './config'
+import { setConfig } from './config'
 import { hasWindowSupport } from './env'
 
 /**
@@ -8,19 +8,18 @@ import { hasWindowSupport } from './env'
  */
 export const installFactory = ({ components, directives, plugins }) => {
   const install = (Vue, config = {}) => {
-    if (install._installed) {
+    if (install.installed) {
       /* istanbul ignore next */
       return
     }
-    install._installed = true
-    setVue(Vue)
+    install.installed = true
     setConfig(config)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
   }
 
-  install._installed = false
+  install.installed = false
 
   return install
 }
