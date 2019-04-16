@@ -99,8 +99,8 @@ BootstrapVue pre-compiled CSS files by setting the following option(s) to `false
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    bootstrapCSS: false, // Or css: false,
-    bootstrapVueCSS: false // Or bvCSS: false
+    bootstrapCSS: false, // Or `css: false`
+    bootstrapVueCSS: false // Or `bvCSS: false`
   }
 }
 ```
@@ -357,7 +357,7 @@ module.exports = {
         include: [
           // Use `include` vs `exclude` to whitelist vs blacklist
           path.resolve(__dirname, 'src'), // Whitelist your app source files
-          require.resolve('bootstrap-vue') // Whitelist bootstrap-vue
+          require.resolve('bootstrap-vue') // Whitelist `bootstrap-vue`
         ],
         loader: 'babel-loader'
       }
@@ -383,7 +383,7 @@ JavaScript files.
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
 <!-- Load polyfills to support older browsers -->
-<script src="//polyfill.io/v3/polyfill.min.js?features=default%2CMutationObserver%2CPromise" crossorigin="anonymous"></script>
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
