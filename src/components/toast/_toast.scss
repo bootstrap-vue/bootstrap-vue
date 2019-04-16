@@ -14,10 +14,16 @@
 }
 
 @mixin b-toast-variant($background, $border, $color) {
-  .toast-header {
-    color: $color;
+  // Based on alert-variant mixin
+  .toast {
     background-color: rgba($background, 0.85);
-    border-bottom-color: rgba($border, 0.85);
+    $toast-border-color: rgba($border, .85);
+
+    .toast-header {
+      color: $color;
+      background-color: rgba($background, 0.85);
+      border-bottom-color: rgba($border, 0.85);
+    }
   }
 }
 
