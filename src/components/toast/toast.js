@@ -28,6 +28,10 @@ export const props = {
     type: String,
     default: null
   },
+  variant: {
+    type: string,
+    default: null
+  },
   toaster: {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
@@ -367,7 +371,8 @@ export default Vue.extend({
             staticClass: 'b-toast',
             class: {
               'b-toast-append': this.append,
-              'b-toast-prepend': !this.append
+              'b-toast-prepend': !this.append,
+              [`b-toast-${this.variant}`]: this.variant
             }
           },
           [
