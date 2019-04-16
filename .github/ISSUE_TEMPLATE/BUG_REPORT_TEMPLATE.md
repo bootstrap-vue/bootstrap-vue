@@ -35,12 +35,9 @@ A clear and concise description of what you expected to happen.
 
 ### Demo link
 
-If applicable, add a minimal demo link to help explain your problem. Some options for that are
-[CodePen](https://codepen.io/), [CodeSandbox](https://codesandbox.io/), [JS Bin](https://jsbin.com/)
-or [JSFiddle](https://jsfiddle.net/).
+If applicable, add a minimal demo link to help explain your problem. Some options for that are [CodePen](https://codepen.io/), [CodeSandbox](https://codesandbox.io/), [JS Bin](https://jsbin.com/) or [JSFiddle](https://jsfiddle.net/).
 
-You can also export markup from the [Online Playground](https://bootstrap-vue.js.org/play) to
-_CodePen_, _CodeSandbox_ or _JSFiddle_.
+You can also export markup from the [Online Playground](https://bootstrap-vue.js.org/play) to _CodePen_, _CodeSandbox_ or _JSFiddle_.
 
 ### Additional context
 
