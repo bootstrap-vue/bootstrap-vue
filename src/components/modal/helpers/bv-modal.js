@@ -269,9 +269,9 @@ const install = _Vue => {
     }
   })
 
-  if (!_Vue.hasOwnProperty(PROP_NAME)) {
-    // Placed in an if just in case in DEV mode / hot module releoad
-    // Define our read-only `$bvModal` instance property
+  // Define our read-only `$bvModal` instance property
+  // Placed in an if just in case in HMR mode
+  if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
     defineProperty(_Vue.prototype, PROP_NAME, {
       get() {
         return this._bv__modal
