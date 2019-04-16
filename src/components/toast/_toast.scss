@@ -14,6 +14,25 @@
   }
 }
 
+@mixin b-toast-variant($background, $border, $color) {
+  .toast-header {
+    color: $color;
+    background-color: rgba($background, .85);
+    border-bottom-color: rgba($border, .85);
+  }
+}
+
+// Toast variants 
+@each $color, $value in $theme-colors {
+  .b-toast-#{$color} {
+    @include b-toast-variant(
+      theme-color-level($color, $b-toast-bg-level),
+      theme-color-level($color, $b-toast-border-level),
+      theme-color-level($color, $b-toast-color-level)
+    );
+  }
+}
+
 // Configured "toasters".
 // The following are columnar toasters (vertically stacked)
 //   b-toaster-top-right
