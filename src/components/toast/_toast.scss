@@ -89,14 +89,16 @@
         // transition: $transition-base;
       }
 
-      &.b-toaster-enter-active {
+      &.b-toaster-move {
         transition-delay: 0.05s;
+      }
+
+      &.b-toaster-enter-active {
         z-index: 0;
       }
 
       &.b-toaster-leave-active {
         position: absolute;
-        transition-delay: 0.05s;
         z-index: 0;
       }
 
