@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { vueExtend } from '../../utils/vue-extend'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
@@ -31,7 +31,7 @@ const parseShow = show => {
 const isNumericLike = value => !isNaN(parseInt(value, 10))
 
 // @vue/component
-export default Vue.extend({
+export default vueExtend({
   name: NAME,
   model: {
     prop: 'show',
