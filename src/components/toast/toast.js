@@ -89,7 +89,7 @@ const DEFAULT_TRANSITION_PROPS = {
   name: '',
   enterClass: '',
   enterActiveClass: '',
-  enterToClass: '',
+  enterToClass: 'show',
   leaveClass: 'show',
   leaveActiveClass: '',
   leaveToClass: ''
@@ -122,7 +122,7 @@ export default Vue.extend({
       return [
         this.toastClass,
         {
-          show: this.showClass,
+          // show: this.showClass,
           fade: !this.noFade
         }
       ]
@@ -259,7 +259,6 @@ export default Vue.extend({
       })
     },
     onAfterEnter() {
-      // TODO
       this.isTransitining = false
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
