@@ -77,9 +77,9 @@
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     .b-toast {
-      &.b-toaster-enter-active,
-      &.b-toaster-leave-active,
-      &.b-toaster-move {
+      // &.b-toaster-move,
+      // &.b-toaster-enter-active,
+      &.b-toaster-leave-active {
         //transition: transform 0.15s;
         transition: $transition-base;
       }
@@ -87,26 +87,6 @@
       &.b-toaster-leave-active {
         position: absolute;
         z-index: 0;
-      }
-    }
-  }
-
-  &.b-toaster-top-right,
-  &.b-toaster-bottom-right {
-    .b-toast {
-      &.b-toaster-enter,
-      &.b-toaster-leave-to {
-        transform: translateX(100%)
-      }
-    }
-  }
-
-  &.b-toaster-top-left,
-  &.b-toaster-bottom-left {
-    .b-toast {
-      &.b-toaster-enter,
-      &.b-toaster-leave-to {
-        transform: translateX(-100%)
       }
     }
   }
