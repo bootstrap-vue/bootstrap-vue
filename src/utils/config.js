@@ -1,7 +1,7 @@
 import cloneDeep from './clone-deep'
 import get from './get'
 import warn from './warn'
-import { isArray, isObject, isString, isUndefined } from './inspect'
+import { isArray, isObject, isString, isUndefined, isNull } from './inspect'
 import { keys } from './object'
 
 // This contains a reference to the gloab Vue in use
@@ -9,7 +9,7 @@ let VUE
 
 // Stores a reference to Vue if not already defined
 const setVue = _vue => {
-  if (!isUndefined(VUE) && !isUndefined(_vue)) {
+  if (!isUndefined(VUE) && !isUndefined(_vue) && !isNull(_vue)) {
     VUE = _vue
   }
 }
@@ -19,9 +19,8 @@ const getVue = () => {
   return VUE
 }
 
-// Utilty method to clear out hte VUE reference, mainly for testing purposes
-/* istanbul ignore next */
-const clearVue = () => {
+// Utilty method to clear out the VUE reference, mainly for testing purposes
+const clearVue = () => /* istanbul ignore next */ {
   VUE = undefined
 }
 
