@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
