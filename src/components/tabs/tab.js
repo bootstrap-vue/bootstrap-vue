@@ -3,7 +3,7 @@ import idMixin from '../../mixins/id'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 
-const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead'
+const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead.'
 
 // @vue/component
 export default Vue.extend({
@@ -13,7 +13,7 @@ export default Vue.extend({
     bvTabs: {
       default() {
         return {
-          // Don't set a tab index if not rendered inside `<b-tabs>`
+          // Don't set a tab index if not rendered inside <b-tabs>
           noKeyNav: true
         }
       }
@@ -62,11 +62,11 @@ export default Vue.extend({
     href: {
       // This should be deprecated, as tabs are not navigation (URL) based
       // <b-nav> + <b-card> + <router-view>/<nuxt-child> should be used instead
-      // And we dont support router-links here
+      // We don't support router-links here
       type: String,
       default: '#',
-      // deprecated: means don't use this prop
-      // deprecation: refers to a change in prop usage
+      // `deprecated` -> Don't use this prop
+      // `deprecation` -> Refers to a change in prop usage
       deprecated: DEPRECATED_MSG
     },
     lazy: {
@@ -83,11 +83,15 @@ export default Vue.extend({
   computed: {
     tabClasses() {
       return [
-        this.bvTabs.card && !this.noBody ? 'card-body' : '',
-        this.show ? 'show' : '',
-        this.computedFade ? 'fade' : '',
-        this.disabled ? 'disabled' : '',
-        this.localActive ? 'active' : ''
+        {
+          show: this.show,
+          active: this.localActive,
+          fade: this.computedFade,
+          disabled: this.disabled,
+          'card-body': this.bvTabs.card && !this.noBody
+        },
+        // Apply <b-tabs> `activeTabClass` styles when this tab is active
+        this.localActive ? this.bvTabs.activeTabClass : null
       ]
     },
     controlledBy() {
@@ -117,7 +121,7 @@ export default Vue.extend({
         } else {
           if (!this.deactivate()) {
             // Tab couldn't be deactivated, so we reset the synced active prop
-            // Deactivation will fail if no other tabs to activate.
+            // Deactivation will fail if no other tabs to activate
             this.$emit('update:active', this.localActive)
           }
         }
@@ -151,8 +155,8 @@ export default Vue.extend({
   methods: {
     // Transition handlers
     beforeEnter() {
-      // change opacity (add 'show' class) 1 frame after display
-      // otherwise css transition won't happen
+      // Change opacity (add 'show' class) 1 frame after display,
+      // otherwise CSS transition won't happen
       requestAF(() => {
         this.show = true
       })
@@ -166,7 +170,7 @@ export default Vue.extend({
       if (this.bvTabs.activateTab && !this.disabled) {
         return this.bvTabs.activateTab(this)
       } else {
-        // Not inside a b-tabs component or tab is disabled
+        // Not inside a <b-tabs> component or tab is disabled
         return false
       }
     },
@@ -174,7 +178,7 @@ export default Vue.extend({
       if (this.bvTabs.deactivateTab && this.localActive) {
         return this.bvTabs.deactivateTab(this)
       } else {
-        // Not inside a b-tabs component or not active to begin with
+        // Not inside a <b-tabs> component or not active to begin with
         return false
       }
     }
@@ -187,7 +191,7 @@ export default Vue.extend({
         staticClass: 'tab-pane',
         class: this.tabClasses,
         directives: [
-          // TODO: convert to style object in render
+          // TODO: Convert to style object in render
           {
             name: 'show',
             rawName: 'v-show',
