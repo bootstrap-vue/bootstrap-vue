@@ -31,6 +31,56 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('has correct card classes when prop card is true', async () => {
+    const wrapper = mount(BTabs, {
+      propsData: { card: true },
+      slots: { default: [BTab, BTab, BTab] }
+    })
+
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('tabs')
+    expect(wrapper.findAll('.card-header').length).toBe(1)
+    expect(wrapper.findAll('ul').length).toBe(1)
+    expect(wrapper.find('ul').classes()).toContain('nav')
+    expect(wrapper.find('ul').classes()).toContain('nav-tabs')
+    expect(wrapper.find('ul').classes()).toContain('card-header-tabs')
+
+    wrapper.destroy()
+  })
+
+  it('has correct card classes when props card and vertical are true', async () => {
+    const wrapper = mount(BTabs, {
+      propsData: { card: true, vertical: true },
+      slots: { default: [BTab, BTab, BTab] }
+    })
+
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('tabs')
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('no-gutters')
+    expect(wrapper.findAll('.card-header').length).toBe(1)
+    expect(wrapper.findAll('ul').length).toBe(1)
+    expect(wrapper.find('ul').classes()).toContain('nav')
+    expect(wrapper.find('ul').classes()).toContain('nav-tabs')
+    expect(wrapper.find('ul').classes()).toContain('card-header')
+    expect(wrapper.find('ul').classes()).toContain('flex-column')
+    expect(wrapper.find('ul').classes()).toContain('h-100')
+    expect(wrapper.find('ul').classes()).toContain('border-bottom-0')
+    expect(wrapper.find('ul').classes()).toContain('rounded-0')
+    expect(wrapper.findAll('.tab-content.col').length).toBe(1)
+    expect(wrapper.findAll('.col-auto').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('sets correct tab active for initial value', async () => {
     const tabIndex = 1
     const wrapper = mount(BTabs, {
@@ -477,6 +527,82 @@ describe('tabs', () => {
 
     // Expect tab button content to be `foobar`
     expect(wrapper.find('.nav-link').text()).toBe('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('"active-nav-item-class" is applied to active nav item', async () => {
+    const activeNavItemClass = 'text-success'
+    const App = Vue.extend({
+      render(h) {
+        return h(BTabs, { props: { value: 0, activeNavItemClass } }, [
+          h(BTab, { props: {} }, 'tab 0'),
+          h(BTab, { props: {} }, 'tab 1'),
+          h(BTab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    const getNavItemByTab = tab => wrapper.find(`#${tab.$el.id}___BV_tab_button__`)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    // Expect 1st tabs nav item to have "active-nav-item-class" applied
+    expect(getNavItemByTab(tabs.vm.tabs[0]).classes(activeNavItemClass)).toBe(true)
+
+    // Set 2nd tab to be active
+    tabs.setProps({ value: 1 })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(1)
+    // Expect 2nd tabs nav item to have "active-nav-item-class" applied
+    expect(getNavItemByTab(tabs.vm.tabs[1]).classes(activeNavItemClass)).toBe(true)
+    // Expect 1st tabs nav item to don't have "active-nav-item-class" applied anymore
+    expect(getNavItemByTab(tabs.vm.tabs[0]).classes(activeNavItemClass)).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('"active-tab-class" is applied to active tab', async () => {
+    const activeTabClass = 'text-success'
+    const App = Vue.extend({
+      render(h) {
+        return h(BTabs, { props: { value: 0, activeTabClass } }, [
+          h(BTab, { props: {} }, 'tab 0'),
+          h(BTab, { props: {} }, 'tab 1'),
+          h(BTab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    // Expect 1st tab to have "active-tab-class" applied
+    expect(tabs.vm.tabs[0].$el.classList.contains(activeTabClass)).toBe(true)
+
+    // Set 2nd tab to be active
+    tabs.setProps({ value: 1 })
+    await wrapper.vm.$nextTick()
+    expect(tabs.vm.currentTab).toBe(1)
+    // Expect 2nd tab to have "active-tab-class" applied
+    expect(tabs.vm.tabs[1].$el.classList.contains(activeTabClass)).toBe(true)
+    // Expect 1st tab to don't have "active-tab-class" applied anymore
+    expect(tabs.vm.tabs[0].$el.classList.contains(activeTabClass)).toBe(false)
 
     wrapper.destroy()
   })

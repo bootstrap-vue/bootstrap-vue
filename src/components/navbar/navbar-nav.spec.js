@@ -45,4 +45,37 @@ describe('navbar-nav', () => {
     expect(wrapper.classes()).toContain('navbar-nav')
     expect(wrapper.classes().length).toBe(2)
   })
+
+  it('applies alignment correctly', async () => {
+    const wrapper = mount(BNavbarNav, {
+      context: {
+        props: { align: 'center' }
+      }
+    })
+    expect(wrapper.classes()).toContain('justify-content-center')
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('has class "small" when small=true', async () => {
+    const wrapper = mount(BNavbarNav, {
+      context: {
+        props: { small: true }
+      }
+    })
+    expect(wrapper.classes()).toContain('small')
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('has class "small" when small=true', async () => {
+    const wrapper = mount(BNavbarNav, {
+      context: {
+        props: { small: true }
+      }
+    })
+    expect(wrapper.classes()).toContain('small')
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(2)
+  })
 })
