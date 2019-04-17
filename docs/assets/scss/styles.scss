@@ -72,26 +72,21 @@
     margin-top: 1rem;
   }
 
+  > h4,
+  > h5 {
+    margin-top: 1rem;
+  }
+
   &.bd-component-reference {
     h2 {
       margin-top: 3rem;
     }
-
-    h3,
+    h3 {
+      margin-top: 1.5rem;
+    }
     h4,
     h5 {
-      margin-top: 2rem;
-    }
-
-    article,
-    section {
-      h3,
-      h4,
-      h5 {
-        &:first-child {
-          margin-top: 1rem;
-        }
-      }
+      margin-top: 1rem;
     }
   }
 }
