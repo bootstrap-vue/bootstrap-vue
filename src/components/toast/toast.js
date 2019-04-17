@@ -186,13 +186,13 @@ export default Vue.extend({
       }
     })
     // Listen for global $root show events
-    this.listenOnRoot('bv::show:toast', id => {
+    this.listenOnRoot('bv::show::toast', id => {
       if (id === this.id) {
         this.show()
       }
     })
     // Listen for global $root hide events
-    this.listenOnRoot('bv::hide:toast', id => {
+    this.listenOnRoot('bv::hide::toast', id => {
       if (!id || id === this.id) {
         this.hide()
       }
