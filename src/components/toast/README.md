@@ -116,8 +116,8 @@ TBD
 
 ### Transparency
 
-Toasts have a semi-transparent background by default. To disabled the default transparency,
-jsut set the `solid` prop to `true`
+Toasts have a semi-transparent background by default. To disabled the default transparency, just set
+the `solid` prop to `true`
 
 ### Variants
 
