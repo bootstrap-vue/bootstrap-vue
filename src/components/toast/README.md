@@ -10,7 +10,7 @@ align and position inside a `<b-toaster>` target component.
 Toasts are intended to be small interruptions to your visitors or users, and therefore should
 contain minimal, to-the-point, non-interactive content.
 
-<p class="alert alert-warning" role="alert">
+<p class="alert alert-warning mb-0" role="alert">
   <strong>BETA warning</strong><br>
   Toasts are in their preliminary stages of being developed,
   and usage is subject to change in future releases.
