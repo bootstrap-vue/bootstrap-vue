@@ -25,7 +25,7 @@
       >
         {{ h2.label }}
       </b-link>
-      <b-nav v-if="h2.toc && h2.toc.length > 0" vertical>
+      <b-nav v-if="h2.toc && h2.toc.length > 0" vertical class="sub-section-nav">
         <b-nav-item
           v-for="h3 in h2.toc"
           :key="h3.href"
