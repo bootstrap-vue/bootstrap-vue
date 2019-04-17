@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { Portal } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
