@@ -6,6 +6,7 @@ import { getById, requestAF } from '../../utils/dom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
 import BToaster from './toaster'
+import BLink from '../link/link'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -36,7 +37,7 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
   },
-  append: {
+  appendToast: {
     type: Boolean,
     default: false
   },
@@ -57,6 +58,10 @@ export const props = {
     default: false
   },
   noHoverPause: {
+    type: Boolean,
+    default: false
+  },
+  solid: {
     type: Boolean,
     default: false
   },
@@ -81,6 +86,14 @@ export const props = {
     // Render the toast in place, rather than in a portal-target
     type: Boolean,
     default: false
+  },
+  href: {
+    type: String,
+    default: null
+  },
+  to: {
+    type: [String, Object],
+    default: null
   }
 }
 
@@ -127,6 +140,14 @@ export default Vue.extend({
         }
       ]
     },
+    bToastClasses() {
+      return {
+        'b-toast-append': this.appendToast,
+        'b-toast-prepend': !this.appendToast,
+        [`b-toast-${this.variant}`]: this.variant,
+        'bg-white': this.solid
+      }
+    },
     slotScope() {
       return {
         hide: this.hide
@@ -134,6 +155,14 @@ export default Vue.extend({
     },
     computedDuration() {
       return parseInt(this.autoHideDelay, 10) || 5000
+    },
+    transitionHandlers() {
+      return {
+        beforeEnter: this.onBeforeEnter,
+        afterEnter: this.onAfterEnter,
+        beforeLeave: this.onBeforeLeave,
+        afterLeave: this.onAfterLeave
+      }
     }
   },
   watch: {
@@ -145,10 +174,6 @@ export default Vue.extend({
         this.$emit('change', newVal)
       }
     }
-  },
-  beforeMount() {
-    // Make sure our destination toaster exists in DOM
-    this.ensureToaster()
   },
   mounted() {
     this.doRender = true
@@ -169,7 +194,7 @@ export default Vue.extend({
         this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
-        this.order = Date.now() * (this.append ? 1 : -1)
+        this.order = Date.now() * (this.appendToast ? 1 : -1)
         this.localShow = true
       }
     },
@@ -311,11 +336,18 @@ export default Vue.extend({
       // Assemble the header (if needed)
       let $header = h(false)
       if ($headerContent.length > 0) {
-        $header = h('header', { staticClass: 'toast-header' }, $headerContent)
+        $header = h('header', { staticClass: 'toast-header', class: this.headerClass }, $headerContent)
       }
       // Toast body
-      const $body = h('div', { staticClass: 'toast-body' }, [
-        this.normalizeSlot('default', this.slotScope) || h(false)
+      const isLink = this.href || this.to
+      const $body = h(
+        isLink ? BLink : 'div',
+        {
+          staticClass: 'toast-body',
+          class: this.bodyClass,
+          props: isLink ? { to: this.to, href: this.href } : {}
+        },
+        [this.normalizeSlot('default', this.slotScope) || h(false)]
       ])
       // Build the toast
       const $toast = h(
@@ -365,27 +397,11 @@ export default Vue.extend({
       [
         h(
           'div',
-          {
-            key: name,
-            staticClass: 'b-toast',
-            class: {
-              'b-toast-append': this.append,
-              'b-toast-prepend': !this.append,
-              [`b-toast-${this.variant}`]: this.variant
-            }
-          },
+          { key: name, staticClass: 'b-toast', class: this.bToastClasses },
           [
             h(
               'transition',
-              {
-                props: DEFAULT_TRANSITION_PROPS,
-                on: {
-                  beforeEnter: this.onBeforeEnter,
-                  afterEnter: this.onAfterEnter,
-                  beforeLeave: this.onBeforeLeave,
-                  afterLeave: this.onAfterLeave
-                }
-              },
+              { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers },
               [this.localShow ? this.makeToast(h) : null]
             )
           ]
