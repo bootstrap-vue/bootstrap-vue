@@ -2,7 +2,7 @@
   <section v-if="component" class="bd-content">
     <b-row tag="header" align-v="center">
       <b-col sm="9">
-        <anchored-heading :id="`comp-ref-${componentName}`" level="2">
+        <anchored-heading :id="`comp-ref-${componentName}`" level="3">
           <code>{{ tag }}</code>
         </anchored-heading>
       </b-col>

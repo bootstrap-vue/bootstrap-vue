@@ -10,7 +10,7 @@ const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
 export default {
-  name: 'BDComponents',
+  name: 'BDVComponents',
   layout: 'docs',
   mixins: [docsMixin],
   validate({ params }) {

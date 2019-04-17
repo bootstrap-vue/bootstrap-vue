@@ -1,13 +1,4 @@
 /*! BootstrapVue Docs Additional Styles */
-@import "./fonts.scss";
-
-* {
-  -webkit-font-smoothing: antialiased;
-}
-
-main {
-  min-height: 100vh;
-}
 
 .nuxt-progress {
   position: fixed;
@@ -21,25 +12,6 @@ main {
   z-index: 999999;
 }
 
-.bd-toc-link,
-.bd-navbar .navbar-nav .nav-link.active {
-  font-weight: normal;
-}
-
-.bd-toc-item.active > .bd-toc-link {
-  color: #563d7c;
-  font-weight: bold;
-}
-
-.bd-toc-link,
-.bd-sidenav {
-  .badge {
-    font-size: 70%;
-    position: relative;
-    bottom: 0.1rem;
-  }
-}
-
 .hljs {
   overflow-x: auto;
   position: relative;
@@ -50,15 +22,6 @@ main {
 .CodeMirror {
   background-color: #f9f9f9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
-}
-
-code {
-  color: #795da3;
-}
-
-blockquote {
-  font-size: 1.1rem;
-  font-weight: 300;
 }
 
 /* https://github.com/bryanbraun/anchorjs/blob/e9c248ac82cfa905ed00e804a2a1c64296b342d1/anchor.js#L306 */
@@ -77,6 +40,14 @@ blockquote {
 *:hover > .anchorjs-link,
 .anchorjs-link:focus {
   opacity: 1;
+}
+
+.bd-toc {
+  .section-nav {
+    .toc-entry.active > a {
+      font-weight: 600;
+    }
+  }
 }
 
 .bd-content {

@@ -1,9 +1,9 @@
 <template>
   <footer class="bd-footer text-muted">
-    <div class="container">
+    <b-container fluid>
       <ul class="bd-footer-links">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/docs/">Documentation</router-link></li>
+        <li><b-link to="/">Home</b-link></li>
+        <li><b-link to="/docs/">Documentation</b-link></li>
         <li>
           <a href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">
             GitHub
@@ -23,7 +23,7 @@
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
         Docs generated with <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a>
       </p>
-    </div>
+    </b-container>
   </footer>
 </template>
 
@@ -31,8 +31,9 @@
 import { version } from '~/content'
 
 export default {
-  computed: {
-    version: () => version
+  name: 'BVDFooter',
+  data() {
+    return { version }
   }
 }
 </script>
