@@ -61,6 +61,11 @@ export default Vue.extend({
       this.doRender = true
     }
   },
+  beforeDestroy() {
+    // Let toasts made with `this.$bvToast.toast()` know that this toaster
+    // is being destroyed and should should also destroy themselves
+    this.$root.$emit('bv::toaster::destroyed', this.name)
+  },
   destroyed() {
     // Remove from DOM if needed
     if (this.$el && this.$el.parentNode) {
