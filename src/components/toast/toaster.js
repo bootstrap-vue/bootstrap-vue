@@ -26,11 +26,13 @@ export const props = {
     // Aria role
     type: String,
     default: null
-  },
+  }
+  /*
   transition: {
     type: [Boolean, String, Object],
     default: false
   }
+  */
 }
 
 // @vue/component
@@ -82,7 +84,8 @@ export default Vue.extend({
           multiple: true,
           tag: 'div',
           slim: false,
-          transition: this.transition || DefaultTransition
+          // transition: this.transition || DefaultTransition
+          transition: DefaultTransition
         }
       })
     }
