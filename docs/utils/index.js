@@ -1,5 +1,4 @@
 import kebabCase from 'lodash/kebabCase'
-import startCase from 'lodash/startCase'
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
