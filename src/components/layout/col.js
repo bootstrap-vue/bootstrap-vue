@@ -7,12 +7,6 @@ import { isUndefined, isNull } from '../../utils/inspect'
 import { keys, assign, create } from '../../utils/object'
 import { getBreakpointsUp } from '../../utils/config'
 
-// --- Constants ---
-
-// Globals used for caching
-let BREAKPOINTS
-let PROP_MAP
-
 // --- Helper methods ---
 
 // Generates a prop object with a type of [Boolean, String, Number]
@@ -71,6 +65,12 @@ export default new Promise(resolve => {
   // Supports classes like: .order-md-1, .order-lg-12
   const breakpointOrder = breakpoints.reduce((propMap, breakpoint) => {
     propMap[suffixPropName(breakpoint, 'order')] = strNum()
+    return propMap
+  }, create(null))
+
+  // Supports classes like: .offset-md-1, .offset-lg-12
+  cont breakpointOffset = breakpoints.reduce((propMap, breakpoint) => {
+    propMap[suffixPropName(breakpoint, 'offset')] = strNum()
     return propMap
   }, create(null))
 
