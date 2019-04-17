@@ -8,7 +8,7 @@ const getReadMe = name =>
   import(`~/markdown/misc/${name}/README.md` /* webpackChunkName: "docs/misc" */)
 
 export default {
-  name: 'BDMisc',
+  name: 'BDVMisc',
   layout: 'docs',
   mixins: [docsMixin],
   validate({ params }) {

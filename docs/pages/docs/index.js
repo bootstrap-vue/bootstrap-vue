@@ -11,7 +11,7 @@ import {
 import readme from '~/markdown/intro/README.md'
 
 export default {
-  name: 'BDDocs',
+  name: 'BDVDocs',
   layout: 'docs',
   // We use a string template here so that the docs README can do interpolation
   template: `<Main><Section>${readme}</Section></Main>`,

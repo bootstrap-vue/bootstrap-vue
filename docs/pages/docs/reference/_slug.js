@@ -7,7 +7,7 @@ const getReadMe = name =>
   import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
 
 export default {
-  name: 'BDReference',
+  name: 'BDVReference',
   layout: 'docs',
   mixins: [docsMixin],
   validate({ params }) {

@@ -5,7 +5,7 @@
       <h1><span class="bd-content-title">{{ title }}</span></h1>
       <p class="bd-lead">
         Here you can interactively play and test components with a fresh Vue.js instance. Please
-        refer to the <router-link to="/docs">Docs</router-link> section for more information about
+        refer to the <b-link to="/docs">Docs</b-link> section for more information about
         available components and usage.
       </p>
     </div>
