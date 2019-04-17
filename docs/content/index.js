@@ -43,8 +43,9 @@ export const nav = [
 ]
 
 export const bootstrapVersion = parseVersion(dependencies.bootstrap)
-export const vueVersion = parseVersion(devDependencies.vue)
 export const nuxtVersion = parseVersion(devDependencies.nuxt)
+export const portalVueVersion = parseVersion(dependencies['portal-vue'])
+export const vueVersion = parseVersion(devDependencies.vue)
 export const defaultConfig = getDefaults()
 export const bvDescription = description
 
