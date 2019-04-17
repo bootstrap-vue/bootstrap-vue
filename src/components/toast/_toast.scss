@@ -13,6 +13,10 @@
   &:not(:last-child) {
     margin-bottom: $toast-padding-x;
   }
+
+  .toast .toast-body {
+    display: block; // needed when we use a link as the body element
+  }
 }
 
 @mixin b-toast-variant($background, $border, $color) {
