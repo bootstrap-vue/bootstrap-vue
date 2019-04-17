@@ -85,16 +85,6 @@
   </section>
 </template>
 
-<style scoped>
-h1,
-h2,
-h3,
-h4,
-h5 {
-  padding: 20px 0;
-}
-</style>
-
 <script>
 import hljs from 'highlight.js'
 import kebabCase from 'lodash/kebabCase'
@@ -102,6 +92,7 @@ import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
 
 export default {
+  name: 'BDVImportdoc',
   components: { AnchoredHeading },
   props: {
     meta: {}

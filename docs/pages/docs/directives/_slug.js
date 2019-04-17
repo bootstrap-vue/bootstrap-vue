@@ -9,7 +9,7 @@ const getReadMe = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
 
 export default {
-  name: 'BDDirectives',
+  name: 'BDVDirectives',
   layout: 'docs',
   mixins: [docsMixin],
   validate({ params }) {
@@ -27,7 +27,7 @@ export default {
       domProps: { innerHTML: this.readme }
     })
     // Reference section
-    const $referenceSection = h(Section, [
+    const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
       // Heading
       h(AnchoredHeading, { props: { id: 'directive-reference' } }, 'Directive reference'),
       // Directive importing information
