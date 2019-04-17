@@ -159,6 +159,18 @@ class BvToast {
     }
     makeToast(props, this._vm)
   }
+
+  // shows a `<b-toast>` component with the specified ID
+  show(id) {
+    if (id) {
+      this._root.$emit('bv::show::toast', id)
+    }
+  }
+
+  // Hide a toast with specified ID, or if not ID all toasts
+  hide(id = null) {
+    this._root.$emit('bv::hide::toast', id)
+  }
 }
 
 // Method to install `$bvToast` VM injection
