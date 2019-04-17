@@ -29,7 +29,7 @@
   }
 }
 
-/* https://github.com/bryanbraun/anchorjs/blob/e9c248ac82cfa905ed00e804a2a1c64296b342d1/anchor.js#L306 */
+// See: https://github.com/bryanbraun/anchorjs/blob/e9c248ac82cfa905ed00e804a2a1c64296b342d1/anchor.js#L306
 .anchorjs-link {
   padding-left: 0.375em;
   opacity: 0;
@@ -45,6 +45,18 @@
 *:hover > .anchorjs-link,
 .anchorjs-link:focus {
   opacity: 1;
+}
+
+// Sticky footer
+// See: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+#__layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  main {
+    flex: 1;
+  }
 }
 
 .bd-toc {
@@ -89,6 +101,12 @@
       margin-top: 1rem;
     }
   }
+}
+
+.bd-footer {
+  margin-top: 4rem;
+  padding: 4rem 0;
+  text-align: center;
 }
 
 pre.editable {
@@ -154,7 +172,7 @@ pre.editable {
   }
 }
 
-/* Additional styling for (responsive) markdown tables */
+// Additional styling for (responsive) markdown tables
 .bv-docs-table {
   font-size: 90%;
 
@@ -172,17 +190,15 @@ pre.editable {
   }
 }
 
-/* CSS for table transition example */
+// CSS for table transition example
 table#table-transition-example {
   .flip-list-move {
     transition: transform 1s;
   }
 }
 
-/*
- * Docsearch overrides
- * See: https://github.com/twbs/bootstrap/blob/master/site/static/docs/4.3/assets/scss/_algolia.scss
- */
+// Docsearch overrides
+// See: https://github.com/twbs/bootstrap/blob/master/site/static/docs/4.3/assets/scss/_algolia.scss
 .algolia-autocomplete {
   .ds-dropdown-menu {
     background: #fff !important;
