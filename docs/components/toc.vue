@@ -10,7 +10,7 @@
       class="toc-entry font-weight-bold mb-2"
       @click="scrollIntoView($event, toc.top)"
     >
-      {{ toc.title }}
+      <span v-html="toc.title"></span>
     </b-nav-item>
 
     <li
@@ -22,9 +22,8 @@
         :href="h2.href"
         class="nav-link"
         @click="scrollIntoView($event, h2.href)"
-      >
-        {{ h2.label }}
-      </b-link>
+        v-html="h2.label"
+      ></b-link>
       <b-nav v-if="h2.toc && h2.toc.length > 0" vertical>
         <b-nav-item
           v-for="h3 in h2.toc"
@@ -33,7 +32,7 @@
           class="toc-entry toc-h3"
           @click="scrollIntoView($event, h3.href)"
         >
-          {{ h3.label }}
+          <span v-html="h3.label"></span>
         </b-nav-item>
       </b-nav>
     </li>

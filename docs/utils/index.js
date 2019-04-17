@@ -129,7 +129,7 @@ export const makeTOC = (readme, meta = null) => {
           // Add component sub-headings
           ...meta.components.map(({ component }) => {
             const tag = kebabCase(component)
-            return { label: `<${tag}>`, href: `#comp-ref-${tag}` }
+            return { label: `&lt;${tag}&gt;`, href: `#comp-ref-${tag}` }
           }),
           // Add component import sub-heading
           {
