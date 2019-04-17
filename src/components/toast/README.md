@@ -1,7 +1,7 @@
 # Toasts
 
 > Push notifications to your visitors with a `<b-toast>` and `<b-toaster>`, lightweight components
-> which are easily customizable for generating alert messages
+> which are easily customizable for generating alert messages.
 
 Toasts are lightweight notifications designed to mimic the push notifications that have been
 popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy to
