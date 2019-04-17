@@ -14,6 +14,12 @@
     margin-bottom: $toast-padding-x;
   }
 
+  &.b-toast-solid {
+    .toast {
+      background-color: rgba($toast-background-color, 1)
+    }
+  }
+
   .toast {
     .toast-body {
       display: block; // needed when we use a link as the body element
@@ -37,6 +43,12 @@
     // .toast-body[href] {
     //   color: darken($color, 10%);
     // }
+  }
+
+  &.b-toast-solid {
+    .toast {
+      background-color: rgba(lighten($background, 5%), 1);
+    }
   }
 }
 
