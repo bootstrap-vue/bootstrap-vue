@@ -242,6 +242,8 @@ Both slots are optionally scoped with the following scope:
 | ------------------ | ------------------------------------------------------------------------------- |
 | `hide()`           | Hides the toast when called. Useful if you are providing your own close button. |
 
+Slots are only available when using the `<b-toast>` component.
+
 ## `<b-toast>` component
 
 When you have an custom component that would like to display just a single toast at a time, use the
