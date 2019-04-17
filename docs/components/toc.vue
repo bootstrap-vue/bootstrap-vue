@@ -20,7 +20,7 @@
     >
       <b-link
         :href="h2.href"
-        class="toc-entry toc-h2 mb-1"
+        class="nav-link toc-entry toc-h2 mb-1"
         @click="scrollIntoView($event, h2.href)"
       >
         <span v-html="h2.label"></span>
