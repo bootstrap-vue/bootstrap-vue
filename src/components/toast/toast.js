@@ -3,6 +3,7 @@ import { Portal } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { getById, requestAF } from '../../utils/dom'
+import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
 import BToaster from './toaster'
@@ -107,7 +108,7 @@ const DEFAULT_TRANSITION_PROPS = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [normalizeSlotMixin],
+  mixins: [listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -178,6 +179,16 @@ export default Vue.extend({
         requestAF(() => {
           this.show()
         })
+      }
+    })
+    this.listenOnRoot('bv::show:toast', id => {
+      if (id === this.id) {
+        this.show()
+      }
+    })
+    this.listenOnRoot('bv::hide:toast', id => {
+      if (!id || id === this.id) {
+        this.hide()
       }
     })
   },
@@ -293,7 +304,6 @@ export default Vue.extend({
       })
     },
     onAfterLeave() {
-      // TODO
       this.isTransitioning = false
       this.order = 0
       this.resumeDismiss = this.dismissStarted = 0
