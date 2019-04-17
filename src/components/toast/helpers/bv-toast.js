@@ -4,7 +4,7 @@
 
 /* istanbul ignore file: not ready for testing yet as things are still changing */
 
-import Vue from '../../utils/vue'
+import Vue from '../../../utils/vue'
 import BToast, { props as toastProps } from '../toast'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
