@@ -145,7 +145,6 @@ const BCol = {
 defineProperty(BCol, 'props', {
   configurable: true,
   enumerable: true,
-  writable: true,
   get() {
     return {
       // Generic flexbox .col (xs)
