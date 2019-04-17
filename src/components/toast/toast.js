@@ -348,7 +348,7 @@ export default Vue.extend({
           props: isLink ? { to: this.to, href: this.href } : {}
         },
         [this.normalizeSlot('default', this.slotScope) || h(false)]
-      ])
+      )
       // Build the toast
       const $toast = h(
         'div',
