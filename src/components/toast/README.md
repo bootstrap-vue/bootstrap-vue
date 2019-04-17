@@ -204,7 +204,9 @@ to `true`
 
 ### Auto-hide
 
-TBD
+Change to auto hide delay time via the `auto-hide-delay` prop (value is in milliseconds), which
+defaults to `5000`. Or, disable the auto-hide feature completely by setting the `no-auto-hide`
+prop to `true`.
 
 ### Toast roles
 
@@ -222,7 +224,14 @@ Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nux
 
 ### Slots
 
-TBD
+- `toast-title`: Content to relace the default title element.
+- `default`: Content of the toast body
+
+Both slots are optionally scoped with the following scope:
+
+| Method or property | Description                                                                      |
+| ------------------ | -------------------------------------------------------------------------------- |
+| `hide()`           | Hides the toast when called. Usefull if you are providing your own close button. |
 
 ## `<b-toast>` component
 
@@ -276,7 +285,7 @@ closed.
 `<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and 
 issue a console warning.
 
-### Toaster transitions
+### Toaster transition
 
 TBD
 
