@@ -1,4 +1,3 @@
-import Vue from '../../utils/vue'
 // Utils
 import memoize from '../../utils/memoize'
 import upperFirst from '../../utils/upper-first'
@@ -184,7 +183,7 @@ export default (resolve, reject) => {
   }, create(null))
 
   // @vue/component
-  const BFormGroup = Vue.extend({
+  const BFormGroup = {
     name: NAME,
     mixins: [idMixin, formStateMixin],
     props: {
@@ -456,7 +455,7 @@ export default (resolve, reject) => {
         isHorizontal && isFieldset ? [h(BFormRow, {}, [label, content])] : [label, content]
       )
     }
-  })
+  }
 
   // Return the component options reference
   resolve(BFormGroup)
