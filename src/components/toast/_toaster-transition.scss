@@ -8,36 +8,33 @@
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     .b-toast {
-      backface-visibility: hidden; // For faster 2d transforms
-      z-index: 1;
+      &.bg-white {
+        // Solid white background in solid mode
+        transition: opacity 0.1s ease-out;
+      }
 
       &.b-toaster-enter-active,
       &.b-toaster-leave-active,
       &.b-toaster-move {
-        transition: opacity 0.1s ease-out, transform 0.2s;
+        transition: transform 0.175s;
       }
 
       &.b-toaster-enter {
-        transform: scaleY(0.5);
-        transform-origin: center top;
-
         &.bg-white {
           opacity: 0;
         }
       }
 
+      &.b-toaster-enter-to,
       &.b-toaster-enter-active {
         .toast.fade {
           // Delay the appearance of the toast until
           // the move transition has completed
-          transition-property: opacity;
           transition-delay: 0.175s;
         }
       }
 
       &.b-toaster-enter-to {
-        transform: scaleY(1);
-
         &.bg-white {
           opacity: 1;
         }
@@ -45,6 +42,7 @@
 
       &.b-toaster-leave-active {
         position: absolute;
+        transition-delay: 0.175s;
 
         .toast.fade {
           transition-delay: 0s;
@@ -52,9 +50,6 @@
       }
 
       &.b-toaster-leave-to {
-        transform: scaleY(0);
-        transform-origin: center top;
-
         &.bg-white {
           opacity: 0;
         }
