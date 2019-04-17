@@ -25,10 +25,6 @@ export const props = {
     type: String,
     default: null
   },
-  titleHtml: {
-    type: String,
-    default: null
-  },
   variant: {
     type: String,
     default: null
@@ -311,13 +307,6 @@ export default Vue.extend({
       let $title = this.normalizeSlot('toast-title', this.slotScope)
       if ($title) {
         $headerContent.push($title)
-      } else if (this.titleHtml) {
-        $headerContent.push(
-          h('strong', {
-            staticClass: 'mr-2',
-            domProps: { innerHtml: this.titleHtml }
-          })
-        )
       } else if (this.title) {
         $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
       }
