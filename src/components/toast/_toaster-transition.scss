@@ -1,6 +1,7 @@
 // --- <b-toast> custom transition SCSS ---
 
 // This is still a work in progress... will be changing
+// Potal Vue appears to have issues with transition classes on portaled items
 
 .b-toaster {
   &.b-toaster-top-right,
@@ -8,11 +9,6 @@
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     .b-toast {
-      &.bg-white {
-        // Solid white background in solid mode
-        transition: opacity 0.1s ease-out;
-      }
-
       &.b-toaster-enter-active,
       &.b-toaster-leave-active,
       &.b-toaster-move {
@@ -20,9 +16,6 @@
       }
 
       &.b-toaster-enter {
-        &.bg-white {
-          opacity: 0;
-        }
       }
 
       &.b-toaster-enter-to,
@@ -35,9 +28,6 @@
       }
 
       &.b-toaster-enter-to {
-        &.bg-white {
-          opacity: 1;
-        }
       }
 
       &.b-toaster-leave-active {
@@ -50,9 +40,6 @@
       }
 
       &.b-toaster-leave-to {
-        &.bg-white {
-          opacity: 0;
-        }
       }
 
       /*
