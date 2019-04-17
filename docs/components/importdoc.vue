@@ -102,6 +102,7 @@ import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
 
 export default {
+  name: 'BDVImportdoc',
   components: { AnchoredHeading },
   props: {
     meta: {}

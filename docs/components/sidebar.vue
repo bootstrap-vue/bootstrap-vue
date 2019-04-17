@@ -51,6 +51,7 @@
 import { nav } from '~/content'
 
 export default {
+  name: 'BDVSidebar',
   data() {
     return { nav }
   },

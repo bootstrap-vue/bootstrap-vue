@@ -44,6 +44,7 @@
 import { makeTOC, offsetTop, scrollTo } from '~/utils'
 
 export default {
+  name: 'BDVToc',
   data() {
     return {
       readme: '',

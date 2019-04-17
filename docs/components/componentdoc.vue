@@ -177,6 +177,7 @@ import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
 
 export default {
+  name: 'BDVComponentdoc',
   components: { AnchoredHeading },
   props: {
     component: {},
