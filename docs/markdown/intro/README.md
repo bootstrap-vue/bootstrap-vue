@@ -3,17 +3,17 @@
 > Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
 > building responsive, mobile-first sites using Vue.js.
 
-- [Vue.js](https://vuejs.org) version <code>{{ vueVersion }}</code> (or greater) is recommended
-- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version
-  <code>{{ bootstrapVersion }}</code> SCSS/CSS
-- BootstrapVue requires [Portal Vue](https://portal-vue.linusb.org/) version
-  <code>{{ portalVueVersion }}</code>
-- jQuery is **not** required
+- [Vue.js](https://vuejs.org/) `v2.5` is required, `v{{ vueVersion }}` is recommended
+- [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
+  recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v2.0` is required, `v{{ portalVueVersion }}` is
+  recommended
+- [jQuery](https://jquery.com/) is **not** required
 
 ## Using module bundlers
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
-[rollup.js](https://rollupjs.org), etc you may prefer to directly include the package into your
+[rollup.js](https://rollupjs.org/), etc you may prefer to directly include the package into your
 project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
 Bootstrap 4:
 
@@ -72,7 +72,7 @@ section.
 
 ## Nuxt.js module
 
-[Nuxt.js](https://nuxtjs.org) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
+[Nuxt.js](https://nuxtjs.org/) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
 Install dependencies:
 
@@ -438,7 +438,7 @@ Following features and APIs are used by BootstrapVue:
 - `MutationObserver`
 
 If you want to support older IE, Android and iOS devices, you may want to use
-[@babel/polyfill](https://babeljs.io/docs/usage/polyfill) and
+[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/) and
 [mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
 
 - `npm install @babel/polyfill mutationobserver-shim`

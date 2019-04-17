@@ -3,10 +3,10 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import {
   bootstrapVersion,
-  vueVersion,
+  defaultConfig,
   nuxtVersion,
   portalVueVersion,
-  defaultConfig
+  vueVersion
 } from '~/content'
 import readme from '~/markdown/intro/README.md'
 
@@ -22,12 +22,12 @@ export default {
   mixins: [docsMixin],
   data() {
     return {
-      readme,
       bootstrapVersion,
-      portalVueVersion,
-      vueVersion,
+      defaultConfig,
       nuxtVersion,
-      defaultConfig
+      portalVueVersion,
+      readme,
+      vueVersion
     }
   }
 }
