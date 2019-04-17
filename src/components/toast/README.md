@@ -63,7 +63,7 @@ without the need to place a `<b-toast>` component in your app.
         this.$bvToast.toast(`This is toast number ${number}`, {
           title: 'BootstrapVue Toast',
           autoHideDelay: 5000,
-          append: append
+          appendToast: append
         })
       }
     }
