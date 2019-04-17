@@ -6,30 +6,27 @@ import { isUndefined, isNull } from '../../utils/inspect'
 import { keys, assign, create, defineProperty } from '../../utils/object'
 import { getBreakpointsUp } from '../../utils/config'
 
-/**
- * Generates a prop object with a type of
- * [Boolean, String, Number]
- */
-function boolStrNum() {
-  return {
-    type: [Boolean, String, Number],
-    default: false
-  }
-}
+// --- Constants ---
 
-/**
- * Generates a prop object with a type of
- * [String, Number]
- */
-function strNum() {
-  return {
-    type: [String, Number],
-    default: null
-  }
-}
-
-// breakpoints for generating props. Cached on first call
+// Globals used for caching
 let BREAKPOINTS
+let PROP_MAP
+
+// --- Helper methods ---
+
+// Generates a prop object with a type of [Boolean, String, Number]
+const boolStrNum = () => ({
+  type: [Boolean, String, Number],
+  default: false
+})
+
+// Generates a prop object with a type of [String, Number]
+const strNum = () => ({
+  type: [String, Number],
+  default: null
+})
+
+// Get breakpoints for generating props (cached on first call)
 const getBreakpoints = () => {
   if (isUndefined(BREAKPOINTS)) {
     BREAKPOINTS = getBreakpointsUp().filter(Boolean)
@@ -38,8 +35,7 @@ const getBreakpoints = () => {
   return BREAKPOINTS
 }
 
-// Memoized function for better performance on generating class names
-const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
+const computeBkPt = (type, breakpoint, val) => {
   let className = type
   if (isUndefined(val) || isNull(val) || val === false) {
     return undefined
@@ -57,7 +53,10 @@ const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
   // .order-md-6
   className += `-${val}`
   return className.toLowerCase()
-})
+}
+
+// Memoize `computeBkPt()` for better performance on generating class names
+const computeBkPtClass = memoize(computeBkPt)
 
 // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
 const breakpointCol = () => {
@@ -88,8 +87,7 @@ const breakpointOrder = () => {
 }
 
 // For loop doesn't need to check hasOwnProperty
-// when using an object created from null
-let PROP_MAP
+// when using an object created from `null`
 const breakpointPropMap = () => {
   if (isUndefined(PROP_MAP)) {
     PROP_MAP = assign(create(null), {
@@ -101,8 +99,8 @@ const breakpointPropMap = () => {
   return PROP_MAP
 }
 
-// We do not use Vue.extend here as we need the prop's getters to be
-// evalulated by vue on first use.
+// We do not use `Vue.extend()` here as we need the prop's getters
+// to be evaluated by vue on first use
 // @vue/component
 const BCol = {
   name: 'BCol',
@@ -119,7 +117,7 @@ const BCol = {
       for (let i = 0; i < keys.length; i++) {
         // computeBkPt(col, colSm => Sm, value=[String, Number, Boolean])
         const c = computeBkPtClass(type, keys[i].replace(type, ''), props[keys[i]])
-        // If a class is returned, push it onto the array.
+        // If a class is returned, push it onto the array
         if (c) {
           classList.push(c)
         }
@@ -142,8 +140,8 @@ const BCol = {
 }
 
 // Add our props getter, for lazy loading breakpoint props based on config
-// When Vue extends this compoent, it will then evaluate the props, which will trigger
-// our getter to compute the props
+// When Vue extends this component, it will then evaluate the props, which
+// will trigger our getter to compute the props
 defineProperty(BCol, 'props', {
   get() {
     return {
