@@ -13,17 +13,14 @@
       <span v-html="toc.title"></span>
     </b-nav-item>
 
-    <li
-      v-for="h2 in toc.toc"
-      :key="h2.href"
-      class="nav-item toc-entry toc-h2 mb-1"
-    >
-      <b-link
+    <template v-for="h2 in toc.toc" :key="h2.href">
+      <b-nav-item
         :href="h2.href"
-        class="nav-link"
+        class="toc-entry toc-h2 mb-1"
         @click="scrollIntoView($event, h2.href)"
-        v-html="h2.label"
-      ></b-link>
+      >
+        <span v-html="h2.label"></span>
+      </b-nav-item>
       <b-nav v-if="h2.toc && h2.toc.length > 0" vertical>
         <b-nav-item
           v-for="h3 in h2.toc"
@@ -35,7 +32,7 @@
           <span v-html="h3.label"></span>
         </b-nav-item>
       </b-nav>
-    </li>
+    </template>
   </b-nav>
 </template>
 
