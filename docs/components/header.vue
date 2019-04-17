@@ -132,8 +132,8 @@ import { version } from '~/content'
 
 export default {
   name: 'BVDHeader',
-  computed: {
-    version: () => version
+  data() {
+    return { version }
   }
 }
 </script>
