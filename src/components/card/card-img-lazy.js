@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BImgLazy, { props as imgLazyProps } from '../image/img-lazy'
 import { omit } from '../../utils/object'
 import { mergeData } from 'vue-functional-data-merge'

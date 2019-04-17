@@ -3,7 +3,7 @@
  * Handles controlling modal stacking zIndexes and body adjustments/classes
  */
 
-import Vue from 'vue'
+import Vue from '../../../utils/vue'
 import {
   getAttr,
   hasAttr,

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean, isNumber } from '../../utils/inspect'
 

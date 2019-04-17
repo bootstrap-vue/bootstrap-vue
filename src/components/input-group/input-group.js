@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { arrayIncludes, concat } from '../../utils/array'
 import { isFunction } from '../../utils/inspect'

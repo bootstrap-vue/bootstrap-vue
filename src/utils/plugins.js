@@ -18,6 +18,7 @@ export const installFactory = ({ components, directives, plugins }) => {
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
   }
+
   install.installed = false
 
   return install

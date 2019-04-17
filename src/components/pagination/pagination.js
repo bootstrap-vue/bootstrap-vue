@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import paginationMixin from '../../mixins/pagination'
 import { isVisible } from '../../utils/dom'
 
