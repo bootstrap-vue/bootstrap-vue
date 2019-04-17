@@ -20,12 +20,16 @@
     >
       <b-link
         :href="h2.href"
-        class="nav-link toc-entry toc-h2 mb-1"
+        class="nav-link"
         @click="scrollIntoView($event, h2.href)"
       >
         <span v-html="h2.label"></span>
       </b-link>
-      <b-nav v-if="h2.toc && h2.toc.length > 0" :key="`sub-${h2.href}`" vertical>
+      <b-nav
+        v-if="h2.toc && h2.toc.length > 0"
+        :key="`sub-${h2.href}`"
+        vertical
+      >
         <b-nav-item
           v-for="h3 in h2.toc"
           :key="h3.href"
