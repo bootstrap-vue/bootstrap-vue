@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { Portal } from 'portal-vue'
+import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { getById, requestAF } from '../../utils/dom'
@@ -174,6 +174,10 @@ export default Vue.extend({
       if (newVal !== this.show) {
         this.$emit('change', newVal)
       }
+    },
+    toaster(newVal) {
+      // If toaster target changed, make sure toaster exists
+      this.$nextTick(() => this.ensureToaster)
     }
   },
   mounted() {
@@ -242,7 +246,10 @@ export default Vue.extend({
       this.$emit(type, bvEvt)
     },
     ensureToaster() {
-      if (!getById(this.toaster)) {
+      if (this.static) {
+        return
+      }
+      if (!getById(this.toaster) && !Wormhole.targets[this.toaster]) {
         const div = document.createElement('div')
         document.body.append(div)
         const toaster = new BToaster({
