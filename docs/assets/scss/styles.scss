@@ -47,6 +47,12 @@
     .toc-entry.active > a {
       font-weight: 600;
     }
+
+    .toc-h2:not(.active) {
+      .sub-section-nav {
+        display: none;
+      }
+    }
   }
 }
 
