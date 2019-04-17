@@ -111,8 +111,6 @@ exception of `static`, and `visible`) in <samp>camelCase</samp> name format.
 <!-- toasts-bv-toast-example.vue -->
 ```
 
-TBD
-
 ## Options
 
 ### Transparency
@@ -287,9 +285,11 @@ closed.
 `<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and
 issue a console warning.
 
+<!--
 ### Toaster transition
 
 TBD
+-->
 
 ## Accessibility
 
