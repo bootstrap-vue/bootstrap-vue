@@ -81,8 +81,8 @@ const BToastPop = Vue.extend({
     // Self destruct after hidden
     this.$once('hidden', handleDestroy)
     // Self destruct when toaster is destroyed
-    this.listenOnRootOnce('bv::toaster::destroyed', toaster => {
-      if (toaster === this.toaster) {
+    this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      if (toaster === self.toaster) {
         handleDestroy()
       }
     })
@@ -142,17 +142,11 @@ const makeToast = (props, $parent) => {
 class BvToast {
   constructor(vm) {
     // Assign the new properties to this instance
-    assign(this, { _vm: vm })
+    assign(this, { _vm: vm, _root: vm.$root })
     // Set these properties as read-only and non-enumerable
     defineProperties(this, {
       _vm: readonlyDescriptor(),
-      _root: {
-        configurale: false,
-        enumerable: false,
-        get() {
-          return this._vm.$root
-        }
-      }
+      _root: readonlyDescriptor()
     })
   }
 
