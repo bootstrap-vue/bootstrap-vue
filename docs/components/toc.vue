@@ -7,7 +7,8 @@
     <b-nav-item
       v-if="toc.title && toc.top"
       :href="toc.top"
-      class="toc-entry font-weight-bold mb-2"
+      class="toc-entry mb-2"
+      link-classes="font-weight-bold"
       @click="scrollIntoView($event, toc.top)"
     >
       <span v-html="toc.title"></span>
