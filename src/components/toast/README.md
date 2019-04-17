@@ -170,7 +170,7 @@ BootstrapVue comes with the following "built-in" toaster names (and associated s
     <b-button @click="toast('b-toaster-top-right')">b-toaster-top-right</b-button>
     <b-button @click="toast('b-toaster-top-left')">b-toaster-top-left</b-button>
     <b-button @click="toast('b-toaster-bottom-right')">b-toaster-bottom-right</b-button>
-    <b-button @click="toast('b-toaster-bottom-right')">b-toaster-bottom-left</b-button>
+    <b-button @click="toast('b-toaster-bottom-left')">b-toaster-bottom-left</b-button>
   </div>
 </template>
 
