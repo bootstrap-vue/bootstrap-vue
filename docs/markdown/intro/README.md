@@ -6,6 +6,8 @@
 - [Vue.js](https://vuejs.org) version <code>{{ vueVersion }}</code> (or greater) is recommended
 - BootstrapVue requires [Bootstrap](https://getbootstrap.com) version
   <code>{{ bootstrapVersion }}</code> SCSS/CSS
+- BootstrapVue requires [Portal Vue](https://portal-vue.linusb.org/) version
+  <code>{{ portalVueVersion }}</code>
 - jQuery is **not** required
 
 ## Using module bundlers
