@@ -157,24 +157,22 @@ export const makeTOC = (readme, meta = null) => {
         toc: componentToc
       })
     } else if (isDirective) {
-      let directiveToc = []
-      // Add directive import sub-heading
-      if (hasDirectives) {
-        directiveToc.push({
-          label: 'Importing individual directives',
-          href: '#importing-individual-directives'
-        })
-      }
-      // Add plugin import sub-heading
-      directiveToc.push({
-        label: 'Importing as a Vue.js plugin',
-        href: '#importing-as-a-plugin'
-      })
       // Add directive reference heading
       toc.push({
         label: 'Directive reference',
         href: '#directive-reference',
-        toc: directiveToc
+        toc: [
+          // Directive import sub-heading
+          {
+            label: 'Importing individual directives',
+            href: '#importing-individual-directives'
+          },
+          // Plugin import sub-heading
+          {
+            label: 'Importing as a Vue.js plugin',
+            href: '#importing-as-a-plugin'
+          }
+        ]
       })
     }
   }
