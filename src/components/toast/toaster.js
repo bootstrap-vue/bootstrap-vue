@@ -5,15 +5,9 @@ import { getById } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
-const NAME = 'BToaster'
+// --- Constants ---
 
-// @vue/component
-export const DefaultTransition = Vue.extend({
-  functional: true,
-  render(h, { children }) {
-    return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
-  }
-})
+const NAME = 'BToaster'
 
 export const props = {
   name: {
@@ -26,7 +20,7 @@ export const props = {
   },
   ariaAtomic: {
     type: String,
-    default: 'true' // allowed: 'true' or 'false'
+    default: 'true' // Allowed: 'true' or 'false'
   },
   role: {
     // Aria role
@@ -38,6 +32,14 @@ export const props = {
     default: false
   }
 }
+
+// @vue/component
+export const DefaultTransition = Vue.extend({
+  functional: true,
+  render(h, { children }) {
+    return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
+  }
+})
 
 // @vue/component
 export default Vue.extend({

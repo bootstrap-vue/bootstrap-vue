@@ -11,6 +11,8 @@ import BLink from '../link/link'
 
 /* istanbul ignore file: for now until ready for testing */
 
+// --- Constants ---
+
 const NAME = 'BToast'
 
 export const props = {
@@ -96,7 +98,7 @@ export const props = {
   }
 }
 
-// Transition Props defaults:
+// Transition props defaults
 const DEFAULT_TRANSITION_PROPS = {
   name: '',
   enterClass: '',
@@ -165,10 +167,10 @@ export default Vue.extend({
     }
   },
   watch: {
-    visible(newVal, oldVal) {
+    visible(newVal) {
       newVal ? this.show() : this.hide()
     },
-    localShow(newVal, oldVal) {
+    localShow(newVal) {
       if (newVal !== this.show) {
         this.$emit('change', newVal)
       }
@@ -259,7 +261,7 @@ export default Vue.extend({
       this.resumeDismiss = 0
     },
     onPause(evt) {
-      // TODO: pause auto-hide on hover/focus
+      // TODO: Pause auto-hide on hover/focus
       // Determine time remaining, and then pause timer
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
@@ -275,8 +277,8 @@ export default Vue.extend({
       }
     },
     onUnpause(evt) {
-      // TODO: un-pause auto-hide on un-hover/blur
-      // restart with max of time remaining or 1 second
+      // TODO: Un-pause auto-hide on un-hover/blur
+      // Restart with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || this.resumeDismiss === 0) {
         this.resumeDismiss = this.dismissStarted = 0
         return

@@ -16,13 +16,13 @@
 
   &.b-toast-solid {
     .toast {
-      background-color: rgba($toast-background-color, 1)
+      background-color: rgba($toast-background-color, 1);
     }
   }
 
   .toast {
     .toast-body {
-      display: block; // needed when we use a link as the body element
+      display: block; // Needed when we use a link as the body element
     }
   }
 }
@@ -31,7 +31,7 @@
   // Based on alert-variant mixin
   .toast {
     background-color: rgba(lighten($background, 5%), 0.85);
-    border-color: rgba($border, .85);
+    border-color: rgba($border, 0.85);
     color: $color;
 
     .toast-header {

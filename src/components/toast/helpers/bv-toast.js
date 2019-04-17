@@ -4,8 +4,7 @@
 
 /* istanbul ignore file: not ready for testing yet as things are still changing */
 
-import Vue from '../../utils/vue'
-import BToast, { props as toastProps } from '../toast'
+import Vue from '../../../utils/vue'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
 import { isUndefined, isString } from '../../../utils/inspect'
@@ -18,6 +17,7 @@ import {
   readonlyDescriptor
 } from '../../../utils/object'
 import { warnNotClient } from '../../../utils/warn'
+import BToast, { props as toastProps } from '../toast'
 
 // --- Constants ---
 

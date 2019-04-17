@@ -44,13 +44,14 @@ Toast transparency can be disabled by setting the `solid` prop to `true`.
 Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance injection,
 without the need to place a `<b-toast>` component in your app.
 
-Use the `this.$bvToast.toast()` method to generate on demand toasts.  The method accepts two arguments:
+Use the `this.$bvToast.toast()` method to generate on demand toasts. The method accepts two
+arguments:
 
 - `message`: the content of the toast body (either a string, or an array of `VNodes`)
 - `options`: an options object for providing a title and/or additional configuration options.
 
-The options argument accepts most of the props that the `<b-toast>` component accepts (with the exception
-of `static`, and `visible`) in <samp>camelCase</samp> name format.
+The options argument accepts most of the props that the `<b-toast>` component accepts (with the
+exception of `static`, and `visible`) in <samp>camelCase</samp> name format.
 
 ```html
 <template>
@@ -64,13 +65,13 @@ of `static`, and `visible`) in <samp>camelCase</samp> name format.
   export default {
     data() {
       return {
-        toastCount: 1
+        toastCount: 0
       }
     },
     methods: {
-      makeToast(append) {
-        const number = this.toastCount++
-        this.$bvToast.toast(`This is toast number ${number}`, {
+      makeToast(append = false) {
+        this.toastCount++
+        this.$bvToast.toast(`This is toast number ${this.toastCount}`, {
           title: 'BootstrapVue Toast',
           autoHideDelay: 5000,
           appendToast: append
@@ -93,19 +94,19 @@ Toasts support the standard Bootstrap V4 color variants.
 <template>
   <div>
     <b-button @click="makeToast()">Default</b-button>
-    <b-button @click="makeToast('primary')">Primary</b-button>
-    <b-button @click="makeToast('secondary')">Secondary</b-button>
-    <b-button @click="makeToast('danger')">Danger</b-button>
-    <b-button @click="makeToast('warning')">Warning</b-button>
-    <b-button @click="makeToast('success')">Success</b-button>
-    <b-button @click="makeToast('info')">Info</b-button>
+    <b-button variant="primary" @click="makeToast('primary')">Primary</b-button>
+    <b-button variant="secondary" @click="makeToast('secondary')">Secondary</b-button>
+    <b-button variant="danger" @click="makeToast('danger')">Danger</b-button>
+    <b-button variant="warning" @click="makeToast('warning')">Warning</b-button>
+    <b-button variant="success" @click="makeToast('success')">Success</b-button>
+    <b-button variant="info" @click="makeToast('info')">Info</b-button>
   </div>
 </template>
 
 <script>
   export default {
     methods: {
-      makeToast(variant) {
+      makeToast(variant = null) {
         this.$bvToast.toast('Toast body content', {
           title: `Variant ${variant || 'default'}`,
           variant: variant,
@@ -121,26 +122,26 @@ Toasts support the standard Bootstrap V4 color variants.
 
 ## `<b-toast>` component
 
-When you have an custom component that would like to display jsut a single toast at a time, use
-the `<b-toast>` component. The `<b-toast>` component can be placed anywhere im your custom component
-or app, and do not render an element (they render a comment placeholder node which will not affect
+When you have an custom component that would like to display just a single toast at a time, use the
+`<b-toast>` component. The `<b-toast>` component can be placed anywhere im your custom component or
+app, and do not render an element (they render a comment placeholder node which will not affect
 layout).
 
-The toast can be made visible via a `v-model` (tied to the `visible` prop), or shown using
-the components `show()` and `hide()` instance methods, or via the `this.$bvToast.show(id)` and
+The toast can be made visible via a `v-model` (tied to the `visible` prop), or shown using the
+components `show()` and `hide()` instance methods, or via the `this.$bvToast.show(id)` and
 `this.$bvToast.hide(id)` methods (requires that a unique ID be set on the `<b-toast>` component).
 
-Toasts, by default will be paced into the `b-toaster-top-right` `<b-toaster>` copoent. The toaster
+Toasts, by default will be paced into the `b-toaster-top-right` `<b-toaster>` component. The toaster
 specified by the `toaster` prop will be created on demand if it doesn't already exist in document.
 
-You can force a `<b-toast>` to appear in-place in the document by settig the `static` prop to
+You can force a `<b-toast>` to appear in-place in the document by setting the `static` prop to
 `true`. you still need to show and hide the toast, but it will not be transported into a toaster
 component.
 
 ## `<b-toaster>` target component
 
 The `<b-toaster>` component provides a container where toasts will appear (the _Toaster_). Toasters
-require a unique name, and toasts can be targetted to appear in a specific named toaster.
+require a unique name, and toasts can be targeted to appear in a specific named toaster.
 
 In most cases you will not need to directly use this component, as `<b-toast>` will automatically
 insert a `<b-toaster>` component (appended to `<body>`) with the requested toaster name if one is
@@ -170,7 +171,7 @@ closed.
 **Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created by
 `<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element.
 
-### Toaster transitons
+### Toaster transitions
 
 TBD
 
