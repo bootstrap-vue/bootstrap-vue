@@ -11,8 +11,9 @@ Toasts are intended to be small interruptions to your visitors or users, and the
 contain minimal, to-the-point, non-interactive content.
 
 <p class="alert alert-warning" role="alert">
-  <strong>BETA warning:</strong> BootstrapVue toasts are in their prelimiary stages of being
-  developed, and usage is subject to change in future releases.
+  <strong>BETA warning</strong><br>
+  Toasts are in their preliminary stages of being developed,
+  and usage is subject to change in future releases.
 </p>
 
 ## Overview
@@ -49,21 +50,22 @@ purposes of toast transparency only.
 - Toasts will auto hide after a default of 5 seconds (5000ms). The duration can be changed via the
   `auto-hide-delay` prop (value is specified in milliseconds), and disabled with the `no-auto-hide`
   prop.
-- Toasts include a close button on their top right to allow users to manually dismiss them. The close
-  button can be hidden via the `no-close-button` prop.
-- Titles are optional, but should be included, titles are rendered inside a `<strong>` element, unless
-  using the `toast-title` slot.
+- Toasts include a close button on their top right to allow users to manually dismiss them. The
+  close button can be hidden via the `no-close-button` prop.
+- Titles are optional, but should be included, titles are rendered inside a `<strong>` element,
+  unless using the `toast-title` slot.
 - If you disable the auto-hide feature, avoid hiding the close button, or if you hide the close
-  button be sure to allow the toast to auto-dimiss.
+  button be sure to allow the toast to auto-dismiss.
 - Toast transparency can be disabled by setting the `solid` prop to `true`.
 - Toasts will show inside a named `<b-toaster>` target component. BootstrapVue comes with four
   pre-defined toaster targets. Toasts will check for the named toaster in the document before they
   are shown, and will dynamically create the named toaster target if one is not found.
-- Toaster targets are defined completely with CSS for controling the positioning of the contained
+- Toaster targets are defined completely with CSS for controlling the positioning of the contained
   `<b-toast>` components.
-- Toasts can can taragetted to any named toaster.
+- Toasts can can targeted to any named toaster.
 
-BootstrapVue uses [Portal-Vue](https://portal-vue.linusb.org/) to transport toasts into the toasters.
+BootstrapVue uses [Portal-Vue](https://portal-vue.linusb.org/) to transport toasts into the
+toasters.
 
 ## On demand toasts
 
@@ -157,7 +159,8 @@ custom SCSS will automatically create toast variants for you.
 
 ### Toaster target
 
-BootstrapVue comes with the following "built-in" toaster names (and associated styles defined in SCSS):
+BootstrapVue comes with the following "built-in" toaster names (and associated styles defined in
+SCSS):
 
 - `b-toaster-top-right`
 - `b-toaster-top-left`
@@ -191,27 +194,27 @@ BootstrapVue comes with the following "built-in" toaster names (and associated s
 <!-- toast-targets.vue -->
 ```
 
-**Note**: Toaster target names that have not been defined in CSS will render at the bottom of
-the document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class
-name and ID set to the toaster target name). The only default styling the toaster will have is
+**Note**: Toaster target names that have not been defined in CSS will render at the bottom of the
+document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
+and ID set to the toaster target name). The only default styling the toaster will have is
 `position: fixed;`, a `max-width` and a `z-index` of `1100`.
 
 ### Prepend and append
 
-Toasts default to prepending themselves to the top of the toasts shown in the specified toaster
-in the order they were created. To append new toasts to the bottom, set the `append-toast` prop
-to `true`
+Toasts default to prepending themselves to the top of the toasts shown in the specified toaster in
+the order they were created. To append new toasts to the bottom, set the `append-toast` prop to
+`true`
 
 ### Auto-hide
 
 Change to auto hide delay time via the `auto-hide-delay` prop (value is in milliseconds), which
-defaults to `5000`. Or, disable the auto-hide feature completely by setting the `no-auto-hide`
-prop to `true`.
+defaults to `5000`. Or, disable the auto-hide feature completely by setting the `no-auto-hide` prop
+to `true`.
 
 ### Toast roles
 
 Toasts are rendered with a default `role` attribute of `'alert'` and `aria-live` attribute of
-`'assertive'`. for toasts that are meant for a casula noticiation, set the `is-status` prop to
+`'assertive'`. for toasts that are meant for a casual notification, set the `is-status` prop to
 `true`, which will change the `role` and `aria-live` attributes to `'status'` and `'polite'`
 respectively.
 
@@ -224,14 +227,14 @@ Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nux
 
 ### Slots
 
-- `toast-title`: Content to relace the default title element.
+- `toast-title`: Content to replace the default title element.
 - `default`: Content of the toast body
 
 Both slots are optionally scoped with the following scope:
 
-| Method or property | Description                                                                      |
-| ------------------ | -------------------------------------------------------------------------------- |
-| `hide()`           | Hides the toast when called. Usefull if you are providing your own close button. |
+| Method or property | Description                                                                     |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `hide()`           | Hides the toast when called. Useful if you are providing your own close button. |
 
 ## `<b-toast>` component
 
@@ -282,7 +285,7 @@ closed.
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
 **Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created by
-`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and 
+`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and
 issue a console warning.
 
 ### Toaster transition
