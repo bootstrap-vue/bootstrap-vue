@@ -14,24 +14,33 @@
       &.b-toaster-enter-active,
       &.b-toaster-leave-active,
       &.b-toaster-move {
-        transition: transform 0.2s;
+        transition: opacity 0.1s ease-out, transform 0.2s;
       }
 
       &.b-toaster-enter {
         transform: scaleY(0.5);
         transform-origin: center top;
+
+        &.bg-white {
+          opacity: 0;
+        }
       }
 
       &.b-toaster-enter-active {
         .toast.fade {
           // Delay the appearance of the toast until
           // the move transition has completed
+          transition-property: opacity;
           transition-delay: 0.175s;
         }
       }
 
       &.b-toaster-enter-to {
         transform: scaleY(1);
+
+        &.bg-white {
+          opacity: 1;
+        }
       }
 
       &.b-toaster-leave-active {
@@ -45,6 +54,10 @@
       &.b-toaster-leave-to {
         transform: scaleY(0);
         transform-origin: center top;
+
+        &.bg-white {
+          opacity: 0;
+        }
       }
 
       /*
