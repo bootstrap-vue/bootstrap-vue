@@ -404,8 +404,8 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 | commonjs2      | webpack 1 / ...       | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser               | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), and
-`vue-functional-data-merge` (for functional components). These two dependencies are included in the
+BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning),` Portal-Vue`, and
+`vue-functional-data-merge` (for functional components). These three dependencies are included in the
 `commonjs2` and `UMD` bundles.
 
 ## Migrating a project already using Bootstrap
