@@ -34,6 +34,11 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
   },
+  isStatus: {
+    // Switches role to 'status' and aria-live to 'polite'
+    type: Boolean,
+    default: false
+  },
   appendToast: {
     type: Boolean,
     default: false
@@ -54,10 +59,12 @@ export const props = {
     type: Boolean,
     default: false
   },
+  /*
   noHoverPause: {
     type: Boolean,
     default: false
   },
+  */
   solid: {
     type: Boolean,
     default: false
@@ -74,16 +81,6 @@ export const props = {
     type: [String, Object, Array],
     default: ''
   },
-  isStatus: {
-    // Switches role to 'status' and aria-live to 'polite'
-    type: Boolean,
-    default: false
-  },
-  static: {
-    // Render the toast in place, rather than in a portal-target
-    type: Boolean,
-    default: false
-  },
   href: {
     type: String,
     default: null
@@ -91,6 +88,11 @@ export const props = {
   to: {
     type: [String, Object],
     default: null
+  },
+  static: {
+    // Render the toast in place, rather than in a portal-target
+    type: Boolean,
+    default: false
   }
 }
 
@@ -139,10 +141,10 @@ export default Vue.extend({
     },
     bToastClasses() {
       return {
+        'b-toast-solid': this.solid,
         'b-toast-append': this.appendToast,
         'b-toast-prepend': !this.appendToast,
-        [`b-toast-${this.variant}`]: this.variant,
-        'bg-white': this.solid
+        [`b-toast-${this.variant}`]: this.variant
       }
     },
     slotScope() {
