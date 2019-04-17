@@ -336,7 +336,11 @@ export default Vue.extend({
       // Assemble the header (if needed)
       let $header = h(false)
       if ($headerContent.length > 0) {
-        $header = h('header', { staticClass: 'toast-header', class: this.headerClass }, $headerContent)
+        $header = h(
+          'header',
+          { staticClass: 'toast-header', class: this.headerClass },
+          $headerContent
+        )
       }
       // Toast body
       const isLink = this.href || this.to
@@ -395,17 +399,11 @@ export default Vue.extend({
         }
       },
       [
-        h(
-          'div',
-          { key: name, staticClass: 'b-toast', class: this.bToastClasses },
-          [
-            h(
-              'transition',
-              { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers },
-              [this.localShow ? this.makeToast(h) : null]
-            )
-          ]
-        )
+        h('div', { key: name, staticClass: 'b-toast', class: this.bToastClasses }, [
+          h('transition', { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers }, [
+            this.localShow ? this.makeToast(h) : null
+          ])
+        ])
       ]
     )
   }
