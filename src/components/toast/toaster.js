@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
-import { getById } from '../../utils/dom'
+import { getById, requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -56,15 +56,23 @@ export default Vue.extend({
   beforeMount() {
     /* istanbul ignore if */
     if (getById(this.name) || Wormhole.targets[this.name]) {
-      warn(`b-toaster: A <portal-target> name '${this.name}' already exists in the document.`)
+      warn(`b-toaster: A <portal-target> with name '${this.name}' already exists in the document.`)
+      this.$once('hook:mounted', () => {
+        // Remove this toaster from DOM
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.$destroy()
+          })
+        })
+      })
     } else {
       this.doRender = true
+      this.$once('hook:beforeDestroy', () => {
+        // Let toasts made with `this.$bvToast.toast()` know that this toaster
+        // is being destroyed and should should also destroy/hide themselves
+        this.$root.$emit('bv::toaster::destroyed', this.name)
+      })
     }
-  },
-  beforeDestroy() {
-    // Let toasts made with `this.$bvToast.toast()` know that this toaster
-    // is being destroyed and should should also destroy themselves
-    this.$root.$emit('bv::toaster::destroyed', this.name)
   },
   destroyed() {
     // Remove from DOM if needed
