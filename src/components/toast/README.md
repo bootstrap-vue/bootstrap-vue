@@ -215,6 +215,11 @@ respectively.
 
 For more information, please the the [Accessibility](#accessibility) section below.
 
+### Links
+
+Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nuxt-link>` via the
+`href` and `to` props respectively. When set, the entire toast body becomes a link.
+
 ### Slots
 
 TBD
