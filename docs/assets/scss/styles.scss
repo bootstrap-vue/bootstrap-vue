@@ -5,6 +5,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+main {
+  min-height: 100vh;
+}
+
 .nuxt-progress {
   position: fixed;
   top: 0;
