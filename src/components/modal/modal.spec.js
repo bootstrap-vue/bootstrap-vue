@@ -41,7 +41,7 @@ describe('modal', () => {
       expect(wrapper.isVueInstance()).toBe(true)
       await waitNT(wrapper.vm)
 
-      // This outer <div> will go away once we migrate to Portal-Vue
+      // This outer <div> will go away once we migrate to PortalVue
       // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
@@ -118,7 +118,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // This outer <div> will go away once we migrate to Portal-Vue
+      // This outer <div> will go away once we migrate to PortalVue
       // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
@@ -191,7 +191,7 @@ describe('modal', () => {
       // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
       // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
 
-      // This outer <div> will go away once we migrate to Portal-Vue
+      // This outer <div> will go away once we migrate to PortalVue
       // as all modals will be lazy
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)

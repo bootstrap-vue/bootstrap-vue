@@ -64,8 +64,7 @@ purposes of toast transparency only.
   `<b-toast>` components.
 - Toasts can can targeted to any named toaster.
 
-BootstrapVue uses [Portal-Vue](https://portal-vue.linusb.org/) to transport toasts into the
-toasters.
+BootstrapVue uses [PortalVue](https://portal-vue.linusb.org/) to transport toasts into the toasters.
 
 ## On demand toasts
 
