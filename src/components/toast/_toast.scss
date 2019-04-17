@@ -14,8 +14,10 @@
     margin-bottom: $toast-padding-x;
   }
 
-  .toast .toast-body {
-    display: block; // needed when we use a link as the body element
+  .toast {
+    .toast-body {
+      display: block; // needed when we use a link as the body element
+    }
   }
 }
 
@@ -31,6 +33,10 @@
       background-color: rgba($background, 0.85);
       border-bottom-color: rgba($border, 0.85);
     }
+
+    // .toast-body[href] {
+    //   color: darken($color, 10%);
+    // }
   }
 }
 
