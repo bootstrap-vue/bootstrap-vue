@@ -66,7 +66,7 @@ purposes of toast transparency only.
 
 BootstrapVue uses [PortalVue](https://portal-vue.linusb.org/) to transport toasts into the toasters.
 
-## On demand toasts
+## Toasts on demand
 
 Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance injection,
 without the need to place a [`<b-toast>`](#b-toast-component) component in your app.
@@ -111,7 +111,16 @@ exception of `static`, and `visible`) in <samp>camelCase</samp> name format.
 <!-- toasts-bv-toast-example.vue -->
 ```
 
+Once a toast which was generated using `this.$bvToast.toast()` has been hidden, it will
+automatically be destroyed and removed from the document.
+
 ## Options
+
+Toasts have various options that can control their style and behaviour. Options are available both
+as props on the `<b-toast>` component and as properties of the options object passed to
+`this.$bvToast.toast()`. When passing options to `this.$bvToast.toast()`, use the
+<samp>camelCase</samp> version of the component prop name, i.e. use `noAutoHide` instead of
+`no-auto-hide`.
 
 ### Transparency
 
@@ -219,7 +228,7 @@ For more information, please the the [Accessibility](#accessibility) section bel
 
 ### Links
 
-Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nuxt-link>` via the
+Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nuxt-link>`) via the
 `href` and `to` props respectively. When set, the entire toast body becomes a link.
 
 ### Slots
