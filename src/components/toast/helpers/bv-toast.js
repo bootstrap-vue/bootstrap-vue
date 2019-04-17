@@ -142,11 +142,17 @@ const makeToast = (props, $parent) => {
 class BvToast {
   constructor(vm) {
     // Assign the new properties to this instance
-    assign(this, { _vm: vm, _root: vm.$root })
+    assign(this, { _vm: vm })
     // Set these properties as read-only and non-enumerable
     defineProperties(this, {
       _vm: readonlyDescriptor(),
-      _root: readonlyDescriptor()
+      _root: {
+        configurale: false,
+        enumerable: false,
+        get() {
+          return this._vm.$root
+        }
+      }
     })
   }
 
