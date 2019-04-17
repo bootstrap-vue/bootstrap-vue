@@ -28,7 +28,7 @@ export default {
       domProps: { innerHTML: this.readme }
     })
     // Reference section
-    const $referenceSection = h(Section, [
+    const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
       // Heading
       h(AnchoredHeading, { props: { id: 'component-reference' } }, 'Component reference'),
       // Component reference information

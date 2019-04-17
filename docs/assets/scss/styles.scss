@@ -22,6 +22,11 @@
 .CodeMirror {
   background-color: #f9f9f9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+
+  .card & {
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
 }
 
 /* https://github.com/bryanbraun/anchorjs/blob/e9c248ac82cfa905ed00e804a2a1c64296b342d1/anchor.js#L306 */
@@ -44,80 +49,114 @@
 
 .bd-toc {
   .section-nav {
-    .toc-entry.active > a {
-      font-weight: 600;
+    .toc-entry {
+      > .nav-link {
+        + .nav {
+          display: none;
+        }
+
+        &.active {
+          font-weight: 600;
+
+          + .nav {
+            display: flex !important;
+          }
+        }
+      }
     }
   }
 }
 
 .bd-content {
-  > h1,
-  > h2,
-  > h3,
-  > h4,
-  > h5 {
-    padding-top: 25px;
-    padding-bottom: 15px;
+  > h1 {
+    margin-top: 1rem;
+  }
+
+  &.bd-component-reference {
+    h2 {
+      margin-top: 3rem;
+    }
+
+    h3,
+    h4,
+    h5 {
+      margin-top: 2rem;
+    }
+
+    article,
+    section {
+      h3,
+      h4,
+      h5 {
+        &:first-child {
+          margin-top: 1rem;
+        }
+      }
+    }
   }
 }
 
-pre.editable:after {
-  content: "(double click to edit)";
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #aaa;
-  text-align: right;
-  font-size: 0.75em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
+pre.editable {
+  &::after {
+    content: "(double click to edit)";
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #aaa;
+    text-align: right;
+    font-size: 0.75em;
+    padding: 5px 10px 0;
+    line-height: 15px;
+    height: 15px;
+    font-weight: 600;
+  }
+
+  &:hover {
+    &::after {
+      font-size: 0.9em;
+      color: #444;
+      cursor: pointer;
+    }
+  }
+
+  &.live {
+    &::after {
+      content: "Live";
+    }
+  }
+
+  &.error {
+    border: 1px solid #dc3545;
+    box-shadow: 0 1px 1px rgba(220, 53, 69, 0.5);
+
+    &::after {
+      content: "JavaScript compile error!";
+      color: #dc3545;
+    }
+  }
 }
 
-pre.editable:hover:after {
-  font-size: 0.9em;
-  color: #444;
-  cursor: pointer;
+.bv-example-row {
+  .row {
+    + .row {
+      margin-top: 1rem;
+    }
+
+    > .col:not(.header),
+    > [class^="col-"] {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      background-color: rgba(86, 61, 124, 0.15);
+      border: 1px solid rgba(86, 61, 124, 0.2);
+    }
+  }
 }
 
-pre.editable.live:after {
-  content: "Live";
-}
-
-pre.editable.error {
-  border: 1px solid #dc3545;
-  box-shadow: 0 1px 1px rgba(220, 53, 69, 0.5);
-}
-
-pre.editable.error:after {
-  content: "JavaScript compile error!";
-  color: #dc3545;
-}
-
-.bd-footer {
-  padding: 4rem 0;
-  margin-top: 4rem;
-  font-size: 85%;
-  text-align: center;
-  background-color: #f7f7f7;
-}
-
-.bv-example-row .row + .row {
-  margin-top: 1rem;
-}
-
-.bv-example-row .row > .col:not(.header),
-.bv-example-row .row > [class^="col-"] {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  background-color: rgba(86, 61, 124, 0.15);
-  border: 1px solid rgba(86, 61, 124, 0.2);
-}
-
-.bv-example-row-flex-cols .row {
-  min-height: 10rem;
-  background-color: rgba(255, 0, 0, 0.1);
+.bv-example-row-flex-cols {
+  .row {
+    min-height: 10rem;
+    background-color: rgba(255, 0, 0, 0.1);
+  }
 }
 
 /* Additional styling for (responsive) markdown tables */
@@ -142,13 +181,6 @@ pre.editable.error:after {
 table#table-transition-example {
   .flip-list-move {
     transition: transform 1s;
-  }
-}
-
-.card {
-  .CodeMirror {
-    border-bottom-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
   }
 }
 

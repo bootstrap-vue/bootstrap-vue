@@ -161,16 +161,6 @@
   </section>
 </template>
 
-<style scoped>
-h1,
-h2,
-h3,
-h4,
-h5 {
-  padding: 20px 0;
-}
-</style>
-
 <script>
 import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
