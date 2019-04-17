@@ -150,5 +150,5 @@ export default new Promise(resolve => {
   }
 
   // Return a resolved promise
-  return Promise.resolve(Vue.extend(BCol))
+  resolve(Vue.extend(BCol))
 })
