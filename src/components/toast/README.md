@@ -10,9 +10,9 @@ align and position inside a `<b-toaster>` target component.
 Toasts are intended to be small interruptions to your visitors or users, and therefore should
 contain minimal, to-the-point, non-interactive content.
 
-<p class="alert alert-warning" role="alert">
-  <strong>BETA warning:</strong> BootstrapVue toasts are in their prelimiary stages of being
-  developed, and usage is subject to change in future releases.
+<p class="alert alert-warning mb-0" role="alert">
+  <strong>BETA warning</strong><br>
+  Toasts are in their preliminary stages of being developed, and usage is subject to change in future releases.
 </p>
 
 ## Overview
@@ -49,10 +49,10 @@ purposes of toast transparency only.
 - Toasts will auto hide after a default of 5 seconds (5000ms). The duration can be changed via the
   `auto-hide-delay` prop (value is specified in milliseconds), and disabled with the `no-auto-hide`
   prop.
-- Toasts include a close button on their top right to allow users to manually dismiss them. The close
-  button can be hidden via the `no-close-button` prop.
-- Titles are optional, but should be included, titles are rendered inside a `<strong>` element, unless
-  using the `toast-title` slot.
+- Toasts include a close button on their top right to allow users to manually dismiss them. The
+  close button can be hidden via the `no-close-button` prop.
+- Titles are optional, but should be included, titles are rendered inside a `<strong>` element,
+  unless using the `toast-title` slot.
 - If you disable the auto-hide feature, avoid hiding the close button, or if you hide the close
   button be sure to allow the toast to auto-dimiss.
 - Toast transparency can be disabled by setting the `solid` prop to `true`.
@@ -63,7 +63,8 @@ purposes of toast transparency only.
   `<b-toast>` components.
 - Toasts can can taragetted to any named toaster.
 
-BootstrapVue uses [Portal-Vue](https://portal-vue.linusb.org/) to transport toasts into the toasters.
+BootstrapVue uses [Portal-Vue](https://portal-vue.linusb.org/) to transport toasts into the
+toasters.
 
 ## On demand toasts
 
@@ -116,8 +117,8 @@ TBD
 
 ### Transparency
 
-Toasts have a semi-transparent background by default. To disabled the default transparency,
-jsut set the `solid` prop to `true`
+Toasts have a semi-transparent background by default. To disabled the default transparency, jsut set
+the `solid` prop to `true`
 
 ### Variants
 
@@ -161,9 +162,9 @@ TBD
 
 ### Prepend and append
 
-Toasts default to prepending themselves to the top of the toasts shown in the specified toaster
-in the order they were created. To append new toasts to the bottom, set the `append-toast` prop
-to `true`
+Toasts default to prepending themselves to the top of the toasts shown in the specified toaster in
+the order they were created. To append new toasts to the bottom, set the `append-toast` prop to
+`true`
 
 ### Auto-hide
 
@@ -231,7 +232,7 @@ closed.
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
 **Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created by
-`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and 
+`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and
 issue a console warning.
 
 ### Toaster transitions
