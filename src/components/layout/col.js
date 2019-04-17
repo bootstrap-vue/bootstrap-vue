@@ -69,7 +69,7 @@ export default new Promise(resolve => {
   }, create(null))
 
   // Supports classes like: .offset-md-1, .offset-lg-12
-  cont breakpointOffset = breakpoints.reduce((propMap, breakpoint) => {
+  const breakpointOffset = breakpoints.reduce((propMap, breakpoint) => {
     propMap[suffixPropName(breakpoint, 'offset')] = strNum()
     return propMap
   }, create(null))
