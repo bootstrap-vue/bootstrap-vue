@@ -142,7 +142,7 @@ value can also be configured globally via the `linkExactActiveClass` router cons
 
 When BootstrapVue detects that your app is running under [Nuxt.js](https://nuxtjs.org), it will
 render a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub component instead of a
-`router-link>`. `<nuxt-link>` supports all of the above router link props, plus the following
+`<router-link>`. `<nuxt-link>` supports all of the above router link props, plus the following
 additional Nuxt.js specific props.
 
 ### `no-prefetch`
