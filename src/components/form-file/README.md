@@ -189,7 +189,7 @@ be rendered when there are no file(s) selected.
 ## Non custom file input
 
 You can have `<b-form-file>` render a browser native file input by setting the `plain` prop. Note
-that many of the customer form-file features do not apply when `plain` is set.
+that many of the custom form-file features do not apply when `plain` is set.
 
 ## Contextual state feedback
 
