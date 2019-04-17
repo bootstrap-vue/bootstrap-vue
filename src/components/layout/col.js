@@ -143,6 +143,9 @@ const BCol = {
 // When Vue extends this component, it will then evaluate the props, which
 // will trigger our getter to compute the props
 defineProperty(BCol, 'props', {
+  configurable: true,
+  enumerable: true,
+  writable: true,
   get() {
     return {
       // Generic flexbox .col (xs)
