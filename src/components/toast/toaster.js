@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
-import { getById, removeClass, requestAF } from '../../utils/dom'
+import { removeClass, requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -108,7 +108,7 @@ export default Vue.extend({
     if (this.doRender) {
       const $target = h(PortalTarget, {
         staticClass: 'b-toaster-slot',
-         attrs: {
+        attrs: {
           role: this.role,
           'aria-live': this.ariaLive,
           'aria-atomic': this.ariaAtomic
@@ -125,7 +125,7 @@ export default Vue.extend({
       $toaster = h(
         'div',
         {
-          staticClass:'b-toaster',
+          staticClass: 'b-toaster',
           class: [this.staticName],
           attrs: { id: this.staticName }
         },
