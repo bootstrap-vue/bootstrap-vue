@@ -28,8 +28,8 @@
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     position: fixed;
-    left: 0;
-    right: 0;
+    left: $b-toaster-offset-left;
+    right: $b-toaster-offset-right;
     margin: 0;
     padding: 0;
     height: 0;
@@ -67,7 +67,7 @@
     right: 0;
 
     .b-toaster-slot {
-      right: $b-toaster-offset-right;
+      right: 0;
     }
   }
 
@@ -76,7 +76,7 @@
     left: 0;
 
     .b-toaster-slot {
-      left: $b-toaster-offset-left;
+      left: 0;
     }
   }
 }
