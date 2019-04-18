@@ -76,21 +76,15 @@ export default Vue.extend({
   data() {
     return {
       // We don't render on SSR or if a an existing target found
-      doRender: false
+      doRender: false,
+      dead: false
     }
   },
   beforeMount() {
     /* istanbul ignore if */
-    if (getById(this.name) || Wormhole.targets[this.name]) {
+    if (getById(this.name) || Wormhole.hasTarget(this.name)) {
       warn(`b-toaster: A <portal-target> with name '${this.name}' already exists in the document.`)
-      this.$once('hook:mounted', () => {
-        // Remove this toaster from DOM
-        this.$nextTick(() => {
-          requestAF(() => {
-            this.$destroy()
-          })
-        })
-      })
+      this.dead = true
     } else {
       this.doRender = true
       this.$once('hook:beforeDestroy', () => {
@@ -107,7 +101,7 @@ export default Vue.extend({
     }
   },
   render(h) {
-    let $target = h('div', { class: 'd-none' })
+    let $target = h('div', { class: ['d-none', {'b-dead-toaster': this.dead }] })
     if (this.doRender) {
       $target = h(PortalTarget, {
         staticClass: 'b-toaster',
