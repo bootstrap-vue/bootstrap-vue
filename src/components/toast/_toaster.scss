@@ -1,8 +1,9 @@
-// --- <b-toaster> base custom SCSS ---
+// --- <b-toaster> custom SCSS ---
 
 // NOTE:
 // This SCSS is prelimiary, and may change in the future.
 
+// Base toaster styling
 .b-toaster {
   z-index: $b-toaster-zindex;
 
@@ -12,6 +13,75 @@
     
     &:empty {
       display: none !important;
+    }
+  }
+}
+
+// Built-in toaster styling
+//  - b-toaster-top-right
+//  - b-toaster-top-left
+//  - b-toaster-bottom-right
+//  - b-toaster-bottom-left
+.b-toaster {
+  &.b-toaster-top-right,
+  &.b-toaster-top-left,
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0 $b-toaster-offset-right 0 $b-toaster-offset-left;
+    height: 0;
+    overflow: visible;
+
+    .b-toaster-slot {
+      max-width: $toast-max-width;
+      position: absolute;
+      top: unset;
+      left: unset;
+      right: unset;
+      bottom: unset;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  &.b-toaster-top-right,
+  &.b-toaster-top-left {
+    top: 0;
+
+    .b-toaster-slot {
+      top: $b-toaster-offset-top;
+    }
+  }
+
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left {
+    bottom: 0;
+
+    .b-toaster-slot {
+      bottom: $b-toaster-offset-bottom;
+    }
+  }
+  
+  &.b-toaster-top-right,
+  &.b-toaster-bottom-right {
+    right: 0;
+
+    .b-toaster-slot {
+      right: 0;
+      margin-left: auto;
+    }
+  }
+
+  &.b-toaster-top-left,
+  &.b-toaster-bottom-left {
+    left: 0;
+
+    .b-toaster-slot {
+      left: 0;
+      margin-right: auto;
     }
   }
 }
