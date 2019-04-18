@@ -13,14 +13,16 @@
 .b-toaster {
   position: fixed;
   min-width: $b-toaster-min-width;
-  max-width: $toast-max-width;
+  max-width: $b-toaster-max-width;
   overflow: visible;
+  height: 0;
   z-index: $b-toaster-zindex;
 
   // Ensure that an empty toaster isn't occupying any space
   // and obscuring access to underlying elements
   &:empty {
     padding: 0 0;
+    margin: 0 0;
     display: none;
   }
 
