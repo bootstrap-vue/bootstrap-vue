@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
-import { getById, requestAF } from '../../utils/dom'
+import { getById, removeClass, requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -40,8 +40,34 @@ export const DefaultTransition = Vue.extend({
   // functional: true,
   // render(h, { children }) {
   //   return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
+  data() {
+    return {
+      name: 'b-toaster'
+    }
+  },
+  methods: {
+    onAfterEnter(el) {
+      // Handle bug where enter-to class is not removed
+      requestAF(() => {
+        removeClass(el, `${this.name}-enter-to`)
+        // removeClass(el, `${this.name}-move`)
+      })
+    }
+  },
   render(h) {
-    return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, this.$slots.default)
+    return h(
+      'transition-group',
+      {
+        props: {
+          tag: 'div',
+          name: this.name
+        },
+        on: {
+          afterEnter: this.onAfterEnter
+        }
+      },
+      this.$slots.default
+    )
   }
 })
 
