@@ -42,21 +42,18 @@ export const DefaultTransition = Vue.extend({
   //   return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
   data() {
     return {
+      // Transition classes base name
       name: 'b-toaster'
     }
   },
   methods: {
     onAfterEnter(el) {
-      // Handle bug where enter-to class is not removed
+      // Handle bug where enter-to class is not removed.
+      // Bug is related to portal-vue and transition-groups.
       requestAF(() => {
         removeClass(el, `${this.name}-enter-to`)
-        removeClass(el, `${this.name}-move`)
-      })
-    },
-    onAfterLeave(el) {
-      // Handle bug where move class is not removed
-      requestAF(() => {
-        removeClass(el, `${this.name}-move`)
+        // The *-move class is also stuck on elements that moved,
+        // but there are no javascript hooks to handle after move.
       })
     }
   },
@@ -64,14 +61,8 @@ export const DefaultTransition = Vue.extend({
     return h(
       'transition-group',
       {
-        props: {
-          tag: 'div',
-          name: this.name
-        },
-        on: {
-          afterEnter: this.onAfterEnter,
-          afterLeave: this.onAfterLeave
-        }
+        props: { tag: 'div', name: this.name },
+        on: { afterEnter: this.onAfterEnter }
       },
       this.$slots.default
     )
