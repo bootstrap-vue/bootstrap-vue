@@ -12,6 +12,7 @@
 
 .b-toaster {
   position: fixed;
+  min-width: $b-toaster-min-width;
   max-width: $toast-max-width;
   overflow: visible;
   z-index: $b-toaster-zindex;
@@ -20,6 +21,7 @@
   // and obscuring access to underlying elements
   &:empty {
     padding: 0 0;
+    display: none;
   }
 
   &.b-toaster-top-right,
@@ -35,12 +37,10 @@
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
     right: $b-toaster-offset-right;
-    min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-right * 2});
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     left: $b-toaster-offset-left;
-    min-width: calc(#{$toast-max-width} - #{$b-toaster-offset-left * 2});
   }
 }
