@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { Portal } from 'portal-vue'
+import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { getById, requestAF } from '../../utils/dom'
@@ -171,8 +171,19 @@ export default Vue.extend({
       newVal ? this.show() : this.hide()
     },
     localShow(newVal) {
-      if (newVal !== this.show) {
+      if (newVal !== this.visible) {
         this.$emit('change', newVal)
+      }
+    },
+    toaster(newVal) {
+      // If toaster target changed, make sure toaster exists
+      this.$nextTick(() => this.ensureToaster)
+    },
+    static(newVal) {
+      // If static changes to true, and the toast is showing,
+      // ensure the toaster target exists
+      if (newVal && this.localShow) {
+        this.ensureToaster()
       }
     }
   },
@@ -185,13 +196,21 @@ export default Vue.extend({
         })
       }
     })
-    this.listenOnRoot('bv::show:toast', id => {
+    // Listen for global $root show events
+    this.listenOnRoot('bv::show::toast', id => {
       if (id === this.id) {
         this.show()
       }
     })
-    this.listenOnRoot('bv::hide:toast', id => {
+    // Listen for global $root hide events
+    this.listenOnRoot('bv::hide::toast', id => {
       if (!id || id === this.id) {
+        this.hide()
+      }
+    })
+    // Make sure we hide when toaster is destroyed
+    this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      if (toaster === this.toaster) {
         this.hide()
       }
     })
@@ -234,7 +253,10 @@ export default Vue.extend({
       this.$emit(type, bvEvt)
     },
     ensureToaster() {
-      if (!getById(this.toaster)) {
+      if (this.static) {
+        return
+      }
+      if (!getById(this.toaster) && !Wormhole.hasTarget(this.toaster)) {
         const div = document.createElement('div')
         document.body.append(div)
         const toaster = new BToaster({

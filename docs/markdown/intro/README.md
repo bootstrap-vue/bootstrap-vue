@@ -84,7 +84,7 @@ section.
   </p>
   <p class="mb-0">
     See the
-    <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Vue.JS
+    <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Vue.js
     Guide</a> for details on setting up aliases for
     <a class="alert-link" href="https://webpack.js.org/">webpack</a>,
     <a class="alert-link" href="https://rollupjs.org/">rollup.js</a>,
