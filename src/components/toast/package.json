@@ -13,7 +13,7 @@
         "events": [
           {
             "event": "change",
-            "description": "Toast visibility state. Updates the v-modal.",
+            "description": "Toast visibility state. Used to update the v-model.",
             "args": [
               {
                 "arg": "visible",
