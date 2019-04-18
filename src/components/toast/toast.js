@@ -171,13 +171,20 @@ export default Vue.extend({
       newVal ? this.show() : this.hide()
     },
     localShow(newVal) {
-      if (newVal !== this.show) {
+      if (newVal !== this.visible) {
         this.$emit('change', newVal)
       }
     },
     toaster(newVal) {
       // If toaster target changed, make sure toaster exists
       this.$nextTick(() => this.ensureToaster)
+    },
+    static(newVal) {
+      // If static changes to true, and the toast is showing,
+      // ensure the toaster target exists
+      if (newVal && this.localShow) {
+        this.ensureToaster()
+      }
     }
   },
   mounted() {
