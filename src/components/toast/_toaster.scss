@@ -1,21 +1,7 @@
 // --- <b-toaster> custom SCSS ---
 
-// Configured "toasters".
-// The following are columnar toasters (vertically stacked)
-//   b-toaster-top-right
-//   b-toaster-top-left
-//   b-toaster-bottom-right
-//   b-toaster-bottom-left
-//
-// Note: This may change to using a flex layout
-//
-
+// Base b-toaster styles
 .b-toaster {
-  position: fixed;
-  min-width: $b-toaster-min-width;
-  max-width: $b-toaster-max-width;
-  overflow: visible;
-  height: 0;
   z-index: $b-toaster-zindex;
 
   // Ensure that an empty toaster isn't occupying any space
@@ -24,6 +10,27 @@
     padding: 0 0;
     margin: 0 0;
     display: none;
+  }
+}
+
+// Configured "toasters":
+// The following are columnar toasters (vertically stacked)
+// and fixed within the viewport
+//   b-toaster-top-right
+//   b-toaster-top-left
+//   b-toaster-bottom-right
+//   b-toaster-bottom-left
+//
+.b-toaster {
+  &.b-toaster-top-right,
+  &.b-toaster-top-left,
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left {
+    position: fixed;
+    overflow: visible;
+    height: 0;
+    left: $b-toaster-offset-left;
+    right: $b-toaster-offset-right;
   }
 
   &.b-toaster-top-right,
@@ -37,12 +44,16 @@
   }
 
   &.b-toaster-top-right,
-  &.b-toaster-bottom-right {
-    right: $b-toaster-offset-right;
+  &.b-toaster-bottom-right  {
+    .b-toast {
+      margin-left: auto;
+    }
   }
 
   &.b-toaster-top-left,
-  &.b-toaster-bottom-left {
-    left: $b-toaster-offset-left;
+  &.b-toaster-bottom-left  {
+    .b-taost {
+      margin-right: auto;
+    }
   }
 }
