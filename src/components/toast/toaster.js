@@ -38,8 +38,10 @@ export const props = {
 // @vue/component
 export const DefaultTransition = Vue.extend({
   // functional: true,
-  render(h, { children }) {
-    return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
+  // render(h, { children }) {
+  //   return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
+  render(h) {
+    return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, this.$slots.default)
   }
 })
 
