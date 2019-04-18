@@ -265,19 +265,6 @@ Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nux
 <!-- toast-link.vue -->
 ```
 
-### Slots
-
-- `toast-title`: Content to replace the default title element.
-- `default`: Content of the toast body
-
-Both slots are optionally scoped with the following scope:
-
-| Method or property | Description                                                                     |
-| ------------------ | ------------------------------------------------------------------------------- |
-| `hide()`           | Hides the toast when called. Useful if you are providing your own close button. |
-
-Slots are only available when using the `<b-toast>` component.
-
 ## `<b-toast>` component
 
 When you have an custom component that would like to display just a single toast at a time, use the
@@ -295,6 +282,39 @@ specified by the `toaster` prop will be created on demand if it doesn't already 
 You can force a `<b-toast>` to appear in-place in the document by setting the `static` prop to
 `true`. you still need to show and hide the toast, but it will not be transported into a toaster
 component.
+
+```html
+<template>
+  <div>
+    <b-button @click="$bvToast.show('my-toast')">Show toast</b-button>
+
+    <b-toast id="my-toast" variant="warning" solid>
+      <div slot="toast-title" class="d-flex flex-grow-1 align-items-baseline">
+        <b-img blank blank-color="#ff5555" class="mr-2" width="12" height="12"></b-img>
+        <strong class="mr-auto">Notice!</strong>
+        <small class="text-muted mr-2">42 seconds ago</small>
+      </div>
+      This is the content of the toast.
+      It is short and to the point.
+    </b-toast>
+  </div>
+</template>
+
+<!-- toast-component.vue -->
+```
+
+### Slots
+
+- `toast-title`: Content to replace the default title element.
+- `default`: Content of the toast body
+
+Both slots are optionally scoped with the following scope:
+
+| Method or property | Description                                                                     |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `hide()`           | Hides the toast when called. Useful if you are providing your own close button. |
+
+Slots are only available when using the `<b-toast>` component.
 
 ## `<b-toaster>` target component
 
