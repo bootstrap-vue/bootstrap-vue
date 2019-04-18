@@ -178,8 +178,8 @@ SCSS):
   <div>
     <b-button @click="toast('b-toaster-top-right')">b-toaster-top-right</b-button>
     <b-button @click="toast('b-toaster-top-left')">b-toaster-top-left</b-button>
-    <b-button @click="toast('b-toaster-bottom-right')">b-toaster-bottom-right</b-button>
-    <b-button @click="toast('b-toaster-bottom-left')">b-toaster-bottom-left</b-button>
+    <b-button @click="toast('b-toaster-bottom-right', true)">b-toaster-bottom-right</b-button>
+    <b-button @click="toast('b-toaster-bottom-left', true)">b-toaster-bottom-left</b-button>
   </div>
 </template>
 
@@ -191,12 +191,13 @@ SCSS):
       }
     },
     methods: {
-      toast(toaster) {
+      toast(toaster, append = false) {
         this.counter++
         this.$bvToast.toast(`Toast ${this.counter} body content`, {
           title: `Toaster ${toaster}`,
           toaster: toaster,
-          solid: true
+          solid: true,
+          appendToast: append
         })
       }
     }
@@ -240,6 +241,29 @@ For more information, please the the [Accessibility](#accessibility) section bel
 
 Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nuxt-link>`) via the
 `href` and `to` props respectively. When set, the entire toast body becomes a link.
+
+```html
+<template>
+  <div>
+    <b-button @click="toast()">Toast with link</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      toast() {
+        this.$bvToast.toast(`Toast with action link`, {
+          href: '#foo',
+          title: 'Example'
+        }) 
+      }
+    }
+  }
+</script>
+
+<!-- toast-link.vue -->
+```
 
 ### Slots
 
