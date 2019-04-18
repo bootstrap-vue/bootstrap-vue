@@ -185,9 +185,15 @@ SCSS):
 
 <script>
   export default {
+    data() {
+      return {
+        counter: 0
+      }
+    },
     methods: {
       toast(toaster) {
-        this.$bvToast.toast('Toast body content', {
+        this.counter++
+        this.$bvToast.toast(`Toast ${this.counter} body content`, {
           title: `Toaster ${toaster}`,
           toaster: toaster,
           solid: true
@@ -209,7 +215,7 @@ and ID set to the toaster target name). The only default styling the toaster wil
 
 Toasts default to prepending themselves to the top of the toasts shown in the specified toaster in
 the order they were created. To append new toasts to the bottom, set the `append-toast` prop to
-`true`
+`true`.
 
 ### Auto-hide
 
