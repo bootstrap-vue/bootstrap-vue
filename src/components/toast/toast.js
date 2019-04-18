@@ -249,7 +249,7 @@ export default Vue.extend({
       if (this.static) {
         return
       }
-      if (!getById(this.toaster) && !Wormhole.hasTarget(this.toaster) {
+      if (!getById(this.toaster) && !Wormhole.hasTarget(this.toaster)) {
         const div = document.createElement('div')
         document.body.append(div)
         const toaster = new BToaster({
