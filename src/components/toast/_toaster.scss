@@ -28,19 +28,20 @@
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
     position: fixed;
-    left: 0;
-    right: 0;
+    left: $b-toaster-offset-left;
+    right: $b-toaster-offset-right;
     margin: 0;
-    padding: 0 $b-toaster-offset-right 0 $b-toaster-offset-left;
+    padding: 0;
     height: 0;
     overflow: visible;
+    width: 100%;
 
     .b-toaster-slot {
       max-width: $toast-max-width;
       position: absolute;
-      top: unset;
       left: unset;
       right: unset;
+      top: unset;
       bottom: unset;
       padding: 0;
       margin: 0;
