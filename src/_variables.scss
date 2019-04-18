@@ -10,7 +10,8 @@ $b-toaster-offset-top: 0.5rem !default;
 $b-toaster-offset-bottom: $b-toaster-offset-top !default;
 $b-toaster-offset-left: $b-toaster-offset-top !default;
 $b-toaster-offset-right: $b-toaster-offset-top !default;
-$b-toaster-min-width: calc(320px - #{$b-toaster-offset-left + $b-toaster-offset-right}) !default;
+$b-toaster-max-width: $toast-max-width !default;
+$b-toaster-min-width: calc(#{$b-toaster-max-width} / 1.5) !default;
 
 $b-toast-bg-level: $alert-bg-level !default;
 $b-toast-border-level: $alert-border-level !default;
