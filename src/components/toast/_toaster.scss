@@ -40,11 +40,11 @@
 
   &.b-toaster-top-right,
   &.b-toaster-bottom-right  {
-    left: $b-toaster-offset-left;
+    right: $b-toaster-offset-right;
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left  {
-    right: $b-toaster-offset-right;
+    left: $b-toaster-offset-left;
   }
 }
