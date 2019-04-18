@@ -37,7 +37,7 @@
     width: 100%;
 
     .b-toaster-slot {
-      max-width: $toast-max-width;
+      max-width: $b-toaster-max-width;
       position: absolute;
       left: unset;
       right: unset;
@@ -69,6 +69,7 @@
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
     .b-toaster-slot {
+      right: 0;
       margin-right: 0;
       margin-left: auto;
     }
@@ -77,6 +78,7 @@
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
     .b-toaster-slot {
+      left: 0;
       margin-left: 0;
       margin-right: auto;
     }
