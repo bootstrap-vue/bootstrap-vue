@@ -362,7 +362,7 @@ export default Vue.extend({
   },
   methods: {
     updateModel(val) {
-      if (val !== !!this.visible) {
+      if (val !== this.visible) {
         this.$emit('change', val)
       }
     },
