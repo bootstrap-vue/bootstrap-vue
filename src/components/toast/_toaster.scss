@@ -1,50 +1,17 @@
-// --- <b-toaster> custom SCSS ---
+// --- <b-toaster> base custom SCSS ---
 
-// Configured "toasters":
-// The following are columnar toasters (vertically stacked)
-// and fixed within the viewport
-//   b-toaster-top-right
-//   b-toaster-top-left
-//   b-toaster-bottom-right
-//   b-toaster-bottom-left
-//
 // NOTE:
 // This SCSS is prelimiary, and may change in the future.
-// We may add an inner wrapper inside .b-toast (a .b-toaster-slot)
-// To allow for better customization of positional styling.
 
 .b-toaster {
-  position: fixed;
-  min-width: $b-toaster-min-width;
-  max-width: $b-toaster-max-width;
-  overflow: visible;
   z-index: $b-toaster-zindex;
 
-  // Ensure that an empty toaster isn't occupying any space
-  // and obscuring access to underlying elements
-  &:empty {
-    padding: 0 0;
-    margin: 0 0;
-    display: none;
-  }
-
-  &.b-toaster-top-right,
-  &.b-toaster-top-left {
-    top: $b-toaster-offset-top;
-  }
-
-  &.b-toaster-bottom-right,
-  &.b-toaster-bottom-left {
-    bottom: $b-toaster-offset-bottom;
-  }
-
-  &.b-toaster-top-right,
-  &.b-toaster-bottom-right  {
-    right: $b-toaster-offset-right;
-  }
-
-  &.b-toaster-top-left,
-  &.b-toaster-bottom-left  {
-    left: $b-toaster-offset-left;
+  .b-toaster-slot {
+    position: relative;
+    display: block;
+    
+    &:empty {
+      display: none !important;
+    }
   }
 }
