@@ -50,7 +50,13 @@ export const DefaultTransition = Vue.extend({
       // Handle bug where enter-to class is not removed
       requestAF(() => {
         removeClass(el, `${this.name}-enter-to`)
-        // removeClass(el, `${this.name}-move`)
+        removeClass(el, `${this.name}-move`)
+      })
+    },
+    onAfterLeave(el) {
+      // Handle bug where move class is not removed
+      requestAF(() => {
+        removeClass(el, `${this.name}-move`)
       })
     }
   },
@@ -63,7 +69,8 @@ export const DefaultTransition = Vue.extend({
           name: this.name
         },
         on: {
-          afterEnter: this.onAfterEnter
+          afterEnter: this.onAfterEnter,
+          afterLeave: this.onAfterLeave
         }
       },
       this.$slots.default
