@@ -13,7 +13,7 @@ contain minimal, to-the-point, non-interactive content.
 <p class="alert alert-warning mb-0" role="alert">
   <strong>BETA warning</strong><br>
   Toasts are in their preliminary stages of being developed,
-  and usage is subject to change in future releases.
+  and usage and custom CSS is subject to change in future releases.
 </p>
 
 ## Overview
@@ -185,9 +185,15 @@ SCSS):
 
 <script>
   export default {
+    data() {
+      return {
+        counter: 0
+      }
+    },
     methods: {
       toast(toaster) {
-        this.$bvToast.toast('Toast body content', {
+        this.counter++
+        this.$bvToast.toast(`Toast ${this.counter} body content`, {
           title: `Toaster ${toaster}`,
           toaster: toaster,
           solid: true
@@ -205,11 +211,15 @@ document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>
 and ID set to the toaster target name). The only default styling the toaster will have is
 `position: fixed;`, a `max-width` and a `z-index` of `1100`.
 
+Avoid using both `b-toaster-top-left` and `b-toaster-top-right`, or `b-toaster-bottom-left` and 
+`b-toaster-bottom-right`, at the same time in your app as notifications could be obscured on small
+screens (i.e. `xs`).
+
 ### Prepend and append
 
 Toasts default to prepending themselves to the top of the toasts shown in the specified toaster in
 the order they were created. To append new toasts to the bottom, set the `append-toast` prop to
-`true`
+`true`.
 
 ### Auto-hide
 
@@ -220,7 +230,7 @@ to `true`.
 ### Toast roles
 
 Toasts are rendered with a default `role` attribute of `'alert'` and `aria-live` attribute of
-`'assertive'`. for toasts that are meant for a casual notification, set the `is-status` prop to
+`'assertive'`. For toasts that are meant for a casual notification, set the `is-status` prop to
 `true`, which will change the `role` and `aria-live` attributes to `'status'` and `'polite'`
 respectively.
 
