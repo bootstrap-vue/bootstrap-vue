@@ -220,7 +220,7 @@ to `true`.
 ### Toast roles
 
 Toasts are rendered with a default `role` attribute of `'alert'` and `aria-live` attribute of
-`'assertive'`. for toasts that are meant for a casual notification, set the `is-status` prop to
+`'assertive'`. For toasts that are meant for a casual notification, set the `is-status` prop to
 `true`, which will change the `role` and `aria-live` attributes to `'status'` and `'polite'`
 respectively.
 
