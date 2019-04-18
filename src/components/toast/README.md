@@ -13,7 +13,7 @@ contain minimal, to-the-point, non-interactive content.
 <p class="alert alert-warning mb-0" role="alert">
   <strong>BETA warning</strong><br>
   Toasts are in their preliminary stages of being developed,
-  and usage is subject to change in future releases.
+  and usage and custom CSS is subject to change in future releases.
 </p>
 
 ## Overview
@@ -210,6 +210,10 @@ SCSS):
 document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
 and ID set to the toaster target name). The only default styling the toaster will have is
 `position: fixed;`, a `max-width` and a `z-index` of `1100`.
+
+Avoid using both `b-toaster-top-left` and `b-toaster-top-right`, or `b-toaster-bottom-left` and 
+`b-toaster-bottom-right`, at the same time in your app as notifications could be obscured on small
+screens (i.e. `xs`).
 
 ### Prepend and append
 
