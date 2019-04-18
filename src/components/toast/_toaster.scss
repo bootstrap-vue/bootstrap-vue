@@ -64,8 +64,6 @@
   
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
-    right: 0;
-
     .b-toaster-slot {
       right: 0;
     }
@@ -73,8 +71,6 @@
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
-    left: 0;
-
     .b-toaster-slot {
       left: 0;
     }
