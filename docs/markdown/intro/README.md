@@ -71,7 +71,6 @@ For information on theming Bootstrap, check out the [Theming](/docs/reference/th
 section.
 
 <p class="alert alert-info mb-0">
-  <strong>Note:</strong><br>
   BootstrapVue and PortalVue require access to the global <samp>Vue</samp> reference (via 
   <samp>import Vue from 'vue'</samp>). If you are using a specific build of Vue (i.e. runtime-only
   vs. compiler + runtime), you will need to set up an alias to <samp>Vue</samp> in your bundler config
