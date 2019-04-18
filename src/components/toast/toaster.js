@@ -101,7 +101,7 @@ export default Vue.extend({
     }
   },
   render(h) {
-    let $target = h('div', { class: ['d-none', {'b-dead-toaster': this.dead }] })
+    let $target = h('div', { class: ['d-none', { 'b-dead-toaster': this.dead }] })
     if (this.doRender) {
       $target = h(PortalTarget, {
         staticClass: 'b-toaster',
