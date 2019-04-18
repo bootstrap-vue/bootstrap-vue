@@ -70,16 +70,17 @@ values and functions between files by default.
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
 
-<p class="alert alert-info">
+<p class="alert alert-info mb-0">
   <strong>Note:</strong><br>
-  BootstrapVue and PortalVue require access to the global <code>Vue</code> reference (via 
-  <code>import Vue from 'vue'</code>). If you are using a specific build of Vue (i.e. runtime-only
+  BootstrapVue and PortalVue require access to the global <samp>Vue</samp> reference (via 
+  <samp>import Vue from 'vue'</samp>). If you are using a specific build of Vue (i.e. runtime-only
   vs. compiler + runtime), you will need to set up an alias to <samp>Vue</samp> in your bundler config
   to ensure that your project and BootstrapVue and PortalVue are using the same build version of Vue.
-  If you are seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will
+  If you are seeing an error such as <samp>"$attr and $listeners is readonly"</samp>, then you will
   need to set up an alias. See the
-  <a href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Vue.JS Guide</a>
-  for details on setting up aliases for Webpack, Rollup, Parcel, etc.
+  <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">
+    Vue.JS Guide
+  </a> for details on setting up aliases for Webpack, Rollup, Parcel, etc.
 </p>
 
 ## Nuxt.js module
