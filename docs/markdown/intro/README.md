@@ -78,7 +78,7 @@ section.
   If you are seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will
   need to set up an alias. See the
   <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">
-    Vue.JS Guide
+    Vue.js Guide
   </a> for details on setting up aliases for Webpack, Rollup, Parcel, etc.
 </p>
 
