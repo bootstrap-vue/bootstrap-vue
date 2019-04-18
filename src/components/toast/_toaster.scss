@@ -37,12 +37,9 @@
 
     .b-toaster-slot {
       width: auto;
+      min-width: $b-toaster-min-width;
       max-width: $toast-max-width;
       position: absolute;
-      left: unset;
-      right: unset;
-      top: unset;
-      bottom: unset;
       padding: 0;
       margin: 0;
     }
@@ -72,9 +69,6 @@
 
     .b-toaster-slot {
       right: $b-toaster-offset-right;
-      left: auto;
-      margin-right: 0;
-      margin-left: auto;
     }
   }
 
@@ -84,9 +78,6 @@
 
     .b-toaster-slot {
       left: $b-toaster-offset-left;
-      right: auto;
-      margin-left: 0;
-      margin-right: auto;
     }
   }
 }
