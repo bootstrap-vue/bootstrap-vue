@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
-import { getById, requestAF } from '../../utils/dom'
+import { requestAF } from '../../utils/dom'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
@@ -155,7 +155,8 @@ export default Vue.extend({
       }
     },
     computedDuration() {
-      return parseInt(this.autoHideDelay, 10) || 5000
+      // Minimum supported duration is 1 second
+      return Math.max(parseInt(this.autoHideDelay, 10) || 0, 1000)
     },
     transitionHandlers() {
       return {
@@ -256,7 +257,7 @@ export default Vue.extend({
       if (this.static) {
         return
       }
-      if (!getById(this.toaster) && !Wormhole.hasTarget(this.toaster)) {
+      if (!Wormhole.hasTarget(this.toaster)) {
         const div = document.createElement('div')
         document.body.append(div)
         const toaster = new BToaster({
