@@ -74,7 +74,7 @@ section.
   <strong>Note:</strong><br>
   BootstrapVue and PortalVue require access to the global <code>Vue</code> reference (via 
   <code>import Vue from 'vue'</code>). If you are using a specific build of Vue (i.e. runtime-only
-  vs. compiler+runtime), you will need to set up an alias to <samp>Vue</samp> in your bundler config
+  vs. compiler + runtime), you will need to set up an alias to <samp>Vue</samp> in your bundler config
   to ensure that your project and BootstrapVue and PortalVue are using the same build version of Vue.
   If you are seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will
   need to set up an alias. See the
