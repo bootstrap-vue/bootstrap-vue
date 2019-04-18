@@ -50,38 +50,34 @@
 
   &.b-toaster-top-right,
   &.b-toaster-top-left {
-    top: 0;
+    top: $b-toaster-offset-top;
 
     .b-toaster-slot {
-      top: $b-toaster-offset-top;
+      top: 0;
     }
   }
 
   &.b-toaster-bottom-right,
   &.b-toaster-bottom-left {
-    bottom: 0;
+    bottom: $b-toaster-offset-bottom;
 
     .b-toaster-slot {
-      bottom: $b-toaster-offset-bottom;
+      bottom: 0;
     }
   }
   
   &.b-toaster-top-right,
   &.b-toaster-bottom-right {
-    right: 0;
-
     .b-toaster-slot {
-      right: 0;
+      margin-right: 0;
       margin-left: auto;
     }
   }
 
   &.b-toaster-top-left,
   &.b-toaster-bottom-left {
-    left: 0;
-
     .b-toaster-slot {
-      left: 0;
+      margin-left: 0;
       margin-right: auto;
     }
   }
