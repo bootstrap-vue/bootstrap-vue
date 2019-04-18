@@ -36,10 +36,9 @@
     overflow: visible;
 
     .b-toaster-slot {
-      width: auto;
-      min-width: $b-toaster-min-width;
-      max-width: $toast-max-width;
       position: absolute;
+      min-width: calc(#{min(320px, $toast-max-width)} - #{$b-toaster-offset-left + $b-toaster-offset-right});
+      max-width: $toast-max-width;
       padding: 0;
       margin: 0;
     }
