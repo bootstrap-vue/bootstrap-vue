@@ -56,7 +56,7 @@ transparency only.
 - If you disable the auto-hide feature, avoid hiding the close button, or if you hide the close
   button be sure to allow the toast to auto-dismiss.
 - Toast transparency can be disabled by setting the `solid` prop to `true`.
-- Toasts will show inside a named `<b-toaster>` target component. BootstrapVue comes with six
+- Toasts will show inside a named `<b-toaster>` target component. BootstrapVue comes with several
   pre-defined toaster targets. Toasts will check for the named toaster in the document before they
   are shown, and will dynamically create the named toaster target if one is not found.
 - Toaster targets are defined completely with CSS for controlling the positioning of the contained
@@ -218,13 +218,13 @@ SCSS):
 <!-- toast-targets.vue -->
 ```
 
-**Note**: Toaster target names that have not been defined in CSS will render at the bottom of the
-document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
-and ID set to the toaster target name). The only default styling the toaster will have is a
-`z-index` of `1100`.
-
-Avoid using `b-toaster-top-*` together, or `b-toaster-bottom-*` togehter, at the same time in your
-app as notifications could be obscured on small screens (i.e. `xs`).
+**Notes:**
+- Toaster target names that have not been defined in CSS will render at the bottom of the
+  document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
+  and ID set to the toaster target name). The only default styling the toaster will have is a
+  `z-index` of `1100`.
+- Avoid using `b-toaster-top-*` together, or `b-toaster-bottom-*` togehter, at the same time in your
+  app as notifications could be obscured/overlap on small screens (i.e. `xs`).
 
 ### Prepend and append
 
@@ -360,7 +360,7 @@ toasts are closed.
 
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
-**Note:s**
+**Notes:**
 - If a `<b-toaster>` with the same name already exists in document (either auto-created by
   `<b-toast>`, `this.$bvToast.toast()`, or manually placed), then `<b-toaster>` will just render
   an empty `<div>` element and issue a console warning.
