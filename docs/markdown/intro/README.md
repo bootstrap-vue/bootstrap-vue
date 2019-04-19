@@ -3,15 +3,17 @@
 > Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
 > building responsive, mobile-first sites using Vue.js.
 
-- [Vue.js](https://vuejs.org) version <code>{{ vueVersion }}</code> (or greater) is recommended
-- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version
-  <code>{{ bootstrapVersion }}</code> SCSS/CSS
-- jQuery is **not** required
+- [Vue.js](https://vuejs.org/) `v2.5` is required, `v{{ vueVersion }}` is recommended
+- [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
+  recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v2.0` is required, `v{{ portalVueVersion }}` is
+  recommended
+- [jQuery](https://jquery.com/) is **not** required
 
 ## Using module bundlers
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
-[rollup.js](https://rollupjs.org), etc you may prefer to directly include the package into your
+[rollup.js](https://rollupjs.org/), etc you may prefer to directly include the package into your
 project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
 Bootstrap 4:
 
@@ -68,9 +70,31 @@ values and functions between files by default.
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
 
+<div class="alert alert-info mb-0">
+  <p class="mb-2">
+    BootstrapVue and PortalVue require access to the global <code>Vue</code> reference (via <code>
+    import Vue from 'vue'</code>).
+  </p>
+  <p class="mb-2">
+    If you are using a specific build of Vue (i.e. runtime-only vs. compiler + runtime), you will
+    need to set up an alias to <code>'vue'</code> in your bundler config to ensure that your
+    project, BootstrapVue and PortalVue are all using the same build version of Vue. If you are
+    seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will need to
+    set up an alias.
+  </p>
+  <p class="mb-0">
+    See the
+    <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Vue.js
+    Guide</a> for details on setting up aliases for
+    <a class="alert-link" href="https://webpack.js.org/">webpack</a>,
+    <a class="alert-link" href="https://rollupjs.org/">rollup.js</a>,
+    <a class="alert-link" href="hhttps://parceljs.org/">Parcel</a>, etc.
+  </p>
+</div>
+
 ## Nuxt.js module
 
-[Nuxt.js](https://nuxtjs.org) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
+[Nuxt.js](https://nuxtjs.org/) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
 Install dependencies:
 
@@ -402,9 +426,9 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 | commonjs2      | webpack 1 / ...       | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser               | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), and
-`vue-functional-data-merge` (for functional components). These two dependencies are included in the
-`commonjs2` and `UMD` bundles.
+BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
+(for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
+dependencies are included in the `commonjs2` and `UMD` bundles.
 
 ## Migrating a project already using Bootstrap
 
@@ -436,7 +460,7 @@ Following features and APIs are used by BootstrapVue:
 - `MutationObserver`
 
 If you want to support older IE, Android and iOS devices, you may want to use
-[@babel/polyfill](https://babeljs.io/docs/usage/polyfill) and
+[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/) and
 [mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
 
 - `npm install @babel/polyfill mutationobserver-shim`

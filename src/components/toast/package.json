@@ -1,0 +1,81 @@
+{
+  "name": "@bootstrap-vue/toast",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Toasts",
+    "slug": "toast",
+    "beta": true,
+    "new": true,
+    "description": "Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.",
+    "components": [
+      {
+        "component": "BToast",
+        "events": [
+          {
+            "event": "change",
+            "description": "Toast visibility state. Used to update the v-model.",
+            "args": [
+              {
+                "arg": "visible",
+                "description": "true if toast is visible, false otherwise."
+              }
+            ]
+          },
+          {
+            "event": "show",
+            "description": "always emits just before toast is shown.",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "description": "BvEvent object."
+              }
+            ]
+          },
+          {
+            "event": "shown",
+            "description": "always emits when toast is shown.",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "description": "BvEvent object."
+              }
+            ]
+          },
+          {
+            "event": "hide",
+            "description": "always emits just before toast has hidden.",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "description": "BvEvent object."
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "description": "always emits after toast is hidden",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "description": "BvEvent object."
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "toast-title",
+            "description": "Toast title. Optionally scoped."
+          },
+          {
+            "name": "default",
+            "description": "Toast body content. Optionally scoped."
+          }
+        ]
+      },
+      {
+        "component": "BToaster"
+      }
+    ]
+  }
+}

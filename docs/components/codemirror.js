@@ -1,30 +1,17 @@
-<template>
-  <textarea ref="textArea" :value="value"></textarea>
-</template>
-
-<script>
 let CodeMirror
-
 if (typeof window !== 'undefined') {
   CodeMirror = require('codemirror')
-
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/mode/javascript/javascript')
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/mode/shell/shell')
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/mode/vue/vue')
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/mode/htmlmixed/htmlmixed')
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/addon/edit/closetag')
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/addon/edit/closebrackets')
-  /* eslint-disable import/no-unassigned-import */
   require('codemirror/addon/fold/xml-fold')
 }
 
 export default {
+  name: 'BDVCodemirror',
   props: {
     value: {
       type: String,
@@ -72,7 +59,7 @@ export default {
     }
   },
   mounted() {
-    this.CM = CodeMirror.fromTextArea(this.$refs.textArea, {
+    this.CM = CodeMirror.fromTextArea(this.$refs.textarea, {
       mode: this.mode,
       theme: this.theme,
       tabMode: this.tabMode,
@@ -92,6 +79,11 @@ export default {
     if (this.CM) {
       this.CM.toTextArea()
     }
+  },
+  render(h) {
+    return h('textarea', {
+      props: { value: this.value },
+      ref: 'textarea'
+    })
   }
 }
-</script>

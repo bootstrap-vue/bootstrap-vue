@@ -2,13 +2,13 @@
   <section v-if="component" class="bd-content">
     <b-row tag="header" align-v="center">
       <b-col sm="9">
-        <anchored-heading :id="`comp-ref-${componentName}`" level="2">
+        <anchored-heading :id="`comp-ref-${componentName}`" level="3">
           <code>{{ tag }}</code>
         </anchored-heading>
       </b-col>
       <b-col sm="3" class="text-sm-right">
         <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
-          view source
+          View source
         </b-btn>
       </b-col>
     </b-row>
@@ -161,22 +161,13 @@
   </section>
 </template>
 
-<style scoped>
-h1,
-h2,
-h3,
-h4,
-h5 {
-  padding: 20px 0;
-}
-</style>
-
 <script>
 import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
 
 export default {
+  name: 'BDVComponentdoc',
   components: { AnchoredHeading },
   props: {
     component: {},

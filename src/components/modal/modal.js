@@ -361,6 +361,11 @@ export default Vue.extend({
     }
   },
   methods: {
+    updateModel(val) {
+      if (val !== this.visible) {
+        this.$emit('change', val)
+      }
+    },
     // Public Methods
     show() {
       if (this.is_visible || this.is_opening) {
@@ -394,6 +399,8 @@ export default Vue.extend({
       // Don't show if canceled
       if (showEvt.defaultPrevented || this.is_visible) {
         this.is_opening = false
+        // Ensure the v-model reflects the current state
+        this.updateModel(false)
         return
       }
       // Show the modal
@@ -425,6 +432,8 @@ export default Vue.extend({
       // Hide if not canceled
       if (hideEvt.defaultPrevented || !this.is_visible) {
         this.is_closing = false
+        // Ensure v-model reflects current state
+        this.updateModel(true)
         return
       }
       // Stop observing for content changes
@@ -434,7 +443,7 @@ export default Vue.extend({
       }
       this.is_visible = false
       // Update the v-model
-      this.$emit('change', false)
+      this.updateModel(false)
     },
     // Public method to toggle modal visibility
     toggle(triggerEl) {
@@ -463,7 +472,7 @@ export default Vue.extend({
         this.is_visible = true
         this.is_opening = false
         // Update the v-model
-        this.$emit('change', true)
+        this.updateModel(true)
         // Observe changes in modal content and adjust if necessary
         this._observer = observeDom(
           this.$refs.content,

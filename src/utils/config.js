@@ -90,6 +90,9 @@ const DEFAULTS = {
   },
   BNavbarToggle: {
     label: 'Toggle navigation'
+  },
+  BToast: {
+    toaster: 'b-toaster-top-right'
   }
 }
 

@@ -1,0 +1,64 @@
+// --- <b-toast> custom SCSS ---
+
+// Toast wrapper element class (needed for list transition in toasters)
+.b-toast {
+  display: block;
+  position: relative;
+  max-width: $toast-max-width;
+  backface-visibility: hidden;
+  background-clip: padding-box;
+  z-index: 1;
+  @include border-radius($toast-border-radius);
+
+  &:not(:last-child) {
+    margin-bottom: $toast-padding-x;
+  }
+
+  &.b-toast-solid {
+    .toast {
+      background-color: rgba($toast-background-color, 1);
+    }
+  }
+
+  .toast {
+    .toast-body {
+      display: block; // Needed when we use a link as the body element
+    }
+  }
+}
+
+@mixin b-toast-variant($background, $border, $color) {
+  // Based on alert-variant mixin
+  .toast {
+    background-color: rgba(lighten($background, 5%), 0.85);
+    border-color: rgba($border, 0.85);
+    color: $color;
+
+    .toast-header {
+      color: $color;
+      background-color: rgba($background, 0.85);
+      border-bottom-color: rgba($border, 0.85);
+    }
+
+    // .toast-body[href] {
+    //   color: darken($color, 10%);
+    // }
+  }
+
+  &.b-toast-solid {
+    .toast {
+      background-color: rgba(lighten($background, 5%), 1);
+    }
+  }
+}
+
+// Toast variants
+@each $color, $value in $theme-colors {
+  .b-toast-#{$color} {
+    @include b-toast-variant(
+      theme-color-level($color, $b-toast-bg-level),
+      theme-color-level($color, $b-toast-border-level),
+      theme-color-level($color, $b-toast-color-level)
+    );
+  }
+}
