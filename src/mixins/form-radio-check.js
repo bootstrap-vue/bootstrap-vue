@@ -37,6 +37,11 @@ export default {
       // Placed on the input if present.
       type: String,
       default: null
+    },
+    ariaLabelledby: {
+      // Placed on the input if present.
+      type: String,
+      default: null
     }
   },
   data() {
@@ -198,7 +203,8 @@ export default {
         required: this.is_Required,
         autocomplete: 'off',
         'aria-required': this.is_Required || null,
-        'aria-label': this.ariaLabel || null
+        'aria-label': this.ariaLabel || null,
+        'aria-labelledby': this.ariaLabelledby || null
       },
       domProps: {
         value: this.value,
