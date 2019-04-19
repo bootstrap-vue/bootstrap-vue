@@ -121,6 +121,7 @@ export default Vue.extend({
   props,
   data() {
     return {
+      isMounted: false,
       doRender: false,
       localShow: false,
       showClass: false,
@@ -189,7 +190,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.doRender = true
+    this.isMounted = true
     this.$nextTick(() => {
       if (this.visible) {
         requestAF(() => {
@@ -225,6 +226,8 @@ export default Vue.extend({
         this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
+        this.doRender = true
+        this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
         this.localShow = true
       }
@@ -234,6 +237,7 @@ export default Vue.extend({
         const hideEvt = this.buildEvent('hide')
         this.emitEvent(hideEvt)
         this.setHoverHandler(false)
+        this.dismissStarted = this.resumeDismiss = 0
         this.clearDismissTimer()
         this.localShow = false
       }
@@ -273,15 +277,14 @@ export default Vue.extend({
     startDismissTimer() {
       this.clearDismissTimer()
       if (!this.noAutoHide) {
-        this.dismissStarted = Date.now()
         this.timer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
+        this.dismissStarted = Date.now()
         this.resumeDismiss = 0
       }
     },
     clearDismissTimer() {
       clearTimeout(this.timer)
       this.timer = null
-      this.dismissStarted = this.resumeDismiss = 0
     },
     setHoverHandler(on) {
       const method = on ? eventOn : eventOff
@@ -293,16 +296,15 @@ export default Vue.extend({
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
       }
-      const now = Date.now()
-      const passed = now - this.dismissStarted
-      if (passed > 0 && passed < this.computedDuration) {
+      const passed = Date.now() - this.dismissStarted
+      if (passed > 0) {
         this.clearDismissTimer()
         this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION)
       }
     },
     onUnpause(evt) {
       // Restart with max of time remaining or 1 second
-      if (this.noAutoHide || this.noHoverPause || this.resumeDismiss === 0) {
+      if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
         return
       }
@@ -342,6 +344,7 @@ export default Vue.extend({
       this.resumeDismiss = this.dismissStarted = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
+      this.doRender = false
     },
     makeToast(h) {
       // Render helper for generating the toast
@@ -409,7 +412,7 @@ export default Vue.extend({
     }
   },
   render(h) {
-    if (!this.doRender) {
+    if (!this.doRender || !this.isMounted) {
       return h(false)
     }
     const name = `b-toast-${this._uid}`
