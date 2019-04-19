@@ -283,7 +283,6 @@ export default Vue.extend({
       this.dismissStarted = this.resumeDismiss = 0
     },
     onPause(evt) {
-      // TODO: Pause auto-hide on hover/focus
       // Determine time remaining, and then pause timer
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
@@ -296,7 +295,6 @@ export default Vue.extend({
       }
     },
     onUnpause(evt) {
-      // TODO: Un-pause auto-hide on un-hover/blur
       // Restart with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || this.resumeDismiss === 0) {
         this.resumeDismiss = this.dismissStarted = 0
@@ -402,8 +400,8 @@ export default Vue.extend({
             'aria-atomic': 'true'
           },
           on: {
-            '&mouseenter': this.onPause,
-            '&mouseleave': this.onUnPause
+            mouseenter: this.onPause,
+            mouseleave: this.onUnPause
           }
         },
         [$header, $body]
