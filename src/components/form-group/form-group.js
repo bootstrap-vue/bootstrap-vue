@@ -163,7 +163,7 @@ const getBreakpoints = memoize(getBreakpointsUp)
 
 // BFormgroup prop generator for lazy generation of props
 const generateProps = () => {
-  const BREAKPOINTS = breakpoints()
+  const BREAKPOINTS = getBreakpoints()
 
   // Generate the labelCol breakpoint props
   const bpLabelColProps = BREAKPOINTS.reduce((props, breakpoint) => {
@@ -265,7 +265,8 @@ export default {
     // then they become a non-getter afterwards.
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#Smart_self-overwriting_lazy_getters
     delete this.props
-    return this.props = generateProps()
+    // eslint-disable-next-line no-return-assign
+    return (this.props = generateProps())
   },
   computed: {
     labelColProps() {
@@ -326,9 +327,7 @@ export default {
       return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null
     },
     descriptionId() {
-      return this.$slots['description'] || this.description
-        ? this.safeId('_BV_description_')
-        : null
+      return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null
     },
     hasInvalidFeedback() {
       // Used for computing aria-describedby
