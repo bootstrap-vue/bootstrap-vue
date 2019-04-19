@@ -4,7 +4,7 @@ import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
 import { isUndefined, isNull } from '../../utils/inspect'
 import { keys, assign, create } from '../../utils/object'
-import { getBreakpointsUp } from '../../utils/config'
+import { getBreakpointsUpCached } from '../../utils/config'
 
 /**
  * Generates a prop object with a type of
@@ -49,17 +49,13 @@ const computeBkPtClass = memoize(function computeBkPt(type, breakpoint, val) {
   return className.toLowerCase()
 })
 
-// Memoize getBreakpointsUp to lock in a copy of the
-// breakpoints on first acccess
-const getBreakpoints = memoize(getBreakpointsUp)
-
 // Cached copy of the breakpoint prop names
 let breakpointPropMap = create(null)
 
 // Lazy evaled props factory for BCol
 const generateProps = () => {
   // Grab the breakpoints from the cached config (exclude the '' (xs) breakpoint)
-  const breakpoints = getBreakpoints().filter(Boolean)
+  const breakpoints = getBreakpointsUpCached().filter(Boolean)
 
   // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
   const breakpointCol = breakpoints.reduce((propMap, breakpoint) => {
