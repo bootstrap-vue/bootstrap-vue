@@ -233,6 +233,7 @@ export default Vue.extend({
       if (this.localShow) {
         const hideEvt = this.buildEvent('hide')
         this.emitEvent(hideEvt)
+        this.setHoverHandler(false)
         this.clearDismissTimer()
         this.localShow = false
       }
@@ -284,8 +285,8 @@ export default Vue.extend({
     },
     setHoverHandler(on) {
       const method = on ? eventOn : eventOff
-      method(this.$refs.toast, 'mouseenter', this.onPause, { passive: true, capture: false })
-      method(this.$refs.toast, 'mouseleave', this.onUnPause, { passive: true, capture: false })
+      method(this.$refs.btoast, 'mouseenter', this.onPause, { passive: true, capture: false })
+      method(this.$refs.btoast, 'mouseleave', this.onUnPause, { passive: true, capture: false })
     },
     onPause(evt) {
       // Determine time remaining, and then pause timer
@@ -296,7 +297,7 @@ export default Vue.extend({
       const passed = now - this.dismissStarted
       if (passed > 0 && passed < this.computedDuration) {
         this.clearDismissTimer()
-        this.resumeDismiss = Math.max(passed, MIN_DURATION)
+        this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION)
       }
     },
     onUnpause(evt) {
@@ -331,8 +332,6 @@ export default Vue.extend({
     },
     onBeforeLeave() {
       this.isTransitioning = true
-      this.clearDismissTimer()
-      this.setHoverHandler(false)
       requestAF(() => {
         this.showClass = false
       })
@@ -391,7 +390,7 @@ export default Vue.extend({
       const $toast = h(
         'div',
         {
-          key: 'b-toast',
+          key: 'toast',
           ref: 'toast',
           staticClass: 'toast',
           class: this.toastClasses,
@@ -413,7 +412,7 @@ export default Vue.extend({
     if (!this.doRender) {
       return h(false)
     }
-    const name = this.id || `b-toast-${this._uid}`
+    const name = `b-toast-${this._uid}`
     return h(
       Portal,
       {
@@ -426,7 +425,7 @@ export default Vue.extend({
         }
       },
       [
-        h('div', { key: name, staticClass: 'b-toast', class: this.bToastClasses }, [
+        h('div', { key: name, ref: 'btoast', staticClass: 'b-toast', class: this.bToastClasses }, [
           h('transition', { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers }, [
             this.localShow ? this.makeToast(h) : null
           ])
