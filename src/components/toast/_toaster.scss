@@ -45,30 +45,20 @@
 
     .b-toaster-slot {
       position: absolute;
-      width: 100%;
-      // min-width: calc(#{min(320px, $toast-max-width)} - #{$b-toaster-offset-left + $b-toaster-offset-right});
       max-width: $toast-max-width;
+      left: 0;
+      right: 0;
       padding: 0;
       margin: 0;
-    }
-  }
-
-  &.b-toaster-top-center,
-  &.b-toaster-bottom-center {
-    .b-toaster-slot {
-      margin-left: auto;
-      margin-right: auto
     }
   }
 
   &.b-toaster-top-full,
   &.b-toaster-bottom-full {
     .b-toaster-slot {
-      left: 0;
-      right: 0;
-
       .b-toast,
       .toast {
+        // Override Bootstrap toast max-width
         width: 100%;
         max-width: 100%
       }
@@ -98,16 +88,20 @@
   }
   
   &.b-toaster-top-right,
-  &.b-toaster-bottom-right {
+  &.b-toaster-bottom-right,
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
     .b-toaster-slot {
-      right: 0;
+      margin-left: auto;
     }
   }
 
   &.b-toaster-top-left,
-  &.b-toaster-bottom-left {
+  &.b-toaster-bottom-left,
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
     .b-toaster-slot {
-      left: 0;
+      margin-right: auto;
     }
   }
 }
