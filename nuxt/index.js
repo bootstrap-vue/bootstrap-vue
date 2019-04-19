@@ -23,6 +23,10 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       ...moduleOptions
     }
 
+    // Ensure we have arrays
+    this.options.css = this.options.css || []
+    this.options.build.transpile = this.options.build.transpile || []
+
     const bootstrapVueCSS = pickFirst(
       options.bootstrapVueCSS,
       options.bootstrapVueCss,
