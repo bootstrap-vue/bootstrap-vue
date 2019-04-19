@@ -1577,10 +1577,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.4.tgz#8808bd5a82bbf6f5d412eff1c228d178e7c24bb3"
   integrity sha512-02tIL+QIi/RW4E5xILdoAMjeJ9kYq5t5S2vciUdFPXv/ikFTb0zK8q9vXkg4+WAJuYXGiVT1H28AkD2C+IkXVw==
 
-"@types/node@^11.13.4":
-  version "11.13.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.4.tgz#f83ec3c3e05b174b7241fadeb6688267fe5b22ca"
-  integrity sha512-+rabAZZ3Yn7tF/XPGHupKIL5EcAbrLxnTr/hgQICxbeuAfWtT0UZSfULE+ndusckBItcv4o6ZeOJplQikVcLvQ==
+"@types/node@^11.13.5":
+  version "11.13.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.5.tgz#266564afa8a6a09dc778dfacc703ed3f09c80516"
+  integrity sha512-/OMMBnjVtDuwX1tg2pkYVSqRIDSmNTnvVvmvP/2xiMAAWf4a5+JozrApCrO4WCAILmXVxfNoQ3E+0HJbNpFVGg==
 
 "@types/q@^1.5.1":
   version "1.5.2"
@@ -9192,10 +9192,10 @@ popper.js@^1.15.0:
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
   integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
 
-portal-vue@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/portal-vue/-/portal-vue-2.1.0.tgz#1f5fb6d15111ee37575fc7a581306fda222b2361"
-  integrity sha512-Bl/26vOn7+z0qlJr7rSM/vd9zUL9hvXYLereFF9RAT7gpmTGpDSYUE/2zZKyB6kQeumVJ0rDgEa+k1+mGOpM0g==
+portal-vue@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/portal-vue/-/portal-vue-2.1.1.tgz#79a4fa792cd91f225227ebc30ca3e3549b1b2ff0"
+  integrity sha512-7OPlfxaGXCmbZ0ZDDwjhV8IhuEm8XbOCj4Cnz9PZN6SDNfi+edNc2tAr7TBo0TSNAJM6bZHaRegGWPvtqVLVPg==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -10700,13 +10700,13 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.10.0.tgz#91d594aa4386c51ca0883ad4ef2050b469d3e8aa"
-  integrity sha512-U9t/JaKtO0+X0pSmLVKMrAZEixrbVzITf193TiEhfoVKCnd7pDimIFo94IxUCgbn6+v5VmduHkubx2VV1s0Ftw==
+rollup@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.10.1.tgz#aeb763bbe98f707dc6496708db88372fa66687e7"
+  integrity sha512-pW353tmBE7QP622ITkGxtqF0d5gSRCVPD9xqM+fcPjudeZfoXMFW2sCzsTe2TU/zU1xamIjiS9xuFCPVT9fESw==
   dependencies:
     "@types/estree" "0.0.39"
-    "@types/node" "^11.13.4"
+    "@types/node" "^11.13.5"
     acorn "^6.1.1"
 
 rsvp@^4.8.4:
