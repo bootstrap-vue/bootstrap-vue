@@ -305,7 +305,7 @@ export default Vue.extend({
         this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION)
       }
     },
-    onUnpause(evt) {
+    onUnPause(evt) {
       // Restart with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
