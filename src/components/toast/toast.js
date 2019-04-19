@@ -226,10 +226,13 @@ export default Vue.extend({
         this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
-        this.doRender = true
         this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
-        this.localShow = true
+        this.doRender = true
+        this.$nextTick(() => {
+          // we show the toast after we have rendered the portal
+          this.localShow = true
+        })
       }
     },
     hide() {
