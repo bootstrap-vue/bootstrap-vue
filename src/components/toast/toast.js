@@ -280,8 +280,7 @@ export default Vue.extend({
     clearDismissTimer() {
       clearTimeout(this.timer)
       this.timer = null
-      this.dismissStarted = 0
-      this.resumeDismiss = 0
+      this.dismissStarted = this.resumeDismiss = 0
     },
     onPause(evt) {
       // TODO: Pause auto-hide on hover/focus
@@ -312,6 +311,15 @@ export default Vue.extend({
       this.isTransitioning = true
       requestAF(() => {
         this.showClass = true
+      })
+    },
+    onLinkClick() {
+      // We delay the close to allow time for the
+      // browser to process the link click
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.hide()
+        })
       })
     },
     onAfterEnter() {
@@ -372,7 +380,8 @@ export default Vue.extend({
         {
           staticClass: 'toast-body',
           class: this.bodyClass,
-          props: isLink ? { to: this.to, href: this.href } : {}
+          props: isLink ? { to: this.to, href: this.href } : {},
+          on: isLink ? { click: this.onLinkClick } : {}
         },
         [this.normalizeSlot('default', this.slotScope) || h(false)]
       )
