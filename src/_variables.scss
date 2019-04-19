@@ -10,9 +10,6 @@ $b-toaster-offset-top: 0.5rem !default;
 $b-toaster-offset-bottom: $b-toaster-offset-top !default;
 $b-toaster-offset-left: $b-toaster-offset-top !default;
 $b-toaster-offset-right: $b-toaster-offset-top !default;
-$b-toaster-max-width: $toast-max-width !default;
-// Make toasts fit within small screens
-$b-toaster-min-width: calc(#{min(320px, $toast-max-width)} - #{$b-toaster-offset-left + $b-toaster-offset-right}) !default;
 
 $b-toast-bg-level: $alert-bg-level !default;
 $b-toast-border-level: $alert-border-level !default;

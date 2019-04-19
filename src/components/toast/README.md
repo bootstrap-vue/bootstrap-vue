@@ -4,8 +4,7 @@
 > which are easily customizable for generating alert messages.
 
 Toasts are lightweight notifications designed to mimic the push notifications that have been
-popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy to
-align and position inside a `<b-toaster>` target component.
+popularized by mobile and desktop operating systems.
 
 Toasts are intended to be small interruptions to your visitors or users, and therefore should
 contain minimal, to-the-point, non-interactive content.
@@ -23,8 +22,8 @@ Toast headers use the style `'display: flex'`, allowing easy alignment of conten
 Bootstrap's [margin and flexbox utility classes](/docs/reference/utility-classes).
 
 Toasts are slightly translucent, too, so they blend over whatever they might appear over. For
-browsers that support the `backdrop-filter` CSS property, we’ll also attempt to blur the elements
-under a toast.
+browsers that support the `backdrop-filter` CSS property, they also attempt to blur the elements
+under the toast.
 
 ```html
 <template>
@@ -40,29 +39,34 @@ under a toast.
 
 **Note:** we are using the `static` prop in the above example to render the toast in-pace in the
 document, rather than transporting it to a `<b-toaster>` target container. And we have added classes
-`bg-secondary` and `progress-bar-striped` to the outer <samp>&lt;div&gt;</samp> for illustrative
-purposes of toast transparency only.
+`bg-secondary` and `progress-bar-striped` to the outer `<div>` for illustrative purposes of toast
+transparency only.
 
-### Toast features
+### Toast features and notes
 
 - Toasts can be generated on demand via the injection `this.$bvToast` object, or manually created
   using the `<b-toast>` component.
 - Toasts will auto hide after a default of 5 seconds (5000ms). The duration can be changed via the
   `auto-hide-delay` prop (value is specified in milliseconds), and disabled with the `no-auto-hide`
   prop.
+- When auto-hide is enabled, and you hover over the toast, the auto-hide countdown will be paused
+  until you unhover the toast. You can disabled this feature by setting the `no-hover-pause` prop
+  to `true`.
 - Toasts include a close button on their top right to allow users to manually dismiss them. The
-  close button can be hidden via the `no-close-button` prop.
+  close button can be removed via the `no-close-button` prop.
 - Titles are optional, but should be included, titles are rendered inside a `<strong>` element,
   unless using the `toast-title` slot.
 - If you disable the auto-hide feature, avoid hiding the close button, or if you hide the close
   button be sure to allow the toast to auto-dismiss.
 - Toast transparency can be disabled by setting the `solid` prop to `true`.
-- Toasts will show inside a named `<b-toaster>` target component. BootstrapVue comes with four
+- Toasts will show inside a named `<b-toaster>` target component. BootstrapVue comes with several
   pre-defined toaster targets. Toasts will check for the named toaster in the document before they
   are shown, and will dynamically create the named toaster target if one is not found.
 - Toaster targets are defined completely with CSS for controlling the positioning of the contained
   `<b-toast>` components.
 - Toasts can can targeted to any named toaster.
+- Toasts are wrapped in a `<div>` with class `b-toast` to allow for Vue list-transition support when
+  displayed in a toaster component.
 
 BootstrapVue uses [PortalVue](https://portal-vue.linusb.org/) to transport toasts into the toasters.
 
@@ -75,10 +79,12 @@ Use the `this.$bvToast.toast()` method to generate on demand toasts. The method 
 arguments:
 
 - `message`: the content of the toast body (either a string, or an array of `VNodes`)
-- `options`: an options object for providing a title and/or additional configuration options.
+- `options`: an optional options object for providing a title and/or additional configuration
+  options.
 
 The options argument accepts most of the props that the `<b-toast>` component accepts (with the
-exception of `static`, and `visible`) in <samp>camelCase</samp> name format.
+exception of `static`, and `visible`) in <samp>camelCase</samp> name format instead of
+<samp>kebab-case</samp>.
 
 ```html
 <template>
@@ -129,20 +135,20 @@ the `solid` prop to `true`
 
 ### Variants
 
-BootstrapVue toasts provide custom CSS to define color variants. variants follow the standard
+BootstrapVue toasts provide custom CSS to define color variants. Variants follow the standard
 Bootstrap V4 variant names. If you have custom SCSS defined Bootstrap color variants, the toast
 custom SCSS will automatically create toast variants for you.
 
 ```html
 <template>
   <div>
-    <b-button @click="makeToast()">Default</b-button>
-    <b-button variant="primary" @click="makeToast('primary')">Primary</b-button>
-    <b-button variant="secondary" @click="makeToast('secondary')">Secondary</b-button>
-    <b-button variant="danger" @click="makeToast('danger')">Danger</b-button>
-    <b-button variant="warning" @click="makeToast('warning')">Warning</b-button>
-    <b-button variant="success" @click="makeToast('success')">Success</b-button>
-    <b-button variant="info" @click="makeToast('info')">Info</b-button>
+    <b-button @click="makeToast()" class="mb-2">Default</b-button>
+    <b-button variant="primary" @click="makeToast('primary')" class="mb-2">Primary</b-button>
+    <b-button variant="secondary" @click="makeToast('secondary')" class="mb-2">Secondary</b-button>
+    <b-button variant="danger" @click="makeToast('danger')" class="mb-2">Danger</b-button>
+    <b-button variant="warning" @click="makeToast('warning')" class="mb-2">Warning</b-button>
+    <b-button variant="success" @click="makeToast('success')" class="mb-2">Success</b-button>
+    <b-button variant="info" @click="makeToast('info')" class="mb-2">Info</b-button>
   </div>
 </template>
 
@@ -170,16 +176,24 @@ SCSS):
 
 - `b-toaster-top-right`
 - `b-toaster-top-left`
+- `b-toaster-top-center`
+- `b-toaster-top-full`
 - `b-toaster-bottom-right`
 - `b-toaster-bottom-left`
+- `b-toaster-bottom-center`
+- `b-toaster-bottom-full`
 
 ```html
 <template>
   <div>
-    <b-button @click="toast('b-toaster-top-right')">b-toaster-top-right</b-button>
-    <b-button @click="toast('b-toaster-top-left')">b-toaster-top-left</b-button>
-    <b-button @click="toast('b-toaster-bottom-right')">b-toaster-bottom-right</b-button>
-    <b-button @click="toast('b-toaster-bottom-left')">b-toaster-bottom-left</b-button>
+    <b-button @click="toast('b-toaster-top-right')" class="mb-2">b-toaster-top-right</b-button>
+    <b-button @click="toast('b-toaster-top-left')" class="mb-2">b-toaster-top-left</b-button>
+    <b-button @click="toast('b-toaster-top-center')" class="mb-2">b-toaster-top-center</b-button>
+    <b-button @click="toast('b-toaster-top-full')" class="mb-2">b-toaster-top-full</b-button>
+    <b-button @click="toast('b-toaster-bottom-right', true)" class="mb-2">b-toaster-bottom-right</b-button>
+    <b-button @click="toast('b-toaster-bottom-left', true)" class="mb-2">b-toaster-bottom-left</b-button>
+    <b-button @click="toast('b-toaster-bottom-center', true)" class="mb-2">b-toaster-bottom-center</b-button>
+    <b-button @click="toast('b-toaster-bottom-full', true)" class="mb-2">b-toaster-bottom-full</b-button>
   </div>
 </template>
 
@@ -191,12 +205,13 @@ SCSS):
       }
     },
     methods: {
-      toast(toaster) {
+      toast(toaster, append = false) {
         this.counter++
         this.$bvToast.toast(`Toast ${this.counter} body content`, {
           title: `Toaster ${toaster}`,
           toaster: toaster,
-          solid: true
+          solid: true,
+          appendToast: append
         })
       }
     }
@@ -206,14 +221,13 @@ SCSS):
 <!-- toast-targets.vue -->
 ```
 
-**Note**: Toaster target names that have not been defined in CSS will render at the bottom of the
-document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
-and ID set to the toaster target name). The only default styling the toaster will have is
-`position: fixed;`, a `max-width` and a `z-index` of `1100`.
-
-Avoid using both `b-toaster-top-left` and `b-toaster-top-right`, or `b-toaster-bottom-left` and 
-`b-toaster-bottom-right`, at the same time in your app as notifications could be obscured on small
-screens (i.e. `xs`).
+**Notes:**
+- Toaster target names that have not been defined in CSS will render at the bottom of the
+  document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
+  and ID set to the toaster target name). The only default styling the toaster will have is a
+  `z-index` of `1100`.
+- Avoid using `b-toaster-top-*` together, or `b-toaster-bottom-*` togehter, at the same time in your
+  app as notifications could be obscured/overlap on small screens (i.e. `xs`).
 
 ### Prepend and append
 
@@ -224,8 +238,12 @@ the order they were created. To append new toasts to the bottom, set the `append
 ### Auto-hide
 
 Change to auto hide delay time via the `auto-hide-delay` prop (value is in milliseconds), which
-defaults to `5000`. Or, disable the auto-hide feature completely by setting the `no-auto-hide` prop
-to `true`.
+defaults to `5000` (minimum value `1000`). Or, disable the auto-hide feature completely by setting
+the `no-auto-hide` prop to `true`.
+
+When auto-hide is enabled, hovering over the toast will pause the auto-hide timer. When you
+un-hover the toast, the auto-hide timer will be resumed. You can disable this feature by setting
+the `no-hover-pause` prop to `true`.
 
 ### Toast roles
 
@@ -241,18 +259,28 @@ For more information, please the the [Accessibility](#accessibility) section bel
 Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nuxt-link>`) via the
 `href` and `to` props respectively. When set, the entire toast body becomes a link.
 
-### Slots
+```html
+<template>
+  <div>
+    <b-button @click="toast()">Toast with link</b-button>
+  </div>
+</template>
 
-- `toast-title`: Content to replace the default title element.
-- `default`: Content of the toast body
+<script>
+  export default {
+    methods: {
+      toast() {
+        this.$bvToast.toast(`Toast with action link`, {
+          href: '#foo',
+          title: 'Example'
+        }) 
+      }
+    }
+  }
+</script>
 
-Both slots are optionally scoped with the following scope:
-
-| Method or property | Description                                                                     |
-| ------------------ | ------------------------------------------------------------------------------- |
-| `hide()`           | Hides the toast when called. Useful if you are providing your own close button. |
-
-Slots are only available when using the `<b-toast>` component.
+<!-- toast-link.vue -->
+```
 
 ## `<b-toast>` component
 
@@ -271,6 +299,39 @@ specified by the `toaster` prop will be created on demand if it doesn't already 
 You can force a `<b-toast>` to appear in-place in the document by setting the `static` prop to
 `true`. you still need to show and hide the toast, but it will not be transported into a toaster
 component.
+
+```html
+<template>
+  <div>
+    <b-button @click="$bvToast.show('my-toast')">Show toast</b-button>
+
+    <b-toast id="my-toast" variant="warning" solid>
+      <div slot="toast-title" class="d-flex flex-grow-1 align-items-baseline">
+        <b-img blank blank-color="#ff5555" class="mr-2" width="12" height="12"></b-img>
+        <strong class="mr-auto">Notice!</strong>
+        <small class="text-muted mr-2">42 seconds ago</small>
+      </div>
+      This is the content of the toast.
+      It is short and to the point.
+    </b-toast>
+  </div>
+</template>
+
+<!-- toast-component.vue -->
+```
+
+### Slots
+
+- `toast-title`: Content to replace the default title element.
+- `default`: Content of the toast body
+
+Both slots are optionally scoped with the following scope:
+
+| Method or property | Description                                                                     |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `hide()`           | Hides the toast when called. Useful if you are providing your own close button. |
+
+Slots are only available when using the `<b-toast>` component.
 
 ## `<b-toaster>` target component
 
@@ -292,25 +353,32 @@ SCSS:
 
 - `b-toaster-top-right`
 - `b-toaster-top-left`
+- `b-toaster-top-center`
+- `b-toaster-top-full`
 - `b-toaster-bottom-right`
 - `b-toaster-bottom-left`
+- `b-toaster-bottom-center`
+- `b-toaster-bottom-full`
 
 The above toasters place the toasts in a stacked (columnar format), fixed within the viewport
 (meaning they will always be in view regardless of viewport scroll position). If there are more
-toasts than can fit on the viewport screen, some will be visually hidden until other toasts are
-closed.
+toasts than can fit on the viewport screen, some will be visually hidden offscreen until other
+toasts are closed.
 
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
-**Note:** If a `<b-toaster>` with the same name already exists in document (either auto-created by
-`<b-toast>`, or manually placed), then `<b-toaster>` will just render an empty `<div>` element and
-issue a console warning.
-
-<!--
-### Toaster transition
-
-TBD
--->
+**Notes:**
+- If a `<b-toaster>` with the same name already exists in document (either auto-created by
+  `<b-toast>`, `this.$bvToast.toast()`, or manually placed), then `<b-toaster>` will just render
+  an empty `<div>` element and issue a console warning.
+- If manually placing a `<b-toaster>` component, make sure it is placed as the last element in
+  bottom of your app root element, so that it will be available to all pages in your app.
+- Toasters that get destroyed, they will be auto re-created if a new toast targeted for the
+  toaster name is shown.
+- In the majority of use cases, you should not need to manually place a `<b-toaster>` component
+  in your app, as they will be auto generated on demand if needed.  But if you need to override
+  any of the toaster default settings, ensure that you place the toaster in your app in a location
+  that will not be destroyed due to changes in the route.
 
 ## Accessibility
 

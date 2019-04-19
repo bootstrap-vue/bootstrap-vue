@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
-import { getById, removeClass, requestAF } from '../../utils/dom'
+import { removeClass, requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
@@ -77,12 +77,15 @@ export default Vue.extend({
     return {
       // We don't render on SSR or if a an existing target found
       doRender: false,
-      dead: false
+      dead: false,
+      // Toaster names cannot change once created
+      staticName: this.name
     }
   },
   beforeMount() {
+    this.staticName = this.name
     /* istanbul ignore if */
-    if (getById(this.name) || Wormhole.hasTarget(this.name)) {
+    if (Wormhole.hasTarget(this.staticName)) {
       warn(`b-toaster: A <portal-target> with name '${this.name}' already exists in the document.`)
       this.dead = true
     } else {
@@ -90,7 +93,7 @@ export default Vue.extend({
       this.$once('hook:beforeDestroy', () => {
         // Let toasts made with `this.$bvToast.toast()` know that this toaster
         // is being destroyed and should should also destroy/hide themselves
-        this.$root.$emit('bv::toaster::destroyed', this.name)
+        this.$root.$emit('bv::toaster::destroyed', this.staticName)
       })
     }
   },
@@ -101,19 +104,17 @@ export default Vue.extend({
     }
   },
   render(h) {
-    let $target = h('div', { class: ['d-none', { 'b-dead-toaster': this.dead }] })
+    let $toaster = h('div', { class: ['d-none', { 'b-dead-toaster': this.dead }] })
     if (this.doRender) {
-      $target = h(PortalTarget, {
-        staticClass: 'b-toaster',
-        class: this.name,
+      const $target = h(PortalTarget, {
+        staticClass: 'b-toaster-slot',
         attrs: {
-          id: this.name,
           role: this.role,
           'aria-live': this.ariaLive,
           'aria-atomic': this.ariaAtomic
         },
         props: {
-          name: this.name,
+          name: this.staticName,
           multiple: true,
           tag: 'div',
           slim: false,
@@ -121,7 +122,16 @@ export default Vue.extend({
           transition: DefaultTransition
         }
       })
+      $toaster = h(
+        'div',
+        {
+          staticClass: 'b-toaster',
+          class: [this.staticName],
+          attrs: { id: this.staticName }
+        },
+        [$target]
+      )
     }
-    return $target
+    return $toaster
   }
 })
