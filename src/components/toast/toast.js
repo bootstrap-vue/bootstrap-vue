@@ -305,9 +305,6 @@ export default Vue.extend({
         this.resumeDismiss = this.dismissStarted = 0
         return
       }
-      if (evt.target !== this.refs.toast) {
-        return
-      }
       this.startDismissTimer()
     },
     onLinkClick() {
