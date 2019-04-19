@@ -1,50 +1,110 @@
 // --- <b-toaster> custom SCSS ---
 
-// Configured "toasters":
-// The following are columnar toasters (vertically stacked)
-// and fixed within the viewport
-//   b-toaster-top-right
-//   b-toaster-top-left
-//   b-toaster-bottom-right
-//   b-toaster-bottom-left
-//
 // NOTE:
 // This SCSS is prelimiary, and may change in the future.
-// We may add an inner wrapper inside .b-toast (a .b-toaster-slot)
-// To allow for better customization of positional styling.
 
+// Base toaster styling
 .b-toaster {
-  position: fixed;
-  min-width: $b-toaster-min-width;
-  max-width: $b-toaster-max-width;
-  overflow: visible;
   z-index: $b-toaster-zindex;
 
-  // Ensure that an empty toaster isn't occupying any space
-  // and obscuring access to underlying elements
-  &:empty {
-    padding: 0 0;
-    margin: 0 0;
-    display: none;
+  .b-toaster-slot {
+    position: relative;
+    display: block;
+    
+    &:empty {
+      display: none !important;
+    }
+  }
+}
+
+// Built-in toaster styling
+//  - b-toaster-top-right
+//  - b-toaster-top-left
+//  - b-toaster-top-center
+//  - b-toaster-top-full
+//  - b-toaster-bottom-right
+//  - b-toaster-bottom-left
+//  - b-toaster-bottom-center
+//  - b-toaster-bottom-full
+.b-toaster {
+  &.b-toaster-top-right,
+  &.b-toaster-top-left,
+  &.b-toaster-top-center,
+  &.b-toaster-top-full,
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left,
+  &.b-toaster-bottom-center,
+  &.b-toaster-bottom-full {
+    position: fixed;
+    left: $b-toaster-offset-left;
+    right: $b-toaster-offset-right;
+    margin: 0;
+    padding: 0;
+    height: 0;
+    overflow: visible;
+
+    .b-toaster-slot {
+      position: absolute;
+      max-width: $toast-max-width;
+      left: 0;
+      right: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  &.b-toaster-top-full,
+  &.b-toaster-bottom-full {
+    .b-toaster-slot {
+      width: 100%;
+      max-width: 100%;
+
+      .b-toast,
+      .toast {
+        // Override Bootstrap toast max-width
+        width: 100%;
+        max-width: 100%
+      }
+    }
   }
 
   &.b-toaster-top-right,
-  &.b-toaster-top-left {
-    top: $b-toaster-offset-top;
+  &.b-toaster-top-left,
+  &.b-toaster-top-center,
+  &.b-toaster-top-full {
+    top: 0;
+
+    .b-toaster-slot {
+      top: $b-toaster-offset-top;
+    }
   }
 
   &.b-toaster-bottom-right,
-  &.b-toaster-bottom-left {
-    bottom: $b-toaster-offset-bottom;
-  }
+  &.b-toaster-bottom-left,
+  &.b-toaster-bottom-center,
+  &.b-toaster-bottom-full {
+    bottom: 0;
 
+    .b-toaster-slot {
+      bottom: $b-toaster-offset-bottom;
+    }
+  }
+  
   &.b-toaster-top-right,
-  &.b-toaster-bottom-right  {
-    right: $b-toaster-offset-right;
+  &.b-toaster-bottom-right,
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
+    .b-toaster-slot {
+      margin-left: auto;
+    }
   }
 
   &.b-toaster-top-left,
-  &.b-toaster-bottom-left  {
-    left: $b-toaster-offset-left;
+  &.b-toaster-bottom-left,
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
+    .b-toaster-slot {
+      margin-right: auto;
+    }
   }
 }

@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
-import { getById, requestAF } from '../../utils/dom'
+import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
@@ -14,6 +14,8 @@ import BLink from '../link/link'
 // --- Constants ---
 
 const NAME = 'BToast'
+
+const MIN_DURATION = 1000
 
 export const props = {
   id: {
@@ -61,12 +63,10 @@ export const props = {
     type: Boolean,
     default: false
   },
-  /*
   noHoverPause: {
     type: Boolean,
     default: false
   },
-  */
   solid: {
     type: Boolean,
     default: false
@@ -121,6 +121,7 @@ export default Vue.extend({
   props,
   data() {
     return {
+      isMounted: false,
       doRender: false,
       localShow: false,
       showClass: false,
@@ -155,7 +156,8 @@ export default Vue.extend({
       }
     },
     computedDuration() {
-      return parseInt(this.autoHideDelay, 10) || 5000
+      // Minimum supported duration is 1 second
+      return Math.max(parseInt(this.autoHideDelay, 10) || 0, MIN_DURATION)
     },
     transitionHandlers() {
       return {
@@ -188,7 +190,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.doRender = true
+    this.isMounted = true
     this.$nextTick(() => {
       if (this.visible) {
         requestAF(() => {
@@ -224,14 +226,21 @@ export default Vue.extend({
         this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
+        this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
-        this.localShow = true
+        this.doRender = true
+        this.$nextTick(() => {
+          // we show the toast after we have rendered the portal
+          this.localShow = true
+        })
       }
     },
     hide() {
       if (this.localShow) {
         const hideEvt = this.buildEvent('hide')
         this.emitEvent(hideEvt)
+        this.setHoverHandler(false)
+        this.dismissStarted = this.resumeDismiss = 0
         this.clearDismissTimer()
         this.localShow = false
       }
@@ -256,7 +265,7 @@ export default Vue.extend({
       if (this.static) {
         return
       }
-      if (!getById(this.toaster) && !Wormhole.hasTarget(this.toaster)) {
+      if (!Wormhole.hasTarget(this.toaster)) {
         const div = document.createElement('div')
         document.body.append(div)
         const toaster = new BToaster({
@@ -271,44 +280,47 @@ export default Vue.extend({
     startDismissTimer() {
       this.clearDismissTimer()
       if (!this.noAutoHide) {
-        this.dismissStarted = Date.now()
         this.timer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
+        this.dismissStarted = Date.now()
         this.resumeDismiss = 0
       }
     },
     clearDismissTimer() {
       clearTimeout(this.timer)
       this.timer = null
-      this.dismissStarted = 0
-      this.resumeDismiss = 0
+    },
+    setHoverHandler(on) {
+      const method = on ? eventOn : eventOff
+      method(this.$refs.btoast, 'mouseenter', this.onPause, { passive: true, capture: false })
+      method(this.$refs.btoast, 'mouseleave', this.onUnPause, { passive: true, capture: false })
     },
     onPause(evt) {
-      // TODO: Pause auto-hide on hover/focus
       // Determine time remaining, and then pause timer
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
       }
-      if (evt.target !== this.$el) {
-        return
-      }
-      const now = Date.now()
-      const passed = now - this.dismissStarted
-      if (passed > 0 && passed < this.computedDuration) {
+      const passed = Date.now() - this.dismissStarted
+      if (passed > 0) {
         this.clearDismissTimer()
-        this.resumeDismiss = Math.max(passed, 1000)
+        this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION)
       }
     },
-    onUnpause(evt) {
-      // TODO: Un-pause auto-hide on un-hover/blur
+    onUnPause(evt) {
       // Restart with max of time remaining or 1 second
-      if (this.noAutoHide || this.noHoverPause || this.resumeDismiss === 0) {
+      if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
         return
       }
-      if (evt.target !== this.$el) {
-        return
-      }
       this.startDismissTimer()
+    },
+    onLinkClick() {
+      // We delay the close to allow time for the
+      // browser to process the link click
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.hide()
+        })
+      })
     },
     onBeforeEnter() {
       this.isTransitioning = true
@@ -321,10 +333,10 @@ export default Vue.extend({
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
       this.startDismissTimer()
+      this.setHoverHandler(true)
     },
     onBeforeLeave() {
       this.isTransitioning = true
-      this.clearDismissTimer()
       requestAF(() => {
         this.showClass = false
       })
@@ -335,6 +347,7 @@ export default Vue.extend({
       this.resumeDismiss = this.dismissStarted = 0
       const hiddenEvt = this.buildEvent('hidden')
       this.emitEvent(hiddenEvt)
+      this.doRender = false
     },
     makeToast(h) {
       // Render helper for generating the toast
@@ -374,7 +387,8 @@ export default Vue.extend({
         {
           staticClass: 'toast-body',
           class: this.bodyClass,
-          props: isLink ? { to: this.to, href: this.href } : {}
+          props: isLink ? { to: this.to, href: this.href } : {},
+          on: isLink ? { click: this.onLinkClick } : {}
         },
         [this.normalizeSlot('default', this.slotScope) || h(false)]
       )
@@ -382,7 +396,8 @@ export default Vue.extend({
       const $toast = h(
         'div',
         {
-          key: 'b-toast',
+          key: 'toast',
+          ref: 'toast',
           staticClass: 'toast',
           class: this.toastClasses,
           attrs: {
@@ -393,14 +408,6 @@ export default Vue.extend({
             'aria-live': this.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
           }
-          /*
-          on: {
-            '&mouseenter': this.onPause,
-            '&mouseleave': this.onUnPause,
-            '&focusin': this.onPause,
-            '&focusout': this.onUnPause
-          }
-          */
         },
         [$header, $body]
       )
@@ -408,10 +415,10 @@ export default Vue.extend({
     }
   },
   render(h) {
-    if (!this.doRender) {
+    if (!this.doRender || !this.isMounted) {
       return h(false)
     }
-    const name = this.id || `b-toast-${this._uid}`
+    const name = `b-toast-${this._uid}`
     return h(
       Portal,
       {
@@ -424,7 +431,7 @@ export default Vue.extend({
         }
       },
       [
-        h('div', { key: name, staticClass: 'b-toast', class: this.bToastClasses }, [
+        h('div', { key: name, ref: 'btoast', staticClass: 'b-toast', class: this.bToastClasses }, [
           h('transition', { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers }, [
             this.localShow ? this.makeToast(h) : null
           ])
