@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
-import { requestAF } from '../../utils/dom'
+import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
@@ -282,6 +282,11 @@ export default Vue.extend({
       this.timer = null
       this.dismissStarted = this.resumeDismiss = 0
     },
+    setHoverHandler(on) {
+      const method = on ? eventOn : eventOff
+      method(this.$refs.toast, 'mouseenter', this.onPause, { passive: true, capture: false })
+      method(this.$refs.toast, 'mouseleave', this.onUnPause, { passive: true, capture: false })
+    },
     onPause(evt) {
       // Determine time remaining, and then pause timer
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
@@ -305,12 +310,6 @@ export default Vue.extend({
       }
       this.startDismissTimer()
     },
-    onBeforeEnter() {
-      this.isTransitioning = true
-      requestAF(() => {
-        this.showClass = true
-      })
-    },
     onLinkClick() {
       // We delay the close to allow time for the
       // browser to process the link click
@@ -320,15 +319,23 @@ export default Vue.extend({
         })
       })
     },
+    onBeforeEnter() {
+      this.isTransitioning = true
+      requestAF(() => {
+        this.showClass = true
+      })
+    },
     onAfterEnter() {
       this.isTransitioning = false
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
       this.startDismissTimer()
+      this.setHoverHandler(true)
     },
     onBeforeLeave() {
       this.isTransitioning = true
       this.clearDismissTimer()
+      this.setHoverHandler(false)
       requestAF(() => {
         this.showClass = false
       })
@@ -398,10 +405,6 @@ export default Vue.extend({
             role: this.isStatus ? 'status' : 'alert',
             'aria-live': this.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
-          },
-          on: {
-            mouseenter: this.onPause,
-            mouseleave: this.onUnPause
           }
         },
         [$header, $body]
