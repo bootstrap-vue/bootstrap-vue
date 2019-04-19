@@ -15,6 +15,8 @@ import BLink from '../link/link'
 
 const NAME = 'BToast'
 
+const MIN_DURATION = 1000
+
 export const props = {
   id: {
     type: String,
@@ -61,12 +63,10 @@ export const props = {
     type: Boolean,
     default: false
   },
-  /*
   noHoverPause: {
     type: Boolean,
     default: false
   },
-  */
   solid: {
     type: Boolean,
     default: false
@@ -156,7 +156,7 @@ export default Vue.extend({
     },
     computedDuration() {
       // Minimum supported duration is 1 second
-      return Math.max(parseInt(this.autoHideDelay, 10) || 0, 1000)
+      return Math.max(parseInt(this.autoHideDelay, 10) || 0, MIN_DURATION)
     },
     transitionHandlers() {
       return {
@@ -289,14 +289,11 @@ export default Vue.extend({
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
       }
-      if (evt.target !== this.$el) {
-        return
-      }
       const now = Date.now()
       const passed = now - this.dismissStarted
       if (passed > 0 && passed < this.computedDuration) {
         this.clearDismissTimer()
-        this.resumeDismiss = Math.max(passed, 1000)
+        this.resumeDismiss = Math.max(passed, MIN_DURATION)
       }
     },
     onUnpause(evt) {
@@ -306,7 +303,7 @@ export default Vue.extend({
         this.resumeDismiss = this.dismissStarted = 0
         return
       }
-      if (evt.target !== this.$el) {
+      if (evt.target !== this.refs.toast) {
         return
       }
       this.startDismissTimer()
@@ -384,6 +381,7 @@ export default Vue.extend({
         'div',
         {
           key: 'b-toast',
+          ref: 'toast',
           staticClass: 'toast',
           class: this.toastClasses,
           attrs: {
@@ -393,15 +391,11 @@ export default Vue.extend({
             role: this.isStatus ? 'status' : 'alert',
             'aria-live': this.isStatus ? 'polite' : 'assertive',
             'aria-atomic': 'true'
-          }
-          /*
+          },
           on: {
             '&mouseenter': this.onPause,
-            '&mouseleave': this.onUnPause,
-            '&focusin': this.onPause,
-            '&focusout': this.onUnPause
+            '&mouseleave': this.onUnPause
           }
-          */
         },
         [$header, $body]
       )
