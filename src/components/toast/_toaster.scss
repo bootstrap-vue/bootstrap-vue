@@ -56,6 +56,9 @@
   &.b-toaster-top-full,
   &.b-toaster-bottom-full {
     .b-toaster-slot {
+      width: 100%;
+      max-width: 100%
+
       .b-toast,
       .toast {
         // Override Bootstrap toast max-width
