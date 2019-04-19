@@ -20,13 +20,21 @@
 // Built-in toaster styling
 //  - b-toaster-top-right
 //  - b-toaster-top-left
+//  - b-toaster-top-center
+//  - b-toaster-top-full
 //  - b-toaster-bottom-right
 //  - b-toaster-bottom-left
+//  - b-toaster-bottom-center
+//  - b-toaster-bottom-full
 .b-toaster {
   &.b-toaster-top-right,
   &.b-toaster-top-left,
+  &.b-toaster-top-center,
+  &.b-toaster-top-full,
   &.b-toaster-bottom-right,
-  &.b-toaster-bottom-left {
+  &.b-toaster-bottom-left,
+  &.b-toaster-bottom-center,
+  &.b-toaster-bottom-full {
     position: fixed;
     left: $b-toaster-offset-left;
     right: $b-toaster-offset-right;
@@ -45,8 +53,32 @@
     }
   }
 
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
+    .b-toaster-slot {
+      margin-left: auto;
+      margin-right: auto
+    }
+  }
+
+  &.b-toaster-top-full,
+  &.b-toaster-bottom-full {
+    .b-toaster-slot {
+      left: 0;
+      right: 0;
+
+      .b-toast,
+      .toast {
+        width: 100%;
+        max-width: 100%
+      }
+    }
+  }
+
   &.b-toaster-top-right,
-  &.b-toaster-top-left {
+  &.b-toaster-top-left,
+  &.b-toaster-top-center,
+  &.b-toaster-top-full {
     top: 0;
 
     .b-toaster-slot {
@@ -55,7 +87,9 @@
   }
 
   &.b-toaster-bottom-right,
-  &.b-toaster-bottom-left {
+  &.b-toaster-bottom-left,
+  &.b-toaster-bottom-center,
+  &.b-toaster-bottom-full {
     bottom: 0;
 
     .b-toaster-slot {
