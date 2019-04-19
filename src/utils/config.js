@@ -188,6 +188,7 @@ const getComponentConfig = (cmpName, key = null) => {
 const getBreakpoints = () => getConfigValue('breakpoints')
 
 // Convenience method for getting all breakpoint names
+// Caches the results after first access
 const getBreakpointsCached = memoize(() => getConfigValue('breakpoints'))
 
 // Convenience method for getting breakpoints with
@@ -202,6 +203,7 @@ const getBreakpointsUp = () => {
 // Convenience method for getting breakpoints with
 // the smallest breakpoint set as ''
 // Useful for components that create breakpoint specific props
+// Caches the results after first access
 const getBreakpointsUpCached = memoize(() => {
   const breakpoints = getBreakpointsCached()
   breakpoints[0] = ''
@@ -220,6 +222,8 @@ const getBreakpointsDown = () => {
 // Convenience method for getting breakpoints with
 // the largest breakpoint set as ''
 // Useful for components that create breakpoint specific props
+// Caches the results after first access
+/* istanbul ignore next: we don't use this method anywhere, yet */
 const getBreakpointsDownCached = memoize(() => {
   const breakpoints = getBreakpointsCached()
   breakpoints[breakpoints.length - 1] = ''
