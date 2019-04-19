@@ -3,7 +3,7 @@ import memoize from '../../utils/memoize'
 import upperFirst from '../../utils/upper-first'
 import warn from '../../utils/warn'
 import { arrayIncludes } from '../../utils/array'
-import { getBreakpointsUp } from '../../utils/config'
+import { getBreakpointsUpCached } from '../../utils/config'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isBoolean } from '../../utils/inspect'
@@ -157,13 +157,9 @@ const makePropName = memoize((breakpoint = '', prefix) => {
   return `${prefix}${upperFirst(breakpoint)}`
 })
 
-// Memoize getBreakpointsUp to lock in a copy of the
-// breakpoints on first acccess
-const getBreakpoints = memoize(getBreakpointsUp)
-
 // BFormgroup prop generator for lazy generation of props
 const generateProps = () => {
-  const BREAKPOINTS = getBreakpoints()
+  const BREAKPOINTS = getBreakpointsUpCached()
 
   // Generate the labelCol breakpoint props
   const bpLabelColProps = BREAKPOINTS.reduce((props, breakpoint) => {
@@ -277,13 +273,13 @@ export default {
         /* istanbul ignore next */
         warn(`b-form-group: ${DEPRECATED_MSG}`)
         // Legacy default is breakpoint sm and cols 3
-        const bp = this.breakpoint || getBreakpoints()[1] // 'sm'
+        const bp = this.breakpoint || getBreakpointsUpCached()[1] // 'sm'
         const cols = parseInt(this.labelCols, 10) || 3
         props[bp] = cols > 0 ? cols : 3
         // We then return the single breakpoint prop for legacy compatibility
         return props
       }
-      getBreakpoints().forEach(breakpoint => {
+      getBreakpointsUpCached().forEach(breakpoint => {
         // Grab the value if the label column breakpoint prop
         let propVal = this[makePropName(breakpoint, 'labelCols')]
         // Handle case where the prop's value is an empty string,
@@ -308,7 +304,7 @@ export default {
     },
     labelAlignClasses() {
       const classes = []
-      getBreakpoints().forEach(breakpoint => {
+      getBreakpointsUpCached().forEach(breakpoint => {
         // Assemble the label column breakpoint align classes
         const propVal = this[makePropName(breakpoint, 'labelAlign')] || null
         if (propVal) {
