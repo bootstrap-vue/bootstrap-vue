@@ -49,6 +49,9 @@ transparency only.
 - Toasts will auto hide after a default of 5 seconds (5000ms). The duration can be changed via the
   `auto-hide-delay` prop (value is specified in milliseconds), and disabled with the `no-auto-hide`
   prop.
+- When auto-hide is enabled, and you hover over the toast, the auto-hide countdown will be paused
+  until you unhover the toast. You can disabled this feature by setting the `no-hover-pause` prop
+  to `true`.
 - Toasts include a close button on their top right to allow users to manually dismiss them. The
   close button can be removed via the `no-close-button` prop.
 - Titles are optional, but should be included, titles are rendered inside a `<strong>` element,
@@ -63,7 +66,7 @@ transparency only.
   `<b-toast>` components.
 - Toasts can can targeted to any named toaster.
 - Toasts are wrapped in a `<div>` with class `b-toast` to allow for Vue list-transition support when
-  displayed in a toaster component
+  displayed in a toaster component.
 
 BootstrapVue uses [PortalVue](https://portal-vue.linusb.org/) to transport toasts into the toasters.
 
@@ -237,6 +240,10 @@ the order they were created. To append new toasts to the bottom, set the `append
 Change to auto hide delay time via the `auto-hide-delay` prop (value is in milliseconds), which
 defaults to `5000` (minimum value `1000`). Or, disable the auto-hide feature completely by setting
 the `no-auto-hide` prop to `true`.
+
+When auto-hide is enabled, hovering over the toast will pause the auto-hide timer. When you
+un-hover the toast, the auto-hide timer will be resumed. You can disable this feature by setting
+the `no-hover-pause` prop to `true`.
 
 ### Toast roles
 
