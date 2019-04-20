@@ -1995,7 +1995,7 @@ differences between operating systems, this too is not a preventable default beh
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modal-info" @hide="resetModal" :title="modalInfo.title" ok-only>
+    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
       <pre>{{ modalInfo.content }}</pre>
     </b-modal>
   </b-container>
