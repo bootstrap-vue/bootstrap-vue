@@ -1,5 +1,6 @@
 import cloneDeep from './clone-deep'
 import get from './get'
+import memoize from './memoize'
 import warn from './warn'
 import { isArray, isObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
@@ -186,6 +187,10 @@ const getComponentConfig = (cmpName, key = null) => {
 // Convenience method for getting all breakpoint names
 const getBreakpoints = () => getConfigValue('breakpoints')
 
+// Convenience method for getting all breakpoint names
+// Caches the results after first access
+const getBreakpointsCached = memoize(() => getConfigValue('breakpoints'))
+
 // Convenience method for getting breakpoints with
 // the smallest breakpoint set as ''
 // Useful for components that create breakpoint specific props
@@ -196,6 +201,16 @@ const getBreakpointsUp = () => {
 }
 
 // Convenience method for getting breakpoints with
+// the smallest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+// Caches the results after first access
+const getBreakpointsUpCached = memoize(() => {
+  const breakpoints = getBreakpointsCached().slice()
+  breakpoints[0] = ''
+  return breakpoints
+})
+
+// Convenience method for getting breakpoints with
 // the largest breakpoint set as ''
 // Useful for components that create breakpoint specific props
 const getBreakpointsDown = () => {
@@ -203,6 +218,17 @@ const getBreakpointsDown = () => {
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 }
+
+// Convenience method for getting breakpoints with
+// the largest breakpoint set as ''
+// Useful for components that create breakpoint specific props
+// Caches the results after first access
+/* istanbul ignore next: we don't use this method anywhere, yet */
+const getBreakpointsDownCached = memoize(() => {
+  const breakpoints = getBreakpointsCached().slice()
+  breakpoints[breakpoints.length - 1] = ''
+  return breakpoints
+})
 
 // Named Exports
 export {
@@ -214,5 +240,8 @@ export {
   getComponentConfig,
   getBreakpoints,
   getBreakpointsUp,
-  getBreakpointsDown
+  getBreakpointsDown,
+  getBreakpointsCached,
+  getBreakpointsUpCached,
+  getBreakpointsDownCached
 }
