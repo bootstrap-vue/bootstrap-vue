@@ -205,7 +205,7 @@ const getBreakpointsUp = () => {
 // Useful for components that create breakpoint specific props
 // Caches the results after first access
 const getBreakpointsUpCached = memoize(() => {
-  const breakpoints = getBreakpointsCached()
+  const breakpoints = getBreakpointsCached().slice()
   breakpoints[0] = ''
   return breakpoints
 })
@@ -225,7 +225,7 @@ const getBreakpointsDown = () => {
 // Caches the results after first access
 /* istanbul ignore next: we don't use this method anywhere, yet */
 const getBreakpointsDownCached = memoize(() => {
-  const breakpoints = getBreakpointsCached()
+  const breakpoints = getBreakpointsCached().slice()
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 })
