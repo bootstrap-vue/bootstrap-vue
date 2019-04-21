@@ -204,7 +204,6 @@ export default Vue.extend({
           id: this.safeId(),
           tabindex: this.localActive && !this.bvTabs.noKeyNav ? '0' : null,
           'aria-hidden': this.localActive ? 'false' : 'true',
-          'aria-expanded': this.localActive ? 'true' : 'false',
           'aria-labelledby': this.controlledBy || null
         }
       },
