@@ -1995,8 +1995,8 @@ differences between operating systems, this too is not a preventable default beh
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-      <pre>{{ modalInfo.content }}</pre>
+    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+      <pre>{{ infoModal.content }}</pre>
     </b-modal>
   </b-container>
 </template>
@@ -2043,7 +2043,11 @@ differences between operating systems, this too is not a preventable default beh
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
-        modalInfo: { title: '', content: '' }
+        infoModal: {
+          id: 'info-modal',
+          title: '',
+          content: ''
+        }
       }
     },
     computed: {
@@ -2062,13 +2066,13 @@ differences between operating systems, this too is not a preventable default beh
     },
     methods: {
       info(item, index, button) {
-        this.modalInfo.title = `Row index: ${index}`
-        this.modalInfo.content = JSON.stringify(item, null, 2)
-        this.$root.$emit('bv::show::modal', 'modalInfo', button)
+        this.infoModal.title = `Row index: ${index}`
+        this.infoModal.content = JSON.stringify(item, null, 2)
+        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
-      resetModal() {
-        this.modalInfo.title = ''
-        this.modalInfo.content = ''
+      resetInfoModal() {
+        this.infoModal.title = ''
+        this.infoModal.content = ''
       },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
