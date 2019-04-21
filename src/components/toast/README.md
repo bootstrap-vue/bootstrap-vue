@@ -120,6 +120,10 @@ exception of `static`, and `visible`) in <samp>camelCase</samp> name format inst
 Once a toast which was generated using `this.$bvToast.toast()` has been hidden, it will
 automatically be destroyed and removed from the document.
 
+**Note:** The `this.$bvToast` injection is only available when useing the full `BootstrapVue`
+plugin or the `Toast` plugin. It is not available if importing just the `b-toast` or `b-toaster`
+components.
+
 ## Options
 
 Toasts have various options that can control their style and behaviour. Options are available both
