@@ -86,6 +86,10 @@ export default Vue.extend({
       type: [Boolean, String],
       default: false
     },
+    tableClass: {
+      type: [String, Array, Object],
+      default: null
+    },
     value: {
       // v-model for retrieving the current displayed rows
       type: Array,
@@ -116,6 +120,9 @@ export default Vue.extend({
     },
     tableClasses() {
       return [
+        // User supplied classes
+        this.tableClass,
+        // Styling classes
         {
           'table-striped': this.striped,
           'table-hover': this.hover && this.computedItems.length > 0 && !this.computedBusy,
