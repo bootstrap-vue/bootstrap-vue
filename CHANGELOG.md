@@ -26,10 +26,6 @@ Released 2019-04-21
 - **docs:** improve code highlighting + table styles
   ([#3078](https://github.com/bootstrap-vue/bootstrap-vue/issues/3078))
   ([d4b9895](https://github.com/bootstrap-vue/bootstrap-vue/commit/d4b9895))
-- **docs:** info modal in complete <b-table> example (closes
-  [#3144](https://github.com/bootstrap-vue/bootstrap-vue/issues/3144))
-  ([#3145](https://github.com/bootstrap-vue/bootstrap-vue/issues/3145))
-  ([9dfe0bf](https://github.com/bootstrap-vue/bootstrap-vue/commit/9dfe0bf))
 - **docs:** overall improvements
   ([#3129](https://github.com/bootstrap-vue/bootstrap-vue/issues/3129))
   ([be53376](https://github.com/bootstrap-vue/bootstrap-vue/commit/be53376))
