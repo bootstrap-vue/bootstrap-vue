@@ -1,57 +1,64 @@
 <template>
-  <b-collapse id="bd-docs-nav" tag="nav" is-nav class="bd-links">
-    <router-link
+  <b-collapse id="bd-docs-nav" class="bd-links" tag="nav" is-nav>
+    <b-link
       v-for="group in nav"
       :key="group.base"
-      tag="div"
-      class="bd-toc-item"
-      :to="`/docs/${group.base}`"
-      active-class="active"
+      :to="buildUrl('/docs/', [group.base])"
       :exact="group.exact"
+      router-tag="div"
+      class="bd-toc-item"
+      active-class="active"
     >
-      <router-link
-        class="bd-toc-link"
-        :to="`/docs/${group.base}`"
+      <b-link
+        :to="buildUrl('/docs/', [group.base])"
         :exact="group.exact"
+        class="bd-toc-link"
+        active-class=""
       >
         {{ group.title }}
-        <small v-if="group.new" class="badge badge-success">NEW</small>
-        <small v-if="group.experimental" class="badge badge-warning">BETA</small>
-        <small v-if="group.breaking" class="badge badge-danger">BREAKING CHANGE</small>
-      </router-link>
+        <b-badge v-if="group.new" tag="small" variant="success" class="text-uppercase">New</b-badge>
+        <b-badge v-if="group.breaking" tag="small" variant="danger" class="text-uppercase">Breaking change</b-badge>
+        <b-badge v-if="group.beta" tag="small" variant="warning" class="text-uppercase">Beta</b-badge>
+      </b-link>
 
       <b-nav class="bd-sidenav">
-        <b-nav-item
+        <b-link
           v-for="page in group.pages"
           :key="page.title"
-          :to="`/docs/${group.base}${page.slug}`.replace(/\/\//g, '/')"
-          active-class="active"
+          :to="buildUrl('/docs/', [group.base, page.slug])"
+          router-tag="li"
+          class="nav-item"
+          active-class="active bd-sidenav-active"
         >
-          {{ page.title }}
-          <b-badge v-if="page.new" tag="small" variant="success">NEW</b-badge>
-          <b-badge v-if="page.experimental" tag="small" variant="warning">BETA</b-badge>
-          <b-badge v-if="page.breaking" tag="small" variant="danger">CHANGE</b-badge>
-          <b-badge v-if="page.features" tag="small" variant="info">ENHANCED</b-badge>
-        </b-nav-item>
+          <b-link
+            :to="buildUrl('/docs/', [group.base, page.slug])"
+            :exact="group.exact"
+            active-class=""
+          >
+            {{ page.title }}
+            <b-badge v-if="page.new" tag="small" variant="success" class="text-uppercase">New</b-badge>
+            <b-badge v-if="page.enhanced" tag="small" variant="info" class="text-uppercase">Enhanced</b-badge>
+            <b-badge v-if="page.breaking" tag="small" variant="danger" class="text-uppercase">Breaking change</b-badge>
+            <b-badge v-if="page.beta" tag="small" variant="warning" class="text-uppercase">Beta</b-badge>
+          </b-link>
+        </b-link>
       </b-nav>
-    </router-link>
+    </b-link>
   </b-collapse>
 </template>
-
-<style>
-.bd-sidebar .nav > li > a.active {
-  /*color: #0275d8;*/
-  color: black;
-  font-weight: bold;
-}
-</style>
 
 <script>
 import { nav } from '~/content'
 
 export default {
-  computed: {
-    nav: () => nav
+  name: 'BDVSidebar',
+  data() {
+    return { nav }
+  },
+  methods: {
+    buildUrl(basePath, parts = []) {
+      return `${basePath}/${parts.join('/')}`.replace(/(https?:\/\/)|(\/)+/g, '$1$2')
+    }
   }
 }
 </script>

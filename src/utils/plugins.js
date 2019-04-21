@@ -1,4 +1,5 @@
 import { setConfig } from './config'
+import { hasWindowSupport } from './env'
 
 /**
  * Plugin install factory function.
@@ -17,6 +18,7 @@ export const installFactory = ({ components, directives, plugins }) => {
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
   }
+
   install.installed = false
 
   return install
@@ -87,7 +89,7 @@ export const registerDirectives = (Vue, directives = {}) => {
  */
 export const vueUse = VuePlugin => {
   /* istanbul ignore next */
-  if (typeof window !== 'undefined' && window.Vue) {
+  if (hasWindowSupport && window.Vue) {
     window.Vue.use(VuePlugin)
   }
 }

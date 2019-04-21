@@ -30,14 +30,14 @@ Set the type of embed you would like via the `type` prop.
 Aspect ratios can be set via the `aspect` prop. Supported aspect ratios are: `21by9` (21:9), `16by9`
 (16:9), `4by3` (4:3) and `1by1` (1:1). The default aspect is `16by9`. Aspect ratios are defined in
 Bootstrap's SCSS and translate to the classname `embed-responsive-{aspect}` (i.e.
-`embed-responsive-16by9`, `embed-responsive-4by3`, excetera).
+`embed-responsive-16by9`, `embed-responsive-4by3`, etc.).
 
 ## Wrapper element
 
 The Responsive embed is wrapped in an outer element (default is `div`) to enforce the responsive
 aspect ratio. You can change this tag via the `tag` prop.
 
-## Attributes and Child Elements
+## Attributes and child elements
 
 Any additional attributes provided to `<b-embed>` (other than the above `type`, `aspect` and `tag`
 props) are applied to the inner embedded element (i.e. the `iframe`, `video`, `embed` or `object`).

@@ -1,0 +1,110 @@
+// --- <b-toaster> custom SCSS ---
+
+// NOTE:
+// This SCSS is prelimiary, and may change in the future.
+
+// Base toaster styling
+.b-toaster {
+  z-index: $b-toaster-zindex;
+
+  .b-toaster-slot {
+    position: relative;
+    display: block;
+    
+    &:empty {
+      display: none !important;
+    }
+  }
+}
+
+// Built-in toaster styling
+//  - b-toaster-top-right
+//  - b-toaster-top-left
+//  - b-toaster-top-center
+//  - b-toaster-top-full
+//  - b-toaster-bottom-right
+//  - b-toaster-bottom-left
+//  - b-toaster-bottom-center
+//  - b-toaster-bottom-full
+.b-toaster {
+  &.b-toaster-top-right,
+  &.b-toaster-top-left,
+  &.b-toaster-top-center,
+  &.b-toaster-top-full,
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left,
+  &.b-toaster-bottom-center,
+  &.b-toaster-bottom-full {
+    position: fixed;
+    left: $b-toaster-offset-left;
+    right: $b-toaster-offset-right;
+    margin: 0;
+    padding: 0;
+    height: 0;
+    overflow: visible;
+
+    .b-toaster-slot {
+      position: absolute;
+      max-width: $toast-max-width;
+      left: 0;
+      right: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  &.b-toaster-top-full,
+  &.b-toaster-bottom-full {
+    .b-toaster-slot {
+      width: 100%;
+      max-width: 100%;
+
+      .b-toast,
+      .toast {
+        // Override Bootstrap toast max-width
+        width: 100%;
+        max-width: 100%
+      }
+    }
+  }
+
+  &.b-toaster-top-right,
+  &.b-toaster-top-left,
+  &.b-toaster-top-center,
+  &.b-toaster-top-full {
+    top: 0;
+
+    .b-toaster-slot {
+      top: $b-toaster-offset-top;
+    }
+  }
+
+  &.b-toaster-bottom-right,
+  &.b-toaster-bottom-left,
+  &.b-toaster-bottom-center,
+  &.b-toaster-bottom-full {
+    bottom: 0;
+
+    .b-toaster-slot {
+      bottom: $b-toaster-offset-bottom;
+    }
+  }
+  
+  &.b-toaster-top-right,
+  &.b-toaster-bottom-right,
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
+    .b-toaster-slot {
+      margin-left: auto;
+    }
+  }
+
+  &.b-toaster-top-left,
+  &.b-toaster-bottom-left,
+  &.b-toaster-top-center,
+  &.b-toaster-bottom-center {
+    .b-toaster-slot {
+      margin-right: auto;
+    }
+  }
+}

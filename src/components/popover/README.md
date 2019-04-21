@@ -38,12 +38,11 @@ The target element **must** exist in the document before `<b-popover>` is mounte
 element is not found during mount, the popover will never open. Always place your `<b-popover>`
 component lower in the DOM than your target element.
 
-> **Note:** _When using slots for content and/or title, `<b-popover>` transfers the rendered DOM
-> from those slots into the popover's markup when shown, and returns them back to the `<b-popover>`
-> component when hidden. This may cause some issues in rare circumstances, so please test your
-> implementation accordingly! The `title` and `content` props do not have this behavior. For simple
-> popovers, we recommend using the `v-b-popover` directive and enable the `html` modifier if
-> needed._
+**Note:** _When using slots for content and/or title, `<b-popover>` transfers the rendered DOM from
+those slots into the popover's markup when shown, and returns them back to the `<b-popover>`
+component when hidden. This may cause some issues in rare circumstances, so please test your
+implementation accordingly! The `title` and `content` props do not have this behavior. For simple
+popovers, we recommend using the `v-b-popover` directive and enable the `html` modifier if needed._
 
 ## Positioning
 
@@ -777,10 +776,8 @@ event.
 
 These events work for both the component **and** directive versions of popover.
 
-> **Note:** _The **trigger element** must exist in the DOM and be in a visible state in order for
-> the popover to instantiate and show._
-
-## Disabling and enabling popovers via \$root events
+**Note:** _The **trigger element** must exist in the DOM and be in a visible state in order for the
+popover to instantiate and show._
 
 ### Disabling and enabling popovers via \$root events
 
@@ -808,8 +805,8 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component and directive versions of popover.
 
-> **Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or
-> disabled._
+**Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or
+disabled._
 
 ### Listening to popover changes via \$root events
 

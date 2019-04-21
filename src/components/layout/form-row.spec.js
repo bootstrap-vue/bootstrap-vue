@@ -1,5 +1,5 @@
-import BFormRow from './form-row'
 import { mount } from '@vue/test-utils'
+import BFormRow from './form-row'
 
 describe('layout > form-row', () => {
   it('has expected default structure', async () => {

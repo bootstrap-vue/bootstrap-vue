@@ -1,3 +1,5 @@
+import { isFunction } from '../../../utils/inspect'
+
 export default {
   methods: {
     renderTopRow() {
@@ -17,9 +19,7 @@ export default {
           key: 'top-row',
           staticClass: 'b-table-top-row',
           class: [
-            typeof this.tbodyTrClass === 'function'
-              ? this.tbodyTrClass(null, 'row-top')
-              : this.tbodyTrClass
+            isFunction(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass
           ],
           attrs: { role: 'row' }
         },

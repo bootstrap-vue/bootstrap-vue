@@ -1,13 +1,19 @@
 # Getting Started
 
-- [Vue.js](https://vuejs.org) version {{ vueVersion }} (or greater) is recommended
-- BootstrapVue requires [Bootstrap](https://getbootstrap.com) version {{ bootstrapVersion }} (or
-  greater) SCSS/CSS
+> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
+> building responsive, mobile-first sites using Vue.js.
 
-## General
+- [Vue.js](https://vuejs.org/) `v2.5` is required, `v{{ vueVersion }}` is recommended
+- [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
+  recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v2.0` is required, `v{{ portalVueVersion }}` is
+  recommended
+- [jQuery](https://jquery.com/) is **not** required
+
+## Using module bundlers
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
-[rollup.js](https://rollupjs.org), etc you may prefer to directly include the package into your
+[rollup.js](https://rollupjs.org/), etc you may prefer to directly include the package into your
 project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
 Bootstrap 4:
 
@@ -37,7 +43,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
+Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 
 ```scss
 // custom.scss
@@ -50,15 +56,45 @@ Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
 import 'custom.scss'
 ```
 
-Be sure to include your custom variables before `bootstrap.scss` and include BootstrapVue SCSS
-_after_ Bootstrap SCSS to ensure variables are set up correctly.
+Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
+(`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
+variables are set up correctly.
+
+Make sure you place all the SCSS `@import`s into a single SCSS file, and import that single file
+into your project. Importing individual SCSS files into your project will **not** share variable
+values and functions between files by default.
 
 **Note**: _Requires webpack configuration to load CSS/SCSS files
 ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_.
 
-## Nuxt.js Module
+For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
+section.
 
-[Nuxt.js](https://nuxtjs.org) version {{ nuxtVersion }} (or greater) is recommended.
+<div class="alert alert-info mb-0">
+  <p class="mb-2">
+    BootstrapVue and PortalVue require access to the global <code>Vue</code> reference (via <code>
+    import Vue from 'vue'</code>).
+  </p>
+  <p class="mb-2">
+    If you are using a specific build of Vue (i.e. runtime-only vs. compiler + runtime), you will
+    need to set up an alias to <code>'vue'</code> in your bundler config to ensure that your
+    project, BootstrapVue and PortalVue are all using the same build version of Vue. If you are
+    seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will need to
+    set up an alias.
+  </p>
+  <p class="mb-0">
+    See the
+    <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Vue.js
+    Guide</a> for details on setting up aliases for
+    <a class="alert-link" href="https://webpack.js.org/">webpack</a>,
+    <a class="alert-link" href="https://rollupjs.org/">rollup.js</a>,
+    <a class="alert-link" href="hhttps://parceljs.org/">Parcel</a>, etc.
+  </p>
+</div>
+
+## Nuxt.js module
+
+[Nuxt.js](https://nuxtjs.org/) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
 Install dependencies:
 
@@ -87,13 +123,13 @@ BootstrapVue pre-compiled CSS files by setting the following option(s) to `false
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    bootstrapCSS: false, // or `css`
-    bootstrapVueCSS: false // or `bvCSS`
+    bootstrapCSS: false, // Or `css: false`
+    bootstrapVueCSS: false // Or `bvCSS: false`
   }
 }
 ```
 
-BootstrapVue's custom CSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
+BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
 BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss
@@ -130,16 +166,20 @@ want to globally install in your Nuxt.js project.
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    componentPlugins: ['Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
+    componentPlugins: ['Layout', 'Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
     directivePlugins: ['Popover']
   }
 }
 ```
 
+Refer to the reference section at the bottom of each of the [component](/docs/components) and
+[directive](/docs/directives) docs for details on the plugin names available and which components
+and directives are included in each plugin.
+
 ### Passing custom BootstrapVue config with Nuxt.js
 
 If you need to pass a custom
-[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may due so
+[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may do so
 by setting the `config` property in your `nuxt.config.js`:
 
 ```js
@@ -155,11 +195,11 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt module uses precompiled version of BootstrapVue for faster development builds and source of
-BootstrapVue for higher quality production builds.
+Nuxt.js module uses precompiled version of BootstrapVue for faster development builds and the source
+of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
-of `src/`. By default is enabled for development mode only.
+of `src/`. By default `usePretranspiled` is enabled in development mode only.
 
 ## Vue CLI 2
 
@@ -241,7 +281,43 @@ For additional configuration for Vue CLI 3 for using project relative paths for 
 various BootstrapVue components, refer to the Vue CLI 3 section of the
 [Image Src Resolving](/docs/reference/images#vue-cli-3-support) reference page.
 
-## Individual components and directives
+## Selective component and directive inclusion in module bundlers
+
+When using a module bundler you can optionally import only specific components groups, components
+and/or directives.
+
+### Component groups and directives as Vue plugins
+
+You can import component groups and directives as Vue plugins by importing the component group or
+directive directory:
+
+<!-- eslint-disable import/first, import/no-duplicates -->
+
+```js
+// This imports all the layout components such as <b-container>, <b-row>, <b-col>:
+import { Layout } from 'bootstrap-vue/es/components'
+Vue.use(Layout)
+
+// This imports <b-modal> as well as the v-b-modal directive as a plugin:
+import { Modal } from 'bootstrap-vue/es/components'
+Vue.use(Modal)
+
+// This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
+import { Card } from 'bootstrap-vue/es/components'
+Vue.use(Card)
+
+// This imports directive v-b-scrollspy as a plugin:
+import { Scrollspy } from 'bootstrap-vue/es/directives'
+Vue.use(Scrollspy)
+```
+
+When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
+When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
+sub components. Component shorthand aliases (if any) are also included in the plugin.
+
+Refer to the component and directive documentation for details.
+
+### Individual components and directives
 
 If you would like to only pull in a specific component or set of components, you can do this by
 directly importing those components.
@@ -283,37 +359,6 @@ Vue.directive('b-modal', BModalDirective)
 Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
 camelCasing, PascalCasing, and/or object property shorthand.
 
-### Component groups and Directives as Vue plugins
-
-You can also import component groups and directives as Vue plugins by importing the component group
-or directive directory:
-
-<!-- eslint-disable import/first, import/no-duplicates -->
-
-```js
-// This imports all the layout components such as <b-container>, <b-row>, <b-col>:
-import { Layout } from 'bootstrap-vue/es/components'
-Vue.use(Layout)
-
-// This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import { Modal } from 'bootstrap-vue/es/components'
-Vue.use(Modal)
-
-// This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import { Card } from 'bootstrap-vue/es/components'
-Vue.use(Card)
-
-// This imports directive v-b-scrollspy as a plugin:
-import { Scrollspy } from 'bootstrap-vue/es/directives'
-Vue.use(Scrollspy)
-```
-
-When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
-When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
-sub components. Component shorthand aliases (if any) are also included in the plugin.
-
-Refer to the component and directive documentation for details.
-
 ### webpack + Babel
 
 When importing components/directives individually, you must configure your app to properly build the
@@ -336,7 +381,7 @@ module.exports = {
         include: [
           // Use `include` vs `exclude` to whitelist vs blacklist
           path.resolve(__dirname, 'src'), // Whitelist your app source files
-          require.resolve('bootstrap-vue') // Whitelist bootstrap-vue
+          require.resolve('bootstrap-vue') // Whitelist `bootstrap-vue`
         ],
         loader: 'babel-loader'
       }
@@ -347,31 +392,43 @@ module.exports = {
 
 ## Browser
 
+Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the required
+JavaScript files.
+
+When supporting older browsers (see [Browser Support](#browser-support) below), you will need to
+include a polyfill for handling modern JavaScript features before loading Vue and BoostrapVue
+JavaScript files.
+
 ```html
 <!-- Add this to <head> -->
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link
-  type="text/css"
-  rel="stylesheet"
-  href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
-/>
 
-<script src="//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 ```
 
-## Build Variants
+## Build variants
 
 Choosing the best variant for your build environment / packager helps less bundle sizes. If your
 bundler supports es modules, it will automatically prefer it over commonjs.
 
 | Variant        | Environments          | Package path                                                           |
 | -------------- | --------------------- | ---------------------------------------------------------------------- |
-| **ES Module**  | webpack 2 / rollup.js | `es/index.js`                                                          |
+| **ES Modules** | webpack 2 / rollup.js | `es/index.js`                                                          |
 | **ESM Module** | webpack 2 / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
 | commonjs2      | webpack 1 / ...       | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser               | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
+
+BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
+(for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
+dependencies are included in the `commonjs2` and `UMD` bundles.
 
 ## Migrating a project already using Bootstrap
 
@@ -383,26 +440,46 @@ your project:
   not** depend on jQuery
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
 
-## Browser Support
+## Browser support
 
 ### CSS
 
-BootstrapVue is to be used with Bootstrap 4 CSS/SCSS. Please see
+BootstrapVue is to be used with Bootstrap 4.3 CSS/SCSS. Please see
 [Browsers and devices](https://getbootstrap.com/docs/4.3/getting-started/browsers-devices) for more
 information about browsers currently supported by Bootstrap 4.
 
 ### JS
 
-BootstrapVue is written in Vue.js! So this is up to your project and bundler which browsers are
+BootstrapVue is written in Vue.js! So it is up to your project and bundler which browsers are
 supported.
 
-If you want to support older IE, Android and IOS devices, you may want to use
-[Babel Polyfill](https://babeljs.io/docs/usage/polyfill):
+Following features and APIs are used by BootstrapVue:
 
-- `npm install @babel/polyfill`
-- Import it in your app main entry point with `import '@babel/polyfill'`
+- ES5 (e.g. `Array.from()`, `Array.isArray()`, `Object.assign()`, `Object.is()`, etc.)
+- `Promise`
+- `MutationObserver`
 
-## Tooling Support
+If you want to support older IE, Android and iOS devices, you may want to use
+[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/) and
+[mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
+
+- `npm install @babel/polyfill mutationobserver-shim`
+- Import the polyfills in your app main entry point:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+import '@babel/polyfill'
+import 'mutationobserver-shim'
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+```
+
+Alternatively use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
+polyfills via `<script>` tags in the HTML `<head>` section. See [Browser](#browser) section for an
+example.
+
+## Tooling support
 
 ### VS Code + Vetur
 

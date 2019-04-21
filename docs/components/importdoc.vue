@@ -6,15 +6,16 @@
     <template v-if="components.length > 0">
       <article>
         <anchored-heading id="importing-individual-components" level="3">
-          Importing individual {{ pluginTitle }} Components
+          Importing individual components
         </anchored-heading>
 
         <b-table
           :items="componentImports"
           class="bv-docs-table"
-          small
-          striped
+          responsive="sm"
           head-variant="default"
+          bordered
+          striped
         >
           <template slot="component" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
@@ -33,16 +34,16 @@
     <template v-if="directives.length > 0">
       <article>
         <anchored-heading id="importing-individual-directives" level="3">
-          Importing individual {{ pluginTitle }} Directives
+          Importing individual directives
         </anchored-heading>
 
         <b-table
           :items="directiveImports"
           class="bv-docs-table"
-          small
-          striped
           responsive="sm"
           head-variant="default"
+          bordered
+          striped
         >
           <template slot="directive" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
@@ -60,7 +61,7 @@
 
     <article>
       <anchored-heading id="importing-as-a-plugin" level="3">
-        Importing {{ pluginTitle }} as a Vue plugin
+        Importing as a Vue.js plugin
       </anchored-heading>
 
       <p v-if="isComponentRoute">
@@ -84,23 +85,14 @@
   </section>
 </template>
 
-<style scoped>
-h1,
-h2,
-h3,
-h4,
-h5 {
-  padding: 20px 0;
-}
-</style>
-
 <script>
-import hljs from 'highlightjs'
+import hljs from 'highlight.js'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
 
 export default {
+  name: 'BDVImportdoc',
   components: { AnchoredHeading },
   props: {
     meta: {}
@@ -114,9 +106,6 @@ export default {
     },
     pluginName() {
       return startCase(this.pluginDir).replace(/\s+/g, '')
-    },
-    pluginTitle() {
-      return startCase(this.meta.title)
     },
     componentImports() {
       return this.components.map(c => {

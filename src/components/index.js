@@ -34,6 +34,7 @@ import Progress from './progress'
 import Spinner from './spinner'
 import Table from './table'
 import Tabs from './tabs'
+import Toast from './toast'
 import Tooltip from './tooltip'
 
 export {
@@ -73,5 +74,6 @@ export {
   Spinner,
   Table,
   Tabs,
+  Toast,
   Tooltip
 }

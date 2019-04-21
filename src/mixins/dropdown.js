@@ -1,10 +1,11 @@
 import Popper from 'popper.js'
-import clickOutMixin from './click-out'
-import focusInMixin from './focus-in'
-import KeyCodes from '../utils/key-codes'
 import BvEvent from '../utils/bv-event.class'
+import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { closest, contains, getAttr, isVisible, selectAll } from '../utils/dom'
+import { isNull } from '../utils/inspect'
+import clickOutMixin from './click-out'
+import focusInMixin from './focus-in'
 
 // Return an Array of visible items
 function filterVisible(els) {
@@ -107,6 +108,16 @@ export default {
     toggler() {
       const toggle = this.$refs.toggle
       return toggle ? toggle.$el || toggle : null
+    },
+    directionClass() {
+      if (this.dropup) {
+        return 'dropup'
+      } else if (this.dropright) {
+        return 'dropright'
+      } else if (this.dropleft) {
+        return 'dropleft'
+      }
+      return ''
     }
   },
   watch: {
@@ -178,7 +189,7 @@ export default {
       this.$root.$emit('bv::dropdown::shown', this)
 
       // Are we in a navbar ?
-      if (this.inNavbar === null && this.isNav) {
+      if (isNull(this.inNavbar) && this.isNav) {
         /* istanbul ignore next */
         this.inNavbar = Boolean(closest('.navbar', this.$el))
       }

@@ -1,6 +1,7 @@
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import BTable from './table'
 import normalizeFields from './helpers/normalize-fields'
-import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
@@ -62,7 +63,7 @@ describe('table > colgroup', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(columns).toBe(3)
     expect(fields).toEqual(normalizeFields(testFields))
     expect(wrapper.find('table > colgroup').exists()).toBe(true)

@@ -4,7 +4,7 @@
 > (so they never become larger than their parent elements), optionally adding lightweight styles to
 > them — all via props.
 
-BootstapVue's image components support rounded images, thumbnail styling, alignment, and even the
+BootstrapVue's image components support rounded images, thumbnail styling, alignment, and even the
 ability to create blank images with an optional solid background color. Support for lazy loaded
 images is available via the `<b-img-lazy>` complimentary component.
 
@@ -15,7 +15,7 @@ fully-qualified-domain-name URLs. If you are using project assets as image sourc
 [Component img src resolving](/docs/reference/images) for configuring `vue-loader` to understand
 custom component props that specify image sources.
 
-## Syling images
+## Styling images
 
 Several props are available for styling the rendered image element. The following sub-sections cover
 the various options.
@@ -54,7 +54,7 @@ default of inline-block element.
 
 **Note:** _In Internet Explorer 10, SVG images with `fluid` are disproportionately sized. To fix
 this, add the style `width: 100% \9;` where necessary. This fix improperly sizes other image
-formats, so Bootstrap V4 doesn’t apply it automatically._
+formats, so Bootstrap V4 doesn't apply it automatically._
 
 ### Image thumbnails
 
@@ -147,7 +147,7 @@ left+right margins). You can also center images by placing them in a container t
 
 Note: `left` takes precedence over `right` which takes precedence over `center`.
 
-## Blank (or solid color) Images
+## Blank (or solid color) images
 
 `<b-img>` provides built-in support for generating blank images (transparent by default) of any
 width and height, by setting the `blank` prop, and specifying `width` and `height` values (in
@@ -202,7 +202,7 @@ The default `blank-color` is `transparent`.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered
   `<img>` tag, even if `blank` is not set.
 
-## Lazy Loaded images
+## Lazy loaded images
 
 > Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy load images as
 > they are scrolled into view (or within `offset` pixels of the viewport).

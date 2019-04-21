@@ -1,7 +1,8 @@
-import BFormRadioGroup from './form-radio-group'
-import BFormRadio from './form-radio'
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
+import BFormRadioGroup from './form-radio-group'
+import BFormRadio from './form-radio'
 
 describe('form-radio-group', () => {
   // --- Structure, class and attributes tests ---
@@ -27,7 +28,7 @@ describe('form-radio-group', () => {
     const wrapper = mount(BFormRadioGroup, {
       attachToDocument: true
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     // Auto ID not generated until after mount
     expect(wrapper.attributes('id')).toBeDefined()
 
@@ -259,7 +260,7 @@ describe('form-radio-group', () => {
       attachToDocument: true
     })
     expect(wrapper).toBeDefined()
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     // Find all the labels with .btn class
     const btns = wrapper.findAll('label.btn')
@@ -323,7 +324,7 @@ describe('form-radio-group', () => {
     })
     // We need `$nextTick()` here since auto generated name is
     // computed in a `$nextTick()` on mount
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.classes()).toBeDefined()
     const radios = wrapper.findAll('input')

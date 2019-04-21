@@ -1,27 +1,31 @@
+const camelCase = require('lodash/camelCase')
+const kebabCase = require('lodash/kebabCase')
+const upperFirst = require('lodash/upperFirst')
 const { resolve } = require('path')
+
+// --- Utility methods ---
+
+const pascalCase = str => upperFirst(camelCase(str))
+
+const pickFirst = (...args) => {
+  for (const arg of args) {
+    if (arg !== undefined) {
+      return arg
+    }
+  }
+}
 
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   this.nuxt.hook('build:before', () => {
-    function pickFirst(...args) {
-      for (const arg of args) {
-        if (arg !== undefined) {
-          return arg
-        }
-      }
-    }
-
-    const kebabCase = str =>
-      str.replace(
-        /([_\s]+([a-zA-Z])|([A-Z]))/g,
-        (m, $1, $2, $3, o) => (o ? '-' : '') + ($2 || $3 || '').toLowerCase()
-      )
-    const pascalCase = str => str.replace(/(^|[-_\s]+)(.)/g, (m, $1, $2) => $2.toUpperCase())
-
     // Merge moduleOptions with default
     const options = {
       ...this.options.bootstrapVue,
       ...moduleOptions
     }
+
+    // Ensure we have arrays
+    this.options.css = this.options.css || []
+    this.options.build.transpile = this.options.build.transpile || []
 
     const bootstrapVueCSS = pickFirst(
       options.bootstrapVueCSS,

@@ -1,9 +1,9 @@
 # Router link support
 
-> Several BootstrapVue components support rendering `<router-link>` components compatible with
-> _Vue-Router_ and _Nuxt_. For more information, see the
-> [official Vue-Router docs](https://router.vuejs.org/) and
-> [official Nuxt docs](https://nuxtjs.org/).
+> Several BootstrapVue components support rendering `<router-link>` components compatible with _Vue
+> Router_ and _Nuxt.js_. For more information, see the
+> [official Vue Router docs](https://router.vuejs.org/) and
+> [official Nuxt.js docs](https://nuxtjs.org/).
 
 ## Common router link props
 
@@ -133,23 +133,23 @@ Check out more examples explaining active link class [live](https://jsfiddle.net
 
 - type: `string`
 - default: `'router-link-exact-active'` (`'nuxt-link-exact-active'` when using Nuxt.js)
-- availability: Vue-Router 2.5.0+
+- availability: Vue Router 2.5.0+
 
 Configure the active CSS class applied when the link is active with exact match. Note the default
 value can also be configured globally via the `linkExactActiveClass` router constructor option.
 
-## Nuxt specific router link props
+## Nuxt.js specific router link props
 
 When BootstrapVue detects that your app is running under [Nuxt.js](https://nuxtjs.org), it will
 render a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub component instead of a
 `<router-link>`. `<nuxt-link>` supports all of the above router link props, plus the following
-additional Nuxt specific props.
+additional Nuxt.js specific props.
 
 ### `no-prefetch`
 
 - type: `boolean`
 - default: `false`
-- availability: Nuxt 2.4.0+
+- availability: Nuxt.js 2.4.0+
 
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
 the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will

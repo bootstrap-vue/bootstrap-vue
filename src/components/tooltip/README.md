@@ -27,7 +27,7 @@ Things to know when using tooltip component:
   white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
-The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` intermediate container element
+The `<b-tooltip>` component inserts a hidden (`display:none`) `<div>` intermediate container element
 at the point in the DOM where the `<b-tooltip>` component is placed. This may affect layout and/or
 styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and `<b-input-group>`. To
 avoid these possible layout issues, place the `<b-tooltip>` component **outside** of these types of
@@ -110,7 +110,7 @@ If a tooltip has more than one trigger, then all triggers must be cleared before
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
-## `<b-tooltip>` Component Usage
+## `<b-tooltip>` component usage
 
 ```html
 <b-container fluid>
@@ -141,7 +141,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <!-- b-tooltip-component.vue -->
 ```
 
-### Component Options
+### Component options
 
 | Prop              | Default          | Description                                                                                                                                                                                                | Supported values                                                                                                                                 |
 | ----------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -291,9 +291,8 @@ long as you have provided the `.sync` prop modifier.
 <!-- b-tooltip-disable.vue -->
 ```
 
-> **Note:** _In the above example, since we are using the default tooltip triggers of `focus hover`,
-> the tooltip will close before it is disabled due to loosing focus (and hover) to the toggle
-> button._
+**Note:** _In the above example, since we are using the default tooltip triggers of `focus hover`,
+the tooltip will close before it is disabled due to loosing focus (and hover) to the toggle button._
 
 You can also emit `$root` events to trigger disabling and enabling of tooltip(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
@@ -301,7 +300,7 @@ You can also emit `$root` events to trigger disabling and enabling of tooltip(s)
 You can also emit `$root` events to trigger disabling and enabling of popover(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
 
-## `v-b-tooltip` Directive Usage
+## `v-b-tooltip` directive usage
 
 The `v-b-tooltip` directive makes adding tooltips even easier, without additional placeholder
 markup:
@@ -330,8 +329,6 @@ markup:
 
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information and
 features of the directive format.
-
-## Hiding and showing tooltips via \$root events
 
 ## 'Global' \$root instance events
 
@@ -366,10 +363,8 @@ event.
 
 These events work for both the component **and** directive versions of tooltip.
 
-> **Note:** _the **trigger element** must exist in the DOM and be in a visible state in order for
-> the tooltip to show._
-
-## Disabling and enabling tooltips via \$root events
+**Note:** _the **trigger element** must exist in the DOM and be in a visible state in order for the
+tooltip to show._
 
 ### Disabling and enabling tooltips via \$root events
 
@@ -397,8 +392,8 @@ To enable all tooltips simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component **and** directive versions of tooltip.
 
-> **Note:** _The **trigger element** must exist in the DOM in order for the tooltip to be enabled or
-> disabled._
+**Note:** _The **trigger element** must exist in the DOM in order for the tooltip to be enabled or
+disabled._
 
 ### Listening to tooltip changes via \$root events
 

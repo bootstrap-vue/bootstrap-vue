@@ -1,10 +1,10 @@
 $bv-dropdown-defined: false !default;
 
+// Make sure to include these style definitions only once
 @if $bv-dropdown-defined == false {
-  // This test will only include these style definitions once
   $bv-dropdown-defined: true;
 
-  // Hide the caret for no-caret setting
+  // Hide the caret for `no-caret` setting
   // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/1473
   // See: https://github.com/twbs/bootstrap/issues/23724
   .dropdown {

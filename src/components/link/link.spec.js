@@ -1,5 +1,6 @@
-import BLink, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
+import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import BLink, { propsFactory, pickLinkProps, omitLinkProps, props as linkProps } from './link'
 
 describe('link', () => {
   it('has expected default structure', async () => {
@@ -220,7 +221,9 @@ describe('link', () => {
         }
       })
       const spy = jest.fn()
-      const wrapper = mount(App)
+      const wrapper = mount(App, {
+        localVue: localVue
+      })
       wrapper.vm.$root.$on('clicked::link', spy)
       wrapper.find('a').trigger('click')
       expect(spy).toHaveBeenCalled()
@@ -235,13 +238,67 @@ describe('link', () => {
         }
       })
       const spy = jest.fn()
-      const wrapper = mount(App)
+      const wrapper = mount(App, {
+        localVue: localVue
+      })
 
       expect(wrapper.isVueInstance()).toBe(true)
 
       wrapper.vm.$root.$on('clicked::link', spy)
       wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
+
+      wrapper.destroy()
+    })
+  })
+
+  describe('router-link support', () => {
+    it('works', async () => {
+      const localVue = new CreateLocalVue()
+      localVue.use(VueRouter)
+
+      const router = new VueRouter({
+        mode: 'abstract',
+        routes: [
+          { path: '/', component: { name: 'R', template: '<div class="r">ROOT</div>' } },
+          { path: '/a', component: { name: 'A', template: '<div class="a">A</div>' } },
+          { path: '/b', component: { name: 'B', template: '<div class="a">B</div>' } }
+        ]
+      })
+
+      const App = localVue.extend({
+        router,
+        components: { BLink },
+        render(h) {
+          return h('main', {}, [
+            h('b-link', { props: { to: '/a' } }, ['to-a']),
+            h('b-link', { props: { href: '/a' } }, ['href-a']),
+            h('b-link', { props: { to: { path: '/b' } } }, ['to-path-b']),
+            h('b-link', { props: { href: '/b' } }, ['href-a']),
+            h('router-view')
+          ])
+        }
+      })
+
+      const wrapper = mount(App, {
+        localVue: localVue,
+        attachToDocument: true
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.is('main')).toBe(true)
+
+      expect(wrapper.findAll('a').length).toBe(4)
+
+      const $links = wrapper.findAll('a')
+
+      expect($links.at(0).isVueInstance()).toBe(true)
+      expect($links.at(1).isVueInstance()).toBe(false)
+      expect($links.at(2).isVueInstance()).toBe(true)
+      expect($links.at(3).isVueInstance()).toBe(false)
+
+      expect($links.at(0).vm.$options.name).toBe('RouterLink')
+      expect($links.at(2).vm.$options.name).toBe('RouterLink')
 
       wrapper.destroy()
     })

@@ -2,10 +2,13 @@
  * Tooltip/Popover component mixin
  * Common props
  */
-import { isArray } from '../utils/array'
-import { isElement, getById } from '../utils/dom'
-import { HTMLElement } from '../utils/ssr'
+
 import observeDom from '../utils/observe-dom'
+import { isElement, getById } from '../utils/dom'
+import { isArray, isFunction, isObject, isString } from '../utils/inspect'
+import { HTMLElement } from '../utils/safe-types'
+
+// --- Constants ---
 
 const PLACEMENTS = {
   top: 'top',
@@ -84,15 +87,15 @@ export default {
   computed: {
     baseConfig() {
       const cont = this.container
-      let delay = typeof this.delay === 'object' ? this.delay : parseInt(this.delay, 10) || 0
+      let delay = isObject(this.delay) ? this.delay : parseInt(this.delay, 10) || 0
       return {
         // Title prop
         title: (this.title || '').trim() || '',
-        // Contnt prop (if popover)
+        // Content prop (if popover)
         content: (this.content || '').trim() || '',
         // Tooltip/Popover placement
         placement: PLACEMENTS[this.placement] || 'auto',
-        // Container curently needs to be an ID with '#' prepended, if null then body is used
+        // Container currently needs to be an ID with '#' prepended, if null then body is used
         container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
         // boundariesElement passed to popper
         boundary: this.boundary,
@@ -161,7 +164,7 @@ export default {
         this.$on('enable', this.onEnable)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
-        // Set intially open state
+        // Set initially open state
         if (this.show) {
           this.onOpen()
         }
@@ -227,7 +230,7 @@ export default {
       /* istanbul ignore else */
       if (this._toolpop && this.localShow) {
         this._toolpop.hide(callback)
-      } else if (typeof callback === 'function') {
+      } else if (isFunction(callback)) {
         // Is this even used?
         callback()
       }
@@ -251,18 +254,19 @@ export default {
     },
     getTarget() {
       let target = this.target
-      if (typeof target === 'function') {
+      if (isFunction(target)) {
         /* istanbul ignore next */
         target = target()
       }
-      if (typeof target === 'string') {
+      /* istanbul ignore else */
+      if (isString(target)) {
         // Assume ID of element
         return getById(target)
-      } else if (typeof target === 'object' && isElement(target.$el)) {
+      } else if (isObject(target) && isElement(target.$el)) {
         // Component reference
         /* istanbul ignore next */
         return target.$el
-      } else if (typeof target === 'object' && isElement(target)) {
+      } else if (isObject(target) && isElement(target)) {
         // Element reference
         /* istanbul ignore next */
         return target
@@ -295,7 +299,7 @@ export default {
     onEnabled(evt) {
       /* istanbul ignore next */
       if (!evt || evt.type !== 'enabled') {
-        // Prevent possible endless loop if user mistakienly fires enabled instead of enable
+        // Prevent possible endless loop if user mistakenly fires enabled instead of enable
         return
       }
       this.$emit('update:disabled', false)
@@ -304,7 +308,7 @@ export default {
     onDisabled(evt) {
       /* istanbul ignore next */
       if (!evt || evt.type !== 'disabled') {
-        // Prevent possible endless loop if user mistakienly fires disabled instead of disable
+        // Prevent possible endless loop if user mistakenly fires disabled instead of disable
         return
       }
       this.$emit('update:disabled', true)

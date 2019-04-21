@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -7,6 +7,7 @@ import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
+import { isNull } from '../../utils/inspect'
 
 // @vue/component
 export default Vue.extend({
@@ -47,7 +48,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      dontResize: true
+      dontResize: true,
+      heightInPx: null
     }
   },
   computed: {
@@ -60,7 +62,7 @@ export default Vue.extend({
       if (!this.computedRows) {
         // The computed height for auto resize.
         // We avoid setting the style to null, which can override user manual resize.
-        styles.height = this.computedHeight
+        styles.height = this.heightInPx
         // We always add a vertical scrollbar to the textarea when auto-resize is
         // enabled so that the computed height calcaultion returns a stable value.
         styles.overflowY = 'scroll'
@@ -80,17 +82,46 @@ export default Vue.extend({
       // This is used to set the attribute 'rows' on the textarea.
       // If auto-resize is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
+    }
+  },
+  watch: {
+    dontResize(newVal, oldval) {
+      if (!newVal) {
+        this.setHeight()
+      }
     },
-    computedHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
-      // We compare `computedRows` and `localValue` to `true`, a value
-      // they both can't have at any time, to ensure reactivity of this
-      // computed property.
-      if (
-        this.$isServer ||
-        this.dontResize ||
-        this.computedRows === true ||
-        this.localValue === true
-      ) {
+    localValue(newVal, oldVal) {
+      this.setHeight()
+    }
+  },
+  mounted() {
+    // Enable opt-in resizing once mounted
+    this.$nextTick(() => {
+      this.dontResize = false
+    })
+  },
+  activated() {
+    // If we are being re-activated in <keep-alive>, enable opt-in resizing
+    this.$nextTick(() => {
+      this.dontResize = false
+    })
+  },
+  deactivated() {
+    // If we are in a deactivated <keep-alive>, disable opt-in resizing
+    this.dontResize = true
+  },
+  beforeDestroy() {
+    /* istanbul ignore next */
+    this.dontResize = true
+  },
+  methods: {
+    setHeight() {
+      this.$nextTick(() => {
+        this.heightInPx = this.computeHeight()
+      })
+    },
+    computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
+      if (this.$isServer || !isNull(this.computedRows)) {
         return null
       }
 
@@ -142,26 +173,6 @@ export default Vue.extend({
       // Return the new computed CSS height in px units
       return `${height}px`
     }
-  },
-  mounted() {
-    // Enable opt-in resizing once mounted
-    this.$nextTick(() => {
-      this.dontResize = false
-    })
-  },
-  activated() {
-    // If we are being re-activated in <keep-alive>, enable opt-in resizing
-    this.$nextTick(() => {
-      this.dontResize = false
-    })
-  },
-  deactivated() {
-    // If we are in a deactivated <keep-alive>, disable opt-in resizing
-    this.dontResize = true
-  },
-  beforeDestroy() {
-    /* istanbul ignore next */
-    this.dontResize = true
   },
   render(h) {
     // Using self instead of this helps reduce code size during minification

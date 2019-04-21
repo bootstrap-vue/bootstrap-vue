@@ -1,5 +1,5 @@
-import BNavbarNav from './navbar-nav'
 import { mount } from '@vue/test-utils'
+import BNavbarNav from './navbar-nav'
 
 describe('navbar-nav', () => {
   it('default has tag "ul"', async () => {
@@ -42,6 +42,39 @@ describe('navbar-nav', () => {
       }
     })
     expect(wrapper.classes()).toContain('nav-justified')
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('applies alignment correctly', async () => {
+    const wrapper = mount(BNavbarNav, {
+      context: {
+        props: { align: 'center' }
+      }
+    })
+    expect(wrapper.classes()).toContain('justify-content-center')
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('has class "small" when small=true', async () => {
+    const wrapper = mount(BNavbarNav, {
+      context: {
+        props: { small: true }
+      }
+    })
+    expect(wrapper.classes()).toContain('small')
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('has class "small" when small=true', async () => {
+    const wrapper = mount(BNavbarNav, {
+      context: {
+        props: { small: true }
+      }
+    })
+    expect(wrapper.classes()).toContain('small')
     expect(wrapper.classes()).toContain('navbar-nav')
     expect(wrapper.classes().length).toBe(2)
   })

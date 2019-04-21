@@ -4,6 +4,104 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.19"></a>
+
+## [v2.0.0-rc.19](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.18...v2.0.0-rc.19)
+
+Released 2019-04-21
+
+### Bug Fixes v2.0.0-rc.19
+
+- **b-link:** ensure href prop is not passed to router-links (fixes
+  [#3066](https://github.com/bootstrap-vue/bootstrap-vue/issues/3066))
+  ([#3084](https://github.com/bootstrap-vue/bootstrap-vue/issues/3084)
+  [f679c11](https://github.com/bootstrap-vue/bootstrap-vue/commit/f679c11))
+- **b-col, b-form-group:** implement self overwriting lazy props getter (fixes:
+  [#3080](https://github.com/bootstrap-vue/bootstrap-vue/issues/3080))
+  ([#3125](https://github.com/bootstrap-vue/bootstrap-vue/issues/3125)
+  [92756bd](https://github.com/bootstrap-vue/bootstrap-vue/commit/92756bd))
+- **b-form-textarea:** improve auto-row height calculation timing (closes
+  [#3103](https://github.com/bootstrap-vue/bootstrap-vue/issues/3103))
+  ([#3105](https://github.com/bootstrap-vue/bootstrap-vue/issues/3105)
+  [dfc662e](https://github.com/bootstrap-vue/bootstrap-vue/commit/dfc662e))
+- **b-modal:** clear internal return_focus after modal closes (fixes
+  [#3067](https://github.com/bootstrap-vue/bootstrap-vue/issues/3067))
+  ([#3068](https://github.com/bootstrap-vue/bootstrap-vue/issues/3068)
+  [971556f](https://github.com/bootstrap-vue/bootstrap-vue/commit/971556f))
+- **b-modal:** ensure that v-model is updated when show or hide is canceled
+  ([#3131](https://github.com/bootstrap-vue/bootstrap-vue/issues/3131)
+  [6726a33](https://github.com/bootstrap-vue/bootstrap-vue/commit/6726a33))
+- **b-modal:** fix close on click-out for IE11
+  ([#3117](https://github.com/bootstrap-vue/bootstrap-vue/issues/3117)
+  [9b09e52](https://github.com/bootstrap-vue/bootstrap-vue/commit/9b09e52))
+- **b-modal:** handle HMR when defining property on Vue prototype
+  ([#3123](https://github.com/bootstrap-vue/bootstrap-vue/issues/3123)
+  [a4e7f21](https://github.com/bootstrap-vue/bootstrap-vue/commit/a4e7f21))
+- **b-tab:** don't use `aria-expanded` on the panel
+  ([#3143](https://github.com/bootstrap-vue/bootstrap-vue/issues/3143)
+  [381eacf](https://github.com/bootstrap-vue/bootstrap-vue/commit/381eacf))
+- **b-table:** prevent hover style on busy/empty row (closes
+  [#3079](https://github.com/bootstrap-vue/bootstrap-vue/issues/3079))
+  ([#3086](https://github.com/bootstrap-vue/bootstrap-vue/issues/3086)
+  [c53ffd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/c53ffd4))
+- **utils:** improve `dom`, `env`, `inspect` and test utils
+  ([#3085](https://github.com/bootstrap-vue/bootstrap-vue/issues/3085)
+  [bd85049](https://github.com/bootstrap-vue/bootstrap-vue/commit/bd85049))
+- **nuxt module:** ensure that css and transpile are arrays (fixes:
+  [#3141](https://github.com/bootstrap-vue/bootstrap-vue/issues/3141))
+  ([#3142](https://github.com/bootstrap-vue/bootstrap-vue/issues/3142)
+  [239da77](https://github.com/bootstrap-vue/bootstrap-vue/commit/239da77))
+- **docs:** improve `<b-modal>` prevent closing example
+  ([#3054](https://github.com/bootstrap-vue/bootstrap-vue/issues/3054)
+  [f609316](https://github.com/bootstrap-vue/bootstrap-vue/commit/f609316))
+- **docs:** improve code highlighting + table styles
+  ([#3078](https://github.com/bootstrap-vue/bootstrap-vue/issues/3078)
+  [d4b9895](https://github.com/bootstrap-vue/bootstrap-vue/commit/d4b9895))
+- **docs:** overall improvements
+  ([#3129](https://github.com/bootstrap-vue/bootstrap-vue/issues/3129)
+  [be53376](https://github.com/bootstrap-vue/bootstrap-vue/commit/be53376))
+
+### Features v2.0.0-rc.19
+
+- **b-dropdown:** use semantic `<ul>` and `<li>` markup (closes
+  [#3072](https://github.com/bootstrap-vue/bootstrap-vue/issues/3072))
+  ([#3087](https://github.com/bootstrap-vue/bootstrap-vue/issues/3087)
+  [58ad66b](https://github.com/bootstrap-vue/bootstrap-vue/commit/58ad66b))
+- **b-form-checkbox, b-form-radio:** add `aria-labelledby` prop (closes:
+  [#3139](https://github.com/bootstrap-vue/bootstrap-vue/issues/3139))
+  ([#3140](https://github.com/bootstrap-vue/bootstrap-vue/issues/3140)
+  [f82f566](https://github.com/bootstrap-vue/bootstrap-vue/commit/f82f566))
+- **b-form-group:** make `aria-live` attribute on feedback configurable (closes
+  [#3057](https://github.com/bootstrap-vue/bootstrap-vue/issues/3057))
+  ([#3058](https://github.com/bootstrap-vue/bootstrap-vue/issues/3058)
+  [6161b8a](https://github.com/bootstrap-vue/bootstrap-vue/commit/6161b8a))
+- **b-modal:** support for optionally scoped slots and new `Vue.prototype.$bvModal` helper
+  ([#3056](https://github.com/bootstrap-vue/bootstrap-vue/issues/3056)
+  [b647830](https://github.com/bootstrap-vue/bootstrap-vue/commit/b647830))
+- **b-table:** add new prop `table-class` for applying classes to table root element (closes
+  [#3138](https://github.com/bootstrap-vue/bootstrap-vue/issues/3138))
+  ([#3148](https://github.com/bootstrap-vue/bootstrap-vue/issues/3148)
+  [5deb5db](https://github.com/bootstrap-vue/bootstrap-vue/commit/5deb5db))
+- **b-tabs:** add `fill`, `justified` and `active-class` props (closes
+  [#3053](https://github.com/bootstrap-vue/bootstrap-vue/issues/3053),
+  [#2518](https://github.com/bootstrap-vue/bootstrap-vue/issues/2518))
+  ([#3061](https://github.com/bootstrap-vue/bootstrap-vue/issues/3061)
+  [b6557ad](https://github.com/bootstrap-vue/bootstrap-vue/commit/b6557ad))
+- **b-toast:** add Bootstrap v4.3 Toasts
+  ([#3093](https://github.com/bootstrap-vue/bootstrap-vue/issues/3093)
+  [c31b4ff](https://github.com/bootstrap-vue/bootstrap-vue/commit/c31b4ff))
+- **b-toast:** updates to toaster SCSS and structure and enable hover-pause
+  ([#3135](https://github.com/bootstrap-vue/bootstrap-vue/issues/3135)
+  [263f206](https://github.com/bootstrap-vue/bootstrap-vue/commit/263f206))
+- **docs/playground:** add support for exporting to CodePen and CodeSandbox
+  ([#3071](https://github.com/bootstrap-vue/bootstrap-vue/issues/3071)
+  [ccb1614](https://github.com/bootstrap-vue/bootstrap-vue/commit/ccb1614))
+
+### Notes v2.0.0-rc.19
+
+- Removed built in polyfills (hack) for Mutation Observer. IE 11 users should include
+  the appropriate polyfills as mentioned in the getting started docs page.
+
 <a name="2.0.0-rc.18"></a>
 
 ## [v2.0.0-rc.18](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.17...v2.0.0-rc.18)
@@ -13,11 +111,11 @@ Released 2019-04-08
 ### Bug Fixes v2.0.0-rc.18
 
 - **build:** enable babel option to interop default (fixes
-  [#3038](https://github.com/bootstrap-vue/bootstrap-vue/issues/3038)) 
+  [#3038](https://github.com/bootstrap-vue/bootstrap-vue/issues/3038))
   ([#3046](https://github.com/bootstrap-vue/bootstrap-vue/issues/3046)
   [4e981c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/4e981c2))
 - **typescript:** replaced invalid `mixed` keyword with `any` (fixes
-  [#3041](https://github.com/bootstrap-vue/bootstrap-vue/issues/3041)) 
+  [#3041](https://github.com/bootstrap-vue/bootstrap-vue/issues/3041))
   ([#3043](https://github.com/bootstrap-vue/bootstrap-vue/issues/3043)
   [36e8246](https://github.com/bootstrap-vue/bootstrap-vue/commit/36e8246))
 
@@ -98,9 +196,8 @@ Released 2019-04-07
 - **docs:** algolia powered search
   ([#2952](https://github.com/bootstrap-vue/bootstrap-vue/issues/2952))
   ([0417f7b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0417f7b))
-- **modal:** auto return focus to trigger element using previous document.activeElement if no
-  return focus element provided 
-  ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
+- **modal:** auto return focus to trigger element using previous document.activeElement if no return
+  focus element provided ([#3033](https://github.com/bootstrap-vue/bootstrap-vue/issues/3033))
   ([e5c0aa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/e5c0aa5))
 - **modal:** subclass `BvEvent` as `BvModalEvent` for modal specific properties
   ([#3024](https://github.com/bootstrap-vue/bootstrap-vue/issues/3024))

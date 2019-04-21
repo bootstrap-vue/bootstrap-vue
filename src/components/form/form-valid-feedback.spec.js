@@ -1,5 +1,5 @@
-import BFormValidFeedback from './form-valid-feedback'
 import { mount } from '@vue/test-utils'
+import BFormValidFeedback from './form-valid-feedback'
 
 describe('form-valid-feedback', () => {
   it('default should have tag div', async () => {

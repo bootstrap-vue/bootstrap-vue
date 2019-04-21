@@ -1,6 +1,6 @@
-import { keys } from './object'
-import { isArray } from './array'
 import identity from './identity'
+import { isArray } from './inspect'
+import { keys } from './object'
 
 /**
  * Given an array of properties or an object of property keys,

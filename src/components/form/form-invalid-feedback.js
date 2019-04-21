@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
@@ -21,6 +21,14 @@ export const props = {
   state: {
     type: [Boolean, String],
     default: null
+  },
+  ariaLive: {
+    type: String,
+    default: null
+  },
+  role: {
+    type: String,
+    default: null
   }
 }
 
@@ -39,7 +47,12 @@ export default Vue.extend({
           'invalid-tooltip': props.tooltip,
           'd-block': show
         },
-        attrs: { id: props.id }
+        attrs: {
+          id: props.id,
+          role: props.role,
+          'aria-live': props.ariaLive,
+          'aria-atomic': props.ariaLive ? 'true' : null
+        }
       }),
       children
     )

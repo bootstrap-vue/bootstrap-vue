@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import BImg from './img'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'

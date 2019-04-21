@@ -1,5 +1,6 @@
-import BTab from './tab'
 import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import BTab from './tab'
 
 describe('tab', () => {
   it('default has expected classes, attributes and structure', async () => {
@@ -7,7 +8,7 @@ describe('tab', () => {
 
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('tab-pane')
@@ -18,7 +19,6 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('card-body')
     expect(wrapper.attributes('role')).toBe('tabpanel')
     expect(wrapper.attributes('aria-hidden')).toBe('true')
-    expect(wrapper.attributes('aria-expanded')).toBe('false')
     expect(wrapper.attributes('labelledby')).not.toBeDefined()
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
     expect(wrapper.attributes('id')).toBeDefined()
@@ -100,8 +100,8 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('show')
@@ -110,8 +110,8 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: false })
-    await wrapper.vm.$nextTick()
-    await new Promise(resolve => requestAnimationFrame(resolve))
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('show')

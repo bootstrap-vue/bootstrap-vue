@@ -1,5 +1,4 @@
 import kebabCase from 'lodash/kebabCase'
-import startCase from 'lodash/startCase'
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
@@ -69,115 +68,116 @@ export const relativeUrl = url => {
   return pathname + (hash || '')
 }
 
-// Process an HTML readme and create a page TOC array
-// IDs are the only attribute on auto generated heading tags, so we take
-// advantage of that when using our RegExpr matches
-// Note IDs may not have quotes when the README's are parsed in production mode !?!?
+// Process an HTML README and create a page TOC array
+// IDs are the only attribute on auto generated heading tags,
+// so we take advantage of that when using our RegExpr matches
+// Note: IDs may not have quotes when the README's are parsed in production mode !?!?
 // Expected format: <h(1|2|3) id="?id-string"?>heading content</h(1|2|3)>
 // Also grabs meta data if available to generate auto headings
 export const makeTOC = (readme, meta = null) => {
   if (!readme) {
     return {}
   }
-  const toc = []
+
   let top = ''
   let title = ''
+  let toc = []
+  let parentIdx = 0
 
-  // Grab the first H1 tag with ID from readme
+  // Get the first <h1> tag with ID
   const h1 = readme.match(/<h1 id=([^> ]+)>(.+?)<\/h1>/) || []
   if (h1) {
     top = `#${stripQuotes(h1[1])}`
     title = stripHTML(h1[2])
   }
 
-  // Grab all the H2 and H3 headings with ID's from readme
+  // Get all the <h2> and <h3> headings with ID's
   const headings = readme.match(/<h([23]) id=[^> ]+>.+?<\/h\1>/g) || []
 
-  let idx = 0
-  // Process the h2 and h3 headings into a TOC structure
-  headings.forEach(heading => {
-    // Pass the link, label and heading level
-    const h2h3 = heading.match(/^<(h[23]) id=([^> ]+)>(.+?)<\/\1>$/)
-    if (h2h3) {
-      const tag = h2h3[1]
-      const href = `#${stripQuotes(h2h3[2])}`
-      const label = stripHTML(h2h3[3])
+  // Process the <h2> and <h3> headings into a TOC structure
+  headings
+    // Create a match `[value, tag, id, content]`
+    .map(heading => heading.match(/^<(h[23]) id=([^> ]+)>(.+?)<\/\1>$/))
+    // Filter out un-matched values
+    .filter(v => Array.isArray(v))
+    // Create TOC structure
+    .forEach(([value, tag, id, content]) => {
+      const href = `#${stripQuotes(id)}`
+      const label = stripHTML(content)
       if (tag === 'h2') {
         toc.push({ href, label })
-        idx = toc.length
+        parentIdx = toc.length - 1
       } else if (tag === 'h3') {
-        // We nest h3 tags as a sub array
-        toc[idx] = toc[idx] || []
-        toc[idx].push({ href, label })
+        let parent = toc[parentIdx]
+        if (parent) {
+          // We nest <h3> tags as a sub array
+          parent.toc = parent.toc || []
+          parent.toc.push({ href, label })
+        }
       }
-    }
-  })
+    })
 
   // Process meta information for component pages
-  // IDs for headings are defined in componentdoc.vue and importdoc.vue
-  if (meta && (meta.component || (meta.components && meta.components.length))) {
-    // Append component reference info to the TOC
-    const comps = [].concat(meta, meta.components).filter(m => m)
-    if (comps.length) {
-      // Add the reference heading
-      toc.push({
-        label: `${startCase(meta.title)} Component Reference`,
-        href: '#component-reference'
-      })
-      // Add component sub entries
-      toc.push(
-        comps.map(c => {
-          const tag = kebabCase(c.component)
-          return {
-            label: tag,
-            href: `#comp-ref-${tag}`
+  if (meta) {
+    const isDirective = !!meta.directive
+    const hasComponents = meta.components && meta.components.length > 0
+    const hasDirectives = meta.directives && meta.directives.length > 0
+    if (!isDirective && (hasComponents || hasDirectives)) {
+      let componentToc = []
+      if (hasComponents) {
+        componentToc.push(
+          // Add component sub-headings
+          ...meta.components.map(({ component }) => {
+            const tag = kebabCase(component)
+            return { label: `&lt;${tag}&gt;`, href: `#comp-ref-${tag}` }
+          }),
+          // Add component import sub-heading
+          {
+            label: 'Importing individual components',
+            href: '#importing-individual-components'
           }
-        })
-      )
-      // Add component import sub entry
-      toc[toc.length - 1].push({
-        label: `Importing Individual ${startCase(meta.title)} Components`,
-        href: '#importing-individual-components'
-      })
-      // Add directive import sub entry
-      if (meta.directives && meta.directives.length) {
-        toc[toc.length - 1].push({
-          label: `Importing Individual ${startCase(meta.title)} Directives`,
+        )
+      }
+      // Add directive import sub-heading
+      if (hasDirectives) {
+        componentToc.push({
+          label: 'Importing individual directives',
           href: '#importing-individual-directives'
         })
       }
-      // Add plugin import sub entry
-      toc[toc.length - 1].push({
-        label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
+      // Add plugin import sub-heading
+      componentToc.push({
+        label: 'Importing as a Vue.js plugin',
         href: '#importing-as-a-plugin'
+      })
+      // Add component reference heading
+      toc.push({
+        label: 'Component reference',
+        href: '#component-reference',
+        toc: componentToc
+      })
+    } else if (isDirective) {
+      // Add directive reference heading
+      toc.push({
+        label: 'Directive reference',
+        href: '#directive-reference',
+        toc: [
+          // Directive import sub-heading
+          {
+            label: 'Importing individual directives',
+            href: '#importing-individual-directives'
+          },
+          // Plugin import sub-heading
+          {
+            label: 'Importing as a Vue.js plugin',
+            href: '#importing-as-a-plugin'
+          }
+        ]
       })
     }
   }
 
-  // Process meta information for directive pages.
-  // Directive pages only reference a single directive
-  // IDs for headings are defined in importdoc.vue
-  if (meta && meta.directive && !meta.directives) {
-    // Add the reference heading
-    toc.push({
-      label: `${startCase(meta.title)} Directive Reference`,
-      href: '#directive-reference'
-    })
-    // Add directive import sub entry
-    toc.push([
-      {
-        label: `Importing Individual ${startCase(meta.title)} Directive`,
-        href: '#importing-individual-directives'
-      }
-    ])
-    // Add plugin import sub entry
-    toc[toc.length - 1].push({
-      label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
-      href: '#importing-as-a-plugin'
-    })
-  }
-
-  return { toc, title, top }
+  return { title, top, toc }
 }
 
 export const importAll = r => {
@@ -197,7 +197,7 @@ export const importAll = r => {
     })
     .forEach(m => {
       if (m.components) {
-        // Normalize meta.components to array of objects form
+        // Normalize `meta.components` to array of objects form
         m.components = m.components.map(c => (typeof c === 'string' ? { component: c } : c))
       }
       obj[m.slug] = m

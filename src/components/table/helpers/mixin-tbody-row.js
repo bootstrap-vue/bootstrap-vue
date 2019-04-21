@@ -1,7 +1,8 @@
-import toString from '../../../utils/to-string'
-import get from '../../../utils/get'
 import KeyCodes from '../../../utils/key-codes'
+import get from '../../../utils/get'
+import toString from '../../../utils/to-string'
 import { arrayIncludes } from '../../../utils/array'
+import { isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 
@@ -44,16 +45,16 @@ export default {
     rowClasses(item) {
       return [
         item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : '',
-        typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass
+        isFunction(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass
       ]
     },
     getTdValues(item, key, tdValue, defValue) {
       const parent = this.$parent
       if (tdValue) {
         const value = get(item, key, '')
-        if (typeof tdValue === 'function') {
+        if (isFunction(tdValue)) {
           return tdValue(value, key, item)
-        } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
+        } else if (isString(tdValue) && isFunction(parent[tdValue])) {
           return parent[tdValue](value, key, item)
         }
         return tdValue
@@ -67,13 +68,13 @@ export default {
       const parent = this.$parent
       let value = get(item, key, null)
       if (formatter) {
-        if (typeof formatter === 'function') {
+        if (isFunction(formatter)) {
           value = formatter(value, key, item)
-        } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
+        } else if (isString(formatter) && isFunction(parent[formatter])) {
           value = parent[formatter](value, key, item)
         }
       }
-      return value === null || typeof value === 'undefined' ? '' : value
+      return isUndefined(value) || isNull(value) ? '' : value
     },
     tbodyRowKeydown(evt, item, rowIndex) {
       const keyCode = evt.keyCode
@@ -185,7 +186,8 @@ export default {
       const rowSelected = this.selectedRows[rowIndex]
       const formatted = this.getFormattedValue(item, field)
       const data = {
-        // For the Vue key, we concatinate the column index and field key (as field keys can be duplicated)
+        // For the Vue key, we concatenate the column index and
+        // field key (as field keys can be duplicated)
         key: `row-${rowIndex}-cell-${colIndex}-${field.key}`,
         class: this.tdClasses(field, item),
         attrs: this.tdAttrs(field, item, colIndex)
@@ -251,14 +253,14 @@ export default {
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
       const rowKey =
-        primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null
+        primaryKey && !isUndefined(item[primaryKey]) && !isNull(item[primaryKey])
           ? toString(item[primaryKey])
           : String(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
       const rowId =
-        primaryKey && item[primaryKey] !== undefined && item[primaryKey] !== null
+        primaryKey && !isUndefined(item[primaryKey]) && !isNull(item[primaryKey])
           ? this.safeId(`_row_${item[primaryKey]}`)
           : null
 
@@ -299,7 +301,7 @@ export default {
             },
             on: {
               ...handlers,
-              // TODO: instatiate the following handlers only if we have registered
+              // TODO: Instantiate the following handlers only if we have registered
               //       listeners i.e. this.$listeners['row-middle-clicked'], etc.
               auxclick: evt => {
                 if (evt.which === 2) {
@@ -364,7 +366,7 @@ export default {
               key: `__b-table-details-${rowIndex}__`,
               staticClass: 'b-table-details',
               class: [
-                typeof this.tbodyTrClass === 'function'
+                isFunction(this.tbodyTrClass)
                   ? this.tbodyTrClass(item, 'row-details')
                   : this.tbodyTrClass
               ],

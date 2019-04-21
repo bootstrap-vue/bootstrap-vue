@@ -1,6 +1,6 @@
-import { isPlainObject, keys } from './object'
-import { isArray } from './array'
 import toString from './to-string'
+import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
+import { keys } from './object'
 
 const ANCHOR_TAG = 'a'
 
@@ -30,16 +30,16 @@ export const stringifyQueryObj = obj => {
   const query = keys(obj)
     .map(key => {
       const val = obj[key]
-      if (val === undefined) {
+      if (isUndefined(val)) {
         return ''
-      } else if (val === null) {
+      } else if (isNull(val)) {
         return encode(key)
       } else if (isArray(val)) {
         return val
           .reduce((results, val2) => {
-            if (val2 === null) {
+            if (isNull(val2)) {
               results.push(encode(key))
-            } else if (val2 !== undefined) {
+            } else if (!isUndefined(val2)) {
               // Faster than string interpolation
               results.push(encode(key) + '=' + encode(val2))
             }
@@ -72,7 +72,7 @@ export const parseQuery = query => {
     const key = decode(parts.shift())
     const val = parts.length > 0 ? decode(parts.join('=')) : null
 
-    if (parsed[key] === undefined) {
+    if (isUndefined(parsed[key])) {
       parsed[key] = val
     } else if (isArray(parsed[key])) {
       parsed[key].push(val)
@@ -95,7 +95,7 @@ export const computeTag = ({ to, disabled } = {}, thisOrParent) => {
 }
 
 export const computeRel = ({ target, rel } = {}) => {
-  if (target === '_blank' && rel === null) {
+  if (target === '_blank' && isNull(rel)) {
     return 'noopener'
   }
   return rel || null
@@ -122,7 +122,7 @@ export const computeHref = (
   // Reconstruct `href` when `to` used, but no router
   if (to) {
     // Fallback to `to` prop (if `to` is a string)
-    if (typeof to === 'string') {
+    if (isString(to)) {
       return to || toFallback
     }
     // Fallback to `to.path + to.query + to.hash` prop (if `to` is an object)

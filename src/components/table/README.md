@@ -393,7 +393,7 @@ place a unique `:key` on your element/components in your custom formatted field 
 
 ## Table style options
 
-### Table Styling
+### Table styling
 
 `<b-table>` provides several props to alter the style of the table:
 
@@ -474,7 +474,7 @@ place a unique `:key` on your element/components in your custom formatted field 
 <!-- b-table-bordered.vue -->
 ```
 
-### Row Styling
+### Row styling
 
 You can also style every row using the `tbody-tr-class` prop
 
@@ -787,13 +787,13 @@ Slot `table-colgroup` can be optionally scoped, receiving an object with the fol
 | `columns` | Number | The number of columns in the rendered table                                   |
 | `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
-## Custom Data Rendering
+## Custom data rendering
 
 Custom rendering for each data field in a row is possible using either
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback
 function.
 
-### Scoped Field Slots
+### Scoped field slots
 
 Scoped slots give you greater control over how the record data appears. If you want to add an extra
 field which does not exist in the records, just add it to the `fields` array, And then reference the
@@ -1374,7 +1374,7 @@ presentational data.
 <!-- b-table-sorting.vue -->
 ```
 
-### Sort-Compare routine
+### Sort-compare routine
 
 The built-in default `sort-compare` function sorts the specified field `key` based on the data in
 the underlying record object (not by the formatted value). The field value is first stringified if
@@ -1612,7 +1612,7 @@ table#table-transition-example .flip-list-move {
 <!-- b-table-transitions.vue -->
 ```
 
-## Using Items Provider Functions
+## Using items provider functions
 
 As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a
 function to provide the row data (items), by specifying a function reference via the `items` prop.
@@ -1761,7 +1761,7 @@ function should handle errors from data sources and return an empty array to `<b
 - All click related and hover events, and sort-changed events will **not** be emitted when in the
   `busy` state (either set automatically during provider update, or when manually set).
 
-### Provider Paging, Filtering, and Sorting
+### Provider paging, filtering, and sorting
 
 By default, the items provider function is responsible for **all paging, filtering, and sorting** of
 the data, before passing it to `b-table` for display.
@@ -1847,14 +1847,14 @@ details).
 </div>
 ```
 
-### Server Side Rendering
+### Server side rendering
 
 Special care must be taken when using server side rendering (SSR) and an `items` provider function.
 Make sure you handle any special situations that may be needed server side when fetching your data!
 
 When `<b-table>` is mounted in the document, it will automatically trigger a provider update call.
 
-## Table accessibility notes
+## Accessibility
 
 When a column (field) is sortable, the header (and footer) heading cells will also be placed into
 the document tab sequence for accessibility.
@@ -1894,7 +1894,7 @@ differences between operating systems, this too is not a preventable default beh
 `row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the
 `contextmenu` event.
 
-## Complete Example
+## Complete example
 
 ```html
 <template>
@@ -1995,8 +1995,8 @@ differences between operating systems, this too is not a preventable default beh
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modal-info" @hide="resetModal" :title="modalInfo.title" ok-only>
-      <pre>{{ modalInfo.content }}</pre>
+    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+      <pre>{{ infoModal.content }}</pre>
     </b-modal>
   </b-container>
 </template>
@@ -2043,7 +2043,11 @@ differences between operating systems, this too is not a preventable default beh
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
-        modalInfo: { title: '', content: '' }
+        infoModal: {
+          id: 'info-modal',
+          title: '',
+          content: ''
+        }
       }
     },
     computed: {
@@ -2062,13 +2066,13 @@ differences between operating systems, this too is not a preventable default beh
     },
     methods: {
       info(item, index, button) {
-        this.modalInfo.title = `Row index: ${index}`
-        this.modalInfo.content = JSON.stringify(item, null, 2)
-        this.$root.$emit('bv::show::modal', 'modalInfo', button)
+        this.infoModal.title = `Row index: ${index}`
+        this.infoModal.content = JSON.stringify(item, null, 2)
+        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
-      resetModal() {
-        this.modalInfo.title = ''
-        this.modalInfo.content = ''
+      resetInfoModal() {
+        this.infoModal.title = ''
+        this.infoModal.content = ''
       },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering

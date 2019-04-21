@@ -11,9 +11,9 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 ```html
 <div>
   <b-tabs content-class="mt-3">
-    <b-tab title="first" active><p>I'm the first fading tab</p></b-tab>
-    <b-tab title="second"><p>I'm the second tab content</p></b-tab>
-    <b-tab title="disabled" disabled><p>Disabled tab!</p></b-tab>
+    <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
   </b-tabs>
 </div>
 
@@ -24,7 +24,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a special Vue
 attribute, see https://vuejs.org/v2/api/#key).
 
-## Cards Integration
+## Cards integration
 
 Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
 it inside a `<b-card>` component. Note that you should add the`no-body` prop on the `<b-card>`
@@ -111,9 +111,65 @@ variant.
 <!-- b-tabs-pills.vue -->
 ```
 
+## Fill and justify
+
+Force your `<b-tabs>` controls to extend the full available width.
+
+### Fill
+
+To proportionately fill all available space with your tab controls, set the `fill` prop. Notice that
+all horizontal space is occupied, but not every control has the same width.
+
+```html
+<div>
+  <b-tabs content-class="mt-3" fill>
+    <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Very, very long title"><p>I'm the tab with the very, very long title</p></b-tab>
+    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+  </b-tabs>
+</div>
+
+<!-- b-tabs-fill.vue -->
+```
+
+### Justified
+
+For equal-width controls, use the `justified` prop instead. All horizontal space will be occupied by
+the controls, but unlike using `fill` above, every control will be the same width.
+
+```html
+<div>
+  <b-tabs content-class="mt-3" justified>
+    <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Very, very long title"><p>I'm the tab with the very, very long title</p></b-tab>
+    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+  </b-tabs>
+</div>
+
+<!-- b-tabs-justified.vue -->
+```
+
+## Alignment
+
+To align your tab controls, use the `align` prop. Available values are `left`, `center` and `right`.
+
+```html
+<div>
+  <b-tabs content-class="mt-3" align="center">
+    <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+  </b-tabs>
+</div>
+
+<!-- b-tabs-alignment.vue -->
+```
+
 ## Bottom placement of tab controls
 
-Visually move the tab controls to the bottom by setting the prop `end`
+Visually move the tab controls to the bottom by setting the prop `end`.
 
 ```html
 <div>
@@ -200,11 +256,32 @@ tab controls will always be placed on the top of the tabs content.
 **Note:** _overflowing text may occur if your width is narrower than the tab title. You may need
 additional custom styling._
 
+## Active classes
+
+To apply classes to the currently active control or tab use the `active-nav-item-class` and
+`active-tab-class` props.
+
+```html
+<div>
+  <b-tabs
+    active-nav-item-class="font-weight-bold text-uppercase text-danger"
+    active-tab-class="font-weight-bold text-success"
+    content-class="mt-3"
+  >
+    <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+  </b-tabs>
+</div>
+
+<!-- b-tabs-classes.vue -->
+```
+
 ## Fade animation
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
-## Add Tabs without content
+## Add tabs without content
 
 If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
 
@@ -301,7 +378,7 @@ need to accommodate your custom classes for this._
 <!-- b-tabs-with-classes.vue -->
 ```
 
-## Keyboard Navigation
+## Keyboard navigation
 
 Keyboard navigation is enabled by default for ARIA compliance with tablists when a tab button has
 focus.
@@ -340,7 +417,7 @@ methods are `.activate()` and `.deactivate()`, respectively. If activation or de
 will remain active and the method will return `false`. You will need a reference to the `<b-tab>` in
 order to use these methods.
 
-## Advanced Examples
+## Advanced examples
 
 ### External controls using `v-model`
 
@@ -385,7 +462,7 @@ order to use these methods.
 <!-- b-tabs-controls.vue -->
 ```
 
-### Dynamic Tabs + tabs slot
+### Dynamic tabs + tabs slot
 
 ```html
 <template>

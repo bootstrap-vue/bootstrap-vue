@@ -1,6 +1,7 @@
-import focusInMixin from './focus-in'
-import { mount } from '@vue/test-utils'
 import Vue from 'vue'
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../tests/utils'
+import focusInMixin from './focus-in'
 
 describe('utils/focus-in', () => {
   it('works', async () => {
@@ -36,7 +37,7 @@ describe('utils/focus-in', () => {
     wrapper.find('button').trigger('focusin')
     expect(count).toBe(1)
     document.dispatchEvent(focusinEvt)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(count).toBe(2)
 
     // When this.listenForFocusIn is false
@@ -47,7 +48,7 @@ describe('utils/focus-in', () => {
     wrapper.find('button').trigger('focusin')
     expect(count).toBe(2)
     document.dispatchEvent(focusinEvt)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(count).toBe(2)
 
     wrapper.destroy()

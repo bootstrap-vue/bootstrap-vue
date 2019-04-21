@@ -1,5 +1,5 @@
-import BProgress from './progress'
 import { mount } from '@vue/test-utils'
+import BProgress from './progress'
 
 describe('progress', () => {
   it('has expected default structure', async () => {

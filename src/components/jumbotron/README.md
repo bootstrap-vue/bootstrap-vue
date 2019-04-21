@@ -12,7 +12,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 
 ```html
 <div>
-  <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2">
+  <b-jumbotron header="BootstrapVue" lead="Bootstrap 4 Components for Vue.js 2">
     <p>For more information visit website</p>
     <b-button variant="primary" href="#">More Info</b-button>
   </b-jumbotron>
@@ -26,7 +26,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 ```html
 <div>
   <b-jumbotron>
-    <template slot="header">Bootstrap Vue</template>
+    <template slot="header">BootstrapVue</template>
 
     <template slot="lead">
       This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
@@ -59,7 +59,7 @@ tag. If both the prop and the slot are specified, the slot will be shown.
 Control the overall size of the header text by setting the `header-level` prop to a value between
 `1` and `4` - with `1` being the largest and `4` being smallest. The default value is `3`.
 
-### Lead Text
+### Lead text
 
 Control which tag is rendered for the lead text by setting the `lead-tag` to the desired HTML
 element. The default is `p`. Both the prop `lead` and slot `lead` will be rendered inside this tag.
@@ -87,7 +87,7 @@ jumbotron to use the default styling.
 ```html
 <div>
   <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
-    <template slot="header">Bootstrap Vue</template>
+    <template slot="header">BootstrapVue</template>
 
     <template slot="lead">
       This is a simple hero unit, a simple jumbotron-style component for calling extra attention to

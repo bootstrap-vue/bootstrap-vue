@@ -1,5 +1,6 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { isString } from '../../utils/inspect'
 
 export const props = {
   tag: {
@@ -29,7 +30,7 @@ export default Vue.extend({
       class: {
         'list-group-flush': props.flush,
         'list-group-horizontal': horizontal === true,
-        [`list-group-horizontal-${horizontal}`]: typeof horizontal === 'string'
+        [`list-group-horizontal-${horizontal}`]: isString(horizontal)
       }
     }
     return h(props.tag, mergeData(data, componentData), children)

@@ -1,11 +1,14 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
-import { keys } from '../../utils/object'
+import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
+import { isBoolean, isFunction } from '../../utils/inspect'
+import { keys } from '../../utils/object'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
+
+// --- Constants --
 
 const NAME = 'BButton'
 
@@ -49,8 +52,10 @@ const linkPropKeys = keys(linkProps)
 
 export const props = { ...linkProps, ...btnProps }
 
+// --- Helper methods ---
+
 // Focus handler for toggle buttons.  Needs class of 'focus' when focused.
-function handleFocus(evt) {
+const handleFocus = evt => {
   if (evt.type === 'focusin') {
     addClass(evt.target, 'focus')
   } else if (evt.type === 'focusout') {
@@ -58,21 +63,17 @@ function handleFocus(evt) {
   }
 }
 
-// Helper functons to minimize runtime memory footprint when lots of buttons on page
-
 // Is the requested button a link?
-function isLink(props) {
+const isLink = props => {
   // If tag prop is set to `a`, we use a b-link to get proper disabled handling
   return Boolean(props.href || props.to || (props.tag && String(props.tag).toLowerCase() === 'a'))
 }
 
 // Is the button to be a toggle button?
-function isToggle(props) {
-  return typeof props.pressed === 'boolean'
-}
+const isToggle = props => isBoolean(props.pressed)
 
 // Is the button "really" a button?
-function isButton(props) {
+const isButton = props => {
   if (isLink(props)) {
     return false
   } else if (props.tag && String(props.tag).toLowerCase() !== 'button') {
@@ -82,30 +83,24 @@ function isButton(props) {
 }
 
 // Is the requested tag not a button or link?
-function isNonStandardTag(props) {
-  return !isLink(props) && !isButton(props)
-}
+const isNonStandardTag = props => !isLink(props) && !isButton(props)
 
 // Compute required classes (non static classes)
-function computeClass(props) {
-  return [
-    `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
-    {
-      [`btn-${props.size}`]: Boolean(props.size),
-      'btn-block': props.block,
-      disabled: props.disabled,
-      active: props.pressed
-    }
-  ]
-}
+const computeClass = props => [
+  `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
+  {
+    [`btn-${props.size}`]: Boolean(props.size),
+    'btn-block': props.block,
+    disabled: props.disabled,
+    active: props.pressed
+  }
+]
 
 // Compute the link props to pass to b-link (if required)
-function computeLinkProps(props) {
-  return isLink(props) ? pluckProps(linkPropKeys, props) : null
-}
+const computeLinkProps = props => (isLink(props) ? pluckProps(linkPropKeys, props) : null)
 
 // Compute the attributes for a button
-function computeAttrs(props, data) {
+const computeAttrs = (props, data) => {
   const button = isButton(props)
   const link = isLink(props)
   const toggle = isToggle(props)
@@ -157,7 +152,7 @@ export default Vue.extend({
           // Concat will normalize the value to an array
           // without double wrapping an array value in an array.
           concat(listeners['update:pressed']).forEach(fn => {
-            if (typeof fn === 'function') {
+            if (isFunction(fn)) {
               fn(!props.pressed)
             }
           })

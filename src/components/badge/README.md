@@ -71,7 +71,7 @@ Add any of the following variants via the `variant` prop to change the appearanc
 <!-- b-badge-variants.vue -->
 ```
 
-### Conveying meaning to assistive technologies:
+### Conveying meaning to assistive technologies
 
 Using color to add meaning only provides a visual indication, which will not be conveyed to users of
 assistive technologies – such as screen readers. Ensure that information denoted by the color is

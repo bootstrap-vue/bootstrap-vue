@@ -1,5 +1,5 @@
-import BNavForm from './nav-form'
 import { mount } from '@vue/test-utils'
+import BNavForm from './nav-form'
 
 describe('nav > nav-form', () => {
   it('has expected default structure', async () => {

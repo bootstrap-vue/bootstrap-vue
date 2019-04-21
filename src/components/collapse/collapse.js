@@ -1,6 +1,6 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { inBrowser } from '../../utils/env'
+import { isBrowser } from '../../utils/env'
 import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
 // Events we emit on $root
@@ -82,7 +82,7 @@ export default Vue.extend({
   },
   mounted() {
     this.show = this.visible
-    if (this.isNav && inBrowser) {
+    if (this.isNav && isBrowser) {
       // Set up handlers
       this.setWindowEvents(true)
       this.handleResize()
@@ -98,12 +98,12 @@ export default Vue.extend({
     this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
   },
   deactivated() /* istanbul ignore next */ {
-    if (this.isNav && inBrowser) {
+    if (this.isNav && isBrowser) {
       this.setWindowEvents(false)
     }
   },
   activated() /* istanbul ignore next */ {
-    if (this.isNav && inBrowser) {
+    if (this.isNav && isBrowser) {
       this.setWindowEvents(true)
     }
     this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
@@ -111,7 +111,7 @@ export default Vue.extend({
   beforeDestroy() {
     // Trigger state emit if needed
     this.show = false
-    if (this.isNav && inBrowser) {
+    if (this.isNav && isBrowser) {
       this.setWindowEvents(false)
     }
   },

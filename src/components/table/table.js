@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '../../utils/vue'
 
 // Utilities
 import looseEqual from '../../utils/loose-equal'
@@ -86,6 +86,10 @@ export default Vue.extend({
       type: [Boolean, String],
       default: false
     },
+    tableClass: {
+      type: [String, Array, Object],
+      default: null
+    },
     value: {
       // v-model for retrieving the current displayed rows
       type: Array,
@@ -116,9 +120,12 @@ export default Vue.extend({
     },
     tableClasses() {
       return [
+        // User supplied classes
+        this.tableClass,
+        // Styling classes
         {
           'table-striped': this.striped,
-          'table-hover': this.hover,
+          'table-hover': this.hover && this.computedItems.length > 0 && !this.computedBusy,
           'table-dark': this.dark,
           'table-bordered': this.bordered,
           'table-borderless': this.borderless,

@@ -1,6 +1,7 @@
+import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import BTable from './table'
 import defaultSortCompare from './helpers/default-sort-compare'
-import { mount } from '@vue/test-utils'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
 const testFields = [
@@ -20,7 +21,7 @@ describe('table > sorting', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
@@ -55,7 +56,7 @@ describe('table > sorting', () => {
     let $rows
     let columnA
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -92,7 +93,7 @@ describe('table > sorting', () => {
     wrapper.setProps({
       sortDesc: true
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toBe(2)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -129,7 +130,7 @@ describe('table > sorting', () => {
       sortBy: null,
       sortDesc: false
     })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toBe(4)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -183,7 +184,7 @@ describe('table > sorting', () => {
     let $rows
     let columnA
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -217,7 +218,7 @@ describe('table > sorting', () => {
     let columnB
 
     // Should not be sorted
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -238,7 +239,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('sort-changed')[0][0]).toEqual(wrapper.vm.context)
@@ -260,7 +261,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(2)
     expect(wrapper.emitted('sort-changed')[1][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -281,7 +282,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(1)
       .trigger('keydown.enter')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(3)
     expect(wrapper.emitted('sort-changed')[2][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -302,7 +303,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(4)
     expect(wrapper.emitted('sort-changed')[3][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -337,7 +338,7 @@ describe('table > sorting', () => {
     let columnB
 
     // Should not be sorted
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -361,7 +362,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('sort-changed')[0][0]).toEqual(wrapper.vm.context)
@@ -386,7 +387,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(2)
     expect(wrapper.emitted('sort-changed')[1][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -410,7 +411,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(1)
       .trigger('keydown.enter')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(3)
     expect(wrapper.emitted('sort-changed')[2][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -431,7 +432,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(4)
     expect(wrapper.emitted('sort-changed')[3][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -469,7 +470,7 @@ describe('table > sorting', () => {
     let columnA
 
     // Should not be sorted
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -493,7 +494,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -516,7 +517,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -552,7 +553,7 @@ describe('table > sorting', () => {
     let $rows
     let columnA
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
@@ -588,7 +589,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
 
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -638,7 +639,7 @@ describe('table > sorting', () => {
     let columnA
 
     // Should not be sorted
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -659,7 +660,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -680,7 +681,7 @@ describe('table > sorting', () => {
       .findAll('thead > tr > th')
       .at(2)
       .trigger('click')
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
