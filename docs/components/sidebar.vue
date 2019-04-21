@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     buildUrl(basePath, parts = []) {
-      return `${basePath}/${parts.join('/')}`.replace(/(?<!:)(?:\/){2,}/g, '/')
+      return `${basePath}/${parts.join('/')}`.replace(/(https?:\/\/)|(\/)+/g, '$1$2')
     }
   }
 }
