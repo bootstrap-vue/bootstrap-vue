@@ -293,7 +293,7 @@ When you have a custom component that would like to display just a single toast 
 app, and does not render an element (they render a comment placeholder node which will not affect
 layout).
 
-The toast can be made visible via a `v-model` (whic is tied to the `visible` prop), or shown using
+The toast can be made visible via a `v-model` (which is tied to the `visible` prop), or shown using
 the component's `show()` and `hide()` instance methods, or via the `this.$bvToast.show(id)` and
 `this.$bvToast.hide(id)` methods (requires that a unique ID be set on the `<b-toast>` component).
 
