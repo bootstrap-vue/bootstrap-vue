@@ -120,6 +120,10 @@ exception of `static`, and `visible`) in <samp>camelCase</samp> name format inst
 Once a toast which was generated using `this.$bvToast.toast()` has been hidden, it will
 automatically be destroyed and removed from the document.
 
+**Note:** The `this.$bvToast` injection is only available when useing the full `BootstrapVue`
+plugin or the `Toast` plugin. It is not available if importing just the `b-toast` or `b-toaster`
+components.
+
 ## Options
 
 Toasts have various options that can control their style and behaviour. Options are available both
@@ -130,7 +134,7 @@ as props on the `<b-toast>` component and as properties of the options object pa
 
 ### Transparency
 
-Toasts have a semi-transparent background by default. To disabled the default transparency, just set
+Toasts have a semi-transparent background by default. To disable the default transparency, just set
 the `solid` prop to `true`
 
 ### Variants
@@ -226,8 +230,8 @@ SCSS):
   document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
   and ID set to the toaster target name). The only default styling the toaster will have is a
   `z-index` of `1100`.
-- Avoid using `b-toaster-top-*` together, or `b-toaster-bottom-*` togehter, at the same time in your
-  app as notifications could be obscured/overlap on small screens (i.e. `xs`).
+- Avoid using `b-toaster-top-*` toasters together, or `b-toaster-bottom-*` toasters togehter, at the
+  same time in your app as notifications could be obscured/overlap on small screens (i.e. `xs`).
 
 ### Prepend and append
 
@@ -284,13 +288,13 @@ Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nux
 
 ## `<b-toast>` component
 
-When you have an custom component that would like to display just a single toast at a time, use the
+When you have a custom component that would like to display just a single toast at a time, use the
 `<b-toast>` component. The `<b-toast>` component can be placed anywhere im your custom component or
-app, and do not render an element (they render a comment placeholder node which will not affect
+app, and does not render an element (they render a comment placeholder node which will not affect
 layout).
 
-The toast can be made visible via a `v-model` (tied to the `visible` prop), or shown using the
-components `show()` and `hide()` instance methods, or via the `this.$bvToast.show(id)` and
+The toast can be made visible via a `v-model` (which is tied to the `visible` prop), or shown using
+the component's `show()` and `hide()` instance methods, or via the `this.$bvToast.show(id)` and
 `this.$bvToast.hide(id)` methods (requires that a unique ID be set on the `<b-toast>` component).
 
 Toasts, by default will be paced into the `b-toaster-top-right` `<b-toaster>` component. The toaster
@@ -363,7 +367,7 @@ SCSS:
 The above toasters place the toasts in a stacked (columnar format), fixed within the viewport
 (meaning they will always be in view regardless of viewport scroll position). If there are more
 toasts than can fit on the viewport screen, some will be visually hidden offscreen until other
-toasts are closed.
+toasts are closed/hidden.
 
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
@@ -373,12 +377,12 @@ toasts are closed.
   an empty `<div>` element and issue a console warning.
 - If manually placing a `<b-toaster>` component, make sure it is placed as the last element in
   bottom of your app root element, so that it will be available to all pages in your app.
-- Toasters that get destroyed, they will be auto re-created if a new toast targeted for the
-  toaster name is shown.
-- In the majority of use cases, you should not need to manually place a `<b-toaster>` component
-  in your app, as they will be auto generated on demand if needed.  But if you need to override
-  any of the toaster default settings, ensure that you place the toaster in your app in a location
-  that will not be destroyed due to changes in the route.
+- Toasters that get destroyed will be auto re-created if a new toast targeted for the  toaster
+  name is shown.
+- In the majority of use cases, you should not need to manually place/create a `<b-toaster>`
+  component in your app, as they will be auto generated on demand if needed.  But if you need to
+  override any of the toaster default settings, ensure that you place the toaster in your app in
+  a location that will not be destroyed due to changes in the route.
 
 ## Accessibility
 
