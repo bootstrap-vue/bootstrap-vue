@@ -82,7 +82,9 @@ const ModalManager = Vue.extend({
     // Public methods
     registerModal(modal) {
       // Make sure the modal target exists
-      this.ensureTarget()
+      if (!modal.static) {
+        this.ensureTarget()
+      }
       // Register the modal if not already registered
       if (modal && this.modals.indexOf(modal) === -1) {
         // Add modal to modals array
