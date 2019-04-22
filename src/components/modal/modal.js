@@ -911,7 +911,7 @@ export default Vue.extend({
     return h(
       Portal,
       {
-        key: this_uid,
+        key: this._uid,
         props: {
           from: this._uid,
           to: modalManager.modalTargetName,
