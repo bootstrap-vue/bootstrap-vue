@@ -418,7 +418,7 @@ export default Vue.extend({
       }
       this.is_closing = true
       const hideEvt = new BvModalEvent('hide', {
-        cancelable: true,
+        cancelable: trigger !== 'FORCE',
         vueTarget: this,
         target: this.$refs.modal,
         relatedTarget: null,
@@ -446,6 +446,7 @@ export default Vue.extend({
         this._observer.disconnect()
         this._observer = null
       }
+      // Trigger the hide transition
       this.is_visible = false
       // Update the v-model
       this.updateModel(false)
