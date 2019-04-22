@@ -1,5 +1,6 @@
 import Vue from '../../../utils/vue'
-import { Portaltarget, Wormhole } from 'portal-vue'
+import { requestAF } from '../../../utils/dom'
+import { PortalTarget, Wormhole } from 'portal-vue'
 
 const NAME = 'BModalTarget'
 
@@ -41,19 +42,16 @@ export const BModalTarget = Vue.extend({
   render(h) {
     let $target = h('div', {})
     if (this.doRender) {
-      $target = h(
-        PortalTarget,
-        {
-          staticClass: 'b-modal-target',
-          props: {
-            tag: 'div',
-            name: modalTargetName,
-            multiple: true,
-            transition: false,
-            slim: false
-          }
+      $target = h(PortalTarget, {
+        staticClass: 'b-modal-target',
+        props: {
+          tag: 'div',
+          name: modalTargetName,
+          multiple: true,
+          transition: false,
+          slim: false
         }
-      )
+      })
     }
     return $target
   }
