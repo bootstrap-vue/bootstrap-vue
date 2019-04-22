@@ -210,7 +210,7 @@ Title can also be a function reference, which is called each time the tooltip is
     },
     methods: {
       tipMethod() {
-        return '<strong>' + new Date() + '</string>'
+        return '<strong>' + new Date() + '</strong>'
       }
     }
   }
