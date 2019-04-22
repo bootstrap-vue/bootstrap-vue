@@ -227,7 +227,7 @@ export default Vue.extend({
   props,
   data() {
     return {
-      is_hidden: this.lazy || false, // For lazy modals
+      is_hidden: true, // If should not be in document
       is_visible: false, // Controls modal visible state
       is_transitioning: false, // Used for style control
       is_show: false, // Used for style control
@@ -470,7 +470,7 @@ export default Vue.extend({
         return
       }
       modalManager.registerModal(this)
-      // Place modal in DOM if lazy
+      // Place modal in DOM
       this.is_hidden = false
       this.$nextTick(() => {
         // We do this in `$nextTick()` to ensure the modal is in DOM first
@@ -490,13 +490,13 @@ export default Vue.extend({
     // Transition handlers
     onBeforeEnter() {
       this.is_transitioning = true
-      this.checkModalOverflow()
       this.setResizeEvent(true)
     },
     onEnter() {
       this.is_block = true
     },
     onAfterEnter() {
+      this.checkModalOverflow()
       this.is_show = true
       this.is_transitioning = false
       this.$nextTick(() => {
@@ -525,6 +525,7 @@ export default Vue.extend({
       this.is_transitioning = false
       this.setEnforceFocus(false)
       this.isModalOverflowing = false
+      this.is_hidden = true
       this.$nextTick(() => {
         this.returnFocusTo()
         this.is_closing = false
@@ -534,7 +535,7 @@ export default Vue.extend({
         const hiddenEvt = new BvModalEvent('hidden', {
           cancelable: false,
           vueTarget: this,
-          target: this.lazy ? null : this.$refs.modal,
+          target: this.$el,
           relatedTarget: null,
           modalId: this.safeId()
         })
@@ -686,7 +687,7 @@ export default Vue.extend({
       }
     }
   },
-  render(h) {
+  makeModal(h) {
     const $slots = this.$slots
     // Modal header
     let header = h(false)
@@ -894,19 +895,17 @@ export default Vue.extend({
       tabTrap = h('div', { attrs: { tabindex: '0' } })
     }
     // Assemble modal and backdrop in an outer <div>
-    // Needed for lazy modals
-    let outer = h(false)
-    if (!this.is_hidden) {
-      outer = h(
-        'div',
-        {
-          key: 'modal-outer',
-          style: this.modalOuterStyle,
-          attrs: { id: this.safeId('__BV_modal_outer_') }
-        },
-        [modal, tabTrap, backdrop]
-      )
-    }
+    return = h(
+      'div',
+      {
+        key: 'modal-outer',
+        style: this.modalOuterStyle,
+        attrs: { id: this.safeId('__BV_modal_outer_') }
+      },
+      [modal, tabTrap, backdrop]
+    )
+  },
+  render(h) {
     // Wrap in a portal
     return h(
       Portal,
@@ -919,7 +918,7 @@ export default Vue.extend({
           disabled: this.static
         }
       },
-      [outer]
+      [!this.is_hidden || (this.static && !this.lazy) ? this.makeModal(h) : h(false)]
     )
   }
 })
