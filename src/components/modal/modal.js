@@ -398,7 +398,7 @@ export default Vue.extend({
         vueTarget: this,
         target: this.$refs.modal,
         relatedTarget: null,
-        modalId: this.safeId()
+        componentId: this.safeId()
       })
       this.emitEvent(showEvt)
       // Don't show if canceled
@@ -422,7 +422,7 @@ export default Vue.extend({
         vueTarget: this,
         target: this.$refs.modal,
         relatedTarget: null,
-        modalId: this.safeId(),
+        componentId: this.safeId(),
         trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
@@ -506,7 +506,7 @@ export default Vue.extend({
           vueTarget: this,
           target: this.$refs.modal,
           relatedTarget: null,
-          modalId: this.safeId()
+          componentId: this.safeId()
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
@@ -538,7 +538,7 @@ export default Vue.extend({
           vueTarget: this,
           target: this.$el,
           relatedTarget: null,
-          modalId: this.safeId()
+          componentId: this.safeId()
         })
         this.emitEvent(hiddenEvt)
         modalManager.unregisterModal(this)
