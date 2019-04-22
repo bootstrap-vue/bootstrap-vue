@@ -133,7 +133,7 @@ const ModalManager = Vue.extend({
           const div = document.createElement('div')
           document.body.appendChild(div)
           const $target = new BModalTarget()
-          $target.mount(div)
+          $target.$mount(div)
         }
       }
     },
