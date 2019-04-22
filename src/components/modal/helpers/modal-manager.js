@@ -133,12 +133,12 @@ const ModalManager = Vue.extend({
       if (isBrowser) {
         if (!Wormhole.hasTarget(this.modalTargetName)) {
           const div = document.createElement('div')
-          document.body.appendChild(div)
-          const $target = new BModalTarget({
+          document.body.append(div)
+          const target = new BModalTarget({
             // Set parent/root to the modal's $root
             parent: modal.$root
           })
-          $target.$mount(div)
+          target.$mount(div)
         }
       }
     },
