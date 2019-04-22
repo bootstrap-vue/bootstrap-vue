@@ -97,7 +97,7 @@ describe('modal', () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
-          static: false,
+          static: false
         }
       })
 
