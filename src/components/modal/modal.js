@@ -685,225 +685,225 @@ export default Vue.extend({
         const modal = this.$refs.modal
         this.isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
       }
-    }
-  },
-  makeModal(h) {
-    const $slots = this.$slots
-    // Modal header
-    let header = h(false)
-    if (!this.hideHeader) {
-      let modalHeader = this.normalizeSlot('modal-header', this.slotScope)
-      if (!modalHeader) {
-        let closeButton = h(false)
-        if (!this.hideHeaderClose) {
-          closeButton = h(
-            BButtonClose,
-            {
-              props: {
-                disabled: this.is_transitioning,
-                ariaLabel: this.headerCloseLabel,
-                textVariant: this.headerCloseVariant || this.headerTextVariant
-              },
-              on: {
-                click: evt => {
-                  this.onClose()
+    },
+    makeModal(h) {
+      const $slots = this.$slots
+      // Modal header
+      let header = h(false)
+      if (!this.hideHeader) {
+        let modalHeader = this.normalizeSlot('modal-header', this.slotScope)
+        if (!modalHeader) {
+          let closeButton = h(false)
+          if (!this.hideHeaderClose) {
+            closeButton = h(
+              BButtonClose,
+              {
+                props: {
+                  disabled: this.is_transitioning,
+                  ariaLabel: this.headerCloseLabel,
+                  textVariant: this.headerCloseVariant || this.headerTextVariant
+                },
+                on: {
+                  click: evt => {
+                    this.onClose()
+                  }
                 }
-              }
-            },
-            [$slots['modal-header-close']]
-          )
+              },
+              [$slots['modal-header-close']]
+            )
+          }
+          modalHeader = [
+            h(this.titleTag, { class: ['modal-title'] }, [
+              this.normalizeSlot('modal-title', this.slotScope) ||
+                this.titleHtml ||
+                stripTags(this.title)
+            ]),
+            closeButton
+          ]
         }
-        modalHeader = [
-          h(this.titleTag, { class: ['modal-title'] }, [
-            this.normalizeSlot('modal-title', this.slotScope) ||
-              this.titleHtml ||
-              stripTags(this.title)
-          ]),
-          closeButton
-        ]
+        header = h(
+          'header',
+          {
+            ref: 'header',
+            staticClass: 'modal-header',
+            class: this.headerClasses,
+            attrs: { id: this.safeId('__BV_modal_header_') }
+          },
+          [modalHeader]
+        )
       }
-      header = h(
-        'header',
+      // Modal body
+      const body = h(
+        'div',
         {
-          ref: 'header',
-          staticClass: 'modal-header',
-          class: this.headerClasses,
-          attrs: { id: this.safeId('__BV_modal_header_') }
+          ref: 'body',
+          staticClass: 'modal-body',
+          class: this.bodyClasses,
+          attrs: { id: this.safeId('__BV_modal_body_') }
         },
-        [modalHeader]
+        this.normalizeSlot('default', this.slotScope)
       )
-    }
-    // Modal body
-    const body = h(
-      'div',
-      {
-        ref: 'body',
-        staticClass: 'modal-body',
-        class: this.bodyClasses,
-        attrs: { id: this.safeId('__BV_modal_body_') }
-      },
-      this.normalizeSlot('default', this.slotScope)
-    )
-    // Modal footer
-    let footer = h(false)
-    if (!this.hideFooter) {
-      let modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
-      if (!modalFooter) {
-        let cancelButton = h(false)
-        if (!this.okOnly) {
-          cancelButton = h(
+      // Modal footer
+      let footer = h(false)
+      if (!this.hideFooter) {
+        let modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
+        if (!modalFooter) {
+          let cancelButton = h(false)
+          if (!this.okOnly) {
+            cancelButton = h(
+              BButton,
+              {
+                props: {
+                  variant: this.cancelVariant,
+                  size: this.buttonSize,
+                  disabled: this.cancelDisabled || this.busy || this.is_transitioning
+                },
+                on: {
+                  click: evt => {
+                    this.onCancel()
+                  }
+                }
+              },
+              [$slots['modal-cancel'] || this.cancelTitleHtml || stripTags(this.cancelTitle)]
+            )
+          }
+          const okButton = h(
             BButton,
             {
               props: {
-                variant: this.cancelVariant,
+                variant: this.okVariant,
                 size: this.buttonSize,
-                disabled: this.cancelDisabled || this.busy || this.is_transitioning
+                disabled: this.okDisabled || this.busy || this.is_transitioning
               },
               on: {
                 click: evt => {
-                  this.onCancel()
+                  this.onOk()
                 }
               }
             },
-            [$slots['modal-cancel'] || this.cancelTitleHtml || stripTags(this.cancelTitle)]
+            [$slots['modal-ok'] || this.okTitleHtml || stripTags(this.okTitle)]
           )
+          modalFooter = [cancelButton, okButton]
         }
-        const okButton = h(
-          BButton,
+        footer = h(
+          'footer',
           {
-            props: {
-              variant: this.okVariant,
-              size: this.buttonSize,
-              disabled: this.okDisabled || this.busy || this.is_transitioning
-            },
-            on: {
-              click: evt => {
-                this.onOk()
-              }
-            }
+            ref: 'footer',
+            staticClass: 'modal-footer',
+            class: this.footerClasses,
+            attrs: { id: this.safeId('__BV_modal_footer_') }
           },
-          [$slots['modal-ok'] || this.okTitleHtml || stripTags(this.okTitle)]
+          [modalFooter]
         )
-        modalFooter = [cancelButton, okButton]
       }
-      footer = h(
-        'footer',
-        {
-          ref: 'footer',
-          staticClass: 'modal-footer',
-          class: this.footerClasses,
-          attrs: { id: this.safeId('__BV_modal_footer_') }
-        },
-        [modalFooter]
-      )
-    }
-    // Assemble modal content
-    const modalContent = h(
-      'div',
-      {
-        ref: 'content',
-        staticClass: 'modal-content',
-        class: this.contentClass,
-        attrs: {
-          role: 'document',
-          id: this.safeId('__BV_modal_content_'),
-          'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
-          'aria-describedby': this.safeId('__BV_modal_body_')
-        }
-      },
-      [header, body, footer]
-    )
-    // Modal dialog wrapper
-    const modalDialog = h(
-      'div',
-      {
-        staticClass: 'modal-dialog',
-        class: this.dialogClasses,
-        on: {
-          mousedown: this.onDialogMousedown
-        }
-      },
-      [modalContent]
-    )
-    // Modal
-    let modal = h(
-      'div',
-      {
-        ref: 'modal',
-        staticClass: 'modal',
-        class: this.modalClasses,
-        style: this.modalStyles,
-        directives: [
-          { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
-        ],
-        attrs: {
-          id: this.safeId(),
-          role: 'dialog',
-          tabindex: '-1',
-          'aria-hidden': this.is_visible ? null : 'true',
-          'aria-modal': this.is_visible ? 'true' : null
-        },
-        on: {
-          keydown: this.onEsc,
-          click: this.onClickOut
-        }
-      },
-      [modalDialog]
-    )
-    // Wrap modal in transition
-    modal = h(
-      'transition',
-      {
-        props: {
-          enterClass: '',
-          enterToClass: '',
-          enterActiveClass: '',
-          leaveClass: '',
-          leaveActiveClass: '',
-          leaveToClass: ''
-        },
-        on: {
-          'before-enter': this.onBeforeEnter,
-          enter: this.onEnter,
-          'after-enter': this.onAfterEnter,
-          'before-leave': this.onBeforeLeave,
-          leave: this.onLeave,
-          'after-leave': this.onAfterLeave
-        }
-      },
-      [modal]
-    )
-    // Modal backdrop
-    let backdrop = h(false)
-    if (!this.hideBackdrop && (this.is_visible || this.is_transitioning || this.is_block)) {
-      backdrop = h(
+      // Assemble modal content
+      const modalContent = h(
         'div',
         {
-          staticClass: 'modal-backdrop',
-          class: this.backdropClasses,
+          ref: 'content',
+          staticClass: 'modal-content',
+          class: this.contentClass,
           attrs: {
-            id: this.safeId('__BV_modal_backdrop_')
+            role: 'document',
+            id: this.safeId('__BV_modal_content_'),
+            'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
+            'aria-describedby': this.safeId('__BV_modal_body_')
           }
         },
-        [$slots['modal-backdrop']]
+        [header, body, footer]
+      )
+      // Modal dialog wrapper
+      const modalDialog = h(
+        'div',
+        {
+          staticClass: 'modal-dialog',
+          class: this.dialogClasses,
+          on: {
+            mousedown: this.onDialogMousedown
+          }
+        },
+        [modalContent]
+      )
+      // Modal
+      let modal = h(
+        'div',
+        {
+          ref: 'modal',
+          staticClass: 'modal',
+          class: this.modalClasses,
+          style: this.modalStyles,
+          directives: [
+            { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
+          ],
+          attrs: {
+            id: this.safeId(),
+            role: 'dialog',
+            tabindex: '-1',
+            'aria-hidden': this.is_visible ? null : 'true',
+            'aria-modal': this.is_visible ? 'true' : null
+          },
+          on: {
+            keydown: this.onEsc,
+            click: this.onClickOut
+          }
+        },
+        [modalDialog]
+      )
+      // Wrap modal in transition
+      modal = h(
+        'transition',
+        {
+          props: {
+            enterClass: '',
+            enterToClass: '',
+            enterActiveClass: '',
+            leaveClass: '',
+            leaveActiveClass: '',
+            leaveToClass: ''
+          },
+          on: {
+            'before-enter': this.onBeforeEnter,
+            enter: this.onEnter,
+            'after-enter': this.onAfterEnter,
+            'before-leave': this.onBeforeLeave,
+            leave: this.onLeave,
+            'after-leave': this.onAfterLeave
+          }
+        },
+        [modal]
+      )
+      // Modal backdrop
+      let backdrop = h(false)
+      if (!this.hideBackdrop && (this.is_visible || this.is_transitioning || this.is_block)) {
+        backdrop = h(
+          'div',
+          {
+            staticClass: 'modal-backdrop',
+            class: this.backdropClasses,
+            attrs: {
+              id: this.safeId('__BV_modal_backdrop_')
+            }
+          },
+          [$slots['modal-backdrop']]
+        )
+      }
+      // Tab trap to prevent page from scrolling to next element in
+      // tab index during enforce focus tab cycle
+      let tabTrap = h(false)
+      if (this.is_visible && this.isTop && !this.noEnforceFocus) {
+        tabTrap = h('div', { attrs: { tabindex: '0' } })
+      }
+      // Assemble modal and backdrop in an outer <div>
+      return h(
+        'div',
+        {
+          key: 'modal-outer',
+          style: this.modalOuterStyle,
+          attrs: { id: this.safeId('__BV_modal_outer_') }
+        },
+        [modal, tabTrap, backdrop]
       )
     }
-    // Tab trap to prevent page from scrolling to next element in
-    // tab index during enforce focus tab cycle
-    let tabTrap = h(false)
-    if (this.is_visible && this.isTop && !this.noEnforceFocus) {
-      tabTrap = h('div', { attrs: { tabindex: '0' } })
-    }
-    // Assemble modal and backdrop in an outer <div>
-    return h(
-      'div',
-      {
-        key: 'modal-outer',
-        style: this.modalOuterStyle,
-        attrs: { id: this.safeId('__BV_modal_outer_') }
-      },
-      [modal, tabTrap, backdrop]
-    )
   },
   render(h) {
     // Wrap in a portal
