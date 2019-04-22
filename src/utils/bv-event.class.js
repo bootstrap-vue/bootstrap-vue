@@ -21,7 +21,8 @@ class BvEvent {
       nativeEvent: readonlyDescriptor(),
       target: readonlyDescriptor(),
       relatedTarget: readonlyDescriptor(),
-      vueTarget: readonlyDescriptor()
+      vueTarget: readonlyDescriptor(),
+      componentId: readonlyDescriptor()
     })
     // Create a private variable using closure scoping.
     let defaultPrevented = false
@@ -48,7 +49,8 @@ class BvEvent {
       nativeEvent: null,
       target: null,
       relatedTarget: null,
-      vueTarget: null
+      vueTarget: null,
+      componentId: null
     }
   }
 }
