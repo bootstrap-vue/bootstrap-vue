@@ -18,7 +18,7 @@ import {
 } from '../../../utils/dom'
 import { isBrowser } from '../../../utils/env'
 import { isNull } from '../../../utils/inspect'
-import { BModaltarget, modalTargetName } from './modal-target'
+import { BModalTarget, modalTargetName } from './modal-target'
 import { Wormhole } from 'portal-vue'
 
 // --- Constants ---
@@ -52,7 +52,7 @@ const ModalManager = Vue.extend({
     },
     modalTargetName() {
       return modalTargetName
-    },
+    }
   },
   watch: {
     modalCount(newCount, oldCount) {
