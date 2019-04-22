@@ -906,7 +906,7 @@ scoped field slot
 ```
 
 <p class="alert alert-danger">
-  <string>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
+  <strong>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
   supplied content,  as it may make your application vulnerable to
   <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
   <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
