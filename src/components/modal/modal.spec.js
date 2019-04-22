@@ -75,7 +75,7 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('has expected structure when lazy', async () => {
+    it('has expected default structure when static and lazy', async () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
@@ -88,6 +88,24 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
 
       expect(wrapper.isEmpty()).toBe(true)
+      expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
+
+      wrapper.destroy()
+    })
+
+    it('has expected default structure when not static', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        propsData: {
+          static: false,
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await waitNT(wrapper.vm)
+
+      expect(wrapper.isEmpty()).toBe(true)
+      expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       wrapper.destroy()
     })
@@ -146,6 +164,55 @@ describe('modal', () => {
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
       expect($dialog.exists()).toBe(true)
+
+      wrapper.destroy()
+    })
+
+    it('renders in modal target when initially open and not static', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          // Disable the use of transitionStub fake transition
+          // as it doesn't run transition hooks
+          transition: false
+        },
+        propsData: {
+          static: false,
+          id: 'testtarget',
+          visible: true
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      expect(wrapper.isEmpty()).toBe(true)
+      expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
+
+      let modal = document.getElementById('testtarget')
+      expect(modal).toBeDefined()
+      expect(modal).not.toBe(null)
+
+      const target = document.querySelector('.b-modal-target')
+      expect(target).toBeDefined()
+      expect(target).not.toBe(null)
+
+      expect(target.__vue__).toBeDefined() // Portal
+      expect(target.__vue__.$parent).toBeDefined() // BModalTarget
+      expect(target.__vue__.$parent.$options.name).toBe('BModalTarget')
+
+      // Make sure target is not in document anymore
+      target.__vue__.$parent.$destroy()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      expect(document.querySelector('.b-modal-target')).toBe(null)
 
       wrapper.destroy()
     })
