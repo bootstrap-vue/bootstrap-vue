@@ -895,7 +895,7 @@ export default Vue.extend({
       tabTrap = h('div', { attrs: { tabindex: '0' } })
     }
     // Assemble modal and backdrop in an outer <div>
-    return = h(
+    return h(
       'div',
       {
         key: 'modal-outer',
