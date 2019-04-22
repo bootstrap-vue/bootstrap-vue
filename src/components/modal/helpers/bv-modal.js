@@ -24,7 +24,10 @@ const PROP_NAME = '$bvModal'
 // Some may be ignored or overridden on some message boxes
 // Prop ID is allowed, but really only should be used for testing
 // We need to add it in explicitly as it comes from the `idMixin`
-const BASE_PROPS = ['id', ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))]
+const BASE_PROPS = [
+  'id',
+  ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', `static`, 'visible']))
+]
 
 // Fallback event resolver (returns undefined)
 const defaultResolver = bvModalEvt => {}
