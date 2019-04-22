@@ -267,7 +267,7 @@ export default Vue.extend({
       }
       if (!Wormhole.hasTarget(this.toaster)) {
         const div = document.createElement('div')
-        document.body.append(div)
+        document.body.appendChild(div)
         const toaster = new BToaster({
           parent: this.$root,
           propsData: {

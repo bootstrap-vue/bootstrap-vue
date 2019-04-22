@@ -174,7 +174,7 @@ true, or use the directive modifier `html`
 ```js
 // Object format with HTML
 const options = {
-  title: 'This is the <string>title</strong>',
+  title: 'This is the <strong>title</strong>',
   html: true
 }
 ```
@@ -210,7 +210,7 @@ Title can also be a function reference, which is called each time the tooltip is
     },
     methods: {
       tipMethod() {
-        return '<strong>' + new Date() + '</string>'
+        return '<strong>' + new Date() + '</strong>'
       }
     }
   }

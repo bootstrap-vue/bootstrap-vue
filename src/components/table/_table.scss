@@ -59,7 +59,7 @@
             font-size: inherit;
             line-height: inherit;
             opacity: 0.4;
-            content: "\2195"; // Up/down arrow
+            content: $b-table-sort-icon-null; // Up/down arrow
             speak: none;
           }
 
@@ -67,14 +67,14 @@
           &[aria-sort="ascending"]::after {
             // `&.sorting_asc::after.sorting_asc`
             opacity: 1;
-            content: "\2193"; // Down arrow
+            content: $b-table-sort-icon-ascending; // Down arrow
           }
 
           // Descending indicator
           &[aria-sort="descending"]::after {
             // `&.sorting_desc::after`
             opacity: 1;
-            content: "\2191"; // Up arrow
+            content: $b-table-sort-icon-descending; // Up arrow
           }
         }
       }
