@@ -362,11 +362,23 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 <!-- b-modal-popover.vue -->
 ```
 
-## Lazy loading
+## Lazy loading and Static modals
 
-Modal will always render its HTML markup in the document at the location that the `<b-modal>`
-component is placed (even if it is not shown). You can hide the modal markup from being in the DOM
-while modal is in the hidden state by setting the `lazy` prop.
+By default, modals will not render their content in the document until they are shown (lazily
+rendered). Modals are rendered appended to the `<body>` element (via the use of
+[PortalVue](https://portal-vue.linusb.org/)) inside a modal target `<div>` when they are visible.
+`<b-modal>` components will not affect layout, as they render as a placeholder comment
+node (`<!---->`).
+
+Modals can be rendered _in-place_ in the document (without PortalVue), where the `<b-modal>`
+component is placed, by setting the `static` prop to `true`. Note that the content of the modal
+will be rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To
+make `static` modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear
+in the document _only_ when it is visible. Note, when in `static` mode, placement of the
+`<b-modal>` component may affect layout.
+
+The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
+always be lazily rendered)
 
 ## Styling, options, and customization
 
@@ -845,7 +857,8 @@ Example Confirm Message boxes
   not detected, then the message box methods will immediately return `undefined`.
 - Message Boxes are an extension of the `<b-modal>` component, and hence support the majority of
   `<b-modal>` props (using <samp>camelCase</samp> format), with the exception of the following
-  props: `lazy`, `busy`, `visible`, `noStacking`, `okOnly`, `okDisabled`, and `cancelDisabled`.
+  props: `lazy`, `static`, `busy`, `visible`, `noStacking`, `okOnly`, `okDisabled`, and
+  `cancelDisabled`.
 - When a `title` (or `titleHtml`) _is not_ provided in the options, the header will not be shown.
 - When a `title` (or `titleHtml`) _is_ provided in the options, the header close button is not shown
   by default. You can enable the header close button by setting `hideHeaderClose: false` in the
