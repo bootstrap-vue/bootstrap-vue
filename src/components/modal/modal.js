@@ -549,7 +549,7 @@ export default Vue.extend({
       const type = bvModalEvt.type
       // We emit on root first incase a global listener wants to cancel
       // the event first before the instance emits it's event
-      this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.modalId)
+      this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.componentId)
       this.$emit(type, bvModalEvt)
     },
     // UI event handlers
