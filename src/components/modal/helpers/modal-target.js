@@ -44,7 +44,7 @@ export const BModalTarget = Vue.extend({
           tag: 'div',
           name: modalTargetName,
           multiple: true,
-          transition: false,
+          transition: null,
           slim: false
         }
       })
