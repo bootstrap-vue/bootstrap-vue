@@ -174,7 +174,7 @@ true, or use the directive modifier `html`
 ```js
 // Object format with HTML
 const options = {
-  title: 'This is the <string>title</strong>',
+  title: 'This is the <strong>title</strong>',
   html: true
 }
 ```
