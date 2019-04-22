@@ -13,7 +13,7 @@ export const BModalTarget = Vue.extend({
       doRender: false
     }
   },
-  destroyed() {
+  destroyed() /* istanbul ignore next */ {
     // Ensure we get removed from DOM when destroyed
     if (this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
@@ -35,6 +35,7 @@ export const BModalTarget = Vue.extend({
       this.doRender = true
       this.$once('hook:beforeDestroy', () => {
         // Trigger any open modals to hide if we are destroyed
+        /* istanbul ignore next */
         self.$root.$emit('bv::modaltarget::destroy')
       })
     }
