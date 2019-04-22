@@ -139,6 +139,17 @@ const ModalManager = Vue.extend({
             parent: modal.$root
           })
           target.$mount(div)
+          target.$once('hook:beforeDestroy', () => {
+            /* istanbul ignore next */
+            this.modals.forEach(modal => {
+              // Hide any modals that may be in the target, if
+              // target is destroyed, using the 'FORCE' trigger
+              // which makes the hide event non-cancelable
+              if (!modal.static) {
+                modal.hide('FORCED')
+              }
+            })
+          })
         }
       }
     },
