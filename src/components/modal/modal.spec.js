@@ -42,20 +42,14 @@ describe('modal', () => {
       expect(wrapper.isVueInstance()).toBe(true)
       await waitNT(wrapper.vm)
 
-      // This outer <div> will go away once we migrate to PortalVue
-      // as all modals will be lazy
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
-      const $outer = createWrapper(wrapper.element.firstElementChild)
-      expect($outer.is('div')).toBe(true)
-      expect($outer.classes().length).toBe(0)
-      expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
+      expect(wrapper.element.style.position).toEqual('absolute')
+      expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Should not have a backdrop
-      expect($outer.find('div.modal-backdrop').exists()).toBe(false)
+      expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
 
       // Main modal wrapper
       const $modal = $outer.find('div.modal')
@@ -93,9 +87,7 @@ describe('modal', () => {
       expect(wrapper.isVueInstance()).toBe(true)
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div')).toBe(true)
-      expect(wrapper.classes().length).toBe(0)
-      expect(wrapper.findAll('div > *').length).toBe(0) // No content
+      expect(wrapper.isEmpty()).toBe(true)
 
       wrapper.destroy()
     })
@@ -121,20 +113,14 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // This outer <div> will go away once we migrate to PortalVue
-      // as all modals will be lazy
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
-      const $outer = createWrapper(wrapper.element.firstElementChild)
-      expect($outer.is('div')).toBe(true)
-      expect($outer.classes().length).toBe(0)
-      expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
+      expect(wrapper.element.style.position).toEqual('absolute')
+      expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
-      const $modal = $outer.find('div.modal')
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
       expect($modal.attributes('id')).toEqual('test')
@@ -152,7 +138,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
-      const $backdrop = $outer.find('div.modal-backdrop')
+      const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
       expect($backdrop.classes()).toContain('fade')
       expect($backdrop.classes()).toContain('show')
@@ -195,20 +181,14 @@ describe('modal', () => {
       // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
       // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
 
-      // This outer <div> will go away once we migrate to PortalVue
-      // as all modals will be lazy
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
-      const $outer = createWrapper(wrapper.element.firstElementChild)
-      expect($outer.is('div')).toBe(true)
-      expect($outer.classes().length).toBe(0)
-      expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
+      expect(wrapper.element.style.position).toEqual('absolute')
+      expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
-      const $modal = $outer.find('div.modal')
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
@@ -219,7 +199,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
-      const $backdrop = $outer.find('div.modal-backdrop')
+      const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
       expect($backdrop.classes()).toContain('fade')
       expect($backdrop.classes()).toContain('show')
@@ -249,7 +229,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed
-      expect($outer.find('div.modal-backdrop').exists()).toBe(false)
+      expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
 
       wrapper.destroy()
     })
