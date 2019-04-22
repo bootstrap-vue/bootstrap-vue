@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { Portal } from 'portal-vue'
 import modalManager from './helpers/modal-manager'
 import BvModalEvent from './helpers/bv-modal-event.class'
 import BButton from '../button/button'
@@ -206,6 +207,10 @@ export const props = {
     default: false
   },
   busy: {
+    type: Boolean,
+    default: false
+  },
+  static: {
     type: Boolean,
     default: false
   }
@@ -902,8 +907,19 @@ export default Vue.extend({
         [modal, tabTrap, backdrop]
       )
     }
-    // Wrap in <div> to maintain `this.$el` reference for
-    // hide/show method access
-    return h('div', {}, [outer])
+    // Wrap in a portal
+    return h(
+      Portal,
+      {
+        key: this_uid,
+        props: {
+          from: this._uid,
+          to: modalManager.modalTargetName,
+          slim: true,
+          disabled: this.static
+        }
+      },
+      [outer]
+    )
   }
 })
