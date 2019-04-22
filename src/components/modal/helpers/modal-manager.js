@@ -18,6 +18,8 @@ import {
 } from '../../../utils/dom'
 import { isBrowser } from '../../../utils/env'
 import { isNull } from '../../../utils/inspect'
+import { BModaltarget, modalTargetName } from './modal-target'
+import { Wormhole } from 'portal-vue'
 
 // --- Constants ---
 
@@ -47,7 +49,10 @@ const ModalManager = Vue.extend({
     },
     modalsAreOpen() {
       return this.modalCount > 0
-    }
+    },
+    modalTargetName() {
+      return modalTargetName
+    },
   },
   watch: {
     modalCount(newCount, oldCount) {
@@ -76,6 +81,9 @@ const ModalManager = Vue.extend({
   methods: {
     // Public methods
     registerModal(modal) {
+      // Make sure the modal target exists
+      this.ensureTarget()
+      // Register the modal if not already registered
       if (modal && this.modals.indexOf(modal) === -1) {
         // Add modal to modals array
         this.modals.push(modal)
@@ -119,6 +127,16 @@ const ModalManager = Vue.extend({
       return this.scrollbarWidth || 0
     },
     // Private methods
+    ensureTarget() {
+      if (isBrowser) {
+        if (!Wormhole.hasTarget(this.modalTargetName)) {
+          const div = document.createElement('div')
+          document.body.appendChild(div)
+          const $target = new BModalTarget()
+          $target.mount(div)
+        }
+      }
+    },
     updateModals(modals) {
       const baseZIndex = this.getBaseZIndex()
       const scrollbarWidth = this.getScrollbarWidth()
