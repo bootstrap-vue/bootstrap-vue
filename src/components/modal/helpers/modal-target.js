@@ -18,7 +18,7 @@ export const BModalTarget = Vue.extend({
     if (this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
     }
-  }, 
+  },
   beforeMount() {
     const self = this
     // There can be only one Modal target in the document
