@@ -1,4 +1,4 @@
-import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import BModal from './modal'
 import BvModalEvent from './helpers/bv-modal-event.class'
@@ -52,7 +52,7 @@ describe('modal', () => {
       expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
 
       // Main modal wrapper
-      const $modal = $outer.find('div.modal')
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
       expect($modal.attributes('id')).toEqual('test')
