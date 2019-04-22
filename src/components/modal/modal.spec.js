@@ -34,6 +34,7 @@ describe('modal', () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
+          static: true,
           id: 'test'
         }
       })
@@ -84,6 +85,7 @@ describe('modal', () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
+          static: true,
           lazy: true
         }
       })
@@ -107,6 +109,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         }
@@ -170,6 +173,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         }
@@ -255,7 +259,10 @@ describe('modal', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true
+        attachToDocument: true,
+        propsData: {
+          static: true
+        }
       })
       expect(wrapper).toBeDefined()
 
@@ -281,7 +288,10 @@ describe('modal', () => {
 
     it('default header close button', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true
+        attachToDocument: true,
+        propsData: {
+          static: true
+        }
       })
       expect(wrapper).toBeDefined()
 
@@ -309,6 +319,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -389,6 +400,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -473,6 +485,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -530,6 +543,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -588,6 +602,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -678,6 +693,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -727,6 +743,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -789,6 +806,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -856,6 +874,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -913,6 +932,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -968,7 +988,7 @@ describe('modal', () => {
         render(h) {
           return h('div', {}, [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
+            h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
       })
@@ -1046,7 +1066,7 @@ describe('modal', () => {
               { class: 'return-to', attrs: { id: 'return-to', type: 'button' } },
               'trigger'
             ),
-            h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
+            h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
       })
@@ -1124,7 +1144,7 @@ describe('modal', () => {
         render(h) {
           return h('div', {}, [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h(BModal, { props: { id: 'test', visible: true } }, 'modal content')
+            h(BModal, { props: { static: true, id: 'test', visible: true } }, 'modal content')
           ])
         }
       })
