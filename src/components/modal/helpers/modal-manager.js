@@ -83,7 +83,7 @@ const ModalManager = Vue.extend({
     registerModal(modal) {
       // Make sure the modal target exists
       if (!modal.static) {
-        this.ensureTarget()
+        this.ensureTarget(modal)
       }
       // Register the modal if not already registered
       if (modal && this.modals.indexOf(modal) === -1) {
@@ -129,12 +129,15 @@ const ModalManager = Vue.extend({
       return this.scrollbarWidth || 0
     },
     // Private methods
-    ensureTarget() {
+    ensureTarget(modal) {
       if (isBrowser) {
         if (!Wormhole.hasTarget(this.modalTargetName)) {
           const div = document.createElement('div')
           document.body.appendChild(div)
-          const $target = new BModalTarget()
+          const $target = new BModalTarget({
+            // Set parent/root to the modal's $root
+            parent: modal.$root
+          })
           $target.$mount(div)
         }
       }
