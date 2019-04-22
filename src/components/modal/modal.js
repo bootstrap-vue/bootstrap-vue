@@ -469,6 +469,7 @@ export default Vue.extend({
         this.listenOnRootOnce('bv::modal::hidden', this.doShow)
         return
       }
+      modalManager.registerModal(this)
       // Place modal in DOM if lazy
       this.is_hidden = false
       this.$nextTick(() => {
@@ -489,7 +490,6 @@ export default Vue.extend({
     // Transition handlers
     onBeforeEnter() {
       this.is_transitioning = true
-      modalManager.registerModal(this)
       this.checkModalOverflow()
       this.setResizeEvent(true)
     },
