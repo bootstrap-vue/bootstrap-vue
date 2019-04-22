@@ -33,11 +33,6 @@ export const BModalTarget = Vue.extend({
       })
     } else {
       this.doRender = true
-      this.$once('hook:beforeDestroy', () => {
-        // Trigger any open modals to hide if we are destroyed
-        /* istanbul ignore next */
-        self.$root.$emit('bv::modaltarget::destroy')
-      })
     }
   },
   render(h) {
