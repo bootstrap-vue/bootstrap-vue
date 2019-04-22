@@ -81,10 +81,8 @@ const ModalManager = Vue.extend({
   methods: {
     // Public methods
     registerModal(modal) {
-      console.log('register Modal', modal)
       // Make sure the modal target exists
       if (!modal.static) {
-        console.log('Modal not Static...')
         this.ensureTarget(modal)
       }
       // Register the modal if not already registered
@@ -133,9 +131,7 @@ const ModalManager = Vue.extend({
     // Private methods
     ensureTarget(modal) {
       if (isBrowser) {
-        console.log('Ensuring Modal Target...')
         if (!Wormhole.hasTarget(this.modalTargetName)) {
-          console.log('Creating Modal Target...')
           const div = document.createElement('div')
           document.body.appendChild(div)
           const target = new BModalTarget({
