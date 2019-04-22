@@ -3263,10 +3263,10 @@ codecov@^3.3.0:
     teeny-request "^3.7.0"
     urlgrey "^0.4.4"
 
-codemirror@^5.45.0:
-  version "5.45.0"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.45.0.tgz#db5ebbb3bf44028c684053f3954d011efcec27ad"
-  integrity sha512-c19j644usCE8gQaXa0jqn2B/HN9MnB2u6qPIrrhrMkB+QAP42y8G4QnTwuwbVSoUS1jEl7JU9HZMGhCDL0nsAw==
+codemirror@^5.46.0:
+  version "5.46.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.46.0.tgz#be3591572f88911e0105a007c324856a9ece0fb7"
+  integrity sha512-3QpMge0vg4QEhHW3hBAtCipJEWjTJrqLLXdIaWptJOblf1vHFeXLNtFhPai/uX2lnFCehWNk4yOdaMR853Z02w==
 
 codesandbox-import-util-types@^2.1.4:
   version "2.1.4"
