@@ -103,7 +103,7 @@ export default {
     getFormatted(value, evt, force = false) {
       value = this.stringifyValue(value)
       if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
-        return this.formatter(value, evt)
+        value = this.formatter(value, evt)
       }
       return value
     },
