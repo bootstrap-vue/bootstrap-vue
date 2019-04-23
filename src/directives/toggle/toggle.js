@@ -1,3 +1,4 @@
+import looseEqual from '../../utils/loose-equal'
 import { setAttr, removeAttr, addClass, removeClass } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { bindTargets, unbindTargets } from '../../utils/target'
@@ -34,6 +35,30 @@ const handleUpdate = (el, binding, vnode) => {
   if (!isBrowser) {
     return
   }
+
+  // Update targets if necessary
+  unbindTargets(vnode, binding, listenTypes)
+  const targets = bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
+    targets.forEach(target => {
+      vnode.context.$root.$emit(EVENT_TOGGLE, target)
+    })
+  })
+
+  if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
+    // Update targets array to element
+    el[BV_TOGGLE_TARGETS] = targets
+    // Add aria attributes to element
+    el[BV_TOGGLE_CONTROLS] = targets.join(' ')
+    // ensure aria-controls is up to date
+    setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
+    // ToDo:
+    //   Request a state update from targets
+    //   So that we can ensure expanded state is correct
+    // targets.forEach(target => {
+    //   vnode.context.$root.$emit(EVENT_SYNC_REQUEST, target)
+    // })
+  }
+
   // Ensure the collapse class and aria-* attributes persist
   // after element is updated (either by parent re-rendering
   // or changes to this element or it's contents
