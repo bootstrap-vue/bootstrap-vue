@@ -7,9 +7,14 @@ class BvModalEvent extends BvEvent {
     super(type, eventInit)
     // Freeze our new props as readonly, but leave them enumerable
     defineProperties(this, {
-      modalId: readonlyDescriptor(),
       trigger: readonlyDescriptor()
     })
+  }
+
+  get modalId() /* istanbul ignore next */ {
+    // Backwards compatability <= 2.0.0-rc.19
+    warn('b-modal: evt.modalId is deprecated. Please use evt.componentId.')
+    return this.componentId
   }
 
   cancel() /* istanbul ignore next */ {
@@ -21,7 +26,6 @@ class BvModalEvent extends BvEvent {
   static get Defaults() {
     return {
       ...super.Defaults,
-      modalId: null,
       trigger: null
     }
   }
