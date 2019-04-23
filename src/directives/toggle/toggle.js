@@ -1,7 +1,7 @@
 import looseEqual from '../../utils/loose-equal'
 import { setAttr, removeAttr, addClass, removeClass } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { bindTargets, unbindTargets } from '../../utils/target'
+import { bindTargets, unbindTargets, getTargets } from '../../utils/target'
 
 // Target listen types
 const listenTypes = { click: true }
@@ -36,15 +36,14 @@ const handleUpdate = (el, binding, vnode) => {
     return
   }
 
-  // Update targets if necessary
-  unbindTargets(vnode, binding, listenTypes)
-  const targets = bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
-    targets.forEach(target => {
-      vnode.context.$root.$emit(EVENT_TOGGLE, target)
+  if (!looseEqual(getTargets(binding), el[BV_TOGGLE_TARGETS])) {
+    // Targets have changed, so update accordingly
+    unbindTargets(vnode, binding, listenTypes)
+    const targets = bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
+      targets.forEach(target => {
+        vnode.context.$root.$emit(EVENT_TOGGLE, target)
+      })
     })
-  })
-
-  if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
     // Update targets array to element
     el[BV_TOGGLE_TARGETS] = targets
     // Add aria attributes to element
