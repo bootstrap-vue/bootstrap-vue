@@ -6,6 +6,8 @@ const NAME = 'BModalTarget'
 
 export const modalTargetName = `BV-${NAME}`
 
+// Pivate internal component used by ModalManager.
+// Not to be used directly by humans.
 // @vue/component
 export default Vue.extend({
   name: NAME,
@@ -37,6 +39,7 @@ export default Vue.extend({
     }
   },
   render(h) {
+    /* istanbul ignore else */
     if (this.doRender) {
       return h(PortalTarget, {
         staticClass: 'b-modal-target',
@@ -48,7 +51,8 @@ export default Vue.extend({
           slim: false
         }
       })
+    } else {
+      return h('div')
     }
-    return h('div')
   }
 })
