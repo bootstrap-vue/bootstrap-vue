@@ -32,7 +32,7 @@ export const props = {
   },
   toaster: {
     type: String,
-    default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
+    default: () => String(getComponentConfig(NAME, 'toaster'))
   },
   variant: {
     type: String,
