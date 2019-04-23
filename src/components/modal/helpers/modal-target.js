@@ -1,12 +1,13 @@
 import Vue from '../../../utils/vue'
-import { requestAF } from '../../../utils/dom'
 import { PortalTarget, Wormhole } from 'portal-vue'
+import { requestAF } from '../../../utils/dom'
 
 const NAME = 'BModalTarget'
 
 export const modalTargetName = `BV-${NAME}`
 
-export const BModalTarget = Vue.extend({
+// @vue/component
+export default Vue.extend({
   name: NAME,
   data() {
     return {
@@ -21,7 +22,7 @@ export const BModalTarget = Vue.extend({
   },
   beforeMount() {
     const self = this
-    // There can be only one Modal target in the document
+    // There can be only one modal target in the document
     /* istanbul ignore if */
     if (Wormhole.hasTarget(modalTargetName)) {
       this.$once('hook:mounted', () => {
@@ -36,9 +37,8 @@ export const BModalTarget = Vue.extend({
     }
   },
   render(h) {
-    let $target = h('div', {})
     if (this.doRender) {
-      $target = h(PortalTarget, {
+      return h(PortalTarget, {
         staticClass: 'b-modal-target',
         props: {
           tag: 'div',
@@ -49,6 +49,6 @@ export const BModalTarget = Vue.extend({
         }
       })
     }
-    return $target
+    return h('div')
   }
 })
