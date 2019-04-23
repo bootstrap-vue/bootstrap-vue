@@ -32,7 +32,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'variant') || null
   },
   toaster: {
     type: String,
@@ -53,7 +53,7 @@ export const props = {
   },
   autoHideDelay: {
     type: [Number, String],
-    default: 5000
+    default: () => getComponentConfig(NAME, 'autoHideDelay') || 5000
   },
   noCloseButton: {
     type: Boolean,
@@ -73,15 +73,15 @@ export const props = {
   },
   toastClass: {
     type: [String, Object, Array],
-    default: ''
+    default: () => getComponentConfig(NAME, 'toastClass') || ''
   },
   headerClass: {
     type: [String, Object, Array],
-    default: ''
+    default: () => getComponentConfig(NAME, 'headerClass') || ''
   },
   bodyClass: {
     type: [String, Object, Array],
-    default: ''
+    default: () => getComponentConfig(NAME, 'bodyClass') || ''
   },
   href: {
     type: String,
