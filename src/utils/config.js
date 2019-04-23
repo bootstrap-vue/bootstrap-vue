@@ -93,7 +93,13 @@ const DEFAULTS = {
     label: 'Toggle navigation'
   },
   BToast: {
-    toaster: 'b-toaster-top-right'
+    toaster: 'b-toaster-top-right',
+    autoHideDelay: 5000,
+    variant: null,
+    toastClass: null,
+    headerClass: null,
+    bodyClass: null,
+    solid: false
   }
 }
 
