@@ -8,6 +8,9 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events collapse listens to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
+const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
+const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+
 describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
@@ -210,6 +213,48 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
+
+    wrapper.destroy()
+  })
+
+  it('should respond to state sync requests', async () => {
+    const wrapper = mount(BCollapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test',
+        visible: true
+      },
+      slots: {
+        default: '<div>foobar</div>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    const rootWrapper = createWrapper(wrapper.vm.$root)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+
+    rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
 
     wrapper.destroy()
   })
