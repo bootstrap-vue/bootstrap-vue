@@ -362,23 +362,23 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 <!-- b-modal-popover.vue -->
 ```
 
-## Lazy loading and Static modals
+## Lazy loading and static modals
 
 By default, modals will not render their content in the document until they are shown (lazily
 rendered). Modals are rendered appended to the `<body>` element (via the use of
 [PortalVue](https://portal-vue.linusb.org/)) inside a modal target `<div>` when they are visible.
-`<b-modal>` components will not affect layout, as they render as a placeholder comment
-node (`<!---->`).
+`<b-modal>` components will not affect layout, as they render as a placeholder comment node
+(`<!---->`).
 
 Modals can be rendered _in-place_ in the document (without PortalVue), where the `<b-modal>`
-component is placed, by setting the `static` prop to `true`. Note that the content of the modal
-will be rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To
-make `static` modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear
-in the document _only_ when it is visible. Note, when in `static` mode, placement of the
-`<b-modal>` component may affect layout.
+component is placed, by setting the `static` prop to `true`. Note that the content of the modal will
+be rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To make
+`static` modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the
+document _only_ when it is visible. Note, when in `static` mode, placement of the `<b-modal>`
+component may affect layout.
 
 The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
-always be lazily rendered)
+always be lazily rendered).
 
 ## Styling, options, and customization
 
@@ -386,7 +386,7 @@ always be lazily rendered)
 
 Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain
 breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `sm`,
-`lg`, and `xl`
+`lg`, and `xl`.
 
 ```html
 <div>
