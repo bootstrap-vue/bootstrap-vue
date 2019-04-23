@@ -6,15 +6,15 @@ import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../.
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
-// Private event we emit on $root to ensure the toggle state is always synced
-// Gets emited even if the state has not changed!
-// This event is NOT to be documented as people should not be using it.
+// Private event we emit on `$root` to ensure the toggle state is
+// always synced. It gets emitted even if the state has not changed!
+// This event is NOT to be documented as people should not be using it
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
-// Events we listen to on $root
+// Events we listen to on `$root`
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
-// Event Listener options
+// Event listener options
 const EventOptions = { passive: true, capture: false }
 
 // @vue/component
@@ -91,7 +91,7 @@ export default Vue.extend({
     this.$nextTick(() => {
       this.emitState()
     })
-    // Listen for "Sync State" requests from v-b-toggle
+    // Listen for "Sync state" requests from `v-b-toggle`
     this.$root.$on(EVENT_STATE_REQUEST, id => {
       if (id === this.id) {
         this.$nextTick(this.emitSync)
@@ -99,9 +99,9 @@ export default Vue.extend({
     })
   },
   updated() {
-    // Emit a private event every time this component updates
-    // to ensure the toggle button is in sync with the collapse's state.
-    // It is emitted regardless if the visible state changes.
+    // Emit a private event every time this component updates to ensure
+    // the toggle button is in sync with the collapse's state
+    // It is emitted regardless if the visible state changes
     this.emitSync()
   },
   deactivated() /* istanbul ignore next */ {
@@ -169,9 +169,9 @@ export default Vue.extend({
       }
     },
     emitSync() {
-      // Emit a private event every time this component updates
-      // to ensure the toggle button is in sync with the collapse's state.
-      // It is emitted regardless if the visible state changes.
+      // Emit a private event every time this component updates to ensure
+      // the toggle button is in sync with the collapse's state
+      // It is emitted regardless if the visible state changes
       this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
     },
     clickHandler(evt) {

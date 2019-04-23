@@ -1,7 +1,7 @@
 import looseEqual from '../../utils/loose-equal'
-import { setAttr, removeAttr, addClass, removeClass } from '../../utils/dom'
+import { addClass, removeAttr, removeClass, setAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { bindTargets, unbindTargets, getTargets } from '../../utils/target'
+import { bindTargets, getTargets, unbindTargets } from '../../utils/target'
 
 // Target listen types
 const listenTypes = { click: true }
@@ -31,6 +31,13 @@ const resetProp = (el, prop) => {
   delete el[prop]
 }
 
+// Handle targets update
+const handleTargets = ({ targets, vnode }) => {
+  targets.forEach(target => {
+    vnode.context.$root.$emit(EVENT_TOGGLE, target)
+  })
+}
+
 // Handle directive updates
 /* istanbul ignore next: not easy to test */
 const handleUpdate = (el, binding, vnode) => {
@@ -41,19 +48,15 @@ const handleUpdate = (el, binding, vnode) => {
   if (!looseEqual(getTargets(binding), el[BV_TOGGLE_TARGETS])) {
     // Targets have changed, so update accordingly
     unbindTargets(vnode, binding, listenTypes)
-    const targets = bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
-      targets.forEach(target => {
-        vnode.context.$root.$emit(EVENT_TOGGLE, target)
-      })
-    })
+    const targets = bindTargets(vnode, binding, listenTypes, handleTargets)
     // Update targets array to element
     el[BV_TOGGLE_TARGETS] = targets
     // Add aria attributes to element
     el[BV_TOGGLE_CONTROLS] = targets.join(' ')
     // ensure aria-controls is up to date
     setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
-    // Request a state update from targets so that we
-    // can ensure expanded state is correct
+    // Request a state update from targets so that we can ensure
+    // expanded state is correct
     targets.forEach(target => {
       vnode.context.$root.$emit(EVENT_STATE_REQUEST, target)
     })
@@ -77,12 +80,7 @@ const handleUpdate = (el, binding, vnode) => {
  */
 export default {
   bind(el, binding, vnode) {
-    const targets = bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
-      targets.forEach(target => {
-        vnode.context.$root.$emit(EVENT_TOGGLE, target)
-      })
-    })
-
+    const targets = bindTargets(vnode, binding, listenTypes, handleTargets)
     if (isBrowser && vnode.context && targets.length > 0) {
       // Add targets array to element
       el[BV_TOGGLE_TARGETS] = targets
