@@ -55,7 +55,7 @@ const handleUpdate = (el, binding, vnode) => {
     // Request a state update from targets so that we
     // can ensure expanded state is correct
     targets.forEach(target => {
-      vnode.context.$root.$emit(EVENT_SYNC_REQUEST, target)
+      vnode.context.$root.$emit(EVENT_STATE_REQUEST, target)
     })
   }
 
