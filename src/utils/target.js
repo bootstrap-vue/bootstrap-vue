@@ -5,12 +5,18 @@ const allListenTypes = { hover: true, click: true, focus: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
-const bindTargets = (vnode, binding, listenTypes, fn) => {
+const getTargets = binding => {
   const targets = keys(binding.modifiers || {}).filter(t => !allListenTypes[t])
 
   if (binding.value) {
     targets.push(binding.value)
   }
+
+  return targets
+}
+
+const bindTargets = (vnode, binding, listenTypes, fn) => {
+  const targets = getTargets(binding)
 
   const listener = () => {
     fn({ targets, vnode })
@@ -42,6 +48,6 @@ const unbindTargets = (vnode, binding, listenTypes) => {
   })
 }
 
-export { bindTargets, unbindTargets }
+export { bindTargets, unbindTargets, getTargets }
 
 export default bindTargets
