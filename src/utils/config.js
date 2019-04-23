@@ -100,6 +100,11 @@ const DEFAULTS = {
     headerClass: null,
     bodyClass: null,
     solid: false
+  },
+  BToaster: {
+    ariaLive: 'polite',
+    ariaAtomic: 'true',
+    role: null
   }
 }
 
