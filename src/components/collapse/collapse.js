@@ -12,6 +12,7 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
+const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 // Event Listener options
 const EventOptions = { passive: true, capture: false }
@@ -90,12 +91,18 @@ export default Vue.extend({
     this.$nextTick(() => {
       this.emitState()
     })
+    // Listen for "Sync State" requests from v-b-toggle
+    this.$root.$on(EVENT_STATE_REQUEST, id => {
+      if (id === this.id) {
+        this.$nextTick(this.emitSync)
+      }
+    })
   },
   updated() {
     // Emit a private event every time this component updates
     // to ensure the toggle button is in sync with the collapse's state.
     // It is emitted regardless if the visible state changes.
-    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+    this.emitSync()
   },
   deactivated() /* istanbul ignore next */ {
     if (this.isNav && isBrowser) {
@@ -106,7 +113,7 @@ export default Vue.extend({
     if (this.isNav && isBrowser) {
       this.setWindowEvents(true)
     }
-    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+    this.emitSync()
   },
   beforeDestroy() {
     // Trigger state emit if needed
@@ -160,6 +167,12 @@ export default Vue.extend({
         // Tell the other collapses in this accordion to close
         this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion)
       }
+    },
+    emitSync() {
+      // Emit a private event every time this component updates
+      // to ensure the toggle button is in sync with the collapse's state.
+      // It is emitted regardless if the visible state changes.
+      this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
     },
     clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
