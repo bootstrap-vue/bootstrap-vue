@@ -83,8 +83,8 @@ export default {
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      if (newVal !== oldVal && newVal !== this.localValue) {
+    value(newVal) {
+      if (newVal !== this.localValue) {
         this.localValue = this.stringifyValue(newVal)
       }
     }
@@ -100,39 +100,47 @@ export default {
     stringifyValue(value) {
       return isUndefined(value) || isNull(value) ? '' : String(value)
     },
-    getFormatted(value, event, force = false) {
+    getFormatted(value, evt, force = false) {
       value = this.stringifyValue(value)
       if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
-        value = this.formatter(value, event)
+        value = this.formatter(value, evt)
       }
       return value
     },
     updateValue(value) {
       value = this.stringifyValue(value)
-      if (this.localValue !== value) {
-        // keep the input set to the value before modifiers
+      if (value !== this.localValue) {
+        // Keep the input set to the value before modifiers
         this.localValue = value
         if (this.number) {
-          // Emulate .number modifier behaviour
+          // Emulate `.number` modifier behaviour
           const num = parseFloat(value)
           value = isNaN(num) ? value : num
         } else if (this.trim) {
-          // Emulate .trim modifier behaviour
+          // Emulate `.trim` modifier behaviour
           value = value.trim()
         }
         // Update the v-model
         this.$emit('update', value)
+      } else if (value !== this.$refs.input.value) {
+        // When the `localValue` hasn't changed but the actual input value
+        // is out of sync, make sure to change it to the given one
+        /* istanbul ignore next: hard to test */
+        this.$refs.input.value = value
       }
     },
     onInput(evt) {
-      // evt.target.composing is set by Vue
+      // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
       /* istanbul ignore if: hard to test composition events */
       if (evt.target.composing) {
         return
       }
       const formatted = this.getFormatted(evt.target.value, evt)
+      // Exit when the `formatter` function strictly returned `false`
+      // or prevented the input event
       if (formatted === false || evt.defaultPrevented) {
+        /* istanbul ignore next */
         evt.preventDefault()
         return
       }
@@ -140,23 +148,28 @@ export default {
       this.$emit('input', formatted)
     },
     onChange(evt) {
-      // evt.target.composing is set by Vue
+      // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
       /* istanbul ignore if: hard to test composition events */
       if (evt.target.composing) {
         return
       }
       const formatted = this.getFormatted(evt.target.value, evt)
-      if (formatted === false) {
+      // Exit when the `formatter` function strictly returned `false`
+      // or prevented the input event
+      if (formatted === false || evt.defaultPrevented) {
+        /* istanbul ignore next */
+        evt.preventDefault()
         return
       }
       this.updateValue(formatted)
       this.$emit('change', formatted)
     },
     onBlur(evt) {
-      // lazy formatter
+      // Lazy formatter
       if (this.lazyFormatter) {
         const formatted = this.getFormatted(evt.target.value, evt, true)
+        // Exit when the `formatter` function strictly returned `false`
         if (formatted === false) {
           return
         }
