@@ -125,6 +125,7 @@ export default {
       } else if (value !== this.$refs.input.value) {
         // When the `localValue` hasn't changed but the actual input value
         // is out of sync, make sure to change it to the given one
+        /* istanbul ignore next: hard to test */
         this.$refs.input.value = value
       }
     },
