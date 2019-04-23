@@ -30,13 +30,13 @@ export const props = {
     type: String,
     default: null
   },
-  variant: {
-    type: String,
-    default: null
-  },
   toaster: {
     type: String,
-    default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
+    default: () => getComponentConfig(NAME, 'toaster')
+  },
+  variant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'variant')
   },
   isStatus: {
     // Switches role to 'status' and aria-live to 'polite'
@@ -53,7 +53,7 @@ export const props = {
   },
   autoHideDelay: {
     type: [Number, String],
-    default: 5000
+    default: () => getComponentConfig(NAME, 'autoHideDelay')
   },
   noCloseButton: {
     type: Boolean,
@@ -73,15 +73,15 @@ export const props = {
   },
   toastClass: {
     type: [String, Object, Array],
-    default: ''
+    default: () => getComponentConfig(NAME, 'toastClass')
   },
   headerClass: {
     type: [String, Object, Array],
-    default: ''
+    default: () => getComponentConfig(NAME, 'headerClass')
   },
   bodyClass: {
     type: [String, Object, Array],
-    default: ''
+    default: () => getComponentConfig(NAME, 'bodyClass')
   },
   href: {
     type: String,
@@ -159,6 +159,9 @@ export default Vue.extend({
       // Minimum supported duration is 1 second
       return Math.max(parseInt(this.autoHideDelay, 10) || 0, MIN_DURATION)
     },
+    computedToaster() {
+      return String(this.toaster)
+    },
     transitionHandlers() {
       return {
         beforeEnter: this.onBeforeEnter,
@@ -212,7 +215,7 @@ export default Vue.extend({
     })
     // Make sure we hide when toaster is destroyed
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
-      if (toaster === this.toaster) {
+      if (toaster === this.computedToaster) {
         this.hide()
       }
     })
@@ -252,8 +255,7 @@ export default Vue.extend({
         relatedTarget: null,
         ...opts,
         vueTarget: this,
-        componentId: this.id || null,
-        toastId: this.id || null
+        componentId: this.id || null
       })
     },
     emitEvent(bvEvt) {
@@ -265,13 +267,13 @@ export default Vue.extend({
       if (this.static) {
         return
       }
-      if (!Wormhole.hasTarget(this.toaster)) {
+      if (!Wormhole.hasTarget(this.computedToaster)) {
         const div = document.createElement('div')
         document.body.appendChild(div)
         const toaster = new BToaster({
           parent: this.$root,
           propsData: {
-            name: this.toaster
+            name: this.computedToaster
           }
         })
         toaster.$mount(div)
@@ -424,7 +426,7 @@ export default Vue.extend({
       {
         props: {
           name: name,
-          to: this.toaster,
+          to: this.computedToaster,
           order: this.order,
           slim: true,
           disabled: this.static
