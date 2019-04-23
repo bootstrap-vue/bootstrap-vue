@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
@@ -16,16 +17,16 @@ export const props = {
   },
   ariaLive: {
     type: String,
-    default: 'polite'
+    default: () => String(getComponentConfig(NAME, 'ariaLive'))
   },
   ariaAtomic: {
     type: String,
-    default: 'true' // Allowed: 'true' or 'false'
+    default: () => String(getComponentConfig(NAME, 'ariaAtomic')) // Allowed: 'true' or 'false'
   },
   role: {
     // Aria role
     type: String,
-    default: null
+    default: () => String(getComponentConfig(NAME, 'role'))
   }
   /*
   transition: {
@@ -109,7 +110,7 @@ export default Vue.extend({
       const $target = h(PortalTarget, {
         staticClass: 'b-toaster-slot',
         attrs: {
-          role: this.role,
+          role: this.role || null, // fallback to null to make sure attribute doesn't exist
           'aria-live': this.ariaLive,
           'aria-atomic': this.ariaAtomic
         },
