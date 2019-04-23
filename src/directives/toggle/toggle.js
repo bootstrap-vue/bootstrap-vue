@@ -22,6 +22,8 @@ const EVENT_STATE = 'bv::collapse::state'
 // Gets emitted even if the state of b-collapse has not changed.
 // This event is NOT to be documented as people should not be using it.
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
+// Private event we send to collapse to request state update sync event
+const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 // Reset and remove a property from the provided element
 const resetProp = (el, prop) => {
@@ -50,12 +52,11 @@ const handleUpdate = (el, binding, vnode) => {
     el[BV_TOGGLE_CONTROLS] = targets.join(' ')
     // ensure aria-controls is up to date
     setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
-    // TODO:
-    //   Request a state update from targets
-    //   So that we can ensure expanded state is correct
-    // targets.forEach(target => {
-    //   vnode.context.$root.$emit(EVENT_SYNC_REQUEST, target)
-    // })
+    // Request a state update from targets so that we
+    // can ensure expanded state is correct
+    targets.forEach(target => {
+      vnode.context.$root.$emit(EVENT_SYNC_REQUEST, target)
+    })
   }
 
   // Ensure the collapse class and aria-* attributes persist
