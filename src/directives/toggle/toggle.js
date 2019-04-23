@@ -50,7 +50,7 @@ const handleUpdate = (el, binding, vnode) => {
     el[BV_TOGGLE_CONTROLS] = targets.join(' ')
     // ensure aria-controls is up to date
     setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
-    // ToDo:
+    // TODO:
     //   Request a state update from targets
     //   So that we can ensure expanded state is correct
     // targets.forEach(target => {
