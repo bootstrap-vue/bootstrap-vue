@@ -30,13 +30,13 @@ export const props = {
     type: String,
     default: null
   },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'variant') || null
-  },
   toaster: {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster') || 'b-toaster-top-right'
+  },
+  variant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'variant')
   },
   isStatus: {
     // Switches role to 'status' and aria-live to 'polite'
@@ -53,7 +53,7 @@ export const props = {
   },
   autoHideDelay: {
     type: [Number, String],
-    default: () => getComponentConfig(NAME, 'autoHideDelay') || 5000
+    default: () => getComponentConfig(NAME, 'autoHideDelay')
   },
   noCloseButton: {
     type: Boolean,
@@ -73,15 +73,15 @@ export const props = {
   },
   toastClass: {
     type: [String, Object, Array],
-    default: () => getComponentConfig(NAME, 'toastClass') || ''
+    default: () => getComponentConfig(NAME, 'toastClass')
   },
   headerClass: {
     type: [String, Object, Array],
-    default: () => getComponentConfig(NAME, 'headerClass') || ''
+    default: () => getComponentConfig(NAME, 'headerClass')
   },
   bodyClass: {
     type: [String, Object, Array],
-    default: () => getComponentConfig(NAME, 'bodyClass') || ''
+    default: () => getComponentConfig(NAME, 'bodyClass')
   },
   href: {
     type: String,
