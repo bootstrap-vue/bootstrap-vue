@@ -140,6 +140,7 @@ export default {
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       if (formatted === false || evt.defaultPrevented) {
+        /* istanbul ignore next */
         evt.preventDefault()
         return
       }
@@ -157,6 +158,7 @@ export default {
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       if (formatted === false || evt.defaultPrevented) {
+        /* istanbul ignore next */
         evt.preventDefault()
         return
       }
