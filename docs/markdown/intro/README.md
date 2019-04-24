@@ -6,7 +6,7 @@
 - [Vue.js](https://vuejs.org/) `v2.5` is required, `v{{ vueVersion }}` is recommended
 - [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
   recommended
-- [PortalVue](https://portal-vue.linusb.org/) `v2.0` is required, `v{{ portalVueVersion }}` is
+- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required, `v{{ portalVueVersion }}` is
   recommended
 - [jQuery](https://jquery.com/) is **not** required
 
