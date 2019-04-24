@@ -4,8 +4,9 @@
 </a>
 
 <br>
-BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and
-grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.
+BootstrapVue, with over 40 available plugins and more than 75 custom components, provides
+one of the most comprehensive implementations of the Bootstrap 4.3 component and grid
+system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.
 <br>
 <br>
 
