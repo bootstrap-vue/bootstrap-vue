@@ -1,9 +1,12 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { getComponentConfig } from '../../utils/config'
+
+const NAME = 'BSpinner'
 
 // @vue/component
 export default Vue.extend({
-  name: 'BSpinner',
+  name: NAME,
   functional: true,
   props: {
     type: {
@@ -16,7 +19,7 @@ export default Vue.extend({
     },
     variant: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'variant')
     },
     small: {
       type: Boolean,

@@ -1,3 +1,5 @@
+import { getComponentConfig } from '../../../utils/config'
+
 export default {
   props: {
     footClone: {
@@ -6,7 +8,7 @@ export default {
     },
     footVariant: {
       type: String,
-      default: ''
+      default: () => getComponentConfig('BTable', 'footVariant')
     },
     tfootClass: {
       type: [String, Array, Object],
@@ -20,7 +22,7 @@ export default {
   computed: {
     footClasses() {
       const variant = this.footVariant || this.headVariant || null
-      return [variant ? 'thead-' + variant : '', this.tfootClass]
+      return [variant ? `thead-${variant}` : '', this.tfootClass]
     }
   },
   methods: {

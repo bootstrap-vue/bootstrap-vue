@@ -2,7 +2,10 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import Link, { propsFactory as linkPropsFactory } from '../link/link'
+
+const NAME = 'BListGroupItem'
 
 const actionTags = ['a', 'router-link', 'button', 'b-link']
 let linkProps = linkPropsFactory()
@@ -24,13 +27,13 @@ export const props = {
   },
   variant: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'variant')
   },
   ...linkProps
 }
 // @vue/component
 export default Vue.extend({
-  name: 'BListGroupItem',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, children }) {
