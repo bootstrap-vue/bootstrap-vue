@@ -65,7 +65,8 @@ const DEFAULTS = {
   },
   BDropdown: {
     toggleText: 'Toggle Dropdown',
-    variant: 'secondary'
+    variant: 'secondary',
+    splitVariant: null
   },
   BFormFile: {
     browseText: 'Browse',
@@ -81,6 +82,14 @@ const DEFAULTS = {
   },
   BImgLazy: {
     blankColor: 'transparent'
+  },
+  BJumbotron: {
+    bgVariant: null,
+    borderVariant: null,
+    textVariant: null
+  },
+  BListGroupItem: {
+    variant: null
   },
   BModal: {
     titleTag: 'h5',
@@ -100,8 +109,25 @@ const DEFAULTS = {
     okVariant: 'primary',
     headerCloseLabel: 'Close'
   },
+  BNavbar: {
+    variant: null
+  },
   BNavbarToggle: {
     label: 'Toggle navigation'
+  },
+  BProgress: {
+    variant: null
+  },
+  BProgressBar: {
+    variant: null
+  },
+  BSpinner: {
+    variant: null
+  },
+  BTable: {
+    selectedVariant: 'primary',
+    headVariant: null,
+    footVariant: null
   },
   BToast: {
     toaster: 'b-toaster-top-right',

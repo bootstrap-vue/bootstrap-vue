@@ -19,7 +19,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'variant') || '') || null
+    default: () => String(getComponentConfig(NAME, 'variant'))
   },
   menuClass: {
     type: [String, Array],
@@ -51,7 +51,7 @@ export const props = {
   },
   splitVariant: {
     type: String,
-    default: null
+    default: () => String(getComponentConfig(NAME, 'splitVariant'))
   },
   role: {
     type: String,
