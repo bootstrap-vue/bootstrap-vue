@@ -1390,11 +1390,12 @@ record objects for the rows being compared, the third argument is the field `key
 (`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
 (`true` for descending, `false` for ascending).
 
-The routine should always return either `-1` for `a < b` , `0` for `a === b`, or `1` for `a > b`
-(the fourth argument, sorting direction, should not be used, as `b-table` will handle the
-direction). The routine can also return `null` to fall back to the default built-in sort-compare
-routine. You can use this feature (i.e. by returning `null`) to have your custom sort-compare
-routine handle only certain fields (keys) or in the special case of virtual columns.
+The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`,
+or `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used,
+as `b-table` will handle the direction). The routine can also return `null` to fall back to the
+built-in sort-compare routine for the particular `key`. You can use this feature (i.e. by returning
+`null`) to have your custom sort-compare routine handle only certain fields (keys) such as the
+special case of virtual columns.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
