@@ -15,7 +15,7 @@ export default {
     },
     selectedVariant: {
       type: String,
-      default: () => String(getComponentConfig('BTable', 'selectedVariant'))
+      default: () => getComponentConfig('BTable', 'selectedVariant')
     }
   },
   data() {

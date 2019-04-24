@@ -14,7 +14,7 @@ export default Vue.extend({
     // These props can be inherited via the child b-progress-bar(s)
     variant: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'variant'))
+      default: () => getComponentConfig(NAME, 'variant')
     },
     striped: {
       type: Boolean,

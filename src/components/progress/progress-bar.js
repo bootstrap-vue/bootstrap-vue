@@ -39,7 +39,7 @@ export default Vue.extend({
     },
     variant: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'variant'))
+      default: () => getComponentConfig(NAME, 'variant')
     },
     striped: {
       type: Boolean,

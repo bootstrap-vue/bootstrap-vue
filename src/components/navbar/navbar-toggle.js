@@ -19,7 +19,7 @@ export default Vue.extend({
   props: {
     label: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'label') || '')
+      default: () => getComponentConfig(NAME, 'label')
     },
     target: {
       type: String,

@@ -9,7 +9,7 @@ export default {
   props: {
     headVariant: {
       type: String,
-      default: () => String(getComponentConfig('BTable', 'headVariant'))
+      default: () => getComponentConfig('BTable', 'headVariant')
     },
     theadClass: {
       type: [String, Array, Object],

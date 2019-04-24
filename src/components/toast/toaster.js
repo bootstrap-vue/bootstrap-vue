@@ -17,16 +17,16 @@ export const props = {
   },
   ariaLive: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'ariaLive'))
+    default: () => getComponentConfig(NAME, 'ariaLive')
   },
   ariaAtomic: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'ariaAtomic')) // Allowed: 'true' or 'false'
+    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false'
   },
   role: {
     // Aria role
     type: String,
-    default: () => String(getComponentConfig(NAME, 'role'))
+    default: () => getComponentConfig(NAME, 'role')
   }
   /*
   transition: {

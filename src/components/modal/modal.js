@@ -42,11 +42,11 @@ export const props = {
   },
   titleTag: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'titleTag'))
+    default: () => getComponentConfig(NAME, 'titleTag')
   },
   size: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'size'))
+    default: () => getComponentConfig(NAME, 'size')
   },
   centered: {
     type: Boolean,
@@ -82,19 +82,19 @@ export const props = {
   },
   headerBgVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'headerBgVariant'))
+    default: () => getComponentConfig(NAME, 'headerBgVariant')
   },
   headerBorderVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'headerBorderVariant'))
+    default: () => getComponentConfig(NAME, 'headerBorderVariant')
   },
   headerTextVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'headerTextVariant'))
+    default: () => getComponentConfig(NAME, 'headerTextVariant')
   },
   headerCloseVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'headerCloseVariant'))
+    default: () => getComponentConfig(NAME, 'headerCloseVariant')
   },
   headerClass: {
     type: [String, Array],
@@ -102,11 +102,11 @@ export const props = {
   },
   bodyBgVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'bodyBgVariant'))
+    default: () => getComponentConfig(NAME, 'bodyBgVariant')
   },
   bodyTextVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'bodyTextVariant'))
+    default: () => getComponentConfig(NAME, 'bodyTextVariant')
   },
   modalClass: {
     type: [String, Array],
@@ -126,15 +126,15 @@ export const props = {
   },
   footerBgVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'footerBgVariant'))
+    default: () => getComponentConfig(NAME, 'footerBgVariant')
   },
   footerBorderVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'footerBorderVariant'))
+    default: () => getComponentConfig(NAME, 'footerBorderVariant')
   },
   footerTextVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'footerTextVariant'))
+    default: () => getComponentConfig(NAME, 'footerTextVariant')
   },
   footerClass: {
     type: [String, Array],
@@ -178,29 +178,29 @@ export const props = {
   },
   headerCloseLabel: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'headerCloseLabel'))
+    default: () => getComponentConfig(NAME, 'headerCloseLabel')
   },
   cancelTitle: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'cancelTitle'))
+    default: () => getComponentConfig(NAME, 'cancelTitle')
   },
   cancelTitleHtml: {
     type: String
   },
   okTitle: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'okTitle'))
+    default: () => getComponentConfig(NAME, 'okTitle')
   },
   okTitleHtml: {
     type: String
   },
   cancelVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'cancelVariant'))
+    default: () => getComponentConfig(NAME, 'cancelVariant')
   },
   okVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'okVariant'))
+    default: () => getComponentConfig(NAME, 'okVariant')
   },
   lazy: {
     type: Boolean,

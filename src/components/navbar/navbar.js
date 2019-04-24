@@ -16,7 +16,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'variant'))
+    default: () => getComponentConfig(NAME, 'variant')
   },
   toggleable: {
     type: [Boolean, String],
