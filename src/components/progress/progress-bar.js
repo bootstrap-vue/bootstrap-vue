@@ -1,10 +1,13 @@
 import Vue from '../../utils/vue'
+import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean, isNumber } from '../../utils/inspect'
 
+const NAME = 'BProgressBar'
+
 // @vue/component
 export default Vue.extend({
-  name: 'BProgressBar',
+  name: NAME,
   inject: {
     bvProgress: {
       default() /* istanbul ignore next */ {
@@ -36,7 +39,7 @@ export default Vue.extend({
     },
     variant: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'variant')
     },
     striped: {
       type: Boolean,

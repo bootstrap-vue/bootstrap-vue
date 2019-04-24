@@ -40,7 +40,7 @@ export default Vue.extend({
   props: {
     variant: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'variant'))
+      default: () => getComponentConfig(NAME, 'variant')
     },
     dismissible: {
       type: Boolean,
@@ -48,7 +48,7 @@ export default Vue.extend({
     },
     dismissLabel: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'dismissLabel'))
+      default: () => getComponentConfig(NAME, 'dismissLabel')
     },
     show: {
       type: [Boolean, Number, String],

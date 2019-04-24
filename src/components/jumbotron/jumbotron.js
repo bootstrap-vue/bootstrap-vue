@@ -1,7 +1,10 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import Container from '../layout/container'
+
+const NAME = 'BJumbotron'
 
 export const props = {
   fluid: {
@@ -46,21 +49,21 @@ export const props = {
   },
   bgVariant: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'bgVariant')
   },
   borderVariant: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'borderVariant')
   },
   textVariant: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'textVariant')
   }
 }
 
 // @vue/component
 export default Vue.extend({
-  name: 'BJumbotron',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, slots }) {

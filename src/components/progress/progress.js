@@ -1,9 +1,12 @@
 import Vue from '../../utils/vue'
+import { getComponentConfig } from '../../utils/config'
 import BProgressBar from './progress-bar'
+
+const NAME = 'BProgress'
 
 // @vue/component
 export default Vue.extend({
-  name: 'BProgress',
+  name: NAME,
   provide() {
     return { bvProgress: this }
   },
@@ -11,7 +14,7 @@ export default Vue.extend({
     // These props can be inherited via the child b-progress-bar(s)
     variant: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'variant')
     },
     striped: {
       type: Boolean,

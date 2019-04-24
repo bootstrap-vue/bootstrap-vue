@@ -34,15 +34,15 @@ export default Vue.extend({
     },
     placeholder: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'placeholder') || '')
+      default: () => getComponentConfig(NAME, 'placeholder')
     },
     browseText: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'browseText') || '')
+      default: () => getComponentConfig(NAME, 'browseText')
     },
     dropPlaceholder: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'dropPlaceholder') || '')
+      default: () => getComponentConfig(NAME, 'dropPlaceholder')
     },
     multiple: {
       type: Boolean,

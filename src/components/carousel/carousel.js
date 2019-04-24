@@ -81,19 +81,19 @@ export default Vue.extend({
   props: {
     labelPrev: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelPrev'))
+      default: () => getComponentConfig(NAME, 'labelPrev')
     },
     labelNext: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelNext'))
+      default: () => getComponentConfig(NAME, 'labelNext')
     },
     labelGotoSlide: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelGotoSlide'))
+      default: () => getComponentConfig(NAME, 'labelGotoSlide')
     },
     labelIndicators: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelIndicators'))
+      default: () => getComponentConfig(NAME, 'labelIndicators')
     },
     interval: {
       type: Number,

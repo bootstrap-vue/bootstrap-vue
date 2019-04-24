@@ -1,7 +1,9 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { getBreakpoints } from '../../utils/config'
+import { getComponentConfig, getBreakpoints } from '../../utils/config'
 import { isString } from '../../utils/inspect'
+
+const NAME = 'BNavbar'
 
 export const props = {
   tag: {
@@ -13,7 +15,8 @@ export const props = {
     default: 'light'
   },
   variant: {
-    type: String
+    type: String,
+    default: () => getComponentConfig(NAME, 'variant')
   },
   toggleable: {
     type: [Boolean, String],
@@ -34,7 +37,7 @@ export const props = {
 
 // @vue/component
 export default Vue.extend({
-  name: 'BNavbar',
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data, children }) {
