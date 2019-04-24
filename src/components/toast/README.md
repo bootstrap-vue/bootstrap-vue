@@ -289,7 +289,7 @@ Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nux
 ## `<b-toast>` component
 
 When you have a custom component that would like to display just a single toast at a time, use the
-`<b-toast>` component. The `<b-toast>` component can be placed anywhere im your custom component or
+`<b-toast>` component. The `<b-toast>` component can be placed anywhere in your custom component or
 app, and does not render an element (they render a comment placeholder node which will not affect
 layout).
 
