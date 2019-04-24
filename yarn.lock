@@ -9192,10 +9192,10 @@ popper.js@^1.15.0:
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
   integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
 
-portal-vue@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/portal-vue/-/portal-vue-2.1.1.tgz#79a4fa792cd91f225227ebc30ca3e3549b1b2ff0"
-  integrity sha512-7OPlfxaGXCmbZ0ZDDwjhV8IhuEm8XbOCj4Cnz9PZN6SDNfi+edNc2tAr7TBo0TSNAJM6bZHaRegGWPvtqVLVPg==
+portal-vue@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/portal-vue/-/portal-vue-2.1.2.tgz#85c054840e8dcef31d6bcaae7b282b5e0e1f6aa8"
+  integrity sha512-SUH88Dc4W6wKKBcTurFyw3vPbMgdvy9Xg3p730ln86/lPOtJsy+6KGVvDj76L8TvVL3Spv74TLkYRKwclO7cTA==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
