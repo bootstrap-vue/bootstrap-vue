@@ -12,9 +12,10 @@
             popular front-end CSS library &mdash; Bootstrap 4.
           </p>
           <p class="lead mb-3">
+            With over 40 plugins and more than 75 custom components,
             <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
             comprehensive implementations of
-            <span class="bd-text-purple-bright">Bootstrap V4</span> components and grid system
+            <span class="bd-text-purple-bright">Bootstrap V4</span> component and grid system
             available for Vue.js 2.5+, complete with extensive and automated WAI-ARIA accessibility
             markup.
           </p>
