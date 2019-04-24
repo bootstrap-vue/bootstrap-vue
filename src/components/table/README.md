@@ -1391,8 +1391,8 @@ record objects for the rows being compared, the third argument is the field `key
 (`true` for descending, `false` for ascending).
 
 The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`,
-or `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not be used, as
-`b-table` will handle the direction). The routine can also return `null` to fall back to the
+or `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used,
+as `b-table` will handle the direction). The routine can also return `null` to fall back to the
 built-in sort-compare routine. You can use this feature (i.e. by returning `null`) to have your
 custom sort-compare routine handle only certain fields (keys) or in the special case of virtual
 columns.
