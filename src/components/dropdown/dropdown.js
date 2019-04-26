@@ -3,7 +3,7 @@ import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import nomalizeSlotMixin from '../../mixins/normalize-slot'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButton from '../button/button'
 
 const NAME = 'BDropdown'
@@ -69,7 +69,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, dropdownMixin, nomalizeSlotMixin],
+  mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
     dropdownClasses() {
@@ -113,8 +113,8 @@ export default Vue.extend({
   render(h) {
     let split = h(false)
     const buttonContent =
-      this.nomalizeSlot('button-content') ||
-      this.nomalizeSlot('text') ||
+      this.normalizeSlot('button-content') ||
+      this.normalizeSlot('text') ||
       this.html ||
       stripTags(this.text)
     if (this.split) {
@@ -183,7 +183,7 @@ export default Vue.extend({
           keydown: this.onKeydown // tab, up, down, esc
         }
       },
-      this.nomalizeSlot('default')
+      this.normalizeSlot('default')
     )
     return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
       split,
