@@ -112,7 +112,7 @@ export default Vue.extend({
   },
   render(h) {
     let split = h(false)
-    const buttonContent = 
+    const buttonContent =
       this.nomalizeSlot('button-content') ||
       this.nomalizeSlot('text') ||
       this.html ||
@@ -166,11 +166,7 @@ export default Vue.extend({
           keydown: this.toggle // enter, space, down
         }
       },
-      [
-        this.split
-          ? h('span', { class: ['sr-only'] }, [this.toggleText])
-          : buttonContent
-      ]
+      [this.split ? h('span', { class: ['sr-only'] }, [this.toggleText]) : buttonContent]
     )
     const menu = h(
       'ul',
