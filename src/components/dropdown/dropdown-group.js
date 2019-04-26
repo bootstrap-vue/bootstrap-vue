@@ -49,7 +49,7 @@ export default Vue.extend({
     return h('li', [
       header || h(false),
       h(
-        ul,
+        'ul',
         mergeData(data, {
           staticClass: 'list-unstyled',
           attrs: {
