@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
 
@@ -64,7 +65,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BCarouselSlide',
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvCarousel: {
       default() {
@@ -96,10 +97,9 @@ export default Vue.extend({
     }
   },
   render(h) {
-    const $slots = this.$slots
     const noDrag = !this.bvCarousel.noTouch && hasTouchSupport
 
-    let img = $slots.img
+    let img = this.normalizeSlot('img')
     if (!img && (this.imgSrc || this.imgBlank)) {
       img = h(BImg, {
         props: {
@@ -139,7 +139,7 @@ export default Vue.extend({
         this.text || this.textHtml
           ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
           : h(false),
-        $slots.default
+        this.normalizeSlot('default')
       ]
     )
 
