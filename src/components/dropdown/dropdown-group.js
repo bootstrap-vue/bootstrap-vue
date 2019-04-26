@@ -33,7 +33,7 @@ export default Vue.extend({
     let headerId = null
 
     if (hasNormalizedSlot('header', $scopedSlots, $slots) || props.header) {
-      headerId = this.id ? `_bv_${this.id}_dd_header` : null
+      headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
       header = h(
         props.headerTag,
         {
