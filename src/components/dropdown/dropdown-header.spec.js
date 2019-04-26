@@ -6,15 +6,15 @@ describe('dropdown > dropdown-header', () => {
     const wrapper = mount(BDropdownHeader)
     expect(wrapper.is('li')).toBe(true)
 
-    const header = wrapper.find('h6')
-    expect(header.is('h6')).toBe(true)
+    const header = wrapper.find('header')
+    expect(header.is('header')).toBe(true)
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).not.toBeDefined()
     expect(header.text()).toEqual('')
   })
 
-  it('renders custom root element when prop tag set', async () => {
+  it('renders custom header element when prop tag set', async () => {
     const wrapper = mount(BDropdownHeader, {
       context: {
         props: { tag: 'h2' }
@@ -38,8 +38,8 @@ describe('dropdown > dropdown-header', () => {
     })
     expect(wrapper.is('li')).toBe(true)
 
-    const header = wrapper.find('h6')
-    expect(header.is('h6')).toBe(true)
+    const header = wrapper.find('header')
+    expect(header.is('header')).toBe(true)
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).toBeDefined()
@@ -52,8 +52,8 @@ describe('dropdown > dropdown-header', () => {
     })
     expect(wrapper.is('li')).toBe(true)
 
-    const header = wrapper.find('h6')
-    expect(header.is('h6')).toBe(true)
+    const header = wrapper.find('header')
+    expect(header.is('header')).toBe(true)
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.text()).toEqual('foobar')
