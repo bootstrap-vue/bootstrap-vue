@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
-import normalizedSlot from '../../utils/normalize-slot'
+import normalizeSlot from '../../utils/normalize-slot'
 
 const NAME = 'BButtonClose'
 
