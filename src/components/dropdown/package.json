@@ -120,6 +120,18 @@
         "aliases": [
           "BDdText"
         ]
+      },
+      {
+        "component": "BDropdownGroup",
+        "aliases": [
+          "BDdGroup"
+        ],
+        "slots": [
+          {
+            "name": "header",
+            "description": "Optional header content for the dropdown group."
+          }
+        ]
       }
     ]
   }
