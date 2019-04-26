@@ -15,7 +15,7 @@ import { isFunction } from './inspect'
  */
 const hasNormalizedSlot = (name, $scopedSlots = {}, $slots = {}) => {
   // Returns true if the either a $scopedSlot or $slot exists with the specified name
-  return Boolean(this.$scopedSlots[name] || this.$slots[name])
+  return Boolean($scopedSlots[name] || $slots[name])
 }
 
 /**
