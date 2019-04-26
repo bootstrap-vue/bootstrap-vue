@@ -33,9 +33,8 @@ const normalizeSlot = (name, scope = {}, $scopedSlots = {}, $slots = {}) => {
   return isFunction(slot) ? slot(scope) : slot
 }
 
-export {
-  hasNormalizedSlot,
-  normalizeSlot
-}
+// Named exports
+export { hasNormalizedSlot, normalizeSlot }
 
+// Default export (backwards compatability)
 export default normalizeSlot
