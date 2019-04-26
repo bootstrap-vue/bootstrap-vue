@@ -17,7 +17,7 @@ export const props = {
   },
   headerClasses: {
     type: [String, Array, Object],
-    default: 'header'
+    default: null
   },
   ariaDescribedby: {
     type: String,
