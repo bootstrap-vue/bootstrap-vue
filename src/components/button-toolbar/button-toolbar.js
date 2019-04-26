@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import { isVisible, selectAll } from '../../utils/dom'
-import normalizeSlotMixin from '../../mixins/normailize-slot'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import KeyCodes from '../../utils/key-codes'
 
 const ITEM_SELECTOR = [
