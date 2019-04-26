@@ -8,7 +8,7 @@ export const props = {
   },
   tag: {
     type: String,
-    default: 'h6'
+    default: 'header'
   }
 }
 
