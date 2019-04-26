@@ -51,7 +51,7 @@ export default Vue.extend({
       }
     }
     // Careful not to override the default slot with innerHTML
-    if (!hasNormalizedSlot('default', $scopedSlots, $slots) {
+    if (!hasNormalizedSlot('default', $scopedSlots, $slots)) {
       componentData.domProps = { innerHTML: '&times;' }
     }
     return h(
