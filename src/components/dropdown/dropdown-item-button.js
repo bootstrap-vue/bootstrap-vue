@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import nomalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
   active: {
@@ -18,6 +19,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItemButton',
+  mixins: [nomalizeSlotMixin],
   inject: {
     bvDropdown: {
       default: null
@@ -50,7 +52,7 @@ export default Vue.extend({
           on: { click: this.onClick },
           ref: 'button'
         },
-        this.$slots.default
+        this.normalizeSlot('default')
       )
     ])
   }
