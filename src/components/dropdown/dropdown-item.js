@@ -1,12 +1,14 @@
 import Vue from '../../utils/vue'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 import { requestAF } from '../../utils/dom'
+import nomalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = linkPropsFactory()
 
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItem',
+  mixins: [nomalizeSlotMixin],
   inject: {
     bvDropdown: {
       default: null
@@ -38,7 +40,7 @@ export default Vue.extend({
           on: { click: this.onClick },
           ref: 'item'
         },
-        this.$slots.default
+        this.normalizeSlot('default')
       )
     ])
   }
