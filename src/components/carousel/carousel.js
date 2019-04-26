@@ -463,7 +463,7 @@ export default Vue.extend({
           role: 'list'
         }
       },
-      [this.nrmalizeSlot('default')]
+      [this.normalizeSlot('default')]
     )
 
     // Prev and next controls
