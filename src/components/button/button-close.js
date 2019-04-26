@@ -51,6 +51,10 @@ export default Vue.extend({
     if (!(scopedSlots && scopedSlots.default) && !slots().default) {
       componentData.domProps = { innerHTML: '&times;' }
     }
-    return h('button', mergeData(data, componentData), normalizeSlot('default', {}, scopedSlots, slots())
+    return h(
+      'button',
+      mergeData(data, componentData),
+      normalizeSlot('default', {}, scopedSlots, slots())
+    )
   }
 })
