@@ -62,11 +62,11 @@ export default Vue.extend({
       header = h(
         BCardHeader,
         { props: pluckProps(headerProps, props) },
-        normalizeSlot('header', $scopedSlots, $slots)
+        normalizeSlot('header', {}, $scopedSlots, $slots)
       )
     }
 
-    content = normalizeSlot('default', $scopedSlots, $slots) || []
+    content = normalizeSlot('default', {}, $scopedSlots, $slots) || []
     if (!props.noBody) {
       // Wrap content in card-body
       content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, [...content])]
@@ -78,7 +78,7 @@ export default Vue.extend({
         {
           props: pluckProps(footerProps, props)
         },
-        normalizeSlot('footer', $scopedSlots, $slots)
+        normalizeSlot('footer', {}, $scopedSlots, $slots)
       )
     }
 
