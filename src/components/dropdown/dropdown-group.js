@@ -35,7 +35,10 @@ export default Vue.extend({
       headerId = this.id ? `_bv_${this.id}_dd_header` : null
       header = h(
         props.headerTag,
-        { staticClass: 'dropdown-header', attrs: { id: this.id ? `${this.id}-header` },
+        {
+          staticClass: 'dropdown-header',
+          attrs: { id: headerId }
+        },
         normalizeSlot('header', {}, $scopedSlots, $slots) || this.header
       )
     }
