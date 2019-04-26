@@ -31,7 +31,8 @@ export default Vue.extend({
     const $scopedSlots = scopedSlots || {}
     let header
     let headerId = null
-    if (hasNormalizedSlot('header', $scopedSlots, $slots) || this.header) {
+
+    if (hasNormalizedSlot('header', $scopedSlots, $slots) || props.header) {
       headerId = this.id ? `_bv_${this.id}_dd_header` : null
       header = h(
         props.headerTag,
@@ -39,13 +40,15 @@ export default Vue.extend({
           staticClass: 'dropdown-header',
           attrs: { id: headerId }
         },
-        normalizeSlot('header', {}, $scopedSlots, $slots) || this.header
+        normalizeSlot('header', {}, $scopedSlots, $slots) || props.header
       )
     }
+
     const adb = [headerId, props.ariaDescribedBy]
       .filter(Boolean)
       .join(' ')
       .trim()
+
     return h('li', [
       header || h(false),
       h(
