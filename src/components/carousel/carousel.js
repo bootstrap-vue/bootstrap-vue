@@ -15,6 +15,7 @@ import {
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
 import { isUndefined } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BCarousel'
 
@@ -70,7 +71,7 @@ function getTransitionEndEvent(el) {
 // @vue/component
 export default Vue.extend({
   name: 'BCarousel',
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return { bvCarousel: this }
   },
@@ -462,7 +463,7 @@ export default Vue.extend({
           role: 'list'
         }
       },
-      [this.$slots.default]
+      [this.nrmalizeSlot('default')]
     )
 
     // Prev and next controls
