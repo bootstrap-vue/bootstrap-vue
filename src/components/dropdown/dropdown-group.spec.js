@@ -8,7 +8,7 @@ describe('dropdown > dropdown-header', () => {
     expect(wrapper.classes().length).toBe(0)
 
     const header = wrapper.find('header')
-    expect(header).not.toBeDefined()
+    expect(header.exists()).toBe(false)
 
     const ul = wrapper.find('ul')
     expect(ul).toBeDefined()
