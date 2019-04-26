@@ -34,6 +34,7 @@ const isNumericLike = value => !isNaN(parseInt(value, 10))
 // @vue/component
 export default Vue.extend({
   name: NAME,
+  mixins: [normalizeSlotMixin],
   model: {
     prop: 'show',
     event: 'input'
