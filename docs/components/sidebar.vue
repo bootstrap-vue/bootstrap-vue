@@ -1,5 +1,5 @@
 <template>
-  <b-collapse id="bd-docs-nav" class="bd-links" tag="nav" is-nav>
+  <b-collapse id="bd-docs-nav" class="bd-links" tag="nav" is-nav :visible="false">
     <b-link
       v-for="group in nav"
       :key="group.base"
