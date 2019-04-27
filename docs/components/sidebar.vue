@@ -1,5 +1,5 @@
 <template>
-  <b-collapse id="bd-docs-nav" class="bd-links" tag="nav" is-nav :visible="false">
+  <b-collapse id="bd-docs-nav" class="bd-links" tag="nav" is-nav>
     <b-link
       v-for="group in nav"
       :key="group.base"
@@ -33,6 +33,7 @@
           <b-link
             :to="buildUrl('/docs/', [group.base, page.slug])"
             :exact="group.exact"
+            class="nav-link"
             active-class=""
           >
             {{ page.title }}
