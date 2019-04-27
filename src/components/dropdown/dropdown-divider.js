@@ -20,7 +20,10 @@ export default Vue.extend({
         props.tag,
         mergeData(data, {
           staticClass: 'dropdown-divider',
-          attrs: { role: 'separator' },
+          attrs: {
+            role: 'separator',
+            'aria-orientation': 'horizontal'
+          },
           ref: 'divider'
         })
       )
