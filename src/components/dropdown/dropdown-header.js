@@ -9,6 +9,10 @@ export const props = {
   tag: {
     type: String,
     default: 'header'
+  },
+  variant: {
+    type: String,
+    default: null
   }
 }
 
@@ -23,6 +27,9 @@ export default Vue.extend({
         props.tag,
         mergeData(data, {
           staticClass: 'dropdown-header',
+          class: {
+            [`text-${props.variant}`]: props.variant
+          },
           attrs: { id: props.id || null },
           ref: 'header'
         }),
