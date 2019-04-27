@@ -435,9 +435,11 @@ describe('collapse', () => {
     expect(wrapper.find('.nav-link').exists()).toBe(true)
 
     // Add style display: block for testing (for getComputedStyle check
+    const oldDisplay = wrapper.element.style.display
     wrapper.element.style.display = 'block'
     // Click on link
     wrapper.find('.nav-link').trigger('click')
+    wrapper.element.style.display = oldDisplay
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
