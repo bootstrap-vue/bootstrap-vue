@@ -50,6 +50,7 @@ export default Vue.extend({
   data() {
     return {
       show: this.visible,
+      styleShow: true,
       transitioning: false
     }
   },
@@ -60,6 +61,9 @@ export default Vue.extend({
         collapse: !this.transitioning,
         show: this.show && !this.transitioning
       }
+    },
+    computedState() {
+      return this.show && this.styleShow
     }
   },
   watch: {
@@ -76,14 +80,14 @@ export default Vue.extend({
   },
   created() {
     this.show = this.visible
+  },
+  mounted() {
+    this.show = this.visible
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
-  },
-  mounted() {
-    this.show = this.visible
-    if (this.isNav && isBrowser) {
+    if (this.isNav) {
       // Set up handlers
       this.setWindowEvents(true)
       this.handleResize()
@@ -105,12 +109,12 @@ export default Vue.extend({
     this.emitSync()
   },
   deactivated() /* istanbul ignore next */ {
-    if (this.isNav && isBrowser) {
+    if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
   activated() /* istanbul ignore next */ {
-    if (this.isNav && isBrowser) {
+    if (this.isNav) {
       this.setWindowEvents(true)
     }
     this.emitSync()
@@ -127,20 +131,6 @@ export default Vue.extend({
       const method = on ? eventOn : eventOff
       method(window, 'resize', this.handleResize, EventOptions)
       method(window, 'orientationchange', this.handleResize, EventOptions)
-      /*
-      if (this.unwatchRte) {
-        this.unwatchRte()
-        this.unwatchRte = null
-      }
-      if (this.isNav && this.$router) {
-        this.unwatchRte = this.$watch('$route', (newVal, oldVal) => {
-          if (newVal !== oldVal) {
-            // If route has changed, we force collapse to close
-            this.show = false
-          }
-        })
-      }
-      */
     },
     toggle() {
       this.show = !this.show
@@ -176,7 +166,7 @@ export default Vue.extend({
     emitState() {
       this.$emit('input', this.show)
       // Let v-b-toggle know the state of this collapse
-      this.$root.$emit(EVENT_STATE, this.id, this.show)
+      this.$root.$emit(EVENT_STATE, this.id, this.computedState)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
         this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion)
@@ -186,7 +176,7 @@ export default Vue.extend({
       // Emit a private event every time this component updates to ensure
       // the toggle button is in sync with the collapse's state
       // It is emitted regardless if the visible state changes
-      this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+      this.$root.$emit(EVENT_STATE_SYNC, this.id, this.computedState)
     },
     clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
@@ -223,7 +213,7 @@ export default Vue.extend({
     },
     handleResize() {
       // Handler for orientation/resize to set collapsed state in nav/navbar
-      this.show = getCS(this.$el).display === 'block'
+      this.styleShow = getCS(this.$el).display === 'block'
     }
   },
   render(h) {
@@ -231,7 +221,7 @@ export default Vue.extend({
       this.tag,
       {
         class: this.classObject,
-        directives: [{ name: 'show', value: this.show }],
+        directives: [{ name: 'show', value: this.computedState }],
         attrs: { id: this.id || null },
         on: { click: this.clickHandler }
       },
