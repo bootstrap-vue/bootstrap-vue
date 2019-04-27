@@ -20,6 +20,7 @@ export const props = {
 export default Vue.extend({
   name: 'BDropdownHeader',
   functional: true,
+  inheritAttrs: false,
   props,
   render(h, { props, data, children }) {
     return h('li', [
