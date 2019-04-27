@@ -415,6 +415,7 @@ describe('collapse', () => {
       render(h) {
         return h('div', {}, [
           // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
           h('style', {}, '.collapse { display: none; } .collapse.show { display: block; }'),
           h(
             BCollapse,
@@ -425,7 +426,7 @@ describe('collapse', () => {
                 visible: true
               }
             },
-            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link'))]
+            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link')]
           )
         ])
       }
