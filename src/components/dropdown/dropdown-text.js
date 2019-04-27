@@ -8,6 +8,10 @@ export default Vue.extend({
     tag: {
       type: String,
       default: 'p'
+    },
+    variant: {
+      type: String,
+      default: null
     }
   },
   render(h, { props, data, children }) {
@@ -16,6 +20,9 @@ export default Vue.extend({
         props.tag,
         mergeData(data, {
           staticClass: 'b-dropdown-text',
+          class: {
+            [`text-${this.variant}`]: this.variant
+          },
           props,
           ref: 'text'
         }),
