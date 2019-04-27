@@ -88,7 +88,6 @@ export default Vue.extend({
     }
   },
   render(h) {
-    const $slots = this.$slots
     const options = this.formOptions.map((option, index) => {
       return h('option', {
         key: `option_${index}_opt`,
