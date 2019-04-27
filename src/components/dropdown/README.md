@@ -327,10 +327,11 @@ may break layout and/or keyboard navigation.
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `<b-dropdown-item>`        | Action items that provide click, link, and `<router-link>`/`<nuxt-link>` functionality. Renders as an `<a>` element by default. | `<b-dd-item>`                                                    |
 | `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element.                                      | `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>` |
-| `<b-dropdown-header>`      | A header item, used to help identify a group of dropdown items.                                                                 | `<b-dd-header>`                                                  |
 | `<b-dropdown-divider>`     | A divider / spacer which can be used to separate dropdown items.                                                                | `<b-dd-divider>`                                                 |
 | `<b-dropdown-text>`        | Free flowing text content in a menu.                                                                                            | `<b-dd-text>`                                                    |
 | `<b-dropdown-form>`        | For placing form controls within a dropdown menu.                                                                               | `<b-dd-form>`                                                    |
+| `<b-dropdown-group>`       | For grouping dropdown sub components with an optional header.                                                                   | `<b-dd-group>`                                                   |
+| `<b-dropdown-header>`      | A header item, used to help identify a group of dropdown items.                                                                 | `<b-dd-header>`                                                  |
 
 **Note:** _Nested sub-menus are **not** supported._
 
@@ -385,31 +386,6 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
 
 <!-- b-dropdown-item-divider.vue -->
 ```
-
-### `<b-dropdown-item-header>`
-
-Add a header to label sections of actions in any dropdown menu.
-
-```html
-<div>
-  <b-dropdown id="dropdown-header" text="Dropdown with header" class="m-2">
-    <b-dropdown-header id="dropdown-header-label">
-      Dropdown header
-    </b-dropdown-header>
-    <b-dropdown-item-button aria-describedby="dropdown-header-label">
-      First item
-    </b-dropdown-item-button>
-    <b-dropdown-item-button aria-describedby="dropdown-header-label">
-      Second Item
-    </b-dropdown-item-button>
-  </b-dropdown>
-</div>
-
-<!-- b-dropdown-item-header.vue -->
-```
-
-See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility) for details on
-making headers more accessible for users of assistive technologies.
 
 ### `<b-dropdown-text>`
 
@@ -499,6 +475,68 @@ some basic styles which are suitable in most situations. By default it's width w
 the widest `<b-dropdown-item>` content. You may need to place additional styles or helper classes on
 the component.
 
+### `<b-dropdown-item-group>`
+
+Group a set of dropdown sub components with an optional associated header. Place a
+`<b-dropdown-divider>` between your `<b-dropdown-group>` and other groups or non-grouped
+dropdown contents
+
+```html
+<div>
+  <b-dropdown id="dropdown-header" text="Dropdown with group" class="m-2">
+    <b-dropdown-item-button>
+      Non-grouped Item
+    </b-dropdown-item-button>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-group id="dropdown-group-1" header="Group 1">
+      <b-dropdown-item-button>First Grouped item</b-dropdown-item-button>
+      <b-dropdown-item-button>Second Grouped Item</b-dropdown-item-button>
+    </b-dropdown-group>
+    <b-dropdown-group id="dropdown-group-2" header="Group 2">
+      <b-dropdown-item-button>First Grouped item</b-dropdown-item-button>
+      <b-dropdown-item-button>Second Grouped Item</b-dropdown-item-button>
+    </b-dropdown-group>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>
+      Another Non-grouped Item
+    </b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-item-group.vue -->
+```
+
+Using `<b-dropdown-group>` instead of `<b-dropdown-header>` is the recommended method for providing
+accessible grouped items with a header.
+
+### `<b-dropdown-item-header>`
+
+Add a header to label sections of actions in any dropdown menu.
+
+```html
+<div>
+  <b-dropdown id="dropdown-header" text="Dropdown with header" class="m-2">
+    <b-dropdown-header id="dropdown-header-label">
+      Dropdown header
+    </b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      First item
+    </b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      Second Item
+    </b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-item-header.vue -->
+```
+
+See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility) for details on
+making headers more accessible for users of assistive technologies.
+
+Using the `<b-dropdown-group>` sub-component simplifies creating accessible grouped dropdown items
+with an associated header.
+
 #### Closing the menu via form interaction
 
 Clicking buttons inside of a `<b-dropdown-form>` will not automatically close the menu. If you need
@@ -568,6 +606,8 @@ dropdown item:
 
 <!-- b-dropdown-aria.vue -->
 ```
+As a simplified alternative, use the `<b-dropdown-group>` instead to easily associate header text
+to the contained dropdown sub-components.
 
 ### Keyboard navigation
 
