@@ -12,6 +12,15 @@
   z-index: 999999;
 }
 
+@media (min-width: 768px) {
+  .bd-links {
+    // Change 'max-height' to 'height' to prevent occasional
+    // collapse shrink/grow effect
+    // max-height: calc(100vh - 9rem);
+    height: calc(100vh - 9rem);
+  }
+}
+
 .hljs {
   overflow-x: auto;
   position: relative;
