@@ -12,6 +12,7 @@ export const props = {
 export default Vue.extend({
   name: 'BDropdownDivider',
   functional: true,
+  inheritAttrs: false,
   props,
   render(h, { props, data }) {
     return h('li', [
