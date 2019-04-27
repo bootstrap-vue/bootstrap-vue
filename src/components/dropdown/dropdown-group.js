@@ -33,6 +33,7 @@ export const props = {
 export default Vue.extend({
   name: 'BDropdownGroup',
   functional: true,
+  inheritAttrs: false,
   props,
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
