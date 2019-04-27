@@ -473,6 +473,72 @@ describe('collapse', () => {
     wrapper.destroy()
   })
 
+  it('should not close when clicking on nav-link prop is-nav is set & collapse is display block important', async () => {
+    const localVue = CreateLocalVue()
+    const App = localVue.extend({
+      render(h) {
+        return h('div', {}, [
+          // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
+          h(
+            'style',
+            { attrs: { type: 'text/css' } },
+            '.d-block { display: block !important; } .collapse:not(.show) { display: none; } .bv-d-none-not-important { display: none; }'
+          ),
+          h(
+            BCollapse,
+            {
+              class: 'd-block',
+              props: {
+                id: 'test',
+                isNav: true,
+                visible: true
+              }
+            },
+            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link')]
+          )
+        ])
+      }
+    })
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $collapse = wrapper.find(BCollapse)
+    expect($collapse.isVueInstance()).toBe(true)
+
+    expect(wrapper.find('style').exists()).toBe(true)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($collapse.classes()).toContain('show')
+    expect($collapse.element.style.display).toEqual('')
+    expect($collapse.find('.nav-link').exists()).toBe(true)
+
+    // Click on link
+    wrapper.find('.nav-link').trigger('click')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($collapse.classes()).toContain('show')
+    expect($collapse.element.style.display).not.toEqual('none')
+    expect($collapse.element.style.display).toEqual('')
+
+    wrapper.destroy()
+  })
+
   it('should not respond to root toggle event that does not match ID', async () => {
     const wrapper = mount(BCollapse, {
       attachToDocument: true,
