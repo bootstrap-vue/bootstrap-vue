@@ -190,8 +190,9 @@
     "Tag",
     "Toast",
     "Tooltip",
+    "vue-bootstrap",
     "vue-strap",
-    "vueify",
+    "vuetify",
     "vuestrap"
   ],
   "collective": {
