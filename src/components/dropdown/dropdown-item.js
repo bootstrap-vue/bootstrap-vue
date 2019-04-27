@@ -12,7 +12,13 @@ export default Vue.extend({
       default: null
     }
   },
-  props,
+  props: {
+    ...props,
+    variant: {
+      type: String,
+      default: null
+    }
+  },
   methods: {
     closeDropdown() {
       // Close on next animation frame to allow <b-link> time to process
@@ -34,6 +40,9 @@ export default Vue.extend({
         {
           props: this.$props,
           staticClass: 'dropdown-item',
+          class: {
+            [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+          },
           attrs: { role: 'menuitem' },
           on: { click: this.onClick },
           ref: 'item'
