@@ -115,7 +115,7 @@
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.11",
     "marked": "^0.6.2",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "nuxt": "^2.6.3",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
