@@ -416,7 +416,11 @@ describe('collapse', () => {
         return h('div', {}, [
           // JSDOM supports getComputedStyle when using stylesheets (non responsive)
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
-          h('style', {}, '.collapse { display: none; } .collapse.show { display: block; }'),
+          h(
+            'style',
+            { attrs: { type: 'text/css' } },
+            '.collapse:not(.show) { display: none; }'
+          ),
           h(
             BCollapse,
             {
@@ -433,6 +437,7 @@ describe('collapse', () => {
     })
     const wrapper = mount(App, {
       attachToDocument: true,
+      localVue: localVue,
       stubs: {
         // Disable use of default test transitionStub component
         transition: false
@@ -442,6 +447,8 @@ describe('collapse', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     const $collapse = wrapper.find(BCollapse)
     expect($collapse.isVueInstance()).toBe(true)
+
+    expect(wrapper.find('style').exists()).toBe(true)
 
     await waitNT(wrapper.vm)
     await waitRAF()
