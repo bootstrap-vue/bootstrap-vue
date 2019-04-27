@@ -1,12 +1,13 @@
 import Vue from '../../utils/vue'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import toolpopMixin from '../../mixins/toolpop'
 
 // @vue/component
 export default Vue.extend({
   name: 'BTooltip',
-  mixins: [toolpopMixin],
+  mixins: [toolpopMixin, normalizeSlotMixin],
   props: {
     title: {
       type: String,
@@ -42,7 +43,7 @@ export default Vue.extend({
     return h(
       'div',
       { class: ['d-none'], style: { display: 'none' }, attrs: { 'aria-hidden': true } },
-      [h('div', { ref: 'title' }, this.$slots.default)]
+      [h('div', { ref: 'title' }, this.normalizeSlot('default'))]
     )
   }
 })
