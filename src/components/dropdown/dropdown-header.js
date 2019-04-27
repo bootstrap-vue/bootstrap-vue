@@ -31,7 +31,10 @@ export default Vue.extend({
           class: {
             [`text-${props.variant}`]: props.variant
           },
-          attrs: { id: props.id || null },
+          attrs: {
+            id: props.id || null,
+            role: 'heading'
+          },
           ref: 'header'
         }),
         children
