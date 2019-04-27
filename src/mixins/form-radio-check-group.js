@@ -1,5 +1,5 @@
 import { htmlOrText } from '../utils/html'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import normalizeSlotMixin from './normalize-slot'
 import BFormCheckbox from '../components/form-checkbox/form-checkbox'
 import BFormRadio from '../components/form-radio/form-radio'
 
