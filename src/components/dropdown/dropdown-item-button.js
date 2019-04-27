@@ -22,6 +22,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItemButton',
+  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
@@ -50,6 +51,7 @@ export default Vue.extend({
             [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
           },
           attrs: {
+            ...this.$attrs,
             role: 'menuitem',
             type: 'button',
             disabled: this.disabled
