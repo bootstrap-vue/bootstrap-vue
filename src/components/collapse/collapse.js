@@ -127,6 +127,7 @@ export default Vue.extend({
       const method = on ? eventOn : eventOff
       method(window, 'resize', this.handleResize, EventOptions)
       method(window, 'orientationchange', this.handleResize, EventOptions)
+      /*
       if (this.unwatchRte) {
         this.unwatchRte()
         this.unwatchRte = null
@@ -139,6 +140,7 @@ export default Vue.extend({
           }
         })
       }
+      */
     },
     toggle() {
       this.show = !this.show
