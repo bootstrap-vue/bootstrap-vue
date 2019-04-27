@@ -178,7 +178,7 @@ alignment and horizontal spacing for strings of text.
 
 ```html
 <div>
-  <b-navbar toggleable type="light" variant="light">
+  <b-navbar toggleable="sm" type="light" variant="light">
     <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
 
     <b-navbar-brand>BootstrapVue</b-navbar-brand>
@@ -247,8 +247,8 @@ Input groups work as well:
 <div>
   <b-navbar type="light" variant="light">
     <b-nav-form>
-      <b-input-group left="@">
-        <b-form-input class="mr-sm-2" placeholder="Username"></b-form-input>
+      <b-input-group prepend="@">
+        <b-form-input placeholder="Username"></b-form-input>
       </b-input-group>
     </b-nav-form>
   </b-navbar>
