@@ -162,42 +162,6 @@ to "break-out" of its scroll container. In some situations this may affect your 
 positioning of the dropdown trigger button. In these cases you may need to wrap your dropdown inside
 another element.
 
-## Dropdown color variants
-
-The dropdown toggle button can have one of the standard Bootstrap contextual variants applied by
-setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link`, `outline-dark`, etc.
-(or custom variants, if defined). The default variant is `secondary`.
-
-See the [Variant Reference](/docs/reference/color-variants) for a full list of built-in contextual
-variants.
-
-```html
-<div>
-  <b-dropdown text="Primary" variant="primary" class="m-2">
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here</b-dropdown-item>
-  </b-dropdown>
-
-  <b-dropdown text="Success" variant="success" class="m-2">
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here</b-dropdown-item>
-  </b-dropdown>
-
-  <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here</b-dropdown-item>
-  </b-dropdown>
-</div>
-
-<!-- b-dropdown-variants.vue -->
-```
-
-You can also apply arbitrary classes to the toggle button via the `toggle-class` prop. This prop
-accepts either a string or array of strings.
-
 ## Split button support
 
 Create a split dropdown button, where the left button provides standard `click` event and link
@@ -213,29 +177,6 @@ support, while the right hand side is the dropdown menu toggle button.
 </div>
 
 <!-- b-dropdown-split.vue -->
-```
-
-### Split button color variant
-
-By default the left split button uses the same `variant` as the `toggle` button. You can give the
-split button its own variant via the `split-variant` prop.
-
-```html
-<div>
-  <b-dropdown
-    split
-    split-variant="outline-primary"
-    variant="primary"
-    text="Split Variant Dropdown"
-    class="m-2"
-  >
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
-  </b-dropdown>
-</div>
-
-<!-- b-dropdown-split-variant.vue -->
 ```
 
 ### Split button link support
@@ -256,7 +197,11 @@ router link `to` value via the `split-to` prop, while maintaining the look of a 
 <!-- b-dropdown-split-link.vue -->
 ```
 
-## Sizing
+## Styling options
+
+Dropdowns support various props for styling the dropdown trigger button.
+
+### Sizing
 
 Dropdowns work with trigger buttons of all sizes, including default and split dropdown buttons.
 
@@ -297,7 +242,71 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 **Note:** _changing the size of the button(s) does not affect the size of the menu items!_
 
-## Hidden caret
+### Dropdown color variants
+
+The dropdown toggle button can have one of the standard Bootstrap contextual variants applied by
+setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link`, `outline-dark`, etc.
+(or custom variants, if defined). The default variant is `secondary`.
+
+See the [Variant Reference](/docs/reference/color-variants) for a full list of built-in contextual
+variants.
+
+```html
+<div>
+  <b-dropdown text="Primary" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown text="Success" variant="success" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-variants.vue -->
+```
+
+You can also apply arbitrary classes to the toggle button via the `toggle-class` prop. This prop
+accepts either a string or array of strings.
+
+### Split button color variant
+
+By default the left split button uses the same `variant` as the `toggle` button. You can give the
+split button its own variant via the `split-variant` prop.
+
+```html
+<div>
+  <b-dropdown
+    split
+    split-variant="outline-primary"
+    variant="primary"
+    text="Split Variant Dropdown"
+    class="m-2"
+  >
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-split-variant.vue -->
+```
+
+### Dropdown sub-component color variants
+
+Many of the supported dropdown [sub-components](#dropdown-supported-sub-components) provide a
+`variant` prop for controling their text color.
+
+### Hidden caret
 
 The dropdown can be created with the toggle's caret visually hidden by setting the `no-caret` prop
 to `true`. This is useful when the dropdown is to be displayed as an icon.
