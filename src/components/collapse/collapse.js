@@ -1,7 +1,17 @@
 import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import { isBrowser } from '../../utils/env'
-import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
+import {
+  addClass,
+  removeClass,
+  closest,
+  matches,
+  reflow,
+  getCS,
+  getBCR,
+  eventOn,
+  eventOff
+} from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
