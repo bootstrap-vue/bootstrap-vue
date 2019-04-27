@@ -16,7 +16,7 @@ export const props = {
     default: 'header'
   },
   headerVariant: {
-    type: string,
+    type: String,
     default: null
   },
   headerClasses: {
@@ -46,10 +46,7 @@ export default Vue.extend({
         props.headerTag,
         {
           staticClass: 'dropdown-header',
-          class: [
-            props.headerClasses,
-            { [`text-${props.variant}`]: props.variant }
-          ],
+          class: [props.headerClasses, { [`text-${props.variant}`]: props.variant }],
           attrs: { id: headerId }
         },
         normalizeSlot('header', {}, $scopedSlots, $slots) || props.header
