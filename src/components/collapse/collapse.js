@@ -174,6 +174,12 @@ export default Vue.extend({
       // It is emitted regardless if the visible state changes
       this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
     },
+    checkDisplayBlock() {
+      // Chek to see if the collapse has `display: block !important;` set
+      addClass(this.$el, 'bv-d-none-not-important')
+      const isVisible = getCS(this.$el).display === 'block'
+      removeClass(this.$el, 'bv-d-none-not-important')
+    },
     clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       const el = evt.target
@@ -182,7 +188,10 @@ export default Vue.extend({
         return
       }
       if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
-        this.show = false
+        if (!this.checkDisplayBlock()) {
+          // Only close the collapse if it is not forced to be 'display: block !important;'
+          this.show = false
+        }
       }
     },
     handleToggleEvt(target) {
