@@ -33,7 +33,6 @@
           <b-link
             :to="buildUrl('/docs/', [group.base, page.slug])"
             :exact="group.exact"
-            class="nav-link"
             active-class=""
           >
             {{ page.title }}
