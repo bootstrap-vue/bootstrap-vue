@@ -313,9 +313,8 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 
 ```html
 <div>
-  <b-dropdown variant="link" size="lg" no-caret>
+  <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
     <template slot="button-content">&#x1f50d;<span class="sr-only">Search</span></template>
-
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
