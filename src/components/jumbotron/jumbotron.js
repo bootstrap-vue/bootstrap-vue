@@ -84,11 +84,9 @@ export default Vue.extend({
               [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
             }
           },
-          (
-            normalizeSlot('header', {}, $scopedSlots, $slots) ||
+          normalizeSlot('header', {}, $scopedSlots, $slots) ||
             props.headerHtml ||
             stripTags(props.header)
-          )
         )
       )
     }
