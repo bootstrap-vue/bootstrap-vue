@@ -533,7 +533,6 @@ describe('collapse', () => {
     await waitRAF()
 
     expect($collapse.classes()).toContain('show')
-    expect($collapse.element.style.display).not.toEqual('none')
     expect($collapse.element.style.display).toEqual('')
 
     wrapper.destroy()
