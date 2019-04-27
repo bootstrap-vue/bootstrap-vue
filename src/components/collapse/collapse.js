@@ -127,6 +127,18 @@ export default Vue.extend({
       const method = on ? eventOn : eventOff
       method(window, 'resize', this.handleResize, EventOptions)
       method(window, 'orientationchange', this.handleResize, EventOptions)
+      if (this.unwatchRte) {
+        this.unwatchRte()
+        this.unwatchRte = null
+      }
+      if (this.isNav && this.$router) {
+        this.unwatchRte = this.$watch('$route', (newVal, oldVal) => {
+          if (newVal !== oldVal) {
+            // If route has changed, we force collapse to close
+            this.show = false
+          }
+        })
+      }
     },
     toggle() {
       this.show = !this.show
