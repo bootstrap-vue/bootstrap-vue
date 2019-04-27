@@ -419,7 +419,7 @@ describe('collapse', () => {
           h(
             'style',
             { attrs: { type: 'text/css' } },
-            '.collapse:not(.show) { display: none; }'
+            '.collapse:not(.show) { display: none; } .bv-d-none-not-important { display: none; }'
           ),
           h(
             BCollapse,
