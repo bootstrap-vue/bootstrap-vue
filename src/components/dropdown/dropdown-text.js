@@ -21,7 +21,7 @@ export default Vue.extend({
         mergeData(data, {
           staticClass: 'b-dropdown-text',
           class: {
-            [`text-${this.variant}`]: this.variant
+            [`text-${this.variant}`]: props.variant
           },
           props,
           ref: 'text'
