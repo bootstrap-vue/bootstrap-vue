@@ -479,11 +479,12 @@ describe('collapse', () => {
       render(h) {
         return h('div', {}, [
           // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // Although it appears to be picky about CSS definition ordering
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
           h(
             'style',
             { attrs: { type: 'text/css' } },
-            '.d-block { display: block !important; } .collapse:not(.show) { display: none; } .bv-d-none-not-important { display: none; }'
+            '.collapse:not(.show) { display: none; } .bv-d-none-not-important { display: none; } .d-block { display: block !important; }'
           ),
           h(
             BCollapse,
