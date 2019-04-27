@@ -177,8 +177,9 @@ export default Vue.extend({
     checkDisplayBlock() {
       // Chek to see if the collapse has `display: block !important;` set
       addClass(this.$el, 'bv-d-none-not-important')
-      const isVisible = getCS(this.$el).display === 'block'
+      const isBlock = getCS(this.$el).display === 'block'
       removeClass(this.$el, 'bv-d-none-not-important')
+      return isBlock
     },
     clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
