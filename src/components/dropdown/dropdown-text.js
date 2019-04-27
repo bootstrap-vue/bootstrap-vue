@@ -4,6 +4,7 @@ import { mergeData } from 'vue-functional-data-merge'
 export default Vue.extend({
   name: 'BDropdownText',
   functional: true,
+  inheritAttrs: false,
   props: {
     tag: {
       type: String,
