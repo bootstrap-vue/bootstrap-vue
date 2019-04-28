@@ -24,8 +24,7 @@ const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
   external: externals,
-  plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })],
-  banner: bannerComment
+  plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
 }
 
 // Ensure dist directory exists
@@ -42,6 +41,7 @@ export default [
       format: 'umd',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.js`),
+      banner: bannerComment,
       sourcemap: true,
       globals: {
         vue: 'Vue'
@@ -57,6 +57,7 @@ export default [
       format: 'cjs',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.common.js`),
+      banner: bannerComment,
       sourcemap: true
     }
   },
@@ -67,6 +68,7 @@ export default [
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),
+      banner: bannerComment,
       sourcemap: true
     }
   }
