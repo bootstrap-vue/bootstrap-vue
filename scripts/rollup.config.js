@@ -10,7 +10,6 @@ import bannerComment from './banner'
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
-const scripts = path.resolve(base, 'scripts')
 
 const externals = ['vue', ...Object.keys(dependencies)]
 
