@@ -12,4 +12,4 @@ const banner = `/*!
  */
 `
 
-export default banner
+module.exports = banner
