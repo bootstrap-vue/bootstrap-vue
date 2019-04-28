@@ -16,6 +16,7 @@ echo ''
 
 echo 'Build ES modules...'
 NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
+cat scripts/banner.txt es/index.js > es/tmp.js && mv es/tmp.js es/index.js
 echo 'Done.'
 echo ''
 

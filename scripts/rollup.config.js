@@ -12,6 +12,8 @@ const dist = path.resolve(base, 'dist')
 
 const externals = ['vue', ...Object.keys(dependencies)]
 
+const bannerComment = fs.readFileSync(path.resolve(__dirname, 'banner.txt'), 'utf8')
+
 // Libs in `external` will not be bundled to dist, since they
 // are expected to be provided later
 // In some cases, wee want to include some of them in the build,
@@ -39,6 +41,7 @@ export default [
       format: 'umd',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.js`),
+      banner: bannerComment,
       sourcemap: true,
       globals: {
         vue: 'Vue'
@@ -54,6 +57,7 @@ export default [
       format: 'cjs',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.common.js`),
+      banner: bannerComment,
       sourcemap: true
     }
   },
@@ -64,6 +68,7 @@ export default [
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),
+      banner: bannerComment,
       sourcemap: true
     }
   }
