@@ -1,11 +1,12 @@
 import Vue from '../../utils/vue'
 import formOptionsMixin from '../../mixins/form-options'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default Vue.extend({
   name: 'BFormDatalist',
-  mixins: [formOptionsMixin],
+  mixins: [formOptionsMixin, normalizeSlotMixin],
   props: {
     id: {
       type: String,
@@ -21,6 +22,6 @@ export default Vue.extend({
         domProps: { ...htmlOrText(option.html, option.text), value: option.value }
       })
     })
-    return h('datalist', { attrs: { id: this.id } }, [options, this.$slots.default])
+    return h('datalist', { attrs: { id: this.id } }, [options, this.normalizeSlot('default')])
   }
 })

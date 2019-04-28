@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
+import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import Container from '../layout/container'
 
 const NAME = 'BJumbotron'
@@ -66,14 +67,15 @@ export default Vue.extend({
   name: NAME,
   functional: true,
   props,
-  render(h, { props, data, slots }) {
+  render(h, { props, data, slots, scopedSlots }) {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
     const $slots = slots()
+    const $scopedSlots = scopedSlots || {}
 
     // Header
-    if (props.header || $slots.header || props.headerHtml) {
+    if (props.header || hasNormalizedSlot('header', $scopedSlots, $slots) || props.headerHtml) {
       childNodes.push(
         h(
           props.headerTag,
@@ -82,25 +84,27 @@ export default Vue.extend({
               [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
             }
           },
-          $slots.header || props.headerHtml || stripTags(props.header)
+          normalizeSlot('header', {}, $scopedSlots, $slots) ||
+            props.headerHtml ||
+            stripTags(props.header)
         )
       )
     }
 
     // Lead
-    if (props.lead || $slots.lead || props.leadHtml) {
+    if (props.lead || hasNormalizedSlot('lead', $scopedSlots, $slots) || props.leadHtml) {
       childNodes.push(
         h(
           props.leadTag,
           { staticClass: 'lead' },
-          $slots.lead || props.leadHtml || stripTags(props.lead)
+          normalizeSlot('lead', {}, $scopedSlots, $slots) || props.leadHtml || stripTags(props.lead)
         )
       )
     }
 
     // Default slot
-    if ($slots.default) {
-      childNodes.push($slots.default)
+    if (hasNormalizedSlot('default', $scopedSlots, $slots)) {
+      childNodes.push(normalizeSlot('default', {}, $scopedSlots, $slots))
     }
 
     // If fluid, wrap content in a container/container-fluid

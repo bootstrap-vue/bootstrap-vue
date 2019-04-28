@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import PopOver from '../../utils/popover.class'
 import warn from '../../utils/warn'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import toolpopMixin from '../../mixins/toolpop'
 
 export const props = {
@@ -25,7 +26,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BPopover',
-  mixins: [toolpopMixin],
+  mixins: [toolpopMixin, normalizeSlotMixin],
   props,
   data() {
     return {}
@@ -53,8 +54,8 @@ export default Vue.extend({
         attrs: { 'aria-hidden': true }
       },
       [
-        h('div', { ref: 'title' }, this.$slots.title),
-        h('div', { ref: 'content' }, this.$slots.default)
+        h('div', { ref: 'title' }, this.normalizeSlot('title')),
+        h('div', { ref: 'content' }, this.normalizeSlot('default'))
       ]
     )
   }

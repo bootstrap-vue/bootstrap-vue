@@ -4,6 +4,7 @@ import prefixPropName from '../../utils/prefix-prop-name'
 import unPrefixPropName from '../../utils/unprefix-prop-name'
 import copyProps from '../../utils/copy-props'
 import pluckProps from '../../utils/pluck-props'
+import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import cardMixin from '../../mixins/card-mixin'
 import BCardBody, { props as bodyProps } from './card-body'
 import BCardHeader, { props as headerProps } from './card-header'
@@ -34,8 +35,10 @@ export default Vue.extend({
   name: 'BCard',
   functional: true,
   props,
-  render(h, { props, data, slots }) {
+  render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
+    // Vue < 2.6.x may return undefined for scopedSlots
+    const $scopedSlots = scopedSlots || {}
 
     // Create placeholder elements for each section
     let imgFirst = h(false)
@@ -55,24 +58,27 @@ export default Vue.extend({
       }
     }
 
-    if (props.header || $slots.header) {
-      header = h(BCardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
+    if (props.header || hasNormalizedSlot('header', $scopedSlots, $slots)) {
+      header = h(
+        BCardHeader,
+        { props: pluckProps(headerProps, props) },
+        normalizeSlot('header', {}, $scopedSlots, $slots)
+      )
     }
 
-    if (props.noBody) {
-      content = $slots.default || []
-    } else {
+    content = normalizeSlot('default', {}, $scopedSlots, $slots) || []
+    if (!props.noBody) {
       // Wrap content in card-body
-      content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, $slots.default)]
+      content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, [...content])]
     }
 
-    if (props.footer || $slots.footer) {
+    if (props.footer || hasNormalizedSlot('footer', $scopedSlots, $slots)) {
       footer = h(
         BCardFooter,
         {
           props: pluckProps(footerProps, props)
         },
-        $slots.footer
+        normalizeSlot('footer', {}, $scopedSlots, $slots)
       )
     }
 

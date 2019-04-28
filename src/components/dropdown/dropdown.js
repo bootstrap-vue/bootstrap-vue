@@ -3,6 +3,7 @@ import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButton from '../button/button'
 
 const NAME = 'BDropdown'
@@ -68,7 +69,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, dropdownMixin],
+  mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
     dropdownClasses() {
@@ -111,6 +112,11 @@ export default Vue.extend({
   },
   render(h) {
     let split = h(false)
+    const buttonContent =
+      this.normalizeSlot('button-content') ||
+      this.normalizeSlot('text') ||
+      this.html ||
+      stripTags(this.text)
     if (this.split) {
       const btnProps = {
         disabled: this.disabled,
@@ -136,7 +142,7 @@ export default Vue.extend({
             click: this.click
           }
         },
-        [this.$slots['button-content'] || this.$slots.text || this.html || stripTags(this.text)]
+        [buttonContent]
       )
     }
     const toggle = h(
@@ -160,11 +166,7 @@ export default Vue.extend({
           keydown: this.toggle // enter, space, down
         }
       },
-      [
-        this.split
-          ? h('span', { class: ['sr-only'] }, [this.toggleText])
-          : this.$slots['button-content'] || this.$slots.text || this.html || stripTags(this.text)
-      ]
+      [this.split ? h('span', { class: ['sr-only'] }, [this.toggleText]) : buttonContent]
     )
     const menu = h(
       'ul',
@@ -181,7 +183,7 @@ export default Vue.extend({
           keydown: this.onKeydown // tab, up, down, esc
         }
       },
-      [this.$slots.default]
+      this.normalizeSlot('default')
     )
     return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
       split,

@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
+import { normalizeSlot } from '../../utils/normalize-slot'
 
 const NAME = 'BSpinner'
 
@@ -34,18 +35,19 @@ export default Vue.extend({
       default: 'span'
     }
   },
-  render(h, { props, data, slots }) {
-    let label = h(false)
-    const hasLabel = slots().label || props.label
-    if (hasLabel) {
-      label = h('span', { staticClass: 'sr-only' }, hasLabel)
+  render(h, { props, data, slots, scopedSlots }) {
+    const $slots = slots()
+    const $scopedSlots = scopedSlots || {}
+    let label = normalizeSlot('label', {}, $scopedSlots, $slots) || props.label
+    if (label) {
+      label = h('span', { staticClass: 'sr-only' }, label)
     }
     return h(
       props.tag,
       mergeData(data, {
         attrs: {
-          role: hasLabel ? props.role || 'status' : null,
-          'aria-hidden': hasLabel ? null : 'true'
+          role: label ? props.role || 'status' : null,
+          'aria-hidden': label ? null : 'true'
         },
         class: {
           [`spinner-${props.type}`]: Boolean(props.type),
@@ -53,7 +55,7 @@ export default Vue.extend({
           [`text-${props.variant}`]: Boolean(props.variant)
         }
       }),
-      [label]
+      [label || h(false)]
     )
   }
 })

@@ -104,9 +104,7 @@ export default {
           isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
             ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
             : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
-        if (slot) {
-          slot = [slot]
-        } else {
+        if (!slot) {
           data.domProps = htmlOrText(field.labelHtml)
         }
         return h('th', data, slot || field.label)
