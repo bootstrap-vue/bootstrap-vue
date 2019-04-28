@@ -8,13 +8,20 @@ export const props = linkPropsFactory()
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItem',
+  inheritAttrs: false,
   mixins: [nomalizeSlotMixin],
   inject: {
     bvDropdown: {
       default: null
     }
   },
-  props,
+  props: {
+    ...props,
+    variant: {
+      type: String,
+      default: null
+    }
+  },
   methods: {
     closeDropdown() {
       // Close on next animation frame to allow <b-link> time to process
@@ -36,7 +43,10 @@ export default Vue.extend({
         {
           props: this.$props,
           staticClass: 'dropdown-item',
-          attrs: { role: 'menuitem' },
+          class: {
+            [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+          },
+          attrs: { ...this.$attrs, role: 'menuitem' },
           on: { click: this.onClick },
           ref: 'item'
         },
