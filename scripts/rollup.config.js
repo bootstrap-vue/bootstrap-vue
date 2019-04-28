@@ -4,7 +4,7 @@ import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
-import { name, dependencies, version } from '../package.json'
+import { name, dependencies, license, version } from '../package.json'
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
@@ -14,7 +14,10 @@ const scripts = path.resolve(base, 'scripts')
 // Generate the JavaScript banner
 const year = new Date().getFullYear()
 let bannerComment = fs.readFileSync(path.resolve(scripts, 'banner.txt'), 'utf8')
-bannerComment = bannerComment.replace('{VERSION}', version).replace('{YEAR}', year)
+bannerComment = bannerComment
+  .replace('{VERSION}', version)
+  .replace('{YEAR}', year)
+  .replace('{LICENSE}', license)
 
 const externals = ['vue', ...Object.keys(dependencies)]
 
