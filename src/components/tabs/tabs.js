@@ -5,6 +5,7 @@ import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // -- Constants --
 
@@ -122,7 +123,7 @@ const BTabButtonHelper = Vue.extend({
           keydown: this.handleEvt
         }
       },
-      [this.tab.$slots.title || this.tab.title]
+      [this.tab.normalizeSlot('title') || this.tab.title]
     )
     return h(
       'li',
@@ -139,7 +140,7 @@ const BTabButtonHelper = Vue.extend({
 // @vue/component
 export default Vue.extend({
   name: 'BTabs',
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return {
       bvTabs: this
@@ -331,7 +332,7 @@ export default Vue.extend({
       }
     },
     getTabs() {
-      return (this.$slots.default || [])
+      return (this.normalizeSlot('default') || [])
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
     },
@@ -561,7 +562,7 @@ export default Vue.extend({
           small: this.small
         }
       },
-      [buttons, this.$slots.tabs]
+      [buttons, this.normalizeSlot('tabs')]
     )
     nav = h(
       'div',
@@ -584,7 +585,7 @@ export default Vue.extend({
       empty = h(
         'div',
         { key: 'empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
-        this.$slots.empty
+        this.normalizeSlot('empty')
       )
     }
 
@@ -599,7 +600,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      [this.$slots.default, empty]
+      [this.normalizeSlot('default'), empty]
     )
 
     // Render final output

@@ -688,7 +688,6 @@ export default Vue.extend({
       }
     },
     makeModal(h) {
-      const $slots = this.$slots
       // Modal header
       let header = h(false)
       if (!this.hideHeader) {
@@ -710,7 +709,7 @@ export default Vue.extend({
                   }
                 }
               },
-              [$slots['modal-header-close']]
+              [this.normalizeSlot('modal-header-close', {})]
             )
           }
           modalHeader = [
@@ -765,7 +764,11 @@ export default Vue.extend({
                   }
                 }
               },
-              [$slots['modal-cancel'] || this.cancelTitleHtml || stripTags(this.cancelTitle)]
+              [
+                this.normalizeSlot('modal-cancel', {}) ||
+                  this.cancelTitleHtml ||
+                  stripTags(this.cancelTitle)
+              ]
             )
           }
           const okButton = h(
@@ -782,7 +785,7 @@ export default Vue.extend({
                 }
               }
             },
-            [$slots['modal-ok'] || this.okTitleHtml || stripTags(this.okTitle)]
+            [this.normalizeSlot('modal-ok', {}) || this.okTitleHtml || stripTags(this.okTitle)]
           )
           modalFooter = [cancelButton, okButton]
         }
@@ -885,7 +888,7 @@ export default Vue.extend({
               id: this.safeId('__BV_modal_backdrop_')
             }
           },
-          [$slots['modal-backdrop']]
+          [this.normalizeSlot('modal-backdrop', {})]
         )
       }
       // Tab trap to prevent page from scrolling to next element in

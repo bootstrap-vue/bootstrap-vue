@@ -5,13 +5,22 @@ import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { from as arrayFrom } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default Vue.extend({
   name: 'BFormSelect',
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
+  mixins: [
+    idMixin,
+    normalizeSlotMixin,
+    formMixin,
+    formSizeMixin,
+    formStateMixin,
+    formCustomMixin,
+    formOptionsMixin
+  ],
   model: {
     prop: 'value',
     event: 'input'
@@ -79,7 +88,6 @@ export default Vue.extend({
     }
   },
   render(h) {
-    const $slots = this.$slots
     const options = this.formOptions.map((option, index) => {
       return h('option', {
         key: `option_${index}_opt`,
@@ -124,7 +132,7 @@ export default Vue.extend({
           }
         }
       },
-      [$slots.first, options, $slots.default]
+      [this.normalizeSlot('first'), options, this.normalizeSlot('default')]
     )
   }
 })
