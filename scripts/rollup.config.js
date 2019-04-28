@@ -5,6 +5,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
 import { name, dependencies } from '../package.json'
+import bannerComment from './banner.txt'
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
@@ -18,25 +19,12 @@ const externals = ['vue', ...Object.keys(dependencies)]
 // so we exclude the external here
 const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-data-merge']
 
-const banner = `
-/*!
- * BoostrapVue V2
- *
- * @link https://bootstrap-vue.js.org/
- * @source https://github.com/bootstrap-vue/bootstrap-vue
- * @copyright (c) 2016-2019 BootstrapVue
- * @license MIT
- * Licensed under the MIT License
- * https://github.com/bootstrap-vue/bootstrap-vue/blob/dev/LICENSE
- */
-`
-
 // The base rollup configuration
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
   external: externals,
   plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })],
-  banner: banner
+  banner: bannerComment
 }
 
 // Ensure dist directory exists
