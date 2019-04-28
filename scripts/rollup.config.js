@@ -5,7 +5,6 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
 import { name, dependencies } from '../package.json'
-import bannerComment from './banner.txt'
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
@@ -13,6 +12,8 @@ const dist = path.resolve(base, 'dist')
 
 const externals = ['vue', ...Object.keys(dependencies)]
 
+const bannerComment = fs.readFileSync(path.resolve(__dirname, 'banner.txt'), 'utf8')
+                                                          
 // Libs in `external` will not be bundled to dist, since they
 // are expected to be provided later
 // In some cases, wee want to include some of them in the build,
