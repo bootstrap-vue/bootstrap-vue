@@ -1,5 +1,4 @@
-import pkg from '../package.json'
-
+const pkg = require('../package.json')
 const year = new Date().getFullYear()
 
 const banner = `/*!
