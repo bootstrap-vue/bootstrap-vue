@@ -12,7 +12,7 @@ const dist = path.resolve(base, 'dist')
 const scripts = path.resolve(base, 'scripts')
 
 // Generate the JavaScript banner
-const year = (new Date()).getFullYear()
+const year = new Date().getFullYear()
 let bannerComment = fs.readFileSync(path.resolve(scripts, 'banner.txt'), 'utf8')
 bannerComment = bannerComment.replace('{VERSION}', version).replace('{YEAR}', year)
 
