@@ -4,8 +4,7 @@
  * @link https://bootstrap-vue.js.org/
  * @source https://github.com/bootstrap-vue/bootstrap-vue
  * @copyright (c) 2016-{YEAR} BootstrapVue
- * @license MIT
- * Licensed under the MIT License
+ * @license {LICENSE}
  * https://github.com/bootstrap-vue/bootstrap-vue/blob/dev/LICENSE
  */
  
