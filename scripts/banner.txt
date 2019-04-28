@@ -1,7 +1,7 @@
 /*!
  * BoostrapVue {VERSION}
  *
- * @link https://bootstrap-vue.js.org/
+ * @link {HOMEPAGE}
  * @source https://github.com/bootstrap-vue/bootstrap-vue
  * @copyright (c) 2016-{YEAR} BootstrapVue
  * @license {LICENSE}
