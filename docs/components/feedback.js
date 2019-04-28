@@ -57,6 +57,6 @@ export default {
       },
       'Edit this page'
     )
-    return h('b-button-group', [$reportIssueButton, $editPageButton])
+    return h('b-button-group', { props: { side: 'sm' } }, [$reportIssueButton, $editPageButton])
   }
 }
