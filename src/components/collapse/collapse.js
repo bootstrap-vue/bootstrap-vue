@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { isBrowser } from '../../utils/env'
 import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
@@ -20,7 +21,7 @@ const EventOptions = { passive: true, capture: false }
 // @vue/component
 export default Vue.extend({
   name: 'BCollapse',
-  mixins: [listenOnRootMixin],
+  mixins: [listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
     event: 'input'
@@ -221,7 +222,7 @@ export default Vue.extend({
         attrs: { id: this.id || null },
         on: { click: this.clickHandler }
       },
-      [this.$slots.default]
+      [this.normalizeSlot('default')]
     )
     return h(
       'transition',

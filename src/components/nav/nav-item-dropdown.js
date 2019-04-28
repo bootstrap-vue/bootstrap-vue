@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
 
@@ -29,7 +30,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BNavItemDropdown',
-  mixins: [idMixin, dropdownMixin],
+  mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
     isNav() {
@@ -108,7 +109,7 @@ export default Vue.extend({
           keydown: this.onKeydown // tab, up, down, esc
         }
       },
-      [this.$slots.default]
+      [this.normalizeSlot('default')]
     )
     return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [button, menu])
   }
