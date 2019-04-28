@@ -1,9 +1,9 @@
 /*!
- * BoostrapVue V2
+ * BoostrapVue {VERSION}
  *
  * @link https://bootstrap-vue.js.org/
  * @source https://github.com/bootstrap-vue/bootstrap-vue
- * @copyright (c) 2016-2019 BootstrapVue
+ * @copyright (c) 2016-{YEAR} BootstrapVue
  * @license MIT
  * Licensed under the MIT License
  * https://github.com/bootstrap-vue/bootstrap-vue/blob/dev/LICENSE
