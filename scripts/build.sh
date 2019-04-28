@@ -2,8 +2,9 @@
 set -e
 
 BV_VERSION=$(node -p "require('./package.json').version")
+BV_LICENSE=$(node -p "require('./package.json').license")
 BV_YEAR=$(node -p "(new Date()).getFullYear()")
-BV_BANNER=$(cat scripts/banner.txt | sed -e "s/{VERSION}/${BV_VERSION}/" -e "s/{YEAR}/${BV_YEAR}/")
+BV_BANNER=$(cat scripts/banner.txt | sed -e "s/{VERSION}/${BV_VERSION}/" -e "s/{YEAR}/${BV_YEAR}/" -e "s/{LICENSE}/${BV_LICENSE/")
 
 echo "Building BootstrapVue ${BV_VERSION}"
 echo ''
