@@ -6,7 +6,7 @@ import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
 import { name, dependencies } from '../package.json'
 
-const bannerComment = require('./banner').default
+const bannerComment = require('./banner')
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
