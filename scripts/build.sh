@@ -2,7 +2,7 @@
 set -e
 
 BV_VERSION=$(node -p "require('./package.json').version")
-BV_BANNER=$(node -p "require('./scripts/banner').default")
+BV_BANNER=$(node -r esm -p "require('./scripts/banner').default")
 
 echo "Building BootstrapVue ${BV_VERSION}"
 echo ''
