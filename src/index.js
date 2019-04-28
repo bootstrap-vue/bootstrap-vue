@@ -1,3 +1,13 @@
+/*!
+ * BoostrapVue V2
+ * https://bootstrap-vue.js.org/
+ * https://github.com/bootstrap-vue/bootstrap-vue
+ *
+ * Copyright (c) 2016-2019 BootstrapVue.
+ * Licensed under the MIT License.
+ * https://github.com/bootstrap-vue/bootstrap-vue/blob/dev/LICENSE
+ */
+
 import * as componentPlugins from './components'
 import * as directivePlugins from './directives'
 import { registerPlugins, vueUse } from './utils/plugins'
