@@ -13,7 +13,7 @@ const dist = path.resolve(base, 'dist')
 const externals = ['vue', ...Object.keys(dependencies)]
 
 const bannerComment = fs.readFileSync(path.resolve(__dirname, 'banner.txt'), 'utf8')
-                                                          
+
 // Libs in `external` will not be bundled to dist, since they
 // are expected to be provided later
 // In some cases, wee want to include some of them in the build,
