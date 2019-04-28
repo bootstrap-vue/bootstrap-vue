@@ -8,8 +8,8 @@ export const props = linkPropsFactory()
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItem',
-  inheritAttrs: false,
   mixins: [nomalizeSlotMixin],
+  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
