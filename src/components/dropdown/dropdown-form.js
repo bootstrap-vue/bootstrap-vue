@@ -5,6 +5,7 @@ import { mergeData } from 'vue-functional-data-merge'
 export default Vue.extend({
   name: 'BDropdownForm',
   functional: true,
+  inheritAttrs: false,
   props: { ...formProps },
   render(h, { props, data, children }) {
     return h('li', [

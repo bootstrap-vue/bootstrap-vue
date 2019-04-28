@@ -5,6 +5,7 @@ import BDropdownHeader from './dropdown-header'
 import BDropdownDivider from './dropdown-divider'
 import BDropdownForm from './dropdown-form'
 import BDropdownText from './dropdown-text'
+import BDropdownGroup from './dropdown-group'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
@@ -23,7 +24,9 @@ const components = {
   BDropdownForm,
   BDdForm: BDropdownForm,
   BDropdownText,
-  BDdText: BDropdownText
+  BDdText: BDropdownText,
+  BDropdownGroup,
+  BDdGroup: BDropdownGroup
 }
 
 export default {

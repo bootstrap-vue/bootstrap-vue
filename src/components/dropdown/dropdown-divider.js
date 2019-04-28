@@ -12,6 +12,7 @@ export const props = {
 export default Vue.extend({
   name: 'BDropdownDivider',
   functional: true,
+  inheritAttrs: false,
   props,
   render(h, { props, data }) {
     return h('li', [
@@ -19,7 +20,10 @@ export default Vue.extend({
         props.tag,
         mergeData(data, {
           staticClass: 'dropdown-divider',
-          attrs: { role: 'separator' },
+          attrs: {
+            role: 'separator',
+            'aria-orientation': 'horizontal'
+          },
           ref: 'divider'
         })
       )
