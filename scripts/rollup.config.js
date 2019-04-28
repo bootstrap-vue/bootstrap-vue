@@ -18,11 +18,25 @@ const externals = ['vue', ...Object.keys(dependencies)]
 // so we exclude the external here
 const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-data-merge']
 
+const banner = `
+/*!
+ * BoostrapVue V2
+ *
+ * @link https://bootstrap-vue.js.org/
+ * @source https://github.com/bootstrap-vue/bootstrap-vue
+ * @copyright (c) 2016-2019 BootstrapVue
+ * @license MIT
+ * Licensed under the MIT License
+ * https://github.com/bootstrap-vue/bootstrap-vue/blob/dev/LICENSE
+ */
+`
+
 // The base rollup configuration
 const baseConfig = {
   input: path.resolve(src, 'index.js'),
   external: externals,
-  plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
+  plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })],
+  banner: banner
 }
 
 // Ensure dist directory exists
