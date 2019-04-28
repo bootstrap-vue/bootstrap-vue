@@ -4,15 +4,19 @@ import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
-import { name, dependencies } from '../package.json'
+import { name, dependencies, version } from '../package.json'
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
+const scripts = path.resolve(base, 'scripts')
+
+// Generate the JavaScript banner
+const year = (new date()).getFullYear()
+let bannerComment = fs.readFileSync(path.resolve(scripts, 'banner.txt'), 'utf8')
+bannerComment = bannerComment.replace('{VERSION}', version).replace('{YEAR}', year)
 
 const externals = ['vue', ...Object.keys(dependencies)]
-
-const bannerComment = fs.readFileSync(path.resolve(__dirname, 'banner.txt'), 'utf8')
 
 // Libs in `external` will not be bundled to dist, since they
 // are expected to be provided later
