@@ -416,11 +416,7 @@ describe('collapse', () => {
         return h('div', {}, [
           // JSDOM supports getComputedStyle when using stylesheets (non responsive)
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
-          h(
-            'style',
-            { attrs: { type: 'text/css' } },
-            '.collapse:not(.show) { display: none; } .bv-d-none-not-important { display: none; }'
-          ),
+          h('style', { attrs: { type: 'text/css' } }, '.collapse:not(.show) { display: none; }'),
           h(
             BCollapse,
             {
@@ -484,7 +480,7 @@ describe('collapse', () => {
           h(
             'style',
             { attrs: { type: 'text/css' } },
-            '.collapse:not(.show) { display: none; } .bv-d-none-not-important { display: none; } .d-block { display: block !important; }'
+            '.collapse:not(.show) { display: none; } .d-block { display: block !important; }'
           ),
           h(
             BCollapse,
