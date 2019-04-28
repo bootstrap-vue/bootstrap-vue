@@ -186,7 +186,12 @@ export default Vue.extend({
       this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
     },
     checkDisplayBlock() {
-      // Chek to see if the collapse has `display: block !important;` set
+      // Chek to see if the collapse has `display: block !important;` set.
+      // We can't set `display: none;` directly on this.$el, as it would
+      // trigger a new transition to start (or cancel a current one).
+      // Alternative would be to temporarily remove the `show` class
+      // instead, and restore it after the check, as a `click` can only
+      // happen when the collapse is vivible.
       addClass(this.$el, 'bv-d-none-not-important')
       const isBlock = getCS(this.$el).display === 'block'
       removeClass(this.$el, 'bv-d-none-not-important')
