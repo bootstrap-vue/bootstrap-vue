@@ -23,8 +23,8 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItemButton',
-  inheritAttrs: false,
   mixins: [nomalizeSlotMixin],
+  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
