@@ -1,4 +1,4 @@
-import { mount, createWrapper } from '@vue/test-utils'
+import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import BCollapse from './collapse'
 
@@ -410,38 +410,127 @@ describe('collapse', () => {
   })
 
   it('should close when clicking on contained nav-link prop is-nav is set', async () => {
-    const wrapper = mount(BCollapse, {
+    const localVue = CreateLocalVue()
+    const App = localVue.extend({
+      render(h) {
+        return h('div', {}, [
+          // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
+          h('style', { attrs: { type: 'text/css' } }, '.collapse:not(.show) { display: none; }'),
+          h(
+            BCollapse,
+            {
+              props: {
+                id: 'test',
+                isNav: true,
+                visible: true
+              }
+            },
+            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link')]
+          )
+        ])
+      }
+    })
+    const wrapper = mount(App, {
       attachToDocument: true,
-      propsData: {
-        // 'id' is a required prop
-        id: 'test',
-        isNav: true,
-        visible: true
-      },
-      slots: {
-        default: '<div><a class="nav-link" href="#">nav link</a></div>'
-      },
+      localVue: localVue,
       stubs: {
         // Disable use of default test transitionStub component
         transition: false
       }
     })
-    // const rootWrapper = createWrapper(wrapper.vm.$root)
+
     expect(wrapper.isVueInstance()).toBe(true)
+    const $collapse = wrapper.find(BCollapse)
+    expect($collapse.isVueInstance()).toBe(true)
+
+    expect(wrapper.find('style').exists()).toBe(true)
+
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.classes()).toContain('show')
-    expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.find('.nav-link').exists()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($collapse.classes()).toContain('show')
+    expect($collapse.element.style.display).toEqual('')
+    expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
     wrapper.find('.nav-link').trigger('click')
+
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.element.style.display).toEqual('none')
+
+    expect($collapse.classes()).not.toContain('show')
+    expect($collapse.element.style.display).toEqual('none')
+
+    wrapper.destroy()
+  })
+
+  it('should not close when clicking on nav-link prop is-nav is set & collapse is display block important', async () => {
+    const localVue = CreateLocalVue()
+    const App = localVue.extend({
+      render(h) {
+        return h('div', {}, [
+          // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // Although it appears to be picky about CSS definition ordering
+          // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
+          h(
+            'style',
+            { attrs: { type: 'text/css' } },
+            '.collapse:not(.show) { display: none; } .d-block { display: block !important; }'
+          ),
+          h(
+            BCollapse,
+            {
+              class: 'd-block',
+              props: {
+                id: 'test',
+                isNav: true,
+                visible: true
+              }
+            },
+            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link')]
+          )
+        ])
+      }
+    })
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $collapse = wrapper.find(BCollapse)
+    expect($collapse.isVueInstance()).toBe(true)
+
+    expect(wrapper.find('style').exists()).toBe(true)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($collapse.classes()).toContain('show')
+    expect($collapse.element.style.display).toEqual('')
+    expect($collapse.find('.nav-link').exists()).toBe(true)
+
+    // Click on link
+    wrapper.find('.nav-link').trigger('click')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($collapse.classes()).toContain('show')
+    expect($collapse.element.style.display).toEqual('')
 
     wrapper.destroy()
   })
