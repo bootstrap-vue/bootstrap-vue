@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
+BV_VERSION=$(node -p "require('./package.json').version")
+BV_YEAR=$(node -p "(new Date()).getFullYear()")
+BV_BANNER=$(cat scripts/banner.txt | sed - "/{VERSION}/${BV_VERSION}/" | sed - "/{YEAR}/${BV_YEAR}/")
+
+echo "Building BootstrapVue ${BV_VERSION}"
+echo ''
+
 echo 'Checking plugin metadata...'
 node -r esm scripts/check-plugin-meta.js || exit 1
 echo 'Done.'
@@ -16,7 +23,7 @@ echo ''
 
 echo 'Build ES modules...'
 NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
-cat scripts/banner.txt es/index.js > es/tmp.js && mv es/tmp.js es/index.js
+echo "${BV_BANNER}" | cat - es/index.js > es/tmp.js && mv es/tmp.js es/index.js
 echo 'Done.'
 echo ''
 
