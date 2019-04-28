@@ -5,7 +5,8 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
 import { name, dependencies } from '../package.json'
-import bannerComment from './banner'
+
+const bannerComment =require('./banner').default
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
