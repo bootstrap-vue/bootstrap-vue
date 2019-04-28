@@ -98,12 +98,6 @@
         ]
       },
       {
-        "component": "BDropdownHeader",
-        "aliases": [
-          "BDdHeader"
-        ]
-      },
-      {
         "component": "BDropdownDivider",
         "aliases": [
           "BDdDivider"
@@ -119,6 +113,24 @@
         "component": "BDropdownText",
         "aliases": [
           "BDdText"
+        ]
+      },
+      {
+        "component": "BDropdownGroup",
+        "aliases": [
+          "BDdGroup"
+        ],
+        "slots": [
+          {
+            "name": "header",
+            "description": "Optional header content for the dropdown group."
+          }
+        ]
+      },
+      {
+        "component": "BDropdownHeader",
+        "aliases": [
+          "BDdHeader"
         ]
       }
     ]
