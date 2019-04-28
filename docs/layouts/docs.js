@@ -23,7 +23,11 @@ export default {
         class: ['pb-md-3', 'pl-md-5'],
         props: { cols: 12, md: 9, xl: 8 }
       },
-      [h(Feedback, { class: ['my-2', 'float-right'] }), h('nuxt')]
+      [
+        h(Feedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
+        h('div', { class: ['clearfix', 'd-bock', 'd-lg-none'] }),
+        h('nuxt')
+      ]
     )
     const $tocCol = h(
       'b-col',
