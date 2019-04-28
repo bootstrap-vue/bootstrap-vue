@@ -1,14 +1,14 @@
-import { homepage, license, version } from '../package.json'
+import pkg from '../package.json'
 
 const year = new Date().getFullYear()
 
 const banner = `/*!
- * BoostrapVue ${version}
+ * BoostrapVue ${pkg.version}
  *
- * @link ${homepage}
+ * @link ${pkg.homepage}
  * @source https://github.com/bootstrap-vue/bootstrap-vue
  * @copyright (c) 2016-${year} BootstrapVue
- * @license ${license}
+ * @license ${pkg.license}
  * https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE
  */
 `
