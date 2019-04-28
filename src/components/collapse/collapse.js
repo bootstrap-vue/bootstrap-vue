@@ -190,13 +190,10 @@ export default Vue.extend({
       // Check to see if the collapse has `display: block !important;` set.
       // We can't set `display: none;` directly on this.$el, as it would
       // trigger a new transition to start (or cancel a current one).
-      if (!hasClass('show')) {
-        /* istanbul ignore next */
-        return true
-      }
+      const restore = hasClass(this.$el, 'show')
       removeClass(this.$el, 'show')
       const isBlock = getCS(this.$el).display === 'block'
-      addClass(this.$el, 'show')
+      restore && addClass(this.$el, 'show')
       return isBlock
     },
     clickHandler(evt) {
