@@ -4,6 +4,7 @@ export * from './breadcrumb'
 export * from './button'
 export * from './button-group'
 export * from './button-toolbar'
+export * from './card'
 
 export * from './modal'
 
