@@ -1,5 +1,5 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
-import './vue'
+import './vue-injections'
 
 export * from './bootstrap-vue'
 
