@@ -9,6 +9,7 @@ import { BvPlugin } from '../bv-plugin'
 declare const Modal: Modal
 export default Modal
 export interface Modal extends BvPlugin {}
+export { Modal }
 
 // Component: b-modal
 export interface BModal extends Vue {
