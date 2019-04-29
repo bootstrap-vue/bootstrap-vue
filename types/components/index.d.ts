@@ -31,8 +31,11 @@ export * from './nav'
 export * from './navbar'
 export * from './pagination'
 export * from './pagination-nav'
+export * from './popover'
 
 export * from './spinner'
 
 export * from './table'
+
 export * from './toast'
+export * from './tooltip'
