@@ -386,7 +386,10 @@ export default Vue.extend({
         return
       }
       this.is_opening = true
-      if (isBrowser && document.activeElement.focus) {
+      // Note: On IE11, `document.activeElement` may be null. So we test it for
+      // truthyness first.
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
+      if (isBrowser && document.activeElement && document.activeElement.focus) {
         // Preset the fallback return focus value if it is not set
         // `document.activeElement` should be the trigger element that was clicked or
         // in the case of using the v-model, which ever element has current focus
