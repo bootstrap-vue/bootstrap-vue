@@ -3,8 +3,9 @@ declare module 'bootstrap-vue' {
   import { BvPlugin } from './bv-plugin'
   import { BvEvent } from './bv-event'
 
-  import Modal, { BModalComponent as BModal, BvModalEvent } from './components/modal'
-  import Toast, { BToastComponent as BToast, BToasterComponent as BToaster } from './components/modal'
+  import Modal, { BModal, BvModalEvent } from './components/modal'
+  import Toast, { BToast, BToaster } from './components/toast'
+  import Table, { BTable } from './components/table'
 
   export {
     BvEvent
@@ -24,6 +25,11 @@ declare module 'bootstrap-vue' {
 
   export const Spinner: BvPlugin
   export const BSpinner: Component | AsyncComponent
+
+  export {
+    Table,
+    BTable
+  }
 
   export {
     Toast,
