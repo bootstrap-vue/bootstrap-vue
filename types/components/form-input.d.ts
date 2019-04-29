@@ -10,4 +10,6 @@ export default FormInput
 export interface FormInput extends BvPlugin {}
 
 // Component: b-form-input
-export interface BFormInput extends Vue {}
+export interface BFormInput extends Vue {
+  focus: () => void
+}
