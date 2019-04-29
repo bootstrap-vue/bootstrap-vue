@@ -27,6 +27,7 @@ export * from './link'
 export * from './list-group'
 export * from './media'
 export * from './modal'
+export * from './nav'
 
 export * from './spinner'
 
