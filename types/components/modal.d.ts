@@ -14,8 +14,11 @@ export declare class BModalComponent extends Vue {
 //
 // Types
 //
+export type BvMsgBoxData = boolean | null | any
 
-// BvModalEvent type
+//
+// Interfaces
+//
 export interface BvModalEvent extends BvEvent {
   readonly trigger: string | null
   // Future
@@ -25,11 +28,6 @@ export interface BvModalEvent extends BvEvent {
   cancel: () => void
 }
 
-export type BvMsgBoxData = boolean | null | any
-
-//
-// Interfaces
-//
 export interface BvModalOptions {
   title?: string | VNode | Array<Vnode>
   titleTag?: string
