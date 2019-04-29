@@ -15,7 +15,7 @@ export declare class BModalComponent extends Vue {
 // Types
 //
 
-// BvModalevent type
+// BvModalEvent type
 export type BvModalEvent extends BvEvent {
   trigger: string | null
   // Future
