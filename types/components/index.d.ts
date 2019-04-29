@@ -19,7 +19,11 @@ export * from './form-select'
 export * from './form-textarea'
 export * from './image'
 export * from './input-group'
-export 8 from './jumbotron'
+export * from './jumbotron'
+// We don't re-eport BFormRow as Form exports it as well
+import { Layout, BContainer, BRow, BCol} from './layout'
+export { Layout, BContainer, BRow, BCol}
+export * from './link'
 
 export * from './modal'
 
