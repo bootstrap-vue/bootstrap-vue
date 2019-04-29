@@ -1,8 +1,8 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
 
-import { BModalComponent } from './modal'
-import { BToastComponent } from './toast'
-import { BToasterComponent } from './toaster'
+import { BModalComponent } from './components/modal'
+import { BToastComponent } from './components/toast'
+import { BToasterComponent } from './components/toaster'
 
 eport interface ComponentOptions {
   [key: string]?: any
