@@ -25,7 +25,7 @@ import { Layout, BContainer, BRow, BCol} from './layout'
 export { Layout, BContainer, BRow, BCol}
 export * from './link'
 export * from './list-group'
-
+export * from './media'
 export * from './modal'
 
 export * from './spinner'
