@@ -25,8 +25,7 @@ declare module 'bootstrap-vue' {
 
   export {
     Modal,
-    BModal,
-    BvModalEvent
+    BModal
   }
 
   export const Progress: BvPlugin
