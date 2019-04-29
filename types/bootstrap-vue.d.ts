@@ -9,6 +9,7 @@ declare module 'bootstrap-vue' {
 
   export {
     BvEvent
+    BvModalEvent
   }
 
   export const Alert: BvPlugin
