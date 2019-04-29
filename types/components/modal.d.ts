@@ -3,6 +3,12 @@
 //
 import Vue, { VNode } from 'vue'
 import { BvEvent } from '../bv-event'
+import { BvPlugin } from '../bv-plugin'
+
+// Modal Plugin
+declare const Modal: Modal
+export default Modal
+export interface Modal extends BvPlugin {}
 
 // Component: b-modal
 export declare class BModalComponent extends Vue {
