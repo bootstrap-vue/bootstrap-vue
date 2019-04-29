@@ -180,51 +180,42 @@
           <!-- Console column -->
           <b-col cols="12" class="mt-3">
             <!-- Console -->
-            <b-card>
-              <div
-                slot="header"
-                class="d-flex justify-content-between align-items-center"
-              >
-                <span>Console</span>
-                <b-btn
-                  v-if="messages.length"
-                  size="sm"
-                  variant="outline-danger"
-                  @click="clear"
-                >
-                  <span>Clear</span>
-                </b-btn>
-              </div>
+            <b-card no-body>
+              <b-card-header>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Console</span>
+                  <b-btn
+                    v-if="messages.length"
+                    size="sm"
+                    variant="outline-danger"
+                    @click="clear"
+                  >
+                    <span>Clear</span>
+                  </b-btn>
+                </div>
+              <b-card-header>
 
               <transition-group
                 tag="ul"
                 name="flip-list"
                 class="list-group list-group-flush play-log"
               >
-                <li
-                  v-if="!messages.length"
-                  key="empty-console"
-                  class="list-group-item"
-                >
+                <b-list-group-item v-if="!messages.length" key="empty-console">
                   &nbsp;
-                </li>
-                <li
+                </b-list-group-item>
+                <b-list-group-item
                   v-for="msg in messages"
                   :key="`console-${msg[2]}`"
-                  class="list-group-item py-2 d-flex"
+                  class="py-2 d-flex"
                 >
-                  <b-badge
-                    :variant="msg[0]"
-                    class="mr-1"
-                    style="font-size:90%;"
-                  >
+                  <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">
                     {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
                   </b-badge>
                   <span
                     :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
                     style="white-space: pre-wrap;"
                   >{{ msg[1] }}</span>
-                </li>
+                </b-list-group-item>
               </transition-group>
             </b-card>
           </b-col>
