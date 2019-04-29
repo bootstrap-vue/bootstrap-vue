@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { PluginFunction, PluginObject } from 'vue'
 
 import { BModalComponent } from './modal'
 import { BToastComponent } from './toast'
