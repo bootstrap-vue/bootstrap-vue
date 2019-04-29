@@ -11,7 +11,7 @@ export default Modal
 export interface Modal extends BvPlugin {}
 
 // Component: b-modal
-export declare class BModalComponent extends Vue {
+export interface BModalComponent extends Vue {
   // Public methods
   show: () => void
   hide: (trigger?: string) => void
