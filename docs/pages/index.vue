@@ -19,7 +19,12 @@
             comprehensive implementations of the
             <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
             available for <span class="bd-text-purple-bright">Vue.js v2.5+</span>, complete with
-            extensive and automated WAI-ARIA accessibility markup. <samp>jQuery</samp> is not required.
+            extensive and automated
+            <abbr
+              v-b-tooltip.hover
+              title="Web Accessibility Initiative – Accessible Rich Internet Applications"
+            >WAI-ARIA</abbr>
+            accessibility markup. <samp>jQuery</samp> is not required.
           </p>
           <p class="mb-2 text-muted">
             BootstrapVue's documentation is created using
@@ -31,8 +36,8 @@
             world's most popular framework for building responsive, mobile-first sites.
           </p>
           <p class="mb-4 text-muted">
-            <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /vjuː/, like view) is
-            a progressive framework for building user interfaces.
+            <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /<i>vjuː</i>/, like view)
+            is a progressive framework for building user interfaces.
           </p>
           <div class="d-flex flex-column flex-md-row lead mb-3">
             <b-btn
