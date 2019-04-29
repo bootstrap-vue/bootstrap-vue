@@ -4,14 +4,14 @@ import Vue from 'vue'
 // Generic BvEvent Object
 //
 export type BvEvent {
-  type: string
-  cancelable: boolean
-  nativeEvent: any
-  target: any
-  relatedTarget: any
-  defaultPrevented: boolean
-  vueTarget: Vue | null
-  componentId: string | null
+  readonly type: string
+  readonly cancelable: boolean
+  readonly nativeEvent: any
+  readonly target: any
+  readonly relatedTarget: any
+  readonly defaultPrevented: boolean
+  readonly vueTarget: Vue | null
+  readonly componentId: string | null
   preventDefault: () => void
   // Catch all
   [key: string]: any
