@@ -47,28 +47,16 @@ declare module 'bootstrap-vue' {
   }
   export type TableFieldArray = Array<string | ({ key: string } & TableField)>
 
-  // Interfaces
+  // Component Interfaces
   export interface Alert extends Vue {
     dismiss: () => void
-    clearCounter: () => void
-    showChanged: () => void
   }
-
   export interface Badge extends Vue {}
   export interface Breadcrumb extends Vue {}
   export interface Breadcrumb extends Vue {}
   export interface Button extends Vue {}
   export interface ButtonGroup extends Vue {}
-  export interface ButtonToolbar extends Vue {
-    onFocusin: () => void
-    onKeydown: () => void
-    setItemFocus: () => void
-    focusNext: () => void
-    focusFirst: () => void
-    focusLast: () => void
-    getItems: () => void
-  }
-
+  export interface ButtonToolbar extends Vue {}
   export interface Card extends Vue {}
   export interface Carousel extends Vue {
     setSlide: (slide: number) => void
@@ -77,10 +65,7 @@ declare module 'bootstrap-vue' {
     pause: () => void
     start: () => void
     restart: () => void
-    updateSlides: () => void
-    calcDirection: () => void
   }
-
   export interface Collapse extends Vue {
     toggle: () => void
   }
@@ -91,7 +76,6 @@ declare module 'bootstrap-vue' {
   export interface FormFile extends Vue {
     reset: () => void
   }
-
   export interface FormGroup extends Vue {}
   export interface FormInput extends Vue {
     focus: () => void
@@ -108,28 +92,26 @@ declare module 'bootstrap-vue' {
   export interface Link extends Vue {}
   export interface ListGroup extends Vue {}
   export interface Media extends Vue {}
-
   export interface Modal extends Vue {
     show: () => void
     hide: () => void
   }
-
   export interface Nav extends Vue {}
   export interface Navbar extends Vue {}
-  export interface Pagination extends Vue {
-    numberOfPages: number
-  }
+  export interface Pagination extends Vue {}
   export interface PaginationNav extends Vue {}
-  export interface Popover extends Vue {
-    createToolpop: () => void
-  }
+  export interface Popover extends Vue {}
   export interface Progress extends Vue {}
+  export interface Spinner extends Vue {}
   export interface Table extends Vue {
     refresh: () => void
-    fields?: TableFieldObject | TableFieldArray
+    fields?: TableFieldObject | TableFieldArray | any
   }
+  export interface Toast extends Vue {
+    show: () => void
+    hide: () => void
+  }
+  export interface Toaster extends Vue {}
   export interface Tabs extends Vue {}
-  export interface Tooltip extends Vue {
-    createToolpop: () => void
-  }
+  export interface Tooltip extends Vue {}
 }
