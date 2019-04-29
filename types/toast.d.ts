@@ -12,8 +12,14 @@ export declare class BToastComponent extends Vue {
 // Component: b-toaster
 export declare class BToasterComponent extends Vue {}
 
+//
+// Types
+//
 export type ToastData = boolean | null | any
 
+//
+// Interfaces
+//
 export interface BvToastOptions {
   // Commonly used props
   toaster?: string
