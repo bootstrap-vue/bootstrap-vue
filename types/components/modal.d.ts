@@ -34,7 +34,7 @@ export interface BvModalEvent extends BvEvent {
   cancel: () => void
 }
 
-export interface BvModalOptions {
+export interface BvMsgBoxOptions {
   title?: string | VNode | Array<Vnode>
   titleTag?: string
   size?: string
@@ -71,14 +71,14 @@ export interface BvModalMsgBoxResolver {
 }
 
 export interface BvModalMsgBoxShortcutMethod {
-  (message: string | VNode | Array<VNode>, options?: BvModalOptions): Promise<BvMsgBoxData>
+  (message: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
   // Future
-  //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvModalOptions): Promise<BvMsgBoxData>
+  //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
 }
 
 // Not yet documented
 // export interface BvModalMsgBoxMethod {
-//   (message: string | VNode | Array<VNode>, options: BvModalOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
+//   (message: string | VNode | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
 // }
 
 export interface BvModal {
