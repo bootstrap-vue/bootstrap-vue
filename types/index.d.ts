@@ -1,7 +1,8 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
+import { BvPlugin } from './bv-plugin'
 import './vue-injections'
 
-export * from './bootstrap-vue'
 
-import BootstrapVue from './bootstrap-vue'
+declare const BootstrapVue: BootstrapVue
 export default BootstrapVue
+export interface BootstrapVue extends BvPlugin {}
