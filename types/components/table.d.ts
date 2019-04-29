@@ -23,7 +23,6 @@ type BvTableFormatterCallback = ((value: any, key: string, item: any) => any)
 declare const Table: Table
 export default Table
 export interface Table extends BvPlugin {}
-export { Table }
 
 // Component: b-modal
 export interface BTable extends Vue {
