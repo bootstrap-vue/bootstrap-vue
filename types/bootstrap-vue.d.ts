@@ -4,7 +4,7 @@ import { BModalComponent } from './components/modal'
 import { BToastComponent } from './components/toast'
 import { BToasterComponent } from './components/toaster'
 
-eport interface ComponentOptions {
+export interface ComponentOptions {
   [key: string]?: any
 }
 
