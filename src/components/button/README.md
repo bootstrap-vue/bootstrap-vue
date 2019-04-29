@@ -126,7 +126,7 @@ padding and size of a button.
 
 ## Pill style
 
-Prefer buttons with a more rounded-pill style? Just set the prop `pill`to true.
+Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 
 ```html
 <div>
