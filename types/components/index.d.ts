@@ -32,9 +32,8 @@ export * from './navbar'
 export * from './pagination'
 export * from './pagination-nav'
 export * from './popover'
-
+export * from './progress'
 export * from './spinner'
-
 export * from './table'
 
 export * from './toast'
