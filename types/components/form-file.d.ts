@@ -11,5 +11,6 @@ export interface FormFile extends BvPlugin {}
 
 // Component: b-form-file
 export interface BFormFile extends Vue {
+  focus: () => void
   reset: () => void
 }
