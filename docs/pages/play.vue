@@ -181,19 +181,17 @@
           <b-col cols="12" class="mt-3">
             <!-- Console -->
             <b-card no-body>
-              <b-card-header>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span>Console</span>
-                  <b-btn
-                    v-if="messages.length"
-                    size="sm"
-                    variant="outline-danger"
-                    @click="clear"
-                  >
-                    <span>Clear</span>
-                  </b-btn>
-                </div>
-              <b-card-header>
+              <div slot="header" class="d-flex justify-content-between align-items-center">
+                <span>Console</span>
+                <b-btn
+                  v-if="messages.length"
+                  size="sm"
+                  variant="outline-danger"
+                  @click="clear"
+                >
+                  <span>Clear</span>
+                </b-btn>
+              </div>
 
               <transition-group
                 tag="ul"
@@ -735,6 +733,8 @@ export default {
             buttonSize: 'sm',
             okTitle: 'YES',
             cancelTitle: 'NO',
+            titleTag: 'h6'
+            headerClass: 'p-2',
             footerClass: 'p-2',
             hideHeaderClose: false,
             centered: true
