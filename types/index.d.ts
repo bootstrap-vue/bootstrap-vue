@@ -4,6 +4,8 @@ import './vue-injections'
 import './es'
 import './bootstrap-vue'
 
+export * from './components'
+
 declare const BootstrapVue: BootstrapVue
 export default BootstrapVue
 export interface BootstrapVue extends BvPlugin {}
