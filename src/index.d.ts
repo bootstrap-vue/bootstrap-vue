@@ -112,28 +112,6 @@ declare module 'bootstrap-vue' {
   export interface Modal extends Vue {
     show: () => void
     hide: () => void
-    onBeforeEnter: () => void
-    onEnter: () => void
-    onAfterEnter: () => void
-    onBeforeLeave: () => void
-    onLeave: () => void
-    onAfterLeave: () => void
-    emitEvent: () => void
-    onClickOut: () => void
-    onEsc: () => void
-    onFocusout: () => void
-    setResizeEvent: () => void
-    showHandler: () => void
-    hideHandler: () => void
-    modalListener: () => void
-    focusFirst: () => void
-    returnFocusTo: () => void
-    getScrollbarWidth: () => void
-    adjustDialog: () => void
-    resetAdjustments: () => void
-    checkScrollbar: () => void
-    setScrollbar: () => void
-    resetScrollbar: () => void
   }
 
   export interface Nav extends Vue {}
