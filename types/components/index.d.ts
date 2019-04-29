@@ -10,6 +10,9 @@ export * from './collapse'
 export * from './dropdown'
 export * from './embed'
 export * from './form'
+export * from './form-checkbox'
+
+export * from './form-radio'
 
 export * from './modal'
 
