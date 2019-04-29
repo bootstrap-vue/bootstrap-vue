@@ -1,8 +1,11 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
 
-import { BModalComponent } from './components/modal'
+import { BvEvent } from "./bv-event"
+import { BModalComponent, BvModalEvent } from './components/modal'
 import { BToastComponent } from './components/toast'
 import { BToasterComponent } from './components/toaster'
+
+export { BvEvent, BvModalEvent }
 
 export interface ComponentOptions {
   [key: string]?: any
