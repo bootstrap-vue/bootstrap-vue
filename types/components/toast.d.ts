@@ -9,6 +9,9 @@ export declare class BToastComponent extends Vue {
   hide: () => void
 }
 
+// Component: b-toaster
+export declare class BToasterComponent extends Vue {}
+
 //
 // Types
 //
