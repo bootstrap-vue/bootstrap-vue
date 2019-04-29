@@ -180,11 +180,8 @@
           <!-- Console column -->
           <b-col cols="12" class="mt-3">
             <!-- Console -->
-            <b-card>
-              <div
-                slot="header"
-                class="d-flex justify-content-between align-items-center"
-              >
+            <b-card no-body>
+              <div slot="header" class="d-flex justify-content-between align-items-center">
                 <span>Console</span>
                 <b-btn
                   v-if="messages.length"
@@ -201,30 +198,22 @@
                 name="flip-list"
                 class="list-group list-group-flush play-log"
               >
-                <li
-                  v-if="!messages.length"
-                  key="empty-console"
-                  class="list-group-item"
-                >
+                <b-list-group-item v-if="!messages.length" key="empty-console">
                   &nbsp;
-                </li>
-                <li
+                </b-list-group-item>
+                <b-list-group-item
                   v-for="msg in messages"
                   :key="`console-${msg[2]}`"
-                  class="list-group-item py-2 d-flex"
+                  class="py-2 d-flex"
                 >
-                  <b-badge
-                    :variant="msg[0]"
-                    class="mr-1"
-                    style="font-size:90%;"
-                  >
+                  <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">
                     {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
                   </b-badge>
                   <span
                     :class="[`text-${msg[0]}`, 'text-monospace', 'small', 'd-block']"
                     style="white-space: pre-wrap;"
                   >{{ msg[1] }}</span>
-                </li>
+                </b-list-group-item>
               </transition-group>
             </b-card>
           </b-col>
@@ -735,6 +724,33 @@ export default {
       this.messages.splice(0)
     },
     reset() {
+      this.$bvModal
+        .msgBoxConfirm(
+          'Are you sure that you want to reset to the playground to the default values?',
+          {
+            title: 'Please Confirm Reset',
+            size: 'sm',
+            buttonSize: 'sm',
+            okTitle: 'YES',
+            cancelTitle: 'NO',
+            titleTag: 'h6',
+            headerClass: 'p-2',
+            footerClass: 'p-2',
+            hideHeaderClose: false,
+            centered: true
+          }
+        )
+        .then(value => {
+          if (value) {
+            this.doReset()
+          }
+        })
+        .catch(err => {
+          // An error occurred
+          console.log(err)
+        })
+    },
+    doReset() {
       // Needed to trick codemirror component to reload contents
       this.js = this.html = ''
       this.$nextTick(() => {
