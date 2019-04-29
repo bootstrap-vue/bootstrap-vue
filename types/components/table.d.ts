@@ -10,7 +10,7 @@ export default Table
 export interface TablePlugin extends BvPlugin {}
 
 // Component: b-modal
-export interface BTableComponent extends Vue {
+export interface BTable extends Vue {
   // Public methods
   refresh: () => void
   // Props
