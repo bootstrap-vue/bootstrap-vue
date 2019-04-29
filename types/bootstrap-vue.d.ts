@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
-import { ModalComponent } from './modal'
-import { ToastComponent } from './toast'
-import { ToasterComponent } from './toaster'
+import { BModalComponent } from './modal'
+import { BToastComponent } from './toast'
+import { BToasterComponent } from './toaster'
 
 eport interface ComponentOptions {
   [key: string]?: any
@@ -13,8 +13,10 @@ export interface InstallOptions {
   [key: string]?: ComponentOptions
 }
 
-export function install (vue: typeof Vue, options: InstalOptions): void
+export function install (vue: typeof Vue, options: InstallOptions): void
 
-export class BModal extends ModalComponent {}
-export class BToast extends ToastComponent {}
-export class BToaster extends ToasterComponent {}
+// TypeScrip cannot merge imported class with namespace, so declare subclasses instead
+
+export class BModal extends BModalComponent {}
+export class BToast extends BToastComponent {}
+export class BToaster extends BToasterComponent {}
