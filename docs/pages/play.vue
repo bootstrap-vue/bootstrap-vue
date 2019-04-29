@@ -751,7 +751,7 @@ export default {
         )
         .then(value => {
           if (value) {
-            this.doreset()
+            this.doReset()
           }
         })
         .catch(err => {
