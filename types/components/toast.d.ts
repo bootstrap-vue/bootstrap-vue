@@ -2,6 +2,12 @@
 // Toast
 //
 import Vue, { VNode } from 'vue'
+import { BvPlugin } from '../bv-plugin'
+
+// Toast Plugin
+declare const Toast: Toast
+export default Toast
+export interface Toast extends BvPlugin {}
 
 // Component: b-toast
 export declare class BToastComponent extends Vue {
