@@ -36,7 +36,7 @@
             world's most popular framework for building responsive, mobile-first sites.
           </p>
           <p class="mb-4 text-muted">
-            <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced <i>/vjuː/</i>, like view)
+            <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /<i>vjuː</i>/, like view)
             is a progressive framework for building user interfaces.
           </p>
           <div class="d-flex flex-column flex-md-row lead mb-3">
