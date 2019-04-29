@@ -8,7 +8,6 @@ import { BvPlugin } from '../bv-plugin'
 declare const Toast: Toast
 export default Toast
 export interface Toast extends BvPlugin {}
-export { Toast }
 
 // Component: b-toast
 export interface BToast extends Vue {
