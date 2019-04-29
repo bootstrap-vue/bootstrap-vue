@@ -19,6 +19,7 @@ export * from './form-select'
 export * from './form-textarea'
 export * from './image'
 export * from './input-group'
+export 8 from './jumbotron'
 
 export * from './modal'
 
