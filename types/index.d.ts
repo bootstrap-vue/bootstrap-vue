@@ -1,4 +1,5 @@
-import Vue, { PluginFunction, PluginObject } fro m 'vue'
+import Vue, { PluginFunction, PluginObject } from 'vue'
+import './vue'
 
 export * from './bootstrap-vue'
 
