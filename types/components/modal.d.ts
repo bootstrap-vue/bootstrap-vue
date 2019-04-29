@@ -2,7 +2,7 @@
 // Modals
 //
 import Vue, { VNode } from 'vue'
-import { BvEvent } from './bv-event'
+import { BvEvent } from '../bv-event'
 
 // Component: b-modal
 export declare class BModalComponent extends Vue {
