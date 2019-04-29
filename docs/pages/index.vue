@@ -17,10 +17,11 @@
             comprehensive implementations of the
             <span class="bd-text-purple-bright">Bootstrap V4.3</span> component and grid system
             available for Vue.js 2.5+, complete with extensive and automated WAI-ARIA accessibility
-            markup. No jQuery required!
+            markup. <samp>jQuery</samp> is not required.
           </p>
           <p class="mb-2 text-muted">
-            BootstrapVue's documentation is created using BootstrapVue and [Nuxt.js](https://nuxtjs.org).
+            BootstrapVue's documentation is created using BootstrapVue components and
+            <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>.
           </p>
           <p class="mb-2 text-muted">
             <a href="https://getbootstrap.com/docs/4.3" target="_blank">Bootstrap 4</a> is the
