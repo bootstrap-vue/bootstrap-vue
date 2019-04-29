@@ -45,7 +45,7 @@ declare module 'bootstrap-vue/es/components/*' {
   export = BootstrapVueComponent
 }
 
-declare module 'bootstrap-vue/es/directives' {
+declare module 'bootstrap-vue/es/directives/*' {
   import { DirectiveOptions, DirectiveFunction, PluginFunction } from 'vue'
   import { BvPlugin } from './bv-plugin'
 
