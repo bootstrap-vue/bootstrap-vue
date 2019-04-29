@@ -3,7 +3,16 @@
 //
 import Vue, { VNode } from 'vue'
 
-export interface BvToastOptions = {
+// Component
+export interface BToast extends Vue {
+  show: () => void
+  hide: () => void
+}
+
+// Component
+export interface BToaster extends Vue {}
+
+export interface BvToastOptions {
   // Commonly used props
   toaster?: string
   title?: string | VNode | Array<Vnode>
@@ -15,13 +24,13 @@ export interface BvToastOptions = {
   appendToast?: boolean
   isStatus?: boolean
   noFade?: boolean
-  toastClass?: string | Array<any> | object | any
-  headerClass?: string | Array<any> | object | any
-  bodyClass?: string | Array<any> | object | any
+  toastClass?: string | string[] | Array<any> | object | any
+  headerClass?: string | string[] | Array<any> | object | any
+  bodyClass?: string | string[] | Array<any> | object | any
   href?: string
-  to?: string | any
+  to?: string | object | any
   // Catch all
-  [key: string]: any
+  [key: string]?: any
 }
 
 export type ToastData = boolean | null | any
@@ -37,10 +46,10 @@ export interface BvToast {
   toast: BvToastShortcutMethod
 
   // Show a toast by id
-  show (id: string): void
+  show: (id: string) => void
 
   // Hide a toast by id (or hide all tosts)
-  hide (id?: string): void
+  hide: (id?: string) => void
 }
 
 //
