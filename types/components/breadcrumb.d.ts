@@ -8,7 +8,6 @@ import { BvPlugin } from '../bv-plugin'
 declare const Breadcrumb: Breadcrumb
 export default Breadcrumb
 export interface Breadcrumb extends BvPlugin {}
-export { Breadcrumb }
 
 // Component: b-breadcrumb
 export interface BBreadcrumb extends Vue {}
