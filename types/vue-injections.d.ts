@@ -2,8 +2,8 @@
  * Augment the typings of Vue.js
  */
 import Vue from "vue"
-import { BvModal } from "./modal"
-import { BvToast } from "./toast"
+import { BvModal } from "./components/modal"
+import { BvToast } from "./components/toast"
 
 declare module "vue/types/vue" {
   interface Vue {
