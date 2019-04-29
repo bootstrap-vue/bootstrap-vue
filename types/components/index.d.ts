@@ -24,6 +24,7 @@ export * from './jumbotron'
 import { Layout, BContainer, BRow, BCol} from './layout'
 export { Layout, BContainer, BRow, BCol}
 export * from './link'
+export * from './list-group'
 
 export * from './modal'
 
