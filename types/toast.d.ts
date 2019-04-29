@@ -3,14 +3,16 @@
 //
 import Vue, { VNode } from 'vue'
 
-// Component
-export interface BToast extends Vue {
+// Component: b-toast
+export declare class BToastComponent extends Vue {
   show: () => void
   hide: () => void
 }
 
-// Component
-export interface BToaster extends Vue {}
+// Component: b-toaster
+export declare class BToasterComponent extends Vue {}
+
+export type ToastData = boolean | null | any
 
 export interface BvToastOptions {
   // Commonly used props
@@ -32,8 +34,6 @@ export interface BvToastOptions {
   // Catch all
   [key: string]?: any
 }
-
-export type ToastData = boolean | null | any
 
 export interface BvToastShortcutMethod {
   (message: string | VNode | Array<VNode>, options?: BvToastOptions): Promise<ToastData>
