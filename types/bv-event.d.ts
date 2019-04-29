@@ -3,7 +3,7 @@ import Vue from 'vue'
 //
 // Generic BvEvent Object
 //
-export type BvEvent {
+export interface BvEvent {
   readonly type: string
   readonly cancelable: boolean
   readonly nativeEvent: any
