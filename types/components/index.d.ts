@@ -9,6 +9,7 @@ export * from './carousel'
 export * from './collapse'
 export * from './dropdown'
 export * from './embed'
+export * from './form'
 
 export * from './modal'
 
