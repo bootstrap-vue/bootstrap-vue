@@ -9,13 +9,13 @@ declare module 'bootstrap-vue/es' {
     [key: string]?: BvPlugin
   }
 
-  const BootstrapVueComponent: {
+  const BootstrapVue: {
     default: BvPlugin
     components: BvPluginsObject
     directives: BvPluginsObject
   }
 
-  export = BootstrapVueComponent
+  export = BootstrapVue
 }
 
 declare module 'bootstrap-vue/es/components/*' {
