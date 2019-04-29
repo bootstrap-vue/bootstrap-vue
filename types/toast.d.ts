@@ -1,5 +1,5 @@
 //
-// Toasts
+// Toast
 //
 import Vue, { VNode } from 'vue'
 
@@ -8,9 +8,6 @@ export declare class BToastComponent extends Vue {
   show: () => void
   hide: () => void
 }
-
-// Component: b-toaster
-export declare class BToasterComponent extends Vue {}
 
 //
 // Types
