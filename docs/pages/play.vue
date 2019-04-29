@@ -733,7 +733,7 @@ export default {
             buttonSize: 'sm',
             okTitle: 'YES',
             cancelTitle: 'NO',
-            titleTag: 'h6'
+            titleTag: 'h6',
             headerClass: 'p-2',
             footerClass: 'p-2',
             hideHeaderClose: false,
