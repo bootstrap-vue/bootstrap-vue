@@ -735,7 +735,8 @@ export default {
       this.messages.splice(0)
     },
     reset() {
-      this.$bvModal.msgBoxConfirm('Are you sure you wantto reset to the default?', {
+      this.$bvModal
+        .msgBoxConfirm('Are you sure you wantto reset to the default?', {
           title: 'Please Confirm Reset',
           size: 'sm',
           buttonSize: 'sm',
@@ -745,7 +746,7 @@ export default {
           footerClass: 'p-2',
           hideHeaderClose: false,
           centered: true
-      })
+        })
         .then(value => {
           if (value) {
             this.doreset()
@@ -753,6 +754,7 @@ export default {
         })
         .catch(err => {
           // An error occurred
+          console.log(err)
         })
     },
     doReset() {
