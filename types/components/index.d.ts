@@ -11,8 +11,12 @@ export * from './dropdown'
 export * from './embed'
 export * from './form'
 export * from './form-checkbox'
-
+export * from './form-file'
+export * from './form-group'
+export * from './form-input'
 export * from './form-radio'
+export * from './form-select'
+export * from './form-textarea'
 
 export * from './modal'
 
