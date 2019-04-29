@@ -736,11 +736,10 @@ export default {
     },
     reset() {
       this.$bvModal
-        .msgBoxConfirm('Are you sure you wantto reset to the default?', {
+        .msgBoxConfirm('Are you sure that you want to reset to the playground to the default values?', {
           title: 'Please Confirm Reset',
           size: 'sm',
           buttonSize: 'sm',
-          okVariant: 'danger',
           okTitle: 'YES',
           cancelTitle: 'NO',
           footerClass: 'p-2',
