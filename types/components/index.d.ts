@@ -29,6 +29,8 @@ export * from './media'
 export * from './modal'
 export * from './nav'
 export * from './navbar'
+export * from './pagination'
+export * from './pagination-nav'
 
 export * from './spinner'
 
