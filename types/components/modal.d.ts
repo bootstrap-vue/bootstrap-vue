@@ -17,11 +17,11 @@ export declare class BModalComponent extends Vue {
 
 // BvModalEvent type
 export type BvModalEvent extends BvEvent {
-  trigger: string | null
+  readonly trigger: string | null
   // Future
   // details: any | null
   // Deprecated
-  modalId: string | null
+  readonly modalId: string | null
   cancel: () => void
 }
 
@@ -30,7 +30,7 @@ export type BvMsgBoxData = boolean | null | any
 //
 // Interfaces
 //
-export interface BvModalOptions = {
+export interface BvModalOptions {
   title?: string | VNode | Array<Vnode>
   titleTag?: string
   size?: string
@@ -52,14 +52,14 @@ export interface BvModalOptions = {
   footerBorderVariant?: string
   footerTextVariant?: string
   footerClass?: string | string[] | Array<any>
-  headerClose-label?: string
+  headerCloseLabel?: string
   buttonSize?: string
   cancelTitle?: string
   cancelVariant?: string
   okTitle?: string
   okVariant?: string
   // Catch all
-  [key: string]: any
+  [key: string]?: any
 }
 
 export interface BvModalMsgBoxResolver {
