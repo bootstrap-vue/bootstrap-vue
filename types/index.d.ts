@@ -3,5 +3,5 @@ import './vue-injections'
 
 export * from './bootstrap-vue'
 
-import * as BootstrapVue from './bootstrap-vue'
+import BootstrapVue from './bootstrap-vue'
 export default BootstrapVue
