@@ -5,7 +5,7 @@ import Vue, { VNode } from 'vue'
 import { BvEvent } from './bv-event'
 
 // Component
-export interface BModal extends Vue {
+export declare class BModalComponent extends Vue {
   // Public methods
   show: () => void
   hide: (trigger?: string) => void
