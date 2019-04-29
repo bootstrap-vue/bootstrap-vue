@@ -735,6 +735,27 @@ export default {
       this.messages.splice(0)
     },
     reset() {
+      this.$bvModal.msgBoxConfirm('Are you sure you wantto reset to the default?', {
+          title: 'Please Confirm Reset',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'YES',
+          cancelTitle: 'NO',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true
+      })
+        .then(value => {
+          if (value) {
+            this.doreset()
+          }
+        })
+        .catch(err => {
+          // An error occurred
+        })
+    },
+    doReset() {
       // Needed to trick codemirror component to reload contents
       this.js = this.html = ''
       this.$nextTick(() => {
