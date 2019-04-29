@@ -4,12 +4,16 @@
 import Vue, { VNode } from 'vue'
 import { BvEvent } from './bv-event'
 
-// Component
+// Component: b-modal
 export declare class BModalComponent extends Vue {
   // Public methods
   show: () => void
   hide: (trigger?: string) => void
 }
+
+//
+// Types
+//
 
 // BvModalevent type
 export type BvModalEvent extends BvEvent {
@@ -21,6 +25,11 @@ export type BvModalEvent extends BvEvent {
   cancel: () => void
 }
 
+export type BvMsgBoxData = boolean | null | any
+
+//
+// Interfaces
+//
 export interface BvModalOptions = {
   title?: string | VNode | Array<Vnode>
   titleTag?: string
@@ -52,8 +61,6 @@ export interface BvModalOptions = {
   // Catch all
   [key: string]: any
 }
-
-export type BvMsgBoxData = boolean | null | any
 
 export interface BvModalMsgBoxResolver {
   (BvModalEvent): => any
