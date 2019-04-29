@@ -1,3 +1,5 @@
+import Vue, { PluginFunction, PluginObject } from 'vue'
+
 export interface BvComponentOptions {
   [key: string]?: string | number | boolean | any
 }
@@ -8,5 +10,5 @@ export interface BvInstallOptions {
 }
 
 export interface BvPlugin {
-  (vue: typeof Vue, options?: BvInstallOptions): void
+  install: PluginFunction<BvInstallOptions>
 }
