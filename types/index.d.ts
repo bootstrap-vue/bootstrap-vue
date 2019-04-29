@@ -2,7 +2,6 @@ import Vue, { PluginFunction, PluginObject } from 'vue'
 import { BvPlugin } from './bv-plugin'
 import './vue-injections'
 import './es'
-import './bootstrap-vue'
 
 export * from './components'
 
