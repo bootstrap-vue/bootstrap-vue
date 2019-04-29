@@ -10,13 +10,13 @@ export default Toast
 export interface Toast extends BvPlugin {}
 
 // Component: b-toast
-export declare class BToastComponent extends Vue {
+export interface BToastComponent extends Vue {
   show: () => void
   hide: () => void
 }
 
 // Component: b-toaster
-export declare class BToasterComponent extends Vue {}
+export interface BToasterComponent extends Vue {}
 
 //
 // Types
