@@ -17,6 +17,8 @@ export * from './form-input'
 export * from './form-radio'
 export * from './form-select'
 export * from './form-textarea'
+export * from './image'
+export * from './input-group'
 
 export * from './modal'
 
