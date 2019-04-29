@@ -736,16 +736,19 @@ export default {
     },
     reset() {
       this.$bvModal
-        .msgBoxConfirm('Are you sure that you want to reset to the playground to the default values?', {
-          title: 'Please Confirm Reset',
-          size: 'sm',
-          buttonSize: 'sm',
-          okTitle: 'YES',
-          cancelTitle: 'NO',
-          footerClass: 'p-2',
-          hideHeaderClose: false,
-          centered: true
-        })
+        .msgBoxConfirm(
+          'Are you sure that you want to reset to the playground to the default values?',
+          {
+            title: 'Please Confirm Reset',
+            size: 'sm',
+            buttonSize: 'sm',
+            okTitle: 'YES',
+            cancelTitle: 'NO',
+            footerClass: 'p-2',
+            hideHeaderClose: false,
+            centered: true
+          }
+        )
         .then(value => {
           if (value) {
             this.doreset()
