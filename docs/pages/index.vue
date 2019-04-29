@@ -8,19 +8,22 @@
         <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
           <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
           <p class="lead">
-            Build responsive, mobile-first projects on the web using Vue.js and the world's most
-            popular front-end CSS library &mdash; Bootstrap 4.
+            With <span class="bd-text-purple-bright">BootstrapVue</span> you can build responsive,
+            mobile-first projects on the web using <span class="bd-text-purple-bright">Vue.js</span>
+            and the world's most popular front-end CSS library &mdash;
+            <span class="bd-text-purple-bright">Bootstrap v4</span>.
           </p>
           <p class="lead mb-3">
-            With over 40 available plugins and more than 75 custom components,
+            With over 40 available plugins and more than 75 custom UI components,
             <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
             comprehensive implementations of the
-            <span class="bd-text-purple-bright">Bootstrap V4.3</span> component and grid system
-            available for Vue.js 2.5+, complete with extensive and automated WAI-ARIA accessibility
-            markup. <samp>jQuery</samp> is not required.
+            <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
+            available for <span class="bd-text-purple-bright">Vue.js v2.5+</span>, complete with
+            extensive and automated WAI-ARIA accessibility markup. <samp>jQuery</samp> is not required.
           </p>
           <p class="mb-2 text-muted">
-            BootstrapVue's documentation is created using BootstrapVue components and
+            BootstrapVue's documentation is created using
+            <span class="bd-text-purple-bright">BootstrapVue</span> components and
             <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>.
           </p>
           <p class="mb-2 text-muted">
