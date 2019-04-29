@@ -1,13 +1,20 @@
-import Vue, { PluginFunction, PluginObject } from 'vue'
+declare module 'bootstrap-vue' {
+  import { Component, AsyncComponent, DirectiveOptions } from 'vue'
+  import { BvPlugin } from './bv-plugin'
 
-import { BvEvent } from "./bv-event"
-import { BModalComponent, BvModalEvent } from './components/modal'
-import { BToastComponent, BToasterComponent } from './components/toast'
+  export const Alert: BvPlugin
+  export const BAlert: Component | AsyncComponent
 
-export { BvEvent, BvModalEvent }
+  export const Badge: BvPlugin
+  export const BBadge: Component | AsyncComponent
 
-// TypeScript cannot merge imported class with namespace, so declare subclasses instead
+  export const Modal: BvPlugin
+  export const BModal: Component | AsyncComponent
 
-export class BModal extends BModalComponent {}
-export class BToast extends BToastComponent {}
-export class BToaster extends BToasterComponent {}
+  export const Spinner: BvPlugin
+  export const BSpinner: Component | AsyncComponent
+
+  export const Toast: BvPlugin
+  export const BToast: Component | AsyncComponent
+  export const BToaster: Component | AsyncComponent
+}
