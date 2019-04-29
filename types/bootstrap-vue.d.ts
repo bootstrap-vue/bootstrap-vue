@@ -17,6 +17,11 @@ declare module 'bootstrap-vue' {
   export const Badge: BvPlugin
   export const BBadge: Component | ComponentOptions | AsyncComponent
 
+  export const Breadcrumb: BvPlugin
+  export const BBreadcrumb: Component | ComponentOptions | AsyncComponent
+  export const BBreadcrumbItem: Component | ComponentOptions | AsyncComponent
+  export const BBreadcrumbLink: Component | ComponentOptions | AsyncComponent
+
   export {
     Modal,
     BModal,
