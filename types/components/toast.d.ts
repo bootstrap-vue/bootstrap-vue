@@ -19,11 +19,6 @@ export interface BToast extends Vue {
 export interface BToaster extends Vue {}
 
 //
-// Types
-//
-export type BToastData = boolean | null | any
-
-//
 // Interfaces
 //
 export interface BvToastOptions {
@@ -48,9 +43,9 @@ export interface BvToastOptions {
 }
 
 export interface BvToastShortcutMethod {
-  (message: string | VNode | Array<VNode>, options?: BvToastOptions): Promise<BToastData>
+  (message: string | VNode | Array<VNode>, options?: BvToastOptions): void
   // Future
-  //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvToastOptions): Promise<ToastData>
+  //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvToastOptions): void
 }
 
 export interface BvToast {
