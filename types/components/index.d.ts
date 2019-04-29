@@ -35,6 +35,6 @@ export * from './popover'
 export * from './progress'
 export * from './spinner'
 export * from './table'
-
+export * from './tabs'
 export * from './toast'
 export * from './tooltip'
