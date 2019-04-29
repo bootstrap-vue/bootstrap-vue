@@ -1,5 +1,5 @@
 declare module 'bootstrap-vue' {
-  import { Component, AsyncComponent, DirectiveOptions } from 'vue'
+  import { Component, ComponentOptions, AsyncComponent, DirectiveOptions } from 'vue'
   import { BvPlugin } from './bv-plugin'
   import { BvEvent } from './bv-event'
 
@@ -12,10 +12,10 @@ declare module 'bootstrap-vue' {
   }
 
   export const Alert: BvPlugin
-  export const BAlert: Component | AsyncComponent
+  export const BAlert: Component | ComponentOptions | AsyncComponent
 
   export const Badge: BvPlugin
-  export const BBadge: Component | AsyncComponent
+  export const BBadge: Component | ComponentOptions | AsyncComponent
 
   export {
     Modal,
@@ -23,8 +23,12 @@ declare module 'bootstrap-vue' {
     BvModalEvent
   }
 
+  export const Progress: BvPlugin
+  export const BProgress: Component | ComponentOptions | AsyncComponent
+  export const BProgressBar: Component | ComponentOptions | AsyncComponent
+
   export const Spinner: BvPlugin
-  export const BSpinner: Component | AsyncComponent
+  export const BSpinner: Component | ComponentOptions | AsyncComponent
 
   export {
     Table,
