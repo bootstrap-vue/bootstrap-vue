@@ -10,18 +10,18 @@ export default Toast
 export interface Toast extends BvPlugin {}
 
 // Component: b-toast
-export interface BToastComponent extends Vue {
+export interface BToast extends Vue {
   show: () => void
   hide: () => void
 }
 
 // Component: b-toaster
-export interface BToasterComponent extends Vue {}
+export interface BToaster extends Vue {}
 
 //
 // Types
 //
-export type ToastData = boolean | null | any
+export type BToastData = boolean | null | any
 
 //
 // Interfaces
@@ -48,7 +48,7 @@ export interface BvToastOptions {
 }
 
 export interface BvToastShortcutMethod {
-  (message: string | VNode | Array<VNode>, options?: BvToastOptions): Promise<ToastData>
+  (message: string | VNode | Array<VNode>, options?: BvToastOptions): Promise<BToastData>
   // Future
   //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvToastOptions): Promise<ToastData>
 }
