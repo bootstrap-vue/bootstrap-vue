@@ -5,6 +5,8 @@ const components = {
   BLink
 }
 
+export { BLink }
+
 export default {
   install: installFactory({ components })
 }
