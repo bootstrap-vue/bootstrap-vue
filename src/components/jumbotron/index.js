@@ -5,6 +5,8 @@ const components = {
   BJumbotron
 }
 
+export { BJumbotron }
+
 export default {
   install: installFactory({ components })
 }
