@@ -138,7 +138,8 @@ export default {
       const firstComponent = this.components[0]
       const firstComponentImport = this.componentImports[0]
       return [
-        `import ${firstComponent} from '${firstComponentImport.importPath}'`,
+        // `import ${firstComponent} from '${firstComponentImport.importPath}'`,
+        `import { ${firstComponent} } from '${firstComponentImport.importPath}'`,
         `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
       ].join('\n')
     },
@@ -147,7 +148,8 @@ export default {
       const firstDirectiveImport = this.directiveImports[0]
       return [
         "// Note: Vue automatically prefixes the directive name with 'v-'",
-        `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
+        // `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
+        `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
     },
@@ -178,8 +180,9 @@ export default {
       return `<${this.componentName(component)}>`
     },
     componentPath(component) {
-      const componentName = this.componentName(component).replace(/^b-/, '')
-      return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
+      // const componentName = this.componentName(component).replace(/^b-/, '')
+      // return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
+      return `bootstrap-vue/es/components/${this.pluginDir}`
     },
     directiveName(directive) {
       return kebabCase(directive).replace(/^v-/, '')
@@ -188,8 +191,9 @@ export default {
       return kebabCase(directive)
     },
     directivePath(directive) {
-      const directiveName = this.directiveName(directive).replace(/^b-/, '')
-      return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
+      // const directiveName = this.directiveName(directive).replace(/^b-/, '')
+      // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
+      return `bootstrap-vue/es/directives/${directiveName}`
     }
   }
 }
