@@ -68,7 +68,9 @@ export const registerComponents = (Vue, components = {}) => {
  */
 export const registerDirective = (Vue, name, def) => {
   if (Vue && name && def) {
-    Vue.directive(name, def)
+    // Ensure that the leading V is removed from the
+    // name, as Vue adds it automatically
+    Vue.directive(name.replace(/^VB/, 'B', def)
   }
 }
 
