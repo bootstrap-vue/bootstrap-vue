@@ -28,6 +28,7 @@ export interface Table extends BvPlugin {}
 export interface BTable extends Vue {
   // Public methods
   refresh: () => void
+  clearSelected: () => void
   // Props
   fields?: BvTableFieldObject | BvTableFieldArray
 }
