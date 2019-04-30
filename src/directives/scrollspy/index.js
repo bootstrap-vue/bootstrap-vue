@@ -5,9 +5,7 @@ const directives = {
   BScrollspy: BScrollspyDirective
 }
 
-export {
-  BScrollspyDirective as BScrollspy
-}
+export { BScrollspyDirective as BScrollspy }
 
 export default {
   install: installFactory({ directives })
