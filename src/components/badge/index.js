@@ -5,9 +5,7 @@ const components = {
   BBadge
 }
 
-export {
-  BBadge
-}
+export { BBadge }
 
 export default {
   install: installFactory({ components })
