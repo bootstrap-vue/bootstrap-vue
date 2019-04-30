@@ -10,6 +10,8 @@ const directives = {
   BPopover: BPopoverDirective
 }
 
+export { BPopover }
+
 export default {
   install: installFactory({ components, directives })
 }
