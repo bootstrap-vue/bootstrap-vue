@@ -4,7 +4,7 @@ import { installFactory } from '../utils/plugins'
 // Note this is may not be tree shake-able if user imports plugins from
 // this named export.
 import * as plugins from './plugins'
-export plugins
+export { plugins }
 
 // Export all individual components as named exports
 export * from './alert'
