@@ -1,79 +1,52 @@
-import AlertPlugin from './alert'
-import BadgePlugin from './badge'
-import BreadcrumbPlugin from './breadcrumb'
-import ButtonPlugin from './button'
-import ButtonGroupPlugin from './button-group'
-import ButtonToolbarPlugin from './button-toolbar'
-import InputGroupPlugin from './input-group'
-import CardPlugin from './card'
-import CarouselPlugin from './carousel'
-import LayoutPlugin from './layout'
-import CollapsePlugin from './collapse'
-import DropdownPlugin from './dropdown'
-import EmbedPlugin from './embed'
-import FormPlugin from './form'
-import FormGroupPlugin from './form-group'
-import FormCheckboxPlugin from './form-checkbox'
-import FormRadioPlugin from './form-radio'
-import FormInputPlugin from './form-input'
-import FormTextareaPlugin from './form-textarea'
-import FormFilePlugin from './form-file'
-import FormSelectPlugin from './form-select'
-import ImagePlugin from './image'
-import JumbotronPlugin from './jumbotron'
-import LinkPlugin from './link'
-import ListGroupPlugin from './list-group'
-import MediaPlugin from './media'
-import ModalPlugin from './modal'
-import NavPlugin from './nav'
-import NavbarPlugin from './navbar'
-import PaginationPlugin from './pagination'
-import PaginationNavPlugin from './pagination-nav'
-import PopoverPlugin from './popover'
-import ProgressPlugin from './progress'
-import SpinnerPlugin from './spinner'
-import TablePlugin from './table'
-import TabsPlugin from './tabs'
-import ToastPlugin from './toast'
-import TooltipPlugin from './tooltip'
+import { installFactory } from '../utils/plugins'
 
-export {
-  AlertPlugin,
-  BadgePlugin,
-  BreadcrumbPlugin,
-  ButtonPlugin,
-  ButtonToolbarPlugin,
-  ButtonGroupPlugin,
-  CardPlugin,
-  CarouselPlugin,
-  CollapsePlugin,
-  DropdownPlugin,
-  EmbedPlugin,
-  FormPlugin,
-  FormGroupPlugin,
-  FormInputPlugin,
-  FormTextareaPlugin,
-  FormFilePlugin,
-  FormCheckboxPlugin,
-  FormRadioPlugin,
-  FormSelectPlugin,
-  ImagePlugin,
-  InputGroupPlugin,
-  JumbotronPlugin,
-  LayoutPlugin,
-  LinkPlugin,
-  ListGroupPlugin,
-  MediaPlugin,
-  ModalPlugin,
-  NavPlugin,
-  NavbarPlugin,
-  PaginationPlugin,
-  PaginationNavPlugin,
-  PopoverPlugin,
-  ProgressPlugin,
-  SpinnerPlugin,
-  TablePlugin,
-  TabsPlugin,
-  ToastPlugin,
-  TooltipPlugin
+// Export a named eport 'plugins' whic his an object of all plugins
+// Note this is may not be tree shake-able if user imports plugins from
+// this named export.
+import * as plugins from './plugins'
+export plugins
+
+// Export all individual components as named exports
+export * from './alert'
+export * from './badge'
+export * from './breadcrumb'
+export * from './button'
+export * from './button-group'
+export * from './button-toolbar'
+export * from './input-group'
+export * from './card'
+export * from './carousel'
+export * from './layout'
+export * from './collapse'
+export * from './dropdown'
+export * from './embed'
+export * from './form'
+export * from './form-group'
+export * from './form-checkbox'
+export * from './form-radio'
+export * from './form-input'
+export * from './form-textarea'
+export * from './form-file'
+export * from './form-select'
+export * from './image'
+export * from './jumbotron'
+export * from './link'
+export * from './list-group'
+export * from './media'
+export * from './modal'
+export * from './nav'
+export * from './navbar'
+export * from './pagination'
+export * from './pagination-nav'
+export * from './popover'
+export * from './progress'
+export * from './spinner'
+export * from './table'
+export * from './tabs'
+export * from './toast'
+export * from './tooltip'
+
+// Export default as a plugin that installs all the component group plugins
+export default {
+  install: installFactory({ plugins })
 }
