@@ -2,8 +2,8 @@
 // Modals
 //
 import Vue, { VNode } from 'vue'
-import { BvEvent } from '../bv-event'
-import { BvPlugin } from '../bv-plugin'
+import { BvEvent } from '../../bv-event'
+import { BvPlugin } from '../../bv-plugin'
 
 // Modal Plugin
 declare const Modal: Modal
