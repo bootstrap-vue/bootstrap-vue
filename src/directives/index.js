@@ -1,7 +1,6 @@
 import { installFactory } from '../utils/plugins'
 import * as directivePlugins from './plugins'
 
-
 // Named exports of all directives
 export * from './toggle'
 export * from './modal'
