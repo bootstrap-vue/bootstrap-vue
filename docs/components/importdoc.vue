@@ -147,7 +147,6 @@ export default {
       const firstComponent = this.components[0]
       const firstComponentImport = this.componentImports[0]
       return [
-        // `import ${firstComponent} from '${firstComponentImport.importPath}'`,
         `import { ${firstComponent} } from '${firstComponentImport.importPath}'`,
         `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
       ].join('\n')
@@ -164,11 +163,11 @@ export default {
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
-        `// Importing the named export',
+        '// Importing the named export',
         `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}`,
         `Vue.use(${this.pluginName})`,
         '',
-        '// Or importing the default export (legacy):',
+        '// Or importing the default export (legacy)',
         `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
