@@ -1,5 +1,6 @@
-export { default as Toggle } from './toggle'
-export { default as Modal } from './modal'
-export { default as Scrollspy } from './scrollspy'
-export { default as Tooltip } from './tooltip'
-export { default as Popover } from './popover'
+// Directive Plugins
+export { default as VBTogglePlugin } from './toggle'
+export { default as VBModalPlugin } from './modal'
+export { default as VBScrollspyPlugin } from './scrollspy'
+export { default as VBTooltipPlugin } from './tooltip'
+export { default as VBPopoverPlugin } from './popover'
