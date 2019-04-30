@@ -16,5 +16,4 @@ export { BToast, BToaster }
 
 export default {
   install: installFactory({ components, plugins })
-  }
 }
