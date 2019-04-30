@@ -21,6 +21,10 @@
       <ul>
         <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
       </ul>
+      <p class="small text-muted">
+        Note: component aliases are only available when importing all of BootstrapVue or using
+        the component group plugin.
+      </p>
     </article>
 
     <article v-if="propsItems && propsItems.length > 0">
