@@ -2,7 +2,7 @@
 // Table
 //
 import Vue, { VNode } from 'vue'
-import { BvPlugin } from '../bv-plugin'
+import { BvPlugin } from '../../bv-plugin'
 
 type BvTableVariant =
   | 'active'
