@@ -2,7 +2,7 @@
 // Toast
 //
 import Vue, { VNode } from 'vue'
-import { BvPlugin } from '../bv-plugin'
+import { BvPlugin } from '../../bv-plugin'
 
 // Toast Plugin
 declare const Toast: Toast
