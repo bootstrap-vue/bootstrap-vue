@@ -5,9 +5,7 @@ const directives = {
   BPopover: BPopoverDirective
 }
 
-export {
-  BPopoverDirective as BPopover
-}
+export { BPopoverDirective as BPopover }
 
 export default {
   install: installFactory({ directives })
