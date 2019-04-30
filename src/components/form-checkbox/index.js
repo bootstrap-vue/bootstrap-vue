@@ -11,6 +11,8 @@ const components = {
   BCheckGroup: BFormCheckboxGroup
 }
 
+export { BFormCheckbox, BFormCheckboxGroup }
+
 export default {
   install: installFactory({ components })
 }
