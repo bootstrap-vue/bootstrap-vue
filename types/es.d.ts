@@ -17,7 +17,7 @@ declare module 'bootstrap-vue/es' {
 
   const BootstrapVuePlugin: {
     default: BvPlugin
-    [key: string]?: Cmp | Dir
+    [key: string]?: Cmp | Dir | BvPlugin
   }
 
   export = BootstrapVuePlugin
