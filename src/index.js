@@ -1,6 +1,6 @@
 import componentsPlugin from './components'
-import * as directivePlugins from './directives/plugins'
-import { registerPlugins, vueUse } from './utils/plugins'
+import directivesPlugin from './directives'
+import { vueUse } from './utils/plugins'
 import { setConfig } from './utils/config'
 
 const install = (Vue, config = {}) => {
@@ -16,8 +16,8 @@ const install = (Vue, config = {}) => {
   // Install all component plugins
   Vue.use(componentsPlugin)
 
-  // Register directive plugins
-  registerPlugins(Vue, directivePlugins)
+  // Install all directive plugins
+  Vue.use(directivesPlugin)
 }
 
 install.installed = false
