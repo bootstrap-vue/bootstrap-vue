@@ -13,6 +13,8 @@ const directives = {
 
 const install = installFactory({ components, directives })
 
+export { BModal }
+
 export default {
   install: Vue => {
     // Inject `$bvModal` into Vue prototype
