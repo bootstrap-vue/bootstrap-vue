@@ -6,6 +6,8 @@ const components = {
   BInput: BFormInput
 }
 
+export { BFormInput }
+
 export default {
   install: installFactory({ components })
 }
