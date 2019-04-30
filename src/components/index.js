@@ -1,10 +1,5 @@
 import { installFactory } from '../utils/plugins'
-
-// Export a named eport 'plugins' whic his an object of all plugins
-// Note this is may not be tree shake-able if user imports plugins from
-// this named export.
-import * as plugins from './plugins'
-export { plugins }
+import * as componentPlugins from './plugins'
 
 // Export all individual components as named exports
 export * from './alert'
@@ -48,5 +43,5 @@ export * from './tooltip'
 
 // Export default as a plugin that installs all the component group plugins
 export default {
-  install: installFactory({ plugins })
+  install: installFactory({ plugins: componentPlugins })
 }
