@@ -5,6 +5,8 @@ const components = {
   BPagination
 }
 
+export { BPagination }
+
 export default {
   install: installFactory({ components })
 }
