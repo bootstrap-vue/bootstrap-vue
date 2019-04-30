@@ -5,6 +5,8 @@ const components = {
   BSpinner
 }
 
+export { BSpinner }
+
 export default {
   install: installFactory({ components })
 }
