@@ -5,9 +5,7 @@ const directives = {
   BModal: BModalDirective
 }
 
-export {
-  BModalDirective as BModal
-}
+export { BModalDirective as BModal }
 
 export default {
   install: installFactory({ directives })
