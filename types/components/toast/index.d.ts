@@ -65,6 +65,6 @@ export interface BvToast {
 declare module 'vue/types/vue' {
   interface Vue {
     // Toast injection
-    $bvToast: BvToast
+    readonly $bvToast: BvToast
   }
 }
