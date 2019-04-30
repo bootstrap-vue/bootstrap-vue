@@ -7,6 +7,8 @@ const components = {
   BImgLazy
 }
 
+export { BImg, BImgLazy }
+
 export default {
   install: installFactory({ components })
 }
