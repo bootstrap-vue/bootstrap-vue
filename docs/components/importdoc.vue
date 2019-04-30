@@ -193,10 +193,10 @@ export default {
       return `bootstrap-vue/es/components`
     },
     directiveName(directive) {
-      return kebabCase(directive).replace(/^v-/, '')
+      return kebabCase(directive).replace(/^v-/, '').replace(/^vb-/, 'b-')
     },
     directiveAttr(directive) {
-      return kebabCase(directive)
+      return kebabCase(directive).replace(/^vb-/, 'v-b-')
     },
     directivePath(directive) {
       // const directiveName = this.directiveName(directive).replace(/^b-/, '')
