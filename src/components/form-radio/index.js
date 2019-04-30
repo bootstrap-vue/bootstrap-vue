@@ -9,6 +9,8 @@ const components = {
   BRadioGroup: BFormRadioGroup
 }
 
+export { BFormRadio, BFormRadioGroup }
+
 export default {
   install: installFactory({ components })
 }
