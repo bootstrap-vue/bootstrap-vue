@@ -16,11 +16,7 @@ declare module 'bootstrap-vue/es' {
   export = BootstrapVuePlugin
 }
 
-/* comonents/index.js file
-// Currently this is not set up this way.
-// May want to create a plugins.js file that exports all the defaults from all
-// component groups, and import that file into index.js as a named export `plugins`
-// and have the individual components available as named exports in index.js
+// components/index.js file
 declare module 'bootstrap-vue/es/components' {
   import { VueConstructor, Component, ComponentOptions, AsyncComponent } from 'vue'
   import { BvPlugin } from './bv-plugin'
@@ -30,15 +26,16 @@ declare module 'bootstrap-vue/es/components' {
   }
 
   const BootstrapVueComponentPlugin: {
-    // Default export is an object of plugins
-    default: BvPluginsObject
+    // Default export is a plugin that installs all component plugins
+    default: BvPlugin
+    // plugins contains an object of all component group plugins
+    plugins: BvPluginsObject
     // Named exports are components
     [key: string]: VueConstructor | Component | ComponentOptions | AsyncComponent
   }
 
   export = BootstrapVueComponentPlugin
 }
-*/
 
 declare module 'bootstrap-vue/es/components/*' {
   import { VueConstructor, Component, ComponentOptions, AsyncComponent } from 'vue'
@@ -68,11 +65,7 @@ declare module 'bootstrap-vue/es/components/*/*' {
   export = BootstrapVueComponent
 }
 
-/* directives/index.js
-// Currently this is not set up this way.
-// May want to create a plugins.js file that exports all the defaults from all
-// directive groups, and import that file into index.js as a named export `plugins`
-// and have the individual directives available as named exports in index.js
+// directives/index.js
 declare module 'bootstrap-vue/es/directives' {
   import { DirectiveOptions, DirectiveFunction, PluginFunction } from 'vue'
   import { BvPlugin } from './bv-plugin'
@@ -82,15 +75,16 @@ declare module 'bootstrap-vue/es/directives' {
   }
 
   const BootstrapVueDirectivePlugin: {
-    // Default export is an object of plugins
-    default: BvPluginsObject
+    // Default export is a plugin that installs all directive plugins
+    default: BvPlugin
+    // plugins export is an object of plugins
+    plugins: BvPluginsObject
     // Named export(s) are individual directives
     [key: string]: DirectiveOptions | DirectiveFunction
   }
 
   export = BootstrapVueDirectivePlugin
 }
-*/
 
 declare module 'bootstrap-vue/es/directives/*' {
   import { DirectiveOptions, DirectiveFunction, PluginFunction } from 'vue'
