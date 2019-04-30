@@ -9,9 +9,7 @@ export * from './carousel'
 export * from './collapse'
 export * from './dropdown'
 export * from './embed'
-// We don't re-eport BFormRow as Layout exports it as well
-import { Form, BBForm, BFormInvalidFeedback, BFormValidFeedback, BFormText, BFormDatalist} from './form'
-export { Form, BBForm, BFormInvalidFeedback, BFormValidFeedback, BFormText, BFormDatalist}
+export * from './form'
 export * from './form-checkbox'
 export * from './form-file'
 export * from './form-group'
