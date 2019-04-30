@@ -10,6 +10,8 @@ const directives = {
   BTooltip: BTooltipDirective
 }
 
+export { BTooltip }
+
 export default {
   install: installFactory({ components, directives })
 }
