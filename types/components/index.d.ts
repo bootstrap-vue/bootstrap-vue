@@ -9,7 +9,9 @@ export * from './carousel'
 export * from './collapse'
 export * from './dropdown'
 export * from './embed'
-export * from './form'
+// We don't re-eport BFormRow as Layout exports it as well
+import { Form, BBForm, BFormInvalidFeedback, BFormValidFeedback, BFormText, BFormDatalist} from './form'
+export { Form, BBForm, BFormInvalidFeedback, BFormValidFeedback, BFormText, BFormDatalist}
 export * from './form-checkbox'
 export * from './form-file'
 export * from './form-group'
@@ -20,9 +22,7 @@ export * from './form-textarea'
 export * from './image'
 export * from './input-group'
 export * from './jumbotron'
-// We don't re-eport BFormRow as Form exports it as well
-import { Layout, BContainer, BRow, BCol} from './layout'
-export { Layout, BContainer, BRow, BCol}
+export * from './layout'
 export * from './link'
 export * from './list-group'
 export * from './media'
