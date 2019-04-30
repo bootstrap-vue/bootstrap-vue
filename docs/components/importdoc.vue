@@ -111,7 +111,8 @@ export default {
       return this.$route.params.slug
     },
     pluginName() {
-      return startCase(this.pluginDir).replace(/\s+/g, '')
+      const prefix = this.isComponentRoute ? '' : 'VB'
+      return `${prefix}${startCase(this.pluginDir).replace(/\s+/g, '')}Plugin`
     },
     componentImports() {
       return this.components.map(c => {
