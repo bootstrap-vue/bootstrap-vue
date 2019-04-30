@@ -17,6 +17,15 @@ const components = {
   BFormValidFeedback
 }
 
+export {
+  BForm,
+  BFormDatalist,
+  BFormRow,
+  BFormText,
+  BFormInvalidFeedback,
+  BFormValidFeedback
+}
+
 export default {
   install: installFactory({ components })
 }
