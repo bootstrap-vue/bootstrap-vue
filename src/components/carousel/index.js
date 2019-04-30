@@ -7,6 +7,11 @@ const components = {
   BCarouselSlide
 }
 
+export {
+  BCarousel,
+  BCarouselSlide
+}
+
 export default {
   install: installFactory({ components })
 }
