@@ -11,8 +11,6 @@ declare module 'bootstrap-vue/es' {
 
   const BootstrapVue: {
     default: BvPlugin
-    components: BvPluginsObject
-    directives: BvPluginsObject
   }
 
   export = BootstrapVue
