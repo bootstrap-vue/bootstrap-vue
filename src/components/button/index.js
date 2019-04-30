@@ -9,10 +9,7 @@ const components = {
   BBtnClose: BButtonClose
 }
 
-export {
-  BButton,
-  BButtonClose
-}
+export { BButton, BButtonClose }
 
 export default {
   install: installFactory({ components })
