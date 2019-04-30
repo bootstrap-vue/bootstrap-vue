@@ -104,6 +104,6 @@ export interface BvModal {
 declare module 'vue/types/vue' {
   interface Vue {
     // Modal injection
-    $bvModal: BvModal
+    readonly $bvModal: BvModal
   }
 }
