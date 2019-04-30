@@ -5,6 +5,10 @@ const directives = {
   BToggle: BToggleDirective
 }
 
+export {
+  BToggleDirective as BToggle
+}
+
 export default {
   install: installFactory({ directives })
 }
