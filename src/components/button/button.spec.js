@@ -90,6 +90,22 @@ describe('button', () => {
     expect(wrapper.classes().length).toBe(3)
   })
 
+  it('applies pill class', async () => {
+    const wrapper = mount(BButton, {
+      propsData: {
+        pill: true
+      }
+    })
+
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('type')).toBeDefined()
+    expect(wrapper.attributes('type')).toBe('button')
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes()).toContain('rounded-pill')
+    expect(wrapper.classes().length).toBe(3)
+  })
+
   it('renders custom root element', async () => {
     const wrapper = mount(BButton, {
       propsData: {
