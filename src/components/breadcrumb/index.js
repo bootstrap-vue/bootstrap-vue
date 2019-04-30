@@ -9,11 +9,7 @@ const components = {
   BBreadcrumbLink
 }
 
-export {
-  BBreadcrumb,
-  BBreadcrumbItem,
-  BBreadcrumbLink
-}
+export { BBreadcrumb, BBreadcrumbItem, BBreadcrumbLink }
 
 export default {
   install: installFactory({ components })
