@@ -1,4 +1,8 @@
-// Compoent group plugins
+// Vue.prototype injection Plugins
+export { default as BVModalPlugin } from './modal/helpers/bv-modal'
+export { default as BVToastPlugin } from './toast/helpers/bv-toast'
+
+// Component group plugins
 export { default as AlertPlugin } from './alert'
 export { default as BadgePlugin } from './badge'
 export { default as BreadcrumbPlugin } from './breadcrumb'
