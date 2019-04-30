@@ -2,15 +2,22 @@
 // ES build directory
 //
 declare module 'bootstrap-vue/es' {
-  import { VueConstructor, Component, AsyncComponent, ComponentOptions } from 'vue'
+  import {
+    VueConstructor,
+    Component,
+    AsyncComponent,
+    ComponentOptions,
+    DirectiveOptions,
+    DirectiveFunction
+  } from 'vue'
   import { BvPlugin } from './bv-plugin'
 
-  interface BvPluginsObject {
-    [key: string]?: BvPlugin
-  }
+  type Cmp = VueConstructor | Component | ComponentOptions | AsyncComponent
+  type Dir = DirectiveOptions | DirectiveFunction
 
   const BootstrapVuePlugin: {
     default: BvPlugin
+    [key: string]?: Cmp | Dir
   }
 
   export = BootstrapVuePlugin
