@@ -1,5 +1,5 @@
-import * as componentPlugins from './components'
-import * as directivePlugins from './directives'
+import * as componentPlugins from './components/plugins'
+import * as directivePlugins from './directives/plugins'
 import { registerPlugins, vueUse } from './utils/plugins'
 import { setConfig } from './utils/config'
 
