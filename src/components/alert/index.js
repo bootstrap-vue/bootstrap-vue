@@ -5,9 +5,7 @@ const components = {
   BAlert
 }
 
-export {
-  BAlert
-}
+export { BAlert }
 
 export default {
   install: installFactory({ components })
