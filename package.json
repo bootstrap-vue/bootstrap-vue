@@ -9,6 +9,7 @@
   "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
+  "typings": "types/index.d.ts",
   "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
@@ -45,13 +46,15 @@
     "src",
     "dist",
     "nuxt",
-    "es"
+    "es",
+    "types"
   ],
   "sideEffects": [
     "**/*.scss",
     "**/*.css",
     "**/*.vue",
-    "./docs"
+    "./docs",
+    "./types"
   ],
   "scripts": {
     "build": "scripts/build.sh",
