@@ -2,6 +2,7 @@ import * as componentPlugins from './components'
 import * as directivePlugins from './directives'
 import { registerPlugins, vueUse } from './utils/plugins'
 import { setConfig } from './utils/config'
+import { version } from '../package.json'
 
 const install = (Vue, config = {}) => {
   if (install.installed) {
@@ -24,7 +25,8 @@ install.installed = false
 
 const BootstrapVue = {
   install: install,
-  setConfig: setConfig
+  setConfig: setConfig,
+  version: version
 }
 
 // Auto installation only occurs if window.Vue exists
