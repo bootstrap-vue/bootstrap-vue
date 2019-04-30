@@ -29,6 +29,17 @@ const components = {
   BDdGroup: BDropdownGroup
 }
 
+export {
+  BDropdown,
+  BDropdownItem,
+  BDropdownItemButton,
+  BDropdownHeader,
+  BDropdownDivider,
+  BDropdownForm,
+  BDropdownText,
+  BDropdownGroup
+}
+
 export default {
   install: installFactory({ components })
 }
