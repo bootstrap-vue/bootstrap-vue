@@ -1,7 +1,7 @@
-import Toggle from './toggle'
-import Modal from './modal'
-import Scrollspy from './scrollspy'
-import Tooltip from './tooltip'
-import Popover from './popover'
+import TogglePlugin from './toggle'
+import ModalPlugin from './modal'
+import ScrollspyPlugin from './scrollspy'
+import TooltipPlugin from './tooltip'
+import PopoverPlugin from './popover'
 
-export { Toggle, Modal, Scrollspy, Tooltip, Popover }
+export { TogglePlugin, ModalPlugin, ScrollspyPlugin, TooltipPlugin, PopoverPlugin }
