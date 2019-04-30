@@ -2,7 +2,7 @@
 // Form Group
 //
 import Vue from 'vue'
-import { BvPlugin } from '../bv-plugin'
+import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
 declare const FormGroup: FormGroup
