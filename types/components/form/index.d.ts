@@ -21,8 +21,5 @@ export interface BFormInvalidFeedback extends Vue {}
 // Component: b-form-valid-feedback
 export interface BFormValidFeedback extends Vue {}
 
-// Component: b-form-row
-export interface BFormRow extends Vue {}
-
 // Component: b-form-datalist
 export interface BFormDatalist extends Vue {}
