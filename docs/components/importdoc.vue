@@ -20,7 +20,7 @@
           <template slot="component" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
-          <template slot="export" slot-scope="{ value }">
+          <template slot="namedExport" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
@@ -51,7 +51,7 @@
           <template slot="directive" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
-          <template slot="export" slot-scope="{ value }">
+          <template slot="namedExport" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
@@ -117,7 +117,7 @@ export default {
       return this.components.map(c => {
         return {
           component: this.componentTag(c),
-          export: c,
+          namedExport: c,
           importPath: this.componentPath(c)
         }
       })
@@ -126,7 +126,7 @@ export default {
       return this.directives.map(d => {
         return {
           directive: this.directiveAttr(d),
-          export: d.replace(/^V/i, ''),
+          namedExport: d,
           importPath: this.directivePath(d)
         }
       })
@@ -157,7 +157,7 @@ export default {
       return [
         "// Note: Vue automatically prefixes the directive name with 'v-'",
         // `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
-        `import { ${firstDirective.replace(/^V/i, '')} } from '${firstDirectiveImport.importPath}'`,
+        `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
     },
