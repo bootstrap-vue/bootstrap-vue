@@ -1,6 +1,9 @@
 import { installFactory } from '../utils/plugins'
 import * as componentPlugins from './plugins'
 
+// Export all component group plugins as named exports
+export * from './plugins'
+
 // Export all individual components as named exports
 export * from './alert'
 export * from './badge'
