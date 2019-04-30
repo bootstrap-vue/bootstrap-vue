@@ -164,6 +164,11 @@ export default {
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
+        `// Importing the named export
+        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}`,
+        `Vue.use(${this.pluginName})`,
+        '',
+        '// Or importing the default export (legacy):',
         `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
