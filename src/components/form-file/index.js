@@ -6,6 +6,8 @@ const components = {
   BFile: BFormFile
 }
 
+export { BFormFile }
+
 export default {
   install: installFactory({ components })
 }
