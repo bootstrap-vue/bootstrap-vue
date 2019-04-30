@@ -1,6 +1,9 @@
 import { installFactory } from '../utils/plugins'
 import * as directivePlugins from './plugins'
 
+// Export all directive group plugins as named exports
+export * from './plugins'
+
 // Named exports of all directives
 export * from './toggle'
 export * from './modal'
