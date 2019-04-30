@@ -10,6 +10,8 @@ const components = {
 
 const install = installFactory({ components })
 
+export { BToast, BToaster }
+
 export default {
   install: Vue => {
     // Inject `$bvToast` into Vue prototype
