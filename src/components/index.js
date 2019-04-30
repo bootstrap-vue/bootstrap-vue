@@ -1,79 +1,79 @@
-import Alert from './alert'
-import Badge from './badge'
-import Breadcrumb from './breadcrumb'
-import Button from './button'
-import ButtonGroup from './button-group'
-import ButtonToolbar from './button-toolbar'
-import InputGroup from './input-group'
-import Card from './card'
-import Carousel from './carousel'
-import Layout from './layout'
-import Collapse from './collapse'
-import Dropdown from './dropdown'
-import Embed from './embed'
-import Form from './form'
-import FormGroup from './form-group'
-import FormCheckbox from './form-checkbox'
-import FormRadio from './form-radio'
-import FormInput from './form-input'
-import FormTextarea from './form-textarea'
-import FormFile from './form-file'
-import FormSelect from './form-select'
-import Image from './image'
-import Jumbotron from './jumbotron'
-import Link from './link'
-import ListGroup from './list-group'
-import Media from './media'
-import Modal from './modal'
-import Nav from './nav'
-import Navbar from './navbar'
-import Pagination from './pagination'
-import PaginationNav from './pagination-nav'
-import Popover from './popover'
-import Progress from './progress'
-import Spinner from './spinner'
-import Table from './table'
-import Tabs from './tabs'
-import Toast from './toast'
-import Tooltip from './tooltip'
+import AlertPlugin from './alert'
+import BadgePlugin from './badge'
+import BreadcrumbPlugin from './breadcrumb'
+import ButtonPlugin from './button'
+import ButtonGroupPlugin from './button-group'
+import ButtonToolbarPlugin from './button-toolbar'
+import InputGroupPlugin from './input-group'
+import CardPlugin from './card'
+import CarouselPlugin from './carousel'
+import LayoutPlugin from './layout'
+import CollapsePlugin from './collapse'
+import DropdownPlugin from './dropdown'
+import EmbedPlugin from './embed'
+import FormPlugin from './form'
+import FormGroupPlugin from './form-group'
+import FormCheckboxPlugin from './form-checkbox'
+import FormRadioPlugin from './form-radio'
+import FormInputPlugin from './form-input'
+import FormTextareaPlugin from './form-textarea'
+import FormFilePlugin from './form-file'
+import FormSelectPlugin from './form-select'
+import ImagePlugin from './image'
+import JumbotronPlugin from './jumbotron'
+import LinkPlugin from './link'
+import ListGroupPlugin from './list-group'
+import MediaPlugin from './media'
+import ModalPlugin from './modal'
+import NavPlugin from './nav'
+import NavbarPlugin from './navbar'
+import PaginationPlugin from './pagination'
+import PaginationNavPlugin from './pagination-nav'
+import PopoverPlugin from './popover'
+import ProgressPlugin from './progress'
+import SpinnerPlugin from './spinner'
+import TablePlugin from './table'
+import TabsPlugin from './tabs'
+import ToastPlugin from './toast'
+import TooltipPlugin from './tooltip'
 
 export {
-  Alert,
-  Badge,
-  Breadcrumb,
-  Button,
-  ButtonToolbar,
-  ButtonGroup,
-  Card,
-  Carousel,
-  Collapse,
-  Dropdown,
-  Embed,
-  Form,
-  FormGroup,
-  FormInput,
-  FormTextarea,
-  FormFile,
-  FormCheckbox,
-  FormRadio,
-  FormSelect,
-  Image,
-  InputGroup,
-  Jumbotron,
-  Layout,
-  Link,
-  ListGroup,
-  Media,
-  Modal,
-  Nav,
-  Navbar,
-  Pagination,
-  PaginationNav,
-  Popover,
-  Progress,
-  Spinner,
-  Table,
-  Tabs,
-  Toast,
-  Tooltip
+  AlertPlugin,
+  BadgePlugin,
+  BreadcrumbPlugin,
+  ButtonPlugin,
+  ButtonToolbarPlugin,
+  ButtonGroupPlugin,
+  CardPlugin,
+  CarouselPlugin,
+  CollapsePlugin,
+  DropdownPlugin,
+  EmbedPlugin,
+  FormPlugin,
+  FormGroupPlugin,
+  FormInputPlugin,
+  FormTextareaPlugin,
+  FormFilePlugin,
+  FormCheckboxPlugin,
+  FormRadioPlugin,
+  FormSelectPlugin,
+  ImagePlugin,
+  InputGroupPlugin,
+  JumbotronPlugin,
+  LayoutPlugin,
+  LinkPlugin,
+  ListGroupPlugin,
+  MediaPlugin,
+  ModalPlugin,
+  NavPlugin,
+  NavbarPlugin,
+  PaginationPlugin,
+  PaginationNavPlugin,
+  PopoverPlugin,
+  ProgressPlugin,
+  SpinnerPlugin,
+  TablePlugin,
+  TabsPlugin,
+  ToastPlugin,
+  TooltipPlugin
 }
