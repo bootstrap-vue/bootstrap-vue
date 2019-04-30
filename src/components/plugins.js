@@ -1,3 +1,4 @@
+// Compoent group plugins
 export { default as AlertPlugin } from './alert'
 export { default as BadgePlugin } from './badge'
 export { default as BreadcrumbPlugin } from './breadcrumb'
