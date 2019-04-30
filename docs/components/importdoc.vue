@@ -191,7 +191,7 @@ export default {
       return kebabCase(directive)
     },
     directivePath(directive) {
-      // const directiveName = this.directiveName(directive).replace(/^b-/, '')
+      const directiveName = this.directiveName(directive).replace(/^b-/, '')
       // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
       return `bootstrap-vue/es/directives/${directiveName}`
     }
