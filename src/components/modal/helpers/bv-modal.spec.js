@@ -6,7 +6,7 @@ describe('$bvModal', () => {
   const localVue = new CreateLocalVue()
   localVue.use(modalPlugin)
 
-  beforeAll(() => {
+  beforeEach(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
   })
