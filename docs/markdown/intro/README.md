@@ -175,11 +175,7 @@ module.exports = {
       'ToastPlugin',
       'ModalPlugin'
     ],
-    directivePlugins: [
-      'VBPopoverPlugin',
-      'VBTooltipPlugin',
-      'VBScrollspyPlugin'
-    ]
+    directivePlugins: ['VBPopoverPlugin', 'VBTooltipPlugin', 'VBScrollspyPlugin']
   }
 }
 ```
@@ -194,16 +190,13 @@ module.exports = {
     components: [
       'BContainer',
       'BRow',
-      'BCol'
+      'BCol',
       'BFormInput',
       'BButton',
-      'BTable'
+      'BTable',
+      'BModal'
     ],
-    directives: [
-      'VBPopover',
-      'VBTooltip',
-      'VBScrollspy'
-    ]
+    directives: ['VBModal', 'VBPopover', 'VBTooltip', 'VBScrollspy']
   }
 }
 ```
