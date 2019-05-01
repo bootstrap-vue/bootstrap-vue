@@ -166,15 +166,55 @@ want to globally install in your Nuxt.js project.
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    componentPlugins: ['Layout', 'Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
-    directivePlugins: ['Popover']
+    componentPlugins: [
+      'LayoutPlugin',
+      'FormPlugin',
+      'FormCheckboxPlugin',
+      'FormInputPlugin',
+      'FormRadioPlugin',
+      'ToastPlugin',
+      'ModalPlugin'
+    ],
+    directivePlugins: [
+      'VBPopoverPlugin',
+      'VBTooltipPlugin',
+      'VBScrollspyPlugin'
+    ]
   }
 }
 ```
 
+You can  also optionally import individual components or directives, you can configure the list of
+BootstrapVue `components` or `directives` you want to globally install in your Nuxt.js project.
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    components: [
+      'BContainer',
+      'BRow',
+      'BCol'
+      'BFormInput',
+      'BButton',
+      'BTable'
+    ],
+    directives: [
+      'VBPopover',
+      'VBTooltip',
+      'VBScrollspy'
+    ]
+  }
+}
+```
+
+Feel free to mix and match plugin imports with individual component and directive imports.
+
 Refer to the reference section at the bottom of each of the [component](/docs/components) and
-[directive](/docs/directives) docs for details on the plugin names available and which components
-and directives are included in each plugin.
+[directive](/docs/directives) docs for details on the plugin names available (and which components
+and directives are included in each plugin) and component and/or directive import names.
+
+Note that when importing individual components, the component aliases will not be available.
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
@@ -195,8 +235,8 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt.js module uses precompiled version of BootstrapVue for faster development builds and the source
-of BootstrapVue for higher quality production builds.
+Nuxt.js module uses the precompiled version of BootstrapVue (`es/`) for faster development builds
+and the source (`src/`) of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
 of `src/`. By default `usePretranspiled` is enabled in development mode only.
