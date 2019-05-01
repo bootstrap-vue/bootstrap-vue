@@ -1,4 +1,4 @@
-import { BvPlugin } from ../bv-plugin'
+import { BvPlugin } from '../bv-plugin'
 
 // Default export is a plugin that installs all plugins
 declare const BDirectivesPlugin: BDirectivesPlugin
