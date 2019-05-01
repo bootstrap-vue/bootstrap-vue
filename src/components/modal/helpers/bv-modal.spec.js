@@ -6,6 +6,15 @@ describe('$bvModal', () => {
   const localVue = new CreateLocalVue()
   localVue.use(modalPlugin)
 
+  beforeAll(() => {
+    // Prevent multiple Vue warnings in tests
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    console.warn.mockClear()
+  })
+
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = localVue.extend({
       render(h) {
