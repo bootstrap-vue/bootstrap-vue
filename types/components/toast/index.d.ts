@@ -5,9 +5,9 @@ import Vue, { VNode } from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Toast Plugin
-declare const Toast: Toast
-export default Toast
-export interface Toast extends BvPlugin {}
+declare const ToastPlugin: ToastPlugin
+export default ToastPlugin
+export interface ToastPlugin extends BvPlugin {}
 
 // Component: b-toast
 export interface BToast extends Vue {
