@@ -4,6 +4,7 @@ import './vue-injections'
 import './es'
 
 export * from './components'
+export * from './directives'
 
 declare const BootstrapVue: BootstrapVue
 export default BootstrapVue
