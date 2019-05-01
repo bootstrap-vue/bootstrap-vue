@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Navbar: Navbar
-export default Navbar
-export interface Navbar extends BvPlugin {}
+declare const NavbarPlugin: NavbarPlugin
+export default NavbarPlugin
+export interface NavbarPlugin extends BvPlugin {}
 
 // Component: b-navbar
 export interface BNavbar extends Vue {}
