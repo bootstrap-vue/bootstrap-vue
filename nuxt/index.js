@@ -56,7 +56,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       dist: usePretranspiled ? 'es' : 'src'
     }
 
-    // TODO: Also add support for individual components & directives
+    // Specific component and/or directive plugins
     for (const type of ['componentPlugins', 'directivePlugins']) {
       const bvPlugins = Array.isArray(options[type]) ? options[type] : []
 
@@ -69,6 +69,15 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         })
         // Remove duplicate items
         .filter((plugin, i, arr) => arr.indexOf(plugin) === i)
+    }
+
+    // Specific components and/or directives
+    for (const type of ['components', 'directives']) {
+      const ComponentsOrDirectives = Array.isArray(options[type]) ? options[type] : []
+
+      templateOptions[type] = ComponentsOrDirectives
+        // Remove duplicate items
+        .filter((item, i, arr) => arr.indexOf(item) === i)
     }
 
     // Add BootstrapVue configuration if present
