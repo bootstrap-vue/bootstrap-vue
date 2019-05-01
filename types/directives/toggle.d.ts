@@ -9,5 +9,5 @@ declare const VBTogglePlugin: VBTogglePlugin
 export default VBTogglePlugin
 export interface VBTogglePlugin extends BvPlugin {}
 
-// directive: v-b-modal
+// directive: v-b-toggle
 export interface VBToggle extends DirectiveOptions {}
