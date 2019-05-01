@@ -9,5 +9,5 @@ declare const VBPopoverPlugin: VBPopoverPlugin
 export default VBPopoverPlugin
 export interface VBPopoverPlugin extends BvPlugin {}
 
-// directive: v-b-modal
+// directive: v-b-popover
 export interface VBPopover extends DirectiveOptions {}
