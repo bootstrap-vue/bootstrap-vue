@@ -113,6 +113,8 @@ variant.
 
 ## Fill and justify
 
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
+
 Force your `<b-tabs>` controls to extend the full available width.
 
 ### Fill
@@ -152,6 +154,8 @@ the controls, but unlike using `fill` above, every control will be the same widt
 ```
 
 ## Alignment
+
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
 
 To align your tab controls, use the `align` prop. Available values are `left`, `center` and `right`.
 
