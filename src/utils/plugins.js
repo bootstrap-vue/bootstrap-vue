@@ -1,5 +1,29 @@
+import OurVue from 'vue'
+import warn from './warn'
 import { setConfig } from './config'
 import { hasWindowSupport } from './env'
+
+const MULTIPLE_VUE_WARNING = `Multiple instances of Vue detected! See:
+https://bootstrap-vue.js.org/docs#using-module-bundlers
+https://github.com/bootstrap-vue/bootstrap-vue/issues/3040
+https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+
+If you are seeing "$listeners is readonly" and/or "$attrs is readonly" errors,
+then it is caused by this.
+`
+
+let checkMultipleVueWarned = false
+
+/**
+ * Checks if there are multiple instances of Vue, and warns (once) about issues.
+ * @param {object} Vue
+ */
+export const checkMultipleVue = Vue => {
+  if (!checkMultipleVueWarned && OurVue !== Vue) {
+    warn(MULTIPLE_VUE_WARNING)
+    checkMultipleVueWarned = true
+  }
+}
 
 /**
  * Plugin install factory function.
@@ -13,6 +37,7 @@ export const installFactory = ({ components, directives, plugins }) => {
       return
     }
     install.installed = true
+    checkMultipleVue(Vue)
     setConfig(config)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
