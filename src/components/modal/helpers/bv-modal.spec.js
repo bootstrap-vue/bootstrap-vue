@@ -3,19 +3,17 @@ import { waitNT, waitRAF } from '../../../../tests/utils'
 import modalPlugin from '../index'
 
 describe('$bvModal', () => {
-  let localVue
+  const localVue = new CreateLocalVue()
 
-  beforeEach(() => {
+  beforeAll(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
-    // Use a fresh version of localVue for each test
-    localVue = new CreateLocalVue()
+    // Install plugin after we have trapped console.warn
     localVue.use(modalPlugin)
   })
 
-  afterEach(() => {
+  afterAll(() => {
     console.warn.mockClear()
-    localVue = null
   })
 
   it('$bvModal.show() and $bvModal.hide() works', async () => {
