@@ -16,7 +16,7 @@ import AlertPlugin from '../../src/components/alert'
 import BVConfigPlugin from '../../src/bv-config'
 
 describe('utils/config', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
   })
