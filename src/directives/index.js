@@ -4,6 +4,9 @@ import * as directivePlugins from './plugins'
 // Export all directive group plugins as named exports
 export * from './plugins'
 
+// Export all legacy named directive group plugins as named exports
+export * from './plugins-legacy'
+
 // Named exports of all directives
 export * from './toggle'
 export * from './modal'
