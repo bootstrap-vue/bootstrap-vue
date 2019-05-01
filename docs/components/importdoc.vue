@@ -162,14 +162,15 @@ export default {
     },
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
+      const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         '// Importing the named export',
         `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
         `Vue.use(${this.pluginName})`,
         '',
         '// Or importing the default export (legacy)',
-        `import ${this.pluginName.replace(/^VB|Plugin$/g, '')} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
-        `Vue.use(${this.pluginName.replace(/^VB|Plugin$/g, '')})`
+        `import ${legacyName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
+        `Vue.use(${legacyName})`
       ].join('\n')
     }
   },
