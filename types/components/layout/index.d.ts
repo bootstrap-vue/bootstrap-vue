@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Layout: Layout
-export default Layout
-export interface Layoutt extends BvPlugin {}
+declare const LayoutPlugin: LayoutPlugin
+export default LayoutPlugin
+export interface LayoutPlugin extends BvPlugin {}
 
 // Component: b-container
 export interface BContainer extends Vue {}
