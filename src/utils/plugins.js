@@ -3,9 +3,8 @@ import warn from './warn'
 import { setConfig } from './config'
 import { hasWindowSupport } from './env'
 
-const MULTIPLE_VUE_WARNING = `Multiple instances of Vue detected! See:
-https://bootstrap-vue.js.org/docs#using-module-bundlers
-`
+const MULTIPLE_VUE_WARNING = `Multiple instances of Vue detected!
+See: https://bootstrap-vue.js.org/docs#using-module-bundlers`
 
 let checkMultipleVueWarned = false
 
