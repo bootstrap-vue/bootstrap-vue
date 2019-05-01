@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Tooltip: Tooltip
-export default Tooltip
-export interface Tooltip extends BvPlugin {}
+declare const TooltipPlugin: TooltipPlugin
+export default TooltipPlugin
+export interface TooltipPlugin extends BvPlugin {}
 
 // Component: b-tooltip
 export interface BTooltip extends Vue {}
