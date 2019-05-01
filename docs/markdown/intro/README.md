@@ -108,7 +108,7 @@ yarn add bootstrap-vue
 
 Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**.
 
-This will include both `boostrap.css` and `bootstrap-vue.css` default CSS.
+This will include both `boostrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
 
 ```js
 module.exports = {
@@ -129,8 +129,8 @@ module.exports = {
 }
 ```
 
-BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
-BootstrapVue SCSS in your project's custom SCSS file:
+BootstrapVue's custom SCSS relies on Bootstrap SCSS variables and mixins. You can include Bootstrap
+and BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss
 // custom.scss
@@ -147,6 +147,9 @@ $grid-breakpoints: (
 // Then include the following
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+
+// And define any of your custom overides or additional CSS/SCSS here,
+// or via an @import
 ```
 
 In your app main entry point include the single custom SCSS file (when using `sass-loader`):
@@ -180,7 +183,15 @@ module.exports = {
 }
 ```
 
-You can  also optionally import individual components or directives, you can configure the list of
+There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections
+(if you are not using the `ModalPlugin` or `ToastPlugin` plugins):
+
+- `BVModalPlugin` - provides the injection `$bvModal` for generating
+  [message boxes](/docs/components/modal#modal-message-boxes).
+- `BVToastPlugin` - provides the injection `$bvToast` for generating
+  [on demand toasts](/docs/components/toast#toasts-on-demand).
+
+You can also optionally import individual components and/or directives, by configuring the list of
 BootstrapVue `components` or `directives` you want to globally install in your Nuxt.js project.
 
 ```js
@@ -366,6 +377,7 @@ Vue.component('my-component', {
     'b-modal': BModal
   },
   directives: {
+    // Note that Vue automatically prefixes directive names with `v-`
     'b-modal': VBModal
   }
   // ...
@@ -378,6 +390,7 @@ Or register them globally:
 
 ```js
 Vue.component('b-modal', BModal)
+// Note that Vue automatically prefixes directive names with `v-`
 Vue.directive('b-modal', VBModal)
 ```
 
@@ -455,8 +468,14 @@ BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioni
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
 dependencies are included in the `commonjs2` and `UMD` bundles.
 
-When using the `commonjs2` build, and importing indvidual plugins or components, you may need to
-explicitly import/require the `.default` export.
+<div class="alet alert-info">
+  <p class="mb-0">
+    <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing indvidual
+    plugins or components, you may need to explicitly <code>require</code> the
+    <code>.default</code> export when not importing named exports. i.e.
+    <code class="text-nowrap">const foo = require("some/module").default;</code>
+  </p>
+</div>
 
 ## Migrating a project already using Bootstrap
 
