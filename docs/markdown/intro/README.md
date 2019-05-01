@@ -161,6 +161,8 @@ import 'custom.scss'
 
 ### Tree shaking with Nuxt.js
 
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc20</span>
+
 If you wish to reduce your bundle size because you only use a subset of the available BootstrapVue
 plugins, you can configure the list of BootstrapVue `componentPlugins` or `directivePlugins` you
 want to globally install in your Nuxt.js project.
@@ -191,8 +193,9 @@ There are two additional helper plugins for providing the `$bvModal` and `$bvToa
 - `BVToastPlugin` - provides the injection `$bvToast` for generating
   [on demand toasts](/docs/components/toast#toasts-on-demand).
 
-You can also optionally import individual components and/or directives, by configuring the list of
-BootstrapVue `components` or `directives` you want to globally install in your Nuxt.js project.
+<span class="badge badge-info small">NEW in 2.0.0-rc20</span> You can also optionally import
+individual components and/or directives, by configuring the list of BootstrapVue `components` or
+`directives` you want to globally install in your Nuxt.js project.
 
 ```js
 module.exports = {
@@ -349,9 +352,19 @@ Vue.use(ScrollspyPlugin)
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
 When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
-sub components. Component shorthand aliases (if any) are also included in the plugin.
+sub components. Component shorthand aliases (if any) are also included in the plugin. Refer to the
+component and directive documentation for details.
 
-Refer to the component and directive documentation for details.
+There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
+you are not using the `ModalPlugin` or `ToastPlugin` plugins):
+
+- `BVModalPlugin` - provides the injection `$bvModal` for generating
+  [message boxes](/docs/components/modal#modal-message-boxes).
+- `BVToastPlugin` - provides the injection `$bvToast` for generating
+  [on demand toasts](/docs/components/toast#toasts-on-demand).
+
+These additional plugins are available for import from `bootstrap-vue/es/components` and
+`bootstrap-vue/src/components`.
 
 ### Individual components and directives
 
