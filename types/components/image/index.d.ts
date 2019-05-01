@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Image: Image
-export default Image
-export interface Image extends BvPlugin {}
+declare const ImagePlugin: ImagePlugin
+export default ImagePlugin
+export interface ImagePlugin extends BvPlugin {}
 
 // Component: b-img
 export interface BImg extends Vue {}
