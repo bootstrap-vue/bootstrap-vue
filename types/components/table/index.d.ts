@@ -4,7 +4,21 @@
 import Vue, { VNode } from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
-type BvTableVariant =
+// Modal Plugin
+declare const TablePlugin: TablePlugin
+export default TablePlugin
+export interface TablePlugin extends BvPlugin {}
+
+// Component: b-modal
+export interface BTable extends Vue {
+  // Public methods
+  refresh: () => void
+  clearSelected: () => void
+  // Props
+  fields?: BvTableFieldObject | BvTableFieldArray
+}
+
+export type BvTableVariant =
   | 'active'
   | 'success'
   | 'info'
@@ -15,23 +29,9 @@ type BvTableVariant =
   | 'light'
   | 'dark'
 
-type BvTableSortDirection = 'asc' | 'desc' | 'last'
+export type BvTableSortDirection = 'asc' | 'desc' | 'last'
 
-type BvTableFormatterCallback = ((value: any, key: string, item: any) => any)
-
-// Modal Plugin
-declare const Table: Table
-export default Table
-export interface Table extends BvPlugin {}
-
-// Component: b-modal
-export interface BTable extends Vue {
-  // Public methods
-  refresh: () => void
-  clearSelected: () => void
-  // Props
-  fields?: BvTableFieldObject | BvTableFieldArray
-}
+export type BvTableFormatterCallback = ((value: any, key: string, item: any) => any)
 
 export interface BvTableField {
   label?: string
