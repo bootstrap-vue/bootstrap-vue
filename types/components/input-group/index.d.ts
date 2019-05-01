@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const InputGroup: InputGroup
-export default InputGroup
-export interface InputGroup extends BvPlugin {}
+declare const InputGroupPlugin: InputGroupPlugin
+export default InputGroupPlugin
+export interface InputGroupPlugin extends BvPlugin {}
 
 // Component: b-input-group-append
 export interface BInputGroupAppend extends Vue {}
