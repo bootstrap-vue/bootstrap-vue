@@ -5,11 +5,6 @@ import { hasWindowSupport } from './env'
 
 const MULTIPLE_VUE_WARNING = `Multiple instances of Vue detected! See:
 https://bootstrap-vue.js.org/docs#using-module-bundlers
-https://github.com/bootstrap-vue/bootstrap-vue/issues/3040
-https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-
-If you are seeing "$listeners is readonly" and/or "$attrs is readonly" errors,
-then it is caused by this.
 `
 
 let checkMultipleVueWarned = false
