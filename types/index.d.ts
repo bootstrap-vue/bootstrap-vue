@@ -3,6 +3,7 @@ import { BvPlugin, BvInstallOptions } from './bv-plugin'
 import './vue-injections'
 import './es'
 
+export * from './bv-congig'
 export * from './bv-event'
 export * from './components'
 export * from './directives'
