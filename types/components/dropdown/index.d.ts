@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Dropdown: Dropdown
-export default Dropdown
-export interface Dropdown extends BvPlugin {}
+declare const DropdownPlugin: DropdownPlugin
+export default DropdownPlugin
+export interface DropdownPlugin extends BvPlugin {}
 
 // Component: b-dropdown
 export interface BDropdown extends Vue {}
