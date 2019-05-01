@@ -19,6 +19,7 @@ let checkMultipleVueWarned = false
  * @param {object} Vue
  */
 export const checkMultipleVue = Vue => {
+  /* istanbul ignore next */
   if (!checkMultipleVueWarned && OurVue !== Vue) {
     warn(MULTIPLE_VUE_WARNING)
     checkMultipleVueWarned = true
