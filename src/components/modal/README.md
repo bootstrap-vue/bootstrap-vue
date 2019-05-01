@@ -68,6 +68,8 @@ See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
 
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
+
 When BootstrapVue is installed as a plugin, or the <samp>Modal</samp> plugin is used, BoostrapVue
 will inject a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes
 several methods, of which two are for showing and hiding modals:
@@ -364,18 +366,20 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 
 ## Lazy loading and static modals
 
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc19</span>
+
 By default, modals will not render their content in the document until they are shown (lazily
 rendered). Modals are rendered appended to the `<body>` element (via the use of
 [PortalVue](https://portal-vue.linusb.org/)) inside a modal target `<div>` when they are visible.
 `<b-modal>` components will not affect layout, as they render as a placeholder comment node
 (`<!---->`).
 
-Modals can be rendered _in-place_ in the document (without PortalVue), where the `<b-modal>`
-component is placed, by setting the `static` prop to `true`. Note that the content of the modal will
-be rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To make
-`static` modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the
+Modals can be rendered _in-place_ in the document, where the `<b-modal>` component is placed in the
+document, by setting the `static` prop to `true`. Note that the content of the modal will be
+rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To make `static`
+modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the
 document _only_ when it is visible. Note, when in `static` mode, placement of the `<b-modal>`
-component may affect layout.
+component may affect layout of your document.
 
 The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
 always be lazily rendered).
@@ -597,6 +601,8 @@ To disable both **Cancel** and **OK** buttons at the same time, simply set the `
 
 ### Custom rendering with slots
 
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc19</span>
+
 `<b-modal>` provides several named slots (of which some are optionally scoped) that you can use to
 customize the content of various sections of the modal.
 
@@ -700,6 +706,8 @@ component. This will hide the modal before another modal is shown.
   modal.
 
 ## Modal message boxes
+
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
 These methods provide a way to generate simple OK and Confirm style modal messages, from anywhere in
