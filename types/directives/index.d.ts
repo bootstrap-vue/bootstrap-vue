@@ -1,9 +1,9 @@
 import { BvPlugin } from '../bv-plugin'
 
 // Default export is a plugin that installs all plugins
-declare const BDirectivesPlugin: BDirectivesPlugin
-export default BDirectivesPlugin
-export interface BDirectivesPlugin extends BvPlugin {}
+declare const BVDirectivesPlugin: BVDirectivesPlugin
+export default BVDirectivesPlugin
+export interface BVDirectivesPlugin extends BvPlugin {}
 
 // Export all directive group plugins as named exports
 export * from './plugins'
