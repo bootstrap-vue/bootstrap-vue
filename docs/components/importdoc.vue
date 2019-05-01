@@ -168,8 +168,8 @@ export default {
         `Vue.use(${this.pluginName})`,
         '',
         '// Or importing the default export (legacy)',
-        `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
-        `Vue.use(${this.pluginName})`
+        `import ${this.pluginName.replace(/^VB|Plugin$/g, '')} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
+        `Vue.use(${this.pluginName.replace(/^VB|Plugin$/g, '')})`
       ].join('\n')
     }
   },
