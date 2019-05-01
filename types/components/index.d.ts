@@ -1,3 +1,5 @@
+export * from './plugins'
+
 export * from './alert'
 export * from './badge'
 export * from './breadcrumb'
