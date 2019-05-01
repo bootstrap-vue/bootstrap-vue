@@ -81,6 +81,8 @@ Make the nav smaller by setting the `small` prop.
 
 ## Fill and justify
 
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
+
 Force your `<b-nav>` content to extend the full available width.
 
 ### Fill
@@ -120,6 +122,8 @@ nav links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
 ```
 
 ## Alignment
+
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
 
 To align your `<b-nav-item>` components, use the `align` prop. Available values are `left`, `center`
 and `right`.
