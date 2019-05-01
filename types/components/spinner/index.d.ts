@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Spinner: Spinner
-export default Spinner
-export interface Spinner extends BvPlugin {}
+declare const SpinnerPlugin: SpinnerPlugin
+export default SpinnerPlugin
+export interface SpinnerPlugin extends BvPlugin {}
 
 // Component: b-alert
 export interface BAlert extends Vue {}
