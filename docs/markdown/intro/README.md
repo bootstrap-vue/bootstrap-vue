@@ -320,20 +320,20 @@ directive directory:
 
 ```js
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
-import { Layout } from 'bootstrap-vue/es/components'
-Vue.use(Layout)
+import { LayoutPlugin } from 'bootstrap-vue/es/components'
+Vue.use(LayoutPlugin)
 
 // This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import { Modal } from 'bootstrap-vue/es/components'
-Vue.use(Modal)
+import { ModalPlugin } from 'bootstrap-vue/es/components'
+Vue.use(ModalPlugin)
 
 // This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import { Card } from 'bootstrap-vue/es/components'
-Vue.use(Card)
+import { CardPlugin } from 'bootstrap-vue/es/components'
+Vue.use(CardPlugin)
 
 // This imports directive v-b-scrollspy as a plugin:
-import { Scrollspy } from 'bootstrap-vue/es/directives'
-Vue.use(Scrollspy)
+import { ScrollspyPlugin } from 'bootstrap-vue/es/directives'
+Vue.use(ScrollspyPlugin)
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
@@ -352,8 +352,8 @@ To cherry pick a component/directive, start by importing it in the file where it
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-import BModal from 'bootstrap-vue/es/components/modal/modal'
-import BModalDirective from 'bootstrap-vue/es/directives/modal/modal'
+import { BModal } from 'bootstrap-vue/es/components'
+import { VBModal } from 'bootstrap-vue/es/directives'
 ```
 
 Then add it to your component definition:
@@ -366,7 +366,7 @@ Vue.component('my-component', {
     'b-modal': BModal
   },
   directives: {
-    'b-modal': BModalDirective
+    'b-modal': VBModal
   }
   // ...
 })
@@ -378,7 +378,7 @@ Or register them globally:
 
 ```js
 Vue.component('b-modal', BModal)
-Vue.directive('b-modal', BModalDirective)
+Vue.directive('b-modal', VBModal)
 ```
 
 Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
@@ -454,6 +454,9 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
 dependencies are included in the `commonjs2` and `UMD` bundles.
+
+When using the `commonjs2` build, and importing indvidual plugins or components, you may need to
+explicitly import/require the `.default` export.
 
 ## Migrating a project already using Bootstrap
 
