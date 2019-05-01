@@ -5,9 +5,9 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const Jumbotron: Jumbotron
-export default Jumbotron
-export interface Jumbotron extends BvPlugin {}
+declare const JumbotronPlugin: JumbotronPlugin
+export default JumbotronPlugin
+export interface JumbotronPlugin extends BvPlugin {}
 
 // Component: b-jumbotron
 export interface BJumbotron extends Vue {}
