@@ -625,7 +625,12 @@ Note that <kbd>DOWN</kbd> and <kbd>UP</kbd> will not move focus into `<b-dropdow
 components, but users can still use <kbd>TAB</kbd> or <kbd>SHIFT</kbd>+<kbd>TAB</kbd> to move into
 form controls within the menu.
 
-## Implementation note
+## Implementation notes
+
+The dropdown menu is rendered with semantic `<ul>` and `<li>` elements for accessibility reasons.
+The `.dropdown-menu` is the `<ul>` element, while dropdown items (items, buttons, text, form,
+headers, and dividers) are wrapped in an `<li>` element. If creating custom items to place inside the
+dropdown menu, ensure they are wrapped with a plain `<li>`.
 
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover` handlers to the
 immediate children of the `<body>` element. This admittedly ugly hack is necessary to work around a
