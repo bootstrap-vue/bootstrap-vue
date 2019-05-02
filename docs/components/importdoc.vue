@@ -9,6 +9,8 @@
           Importing individual components
         </anchored-heading>
 
+        <p>You can import individual components into your project via the following named exports:</p>
+
         <b-table
           :items="componentImports"
           class="bv-docs-table"
@@ -40,7 +42,9 @@
           Importing individual directives
         </anchored-heading>
 
-        <b-table
+       <p>You can import individual directives into your project via the following named exports:</p>
+
+       <b-table
           :items="directiveImports"
           class="bv-docs-table"
           responsive="sm"
@@ -99,6 +103,8 @@
           <code class="text-nowrap">{{ value }}</code>
         </template>
       </b-table>
+
+      <p><strong>Example:</strong></p>
 
       <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
 
