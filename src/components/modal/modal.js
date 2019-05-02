@@ -466,7 +466,7 @@ export default Vue.extend({
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
         // Returning focus to document.body may cause unwanted scrolls, so we
         // exclude setting focus on body
-        if(activeElement && activeElement !== document.body && activeElement.focus) {
+        if (activeElement && activeElement !== document.body && activeElement.focus) {
           // Preset the fallback return focus value if it is not set
           // `document.activeElement` should be the trigger element that was clicked or
           // in the case of using the v-model, which ever element has current focus
