@@ -79,6 +79,27 @@
         This plugin includes all of the above listed individual directives.
       </p>
 
+      <b-table
+        :items="pluginImports"
+        class="bv-docs-table"
+        caption="The plugin can be imported via several methods"
+        responsive="sm"
+        head-variant="default"
+        caption-top
+        bordered
+        striped
+      >
+        <template slot="plugin" slot-scope="{ value }">
+          <code class="text-nowrap">{{ value }}</code>
+        </template>
+        <template slot="namedExport" slot-scope="{ value }">
+          <code class="text-nowrap">{{ value }}</code>
+        </template>
+        <template slot="importPath" slot-scope="{ value }">
+          <code class="text-nowrap">{{ value }}</code>
+        </template>
+      </b-table>
+
       <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
 
       <template v-if="meta.plugins && meta.plugins.length > 0">
@@ -130,6 +151,23 @@ export default {
           namedExport: d,
           importPath: this.directivePath(d)
         }
+      })
+    },
+    pluginImports() {
+      const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
+      const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
+        return [
+          {
+            plugin: this.pluginName,
+            namedExport: this.pluginName,
+            importPath: 'bootstrap-vue/es/${pluginLocation}'`
+          },
+          {
+            plugin: this.pluginName,
+            namedExport: legacyName,
+            importPath: 'bootstrap-vue/es/${pluginLocation}'`
+          }
+        ]
       })
     },
     components() {
