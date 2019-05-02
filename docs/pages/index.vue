@@ -35,13 +35,13 @@
             <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>.
           </p>
 
-          <b-media no-body class="mb-2">
+          <b-media no-body class="my-3">
             <b-media-aside vertical-align="center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 612 612"
-                width="50px"
-                height="50px"
+                width="30px"
+                height="30px"
                 focusable="false"
                 role="img"
               >
@@ -61,8 +61,8 @@
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 196.32 170.02"
-                width="50px"
-                height="50px"
+                width="30px"
+                height="30px"
                 focusable="false"
                 role="img"
               >
