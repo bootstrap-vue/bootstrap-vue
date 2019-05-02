@@ -386,16 +386,8 @@ export default Vue.extend({
         return
       }
       this.is_opening = true
-      // Note: On IE11, `document.activeElement` may be null. So we test it for
-      // truthyness first.
-      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
-      if (isBrowser && document.activeElement && document.activeElement.focus) {
-        // Preset the fallback return focus value if it is not set
-        // `document.activeElement` should be the trigger element that was clicked or
-        // in the case of using the v-model, which ever element has current focus
-        // Will be overridden by some commands such as toggle, etc.
-        this.return_focus = this.return_focus || document.activeElement
-      }
+      // Set the element to return focus to when closed
+      this.return_focus = this.return_focus || this.getActiveElement()
       const showEvt = new BvModalEvent('show', {
         cancelable: true,
         vueTarget: this,
@@ -464,6 +456,25 @@ export default Vue.extend({
       } else {
         this.show()
       }
+    },
+    // Private method to get the current document active element
+    getActiveElement() {
+      if (isBrowser) {
+        const activeElement = document.activeElement
+        // Note: On IE11, `document.activeElement` may be null. So we test it for
+        // truthyness first.
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
+        // Returning focus to document.body may cause unwanted scrolls, so we
+        // exclude setting focus on body
+        if (activeElement && activeElement !== document.body && activeElement.focus) {
+          // Preset the fallback return focus value if it is not set
+          // `document.activeElement` should be the trigger element that was clicked or
+          // in the case of using the v-model, which ever element has current focus
+          // Will be overridden by some commands such as toggle, etc.
+          return activeElement
+        }
+      }
+      return null
     },
     // Private method to finish showing modal
     doShow() {
@@ -631,7 +642,7 @@ export default Vue.extend({
     // Root listener handlers
     showHandler(id, triggerEl) {
       if (id === this.id) {
-        this.return_focus = triggerEl || document.activeElement || null
+        this.return_focus = triggerEl || this.getActiveElement()
         this.show()
       }
     },
@@ -658,7 +669,7 @@ export default Vue.extend({
       // Don't try and focus if we are SSR
       if (isBrowser) {
         const modal = this.$refs.modal
-        const activeElement = document.activeElement
+        const activeElement = this.getActiveElement()
         // If the modal contains the activeElement, we don't do anything
         if (modal && !(activeElement && contains(modal, activeElement))) {
           // Make sure top of modal is showing (if longer than the viewport)
@@ -673,7 +684,7 @@ export default Vue.extend({
     returnFocusTo() {
       // Prefer `returnFocus` prop over event specified
       // `return_focus` value
-      let el = this.returnFocus || this.return_focus || document.activeElement || null
+      let el = this.returnFocus || this.return_focus || null
       // Is el a string CSS selector?
       el = isString(el) ? select(el) : el
       if (el) {
