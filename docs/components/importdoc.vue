@@ -156,19 +156,18 @@ export default {
     pluginImports() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
-        return [
-          {
-            plugin: this.pluginName,
-            namedExport: this.pluginName,
-            importPath: 'bootstrap-vue/es/${pluginLocation}'`
-          },
-          {
-            plugin: this.pluginName,
-            namedExport: legacyName,
-            importPath: 'bootstrap-vue/es/${pluginLocation}'`
-          }
-        ]
-      })
+      return [
+        {
+          plugin: this.pluginName,
+          namedExport: this.pluginName,
+          importPath: 'bootstrap-vue/es/${pluginLocation}'`
+        },
+        {
+          plugin: this.pluginName,
+          namedExport: legacyName,
+          importPath: 'bootstrap-vue/es/${pluginLocation}'`
+        }
+      ]
     },
     components() {
       let subcomponents = []
