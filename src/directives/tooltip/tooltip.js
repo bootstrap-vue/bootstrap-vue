@@ -6,6 +6,8 @@ import { isBrowser } from '../../utils/env'
 import { isFunction, isObject, isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
+const NAME = 'vBTooltip'
+
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_ToolTip__'
 
@@ -23,7 +25,7 @@ const validTriggers = {
 const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
   let config = {
-    boundary: String(getComponentConfig('vBTooltip', 'boundary'))
+    boundary: String(getComponentConfig(NAME, 'boundary'))
   }
 
   // Process bindings.value
