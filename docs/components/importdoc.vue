@@ -160,12 +160,17 @@ export default {
         {
           plugin: this.pluginName,
           namedExport: this.pluginName,
-          importPath: 'bootstrap-vue/es/${pluginLocation}'`
+          importPath: `bootstrap-vue/es/${pluginLocation}`
         },
         {
           plugin: this.pluginName,
           namedExport: legacyName,
-          importPath: 'bootstrap-vue/es/${pluginLocation}'`
+          importPath: `bootstrap-vue/es/${pluginLocation}`
+        },
+        {
+          plugin: this.pluginName,
+          namedExport: 'default',
+          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`
         }
       ]
     },
