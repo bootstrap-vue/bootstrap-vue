@@ -142,6 +142,9 @@ const DEFAULTS = {
     ariaLive: 'polite',
     ariaAtomic: 'true',
     role: null
+  },
+  vBTooltip: {
+    boundary: 'scrollParent'
   }
 }
 
