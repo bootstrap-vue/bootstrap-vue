@@ -60,7 +60,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     ) {
       // Placement of tooltip
       config.placement = mod
-    } else if (/^(window|viewport)$/.test(mod)) {
+    } else if (/^(window|viewport|scrollParent)$/.test(mod)) {
       // Boundary of tooltip
       config.boundary = mod
     } else if (/^d\d+$/.test(mod)) {
