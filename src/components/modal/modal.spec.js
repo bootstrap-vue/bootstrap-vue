@@ -968,68 +968,6 @@ describe('modal', () => {
   describe('focus management', () => {
     const localVue = new CreateLocalVue()
 
-    it('returns focus to document.body when no return focus set and not using v-b-toggle', async () => {
-      // JSDOM won't focus the document unless it has a tab index
-      document.body.tabIndex = 0
-
-      const wrapper = mount(BModal, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        },
-        propsData: {
-          static: true,
-          id: 'test',
-          visible: false
-        }
-      })
-
-      expect(wrapper.isVueInstance()).toBe(true)
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
-      const $modal = wrapper.find('div.modal')
-      expect($modal.exists()).toBe(true)
-
-      expect($modal.element.style.display).toEqual('none')
-      expect(document.activeElement).toBe(document.body)
-
-      // Try and open modal via `.toggle()` method
-      wrapper.vm.toggle()
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitNT(wrapper.vm)
-
-      // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
-      expect(document.activeElement).not.toBe(document.body)
-      expect(wrapper.element.contains(document.activeElement)).toBe(true)
-
-      // Try and close modal via `.toggle()` method
-      wrapper.vm.toggle()
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitNT(wrapper.vm)
-
-      // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
-      expect(document.activeElement).toBe(document.body)
-
-      wrapper.destroy()
-    })
-
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = localVue.extend({
         render(h) {
@@ -1186,7 +1124,7 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('if focus leave modal it returns to modal', async () => {
+    it('if focus leaves modal it returns to modal', async () => {
       const App = localVue.extend({
         render(h) {
           return h('div', {}, [
