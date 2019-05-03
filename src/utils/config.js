@@ -144,10 +144,12 @@ const DEFAULTS = {
     role: null
   },
   BTooltip: {
-    boundary: 'scrollParent'
+    boundary: 'scrollParent',
+    boundaryPadding: 5
   },
   BPopover: {
-    boundary: 'scrollParent'
+    boundary: 'scrollParent',
+    boundaryPadding: 5
   }
 }
 
