@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
 import { getComponentConfig } from '../../utils/config'
-import { removeClass, requestAF } from '../../utils/dom'
+// import { removeClass, requestAF } from '../../utils/dom'
 
 /* istanbul ignore file: for now until ready for testing */
 
