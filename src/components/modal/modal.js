@@ -915,7 +915,7 @@ export default Vue.extend({
       return h(
         'div',
         {
-          key: 'modal-outer',
+          key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
           attrs: { id: this.safeId('__BV_modal_outer_') }
         },
@@ -928,9 +928,8 @@ export default Vue.extend({
     return h(
       Portal,
       {
-        key: this._uid,
         props: {
-          from: this._uid,
+          name: this._uid,
           to: modalManager.modalTargetName,
           slim: true,
           disabled: this.static
