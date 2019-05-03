@@ -51,11 +51,11 @@ export const DefaultTransition = Vue.extend({
     onAfterEnter(el) {
       // Handle bug where enter-to class is not removed.
       // Bug is related to portal-vue and transition-groups.
-      requestAF(() => {
-        removeClass(el, `${this.name}-enter-to`)
-        // The *-move class is also stuck on elements that moved,
-        // but there are no javascript hooks to handle after move.
-      })
+      // requestAF(() => {
+      //   removeClass(el, `${this.name}-enter-to`)
+      //   // The *-move class is also stuck on elements that moved,
+      //   // but there are no javascript hooks to handle after move.
+      // })
     }
   },
   render(h) {
