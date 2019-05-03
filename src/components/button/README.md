@@ -126,7 +126,7 @@ padding and size of a button.
 
 ## Pill style
 
-<span clas="badge badge-info small">NEW in 2.0.0-rc.20</span>
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
 
 Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 
