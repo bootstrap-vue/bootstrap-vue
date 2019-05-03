@@ -126,6 +126,8 @@ padding and size of a button.
 
 ## Pill style
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
+
 Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 
 ```html
@@ -143,7 +145,7 @@ Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 
 ## Disabled state
 
-Set the `disabled` prop to disable button default functionality. `disabled` also works with buttons,
+Set the `disabled` prop to disable button default functionality. `disabled` also works with buttons
 rendered as `<a>` elements and `<router-link>`.
 
 ```html
