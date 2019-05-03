@@ -1,8 +1,12 @@
 import Vue from '../../utils/vue'
 import PopOver from '../../utils/popover.class'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import toolpopMixin from '../../mixins/toolpop'
+import { HTMLElement } from '../../utils/safe-types'
+
+const NAME = 'BPopover'
 
 export const props = {
   title: {
@@ -20,12 +24,17 @@ export const props = {
   placement: {
     type: String,
     default: 'right'
+  },
+  boundary: {
+    // String: scrollParent, window, or viewport
+    // Element: element reference
+    type: [String, HTMLElement],
+    default: () => getComponentConfig(NAME, 'boundary')
   }
 }
-
 // @vue/component
 export default Vue.extend({
-  name: 'BPopover',
+  name: NAME,
   mixins: [toolpopMixin, normalizeSlotMixin],
   props,
   data() {

@@ -59,12 +59,6 @@ export default {
       type: String,
       default: null
     },
-    boundary: {
-      // String: scrollParent, window, or viewport
-      // Element: element reference
-      type: [String, HTMLElement],
-      default: 'scrollParent'
-    },
     boundaryPadding: {
       type: Number,
       default: 5
