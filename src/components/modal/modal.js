@@ -915,7 +915,7 @@ export default Vue.extend({
       return h(
         'div',
         {
-          key: 'modal-outer',
+          key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
           attrs: { id: this.safeId('__BV_modal_outer_') }
         },
