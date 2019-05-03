@@ -59,10 +59,6 @@ export default {
       type: String,
       default: null
     },
-    boundaryPadding: {
-      type: Number,
-      default: 5
-    },
     show: {
       type: Boolean,
       default: false
