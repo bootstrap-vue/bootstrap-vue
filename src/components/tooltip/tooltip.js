@@ -30,6 +30,10 @@ export default Vue.extend({
       // Element: element reference
       type: [String, HTMLElement],
       default: () => getComponentConfig(NAME, 'boundary')
+    },
+    boundaryPadding: {
+      type: Number,
+      default: () => getComponentConfig(NAME, 'boundaryPadding')
     }
   },
   data() {
