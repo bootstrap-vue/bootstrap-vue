@@ -142,6 +142,14 @@ const DEFAULTS = {
     ariaLive: 'polite',
     ariaAtomic: 'true',
     role: null
+  },
+  BTooltip: {
+    boundary: 'scrollParent',
+    boundaryPadding: 5
+  },
+  BPopover: {
+    boundary: 'scrollParent',
+    boundaryPadding: 5
   }
 }
 
