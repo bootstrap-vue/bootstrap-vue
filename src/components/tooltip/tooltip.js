@@ -2,9 +2,9 @@ import Vue from '../../utils/vue'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
 import { getComponentConfig } from '../../utils/config'
+import { HTMLElement } from '../../utils/safe-types'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import toolpopMixin from '../../mixins/toolpop'
-import { HTMLElement } from '../../utils/safe-types'
 
 const NAME = 'BTooltip'
 
