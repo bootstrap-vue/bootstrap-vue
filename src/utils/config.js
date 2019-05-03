@@ -143,7 +143,10 @@ const DEFAULTS = {
     ariaAtomic: 'true',
     role: null
   },
-  vBTooltip: {
+  BTooltip: {
+    boundary: 'scrollParent'
+  },
+  BPopover: {
     boundary: 'scrollParent'
   }
 }
