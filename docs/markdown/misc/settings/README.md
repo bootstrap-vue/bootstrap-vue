@@ -1,5 +1,7 @@
 # Settings
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.16</span>
+
 > BootstrapVue provides a few options for customizing component default values, and more.
 
 ## Configuring defaults
