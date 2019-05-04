@@ -95,6 +95,7 @@ export default Vue.extend({
   },
   destroyed() {
     // Remove from DOM if needed
+    /* istanbul ignore next: difficult to test */
     if (this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
     }
