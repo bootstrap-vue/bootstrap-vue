@@ -24,7 +24,7 @@ export interface BToaster extends Vue {}
 export interface BvToastOptions {
   // Commonly used props
   toaster?: string
-  title?: string | VNode | Array<Vnode>
+  title?: string | VNode | Array<VNode>
   variant?: string
   solid?: boolean
   noAutoHide?: boolean
@@ -39,7 +39,7 @@ export interface BvToastOptions {
   href?: string
   to?: string | object | any
   // Catch all
-  [key: string]?: any
+  [key: string]: any
 }
 
 export interface BvToastShortcutMethod {
