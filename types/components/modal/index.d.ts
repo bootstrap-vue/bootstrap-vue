@@ -63,7 +63,7 @@ export interface BvMsgBoxOptions {
   okTitle?: string
   okVariant?: string
   // Catch all
-  [key: string]?: any
+  [key: string]: any
 }
 
 export interface BvModalMsgBoxResolver {
