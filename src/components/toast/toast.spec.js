@@ -96,12 +96,16 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.vm.timer).not.toBe(null)
+    expect(wrapper.vm.timer).not.toEqual(null)
 
     jest.runAllPendingTimers()
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
