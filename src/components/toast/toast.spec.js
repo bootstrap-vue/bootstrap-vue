@@ -73,6 +73,53 @@ describe('b-toast', () => {
     wrapper.destroy()
   })
 
+  it('alert with link closes on click works', async () => {
+    const wrapper = mount(BToast, {
+      attachToDocument: true,
+      stubs: {
+        transition: false
+      },
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: true,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+
+    const $body = wrapper.find('.toast-body')
+    expect($body.is('a')).toBe(true)
+    expect($body.attributes('href')).toEqual('#foobar')
+
+    $body.trigger('click')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).not.toBe(true)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+
+    wrapper.destroy()
+  })
+
   it('auto-hide works', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BToast, {
