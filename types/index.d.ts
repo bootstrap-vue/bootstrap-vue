@@ -1,6 +1,7 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
 import { BvPlugin, BvConfigOptions } from './bv-plugin'
 import './vue-injections'
+// The /es modules types have issues, so commenting out here for now
 // import './es'
 
 export * from './bv-config'
