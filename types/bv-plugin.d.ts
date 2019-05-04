@@ -4,8 +4,8 @@ export type BvConfigComponentOptionValue = string | string[] | number | number[]
 
 export type BvConfigBreakpointsValue = string[]
 
-export interface BvComponentOptions {
-  [key: string]: BvComponentOptionValue | any
+export interface BvConfigComponentOptions {
+  [key: string]: BvConfigComponentOptionValue | any
 }
 
 export interface BvConfigOptions {
