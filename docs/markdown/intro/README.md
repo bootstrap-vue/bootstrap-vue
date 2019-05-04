@@ -325,6 +325,8 @@ various BootstrapVue components, refer to the Vue CLI 3 section of the
 
 ## Selective component and directive inclusion in module bundlers
 
+<span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
+
 When using a module bundler you can optionally import only specific components groups (plugins),
 components and/or directives.
 
@@ -483,7 +485,7 @@ BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioni
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
 dependencies are included in the `commonjs2` and `UMD` bundles.
 
-<div class="alet alert-info">
+<div class="alert alert-info">
   <p class="mb-0">
     <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing indvidual
     plugins or components, you may need to explicitly <code>require</code> the
