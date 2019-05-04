@@ -73,6 +73,79 @@ describe('b-toast', () => {
     wrapper.destroy()
   })
 
+  if('visible prop works', async () => {
+    const wrapper = mount(BToast, {
+      attachToDocument: true,
+      stubs: {
+        transition: false
+      },
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: false,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+
+    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('shown')).not.toBeDefined()
+    expect(wrapper.emitted('hide')).not.toBeDefined()
+    expect(wrapper.emitted('hidden')).not.toBeDefined()
+
+    wrapper.setProps({
+      visible: true
+    })
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('shown')).toBeDefined()
+    expect(wrapper.emitted('hide')).not.toBeDefined()
+    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('shown').length).toBe(1)
+
+    wrapper.setProps({
+      visible: false
+    })
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('shown')).toBeDefined()
+    expect(wrapper.emitted('hide')).toBeDefined()
+    expect(wrapper.emitted('hidden')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hide').length).toBe(1)
+    expect(wrapper.emitted('hidden').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('alert with link closes on click works', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
