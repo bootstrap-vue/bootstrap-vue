@@ -1,4 +1,6 @@
 import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
+import { PortalTarget } from 'portal-vue'
 import BToaster from './toaster'
 
 describe('b-toaster', () => {
@@ -11,13 +13,17 @@ describe('b-toaster', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBe('foo')
     expect(wrapper.classes()).toContain('b-toaster')
-    expect(wrapper.classes()).toContain('foobar')
+    expect(wrapper.classes()).toContain('foo')
     expect(wrapper.classes().length).toBe(2)
+
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
+    expect($slot.is(PortalTarget)).toBe(true)
     expect($slot.is('div')).toBe(true)
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
@@ -42,10 +48,14 @@ describe('b-toaster', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBe('bar')
+
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
+    expect($slot.is(PortalTarget)).toBe(true)
     expect($slot.is('div')).toBe(true)
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
