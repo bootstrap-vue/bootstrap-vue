@@ -55,13 +55,62 @@ describe('b-toast', () => {
     expect($toast.find('.toast-header').exists()).toBe(true)
     const $header = $toast.find('.toast-header')
     expect($header.is('header')).toBe(true)
+    expect($header.classes().length).toBe(1)
+    expect($header.find('strong').exists()).toBe(true)
+    expect($header.find('strong').text()).toEqual('title')
+    expect($header.find('strong').classes()).toContain('mr-2')
+    expect($header.find('button').exists()).toBe(true)
+    expect($header.find('button').classes()).toContain('close')
+    expect($header.find('button').classes()).toContain('ml-auto')
+    expect($header.find('button').classes()).toContain('mb-1')
 
     expect($toast.find('.toast-body').exists()).toBe(true)
     const $body = $toast.find('.toast-body')
     expect($body.is('div')).toBe(true)
+    expect($body.classes().length).toBe(1)
+    expect($body.text()).toEqual('content')
 
     wrapper.destroy()
   })
 
-  // expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+  it('auto-hide works', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(BToast, {
+      attachToDocument: true,
+      stubs: {
+        transition: false
+      },
+      propsData: {
+        static: true,
+        noAutoHide: false,
+        visible: true,
+        title: 'title'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm.timer).not.toBe(null)
+
+    jest.runAllPendingTimers()
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).not.toBe(true)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+    expect(wrapper.vm.timer).toBe(null)
+
+    wrapper.destroy()
+  })
 })
