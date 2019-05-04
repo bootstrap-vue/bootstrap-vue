@@ -9,8 +9,6 @@ import BButtonClose from '../button/button-close'
 import BToaster from './toaster'
 import BLink from '../link/link'
 
-/* istanbul ignore file: for now until ready for testing */
-
 // --- Constants ---
 
 const NAME = 'BToast'
