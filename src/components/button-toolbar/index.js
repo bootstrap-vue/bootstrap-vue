@@ -6,6 +6,8 @@ const components = {
   BBtnToolbar: BButtonToolbar
 }
 
+export { BButtonToolbar }
+
 export default {
   install: installFactory({ components })
 }

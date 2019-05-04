@@ -10,6 +10,8 @@ const directives = {
   BToggle: BToggleDirective
 }
 
+export { BCollapse }
+
 export default {
   install: installFactory({ components, directives })
 }

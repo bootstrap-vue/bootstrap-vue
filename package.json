@@ -3,12 +3,13 @@
   "version": "2.0.0-rc.19",
   "description": "BootstrapVue, with over 40 plugins and more than 75 custom components, provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js. With extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
-  "types": "src/index.d.ts",
   "web": "dist/bootstrap-vue.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
+  "types": "types/index.d.ts",
+  "typings": "types/index.d.ts",
   "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
@@ -45,13 +46,15 @@
     "src",
     "dist",
     "nuxt",
-    "es"
+    "es",
+    "types"
   ],
   "sideEffects": [
     "**/*.scss",
     "**/*.css",
     "**/*.vue",
-    "./docs"
+    "./docs",
+    "./types"
   ],
   "scripts": {
     "build": "scripts/build.sh",

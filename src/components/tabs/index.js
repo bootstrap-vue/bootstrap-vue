@@ -7,6 +7,8 @@ const components = {
   BTab
 }
 
+export { BTabs, BTab }
+
 export default {
   install: installFactory({ components })
 }

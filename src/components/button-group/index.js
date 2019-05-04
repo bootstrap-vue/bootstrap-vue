@@ -6,6 +6,8 @@ const components = {
   BBtnGroup: BButtonGroup
 }
 
+export { BButtonGroup }
+
 export default {
   install: installFactory({ components })
 }

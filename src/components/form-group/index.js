@@ -6,6 +6,8 @@ const components = {
   BFormFieldset: BFormGroup
 }
 
+export { BFormGroup }
+
 export default {
   install: installFactory({ components })
 }

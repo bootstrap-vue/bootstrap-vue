@@ -1,79 +1,53 @@
-import Alert from './alert'
-import Badge from './badge'
-import Breadcrumb from './breadcrumb'
-import Button from './button'
-import ButtonGroup from './button-group'
-import ButtonToolbar from './button-toolbar'
-import InputGroup from './input-group'
-import Card from './card'
-import Carousel from './carousel'
-import Layout from './layout'
-import Collapse from './collapse'
-import Dropdown from './dropdown'
-import Embed from './embed'
-import Form from './form'
-import FormGroup from './form-group'
-import FormCheckbox from './form-checkbox'
-import FormRadio from './form-radio'
-import FormInput from './form-input'
-import FormTextarea from './form-textarea'
-import FormFile from './form-file'
-import FormSelect from './form-select'
-import Image from './image'
-import Jumbotron from './jumbotron'
-import Link from './link'
-import ListGroup from './list-group'
-import Media from './media'
-import Modal from './modal'
-import Nav from './nav'
-import Navbar from './navbar'
-import Pagination from './pagination'
-import PaginationNav from './pagination-nav'
-import Popover from './popover'
-import Progress from './progress'
-import Spinner from './spinner'
-import Table from './table'
-import Tabs from './tabs'
-import Toast from './toast'
-import Tooltip from './tooltip'
+import { installFactory } from '../utils/plugins'
+import * as componentPlugins from './plugins'
 
-export {
-  Alert,
-  Badge,
-  Breadcrumb,
-  Button,
-  ButtonToolbar,
-  ButtonGroup,
-  Card,
-  Carousel,
-  Collapse,
-  Dropdown,
-  Embed,
-  Form,
-  FormGroup,
-  FormInput,
-  FormTextarea,
-  FormFile,
-  FormCheckbox,
-  FormRadio,
-  FormSelect,
-  Image,
-  InputGroup,
-  Jumbotron,
-  Layout,
-  Link,
-  ListGroup,
-  Media,
-  Modal,
-  Nav,
-  Navbar,
-  Pagination,
-  PaginationNav,
-  Popover,
-  Progress,
-  Spinner,
-  Table,
-  Tabs,
-  Toast,
-  Tooltip
+// Export all component group plugins as named exports
+export * from './plugins'
+
+// Export all legacy name component group plugins as named exports
+export * from './plugins-legacy'
+
+// Export all individual components as named exports
+export * from './alert'
+export * from './badge'
+export * from './breadcrumb'
+export * from './button'
+export * from './button-group'
+export * from './button-toolbar'
+export * from './input-group'
+export * from './card'
+export * from './carousel'
+export * from './layout'
+export * from './collapse'
+export * from './dropdown'
+export * from './embed'
+export * from './form'
+export * from './form-group'
+export * from './form-checkbox'
+export * from './form-radio'
+export * from './form-input'
+export * from './form-textarea'
+export * from './form-file'
+export * from './form-select'
+export * from './image'
+export * from './jumbotron'
+export * from './link'
+export * from './list-group'
+export * from './media'
+export * from './modal'
+export * from './nav'
+export * from './navbar'
+export * from './pagination'
+export * from './pagination-nav'
+export * from './popover'
+export * from './progress'
+export * from './spinner'
+export * from './table'
+export * from './tabs'
+export * from './toast'
+export * from './tooltip'
+
+// Export default as a plugin that installs all the component group plugins
+export default {
+  install: installFactory({ plugins: componentPlugins })
 }

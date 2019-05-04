@@ -5,7 +5,7 @@
     "title": "Popover",
     "description": "The Popover feature provides a tooltip-like behavior, can be easily applied to any interactive element via the <b-popover> component or v-b-popover directive",
     "directives": [
-      "vBPopover"
+      "VBPopover"
     ],
     "components": [
       {

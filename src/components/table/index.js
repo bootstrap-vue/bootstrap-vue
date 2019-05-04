@@ -5,6 +5,8 @@ const components = {
   BTable
 }
 
+export { BTable }
+
 export default {
   install: installFactory({ components })
 }

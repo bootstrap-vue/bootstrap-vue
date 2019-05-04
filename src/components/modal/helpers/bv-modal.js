@@ -256,12 +256,12 @@ class BvModal {
 
 // Method to install `$bvModal` VM injection
 const install = _Vue => {
-  if (install._installed) {
+  if (install.installed) {
     // Only install once
     /* istanbul ignore next */
     return
   }
-  install._installed = true
+  install.installed = true
 
   // Add our instance mixin
   _Vue.mixin({
@@ -283,4 +283,8 @@ const install = _Vue => {
   }
 }
 
-export default install
+install.installed = false
+
+export default {
+  install: install
+}

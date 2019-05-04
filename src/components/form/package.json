@@ -24,7 +24,6 @@
       "BFormText",
       "BFormInvalidFeedback",
       "BFormValidFeedback",
-      "BFormRow",
       {
         "component": "BFormDatalist",
         "aliases": [

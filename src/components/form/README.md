@@ -180,7 +180,7 @@ There are further alternative methods of providing a label for assistive technol
 technologies may resort to using the `placeholder` attribute, if present, but note that use of
 `placeholder` as a replacement for other labelling methods is not advised.
 
-## Related form control components
+## Related form control and layout components
 
 See also:
 
@@ -190,21 +190,21 @@ See also:
 - [`<b-form-radio>`](/docs/components/form-radio) Radio Inputs
 - [`<b-form-checkbox>`](/docs/components/form-checkbox) Checkbox Inputs
 - [`<b-form-file>`](/docs/components/form-file) File Input
+- [`<b-button>`](/docs/components/button) Buttons
 - [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that
   support labels, help text and feedback
-- [`<b-button>`](/docs/components/button) Buttons
 - [`<b-input-group>`](/docs/components/input-group) Form inputs with add-ons
+- [`<b-form-row>`](/docs/components/layout) Create grid rows and columns with tighter margins
+  (available via the [Layout and grid components](/docs/components/layout))
 
-## Helper components
+## Form helper components
 
-- [`<b-form-row>`](/docs/components/layout) create grid rows and columns with tighter margins
+The following helper components are available with the `Form` plugin:
+
 - `<b-form-text>` Help text blocks for inputs
 - `<b-form-invalid-feedback>` Invalid feedback text blocks for input `invalid` states
 - `<b-form-valid-feedback>` Valid feedback text blocks for input `valid` states
-- `<b-form-datalist>` Create `<datalist>` for use with `<b-form-input>` or plain `<input>`
-
-See also: [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups
-that support labels, help text and feedback
+- `<b-form-datalist>` Easily create a `<datalist>` for use with `<b-form-input>` or plain `<input>`
 
 ### Form text helper
 
