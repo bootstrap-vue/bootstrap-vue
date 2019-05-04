@@ -9,7 +9,7 @@ import Vue, {
 } from 'vue'
 
 export interface BvComponentOptions {
-  [key: string]: string | string[] | number | boolean | object | any
+  [key: string]?: string | string[] | number | boolean | object | any
 }
 
 export interface BvConfigOptions {
