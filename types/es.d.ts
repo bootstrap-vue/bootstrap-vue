@@ -1,6 +1,8 @@
 //
 // ES build directory
 //
+// Note: this declaration file has issues and is not currently used
+//
 import {
   VueConstructor,
   Component,
@@ -10,14 +12,13 @@ import {
   DirectiveFunction
 } from 'vue'
 import { BvPlugin } from './bv-plugin'
+import { BoostrapVue } from './'
 
 type ComponentOrPlugin = Component & BvPlugin
 
 type DirectiveOrPlugin = DirectiveOptions & BvPlugin
 
 declare module 'bootstrap-vue/es' {
-  import BoostrapVue from 'bootstrap-vue'
-
   export default BootstrapVue
 }
 
