@@ -1,6 +1,6 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
 
-export type BvComponentOptionValue = string | string[] | number | number[] | boolean | object | any
+export type BvComponentOptionValue = string | string[] | number | number[] | boolean | object | null | any
 
 export interface BvComponentOptions {
   [key: string]: BvComponentOptionValue
