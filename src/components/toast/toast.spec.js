@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import { Portal } from 'portal-vue'
 import BToast from './toast'
 
 describe('b-toast', () => {
@@ -35,7 +34,6 @@ describe('b-toast', () => {
     await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.is(Portal)).toBe(true)
     expect(wrapper.classes()).toContain('b-toast')
     expect(wrapper.classes()).toContain('b-toast-prepend')
     expect(wrapper.classes().length).toBe(2)
