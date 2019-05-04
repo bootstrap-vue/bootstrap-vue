@@ -5,9 +5,6 @@ declare const BVComponentsPlugin: BVComponentsPlugin
 export default BVComponentsPlugin
 export interface BVComponentsPlugin extends BvPlugin {}
 
-// Export all component plugins as named exports
-export * from './plugins'
-
 // Export all components as named exports
 export * from './alert'
 export * from './badge'
