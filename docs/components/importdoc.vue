@@ -9,7 +9,10 @@
           Importing individual components
         </anchored-heading>
 
-        <p>You can import individual components into your project via the following named exports:</p>
+        <p>
+          <b-badge variant="info" class="small">ENHANCED in 2.0.0-rc.20</b-badge> You can
+          import individual components into your project via the following named exports:
+        </p>
 
         <b-table
           :items="componentImports"
@@ -31,7 +34,6 @@
         </b-table>
 
         <p><strong>Example:</strong></p>
-
         <pre class="hljs js text-monospace p-2">{{ componentImportCode }}</pre>
       </article>
     </template>
@@ -42,9 +44,12 @@
           Importing individual directives
         </anchored-heading>
 
-       <p>You can import individual directives into your project via the following named exports:</p>
+        <p>
+          <b-badge variant="info" class="small">ENHANCED in 2.0.0-rc.20 </b-badge> You can
+          import individual directives into your project via the following named exports:
+        </p>
 
-       <b-table
+        <b-table
           :items="directiveImports"
           class="bv-docs-table"
           responsive="sm"
@@ -64,7 +69,6 @@
         </b-table>
 
         <p><strong>Example:</strong></p>
-
         <pre class="hljs js text-monospace p-2">{{ directiveImportCode }}</pre>
       </article>
     </template>
@@ -73,6 +77,11 @@
       <anchored-heading id="importing-as-a-plugin" level="3">
         Importing as a Vue.js plugin
       </anchored-heading>
+
+      <p>
+        <b-badge variant="info" class="small">ENHANCED in 2.0.0-rc.20</b-badge> Importing plugins
+        has been simplified.
+      </p>
 
       <p v-if="isComponentRoute">
         This plugin includes all of the above listed individual
@@ -104,16 +113,15 @@
         </template>
       </b-table>
 
-      <p><strong>Example:</strong></p>
-
-      <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
-
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
         <ul>
           <li v-for="plugin in meta.plugins" :key="plugin"><code>{{ plugin }}</code></li>
         </ul>
       </template>
+
+      <p><strong>Example:</strong></p>
+      <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
     </article>
   </section>
 </template>
@@ -215,7 +223,7 @@ export default {
         `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
         `Vue.use(${this.pluginName})`,
         '',
-        '// Or importing the default export (legacy)',
+        '// Or importing the default export (deprecated)',
         `import ${legacyName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${legacyName})`
       ].join('\n')
