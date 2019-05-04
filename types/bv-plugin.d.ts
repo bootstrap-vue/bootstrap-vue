@@ -1,16 +1,16 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
 
-export type BvComponentOptionValue = string | string[] | number | number[] | boolean | object | null | any
+export type BvConfigComponentOptionValue = string | string[] | number | number[] | boolean | object | null
 
-export type BvBreakpointsValue = string[]
+export type BvConfigBreakpointsValue = string[]
 
 export interface BvComponentOptions {
-  [key: string]: BvComponentOptionValue
+  [key: string]: BvComponentOptionValue | any
 }
 
 export interface BvConfigOptions {
-  [key: string]: BvComponentOptions
-  breakpoints?: BvBreakpointsValue
+  [key: string]: BvConfigComponentOptions
+  breakpoints?: BvConfigBreakpointsValue
 }
 
 export interface BvPlugin {
