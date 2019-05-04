@@ -243,6 +243,8 @@ of `src/`. By default `usePretranspiled` is enabled in development mode only.
 
 ## Vue CLI 2
 
+<span class="badge badge-warning small">DEPRECATED</span> Use [Vue CLI 3](#vue-cli-3) instead.
+
 BootstrapVue has two Vue CLI templates available:
 
 - [webpack-simple](https://github.com/bootstrap-vue/webpack-simple): Quick scaffold for a proof of
@@ -348,7 +350,7 @@ Vue.use(CardPlugin)
 
 // This imports directive v-b-scrollspy as a plugin:
 import { VBScrollspyPlugin } from 'bootstrap-vue/es/directives'
-Vue.use(ScrollspyPlugin)
+Vue.use(VBScrollspyPlugin)
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
