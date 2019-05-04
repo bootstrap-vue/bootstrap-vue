@@ -2,20 +2,20 @@ import { mount } from '@vue/test-utils'
 import BToaster from './toaster'
 
 describe('b-toaster', () => {
-  it ('has expected structure', async () => {
+  it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
       attachToDocument: true,
       propsData: {
-        name: 'foobar'
+        name: 'foo'
       }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('b-toast')
+    expect(wrapper.attributes('id')).toBe('foo')
+    expect(wrapper.classes()).toContain('b-toaster')
     expect(wrapper.classes()).toContain('foobar')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.attributes('id')).toBe('foobar')
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
     expect($slot.is('div')).toBe(true)
@@ -30,11 +30,11 @@ describe('b-toaster', () => {
     wrapper.destroy()
   })
 
-  it ('accepts aria props', async () => {
+  it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
       attachToDocument: true,
       propsData: {
-        name: 'foobar',
+        name: 'bar',
         ariaLive: 'assertive',
         ariaAtomic: 'false',
         role: 'alert'
@@ -43,6 +43,7 @@ describe('b-toaster', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('id')).toBe('bar')
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
     expect($slot.is('div')).toBe(true)
