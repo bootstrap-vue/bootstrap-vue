@@ -1,17 +1,17 @@
 //
 // ES build directory
 //
-declare module 'bootstrap-vue/es' {
-  import {
-    VueConstructor,
-    Component,
-    AsyncComponent,
-    ComponentOptions,
-    DirectiveOptions,
-    DirectiveFunction
-  } from 'vue'
-  import { BvPlugin } from './bv-plugin'
+import {
+  VueConstructor,
+  Component,
+  AsyncComponent,
+  ComponentOptions,
+  DirectiveOptions,
+  DirectiveFunction
+} from 'vue'
+import { BvPlugin } from './bv-plugin'
 
+declare module 'bootstrap-vue/es' {
   type Cmp = VueConstructor | Component | ComponentOptions | AsyncComponent
   type Dir = DirectiveOptions | DirectiveFunction
 
@@ -25,9 +25,6 @@ declare module 'bootstrap-vue/es' {
 
 // components/index.js file
 declare module 'bootstrap-vue/es/components' {
-  import { VueConstructor, Component, ComponentOptions, AsyncComponent } from 'vue'
-  import { BvPlugin } from './bv-plugin'
-
   interface BvPluginsObject {
     [key: string]?: BvPlugin
   }
@@ -45,9 +42,6 @@ declare module 'bootstrap-vue/es/components' {
 }
 
 declare module 'bootstrap-vue/es/components/*' {
-  import { VueConstructor, Component, ComponentOptions, AsyncComponent } from 'vue'
-  import { BvPlugin } from './bv-plugin'
-
   const BootstrapVueComponentPlugin: {
     // Default export is a plugin
     default: BvPlugin
@@ -59,9 +53,6 @@ declare module 'bootstrap-vue/es/components/*' {
 }
 
 declare module 'bootstrap-vue/es/components/*/*' {
-  import { VueConstructor, Component, AsyncComponent, ComponentOptions } from 'vue'
-  import { BvPlugin } from './bv-plugin'
-
   const BootstrapVueComponent: {
     // Default export is a component
     default: VueConstructor | Component | AsyncComponent | ComponentOptions | BvPlugin
@@ -74,9 +65,6 @@ declare module 'bootstrap-vue/es/components/*/*' {
 
 // directives/index.js
 declare module 'bootstrap-vue/es/directives' {
-  import { DirectiveOptions, DirectiveFunction, PluginFunction } from 'vue'
-  import { BvPlugin } from './bv-plugin'
-  
   interface BvPluginsObject {
     [key: string]?: BvPlugin
   }
@@ -94,9 +82,6 @@ declare module 'bootstrap-vue/es/directives' {
 }
 
 declare module 'bootstrap-vue/es/directives/*' {
-  import { DirectiveOptions, DirectiveFunction, PluginFunction } from 'vue'
-  import { BvPlugin } from './bv-plugin'
-
   const BootstrapVueDirectivePlugin: {
     // Default export is the plugin
     default: BvPlugin
@@ -108,9 +93,6 @@ declare module 'bootstrap-vue/es/directives/*' {
 }
 
 declare module 'bootstrap-vue/es/directives/*/*' {
-  import { DirectiveOptions, DirectiveFunction, PluginFunction } from 'vue'
-  import { BvPlugin } from './bv-plugin'
-
   const BootstrapVueDirective: {
     default: DirectiveOptions | DirectiveFunction | BvPlugin
     [key: string]: any
