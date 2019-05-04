@@ -929,7 +929,7 @@ export default Vue.extend({
       Portal,
       {
         props: {
-          name: this._uid,
+          name: `b-modal-${this._uid}`,
           to: modalManager.modalTargetName,
           slim: true,
           disabled: this.static
