@@ -107,6 +107,9 @@ describe('b-toast', () => {
 
     $body.trigger('click')
 
+    expect(wrapper.emitted('hide')).not.toBeDefined()
+    expect(wrapper.emitted('hidden')).not.toBeDefined()
+
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -118,6 +121,9 @@ describe('b-toast', () => {
 
     expect(wrapper.is('div')).not.toBe(true)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+
+    expect(wrapper.emitted('hide')).toBeDefined()
+    expect(wrapper.emitted('hidden')).toBeDefined()
 
     wrapper.destroy()
   })
