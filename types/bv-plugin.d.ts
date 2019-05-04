@@ -9,8 +9,8 @@ export interface BvConfigComponentOptions {
 }
 
 export interface BvConfigOptions {
-  [key: string]: BvConfigComponentOptions
   breakpoints?: BvConfigBreakpointsValue
+  [key: string]: BvConfigComponentOptions | any
 }
 
 export interface BvPlugin {
