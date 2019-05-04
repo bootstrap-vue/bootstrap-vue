@@ -40,7 +40,7 @@ export interface BvTableField {
   class?: string | string[]
   formatter?: string | BvTableFormatterCallback
   sortable?: boolean
-  sortDirection?: SortDirection
+  sortDirection?: BvTableSortDirection
   tdClass?: string | string[] | BvTableFormatterCallback
   thClass?: string | string[]
   thStyle?: any
