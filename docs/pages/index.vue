@@ -32,7 +32,7 @@
           <p class="mb-2 text-muted">
             BootstrapVue's documentation is created using
             <span class="bd-text-purple-bright">BootstrapVue</span> components and
-            <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>.
+            generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>.
           </p>
 
           <b-media no-body class="my-3">
