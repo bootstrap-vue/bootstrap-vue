@@ -114,11 +114,11 @@ describe('$bvToast', () => {
 
     // Find  header
     expect($toast.find('.toast-header').exists()).toBe(true)
-    expect($toast.find('.toast-header').test()).toContain('title')
+    expect($toast.find('.toast-header').text()).toContain('title')
 
     // Find body
     expect($toast.find('.toast-body').exists()).toBe(true)
-    expect($toast.find('.toast-body').test()).toContain('message')
+    expect($toast.find('.toast-body').text()).toContain('message')
 
     // Find the Close button and click it
     expect($toast.findAll('button').length).toBe(1)
