@@ -1,4 +1,4 @@
-import Vue. {Component } from 'vue'
+import Vue, {Component } from 'vue'
 
 //
 // Generic BvEvent Object
@@ -14,5 +14,5 @@ export interface BvEvent {
   readonly componentId: string | null
   preventDefault: () => void
   // Catch all
-  [key: string]?: any
+  [key: string]: any
 }
