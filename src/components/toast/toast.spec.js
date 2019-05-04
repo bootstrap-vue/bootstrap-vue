@@ -58,7 +58,7 @@ describe('b-toast', () => {
 
     expect($toast.find('.toast-body').exists()).toBe(true)
     const $body = $toast.find('.toast-body')
-    expect($header.is('div')).toBe(true)
+    expect($body.is('div')).toBe(true)
 
     wrapper.destroy()
   })
