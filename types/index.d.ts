@@ -1,7 +1,7 @@
 import Vue, { PluginFunction, PluginObject } from 'vue'
 import { BvPlugin, BvConfigOptions } from './bv-plugin'
 import './vue-injections'
-import './es'
+// import './es'
 
 export * from './bv-config'
 export * from './bv-event'
