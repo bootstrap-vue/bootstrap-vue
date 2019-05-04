@@ -102,7 +102,7 @@ describe('b-toast', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.vm.timer).not.toEqual(null)
 
-    jest.runAllPendingTimers()
+    jest.runPendingTimers()
 
     await waitNT(wrapper.vm)
     await waitRAF()
