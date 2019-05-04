@@ -17,7 +17,7 @@ declare module 'bootstrap-vue/es' {
 
   const BootstrapVuePlugin: {
     default: BvPlugin
-    [key: string]?: Cmp | Dir | BvPlugin
+    [key: string]: Cmp | Dir | BvPlugin
   }
 
   export = BootstrapVuePlugin
@@ -26,7 +26,7 @@ declare module 'bootstrap-vue/es' {
 // components/index.js file
 declare module 'bootstrap-vue/es/components' {
   interface BvPluginsObject {
-    [key: string]?: BvPlugin
+    [key: string]: BvPlugin
   }
 
   const BootstrapVueComponentPlugin: {
@@ -66,7 +66,7 @@ declare module 'bootstrap-vue/es/components/*/*' {
 // directives/index.js
 declare module 'bootstrap-vue/es/directives' {
   interface BvPluginsObject {
-    [key: string]?: BvPlugin
+    [key: string]: BvPlugin
   }
 
   const BootstrapVueDirectivePlugin: {
