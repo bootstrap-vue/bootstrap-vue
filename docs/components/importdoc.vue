@@ -85,6 +85,7 @@
 
       <b-table
         :items="pluginImports"
+        :fileds="['plugin', 'namedExport', 'importPath']"
         class="bv-docs-table"
         caption="The plugin can be imported via several methods"
         responsive="sm"
@@ -96,8 +97,10 @@
         <template slot="plugin" slot-scope="{ value }">
           <code class="text-nowrap">{{ value }}</code>
         </template>
-        <template slot="namedExport" slot-scope="{ value }">
+        <template slot="namedExport" slot-scope="{ value, item }">
           <code class="text-nowrap">{{ value }}</code>
+          <b-badge v-if="item.legacy" variant="warning" class="small">DEPRECATED</b-badge>
+          <b-badge v-else variant="success" class="small">PREFERRED</b-badge>
         </template>
         <template slot="importPath" slot-scope="{ value }">
           <code class="text-nowrap">{{ value }}</code>
@@ -171,12 +174,14 @@ export default {
         {
           plugin: this.pluginName,
           namedExport: legacyName,
-          importPath: `bootstrap-vue/es/${pluginLocation}`
+          importPath: `bootstrap-vue/es/${pluginLocation}`,
+          legacy: true
         },
         {
           plugin: this.pluginName,
           namedExport: 'default',
-          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`
+          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`,
+          legacy: true
         }
       ]
     },
