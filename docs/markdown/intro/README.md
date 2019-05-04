@@ -3,7 +3,7 @@
 > Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
 > building responsive, mobile-first sites using Vue.js.
 
-- [Vue.js](https://vuejs.org/) `v2.5` is required, `v{{ vueVersion }}` is recommended
+- [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
 - [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
   recommended
 - [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required, `v{{ portalVueVersion }}` is
