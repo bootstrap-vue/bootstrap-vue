@@ -9,7 +9,7 @@ describe('$bvToast', () => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
     // Install plugin after we have trapped console.warn
-    localVue.use(modalPlugin)
+    localVue.use(toastPlugin)
   })
 
   afterAll(() => {
