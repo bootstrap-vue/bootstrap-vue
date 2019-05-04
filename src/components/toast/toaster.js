@@ -4,8 +4,6 @@ import warn from '../../utils/warn'
 import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
 
-/* istanbul ignore file: for now until ready for testing */
-
 // --- Constants ---
 
 const NAME = 'BToaster'
@@ -38,9 +36,6 @@ export const props = {
 
 // @vue/component
 export const DefaultTransition = Vue.extend({
-  // functional: true,
-  // render(h, { children }) {
-  //   return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
   data() {
     return {
       // Transition classes base name
@@ -100,6 +95,7 @@ export default Vue.extend({
   },
   destroyed() {
     // Remove from DOM if needed
+    /* istanbul ignore next: difficult to test */
     if (this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
     }

@@ -1,6 +1,7 @@
 import Popper from 'popper.js'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { isFunction, isObject, isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
@@ -20,8 +21,11 @@ const validTriggers = {
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
 const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
-  // We start out with a blank config
-  let config = {}
+  // We start out with a basic config
+  let config = {
+    boundary: String(getComponentConfig('BTooltip', 'boundary')),
+    boundaryPadding: parseInt(getComponentConfig('BTooltip', 'boundaryPadding'), 10) || 0
+  }
 
   // Process bindings.value
   if (isString(bindings.value)) {
@@ -55,7 +59,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     ) {
       // Placement of tooltip
       config.placement = mod
-    } else if (/^(window|viewport)$/.test(mod)) {
+    } else if (/^(window|viewport|scrollParent)$/.test(mod)) {
       // Boundary of tooltip
       config.boundary = mod
     } else if (/^d\d+$/.test(mod)) {

@@ -988,7 +988,7 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
-## Custom empty/emptyfiltered rendering via slots
+## Custom empty and emptyfiltered rendering via slots
 
 Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
 also possible to provide custom rendering for tables that have no data to display using named slots.
@@ -1021,7 +1021,7 @@ following properties:
 | `fields`            | Array  | The `fields` prop                                  |
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
-## Header/Footer custom rendering via scoped slots
+## Header and Footer custom rendering via scoped slots
 
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.

@@ -2,8 +2,6 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
-/* istanbul ignore file: not ready for testing yet as things are still changing */
-
 import Vue from '../../../utils/vue'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
@@ -82,6 +80,7 @@ const BToastPop = Vue.extend({
     this.$once('hidden', handleDestroy)
     // Self destruct when toaster is destroyed
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      /* istanbul ignore next: hard to test */
       if (toaster === self.toaster) {
         handleDestroy()
       }

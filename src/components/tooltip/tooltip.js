@@ -1,12 +1,16 @@
 import Vue from '../../utils/vue'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
+import { HTMLElement } from '../../utils/safe-types'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import toolpopMixin from '../../mixins/toolpop'
 
+const NAME = 'BTooltip'
+
 // @vue/component
 export default Vue.extend({
-  name: 'BTooltip',
+  name: NAME,
   mixins: [toolpopMixin, normalizeSlotMixin],
   props: {
     title: {
@@ -20,6 +24,16 @@ export default Vue.extend({
     placement: {
       type: String,
       default: 'top'
+    },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      type: [String, HTMLElement],
+      default: () => getComponentConfig(NAME, 'boundary')
+    },
+    boundaryPadding: {
+      type: Number,
+      default: () => getComponentConfig(NAME, 'boundaryPadding')
     }
   },
   data() {
