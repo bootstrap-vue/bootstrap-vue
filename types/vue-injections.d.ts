@@ -7,7 +7,7 @@ import { BvToast } from './components/toast'
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $bvModal: BvModal
-    $bvToast: BvToast
+    readonly $bvModal: BvModal
+    readonly $bvToast: BvToast
   }
 }
