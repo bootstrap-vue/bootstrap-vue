@@ -161,7 +161,7 @@ import 'custom.scss'
 
 ### Tree shaking with Nuxt.js
 
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc20</span>
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
 
 If you wish to reduce your bundle size because you only use a subset of the available BootstrapVue
 plugins, you can configure the list of BootstrapVue `componentPlugins` or `directivePlugins` you
@@ -185,15 +185,16 @@ module.exports = {
 }
 ```
 
-There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections
-(if you are not using the `ModalPlugin` or `ToastPlugin` plugins):
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span> There are two additional helper
+plugins for providing the `$bvModal` and `$bvToast` injections (if you are not using the
+`ModalPlugin` or `ToastPlugin` plugins) that are available in the `componentPlugins` option:
 
 - `BVModalPlugin` - provides the injection `$bvModal` for generating
   [message boxes](/docs/components/modal#modal-message-boxes).
 - `BVToastPlugin` - provides the injection `$bvToast` for generating
   [on demand toasts](/docs/components/toast#toasts-on-demand).
 
-<span class="badge badge-info small">NEW in 2.0.0-rc20</span> You can also optionally import
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span> You can also optionally import
 individual components and/or directives, by configuring the list of BootstrapVue `components` or
 `directives` you want to globally install in your Nuxt.js project.
 
@@ -322,13 +323,13 @@ various BootstrapVue components, refer to the Vue CLI 3 section of the
 
 ## Selective component and directive inclusion in module bundlers
 
-When using a module bundler you can optionally import only specific components groups, components
-and/or directives.
+When using a module bundler you can optionally import only specific components groups (plugins),
+components and/or directives.
 
 ### Component groups and directives as Vue plugins
 
-You can import component groups and directives as Vue plugins by importing the component group or
-directive directory:
+You can import component groups and directives as Vue plugins by importing from the `components`
+or `directives` directory:
 
 <!-- eslint-disable import/first, import/no-duplicates -->
 
@@ -346,7 +347,7 @@ import { CardPlugin } from 'bootstrap-vue/es/components'
 Vue.use(CardPlugin)
 
 // This imports directive v-b-scrollspy as a plugin:
-import { ScrollspyPlugin } from 'bootstrap-vue/es/directives'
+import { VBScrollspyPlugin } from 'bootstrap-vue/es/directives'
 Vue.use(ScrollspyPlugin)
 ```
 
@@ -356,15 +357,13 @@ sub components. Component shorthand aliases (if any) are also included in the pl
 component and directive documentation for details.
 
 There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
-you are not using the `ModalPlugin` or `ToastPlugin` plugins):
+you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are available for import from
+`'bootstrap-vue/es/components'` and `'bootstrap-vue/src/components'`:
 
 - `BVModalPlugin` - provides the injection `$bvModal` for generating
   [message boxes](/docs/components/modal#modal-message-boxes).
 - `BVToastPlugin` - provides the injection `$bvToast` for generating
   [on demand toasts](/docs/components/toast#toasts-on-demand).
-
-These additional plugins are available for import from `bootstrap-vue/es/components` and
-`bootstrap-vue/src/components`.
 
 ### Individual components and directives
 
@@ -407,8 +406,9 @@ Vue.component('b-modal', BModal)
 Vue.directive('b-modal', VBModal)
 ```
 
-Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
-camelCasing, PascalCasing, and/or object property shorthand.
+Vue allows for various component and directive name syntaxes here, so feel free to utilize
+<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or object
+property shorthand (components only).
 
 ### webpack + Babel
 
