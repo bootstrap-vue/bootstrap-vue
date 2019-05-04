@@ -73,7 +73,7 @@ describe('b-toast', () => {
     wrapper.destroy()
   })
 
-  if('visible prop works', async () => {
+  it('visible prop works', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
       stubs: {
