@@ -5,7 +5,7 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const NavPlugin: AlertPlugin
+declare const NavPlugin: NavPlugin
 export default NavPlugin
 export interface NavPlugin extends BvPlugin {}
 
