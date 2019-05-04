@@ -3,7 +3,7 @@ import BToaster from './toaster'
 
 describe('b-toaster', () => {
   it ('has expected structure', async () => {
-    const wrapper = mount(Btoaster, {
+    const wrapper = mount(BToaster, {
       attachToDocument: true,
       propsData: {
         name: 'foobar'
@@ -31,7 +31,7 @@ describe('b-toaster', () => {
   })
 
   it ('accepts aria props', async () => {
-    const wrapper = mount(Btoaster, {
+    const wrapper = mount(BToaster, {
       attachToDocument: true,
       propsData: {
         name: 'foobar',
