@@ -174,7 +174,6 @@ describe('b-toast', () => {
   })
 
   it('hover pause works', async () => {
-    jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachToDocument: true,
       stubs: {
@@ -202,12 +201,18 @@ describe('b-toast', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.vm.timer).not.toEqual(null)
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.vm.timer).toEqual(null)
 
     wrapper.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.vm.timer).not.toEqual(null)
 
