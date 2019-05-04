@@ -212,7 +212,7 @@ export default Vue.extend({
       }
     })
     // Make sure we hide when toaster is destroyed
-    /* istanbul ignore next: difficult to test */ 
+    /* istanbul ignore next: difficult to test */
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
       if (toaster === this.computedToaster) {
         this.hide()
