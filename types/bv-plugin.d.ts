@@ -1,19 +1,13 @@
-import Vue, {
-  Component,
-  AsyncComponent,
-  ComponentOptions,
-  DirectiveOptions,
-  DirectiveFunction,
-  PluginFunction,
-  PluginObject
-} from 'vue'
+import Vue, { PluginFunction, PluginObject } from 'vue'
+
+export type BvComponentOptionValue = string | string[] | number | number[] | boolean | object | any
 
 export interface BvComponentOptions {
-  [key: string]?: string | string[] | number | boolean | object | any
+  [key: string]: BvComponentOptionValue
 }
 
 export interface BvConfigOptions {
-  [key: string]?: BvComponentOptions
+  [key: string]: BvComponentOptions
 }
 
 export interface BvPlugin {
