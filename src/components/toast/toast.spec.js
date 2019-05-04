@@ -113,6 +113,8 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).not.toBe(true)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
