@@ -218,4 +218,51 @@ describe('b-toast', () => {
 
     wrapper.destroy()
   })
+
+  it('hover pause has no effect when no-hover-pause is set', async () => {
+    const wrapper = mount(BToast, {
+      attachToDocument: true,
+      stubs: {
+        transition: false
+      },
+      propsData: {
+        static: true,
+        noAutoHide: false,
+        noHoverPause: true,
+        visible: true,
+        title: 'title'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm.timer).not.toEqual(null)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.vm.timer).not.toEqual(null)
+
+    wrapper.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.vm.timer).not.toEqual(null)
+
+    wrapper.destroy()
+  })
 })
