@@ -183,10 +183,11 @@ describe('b-toast', () => {
     expect($body.is('a')).toBe(true)
     expect($body.attributes('href')).toEqual('#foobar')
 
-    $body.trigger('click')
-
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    $body.trigger('click')
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -202,6 +203,7 @@ describe('b-toast', () => {
 
     expect(wrapper.emitted('hide')).toBeDefined()
     expect(wrapper.emitted('hidden')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeDefined()
 
     wrapper.destroy()
   })
