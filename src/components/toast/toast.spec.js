@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { Portal } from 'portal-vue'
 import BToast from './toast'
 
 describe('b-toast', () => {
-
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
@@ -23,7 +23,7 @@ describe('b-toast', () => {
         static: true,
         noAutoHide: true,
         visible: true,
-        title: 'title',
+        title: 'title'
       },
       slots: {
         default: 'content'
