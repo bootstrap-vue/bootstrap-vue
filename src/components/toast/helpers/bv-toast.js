@@ -80,6 +80,7 @@ const BToastPop = Vue.extend({
     this.$once('hidden', handleDestroy)
     // Self destruct when toaster is destroyed
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      /* istanbul ignore next: hard to test */
       if (toaster === self.toaster) {
         handleDestroy()
       }
