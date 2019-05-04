@@ -35,7 +35,7 @@ export interface BvModalEvent extends BvEvent {
 }
 
 export interface BvMsgBoxOptions {
-  title?: string | VNode | Array<Vnode>
+  title?: string | VNode | Array<VNode>
   titleTag?: string
   size?: string
   centered?: boolean
@@ -67,7 +67,7 @@ export interface BvMsgBoxOptions {
 }
 
 export interface BvModalMsgBoxResolver {
-  (BvModalEvent): => any
+  (evt: BvModalEvent): => any
 }
 
 export interface BvModalMsgBoxShortcutMethod {
