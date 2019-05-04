@@ -7,6 +7,10 @@ describe('b-toaster', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
       attachToDocument: true,
+      stubs: {
+        'transition-group': false,
+        transition: false
+      },
       propsData: {
         name: 'foo'
       }
@@ -14,6 +18,7 @@ describe('b-toaster', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBe('foo')
@@ -39,6 +44,10 @@ describe('b-toaster', () => {
   it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
       attachToDocument: true,
+      stubs: {
+        'transition-group': false,
+        transition: false
+      },
       propsData: {
         name: 'bar',
         ariaLive: 'assertive',
@@ -49,6 +58,7 @@ describe('b-toaster', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('id')).toBe('bar')
