@@ -178,11 +178,11 @@ export default Vue.extend({
         this.$emit('change', newVal)
       }
     },
-    toaster(newVal) {
+    toaster(newVal) /* istanbul ignore next */ {
       // If toaster target changed, make sure toaster exists
       this.$nextTick(() => this.ensureToaster)
     },
-    static(newVal) {
+    static(newVal) /* istanbul ignore next */ {
       // If static changes to true, and the toast is showing,
       // ensure the toaster target exists
       if (newVal && this.localShow) {
@@ -212,6 +212,7 @@ export default Vue.extend({
       }
     })
     // Make sure we hide when toaster is destroyed
+    /* istanbul ignore next: difficult to test */ 
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
       if (toaster === this.computedToaster) {
         this.hide()
