@@ -46,11 +46,19 @@ describe('b-toast', () => {
     expect($toast.classes()).toContain('toast')
     expect($toast.classes()).toContain('fade')
     expect($toast.classes()).toContain('show')
-    expect($toast.classes().length).toBe(2)
+    expect($toast.classes().length).toBe(3)
     expect($toast.attributes('role')).toEqual('alert')
     expect($toast.attributes('aria-live')).toEqual('assertive')
     expect($toast.attributes('aria-atomic')).toEqual('true')
     expect($toast.attributes('tabindex')).toEqual('-1')
+
+    expect($toast.find('.toast-header').exists()).toBe(true)
+    const $header = $toast.find('.toast-header')
+    expect($header.is('header')).toBe(true)
+
+    expect($toast.find('.toast-body').exists()).toBe(true)
+    const $body = $toast.find('.toast-body')
+    expect($header.is('div')).toBe(true)
 
     wrapper.destroy()
   })
