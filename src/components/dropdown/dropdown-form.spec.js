@@ -10,6 +10,17 @@ describe('dropdown-form', () => {
     expect(form.is('form')).toBe(true)
   })
 
+  it('default has expected classes', async () => {
+    const wrapper = mount(BDropdownForm)
+    expect(wrapper.is('li')).toBe(true)
+
+    const form = wrapper.find('form')
+    expect(form.classes()).toContain('b-dropdown-form')
+    expect(form.classes()).toContain('dropdown-item')
+    expect(form.classes()).not.toContain('was-validated')
+    expect(form.classes()).not.toContain('disabled')
+  })
+
   it('has tabindex on form', async () => {
     const wrapper = mount(BDropdownForm)
     expect(wrapper.is('li')).toBe(true)
@@ -20,14 +31,19 @@ describe('dropdown-form', () => {
     expect(form.attributes('tabindex')).toEqual('0')
   })
 
-  it('has custom class "b-dropdown-form"', async () => {
-    const wrapper = mount(BDropdownForm)
+  it('does not have tabindex on form when disabled', async () => {
+    const wrapper = mount(BDropdownForm, {
+      propsData: {
+        disabled: true
+      }
+    })
     expect(wrapper.is('li')).toBe(true)
 
     const form = wrapper.find('form')
-    expect(form.classes()).toContain('b-dropdown-form')
-    expect(form.classes()).toContain('dropdown-item')
-    expect(form.classes()).not.toContain('was-validated')
+    expect(form.is('form')).toBe(true)
+    expect(form.attributes('tabindex')).not.toBeDefined()
+    expect(form.attributes('disabled')).toBeDefined()
+    expect(form.classes()).toContain('disabled')
   })
 
   it('has class "was-validated" when validated=true', async () => {
