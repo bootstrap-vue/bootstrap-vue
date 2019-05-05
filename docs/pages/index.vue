@@ -20,12 +20,11 @@
             <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
             comprehensive implementations of the
             <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
-            available for <span class="bd-text-purple-bright">Vue.js v2.5+</span>, complete with
+            available for <span class="bd-text-purple-bright">Vue.js v2.6+</span>, complete with
             extensive and automated
-            <abbr
-              v-b-tooltip.hover
-              title="Web Accessibility Initiative – Accessible Rich Internet Applications"
-            >WAI-ARIA</abbr>
+            <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
+              <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
+            </b-link>
             accessibility markup. <samp>jQuery</samp> is not required.
           </p>
 
