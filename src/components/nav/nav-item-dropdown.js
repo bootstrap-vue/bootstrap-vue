@@ -94,8 +94,7 @@ export default Vue.extend({
           'aria-labelledby': this.safeId('_BV_button_')
         },
         on: {
-          mouseover: this.onMouseOver,
-          keydown: this.onKeydown // tab, up, down, esc
+          keydown: this.onKeydown // up, down, esc
         }
       },
       [this.normalizeSlot('default', { hide: this.hide })]
