@@ -2,7 +2,7 @@ import Popper from 'popper.js'
 import BvEvent from '../utils/bv-event.class'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
-import { closest, contains, getAttr, isVisible, selectAll } from '../utils/dom'
+import { closest, contains, isVisible, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -13,7 +13,6 @@ function filterVisibles(els) {
 }
 
 // Dropdown item CSS selectors
-// TODO: .dropdown-form handling
 const Selector = {
   FORM_CHILD: '.dropdown form',
   ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])'
@@ -410,7 +409,7 @@ export default {
     },
     focusItem(idx, items) {
       let el = items.find((el, i) => i === idx)
-      if (el && getAttr(el, 'tabindex') !== '-1') {
+      if (el && el.focus) {
         el.focus()
       }
     },
