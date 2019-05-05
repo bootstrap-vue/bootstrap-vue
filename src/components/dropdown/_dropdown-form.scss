@@ -13,18 +13,28 @@ $bv-dropdown-form-defined: false !default;
     clear: both;
     font-weight: $font-weight-normal;
 
-    &:focus:not(:focus-within):not(.disabled) {
+    &:focus {
       // From https://github.com/twbs/bootstrap/blob/master/scss/_reboot.scss
-      // mimicking button:focus styling
-      outline: 1px dotted;
-      outline: 5px auto -webkit-focus-ring-color;
+      // mimicking button:focus styling.
+      // We add important here as anything with tabindex `-1` and focused
+      // will not have a focus ring due to reboot.scss and it's `!important`.
+      // Needed for keyboard navigation high-lighting
+      outline: 1px dotted !important;
+      outline: 5px auto -webkit-focus-ring-color !important;
+    }
+
+    &:focus-within {
+      // Disable focus ring when an inner element has focus.
+      // Psuedo selector not supported in IE and some older browsers.
+      outline: 0 !important;
     }
 
     &.disabled,
     &:disabled {
+      outline: 0 !important;
       color: $dropdown-link-disabled-color;
       pointer-events: none;
-      background-color: transparent;
+      // background-color: transparent;
       // Remove CSS gradients if they're enabled
       // @if $enable-gradients {
       //   background-image: none;
