@@ -16,6 +16,7 @@ describe('dropdown-form', () => {
 
     const form = wrapper.find('form')
     expect(form.classes()).toContain('b-dropdown-form')
+    expect(form.classes()).toContain('dropdown-item')
     expect(form.classes()).not.toContain('was-validated')
   })
 
