@@ -15,7 +15,9 @@ function filterVisibles(els) {
 // Dropdown item CSS selectors
 const Selector = {
   FORM_CHILD: '.dropdown form',
-  ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled]),.b-dropdown-form:not(.disabled):not([disabled]'
+  ITEM_SELECTOR: ['.dropdown-item', '.b-dropdown-form']
+    .map(selector => `${selector}:not(.disabled):not([disabled])`)
+    .join(', ')
 }
 
 // Popper attachment positions
