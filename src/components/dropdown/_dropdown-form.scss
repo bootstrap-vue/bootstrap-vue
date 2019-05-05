@@ -12,5 +12,23 @@ $bv-dropdown-form-defined: false !default;
     width: 100%;
     clear: both;
     font-weight: $font-weight-normal;
+
+    &:focus:not(:focus-within):not(.disabled) {
+      // From https://github.com/twbs/bootstrap/blob/master/scss/_reboot.scss
+      // mimicking button:focus styling
+      outline: 1px dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+    }
+
+    &.disabled,
+    &:disabled {
+      color: $dropdown-link-disabled-color;
+      pointer-events: none;
+      background-color: transparent;
+      // Remove CSS gradients if they're enabled
+      // @if $enable-gradients {
+      //   background-image: none;
+      // }
+    }
   }
 }
