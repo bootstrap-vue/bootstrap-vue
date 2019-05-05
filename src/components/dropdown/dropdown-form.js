@@ -19,7 +19,7 @@ export default Vue.extend({
         BForm,
         mergeData(data, {
           ref: 'form',
-          staticClass: 'dropdown-item b-dropdown-form',
+          staticClass: 'b-dropdown-form',
           class: { disabled: props.disabled },
           props,
           attrs: {
