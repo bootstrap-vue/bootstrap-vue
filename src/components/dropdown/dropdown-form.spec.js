@@ -16,7 +16,6 @@ describe('dropdown-form', () => {
 
     const form = wrapper.find('form')
     expect(form.classes()).toContain('b-dropdown-form')
-    expect(form.classes()).toContain('dropdown-item')
     expect(form.classes()).not.toContain('was-validated')
     expect(form.classes()).not.toContain('disabled')
   })
@@ -55,7 +54,6 @@ describe('dropdown-form', () => {
     const form = wrapper.find('form')
     expect(form.classes()).toContain('was-validated')
     expect(form.classes()).toContain('b-dropdown-form')
-    expect(form.classes()).toContain('dropdown-item')
   })
 
   it('does not have attribute novalidate by default', async () => {
