@@ -38,36 +38,23 @@ export default Vue.extend({
       return true
     },
     dropdownClasses() {
-      return [
-        'nav-item',
-        'b-nav-dropdown',
-        'dropdown',
-        this.directionClass,
-        {
-          show: this.visible
-        }
-      ]
+      return [this.directionClass, { show: this.visible }]
     },
     menuClasses() {
       return [
-        'dropdown-menu',
+        this.extraMenuClasses, // Deprecated
+        this.menuClass,
         {
           'dropdown-menu-right': this.right,
           show: this.visible
         },
-        this.extraMenuClasses, // Deprecated
-        this.menuClass
       ]
     },
     toggleClasses() {
       return [
-        'nav-link',
-        'dropdown-toggle',
-        {
-          'dropdown-toggle-no-caret': this.noCaret
-        },
         this.extraToggleClasses, // Deprecated
-        this.toggleClass
+        this.toggleClass,
+        { 'dropdown-toggle-no-caret': this.noCaret }
       ]
     }
   },
@@ -75,8 +62,9 @@ export default Vue.extend({
     const button = h(
       'a',
       {
-        class: this.toggleClasses,
         ref: 'toggle',
+        staticClass: 'nav-link dropdown-toggle',
+        class: this.toggleClasses,
         attrs: {
           href: '#',
           id: this.safeId('_BV_button_'),
@@ -98,6 +86,7 @@ export default Vue.extend({
     const menu = h(
       'ul',
       {
+        staticClass: 'dropdown-menu',
         class: this.menuClasses,
         ref: 'menu',
         attrs: {
@@ -109,8 +98,16 @@ export default Vue.extend({
           keydown: this.onKeydown // tab, up, down, esc
         }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot('default', { hide: this.hide })]
     )
-    return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [button, menu])
+    return h(
+      'li',
+      {
+        staticClass: 'nav-item b-nav-dropdown dropdown',
+        class: this.dropdownClasses,
+        attrs: { id: this.safeId() }
+      },
+      [button, menu]
+    )
   }
 })
