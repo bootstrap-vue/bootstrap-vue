@@ -28,7 +28,7 @@ describe('dropdown-form', () => {
     const form = wrapper.find('form')
     expect(form.is('form')).toBe(true)
     expect(form.attributes('tabindex')).toBeDefined()
-    expect(form.attributes('tabindex')).toEqual('0')
+    expect(form.attributes('tabindex')).toEqual('-1')
   })
 
   it('does not have tabindex on form when disabled', async () => {
