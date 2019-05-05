@@ -19,8 +19,8 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     }
 
     // Ensure we have arrays
-    this.options.css = this.options.css || []
-    this.options.build.transpile = this.options.build.transpile || []
+    this.options.css = [].concat(this.options.css || [])
+    this.options.build.transpile = [].concat(this.options.build.transpile || [])
 
     const bootstrapVueCSS = pickFirst(
       options.bootstrapVueCSS,
@@ -62,6 +62,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
       templateOptions[type] = bvPlugins
         // Normalize plugin name to `${Name}Plugin` (component) or `VB${Name}Plugin` (directive)
+        // Required for backwards compatability with old plugin import names
         .map(plugin => {
           plugin = type === 'directivePlugins' && !/^VB/.test(plugin) ? `VB${plugin}` : plugin
           plugin = /Plugin$/.test(plugin) ? plugin : `${plugin}Plugin`
