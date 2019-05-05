@@ -30,12 +30,20 @@ $bv-dropdown-defined: false !default;
     // Added here to address <li> wrapping of items
     @if $dropdown-padding-y == 0 {
       .dropdown-menu {
-        :first-child .dropdown-item {
-          @include border-top-radius($dropdown-inner-border-radius);
+        > :first-child {
+          .dropdown-item,
+          .dropdown-form,
+          .dropdown-text {
+            @include border-top-radius($dropdown-inner-border-radius);
+          }
         }
 
-        :last-child .dropdown-item {
-          @include border-bottom-radius($dropdown-inner-border-radius);
+        > :last-child {
+          .dropdown-item,
+          .dropdown-form,
+          .dropdown-text {
+            @include border-bottom-radius($dropdown-inner-border-radius);
+          }
         }
       }
     }
