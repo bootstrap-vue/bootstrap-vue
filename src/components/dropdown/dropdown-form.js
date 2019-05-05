@@ -22,7 +22,10 @@ export default Vue.extend({
           staticClass: 'dropdown-item b-dropdown-form',
           class: { disabled: props.disabled },
           props,
-          attrs: { tabindex: props.disabled ? null : '0' }
+          attrs: {
+            disabled: props.disabled,
+            tabindex: props.disabled ? null : '0'
+          }
         }),
         children
       )
