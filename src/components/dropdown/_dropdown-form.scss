@@ -24,11 +24,11 @@ $bv-dropdown-form-defined: false !default;
         outline: 5px auto -webkit-focus-ring-color !important;
       }
 
-      &:focus-within {
-        // Disable focus ring when an inner element has focus.
-        // Psuedo selector not supported in IE and some older browsers.
-        outline: 0 !important;
-      }
+      // &:focus-within {
+      //   // Disable focus ring when an inner element has focus.
+      //   // Psuedo selector not supported in IE and some older browsers.
+      //   outline: 0 !important;
+      // }
 
       &.disabled,
       &:disabled {
