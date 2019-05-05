@@ -24,7 +24,8 @@ export default Vue.extend({
           props,
           attrs: {
             disabled: props.disabled,
-            tabindex: props.disabled ? null : '0'
+            // Tab index of -1 for keyboard navigation
+            tabindex: props.disabled ? null : '-1'
           }
         }),
         children
