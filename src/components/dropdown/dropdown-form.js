@@ -6,7 +6,13 @@ export default Vue.extend({
   name: 'BDropdownForm',
   functional: true,
   inheritAttrs: false,
-  props: { ...formProps },
+  props: {
+    ...formProps,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
   render(h, { props, data, children }) {
     return h('li', [
       h(
