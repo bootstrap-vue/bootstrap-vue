@@ -8,7 +8,7 @@ import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
 
 // Return an Array of visible items
-function filterVisible(els) {
+function filterVisibles(els) {
   return (els || []).filter(isVisible)
 }
 
@@ -189,6 +189,7 @@ export default {
 
       // Are we in a navbar ?
       if (isNull(this.inNavbar) && this.isNav) {
+        // We should use an injection for this
         /* istanbul ignore next */
         this.inNavbar = Boolean(closest('.navbar', this.$el))
       }
@@ -381,7 +382,8 @@ export default {
     },
     // Keyboard nav
     focusNext(evt, up) {
-      if (!this.visible) {
+      if (!this.visible || (evt && closest(Selector.FORM_CHILD, evt.target))) {
+        // Ignore key up/down on form elements
         /* istanbul ignore next: should never happen */
         return
       }
@@ -414,7 +416,7 @@ export default {
     },
     getItems() {
       // Get all items
-      return filterVisible(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
+      return filterVisibles(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     focusMenu() {
       this.$refs.menu.focus && this.$refs.menu.focus()
