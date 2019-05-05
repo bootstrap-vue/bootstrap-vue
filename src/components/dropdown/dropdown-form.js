@@ -12,9 +12,10 @@ export default Vue.extend({
       h(
         BForm,
         mergeData(data, {
-          staticClass: 'b-dropdown-form',
+          ref: 'form',
+          staticClass: 'dropdown-item b-dropdown-form',
           props,
-          ref: 'form'
+          attrs: { tabindex: props.disabled ? null : '0' }
         }),
         children
       )
