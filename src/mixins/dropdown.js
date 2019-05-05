@@ -16,7 +16,6 @@ function filterVisible(els) {
 // TODO: .dropdown-form handling
 const Selector = {
   FORM_CHILD: '.dropdown form',
-  NAVBAR_NAV: '.navbar-nav',
   ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])'
 }
 
