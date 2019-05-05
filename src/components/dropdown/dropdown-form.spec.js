@@ -21,9 +21,7 @@ describe('dropdown-form', () => {
 
   it('has class "was-validated" when validated=true', async () => {
     const wrapper = mount(BDropdownForm, {
-      context: {
-        props: { validated: true }
-      }
+      propsData: { validated: true }
     })
     expect(wrapper.is('li')).toBe(true)
 
@@ -42,9 +40,7 @@ describe('dropdown-form', () => {
 
   it('has attribute novalidate when novalidate=true', async () => {
     const wrapper = mount(BDropdownForm, {
-      context: {
-        props: { novalidate: true }
-      }
+      propsData: { novalidate: true }
     })
     expect(wrapper.is('li')).toBe(true)
 
