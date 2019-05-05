@@ -47,7 +47,7 @@ export default Vue.extend({
         {
           'dropdown-menu-right': this.right,
           show: this.visible
-        },
+        }
       ]
     },
     toggleClasses() {
