@@ -175,8 +175,7 @@ export default Vue.extend({
           'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
         },
         on: {
-          mouseover: this.onMouseOver,
-          keydown: this.onKeydown // tab, up, down, esc
+          keydown: this.onKeydown // up, down, esc
         }
       },
       this.normalizeSlot('default', { hide: this.hide })
