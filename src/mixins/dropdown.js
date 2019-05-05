@@ -346,10 +346,6 @@ export default {
       if (key === KeyCodes.ESC) {
         // Close on ESC
         this.onEsc(evt)
-      } else if (key === KeyCodes.TAB) {
-        // Close on tab out
-        /* istanbul ignore next: not used and should be removed */
-        this.onTab(evt)
       } else if (key === KeyCodes.DOWN) {
         // Down Arrow
         this.focusNext(evt, false)
@@ -366,14 +362,6 @@ export default {
         // Return focus to original trigger button
         this.$once('hidden', this.focusToggler)
       }
-    },
-    onTab(evt) /* istanbul ignore next: not easy to test */ {
-      // TODO: Need special handler for dealing with form inputs
-      // Tab, if in a text-like input, we should just focus next item in the dropdown
-      // Note: Inputs are in a special .dropdown-form container
-    },
-    onMouseOver(evt) /* istanbul ignore next: not easy to test */ {
-      // Removed mouseover focus handler
     },
     // Document click out listener
     clickOutHandler() {
