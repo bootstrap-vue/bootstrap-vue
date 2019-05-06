@@ -5,7 +5,7 @@ const components = {
   BAlert
 }
 
-const AlertPlugin {
+const AlertPlugin = {
   install: installFactory({ components })
 }
 
