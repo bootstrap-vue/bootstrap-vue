@@ -7,7 +7,7 @@ const components = {
 }
 
 const directives = {
-  BToggle: VBToggle
+  VBToggle
 }
 
 const CollapsePlugin = {
