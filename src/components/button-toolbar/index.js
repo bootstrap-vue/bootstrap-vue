@@ -6,8 +6,16 @@ const components = {
   BBtnToolbar: BButtonToolbar
 }
 
-export { BButtonToolbar }
-
-export default {
+const ButtonToolbarPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  ButtonToolbarPlugin,
+  // Components
+  BButtonToolbar
+}
+
+// Legacy: default is plugin
+export default ButtonToolbarPlugin
