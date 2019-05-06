@@ -7,8 +7,17 @@ const components = {
   BCarouselSlide
 }
 
-export { BCarousel, BCarouselSlide }
-
-export default {
+const CarouselPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  CarouselPlugin,
+  // Components
+  BCarousel,
+  BCarouselSlide
+}
+
+// Legacy: default is plugin
+export default CarouselPlugin
