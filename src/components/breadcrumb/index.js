@@ -22,4 +22,5 @@ export {
   BBreadcrumbLink
 }
 
+// Legacy: default is plugin
 export default BreadcrumbPlugin
