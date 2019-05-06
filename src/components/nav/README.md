@@ -206,6 +206,8 @@ Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub
 
 ### Optionally scoped default slot
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
+
 The dropdown default slot is optionally scoped with the folling scope available:
 
 | Property or Method | Description                                                                                                                      |
