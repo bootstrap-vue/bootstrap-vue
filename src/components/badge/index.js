@@ -16,4 +16,5 @@ export {
   BBadge
 }
 
+// Legacy: default is plugin
 export default BadgePlugin
