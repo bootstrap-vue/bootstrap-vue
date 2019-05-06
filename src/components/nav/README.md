@@ -204,6 +204,14 @@ add them (like above) which will produce something like:
 
 Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub-components.
 
+### Optionally scoped default slot
+
+The dropdown default slot is optionally scoped with the folling scope available:
+
+| Property or Method | Description                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
+
 ## Using in navbar
 
 Prop `is-nav-bar` has been deprecated and will be removed in a future release.
