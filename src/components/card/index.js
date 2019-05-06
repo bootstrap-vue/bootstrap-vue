@@ -23,7 +23,14 @@ const components = {
   BCardGroup
 }
 
+const CardPlugin = {
+  install: installFactory({ components })
+}
+
 export {
+  // Plugins
+  CardPlugin,
+  // Components
   BCard,
   BCardHeader,
   BCardBody,
@@ -36,6 +43,5 @@ export {
   BCardGroup
 }
 
-export default {
-  install: installFactory({ components })
-}
+// Legacy: default is plugin
+export default CardPlugin
