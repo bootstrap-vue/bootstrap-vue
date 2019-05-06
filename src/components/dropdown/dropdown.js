@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
+import { HTMLElement } from '../../utils/safe-types'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -60,8 +61,8 @@ export const props = {
   },
   boundary: {
     // String: `scrollParent`, `window` or `viewport`
-    // Object: HTML Element reference
-    type: [String, Object],
+    // HTMLElement: HTML Element reference
+    type: [String, HTMLElement],
     default: 'scrollParent'
   }
 }
@@ -73,40 +74,33 @@ export default Vue.extend({
   props,
   computed: {
     dropdownClasses() {
-      // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
-      // when boundary is anything other than `scrollParent`
-      // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      const positionStatic = this.boundary !== 'scrollParent' || !this.boundary
-
       return [
-        'btn-group',
-        'b-dropdown',
-        'dropdown',
         this.directionClass,
         {
           show: this.visible,
-          'position-static': positionStatic
+          // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
+          // when boundary is anything other than `scrollParent`
+          // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
+          'position-static': this.boundary !== 'scrollParent' || !this.boundary
         }
       ]
     },
     menuClasses() {
       return [
-        'dropdown-menu',
+        this.menuClass,
         {
           'dropdown-menu-right': this.right,
           show: this.visible
-        },
-        this.menuClass
+        }
       ]
     },
     toggleClasses() {
       return [
-        'dropdown-toggle',
+        this.toggleClass,
         {
           'dropdown-toggle-split': this.split,
           'dropdown-toggle-no-caret': this.noCaret && !this.split
-        },
-        this.toggleClass
+        }
       ]
     }
   },
@@ -149,6 +143,7 @@ export default Vue.extend({
       BButton,
       {
         ref: 'toggle',
+        staticClass: 'dropdown-toggle',
         class: this.toggleClasses,
         props: {
           variant: this.variant,
@@ -172,6 +167,7 @@ export default Vue.extend({
       'ul',
       {
         ref: 'menu',
+        staticClass: 'dropdown-menu',
         class: this.menuClasses,
         attrs: {
           role: this.role,
@@ -179,16 +175,19 @@ export default Vue.extend({
           'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
         },
         on: {
-          mouseover: this.onMouseOver,
-          keydown: this.onKeydown // tab, up, down, esc
+          keydown: this.onKeydown // up, down, esc
         }
       },
-      this.normalizeSlot('default')
+      this.normalizeSlot('default', { hide: this.hide })
     )
-    return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
-      split,
-      toggle,
-      menu
-    ])
+    return h(
+      'div',
+      {
+        staticClass: 'dropdown btn-group b-dropdown',
+        class: this.dropdownClasses,
+        attrs: { id: this.safeId() }
+      },
+      [split, toggle, menu]
+    )
   }
 })

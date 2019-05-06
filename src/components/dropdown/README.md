@@ -572,6 +572,16 @@ export default {
 Refer to the [Events](/docs/components/dropdown#component-reference) section of documentation for
 the full list of events.
 
+## Optionally scoped default slot
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
+
+The default slot is optionally scoped with the following scope available:
+
+| Property or Method | Description                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
+
 ## Accessibility
 
 Providing a unique `id` prop ensures ARIA compliance by automatically adding the appropriate

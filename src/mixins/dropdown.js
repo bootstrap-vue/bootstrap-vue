@@ -2,22 +2,22 @@ import Popper from 'popper.js'
 import BvEvent from '../utils/bv-event.class'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
-import { closest, contains, getAttr, isVisible, selectAll } from '../utils/dom'
+import { closest, contains, isVisible, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
 
 // Return an Array of visible items
-function filterVisible(els) {
+function filterVisibles(els) {
   return (els || []).filter(isVisible)
 }
 
 // Dropdown item CSS selectors
-// TODO: .dropdown-form handling
 const Selector = {
   FORM_CHILD: '.dropdown form',
-  NAVBAR_NAV: '.navbar-nav',
-  ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])'
+  ITEM_SELECTOR: ['.dropdown-item', '.b-dropdown-form']
+    .map(selector => `${selector}:not(.disabled):not([disabled])`)
+    .join(', ')
 }
 
 // Popper attachment positions
@@ -190,6 +190,7 @@ export default {
 
       // Are we in a navbar ?
       if (isNull(this.inNavbar) && this.isNav) {
+        // We should use an injection for this
         /* istanbul ignore next */
         this.inNavbar = Boolean(closest('.navbar', this.$el))
       }
@@ -346,10 +347,6 @@ export default {
       if (key === KeyCodes.ESC) {
         // Close on ESC
         this.onEsc(evt)
-      } else if (key === KeyCodes.TAB) {
-        // Close on tab out
-        /* istanbul ignore next: not used and should be removed */
-        this.onTab(evt)
       } else if (key === KeyCodes.DOWN) {
         // Down Arrow
         this.focusNext(evt, false)
@@ -366,14 +363,6 @@ export default {
         // Return focus to original trigger button
         this.$once('hidden', this.focusToggler)
       }
-    },
-    onTab(evt) /* istanbul ignore next: not easy to test */ {
-      // TODO: Need special handler for dealing with form inputs
-      // Tab, if in a text-like input, we should just focus next item in the dropdown
-      // Note: Inputs are in a special .dropdown-form container
-    },
-    onMouseOver(evt) /* istanbul ignore next: not easy to test */ {
-      // Removed mouseover focus handler
     },
     // Document click out listener
     clickOutHandler() {
@@ -394,7 +383,8 @@ export default {
     },
     // Keyboard nav
     focusNext(evt, up) {
-      if (!this.visible) {
+      if (!this.visible || (evt && closest(Selector.FORM_CHILD, evt.target))) {
+        // Ignore key up/down on form elements
         /* istanbul ignore next: should never happen */
         return
       }
@@ -421,13 +411,13 @@ export default {
     },
     focusItem(idx, items) {
       let el = items.find((el, i) => i === idx)
-      if (el && getAttr(el, 'tabindex') !== '-1') {
+      if (el && el.focus) {
         el.focus()
       }
     },
     getItems() {
       // Get all items
-      return filterVisible(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
+      return filterVisibles(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     focusMenu() {
       this.$refs.menu.focus && this.$refs.menu.focus()
