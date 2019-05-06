@@ -13,8 +13,20 @@ const components = {
   BInputGroupText
 }
 
-export { BInputGroup, BInputGroupAddon, BInputGroupPrepend, BInputGroupAppend, BInputGroupText }
-
-export default {
+const InputGroupPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  InputGroupPlugin,
+  // Components
+  BInputGroup,
+  BInputGroupAddon,
+  BInputGroupPrepend,
+  BInputGroupAppend,
+  BInputGroupText
+}
+
+// Legacy: default is plugin
+export default InputGroupPlugin
