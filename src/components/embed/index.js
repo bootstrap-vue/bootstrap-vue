@@ -5,8 +5,16 @@ const components = {
   BEmbed
 }
 
-export { BEmbed }
-
-export default {
+const EmbedPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  EmbedPlugin,
+  // Components
+  BEmbed
+}
+
+// Legacy: default is plugin
+export default EmbedPlugin
