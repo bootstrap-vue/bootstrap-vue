@@ -6,8 +6,16 @@ const components = {
   BBtnGroup: BButtonGroup
 }
 
-export { BButtonGroup }
-
-export default {
+const ButtonGroupPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  ButtonGroupPlugin,
+  // Components
+  BButtonGroup
+}
+
+// Legacy: default is plugin
+export default ButtonGroupPlugin
