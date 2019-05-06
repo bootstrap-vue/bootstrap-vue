@@ -9,8 +9,17 @@ const components = {
   BBtnClose: BButtonClose
 }
 
-export { BButton, BButtonClose }
-
-export default {
+const ButtonPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  ButtonPlugin,
+  // Compoents
+  BButton,
+  BButtonClose
+}
+
+// Legacy: default is plugin
+export default ButtonPlugin
