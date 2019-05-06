@@ -4,7 +4,7 @@ export { default as BVToastPlugin } from './toast/helpers/bv-toast'
 
 // Component group plugins
 // export { default as AlertPlugin } from './alert'
-export { default as BadgePlugin } from './badge'
+// export { default as BadgePlugin } from './badge'
 export { default as BreadcrumbPlugin } from './breadcrumb'
 export { default as ButtonPlugin } from './button'
 export { default as ButtonGroupPlugin } from './button-group'
