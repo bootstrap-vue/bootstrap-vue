@@ -10,8 +10,16 @@ const directives = {
   BToggle: BToggleDirective
 }
 
-export { BCollapse }
-
-export default {
+const CollapsePlugin = {
   install: installFactory({ components, directives })
 }
+
+export {
+  // Plugins
+  CollapsePlugin,
+  // Components
+  BCollapse
+}
+
+// Legacy: default is plugin
+export default CollapsePlugin
