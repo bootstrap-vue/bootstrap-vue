@@ -29,7 +29,14 @@ const components = {
   BDdGroup: BDropdownGroup
 }
 
+const DropdownPlugin = {
+  install: installFactory({ components })
+}
+
 export {
+  // Plugins
+  DropdownPlugin,
+  // Components
   BDropdown,
   BDropdownItem,
   BDropdownItemButton,
@@ -40,6 +47,5 @@ export {
   BDropdownGroup
 }
 
-export default {
-  install: installFactory({ components })
-}
+// Legacy: default is plugin
+export default DropdownPlugin
