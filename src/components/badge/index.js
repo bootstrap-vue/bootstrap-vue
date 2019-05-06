@@ -5,8 +5,15 @@ const components = {
   BBadge
 }
 
-export { BBadge }
-
-export default {
+const BadgePlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  BadgePlugin,
+  // Components
+  BBadge
+}
+
+export default BadgePlugin
