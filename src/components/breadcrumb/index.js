@@ -9,8 +9,17 @@ const components = {
   BBreadcrumbLink
 }
 
-export { BBreadcrumb, BBreadcrumbItem, BBreadcrumbLink }
-
-export default {
+const BreadcrumbPlugin = {
   install: installFactory({ components })
 }
+
+export {
+  // Plugins
+  BreadcrumbPlugin,
+  // Components
+  BBreadcrumb,
+  BBreadcrumbItem,
+  BBreadcrumbLink
+}
+
+export default BreadcrumbPlugin
