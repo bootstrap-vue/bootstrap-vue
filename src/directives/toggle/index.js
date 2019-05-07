@@ -1,11 +1,11 @@
-import VBToggleDirective from './toggle'
+import VBToggle from './toggle'
 import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  BToggle: VBToggleDirective
+  VBToggle
 }
 
-export { VBToggleDirective as VBToggle }
+export { VBToggle }
 
 export default {
   install: installFactory({ directives })
