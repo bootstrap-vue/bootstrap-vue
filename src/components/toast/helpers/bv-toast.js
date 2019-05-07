@@ -3,6 +3,7 @@
  */
 
 import Vue from '../../../utils/vue'
+import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
 import { isUndefined, isString } from '../../../utils/inspect'
@@ -122,7 +123,8 @@ const makeToast = (props, $parent) => {
         // Special case for title if it is a string, we wrap in a <strong>
         value = [$parent.$createElement('strong', { class: 'mr-2' }, value)]
       }
-      toast.$slots[propsToSlots[prop]] = value
+      // Make sure slot value is an array for Vue 2.5.x compatability
+      toast.$slots[propsToSlots[prop]] = concat(value)
     }
   })
 
