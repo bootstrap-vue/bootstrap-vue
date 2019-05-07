@@ -1,6 +1,6 @@
 import BModal from './modal'
-import BvModalPlugin from './helpers/bv-modal'
-import BModalDirective from '../../directives/modal/modal'
+import BVModal from './helpers/bv-modal'
+import VBModal from '../../directives/modal/modal'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
@@ -8,11 +8,12 @@ const components = {
 }
 
 const directives = {
-  BModal: BModalDirective
+  VBModal
 }
 
 const plugins = {
-  BvModalPlugin
+  // $bvModal injection
+  BVModal
 }
 
 export { BModal }
