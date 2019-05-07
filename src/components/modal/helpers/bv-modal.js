@@ -130,7 +130,7 @@ const asyncMsgBox = (props, $parent, resolver = defaultResolver) => {
     if (!isUndefined(props[prop])) {
       // Can be a string, or array of VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
-      msgBox.$slots[propsToSlots[prop]] = conact(props[prop])
+      msgBox.$slots[propsToSlots[prop]] = concat(props[prop])
     }
   })
 
