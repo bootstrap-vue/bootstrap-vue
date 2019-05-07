@@ -1,11 +1,11 @@
-import VBTooltipDirective from './tooltip'
+import VBTooltip from './tooltip'
 import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  BTooltip: VBTooltipDirective
+  VBTooltip
 }
 
-export { VBTooltipDirective as VBTooltip }
+export { VBTooltip }
 
 export default {
   install: installFactory({ directives })
