@@ -4,6 +4,7 @@
 
 import Vue from '../../../utils/vue'
 import BModal, { props as modalProps } from '../modal'
+import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
@@ -129,7 +130,7 @@ const asyncMsgBox = (props, $parent, resolver = defaultResolver) => {
     if (!isUndefined(props[prop])) {
       // Can be a string, or array of VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
-      msgBox.$slots[propsToSlots[prop]] = props[prop]
+      msgBox.$slots[propsToSlots[prop]] = concat(props[prop])
     }
   })
 
