@@ -79,7 +79,7 @@ tags to load the required JavaScript and CSS in your page.
 </html>
 ```
 
-## Vue CLI
+## Vue CLI 2
 
 ### `webpack-simple` example
 
@@ -96,6 +96,13 @@ Starter template: https://github.com/bootstrap-vue/webpack
 Note: you may need to adjust the template package.json file to use the latest BootstrapVue version
 
 Coming soon!
+
+## Vue CLI 3
+
+Vue CLI 3 is the newest way to create Vue apps.
+
+A Vue CLI 3 BootStrapVue plugin is available for setting up a basic app. refer to the
+[Getting Started](/docs/#vue-cli-3) docs page for more details.
 
 ## Building with customized Bootstrap V4 CSS
 
