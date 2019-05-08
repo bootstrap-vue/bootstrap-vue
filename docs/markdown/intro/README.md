@@ -323,6 +323,22 @@ For additional configuration for Vue CLI 3 for using project relative paths for 
 various BootstrapVue components, refer to the Vue CLI 3 section of the
 [Image Src Resolving](/docs/reference/images#vue-cli-3-support) reference page.
 
+### Vue CLI 3 plugin
+
+As an alternative, you can use the
+[Bootstrap-Vue Vue CLI 3 plugin](https://github.com/GregYankovoy/vue-cli-plugin-bootstrap-vue) to
+help you configure your app.
+
+```bash
+vue create my-app
+cd my-app
+vue add bootstrap-vue
+```
+
+This will create a new app with basic BootstrapVue settings to get your project started.
+
+In the future this plugin will provide options for more advanced configurations and templates.
+
 ## Selective component and directive inclusion in module bundlers
 
 <span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
