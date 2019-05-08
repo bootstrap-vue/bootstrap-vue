@@ -102,7 +102,7 @@ Coming soon!
 Vue CLI 3 is the newest way to create Vue apps.
 
 A Vue CLI 3 BootStrapVue plugin is available for setting up a basic app. refer to the
-[Getting Started](/docs/#vue-cli-3) docs page for more details.
+[Getting Started](/docs/#vue-cli-3-plugin) docs page for more details.
 
 ## Building with customized Bootstrap V4 CSS
 
