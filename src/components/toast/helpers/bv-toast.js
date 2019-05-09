@@ -205,7 +205,7 @@ const install = _Vue => {
       get() {
         /* istanbul ignore next */
         if (!this || !this._bv__toast) {
-          warn(`'$bvToast' must be accessed from a Vue instance 'this' context`)
+          warn(`'${PROP_NAME}' must be accessed from a Vue instance 'this' context`)
         }
         return this._bv__toast
       }
