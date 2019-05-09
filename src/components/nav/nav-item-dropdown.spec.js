@@ -6,7 +6,7 @@ describe('nav-item-dropdown', () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'toggle',
-        toggleClasses: 'nav-link-custom'
+        toggleClass: 'nav-link-custom'
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
@@ -46,7 +46,7 @@ describe('nav-item-dropdown', () => {
     expect($toggle.is('a')).toBe(true)
 
     expect($toggle.attributes('aria-disabled')).toBeDefined()
-    expect($toggle.attributes('href')).toBeEqual('#')
+    expect($toggle.attributes('href')).toEqual('#')
     expect($toggle.classes()).toContain('disabled')
     expect($toggle.classes()).toContain('nav-link')
     expect($toggle.classes()).toContain('dropdown-toggle')
