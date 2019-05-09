@@ -56,7 +56,7 @@ export default Vue.extend({
         this.extraToggleClasses, // Deprecated
         this.toggleClass,
         {
-          'disabled': this.disabled,
+          disabled: this.disabled,
           'dropdown-toggle-no-caret': this.noCaret
         }
       ]
