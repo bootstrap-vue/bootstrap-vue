@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-impot BLink from '../link/link'
+import BLink from '../link/link'
 import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
