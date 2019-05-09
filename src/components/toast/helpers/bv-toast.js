@@ -21,6 +21,7 @@ import BToast, { props as toastProps } from '../toast'
 // --- Constants ---
 
 const PROP_NAME = '$bvToast'
+const PROP_NAME_PRIV = '_bv__toast'
 
 // Base toast props that are allowed
 // Some may be ignored or overridden on some message boxes
@@ -194,7 +195,7 @@ const install = _Vue => {
     beforeCreate() {
       // Because we need access to `$root` for `$emits`, and VM for parenting,
       // we have to create a fresh instance of `BvToast` for each VM
-      this._bv__toast = new BvToast(this)
+      this[PROP_NAME_PRIV] = new BvToast(this)
     }
   })
 
@@ -204,10 +205,10 @@ const install = _Vue => {
     defineProperty(_Vue.prototype, PROP_NAME, {
       get() {
         /* istanbul ignore next */
-        if (!this || !this._bv__toast) {
+        if (!this || !this[PROP_NAME_PRIV]) {
           warn(`'${PROP_NAME}' must be accessed from a Vue instance 'this' context`)
         }
-        return this._bv__toast
+        return this[PROP_NAME_PRIV]
       }
     })
   }
