@@ -20,6 +20,7 @@ import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 // --- Constants ---
 
 const PROP_NAME = '$bvModal'
+const PROP_NAME_PRIV = '_bv__modal'
 
 // Base modal props that are allowed
 // Some may be ignored or overridden on some message boxes
@@ -269,7 +270,7 @@ const install = _Vue => {
     beforeCreate() {
       // Because we need access to `$root` for `$emits`, and VM for parenting,
       // we have to create a fresh instance of `BvModal` for each VM
-      this._bv__modal = new BvModal(this)
+      this[PROP_NAME_PRIV] = new BvModal(this)
     }
   })
 
@@ -279,10 +280,10 @@ const install = _Vue => {
     defineProperty(_Vue.prototype, PROP_NAME, {
       get() {
         /* istanbul ignore next */
-        if (!this || !this._bv__modal) {
+        if (!this || !this[PROP_NAME_PRIV]) {
           warn(`'${PROP_NAME}' must be accessed from a Vue instance 'this' context`)
         }
-        return this._bv__modal
+        return this[PROP_NAME_PRIV]
       }
     })
   }
