@@ -880,6 +880,11 @@ Example Confirm Message boxes
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
   `cancelTitle` option).
+- The `this.$bvModal` injection is only available when using the full BootstrapVue plugin or the
+  Modal plugin. It is not available if importing just the `b-modal` component.
+- A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
+  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
+  instance's `this` and `$root` contexts.
 
 ## Listening to modal changes via \$root events
 
