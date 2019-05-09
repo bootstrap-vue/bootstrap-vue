@@ -50,7 +50,6 @@ describe('nav-item-dropdown', () => {
     expect($toggle.classes()).toContain('disabled')
     expect($toggle.classes()).toContain('nav-link')
     expect($toggle.classes()).toContain('dropdown-toggle')
-    expect($toggle.classes()).toContain('nav-link-custom')
 
     wrapper.destroy()
   })
