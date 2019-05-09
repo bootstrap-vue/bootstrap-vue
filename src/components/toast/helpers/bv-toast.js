@@ -15,7 +15,7 @@ import {
   omit,
   readonlyDescriptor
 } from '../../../utils/object'
-import { warnNotClient } from '../../../utils/warn'
+import { warn, warnNotClient } from '../../../utils/warn'
 import BToast, { props as toastProps } from '../toast'
 
 // --- Constants ---
@@ -203,6 +203,10 @@ const install = _Vue => {
   if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
     defineProperty(_Vue.prototype, PROP_NAME, {
       get() {
+        /* istanbul ignore next */
+        if (!this || !this._bv__toast) {
+          warn(`'$bvToast' must be accessed from a Vue instance 'this' context`)
+        }
         return this._bv__toast
       }
     })
