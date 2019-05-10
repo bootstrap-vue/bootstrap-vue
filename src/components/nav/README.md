@@ -171,7 +171,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
     <b-nav-item-dropdown
       id="my-nav-dropdown"
       text="Dropdown"
-      extra-toggle-classes="nav-link-custom"
+      toggle-class="nav-link-custom"
       right
     >
       <b-dropdown-item>one</b-dropdown-item>
@@ -186,7 +186,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 ```
 
 Sometimes you want to add your own class names to the generated dropdown toggle button, that by
-default have the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle-classes` prop to
+default have the classes `nav-link` and `dropdown-toggle`. Use the `toggle-class` prop to
 add them (like above) which will produce something like:
 
 ```html
