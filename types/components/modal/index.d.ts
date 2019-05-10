@@ -39,7 +39,7 @@ export interface BvMsgBoxOptions {
   titleTag?: string
   size?: string
   centered?: boolean
-  scrolable?: boolean
+  scrollable?: boolean
   noFade?: boolean
   noCloseOnBackdrop?: boolean
   noCloseOnEsc?: boolean
