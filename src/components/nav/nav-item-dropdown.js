@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import BLink from '../link/link'
 import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
@@ -54,21 +55,26 @@ export default Vue.extend({
       return [
         this.extraToggleClasses, // Deprecated
         this.toggleClass,
-        { 'dropdown-toggle-no-caret': this.noCaret }
+        {
+          disabled: this.disabled,
+          'dropdown-toggle-no-caret': this.noCaret
+        }
       ]
     }
   },
   render(h) {
     const button = h(
-      'a',
+      BLink,
       {
         ref: 'toggle',
         staticClass: 'nav-link dropdown-toggle',
         class: this.toggleClasses,
-        attrs: {
+        props: {
           href: '#',
+          disabled: this.disabled
+        },
+        attrs: {
           id: this.safeId('_BV_button_'),
-          disabled: this.disabled,
           'aria-haspopup': 'true',
           'aria-expanded': String(this.visible)
         },
