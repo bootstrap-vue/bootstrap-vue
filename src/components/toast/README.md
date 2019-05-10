@@ -72,8 +72,8 @@ BootstrapVue uses [PortalVue](https://portal-vue.linusb.org/) to transport toast
 
 ## Toasts on demand
 
-Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue instance injection,
-without the need to place a [`<b-toast>`](#b-toast-component) component in your app.
+Generate a dynamic toast from anywhere in your app via the `this.$bvToast` Vue component _instance_
+injection, without the need to place a [`<b-toast>`](#b-toast-component) component in your app.
 
 Use the `this.$bvToast.toast()` method to generate on demand toasts. The method accepts two
 arguments:
@@ -120,9 +120,13 @@ exception of `static`, and `visible`) in <samp>camelCase</samp> name format inst
 Once a toast which was generated using `this.$bvToast.toast()` has been hidden, it will
 automatically be destroyed and removed from the document.
 
-**Note:** The `this.$bvToast` injection is only available when useing the full `BootstrapVue`
-plugin or the `Toast` plugin. It is not available if importing just the `b-toast` or `b-toaster`
-components.
+**Notes:**
+
+- The `this.$bvToast` injection is only available when using the full `BootstrapVue` plugin or the
+  `Toast` plugin. It is not available if importing just the `b-toast` or `b-toaster` components.
+- A new `$bvToast` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
+  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
+  instance's `this` and `$root` contexts.
 
 ## Options
 
