@@ -162,42 +162,6 @@ to "break-out" of its scroll container. In some situations this may affect your 
 positioning of the dropdown trigger button. In these cases you may need to wrap your dropdown inside
 another element.
 
-## Dropdown color variants
-
-The dropdown toggle button can have one of the standard Bootstrap contextual variants applied by
-setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link`, `outline-dark`, etc.
-(or custom variants, if defined). The default variant is `secondary`.
-
-See the [Variant Reference](/docs/reference/color-variants) for a full list of built-in contextual
-variants.
-
-```html
-<div>
-  <b-dropdown text="Primary" variant="primary" class="m-2">
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here</b-dropdown-item>
-  </b-dropdown>
-
-  <b-dropdown text="Success" variant="success" class="m-2">
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here</b-dropdown-item>
-  </b-dropdown>
-
-  <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here</b-dropdown-item>
-  </b-dropdown>
-</div>
-
-<!-- b-dropdown-variants.vue -->
-```
-
-You can also apply arbitrary classes to the toggle button via the `toggle-class` prop. This prop
-accepts either a string or array of strings.
-
 ## Split button support
 
 Create a split dropdown button, where the left button provides standard `click` event and link
@@ -213,29 +177,6 @@ support, while the right hand side is the dropdown menu toggle button.
 </div>
 
 <!-- b-dropdown-split.vue -->
-```
-
-### Split button color variant
-
-By default the left split button uses the same `variant` as the `toggle` button. You can give the
-split button its own variant via the `split-variant` prop.
-
-```html
-<div>
-  <b-dropdown
-    split
-    split-variant="outline-primary"
-    variant="primary"
-    text="Split Variant Dropdown"
-    class="m-2"
-  >
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
-  </b-dropdown>
-</div>
-
-<!-- b-dropdown-split-variant.vue -->
 ```
 
 ### Split button link support
@@ -256,7 +197,11 @@ router link `to` value via the `split-to` prop, while maintaining the look of a 
 <!-- b-dropdown-split-link.vue -->
 ```
 
-## Sizing
+## Styling options
+
+Dropdowns support various props for styling the dropdown trigger button.
+
+### Sizing
 
 Dropdowns work with trigger buttons of all sizes, including default and split dropdown buttons.
 
@@ -297,16 +242,79 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 **Note:** _changing the size of the button(s) does not affect the size of the menu items!_
 
-## Hidden caret
+### Dropdown color variants
+
+The dropdown toggle button can have one of the standard Bootstrap contextual variants applied by
+setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link`, `outline-dark`, etc.
+(or custom variants, if defined). The default variant is `secondary`.
+
+See the [Variant Reference](/docs/reference/color-variants) for a full list of built-in contextual
+variants.
+
+```html
+<div>
+  <b-dropdown text="Primary" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown text="Success" variant="success" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-variants.vue -->
+```
+
+You can also apply arbitrary classes to the toggle button via the `toggle-class` prop. This prop
+accepts either a string or array of strings.
+
+### Split button color variant
+
+By default the left split button uses the same `variant` as the `toggle` button. You can give the
+split button its own variant via the `split-variant` prop.
+
+```html
+<div>
+  <b-dropdown
+    split
+    split-variant="outline-primary"
+    variant="primary"
+    text="Split Variant Dropdown"
+    class="m-2"
+  >
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-split-variant.vue -->
+```
+
+### Dropdown sub-component color variants
+
+Many of the supported dropdown [sub-components](#dropdown-supported-sub-components) provide a
+`variant` prop for controling their text color.
+
+### Hidden caret
 
 The dropdown can be created with the toggle's caret visually hidden by setting the `no-caret` prop
 to `true`. This is useful when the dropdown is to be displayed as an icon.
 
 ```html
 <div>
-  <b-dropdown variant="link" size="lg" no-caret>
+  <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
     <template slot="button-content">&#x1f50d;<span class="sr-only">Search</span></template>
-
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
@@ -327,10 +335,11 @@ may break layout and/or keyboard navigation.
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `<b-dropdown-item>`        | Action items that provide click, link, and `<router-link>`/`<nuxt-link>` functionality. Renders as an `<a>` element by default. | `<b-dd-item>`                                                    |
 | `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element.                                      | `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>` |
-| `<b-dropdown-header>`      | A header item, used to help identify a group of dropdown items.                                                                 | `<b-dd-header>`                                                  |
 | `<b-dropdown-divider>`     | A divider / spacer which can be used to separate dropdown items.                                                                | `<b-dd-divider>`                                                 |
 | `<b-dropdown-text>`        | Free flowing text content in a menu.                                                                                            | `<b-dd-text>`                                                    |
 | `<b-dropdown-form>`        | For placing form controls within a dropdown menu.                                                                               | `<b-dd-form>`                                                    |
+| `<b-dropdown-group>`       | For grouping dropdown sub components with an optional header.                                                                   | `<b-dd-group>`                                                   |
+| `<b-dropdown-header>`      | A header item, used to help identify a group of dropdown items.                                                                 | `<b-dd-header>`                                                  |
 
 **Note:** _Nested sub-menus are **not** supported._
 
@@ -385,31 +394,6 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
 
 <!-- b-dropdown-item-divider.vue -->
 ```
-
-### `<b-dropdown-item-header>`
-
-Add a header to label sections of actions in any dropdown menu.
-
-```html
-<div>
-  <b-dropdown id="dropdown-header" text="Dropdown with header" class="m-2">
-    <b-dropdown-header id="dropdown-header-label">
-      Dropdown header
-    </b-dropdown-header>
-    <b-dropdown-item-button aria-describedby="dropdown-header-label">
-      First item
-    </b-dropdown-item-button>
-    <b-dropdown-item-button aria-describedby="dropdown-header-label">
-      Second Item
-    </b-dropdown-item-button>
-  </b-dropdown>
-</div>
-
-<!-- b-dropdown-item-header.vue -->
-```
-
-See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility) for details on
-making headers more accessible for users of assistive technologies.
 
 ### `<b-dropdown-text>`
 
@@ -499,6 +483,68 @@ some basic styles which are suitable in most situations. By default it's width w
 the widest `<b-dropdown-item>` content. You may need to place additional styles or helper classes on
 the component.
 
+### `<b-dropdown-item-group>`
+
+Group a set of dropdown sub components with an optional associated header. Place a
+`<b-dropdown-divider>` between your `<b-dropdown-group>` and other groups or non-grouped
+dropdown contents
+
+```html
+<div>
+  <b-dropdown id="dropdown-header" text="Dropdown with group" class="m-2">
+    <b-dropdown-item-button>
+      Non-grouped Item
+    </b-dropdown-item-button>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-group id="dropdown-group-1" header="Group 1">
+      <b-dropdown-item-button>First Grouped item</b-dropdown-item-button>
+      <b-dropdown-item-button>Second Grouped Item</b-dropdown-item-button>
+    </b-dropdown-group>
+    <b-dropdown-group id="dropdown-group-2" header="Group 2">
+      <b-dropdown-item-button>First Grouped item</b-dropdown-item-button>
+      <b-dropdown-item-button>Second Grouped Item</b-dropdown-item-button>
+    </b-dropdown-group>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>
+      Another Non-grouped Item
+    </b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-item-group.vue -->
+```
+
+Using `<b-dropdown-group>` instead of `<b-dropdown-header>` is the recommended method for providing
+accessible grouped items with a header.
+
+### `<b-dropdown-item-header>`
+
+Add a header to label sections of actions in any dropdown menu.
+
+```html
+<div>
+  <b-dropdown id="dropdown-header" text="Dropdown with header" class="m-2">
+    <b-dropdown-header id="dropdown-header-label">
+      Dropdown header
+    </b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      First item
+    </b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      Second Item
+    </b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-item-header.vue -->
+```
+
+See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility) for details on
+making headers more accessible for users of assistive technologies.
+
+Using the `<b-dropdown-group>` sub-component simplifies creating accessible grouped dropdown items
+with an associated header.
+
 #### Closing the menu via form interaction
 
 Clicking buttons inside of a `<b-dropdown-form>` will not automatically close the menu. If you need
@@ -525,6 +571,16 @@ export default {
 
 Refer to the [Events](/docs/components/dropdown#component-reference) section of documentation for
 the full list of events.
+
+## Optionally scoped default slot
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
+
+The default slot is optionally scoped with the following scope available:
+
+| Property or Method | Description                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
 
 ## Accessibility
 
@@ -568,6 +624,8 @@ dropdown item:
 
 <!-- b-dropdown-aria.vue -->
 ```
+As a simplified alternative, use the `<b-dropdown-group>` instead to easily associate header text
+to the contained dropdown sub-components.
 
 ### Keyboard navigation
 
@@ -577,7 +635,13 @@ Note that <kbd>DOWN</kbd> and <kbd>UP</kbd> will not move focus into `<b-dropdow
 components, but users can still use <kbd>TAB</kbd> or <kbd>SHIFT</kbd>+<kbd>TAB</kbd> to move into
 form controls within the menu.
 
-## Implementation note
+## Implementation notes
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.19</span> The dropdown menu is rendered with
+semantic `<ul>` and `<li>` elements for accessibility reasons. The `.dropdown-menu` is the `<ul>`
+element, while dropdown items (items, buttons, text, form, headers, and dividers) are wrapped in an
+`<li>` element. If creating custom items to place inside the dropdown menu, ensure they are wrapped with
+a plain `<li>`.
 
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover` handlers to the
 immediate children of the `<body>` element. This admittedly ugly hack is necessary to work around a

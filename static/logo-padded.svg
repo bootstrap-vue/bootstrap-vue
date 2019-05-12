@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 2540 2540" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="Layer_x0020_1">
+  <rect fill="none" width="2540" height="2540"/>
+  <g id="_574540784">
+   <polygon fill="#34495E" points="1643,536 1276,1172 909,536 322,536 1276,2189 2230,536 "/>
+   <polygon fill="#563D7C" fill-rule="nonzero" points="302,267 2237,267 1267,1948 "/>
+   <polygon fill="#41B883" points="1877,656 1270,1708 663,656 258,656 1270,2409 2282,656 "/>
+   <g id="B" enable-background="new    ">
+    <path fill="white" d="M1018 461l336 0c62,0 112,15 149,43 38,28 56,71 56,129 0,35 -8,64 -25,89 -17,25 -42,44 -73,58l0 2c42,9 75,29 96,60 22,31 33,71 33,118 0,27 -4,52 -14,76 -10,23 -25,44 -46,61 -20,17 -47,30 -79,40 -32,10 -71,15 -115,15l-318 0 0 -691 0 0zm121 290l198 0c29,0 53,-8 72,-25 20,-17 29,-40 29,-71 0,-35 -8,-60 -26,-74 -17,-14 -42,-21 -75,-21l-198 0 0 191 0 0zm0 303l214 0c37,0 66,-10 86,-29 20,-19 30,-46 30,-81 0,-34 -10,-60 -30,-79 -21,-18 -49,-27 -86,-27l-214 0 0 216z"/>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -81,6 +81,8 @@ Make the nav smaller by setting the `small` prop.
 
 ## Fill and justify
 
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
+
 Force your `<b-nav>` content to extend the full available width.
 
 ### Fill
@@ -120,6 +122,8 @@ nav links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
 ```
 
 ## Alignment
+
+<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
 
 To align your `<b-nav-item>` components, use the `align` prop. Available values are `left`, `center`
 and `right`.
@@ -167,7 +171,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
     <b-nav-item-dropdown
       id="my-nav-dropdown"
       text="Dropdown"
-      extra-toggle-classes="nav-link-custom"
+      toggle-class="nav-link-custom"
       right
     >
       <b-dropdown-item>one</b-dropdown-item>
@@ -182,7 +186,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 ```
 
 Sometimes you want to add your own class names to the generated dropdown toggle button, that by
-default have the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle-classes` prop to
+default have the classes `nav-link` and `dropdown-toggle`. Use the `toggle-class` prop to
 add them (like above) which will produce something like:
 
 ```html
@@ -199,6 +203,16 @@ add them (like above) which will produce something like:
 ```
 
 Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub-components.
+
+### Optionally scoped default slot
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
+
+The dropdown default slot is optionally scoped with the following scope available:
+
+| Property or Method | Description                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
 
 ## Using in navbar
 

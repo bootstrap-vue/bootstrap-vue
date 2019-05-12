@@ -7,6 +7,8 @@ const components = {
   BProgressBar
 }
 
+export { BProgress, BProgressBar }
+
 export default {
   install: installFactory({ components })
 }

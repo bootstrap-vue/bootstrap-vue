@@ -21,6 +21,8 @@ const plugins = {
   DropdownPlugin
 }
 
+export { BNav, BNavItem, BNavText, BNavForm, BNavItemDropdown }
+
 export default {
   install: installFactory({ components, plugins })
 }

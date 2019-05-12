@@ -1,5 +1,8 @@
+import normalizeSlotMixin from './normalize-slot'
+
 // @vue/component
 export default {
+  mixins: [normalizeSlotMixin],
   model: {
     prop: 'checked',
     event: 'input'
@@ -166,7 +169,7 @@ export default {
     }
   },
   render(h) {
-    const defaultSlot = this.$slots.default
+    const defaultSlot = this.normalizeSlot('default')
 
     // Generate the input element
     const on = { change: this.handleChange }

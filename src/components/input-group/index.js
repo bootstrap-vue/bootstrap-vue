@@ -13,6 +13,8 @@ const components = {
   BInputGroupText
 }
 
+export { BInputGroup, BInputGroupAddon, BInputGroupPrepend, BInputGroupAppend, BInputGroupText }
+
 export default {
   install: installFactory({ components })
 }

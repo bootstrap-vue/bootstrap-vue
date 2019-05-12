@@ -1,7 +1,9 @@
 import Vue from '../../utils/vue'
+import BLink from '../link/link'
 import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
 
@@ -29,7 +31,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: 'BNavItemDropdown',
-  mixins: [idMixin, dropdownMixin],
+  mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
     isNav() {
@@ -37,49 +39,42 @@ export default Vue.extend({
       return true
     },
     dropdownClasses() {
+      return [this.directionClass, { show: this.visible }]
+    },
+    menuClasses() {
       return [
-        'nav-item',
-        'b-nav-dropdown',
-        'dropdown',
-        this.directionClass,
+        this.extraMenuClasses, // Deprecated
+        this.menuClass,
         {
+          'dropdown-menu-right': this.right,
           show: this.visible
         }
       ]
     },
-    menuClasses() {
-      return [
-        'dropdown-menu',
-        {
-          'dropdown-menu-right': this.right,
-          show: this.visible
-        },
-        this.extraMenuClasses, // Deprecated
-        this.menuClass
-      ]
-    },
     toggleClasses() {
       return [
-        'nav-link',
-        'dropdown-toggle',
-        {
-          'dropdown-toggle-no-caret': this.noCaret
-        },
         this.extraToggleClasses, // Deprecated
-        this.toggleClass
+        this.toggleClass,
+        {
+          disabled: this.disabled,
+          'dropdown-toggle-no-caret': this.noCaret
+        }
       ]
     }
   },
   render(h) {
     const button = h(
-      'a',
+      BLink,
       {
-        class: this.toggleClasses,
         ref: 'toggle',
-        attrs: {
+        staticClass: 'nav-link dropdown-toggle',
+        class: this.toggleClasses,
+        props: {
           href: '#',
+          disabled: this.disabled
+        },
+        attrs: {
           id: this.safeId('_BV_button_'),
-          disabled: this.disabled,
           'aria-haspopup': 'true',
           'aria-expanded': String(this.visible)
         },
@@ -97,6 +92,7 @@ export default Vue.extend({
     const menu = h(
       'ul',
       {
+        staticClass: 'dropdown-menu',
         class: this.menuClasses,
         ref: 'menu',
         attrs: {
@@ -104,12 +100,19 @@ export default Vue.extend({
           'aria-labelledby': this.safeId('_BV_button_')
         },
         on: {
-          mouseover: this.onMouseOver,
-          keydown: this.onKeydown // tab, up, down, esc
+          keydown: this.onKeydown // up, down, esc
         }
       },
-      [this.$slots.default]
+      [this.normalizeSlot('default', { hide: this.hide })]
     )
-    return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [button, menu])
+    return h(
+      'li',
+      {
+        staticClass: 'nav-item b-nav-dropdown dropdown',
+        class: this.dropdownClasses,
+        attrs: { id: this.safeId() }
+      },
+      [button, menu]
+    )
   }
 })

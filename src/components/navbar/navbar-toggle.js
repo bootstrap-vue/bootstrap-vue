@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BNavbarToggle'
@@ -15,11 +16,11 @@ const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [listenOnRootMixin],
+  mixins: [listenOnRootMixin, normalizeSlotMixin],
   props: {
     label: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'label') || '')
+      default: () => getComponentConfig(NAME, 'label')
     },
     target: {
       type: String,
@@ -61,7 +62,7 @@ export default Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
+      [this.normalizeSlot('default') || h('span', { class: ['navbar-toggler-icon'] })]
     )
   }
 })

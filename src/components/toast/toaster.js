@@ -1,9 +1,8 @@
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
-
-/* istanbul ignore file: for now until ready for testing */
 
 // --- Constants ---
 
@@ -16,16 +15,16 @@ export const props = {
   },
   ariaLive: {
     type: String,
-    default: 'polite'
+    default: () => getComponentConfig(NAME, 'ariaLive')
   },
   ariaAtomic: {
     type: String,
-    default: 'true' // Allowed: 'true' or 'false'
+    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false'
   },
   role: {
     // Aria role
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'role')
   }
   /*
   transition: {
@@ -37,9 +36,6 @@ export const props = {
 
 // @vue/component
 export const DefaultTransition = Vue.extend({
-  // functional: true,
-  // render(h, { children }) {
-  //   return h('transition-group', { props: { tag: 'div', name: 'b-toaster' } }, children)
   data() {
     return {
       // Transition classes base name
@@ -99,6 +95,7 @@ export default Vue.extend({
   },
   destroyed() {
     // Remove from DOM if needed
+    /* istanbul ignore next: difficult to test */
     if (this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
     }
@@ -109,7 +106,7 @@ export default Vue.extend({
       const $target = h(PortalTarget, {
         staticClass: 'b-toaster-slot',
         attrs: {
-          role: this.role,
+          role: this.role || null, // fallback to null to make sure attribute doesn't exist
           'aria-live': this.ariaLive,
           'aria-atomic': this.ariaAtomic
         },

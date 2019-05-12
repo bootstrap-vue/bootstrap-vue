@@ -4,6 +4,7 @@ import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'
 import InputGroupText from './input-group-text'
 import { htmlOrText } from '../../utils/html'
+import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 
 export const props = {
   id: {
@@ -35,8 +36,9 @@ export default Vue.extend({
   name: 'BInputGroup',
   functional: true,
   props: props,
-  render(h, { props, data, slots }) {
+  render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
+    const $scopedSlots = scopedSlots || {}
 
     const childNodes = []
 
@@ -54,15 +56,15 @@ export default Vue.extend({
     }
 
     // Prepend slot
-    if ($slots.prepend) {
-      childNodes.push(h(InputGroupPrepend, $slots.prepend))
+    if (hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
+      childNodes.push(h(InputGroupPrepend, normalizeSlot('prepend', {}, $scopedSlots, $slots)))
     } else {
       childNodes.push(h(false))
     }
 
     // Default slot
-    if ($slots.default) {
-      childNodes.push(...$slots.default)
+    if (hasNormalizedSlot('default', $scopedSlots, $slots)) {
+      childNodes.push(...normalizeSlot('default', {}, $scopedSlots, $slots))
     } else {
       childNodes.push(h(false))
     }
@@ -81,8 +83,8 @@ export default Vue.extend({
     }
 
     // Append slot
-    if ($slots.append) {
-      childNodes.push(h(InputGroupAppend, $slots.append))
+    if (hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
+      childNodes.push(h(InputGroupAppend, normalizeSlot('append', {}, $scopedSlots, $slots)))
     } else {
       childNodes.push(h(false))
     }

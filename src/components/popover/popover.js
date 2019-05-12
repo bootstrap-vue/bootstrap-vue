@@ -1,7 +1,12 @@
 import Vue from '../../utils/vue'
 import PopOver from '../../utils/popover.class'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
+import { HTMLElement } from '../../utils/safe-types'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import toolpopMixin from '../../mixins/toolpop'
+
+const NAME = 'BPopover'
 
 export const props = {
   title: {
@@ -19,13 +24,23 @@ export const props = {
   placement: {
     type: String,
     default: 'right'
+  },
+  boundary: {
+    // String: scrollParent, window, or viewport
+    // Element: element reference
+    type: [String, HTMLElement],
+    default: () => getComponentConfig(NAME, 'boundary')
+  },
+  boundaryPadding: {
+    type: Number,
+    default: () => getComponentConfig(NAME, 'boundaryPadding')
   }
 }
 
 // @vue/component
 export default Vue.extend({
-  name: 'BPopover',
-  mixins: [toolpopMixin],
+  name: NAME,
+  mixins: [toolpopMixin, normalizeSlotMixin],
   props,
   data() {
     return {}
@@ -53,8 +68,8 @@ export default Vue.extend({
         attrs: { 'aria-hidden': true }
       },
       [
-        h('div', { ref: 'title' }, this.$slots.title),
-        h('div', { ref: 'content' }, this.$slots.default)
+        h('div', { ref: 'title' }, this.normalizeSlot('title')),
+        h('div', { ref: 'content' }, this.normalizeSlot('default'))
       ]
     )
   }

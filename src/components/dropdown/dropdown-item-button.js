@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import nomalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
   active: {
@@ -12,12 +13,18 @@ export const props = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  variant: {
+    type: String,
+    default: null
   }
 }
 
 // @vue/component
 export default Vue.extend({
   name: 'BDropdownItemButton',
+  mixins: [nomalizeSlotMixin],
+  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
@@ -41,8 +48,12 @@ export default Vue.extend({
         'button',
         {
           staticClass: 'dropdown-item',
-          class: { [this.activeClass]: this.active },
+          class: {
+            [this.activeClass]: this.active,
+            [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+          },
           attrs: {
+            ...this.$attrs,
             role: 'menuitem',
             type: 'button',
             disabled: this.disabled
@@ -50,7 +61,7 @@ export default Vue.extend({
           on: { click: this.onClick },
           ref: 'button'
         },
-        this.$slots.default
+        this.normalizeSlot('default')
       )
     ])
   }

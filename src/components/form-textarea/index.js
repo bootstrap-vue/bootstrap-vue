@@ -6,6 +6,8 @@ const components = {
   BTextarea: BFormTextarea
 }
 
+export { BFormTextarea }
+
 export default {
   install: installFactory({ components })
 }

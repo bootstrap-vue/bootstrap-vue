@@ -1,4 +1,4 @@
-import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import BModal from './modal'
 import BvModalEvent from './helpers/bv-modal-event.class'
@@ -34,6 +34,7 @@ describe('modal', () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
+          static: true,
           id: 'test'
         }
       })
@@ -41,23 +42,17 @@ describe('modal', () => {
       expect(wrapper.isVueInstance()).toBe(true)
       await waitNT(wrapper.vm)
 
-      // This outer <div> will go away once we migrate to PortalVue
-      // as all modals will be lazy
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
-      const $outer = createWrapper(wrapper.element.firstElementChild)
-      expect($outer.is('div')).toBe(true)
-      expect($outer.classes().length).toBe(0)
-      expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
+      expect(wrapper.element.style.position).toEqual('absolute')
+      expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Should not have a backdrop
-      expect($outer.find('div.modal-backdrop').exists()).toBe(false)
+      expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
 
       // Main modal wrapper
-      const $modal = $outer.find('div.modal')
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
       expect($modal.attributes('id')).toEqual('test')
@@ -80,10 +75,11 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('has expected structure when lazy', async () => {
+    it('has expected default structure when static and lazy', async () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         propsData: {
+          static: true,
           lazy: true
         }
       })
@@ -91,9 +87,25 @@ describe('modal', () => {
       expect(wrapper.isVueInstance()).toBe(true)
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div')).toBe(true)
-      expect(wrapper.classes().length).toBe(0)
-      expect(wrapper.findAll('div > *').length).toBe(0) // No content
+      expect(wrapper.isEmpty()).toBe(true)
+      expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
+
+      wrapper.destroy()
+    })
+
+    it('has expected default structure when not static', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        propsData: {
+          static: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await waitNT(wrapper.vm)
+
+      expect(wrapper.isEmpty()).toBe(true)
+      expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       wrapper.destroy()
     })
@@ -107,6 +119,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         }
@@ -118,20 +131,14 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // This outer <div> will go away once we migrate to PortalVue
-      // as all modals will be lazy
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
-      const $outer = createWrapper(wrapper.element.firstElementChild)
-      expect($outer.is('div')).toBe(true)
-      expect($outer.classes().length).toBe(0)
-      expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
+      expect(wrapper.element.style.position).toEqual('absolute')
+      expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
-      const $modal = $outer.find('div.modal')
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
       expect($modal.attributes('id')).toEqual('test')
@@ -149,7 +156,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
-      const $backdrop = $outer.find('div.modal-backdrop')
+      const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
       expect($backdrop.classes()).toContain('fade')
       expect($backdrop.classes()).toContain('show')
@@ -157,6 +164,55 @@ describe('modal', () => {
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
       expect($dialog.exists()).toBe(true)
+
+      wrapper.destroy()
+    })
+
+    it('renders in modal target when initially open and not static', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          // Disable the use of transitionStub fake transition
+          // as it doesn't run transition hooks
+          transition: false
+        },
+        propsData: {
+          static: false,
+          id: 'testtarget',
+          visible: true
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      expect(wrapper.isEmpty()).toBe(true)
+      expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
+
+      let modal = document.getElementById('testtarget')
+      expect(modal).toBeDefined()
+      expect(modal).not.toBe(null)
+
+      const target = document.querySelector('.b-modal-target')
+      expect(target).toBeDefined()
+      expect(target).not.toBe(null)
+
+      expect(target.__vue__).toBeDefined() // Portal
+      expect(target.__vue__.$parent).toBeDefined() // BModalTarget
+      expect(target.__vue__.$parent.$options.name).toBe('BModalTarget')
+
+      // Make sure target is not in document anymore
+      target.__vue__.$parent.$destroy()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      expect(document.querySelector('.b-modal-target')).toBe(null)
 
       wrapper.destroy()
     })
@@ -170,6 +226,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         }
@@ -191,20 +248,14 @@ describe('modal', () => {
       // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
       // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
 
-      // This outer <div> will go away once we migrate to PortalVue
-      // as all modals will be lazy
+      // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
-
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
-      const $outer = createWrapper(wrapper.element.firstElementChild)
-      expect($outer.is('div')).toBe(true)
-      expect($outer.classes().length).toBe(0)
-      expect($outer.element.style.position).toEqual('absolute')
-      expect($outer.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
+      expect(wrapper.element.style.position).toEqual('absolute')
+      expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
 
       // Main modal wrapper
-      const $modal = $outer.find('div.modal')
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
@@ -215,7 +266,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
-      const $backdrop = $outer.find('div.modal-backdrop')
+      const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
       expect($backdrop.classes()).toContain('fade')
       expect($backdrop.classes()).toContain('show')
@@ -245,7 +296,7 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed
-      expect($outer.find('div.modal-backdrop').exists()).toBe(false)
+      expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
 
       wrapper.destroy()
     })
@@ -255,7 +306,10 @@ describe('modal', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true
+        attachToDocument: true,
+        propsData: {
+          static: true
+        }
       })
       expect(wrapper).toBeDefined()
 
@@ -281,7 +335,10 @@ describe('modal', () => {
 
     it('default header close button', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true
+        attachToDocument: true,
+        propsData: {
+          static: true
+        }
       })
       expect(wrapper).toBeDefined()
 
@@ -309,6 +366,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -389,6 +447,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -473,6 +532,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -530,6 +590,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -588,6 +649,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: true
         },
@@ -678,6 +740,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -727,6 +790,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -789,6 +853,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -856,6 +921,7 @@ describe('modal', () => {
           transition: false
         },
         propsData: {
+          static: true,
           id: 'test',
           visible: false
         }
@@ -902,73 +968,12 @@ describe('modal', () => {
   describe('focus management', () => {
     const localVue = new CreateLocalVue()
 
-    it('returns focus to document.body when no return focus set and not using v-b-toggle', async () => {
-      // JSDOM won't focus the document unless it has a tab index
-      document.body.tabIndex = 0
-
-      const wrapper = mount(BModal, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        },
-        propsData: {
-          id: 'test',
-          visible: false
-        }
-      })
-
-      expect(wrapper.isVueInstance()).toBe(true)
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
-      const $modal = wrapper.find('div.modal')
-      expect($modal.exists()).toBe(true)
-
-      expect($modal.element.style.display).toEqual('none')
-      expect(document.activeElement).toBe(document.body)
-
-      // Try and open modal via `.toggle()` method
-      wrapper.vm.toggle()
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitNT(wrapper.vm)
-
-      // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
-      expect(document.activeElement).not.toBe(document.body)
-      expect(wrapper.element.contains(document.activeElement)).toBe(true)
-
-      // Try and close modal via `.toggle()` method
-      wrapper.vm.toggle()
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitNT(wrapper.vm)
-
-      // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
-      expect(document.activeElement).toBe(document.body)
-
-      wrapper.destroy()
-    })
-
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = localVue.extend({
         render(h) {
           return h('div', {}, [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
+            h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
       })
@@ -1046,7 +1051,7 @@ describe('modal', () => {
               { class: 'return-to', attrs: { id: 'return-to', type: 'button' } },
               'trigger'
             ),
-            h(BModal, { props: { id: 'test', visible: false } }, 'modal content')
+            h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
       })
@@ -1119,12 +1124,12 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('if focus leave modal it returns to modal', async () => {
+    it('if focus leaves modal it returns to modal', async () => {
       const App = localVue.extend({
         render(h) {
           return h('div', {}, [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h(BModal, { props: { id: 'test', visible: true } }, 'modal content')
+            h(BModal, { props: { static: true, id: 'test', visible: true } }, 'modal content')
           ])
         }
       })

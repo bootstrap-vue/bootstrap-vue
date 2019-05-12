@@ -68,7 +68,9 @@ See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
 
-When BootstrapVue is installed as a plugin, or the <samp>Modal</samp> plugin is used, BoostrapVue
+<span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
+
+When BootstrapVue is installed as a plugin, or the <samp>ModalPlugin</samp> plugin is used, BoostrapVue
 will inject a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes
 several methods, of which two are for showing and hiding modals:
 
@@ -318,7 +320,7 @@ methods:
 | `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
 | `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                            |
 | `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                  |
-| `modalId`          | property | The modal's ID                                                                                                                                                                                                                                                                                              |
+| `componentId`      | property | The modal's ID                                                                                                                                                                                                                                                                                              |
 
 You can set the value of `trigger` by passing an argument to the component's `hide()` method for
 advanced control (i.e. detecting what button or action triggered the modal to hide).
@@ -362,11 +364,25 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 <!-- b-modal-popover.vue -->
 ```
 
-## Lazy loading
+## Lazy loading and static modals
 
-Modal will always render its HTML markup in the document at the location that the `<b-modal>`
-component is placed (even if it is not shown). You can hide the modal markup from being in the DOM
-while modal is in the hidden state by setting the `lazy` prop.
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
+
+By default, modals will not render their content in the document until they are shown (lazily
+rendered). Modals that are visible are rendered appended to the `<body>` element (via the use of
+[PortalVue](https://portal-vue.linusb.org/)) inside a modal target `<div>` when they are visible.
+`<b-modal>` components will not affect layout, as they render as a placeholder comment node
+(`<!---->`).
+
+Modals can be rendered _in-place_ in the document, where the `<b-modal>` component is placed in the
+document, by setting the `static` prop to `true`. Note that the content of the modal will be
+rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To make `static`
+modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the
+document _only_ when it is visible. Note, when in `static` mode, placement of the `<b-modal>`
+component may affect layout of your document and the modal.
+
+The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
+always be lazily rendered).
 
 ## Styling, options, and customization
 
@@ -374,7 +390,7 @@ while modal is in the hidden state by setting the `lazy` prop.
 
 Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain
 breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `sm`,
-`lg`, and `xl`
+`lg`, and `xl`.
 
 ```html
 <div>
@@ -585,6 +601,8 @@ To disable both **Cancel** and **OK** buttons at the same time, simply set the `
 
 ### Custom rendering with slots
 
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.19</span>
+
 `<b-modal>` provides several named slots (of which some are optionally scoped) that you can use to
 customize the content of various sections of the modal.
 
@@ -679,15 +697,14 @@ component. This will hide the modal before another modal is shown.
 
 **Notes:**
 
-- Do not nest `b-modal` _inside_ another `b-modal`, as it will get "constrained" to the boundaries
-  of the containing modal dialog.
+- Avoid nesting a `<b-modal>` _inside_ another `<b-modal>`, as it may get "constrained" to the
+  boundaries of the parent modal dialog (specifically when static modals are used).
 - The opaque backdrop will appear progressively darker for each modal that is opened. This is
-  expected behaviour as each backdrop is opened over top the other backdrops.
-- For multiple modals to stack properly, they **must** be defined in the document in the order they
-  will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open
-  modal.
+  expected behaviour as each backdrop is opened over top the other modals and backdrops.
 
 ## Modal message boxes
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
 These methods provide a way to generate simple OK and Confirm style modal messages, from anywhere in
@@ -845,7 +862,8 @@ Example Confirm Message boxes
   not detected, then the message box methods will immediately return `undefined`.
 - Message Boxes are an extension of the `<b-modal>` component, and hence support the majority of
   `<b-modal>` props (using <samp>camelCase</samp> format), with the exception of the following
-  props: `lazy`, `busy`, `visible`, `noStacking`, `okOnly`, `okDisabled`, and `cancelDisabled`.
+  props: `lazy`, `static`, `busy`, `visible`, `noStacking`, `okOnly`, `okDisabled`, and
+  `cancelDisabled`.
 - When a `title` (or `titleHtml`) _is not_ provided in the options, the header will not be shown.
 - When a `title` (or `titleHtml`) _is_ provided in the options, the header close button is not shown
   by default. You can enable the header close button by setting `hideHeaderClose: false` in the
@@ -862,6 +880,11 @@ Example Confirm Message boxes
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
   `cancelTitle` option).
+- The `this.$bvModal` injection is only available when using the full BootstrapVue plugin or the
+  Modal plugin. It is not available if importing just the `b-modal` component.
+- A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
+  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
+  instance's `this` and `$root` contexts.
 
 ## Listening to modal changes via \$root events
 

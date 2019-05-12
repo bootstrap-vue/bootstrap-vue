@@ -80,7 +80,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'blankColor'))
+    default: () => getComponentConfig(NAME, 'blankColor')
   }
 }
 

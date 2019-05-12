@@ -11,6 +11,7 @@ import { keys, create } from '../../utils/object'
 // Mixins
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Sub components
 import BCol from '../layout/col'
 import BFormInvalidFeedback from '../form/form-invalid-feedback'
@@ -29,7 +30,7 @@ const DEPRECATED_MSG =
 
 // Render helper functions (here rather than polluting the instance with more methods)
 const renderInvalidFeedback = (h, ctx) => {
-  let content = ctx.$slots['invalid-feedback'] || ctx.invalidFeedback
+  let content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback
   let invalidFeedback = h(false)
   if (content) {
     invalidFeedback = h(
@@ -52,7 +53,7 @@ const renderInvalidFeedback = (h, ctx) => {
 }
 
 const renderValidFeedback = (h, ctx) => {
-  const content = ctx.$slots['valid-feedback'] || ctx.validFeedback
+  const content = ctx.normalizeSlot('valid-feedback') || ctx.validFeedback
   let validFeedback = h(false)
   if (content) {
     validFeedback = h(
@@ -76,7 +77,7 @@ const renderValidFeedback = (h, ctx) => {
 
 const renderHelpText = (h, ctx) => {
   // Form help text (description)
-  const content = ctx.$slots['description'] || ctx.description
+  const content = ctx.normalizeSlot('description') || ctx.description
   let description = h(false)
   if (content) {
     description = h(
@@ -95,7 +96,7 @@ const renderHelpText = (h, ctx) => {
 
 const renderLabel = (h, ctx) => {
   // Render label/legend inside b-col if necessary
-  const content = ctx.$slots['label'] || ctx.label
+  const content = ctx.normalizeSlot('label') || ctx.label
   const labelFor = ctx.labelFor
   const isLegend = !labelFor
   const isHorizontal = ctx.isHorizontal
@@ -255,7 +256,7 @@ const generateProps = () => {
 // @vue/component
 export default {
   name: NAME,
-  mixins: [idMixin, formStateMixin],
+  mixins: [idMixin, formStateMixin, normalizeSlotMixin],
   get props() {
     // Allow props to be lazy evaled on first access and
     // then they become a non-getter afterwards.
@@ -431,7 +432,7 @@ export default {
         }
       },
       [
-        this.$slots['default'] || h(false),
+        this.normalizeSlot('default') || h(false),
         renderInvalidFeedback(h, this),
         renderValidFeedback(h, this),
         renderHelpText(h, this)

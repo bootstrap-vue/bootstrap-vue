@@ -906,7 +906,7 @@ scoped field slot
 ```
 
 <p class="alert alert-danger">
-  <string>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
+  <strong>Warning:</strong> Be cautious of using the <code>v-html</code> method to display user
   supplied content,  as it may make your application vulnerable to
   <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
   <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
@@ -988,7 +988,7 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
-## Custom empty/emptyfiltered rendering via slots
+## Custom empty and emptyfiltered rendering via slots
 
 Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
 also possible to provide custom rendering for tables that have no data to display using named slots.
@@ -1021,7 +1021,7 @@ following properties:
 | `fields`            | Array  | The `fields` prop                                  |
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
-## Header/Footer custom rendering via scoped slots
+## Header and Footer custom rendering via scoped slots
 
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
@@ -1390,11 +1390,12 @@ record objects for the rows being compared, the third argument is the field `key
 (`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
 (`true` for descending, `false` for ascending).
 
-The routine should always return either `-1` for `a < b` , `0` for `a === b`, or `1` for `a > b`
-(the fourth argument, sorting direction, should not be used, as `b-table` will handle the
-direction). The routine can also return `null` to fall back to the default built-in sort-compare
-routine. You can use this feature (i.e. by returning `null`) to have your custom sort-compare
-routine handle only certain fields (keys) or in the special case of virtual columns.
+The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`,
+or `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used,
+as `b-table` will handle the direction). The routine can also return `null` to fall back to the
+built-in sort-compare routine for the particular `key`. You can use this feature (i.e. by returning
+`null`) to have your custom sort-compare routine handle only certain fields (keys) such as the
+special case of virtual columns.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:

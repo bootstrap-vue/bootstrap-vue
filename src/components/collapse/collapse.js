@@ -1,25 +1,38 @@
 import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { isBrowser } from '../../utils/env'
-import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
+import {
+  addClass,
+  hasClass,
+  removeClass,
+  closest,
+  matches,
+  reflow,
+  getCS,
+  getBCR,
+  eventOn,
+  eventOff
+} from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
 const EVENT_ACCORDION = 'bv::collapse::accordion'
-// Private event we emit on $root to ensure the toggle state is always synced
-// Gets emited even if the state has not changed!
-// This event is NOT to be documented as people should not be using it.
+// Private event we emit on `$root` to ensure the toggle state is
+// always synced. It gets emitted even if the state has not changed!
+// This event is NOT to be documented as people should not be using it
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
-// Events we listen to on $root
+// Events we listen to on `$root`
 const EVENT_TOGGLE = 'bv::toggle::collapse'
+const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
-// Event Listener options
+// Event listener options
 const EventOptions = { passive: true, capture: false }
 
 // @vue/component
 export default Vue.extend({
   name: 'BCollapse',
-  mixins: [listenOnRootMixin],
+  mixins: [listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
     event: 'input'
@@ -75,14 +88,14 @@ export default Vue.extend({
   },
   created() {
     this.show = this.visible
+  },
+  mounted() {
+    this.show = this.visible
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
     this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
-  },
-  mounted() {
-    this.show = this.visible
-    if (this.isNav && isBrowser) {
+    if (this.isNav) {
       // Set up handlers
       this.setWindowEvents(true)
       this.handleResize()
@@ -90,23 +103,29 @@ export default Vue.extend({
     this.$nextTick(() => {
       this.emitState()
     })
+    // Listen for "Sync state" requests from `v-b-toggle`
+    this.$root.$on(EVENT_STATE_REQUEST, id => {
+      if (id === this.id) {
+        this.$nextTick(this.emitSync)
+      }
+    })
   },
   updated() {
-    // Emit a private event every time this component updates
-    // to ensure the toggle button is in sync with the collapse's state.
-    // It is emitted regardless if the visible state changes.
-    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+    // Emit a private event every time this component updates to ensure
+    // the toggle button is in sync with the collapse's state
+    // It is emitted regardless if the visible state changes
+    this.emitSync()
   },
   deactivated() /* istanbul ignore next */ {
-    if (this.isNav && isBrowser) {
+    if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
   activated() /* istanbul ignore next */ {
-    if (this.isNav && isBrowser) {
+    if (this.isNav) {
       this.setWindowEvents(true)
     }
-    this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+    this.emitSync()
   },
   beforeDestroy() {
     // Trigger state emit if needed
@@ -161,6 +180,22 @@ export default Vue.extend({
         this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion)
       }
     },
+    emitSync() {
+      // Emit a private event every time this component updates to ensure
+      // the toggle button is in sync with the collapse's state
+      // It is emitted regardless if the visible state changes
+      this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+    },
+    checkDisplayBlock() {
+      // Check to see if the collapse has `display: block !important;` set.
+      // We can't set `display: none;` directly on this.$el, as it would
+      // trigger a new transition to start (or cancel a current one).
+      const restore = hasClass(this.$el, 'show')
+      removeClass(this.$el, 'show')
+      const isBlock = getCS(this.$el).display === 'block'
+      restore && addClass(this.$el, 'show')
+      return isBlock
+    },
     clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       const el = evt.target
@@ -169,7 +204,10 @@ export default Vue.extend({
         return
       }
       if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
-        this.show = false
+        if (!this.checkDisplayBlock()) {
+          // Only close the collapse if it is not forced to be 'display: block !important;'
+          this.show = false
+        }
       }
     },
     handleToggleEvt(target) {
@@ -208,7 +246,7 @@ export default Vue.extend({
         attrs: { id: this.id || null },
         on: { click: this.clickHandler }
       },
-      [this.$slots.default]
+      [this.normalizeSlot('default')]
     )
     return h(
       'transition',

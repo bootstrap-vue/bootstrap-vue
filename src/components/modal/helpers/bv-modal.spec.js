@@ -4,12 +4,22 @@ import modalPlugin from '../index'
 
 describe('$bvModal', () => {
   const localVue = new CreateLocalVue()
-  localVue.use(modalPlugin)
+
+  beforeAll(() => {
+    // Prevent multiple Vue warnings in tests
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
+    // Install plugin after we have trapped console.warn
+    localVue.use(modalPlugin)
+  })
+
+  afterAll(() => {
+    console.warn.mockClear()
+  })
 
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('b-modal', { props: { id: 'test1' } }, 'content')
+        return h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
       }
     })
     const wrapper = mount(App, {
@@ -74,6 +84,7 @@ describe('$bvModal', () => {
 
     // Should get a promise as result
     const p = bvModal.msgBoxOk('message', {
+      static: true,
       id: 'test2',
       title: 'title'
     })
@@ -135,6 +146,7 @@ describe('$bvModal', () => {
 
     // Should get a promise as result
     const p = bvModal.msgBoxConfirm('message', {
+      static: true,
       id: 'test3',
       title: 'title'
     })

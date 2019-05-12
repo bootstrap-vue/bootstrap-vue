@@ -7,6 +7,8 @@ const components = {
   BListGroupItem
 }
 
+export { BListGroup, BListGroupItem }
+
 export default {
   install: installFactory({ components })
 }

@@ -1,9 +1,11 @@
 import { htmlOrText } from '../utils/html'
+import normalizeSlotMixin from './normalize-slot'
 import BFormCheckbox from '../components/form-checkbox/form-checkbox'
 import BFormRadio from '../components/form-radio/form-radio'
 
 // @vue/component
 export default {
+  mixins: [normalizeSlotMixin],
   model: {
     prop: 'checked',
     event: 'input'
@@ -73,8 +75,6 @@ export default {
     }
   },
   render(h) {
-    const $slots = this.$slots
-
     const inputs = this.formOptions.map((option, idx) => {
       const uid = `_BV_option_${idx}_`
       return h(
@@ -108,7 +108,7 @@ export default {
           'aria-invalid': this.computedAriaInvalid
         }
       },
-      [$slots.first, inputs, $slots.default]
+      [this.normalizeSlot('first'), inputs, this.normalizeSlot('default')]
     )
   }
 }

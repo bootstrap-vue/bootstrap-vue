@@ -5,6 +5,8 @@ const components = {
   BEmbed
 }
 
+export { BEmbed }
+
 export default {
   install: installFactory({ components })
 }

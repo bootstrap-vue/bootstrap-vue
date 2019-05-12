@@ -1,5 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, arrayIncludes } from '../../../utils/array'
+import { getComponentConfig } from '../../../utils/config'
 import sanitizeRow from './sanitize-row'
 
 export default {
@@ -14,7 +15,7 @@ export default {
     },
     selectedVariant: {
       type: String,
-      default: 'primary'
+      default: () => getComponentConfig('BTable', 'selectedVariant')
     }
   },
   data() {

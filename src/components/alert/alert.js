@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
 
 const NAME = 'BAlert'
@@ -33,6 +34,7 @@ const isNumericLike = value => !isNaN(parseInt(value, 10))
 // @vue/component
 export default Vue.extend({
   name: NAME,
+  mixins: [normalizeSlotMixin],
   model: {
     prop: 'show',
     event: 'input'
@@ -40,7 +42,7 @@ export default Vue.extend({
   props: {
     variant: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'variant'))
+      default: () => getComponentConfig(NAME, 'variant')
     },
     dismissible: {
       type: Boolean,
@@ -48,7 +50,7 @@ export default Vue.extend({
     },
     dismissLabel: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'dismissLabel'))
+      default: () => getComponentConfig(NAME, 'dismissLabel')
     },
     show: {
       type: [Boolean, Number, String],
@@ -140,7 +142,6 @@ export default Vue.extend({
     }
   },
   render(h) {
-    const $slots = this.$slots
     let $alert // undefined
     if (this.localShow) {
       let $dismissBtn = h(false)
@@ -149,7 +150,7 @@ export default Vue.extend({
         $dismissBtn = h(
           BButtonClose,
           { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
-          [$slots.dismiss]
+          [this.normalizeSlot('dismiss')]
         )
       }
       $alert = h(
@@ -164,7 +165,7 @@ export default Vue.extend({
           },
           attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
         },
-        [$dismissBtn, $slots.default]
+        [$dismissBtn, this.normalizeSlot('default')]
       )
       $alert = [$alert]
     }

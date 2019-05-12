@@ -2,9 +2,8 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
-/* istanbul ignore file: not ready for testing yet as things are still changing */
-
 import Vue from '../../../utils/vue'
+import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
 import { isUndefined, isString } from '../../../utils/inspect'
@@ -16,12 +15,13 @@ import {
   omit,
   readonlyDescriptor
 } from '../../../utils/object'
-import { warnNotClient } from '../../../utils/warn'
+import { warn, warnNotClient } from '../../../utils/warn'
 import BToast, { props as toastProps } from '../toast'
 
 // --- Constants ---
 
 const PROP_NAME = '$bvToast'
+const PROP_NAME_PRIV = '_bv__toast'
 
 // Base toast props that are allowed
 // Some may be ignored or overridden on some message boxes
@@ -82,6 +82,7 @@ const BToastPop = Vue.extend({
     this.$once('hidden', handleDestroy)
     // Self destruct when toaster is destroyed
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      /* istanbul ignore next: hard to test */
       if (toaster === self.toaster) {
         handleDestroy()
       }
@@ -123,7 +124,8 @@ const makeToast = (props, $parent) => {
         // Special case for title if it is a string, we wrap in a <strong>
         value = [$parent.$createElement('strong', { class: 'mr-2' }, value)]
       }
-      toast.$slots[propsToSlots[prop]] = value
+      // Make sure slot value is an array for Vue 2.5.x compatability
+      toast.$slots[propsToSlots[prop]] = concat(value)
     }
   })
 
@@ -181,19 +183,19 @@ class BvToast {
 
 // Method to install `$bvToast` VM injection
 const install = _Vue => {
-  if (install._installed) {
+  if (install.installed) {
     // Only install once
     /* istanbul ignore next */
     return
   }
-  install._installed = true
+  install.installed = true
 
   // Add our instance mixin
   _Vue.mixin({
     beforeCreate() {
       // Because we need access to `$root` for `$emits`, and VM for parenting,
       // we have to create a fresh instance of `BvToast` for each VM
-      this._bv__toast = new BvToast(this)
+      this[PROP_NAME_PRIV] = new BvToast(this)
     }
   })
 
@@ -202,10 +204,18 @@ const install = _Vue => {
   if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
     defineProperty(_Vue.prototype, PROP_NAME, {
       get() {
-        return this._bv__toast
+        /* istanbul ignore next */
+        if (!this || !this[PROP_NAME_PRIV]) {
+          warn(`'${PROP_NAME}' must be accessed from a Vue instance 'this' context`)
+        }
+        return this[PROP_NAME_PRIV]
       }
     })
   }
 }
 
-export default install
+install.installed = false
+
+export default {
+  install: install
+}

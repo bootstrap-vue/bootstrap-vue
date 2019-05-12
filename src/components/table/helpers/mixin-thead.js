@@ -1,5 +1,6 @@
-import startCase from '../../../utils/startcase'
 import KeyCodes from '../../../utils/key-codes'
+import startCase from '../../../utils/startcase'
+import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -8,7 +9,7 @@ export default {
   props: {
     headVariant: {
       type: String,
-      default: ''
+      default: () => getComponentConfig('BTable', 'headVariant')
     },
     theadClass: {
       type: [String, Array, Object],
@@ -103,9 +104,7 @@ export default {
           isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
             ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
             : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
-        if (slot) {
-          slot = [slot]
-        } else {
+        if (!slot) {
           data.domProps = htmlOrText(field.labelHtml)
         }
         return h('th', data, slot || field.label)

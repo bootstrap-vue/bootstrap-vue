@@ -1,5 +1,5 @@
 import BCollapse from './collapse'
-import BToggleDirective from '../../directives/toggle/toggle'
+import VBToggle from '../../directives/toggle/toggle'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
@@ -7,8 +7,10 @@ const components = {
 }
 
 const directives = {
-  BToggle: BToggleDirective
+  VBToggle
 }
+
+export { BCollapse }
 
 export default {
   install: installFactory({ components, directives })

@@ -4,6 +4,7 @@
  */
 
 import Vue from '../../../utils/vue'
+import { Wormhole } from 'portal-vue'
 import {
   getAttr,
   hasAttr,
@@ -18,6 +19,7 @@ import {
 } from '../../../utils/dom'
 import { isBrowser } from '../../../utils/env'
 import { isNull } from '../../../utils/inspect'
+import BModalTarget, { modalTargetName } from './modal-target'
 
 // --- Constants ---
 
@@ -47,6 +49,9 @@ const ModalManager = Vue.extend({
     },
     modalsAreOpen() {
       return this.modalCount > 0
+    },
+    modalTargetName() {
+      return modalTargetName
     }
   },
   watch: {
@@ -76,6 +81,11 @@ const ModalManager = Vue.extend({
   methods: {
     // Public methods
     registerModal(modal) {
+      // Make sure the modal target exists
+      if (!modal.static) {
+        this.ensureTarget(modal)
+      }
+      // Register the modal if not already registered
       if (modal && this.modals.indexOf(modal) === -1) {
         // Add modal to modals array
         this.modals.push(modal)
@@ -119,6 +129,27 @@ const ModalManager = Vue.extend({
       return this.scrollbarWidth || 0
     },
     // Private methods
+    ensureTarget(modal) {
+      if (isBrowser && !Wormhole.hasTarget(this.modalTargetName)) {
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        const target = new BModalTarget({
+          // Set parent/root to the modal's $root
+          parent: modal.$root
+        })
+        target.$mount(div)
+        target.$once('hook:beforeDestroy', () => {
+          this.modals.forEach(modal => {
+            // Hide any modals that may be in the target, if
+            // target is destroyed, using the 'FORCE' trigger
+            // which makes the hide event non-cancelable
+            if (!modal.static) {
+              modal.hide('FORCED')
+            }
+          })
+        })
+      }
+    },
     updateModals(modals) {
       const baseZIndex = this.getBaseZIndex()
       const scrollbarWidth = this.getScrollbarWidth()
@@ -139,9 +170,6 @@ const ModalManager = Vue.extend({
     },
     checkScrollbar() {
       // Determine if the body element is overflowing
-      // const { left, right, height } = getBCR(document.body)
-      // Extra check for body.height needed for stacked modals
-      // this.isBodyOverflowing = left + right < window.innerWidth || height > window.innerHeight
       const { left, right } = getBCR(document.body)
       this.isBodyOverflowing = left + right < window.innerWidth
     },

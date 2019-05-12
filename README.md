@@ -1,56 +1,56 @@
 <p align="center">
-<a href="https://bootstrap-vue.js.org">
-  <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/static/banner.png" width="300px">
-</a>
-
-<br>
-BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and
-grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.
-<br>
+  <a href="https://bootstrap-vue.js.org">
+    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/static/banner.png" width="300">
+  </a>
+</p>
 <br>
 
-<a href="https://www.npmjs.com/package/bootstrap-vue">
-  <img src="https://flat.badgen.net/npm/v/bootstrap-vue" alt="Current version">
-</a>
-<a href="https://getbootstrap.com/docs">
-  <img src="https://flat.badgen.net/badge/bootstrap/4.3.x/563d7c" alt="Bootstrap version">
-</a>
-<a href="https://vuejs.org">
-  <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d" alt="Vue.js version">
-</a>
-<a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
-  <img src="https://flat.badgen.net/circleci/github/bootstrap-vue/bootstrap-vue/master?label=build" alt="CircleCI status">
-</a>
-<a href="https://github.com/bootstrap-vue/bootstrap-vue">
-  <img src="https://flat.badgen.net/david/dep/bootstrap-vue/bootstrap-vue" alt="Dependencies status">
-</a>
-
+<p align="center">
+  BootstrapVue, with over 40 available plugins and more than 75 custom components, provides
+  one of the most comprehensive implementations of the Bootstrap 4.3 component and grid
+  system for Vue.js, complete with extensive and automated WAI-ARIA accessibility markup.
+</p>
 <br>
 
-<a href="https://codecov.io/gh/bootstrap-vue/bootstrap-vue">
-  <img src="https://flat.badgen.net/codecov/c/github/bootstrap-vue/bootstrap-vue" alt="Coverage">
-</a>
-<a href="http://packagequality.com/#?package=bootstrap-vue">
-  <img src="https://npm.packagequality.com/shield/bootstrap-vue.svg?style=flat-square" alt="Package quality">
-</a>
-<a href="https://www.npmjs.com/package/bootstrap-vue">
-  <img src="https://flat.badgen.net/npm/dt/bootstrap-vue" alt="npm downloads">
-</a>
-<a href="https://www.npmjs.com/package/bootstrap-vue">
-  <img src="https://flat.badgen.net/npm/dw/bootstrap-vue" alt="npm monthly downloads">
-</a>
-
-<br>
-
-<a href="https://opencollective.com/bootstrap-vue#sponsor">
-  <img src="https://opencollective.com/bootstrap-vue/sponsors/badge.svg?style=flat-square" alt="Open Collective sponsors">
-</a>
-<a href="https://opencollective.com/bootstrap-vue#backer">
-  <img src="https://flat.badgen.net/opencollective/backers/bootstrap-vue" alt="Open Collective backers">
-</a>
-<a href="https://opencollective.com/bootstrap-vue">
-  <img src="https://flat.badgen.net/opencollective/balance/bootstrap-vue" alt="Open Collective balance">
-</a>
+<p align="center">
+  <a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img src="https://flat.badgen.net/npm/v/bootstrap-vue" alt="Current version">
+  </a>
+  <a href="https://getbootstrap.com/docs">
+    <img src="https://flat.badgen.net/badge/bootstrap/4.3.x/563d7c" alt="Bootstrap version">
+  </a>
+  <a href="https://vuejs.org">
+    <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d" alt="Vue.js version">
+  </a>
+  <a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
+    <img src="https://flat.badgen.net/circleci/github/bootstrap-vue/bootstrap-vue/master?label=build" alt="CircleCI status">
+  </a>
+  <a href="https://github.com/bootstrap-vue/bootstrap-vue">
+    <img src="https://flat.badgen.net/david/dep/bootstrap-vue/bootstrap-vue" alt="Dependencies status">
+  </a>
+  <br>
+  <a href="https://codecov.io/gh/bootstrap-vue/bootstrap-vue">
+    <img src="https://flat.badgen.net/codecov/c/github/bootstrap-vue/bootstrap-vue" alt="Coverage">
+  </a>
+  <a href="http://packagequality.com/#?package=bootstrap-vue">
+    <img src="https://npm.packagequality.com/shield/bootstrap-vue.svg?style=flat-square" alt="Package quality">
+  </a>
+  <a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img src="https://flat.badgen.net/npm/dt/bootstrap-vue" alt="npm downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img src="https://flat.badgen.net/npm/dw/bootstrap-vue" alt="npm monthly downloads">
+  </a>
+  <br>
+  <a href="https://opencollective.com/bootstrap-vue#sponsor">
+    <img src="https://opencollective.com/bootstrap-vue/sponsors/badge.svg?style=flat-square" alt="Open Collective sponsors">
+  </a>
+  <a href="https://opencollective.com/bootstrap-vue#backer">
+    <img src="https://flat.badgen.net/opencollective/backers/bootstrap-vue" alt="Open Collective backers">
+  </a>
+  <a href="https://opencollective.com/bootstrap-vue">
+    <img src="https://flat.badgen.net/opencollective/balance/bootstrap-vue" alt="Open Collective balance">
+  </a>
 </p>
 
 <h2 align="center">Links</h2>

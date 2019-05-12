@@ -1,9 +1,11 @@
-import BModalDirective from './modal'
+import VBModal from './modal'
 import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  BModal: BModalDirective
+  VBModal
 }
+
+export { VBModal }
 
 export default {
   install: installFactory({ directives })

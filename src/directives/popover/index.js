@@ -1,9 +1,11 @@
-import BPopoverDirective from './popover'
+import VBPopover from './popover'
 import { installFactory } from '../../utils/plugins'
 
 const directives = {
-  BPopover: BPopoverDirective
+  VBPopover
 }
+
+export { VBPopover }
 
 export default {
   install: installFactory({ directives })

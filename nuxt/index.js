@@ -1,11 +1,6 @@
-const camelCase = require('lodash/camelCase')
-const kebabCase = require('lodash/kebabCase')
-const upperFirst = require('lodash/upperFirst')
 const { resolve } = require('path')
 
 // --- Utility methods ---
-
-const pascalCase = str => upperFirst(camelCase(str))
 
 const pickFirst = (...args) => {
   for (const arg of args) {
@@ -24,8 +19,8 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     }
 
     // Ensure we have arrays
-    this.options.css = this.options.css || []
-    this.options.build.transpile = this.options.build.transpile || []
+    this.options.css = [].concat(this.options.css || [])
+    this.options.build.transpile = [].concat(this.options.build.transpile || [])
 
     const bootstrapVueCSS = pickFirst(
       options.bootstrapVueCSS,
@@ -61,19 +56,29 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       dist: usePretranspiled ? 'es' : 'src'
     }
 
-    // TODO: Also add support for individual components & directives
+    // Specific component and/or directive plugins
     for (const type of ['componentPlugins', 'directivePlugins']) {
       const bvPlugins = Array.isArray(options[type]) ? options[type] : []
 
       templateOptions[type] = bvPlugins
-        // Convert everything to kebab-case
-        .map(p => kebabCase(p))
-        // Remove duplicate items
-        .filter((p, i, arr) => arr.indexOf(p) === i)
-        .map(pluginDir => {
-          const moduleName = (type === 'directivePlugins' ? 'v' : '') + pascalCase(pluginDir)
-          return [moduleName, pluginDir]
+        // Normalize plugin name to `${Name}Plugin` (component) or `VB${Name}Plugin` (directive)
+        // Required for backwards compatability with old plugin import names
+        .map(plugin => {
+          plugin = type === 'directivePlugins' && !/^VB/.test(plugin) ? `VB${plugin}` : plugin
+          plugin = /Plugin$/.test(plugin) ? plugin : `${plugin}Plugin`
+          return plugin
         })
+        // Remove duplicate items
+        .filter((plugin, i, arr) => arr.indexOf(plugin) === i)
+    }
+
+    // Specific components and/or directives
+    for (const type of ['components', 'directives']) {
+      const ComponentsOrDirectives = Array.isArray(options[type]) ? options[type] : []
+
+      templateOptions[type] = ComponentsOrDirectives
+        // Remove duplicate items
+        .filter((item, i, arr) => arr.indexOf(item) === i)
     }
 
     // Add BootstrapVue configuration if present

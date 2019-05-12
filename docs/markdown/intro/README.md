@@ -3,10 +3,10 @@
 > Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
 > building responsive, mobile-first sites using Vue.js.
 
-- [Vue.js](https://vuejs.org/) `v2.5` is required, `v{{ vueVersion }}` is recommended
+- [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
 - [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
   recommended
-- [PortalVue](https://portal-vue.linusb.org/) `v2.0` is required, `v{{ portalVueVersion }}` is
+- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required, `v{{ portalVueVersion }}` is
   recommended
 - [jQuery](https://jquery.com/) is **not** required
 
@@ -108,7 +108,7 @@ yarn add bootstrap-vue
 
 Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**.
 
-This will include both `boostrap.css` and `bootstrap-vue.css` default CSS.
+This will include both `boostrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
 
 ```js
 module.exports = {
@@ -129,8 +129,8 @@ module.exports = {
 }
 ```
 
-BootstrapVue's custom SCSS relies on some Bootstrap SCSS variables. You can include Bootstrap and
-BootstrapVue SCSS in your project's custom SCSS file:
+BootstrapVue's custom SCSS relies on Bootstrap SCSS variables and mixins. You can include Bootstrap
+and BootstrapVue SCSS in your project's custom SCSS file:
 
 ```scss
 // custom.scss
@@ -147,6 +147,9 @@ $grid-breakpoints: (
 // Then include the following
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+
+// And define any of your custom overides or additional CSS/SCSS here,
+// or via an @import
 ```
 
 In your app main entry point include the single custom SCSS file (when using `sass-loader`):
@@ -158,6 +161,8 @@ import 'custom.scss'
 
 ### Tree shaking with Nuxt.js
 
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
+
 If you wish to reduce your bundle size because you only use a subset of the available BootstrapVue
 plugins, you can configure the list of BootstrapVue `componentPlugins` or `directivePlugins` you
 want to globally install in your Nuxt.js project.
@@ -166,15 +171,50 @@ want to globally install in your Nuxt.js project.
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    componentPlugins: ['Layout', 'Form', 'FormCheckbox', 'FormInput', 'FormRadio'],
-    directivePlugins: ['Popover']
+    componentPlugins: [
+      'LayoutPlugin',
+      'FormPlugin',
+      'FormCheckboxPlugin',
+      'FormInputPlugin',
+      'FormRadioPlugin',
+      'ToastPlugin',
+      'ModalPlugin'
+    ],
+    directivePlugins: ['VBPopoverPlugin', 'VBTooltipPlugin', 'VBScrollspyPlugin']
   }
 }
 ```
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span> There are two additional helper
+plugins for providing the `$bvModal` and `$bvToast` injections (if you are not using the
+`ModalPlugin` or `ToastPlugin` plugins) that are available in the `componentPlugins` option:
+
+- `BVModalPlugin` - provides the injection `$bvModal` for generating
+  [message boxes](/docs/components/modal#modal-message-boxes).
+- `BVToastPlugin` - provides the injection `$bvToast` for generating
+  [on demand toasts](/docs/components/toast#toasts-on-demand).
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span> You can also optionally import
+individual components and/or directives, by configuring the list of BootstrapVue `components` or
+`directives` you want to globally install in your Nuxt.js project.
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    components: ['BContainer', 'BRow', 'BCol', 'BFormInput', 'BButton', 'BTable', 'BModal'],
+    directives: ['VBModal', 'VBPopover', 'VBTooltip', 'VBScrollspy']
+  }
+}
+```
+
+Feel free to mix and match plugin imports with individual component and directive imports.
+
 Refer to the reference section at the bottom of each of the [component](/docs/components) and
-[directive](/docs/directives) docs for details on the plugin names available and which components
-and directives are included in each plugin.
+[directive](/docs/directives) docs for details on the plugin names available (and which components
+and directives are included in each plugin) and component and/or directive import names.
+
+Note that when importing individual components, the component aliases will not be available.
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
@@ -195,13 +235,15 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt.js module uses precompiled version of BootstrapVue for faster development builds and the source
-of BootstrapVue for higher quality production builds.
+Nuxt.js module uses the precompiled version of BootstrapVue (`es/`) for faster development builds
+and the source (`src/`) of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
 of `src/`. By default `usePretranspiled` is enabled in development mode only.
 
 ## Vue CLI 2
+
+<span class="badge badge-warning small">DEPRECATED</span> Use [Vue CLI 3](#vue-cli-3) instead.
 
 BootstrapVue has two Vue CLI templates available:
 
@@ -281,41 +323,67 @@ For additional configuration for Vue CLI 3 for using project relative paths for 
 various BootstrapVue components, refer to the Vue CLI 3 section of the
 [Image Src Resolving](/docs/reference/images#vue-cli-3-support) reference page.
 
+### Vue CLI 3 plugin
+
+As an alternative, you can use the
+[Bootstrap-Vue Vue CLI 3 plugin](https://github.com/GregYankovoy/vue-cli-plugin-bootstrap-vue) to
+help you configure your app.
+
+```bash
+vue create my-app
+cd my-app
+vue add bootstrap-vue
+```
+
+This will create a new app with basic BootstrapVue settings to get your project started.
+
+In the future this plugin will provide options for more advanced configurations and templates.
+
 ## Selective component and directive inclusion in module bundlers
 
-When using a module bundler you can optionally import only specific components groups, components
-and/or directives.
+<span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
+
+When using a module bundler you can optionally import only specific components groups (plugins),
+components and/or directives.
 
 ### Component groups and directives as Vue plugins
 
-You can import component groups and directives as Vue plugins by importing the component group or
-directive directory:
+You can import component groups and directives as Vue plugins by importing from the `components`
+or `directives` directory:
 
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
-import { Layout } from 'bootstrap-vue/es/components'
-Vue.use(Layout)
+import { LayoutPlugin } from 'bootstrap-vue/es/components'
+Vue.use(LayoutPlugin)
 
 // This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import { Modal } from 'bootstrap-vue/es/components'
-Vue.use(Modal)
+import { ModalPlugin } from 'bootstrap-vue/es/components'
+Vue.use(ModalPlugin)
 
 // This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import { Card } from 'bootstrap-vue/es/components'
-Vue.use(Card)
+import { CardPlugin } from 'bootstrap-vue/es/components'
+Vue.use(CardPlugin)
 
 // This imports directive v-b-scrollspy as a plugin:
-import { Scrollspy } from 'bootstrap-vue/es/directives'
-Vue.use(Scrollspy)
+import { VBScrollspyPlugin } from 'bootstrap-vue/es/directives'
+Vue.use(VBScrollspyPlugin)
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
 When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
-sub components. Component shorthand aliases (if any) are also included in the plugin.
+sub components. Component shorthand aliases (if any) are also included in the plugin. Refer to the
+component and directive documentation for details.
 
-Refer to the component and directive documentation for details.
+There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
+you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are available for import from
+`'bootstrap-vue/es/components'` and `'bootstrap-vue/src/components'`:
+
+- `BVModalPlugin` - provides the injection `$bvModal` for generating
+  [message boxes](/docs/components/modal#modal-message-boxes).
+- `BVToastPlugin` - provides the injection `$bvToast` for generating
+  [on demand toasts](/docs/components/toast#toasts-on-demand).
 
 ### Individual components and directives
 
@@ -327,8 +395,8 @@ To cherry pick a component/directive, start by importing it in the file where it
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-import BModal from 'bootstrap-vue/es/components/modal/modal'
-import BModalDirective from 'bootstrap-vue/es/directives/modal/modal'
+import { BModal } from 'bootstrap-vue/es/components'
+import { VBModal } from 'bootstrap-vue/es/directives'
 ```
 
 Then add it to your component definition:
@@ -341,7 +409,8 @@ Vue.component('my-component', {
     'b-modal': BModal
   },
   directives: {
-    'b-modal': BModalDirective
+    // Note that Vue automatically prefixes directive names with `v-`
+    'b-modal': VBModal
   }
   // ...
 })
@@ -353,11 +422,13 @@ Or register them globally:
 
 ```js
 Vue.component('b-modal', BModal)
-Vue.directive('b-modal', BModalDirective)
+// Note that Vue automatically prefixes directive names with `v-`
+Vue.directive('b-modal', VBModal)
 ```
 
-Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
-camelCasing, PascalCasing, and/or object property shorthand.
+Vue allows for various component and directive name syntaxes here, so feel free to utilize
+<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or object
+property shorthand (components only).
 
 ### webpack + Babel
 
@@ -429,6 +500,15 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
 dependencies are included in the `commonjs2` and `UMD` bundles.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing indvidual
+    plugins or components, you may need to explicitly <code>require</code> the
+    <code>.default</code> export when not importing named exports. i.e.
+    <code class="text-nowrap">const foo = require("some/module").default;</code>
+  </p>
+</div>
 
 ## Migrating a project already using Bootstrap
 

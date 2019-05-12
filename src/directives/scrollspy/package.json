@@ -4,6 +4,6 @@
   "meta": {
     "title": "Scrollspy",
     "description": "Automatically activate BootstrapVue navigation or list group components based on scroll position to indicate which link is currently active in the viewport.",
-    "directive": "vBScrollspy"
+    "directive": "VBScrollspy"
   }
 }

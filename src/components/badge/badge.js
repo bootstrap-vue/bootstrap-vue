@@ -18,7 +18,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'variant'))
+    default: () => getComponentConfig(NAME, 'variant')
   },
   pill: {
     type: Boolean,
@@ -37,7 +37,7 @@ export default Vue.extend({
     const componentData = {
       staticClass: 'badge',
       class: [
-        `badge-${props.variant || getComponentConfig(NAME, 'variant')}`,
+        props.variant ? `badge-${props.variant}` : 'badge-secondary',
         {
           'badge-pill': Boolean(props.pill),
           active: props.active,

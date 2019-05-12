@@ -1,6 +1,6 @@
 import BModal from './modal'
-import bvModalInstall from './helpers/bv-modal'
-import BModalDirective from '../../directives/modal/modal'
+import BVModalPlugin from './helpers/bv-modal'
+import VBModal from '../../directives/modal/modal'
 import { installFactory } from '../../utils/plugins'
 
 const components = {
@@ -8,16 +8,16 @@ const components = {
 }
 
 const directives = {
-  BModal: BModalDirective
+  VBModal
 }
 
-const install = installFactory({ components, directives })
+const plugins = {
+  // $bvModal injection
+  BVModalPlugin
+}
+
+export { BModal }
 
 export default {
-  install: Vue => {
-    // Inject `$bvModal` into Vue prototype
-    bvModalInstall(Vue)
-    // Install component and directive
-    install(Vue)
-  }
+  install: installFactory({ components, directives, plugins })
 }

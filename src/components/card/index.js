@@ -23,6 +23,19 @@ const components = {
   BCardGroup
 }
 
+export {
+  BCard,
+  BCardHeader,
+  BCardBody,
+  BCardTitle,
+  BCardSubTitle,
+  BCardFooter,
+  BCardImg,
+  BCardImgLazy,
+  BCardText,
+  BCardGroup
+}
+
 export default {
   install: installFactory({ components })
 }

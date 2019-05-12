@@ -6,6 +6,8 @@ const components = {
   BSelect: BFormSelect
 }
 
+export { BFormSelect }
+
 export default {
   install: installFactory({ components })
 }

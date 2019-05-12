@@ -1,10 +1,15 @@
 import Vue from '../../utils/vue'
+import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean, isNumber } from '../../utils/inspect'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+const NAME = 'BProgressBar'
 
 // @vue/component
 export default Vue.extend({
-  name: 'BProgressBar',
+  name: NAME,
+  mixins: [normalizeSlotMixin],
   inject: {
     bvProgress: {
       default() /* istanbul ignore next */ {
@@ -36,7 +41,7 @@ export default Vue.extend({
     },
     variant: {
       type: String,
-      default: null
+      default: () => getComponentConfig(NAME, 'variant')
     },
     striped: {
       type: Boolean,
@@ -105,8 +110,8 @@ export default Vue.extend({
   },
   render(h) {
     let childNodes = h(false)
-    if (this.$slots.default) {
-      childNodes = this.$slots.default
+    if (this.hasNormalizedSlot('default')) {
+      childNodes = this.normalizeSlot('default')
     } else if (this.label || this.labelHtml) {
       childNodes = h('span', { domProps: htmlOrText(this.labelHtml, this.label) })
     } else if (this.computedShowProgress) {

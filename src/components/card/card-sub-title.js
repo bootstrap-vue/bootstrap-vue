@@ -15,7 +15,7 @@ export const props = {
   },
   subTitleTextVariant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'subTitleTextVariant') || '') || null
+    default: () => getComponentConfig(NAME, 'subTitleTextVariant')
   }
 }
 

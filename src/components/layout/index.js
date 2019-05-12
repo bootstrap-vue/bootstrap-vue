@@ -11,6 +11,8 @@ const components = {
   BFormRow
 }
 
+export { BContainer, BRow, BCol, BFormRow }
+
 export default {
   install: installFactory({ components })
 }

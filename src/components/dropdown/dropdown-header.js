@@ -8,7 +8,11 @@ export const props = {
   },
   tag: {
     type: String,
-    default: 'h6'
+    default: 'header'
+  },
+  variant: {
+    type: String,
+    default: null
   }
 }
 
@@ -16,6 +20,7 @@ export const props = {
 export default Vue.extend({
   name: 'BDropdownHeader',
   functional: true,
+  inheritAttrs: false,
   props,
   render(h, { props, data, children }) {
     return h('li', [
@@ -23,7 +28,13 @@ export default Vue.extend({
         props.tag,
         mergeData(data, {
           staticClass: 'dropdown-header',
-          attrs: { id: props.id || null },
+          class: {
+            [`text-${props.variant}`]: props.variant
+          },
+          attrs: {
+            id: props.id || null,
+            role: 'heading'
+          },
           ref: 'header'
         }),
         children

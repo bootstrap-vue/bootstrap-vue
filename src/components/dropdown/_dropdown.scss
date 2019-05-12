@@ -24,5 +24,28 @@ $bv-dropdown-defined: false !default;
         }
       }
     }
+
+    // Prevent dropdown background overflow if there's no padding
+    // See https://github.com/twbs/bootstrap/pull/27703
+    // Added here to address <li> wrapping of items
+    @if $dropdown-padding-y == 0 {
+      .dropdown-menu {
+        > :first-child {
+          .dropdown-item,
+          .dropdown-form,
+          .dropdown-text {
+            @include border-top-radius($dropdown-inner-border-radius);
+          }
+        }
+
+        > :last-child {
+          .dropdown-item,
+          .dropdown-form,
+          .dropdown-text {
+            @include border-bottom-radius($dropdown-inner-border-radius);
+          }
+        }
+      }
+    }
   }
 }

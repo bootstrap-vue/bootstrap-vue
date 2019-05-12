@@ -95,7 +95,8 @@ const Defaults = {
   container: false,
   fallbackPlacement: 'flip',
   callbacks: {},
-  boundary: 'scrollParent'
+  boundary: 'scrollParent',
+  boundaryPadding: 5
 }
 
 // Transition event names

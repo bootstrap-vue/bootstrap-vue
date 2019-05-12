@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { isVisible, selectAll } from '../../utils/dom'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import KeyCodes from '../../utils/key-codes'
 
 const ITEM_SELECTOR = [
@@ -13,6 +14,7 @@ const ITEM_SELECTOR = [
 // @vue/component
 export default Vue.extend({
   name: 'BButtonToolbar',
+  mixins: [normalizeSlotMixin],
   props: {
     justify: {
       type: Boolean,
@@ -109,7 +111,7 @@ export default Vue.extend({
             }
           : {}
       },
-      [this.$slots.default]
+      [this.normalizeSlot('default')]
     )
   }
 })

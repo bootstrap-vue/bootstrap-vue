@@ -4,6 +4,7 @@
 
 import Vue from '../../../utils/vue'
 import BModal, { props as modalProps } from '../modal'
+import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
@@ -14,17 +15,21 @@ import {
   defineProperties,
   readonlyDescriptor
 } from '../../../utils/object'
-import { warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
+import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 
 // --- Constants ---
 
 const PROP_NAME = '$bvModal'
+const PROP_NAME_PRIV = '_bv__modal'
 
 // Base modal props that are allowed
 // Some may be ignored or overridden on some message boxes
 // Prop ID is allowed, but really only should be used for testing
 // We need to add it in explicitly as it comes from the `idMixin`
-const BASE_PROPS = ['id', ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'visible']))]
+const BASE_PROPS = [
+  'id',
+  ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', `static`, 'visible']))
+]
 
 // Fallback event resolver (returns undefined)
 const defaultResolver = bvModalEvt => {}
@@ -126,7 +131,7 @@ const asyncMsgBox = (props, $parent, resolver = defaultResolver) => {
     if (!isUndefined(props[prop])) {
       // Can be a string, or array of VNodes.
       // Alternatively, user can use HTML version of prop to pass an HTML string.
-      msgBox.$slots[propsToSlots[prop]] = props[prop]
+      msgBox.$slots[propsToSlots[prop]] = concat(props[prop])
     }
   })
 
@@ -253,19 +258,19 @@ class BvModal {
 
 // Method to install `$bvModal` VM injection
 const install = _Vue => {
-  if (install._installed) {
+  if (install.installed) {
     // Only install once
     /* istanbul ignore next */
     return
   }
-  install._installed = true
+  install.installed = true
 
   // Add our instance mixin
   _Vue.mixin({
     beforeCreate() {
       // Because we need access to `$root` for `$emits`, and VM for parenting,
       // we have to create a fresh instance of `BvModal` for each VM
-      this._bv__modal = new BvModal(this)
+      this[PROP_NAME_PRIV] = new BvModal(this)
     }
   })
 
@@ -274,10 +279,18 @@ const install = _Vue => {
   if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
     defineProperty(_Vue.prototype, PROP_NAME, {
       get() {
-        return this._bv__modal
+        /* istanbul ignore next */
+        if (!this || !this[PROP_NAME_PRIV]) {
+          warn(`'${PROP_NAME}' must be accessed from a Vue instance 'this' context`)
+        }
+        return this[PROP_NAME_PRIV]
       }
     })
   }
 }
 
-export default install
+install.installed = false
+
+export default {
+  install: install
+}

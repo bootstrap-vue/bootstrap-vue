@@ -27,7 +27,7 @@ const btnProps = {
   },
   variant: {
     type: String,
-    default: () => String(getComponentConfig(NAME, 'variant'))
+    default: () => getComponentConfig(NAME, 'variant')
   },
   type: {
     type: String,
@@ -36,6 +36,10 @@ const btnProps = {
   tag: {
     type: String,
     default: 'button'
+  },
+  pill: {
+    type: Boolean,
+    default: false
   },
   pressed: {
     // tri-state prop: true, false or null
@@ -91,6 +95,7 @@ const computeClass = props => [
   {
     [`btn-${props.size}`]: Boolean(props.size),
     'btn-block': props.block,
+    'rounded-pill': props.pill,
     disabled: props.disabled,
     active: props.pressed
   }

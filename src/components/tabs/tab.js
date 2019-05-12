@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 
@@ -8,7 +9,7 @@ const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> compo
 // @vue/component
 export default Vue.extend({
   name: 'BTab',
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvTabs: {
       default() {
@@ -148,7 +149,7 @@ export default Vue.extend({
   updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
-    if (this.$slots.title && this.bvTabs.updateButton) {
+    if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
       this.bvTabs.updateButton(this)
     }
   },
@@ -208,7 +209,7 @@ export default Vue.extend({
         }
       },
       // Render content lazily if requested
-      [this.localActive || !this.computedLazy ? this.$slots.default : h(false)]
+      [this.localActive || !this.computedLazy ? this.normalizeSlot('default') : h(false)]
     )
     return h(
       'transition',

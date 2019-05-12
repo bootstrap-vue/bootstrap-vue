@@ -9,6 +9,8 @@ const components = {
   BMediaBody
 }
 
+export { BMedia, BMediaAside, BMediaBody }
+
 export default {
   install: installFactory({ components })
 }

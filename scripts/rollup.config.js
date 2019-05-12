@@ -6,6 +6,8 @@ import commonjs from 'rollup-plugin-commonjs'
 import { camelCase } from 'lodash'
 import { name, dependencies } from '../package.json'
 
+const bannerComment = require('./banner')
+
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
@@ -39,6 +41,7 @@ export default [
       format: 'umd',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.js`),
+      banner: bannerComment,
       sourcemap: true,
       globals: {
         vue: 'Vue'
@@ -54,6 +57,7 @@ export default [
       format: 'cjs',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.common.js`),
+      banner: bannerComment,
       sourcemap: true
     }
   },
@@ -64,6 +68,7 @@ export default [
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),
+      banner: bannerComment,
       sourcemap: true
     }
   }

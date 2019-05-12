@@ -13,13 +13,5 @@ $bv-dropdown-text-defined: false !default;
     width: 100%;
     clear: both;
     font-weight: $font-weight-lighter;
-
-    &:first-child {
-      @include border-top-radius($dropdown-inner-border-radius);
-    }
-
-    &:last-child {
-      @include border-bottom-radius($dropdown-inner-border-radius);
-    }
   }
 }

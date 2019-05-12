@@ -15,6 +15,7 @@ import {
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
 import { isUndefined } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BCarousel'
 
@@ -70,7 +71,7 @@ function getTransitionEndEvent(el) {
 // @vue/component
 export default Vue.extend({
   name: 'BCarousel',
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return { bvCarousel: this }
   },
@@ -81,19 +82,19 @@ export default Vue.extend({
   props: {
     labelPrev: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelPrev'))
+      default: () => getComponentConfig(NAME, 'labelPrev')
     },
     labelNext: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelNext'))
+      default: () => getComponentConfig(NAME, 'labelNext')
     },
     labelGotoSlide: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelGotoSlide'))
+      default: () => getComponentConfig(NAME, 'labelGotoSlide')
     },
     labelIndicators: {
       type: String,
-      default: () => String(getComponentConfig(NAME, 'labelIndicators'))
+      default: () => getComponentConfig(NAME, 'labelIndicators')
     },
     interval: {
       type: Number,
@@ -462,7 +463,7 @@ export default Vue.extend({
           role: 'list'
         }
       },
-      [this.$slots.default]
+      [this.normalizeSlot('default')]
     )
 
     // Prev and next controls
