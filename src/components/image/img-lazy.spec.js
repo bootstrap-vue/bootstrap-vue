@@ -121,7 +121,12 @@ describe('img-lazy', () => {
         isShown: true
       })
 
-      // expect(wrapper.attributes('src')).toContain(src)
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.vm.scrollTimeout).toBe(null)
+
+      expect(wrapper.attributes('src')).toContain(src)
 
       window.dispatchEvent(resizeEvt)
 
