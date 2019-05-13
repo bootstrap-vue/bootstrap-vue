@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import BVTransition from '../../utils/bv-transition'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 
@@ -85,9 +86,7 @@ export default Vue.extend({
     tabClasses() {
       return [
         {
-          show: this.show,
           active: this.localActive,
-          fade: this.computedFade,
           disabled: this.disabled,
           'card-body': this.bvTabs.card && !this.noBody
         },
@@ -98,8 +97,8 @@ export default Vue.extend({
     controlledBy() {
       return this.buttonId || this.safeId('__BV_tab_button__')
     },
-    computedFade() {
-      return this.bvTabs.fade || false
+    computedNoFade() {
+      return !(this.bvTabs.fade || false)
     },
     computedLazy() {
       return this.bvTabs.lazy || this.lazy
@@ -154,18 +153,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    // Transition handlers
-    beforeEnter() {
-      // Change opacity (add 'show' class) 1 frame after display,
-      // otherwise CSS transition won't happen
-      requestAF(() => {
-        this.show = true
-      })
-    },
-    beforeLeave() {
-      // Remove the 'show' class
-      this.show = false
-    },
     // Public methods
     activate() {
       if (this.bvTabs.activateTab && !this.disabled) {
@@ -192,7 +179,6 @@ export default Vue.extend({
         staticClass: 'tab-pane',
         class: this.tabClasses,
         directives: [
-          // TODO: Convert to style object in render
           {
             name: 'show',
             rawName: 'v-show',
@@ -211,25 +197,6 @@ export default Vue.extend({
       // Render content lazily if requested
       [this.localActive || !this.computedLazy ? this.normalizeSlot('default') : h(false)]
     )
-    return h(
-      'transition',
-      {
-        props: {
-          mode: 'out-in',
-          // Disable use of built-in transition classes
-          'enter-class': '',
-          'enter-active-class': '',
-          'enter-to-class': '',
-          'leave-class': '',
-          'leave-active-class': '',
-          'leave-to-class': ''
-        },
-        on: {
-          beforeEnter: this.beforeEnter,
-          beforeLeave: this.beforeLeave
-        }
-      },
-      [content]
-    )
+    return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [content])
   }
 })
