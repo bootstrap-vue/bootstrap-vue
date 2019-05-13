@@ -67,8 +67,7 @@ export default Vue.extend({
       countDownTimerId: null,
       countDown: 0,
       // If initially shown, we need to set these for SSR
-      localShow: parseShow(this.show),
-      showClass: this.fade && this.show
+      localShow: parseShow(this.show)
     }
   },
   watch: {
@@ -150,8 +149,6 @@ export default Vue.extend({
           key: this._uid,
           staticClass: 'alert',
           class: {
-            fade: this.fade,
-            show: this.showClass,
             'alert-dismissible': this.dismissible,
             [`alert-${this.variant}`]: this.variant
           },
