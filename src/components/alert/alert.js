@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
+import BVTransition from '../../utils/bv-transition'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
 
@@ -129,16 +130,6 @@ export default Vue.extend({
         clearInterval(this.countDownTimerId)
         this.countDownTimerId = null
       }
-    },
-    onBeforeEnter() {
-      if (this.fade) {
-        requestAF(() => {
-          this.showClass = true
-        })
-      }
-    },
-    onBeforeLeave() /* istanbul ignore next: does not appear to be called in vue-test-utils */ {
-      this.showClass = false
     }
   },
   render(h) {
@@ -156,6 +147,7 @@ export default Vue.extend({
       $alert = h(
         'div',
         {
+          key: this._uid,
           staticClass: 'alert',
           class: {
             fade: this.fade,
@@ -169,23 +161,6 @@ export default Vue.extend({
       )
       $alert = [$alert]
     }
-    return h(
-      'transition',
-      {
-        props: {
-          'enter-class': '',
-          'enter-active-class': '',
-          'enter-to-class': '',
-          'leave-class': 'show',
-          'leave-active-class': '',
-          'leave-to-class': ''
-        },
-        on: {
-          beforeEnter: this.onBeforeEnter,
-          beforeLeave: this.onBeforeLeave
-        }
-      },
-      $alert
-    )
+    return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
   }
 })
