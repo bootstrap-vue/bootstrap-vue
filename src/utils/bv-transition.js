@@ -53,3 +53,5 @@ export const BVTransition = Vue.extend({
     )
   }
 })
+
+export default BVTransition
