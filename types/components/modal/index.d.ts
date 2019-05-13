@@ -86,7 +86,7 @@ export interface BvModal {
   msgBoxOk: BvModalMsgBoxShortcutMethod
 
   // Show Confirm MsgBox
-  msgBoxCofirm: BvModalMsgBoxShortcutMethod
+  msgBoxConfirm: BvModalMsgBoxShortcutMethod
 
   // Show general MsgBox (not yet documented)
   // msgBox: BvModalMsgBoxMethod
