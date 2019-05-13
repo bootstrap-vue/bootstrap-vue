@@ -194,6 +194,7 @@ export default Vue.extend({
     },
     checkView() {
       // check bounding box + offset to see if we should show
+      /* istanbul ignore next: should rarely occur */
       if (this.isShown) {
         this.setListeners(false)
         return
@@ -214,6 +215,7 @@ export default Vue.extend({
       }
     },
     onScroll() {
+      /* istanbul ignore if: should rarely occur */
       if (this.isShown) {
         this.setListeners(false)
       } else {
