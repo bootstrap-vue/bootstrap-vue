@@ -1,6 +1,7 @@
 // Generic Bootstrap V4 fade (no-fade) transition component
 
 import { mergeData } from 'vue-functional-data-merge'
+import { isPlainObject } from './inspect'
 
 const NO_FADE_PROPS = {
   name: '',
@@ -23,9 +24,12 @@ export const BVTransition = Vue.extend({
   functional: true,
   props: {
     noFade: {
+      // Only applicable to the built in transition
+      // Has no effect if `trans-props` provided
       type: Boolean,
       default: false
     },
+    // For user supplied transitions (if needed)
     transProps: {
       type: Object,
       default: null
