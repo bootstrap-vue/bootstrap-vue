@@ -72,7 +72,8 @@ describe('img-lazy', () => {
       const wrapper = mount(BImgLazy, {
         attachToDocument: true,
         propsData: {
-          src: src
+          src: src,
+          offset: 500
         }
       })
       expect(wrapper.is('img')).toBe(true)
@@ -98,6 +99,7 @@ describe('img-lazy', () => {
       window.dispatchEvent(resizeEvt)
 
       await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
 
       expect(wrapper.vm.scrollTimeout).not.toBe(null)
 
@@ -107,7 +109,7 @@ describe('img-lazy', () => {
       //   isShown: true
       // })
 
-      expect(wrapper.attributes('src')).not.toContain('data:image/svg+xml;charset=UTF-8')
+      expect(wrapper.attributes('src')).toContain(src)
 
       window.dispatchEvent(resizeEvt)
 
