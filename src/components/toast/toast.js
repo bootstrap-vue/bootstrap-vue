@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
+import BVTransition from '../../utils/bv-transition'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -96,17 +97,6 @@ export const props = {
   }
 }
 
-// Transition props defaults
-const DEFAULT_TRANSITION_PROPS = {
-  name: '',
-  enterClass: '',
-  enterActiveClass: '',
-  enterToClass: '',
-  leaveClass: 'show',
-  leaveActiveClass: '',
-  leaveToClass: ''
-}
-
 // @vue/component
 export default Vue.extend({
   name: NAME,
@@ -122,7 +112,6 @@ export default Vue.extend({
       isMounted: false,
       doRender: false,
       localShow: false,
-      showClass: false,
       isTransitioning: false,
       order: 0,
       timer: null,
@@ -132,13 +121,7 @@ export default Vue.extend({
   },
   computed: {
     toastClasses() {
-      return [
-        this.toastClass,
-        {
-          show: this.showClass,
-          fade: !this.noFade
-        }
-      ]
+      return [this.toastClass]
     },
     bToastClasses() {
       return {
@@ -325,9 +308,6 @@ export default Vue.extend({
     },
     onBeforeEnter() {
       this.isTransitioning = true
-      requestAF(() => {
-        this.showClass = true
-      })
     },
     onAfterEnter() {
       this.isTransitioning = false
@@ -338,9 +318,6 @@ export default Vue.extend({
     },
     onBeforeLeave() {
       this.isTransitioning = true
-      requestAF(() => {
-        this.showClass = false
-      })
     },
     onAfterLeave() {
       this.isTransitioning = false
@@ -433,7 +410,7 @@ export default Vue.extend({
       },
       [
         h('div', { key: name, ref: 'btoast', staticClass: 'b-toast', class: this.bToastClasses }, [
-          h('transition', { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers }, [
+          h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
             this.localShow ? this.makeToast(h) : null
           ])
         ])
