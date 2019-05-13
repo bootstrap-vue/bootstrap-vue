@@ -72,14 +72,12 @@ and subsequent changes to the breakpoints will **not** be reflected.
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-import Layout from 'bootstrap-vue/es/components/layout'
-import Alert from 'bootstrap-vue/es/components/alert'
-import Button from 'bootstrap-vue/es/components/button'
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
 
 // Supply configs via each plugin as it is `Vue.use()`'d
-Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
-Vue.use(Alert, { BAlert: { variant: 'danger' } })
-Vue.use(Button, { BButton: { variant: 'primary' } })
+Vue.use(LayoutPlugin, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
+Vue.use(AlertPlugin, { BAlert: { variant: 'danger' } })
+Vue.use(ButtonPlugin, { BButton: { variant: 'primary' } })
 ```
 
 **Example 2:**
@@ -87,18 +85,16 @@ Vue.use(Button, { BButton: { variant: 'primary' } })
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-import Layout from 'bootstrap-vue/es/components/layout'
-import Alert from 'bootstrap-vue/es/components/alert'
-import Button from 'bootstrap-vue/es/components/button'
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
 
 // Supply complete config to first `Vue.use()`'d plugin
-Vue.use(Layout, {
+Vue.use(LayoutPlugin, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   BAlert: { variant: 'danger' },
   BButton: { variant: 'primary' }
 })
-Vue.use(Alert)
-Vue.use(Button)
+Vue.use(AlertPlugin)
+Vue.use(ButtonPlugin)
 ```
 
 **Example 3 (most preferred method):**
@@ -109,9 +105,7 @@ Vue.use(Button)
 // BootstrapVue configuration helper plugin
 import BVConfig from 'bootstrap-vue/es/bv-config'
 // Component plugins
-import Layout from 'bootstrap-vue/es/components/layout'
-import Alert from 'bootstrap-vue/es/components/alert'
-import Button from 'bootstrap-vue/es/components/button'
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
 
 // Supply complete config to the BVConfig helper plugin
 Vue.use(BVConfig, {
@@ -121,9 +115,9 @@ Vue.use(BVConfig, {
 })
 
 // Then use component plugins
-Vue.use(Layout)
-Vue.use(Alert)
-Vue.use(Button)
+Vue.use(LayoutPlugin)
+Vue.use(AlertPlugin)
+Vue.use(ButtonPlugin)
 ```
 
 **Caveat:** Vue only installs plugins _once_. If you import a plugin that has already been imported
