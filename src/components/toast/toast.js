@@ -120,9 +120,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    toastClasses() {
-      return [this.toastClass]
-    },
     bToastClasses() {
       return {
         'b-toast-solid': this.solid,
