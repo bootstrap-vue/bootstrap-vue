@@ -25,6 +25,10 @@
     // Needed for re-usable fade transition
     opacity: 1;
 
+    &.fade:not(.show) {
+      opacity: 0;
+    }
+
     .toast-body {
       display: block; // Needed when we use a link as the body element
     }
