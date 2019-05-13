@@ -278,14 +278,13 @@ describe('alert', () => {
       show: true
     })
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('fade')
     expect(wrapper.classes()).toContain('show')
+
+    await waitRAF()
 
     wrapper.setProps({
       show: false
