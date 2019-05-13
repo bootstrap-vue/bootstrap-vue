@@ -374,10 +374,10 @@ export default Vue.extend({
       const $toast = h(
         'div',
         {
-          key: 'toast',
+          key: this._uid,
           ref: 'toast',
           staticClass: 'toast',
-          class: this.toastClasses,
+          class: this.toastClass,
           attrs: {
             ...this.$attrs,
             id: this.id || null,
@@ -411,7 +411,7 @@ export default Vue.extend({
       [
         h('div', { key: name, ref: 'btoast', staticClass: 'b-toast', class: this.bToastClasses }, [
           h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
-            this.localShow ? this.makeToast(h) : null
+            this.localShow ? this.makeToast(h) : h(false)
           ])
         ])
       ]
