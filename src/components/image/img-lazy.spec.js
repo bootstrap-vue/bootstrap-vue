@@ -124,7 +124,7 @@ describe('img-lazy', () => {
       // })
 
       // Advance the setTimeout
-      jest.runPendingTimers()
+      jest.runOnlyPendingTimers()
 
       await wrapper.vm.$nextTick()
       await wrapper.vm.$nextTick()
