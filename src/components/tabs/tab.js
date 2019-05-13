@@ -3,7 +3,6 @@ import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BVTransition from '../../utils/bv-transition'
 import warn from '../../utils/warn'
-import { requestAF } from '../../utils/dom'
 
 const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead.'
 
