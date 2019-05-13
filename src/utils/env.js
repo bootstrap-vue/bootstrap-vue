@@ -48,10 +48,10 @@ export const hasIntersectionObserverSupport =
   isBrowser &&
   'IntersectionObserver' in window &&
   'IntersectionObserverEntry' in window &&
-  'intersectionRatio' in window.IntersectionObserverEntry.prototype 
   // Edge 15 and UC Browser lack support for `isIntersecting`
   // but we an use intersectionRatio > 0 instead
-  // 'isIntersecting' in window.IntersectionObserverEntry.prototype
+  // 'isIntersecting' in window.IntersectionObserverEntry.prototype &&
+  'intersectionRatio' in window.IntersectionObserverEntry.prototype
 
 // --- Getters ---
 
