@@ -1,4 +1,4 @@
-import OurVue from 'vue'
+import OurVue from './vue'
 import warn from './warn'
 import { setConfig } from './config'
 import { hasWindowSupport } from './env'
