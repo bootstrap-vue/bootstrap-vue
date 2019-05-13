@@ -159,6 +159,7 @@ export default Vue.extend({
         clearTimeout(this.scrollTimeout)
         this.scrollTimeout = null
       }
+      /* istanbul ignore next: JSDOM doen't support IntersectionObserver */
       if (this.observer) {
         this.observer.unobserve(this.$el)
         this.observer.disconnect()
@@ -169,6 +170,7 @@ export default Vue.extend({
       eventOff(this.$el, 'load', this.checkView, EVENT_OPTIONS)
       eventOff(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
       if (on) {
+        /* istanbul ignore if: JSDOM doen't support IntersectionObserver */
         if (hasIntersectionObserverSupport) {
           this.observer = new IntersectionObserver(this.doShow, {
             root: null, // viewport
