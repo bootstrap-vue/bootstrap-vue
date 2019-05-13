@@ -21,6 +21,10 @@
   }
 
   .toast {
+    // Override default boostrap V4.x opacity of 0
+    // Needed for re-usable fade transition
+    opacity: 1;
+
     .toast-body {
       display: block; // Needed when we use a link as the body element
     }
