@@ -62,6 +62,8 @@ describe('img-lazy', () => {
   describe('scroll events', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
+    jest.useFakeTimers()
+
     afterEach(() => {
       // Restore prototype
       Element.prototype.getBoundingClientRect = origGetBCR
@@ -69,15 +71,16 @@ describe('img-lazy', () => {
 
     it('triggers check on resize event event', async () => {
       const src = 'https://picsum.photos/1024/400/?image=41'
-      // Fake getBCR initially off screen
+
+      // Fake getBCR initially "off screen"
       Element.prototype.getBoundingClientRect = jest.fn(() => {
         return {
           width: 24,
           height: 24,
           top: 10000,
           left: 10000,
-          bottom: 0,
-          right: 0
+          bottom: -10000,
+          right: -10000
         }
       })
 
@@ -95,20 +98,19 @@ describe('img-lazy', () => {
 
       expect(wrapper.vm.scrollTimeout).toBe(null)
 
-      // Fake getBCR in view
+      // Fake getBCR "in view"
       Element.prototype.getBoundingClientRect = jest.fn(() => {
         return {
           width: 24,
           height: 24,
           top: 0,
           left: 0,
-          bottom: 1000,
-          right: 1000
+          bottom: 0,
+          right: 0
         }
       })
 
-      const resizeEvt = new UIEvent('resize')
-      window.dispatchEvent(resizeEvt)
+      window.dispatchEvent(new UIEvent('resize'))
 
       await wrapper.vm.$nextTick()
       await wrapper.vm.$nextTick()
@@ -117,9 +119,12 @@ describe('img-lazy', () => {
 
       // Since JSDOM doesnt support getBCR, we fake it by setting
       // the data prop to shown
-      wrapper.setData({
-        isShown: true
-      })
+      // wrapper.setData({
+      //   isShown: true
+      // })
+
+      // Advance the setTimeout
+      jest.runPendingTimers()
 
       await wrapper.vm.$nextTick()
       await wrapper.vm.$nextTick()
@@ -128,7 +133,7 @@ describe('img-lazy', () => {
 
       expect(wrapper.attributes('src')).toContain(src)
 
-      window.dispatchEvent(resizeEvt)
+      window.dispatchEvent(new UIEvent('resize'))
 
       expect(wrapper.vm.scrollTimeout).toBe(null)
 
