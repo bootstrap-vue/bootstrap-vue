@@ -7,7 +7,7 @@ import { hasIntersectionObserverSupport } from '../../utils/env'
 const NAME = 'BImgLazy'
 
 const THROTTLE = 100
-const EVT_OPTIONS = { passive: true, capture: false }
+const EVENT_OPTIONS = { passive: true, capture: false }
 
 export const props = {
   src: {
@@ -165,9 +165,9 @@ export default Vue.extend({
         this.observer = null
       }
       const winEvts = ['scroll', 'resize', 'orientationchange']
-      winEvts.forEach(evt => eventOff(window, evt, this.onScroll, EVT_OPTS))
-      eventOff(this.$el, 'load', this.checkView, EVT_OPTS)
-      eventOff(document, 'transitionend', this.onScroll, EVT_OPTS)
+      winEvts.forEach(evt => eventOff(window, evt, this.onScroll, EVENT_OPTIONS))
+      eventOff(this.$el, 'load', this.checkView, EVENT_OPTIONS)
+      eventOff(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
       if (on) {
         if (hasIntersectionObserverSupport) {
           this.observer = new IntersectionObserver(this.doShow, {
@@ -178,9 +178,9 @@ export default Vue.extend({
           this.observer.observe(this.$el)
         } else {
           // Fallback to scroll/etc events
-          winEvts.forEach(evt => eventOn(window, evt, this.onScroll, EVT_OPTS))
-          eventOn(this.$el, 'load', this.checkView, EVT_OPTS)
-          eventOn(document, 'transitionend', this.onScroll, EVT_OPTS)
+          winEvts.forEach(evt => eventOn(window, evt, this.onScroll, EVENT_OPTIONS))
+          eventOn(this.$el, 'load', this.checkView, EVENT_OPTIONS)
+          eventOn(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
         }
       }
     },
