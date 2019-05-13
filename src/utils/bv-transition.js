@@ -29,6 +29,10 @@ export const BVTransition = Vue.extend({
       type: Boolean,
       default: false
     },
+    mode: {
+      type: String
+      // default: undefined
+    },
     // For user supplied transitions (if needed)
     transProps: {
       type: Object,
@@ -41,6 +45,7 @@ export const BVTransition = Vue.extend({
       transProps = props.noFade ? NO_FADE_PROPS : FADE_PROPS
     }
     transProps = {
+      mode: props.mode,
       ...transProps,
       // We always need `css` true
       css: true
