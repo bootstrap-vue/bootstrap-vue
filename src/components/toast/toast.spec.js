@@ -44,8 +44,6 @@ describe('b-toast', () => {
     const $toast = wrapper.find('.toast')
     expect($toast.is('div')).toBe(true)
     expect($toast.classes()).toContain('toast')
-    expect($toast.classes()).toContain('fade')
-    expect($toast.classes()).toContain('show')
     expect($toast.classes().length).toBe(3)
     expect($toast.attributes('role')).toEqual('alert')
     expect($toast.attributes('aria-live')).toEqual('assertive')
