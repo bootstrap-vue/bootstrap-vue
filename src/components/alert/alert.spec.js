@@ -259,9 +259,6 @@ describe('alert', () => {
     expect(wrapper.classes()).toContain('fade')
     await waitRAF()
     await waitRAF()
-
-    expect(wrapper.classes()).toContain('show')
-
     await waitRAF()
 
     wrapper.setProps({
