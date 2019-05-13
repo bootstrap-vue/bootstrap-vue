@@ -69,6 +69,18 @@ describe('img-lazy', () => {
 
     it('triggers check on resize event event', async () => {
       const src = 'https://picsum.photos/1024/400/?image=41'
+      // Fake getBCR initially off screen
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          width: 24,
+          height: 24,
+          top: 10000,
+          left: 10000,
+          bottom: 0,
+          right: 0
+        }
+      })
+
       const wrapper = mount(BImgLazy, {
         attachToDocument: true,
         propsData: {
@@ -83,15 +95,15 @@ describe('img-lazy', () => {
 
       expect(wrapper.vm.scrollTimeout).toBe(null)
 
-      // Fake getBCR
+      // Fake getBCR in view
       Element.prototype.getBoundingClientRect = jest.fn(() => {
         return {
           width: 24,
           height: 24,
           top: 0,
           left: 0,
-          bottom: 10,
-          right: 10
+          bottom: 1000,
+          right: 1000
         }
       })
 
@@ -121,6 +133,8 @@ describe('img-lazy', () => {
       expect(wrapper.vm.scrollTimeout).toBe(null)
 
       wrapper.destroy()
+
+      Element.prototype.getBoundingClientRect = origGetBCR
     })
   })
 })
