@@ -109,6 +109,11 @@ describe('img-lazy', () => {
       //   isShown: true
       // })
 
+      console.log(
+        'Client Info:',
+        document.documentElement.clientWidth,
+        document.documentElement.clientHeight
+      )
       expect(wrapper.attributes('src')).toContain(src)
 
       window.dispatchEvent(resizeEvt)
