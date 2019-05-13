@@ -154,7 +154,7 @@ export default {
     BButton,
     BRow,
     BCol
-  },
+  }
   // ...
 }
 ```
