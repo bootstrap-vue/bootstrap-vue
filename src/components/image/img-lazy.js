@@ -206,9 +206,8 @@ export default Vue.extend({
         b: docElement.clientHeight + offset,
         r: docElement.clientWidth + offset
       }
-      /* istanbul ignore next */
+      // JSDOM Doesn't support BCR, but we fake it in the tests
       const box = getBCR(this.$el)
-      /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */
       if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
         // image is in view (or about to be in view)
         this.doShow([{ isIntersecting: true }])
