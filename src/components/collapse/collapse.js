@@ -158,10 +158,13 @@ export default Vue.extend({
     onEnter(el) {
       const dimension = this.dimension
       const scrollDimension = this.scrollDimension
+      /* istanbul ignore next */
       if (this.horizontal) {
         el.style.height = 0
+        el.style.width = 'auto'
         reflow(el)
         el.style.height = el.scrollHeight + 'px'
+        el.style.width = null
       }
       el.style[dimension] = 0
       reflow(el)
@@ -177,6 +180,7 @@ export default Vue.extend({
     },
     onLeave(el) {
       const dimension = this.dimension
+      /* istanbul ignore next */
       if (this.horizontal) {
         el.style.height = getBCR(el).height + 'px'
       }
@@ -189,7 +193,7 @@ export default Vue.extend({
       this.$emit('hide')
     },
     onAfterLeave(el) {
-      el.stye.height = el.style[this.dimension] = null
+      el.style.height = el.style[this.dimension] = null
       this.transitioning = false
       this.$emit('hidden')
     },
