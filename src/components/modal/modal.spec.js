@@ -244,16 +244,11 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).toContain('show')
-      expect($modal.classes()).toContain('d-block')
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
-      expect($backdrop.classes()).toContain('fade')
-      expect($backdrop.classes()).toContain('show')
 
       // Now we close the modal via the value prop
       wrapper.setProps({
@@ -275,8 +270,6 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.attributes('aria-modal')).not.toBeDefined()
-      expect($modal.classes()).not.toContain('show')
-      expect($modal.classes()).not.toContain('d-block')
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed
