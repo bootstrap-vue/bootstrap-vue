@@ -10,4 +10,4 @@ export default FormGroupPlugin
 export interface FormGroupPlugin extends BvPlugin {}
 
 // Component: b-form-group
-export interface BFormGroup extends Vue {}
+export declare class BFormGroup extends Vue {}
