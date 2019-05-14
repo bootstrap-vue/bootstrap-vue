@@ -7,6 +7,7 @@ import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import BVTransition from '../../utils/bv-transition'
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import { isBrowser } from '../../utils/env'
@@ -227,11 +228,9 @@ export default Vue.extend({
   props,
   data() {
     return {
-      is_hidden: true, // If should not be in document
-      is_visible: false, // Controls modal visible state
+      is_hidden: true, // If modal should not be in document
+      is_visible: false, // Controls modal visible state/transitions
       is_transitioning: false, // Used for style control
-      is_show: false, // Used for style control
-      is_block: false, // Used for style control
       is_opening: false, // To signal that the modal is in the process of opening
       is_closing: false, // To signal that the modal is in the process of closing
       ignoreBackdropClick: false, // Used to signify if click out listener should ignore the click
@@ -246,14 +245,7 @@ export default Vue.extend({
   },
   computed: {
     modalClasses() {
-      return [
-        {
-          fade: !this.noFade,
-          show: this.is_show,
-          'd-block': this.is_block
-        },
-        this.modalClass
-      ]
+      return [this.modalClass]
     },
     modalStyles() {
       const sbWidth = `${this.scrollbarWidth}px`
@@ -271,12 +263,6 @@ export default Vue.extend({
         },
         this.dialogClass
       ]
-    },
-    backdropClasses() {
-      return {
-        fade: !this.noFade,
-        show: this.is_show || this.noFade
-      }
     },
     headerClasses() {
       return [
@@ -361,7 +347,6 @@ export default Vue.extend({
     this.setResizeEvent(false)
     if (this.is_visible) {
       this.is_visible = false
-      this.is_show = false
       this.is_transitioning = false
     }
   },
@@ -494,12 +479,15 @@ export default Vue.extend({
         this.is_opening = false
         // Update the v-model
         this.updateModel(true)
-        // Observe changes in modal content and adjust if necessary
-        this._observer = observeDom(
-          this.$refs.content,
-          this.checkModalOverflow.bind(this),
-          OBSERVER_CONFIG
-        )
+        this.$nextTick(() => {
+          // In a nextTick in case modal content is lazy
+          // Observe changes in modal content and adjust if necessary
+          this._observer = observeDom(
+            this.$refs.content,
+            this.checkModalOverflow.bind(this),
+            OBSERVER_CONFIG
+          )
+        })
       })
     },
     // Transition handlers
@@ -507,12 +495,8 @@ export default Vue.extend({
       this.is_transitioning = true
       this.setResizeEvent(true)
     },
-    onEnter() {
-      this.is_block = true
-    },
     onAfterEnter() {
       this.checkModalOverflow()
-      this.is_show = true
       this.is_transitioning = false
       this.$nextTick(() => {
         const shownEvt = new BvModalEvent('shown', {
@@ -531,12 +515,7 @@ export default Vue.extend({
       this.is_transitioning = true
       this.setResizeEvent(false)
     },
-    onLeave() {
-      // Remove the 'show' class
-      this.is_show = false
-    },
     onAfterLeave() {
-      this.is_block = false
       this.is_transitioning = false
       this.setEnforceFocus(false)
       this.isModalOverflowing = false
@@ -717,11 +696,7 @@ export default Vue.extend({
                   ariaLabel: this.headerCloseLabel,
                   textVariant: this.headerCloseVariant || this.headerTextVariant
                 },
-                on: {
-                  click: evt => {
-                    this.onClose()
-                  }
-                }
+                on: { click: this.onClose }
               },
               [this.normalizeSlot('modal-header-close', {})]
             )
@@ -746,6 +721,7 @@ export default Vue.extend({
           [modalHeader]
         )
       }
+
       // Modal body
       const body = h(
         'div',
@@ -772,11 +748,7 @@ export default Vue.extend({
                   size: this.buttonSize,
                   disabled: this.cancelDisabled || this.busy || this.is_transitioning
                 },
-                on: {
-                  click: evt => {
-                    this.onCancel()
-                  }
-                }
+                on: { click: this.onCancel }
               },
               [
                 this.normalizeSlot('modal-cancel', {}) ||
@@ -793,11 +765,7 @@ export default Vue.extend({
                 size: this.buttonSize,
                 disabled: this.okDisabled || this.busy || this.is_transitioning
               },
-              on: {
-                click: evt => {
-                  this.onOk()
-                }
-              }
+              on: { click: this.onOk }
             },
             [this.normalizeSlot('modal-ok', {}) || this.okTitleHtml || stripTags(this.okTitle)]
           )
@@ -814,6 +782,7 @@ export default Vue.extend({
           [modalFooter]
         )
       }
+
       // Assemble modal content
       const modalContent = h(
         'div',
@@ -830,18 +799,18 @@ export default Vue.extend({
         },
         [header, body, footer]
       )
+
       // Modal dialog wrapper
       const modalDialog = h(
         'div',
         {
           staticClass: 'modal-dialog',
           class: this.dialogClasses,
-          on: {
-            mousedown: this.onDialogMousedown
-          }
+          on: { mousedown: this.onDialogMousedown }
         },
         [modalContent]
       )
+
       // Modal
       let modal = h(
         'div',
@@ -860,51 +829,36 @@ export default Vue.extend({
             'aria-hidden': this.is_visible ? null : 'true',
             'aria-modal': this.is_visible ? 'true' : null
           },
-          on: {
-            keydown: this.onEsc,
-            click: this.onClickOut
-          }
+          on: { keydown: this.onEsc, click: this.onClickOut }
         },
         [modalDialog]
       )
       // Wrap modal in transition
       modal = h(
-        'transition',
+        BVTransition,
         {
-          props: {
-            enterClass: '',
-            enterToClass: '',
-            enterActiveClass: '',
-            leaveClass: '',
-            leaveActiveClass: '',
-            leaveToClass: ''
-          },
+          props: { noFade: this.noFade },
           on: {
-            'before-enter': this.onBeforeEnter,
-            enter: this.onEnter,
-            'after-enter': this.onAfterEnter,
-            'before-leave': this.onBeforeLeave,
-            leave: this.onLeave,
-            'after-leave': this.onAfterLeave
+            beforeEnter: this.onBeforeEnter,
+            afterEnter: this.onAfterEnter,
+            beforeLeave: this.onBeforeLeave,
+            afterLeave: this.onAfterLeave
           }
         },
         [modal]
       )
+
       // Modal backdrop
       let backdrop = h(false)
-      if (!this.hideBackdrop && (this.is_visible || this.is_transitioning || this.is_block)) {
+      if (!this.hideBackdrop && this.is_visible) {
         backdrop = h(
           'div',
-          {
-            staticClass: 'modal-backdrop',
-            class: this.backdropClasses,
-            attrs: {
-              id: this.safeId('__BV_modal_backdrop_')
-            }
-          },
+          { staticClass: 'modal-backdrop', attrs: { id: this.safeId('__BV_modal_backdrop_') } },
           [this.normalizeSlot('modal-backdrop', {})]
         )
       }
+      backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])
+
       // Tab trap to prevent page from scrolling to next element in
       // tab index during enforce focus tab cycle
       let tabTrap = h(false)
