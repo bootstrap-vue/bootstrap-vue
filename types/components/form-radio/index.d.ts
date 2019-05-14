@@ -10,7 +10,7 @@ export default FormRadioPlugin
 export interface FormRadioPlugin extends BvPlugin {}
 
 // Component: b-form-radio
-export interface BFormRadio extends Vue {}
+export declare class BFormRadio extends Vue {}
 
 // Component: b-form-radio-group
-export interface BFormRadioGroup extends Vue {}
+export declare class BFormRadioGroup extends Vue {}
