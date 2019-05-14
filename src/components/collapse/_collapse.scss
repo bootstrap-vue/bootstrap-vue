@@ -1,0 +1,8 @@
+// Interim support for horizontal collapse
+.collapsing {
+  &.width {
+    height: unset;
+    width: 0;
+    transition-property: width;
+  }
+}
