@@ -4,24 +4,38 @@
 // '/es' modules
 
 declare module 'bootstrap-vue/es/components' {
-  export * from './components'
+  import { Component, VueConstructor } from 'vue'
+  import { BvPlugin, BvConfigOptions } from './bv-plugin'
+  
+  const BVComponents: {
+    default: Component & BvPlugin & VueConstructor
+    [key: string]: Component & BvPlugin & VueConstructor
+  }
+
+  export = BVComponents
 }
 
 declare module 'bootstrap-vue/es/directives' {
-  export * from './directives'
+  import { VueConstructor, DirectiveOptions } from 'vue'
+  import { BvPlugin, BvConfigOptions } from './bv-plugin'
+
+  const BVDirectives: {
+    default: DirectiveOptions & BvPlugin & VueConstructor
+    [key: string]: DirectiveOptions & BvPlugin & VueConstructor
+  }
+
+  export = BVDirectives
 }
 
 declare module 'bootstrap-vue/es/bv-config' {
-  export * from './bv-config'
+  import { BvPlugin, BvConfigOptions } from './bv-plugin'
+
+  const BVConfigPlugin: BvPlugin
+  export default BVConfigPlugin
 }
 
 declare module 'bootstrap-vue/es' {
   import { BvPlugin, BvConfigOptions } from './bv-plugin'
-
-  export * from './bv-config'
-  export * from './bv-event'
-  export * from './components'
-  export * from './directives'
 
   declare const BootstrapVue: BootstrapVue
   export default BootstrapVue
