@@ -10,4 +10,4 @@ export default JumbotronPlugin
 export interface JumbotronPlugin extends BvPlugin {}
 
 // Component: b-jumbotron
-export interface BJumbotron extends Vue {}
+export declare class BJumbotron extends Vue {}
