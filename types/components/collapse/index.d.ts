@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const CollapsePlugin: CollapsePlugin
+export declare const CollapsePlugin: BvPlugin
 export default CollapsePlugin
-export interface CollapsePlugin extends BvPlugin {}
 
 // Component: b-collapse
 export declare class BCollapse extends Vue {}
