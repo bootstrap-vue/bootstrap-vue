@@ -10,16 +10,16 @@ export default Form
 export interface Form extends BvPlugin {}
 
 // Component: b-form
-export interface BForm extends Vue {}
+export declare class BForm extends Vue {}
 
 // Component: b-form-text
-export interface BFormText extends Vue {}
+export declare class BFormText extends Vue {}
 
 // Component: b-form-invalid-feedback
-export interface BFormInvalidFeedback extends Vue {}
+export declare class BFormInvalidFeedback extends Vue {}
 
 // Component: b-form-valid-feedback
-export interface BFormValidFeedback extends Vue {}
+export declare class BFormValidFeedback extends Vue {}
 
 // Component: b-form-datalist
-export interface BFormDatalist extends Vue {}
+export declare class BFormDatalist extends Vue {}
