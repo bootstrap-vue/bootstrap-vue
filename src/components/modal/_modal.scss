@@ -1,6 +1,16 @@
 // Needed to allow Vue transition system to work with Bootstrap V4 .modal
 .modal {
-  display: block
+  display: block;
+
+  &.fade {
+    .modal-dialog {
+      // Set duration to the same as the transition of .modal
+      // so that we get the same duration for transition/transform.
+      // Sadly this is a hack, as we can't extract this from the SCSS vars easily
+      // so we assume value in position 2 is the duration.
+      transition-duration: nth($transition-fade, 2);
+    }
+  }
 }
 
 // Needed to allow Vue transition system to work with Bootstrap V4 .modal-backdrop
