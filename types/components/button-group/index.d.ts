@@ -10,4 +10,4 @@ export default ButtonGroupPlugin
 export interface ButtonGroupPlugin extends BvPlugin {}
 
 // Component: b-button-group
-export interface BButtonGroup extends Vue {}
+export declare class BButtonGroup extends Vue {}
