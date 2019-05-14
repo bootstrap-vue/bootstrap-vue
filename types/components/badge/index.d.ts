@@ -10,4 +10,4 @@ export default BadgePlugin
 export interface BadgePlugin extends BvPlugin {}
 
 // Component: b-badge
-export interface BBadge extends Vue {}
+export declare class BBadge extends Vue {}
