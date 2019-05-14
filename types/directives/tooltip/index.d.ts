@@ -9,4 +9,4 @@ export declare const VBTooltipPlugin: BvPlugin
 export default VBTooltipPlugin
 
 // directive: v-b-tooltip
-export interface VBTooltip extends DirectiveOptions {}
+export declare const VBTooltip: DirectiveOptions
