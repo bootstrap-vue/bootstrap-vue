@@ -9,4 +9,4 @@ export declare const VBTogglePlugin: BvPlugin
 export default VBTogglePlugin
 
 // directive: v-b-toggle
-export interface VBToggle extends DirectiveOptions {}
+export declare const VBToggle: DirectiveOptions
