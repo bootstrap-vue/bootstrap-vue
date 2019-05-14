@@ -10,4 +10,4 @@ export default AlertPlugin
 export interface AlertPlugin extends BvPlugin {}
 
 // Component: b-alert
-export interface BAlert extends Vue {}
+export declare class BAlert extends Vue {}
