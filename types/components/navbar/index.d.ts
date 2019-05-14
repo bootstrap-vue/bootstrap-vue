@@ -10,13 +10,13 @@ export default NavbarPlugin
 export interface NavbarPlugin extends BvPlugin {}
 
 // Component: b-navbar
-export interface BNavbar extends Vue {}
+export declare class BNavbar extends Vue {}
 
 // Component: b-navbar-brand
-export interface BNavbarBrand extends Vue {}
+export declare class BNavbarBrand extends Vue {}
 
 // Component: b-navbar-nav
-export interface BNavbarNav extends Vue {}
+export declare class BNavbarNav extends Vue {}
 
 // Component: b-navbar-toggle
-export interface BNavbarToggle extends Vue {}
+export declare class BNavbarToggle extends Vue {}
