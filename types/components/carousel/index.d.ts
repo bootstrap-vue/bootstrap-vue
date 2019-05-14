@@ -10,7 +10,7 @@ export default CarouselPlugin
 export interface CarouselPlugin extends BvPlugin {}
 
 // Component: b-carousel
-export interface BCarousel extends Vue {
+export declare class BCarousel extends Vue {
   setSlide: (slide: number) => void
   prev: () => void
   next: () => void
@@ -20,4 +20,4 @@ export interface BCarousel extends Vue {
 }
 
 // Component: b-carousel-slide
-export interface BCarouselSlide extends Vue {}
+export declare class BCarouselSlide extends Vue {}
