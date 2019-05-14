@@ -10,4 +10,4 @@ export default LinkPlugin
 export interface LinkPlugin extends BvPlugin {}
 
 // Component: b-link
-export interface BLink extends Vue {}
+export declare class BLink extends Vue {}
