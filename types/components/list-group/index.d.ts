@@ -10,7 +10,7 @@ export default ListGroupPlugin
 export interface ListGroupPlugin extends BvPlugin {}
 
 // Component: b-list-group
-export interface BListGroup extends Vue {}
+export declare class BListGroup extends Vue {}
 
 // Component: b-list-group-item
-export interface BListGroupItem extends Vue {}
+export declare class BListGroupItem extends Vue {}
