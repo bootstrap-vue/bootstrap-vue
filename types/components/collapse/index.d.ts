@@ -10,4 +10,4 @@ export default CollapsePlugin
 export interface CollapsePlugin extends BvPlugin {}
 
 // Component: b-collapse
-export interface BCollapse extends Vue {}
+export declare class BCollapse extends Vue {}
