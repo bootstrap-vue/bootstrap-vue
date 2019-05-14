@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const AlertPlugin: AlertPlugin
+export declare const AlertPlugin: BvPlugin
 export default AlertPlugin
-export interface AlertPlugin extends BvPlugin {}
 
 // Component: b-alert
 export declare class BAlert extends Vue {}
