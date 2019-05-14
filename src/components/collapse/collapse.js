@@ -50,6 +50,10 @@ export default Vue.extend({
       type: String,
       default: null
     },
+    horizontal: {
+      type: Boolean,
+      default: false
+    },
     visible: {
       type: Boolean,
       default: false
@@ -72,6 +76,12 @@ export default Vue.extend({
         collapse: !this.transitioning,
         show: this.show && !this.transitioning
       }
+    },
+    dimension() {
+      return this.horizontal ? 'width' : 'height'
+    },
+    scrollDimension() {
+      return this.horizontal ? 'scrollWidth' : 'scrollHeight'
     }
   },
   watch: {
@@ -144,30 +154,33 @@ export default Vue.extend({
       this.show = !this.show
     },
     onEnter(el) {
-      el.style.height = 0
+      const dimension = this.dimension
+      const scrollDimension = this.scrollDimension
+      el.style[dimension] = 0
       reflow(el)
-      el.style.height = el.scrollHeight + 'px'
+      el.style[dimension] = el[scrollDimension] + 'px'
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
     onAfterEnter(el) {
-      el.style.height = null
+      el.style[this.dimension] = null
       this.transitioning = false
       this.$emit('shown')
     },
     onLeave(el) {
-      el.style.height = 'auto'
+      const dimension = this.dimension
+      el.style[dimension] = 'auto'
       el.style.display = 'block'
-      el.style.height = getBCR(el).height + 'px'
+      el.style[dimension] = getBCR(el)[dimension] + 'px'
       reflow(el)
       this.transitioning = true
-      el.style.height = 0
+      el.style[dimension] = 0
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
     onAfterLeave(el) {
-      el.style.height = null
+      el.style[this.dimension] = null
       this.transitioning = false
       this.$emit('hidden')
     },
