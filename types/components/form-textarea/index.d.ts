@@ -10,6 +10,6 @@ export default FormTextareaPlugin
 export interface FormTextareaPlugin extends BvPlugin {}
 
 // Component: b-form-textarea
-export interface BFormTextarea extends Vue {
+export declare class BFormTextarea extends Vue {
   focus: () => void
 }
