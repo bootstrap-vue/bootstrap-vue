@@ -245,7 +245,7 @@ export default Vue.extend({
   },
   computed: {
     modalClasses() {
-      return [ this.modalClass, { fade: !this.noFade } ]
+      return [this.modalClass, { fade: !this.noFade }]
     },
     modalStyles() {
       const sbWidth = `${this.scrollbarWidth}px`
