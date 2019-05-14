@@ -57,7 +57,7 @@ export default Vue.extend({
 
     // Prepend slot
     if (hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
-      childNodes.push(h(InputGroupPrepend, normalizeSlot('prepend', {}, $scopedSlots, $slots)))
+      childNodes.push(h(InputGroupPrepend, {}, normalizeSlot('prepend', {}, $scopedSlots, $slots)))
     } else {
       childNodes.push(h(false))
     }
@@ -83,8 +83,8 @@ export default Vue.extend({
     }
 
     // Append slot
-    if (hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
-      childNodes.push(h(InputGroupAppend, normalizeSlot('append', {}, $scopedSlots, $slots)))
+    if (hasNormalizedSlot('append', $scopedSlots, $slots)) {
+      childNodes.push(h(InputGroupAppend, {}, normalizeSlot('append', {}, $scopedSlots, $slots)))
     } else {
       childNodes.push(h(false))
     }
