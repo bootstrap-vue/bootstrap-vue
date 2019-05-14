@@ -207,9 +207,11 @@ The default `blank-color` is `transparent`.
 > Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy load images as
 > they are scrolled into view (or within `offset` pixels of the viewport).
 
-Lazy loading images relies on the document `scroll` and `transitionend` events to trigger the
-loading of the final image. Scrolling of other elements is not monitored, and will not trigger image
-loading.
+Lazy loading images uses
+[`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+if supported by the browser (or polyfill), otherwise it uses the document `scroll`, `resize`, and
+`transitionend` events to determine if the image is in view in order to trigger the loading of the
+final image. Scrolling of other elements is not monitored, and will not trigger image loading.
 
 ### Usage
 
@@ -231,11 +233,13 @@ Feel free to use the `fluid`, `fluid-grow`, `thumbnail`, and `rounded` props of 
 The `offset` prop specifies the number of pixels that an image needs to be near to the viewport to
 trigger it to be shown. The default value is `360`.
 
-The `throttle` prop controls how long (in ms) after a scroll (or `resize`, or `orientationchange`,
+The `throttle` prop controls how long (in ms) after a `scroll` (or `resize`, or `orientationchange`,
 or `transitionend`) event happens before checking if the image has come within view (or within
-`offset` of view). The default is `100` (ms).
+`offset` of view). The default is `100` (ms). `throttle` has no effect if IntersectionObserver
+support is detected.
 
-Once an image has come into view and is shown, the event listeners are removed.
+Once an image has come into view and is shown, the event listeners and/or Intersection Observer are
+removed.
 
 **Example usage:**
 
