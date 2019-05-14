@@ -10,4 +10,4 @@ export default PopoverPlugin
 export interface PopoverPlugin extends BvPlugin {}
 
 // Component: b-popover
-export interface BPopover extends Vue {}
+export declare class BPopover extends Vue {}
