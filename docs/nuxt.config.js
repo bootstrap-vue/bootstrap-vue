@@ -127,8 +127,8 @@ module.exports = {
           .map(page => `/docs/${dir}/${page}`)
 
       return []
-        .concat(scan('src', 'components'))
-        .concat(scan('src', 'directives', ['modal', 'toggle']))
+        .concat(scan('src', 'components', ['plugins.js', 'plugins-legacy.js']))
+        .concat(scan('src', 'directives', ['modal', 'toggle', 'plugins.js', 'plugins-legacy.js']))
         .concat(scan('docs/markdown', 'reference'))
         .concat(scan('docs/markdown', 'misc'))
     }
