@@ -10,4 +10,4 @@ export default PaginationNavPlugin
 export interface PaginationNavPlugin extends BvPlugin {}
 
 // Component: b-pagination-nav
-export interface BPaginationNav extends Vue {}
+export declare class BPaginationNav extends Vue {}
