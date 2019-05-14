@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const ButtonPlugin: ButtonPlugin
+export declare const ButtonPlugin: BvPlugin
 export default ButtonPlugin
-export interface ButtonPlugin extends BvPlugin {}
 
 // Component: b-button
 export declare class BButton extends Vue {}
