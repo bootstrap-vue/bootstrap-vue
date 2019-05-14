@@ -51,11 +51,8 @@ declare module 'bootstrap-vue/es/directives/*' {
   export = BVDirectives
 }
 
-
 declare module 'bootstrap-vue/es/bv-config' {
-  import { BvPlugin, BvConfigOptions } from './bv-plugin'
-
-  const BVConfigPlugin: BvPlugin
+  import BVConfigPlugin from 'bootstrap-vue/bv-plugin'
 
   export default BVConfigPlugin
 }
