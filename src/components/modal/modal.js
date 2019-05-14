@@ -229,8 +229,10 @@ export default Vue.extend({
   data() {
     return {
       is_hidden: true, // If modal should not be in document
-      is_visible: false, // Controls modal visible state/transitions
+      is_visible: false, // Controls modal visible state
       is_transitioning: false, // Used for style control
+      is_show: false, // Used for style control
+      is_block: false, // Used for style control
       is_opening: false, // To signal that the modal is in the process of opening
       is_closing: false, // To signal that the modal is in the process of closing
       ignoreBackdropClick: false, // Used to signify if click out listener should ignore the click
@@ -245,7 +247,14 @@ export default Vue.extend({
   },
   computed: {
     modalClasses() {
-      return [this.modalClass]
+      return [
+        {
+          fade: !this.noFade,
+          show: this.is_show,
+          'd-block': this.is_block
+        },
+        this.modalClass
+      ]
     },
     modalStyles() {
       const sbWidth = `${this.scrollbarWidth}px`
@@ -347,6 +356,7 @@ export default Vue.extend({
     this.setResizeEvent(false)
     if (this.is_visible) {
       this.is_visible = false
+      this.is_show = false
       this.is_transitioning = false
     }
   },
@@ -495,8 +505,12 @@ export default Vue.extend({
       this.is_transitioning = true
       this.setResizeEvent(true)
     },
+    onEnter() {
+      this.is_block = true
+    },
     onAfterEnter() {
       this.checkModalOverflow()
+      this.is_show = true
       this.is_transitioning = false
       this.$nextTick(() => {
         const shownEvt = new BvModalEvent('shown', {
@@ -515,7 +529,12 @@ export default Vue.extend({
       this.is_transitioning = true
       this.setResizeEvent(false)
     },
+    onLeave() {
+      // Remove the 'show' class
+      this.is_show = false
+    },
     onAfterLeave() {
+      this.is_block = false
       this.is_transitioning = false
       this.setEnforceFocus(false)
       this.isModalOverflowing = false
@@ -733,6 +752,7 @@ export default Vue.extend({
         },
         this.normalizeSlot('default', this.slotScope)
       )
+
       // Modal footer
       let footer = h(false)
       if (!this.hideFooter) {
@@ -833,15 +853,28 @@ export default Vue.extend({
         },
         [modalDialog]
       )
+
       // Wrap modal in transition
+      // Sadly, we can't use BVTransition here due to the differences in
+      // transtion durations for .modal and .modal-dialog. Not until
+      // issue https://github.com/vuejs/vue/issues/9986 is resolved
       modal = h(
-        BVTransition,
+        'transition',
         {
-          props: { noFade: this.noFade },
+          props: {
+            enterClass: '',
+            enterToClass: '',
+            enterActiveClass: '',
+            leaveClass: '',
+            leaveActiveClass: '',
+            leaveToClass: ''
+          },
           on: {
             beforeEnter: this.onBeforeEnter,
+            enter: this.onEnter,
             afterEnter: this.onAfterEnter,
             beforeLeave: this.onBeforeLeave,
+            leave: this.onLeave,
             afterLeave: this.onAfterLeave
           }
         },
