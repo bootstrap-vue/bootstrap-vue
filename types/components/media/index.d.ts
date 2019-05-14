@@ -10,10 +10,10 @@ export default MediaPlugin
 export interface MediaPlugin extends BvPlugin {}
 
 // Component: b-media
-export interface BMedia extends Vue {}
+export declare class BMedia extends Vue {}
 
 // Component: b-media-aside
-export interface BMediaAside extends Vue {}
+export declare class BMediaAside extends Vue {}
 
 // Component: b-media-body
-export interface BMediaBody extends Vue {}
+export declare class BMediaBody extends Vue {}
