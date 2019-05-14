@@ -57,7 +57,7 @@ The values provided as the config option to `Vue.use` will be merged with the de
 breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined
 in your custom Bootstrap SCSS.
 
-### Setting config via individual component plugin imports
+### Setting config via individual component group plugin imports
 
 When importing individual component plugins, you can specify a config as well (using the same config
 structure as above. You only need to provide configuration to the first component you import, but
@@ -72,14 +72,13 @@ and subsequent changes to the breakpoints will **not** be reflected.
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-import Layout from 'bootstrap-vue/es/components/layout'
-import Alert from 'bootstrap-vue/es/components/alert'
-import Button from 'bootstrap-vue/es/components/button'
+// Component group plugins
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
 
 // Supply configs via each plugin as it is `Vue.use()`'d
-Vue.use(Layout, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
-Vue.use(Alert, { BAlert: { variant: 'danger' } })
-Vue.use(Button, { BButton: { variant: 'primary' } })
+Vue.use(LayoutPlugin, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
+Vue.use(AlertPlugin, { BAlert: { variant: 'danger' } })
+Vue.use(ButtonPlugin, { BButton: { variant: 'primary' } })
 ```
 
 **Example 2:**
@@ -87,18 +86,17 @@ Vue.use(Button, { BButton: { variant: 'primary' } })
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-import Layout from 'bootstrap-vue/es/components/layout'
-import Alert from 'bootstrap-vue/es/components/alert'
-import Button from 'bootstrap-vue/es/components/button'
+// Component group plugins
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
 
 // Supply complete config to first `Vue.use()`'d plugin
-Vue.use(Layout, {
+Vue.use(LayoutPlugin, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   BAlert: { variant: 'danger' },
   BButton: { variant: 'primary' }
 })
-Vue.use(Alert)
-Vue.use(Button)
+Vue.use(AlertPlugin)
+Vue.use(ButtonPlugin)
 ```
 
 **Example 3 (most preferred method):**
@@ -108,10 +106,8 @@ Vue.use(Button)
 ```js
 // BootstrapVue configuration helper plugin
 import BVConfig from 'bootstrap-vue/es/bv-config'
-// Component plugins
-import Layout from 'bootstrap-vue/es/components/layout'
-import Alert from 'bootstrap-vue/es/components/alert'
-import Button from 'bootstrap-vue/es/components/button'
+// Component group plugins
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
 
 // Supply complete config to the BVConfig helper plugin
 Vue.use(BVConfig, {
@@ -121,16 +117,53 @@ Vue.use(BVConfig, {
 })
 
 // Then use component plugins
-Vue.use(Layout)
-Vue.use(Alert)
-Vue.use(Button)
+Vue.use(LayoutPlugin)
+Vue.use(AlertPlugin)
+Vue.use(ButtonPlugin)
+```
+
+
+**Example 4 when importing individual components (preferred method):**
+
+<!-- eslint-disable import/first, import/no-duplicates -->
+
+```js
+// BootstrapVue configuration helper plugin
+import BVConfig from 'bootstrap-vue/es/bv-config'
+// Individual components
+import { BAlert, BButton, BRow, BCol } from 'bootstrap-vue/es/components'
+
+// Supply complete config to the BVConfig helper plugin
+Vue.use(BVConfig, {
+  breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
+  BAlert: { variant: 'danger' },
+  BButton: { variant: 'primary' }
+})
+
+// Then install components globally
+Vue.component('b-alert', BAlert)
+Vue.component('b-button', BButton)
+Vue.component('b-row', BRow)
+Vue.component('b-col', BCol)
+
+// Or register components as local to your custom component
+export default {
+  name: 'MyComponent',
+  components: {
+    BAlert,
+    BButton,
+    BRow,
+    BCol
+  }
+  // ...
+}
 ```
 
 **Caveat:** Vue only installs plugins _once_. If you import a plugin that has already been imported
 by another component plugin, the configuration passed to the component plugin will **not** be merged
 in. It is best to set the complete configuration using the `BVConfig` helper plugin as shown in
-**Example 3** above. The `BVConfig` plugin should be used in the main entry point of your app, and
-before any `Vue.use()` of component plugins.
+**Example 3** and **Example 4** above. The `BVConfig` plugin should be used in the main entry point of
+your app, and before any `Vue.use()` of component plugins or `Vue.component()` of indivdual components.
 
 ### Setting the config via Nuxt.js BootstrapVue plugin
 
