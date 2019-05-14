@@ -158,6 +158,11 @@ export default Vue.extend({
     onEnter(el) {
       const dimension = this.dimension
       const scrollDimension = this.scrollDimension
+      if (this.horizontal) {
+        el.style.height = 0
+        reflow(el)
+        el.style.height = el.scrollHeight + 'px'
+      }
       el.style[dimension] = 0
       reflow(el)
       el.style[dimension] = el[scrollDimension] + 'px'
@@ -166,23 +171,25 @@ export default Vue.extend({
       this.$emit('show')
     },
     onAfterEnter(el) {
-      el.style[this.dimension] = null
+      el.style.height = el.style[this.dimension] = null
       this.transitioning = false
       this.$emit('shown')
     },
     onLeave(el) {
       const dimension = this.dimension
+      if (this.horizontal) {
+        el.style.height = getBCR(el).height + 'px'
+      }
       el.style[dimension] = 'auto'
       el.style.display = 'block'
       el.style[dimension] = getBCR(el)[dimension] + 'px'
       reflow(el)
       this.transitioning = true
       el.style[dimension] = 0
-      // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
     onAfterLeave(el) {
-      el.style[this.dimension] = null
+      el.stye.height = el.style[this.dimension] = null
       this.transitioning = false
       this.$emit('hidden')
     },
