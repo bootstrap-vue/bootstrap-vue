@@ -10,7 +10,7 @@ export default ProgressPlugin
 export interface ProgressPlugin extends BvPlugin {}
 
 // Component: b-progress
-export interface BProgress extends Vue {}
+export declare class BProgress extends Vue {}
 
 // Component: b-progress-bar
-export interface BProgressBar extends Vue {}
+export declare class BProgressBar extends Vue {}
