@@ -10,4 +10,4 @@ export default ButtonToolbarPlugin
 export interface ButtonToolbarPlugin extends BvPlugin {}
 
 // Component: b-button-toolbar
-export interface BButtonToolbar extends Vue {}
+export declare class BButtonToolbar extends Vue {}
