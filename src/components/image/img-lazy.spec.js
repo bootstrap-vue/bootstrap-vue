@@ -58,36 +58,88 @@ describe('img-lazy', () => {
     wrapper.destroy()
   })
 
-  it('triggers check on resize event event', async () => {
-    const src = 'https://picsum.photos/1024/400/?image=41'
-    const wrapper = mount(BImgLazy, {
-      attachToDocument: true,
-      propsData: {
-        src: src
-      }
-    })
-    expect(wrapper.is('img')).toBe(true)
+  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  describe('scroll events', () => {
+    const origGetBCR = Element.prototype.getBoundingClientRect
 
-    expect(wrapper.attributes('src')).toBeDefined()
-    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    jest.useFakeTimers()
 
-    expect(wrapper.vm.scrollTimeout).toBe(null)
-
-    const resizeEvt = new UIEvent('resize')
-    window.dispatchEvent(resizeEvt)
-
-    expect(wrapper.vm.scrollTimeout).not.toBe(null)
-
-    // Since JEST doesnt support getBCR, we fake it by setting
-    // the data prop to shown
-    wrapper.setData({
-      isShown: true
+    afterEach(() => {
+      // Restore prototype
+      Element.prototype.getBoundingClientRect = origGetBCR
     })
 
-    window.dispatchEvent(resizeEvt)
+    it('triggers check on resize event event', async () => {
+      const src = 'https://picsum.photos/1024/400/?image=41'
 
-    expect(wrapper.vm.scrollTimeout).toBe(null)
+      // Fake getBCR initially "off screen"
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          width: 24,
+          height: 24,
+          top: 10000,
+          left: 10000,
+          bottom: -10000,
+          right: -10000
+        }
+      })
 
-    wrapper.destroy()
+      const wrapper = mount(BImgLazy, {
+        attachToDocument: true,
+        propsData: {
+          src: src,
+          offset: 500
+        }
+      })
+      expect(wrapper.is('img')).toBe(true)
+
+      expect(wrapper.attributes('src')).toBeDefined()
+      expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+
+      expect(wrapper.vm.scrollTimeout).toBe(null)
+
+      // Fake getBCR "in view"
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          width: 24,
+          height: 24,
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        }
+      })
+
+      window.dispatchEvent(new UIEvent('resize'))
+
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.vm.scrollTimeout).not.toBe(null)
+
+      // Since JSDOM doesnt support getBCR, we fake it by setting
+      // the data prop to shown
+      // wrapper.setData({
+      //   isShown: true
+      // })
+
+      // Advance the setTimeout
+      jest.runOnlyPendingTimers()
+
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.vm.scrollTimeout).toBe(null)
+
+      expect(wrapper.attributes('src')).toContain(src)
+
+      window.dispatchEvent(new UIEvent('resize'))
+
+      expect(wrapper.vm.scrollTimeout).toBe(null)
+
+      wrapper.destroy()
+
+      Element.prototype.getBoundingClientRect = origGetBCR
+    })
   })
 })
