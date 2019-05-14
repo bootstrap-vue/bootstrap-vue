@@ -74,6 +74,8 @@ export default Vue.extend({
       return {
         'navbar-collapse': this.isNav,
         collapse: !this.transitioning,
+        width: this.horizontal,
+        height: !this.horizontal,
         show: this.show && !this.transitioning
       }
     },
