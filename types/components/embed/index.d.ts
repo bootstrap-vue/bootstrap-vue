@@ -10,4 +10,4 @@ export default EmbedPlugin
 export interface EmbedPlugin extends BvPlugin {}
 
 // Component: b-embed
-export interface BEmbed extends Vue {}
+export declare class BEmbed extends Vue {}
