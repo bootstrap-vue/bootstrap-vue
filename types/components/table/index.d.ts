@@ -9,8 +9,8 @@ declare const TablePlugin: TablePlugin
 export default TablePlugin
 export interface TablePlugin extends BvPlugin {}
 
-// Component: b-modal
-export interface BTable extends Vue {
+// Component: b-table
+export declare class BTable extends Vue {
   // Public methods
   refresh: () => void
   clearSelected: () => void
