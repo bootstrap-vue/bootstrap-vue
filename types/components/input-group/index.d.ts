@@ -10,13 +10,13 @@ export default InputGroupPlugin
 export interface InputGroupPlugin extends BvPlugin {}
 
 // Component: b-input-group-append
-export interface BInputGroupAppend extends Vue {}
+export declare class BInputGroupAppend extends Vue {}
 
 // Component: b-input-group-prepend
-export interface BInputGroupPrepend extends Vue {}
+export declare class BInputGroupPrepend extends Vue {}
 
 // Component: b-input-group-text
-export interface BInputGroupText extends Vue {}
+export declare class BInputGroupText extends Vue {}
 
 // Component: b-input-group-addon
-export interface BInputGroupAddon extends Vue {}
+export declare class BInputGroupAddon extends Vue {}
