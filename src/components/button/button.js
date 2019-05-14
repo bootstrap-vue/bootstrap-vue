@@ -150,7 +150,7 @@ export default Vue.extend({
       // Modifier `!` places the event handler in capture mode.
       // Needed to prevent bubbling of inner element click evt when disabled
       '!click': evt => {
-        /* istanbul ignore if: blink/button disabled should handle this */
+        /* istanbul ignore if: blink and button disabled should handle this */
         if (props.disabled && evt instanceof Event) {
           evt.stopImmediatePropagation()
           evt.stopPropagation()
