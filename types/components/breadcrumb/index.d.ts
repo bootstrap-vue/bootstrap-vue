@@ -10,10 +10,10 @@ export default BreadcrumbPlugin
 export interface BreadcrumbPlugin extends BvPlugin {}
 
 // Component: b-breadcrumb
-export interface BBreadcrumb extends Vue {}
+export declare class BBreadcrumb extends Vue {}
 
 // Component: b-breadcrumb-item
-export interface BBreadcrumbItem extends Vue {}
+export declare class BBreadcrumbItem extends Vue {}
 
 // Component: b-breadcrumb-link
-export interface BBreadcrumbLink extends Vue {}
+export declare class BBreadcrumbLink extends Vue {}
