@@ -10,7 +10,7 @@ export default ButtonPlugin
 export interface ButtonPlugin extends BvPlugin {}
 
 // Component: b-button
-export interface BButton extends Vue {}
+export declare class BButton extends Vue {}
 
 // Component: b-button-close
-export interface BButtonClose extends Vue {}
+export declare class BButtonClose extends Vue {}
