@@ -152,6 +152,7 @@ export default Vue.extend({
       '!click': evt => {
         /* istanbul ignore if: blink/button disabled should handle this */
         if (props.disabled && evt instanceof Event) {
+          evt.stopImmediatePropagation()
           evt.stopPropagation()
           evt.preventDefault()
         } else if (toggle && listeners && listeners['update:pressed']) {
