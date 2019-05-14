@@ -10,25 +10,25 @@ export default DropdownPlugin
 export interface DropdownPlugin extends BvPlugin {}
 
 // Component: b-dropdown
-export interface BDropdown extends Vue {}
+export declare class BDropdown extends Vue {}
 
 // Component: b-dropdown-item
-export interface BDropdownItem extends Vue {}
+export declare class BDropdownItem extends Vue {}
 
 // Component: b-dropdown-item-button
-export interface BDropdownItemButton extends Vue {}
+export declare class BDropdownItemButton extends Vue {}
 
 // Component: b-dropdown-divider
-export interface BDropdownDivider extends Vue {}
+export declare class BDropdownDivider extends Vue {}
 
 // Component: b-dropdown-form
-export interface BDropdownForm extends Vue {}
+export declare class BDropdownForm extends Vue {}
 
 // Component: b-dropdown-text
-export interface BDropdownText extends Vue {}
+export declare class BDropdownText extends Vue {}
 
 // Component: b-dropdown-group
-export interface BDropdownGroup extends Vue {}
+export declare class BDropdownGroup extends Vue {}
 
 // Component: b-dropdown-header
-export interface BDropdownHeader extends Vue {}
+export declare class BDropdownHeader extends Vue {}
