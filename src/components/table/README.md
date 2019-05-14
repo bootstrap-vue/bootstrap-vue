@@ -1928,12 +1928,11 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-          <b-input-group>
-            <b-form-select v-model="sortDirection" slot="append">
-              <option value="asc">Asc</option> <option value="desc">Desc</option>
-              <option value="last">Last</option>
-            </b-form-select>
-          </b-input-group>
+          <b-form-select v-model="sortDirection">
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
+            <option value="last">Last</option>
+          </b-form-select>
         </b-form-group>
       </b-col>
 
