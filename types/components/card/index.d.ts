@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const CardPlugin: CardPlugin
+export declare const CardPlugin: BvPlugin
 export default CardPlugin
-export interface CardPlugin extends BvPlugin {}
 
 // Component: b-card
 export declare class BCard extends Vue {}
