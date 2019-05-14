@@ -147,11 +147,13 @@ export default Vue.extend({
     const toggle = isToggle(props)
     const link = isLink(props)
     const on = {
-      click(e) {
+      // Modifier `!` places the event handler in capture mode.
+      // Needed to prevent bubbling of inner element click evt when disabled
+      '!click': evt => {
         /* istanbul ignore if: blink/button disabled should handle this */
-        if (props.disabled && e instanceof Event) {
-          e.stopPropagation()
-          e.preventDefault()
+        if (props.disabled && evt instanceof Event) {
+          evt.stopPropagation()
+          evt.preventDefault()
         } else if (toggle && listeners && listeners['update:pressed']) {
           // Send .sync updates to any "pressed" prop (if .sync listeners)
           // Concat will normalize the value to an array
