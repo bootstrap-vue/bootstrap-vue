@@ -10,4 +10,4 @@ export default TooltipPlugin
 export interface TooltipPlugin extends BvPlugin {}
 
 // Component: b-tooltip
-export interface BTooltip extends Vue {}
+export declare class BTooltip extends Vue {}
