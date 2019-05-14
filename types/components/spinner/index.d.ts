@@ -10,4 +10,4 @@ export default SpinnerPlugin
 export interface SpinnerPlugin extends BvPlugin {}
 
 // Component: b-alert
-export interface BSpinner extends Vue {}
+export declare class BSpinner extends Vue {}
