@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const CarouselPlugin: CarouselPlugin
+export declare const CarouselPlugin: BvPlugin
 export default CarouselPlugin
-export interface CarouselPlugin extends BvPlugin {}
 
 // Component: b-carousel
 export declare class BCarousel extends Vue {
