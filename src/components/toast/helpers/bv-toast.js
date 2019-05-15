@@ -158,10 +158,7 @@ const install = (Vue, config = {}) => {
         /* istanbul ignore next */
         return
       }
-      makeToast({
-        ...filterOptions(options),
-        toastContent: content
-      }, this._vm)
+      makeToast({ ...filterOptions(options), toastContent: content }, this._vm)
     }
 
     // shows a `<b-toast>` component with the specified ID
