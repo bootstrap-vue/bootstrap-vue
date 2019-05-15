@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const FormFilePlugin: FormFilePlugin
+export declare const FormFilePlugin: BvPlugin
 export default FormFilePlugin
-export interface FormFilePlugin extends BvPlugin {}
 
 // Component: b-form-file
 export declare class BFormFile extends Vue {
