@@ -8,7 +8,7 @@ declare module 'bootstrap-vue/es/components' {
 }
 
 declare module 'bootstrap-vue/es/directives' {
-  export * from './direcctives'
+  export * from './directives'
 }
 
 declare module 'bootstrap-vue/es/bv-config' {
