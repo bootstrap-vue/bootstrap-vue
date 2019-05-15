@@ -63,9 +63,6 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).not.toContain('show')
-      expect($modal.classes()).not.toContain('d-block')
       expect($modal.element.style.display).toEqual('none')
 
       // Modal dialog wrapper
@@ -150,16 +147,11 @@ describe('modal', () => {
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).toContain('show')
-      expect($modal.classes()).toContain('d-block')
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
-      expect($backdrop.classes()).toContain('fade')
-      expect($backdrop.classes()).toContain('show')
 
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
@@ -240,14 +232,6 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // Modal should store cache of adjustments on body element
-      // const body = document.body
-      // expect(Array.isArray(body._marginChangedForModal)).toBe(true)
-      // expect(Array.isArray(body._paddingChangedForModal)).toBe(true)
-      // expect(body.classList.contains('modal-open')).toBe(true)
-      // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
-      // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
-
       // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
@@ -260,16 +244,11 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).toContain('show')
-      expect($modal.classes()).toContain('d-block')
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
-      expect($backdrop.classes()).toContain('fade')
-      expect($backdrop.classes()).toContain('show')
 
       // Now we close the modal via the value prop
       wrapper.setProps({
@@ -291,8 +270,6 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.attributes('aria-modal')).not.toBeDefined()
-      expect($modal.classes()).not.toContain('show')
-      expect($modal.classes()).not.toContain('d-block')
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed
