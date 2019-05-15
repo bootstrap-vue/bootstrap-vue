@@ -5,9 +5,8 @@ import Vue, { VNode } from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Modal Plugin
-declare const TablePlugin: TablePlugin
+export declare const TablePlugin: BvPlugin
 export default TablePlugin
-export interface TablePlugin extends BvPlugin {}
 
 // Component: b-table
 export declare class BTable extends Vue {
