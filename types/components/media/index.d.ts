@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const MediaPlugin: MediaPlugin
+export declare const MediaPlugin: BvPlugin
 export default MediaPlugin
-export interface MediaPlugin extends BvPlugin {}
 
 // Component: b-media
 export declare class BMedia extends Vue {}
