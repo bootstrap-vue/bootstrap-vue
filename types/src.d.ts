@@ -8,17 +8,17 @@ declare module 'bootstrap-vue/src/components' {
 }
 
 declare module 'bootstrap-vue/src/directives' {
-  export * from './direcctives'
+  export * from './directives'
 }
 
 declare module 'bootstrap-vue/src/bv-config' {
-  import BVConfigPlugin from 'bootstrap-vue/bv-plugin'
+  import BVConfigPlugin from 'bootstrap-vue/bv-config'
 
   export default BVConfigPlugin
 }
 
 declare module 'bootstrap-vue/src' {
-  import BootstrapVue from 'bootstrap-vue'
+  import BootstrapVue from './index.d.ts'
 
   export default BootstrapVue
 }
