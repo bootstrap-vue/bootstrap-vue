@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const ProgressPlugin: ProgressPlugin
+export declare const ProgressPlugin: BvPlugin
 export default ProgressPlugin
-export interface ProgressPlugin extends BvPlugin {}
 
 // Component: b-progress
 export declare class BProgress extends Vue {}
