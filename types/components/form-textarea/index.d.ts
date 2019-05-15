@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const FormTextareaPlugin: FormTextareaPlugin
+export declare const FormTextareaPlugin: BvPlugin
 export default FormTextareaPlugin
-export interface FormTextareaPlugin extends BvPlugin {}
 
 // Component: b-form-textarea
 export declare class BFormTextarea extends Vue {
