@@ -12,13 +12,13 @@ declare module 'bootstrap-vue/es/directives' {
 }
 
 declare module 'bootstrap-vue/es/bv-config' {
-  import BVConfigPlugin from 'bootstrap-vue/bv-plugin'
+  import BVConfigPlugin from 'bootstrap-vue/bv-config'
 
   export default BVConfigPlugin
 }
 
 declare module 'bootstrap-vue/es' {
-  import BootstrapVue from 'bootstrap-vue'
+  import BootstrapVue from './index.d.ts'
 
   export default BootstrapVue
 }
