@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const FormCheckboxPlugin: FormCheckboxPlugin
+export declare const FormCheckboxPlugin: BvPlugin
 export default FormCheckboxPlugin
-export interface FormCheckboxPlugin extends BvPlugin {}
 
 // Component: b-form-checkbox
 export declare class BFormCheckbox extends Vue {}
