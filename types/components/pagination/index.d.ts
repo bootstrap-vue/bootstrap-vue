@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const PaginationPlugin: PaginationPlugin
+export declare const PaginationPlugin: BvPlugin
 export default PaginationPlugin
-export interface PaginationPlugin extends BvPlugin {}
 
 // Component: b-pagination
 export declare class BPagination extends Vue {}
