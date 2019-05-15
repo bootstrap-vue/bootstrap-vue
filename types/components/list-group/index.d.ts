@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const ListGroupPlugin: ListGroupPlugin
+export declare const ListGroupPlugin: BvPlugin
 export default ListGroupPlugin
-export interface ListGroupPlugin extends BvPlugin {}
 
 // Component: b-list-group
 export declare class BListGroup extends Vue {}
