@@ -5,9 +5,8 @@ import Vue from 'vue'
 import { BvPlugin } from '../../bv-plugin'
 
 // Plugin
-declare const PopoverPlugin: PopoverPlugin
+export declare const PopoverPlugin: BvPlugin
 export default PopoverPlugin
-export interface PopoverPlugin extends BvPlugin {}
 
 // Component: b-popover
 export declare class BPopover extends Vue {}
