@@ -2,15 +2,14 @@
 // Modals
 //
 import Vue, { VNode } from 'vue'
-import { BvEvent } from '../../bv-event'
-import { BvPlugin } from '../../bv-plugin'
+import { BvPlugin, BvComponent, BvEvent } from '../../'
 
 // Modal Plugin
 export declare const ModalPlugin: BvPlugin
 export default ModalPlugin
 
 // Component: b-modal
-export declare class BModal extends Vue {
+export declare class BModal extends BvComponent {
   // Public methods
   show: () => void
   hide: (trigger?: string) => void
@@ -19,7 +18,7 @@ export declare class BModal extends Vue {
 //
 // Types
 //
-export type BvMsgBoxData = boolean | null | any
+export type BvMsgBoxData = boolean | null | BvModalEvent | any
 
 //
 // Interfaces
@@ -72,12 +71,15 @@ export interface BvModalMsgBoxResolver {
 export interface BvModalMsgBoxShortcutMethod {
   (message: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
   // Future
-  //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
+  // (options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
+  // (message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
 }
 
 // Not yet documented
 // export interface BvModalMsgBoxMethod {
+//   (options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
 //   (message: string | VNode | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
+//   (message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
 // }
 
 export interface BvModal {
