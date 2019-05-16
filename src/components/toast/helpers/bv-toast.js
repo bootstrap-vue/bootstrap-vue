@@ -2,9 +2,8 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
-import Vue from '../../../utils/vue'
 import { concat } from '../../../utils/array'
-import { getComponentConfig } from '../../../utils/config'
+import { setConfig, getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
 import { isUndefined, isString } from '../../../utils/inspect'
 import {
@@ -47,142 +46,8 @@ const filterOptions = options => {
   }, {})
 }
 
-// Create a private sub-component that extends BToast
-// which self-destructs after hidden
-// @vue/component
-const BToastPop = Vue.extend({
-  name: 'BToastPop',
-  extends: BToast,
-  destroyed() {
-    // Make sure we not in document any more
-    if (this.$el && this.$el.parentNode) {
-      this.$el.parentNode.removeChild(this.$el)
-    }
-  },
-  mounted() {
-    // Self destruct handler
-    const self = this
-    const handleDestroy = () => {
-      // Ensure the toast has been force hidden
-      self.localShow = false
-      self.doRender = false
-      self.$nextTick(() => {
-        self.$nextTick(() => {
-          // In a `requestAF()` to release control back to application
-          // and to allow the portal-target time to remove the content
-          requestAF(() => {
-            self.$destroy()
-          })
-        })
-      })
-    }
-    // Self destruct if parent destroyed
-    this.$parent.$once('hook:destroyed', handleDestroy)
-    // Self destruct after hidden
-    this.$once('hidden', handleDestroy)
-    // Self destruct when toaster is destroyed
-    this.listenOnRoot('bv::toaster::destroyed', toaster => {
-      /* istanbul ignore next: hard to test */
-      if (toaster === self.toaster) {
-        handleDestroy()
-      }
-    })
-  }
-})
-
-// Method to generate the on-demand toast
-const makeToast = (props, $parent) => {
-  if (warnNotClient(PROP_NAME)) {
-    // Should this throw an error?
-    /* istanbul ignore next */
-    return
-  }
-  // Create an instance of `BToast` component
-  const toast = new BToastPop({
-    // We set parent as the local VM so these toasts can emit events on
-    // the app `$root`
-    // And it helps to ensure `BToast` is destroyed when parent is destroyed
-    parent: $parent,
-    // Preset the prop values
-    propsData: {
-      ...filterOptions(getComponentConfig('BToast') || {}),
-      // Add in (filtered) user supplied props
-      ...omit(props, ['toastContent']),
-      // Props that can't be overridden
-      static: false,
-      visible: true
-    }
-  })
-
-  // Convert certain props to slots
-  keys(propsToSlots).forEach(prop => {
-    let value = props[prop]
-    if (!isUndefined(value)) {
-      // Can be a string, or array of VNodes
-      // Alternatively, user can use HTML version of prop to pass an HTML string
-      if (prop === 'title' && isString(value)) {
-        // Special case for title if it is a string, we wrap in a <strong>
-        value = [$parent.$createElement('strong', { class: 'mr-2' }, value)]
-      }
-      // Make sure slot value is an array for Vue 2.5.x compatability
-      toast.$slots[propsToSlots[prop]] = concat(value)
-    }
-  })
-
-  // Create a mount point (a DIV)
-  // TODO: this needs to target a portal-target
-  // But we still need to place in document to portal-vue can
-  // transfer the content
-  const div = document.createElement('div')
-  document.body.appendChild(div)
-
-  // Mount the toast to trigger it to show
-  toast.$mount(div)
-}
-
-// BvToast instance property class
-class BvToast {
-  constructor(vm) {
-    // Assign the new properties to this instance
-    assign(this, { _vm: vm, _root: vm.$root })
-    // Set these properties as read-only and non-enumerable
-    defineProperties(this, {
-      _vm: readonlyDescriptor(),
-      _root: readonlyDescriptor()
-    })
-  }
-
-  // --- Instance methods ---
-
-  // Opens a user defined toast and returns immediately
-  toast(content, options = {}) {
-    if (!content || warnNotClient(PROP_NAME)) {
-      // Should this throw an error?
-      /* istanbul ignore next */
-      return
-    }
-    const props = {
-      ...filterOptions(options),
-      toastContent: content
-    }
-    makeToast(props, this._vm)
-  }
-
-  // shows a `<b-toast>` component with the specified ID
-  show(id) {
-    if (id) {
-      this._root.$emit('bv::show::toast', id)
-    }
-  }
-
-  // Hide a toast with specified ID, or if not ID all toasts
-  hide(id = null) {
-    this._root.$emit('bv::hide::toast', id)
-  }
-}
-
 // Method to install `$bvToast` VM injection
-const install = _Vue => {
+const install = (Vue, config = {}) => {
   if (install.installed) {
     // Only install once
     /* istanbul ignore next */
@@ -190,8 +55,127 @@ const install = _Vue => {
   }
   install.installed = true
 
+  setConfig(config)
+
+  // Create a private sub-component constructor that
+  // extends BToast and self-destructs after hidden
+  // @vue/component
+  const BToastPop = Vue.extend({
+    name: 'BToastPop',
+    extends: BToast,
+    destroyed() {
+      // Make sure we not in document any more
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el)
+      }
+    },
+    mounted() {
+      const self = this
+      // Self destruct handler
+      const handleDestroy = () => {
+        // Ensure the toast has been force hidden
+        self.localShow = false
+        self.doRender = false
+        self.$nextTick(() => {
+          self.$nextTick(() => {
+            // In a `requestAF()` to release control back to application
+            // and to allow the portal-target time to remove the content
+            requestAF(() => {
+              self.$destroy()
+            })
+          })
+        })
+      }
+      // Self destruct if parent destroyed
+      this.$parent.$once('hook:destroyed', handleDestroy)
+      // Self destruct after hidden
+      this.$once('hidden', handleDestroy)
+      // Self destruct when toaster is destroyed
+      this.listenOnRoot('bv::toaster::destroyed', toaster => {
+        /* istanbul ignore next: hard to test */
+        if (toaster === self.toaster) {
+          handleDestroy()
+        }
+      })
+    }
+  })
+
+  // Private method to generate the on-demand toast
+  const makeToast = (props, $parent) => {
+    if (warnNotClient(PROP_NAME)) {
+      /* istanbul ignore next */
+      return
+    }
+    // Create an instance of `BToastPop` component
+    const toast = new BToastPop({
+      // We set parent as the local VM so these toasts can emit events on the
+      // app `$root`, and it ensures `BToast` is destroyed when parent is destroyed
+      parent: $parent,
+      propsData: {
+        ...filterOptions(getComponentConfig('BToast') || {}),
+        // Add in (filtered) user supplied props
+        ...omit(props, ['toastContent']),
+        // Props that can't be overridden
+        static: false,
+        visible: true
+      }
+    })
+    // Convert certain props to slots
+    keys(propsToSlots).forEach(prop => {
+      let value = props[prop]
+      if (!isUndefined(value)) {
+        // Can be a string, or array of VNodes
+        if (prop === 'title' && isString(value)) {
+          // Special case for title if it is a string, we wrap in a <strong>
+          value = [$parent.$createElement('strong', { class: 'mr-2' }, value)]
+        }
+        toast.$slots[propsToSlots[prop]] = concat(value)
+      }
+    })
+    // Create a mount point (a DIV) and mount it (which triggers the show)
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    toast.$mount(div)
+  }
+
+  // Declare BvToast instance property class
+  class BvToast {
+    constructor(vm) {
+      // Assign the new properties to this instance
+      assign(this, { _vm: vm, _root: vm.$root })
+      // Set these properties as read-only and non-enumerable
+      defineProperties(this, {
+        _vm: readonlyDescriptor(),
+        _root: readonlyDescriptor()
+      })
+    }
+
+    // --- Public Instance methods ---
+
+    // Opens a user defined toast and returns immediately
+    toast(content, options = {}) {
+      if (!content || warnNotClient(PROP_NAME)) {
+        /* istanbul ignore next */
+        return
+      }
+      makeToast({ ...filterOptions(options), toastContent: content }, this._vm)
+    }
+
+    // shows a `<b-toast>` component with the specified ID
+    show(id) {
+      if (id) {
+        this._root.$emit('bv::show::toast', id)
+      }
+    }
+
+    // Hide a toast with specified ID, or if not ID all toasts
+    hide(id = null) {
+      this._root.$emit('bv::hide::toast', id)
+    }
+  }
+
   // Add our instance mixin
-  _Vue.mixin({
+  Vue.mixin({
     beforeCreate() {
       // Because we need access to `$root` for `$emits`, and VM for parenting,
       // we have to create a fresh instance of `BvToast` for each VM
@@ -201,8 +185,8 @@ const install = _Vue => {
 
   // Define our read-only `$bvToast` instance property
   // Placed in an if just in case in HMR mode
-  if (!_Vue.prototype.hasOwnProperty(PROP_NAME)) {
-    defineProperty(_Vue.prototype, PROP_NAME, {
+  if (!Vue.prototype.hasOwnProperty(PROP_NAME)) {
+    defineProperty(Vue.prototype, PROP_NAME, {
       get() {
         /* istanbul ignore next */
         if (!this || !this[PROP_NAME_PRIV]) {
@@ -216,6 +200,7 @@ const install = _Vue => {
 
 install.installed = false
 
+// Default export is the Plugin
 export default {
   install: install
 }
