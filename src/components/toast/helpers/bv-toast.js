@@ -70,8 +70,8 @@ const install = (Vue, config = {}) => {
       }
     },
     mounted() {
-      // Self destruct handler
       const self = this
+      // Self destruct handler
       const handleDestroy = () => {
         // Ensure the toast has been force hidden
         self.localShow = false
