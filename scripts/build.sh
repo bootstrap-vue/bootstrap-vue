@@ -23,10 +23,6 @@ echo ''
 echo 'Build ES modules...'
 NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
 echo "${BV_BANNER}" | cat - es/index.js > es/tmp.js && mv es/tmp.js es/index.js
-# Copy types files over to the es build dirs
-shopt -s globstar
-cp src/**/*.d.ts es
-echo 'Done.'
 echo ''
 
 echo 'Minify JS...'
@@ -69,6 +65,19 @@ cleancss --level 1 \
          --output dist/bootstrap-vue.min.css \
          dist/bootstrap-vue.css
 echo 'Done.'
+echo ''
+
+echo 'Copying types from src/ to es/ ...'
+# There must be a better way to do this
+#
+# The following does not preserve the paths
+#   shopt -s globstar
+#   cp src/**/*.d.ts es
+#
+# So we resort to a find with exec
+cd src
+find . -type f -name '*.d.ts' -exec cp {} ../es/{} ';'
+cd ..
 echo ''
 
 echo 'Done building assets.'
