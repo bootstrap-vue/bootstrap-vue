@@ -8,7 +8,7 @@
   "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
-  "types": "types/index.d.ts",
+  "types": "src/index.d.ts",
   "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
