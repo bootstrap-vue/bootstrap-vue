@@ -108,7 +108,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "esm": "^3.2.22",
+    "esm": "^3.2.23",
     "gh-pages": "^2.0.1",
     "highlight.js": "^9.15.6",
     "html-loader": "^0.5.5",
