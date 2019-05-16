@@ -2,7 +2,7 @@
 // VBTooltip
 //
 import Vue, { DirectiveOptions } from 'vue'
-import { BvPlugin } from '../../bv-plugin'
+import { BvPlugin } from '../../'
 
 // Plugin
 export declare const VBTooltipPlugin: BvPlugin
