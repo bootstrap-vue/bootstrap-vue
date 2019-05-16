@@ -2,7 +2,7 @@
 // Link
 //
 import Vue from 'vue'
-import { BvPlugin, BvComponent } from '../../n'
+import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const LinkPlugin: BvPlugin
