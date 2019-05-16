@@ -23,6 +23,7 @@ echo ''
 echo 'Build ES modules...'
 NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
 echo "${BV_BANNER}" | cat - es/index.js > es/tmp.js && mv es/tmp.js es/index.js
+echo 'Done.'
 echo ''
 
 echo 'Minify JS...'
@@ -78,6 +79,7 @@ echo 'Copying types from src/ to es/ ...'
 cd src
 find . -type f -name '*.d.ts' -exec cp {} ../es/{} ';'
 cd ..
+echo 'Done.'
 echo ''
 
 echo 'Done building assets.'
