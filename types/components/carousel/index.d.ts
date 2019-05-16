@@ -2,14 +2,14 @@
 // Carousel
 //
 import Vue from 'vue'
-import { BvPlugin } from '../../bv-plugin'
+import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const CarouselPlugin: BvPlugin
 export default CarouselPlugin
 
 // Component: b-carousel
-export declare class BCarousel extends Vue {
+export declare class BCarousel extends BvComponent {
   setSlide: (slide: number) => void
   prev: () => void
   next: () => void
@@ -19,4 +19,4 @@ export declare class BCarousel extends Vue {
 }
 
 // Component: b-carousel-slide
-export declare class BCarouselSlide extends Vue {}
+export declare class BCarouselSlide extends BvComponent {}
