@@ -2,14 +2,14 @@
 // Table
 //
 import Vue, { VNode } from 'vue'
-import { BvPlugin } from '../../bv-plugin'
+import { BvPlugin, BvComponent } from '../../'
 
 // Modal Plugin
 export declare const TablePlugin: BvPlugin
 export default TablePlugin
 
 // Component: b-table
-export declare class BTable extends Vue {
+export declare class BTable extends BvComponent {
   // Public methods
   refresh: () => void
   clearSelected: () => void
