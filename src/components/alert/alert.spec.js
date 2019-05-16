@@ -234,31 +234,6 @@ describe('alert', () => {
     wrapper.destroy()
   })
 
-  it('should have class fade when prop fade=true', async () => {
-    const wrapper = mount(BAlert, {
-      propsData: {
-        show: true,
-        fade: true
-      },
-      stubs: {
-        // The builtin stub doesn't execute the transition hooks
-        // so we let it use the real transition component
-        transition: false
-      }
-    })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('alert')
-    expect(wrapper.classes()).toContain('alert-info')
-    expect(wrapper.classes()).toContain('fade')
-    expect(wrapper.classes()).toContain('show')
-
-    wrapper.destroy()
-  })
-
   it('fade transition works', async () => {
     const wrapper = mount(BAlert, {
       propsData: {
@@ -278,14 +253,13 @@ describe('alert', () => {
       show: true
     })
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('fade')
-    expect(wrapper.classes()).toContain('show')
+    await waitRAF()
+    await waitRAF()
+    await waitRAF()
 
     wrapper.setProps({
       show: false
