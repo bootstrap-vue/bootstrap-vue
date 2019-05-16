@@ -7,13 +7,13 @@ describe('$bvToast', () => {
 
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
-    jest.spyOn(console, 'warn').mockImplementation(() => {})
+    // jest.spyOn(console, 'warn').mockImplementation(() => {})
     // Install plugin after we have trapped console.warn
     localVue.use(toastPlugin)
   })
 
   afterAll(() => {
-    console.warn.mockClear()
+    // console.warn.mockClear()
   })
 
   it('$bvToast.show() and $bvToast.hide() works', async () => {
