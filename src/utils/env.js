@@ -15,6 +15,8 @@ export const hasMutationObserverSupport =
 
 export const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
 
+export const isJSDOM = isBrowser && navigator.userAgent.includes("jsdom")
+
 // Determine if the browser supports the option passive for events
 export const hasPassiveEventSupport = (() => {
   let passiveEventSupported = false
