@@ -24,7 +24,8 @@ echo 'Build ES modules...'
 NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
 echo "${BV_BANNER}" | cat - es/index.js > es/tmp.js && mv es/tmp.js es/index.js
 # Copy types files over to the es build dirs
-cp -rp types/* es
+shopt -s globstar
+cp -rp src/**/*.d.ts es
 echo 'Done.'
 echo ''
 
