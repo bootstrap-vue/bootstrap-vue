@@ -2,20 +2,20 @@
 // Toast
 //
 import Vue, { VNode } from 'vue'
-import { BvPlugin } from '../../bv-plugin'
+import { BvPlugin, BvComponent } from '../../'
 
 // Toast Plugin
 export declare const ToastPlugin: BvPlugin
 export default ToastPlugin
 
 // Component: b-toast
-export declare class BToast extends Vue {
+export declare class BToast extends BvComponent {
   show: () => void
   hide: () => void
 }
 
 // Component: b-toaster
-export declare class BToaster extends Vue {}
+export declare class BToaster extends BvComponent {}
 
 //
 // Interfaces
@@ -44,7 +44,8 @@ export interface BvToastOptions {
 export interface BvToastShortcutMethod {
   (message: string | VNode | Array<VNode>, options?: BvToastOptions): void
   // Future
-  //(message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvToastOptions): void
+  // (options?: BvToastOptions): void
+  // (message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvToastOptions): void
 }
 
 export interface BvToast {
