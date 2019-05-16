@@ -3436,24 +3436,24 @@ codesandbox-import-util-types@^2.1.5:
   resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.5.tgz#de28decc4deca5a43cc83cd75f1b72d890c380af"
   integrity sha512-4F0hQY4duS9Jmxzr/dufOtrk6i1aXrh4W/96ylQtT4I4tfsqnMQAvdAxlqAsAQ3TtCyPVKNfI6B6Vjb0boEJbw==
 
-codesandbox-import-utils@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.5.tgz#324139527e9b3d223d5070e981aefca8c189ebb2"
-  integrity sha512-604ustB2OM0Bb/nE7b2b4AQaXdlxwmt2sTwXmCyH9wwY6DeeMX5hI2PMqfA+8p+GXO+mWbHqQsFtB/jO2xWtOg==
+codesandbox-import-utils@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.6.tgz#5eacbef741619e2caed645b7f8444437a86be8e1"
+  integrity sha512-efI6jHRcvBr0iLWc54UwX6YkED2sjUSIGajM12PwBOr2Wfe7UnRxXZr/K6BgVpRcHDb6D1+mXGa9rhdPz0bH3A==
   dependencies:
     codesandbox-import-util-types "^2.1.5"
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
-codesandbox@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.5.tgz#83e9eb6dd18929861eb51f4f07de933cb8d392ae"
-  integrity sha512-f2gI0RUvzO/LQwFLnhz8zCTRnx+D9VStKdDjGx0M46cgCyRGCKusy50sxcAJ3M0pWDhB5WDTj9A47HvmC94QIQ==
+codesandbox@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.6.tgz#3ed410e2002b91fcc0b3ea80a384f95f46c2ef0c"
+  integrity sha512-J8CxcM9KqouRG02Mq7iWwkvP9cbHtI1pjFLBrrkUnzdmbZgYOZ5SdRjghOF711wQAi0rEueEvzmdYazrdUJjqA==
   dependencies:
     axios "^0.16.2"
     chalk "^2.4.1"
     codesandbox-import-util-types "^2.1.5"
-    codesandbox-import-utils "^2.1.5"
+    codesandbox-import-utils "^2.1.6"
     commander "^2.9.0"
     datauri "^1.1.0"
     filesize "^3.6.1"
@@ -5019,10 +5019,10 @@ esm@3.2.20:
   resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.20.tgz#44f125117863427cdece7223baa411fc739c1939"
   integrity sha512-NA92qDA8C/qGX/xMinDGa3+cSPs4wQoFxskRrSnDo/9UloifhONFm4sl4G+JsyCqM007z2K+BfQlH5rMta4K1Q==
 
-esm@^3.2.23:
-  version "3.2.23"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.23.tgz#caa54cb844a5ea1b89f9aa6c39ef7afb940a78fd"
-  integrity sha512-p7iNpE0K3nLn1KE2O0Vz/2Gpg93U+JroVqAdHZwK7l3MmPKh4iu5CEvw1Gym9DT23BgNNvnY5wOf9vMjBFw7Ug==
+esm@^3.2.24:
+  version "3.2.24"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.24.tgz#b77c0d9ac16904e156f7ea515ea2c16f9493a7b2"
+  integrity sha512-FWKxmdrXqKLyBR5FxF76RY0Hg1WyBBsc+/WG5uteKjdb/66szoT5WmSCamLJTlv9HF8ajPVeUXdHyTnWPZjTzA==
 
 espree@^4.1.0:
   version "4.1.0"
