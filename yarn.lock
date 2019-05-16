@@ -5019,10 +5019,10 @@ esm@3.2.20:
   resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.20.tgz#44f125117863427cdece7223baa411fc739c1939"
   integrity sha512-NA92qDA8C/qGX/xMinDGa3+cSPs4wQoFxskRrSnDo/9UloifhONFm4sl4G+JsyCqM007z2K+BfQlH5rMta4K1Q==
 
-esm@^3.2.22:
-  version "3.2.22"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.22.tgz#5062c2e22fee3ccfee4e8f20da768330da90d6e3"
-  integrity sha512-z8YG7U44L82j1XrdEJcqZOLUnjxco8pO453gKOlaMD1/md1n/5QrscAmYG+oKUspsmDLuBFZrpbxI6aQ67yRxA==
+esm@^3.2.23:
+  version "3.2.23"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.23.tgz#caa54cb844a5ea1b89f9aa6c39ef7afb940a78fd"
+  integrity sha512-p7iNpE0K3nLn1KE2O0Vz/2Gpg93U+JroVqAdHZwK7l3MmPKh4iu5CEvw1Gym9DT23BgNNvnY5wOf9vMjBFw7Ug==
 
 espree@^4.1.0:
   version "4.1.0"
