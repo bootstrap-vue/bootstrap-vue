@@ -2,32 +2,32 @@
 // Dropdown
 //
 import Vue from 'vue'
-import { BvPlugin } from '../../bv-plugin'
+import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const DropdownPlugin: BvPlugin
 export default DropdownPlugin
 
 // Component: b-dropdown
-export declare class BDropdown extends Vue {}
+export declare class BDropdown extends BvComponent {}
 
 // Component: b-dropdown-item
-export declare class BDropdownItem extends Vue {}
+export declare class BDropdownItem extends BvComponent {}
 
 // Component: b-dropdown-item-button
-export declare class BDropdownItemButton extends Vue {}
+export declare class BDropdownItemButton extends BvComponent {}
 
 // Component: b-dropdown-divider
-export declare class BDropdownDivider extends Vue {}
+export declare class BDropdownDivider extends BvComponent {}
 
 // Component: b-dropdown-form
-export declare class BDropdownForm extends Vue {}
+export declare class BDropdownForm extends BvComponent {}
 
 // Component: b-dropdown-text
-export declare class BDropdownText extends Vue {}
+export declare class BDropdownText extends BvComponent {}
 
 // Component: b-dropdown-group
-export declare class BDropdownGroup extends Vue {}
+export declare class BDropdownGroup extends BvComponent {}
 
 // Component: b-dropdown-header
-export declare class BDropdownHeader extends Vue {}
+export declare class BDropdownHeader extends BvComponent {}
