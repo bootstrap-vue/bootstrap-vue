@@ -1,7 +1,7 @@
 import OurVue from './vue'
 import warn from './warn'
 import { setConfig } from './config'
-import { hasWindowSupport } from './env'
+import { hasWindowSupport, isJSDOM } from './env'
 
 const MULTIPLE_VUE_WARNING = `Multiple instances of Vue detected!
 See: https://bootstrap-vue.js.org/docs#using-module-bundlers`
@@ -14,7 +14,7 @@ let checkMultipleVueWarned = false
  */
 export const checkMultipleVue = Vue => {
   /* istanbul ignore next */
-  if (!checkMultipleVueWarned && OurVue !== Vue) {
+  if (!checkMultipleVueWarned && OurVue !== Vue && !isJSDOM) {
     warn(MULTIPLE_VUE_WARNING)
     checkMultipleVueWarned = true
   }
