@@ -68,4 +68,18 @@ cleancss --level 1 \
 echo 'Done.'
 echo ''
 
+echo 'Copying types from src/ to es/ ...'
+# There must be a better way to do this
+#
+# The following does not preserve the paths
+#   shopt -s globstar
+#   cp src/**/*.d.ts es
+#
+# So we resort to a find with exec
+cd src
+find . -type f -name '*.d.ts' -exec cp {} ../es/{} ';'
+cd ..
+echo 'Done.'
+echo ''
+
 echo 'Done building assets.'
