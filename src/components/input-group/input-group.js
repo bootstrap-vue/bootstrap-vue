@@ -51,12 +51,12 @@ export default Vue.extend({
             ? h(InputGroupText, { domProps: htmlOrText(props.prependHTML, props.prepend) })
             : h(false),
           // Slot
-          normalizeSlot('prepend', {}, $scopedSlots, $slots)
+          normalizeSlot('prepend', {}, $scopedSlots, $slots) || h(false)
         ])
       )
     } else {
       childNodes.push(h(false))
-    }      
+    }
 
     // Default slot
     if (hasNormalizedSlot('default', $scopedSlots, $slots)) {
@@ -74,7 +74,7 @@ export default Vue.extend({
             ? h(InputGroupText, { domProps: htmlOrText(props.appendHTML, props.append) })
             : h(false),
           // Slot
-          normalizeSlot('append', {}, $scopedSlots, $slots)
+          normalizeSlot('append', {}, $scopedSlots, $slots) || h(false)
         ])
       )
     } else {
