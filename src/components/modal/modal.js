@@ -343,7 +343,7 @@ export default Vue.extend({
     this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
-      this.$nextTick(() => this.show)
+      this.$nextTick(this.show)
     }
   },
   beforeDestroy() {
