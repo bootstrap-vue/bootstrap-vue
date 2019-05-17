@@ -363,6 +363,12 @@ In the future this plugin will provide options for more advanced configurations 
 When using a module bundler you can optionally import only specific components groups (plugins),
 components and/or directives.
 
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> Tree shaking only works when webpack 4 is in <code>production</code> mode.
+  </p>
+</div>
+
 ### Component groups and directives as Vue plugins
 
 You can import component groups and directives as Vue plugins by importing from the `components`
