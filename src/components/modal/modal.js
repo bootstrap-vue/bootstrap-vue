@@ -322,7 +322,7 @@ export default Vue.extend({
   watch: {
     visible(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$nextTick(() => this[newVal ? 'show' : 'hide'])
+        this[newVal ? 'show' : 'hide']()
       }
     }
   },
@@ -401,7 +401,7 @@ export default Vue.extend({
       // Show the modal
       this.doShow()
     },
-    hide(trigger) {
+    hide(trigger = '') {
       if (!this.is_visible || this.is_closing) {
         /* istanbul ignore next */
         return
