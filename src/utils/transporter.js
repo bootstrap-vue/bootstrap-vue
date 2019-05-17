@@ -163,7 +163,7 @@ export const BTransporterSingle = Vue.extend({
   render(h) {
     if (this.disabled) {
       const nodes = concat(this.normalizeSlot('default', {})).filter(Boolean)
-      if (nodes.length > 0 and !nodes[0].text) {
+      if (nodes.length > 0 && !nodes[0].text) {
         return nodes[0]
       }
     }
