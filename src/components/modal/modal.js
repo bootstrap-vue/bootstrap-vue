@@ -322,7 +322,7 @@ export default Vue.extend({
   watch: {
     visible(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this[newVal ? 'show' : 'hide']()
+        this.$nextTick(() => this[newVal ? 'show' : 'hide'])
       }
     }
   },
@@ -343,7 +343,7 @@ export default Vue.extend({
     this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
-      this.show()
+      this.$nextTick(() => this.show)
     }
   },
   beforeDestroy() {
