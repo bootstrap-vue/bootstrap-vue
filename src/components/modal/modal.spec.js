@@ -184,14 +184,14 @@ describe('modal', () => {
       expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-      let modal = document.getElementById('testtarget')
-      expect(modal).toBeDefined()
-      expect(modal).not.toBe(null)
+      let outer = document.getElementById('testtarget___BV_modal_outer_')
+      expect(outer).toBeDefined()
+      expect(outer).not.toBe(null)
 
-      expect(modal.__vue__).toBeDefined() // Target
-      expect(modal.__vue__.$options.name).toBe('BTransporterTargetSingle')
-      expect(modal.$el.parentElement).toBeDefined()
-      expect(modal.$el.parentElement).toBe(document.body)
+      expect(outer.__vue__).toBeDefined() // Target
+      expect(outer.__vue__.$options.name).toBe('BTransporterTargetSingle')
+      expect(outer.$el.parentElement).toBeDefined()
+      expect(outer.$el.parentElement).toBe(document.body)
 
       // Destroy modal
       wrapper.destroy()
@@ -204,7 +204,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Should no longer be in document.
-      expect(modal.$el.parentElement).not.toBeDefined()
+      expect(outer.$el.parentElement).not.toBeDefined()
     })
 
     it('has expected structure when closed after being initially open', async () => {
@@ -258,12 +258,6 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
-
-      // expect(body._marginChangedForModal).toBe(null)
-      // expect(body._paddingChangedForModal).toBe(null)
-      // expect(body.classList.contains('modal-open')).toBe(false)
-      // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
-      // expect(body.getAttribute('data-modal-open-count')).toEqual('0')
 
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
