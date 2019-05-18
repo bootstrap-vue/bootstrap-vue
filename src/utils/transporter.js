@@ -8,7 +8,7 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 
 // BTransporterSingle/BTransporterTargetSingle:
 //
-// Single root node portaling of content, which retains parent child tree,
+// Single root node portaling of content, which retains parent/child hierarchy,
 // Unlike Portal-Vue where portaled content is no longer a descendent of
 // it's inteden parent components
 //
