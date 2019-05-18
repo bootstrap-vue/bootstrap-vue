@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import { Portal } from 'portal-vue'
 import modalManager from './helpers/modal-manager'
 import BvModalEvent from './helpers/bv-modal-event.class'
 import BButton from '../button/button'
@@ -8,8 +7,9 @@ import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BVTransition from '../../utils/bv-transition'
-import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
+import observeDom from '../../utils/observe-dom'
+import BTransporterSingle from '../../utils/transporter-single'
 import { isBrowser } from '../../utils/env'
 import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
@@ -913,15 +913,8 @@ export default Vue.extend({
   render(h) {
     // Wrap in a portal
     return h(
-      Portal,
-      {
-        props: {
-          name: `b-modal-${this._uid}`,
-          to: modalManager.modalTargetName,
-          slim: true,
-          disabled: this.static
-        }
-      },
+      BTransporterSingle,
+      { props: { disabled: this.static } },
       [!this.is_hidden || (this.static && !this.lazy) ? this.makeModal(h) : h(false)]
     )
   }
