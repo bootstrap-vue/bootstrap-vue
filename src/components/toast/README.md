@@ -406,17 +406,27 @@ a later point in time).
 
 ### Accessibility tips
 
+Typically, toast messages should display one or two-line non-critical messages that **do not**
+require user interaction. Without taking extra steps, toasts can have numerous accessibility issues
+that can impact both people with and without disabilities. The following list, while not complete,
+provides general guidlines when using toasts.
+
 - If the information needed is important for the process, e.g. for a list of errors in a form, then
   use the [`<b-alert>`](/docs/components/alert) component instead of `<b-toast>`.
 - `<b-toast>`, by default, sets the attributes `role` to `'alert'` and `aria-live` to `'assertive'`.
   If it’s an important message like an error, this default setting is appropriate, otherwise set the
-  prop `is-status` to `true` to change the attributes `role` to `'status'` and `aria-live` to
+  prop `is-status` to `true` which will change the attributes `role` to `'status'` and `aria-live` to
   `'polite'`.
+- Avoid popping up a toast message on page load. Performing unexpected actions on page load is very
+  confusing to screen reader users. If a toast is needed on page load or route change, delay showing
+  the toast by several seconds so that the screen reader will finishing announcing information about
+  the current page without interruption by a the toast.
 - When setting prop `auto-hide` to `false`, you must have a close button to allow users to dismiss
-  the toast. If you have set prop `no-close-button` to true, you must provide your own close button
-  or dismiss the toast by some other means.
+  the toast. If you have also set prop `no-close-button` to true, you must provide your own close
+  button or dismiss the toast by some other means. Toasts have a tab index of `0` so that they can be
+  reached by keyboard-only users.
 - Avoid initiating many toasts in quick succession, as screen readers may interupt reading the
-  current toast and announce the new toast, causing hte context of hte previous toast to be missed.
+  current toast and announce the new toast, causing the context of the previous toast to be missed.
 - For toasts with long textual content, adjust the `auto-hide-delay` to a larger timout, to allow
   users time to read the content of the toast. A good length of time to keep messages up is 4 seconds
   plus 1 extra second for every 100 words, rounding up. This is approximately how fast the average
@@ -429,3 +439,5 @@ a later point in time).
 - To account for memory loss and distraction as well as disability-related issues such as ADHD, a best
   practice would be to implement a location where users can refer to a list of past toast messages
   which have been shown. Preferably this list should be sortable, with the default being chronological.
+
+<!-- Component reference added automatically from component package.json -->
