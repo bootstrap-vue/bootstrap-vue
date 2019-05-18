@@ -206,7 +206,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Should no longer be in document.
-      expect(outer.parentElement).not.toBeDefined()
+      expect(outer.parentElement).toEqual(null)
     })
 
     it('has expected structure when closed after being initially open', async () => {
