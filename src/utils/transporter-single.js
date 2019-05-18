@@ -74,7 +74,7 @@ export const BTransporterSingle = Vue.extend({
       // HTMLElement: Element reference
       // Mainly needed for tooltips/popovers inside modals
       type: [String, HTMLElement],
-      default: 'body',
+      default: 'body'
     },
     tag: {
       // This should be set to match the root element type
