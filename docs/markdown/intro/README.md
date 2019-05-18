@@ -365,7 +365,9 @@ components and/or directives.
 
 <div class="alert alert-info">
   <p class="mb-0">
-    <b>Note:</b> Tree shaking only works when webpack 4 is in <code>production</code> mode.
+    <b>Note:</b> Tree shaking only works when webpack 4 is in
+    [<code>production</code>](https://webpack.js.org/guides/tree-shaking) mode and javascript
+    minification is enabled.
   </p>
 </div>
 
