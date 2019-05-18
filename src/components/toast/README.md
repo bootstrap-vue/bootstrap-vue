@@ -132,6 +132,9 @@ automatically be destroyed and removed from the document.
 - A new `$bvToast` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
   component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
   instance's `this` and `$root` contexts.
+- Toasts generated via `this.$bvToast.toast()` are children of the Vue instance that calls the
+  `this.$bvToast.toast()` method, and will be hidden and destroyed if that Vue instance (i.e. your
+  component or app) is also destroyed.
 
 ## Options
 
