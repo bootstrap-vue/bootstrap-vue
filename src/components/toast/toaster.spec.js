@@ -34,7 +34,7 @@ describe('b-toaster', () => {
     expect($slot.classes()).toContain('vue-portal-target')
     expect($slot.classes().length).toBe(2)
     expect($slot.attributes('aria-live')).toEqual('polite')
-    expect($slot.attributes('aria-atomic')).toEqual('true')
+    expect($slot.attributes('aria-atomic')).toEqual('false')
     expect($slot.attributes('role')).not.toBeDefined()
     expect($slot.text()).toEqual('')
 
@@ -51,7 +51,7 @@ describe('b-toaster', () => {
       propsData: {
         name: 'bar',
         ariaLive: 'assertive',
-        ariaAtomic: 'false',
+        ariaAtomic: 'true',
         role: 'alert'
       }
     })
@@ -71,7 +71,7 @@ describe('b-toaster', () => {
     expect($slot.classes()).toContain('vue-portal-target')
     expect($slot.classes().length).toBe(2)
     expect($slot.attributes('aria-live')).toEqual('assertive')
-    expect($slot.attributes('aria-atomic')).toEqual('false')
+    expect($slot.attributes('aria-atomic')).toEqual('true')
     expect($slot.attributes('role')).toEqual('alert')
     expect($slot.text()).toEqual('')
 
