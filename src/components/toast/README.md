@@ -9,11 +9,13 @@ popularized by mobile and desktop operating systems.
 Toasts are intended to be small interruptions to your visitors or users, and therefore should
 contain minimal, to-the-point, non-interactive content.
 
-<p class="alert alert-warning mb-0" role="alert">
-  <strong>BETA warning</strong><br>
-  Toasts are in their preliminary stages of being developed,
-  and usage and custom CSS is subject to change in future releases.
-</p>
+<div class="alert alert-warning">
+  <p class="mb-0">
+    <strong>BETA warning:</strong><br>
+    Toasts are in their preliminary stages of being developed, and usage and custom CSS is subject
+    to change in future releases.
+  </p>
+</div>
 
 ## Overview
 
@@ -28,7 +30,10 @@ under the toast.
 ```html
 <template>
   <div class="p-3 bg-secondary progress-bar-striped" style="min-height: 150px;">
-    <b-toast title="BootstrapVue" visible static no-auto-hide>
+    <b-button class="mb-2" @click="$bvtoast.show('example-toast')">
+      Show toast
+    </b-button>
+    <b-toast id="example-toast" title="BootstrapVue" static no-auto-hide>
       Hello, world! This is a toast message.
     </b-toast>
   </div>
@@ -390,7 +395,7 @@ toasts are closed/hidden.
 
 ## Accessibility
 
-Toasts are intended to be small interruptions to your visitors or users, so to help those with
+Toasts are intended to be **small interruptions** to your visitors or users, so to help those with
 screen readers and similar assistive technologies, toasts are wrapped in an aria-live region.
 Changes to live regions (such as injecting/updating a toast component) are automatically announced
 by screen readers without needing to move the user’s focus or otherwise interrupt the user.
@@ -399,13 +404,25 @@ announced as a single (atomic) unit, rather than announcing what was changed (wh
 problems if you only update part of the toast’s content, or if displaying the same toast content at
 a later point in time).
 
-If the information needed is important for the process, e.g. for a list of errors in a form, then
-use the [`<b-alert>`](/docs/components/alert) component instead of `<b-toast>`.
+### Accessibility tips
 
-`<b-toast>`, by default, sets the attributes `role` to `'alert'` and `aria-live` to `'assertive'`.
-If it’s an important message like an error, this default setting is appropriate, otherwise set the
-prop `is-status` to `true` to change the attributes `role` to `'status'` and `aria-live` to
-`'polite'`.
-
-When setting prop `auto-hide` to `false`, you must have a close button to allow users to dismiss the
-toast. If you have set prop `no-close-button` to true, you must provide your own close button.
+- If the information needed is important for the process, e.g. for a list of errors in a form, then
+  use the [`<b-alert>`](/docs/components/alert) component instead of `<b-toast>`.
+- `<b-toast>`, by default, sets the attributes `role` to `'alert'` and `aria-live` to `'assertive'`.
+  If it’s an important message like an error, this default setting is appropriate, otherwise set the
+  prop `is-status` to `true` to change the attributes `role` to `'status'` and `aria-live` to
+  `'polite'`.
+- When setting prop `auto-hide` to `false`, you must have a close button to allow users to dismiss
+  the toast. If you have set prop `no-close-button` to true, you must provide your own close button
+  or dismiss the toast by some other means.
+- Avoid initiating many toasts in quick succession, as screen readers may interupt reading the
+  current toast and announce the new toast, causing hte context of hte previous toast to be missed.
+- For toasts with long textual content, adjust the `auto-hide-delay` to a larger timout, to allow
+  users time to read the content of the toast. A good length of time to keep messages up is 4 seconds
+  plus 1 extra second for every 100 words, rounding up. This is approximately how fast the average
+  person reads. That means the shortest default that should be used as a best practice is 5 seconds
+  (5000ms).
+- To account for memory loss and distraction as well as disability-related issues such as ADHD, a best
+  practice would be to implement a location where users can refer to a list of past toast messages
+  which have come and gone. Preferably this list would be sortable, with the default being
+  chronological (what was that message that just popped up).
