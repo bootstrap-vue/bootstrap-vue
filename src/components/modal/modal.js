@@ -912,7 +912,7 @@ export default Vue.extend({
   },
   render(h) {
     if (this.static) {
-      return this.lazy || this.is_hidden ? h(false) : this.makeModal(h)
+      return this.lazy && this.is_hidden ? h(false) : this.makeModal(h)
     } else {
       return this.is_hidden ? h(false) : h(BTransporterSingle, {}, [this.makeModal(h)])
     }
