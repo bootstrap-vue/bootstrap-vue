@@ -4,6 +4,7 @@ import BvEvent from '../../utils/bv-event.class'
 import BVTransition from '../../utils/bv-transition'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
+import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
@@ -17,14 +18,6 @@ const NAME = 'BToast'
 const MIN_DURATION = 1000
 
 export const props = {
-  id: {
-    type: String,
-    default: null
-  },
-  visible: {
-    type: Boolean,
-    default: false
-  },
   title: {
     type: String,
     default: null
@@ -32,6 +25,10 @@ export const props = {
   toaster: {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster')
+  },
+  visible: {
+    type: Boolean,
+    default: false
   },
   variant: {
     type: String,
@@ -182,7 +179,7 @@ export default Vue.extend({
     })
     // Listen for global $root show events
     this.listenOnRoot('bv::show::toast', id => {
-      if (id === this.id) {
+      if (id === this.safeId()) {
         this.show()
       }
     })
@@ -384,9 +381,9 @@ export default Vue.extend({
           staticClass: 'toast',
           class: this.toastClass,
           attrs: {
-            tabindex: '-1',
             ...this.$attrs,
-            id: this.id || null
+            tabindex: '0',
+            id: this.safeId()
           }
         },
         [$header, $body]
