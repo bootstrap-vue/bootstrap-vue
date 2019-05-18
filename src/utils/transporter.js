@@ -39,12 +39,6 @@ const BTransporterTargetSingle = Vue.extend({
       updatedNodes: vm.nodes
     }
   },
-  mounted() {
-    if (this.$parent) {
-      // Safety net in case we are not destroyed
-      this.$parent.$once('hook:destroyed', this.$destroy)
-    }
-  },
   destroyed() {
     const el = this.$el
     el && el.parentNode && el.parentNode.removeChild(el)
