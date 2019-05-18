@@ -28,7 +28,7 @@ describe('utils/transporter component', () => {
     const App = localVue.extend({
       render(h) {
         return h(BTransporterSingle, { props: { disabled: false } }, [
-          h('div', { id: 'foobar' }, 'content')
+          h('div', { attrs: { id: 'foobar' } }, 'content')
         ])
       }
     })
@@ -46,9 +46,18 @@ describe('utils/transporter component', () => {
 
     const target = document.getElementById('foobar')
     expect(target).toBeDefined()
+    expect(target).not.toBe(null)
+    expect(target.__vue__).toBeDefined() // Target
+    expect(target.__vue__.$options.name).toBe('BTransporterTargetSingle')
     expect(target.tagName).toEqual('DIV')
     expect(target.innerText).toEqual('content')
+    expect(target.parentElement).toBeDefined()
+    expect(target.parentElement).toBe(document.body)
 
     wrapper.destroy()
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(target.parentElement).toEqual(null)
   })
 })
