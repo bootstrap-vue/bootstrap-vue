@@ -19,6 +19,8 @@ const MIN_DURATION = 1000
 
 export const props = {
   id: {
+    // Even though the ID prop is provided by idMixin, we
+    // add it here for $bvToast for filtering props
     type: String,
     default: null
   },
