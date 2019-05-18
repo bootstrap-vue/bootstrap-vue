@@ -160,7 +160,7 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('renders in modal target when initially open and not static', async () => {
+    it('renders appended to body when initially open and not static', async () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
@@ -188,25 +188,21 @@ describe('modal', () => {
       expect(modal).toBeDefined()
       expect(modal).not.toBe(null)
 
-      const target = document.querySelector('.b-modal-target')
-      expect(target).toBeDefined()
-      expect(target).not.toBe(null)
+      expect(modal.__vue__).toBeDefined() // Target
+      expect(modal.__vue__$options.name).toBe('BTransporterTargetSingle')
+      expect(modal.$el.parentElement).toBeDefined()
+      expect(modal.$el.parentElement).toBe(document.body)
 
-      expect(target.__vue__).toBeDefined() // Portal
-      expect(target.__vue__.$parent).toBeDefined() // BModalTarget
-      expect(target.__vue__.$parent.$options.name).toBe('BModalTarget')
-
-      // Make sure target is not in document anymore
-      target.__vue__.$parent.$destroy()
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
-      expect(document.querySelector('.b-modal-target')).toBe(null)
-
+      // Destroy modal
       wrapper.destroy()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      // Should no longer be in document.
+      expect(modal.$el.parentElement).not.toBeDefined()
     })
 
     it('has expected structure when closed after being initially open', async () => {
