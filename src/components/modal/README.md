@@ -37,6 +37,12 @@ via the `modal-header` slot, and override the footer completely via the `modal-f
 present. Also, if you use the `modal-header` slot, the default header `X` close button will not be
 present, nor can you use the `modal-title` slot.
 
+<span class="badge badge-warning small">CHANGED in 2.0.0-rc.20</span> Modals will not render their
+content in the document until they are shown (lazily rendered). Modals, when visible, are rendered
+**appended to the `<body>` element**. The placement of the `<b-modal>` component will not affect layout,
+as it always renders as a placeholder comment node (`<!---->`). You can revert to the behaviour of
+previous BootstrapVue versions via the use of the [`static` prop](#lazy-loading-and-static-modals).
+
 ## Toggle modal visibility
 
 There are several methods that you can employ to toggle the visibility of `<b-modal>`.
@@ -144,6 +150,9 @@ methods.
 The `hide()` method accepts an optional string `trigger` argument for defining what triggered the
 modal to close. See section [Prevent Closing](#prevent-closing) below for details.
 
+**Note:** It is reccomended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
+(mentioned in the previous section) instead of using `$ref` methods.
+
 ### Using `v-model` property
 
 `v-model` property is always automatically synced with `<b-modal>` visible state and you can
@@ -171,7 +180,7 @@ show/hide using `v-model`.
 <!-- b-modal-v-model.vue -->
 ```
 
-When using the `v-model` property, do not use the `visible` property at the same time.
+When using the `v-model` prop, **do not** use the `visible` prop at the same time.
 
 ### Using scoped slot scope methods
 
@@ -213,6 +222,9 @@ export default {
   }
 }
 ```
+
+**Note:** It is reccomended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
+(mentioned in a previous section) instead of emitting `$root` events.
 
 ### Prevent closing
 
@@ -366,13 +378,12 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 
 ## Lazy loading and static modals
 
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
+<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
 
 By default, modals will not render their content in the document until they are shown (lazily
-rendered). Modals that are visible are rendered appended to the `<body>` element (via the use of
-[PortalVue](https://portal-vue.linusb.org/)) inside a modal target `<div>` when they are visible.
-`<b-modal>` components will not affect layout, as they render as a placeholder comment node
-(`<!---->`).
+rendered). Modals that are visible are rendered appended to the `<body>` element when they are
+visible. The `<b-modal>` component will not affect layout, as they render as a placeholder comment
+node (`<!---->`) in the DOM position they are placed.
 
 Modals can be rendered _in-place_ in the document, where the `<b-modal>` component is placed in the
 document, by setting the `static` prop to `true`. Note that the content of the modal will be
@@ -382,7 +393,7 @@ document _only_ when it is visible. Note, when in `static` mode, placement of th
 component may affect layout of your document and the modal.
 
 The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
-always be lazily rendered).
+_always_ be lazily rendered).
 
 ## Styling, options, and customization
 
