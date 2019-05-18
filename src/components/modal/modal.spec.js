@@ -189,13 +189,15 @@ describe('modal', () => {
       expect(modal).not.toBe(null)
 
       expect(modal.__vue__).toBeDefined() // Target
-      expect(modal.__vue__$options.name).toBe('BTransporterTargetSingle')
+      expect(modal.__vue__.$options.name).toBe('BTransporterTargetSingle')
       expect(modal.$el.parentElement).toBeDefined()
       expect(modal.$el.parentElement).toBe(document.body)
 
       // Destroy modal
       wrapper.destroy()
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
