@@ -35,6 +35,8 @@ describe('$bvToast', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.vm.$bvToast).toBeDefined()
     expect(wrapper.vm.$bvToast.show).toBeDefined()
@@ -50,11 +52,15 @@ describe('$bvToast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.find('.toast').exists()).toBe(true)
 
     wrapper.vm.$bvToast.hide('test1')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -119,6 +125,8 @@ describe('$bvToast', () => {
     expect($button.classes()).toContain('close')
     $button.trigger('click')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
