@@ -180,6 +180,8 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
@@ -190,8 +192,8 @@ describe('modal', () => {
 
       expect(outer.__vue__).toBeDefined() // Target
       expect(outer.__vue__.$options.name).toBe('BTransporterTargetSingle')
-      expect(outer.$el.parentElement).toBeDefined()
-      expect(outer.$el.parentElement).toBe(document.body)
+      expect(outer.parentElement).toBeDefined()
+      expect(outer.parentElement).toBe(document.body)
 
       // Destroy modal
       wrapper.destroy()
@@ -204,7 +206,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Should no longer be in document.
-      expect(outer.$el.parentElement).not.toBeDefined()
+      expect(outer.parentElement).not.toBeDefined()
     })
 
     it('has expected structure when closed after being initially open', async () => {
