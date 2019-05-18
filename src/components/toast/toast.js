@@ -113,6 +113,7 @@ export default Vue.extend({
       doRender: false,
       localShow: false,
       isTransitioning: false,
+      isHiding: false,
       order: 0,
       timer: null,
       dismissStarted: 0,
@@ -210,6 +211,7 @@ export default Vue.extend({
         this.emitEvent(showEvt)
         this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
+        this.isHiding = false
         this.doRender = true
         this.$nextTick(() => {
           // We show the toast after we have rendered the portal and b-toast wrapper
@@ -227,7 +229,10 @@ export default Vue.extend({
         this.setHoverHandler(false)
         this.dismissStarted = this.resumeDismiss = 0
         this.clearDismissTimer()
-        this.localShow = false
+        this.isHiding = true
+        requestAF(() => {
+          this.localShow = false
+        })
       }
     },
     buildEvent(type, opts = {}) {
@@ -414,9 +419,9 @@ export default Vue.extend({
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {
-              role: this.isStatus ? 'status' : 'alert',
-              'aria-live': this.isStatus ? 'polite' : 'assertive',
-              'aria-atomic': 'true'
+              role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
+              'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
+              'aria-atomic': this.isHiding ? null : 'true'
             }
           },
           [
