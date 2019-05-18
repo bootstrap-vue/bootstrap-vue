@@ -47,7 +47,7 @@ describe('b-toast', () => {
     const $toast = wrapper.find('.toast')
     expect($toast.is('div')).toBe(true)
     expect($toast.classes()).toContain('toast')
-    expect($toast.attributes('tabindex')).toEqual('-1')
+    expect($toast.attributes('tabindex')).toEqual('0')
 
     expect($toast.find('.toast-header').exists()).toBe(true)
     const $header = $toast.find('.toast-header')
