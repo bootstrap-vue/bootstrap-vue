@@ -18,6 +18,10 @@ const NAME = 'BToast'
 const MIN_DURATION = 1000
 
 export const props = {
+  id: {
+    type: String,
+    default: null
+  },
   title: {
     type: String,
     default: null
@@ -97,7 +101,7 @@ export const props = {
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
