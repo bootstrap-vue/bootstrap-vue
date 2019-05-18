@@ -45,6 +45,7 @@ const BTransporterTargetSingle = Vue.extend({
   },
   render(h) {
     const nodes = concat(this.updatedNodes).filter(Boolean)
+    /* istanbul ignore else */
     if (nodes && nodes.length > 0 && !nodes[0].text) {
       return nodes[0]
     } else {
@@ -132,6 +133,7 @@ export const BTransporterSingle = Vue.extend({
       if (isBrowser && this._bv_target) {
         const defaultFn = this.$scopedSlots.default
         if (!this.disabled) {
+          /* istanbul ignore else: only applicable in Vue 2.5.x */
           if (defaultFn && this._bv_defaultFn !== defaultFn) {
             // We only update the target component if the scoped slot
             // function is a fresh one. The new slot syntax (since Vue 2.6)
