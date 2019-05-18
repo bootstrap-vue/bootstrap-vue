@@ -108,7 +108,8 @@ export default Vue.extend({
         attrs: {
           role: this.role || null, // fallback to null to make sure attribute doesn't exist
           'aria-live': this.ariaLive,
-          'aria-atomic': this.ariaAtomic
+          'aria-atomic': this.ariaAtomic,
+          'aria-relevent': 'additions'
         },
         props: {
           name: this.staticName,
