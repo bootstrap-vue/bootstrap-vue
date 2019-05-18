@@ -5,10 +5,10 @@ import { BTransporterSingle } from './transporter'
 describe('utils/transporter component', () => {
   const localVue = new CreateLocalVue()
 
-  it('renders in-pace when disabled=true', async() => {
+  it('renders in-pace when disabled=true', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('BTransporterSingle', { props: { disabled: true } }, [h('div', {}, 'content')])
+        return h(BTransporterSingle, { props: { disabled: true } }, [h('div', {}, 'content')])
       }
     })
 
@@ -24,14 +24,12 @@ describe('utils/transporter component', () => {
     wrapper.destroy()
   })
 
-  it('does not render in-pace when disabled=false', async() => {
+  it('does not render in-pace when disabled=false', async () => {
     const App = localVue.extend({
       render(h) {
-        return h(
-          'BTransporterSingle',
-          { props: { disabled: false } },
-          [h('div', { id: 'foobar'}, 'content')]
-        )
+        return h(BTransporterSingle, { props: { disabled: false } }, [
+          h('div', { id: 'foobar' }, 'content')
+        ])
       }
     })
 
