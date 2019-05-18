@@ -374,7 +374,7 @@ export default Vue.extend({
       const $toast = h(
         'div',
         {
-          key: this._uid,
+          key: `toast-${this._uid}`,
           ref: 'toast',
           staticClass: 'toast',
           class: this.toastClass,
