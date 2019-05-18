@@ -140,7 +140,7 @@ const DEFAULTS = {
   },
   BToaster: {
     ariaLive: 'polite',
-    ariaAtomic: 'true',
+    ariaAtomic: 'false',
     role: null
   },
   BTooltip: {
