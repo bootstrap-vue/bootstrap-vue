@@ -343,7 +343,7 @@ export default Vue.extend({
     this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
-      this.show()
+      this.$nextTick(this.show)
     }
   },
   beforeDestroy() {
@@ -401,7 +401,7 @@ export default Vue.extend({
       // Show the modal
       this.doShow()
     },
-    hide(trigger) {
+    hide(trigger = '') {
       if (!this.is_visible || this.is_closing) {
         /* istanbul ignore next */
         return
