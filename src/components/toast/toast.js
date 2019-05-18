@@ -212,8 +212,11 @@ export default Vue.extend({
         this.order = Date.now() * (this.appendToast ? 1 : -1)
         this.doRender = true
         this.$nextTick(() => {
-          // we show the toast after we have rendered the portal
-          this.localShow = true
+          // We show the toast after we have rendered the portal and b-toast wrapper
+          // so that screen readers will properly announce the toast
+          requestAF(() => {
+            this.localShow = true
+          })
         })
       }
     },
@@ -287,7 +290,7 @@ export default Vue.extend({
       }
     },
     onUnPause(evt) {
-      // Restart with max of time remaining or 1 second
+      // Restart timer with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
         return
@@ -376,12 +379,9 @@ export default Vue.extend({
           staticClass: 'toast',
           class: this.toastClass,
           attrs: {
-            ...this.$attrs,
-            id: this.id || null,
             tabindex: '-1',
-            role: this.isStatus ? 'status' : 'alert',
-            'aria-live': this.isStatus ? 'polite' : 'assertive',
-            'aria-atomic': 'true'
+            ...this.$attrs,
+            id: this.id || null
           }
         },
         [$header, $body]
@@ -406,11 +406,25 @@ export default Vue.extend({
         }
       },
       [
-        h('div', { key: name, ref: 'btoast', staticClass: 'b-toast', class: this.bToastClasses }, [
-          h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
-            this.localShow ? this.makeToast(h) : h(false)
-          ])
-        ])
+        h(
+          'div',
+          {
+            key: name,
+            ref: 'btoast',
+            staticClass: 'b-toast',
+            class: this.bToastClasses,
+            attrs: {
+              role: this.isStatus ? 'status' : 'alert',
+              'aria-live': this.isStatus ? 'polite' : 'assertive',
+              'aria-atomic': 'true'
+            }
+          },
+          [
+            h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
+              this.localShow ? this.makeToast(h) : h(false)
+            ])
+          ]
+        )
       ]
     )
   }
