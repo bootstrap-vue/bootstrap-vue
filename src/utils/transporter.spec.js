@@ -50,7 +50,6 @@ describe('utils/transporter component', () => {
     expect(target.__vue__).toBeDefined() // Target
     expect(target.__vue__.$options.name).toBe('BTransporterTargetSingle')
     expect(target.tagName).toEqual('DIV')
-    expect(target.innerText).toEqual('content')
     expect(target.parentElement).toBeDefined()
     expect(target.parentElement).toBe(document.body)
 
