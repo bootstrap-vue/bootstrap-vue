@@ -911,9 +911,10 @@ export default Vue.extend({
     }
   },
   render(h) {
-    // Wrap in a portal
-    return h(BTransporterSingle, { props: { disabled: this.static } }, [
-      !this.is_hidden || (this.static && !this.lazy) ? this.makeModal(h) : h(false)
-    ])
+    if (this.static) {
+      return this.lazy || this.is_hidden ? h(false) : this.makeModal(h)
+    } else {
+      return this.is_hidden ? h(false) : h(BTransporterSingle, {}, [this.makeModal(h)])
+    }
   }
 })
