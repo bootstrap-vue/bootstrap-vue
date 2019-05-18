@@ -47,9 +47,6 @@ const ModalManager = Vue.extend({
     },
     modalsAreOpen() {
       return this.modalCount > 0
-    },
-    modalTargetName() {
-      return modalTargetName
     }
   },
   watch: {
