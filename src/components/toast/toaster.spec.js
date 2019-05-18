@@ -33,8 +33,8 @@ describe('b-toaster', () => {
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
     expect($slot.classes().length).toBe(2)
-    expect($slot.attributes('aria-live')).toEqual('polite')
-    expect($slot.attributes('aria-atomic')).toEqual('false')
+    expect($slot.attributes('aria-live')).not.toBeDefined()
+    expect($slot.attributes('aria-atomic')).not.toBeDefined()
     expect($slot.attributes('role')).not.toBeDefined()
     expect($slot.text()).toEqual('')
 
