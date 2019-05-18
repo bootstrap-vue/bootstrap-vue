@@ -1,7 +1,7 @@
 import Vue from './vue'
 import { concat } from './array'
 import { select } from './dom'
-import { isBroswer } from './env'
+import { isBrowser } from './env'
 import { isString } from './inspect'
 import { HTMLElement } from './safe-types'
 import normalizeSlotMixin from '../mixins/normalize-slot'
@@ -13,7 +13,7 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 // it's inteden parent components
 //
 // Private components for use by Tooltips, Popovers and Modals
-// 
+//
 // Based on vue-simple-portal
 // https://github.com/LinusBorg/vue-simple-portal
 
@@ -45,6 +45,10 @@ const BTransporterTargetSingle = Vue.extend({
       this.$parent.$once('hook:destroyed', this.$destroy)
     }
   },
+  destroyed() {
+    const el = this.$el
+    el && el.parentNode && el.parentNode.removeChild(el)
+  },
   render(h) {
     const nodes = concat(this.updatedNodes).filter(Boolean)
     if (nodes && nodes.length > 0 && !nodes[0].text) {
@@ -52,10 +56,6 @@ const BTransporterTargetSingle = Vue.extend({
     } else {
       return h(false)
     }
-  },
-  destroyed() {
-    const el = this.$el
-    el && el.parentNode && el.parentNode.removeChild(el)
   }
 })
 
@@ -138,12 +138,12 @@ export const BTransporterSingle = Vue.extend({
       if (isBrowser && this._bv_target) {
         const defaultFn = this.$scopedSlots.default
         if (!this.disabled) {
-          if (slotFn && this._bv_defaultFn !== defaultFn) {
+          if (defaultFn && this._bv_defaultFn !== defaultFn) {
             // We only update the target component if the scoped slot
             // function is a fresh one. The new slot syntax (since Vue 2.6)
             // can cache unchanged slot functions and we want to respect that here.
             this._bv_target.updatedNodes = concat(defaultFn({})).filter(Boolean)
-          } else if (!slotFn) {
+          } else if (!defaultFn) {
             // We also need to be back compatable with non-scoped default slot (i.e. 2.5.x)
             this._bv_target.updatedNodes = concat(this.$slots.default).filter(Boolean)
           }
