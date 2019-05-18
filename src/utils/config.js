@@ -139,8 +139,8 @@ const DEFAULTS = {
     solid: false
   },
   BToaster: {
-    ariaLive: 'polite',
-    ariaAtomic: 'false',
+    ariaLive: null,
+    ariaAtomic: null,
     role: null
   },
   BTooltip: {
