@@ -93,8 +93,9 @@ export const BTransporterSingle = Vue.extend({
     this.mountTarget()
   },
   updated() {
-    // this.$nextTick(this.updateTarget)
-    this.updateTarget()
+    // Wrapped in a next tick to ensure the children have rendered
+    // before sending them to the target
+    this.$nextTick(this.updateTarget)
   },
   beforeDestroy() {
     this.unmountTarget()
