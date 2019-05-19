@@ -93,7 +93,8 @@ export const BTransporterSingle = Vue.extend({
     this.mountTarget()
   },
   updated() {
-    this.$nextTick(this.updateTarget)
+    // this.$nextTick(this.updateTarget)
+    this.updateTarget()
   },
   beforeDestroy() {
     this.unmountTarget()
