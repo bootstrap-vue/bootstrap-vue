@@ -3,12 +3,14 @@ import directivesPlugin from './directives'
 import { vueUse } from './utils/plugins'
 import { setConfig } from './utils/config'
 
+let _installed = false
+
 const install = (Vue, config = {}) => {
-  if (install.installed) {
+  if (_installed) {
     /* istanbul ignore next */
     return
   }
-  install.installed = true
+  _installed = true
 
   // Configure BootstrapVue
   setConfig(config)
@@ -19,8 +21,6 @@ const install = (Vue, config = {}) => {
   // Install all directive plugins
   Vue.use(directivesPlugin)
 }
-
-install.installed = false
 
 const BootstrapVue = {
   install: install,
