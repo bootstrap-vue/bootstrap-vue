@@ -26,20 +26,20 @@ export const checkMultipleVue = Vue => {
  * @returns {function} plugin install function
  */
 export const installFactory = ({ components, directives, plugins }) => {
+  let _installed = false
+
   const install = (Vue, config = {}) => {
-    if (install.installed) {
+    if (_installed) {
       /* istanbul ignore next */
       return
     }
-    install.installed = true
+    _installed = true
     checkMultipleVue(Vue)
     setConfig(config)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
   }
-
-  install.installed = false
 
   return install
 }
