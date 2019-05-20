@@ -25,8 +25,8 @@ error message component.
       <b-form-group id="example-input-group-1" label="Name" label-for="example-input-1">
         <b-form-input
           id="example-input-1"
-          v-model="form.name"
-          :state="$v.form.name.$dirty ? !$v.name.$error : null"
+          v-model="$v.form.name.$model"
+          :state="$v.form.name.$dirty ? !$v.form.name.$error : null"
           aria-describedby="input-1-live-feedback"
           placeholder="Enter name"
         ></b-form-input>
@@ -39,9 +39,9 @@ error message component.
       <b-form-group id="example-input-group-2" label="Food" label-for="example-input-2">
         <b-form-select
           id="example-input-2"
-          v-model="form.food"
+          v-model="$v.form.food.$model"
           :options="foods"
-          :state="$v.form.food.$dirty ? !$v.name.$error : null"
+          :state="$v.form.food.$dirty ? !$v.form.food.$error : null"
         ></b-form-select>
 
         <b-form-invalid-feedback id="input-2-live-feedback">
@@ -55,16 +55,20 @@ error message component.
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate'
-  import validators from 'vuelidate/lib/validators'
+  import {validationMixin} from 'vuelidate'
+  import * as validators from 'vuelidate/lib/validators'
 
   export default {
     data() {
       return {
         foods: ['apple', 'orange'],
-        form: {}
+        form: {
+          food: null,
+          name: null,
+        }
       }
     },
+    //You can ignore this if you already use Vue.use(Vuelidate)
     mixins: [validationMixin],
     validations: {
       form: {
@@ -78,6 +82,7 @@ error message component.
       }
     },
     methods: {
+      //If you won't submit the form, you could replace use @submit.prevent="onSubmit"
       onSubmit() {
         // Form submit logic
       }
