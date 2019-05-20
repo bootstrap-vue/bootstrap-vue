@@ -6,14 +6,14 @@
 ```html
 <template>
   <div>
-    <b-progress :value="counter" :max="max" show-progress animated></b-progress>
+    <b-progress :value="value" :max="max" show-progress animated></b-progress>
     <b-progress class="mt-2" :max="max" show-value>
-      <b-progress-bar :value="counter*(6/10)" variant="success"></b-progress-bar>
-      <b-progress-bar :value="counter*(2.5/10)" variant="warning"></b-progress-bar>
-      <b-progress-bar :value="counter*(1.5/10)" variant="danger"></b-progress-bar>
+      <b-progress-bar :value="value * (6 / 10)" variant="success"></b-progress-bar>
+      <b-progress-bar :value="value * (2.5 / 10)" variant="warning"></b-progress-bar>
+      <b-progress-bar :value="value * (1.5 / 10)" variant="danger"></b-progress-bar>
     </b-progress>
 
-    <b-button class="mt-3" @click="clicked">Click me</b-button>
+    <b-button class="mt-3" @click="rendomValue">Click me</b-button>
   </div>
 </template>
 
@@ -21,14 +21,13 @@
   export default {
     data() {
       return {
-        counter: 45,
+        value: 45,
         max: 100
       }
     },
     methods: {
-      clicked() {
-        this.counter = Math.random() * this.max
-        console.log('Change progress to ' + Math.round(this.counter * 100) / 100)
+      rendomValue() {
+        this.value = Math.random() * this.max
       }
     }
   }
@@ -75,8 +74,8 @@ the decimal) via the `precision` prop (default is `0`digits after the decimal).
   export default {
     data() {
       return {
-        max: 50,
-        value: 33.333333333
+        value: 33.333333333,
+        max: 50
       }
     }
   }
@@ -88,22 +87,27 @@ the decimal) via the `precision` prop (default is `0`digits after the decimal).
 ### Custom progress label
 
 Need more control over the label? Provide your own label by using the default slot within a
-`<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress-bar>` (HTML
-supported):
+`<b-progress-bar>` sub-component, or by using the `label` or `label-html` property on
+`<b-progress-bar>`:
 
 ```html
 <template>
   <div>
-    <h5>Custom Label via Default Slot</h5>
+    <h5>Custom label via default slot</h5>
     <b-progress :max="max" height="2rem">
       <b-progress-bar :value="value">
-        Progress: <strong>{{ value.toFixed(3) }} / {{ max }}</strong>
+        Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong>
       </b-progress-bar>
     </b-progress>
 
-    <h5 class="mt-3">Custom Label via Prop</h5>
+    <h5 class="mt-3">Custom label via property</h5>
     <b-progress :max="max">
-      <b-progress-bar :value="value" :label="`&lt;${value.toFixed(0)}&gt;`"></b-progress-bar>
+      <b-progress-bar :value="value" :label="`${((value / max) * 100).toFixed(2)}%`"></b-progress-bar>
+    </b-progress>
+
+    <h5 class="mt-3">Custom label via property (HTML support)</h5>
+    <b-progress :max="max">
+      <b-progress-bar :value="value" :label-html="`<del>${value}</del>`"></b-progress-bar>
     </b-progress>
   </div>
 </template>
@@ -112,8 +116,8 @@ supported):
   export default {
     data() {
       return {
-        max: 50,
-        value: 33.333333333
+        value: 33.333333333,
+        max: 50
       }
     }
   }
@@ -348,8 +352,8 @@ horizontally stacked set of progress bars.
   export default {
     data() {
       return {
-        max: 100,
-        values: [15, 30, 20]
+        values: [15, 30, 20],
+        max: 100
       }
     }
   }
