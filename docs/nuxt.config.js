@@ -7,6 +7,14 @@ const renderer = new marked.Renderer()
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
 
+// Get routes by a given dir
+const getRoutesByDir = (root, dir, excludes = []) =>
+  fs
+    .readdirSync(`${root}/${dir}`)
+    .filter(c => excludes.indexOf(c) === -1)
+    .filter(c => !/\.(s?css|js|ts)$/.test(c))
+    .map(page => `/docs/${dir}/${page}`)
+
 // Custom "highlight.js" implementation for markdown renderer
 renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
@@ -117,21 +125,12 @@ module.exports = {
 
   generate: {
     dir: 'docs-dist',
-    routes: () => {
-      let scan = (root, dir, excludeDirs = []) =>
-        fs
-          .readdirSync(`${root}/${dir}`)
-          .filter(c => c !== 'index.js' && c[0] !== '_')
-          .filter(c => excludeDirs.indexOf(c) === -1)
-          .filter(c => !/\.s?css$/.test(c))
-          .map(page => `/docs/${dir}/${page}`)
-
-      return []
-        .concat(scan('src', 'components', ['plugins.js', 'plugins-legacy.js']))
-        .concat(scan('src', 'directives', ['modal', 'toggle', 'plugins.js', 'plugins-legacy.js']))
-        .concat(scan('docs/markdown', 'reference'))
-        .concat(scan('docs/markdown', 'misc'))
-    }
+    routes: () => [
+      ...getRoutesByDir('src', 'components'),
+      ...getRoutesByDir('src', 'directives', ['modal', 'toggle']),
+      ...getRoutesByDir('docs/markdown', 'reference'),
+      ...getRoutesByDir('docs/markdown', 'misc')
+    ]
   },
 
   plugins: [
