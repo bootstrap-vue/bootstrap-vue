@@ -32,7 +32,7 @@ error message component.
         ></b-form-input>
 
         <b-form-invalid-feedback id="input-1-live-feedback">
-          This is a required field and must be at least 3 characters
+          This is a required field and must be at least 3 characters.
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -45,7 +45,7 @@ error message component.
         ></b-form-select>
 
         <b-form-invalid-feedback id="input-2-live-feedback">
-          This is a required field
+          This is a required field.
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -55,34 +55,32 @@ error message component.
 </template>
 
 <script>
-  import {validationMixin} from 'vuelidate'
-  import * as validators from 'vuelidate/lib/validators'
+  import { validationMixin } from 'vuelidate'
+  import { required, minLength } from 'vuelidate/lib/validators'
 
   export default {
+    mixins: [validationMixin],
     data() {
       return {
         foods: ['apple', 'orange'],
         form: {
-          food: null,
           name: null,
+          food: null
         }
       }
     },
-    //You can ignore this if you already use Vue.use(Vuelidate)
-    mixins: [validationMixin],
     validations: {
       form: {
         food: {
-          required: validators.required
+          required
         },
         name: {
-          required: validators.required,
-          minLength: validators.minLength(3)
+          required,
+          minLength: minLength(3)
         }
       }
     },
     methods: {
-      //If you won't submit the form, you could replace use @submit.prevent="onSubmit"
       onSubmit() {
         // Form submit logic
       }
@@ -111,7 +109,9 @@ Vue.use(VeeValidate, {
   // This is the default
   inject: true,
   // Important to name this something other than 'fields'
-  fieldsBagName: 'veeFields'
+  fieldsBagName: 'veeFields',
+  // This is not required but avoids possible naming conflicts
+  errorBagName: 'veeErrors'
 })
 ```
 
@@ -127,14 +127,14 @@ Same example as above, just modified for VeeValidate:
         <b-form-input
           id="example-input-1"
           v-model="form.name"
-          v-validate="{ required: true, min:2 }"
+          v-validate="{ required: true, min: 3 }"
           :state="validateState('form.name')"
           aria-describedby="input-1-live-feedback"
           placeholder="Enter name"
         ></b-form-input>
 
         <b-form-invalid-feedback id="input-1-live-feedback">
-          This is a required field and must be at least 3 characters
+          This is a required field and must be at least 3 characters.
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -148,11 +148,11 @@ Same example as above, just modified for VeeValidate:
         ></b-form-select>
 
         <b-form-invalid-feedback id="input-2-live-feedback">
-          This is a required field
+          This is a required field.
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" :disabled="errors.any()">Submit</b-button>
+      <b-button type="submit" variant="primary" :disabled="veeErrors.any()">Submit</b-button>
     </b-form>
   </div>
 </template>
@@ -162,18 +162,21 @@ Same example as above, just modified for VeeValidate:
     data() {
       return {
         foods: ['apple', 'orange'],
-        form: {}
+        form: {
+          name: null,
+          food: null
+        }
       }
     },
     methods: {
-      onSubmit() {
-        // Form submit logic
-      },
       validateState(ref) {
         if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
           return !this.errors.has(ref)
         }
         return null
+      },
+      onSubmit() {
+        // Form submit logic
       }
     }
   }
