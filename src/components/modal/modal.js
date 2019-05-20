@@ -543,6 +543,7 @@ export default Vue.extend({
         this.returnFocusTo()
         this.is_closing = false
         this.return_focus = null
+        modalManager.unregisterModal(this)
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
         const hiddenEvt = new BvModalEvent('hidden', {
@@ -553,7 +554,6 @@ export default Vue.extend({
           componentId: this.safeId()
         })
         this.emitEvent(hiddenEvt)
-        modalManager.unregisterModal(this)
       })
     },
     // Event emitter
