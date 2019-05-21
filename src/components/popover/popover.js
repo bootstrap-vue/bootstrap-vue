@@ -25,6 +25,13 @@ export const props = {
     type: String,
     default: 'right'
   },
+  fallbackPlacement: {
+    type: [String, Array],
+    default: 'flip',
+    validator(value) {
+      return isArray(value) || arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
+    }
+  },
   boundary: {
     // String: scrollParent, window, or viewport
     // Element: element reference
