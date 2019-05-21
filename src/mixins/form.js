@@ -1,3 +1,7 @@
+import { matches, select, isVisible } from '../utils/dom'
+
+const SELECTOR = 'input, textarea, select'
+
 // @vue/component
 export default {
   props: {
@@ -19,6 +23,21 @@ export default {
     form: {
       type: String,
       default: null
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      let el = this.$el
+      if (isVisible(el)) {
+        if (!matches(el, SELECTOR)) {
+          el = select(SELECTOR, el)
+        }
+        el && el.focus && el.focus()
+      }
+    })
   }
 }
