@@ -1202,7 +1202,7 @@ describe('form-checkbox', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormCheckbox, {
-      mountToDocument: true,
+      attachToDocument: true,
       propsData: {
         checked: false
       },
@@ -1236,7 +1236,7 @@ describe('form-checkbox', () => {
 
   it('prop `autofocus` works', async () => {
     const wrapper = mount(BFormCheckbox, {
-      mountToDocument: true,
+      attachToDocument: true,
       propsData: {
         checked: false,
         autofocus: true
@@ -1246,6 +1246,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper.vm).toBeDefined()
+    await wrapper.vm.$nextTick()
 
     const input = wrapper.find('input')
     expect(input).toBeDefined()
