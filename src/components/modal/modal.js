@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import { Portal } from 'portal-vue'
 import modalManager from './helpers/modal-manager'
 import BvModalEvent from './helpers/bv-modal-event.class'
 import BButton from '../button/button'
@@ -8,8 +7,9 @@ import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BVTransition from '../../utils/bv-transition'
-import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
+import observeDom from '../../utils/observe-dom'
+import { BTransporterSingle } from '../../utils/transporter'
 import { isBrowser } from '../../utils/env'
 import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
@@ -543,6 +543,7 @@ export default Vue.extend({
         this.returnFocusTo()
         this.is_closing = false
         this.return_focus = null
+        modalManager.unregisterModal(this)
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
         const hiddenEvt = new BvModalEvent('hidden', {
@@ -553,7 +554,6 @@ export default Vue.extend({
           componentId: this.safeId()
         })
         this.emitEvent(hiddenEvt)
-        modalManager.unregisterModal(this)
       })
     },
     // Event emitter
@@ -911,18 +911,10 @@ export default Vue.extend({
     }
   },
   render(h) {
-    // Wrap in a portal
-    return h(
-      Portal,
-      {
-        props: {
-          name: `b-modal-${this._uid}`,
-          to: modalManager.modalTargetName,
-          slim: true,
-          disabled: this.static
-        }
-      },
-      [!this.is_hidden || (this.static && !this.lazy) ? this.makeModal(h) : h(false)]
-    )
+    if (this.static) {
+      return this.lazy && this.is_hidden ? h(false) : this.makeModal(h)
+    } else {
+      return this.is_hidden ? h(false) : h(BTransporterSingle, {}, [this.makeModal(h)])
+    }
   }
 })
