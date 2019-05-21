@@ -224,7 +224,10 @@ export default Vue.extend({
           // We show the toast after we have rendered the portal and b-toast wrapper
           // so that screen readers will properly announce the toast
           requestAF(() => {
-            this.localShow = true
+            // Added extra nextTick delay for IE11 screen reader support
+            this.$nextTick(() => {
+              this.localShow = true
+            })
           })
         })
       }
