@@ -2,7 +2,6 @@ import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isFunction } from '../../utils/inspect'
-import formAutofocusMixin from '../../mixins/form-autofocus'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
@@ -14,7 +13,7 @@ const NAME = 'BFormFile'
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, formAutofocusMixin, normalizeSlotMixin],
+  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
     event: 'input'
