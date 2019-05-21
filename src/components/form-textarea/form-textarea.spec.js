@@ -1035,5 +1035,23 @@ describe('form-textarea', () => {
 
       wrapper.destroy()
     })
+
+    it('does not autofocus when false', async () => {
+      const wrapper = mount(BFormTextarea, {
+        attachToDocument: true,
+        propsData: {
+          autofocus: false
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('textarea')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).not.toBe(input.element)
+
+      wrapper.destroy()
+    })
   })
 })
