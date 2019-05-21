@@ -94,7 +94,11 @@ export const BTransporterSingle = Vue.extend({
     this.mountTarget()
   },
   updated() {
-    this.updateTarget()
+    // Placed in a nextTick to ensure that children have completed
+    // updating before rendering in the target
+    this.$netTick(() => {
+      this.updateTarget()
+    })
   },
   beforeDestroy() {
     this.unmountTarget()
