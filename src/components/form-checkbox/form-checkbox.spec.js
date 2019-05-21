@@ -1279,5 +1279,27 @@ describe('form-checkbox', () => {
 
       wrapper.destroy()
     })
+
+    it('does not auto focus when false', async () => {
+      const wrapper = mount(BFormCheckbox, {
+        attachToDocument: true,
+        propsData: {
+          checked: false,
+          autofocus: false
+        },
+        slots: {
+          default: 'foobar'
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('input')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).not.toBe(input.element)
+
+      wrapper.destroy()
+    })
   })
 })
