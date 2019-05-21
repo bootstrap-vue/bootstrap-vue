@@ -381,16 +381,17 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 <span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
 
 By default, modals will not render their content in the document until they are shown (lazily
-rendered). Modals that are visible are rendered appended to the `<body>` element when they are
-visible. The `<b-modal>` component will not affect layout, as they render as a placeholder comment
-node (`<!---->`) in the DOM position they are placed.
+rendered). Modals that, when visible, are rendered appended to the `<body>` element. The `<b-modal>`
+component will not affect layout, as they render as a placeholder comment node (`<!---->`) in the
+DOM position they are placed. Due to the portalling process, it can take two or more `$nextTick`s to
+render changes of the content into the target.
 
-Modals can be rendered _in-place_ in the document, where the `<b-modal>` component is placed in the
-document, by setting the `static` prop to `true`. Note that the content of the modal will be
+Modals can be rendered _in-place_ in the document (i.e. where the `<b-modal>` component is placed in
+the document) by setting the `static` prop to `true`. Note that the content of the modal will be
 rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To make `static`
 modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the
 document _only_ when it is visible. Note, when in `static` mode, placement of the `<b-modal>`
-component may affect layout of your document and the modal.
+component _may affect layout_ of your document and the modal.
 
 The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
 _always_ be lazily rendered).
