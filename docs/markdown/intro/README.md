@@ -79,8 +79,8 @@ section.
     If you are using a specific build of Vue (i.e. runtime-only vs. compiler + runtime), you will
     need to set up an alias to <code>'vue'</code> in your bundler config to ensure that your
     project, BootstrapVue and PortalVue are all using the same build version of Vue. If you are
-    seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will need to
-    set up an alias.
+    seeing an error such as <code>"$attr and $listeners is readonly"</code>, or
+    <code>"Multiple instances of Vue detected"</code>, then you will need to set up an alias.
   </p>
   <p class="mb-0">
     See the
