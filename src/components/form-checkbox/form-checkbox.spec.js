@@ -1238,7 +1238,8 @@ describe('form-checkbox', () => {
     const wrapper = mount(BFormCheckbox, {
       mountToDocument: true,
       propsData: {
-        checked: false
+        checked: false,
+        autofocus: true
       },
       slots: {
         default: 'foobar'
