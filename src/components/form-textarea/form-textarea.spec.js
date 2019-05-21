@@ -1005,9 +1005,9 @@ describe('form-textarea', () => {
     await wrapper.vm.$nextTick()
 
     const input = wrapper.find('textarea')
-    expect(input).toBeDefined()
+    expect(input.exists()).toBe(true)
     expect(document).toBeDefined()
-    expect(document.activeElement).toBe(input)
+    expect(document.activeElement).toBe(input.element)
 
     wrapper.destroy()
   })
