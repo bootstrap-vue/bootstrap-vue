@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
+import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -24,6 +25,13 @@ export default Vue.extend({
     placement: {
       type: String,
       default: 'top'
+    },
+    fallbackPlacement: {
+      type: [String, Array],
+      default: 'flip',
+      validator(value) {
+        return isArray(value) || arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
+      }
     },
     boundary: {
       // String: scrollParent, window, or viewport
