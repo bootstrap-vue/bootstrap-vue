@@ -981,5 +981,26 @@ describe('form-radio', () => {
 
       wrapper.destroy()
     })
+
+    it('does not autofocus by default', async () => {
+      const wrapper = mount(BFormRadio, {
+        attachToDocument: true,
+        propsData: {
+          checked: false
+        },
+        slots: {
+          default: 'foobar'
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('input')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).not.toBe(input.element)
+
+      wrapper.destroy()
+    })
   })
 })
