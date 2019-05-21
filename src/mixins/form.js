@@ -32,7 +32,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       let el = this.$el
-      if (isVisible(el)) {
+      if (isVisible(el) && this.autofocus) {
         if (!matches(el, SELECTOR)) {
           el = select(SELECTOR, el)
         }
