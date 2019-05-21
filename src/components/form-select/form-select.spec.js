@@ -595,5 +595,24 @@ describe('form-select', () => {
 
       wrapper.destroy()
     })
+
+    it('does not autofocus when false', async () => {
+      const wrapper = mount(BFormSelect, {
+        attachToDocument: true,
+        propsData: {
+          autofocus: false,
+          options: ['a', 'b', 'c']
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('select')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).not.toBe(input.element)
+
+      wrapper.destroy()
+    })
   })
 })
