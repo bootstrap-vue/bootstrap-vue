@@ -3,7 +3,6 @@ import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 import { isArray } from '../../utils/inspect'
 import formMixin from '../../mixins/form'
-import formAutofocusMixin from '../../mixins/form-autofocus'
 import formRadioCheckMixin from '../../mixins/form-radio-check'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
@@ -17,8 +16,7 @@ export default Vue.extend({
     idMixin,
     formMixin,
     formSizeMixin,
-    formStateMixin,
-    formAutofocusMixin
+    formStateMixin
   ],
   inject: {
     bvGroup: {
