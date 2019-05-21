@@ -499,6 +499,12 @@ enables native browser keyboard navigation), hence `required` will only work if 
 `<b-form-checkbox-group>` will automatically generate a unique input name if one is not provided on
 the group.
 
+## Autofocus
+
+When the `autofocus` prop is set on `<b-form-checkbox>`, the input will be auto-focused when it is
+inserted into the document, or re-activated when inside a Vue `<keep-alive>` component. Note that
+this prop **does not** set the `autofocus` attribute on the input.
+
 ## Indeterminate (tri-state) support
 
 Normally a checkbox input can only have two states: _checked_ or _unchecked_. They can have any
