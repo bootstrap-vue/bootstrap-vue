@@ -163,9 +163,15 @@ import 'custom.scss'
 
 <span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
 
-If you wish to reduce your bundle size because you only use a subset of the available BootstrapVue
-plugins, you can configure the list of BootstrapVue `componentPlugins` or `directivePlugins` you
-want to globally install in your Nuxt.js project.
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> Tree shaking only works when webpack 4 / Nuxt.js is in <code>production</code> mode.
+  </p>
+</div>
+
+If you wish to reduce your production bundle size because you only use a subset of the available
+BootstrapVue plugins, you can configure the list of BootstrapVue `componentPlugins` or
+`directivePlugins` you want to globally install in your Nuxt.js project.
 
 ```js
 module.exports = {
@@ -214,7 +220,7 @@ Refer to the reference section at the bottom of each of the [component](/docs/co
 [directive](/docs/directives) docs for details on the plugin names available (and which components
 and directives are included in each plugin) and component and/or directive import names.
 
-Note that when importing individual components, the component aliases will not be available.
+Note that when importing individual components, any component aliases will **not** be available.
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
@@ -240,6 +246,17 @@ and the source (`src/`) of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
 of `src/`. By default `usePretranspiled` is enabled in development mode only.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> if you are also importing individual components, directives or plugins
+    <em>within</em> your Nuxt app as well as via the tree-shaking options above, you will want to
+    set the <code>usePretranspiled</code> option to match the directory you are importing from
+    (i.e. use <code>true</code> if importing from <code>bootstrap-vue/es</code> or
+    <code>false</code> if importing from <code>bootstrap-vue/src</code>). Otherwise, you may end
+    up with a larger bundle size due to code duplication.
+  </p>
+</div>
 
 ## Vue CLI 2
 
@@ -345,6 +362,14 @@ In the future this plugin will provide options for more advanced configurations 
 
 When using a module bundler you can optionally import only specific components groups (plugins),
 components and/or directives.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> Tree shaking only works when webpack 4 is in
+    [<code>production</code>](https://webpack.js.org/guides/tree-shaking) mode and javascript
+    minification is enabled.
+  </p>
+</div>
 
 ### Component groups and directives as Vue plugins
 
