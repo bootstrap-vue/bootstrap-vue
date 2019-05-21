@@ -770,12 +770,13 @@ describe('form-input', () => {
 
   it('prop `autofocus` works', async () => {
     const wrapper = mount(BFormInput, {
-      mountToDocument: true,
+      attachToDocument: true,
       propsData: {
         autofocus: true
       }
     })
     expect(wrapper.vm).toBeDefined()
+    await wrapper.vm.$nextTick()
 
     const input = wrapper.find('input')
     expect(input).toBeDefined()
