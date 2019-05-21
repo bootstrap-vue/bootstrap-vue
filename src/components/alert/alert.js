@@ -77,7 +77,7 @@ export default Vue.extend({
     },
     countDown(newVal) {
       this.clearTimer()
-      if (!isBoolean(this.show) && this.show !== '') {
+      if (isNumericLike(this.show)) {
         // Ignore if this.show transitions to a boolean value.
         this.$emit('dismiss-count-down', newVal)
         if (this.show !== newVal) {
