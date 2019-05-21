@@ -935,4 +935,22 @@ describe('form-radio', () => {
 
     wrapper.destroy()
   })
+
+  it('prop `autofocus` works', async () => {
+    const wrapper = mount(BFormRadio, {
+      attachToDocument: true,
+      propsData: {
+        autofocus: true
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    await wrapper.vm.$nextTick()
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(document).toBeDefined()
+    expect(document.activeElement).toBe(input)
+
+    wrapper.destroy()
+  })
 })
