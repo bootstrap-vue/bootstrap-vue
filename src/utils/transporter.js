@@ -96,7 +96,7 @@ export const BTransporterSingle = Vue.extend({
   updated() {
     // Placed in a nextTick to ensure that children have completed
     // updating before rendering in the target
-    this.$netTick(() => {
+    this.$nextTick(() => {
       this.updateTarget()
     })
   },
