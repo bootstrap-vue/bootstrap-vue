@@ -2,7 +2,7 @@ import Vue from './vue'
 import { concat } from './array'
 import { select } from './dom'
 import { isBrowser } from './env'
-import { isString } from './inspect'
+import { isFunction, isString } from './inspect'
 import { HTMLElement } from './safe-types'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 
@@ -30,7 +30,7 @@ const BTransporterTargetSingle = Vue.extend({
     nodes: {
       // Even though we only support a single root element,
       // vNodes are always passed as an array
-      type: Array
+      type: [Array, Function]
       // default: undefined
     }
   },
@@ -44,7 +44,8 @@ const BTransporterTargetSingle = Vue.extend({
     el && el.parentNode && el.parentNode.removeChild(el)
   },
   render(h) {
-    const nodes = concat(this.updatedNodes).filter(Boolean)
+    let nodes = isFunction(this.updatedNodes) ? this.updatedNodes({}) : this.updatedNodes
+    nodes = concat(nodes).filter(Boolean)
     /* istanbul ignore else */
     if (nodes && nodes.length > 0 && !nodes[0].text) {
       return nodes[0]
@@ -93,9 +94,7 @@ export const BTransporterSingle = Vue.extend({
     this.mountTarget()
   },
   updated() {
-    // Wrapped in a next tick to ensure the children have rendered
-    // before sending them to the target
-    this.$nextTick(this.updateTarget)
+    this.updateTarget()
   },
   beforeDestroy() {
     this.unmountTarget()
@@ -140,10 +139,10 @@ export const BTransporterSingle = Vue.extend({
             // We only update the target component if the scoped slot
             // function is a fresh one. The new slot syntax (since Vue 2.6)
             // can cache unchanged slot functions and we want to respect that here.
-            this._bv_target.updatedNodes = concat(defaultFn({})).filter(Boolean)
+            this._bv_target.updatedNodes = defaultFn
           } else if (!defaultFn) {
             // We also need to be back compatable with non-scoped default slot (i.e. 2.5.x)
-            this._bv_target.updatedNodes = concat(this.$slots.default).filter(Boolean)
+            this._bv_target.updatedNodes = this.$slots.default
           }
         }
         // Update the scoped slot function cache
