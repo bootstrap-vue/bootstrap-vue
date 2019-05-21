@@ -368,7 +368,7 @@ export default Vue.extend({
       let $header = h(false)
       if ($headerContent.length > 0) {
         $header = h(
-          'div',
+          'header',
           { staticClass: 'toast-header', class: this.headerClass },
           $headerContent
         )
