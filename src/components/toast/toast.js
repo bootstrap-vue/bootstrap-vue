@@ -17,10 +17,14 @@ const NAME = 'BToast'
 
 const MIN_DURATION = 1000
 
+const EVENT_OPTIONS = { passive: true, capture: false }
+
+// --- Props ---
+
 export const props = {
   id: {
     // Even though the ID prop is provided by idMixin, we
-    // add it here for $bvToast for filtering props
+    // add it here for $bvToast props filtering
     type: String,
     default: null
   },
@@ -191,7 +195,7 @@ export default Vue.extend({
     })
     // Listen for global $root hide events
     this.listenOnRoot('bv::hide::toast', id => {
-      if (!id || id === this.id) {
+      if (!id || id === this.safeId()) {
         this.hide()
       }
     })
@@ -241,11 +245,11 @@ export default Vue.extend({
     buildEvent(type, opts = {}) {
       return new BvEvent(type, {
         cancelable: false,
-        target: this.$el,
+        target: this.$el || null,
         relatedTarget: null,
         ...opts,
         vueTarget: this,
-        componentId: this.id || null
+        componentId: this.safeId()
       })
     },
     emitEvent(bvEvt) {
@@ -283,8 +287,8 @@ export default Vue.extend({
     },
     setHoverHandler(on) {
       const method = on ? eventOn : eventOff
-      method(this.$refs.btoast, 'mouseenter', this.onPause, { passive: true, capture: false })
-      method(this.$refs.btoast, 'mouseleave', this.onUnPause, { passive: true, capture: false })
+      method(this.$refs.btoast, 'mouseenter', this.onPause, EVENT_OPTIONS)
+      method(this.$refs.btoast, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
     },
     onPause(evt) {
       // Determine time remaining, and then pause timer
@@ -422,6 +426,7 @@ export default Vue.extend({
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {
+              id: this.safeId('_toast_outer'),
               role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
               'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
               'aria-atomic': this.isHiding ? null : 'true'
