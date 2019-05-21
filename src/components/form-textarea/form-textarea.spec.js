@@ -1019,7 +1019,7 @@ describe('form-textarea', () => {
     })
 
     it('works when true', async () => {
-      const wrapper = mount(BFormTexarea, {
+      const wrapper = mount(BFormTextarea, {
         attachToDocument: true,
         propsData: {
           autofocus: true
