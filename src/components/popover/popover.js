@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import PopOver from '../../utils/popover.class'
 import warn from '../../utils/warn'
+import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
