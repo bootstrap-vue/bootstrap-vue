@@ -484,4 +484,22 @@ describe('form-file', () => {
 
     wrapper.destroy()
   })
+
+  it('prop `autofocus` works', async () => {
+    const wrapper = mount(BFormFile, {
+      attachToDocument: true,
+      propsData: {
+        autofocus: true
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    await wrapper.vm.$nextTick()
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(document).toBeDefined()
+    expect(document.activeElement).toBe(input)
+
+    wrapper.destroy()
+  })
 })
