@@ -30,14 +30,22 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      let el = this.$el
-      if (this.autofocus && isVisible(el)) {
-        if (!matches(el, SELECTOR)) {
-          el = select(SELECTOR, el)
+    this.handleAutofocus()
+  },
+  activated() /* istanbul ignore next */ {
+    this.handleAutofocus()
+  },
+  methods: {
+    handleAutofocus() {
+      this.$nextTick(() => {
+        let el = this.$el
+        if (this.autofocus && isVisible(el)) {
+          if (!matches(el, SELECTOR)) {
+            el = select(SELECTOR, el)
+          }
+          el && el.focus && el.focus()
         }
-        el && el.focus && el.focus()
-      }
-    })
+      })
+    }
   }
 }
