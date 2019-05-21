@@ -809,5 +809,23 @@ describe('form-input', () => {
 
       wrapper.destroy()
     })
+
+    it('does not autofocus when false', async () => {
+      const wrapper = mount(BFormInput, {
+        attachToDocument: true,
+        propsData: {
+          autofocus: false
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('input')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).not.toBe(input.element)
+
+      wrapper.destroy()
+    })
   })
 })
