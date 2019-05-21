@@ -77,23 +77,26 @@ export default Vue.extend({
     },
     countDown(newVal) {
       this.clearTimer()
-      this.$emit('dismiss-count-down', newVal)
-      if (this.show !== newVal) {
-        // Update the v-model if needed
-        this.$emit('input', newVal)
-      }
-      if (newVal > 0) {
-        this.localShow = true
-        this.countDownTimerId = setTimeout(() => {
-          this.countDown--
-        }, 1000)
-      } else {
-        // Slightly delay the hide to allow any UI updates
-        this.$nextTick(() => {
-          requestAF(() => {
-            this.localShow = false
+      if (isNumericLike(this.show)) {
+        // Ignore if this.show transitions to a boolean value.
+        this.$emit('dismiss-count-down', newVal)
+        if (this.show !== newVal) {
+          // Update the v-model if needed
+          this.$emit('input', newVal)
+        }
+        if (newVal > 0) {
+          this.localShow = true
+          this.countDownTimerId = setTimeout(() => {
+            this.countDown--
+          }, 1000)
+        } else {
+          // Slightly delay the hide to allow any UI updates
+          this.$nextTick(() => {
+            requestAF(() => {
+              this.localShow = false
+            })
           })
-        })
+        }
       }
     },
     localShow(newVal) {
