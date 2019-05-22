@@ -20,7 +20,7 @@ export const props = {
   },
   ariaAtomic: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false'
+    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false' or null
   },
   role: {
     // Aria role
@@ -113,7 +113,7 @@ export default Vue.extend({
           // So that toasts are properly read out in toasters
           'aria-live': this.ariaLive || (isIE ? 'assertive' : null),
           'aria-atomic': this.ariaAtomic || (isIE ? 'false' : null),
-          'aria-relevant': isIE ? 'additions text' : null
+          'aria-relevant': isIE ? 'additions' : null
         },
         props: {
           name: this.staticName,
