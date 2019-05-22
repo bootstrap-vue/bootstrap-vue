@@ -3,7 +3,6 @@ import { PortalTarget, Wormhole } from 'portal-vue'
 import warn from '../../utils/warn'
 import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
-import { isIE } from '../../utils/env'
 
 // --- Constants ---
 
@@ -106,15 +105,6 @@ export default Vue.extend({
     if (this.doRender) {
       const $target = h(PortalTarget, {
         staticClass: 'b-toaster-slot',
-        attrs: {
-          // Fallback to null to make sure attribute doesn't exist
-          role: this.role || null,
-          // Needed fallback hacks for IE11 with NVDA or JAWS screen readers
-          // So that toasts are properly read out in toasters
-          'aria-live': this.ariaLive || (isIE ? 'assertive' : null),
-          'aria-atomic': this.ariaAtomic || (isIE ? 'false' : null),
-          'aria-relevant': isIE ? 'additions' : null
-        },
         props: {
           name: this.staticName,
           multiple: true,
@@ -129,7 +119,12 @@ export default Vue.extend({
         {
           staticClass: 'b-toaster',
           class: [this.staticName],
-          attrs: { id: this.staticName }
+          attrs: {
+            id: this.staticName,
+            role: this.role || null, // Fallback to null to make sure attribute doesn't exist
+            'aria-live': this.ariaLive,
+            'aria-atomic': this.ariaAtomic
+          },
         },
         [$target]
       )
