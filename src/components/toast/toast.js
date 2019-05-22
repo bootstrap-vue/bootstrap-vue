@@ -4,7 +4,6 @@ import BvEvent from '../../utils/bv-event.class'
 import BVTransition from '../../utils/bv-transition'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
-import { isIE } from '../../utils/env'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -225,9 +224,7 @@ export default Vue.extend({
           // We show the toast after we have rendered the portal and b-toast wrapper
           // so that screen readers will properly announce the toast
           requestAF(() => {
-            requestAF(() => {
-              this.localShow = true
-            })
+            this.localShow = true
           })
         })
       }
@@ -430,8 +427,7 @@ export default Vue.extend({
             class: this.bToastClasses,
             attrs: {
               id: this.safeId('_toast_outer'),
-              // IE 11 has issues with both role and aria-live set
-              role: this.isHiding || isIE ? null : this.isStatus ? 'status' : 'alert',
+              role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
               'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
               'aria-atomic': this.isHiding ? null : 'true'
             }
