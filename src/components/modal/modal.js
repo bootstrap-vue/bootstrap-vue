@@ -228,13 +228,13 @@ export default Vue.extend({
   props,
   data() {
     return {
-      is_hidden: true, // If modal should not be in document
-      is_visible: false, // Controls modal visible state
-      is_transitioning: false, // Used for style control
-      is_show: false, // Used for style control
-      is_block: false, // Used for style control
-      is_opening: false, // To signal that the modal is in the process of opening
-      is_closing: false, // To signal that the modal is in the process of closing
+      isHidden: true, // If modal should not be in document
+      isVisible: false, // Controls modal visible state
+      isTransitioning: false, // Used for style control
+      isShow: false, // Used for style control
+      isBlock: false, // Used for style control
+      isOpening: false, // To signal that the modal is in the process of opening
+      isClosing: false, // To signal that the modal is in the process of closing
       ignoreBackdropClick: false, // Used to signify if click out listener should ignore the click
       isModalOverflowing: false,
       return_focus: this.returnFocus || null,
@@ -250,8 +250,8 @@ export default Vue.extend({
       return [
         {
           fade: !this.noFade,
-          show: this.is_show,
-          'd-block': this.is_block
+          show: this.isShow,
+          'd-block': this.isBlock
         },
         this.modalClass
       ]
@@ -315,7 +315,7 @@ export default Vue.extend({
         cancel: this.onCancel,
         close: this.onClose,
         hide: this.hide,
-        visible: this.is_visible
+        visible: this.isVisible
       }
     }
   },
@@ -354,10 +354,10 @@ export default Vue.extend({
     }
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
-    if (this.is_visible) {
-      this.is_visible = false
-      this.is_show = false
-      this.is_transitioning = false
+    if (this.isVisible) {
+      this.isVisible = false
+      this.isShow = false
+      this.isTransitioning = false
     }
   },
   methods: {
@@ -368,19 +368,19 @@ export default Vue.extend({
     },
     // Public Methods
     show() {
-      if (this.is_visible || this.is_opening) {
+      if (this.isVisible || this.isOpening) {
         // If already open, on in the process of opening, do nothing
         /* istanbul ignore next */
         return
       }
-      if (this.is_closing) {
+      if (this.isClosing) {
         // If we are in the process of closing, wait until hidden before re-opening
         /* istanbul ignore next: very difficult to test */
         this.$once('hidden', this.show)
         /* istanbul ignore next */
         return
       }
-      this.is_opening = true
+      this.isOpening = true
       // Set the element to return focus to when closed
       this.return_focus = this.return_focus || this.getActiveElement()
       const showEvt = new BvModalEvent('show', {
@@ -392,8 +392,8 @@ export default Vue.extend({
       })
       this.emitEvent(showEvt)
       // Don't show if canceled
-      if (showEvt.defaultPrevented || this.is_visible) {
-        this.is_opening = false
+      if (showEvt.defaultPrevented || this.isVisible) {
+        this.isOpening = false
         // Ensure the v-model reflects the current state
         this.updateModel(false)
         return
@@ -402,11 +402,11 @@ export default Vue.extend({
       this.doShow()
     },
     hide(trigger = '') {
-      if (!this.is_visible || this.is_closing) {
+      if (!this.isVisible || this.isClosing) {
         /* istanbul ignore next */
         return
       }
-      this.is_closing = true
+      this.isClosing = true
       const hideEvt = new BvModalEvent('hide', {
         cancelable: trigger !== 'FORCE',
         vueTarget: this,
@@ -425,8 +425,8 @@ export default Vue.extend({
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
-      if (hideEvt.defaultPrevented || !this.is_visible) {
-        this.is_closing = false
+      if (hideEvt.defaultPrevented || !this.isVisible) {
+        this.isClosing = false
         // Ensure v-model reflects current state
         this.updateModel(true)
         return
@@ -437,7 +437,7 @@ export default Vue.extend({
         this._observer = null
       }
       // Trigger the hide transition
-      this.is_visible = false
+      this.isVisible = false
       // Update the v-model
       this.updateModel(false)
     },
@@ -446,7 +446,7 @@ export default Vue.extend({
       if (triggerEl) {
         this.return_focus = triggerEl
       }
-      if (this.is_visible) {
+      if (this.isVisible) {
         this.hide('toggle')
       } else {
         this.show()
@@ -456,8 +456,8 @@ export default Vue.extend({
     getActiveElement() {
       if (isBrowser) {
         const activeElement = document.activeElement
-        // Note: On IE11, `document.activeElement` may be null. So we test it for
-        // truthyness first.
+        // Note: On IE11, `document.activeElement` may be null.
+        // So we test it for truthiness first.
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
         // Returning focus to document.body may cause unwanted scrolls, so we
         // exclude setting focus on body
@@ -481,12 +481,12 @@ export default Vue.extend({
       }
       modalManager.registerModal(this)
       // Place modal in DOM
-      this.is_hidden = false
+      this.isHidden = false
       this.$nextTick(() => {
         // We do this in `$nextTick()` to ensure the modal is in DOM first
         // before we show it
-        this.is_visible = true
-        this.is_opening = false
+        this.isVisible = true
+        this.isOpening = false
         // Update the v-model
         this.updateModel(true)
         this.$nextTick(() => {
@@ -502,16 +502,16 @@ export default Vue.extend({
     },
     // Transition handlers
     onBeforeEnter() {
-      this.is_transitioning = true
+      this.isTransitioning = true
       this.setResizeEvent(true)
     },
     onEnter() {
-      this.is_block = true
+      this.isBlock = true
     },
     onAfterEnter() {
       this.checkModalOverflow()
-      this.is_show = true
-      this.is_transitioning = false
+      this.isShow = true
+      this.isTransitioning = false
       this.$nextTick(() => {
         const shownEvt = new BvModalEvent('shown', {
           cancelable: false,
@@ -526,22 +526,22 @@ export default Vue.extend({
       })
     },
     onBeforeLeave() {
-      this.is_transitioning = true
+      this.isTransitioning = true
       this.setResizeEvent(false)
     },
     onLeave() {
       // Remove the 'show' class
-      this.is_show = false
+      this.isShow = false
     },
     onAfterLeave() {
-      this.is_block = false
-      this.is_transitioning = false
+      this.isBlock = false
+      this.isTransitioning = false
       this.setEnforceFocus(false)
       this.isModalOverflowing = false
-      this.is_hidden = true
+      this.isHidden = true
       this.$nextTick(() => {
         this.returnFocusTo()
-        this.is_closing = false
+        this.isClosing = false
         this.return_focus = null
         modalManager.unregisterModal(this)
         // TODO: Need to find a way to pass the `trigger` property
@@ -580,7 +580,7 @@ export default Vue.extend({
     onClickOut(evt) {
       // Do nothing if not visible, backdrop click disabled, or element
       // that generated click event is no longer in document body
-      if (!this.is_visible || this.noCloseOnBackdrop || !contains(document.body, evt.target)) {
+      if (!this.isVisible || this.noCloseOnBackdrop || !contains(document.body, evt.target)) {
         return
       }
       if (this.ignoreBackdropClick) {
@@ -605,7 +605,7 @@ export default Vue.extend({
     },
     onEsc(evt) {
       // If ESC pressed, hide modal
-      if (evt.keyCode === KeyCodes.ESC && this.is_visible && !this.noCloseOnEsc) {
+      if (evt.keyCode === KeyCodes.ESC && this.isVisible && !this.noCloseOnEsc) {
         this.hide('esc')
       }
     },
@@ -616,7 +616,7 @@ export default Vue.extend({
       if (
         !this.noEnforceFocus &&
         this.isTop &&
-        this.is_visible &&
+        this.isVisible &&
         modal &&
         document !== evt.target &&
         !contains(modal, evt.target)
@@ -694,7 +694,7 @@ export default Vue.extend({
       }
     },
     checkModalOverflow() {
-      if (this.is_visible) {
+      if (this.isVisible) {
         const modal = this.$refs.modal
         this.isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
       }
@@ -711,7 +711,7 @@ export default Vue.extend({
               BButtonClose,
               {
                 props: {
-                  disabled: this.is_transitioning,
+                  disabled: this.isTransitioning,
                   ariaLabel: this.headerCloseLabel,
                   textVariant: this.headerCloseVariant || this.headerTextVariant
                 },
@@ -766,7 +766,7 @@ export default Vue.extend({
                 props: {
                   variant: this.cancelVariant,
                   size: this.buttonSize,
-                  disabled: this.cancelDisabled || this.busy || this.is_transitioning
+                  disabled: this.cancelDisabled || this.busy || this.isTransitioning
                 },
                 on: { click: this.onCancel }
               },
@@ -783,7 +783,7 @@ export default Vue.extend({
               props: {
                 variant: this.okVariant,
                 size: this.buttonSize,
-                disabled: this.okDisabled || this.busy || this.is_transitioning
+                disabled: this.okDisabled || this.busy || this.isTransitioning
               },
               on: { click: this.onOk }
             },
@@ -840,14 +840,14 @@ export default Vue.extend({
           class: this.modalClasses,
           style: this.modalStyles,
           directives: [
-            { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
+            { name: 'show', rawName: 'v-show', value: this.isVisible, expression: 'isVisible' }
           ],
           attrs: {
             id: this.safeId(),
             role: 'dialog',
             tabindex: '-1',
-            'aria-hidden': this.is_visible ? null : 'true',
-            'aria-modal': this.is_visible ? 'true' : null
+            'aria-hidden': this.isVisible ? null : 'true',
+            'aria-modal': this.isVisible ? 'true' : null
           },
           on: { keydown: this.onEsc, click: this.onClickOut }
         },
@@ -856,7 +856,7 @@ export default Vue.extend({
 
       // Wrap modal in transition
       // Sadly, we can't use BVTransition here due to the differences in
-      // transtion durations for .modal and .modal-dialog. Not until
+      // transition durations for .modal and .modal-dialog. Not until
       // issue https://github.com/vuejs/vue/issues/9986 is resolved
       modal = h(
         'transition',
@@ -883,7 +883,7 @@ export default Vue.extend({
 
       // Modal backdrop
       let backdrop = h(false)
-      if (!this.hideBackdrop && this.is_visible) {
+      if (!this.hideBackdrop && this.isVisible) {
         backdrop = h(
           'div',
           { staticClass: 'modal-backdrop', attrs: { id: this.safeId('__BV_modal_backdrop_') } },
@@ -895,7 +895,7 @@ export default Vue.extend({
       // Tab trap to prevent page from scrolling to next element in
       // tab index during enforce focus tab cycle
       let tabTrap = h(false)
-      if (this.is_visible && this.isTop && !this.noEnforceFocus) {
+      if (this.isVisible && this.isTop && !this.noEnforceFocus) {
         tabTrap = h('div', { attrs: { tabindex: '0' } })
       }
       // Assemble modal and backdrop in an outer <div>
@@ -912,9 +912,9 @@ export default Vue.extend({
   },
   render(h) {
     if (this.static) {
-      return this.lazy && this.is_hidden ? h(false) : this.makeModal(h)
+      return this.lazy && this.isHidden ? h(false) : this.makeModal(h)
     } else {
-      return this.is_hidden ? h(false) : h(BTransporterSingle, {}, [this.makeModal(h)])
+      return this.isHidden ? h(false) : h(BTransporterSingle, {}, [this.makeModal(h)])
     }
   }
 })

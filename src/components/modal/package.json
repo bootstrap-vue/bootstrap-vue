@@ -17,7 +17,7 @@
             "description": "New modal visibility state. Used to update the v-model",
             "args": [
               {
-                "arg": "is_visible",
+                "arg": "isVisible",
                 "description": "true if modal is visible, false otherwise"
               }
             ]

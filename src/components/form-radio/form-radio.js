@@ -31,14 +31,14 @@ export default Vue.extend({
   },
   computed: {
     // Radio Groups can only have a single value, so determining if checked is simple
-    is_Checked() {
+    isChecked() {
       return looseEqual(this.value, this.computedLocalChecked)
     },
     // Flags for form-radio-check mixin
-    is_Radio() {
+    isRadio() {
       return true
     },
-    is_Check() {
+    isCheck() {
       return false
     }
   },
@@ -55,7 +55,7 @@ export default Vue.extend({
       // Change is only emitted on user interaction
       this.$emit('change', checked ? value : null)
       // If this is a child of form-radio-group, we emit a change event on it as well
-      if (this.is_Group) {
+      if (this.isGroup) {
         this.bvGroup.$emit('change', checked ? value : null)
       }
     }
