@@ -39,15 +39,15 @@ describe('b-toast', () => {
     expect(wrapper.classes()).toContain('b-toast')
     expect(wrapper.classes()).toContain('b-toast-prepend')
     expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.attributes('role')).toEqual('alert')
+    expect(wrapper.attributes('aria-live')).toEqual('assertive')
+    expect(wrapper.attributes('aria-atomic')).toEqual('true')
 
     expect(wrapper.find('.toast').exists()).toBe(true)
     const $toast = wrapper.find('.toast')
     expect($toast.is('div')).toBe(true)
     expect($toast.classes()).toContain('toast')
-    expect($toast.attributes('role')).toEqual('alert')
-    expect($toast.attributes('aria-live')).toEqual('assertive')
-    expect($toast.attributes('aria-atomic')).toEqual('true')
-    expect($toast.attributes('tabindex')).toEqual('-1')
+    expect($toast.attributes('tabindex')).toEqual('0')
 
     expect($toast.find('.toast-header').exists()).toBe(true)
     const $header = $toast.find('.toast-header')
@@ -230,12 +230,16 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.vm.timer).not.toEqual(null)
 
     jest.runOnlyPendingTimers()
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -269,6 +273,8 @@ describe('b-toast', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -316,6 +322,8 @@ describe('b-toast', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
