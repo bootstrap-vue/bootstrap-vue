@@ -49,76 +49,76 @@ export default {
   },
   data() {
     return {
-      localChecked: this.is_Group ? this.bvGroup.checked : this.checked,
+      localChecked: this.isGroup ? this.bvGroup.checked : this.checked,
       hasFocus: false
     }
   },
   computed: {
     computedLocalChecked: {
       get() {
-        return this.is_Group ? this.bvGroup.localChecked : this.localChecked
+        return this.isGroup ? this.bvGroup.localChecked : this.localChecked
       },
       set(val) {
-        if (this.is_Group) {
+        if (this.isGroup) {
           this.bvGroup.localChecked = val
         } else {
           this.localChecked = val
         }
       }
     },
-    is_Group() {
+    isGroup() {
       // Is this check/radio a child of check-group or radio-group?
       return Boolean(this.bvGroup)
     },
-    is_BtnMode() {
+    isBtnMode() {
       // Support button style in single input mode
-      return this.is_Group ? this.bvGroup.buttons : this.button
+      return this.isGroup ? this.bvGroup.buttons : this.button
     },
-    is_Plain() {
-      return this.is_BtnMode ? false : this.is_Group ? this.bvGroup.plain : this.plain
+    isPlain() {
+      return this.isBtnMode ? false : this.isGroup ? this.bvGroup.plain : this.plain
     },
-    is_Custom() {
-      return this.is_BtnMode ? false : !this.is_Plain
+    isCustom() {
+      return this.isBtnMode ? false : !this.isPlain
     },
-    is_Switch() {
+    isSwitch() {
       // Custom switch styling (checkboxes only)
-      return this.is_BtnMode || this.is_Radio || this.is_Plain
+      return this.isBtnMode || this.isRadio || this.isPlain
         ? false
-        : this.is_Group
+        : this.isGroup
           ? this.bvGroup.switches
           : this.switch
     },
-    is_Inline() {
-      return this.is_Group ? this.bvGroup.inline : this.inline
+    isInline() {
+      return this.isGroup ? this.bvGroup.inline : this.inline
     },
-    is_Disabled() {
+    isDisabled() {
       // Child can be disabled while parent isn't, but is always disabled if group is
-      return this.is_Group ? this.bvGroup.disabled || this.disabled : this.disabled
+      return this.isGroup ? this.bvGroup.disabled || this.disabled : this.disabled
     },
-    is_Required() {
+    isRequired() {
       // Required only works when a name is provided for the input(s)
       // Child can only be required when parent is
       // Groups will always have a name (either user supplied or auto generated)
-      return Boolean(this.get_Name && (this.is_Group ? this.bvGroup.required : this.required))
+      return Boolean(this.getName && (this.isGroup ? this.bvGroup.required : this.required))
     },
-    get_Name() {
+    getName() {
       // Group name preferred over local name
-      return (this.is_Group ? this.bvGroup.groupName : this.name) || null
+      return (this.isGroup ? this.bvGroup.groupName : this.name) || null
     },
-    get_Form() {
-      return (this.is_Group ? this.bvGroup.form : this.form) || null
+    getForm() {
+      return (this.isGroup ? this.bvGroup.form : this.form) || null
     },
-    get_Size() {
-      return (this.is_Group ? this.bvGroup.size : this.size) || ''
+    getSize() {
+      return (this.isGroup ? this.bvGroup.size : this.size) || ''
     },
-    get_State() {
-      return this.is_Group ? this.bvGroup.computedState : this.computedState
+    getState() {
+      return this.isGroup ? this.bvGroup.computedState : this.computedState
     },
-    get_ButtonVariant() {
+    getButtonVariant() {
       // Local variant preferred over group variant
       if (this.buttonVariant) {
         return this.buttonVariant
-      } else if (this.is_Group && this.bvGroup.buttonVariant) {
+      } else if (this.isGroup && this.bvGroup.buttonVariant) {
         return this.bvGroup.buttonVariant
       }
       // default variant
@@ -128,12 +128,12 @@ export default {
       // Same for radio & check
       return [
         'btn',
-        `btn-${this.get_ButtonVariant}`,
-        this.get_Size ? `btn-${this.get_Size}` : '',
+        `btn-${this.getButtonVariant}`,
+        this.getSize ? `btn-${this.getSize}` : '',
         // 'disabled' class makes "button" look disabled
-        this.is_Disabled ? 'disabled' : '',
+        this.isDisabled ? 'disabled' : '',
         // 'active' class makes "button" look pressed
-        this.is_Checked ? 'active' : '',
+        this.isChecked ? 'active' : '',
         // Focus class makes button look focused
         this.hasFocus ? 'focus' : ''
       ]
@@ -158,12 +158,12 @@ export default {
     },
     // Convenience methods for focusing the input
     focus() {
-      if (!this.is_Disabled && this.$refs.input && this.$refs.input.focus) {
+      if (!this.isDisabled && this.$refs.input && this.$refs.input.focus) {
         this.$refs.input.focus()
       }
     },
     blur() {
-      if (!this.is_Disabled && this.$refs.input && this.$refs.input.blur) {
+      if (!this.isDisabled && this.$refs.input && this.$refs.input.blur) {
         this.$refs.input.blur()
       }
     }
@@ -173,7 +173,7 @@ export default {
 
     // Generate the input element
     const on = { change: this.handleChange }
-    if (this.is_BtnMode) {
+    if (this.isBtnMode) {
       // Handlers for focus styling when in button mode
       on.focus = on.blur = this.handleFocus
     }
@@ -182,12 +182,12 @@ export default {
       key: 'input',
       on,
       class: {
-        'form-check-input': this.is_Plain,
-        'custom-control-input': this.is_Custom,
-        'is-valid': this.get_State === true && !this.is_BtnMode,
-        'is-invalid': this.get_State === false && !this.is_BtnMode,
+        'form-check-input': this.isPlain,
+        'custom-control-input': this.isCustom,
+        'is-valid': this.getState === true && !this.isBtnMode,
+        'is-invalid': this.getState === false && !this.isBtnMode,
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
-        'position-static': this.is_Plain && !defaultSlot
+        'position-static': this.isPlain && !defaultSlot
       },
       directives: [
         {
@@ -199,26 +199,26 @@ export default {
       ],
       attrs: {
         id: this.safeId(),
-        type: this.is_Radio ? 'radio' : 'checkbox',
-        name: this.get_Name,
-        form: this.get_Form,
-        disabled: this.is_Disabled,
-        required: this.is_Required,
+        type: this.isRadio ? 'radio' : 'checkbox',
+        name: this.getName,
+        form: this.getForm,
+        disabled: this.isDisabled,
+        required: this.isRequired,
         autocomplete: 'off',
-        'aria-required': this.is_Required || null,
+        'aria-required': this.isRequired || null,
         'aria-label': this.ariaLabel || null,
         'aria-labelledby': this.ariaLabelledby || null
       },
       domProps: {
         value: this.value,
-        checked: this.is_Checked
+        checked: this.isChecked
       }
     })
 
-    if (this.is_BtnMode) {
+    if (this.isBtnMode) {
       // Button mode
       let button = h('label', { class: this.buttonClasses }, [input, defaultSlot])
-      if (!this.is_Group) {
+      if (!this.isGroup) {
         // Standalone button mode, so wrap in 'btn-group-toggle'
         // and flag it as inline-block to mimic regular buttons
         button = h('div', { class: ['btn-group-toggle', 'd-inline-block'] }, [button])
@@ -229,13 +229,13 @@ export default {
       let label = h(false)
       // If no label content in plain mode we dont render the label
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
-      if (!(this.is_Plain && !defaultSlot)) {
+      if (!(this.isPlain && !defaultSlot)) {
         label = h(
           'label',
           {
             class: {
-              'form-check-label': this.is_Plain,
-              'custom-control-label': this.is_Custom
+              'form-check-label': this.isPlain,
+              'custom-control-label': this.isCustom
             },
             attrs: { for: this.safeId() }
           },
@@ -247,15 +247,15 @@ export default {
         'div',
         {
           class: {
-            'form-check': this.is_Plain,
-            'form-check-inline': this.is_Plain && this.is_Inline,
-            'custom-control': this.is_Custom,
-            'custom-control-inline': this.is_Custom && this.is_Inline,
-            'custom-checkbox': this.is_Custom && this.is_Check && !this.is_Switch,
-            'custom-switch': this.is_Switch,
-            'custom-radio': this.is_Custom && this.is_Radio,
+            'form-check': this.isPlain,
+            'form-check-inline': this.isPlain && this.isInline,
+            'custom-control': this.isCustom,
+            'custom-control-inline': this.isCustom && this.isInline,
+            'custom-checkbox': this.isCustom && this.isCheck && !this.isSwitch,
+            'custom-switch': this.isSwitch,
+            'custom-radio': this.isCustom && this.isRadio,
             // Temporary until BS V4 supports sizing (most likely in V5)
-            [`form-control-${this.get_Size}`]: Boolean(this.get_Size && !this.is_BtnMode)
+            [`form-control-${this.getSize}`]: Boolean(this.getSize && !this.isBtnMode)
           }
         },
         [input, label]

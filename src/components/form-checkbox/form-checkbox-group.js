@@ -41,7 +41,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    is_RadioGroup() {
+    isRadioGroup() {
       return false
     }
   }
