@@ -443,4 +443,12 @@ provides general guidlines when using toasts.
   practice would be to implement a location where users can refer to a list of past toast messages
   which have been shown. Preferably this list should be sortable, with the default being chronological.
 
+### Internet Explorer screen reader support
+
+Unfortunately, IE 11 when used with [NVDA](https://github.com/nvaccess/nvda) or
+[JAWS](http://www.freedomscientific.com/products/software/jaws/) screen readers, will not properly
+announce/voice toasts when they appear. If you have a large non-sighted user-base using IE 11,
+you may want to create an additional off-screen `aria-live` region for IE 11 browsers only (created on
+page load) where copies of toast message text are placed dynamically, in addition to displaying toasts.
+
 <!-- Component reference added automatically from component package.json -->
