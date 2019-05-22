@@ -124,7 +124,7 @@ export default Vue.extend({
             role: this.role || null, // Fallback to null to make sure attribute doesn't exist
             'aria-live': this.ariaLive,
             'aria-atomic': this.ariaAtomic
-          },
+          }
         },
         [$target]
       )
