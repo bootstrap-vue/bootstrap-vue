@@ -15,7 +15,12 @@ export const hasMutationObserverSupport =
 
 export const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
 
-export const isJSDOM = isBrowser && navigator.userAgent.includes('jsdom')
+// Browser type sniffing
+export const UA = isBrowser && window.navigator.userAgent.toLowerCase()
+
+export const isJSDOM = isBrowser && UA.indexOf('jsdom') > 0
+
+export const isIE = UA && /msie|trident/.test(UA)
 
 // Determine if the browser supports the option passive for events
 export const hasPassiveEventSupport = (() => {
