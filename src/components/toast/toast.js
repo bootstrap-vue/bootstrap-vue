@@ -224,9 +224,7 @@ export default Vue.extend({
           // We show the toast after we have rendered the portal and b-toast wrapper
           // so that screen readers will properly announce the toast
           requestAF(() => {
-            requestAF(() => {
-              this.localShow = true
-            })
+            this.localShow = true
           })
         })
       }
