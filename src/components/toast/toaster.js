@@ -19,7 +19,7 @@ export const props = {
   },
   ariaAtomic: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false'
+    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false' or null
   },
   role: {
     // Aria role
@@ -105,11 +105,6 @@ export default Vue.extend({
     if (this.doRender) {
       const $target = h(PortalTarget, {
         staticClass: 'b-toaster-slot',
-        attrs: {
-          role: this.role || null, // fallback to null to make sure attribute doesn't exist
-          'aria-live': this.ariaLive,
-          'aria-atomic': this.ariaAtomic
-        },
         props: {
           name: this.staticName,
           multiple: true,
@@ -124,7 +119,12 @@ export default Vue.extend({
         {
           staticClass: 'b-toaster',
           class: [this.staticName],
-          attrs: { id: this.staticName }
+          attrs: {
+            id: this.staticName,
+            role: this.role || null, // Fallback to null to make sure attribute doesn't exist
+            'aria-live': this.ariaLive,
+            'aria-atomic': this.ariaAtomic
+          }
         },
         [$target]
       )
