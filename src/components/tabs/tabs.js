@@ -344,8 +344,7 @@ export default Vue.extend({
       }
     },
     getTabs() {
-      // return concat(this.normalizeSlot('default'))
-      return concat(this.$slots.default)
+      return concat(this.normalizeSlot('default'))
         .filter(Boolean)
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
@@ -614,8 +613,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      // [this.normalizeSlot('default'), empty]
-      [this.$slots.default, empty]
+      [this.normalizeSlot('default'), empty]
     )
 
     // Render final output
