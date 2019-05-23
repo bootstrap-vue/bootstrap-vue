@@ -497,7 +497,8 @@ export default Vue.extend({
     }
   },
   render(h) {
-    const tabs = this.tabs
+    //const tabs = this.tabs
+    const tabs = this.getTabs()
 
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
