@@ -3,6 +3,7 @@ import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
+import { concat } from '../../utils/array'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -293,7 +294,9 @@ export default Vue.extend({
   mounted() {
     this.$nextTick(() => {
       // Call `updateTabs()` just in case...
-      this.updateTabs()
+      this.$nextTick(() => {
+        this.updateTabs()
+      })
       // Observe child changes so we can update list of tabs
       this.setObserver(true)
     })
@@ -332,7 +335,8 @@ export default Vue.extend({
       }
     },
     getTabs() {
-      return (this.normalizeSlot('default') || [])
+      return concat(this.normalizeSlot('default'))
+        .filter(Boolean)
         .map(vnode => vnode.componentInstance)
         .filter(tab => tab && tab._isTab)
     },
