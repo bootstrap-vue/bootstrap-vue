@@ -2,7 +2,7 @@ import Popper from 'popper.js'
 import BvEvent from '../utils/bv-event.class'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
-import { closest, contains, isVisible, selectAll } from '../utils/dom'
+import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -285,7 +285,11 @@ export default {
       if (this.disabled) {
         return
       }
-      this.visible = true
+      // Wrap in a requestAnimationFrame to allow any previous
+      // click handling to occur first
+      requestAF(() => {
+        this.visible = true
+      })
     },
     hide(refocus = false) {
       // Public method to hide dropdown
