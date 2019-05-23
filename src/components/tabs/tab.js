@@ -147,11 +147,9 @@ export default Vue.extend({
   updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
-    this.$nextTick(() => {
-      if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
-        this.bvTabs.updateButton(this)
-      }
-    })
+    if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
+      this.bvTabs.updateButton(this)
+    }
   },
   methods: {
     // Public methods
