@@ -4,6 +4,7 @@ import { setConfig } from './config'
 import { hasWindowSupport, isJSDOM } from './env'
 
 const MULTIPLE_VUE_WARNING = `Multiple instances of Vue detected!
+You may need to set up a Vue alias in your bundler config.
 See: https://bootstrap-vue.js.org/docs#using-module-bundlers`
 
 let checkMultipleVueWarned = false
