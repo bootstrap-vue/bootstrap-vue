@@ -83,7 +83,8 @@ injection, without the need to place a [`<b-toast>`](#b-toast-component) compone
 Use the `this.$bvToast.toast()` method to generate on demand toasts. The method accepts two
 arguments:
 
-- `message`: the content of the toast body (either a string, or an array of `VNodes`)
+- `message`: the content of the toast body (either a string, or an array of `VNodes`). Required.
+  Toasts with an empty message will not be shown.
 - `options`: an optional options object for providing a title and/or additional configuration
   options.
 
@@ -135,6 +136,7 @@ automatically be destroyed and removed from the document.
 - Toasts generated via `this.$bvToast.toast()` are children of the Vue instance that calls the
   `this.$bvToast.toast()` method, and will be hidden and destroyed if that Vue instance (i.e. your
   component or app) is also destroyed.
+- Toasts require a message. Toasts on demand with an empty message will silently not be shown.
 
 ## Options
 
