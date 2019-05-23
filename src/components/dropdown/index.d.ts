@@ -9,7 +9,11 @@ export declare const DropdownPlugin: BvPlugin
 export default DropdownPlugin
 
 // Component: b-dropdown
-export declare class BDropdown extends BvComponent {}
+export declare class BDropdown extends BvComponent {
+  // Public methods
+  show: () => void
+  hide: (refocus?: boolean) => void
+}
 
 // Component: b-dropdown-item
 export declare class BDropdownItem extends BvComponent {}
