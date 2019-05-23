@@ -604,7 +604,8 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      [this.normalizeSlot('default'), empty]
+      // [this.normalizeSlot('default'), empty]
+      [tabs, empty]
     )
 
     // Render final output
