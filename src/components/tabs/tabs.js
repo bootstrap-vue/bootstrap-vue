@@ -223,7 +223,9 @@ export default Vue.extend({
       // Index of current tab
       currentTab: tabIdx,
       // Array of direct child <b-tab> instances
-      tabs: []
+      tabs: [],
+      // Array of registered tab UIDs
+      registeredTabs: []
     }
   },
   computed: {
@@ -278,6 +280,12 @@ export default Vue.extend({
           }
         }
       }
+    },
+    registeredTabs: {
+      handler(val, old) {
+        this.updateTabs()
+      },
+      immediate: true
     }
   },
   created() {
@@ -296,7 +304,9 @@ export default Vue.extend({
       // Call `updateTabs()` just in case...
       this.updateTabs()
       // Observe child changes so we can update list of tabs
-      this.setObserver(true)
+      this.$nextTick(() => {
+        this.setObserver(true)
+      })
     })
   },
   deactivated() /* istanbul ignore next */ {
@@ -312,6 +322,7 @@ export default Vue.extend({
   },
   beforeDestroy() /* istanbul ignore next */ {
     this.setObserver(false)
+    this.tabs = []
   },
   methods: {
     setObserver(on) {
