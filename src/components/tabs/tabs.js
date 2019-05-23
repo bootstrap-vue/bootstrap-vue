@@ -280,9 +280,9 @@ export default Vue.extend({
           }
         }
       }
-    // },
-    // registeredTabs(val, old) {
-    //  this.updateTabs()
+      // },
+      // registeredTabs(val, old) {
+      //  this.updateTabs()
     }
   },
   created() {
