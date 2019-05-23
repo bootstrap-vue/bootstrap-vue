@@ -294,9 +294,7 @@ export default Vue.extend({
   mounted() {
     this.$nextTick(() => {
       // Call `updateTabs()` just in case...
-      this.$nextTick(() => {
-        this.updateTabs()
-      })
+      this.updateTabs()
       // Observe child changes so we can update list of tabs
       this.setObserver(true)
     })
@@ -497,8 +495,7 @@ export default Vue.extend({
     }
   },
   render(h) {
-    //const tabs = this.tabs
-    const tabs = this.getTabs()
+    const tabs = this.tabs
 
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
@@ -605,8 +602,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      // [this.normalizeSlot('default'), empty]
-      [tabs, empty]
+      [this.normalizeSlot('default'), empty]
     )
 
     // Render final output
