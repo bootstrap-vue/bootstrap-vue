@@ -77,8 +77,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      localActive: this.active && !this.disabled,
-      show: false
+      localActive: this.active && !this.disabled
+      // show: false
     }
   },
   computed: {
@@ -137,7 +137,7 @@ export default Vue.extend({
   },
   mounted() {
     // Initially show on mount if active and not disabled
-    this.show = this.localActive
+    // this.show = this.localActive
     // Deprecate use of `href` prop
     if (this.href && this.href !== '#') {
       /* istanbul ignore next */
@@ -147,9 +147,11 @@ export default Vue.extend({
   updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
-    if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
-      this.bvTabs.updateButton(this)
-    }
+    this.$nextTick(() => {
+      if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
+        this.bvTabs.updateButton(this)
+      }
+    })
   },
   methods: {
     // Public methods
@@ -175,6 +177,7 @@ export default Vue.extend({
       this.tag,
       {
         ref: 'panel',
+        key: this._uid,
         staticClass: 'tab-pane',
         class: this.tabClasses,
         directives: [
