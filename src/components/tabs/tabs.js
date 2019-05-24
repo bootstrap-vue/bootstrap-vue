@@ -280,6 +280,13 @@ export default Vue.extend({
           }
         }
       }
+    },
+    isMounted(newVal, oldVal) {
+      if (newVal) {
+        requestAF(() => {
+          this.updateTabs()
+        })
+      }
     }
   },
   created() {
@@ -294,16 +301,13 @@ export default Vue.extend({
     })
   },
   mounted() {
-    this.isMounted = true
     this.$nextTick(() => {
       // Call `updateTabs()` just in case...
-      // this.updateTabs()
+      this.updateTabs()
       // Observe child changes so we can update list of tabs
       this.setObserver(true)
-      requestAF(() => {
-        // Call `updateTabs()` just in case...
-        this.updateTabs()
-      })
+      // Flag we are now mounted and to switch to DOM for tab probing
+      this.isMounted = true
     })
   },
   deactivated() /* istanbul ignore next */ {
@@ -311,12 +315,12 @@ export default Vue.extend({
     this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
-    this.isMounted = true
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.$nextTick(() => {
       this.updateTabs()
       this.setObserver(true)
+      this.isMounted = true
     })
   },
   beforeDestroy() /* istanbul ignore next */ {
