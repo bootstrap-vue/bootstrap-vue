@@ -216,7 +216,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: {
           id: this.safeId('_BV_tab_container_'),
-          tabIndex: this.noKeyNav ? '-1' : '0'
+          tabIndex: this.noKeyNav ? null : '-1'
         }
       },
       [$children, $empty]
