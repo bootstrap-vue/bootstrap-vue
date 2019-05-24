@@ -188,7 +188,7 @@ export default Vue.extend({
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
-          tabindex: this.localActive && !this.bvTabs.noKeyNav ? '0' : null,
+          tabindex: this.localActive && !this.bvTabs.noKeyNav ? '-1' : null,
           'aria-hidden': this.localActive ? 'false' : 'true',
           'aria-labelledby': this.controlledBy || null
         }
