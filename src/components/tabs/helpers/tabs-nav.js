@@ -54,7 +54,7 @@ export default Vue.extend({
         }
       }
     }
-  }
+  },
   methods: {
     // Determine the active tab on create and when tabs array chagnes
     updateActiveIndex() {
