@@ -124,27 +124,6 @@ export default Vue.extend({
     currentTab(val, old) {
       // Update the v-model
       this.$emit('input', val)
-    },
-    value(val, old) {
-      if (val !== old) {
-        val = parseInt(val, 10)
-        val = isNaN(val) ? -1 : val
-        old = parseInt(old, 10) || 0
-        const tabs = this.tabs
-        if (tabs[val] && !tabs[val].disabled) {
-          this.currentTab = val
-        } else {
-          // Try next or prev tabs
-          if (val < old) {
-            this.previousTab()
-          } else {
-            this.nextTab()
-          }
-        }
-      }
-      // },
-      // registeredTabs(val, old) {
-      //  this.updateTabs()
     }
   },
   created() {
@@ -152,18 +131,6 @@ export default Vue.extend({
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
   },
   mounted() {
-    this.$nextTick(() => {
-      // Call `updateTabs()` just in case...
-      this.updateTabs()
-      // Observe child changes so we can update list of tabs
-      this.$nextTick(() => {
-        this.setObserver(true)
-      })
-    })
-  },
-  activated() /* istanbul ignore next */ {
-    let tabIdx = parseInt(this.value, 10)
-    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
   },
   methods: {
     updateModel(val) {
