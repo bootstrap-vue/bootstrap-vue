@@ -1,5 +1,6 @@
 import Vue from '../../../utils/vue'
 import looseEqual from '../../../utils/loose-equal'
+import { isNumber } from '../../../utils/inspect'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 import BNav from '../../nav/nav'
 import BTabButton from './tab-button'
@@ -80,6 +81,7 @@ export default Vue.extend({
       this.tabs.forEach((tab, idx) => {
         tab.localActive = idx === newVal
       })
+      this.$emit('input', newVal)
     },
     tabInfo: {
       immediate: true,
@@ -139,6 +141,9 @@ export default Vue.extend({
     // Also accessed by <b-tab>
     activateTab(tab) {
       let result = false
+      if (isNumber(tab)) {
+        tab = this.tabs[tab]
+      }
       if (tab) {
         const index = this.tabs.indexOf(tab)
         if (!tab.disabled && index > -1) {
@@ -156,6 +161,9 @@ export default Vue.extend({
     // Deactivate a tab given a <b-tab> instance
     // Accessed by <b-tab> indirectly
     deactivateTab(tab) {
+      if (isNumber(tab)) {
+        tab = this.tabs[tab]
+      }
       /* istanbul ignore else: should never happen */
       if (tab) {
         // Find first non-disabled tab that isn't the one being deactivated
