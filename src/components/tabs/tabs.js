@@ -168,7 +168,7 @@ export default Vue.extend({
   },
   render(h) {
     // Default slot children
-    const $children = this.normalizeSlot('default', {})
+    const $children = this.slots.default
 
     // find the children b-tab instances (immediate descendants)
     const tabs = concat($children)
@@ -193,7 +193,8 @@ export default Vue.extend({
         }
       },
       // Any "extra" tabs are placed in default slot
-      this.normalizeSlot('tabs', {}) || [h(false)]
+      // this.normalizeSlot('tabs', {}) || [h(false)]
+      [this.$slots.tabs || h(false)]
     )
 
     // Placeholder tab when no tabs available
@@ -202,7 +203,7 @@ export default Vue.extend({
       $empty = h(
         'div',
         { key: 'empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
-        this.normalizeSlot('empty')
+        [this.$slots.empty || h(false)]
       )
     }
 
