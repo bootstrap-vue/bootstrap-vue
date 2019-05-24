@@ -17,11 +17,9 @@ export default Vue.extend({
     }
   },
   props: {
-    id: { type: String, default: null },
     // Reference to the child <b-tab> instance
     tab: { default: null },
     active: { default: false },
-    constols: { type: String, default: null },
     posInSet: { type: Number, default: null },
     setSize: { type: Number, default: null }
   },
@@ -126,15 +124,15 @@ export default Vue.extend({
           disabled: tab.disabled
         },
         attrs: {
+          id: tab.safeId(`_BV_tab_button_`),
           role: 'tab',
-          id: this.id,
-          // Roving tab index when keynav enabled
+           // Roving tab index when keynav enabled
           tabindex: this.noKeyNav || tab.active ? null : '-1',
           // 'aria-selected': this.active ? 'true' : 'false',
+          'aria-controls': tab.safeId(),
           'aria-selected': tab.localActive && !tab.disabled ? 'true' : 'false',
           'aria-setsize': this.setSize,
-          'aria-posinset': this.posInSet,
-          'aria-controls': this.controls
+          'aria-posinset': this.posInSet
           // 'aria-disabled' is set by BLink
         },
         on: {
