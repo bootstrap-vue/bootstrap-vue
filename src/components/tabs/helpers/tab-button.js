@@ -34,7 +34,9 @@ export default Vue.extend({
     active: {
       immediate: true,
       handler(active) {
-        this.tab && this.tab.localActive = active
+        if (this.tab) {
+          this.tab.localActive = active
+        }
       }
     }
   },
