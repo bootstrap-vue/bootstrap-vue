@@ -445,7 +445,7 @@ for generating more complex toast content:
         // Create the message
         const vNodesMsg = h(
           'p',
-          { class: 'text-center' },
+          { class: ['text-center', 'mb-0'] },
           [
             h('b-spinner', { props: { type: 'grow', small: true } }),
             ' Flashy ',
@@ -457,7 +457,7 @@ for generating more complex toast content:
         // Create the title
         const vNodesTitle = h(
           'div',
-          { class: 'd-flex flex-grow-1 align-items-baseline mr-2' },
+          { class: ['d-flex', 'flex-grow-1', 'align-items-baseline', 'mr-2'] },
           [
             h('strong', { class: 'mr-2' }, 'The Title'),
             h('small', { class: 'ml-auto text-italics' }, '5 minutes ago')
