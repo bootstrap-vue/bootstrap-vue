@@ -296,11 +296,13 @@ export default Vue.extend({
   mounted() {
     this.isMounted = true
     this.$nextTick(() => {
+      // Call `updateTabs()` just in case...
+      // this.updateTabs()
+      // Observe child changes so we can update list of tabs
+      this.setObserver(true)
       requestAF(() => {
         // Call `updateTabs()` just in case...
         this.updateTabs()
-        // Observe child changes so we can update list of tabs
-        this.setObserver(true)
       })
     })
   },
