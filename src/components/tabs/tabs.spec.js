@@ -90,8 +90,6 @@ describe('tabs', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.vm.currentTab).toBe(tabIndex)
-    expect(wrapper.vm.tabs.length).toBe(3)
-    expect(wrapper.vm.tabs[tabIndex].localActive).toBe(true)
 
     wrapper.destroy()
   })
