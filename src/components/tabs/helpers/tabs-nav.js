@@ -258,7 +258,7 @@ export default Vue.extend({
         },
         on: {
           click: evt => {
-            this.clickTab(tab, evt)
+            this.clickTab(idx, evt)
           },
           first: this.firstTab,
           prev: this.previousTab,
