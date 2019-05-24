@@ -48,7 +48,14 @@ export default Vue.extend({
   computed: {
     tabInfo() {
       // Used for monitoring additions/removals to the tabs array
-      return this.tabs.map(tab => tab._uid)
+      return this.tabs.map(tab => {
+        return {
+          uid: tab._uid,
+          disabled: tab.disabled,
+          active: tab.active,
+          localActive: tab.localActive
+        }
+      })
     }
   },
   watch: {
