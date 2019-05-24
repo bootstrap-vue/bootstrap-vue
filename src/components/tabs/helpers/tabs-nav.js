@@ -200,32 +200,29 @@ export default Vue.extend({
 
     // Generate the buttons
     const $buttons = tabs.map((tab, idx) => {
-      return h(
-        BTabButton,
-        {
-          key: tab._uid || idx,
-          ref: 'buttons',
-          // Needed to make `this.$refs.buttons` an array
-          refInFor: true,
-          props: {
-            tab: tab,
-            id: tab.safeId(`_BV_tab_button_`),
-            active: tab === activeTab,
-            controls: tab.safeId(),
-            setSize: tabs.length,
-            posInSet: idx + 1
+      return h(BTabButton, {
+        key: tab._uid || idx,
+        ref: 'buttons',
+        // Needed to make `this.$refs.buttons` an array
+        refInFor: true,
+        props: {
+          tab: tab,
+          id: tab.safeId(`_BV_tab_button_`),
+          active: tab === activeTab,
+          controls: tab.safeId(),
+          setSize: tabs.length,
+          posInSet: idx + 1
+        },
+        on: {
+          click: evt => {
+            this.clickTab(tab, evt)
           },
-          on: {
-            click: evt => {
-              this.clickTab(tab, evt)
-            },
-            first: this.firstTab,
-            prev: this.previousTab,
-            next: this.nextTab,
-            last: this.lastTab
-          }
+          first: this.firstTab,
+          prev: this.previousTab,
+          next: this.nextTab,
+          last: this.lastTab
         }
-      )
+      })
     })
 
     // Generate the BNav
