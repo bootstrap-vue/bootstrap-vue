@@ -43,9 +43,14 @@ export default Vue.extend({
     }
   },
   data() {
-    return {}
+    return {
+      avtiveIndex: this.computeActiveIndex()
+    }
   },
   computed: {
+    activeTab() {
+      return this.tabs[this.activeIndex]
+    },
     tabInfo() {
       // Used for monitoring additions/removals to the tabs array
       return this.tabs.map(tab => {
@@ -71,6 +76,11 @@ export default Vue.extend({
         }
       }
     },
+    activeIndex(newVal, oldVal) {
+      this.tabs.forEach((tab, idx) => {
+        tab.localActive = idx === newVal
+      })
+    },
     tabInfo: {
       immediate: true,
       handler(newTabs, oldTabs) {
@@ -80,9 +90,15 @@ export default Vue.extend({
       }
     }
   },
+  created() {
+    this.updateActiveIndex()
+  },
   methods: {
-    // Determine the active tab on create and when tabs array chagnes
     updateActiveIndex() {
+      this.activeIndex = this.computeActiveIndex()
+    },
+    // Determine the active tab on create and when tabs array chagnes
+    computeActiveIndex() {
       const tabs = this.tabs
 
       // Find *last* active non-disabled tab in current tabs
@@ -117,7 +133,7 @@ export default Vue.extend({
         tabIndex = tabs.indexOf(tabs.find(notDisabled))
       }
 
-      this.activeIndex = Math.max(tabIndex, -1)
+      return Math.max(tabIndex, -1)
     },
     // Activate a tab given a <b-tab> instance
     // Also accessed by <b-tab>
