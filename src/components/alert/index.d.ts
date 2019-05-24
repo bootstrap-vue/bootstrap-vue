@@ -9,4 +9,6 @@ export declare const AlertPlugin: BvPlugin
 export default AlertPlugin
 
 // Component: b-alert
-export declare class BAlert extends BvComponent {}
+export declare class BAlert extends BvComponent {
+  dismiss: () => void
+}
