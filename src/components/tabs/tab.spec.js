@@ -178,7 +178,7 @@ describe('tab', () => {
     wrapper.destroy()
   })
 
-  it('has attribute tabindex="0" when parent has keynav enabled and active', async () => {
+  it('has attribute tabindex="-1" when parent has keynav enabled and active', async () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
@@ -194,7 +194,7 @@ describe('tab', () => {
     })
 
     expect(wrapper.attributes('tabindex')).toBeDefined()
-    expect(wrapper.attributes('tabindex')).toBe('0')
+    expect(wrapper.attributes('tabindex')).toBe('-1')
 
     wrapper.destroy()
   })
