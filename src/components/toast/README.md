@@ -55,7 +55,7 @@ transparency only.
   `auto-hide-delay` prop (value is specified in milliseconds), and disabled with the `no-auto-hide`
   prop.
 - When auto-hide is enabled, and you hover over the toast, the auto-hide countdown will be paused
-  until you unhover the toast. You can disabled this feature by setting the `no-hover-pause` prop
+  until you un-hover the toast. You can disabled this feature by setting the `no-hover-pause` prop
   to `true`.
 - Toasts include a close button on their top right to allow users to manually dismiss them. The
   close button can be removed via the `no-close-button` prop.
@@ -84,9 +84,10 @@ Use the `this.$bvToast.toast()` method to generate on demand toasts. The method 
 arguments:
 
 - `message`: the content of the toast body (either a string, or an array of `VNodes`). Required.
-  Toasts with an empty message will not be shown.
+  Toasts with an empty message will not be shown. See the [Advanced usage](#advanced-usage) section
+  for an example of passing an array of `VNodes` as the message.
 - `options`: an optional options object for providing a title and/or additional configuration
-  options.
+  options. The `title` option can be either a string or an array of `VNodes`
 
 The options argument accepts most of the props that the `<b-toast>` component accepts (with the
 exception of `static`, and `visible`) in <samp>camelCase</samp> name format instead of
@@ -145,6 +146,12 @@ as props on the `<b-toast>` component and as properties of the options object pa
 `this.$bvToast.toast()`. When passing options to `this.$bvToast.toast()`, use the
 <samp>camelCase</samp> version of the component prop name, i.e. use `noAutoHide` instead of
 `no-auto-hide`.
+
+### Title
+
+Add a title to your toast via the `title` option. Just like the toast `message`, the title can be a
+simple string, or an array of vNodes. See the [Advanced usage](#advanced-usage) section for an
+example of passing an array of `VNodes` as the message and title.
 
 ### Transparency
 
@@ -240,11 +247,12 @@ SCSS):
 ```
 
 **Notes:**
-- Toaster target names that have not been defined in CSS will render at the bottom of the
-  document, stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name
-  and ID set to the toaster target name). The only default styling the toaster will have is a
-  `z-index` of `1100`.
-- Avoid using `b-toaster-top-*` toasters together, or `b-toaster-bottom-*` toasters togehter, at the
+
+- Toaster target names that have not been defined in CSS will render at the bottom of the document,
+  stacked and not positioned (appended to `<body>` inside a `<b-toaster>` with class name and ID set
+  to the toaster target name). The only default styling the toaster will have is a `z-index` of
+  `1100`.
+- Avoid using `b-toaster-top-*` toasters together, or `b-toaster-bottom-*` toasters together, at the
   same time in your app as notifications could be obscured/overlap on small screens (i.e. `xs`).
 
 ### Prepend and append
@@ -259,9 +267,9 @@ Change to auto hide delay time via the `auto-hide-delay` prop (value is in milli
 defaults to `5000` (minimum value `1000`). Or, disable the auto-hide feature completely by setting
 the `no-auto-hide` prop to `true`.
 
-When auto-hide is enabled, hovering over the toast will pause the auto-hide timer. When you
-un-hover the toast, the auto-hide timer will be resumed. You can disable this feature by setting
-the `no-hover-pause` prop to `true`.
+When auto-hide is enabled, hovering over the toast will pause the auto-hide timer. When you un-hover
+the toast, the auto-hide timer will be resumed. You can disable this feature by setting the
+`no-hover-pause` prop to `true`.
 
 ### Toast roles
 
@@ -291,7 +299,7 @@ Optionally convert the toast body to a link (`<a>`) or `<router-link>` (or `<nux
         this.$bvToast.toast(`Toast with action link`, {
           href: '#foo',
           title: 'Example'
-        }) 
+        })
       }
     }
   }
@@ -386,17 +394,88 @@ toasts are closed/hidden.
 `<b-toast>` uses the `b-toaster-top-right` toaster by default.
 
 **Notes:**
+
 - If a `<b-toaster>` with the same name already exists in document (either auto-created by
-  `<b-toast>`, `this.$bvToast.toast()`, or manually placed), then `<b-toaster>` will just render
-  an empty `<div>` element and issue a console warning.
+  `<b-toast>`, `this.$bvToast.toast()`, or manually placed), then `<b-toaster>` will just render an
+  empty `<div>` element and issue a console warning.
 - If manually placing a `<b-toaster>` component, make sure it is placed as the last element in
   bottom of your app root element, so that it will be available to all pages in your app.
-- Toasters that get destroyed will be auto re-created if a new toast targeted for the  toaster
-  name is shown.
+- Toasters that get destroyed will be auto re-created if a new toast targeted for the toaster name
+  is shown.
 - In the majority of use cases, you should not need to manually place/create a `<b-toaster>`
-  component in your app, as they will be auto generated on demand if needed.  But if you need to
-  override any of the toaster default settings, ensure that you place the toaster in your app in
-  a location that will not be destroyed due to changes in the route.
+  component in your app, as they will be auto generated on demand if needed. But if you need to
+  override any of the toaster default settings, ensure that you place the toaster in your app in a
+  location that will not be destroyed due to changes in the route.
+
+## Advanced usage
+
+When using the `this.$bvToast.toast(...)` method for generating toasts, you may want the toast
+content to be more than just a string message. As mentioned in the
+[Toasts on demand](#toasts-on-demand) section above, you can pass arrays of `vNodes` as the message
+and title for more complex content.
+
+Remember to keep toast content simple and to the point. Avoid placing interactive components or
+elements inside toasts, as this can cause issues for users of assistive technologies. Refer to the
+[Accessibility](#accessibility) section below.
+
+Below is an example of using Vue's
+[`this.$createElement()`](https://vuejs.org/v2/guide/render-function.html#The-Virtual-DOM) method
+for generating more complex toast content:
+
+```html
+<template>
+  <div>
+    <b-button @click="popToast">Show Toast with custom content</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        count: 0
+      }
+    },
+    methods: {
+      popToast() {
+        // Use a shorter name for this.$createElement
+        const h = this.$createElement
+        // Increment the toast count
+        this.count++
+        // Create the message
+        const vNodesMsg = h(
+          'p',
+          { class: ['text-center', 'mb-0'] },
+          [
+            h('b-spinner', { props: { type: 'grow', small: true } }),
+            ' Flashy ',
+            h('strong', {}, 'toast'),
+            ` message #${this.count} `,
+            h('b-spinner', { props: { type: 'grow', small: true } })
+          ]
+        )
+        // Create the title
+        const vNodesTitle = h(
+          'div',
+          { class: ['d-flex', 'flex-grow-1', 'align-items-baseline', 'mr-2'] },
+          [
+            h('strong', { class: 'mr-2' }, 'The Title'),
+            h('small', { class: 'ml-auto text-italics' }, '5 minutes ago')
+          ]
+        )
+        // Pass the vNodes as an array for message and title
+        this.$bvToast.toast([vNodesMsg], {
+          title: [vNodesTitle],
+          solid: true,
+          variant: 'info'
+        })
+      }
+    }
+ }
+</script>
+
+<!-- toasts-advanced.vue -->
+```
 
 ## Accessibility
 
@@ -414,43 +493,45 @@ a later point in time).
 Typically, toast messages should display one or two-line non-critical messages that **do not**
 require user interaction. Without taking extra steps, toasts can have numerous accessibility issues
 that can impact both people with and without disabilities. The following list, while not complete,
-provides general guidlines when using toasts.
+provides general guidelines when using toasts.
 
 - If the information needed is important for the process, e.g. for a list of errors in a form, then
   use the [`<b-alert>`](/docs/components/alert) component instead of `<b-toast>`.
 - `<b-toast>`, by default, sets the attributes `role` to `'alert'` and `aria-live` to `'assertive'`.
   If it’s an important message like an error, this default setting is appropriate, otherwise set the
-  prop `is-status` to `true` which will change the attributes `role` to `'status'` and `aria-live` to
-  `'polite'`.
+  prop `is-status` to `true` which will change the attributes `role` to `'status'` and `aria-live`
+  to `'polite'`.
 - Avoid popping up a toast message on page load. Performing unexpected actions on page load is very
   confusing to screen reader users. If a toast is needed on page load or route change, delay showing
   the toast by several seconds so that the screen reader will finishing announcing information about
   the current page without interruption by a the toast.
 - When setting prop `auto-hide` to `false`, you must have a close button to allow users to dismiss
   the toast. If you have also set prop `no-close-button` to true, you must provide your own close
-  button or dismiss the toast by some other means. Toasts have a tab index of `0` so that they can be
-  reached by keyboard-only users.
-- Avoid initiating many toasts in quick succession, as screen readers may interupt reading the
+  button or dismiss the toast by some other means. Toasts have a tab index of `0` so that they can
+  be reached by keyboard-only users.
+- Avoid initiating many toasts in quick succession, as screen readers may interrupt reading the
   current toast and announce the new toast, causing the context of the previous toast to be missed.
 - For toasts with long textual content, adjust the `auto-hide-delay` to a larger timout, to allow
-  users time to read the content of the toast. A good length of time to keep messages up is 4 seconds
-  plus 1 extra second for every 100 words, rounding up. This is approximately how fast the average
-  person reads. That means the shortest default that should be used as a best practice is 5 seconds
-  (5000ms). In addition to a reasonable default timeout, you could also allow the user to choose how
-  long they want toasts to stay up for. Most people inherently understand whether they are fast or slow
-  readers. Having a profile setting that is part of the user login will allow slow readers to pick a
-  longer time if the messages are going away too fast, and fast readers to pick a short time if the
-  messages are staying up too long.
-- To account for memory loss and distraction as well as disability-related issues such as ADHD, a best
-  practice would be to implement a location where users can refer to a list of past toast messages
-  which have been shown. Preferably this list should be sortable, with the default being chronological.
+  users time to read the content of the toast. A good length of time to keep messages up is 4
+  seconds plus 1 extra second for every 100 words, rounding up. This is approximately how fast the
+  average person reads. That means the shortest default that should be used as a best practice is 5
+  seconds (5000ms). In addition to a reasonable default timeout, you could also allow the user to
+  choose how long they want toasts to stay up for. Most people inherently understand whether they
+  are fast or slow readers. Having a profile setting that is part of the user login will allow slow
+  readers to pick a longer time if the messages are going away too fast, and fast readers to pick a
+  short time if the messages are staying up too long.
+- To account for memory loss and distraction as well as disability-related issues such as ADHD, a
+  best practice would be to implement a location where users can refer to a list of past toast
+  messages which have been shown. Preferably this list should be sortable, with the default being
+  chronological.
 
 ### Internet Explorer screen reader support
 
 Unfortunately, IE 11 when used with [NVDA](https://github.com/nvaccess/nvda) or
 [JAWS](http://www.freedomscientific.com/products/software/jaws/) screen readers, will not properly
-announce/voice toasts when they appear. If you have a large non-sighted user-base using IE 11,
-you may want to create an additional off-screen `aria-live` region for IE 11 browsers only (created on
-page load) where copies of toast message text are placed dynamically, in addition to displaying toasts.
+announce/voice toasts when they appear. If you have a large non-sighted user-base using IE 11, you
+may want to create an additional off-screen `aria-live` region for IE 11 browsers only (created on
+page load) where copies of toast message text are placed dynamically, in addition to displaying
+toasts.
 
 <!-- Component reference added automatically from component package.json -->
