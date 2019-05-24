@@ -228,7 +228,7 @@ export default Vue.extend({
         }
       },
       // Any "extra" tabs are placed in default slot
-      this.noramlizeSlot('tabs', {}) || [h(false)]
+      this.normalizeSlot('tabs', {}) || [h(false)]
     )
 
     // Placeholder tab when no tabs available
