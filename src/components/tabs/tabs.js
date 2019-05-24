@@ -4,7 +4,7 @@ import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { props as BNavProps } from '../nav/nav'
-import BTabsnav from './helpers/tabs-nav'
+import BTabsNav from './helpers/tabs-nav'
 
 // -- Constants --
 
@@ -123,7 +123,7 @@ export default Vue.extend({
   watch: {
     currentTab(val, old) {
       // Update the v-model
-      this.$emit('input', index)
+      this.$emit('input', val)
     },
     value(val, old) {
       if (val !== old) {
