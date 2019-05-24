@@ -180,7 +180,7 @@ export default Vue.extend({
     focusButton(tab) {
       // Wrap in `$nextTick()` to ensure DOM has completed rendering/updating before focusing
       this.$nextTick(() => {
-        const button = [this.$refs.buttons || [])[this.tabs.indexOf(tab)]
+        const button = ([this.$refs.buttons || [])[this.tabs.indexOf(tab)]
         if (button && button.focus) {
           button.focus()
         }
