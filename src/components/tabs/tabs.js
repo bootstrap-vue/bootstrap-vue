@@ -338,19 +338,18 @@ export default Vue.extend({
       }
     },
     getTabs() {
+      let tabs = []
       if (!this.isMounted) {
-        return (this.normalizeSlot('default') || [])
-          .map(vnode => vnode.componentInstance)
-          .filter(tab => tab && tab._isTab)
+        tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
       } else {
         // We rely on the DOM when mounted to get the list of tabs
-        return selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-panel`, this.$el)
+        tabs = selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-pane`, this.$el)
           .map(el => el.__vue__)
           .filter(Boolean)
           // The VM attached to the element is `transition` so we need the $parent to get tab
           .map(vm => vm.$parent)
-          .filter(tab => tab._isTab)
       }
+      return tabs.filter(tab => tab && tab._isTab)
     },
     // Update list of <b-tab> children
     updateTabs() {
