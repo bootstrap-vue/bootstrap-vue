@@ -8,7 +8,7 @@ import BTabsNav from './helpers/tabs-nav'
 
 // -- Constants --
 
-const navProps = omit(BNavProps, ['tabs', 'isNavBar'])
+const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'tag'])
 
 // @vue/component
 export default Vue.extend({
@@ -24,10 +24,12 @@ export default Vue.extend({
     event: 'input'
   },
   props: {
+    ...navProps,
     tag: {
       type: String,
       default: 'div'
     },
+    // The follwoing props are sniffed by the BTab and BTabsNav children
     card: {
       type: Boolean,
       default: false
@@ -41,8 +43,6 @@ export default Vue.extend({
       type: Boolean,
       default: false
     },
-    // The follwoing props are sniffed by the <b-tab> children
-    ...navProps,
     noFade: {
       type: Boolean,
       default: false
