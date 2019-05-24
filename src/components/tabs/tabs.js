@@ -224,7 +224,8 @@ export default Vue.extend({
       currentTab: tabIdx,
       // Array of direct child <b-tab> instances
       tabs: [],
-      isMounted = false
+      // Flag to know if we are mounted or not
+      isMounted: false
     }
   },
   computed: {
