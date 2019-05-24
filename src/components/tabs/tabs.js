@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
-import { selectAll } from '../../utils/dom'
+import { requestAF, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import { omit } from '../../utils/object'
@@ -296,10 +296,12 @@ export default Vue.extend({
   mounted() {
     this.isMounted = true
     this.$nextTick(() => {
-      // Call `updateTabs()` just in case...
-      this.updateTabs()
-      // Observe child changes so we can update list of tabs
-      this.setObserver(true)
+      requestAF(() => {
+        // Call `updateTabs()` just in case...
+        this.updateTabs()
+        // Observe child changes so we can update list of tabs
+        this.setObserver(true)
+      })
     })
   },
   deactivated() /* istanbul ignore next */ {
@@ -343,6 +345,7 @@ export default Vue.extend({
         tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
       } else {
         // We rely on the DOM when mounted to get the list of tabs
+        // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/3361
         tabs = selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-pane`, this.$el)
           .map(el => el.__vue__)
           .filter(Boolean)
