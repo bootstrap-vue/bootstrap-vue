@@ -81,7 +81,7 @@ export default Vue.extend({
               .reverse()
               .find(notDisabled)
           )
-        } else if (tabs[activeTabIndex] && notDisabled(tabs[activeTabIndex]) {
+        } else if (tabs[activeTabIndex] && notDisabled(tabs[activeTabIndex])) {
           // Current tab is not disabled
           tabIndex = activeTabIndex
         }
