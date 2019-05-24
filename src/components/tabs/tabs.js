@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
+import { selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import { omit } from '../../utils/object'
@@ -222,7 +223,8 @@ export default Vue.extend({
       // Index of current tab
       currentTab: tabIdx,
       // Array of direct child <b-tab> instances
-      tabs: []
+      tabs: [],
+      isMounted = false
     }
   },
   computed: {
@@ -291,6 +293,7 @@ export default Vue.extend({
     })
   },
   mounted() {
+    this.isMounted = true
     this.$nextTick(() => {
       // Call `updateTabs()` just in case...
       this.updateTabs()
@@ -300,8 +303,10 @@ export default Vue.extend({
   },
   deactivated() /* istanbul ignore next */ {
     this.setObserver(false)
+    this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
+    this.isMounted = true
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.$nextTick(() => {
@@ -332,9 +337,19 @@ export default Vue.extend({
       }
     },
     getTabs() {
-      return (this.normalizeSlot('default') || [])
-        .map(vnode => vnode.componentInstance)
-        .filter(tab => tab && tab._isTab)
+      if (!this.isMounted) {
+        return (this.normalizeSlot('default') || [])
+          .map(vnode => vnode.componentInstance)
+          .filter(tab => tab && tab._isTab)
+      } else {
+        // We rely on the DOM when mounted to get the list of tabs
+        return selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-panel`, this.$el)
+          .map(el => el.__vue__)
+          .filter(Boolean)
+          // The VM attached to the element is `transition` so we need the $parent to get tab
+          .map(vm => vm.$parent)
+          .filter(tab => tab._isTab)
+      }
     },
     // Update list of <b-tab> children
     updateTabs() {
