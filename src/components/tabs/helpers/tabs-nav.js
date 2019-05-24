@@ -1,14 +1,20 @@
 import Vue from '../../../utils/vue'
+import looseEqual from '../../../utils/loose-equal'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 import BNav from '../../nav/nav'
 import BTabButton from './tab-button'
 
+// -- Utils --
+
+// Filter function to filter out disabled tabs
+const notDisabled = tab => !tab.disabled
 
 // --- BTabsNav Private Component ---
 
 // @vue/component
 export default Vue.extend({
   name: 'BTabsNav',
+  mixins: [normalizeSlotMixin],
   inject: {
     bvTabs: {
       default() /* istanbul ignore next */ {
@@ -58,7 +64,7 @@ export default Vue.extend({
   methods: {
     // Determine the active tab on create and when tabs array chagnes
     updateActiveIndex() {
-      tabs = this.tabs
+      const tabs = this.tabs
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over activeTabIndex, in case tabs
