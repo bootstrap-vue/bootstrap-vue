@@ -56,9 +56,9 @@ export default Vue.extend({
       return this.tabs.map(tab => {
         return {
           uid: tab._uid,
-          disabled: tab.disabled,
-          active: tab.active,
-          localActive: tab.localActive
+          disabled: tab.disabled
+          // active: tab.active,
+          // localActive: tab.localActive
         }
       })
     }
