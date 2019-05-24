@@ -287,7 +287,8 @@ export default Vue.extend({
           small: bvTabs.small
         }
       },
-      [$buttons, this.normalizeSlot('default', {}), this.normalizeSlot('tabs', {})]
+      // [$buttons, this.normalizeSlot('default', {}), this.normalizeSlot('tabs', {})]
+      [$buttons, this.$slots.default, this.$slots.tabs]
     )
 
     // Return the Nav wrapped in a div
