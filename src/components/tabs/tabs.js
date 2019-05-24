@@ -137,10 +137,10 @@ export default Vue.extend({
       // Update the vmodel
       this.$emit('input', val)
     },
-    prevTab() {
+    previousTab() {
       // Proxy to nav component
       const $refs = this.$refs
-      $refs && $refs.nav && $refs.nav.prevTab()
+      $refs && $refs.nav && $refs.nav.previousTab()
     },
     nextTab() {
       // Proxy to nav component
