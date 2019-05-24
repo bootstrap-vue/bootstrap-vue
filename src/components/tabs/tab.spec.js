@@ -199,38 +199,6 @@ describe('tab', () => {
     wrapper.destroy()
   })
 
-  it("calls parent's updateButton() when title slot provided", async () => {
-    let called = false
-    let vm = null
-    const wrapper = mount(BTab, {
-      provide() {
-        return {
-          bvTabs: {
-            fade: false,
-            lazy: false,
-            card: false,
-            noKeyNav: false,
-            updateButton(tab) {
-              called = true
-              vm = tab
-              return true
-            }
-          }
-        }
-      },
-      slots: {
-        title: '<b>foobar</b>'
-      }
-    })
-
-    wrapper.setData({ localActive: true })
-
-    expect(called).toBe(true)
-    expect(vm).toEqual(wrapper.vm)
-
-    wrapper.destroy()
-  })
-
   it('calls parent de/activateTab() when prop active changes', async () => {
     let activateCalled = false
     let activateVm = null
