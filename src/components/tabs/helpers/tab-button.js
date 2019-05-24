@@ -124,7 +124,7 @@ export default Vue.extend({
           disabled: tab.disabled
         },
         attrs: {
-          id: tab.safeId(`_BV_tab_button_`),
+          id: tab.controlledBy,
           role: 'tab',
           // Roving tab index when keynav enabled
           tabindex: this.noKeyNav || tab.active ? null : '-1',
