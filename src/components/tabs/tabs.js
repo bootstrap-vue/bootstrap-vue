@@ -168,7 +168,7 @@ export default Vue.extend({
   },
   render(h) {
     // Default slot children
-    const $children = this.slots.default
+    const $children = this.$slots.default
 
     // find the children b-tab instances (immediate descendants)
     const tabs = concat($children)
