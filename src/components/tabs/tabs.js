@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
+import { requestAF, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import { omit } from '../../utils/object'
@@ -222,7 +223,9 @@ export default Vue.extend({
       // Index of current tab
       currentTab: tabIdx,
       // Array of direct child <b-tab> instances
-      tabs: []
+      tabs: [],
+      // Flag to know if we are mounted or not
+      isMounted: false
     }
   },
   computed: {
@@ -277,6 +280,13 @@ export default Vue.extend({
           }
         }
       }
+    },
+    isMounted(newVal, oldVal) {
+      if (newVal) {
+        requestAF(() => {
+          this.updateTabs()
+        })
+      }
     }
   },
   created() {
@@ -296,10 +306,13 @@ export default Vue.extend({
       this.updateTabs()
       // Observe child changes so we can update list of tabs
       this.setObserver(true)
+      // Flag we are now mounted and to switch to DOM for tab probing
+      this.isMounted = true
     })
   },
   deactivated() /* istanbul ignore next */ {
     this.setObserver(false)
+    this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
     let tabIdx = parseInt(this.value, 10)
@@ -307,6 +320,7 @@ export default Vue.extend({
     this.$nextTick(() => {
       this.updateTabs()
       this.setObserver(true)
+      this.isMounted = true
     })
   },
   beforeDestroy() /* istanbul ignore next */ {
@@ -332,9 +346,19 @@ export default Vue.extend({
       }
     },
     getTabs() {
-      return (this.normalizeSlot('default') || [])
-        .map(vnode => vnode.componentInstance)
-        .filter(tab => tab && tab._isTab)
+      let tabs = []
+      if (!this.isMounted) {
+        tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
+      } else {
+        // We rely on the DOM when mounted to get the list of tabs
+        // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/3361
+        tabs = selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-pane`, this.$el)
+          .map(el => el.__vue__)
+          .filter(Boolean)
+          // The VM attached to the element is `transition` so we need the $parent to get tab
+          .map(vm => vm.$parent)
+      }
+      return tabs.filter(tab => tab && tab._isTab)
     },
     // Update list of <b-tab> children
     updateTabs() {
