@@ -26,7 +26,6 @@ describe('tabs', () => {
     const wrapper = mount(BTabs)
 
     expect(wrapper.vm.currentTab).toBe(-1)
-    expect(wrapper.vm.tabs.length).toBe(0)
 
     wrapper.destroy()
   })
