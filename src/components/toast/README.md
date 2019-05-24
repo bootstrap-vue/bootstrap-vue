@@ -84,9 +84,10 @@ Use the `this.$bvToast.toast()` method to generate on demand toasts. The method 
 arguments:
 
 - `message`: the content of the toast body (either a string, or an array of `VNodes`). Required.
-  Toasts with an empty message will not be shown.
+  Toasts with an empty message will not be shown. See the [Advanced usage](#advanced-usage) section
+  for an example of passing an array of `VNodes` as the message.
 - `options`: an optional options object for providing a title and/or additional configuration
-  options.
+  options. The `title` option can be either a string or an array of `VNodes`
 
 The options argument accepts most of the props that the `<b-toast>` component accepts (with the
 exception of `static`, and `visible`) in <samp>camelCase</samp> name format instead of
@@ -145,6 +146,12 @@ as props on the `<b-toast>` component and as properties of the options object pa
 `this.$bvToast.toast()`. When passing options to `this.$bvToast.toast()`, use the
 <samp>camelCase</samp> version of the component prop name, i.e. use `noAutoHide` instead of
 `no-auto-hide`.
+
+### Title
+
+Add a title to your toast via the `title` option. Just like the toast `message`, the title can be a
+simple string, or an array of vNodes. See the [Advanced usage](#advanced-usage) section for an example
+of passing an array of `VNodes` as the message and title.
 
 ### Transparency
 
@@ -397,6 +404,73 @@ toasts are closed/hidden.
   component in your app, as they will be auto generated on demand if needed.  But if you need to
   override any of the toaster default settings, ensure that you place the toaster in your app in
   a location that will not be destroyed due to changes in the route.
+
+## Advanced usage
+
+When using the `this.$bvToast.toast(...)` method for generating toasts, you may want the toast
+content to be more than just a string message. As mentioned in the
+[Toasts on demand](#toasts-on-demand) section above, you can pass arrays of `vNodes` as the message
+and title for more complex content.  Below is an example of using Vue's
+[`this.$createElement()`](https://vuejs.org/v2/guide/render-function.html#The-Virtual-DOM) method
+for generating more complext toast content:
+
+```html
+<template>
+  <div>
+    <b-button @click="popToast">Show Toast with custom content</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        count: 0
+      }
+    },
+    methods: {
+      popToast() {
+        // use a shorter name for this.$createElement
+        const h = this.$createElement
+        this.count++
+        // Create the message
+        const vNodesMsg = h(
+          'p',
+          { class: 'text-center' },
+          [
+            h('b-spinner', { props: { type: 'grow', small: true } }),
+            ' Flashy ',
+            h('strong', {}, 'toast'),
+            ' message #', this.count, ' ',
+            h('b-spinner', { props: { type: 'grow', small: true } })
+          ]
+        )
+        // Create the title
+        const vNodesTitle = h(
+          'div',
+          { class: 'd-flex flex-grow-1 align-items-baseline mr-2' },
+          [
+            h('strong', { class: 'mr-2' }, 'The Title'),
+            h('small', { class: 'ml-auto text-italics' }, '5 minutes ago')
+          ]
+        )
+        // Pass the vNodes as an array for message and title
+        this.$bvToast.toast([vNodesMsg], {
+          title: [vNodesTitle],
+          solid: true,
+          variant: 'info'
+        })
+      }
+    }
+ }
+</script>
+
+<!-- toasts-advanced-1.vue -->
+```
+
+Remember to keep toast content simple and to the point. Avoid placing interactive components or
+elements inside toasts, as this can cause issues for users of Assistive Technologies. Refer to the
+Accessibility section below.
 
 ## Accessibility
 
