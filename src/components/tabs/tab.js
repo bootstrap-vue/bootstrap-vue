@@ -144,13 +144,6 @@ export default Vue.extend({
       warn(`b-tab: ${DEPRECATED_MSG}`)
     }
   },
-  updated() {
-    // Force the tab button content to update (since slots are not reactive)
-    // Only done if we have a title slot, as the title prop is reactive
-    if (this.hasNormalizedSlot('title') && this.bvTabs.updateButton) {
-      this.bvTabs.updateButton(this)
-    }
-  },
   methods: {
     // Public methods
     activate() {
