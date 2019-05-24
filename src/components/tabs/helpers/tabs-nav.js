@@ -59,6 +59,18 @@ export default Vue.extend({
     }
   },
   watch: {
+    value(newVal, oldVal) {
+      const tab = this.tabs[newVal]
+      if (tab && !tab.disabed) {
+        this.avtiveIndex = newVal
+      } else {
+        if (newVal < oldVal) {
+          this.previousTab()
+        } else {
+          this.nextTab()
+        }
+      }
+    },
     tabInfo: {
       immediate: true,
       handler(newTabs, oldTabs) {
