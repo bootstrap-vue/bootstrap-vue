@@ -130,8 +130,6 @@ export default Vue.extend({
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
   },
-  mounted() {
-  },
   methods: {
     updateModel(val) {
       // Update the vmodel
