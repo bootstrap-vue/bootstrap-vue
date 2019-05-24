@@ -218,7 +218,7 @@ export default Vue.extend({
         ref: 'nav',
         props: {
           tabs: tabs,
-          id: this.safeId('_BV_tab_controls_')
+          id: this.safeId('_BV_tab_controls_'),
           value: this.currentTab
         },
         on: {
