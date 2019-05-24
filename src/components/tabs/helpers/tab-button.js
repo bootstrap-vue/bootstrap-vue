@@ -154,6 +154,6 @@ export default Vue.extend({
         attrs: { role: 'presentation' }
       },
       [$link]
-    )    
+    )
   }
 })
