@@ -79,8 +79,12 @@ postcss autoprefixer to enable `grid` support is your postcss config:
 <!-- eslint-disable no-labels, no-unused-expressions -->
 
 ```js
-autoprefixer: {
-  grid: true
+postcss: {
+  preset: {
+    autoprefixer: {
+      grid: true
+    }
+  }
 }
 ```
 
