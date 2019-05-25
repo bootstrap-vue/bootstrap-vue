@@ -46,7 +46,7 @@ terser dist/bootstrap-vue.esm.js \
 echo 'Done.'
 echo ''
 
-echo 'Compile SASS...'
+echo 'Compile SCSS...'
 node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
