@@ -76,7 +76,9 @@ module.exports = {
     postcss: {
       preset: {
         autoprefixer: {
-          cascade: false
+          cascade: false,
+          // For IE11 grid support for stacked tables
+          grid: true
         }
       }
     },
