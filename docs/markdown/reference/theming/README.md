@@ -76,6 +76,8 @@ npm install --save-dev node-sass sass-loader
 If targeting IE 11, and using the stacked table feature of `<b-table>`, you will need to configure
 postcss autoprefixer to enable `grid` support is your postcss config:
 
+<!-- eslint-disable no-unused-expressions no-labels -->
+
 ```js
 autoprefixer: {
   grid: true
