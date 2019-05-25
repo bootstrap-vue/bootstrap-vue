@@ -71,6 +71,17 @@ npm install --save-dev node-sass sass-loader
 
 **Note:** You may need to adjust the SCSS import paths based on your build environment.
 
+### Browser compatibility
+
+If targeting IE 11, and using the stacked table feature of `<b-table>`, you will need to configure
+postcss autoprefixer to enable `grid` support is your postcss config:
+
+```js
+autoprefixer: {
+  grid: true
+}
+```
+
 ## See also
 
 - If you are defining custom breakpoint names, please see the
