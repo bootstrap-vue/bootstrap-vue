@@ -122,10 +122,10 @@
               // Turn cells with labels into micro-grids
               > [data-label] {
                 // Convert <td>/<th> contents to "cells"
-                // Caveat: child elements become cells!
+                // Caveat: each child element becomes as cell!
                 display: grid;
-                grid-template-columns: 40% auto;
-                grid-gap: 0.25rem 1rem;
+                grid-template: auto / 40% auto;
+                grid-gap: 0 1rem;
 
                 // Add the cell header label pseudo element
                 &::before {
