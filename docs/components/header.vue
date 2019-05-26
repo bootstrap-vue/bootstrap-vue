@@ -63,7 +63,7 @@
           <b-dropdown-item class="active" href="https://bootstrap-vue.js.org">
             Latest (v{{ version }})
           </b-dropdown-item>
-          <b-dropdown-item v-if="!isDev" href="https://bootstrap-vue.netlify.com">
+          <b-dropdown-item href="https://bootstrap-vue.netlify.com" rel="nofollow">
             Development
           </b-dropdown-item>
         </template>
@@ -145,15 +145,17 @@ import { version } from '~/content'
 
 export default {
   name: 'BVDHeader',
-  async asyncData({ isDev, req }) {
-    let host = process.server ? req.headers.host : window.location.host
-    return {
-      isLocal: host === 'localhost' || host === '127.0.0.1',
-      idDev: isDev || host !== 'bootstrap-vue.js.org'
-    }
-  },
   data() {
-    return { version }
+    return {
+      version,
+      isDev: false,
+      isLocal: false
+    }
+  }
+  mounted() {
+    const host = window.location.host || ''
+    this.isLocal = host === 'localhost' || host === '127.0.0.1'
+    this.isDev = host !== 'bootstrap-vue.js.org'
   }
 }
 </script>
