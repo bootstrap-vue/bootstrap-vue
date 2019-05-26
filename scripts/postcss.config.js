@@ -6,9 +6,7 @@ module.exports = ctx => ({
   },
   plugins: {
     autoprefixer: {
-      cascade: false,
-      // For IE11 grid compatability for stacked tables
-      grid: true
+      cascade: false
     }
   }
 })
