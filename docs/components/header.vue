@@ -47,12 +47,16 @@
     </div>
 
     <b-navbar-nav class="flex-row ml-md-auto d-none d-md-flex">
-      <b-nav-item-dropdown :text="`v${version}`" toggle-class="mr-md-2" right>
+      <b-nav-item-dropdown
+        :text="isDev ? (isLocal ? 'Local Copy' : 'Development') : `v${version}`"
+        toggle-class="mr-md-2"
+        right
+      >
         <template v-if="isDev || isLocal">
-          <b-dropdown-item v-if="isLocal" class="active" href="/">
+          <b-dropdown-item v-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :class="{ active: !isLocal }" href="https://bootstrap-vue.netlify.com">
+          <b-dropdown-item :active="!isLocal" href="https://bootstrap-vue.netlify.com">
             Development
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
@@ -60,7 +64,7 @@
           </b-dropdown-item>
         </template>
         <template v-else>
-          <b-dropdown-item class="active" href="https://bootstrap-vue.js.org">
+          <b-dropdown-item active href="https://bootstrap-vue.js.org">
             Latest (v{{ version }})
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.netlify.com" rel="nofollow">
