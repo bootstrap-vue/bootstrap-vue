@@ -70,27 +70,43 @@ values and functions between files by default.
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
 
+### Aliasing Vue import
+
+BootstrapVue and PortalVue require access to the global `Vue` reference (via `import Vue from 'vue'`).
+
 <div class="alert alert-info mb-0">
-  <p class="mb-2">
-    BootstrapVue and PortalVue require access to the global <code>Vue</code> reference (via <code>
-    import Vue from 'vue'</code>).
-  </p>
-  <p class="mb-2">
+  <p class="mb-0">
     If you are using a specific build of Vue (i.e. runtime-only vs. compiler + runtime), you will
     need to set up an alias to <code>'vue'</code> in your bundler config to ensure that your
     project, BootstrapVue and PortalVue are all using the same build version of Vue. If you are
-    seeing an error such as <code>"$attr and $listeners is readonly"</code>, then you will need to
-    set up an alias.
-  </p>
-  <p class="mb-0">
-    See the
-    <a class="alert-link" href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Vue.js
-    Guide</a> for details on setting up aliases for
-    <a class="alert-link" href="https://webpack.js.org/">webpack</a>,
-    <a class="alert-link" href="https://rollupjs.org/">rollup.js</a>,
-    <a class="alert-link" href="hhttps://parceljs.org/">Parcel</a>, etc.
+    seeing an error such as <code>"$attr and $listeners is readonly"</code>, or
+    <code>"Multiple instances of Vue detected"</code>, then you will need to set up an alias.
   </p>
 </div>
+
+**Example: Vue alias in webpack.config.js**
+
+```js
+module.exports = {
+  // ...
+  resolve: {
+    alias: {
+      // If using the runtime only build
+      vue$: 'vue/dist/vue.runtime.esm.js' // 'vue/dist/vue.runtime.common.js' for webpack 1
+      // Or if using full build of Vue (runtime + compiler)
+      // vue$: 'vue/dist/vue.esm.js'      // 'vue/dist/vue.common.js' for webpack 1
+    }
+  }
+}
+```
+
+**Note:** If your project has multiple webpack config files (i.e. `webpack.config.js`,
+`webpack.renderer.config.js`, `webpack.vendor.config.js`, `webpack.server.config.js`,
+`webpack.client.config.js`, etc), you will need to set the appropriate alias in all of them.
+
+See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only)
+Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
+[rollup.js](https://rollupjs.org/), [Parcel](https://parceljs.org/), etc.
 
 ## Nuxt.js module
 
@@ -163,9 +179,9 @@ import 'custom.scss'
 
 <span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
 
-If you wish to reduce your bundle size because you only use a subset of the available BootstrapVue
-plugins, you can configure the list of BootstrapVue `componentPlugins` or `directivePlugins` you
-want to globally install in your Nuxt.js project.
+If you wish to reduce your production bundle size because you only use a subset of the available
+BootstrapVue plugins, you can configure the list of BootstrapVue `componentPlugins` or
+`directivePlugins` you want to globally install in your Nuxt.js project.
 
 ```js
 module.exports = {
@@ -214,7 +230,14 @@ Refer to the reference section at the bottom of each of the [component](/docs/co
 [directive](/docs/directives) docs for details on the plugin names available (and which components
 and directives are included in each plugin) and component and/or directive import names.
 
-Note that when importing individual components, the component aliases will not be available.
+Note that when importing individual components, any component aliases will **not** be available.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> Optimal tree shaking only works when your Nuxt.js app is in <code>production</code>
+    mode. You may notice larger bundle sizes when not in `production` mode (i.e. `dev` mode).
+  </p>
+</div>
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
@@ -240,6 +263,17 @@ and the source (`src/`) of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
 of `src/`. By default `usePretranspiled` is enabled in development mode only.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> if you are also importing individual components, directives or plugins
+    <em>within</em> your Nuxt app as well as via the tree-shaking options above, you will want to
+    set the <code>usePretranspiled</code> option to match the directory you are importing from
+    (i.e. use <code>true</code> if importing from <code>bootstrap-vue/es</code> or
+    <code>false</code> if importing from <code>bootstrap-vue/src</code>). Otherwise, you may end
+    up with a larger bundle size due to code duplication.
+  </p>
+</div>
 
 ## Vue CLI 2
 
@@ -345,6 +379,14 @@ In the future this plugin will provide options for more advanced configurations 
 
 When using a module bundler you can optionally import only specific components groups (plugins),
 components and/or directives.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> Optimal tree shaking only works when webpack 4 is in
+    [<code>production</code>](https://webpack.js.org/guides/tree-shaking) mode and javascript
+    minification is enabled.
+  </p>
+</div>
 
 ### Component groups and directives as Vue plugins
 
@@ -490,12 +532,12 @@ JavaScript files.
 Choosing the best variant for your build environment / packager helps less bundle sizes. If your
 bundler supports es modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments          | Package path                                                           |
-| -------------- | --------------------- | ---------------------------------------------------------------------- |
-| **ES Modules** | webpack 2 / rollup.js | `es/index.js`                                                          |
-| **ESM Module** | webpack 2 / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
-| commonjs2      | webpack 1 / ...       | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
-| UMD            | Browser               | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
+| Variant        | Environments           | Package path                                                           |
+| -------------- | ---------------------- | ---------------------------------------------------------------------- |
+| **ES Modules** | webpack 2+ / rollup.js | `es/index.js`                                                          |
+| **ESM Module** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
+| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three

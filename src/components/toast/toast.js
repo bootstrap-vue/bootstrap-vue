@@ -1,8 +1,10 @@
 import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
 import BvEvent from '../../utils/bv-event.class'
+import BVTransition from '../../utils/bv-transition'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
+import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BButtonClose from '../button/button-close'
@@ -15,14 +17,16 @@ const NAME = 'BToast'
 
 const MIN_DURATION = 1000
 
+const EVENT_OPTIONS = { passive: true, capture: false }
+
+// --- Props ---
+
 export const props = {
   id: {
+    // Even though the ID prop is provided by idMixin, we
+    // add it here for $bvToast props filtering
     type: String,
     default: null
-  },
-  visible: {
-    type: Boolean,
-    default: false
   },
   title: {
     type: String,
@@ -31,6 +35,10 @@ export const props = {
   toaster: {
     type: String,
     default: () => getComponentConfig(NAME, 'toaster')
+  },
+  visible: {
+    type: Boolean,
+    default: false
   },
   variant: {
     type: String,
@@ -96,21 +104,10 @@ export const props = {
   }
 }
 
-// Transition props defaults
-const DEFAULT_TRANSITION_PROPS = {
-  name: '',
-  enterClass: '',
-  enterActiveClass: '',
-  enterToClass: '',
-  leaveClass: 'show',
-  leaveActiveClass: '',
-  leaveToClass: ''
-}
-
 // @vue/component
 export default Vue.extend({
   name: NAME,
-  mixins: [listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -122,8 +119,8 @@ export default Vue.extend({
       isMounted: false,
       doRender: false,
       localShow: false,
-      showClass: false,
       isTransitioning: false,
+      isHiding: false,
       order: 0,
       timer: null,
       dismissStarted: 0,
@@ -131,15 +128,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    toastClasses() {
-      return [
-        this.toastClass,
-        {
-          show: this.showClass,
-          fade: !this.noFade
-        }
-      ]
-    },
     bToastClasses() {
       return {
         'b-toast-solid': this.solid,
@@ -201,13 +189,13 @@ export default Vue.extend({
     })
     // Listen for global $root show events
     this.listenOnRoot('bv::show::toast', id => {
-      if (id === this.id) {
+      if (id === this.safeId()) {
         this.show()
       }
     })
     // Listen for global $root hide events
     this.listenOnRoot('bv::hide::toast', id => {
-      if (!id || id === this.id) {
+      if (!id || id === this.safeId()) {
         this.hide()
       }
     })
@@ -230,10 +218,14 @@ export default Vue.extend({
         this.emitEvent(showEvt)
         this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
+        this.isHiding = false
         this.doRender = true
         this.$nextTick(() => {
-          // we show the toast after we have rendered the portal
-          this.localShow = true
+          // We show the toast after we have rendered the portal and b-toast wrapper
+          // so that screen readers will properly announce the toast
+          requestAF(() => {
+            this.localShow = true
+          })
         })
       }
     },
@@ -244,17 +236,20 @@ export default Vue.extend({
         this.setHoverHandler(false)
         this.dismissStarted = this.resumeDismiss = 0
         this.clearDismissTimer()
-        this.localShow = false
+        this.isHiding = true
+        requestAF(() => {
+          this.localShow = false
+        })
       }
     },
     buildEvent(type, opts = {}) {
       return new BvEvent(type, {
         cancelable: false,
-        target: this.$el,
+        target: this.$el || null,
         relatedTarget: null,
         ...opts,
         vueTarget: this,
-        componentId: this.id || null
+        componentId: this.safeId()
       })
     },
     emitEvent(bvEvt) {
@@ -292,8 +287,8 @@ export default Vue.extend({
     },
     setHoverHandler(on) {
       const method = on ? eventOn : eventOff
-      method(this.$refs.btoast, 'mouseenter', this.onPause, { passive: true, capture: false })
-      method(this.$refs.btoast, 'mouseleave', this.onUnPause, { passive: true, capture: false })
+      method(this.$refs.btoast, 'mouseenter', this.onPause, EVENT_OPTIONS)
+      method(this.$refs.btoast, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
     },
     onPause(evt) {
       // Determine time remaining, and then pause timer
@@ -307,7 +302,7 @@ export default Vue.extend({
       }
     },
     onUnPause(evt) {
-      // Restart with max of time remaining or 1 second
+      // Restart timer with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
         return
@@ -325,9 +320,6 @@ export default Vue.extend({
     },
     onBeforeEnter() {
       this.isTransitioning = true
-      requestAF(() => {
-        this.showClass = true
-      })
     },
     onAfterEnter() {
       this.isTransitioning = false
@@ -338,9 +330,6 @@ export default Vue.extend({
     },
     onBeforeLeave() {
       this.isTransitioning = true
-      requestAF(() => {
-        this.showClass = false
-      })
     },
     onAfterLeave() {
       this.isTransitioning = false
@@ -397,17 +386,14 @@ export default Vue.extend({
       const $toast = h(
         'div',
         {
-          key: 'toast',
+          key: `toast-${this._uid}`,
           ref: 'toast',
           staticClass: 'toast',
-          class: this.toastClasses,
+          class: this.toastClass,
           attrs: {
             ...this.$attrs,
-            id: this.id || null,
-            tabindex: '-1',
-            role: this.isStatus ? 'status' : 'alert',
-            'aria-live': this.isStatus ? 'polite' : 'assertive',
-            'aria-atomic': 'true'
+            tabindex: '0',
+            id: this.safeId()
           }
         },
         [$header, $body]
@@ -432,11 +418,26 @@ export default Vue.extend({
         }
       },
       [
-        h('div', { key: name, ref: 'btoast', staticClass: 'b-toast', class: this.bToastClasses }, [
-          h('transition', { props: DEFAULT_TRANSITION_PROPS, on: this.transitionHandlers }, [
-            this.localShow ? this.makeToast(h) : null
-          ])
-        ])
+        h(
+          'div',
+          {
+            key: name,
+            ref: 'btoast',
+            staticClass: 'b-toast',
+            class: this.bToastClasses,
+            attrs: {
+              id: this.safeId('_toast_outer'),
+              role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
+              'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
+              'aria-atomic': this.isHiding ? null : 'true'
+            }
+          },
+          [
+            h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
+              this.localShow ? this.makeToast(h) : h(false)
+            ])
+          ]
+        )
       ]
     )
   }

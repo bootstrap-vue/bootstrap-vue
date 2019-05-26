@@ -206,6 +206,14 @@ Generally speaking, you'll want to use a particular state for specific types of 
 To apply one of the contextual state icons on `<b-form-file`, set the `state` prop to `'invalid'`
 (or `false`), `'valid'` ( or `true`), or `null`.
 
+## Autofocus
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
+
+When the `autofocus` prop is set on `<b-form-file>`, the input will be auto-focused when it is
+inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
+this prop **does not** set the `autofocus` attribute on the input.
+
 ## Accessibility
 
 When using the custom version of `<b-form-file>` input which hides the original input, it is

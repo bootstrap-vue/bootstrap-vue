@@ -78,7 +78,7 @@ export default {
     const inputs = this.formOptions.map((option, idx) => {
       const uid = `_BV_option_${idx}_`
       return h(
-        this.is_RadioGroup ? BFormRadio : BFormCheckbox,
+        this.isRadioGroup ? BFormRadio : BFormCheckbox,
         {
           key: uid,
           props: {
@@ -101,7 +101,7 @@ export default {
         class: this.groupClasses,
         attrs: {
           id: this.safeId(),
-          role: this.is_RadioGroup ? 'radiogroup' : 'group',
+          role: this.isRadioGroup ? 'radiogroup' : 'group',
           // Tabindex to allow group to be focused if needed
           tabindex: '-1',
           'aria-required': this.required ? 'true' : null,

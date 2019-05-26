@@ -352,6 +352,14 @@ respectively.
 By default `<b-form-select>` will occupy the full width of the container that it appears in. To
 control the select width, place the input inside standard Bootstrap grid column.
 
+## Autofocus
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
+
+When the `autofocus` prop is set on `<b-form-select>`, the select will be auto-focused when it is
+inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
+this prop **does not** set the `autofocus` attribute on the select.
+
 ## Contextual states
 
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.

@@ -55,11 +55,13 @@ export const MutationObs =
 // Normalize event options based on support of passive option
 // Exported only for testing purposes
 export const parseEventOptions = options => {
-  if (!hasPassiveEventSupport) {
+  /* istanbul ignore else: can't test in JSDOM, as it supports passive */
+  if (hasPassiveEventSupport) {
+    return isObject(options) ? options : { useCapture: Boolean(options || false) }
+  } else {
     // Need to translate to actual Boolean value
     return Boolean(isObject(options) ? options.useCapture : options)
   }
-  return isObject(options) ? options : { useCapture: Boolean(options || false) }
 }
 
 // Attach an event listener to an element

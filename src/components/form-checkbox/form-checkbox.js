@@ -51,7 +51,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    is_Checked() {
+    isChecked() {
       const checked = this.computedLocalChecked
       const value = this.value
       if (isArray(checked)) {
@@ -60,10 +60,10 @@ export default Vue.extend({
         return looseEqual(checked, value)
       }
     },
-    is_Radio() {
+    isRadio() {
       return false
     },
-    is_Check() {
+    isCheck() {
       return true
     }
   },
@@ -105,7 +105,7 @@ export default Vue.extend({
       // Change is only emitted on user interaction
       this.$emit('change', checked ? value : uncheckedValue)
       // If this is a child of form-checkbox-group, we emit a change event on it as well
-      if (this.is_Group) {
+      if (this.isGroup) {
         this.bvGroup.$emit('change', localChecked)
       }
       this.$emit('update:indeterminate', indeterminate)

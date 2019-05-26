@@ -312,6 +312,27 @@ by setting the `plain` prop.
 
 **Note:** `plain` will have no effect if `buttons`/`button` is set.
 
+## Required constraint
+
+When using individual `<b-form-radio>` components (not in a `<b-form-radio-group>`), and you want
+the radio(s) to be `required` in your form, you **must** provide a `name` on each `<b-form-radio>`
+in order for the required constraint to work. All `<b-form-radio>` components tied to the same
+`v-model` **must** have the same `name`.
+
+The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
+only users) to know which radios belong to the same form variable (the name also automatically
+enables native browser keyboard navigation), hence `required` will only work if `name` is set.
+`<b-form-radio-group>` will automatically generate a unique input name if one is not provided on the
+group.
+
+## Autofocus
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
+
+When the `autofocus` prop is set on `<b-form-radio>`, the input will be auto-focused when it is
+inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
+this prop **does not** set the `autofocus` attribute on the input.
+
 ## Contextual states
 
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
@@ -363,19 +384,6 @@ To apply one of the contextual state icons on `<b-form-radio>`, set the `state` 
 
 <!-- b-form-radio-validation.vue -->
 ```
-
-### Required constraint
-
-When using individual `<b-form-radio>` components (not in a `<b-form-radio-group>`), and you want
-the radio(s) to be `required` in your form, you **must** provide a `name` on each `<b-form-radio>`
-in order for the required constraint to work. All `<b-form-radio>` components tied to the same
-`v-model` **must** have the same `name`.
-
-The `name` is required in order for Assistive Technologies (such as screen readers, and keyboard
-only users) to know which radios belong to the same form variable (the name also automatically
-enables native browser keyboard navigation), hence `required` will only work if `name` is set.
-`<b-form-radio-group>` will automatically generate a unique input name if one is not provided on the
-group.
 
 ### Conveying contextual validation state to assistive technologies and colorblind users
 

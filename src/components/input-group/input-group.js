@@ -42,22 +42,18 @@ export default Vue.extend({
 
     const childNodes = []
 
-    // Prepend prop
-    if (props.prepend) {
+    // Prepend prop/slot
+    if (props.prepend || props.prependHTML || hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
       childNodes.push(
         h(InputGroupPrepend, [
-          h(InputGroupText, {
-            domProps: htmlOrText(props.prependHTML, props.prepend)
-          })
+          // Prop
+          props.prepend || props.prependHTML
+            ? h(InputGroupText, { domProps: htmlOrText(props.prependHTML, props.prepend) })
+            : h(false),
+          // Slot
+          normalizeSlot('prepend', {}, $scopedSlots, $slots) || h(false)
         ])
       )
-    } else {
-      childNodes.push(h(false))
-    }
-
-    // Prepend slot
-    if (hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
-      childNodes.push(h(InputGroupPrepend, normalizeSlot('prepend', {}, $scopedSlots, $slots)))
     } else {
       childNodes.push(h(false))
     }
@@ -70,21 +66,17 @@ export default Vue.extend({
     }
 
     // Append prop
-    if (props.append) {
+    if (props.append || props.appendHTML || hasNormalizedSlot('append', $scopedSlots, $slots)) {
       childNodes.push(
         h(InputGroupAppend, [
-          h(InputGroupText, {
-            domProps: htmlOrText(props.appendHTML, props.append)
-          })
+          // prop
+          props.append || props.appendHTML
+            ? h(InputGroupText, { domProps: htmlOrText(props.appendHTML, props.append) })
+            : h(false),
+          // Slot
+          normalizeSlot('append', {}, $scopedSlots, $slots) || h(false)
         ])
       )
-    } else {
-      childNodes.push(h(false))
-    }
-
-    // Append slot
-    if (hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
-      childNodes.push(h(InputGroupAppend, normalizeSlot('append', {}, $scopedSlots, $slots)))
     } else {
       childNodes.push(h(false))
     }

@@ -63,9 +63,6 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).not.toContain('show')
-      expect($modal.classes()).not.toContain('d-block')
       expect($modal.element.style.display).toEqual('none')
 
       // Modal dialog wrapper
@@ -150,16 +147,11 @@ describe('modal', () => {
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).toContain('show')
-      expect($modal.classes()).toContain('d-block')
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
-      expect($backdrop.classes()).toContain('fade')
-      expect($backdrop.classes()).toContain('show')
 
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
@@ -168,7 +160,7 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
-    it('renders in modal target when initially open and not static', async () => {
+    it('renders appended to body when initially open and not static', async () => {
       const wrapper = mount(BModal, {
         attachToDocument: true,
         stubs: {
@@ -188,33 +180,33 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-      let modal = document.getElementById('testtarget')
-      expect(modal).toBeDefined()
-      expect(modal).not.toBe(null)
+      let outer = document.getElementById('testtarget___BV_modal_outer_')
+      expect(outer).toBeDefined()
+      expect(outer).not.toBe(null)
 
-      const target = document.querySelector('.b-modal-target')
-      expect(target).toBeDefined()
-      expect(target).not.toBe(null)
+      expect(outer.__vue__).toBeDefined() // Target
+      expect(outer.__vue__.$options.name).toBe('BTransporterTargetSingle')
+      expect(outer.parentElement).toBeDefined()
+      expect(outer.parentElement).toBe(document.body)
 
-      expect(target.__vue__).toBeDefined() // Portal
-      expect(target.__vue__.$parent).toBeDefined() // BModalTarget
-      expect(target.__vue__.$parent.$options.name).toBe('BModalTarget')
-
-      // Make sure target is not in document anymore
-      target.__vue__.$parent.$destroy()
-
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
-      expect(document.querySelector('.b-modal-target')).toBe(null)
-
+      // Destroy modal
       wrapper.destroy()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      // Should no longer be in document.
+      expect(outer.parentElement).toEqual(null)
     })
 
     it('has expected structure when closed after being initially open', async () => {
@@ -240,14 +232,6 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // Modal should store cache of adjustments on body element
-      // const body = document.body
-      // expect(Array.isArray(body._marginChangedForModal)).toBe(true)
-      // expect(Array.isArray(body._paddingChangedForModal)).toBe(true)
-      // expect(body.classList.contains('modal-open')).toBe(true)
-      // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
-      // expect(body.getAttribute('data-modal-open-count')).toEqual('1')
-
       // Main outer wrapper (has z-index, etc)... The stacker <div>
       expect(wrapper.is('div')).toBe(true)
       expect(wrapper.classes().length).toBe(0)
@@ -260,16 +244,11 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
-      expect($modal.classes()).toContain('fade')
-      expect($modal.classes()).toContain('show')
-      expect($modal.classes()).toContain('d-block')
       expect($modal.element.style.display).toEqual('')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
       expect($backdrop.exists()).toBe(true)
-      expect($backdrop.classes()).toContain('fade')
-      expect($backdrop.classes()).toContain('show')
 
       // Now we close the modal via the value prop
       wrapper.setProps({
@@ -282,17 +261,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // expect(body._marginChangedForModal).toBe(null)
-      // expect(body._paddingChangedForModal).toBe(null)
-      // expect(body.classList.contains('modal-open')).toBe(false)
-      // expect(body.hasAttribute('data-modal-open-count')).toBe(true)
-      // expect(body.getAttribute('data-modal-open-count')).toEqual('0')
-
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.attributes('aria-modal')).not.toBeDefined()
-      expect($modal.classes()).not.toContain('show')
-      expect($modal.classes()).not.toContain('d-block')
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed

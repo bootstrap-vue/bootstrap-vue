@@ -15,6 +15,12 @@ export const hasMutationObserverSupport =
 
 export const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
 
+// Browser type sniffing
+export const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
+
+export const isJSDOM = userAgent.indexOf('jsdom') > 0
+export const isIE = /msie|trident/.test(userAgent)
+
 // Determine if the browser supports the option passive for events
 export const hasPassiveEventSupport = (() => {
   let passiveEventSupported = false
@@ -43,6 +49,15 @@ export const hasTouchSupport =
 
 export const hasPointerEventSupport =
   isBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)
+
+export const hasIntersectionObserverSupport =
+  isBrowser &&
+  'IntersectionObserver' in window &&
+  'IntersectionObserverEntry' in window &&
+  // Edge 15 and UC Browser lack support for `isIntersecting`
+  // but we an use intersectionRatio > 0 instead
+  // 'isIntersecting' in window.IntersectionObserverEntry.prototype &&
+  'intersectionRatio' in window.IntersectionObserverEntry.prototype
 
 // --- Getters ---
 

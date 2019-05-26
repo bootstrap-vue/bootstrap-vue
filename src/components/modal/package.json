@@ -6,7 +6,7 @@
     "enhanced": true,
     "description": "Modals are streamlined, but flexible dialog prompts powered by JavaScript and CSS. They support a number of use cases from user notification to completely custom content and feature a handful of helpful sub-components, sizes, variants, accessibility, and more.",
     "directives": [
-      "vBModal"
+      "VBModal"
     ],
     "components": [
       {
@@ -17,7 +17,7 @@
             "description": "New modal visibility state. Used to update the v-model",
             "args": [
               {
-                "arg": "is_visible",
+                "arg": "isVisible",
                 "description": "true if modal is visible, false otherwise"
               }
             ]

@@ -4,6 +4,99 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.21"></a>
+
+## [v2.0.0-rc.21](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.20...v2.0.0-rc.21)
+
+Released 2019-05-26
+
+### Bug Fixes v2.0.0-rc.21
+
+- **b-alert:** handle case where dismiss countdown changes to a boolean value (closes
+  [#3346](https://github.com/bootstrap-vue/bootstrap-vue/issues/3346))
+  ([#3347](https://github.com/bootstrap-vue/bootstrap-vue/issues/3347)
+  [14ad833](https://github.com/bootstrap-vue/bootstrap-vue/commit/14ad833))
+- **b-dropdown:** delay show of dropdown when calling `show()` (closes
+  [#3366](https://github.com/bootstrap-vue/bootstrap-vue/issues/3366))
+  ([#3367](https://github.com/bootstrap-vue/bootstrap-vue/issues/3367)
+  [1604022](https://github.com/bootstrap-vue/bootstrap-vue/commit/1604022))
+- **b-input-group:** fix issue with slots (closes
+  [#3284](https://github.com/bootstrap-vue/bootstrap-vue/issues/3284))
+  ([#3288](https://github.com/bootstrap-vue/bootstrap-vue/issues/3288)
+  [5639e8f](https://github.com/bootstrap-vue/bootstrap-vue/commit/5639e8f))
+- **b-input-group:** use same input-group-prepend/append for both props and slots
+  ([#3321](https://github.com/bootstrap-vue/bootstrap-vue/issues/3321)
+  [fb7386e](https://github.com/bootstrap-vue/bootstrap-vue/commit/fb7386e))
+- **b-modal:** delay initially open modal via nextTick when using v-model or visible prop
+  ([#3320](https://github.com/bootstrap-vue/bootstrap-vue/issues/3320)
+  [6f3010a](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f3010a))
+- **b-table:** don't use css `grid` for stacked table SCSS - for IE11 compatibility (closes
+  [#3307](https://github.com/bootstrap-vue/bootstrap-vue/issues/3307))
+  ([#3383](https://github.com/bootstrap-vue/bootstrap-vue/issues/3383)
+  [ce19fc7](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce19fc7))
+- **b-tabs:** fix regression of tabs in lazy modals - use DOM query for probing tabs after mount
+  (closes: [#3361](https://github.com/bootstrap-vue/bootstrap-vue/issues/3361))
+  ([#3375](https://github.com/bootstrap-vue/bootstrap-vue/issues/3375)
+  [2b188a2](https://github.com/bootstrap-vue/bootstrap-vue/commit/2b188a2))
+- **b-toast:** accessibility - prevent duplicate toast announcements for screen readers (closes
+  [#3322](https://github.com/bootstrap-vue/bootstrap-vue/issues/3322))
+  ([#3329](https://github.com/bootstrap-vue/bootstrap-vue/issues/3329)
+  [d44fba5](https://github.com/bootstrap-vue/bootstrap-vue/commit/d44fba5))
+- **b-toaster:** CSS fix for IE11 support (fixes
+  [#3327](https://github.com/bootstrap-vue/bootstrap-vue/issues/3327))
+  ([#3328](https://github.com/bootstrap-vue/bootstrap-vue/issues/3328)
+  [88b1cfd](https://github.com/bootstrap-vue/bootstrap-vue/commit/88b1cfd))
+- **docs:** correct modal directive name
+  ([#3335](https://github.com/bootstrap-vue/bootstrap-vue/issues/3335)
+  [d4dcc35](https://github.com/bootstrap-vue/bootstrap-vue/commit/d4dcc35))
+- **docs:** correct Vuelidate validation example and some minor tweaks
+  ([#3332](https://github.com/bootstrap-vue/bootstrap-vue/issues/3332)
+  [d5c22a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/d5c22a8))
+- **docs:** `b-progress-bar` label HTML support examples (closes
+  [#3333](https://github.com/bootstrap-vue/bootstrap-vue/issues/3333))
+  ([#3336](https://github.com/bootstrap-vue/bootstrap-vue/issues/3336)
+  [526f274](https://github.com/bootstrap-vue/bootstrap-vue/commit/526f274))
+- **types:** fix msxBoxConfirm typo
+  ([#3280](https://github.com/bootstrap-vue/bootstrap-vue/issues/3280)
+  [8027e5a](https://github.com/bootstrap-vue/bootstrap-vue/commit/8027e5a))
+- use `installFactory` for main `BootstrapVue` plugin (closes
+  [#3338](https://github.com/bootstrap-vue/bootstrap-vue/issues/3338))
+  ([#3340](https://github.com/bootstrap-vue/bootstrap-vue/issues/3340)
+  [4c0c445](https://github.com/bootstrap-vue/bootstrap-vue/commit/4c0c445))
+
+### Features v2.0.0-rc.21
+
+- **b-img-lazy:** add support for IntersectionObserver (closes
+  [#3276](https://github.com/bootstrap-vue/bootstrap-vue/issues/3276))
+  ([#3279](https://github.com/bootstrap-vue/bootstrap-vue/issues/3279)
+  [5cf71cf](https://github.com/bootstrap-vue/bootstrap-vue/commit/5cf71cf))
+- **b-modal:** improved portaling - retaining parent-child hierarchy (addresses
+  [#3312](https://github.com/bootstrap-vue/bootstrap-vue/issues/3312))
+  ([#3326](https://github.com/bootstrap-vue/bootstrap-vue/issues/3326)
+  [3728892](https://github.com/bootstrap-vue/bootstrap-vue/commit/3728892))
+- **b-tooltip, b-popover:** add `fallback-placement` prop (closes
+  [#3348](https://github.com/bootstrap-vue/bootstrap-vue/issues/3348))
+  ([#3349](https://github.com/bootstrap-vue/bootstrap-vue/issues/3349)
+  [ab42b4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/ab42b4c))
+- **es build:** don't transpile import/export statements to require/exports, for better tree shaking
+  (closes [#3323](https://github.com/bootstrap-vue/bootstrap-vue/issues/3323))
+  ([#3358](https://github.com/bootstrap-vue/bootstrap-vue/issues/3358)
+  [3c1866d](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c1866d))
+- **form controls:** add `autofocus` prop to all `b-form-*` controls
+  ([#3341](https://github.com/bootstrap-vue/bootstrap-vue/issues/3341)
+  [e7eb1b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/e7eb1b4))
+- **nuxt module:** optimize imports into single import statements
+  ([#3325](https://github.com/bootstrap-vue/bootstrap-vue/issues/3325)
+  [ef71a3b](https://github.com/bootstrap-vue/bootstrap-vue/commit/ef71a3b))
+- **types:** better type declarations (closes
+  [#1976](https://github.com/bootstrap-vue/bootstrap-vue/issues/1976))
+  ([#3283](https://github.com/bootstrap-vue/bootstrap-vue/issues/3283)
+  [a42abd0](https://github.com/bootstrap-vue/bootstrap-vue/commit/a42abd0))
+- don't warn about multiple Vue instances when testing in JSDOM (closes
+  [#3303](https://github.com/bootstrap-vue/bootstrap-vue/issues/3303))
+  ([#3315](https://github.com/bootstrap-vue/bootstrap-vue/issues/3315)
+  [0caa29b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0caa29b))
+
 <a name="2.0.0-rc.20"></a>
 
 ## [v2.0.0-rc.20](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.19...v2.0.0-rc.20)

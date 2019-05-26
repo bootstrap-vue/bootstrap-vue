@@ -44,8 +44,6 @@ describe('tab', () => {
     expect(wrapper.classes()).toContain('disabled')
     expect(wrapper.classes()).toContain('tab-pane')
     expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.destroy()
@@ -57,9 +55,7 @@ describe('tab', () => {
     })
 
     expect(wrapper.classes()).toContain('active')
-    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.destroy()
@@ -76,8 +72,6 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).toContain('disabled')
     expect(wrapper.classes()).toContain('tab-pane')
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.destroy()
@@ -95,8 +89,6 @@ describe('tab', () => {
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: true })
@@ -104,9 +96,7 @@ describe('tab', () => {
     await waitRAF()
 
     expect(wrapper.classes()).toContain('active')
-    expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.setData({ localActive: false })
@@ -114,9 +104,7 @@ describe('tab', () => {
     await waitRAF()
 
     expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
 
     wrapper.destroy()
@@ -143,30 +131,6 @@ describe('tab', () => {
     wrapper.destroy()
   })
 
-  it('has class fade when parent has fade=true', async () => {
-    const wrapper = mount(BTab, {
-      provide() {
-        return {
-          bvTabs: {
-            fade: true,
-            lazy: false,
-            card: false,
-            noKeyNav: true
-          }
-        }
-      }
-    })
-
-    expect(wrapper.classes()).toContain('fade')
-    expect(wrapper.classes()).toContain('tab-pane')
-    expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('card-body')
-
-    wrapper.destroy()
-  })
-
   it('has class card-body when parent has card=true', async () => {
     const wrapper = mount(BTab, {
       provide() {
@@ -183,11 +147,8 @@ describe('tab', () => {
 
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes()).toContain('tab-pane')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('fade')
 
     wrapper.destroy()
   })
@@ -211,16 +172,13 @@ describe('tab', () => {
 
     expect(wrapper.classes()).not.toContain('card-body')
     expect(wrapper.classes()).toContain('tab-pane')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('fade')
 
     wrapper.destroy()
   })
 
-  it('has attribute tabindex="0" when parent has keynav enabled and active', async () => {
+  it('has attribute tabindex="-1" when parent has keynav enabled and active', async () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
@@ -236,7 +194,7 @@ describe('tab', () => {
     })
 
     expect(wrapper.attributes('tabindex')).toBeDefined()
-    expect(wrapper.attributes('tabindex')).toBe('0')
+    expect(wrapper.attributes('tabindex')).toBe('-1')
 
     wrapper.destroy()
   })

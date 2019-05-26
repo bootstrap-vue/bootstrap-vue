@@ -935,4 +935,72 @@ describe('form-radio', () => {
 
     wrapper.destroy()
   })
+
+  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  describe('prop `autofocus`', () => {
+    const origGetBCR = Element.prototype.getBoundingClientRect
+
+    beforeEach(() => {
+      // Mock getBCR so that the isVisible(el) test returns true
+      // In our test below, all pagination buttons would normally be visible
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          width: 24,
+          height: 24,
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        }
+      })
+    })
+
+    afterEach(() => {
+      // Restore prototype
+      Element.prototype.getBoundingClientRect = origGetBCR
+    })
+
+    it('works when true', async () => {
+      const wrapper = mount(BFormRadio, {
+        attachToDocument: true,
+        propsData: {
+          checked: false,
+          autofocus: true
+        },
+        slots: {
+          default: 'foobar'
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('input')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).toBe(input.element)
+
+      wrapper.destroy()
+    })
+
+    it('does not autofocus by default', async () => {
+      const wrapper = mount(BFormRadio, {
+        attachToDocument: true,
+        propsData: {
+          checked: false
+        },
+        slots: {
+          default: 'foobar'
+        }
+      })
+      expect(wrapper.vm).toBeDefined()
+      await wrapper.vm.$nextTick()
+
+      const input = wrapper.find('input')
+      expect(input.exists()).toBe(true)
+      expect(document).toBeDefined()
+      expect(document.activeElement).not.toBe(input.element)
+
+      wrapper.destroy()
+    })
+  })
 })
