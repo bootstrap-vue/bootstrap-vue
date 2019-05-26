@@ -56,7 +56,7 @@
           <b-dropdown-item v-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :active="!isLocal" href="https://bootstrap-vue.netlify.com">
+          <b-dropdown-item :active="!isLocal" href="https://bootstrap-vue.netlify.com" rel="nofollow">
             Development
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
