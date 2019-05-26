@@ -48,12 +48,25 @@
 
     <b-navbar-nav class="flex-row ml-md-auto d-none d-md-flex">
       <b-nav-item-dropdown :text="`v${version}`" toggle-class="mr-md-2" right>
-        <b-dropdown-item href="https://bootstrap-vue.js.org">
-          Latest (v{{ version }})
-        </b-dropdown-item>
-        <b-dropdown-item href="https://bootstrap-vue.netlify.com">
-          Development
-        </b-dropdown-item>
+        <template v-if="isDev || isLocal">
+          <b-dropdown-item v-if="isLocal" class="active" href="/">
+            Local copy
+          </b-dropdown-item>
+          <b-dropdown-item :class="{ active: !isLocal }" href="https://bootstrap-vue.netlify.com">
+            Development
+          </b-dropdown-item>
+          <b-dropdown-item href="https://bootstrap-vue.js.org">
+            Latest (v{{ version }})
+          </b-dropdown-item>
+        </template>
+        <template v-else>
+          <b-dropdown-item class="active" href="https://bootstrap-vue.js.org">
+            Latest (v{{ version }})
+          </b-dropdown-item>
+          <b-dropdown-item v-if="!isDev" href="https://bootstrap-vue.netlify.com">
+            Development
+          </b-dropdown-item>
+        </template>
       </b-nav-item-dropdown>
 
       <b-nav-item
@@ -132,6 +145,13 @@ import { version } from '~/content'
 
 export default {
   name: 'BVDHeader',
+  async asyncData({ isDev, req }) {
+    let host = process.server ? req.headers.host : window.location.host
+    return {
+      isLocal: host === 'localhost' || host === '127.0.0.1',
+      idDev: isDev || host !== 'bootstrap-vue.js.org'
+    }
+  },
   data() {
     return { version }
   }
