@@ -84,21 +84,25 @@ BootstrapVue and PortalVue require access to the global `Vue` reference (via `im
   </p>
 </div>
 
-**Example: Webpack config**
+**Example: Vue alias in webpack.config.js**
 
 ```js
 module.exports = {
   // ...
   resolve: {
     alias: {
-      // Using full build of Vue (runtime + compiler)
-      vue$: 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
-      // Or if using the runtime only build
-      // vue$: 'vue/dist/vue.runtime.esm.js' // 'vue/dist/vue.runtime.common.js' for webpack 1
+      // If using the runtime only build
+      vue$: 'vue/dist/vue.runtime.esm.js' // 'vue/dist/vue.runtime.common.js' for webpack 1
+      // Or if using full build of Vue (runtime + compiler)
+      // vue$: 'vue/dist/vue.esm.js'      // 'vue/dist/vue.common.js' for webpack 1
     }
   }
 }
 ```
+
+**Note:** If your project has multiple webpack config files (i.e. `webpack.config.js`,
+`webpack.renderer.config.js`, `webpack.vendor.config.js`, `webpack.server.config.js`,
+`webpack.client.config.js`, etc), you will need to set the appropriate alias in all of them.
 
 See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only)
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
