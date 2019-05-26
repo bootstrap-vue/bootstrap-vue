@@ -116,6 +116,7 @@
           > caption {
             caption-side: top !important;
           }
+$b-table-stacked-gap: 1rem !default;
 
           > tbody {
             > tr {
@@ -125,7 +126,7 @@
                 &::before {
                   content: attr(data-label);
                   display: inline-block;
-                  width: 40%;
+                  width: $b-table-stacked-heading-width;
                   float: left;
                   text-align: right;
                   overflow-wrap: break-word;
@@ -138,9 +139,9 @@
                 // Cell value (we wrap the cell value in a div when stacked)
                 > div {
                   display: inline-block;
-                  width: 60%;
+                  width: calc(100% - $b-table-stacked-heading-width);
                   // Add "gap" between "cells"
-                  padding: 0 0 0 1rem;
+                  padding: 0 0 0 $b-table-stacked-gap;
                   margin: 0;
                 }
               }
