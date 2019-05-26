@@ -151,7 +151,7 @@ export default {
       isDev: false,
       isLocal: false
     }
-  }
+  },
   mounted() {
     const host = window.location.host || ''
     this.isLocal = host === 'localhost' || host === '127.0.0.1'
