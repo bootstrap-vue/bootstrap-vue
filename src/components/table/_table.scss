@@ -121,25 +121,27 @@
             > tr {
               // Turn cells with labels into micro-grids
               > [data-label] {
-                // Convert <td>/<th> contents to "cells"
-                // Caveat: each child element becomes as cell!
-                display: grid;
-                grid-template-columns: 40% auto;
-                grid-template-rows: auto;
-                // IE 11 do not support grid-gap, so we use padding
-                // of the pseudo element below
-                // grid-gap: 0 1rem;
-
-                // Add the cell header label pseudo element
+                // Cell header label pseudo element
                 &::before {
                   content: attr(data-label);
-                  display: inline;
+                  display: inline-block;
+                  width: 40%;
+                  float: left;
                   text-align: right;
                   overflow-wrap: break-word;
                   font-weight: bold;
                   font-style: normal;
-                  // Needed because IE 11 doesn't support grid-gap
-                  padding-right: 1rem;
+                  padding: 0;
+                  margin: 0;
+                }
+
+                // Cell value (we wrap the cell value in a div when stacked)
+                > div {
+                  display: inline-block;
+                  width: 60%;
+                  // Add "gap" between "cells"
+                  padding: 0 0 0 1rem;
+                  margin: 0;
                 }
               }
 
@@ -149,7 +151,7 @@
                 display: none;
               }
 
-              // Give the top of each "row" a heavy border
+              // Give the top cell of each "row" a heavy border
               > :first-child {
                 border-top-width: (3 * $table-border-width);
               }
