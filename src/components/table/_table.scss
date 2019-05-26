@@ -138,7 +138,7 @@
                 // Cell value (we wrap the cell value in a div when stacked)
                 > div {
                   display: inline-block;
-                  width: calc(100% - $b-table-stacked-heading-width);
+                  width: calc(100% - #{$b-table-stacked-heading-width});
                   // Add "gap" between "cells"
                   padding: 0 0 0 $b-table-stacked-gap;
                   margin: 0;
