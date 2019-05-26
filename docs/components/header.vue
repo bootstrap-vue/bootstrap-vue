@@ -47,13 +47,30 @@
     </div>
 
     <b-navbar-nav class="flex-row ml-md-auto d-none d-md-flex">
-      <b-nav-item-dropdown :text="`v${version}`" toggle-class="mr-md-2" right>
-        <b-dropdown-item href="https://bootstrap-vue.js.org">
-          Latest (v{{ version }})
-        </b-dropdown-item>
-        <b-dropdown-item href="https://bootstrap-vue.netlify.com">
-          Development
-        </b-dropdown-item>
+      <b-nav-item-dropdown
+        :text="isDev ? (isLocal ? 'Local Copy' : 'Development') : `v${version}`"
+        toggle-class="mr-md-2"
+        right
+      >
+        <template v-if="isDev || isLocal">
+          <b-dropdown-item v-if="isLocal" active href="/">
+            Local copy
+          </b-dropdown-item>
+          <b-dropdown-item :active="!isLocal" href="https://bootstrap-vue.netlify.com" rel="nofollow">
+            Development
+          </b-dropdown-item>
+          <b-dropdown-item href="https://bootstrap-vue.js.org">
+            Latest (v{{ version }})
+          </b-dropdown-item>
+        </template>
+        <template v-else>
+          <b-dropdown-item active href="https://bootstrap-vue.js.org">
+            Latest (v{{ version }})
+          </b-dropdown-item>
+          <b-dropdown-item href="https://bootstrap-vue.netlify.com" rel="nofollow">
+            Development
+          </b-dropdown-item>
+        </template>
       </b-nav-item-dropdown>
 
       <b-nav-item
@@ -133,7 +150,16 @@ import { version } from '~/content'
 export default {
   name: 'BVDHeader',
   data() {
-    return { version }
+    return {
+      version,
+      isDev: false,
+      isLocal: false
+    }
+  },
+  mounted() {
+    const host = window.location.host || ''
+    this.isLocal = host === 'localhost' || host === '127.0.0.1'
+    this.isDev = host !== 'bootstrap-vue.js.org'
   }
 }
 </script>
