@@ -49,12 +49,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Transpile src/
     this.options.build.transpile.push('bootstrap-vue/src')
 
-    // Use es/ or src/
-    const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev)
-
-    const templateOptions = {
-      dist: usePretranspiled ? 'es' : 'src'
-    }
+    const templateOptions = {}
 
     // Specific component and/or directive plugins
     for (const type of ['componentPlugins', 'directivePlugins']) {
@@ -88,7 +83,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     // Register plugin, passing options to plugin template
     this.addPlugin({
-      src: resolve(__dirname, 'plugin.template.js'),
+      src: resolve(__dirname, `plugin.${this.options.dev ? 'dev' : 'prod'}.js`),
       fileName: 'bootstrap-vue.js',
       options: templateOptions
     })
