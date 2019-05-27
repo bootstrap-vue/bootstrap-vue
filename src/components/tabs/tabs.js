@@ -337,7 +337,7 @@ export default Vue.extend({
           })
         }
         // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, {
+        this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), {
           childList: true,
           subtree: false,
           attributes: true,
