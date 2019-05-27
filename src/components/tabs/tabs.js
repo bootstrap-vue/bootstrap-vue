@@ -283,7 +283,10 @@ export default Vue.extend({
           }
         }
       }
-    }
+    },
+    registeredTabs(newVal, oldVal) {
+      this.updateTabs()
+    },
   },
   created() {
     let tabIdx = parseInt(this.value, 10)
@@ -300,7 +303,7 @@ export default Vue.extend({
     // Call `updateTabs()` just in case...
     this.updateTabs()
     // Observe child changes so we can update list of tabs
-    this.setObserver(true)
+    // this.setObserver(true)
     // Flag we are now mounted and to switch to DOM for tab probing.
     // As this.$slots.default appears to lie about component instances
     // after b-tabs is destroyed and re-instantiated.
@@ -309,7 +312,7 @@ export default Vue.extend({
     })
   },
   deactivated() /* istanbul ignore next */ {
-    this.setObserver(false)
+    // this.setObserver(false)
     this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
@@ -317,7 +320,7 @@ export default Vue.extend({
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.$nextTick(() => {
       this.updateTabs()
-      this.setObserver(true)
+      // this.setObserver(true)
       this.isMounted = true
     })
   },
