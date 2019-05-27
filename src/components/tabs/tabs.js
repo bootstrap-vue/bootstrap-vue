@@ -290,7 +290,7 @@ export default Vue.extend({
       })
     },
     isMounted(newVal, oldVal) {
-      if(newVal) {
+      if (newVal) {
         requestAF(() => {
           this.updateTabs()
         })
