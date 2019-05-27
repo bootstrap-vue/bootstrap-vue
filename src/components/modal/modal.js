@@ -639,18 +639,18 @@ export default Vue.extend({
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
-      if (id === this.id) {
+      if (id === this.safeId()) {
         this.return_focus = triggerEl || this.getActiveElement()
         this.show()
       }
     },
     hideHandler(id) {
-      if (id === this.id) {
+      if (id === this.safeId()) {
         this.hide('event')
       }
     },
     toggleHandler(id, triggerEl) {
-      if (id === this.id) {
+      if (id === this.safeId()) {
         this.toggle(triggerEl)
       }
     },
@@ -662,8 +662,6 @@ export default Vue.extend({
     },
     // Focus control handlers
     focusFirst() {
-      // TODO: Add support for finding input element with 'autofocus'
-      //       attribute set and focus that element
       // Don't try and focus if we are SSR
       if (isBrowser) {
         const modal = this.$refs.modal
