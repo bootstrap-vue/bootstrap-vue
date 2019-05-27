@@ -310,6 +310,11 @@ export default Vue.extend({
       this.isMounted = true
     })
   },
+  updated() {
+    this.$nextTick(() => {
+      this.updateTabs()
+    })
+  },
   deactivated() /* istanbul ignore next */ {
     this.setObserver(false)
     this.isMounted = false
