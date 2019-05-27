@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import BFormTextarea from './form-textarea'
 
 describe('form-textarea', () => {
@@ -1026,7 +1027,8 @@ describe('form-textarea', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('textarea')
       expect(input.exists()).toBe(true)
@@ -1044,7 +1046,8 @@ describe('form-textarea', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('textarea')
       expect(input.exists()).toBe(true)
