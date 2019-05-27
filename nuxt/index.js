@@ -10,6 +10,8 @@ const pickFirst = (...args) => {
   }
 }
 
+// --- Module handler ---
+
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   this.nuxt.hook('build:before', () => {
     // Merge moduleOptions with default
@@ -22,6 +24,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     this.options.css = [].concat(this.options.css || [])
     this.options.build.transpile = [].concat(this.options.build.transpile || [])
 
+    // Include Bootstrap Vue CSS?
     const bootstrapVueCSS = pickFirst(
       options.bootstrapVueCSS,
       options.bootstrapVueCss,
@@ -34,6 +37,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       this.options.css.unshift('bootstrap-vue/dist/bootstrap-vue.css')
     }
 
+    // Include Bootstrap CSS?
     const bootstrapCSS = pickFirst(
       options.bootstrapCSS,
       options.bootstrapCss,
@@ -49,27 +53,32 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Transpile src/
     this.options.build.transpile.push('bootstrap-vue/src')
 
-    // Use es/ or src/
+    // Use es/ or src/ ?
     const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev)
 
+    // Template base options
     const templateOptions = {
-      dist: usePretranspiled ? 'es' : 'src'
+      dist: usePretranspiled ? 'es' : 'src',
+      treeShake: false
     }
 
     // Specific component and/or directive plugins
     for (const type of ['componentPlugins', 'directivePlugins']) {
-      const bvPlugins = Array.isArray(options[type]) ? options[type] : []
+      const plugins = Array.isArray(options[type]) ? options[type] : []
 
-      templateOptions[type] = bvPlugins
+      templateOptions[type] = plugins
         // Normalize plugin name to `${Name}Plugin` (component) or `VB${Name}Plugin` (directive)
         // Required for backwards compatability with old plugin import names
-        .map(plugin => {
-          plugin = type === 'directivePlugins' && !/^VB/.test(plugin) ? `VB${plugin}` : plugin
-          plugin = /Plugin$/.test(plugin) ? plugin : `${plugin}Plugin`
-          return plugin
+        .map(p => {
+          const plugin = type === 'directivePlugins' && !/^VB/.test(p) ? `VB${p}` : p
+          return /Plugin$/.test(plugin) ? plugin : `${plugin}Plugin`
         })
         // Remove duplicate items
         .filter((plugin, i, arr) => arr.indexOf(plugin) === i)
+
+      if (templateOptions[type].length > 0) {
+        templateOptions.treeShake = true
+      }
     }
 
     // Specific components and/or directives
@@ -79,6 +88,10 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       templateOptions[type] = ComponentsOrDirectives
         // Remove duplicate items
         .filter((item, i, arr) => arr.indexOf(item) === i)
+
+      if (templateOptions[type].length > 0) {
+        templateOptions.treeShake = true
+      }
     }
 
     // Add BootstrapVue configuration if present
