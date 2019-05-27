@@ -331,8 +331,13 @@ export default Vue.extend({
       if (on) {
         // Make sure no existing observer running
         this.setObserver(false)
+        const handler = () => {
+          this.$nextTick(() => {
+            this.updateTabs()
+          })
+        }
         // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, {
           childList: true,
           subtree: false,
           attributes: true,
@@ -348,8 +353,7 @@ export default Vue.extend({
     getTabs() {
       let tabs = []
       if (!this.isMounted) {
-        // tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
-        tabs = this.$children || []
+        tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
       } else {
         // We rely on the DOM when mounted to get the list of tabs
         // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/3361
