@@ -286,7 +286,7 @@ export default Vue.extend({
     },
     registeredTabs(newVal, oldVal) {
       this.updateTabs()
-    },
+    }
   },
   created() {
     let tabIdx = parseInt(this.value, 10)
