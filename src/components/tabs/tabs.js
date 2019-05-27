@@ -332,6 +332,9 @@ export default Vue.extend({
     registerTab(tab) {
       if (!arrayIncludes(this.registeredTabs)) {
         this.registeredTabs.push(tab)
+        tab.$once('hook:destroyed', () => {
+          this.unregisterTab(tab)
+        })
       }
     },
     unregisterTab(tab) {
