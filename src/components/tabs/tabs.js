@@ -3,7 +3,7 @@ import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
 import { requestAF, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
-import observeDom from '../../utils/observe-dom'
+// import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
@@ -288,6 +288,13 @@ export default Vue.extend({
       this.$nextTick(() => {
         this.updateTabs()
       })
+    },
+    isMounted(newVal, oldVal) {
+      if(newVal) {
+        requestAF(() => {
+          this.updateTabs()
+        })
+      }
     }
   },
   created() {
