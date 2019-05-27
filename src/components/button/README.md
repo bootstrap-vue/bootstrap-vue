@@ -50,24 +50,13 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 <!-- b-button-sizes.vue -->
 ```
 
-### Block level buttons
-
-Create block level buttons — those that span the full width of a parent — by setting the `block`
-prop.
-
-```html
-<div>
-  <b-button block variant="primary">Block Level Button</b-button>
-</div>
-
-<!-- b-button-block.vue -->
-```
-
 ## Contextual variants
 
 Use the `variant` prop to generate the various Bootstrap contextual button variants.
 
 By default `<b-button>` will render with the `secondary` variant.
+
+The `variant` prop adds the Bootstrap V4.3 class `.btn-<variant>` on the rendered button.
 
 ### Solid color variants
 
@@ -124,6 +113,22 @@ padding and size of a button.
 <!-- b-button-link.vue -->
 ```
 
+**Tip:** remove the hover underline from a link variant button by adding the Bootstrap V4.3 utility
+class `text-decoration-none` to `<b-button>`.
+
+## Block level buttons
+
+Create block level buttons — those that span the full width of a parent — by setting the `block`
+prop.
+
+```html
+<div>
+  <b-button block variant="primary">Block Level Button</b-button>
+</div>
+
+<!-- b-button-block.vue -->
+```
+
 ## Pill style
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
@@ -143,10 +148,34 @@ Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 <!-- b-button-pill.vue -->
 ```
 
+This prop adds the Bootstrap V4.3 utility class `.rounded-pill` on the rendered button.
+
+## Squared style
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.22</span>
+
+Prefer buttons with a more square corner style? Just set the prop `squared` to true.
+
+```html
+<div>
+  <b-button squared>Button</b-button>
+  <b-button squared variant="primary">Button</b-button>
+  <b-button squared variant="outline-secondary">Button</b-button>
+  <b-button squared variant="success">Button</b-button>
+  <b-button squared variant="outline-danger">Button</b-button>
+  <b-button squared variant="info">Button</b-button>
+</div>
+
+<!-- b-button-square.vue -->
+```
+
+The `squared` prop adds the Bootstrap V4.3 utility class `.rounded-0` on the rendered button. The
+`pill` prop takes precedence over the `squared` prop.
+
 ## Disabled state
 
 Set the `disabled` prop to disable button default functionality. `disabled` also works with buttons
-rendered as `<a>` elements and `<router-link>`.
+rendered as `<a>` elements and `<router-link>` (i.e. with the `href` or `to` prop set).
 
 ```html
 <div>
