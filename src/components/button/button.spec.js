@@ -106,10 +106,10 @@ describe('button', () => {
     expect(wrapper.classes().length).toBe(3)
   })
 
-  it('applies rounded-0 class when square prop set', async () => {
+  it('applies rounded-0 class when squared prop set', async () => {
     const wrapper = mount(BButton, {
       propsData: {
-        square: true
+        squared: true
       }
     })
 
