@@ -1,10 +1,13 @@
 import Vue from 'vue';
-<% if (
-  options.componentPlugins.length ||
-  options.directivePlugins.length ||
-  options.components.length ||
-  options.directives.length
-) { %>
+
+<% if (!options.treeShake) { %>
+import BootstrapVue from 'bootstrap-vue/<%= options.dist %>';
+
+Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
+<% } %>
+
+<% if (options.treeShake) { %>
+
 <% if (options.componentPlugins.length || options.components.length) { %>
 import {
   <%= [].concat(options.componentPlugins, options.components).filter(Boolean).join(',\n  ') %>
@@ -22,18 +25,9 @@ import BVConfigPlugin from 'bootstrap-vue/<%= options.dist %>/bv-config';
 Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>)'
 <% } %>
 
-<%=
-options.componentPlugins.reduce((acc, cp) => (acc += `Vue.use(${cp});\n` ), '')
-%><%=
-options.directivePlugins.reduce((acc, dp) => (acc += `Vue.use(${dp});\n` ), '')
-%><%=
-options.components.reduce((acc, c) => (acc += `Vue.component('${c}', ${c});\n` ), '')
-%><%=
-options.directives.reduce((acc, d) => (acc += `Vue.directive('${d.replace(/^VB/, 'B')}', ${d});\n` ), '')
-%>
+<%= options.componentPlugins.reduce((acc, plugin) => (acc += `Vue.use(${plugin});\n` ), '') %>
+<%= options.directivePlugins.reduce((acc, plugin) => (acc += `Vue.use(${plugin});\n` ), '') %>
+<%= options.components.reduce((acc, component) => (acc += `Vue.component('${component}', ${component});\n` ), '') %>
+<%= options.directives.reduce((acc, directive) => (acc += `Vue.directive('${directive.replace(/^VB/, 'B')}', ${directive});\n` ), '') %>
 
-<% } else { %>
-import BootstrapVue from 'bootstrap-vue/<%= options.dist %>';
-
-Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
 <% } %>
