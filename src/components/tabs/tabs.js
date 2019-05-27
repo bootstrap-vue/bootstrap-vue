@@ -308,9 +308,7 @@ export default Vue.extend({
     // Observe child changes so we can update list of tabs
     this.setObserver(true)
     // Flag we are now mounted and to switch to DOM for tab probing
-    this.$nextTick(() => {
-      this.isMounted = true
-    })
+    this.isMounted = true
   },
   deactivated() /* istanbul ignore next */ {
     this.setObserver(false)
@@ -350,7 +348,8 @@ export default Vue.extend({
     getTabs() {
       let tabs = []
       if (!this.isMounted) {
-        tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
+        // tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
+        tabs = this.$children || []
       } else {
         // We rely on the DOM when mounted to get the list of tabs
         // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/3361
