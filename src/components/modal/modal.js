@@ -361,12 +361,28 @@ export default Vue.extend({
     }
   },
   methods: {
+    // Private method to update the v-model
     updateModel(val) {
       if (val !== this.visible) {
         this.$emit('change', val)
       }
     },
-    // Public Methods
+    // Private method to create a BvModalEvent object
+    buildEvent(type, opts = {}) {
+      return new BvModalEvent(type, {
+        // Default options
+        cancelable: false,
+        target: this.$refs.modal || this.$el || null,
+        relatedTarget: null,
+        trigger: null,
+        // Supplied options
+        ...opts,
+        // Options that can't be overridden
+        vueTarget: this,
+        componentId: this.safeId()
+      })
+    },
+    // Public method to show modal
     show() {
       if (this.isVisible || this.isOpening) {
         // If already open, on in the process of opening, do nothing
@@ -383,12 +399,8 @@ export default Vue.extend({
       this.isOpening = true
       // Set the element to return focus to when closed
       this.return_focus = this.return_focus || this.getActiveElement()
-      const showEvt = new BvModalEvent('show', {
-        cancelable: true,
-        vueTarget: this,
-        target: this.$refs.modal,
-        relatedTarget: null,
-        componentId: this.safeId()
+      const showEvt = this.buildEvent('show', {
+        cancelable: true
       })
       this.emitEvent(showEvt)
       // Don't show if canceled
@@ -401,18 +413,15 @@ export default Vue.extend({
       // Show the modal
       this.doShow()
     },
+    // Public method to hide modal
     hide(trigger = '') {
       if (!this.isVisible || this.isClosing) {
         /* istanbul ignore next */
         return
       }
       this.isClosing = true
-      const hideEvt = new BvModalEvent('hide', {
+      const hideEvt = this.buildEvent('hide', {
         cancelable: trigger !== 'FORCE',
-        vueTarget: this,
-        target: this.$refs.modal,
-        relatedTarget: null,
-        componentId: this.safeId(),
         trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
@@ -513,14 +522,7 @@ export default Vue.extend({
       this.isShow = true
       this.isTransitioning = false
       this.$nextTick(() => {
-        const shownEvt = new BvModalEvent('shown', {
-          cancelable: false,
-          vueTarget: this,
-          target: this.$refs.modal,
-          relatedTarget: null,
-          componentId: this.safeId()
-        })
-        this.emitEvent(shownEvt)
+        this.emitEvent(this.buildEvent('shown'))
         this.focusFirst()
         this.setEnforceFocus(true)
       })
@@ -546,14 +548,7 @@ export default Vue.extend({
         modalManager.unregisterModal(this)
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
-        const hiddenEvt = new BvModalEvent('hidden', {
-          cancelable: false,
-          vueTarget: this,
-          target: this.$el,
-          relatedTarget: null,
-          componentId: this.safeId()
-        })
-        this.emitEvent(hiddenEvt)
+        this.emitEvent(this.buildEvent('hidden'))
       })
     },
     // Event emitter
