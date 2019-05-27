@@ -302,15 +302,15 @@ export default Vue.extend({
     })
   },
   mounted() {
+    // Call `updateTabs()` just in case...
+    this.updateTabs()
     // Observe child changes so we can update list of tabs
     // this.setObserver(true)
     this.$nextTick(() => {
-      // Call `updateTabs()` just in case...
-      this.updateTabs()
       // Flag we are now mounted and to switch to DOM for tab probing.
       // As this.$slots.default appears to lie about component instances
       // after b-tabs is destroyed and re-instantiated.
-      this.isMounted = true
+      // this.isMounted = true
     })
   },
   deactivated() /* istanbul ignore next */ {
