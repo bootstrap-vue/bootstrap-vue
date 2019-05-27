@@ -4,7 +4,7 @@ import BNav, { props as BNavProps } from '../nav/nav'
 import { requestAF, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -651,7 +651,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      tabs.length > 0 ? this.normalizeSlot('default') : [empty]
+      concat(this.normalizeSlot('default'), empty)
     )
 
     // Render final output
