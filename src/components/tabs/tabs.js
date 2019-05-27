@@ -285,7 +285,9 @@ export default Vue.extend({
       }
     },
     registeredTabs(newVal, oldVal) {
-      this.updateTabs()
+      this.$nextTick(() => {
+        this.updateTabs()
+      })
     }
   },
   created() {
@@ -300,14 +302,14 @@ export default Vue.extend({
     })
   },
   mounted() {
-    // Call `updateTabs()` just in case...
-    this.updateTabs()
     // Observe child changes so we can update list of tabs
     // this.setObserver(true)
-    // Flag we are now mounted and to switch to DOM for tab probing.
-    // As this.$slots.default appears to lie about component instances
-    // after b-tabs is destroyed and re-instantiated.
     this.$nextTick(() => {
+      // Call `updateTabs()` just in case...
+      this.updateTabs()
+      // Flag we are now mounted and to switch to DOM for tab probing.
+      // As this.$slots.default appears to lie about component instances
+      // after b-tabs is destroyed and re-instantiated.
       this.isMounted = true
     })
   },
@@ -325,7 +327,7 @@ export default Vue.extend({
     })
   },
   beforeDestroy() /* istanbul ignore next */ {
-    this.setObserver(false)
+    // this.setObserver(false)
   },
   destroyed() {
     // Ensure no references to child instances exist
@@ -341,8 +343,9 @@ export default Vue.extend({
       }
     },
     unregisterTab(tab) {
-      this.registeredTabs = this.registeredTabs.filter(t => t !== tab)
+      this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
+    /*
     setObserver(on) {
       // Disable any previous observer
       if (this._bvObserver && this._bvObserver.disconnect) {
@@ -367,6 +370,7 @@ export default Vue.extend({
         })
       }
     },
+    */
     getTabs() {
       let tabs = []
       if (!this.isMounted) {
