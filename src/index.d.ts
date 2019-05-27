@@ -17,7 +17,7 @@ export interface BvPlugin extends PluginObject {
 }
 
 // Component base definition
-export interface BvComponent extends Vue {
+export class BvComponent extends Vue {
   // Simple catch-all to allow any prop/type
   [key: string]: any
 }
