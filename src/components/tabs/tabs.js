@@ -286,7 +286,9 @@ export default Vue.extend({
     },
     registeredTabs(newVal, oldVal) {
       this.$nextTick(() => {
-        this.updateTabs()
+        requestAF(() => {
+          this.updateTabs()
+        })
       })
     },
     isMounted(newVal, oldVal) {
