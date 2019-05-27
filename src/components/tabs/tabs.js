@@ -283,8 +283,10 @@ export default Vue.extend({
     },
     isMounted(newVal, oldVal) {
       if (newVal) {
-        requestAF(() => {
-          this.updateTabs()
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.updateTabs()
+          })
         })
       }
     }
@@ -301,18 +303,13 @@ export default Vue.extend({
     })
   },
   mounted() {
+    // Call `updateTabs()` just in case...
+    this.updateTabs()
+    // Observe child changes so we can update list of tabs
+    this.setObserver(true)
+    // Flag we are now mounted and to switch to DOM for tab probing
     this.$nextTick(() => {
-      // Call `updateTabs()` just in case...
-      this.updateTabs()
-      // Observe child changes so we can update list of tabs
-      this.setObserver(true)
-      // Flag we are now mounted and to switch to DOM for tab probing
       this.isMounted = true
-    })
-  },
-  updated() {
-    this.$nextTick(() => {
-      this.updateTabs()
     })
   },
   deactivated() /* istanbul ignore next */ {
