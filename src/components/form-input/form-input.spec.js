@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import BFormInput from './form-input'
 
 describe('form-input', () => {
@@ -800,7 +800,8 @@ describe('form-input', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)
@@ -818,7 +819,8 @@ describe('form-input', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)
