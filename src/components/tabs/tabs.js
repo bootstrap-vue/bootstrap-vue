@@ -347,7 +347,10 @@ export default Vue.extend({
         // Make sure no existing observer running
         this.setObserver(false)
         const handler = () => {
-          this.updateTabs()
+          // Slight delay to ensure ensure b-tab instances are attached
+          requestAF(() => {
+            this.updateTabs()
+          })
         }
         // Watch for changes to <b-tab> sub components
         this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), {
