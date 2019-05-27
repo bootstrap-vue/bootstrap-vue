@@ -114,7 +114,7 @@ padding and size of a button.
 ```
 
 **Tip:** remove the hover underline from a link variant button by adding the Bootstrap V4.3 utility
-class `no-text-decoration` to `<b-button>`.
+class `text-decoration-none` to `<b-button>`.
 
 ## Block level buttons
 
