@@ -310,7 +310,7 @@ export default Vue.extend({
       // Flag we are now mounted and to switch to DOM for tab probing.
       // As this.$slots.default appears to lie about component instances
       // after b-tabs is destroyed and re-instantiated.
-      // this.isMounted = true
+      this.isMounted = true
     })
   },
   deactivated() /* istanbul ignore next */ {
@@ -636,13 +636,12 @@ export default Vue.extend({
     if (!tabs || tabs.length === 0) {
       empty = h(
         'div',
-        { key: 'empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
+        { key: 'bv-empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
         this.normalizeSlot('empty')
       )
     }
 
     // Main content section
-    // TODO: This container should be a helper component
     const content = h(
       'div',
       {
@@ -652,7 +651,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      [this.normalizeSlot('default'), empty]
+      tabs.length > 0 ? this.normalizeSlot('default') : [empty]
     )
 
     // Render final output
