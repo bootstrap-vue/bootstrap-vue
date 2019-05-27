@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import BFormFile from './form-file'
 
 describe('form-file', () => {
@@ -517,7 +517,8 @@ describe('form-file', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)
