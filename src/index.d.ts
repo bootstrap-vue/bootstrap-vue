@@ -12,7 +12,7 @@ export interface BvConfigOptions {
 }
 
 // Plugin definition
-export interface BvPlugin extends PluginObject {
+export interface BvPlugin extends PluginObject<BvConfigOptions> {
   install: PluginFunction<BvConfigOptions>
 }
 
