@@ -304,7 +304,7 @@ export default Vue.extend({
     // Flag we are now mounted and to switch to DOM for tab probing.
     // As this.$slots.default appears to lie about component instances
     // after b-tabs is destroyed and re-instantiated.
-    this.nextTick(() => {
+    this.$nextTick(() => {
       this.isMounted = true
     })
   },
