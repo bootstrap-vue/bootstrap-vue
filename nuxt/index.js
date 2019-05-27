@@ -54,7 +54,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     this.options.build.transpile.push('bootstrap-vue/src')
 
     // Use es/ or src/ ?
-    const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev)
+    const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev, false)
 
     // Template base options
     const templateOptions = {
