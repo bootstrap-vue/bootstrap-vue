@@ -136,6 +136,8 @@ export default Vue.extend({
     }
   },
   mounted() {
+    // Inform b-tabs of our presence
+    this.registerTab()
     // Initially show on mount if active and not disabled
     this.show = this.localActive
     // Deprecate use of `href` prop
@@ -151,7 +153,20 @@ export default Vue.extend({
       this.bvTabs.updateButton(this)
     }
   },
+  destroyed() {
+    // inform b-tabs of our departure
+    this.unregisterTab()
+  },
   methods: {
+    // Private methods
+    registerTab() {
+      // Inform `b-tabs` of our presence
+      this.bvTabs.registerTab && this.bvTabs.registerTab(this)
+    },
+    unregisterTab() {
+      // Inform `b-tabs` of our departure
+      this.bvTabs.unregisterTab && this.bvTabs.unregisterTab(this)
+    },
     // Public methods
     activate() {
       if (this.bvTabs.activateTab && !this.disabled) {
