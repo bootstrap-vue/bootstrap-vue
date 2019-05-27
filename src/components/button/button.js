@@ -41,7 +41,7 @@ const btnProps = {
     type: Boolean,
     default: false
   },
-  square: {
+  squared: {
     type: Boolean,
     default: false
   },
@@ -100,7 +100,7 @@ const computeClass = props => [
     [`btn-${props.size}`]: Boolean(props.size),
     'btn-block': props.block,
     'rounded-pill': props.pill,
-    'rounded-0': props.square && !props.pill,
+    'rounded-0': props.squared && !props.pill,
     disabled: props.disabled,
     active: props.pressed
   }
