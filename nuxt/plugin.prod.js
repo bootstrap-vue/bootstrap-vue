@@ -8,16 +8,16 @@ import Vue from 'vue';
 <% if (options.componentPlugins.length || options.components.length) { %>
 import {
   <%= [].concat(options.componentPlugins, options.components).filter(Boolean).join(',\n  ') %>
-} from 'bootstrap-vue/<%= options.dist %>/components';
+} from 'bootstrap-vue/src/components';
 <% } %>
 <% if (options.directivePlugins.length || options.directives.length) { %>
 import {
   <%= [].concat(options.directivePlugins, options.directives).filter(Boolean).join(',\n  ') %>
-} from 'bootstrap-vue/<%= options.dist %>/directives';
+} from 'bootstrap-vue/src/directives';
 <% } %>
 
 <% if (options.config) { %>
-import BVConfigPlugin from 'bootstrap-vue/<%= options.dist %>/bv-config';
+import BVConfigPlugin from 'bootstrap-vue/src/bv-config';
 
 Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>)'
 <% } %>
@@ -33,7 +33,7 @@ options.directives.reduce((acc, d) => (acc += `Vue.directive('${d.replace(/^VB/,
 %>
 
 <% } else { %>
-import BootstrapVue from 'bootstrap-vue/<%= options.dist %>';
+import BootstrapVue from 'bootstrap-vue/src';
 
 Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
 <% } %>
