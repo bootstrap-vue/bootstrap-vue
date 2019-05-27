@@ -150,26 +150,27 @@ Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 
 This prop adds the Bootstrap V4.3 utility class `.rounded-pill` on the rendered button.
 
-## Square style
+## Squared style
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.22</span>
 
-Prefer buttons with a more square corner style? Just set the prop `square` to true.
+Prefer buttons with a more square corner style? Just set the prop `squared` to true.
 
 ```html
 <div>
-  <b-button square>Button</b-button>
-  <b-button square variant="primary">Button</b-button>
-  <b-button square variant="outline-secondary">Button</b-button>
-  <b-button square variant="success">Button</b-button>
-  <b-button square variant="outline-danger">Button</b-button>
-  <b-button square variant="info">Button</b-button>
+  <b-button squared>Button</b-button>
+  <b-button squared variant="primary">Button</b-button>
+  <b-button squared variant="outline-secondary">Button</b-button>
+  <b-button squared variant="success">Button</b-button>
+  <b-button squared variant="outline-danger">Button</b-button>
+  <b-button squared variant="info">Button</b-button>
 </div>
 
 <!-- b-button-square.vue -->
 ```
 
-The `square` prop adds the Bootstrap V4.3 utility class `.rounded-0` on the rendered button.
+The `squared` prop adds the Bootstrap V4.3 utility class `.rounded-0` on the rendered button. The
+`pill` prop takes precedence over the `squared` prop.
 
 ## Disabled state
 
