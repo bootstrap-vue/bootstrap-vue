@@ -33,7 +33,7 @@ options.directives.reduce((acc, d) => (acc += `Vue.directive('${d.replace(/^VB/,
 %>
 
 <% } else { %>
-import BootstrapVue from 'bootstrap-vue/<%= options.dist %>';
+import BootstrapVue from 'bootstrap-vue/src';
 
 Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
 <% } %>
