@@ -239,6 +239,11 @@ Note that when importing individual components, any component aliases will **not
   </p>
 </div>
 
+Do not use the Nuxt module If you want to import individual BootstrapVue components into _specific_
+pages and/or components of your Nuxt app. Instead follow the [module bundlers](#using-module-bundlers)
+section above as well as the
+[selective import](#selective-component-and-directive-inclusion-in-module-bundlers) sections below.
+
 ### Passing custom BootstrapVue config with Nuxt.js
 
 If you need to pass a custom
