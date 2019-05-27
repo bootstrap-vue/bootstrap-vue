@@ -256,25 +256,6 @@ module.exports = {
 }
 ```
 
-### Using pretranspiled version of BootstrapVue for Nuxt.js
-
-Nuxt.js module uses the precompiled version of BootstrapVue (`es/`) for faster development builds
-and the source (`src/`) of BootstrapVue for higher quality production builds.
-
-You can override this option using `usePretranspiled` option. Setting to `true` uses `es/` instead
-of `src/`. By default `usePretranspiled` is enabled in development mode only.
-
-<div class="alert alert-info">
-  <p class="mb-0">
-    <b>Note:</b> if you are also importing individual components, directives or plugins
-    <em>within</em> your Nuxt app as well as via the tree-shaking options above, you will want to
-    set the <code>usePretranspiled</code> option to match the directory you are importing from
-    (i.e. use <code>true</code> if importing from <code>bootstrap-vue/es</code> or
-    <code>false</code> if importing from <code>bootstrap-vue/src</code>). Otherwise, you may end
-    up with a larger bundle size due to code duplication.
-  </p>
-</div>
-
 ## Vue CLI 2
 
 <span class="badge badge-warning small">DEPRECATED</span> Use [Vue CLI 3](#vue-cli-3) instead.
