@@ -81,6 +81,11 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       templateOptions.config = { ...options.config }
     }
 
+    // Pass the template the kebabCase utility
+    templateOptions.kebabCase = str => {
+      return str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+    }
+
     // Register plugin, passing options to plugin template
     this.addPlugin({
       src: resolve(__dirname, `plugin.${this.options.dev ? 'dev' : 'prod'}.js`),
