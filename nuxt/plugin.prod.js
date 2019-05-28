@@ -5,14 +5,28 @@ import Vue from 'vue';
   options.components.length ||
   options.directives.length
 ) { %>
-<% if (options.componentPlugins.length || options.components.length) { %>
+
+<%= options.componentPlugins.reduce((acc, p) => {
+    const path = options.kebabCase(p.replace(/Plugin$/, ''))
+    acc += `import ${p} from 'bootstrap-vue/src/components/${path}';\n`
+    return acc
+}, '') %>
+
+<%= options.directivePlugins.reduce((acc, p) => {
+  const path = options.kebabCase(p.replace(/^VB|Plugin$/g, ''))
+  acc += `import ${p} from 'bootstrap-vue/src/directives/${path}';\n`
+  return acc
+}, '') %>
+
+<% if (options.components.length) { %>
 import {
-  <%= [].concat(options.componentPlugins, options.components).filter(Boolean).join(',\n  ') %>
+  <%= options.components.join(',\n  ') %>
 } from 'bootstrap-vue/src/components';
 <% } %>
-<% if (options.directivePlugins.length || options.directives.length) { %>
+
+<% if (options.directives.length) { %>
 import {
-  <%= [].concat(options.directivePlugins, options.directives).filter(Boolean).join(',\n  ') %>
+  <%= options.directives.join(',\n  ') %>
 } from 'bootstrap-vue/src/directives';
 <% } %>
 
