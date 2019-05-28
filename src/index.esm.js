@@ -3,7 +3,7 @@ import { setConfig } from './utils/config'
 // Once es dir build is gone, we will move index.esm.js to index.js
 import { componentsPlugin } from './components/index.esm'
 import { directivesPlugin } from './directives/index.esm'
-import BvConfig from './bv-config'
+import BVConfigPlugin from './bv-config'
 
 // Named exports of all components and component group plugins
 export * from './components/index.esm'
@@ -17,8 +17,16 @@ const BootstrapVue = {
   setConfig: setConfig
 }
 
-// Named exports for BvConfig and BootstrapVue
-export { BvConfig, BootstrapVue }
+// Named exports for BvConfigPlugin and BootstrapVue
+export {
+  // BV Config Plugin
+  BVConfigPlugin,
+  // BVConfigPlugin has been documented as BVConfig as well,
+  // so we add an alias to the shorter name for backwards compat
+  BVConfigPlugin as BVConfig,
+  // Main BootstrapVue Plugin
+  BootstrapVue
+}
 
 // Default export is the BootstrapVue plugin
 export default BootstrapVue
