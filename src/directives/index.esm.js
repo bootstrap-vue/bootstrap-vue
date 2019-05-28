@@ -15,6 +15,3 @@ export * from './popover'
 export const directivesPlugin = {
   install: installFactory({ plugins: directivePlugins })
 }
-
-// To be removed shortly
-export default directivesPlugin
