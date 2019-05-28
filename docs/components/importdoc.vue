@@ -209,7 +209,7 @@ export default {
       const firstDirective = this.directives[0]
       const firstDirectiveImport = this.directiveImports[0]
       return [
-        `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
+        `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
         "// Note: Vue automatically prefixes the directive name with 'v-'",
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
