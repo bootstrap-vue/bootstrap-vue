@@ -11,7 +11,7 @@ const pickFirst = (...args) => {
   }
 }
 
-// kekbab-case a PascalCase or camelCase string 
+// kekbab-case a PascalCase or camelCase string
 const kebabCaseRE = /\B([A-Z])/g
 const kebabCase = str => {
   return str.replace(kebabCaseRE, '-$1').toLowerCase()
