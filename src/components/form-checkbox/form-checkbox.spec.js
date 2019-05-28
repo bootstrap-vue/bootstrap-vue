@@ -1,5 +1,6 @@
 import BFormCheckbox from './form-checkbox'
 import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 
 describe('form-checkbox', () => {
   // --- Custom checkbox structure, class and attributes tests ---
@@ -1270,7 +1271,8 @@ describe('form-checkbox', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)
@@ -1292,7 +1294,8 @@ describe('form-checkbox', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)

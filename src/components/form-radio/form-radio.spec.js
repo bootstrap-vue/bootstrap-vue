@@ -1,5 +1,6 @@
 import BFormRadio from './form-radio'
 import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 
 describe('form-radio', () => {
   /* Custom radio structure, class and attributes tests */
@@ -972,7 +973,8 @@ describe('form-radio', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)
@@ -993,7 +995,8 @@ describe('form-radio', () => {
         }
       })
       expect(wrapper.vm).toBeDefined()
-      await wrapper.vm.$nextTick()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const input = wrapper.find('input')
       expect(input.exists()).toBe(true)
