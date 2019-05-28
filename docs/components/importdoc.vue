@@ -160,7 +160,7 @@ export default {
         return {
           component: this.componentTag(c),
           namedExport: c,
-          importPath: this.componentPath(c)
+          importPath: this.componentPath(c),
           alternateImportPath: 'bootstrap-vue/es/components'
         }
       })
