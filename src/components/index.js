@@ -4,7 +4,7 @@
 // have top-level duplicate plugin names.
 
 // Import the main components plugin
-import componentsPlugins from './index.esm'
+import { componentsPlugins } from './index.esm'
 
 // Export all component group plugins and components as named exports
 export * from './index.esm'
