@@ -12,12 +12,12 @@ export interface BvConfigOptions {
 }
 
 // Plugin definition
-export interface BvPlugin extends PluginObject {
+export interface BvPlugin extends PluginObject<BvConfigOptions> {
   install: PluginFunction<BvConfigOptions>
 }
 
 // Component base definition
-export interface BvComponent extends Vue {
+export class BvComponent extends Vue {
   // Simple catch-all to allow any prop/type
   [key: string]: any
 }
