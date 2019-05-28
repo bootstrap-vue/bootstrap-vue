@@ -187,7 +187,7 @@ export default {
         },
         {
           namedExport: this.pluginName,
-          importPath: `bootstrap-vue/es/${pluginLocation}`
+          importPath: `bootstrap-vue/es/${pluginLocation}`,
           legacy: true
         },
         {
