@@ -31,6 +31,9 @@
           <template slot="importPath" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
+          <template slot="alternateImportPath" slot-scope="{ value }">
+            <code class="text-nowrap">{{ value }}</code>
+          </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
@@ -64,6 +67,9 @@
             <code class="text-nowrap">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
+            <code class="text-nowrap">{{ value }}</code>
+          </template>
+          <template slot="alternateImportPath" slot-scope="{ value }">
             <code class="text-nowrap">{{ value }}</code>
           </template>
         </b-table>
@@ -155,6 +161,7 @@ export default {
           component: this.componentTag(c),
           namedExport: c,
           importPath: this.componentPath(c)
+          alternateImportPath: 'bootstrap-vue/es/components'
         }
       })
     },
@@ -163,7 +170,8 @@ export default {
         return {
           directive: this.directiveAttr(d),
           namedExport: d,
-          importPath: this.directivePath(d)
+          importPath: this.directivePath(d),
+          alternateImportPath: 'bootstrap-vue/es/directives'
         }
       })
     },
@@ -211,6 +219,10 @@ export default {
       return [
         `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
         "// Note: Vue automatically prefixes the directive name with 'v-'",
+        `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`,
+        '',
+        // Or use alternate import path
+        `import { ${firstDirective} } from '${firstDirectiveImport.alternateImportPath}'`,
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
     },
