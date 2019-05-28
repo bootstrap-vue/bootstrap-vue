@@ -179,7 +179,7 @@ export default {
     },
     pluginImports() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
+      // const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         {
           namedExport: this.pluginName,
@@ -226,12 +226,12 @@ export default {
       ].join('\n')
     },
     pluginImportCode() {
-      //const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
+      // const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
         '// Importing the named export',
         // `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
         `import { ${this.pluginName} } from 'bootstrap-vue'`,
-        `Vue.use(${this.pluginName})`,
+        `Vue.use(${this.pluginName})`
       ].join('\n')
     }
   },
