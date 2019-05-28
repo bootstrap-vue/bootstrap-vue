@@ -8,15 +8,11 @@ Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>)
 <% if (options.treeShake) { %>
 
 <%= options.componentPlugins.reduce((acc, plugin) => {
-    const path = options.kebabCase(plugin.replace(/Plugin$/, ''))
-    acc += `import ${plugin} from 'bootstrap-vue/src/components/${path}';\n`
-    return acc
+  return (acc += `import ${plugin} from 'bootstrap-vue/src/components/${options.pluginToDir(plugin)}';\n`)
 }, '') %>
 
 <%= options.directivePlugins.reduce((acc, plugin) => {
-  const path = options.kebabCase(plugin.replace(/^VB|Plugin$/g, ''))
-  acc += `import ${plugin} from 'bootstrap-vue/src/directives/${path}';\n`
-  return acc
+  return (acc += `import ${plugin} from 'bootstrap-vue/src/directives/${options.pluginToDir(plugin)}';\n`)
 }, '') %>
 
 <% if (options.components.length) { %>
