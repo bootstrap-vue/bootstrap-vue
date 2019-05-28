@@ -216,7 +216,7 @@ export default {
     },
     pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
+      // const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         '// Importing the default export',
         `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
@@ -256,7 +256,7 @@ export default {
       return kebabCase(directive).replace(/^vb-/, 'v-b-')
     },
     directivePath(directive) {
-      // const directiveName = this.directiveName(directive).replace(/^b-/, '')
+      const directiveName = this.directiveName(directive).replace(/^b-/, '')
       // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
       // return `bootstrap-vue/es/directives`
       return `bootstrap-vue/es/directives/${directiveName}`
