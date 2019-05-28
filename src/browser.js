@@ -1,4 +1,5 @@
 // Main entry point for the browser build
+import { vueUse } from './utils/plugins'
 
 import BootstrapVue from './index'
 
