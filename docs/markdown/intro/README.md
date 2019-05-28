@@ -383,19 +383,19 @@ or `directives` directory:
 
 ```js
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
-import { LayoutPlugin } from 'bootstrap-vue/es/components'
+import { LayoutPlugin } from 'bootstrap-vue'
 Vue.use(LayoutPlugin)
 
 // This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import { ModalPlugin } from 'bootstrap-vue/es/components'
+import { ModalPlugin } from 'bootstrap-vue'
 Vue.use(ModalPlugin)
 
 // This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import { CardPlugin } from 'bootstrap-vue/es/components'
+import { CardPlugin } from 'bootstrap-vue'
 Vue.use(CardPlugin)
 
 // This imports directive v-b-scrollspy as a plugin:
-import { VBScrollspyPlugin } from 'bootstrap-vue/es/directives'
+import { VBScrollspyPlugin } from 'bootstrap-vue'
 Vue.use(VBScrollspyPlugin)
 ```
 
@@ -406,7 +406,7 @@ component and directive documentation for details.
 
 There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
 you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are available for import from
-`'bootstrap-vue/es/components'` and `'bootstrap-vue/src/components'`:
+`'bootstrap-vue'`:
 
 - `BVModalPlugin` - provides the injection `$bvModal` for generating
   [message boxes](/docs/components/modal#modal-message-boxes).
@@ -423,8 +423,7 @@ To cherry pick a component/directive, start by importing it in the file where it
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-import { BModal } from 'bootstrap-vue/es/components'
-import { VBModal } from 'bootstrap-vue/es/directives'
+import { BModal, VBModal } from 'bootstrap-vue'
 ```
 
 Then add it to your component definition:
@@ -458,37 +457,6 @@ Vue allows for various component and directive name syntaxes here, so feel free 
 <samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or object
 property shorthand (components only).
 
-### webpack + Babel
-
-When importing components/directives individually, you must configure your app to properly build the
-BootstrapVue library source code. This commonly involves white-listing the node module for your
-babel loader rule in webpack.
-
-```js
-// webpack.config.js
-const path = require('path')
-
-module.exports = {
-  entry: './app.js',
-  output: {
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include: [
-          // Use `include` vs `exclude` to whitelist vs blacklist
-          path.resolve(__dirname, 'src'), // Whitelist your app source files
-          require.resolve('bootstrap-vue') // Whitelist `bootstrap-vue`
-        ],
-        loader: 'babel-loader'
-      }
-    ]
-  }
-}
-```
-
 ## Browser
 
 Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the required
@@ -520,21 +488,20 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 
 | Variant        | Environments           | Package path                                                           |
 | -------------- | ---------------------- | ---------------------------------------------------------------------- |
-| **ES Modules** | webpack 2+ / rollup.js | `es/index.js`                                                          |
 | **ESM Module** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
 | commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
-dependencies are included in the `commonjs2` and `UMD` bundles.
+dependencies are included in the `commonjs2` and `UMD` bundles, not not the `ESM` build.
 
 <div class="alert alert-info">
   <p class="mb-0">
-    <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing indvidual
-    plugins or components, you may need to explicitly <code>require</code> the
+    <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing the default
+    export (the full <b>BootstrapVue</b> plugin), you may need to explicitly <code>require</code> the
     <code>.default</code> export when not importing named exports. i.e.
-    <code class="text-nowrap">const foo = require("some/module").default;</code>
+    <code class="text-nowrap">const BootstrapVue = require("bootstrap-vue").default;</code>
   </p>
 </div>
 
