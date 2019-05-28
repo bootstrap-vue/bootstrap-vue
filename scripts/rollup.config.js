@@ -22,7 +22,7 @@ const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-
 
 // The base rollup configuration
 const baseConfig = {
-  input: path.resolve(src, 'index.js'),
+  input: path.resolve(src, 'index.esm.js'),
   external: externals,
   plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
 }
