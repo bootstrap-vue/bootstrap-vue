@@ -2,6 +2,7 @@ const { resolve } = require('path')
 
 // --- Utility methods ---
 
+// Given a list of arguments, pick the first one that is defined
 const pickFirst = (...args) => {
   for (const arg of args) {
     if (arg !== undefined) {
@@ -9,6 +10,20 @@ const pickFirst = (...args) => {
     }
   }
 }
+
+// kekbab-case a PascalCase or camelCase string 
+const kebabCaseRE = /\B([A-Z])/g
+const kebabCase = str => {
+  return str.replace(kebabCaseRE, '-$1').toLowerCase()
+}
+
+// Convert a plugin name to its import sub-directory
+const pluginToDirRE = /^VB|Plugin$/g
+const pluginToDir = plugin => {
+  return kebabCase(plugin.replace(pluginToDirRE, ''))
+}
+
+// --- Main module ---
 
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   this.nuxt.hook('build:before', () => {
@@ -49,8 +64,13 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Transpile src/
     this.options.build.transpile.push('bootstrap-vue/src')
 
+    // Base options/methods available to template
     const templateOptions = {
-      treeShake: false
+      // Default options
+      treeShake: false,
+      // Methods
+      kebabCase: kebabCase,
+      pluginToDir: pluginToDir
     }
 
     // Specific component and/or directive plugins
@@ -89,11 +109,6 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Add BootstrapVue configuration if present
     if (options.config && Object.prototype.toString.call(options.config) === '[object Object]') {
       templateOptions.config = { ...options.config }
-    }
-
-    // Pass the template the kebabCase utility
-    templateOptions.kebabCase = function kebabCase(str) {
-      return str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
     }
 
     // Register plugin, passing options to plugin template
