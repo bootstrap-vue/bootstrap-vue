@@ -27,6 +27,8 @@ property that is not defined in the default will generate a console warning.
 
 ### Setting new configuration values
 
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.22</span>
+
 When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object which specifies new
 values to replace the default values. For example if you wish to define new breakpoint names (which
 will generate appropriate properties on components such as `<b-col>` and `<b-form-group>`), so that
@@ -89,7 +91,7 @@ and subsequent changes to the breakpoints will **not** be reflected.
 
 ```js
 // Component group plugins
-import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue'
 
 // Supply configs via each plugin as it is `Vue.use()`'d
 Vue.use(LayoutPlugin, { breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'] })
@@ -103,7 +105,7 @@ Vue.use(ButtonPlugin, { BButton: { variant: 'primary' } })
 
 ```js
 // Component group plugins
-import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue'
 
 // Supply complete config to first `Vue.use()`'d plugin
 Vue.use(LayoutPlugin, {
@@ -121,12 +123,12 @@ Vue.use(ButtonPlugin)
 
 ```js
 // BootstrapVue configuration helper plugin
-import BVConfig from 'bootstrap-vue/es/bv-config'
+import { BVConfigPlugin } from 'bootstrap-vue'
 // Component group plugins
-import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue/es/components'
+import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue'
 
-// Supply complete config to the BVConfig helper plugin
-Vue.use(BVConfig, {
+// Supply complete config to the BVConfigPlugin helper plugin
+Vue.use(BVConfigPlugin, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   BAlert: { variant: 'danger' },
   BButton: { variant: 'primary' }
@@ -145,12 +147,12 @@ Vue.use(ButtonPlugin)
 
 ```js
 // BootstrapVue configuration helper plugin
-import BVConfig from 'bootstrap-vue/es/bv-config'
+import { BVConfigPlugin } from 'bootstrap-vue'
 // Individual components
-import { BAlert, BButton, BRow, BCol } from 'bootstrap-vue/es/components'
+import { BAlert, BButton, BRow, BCol } from 'bootstrap-vue'
 
 // Supply complete config to the BVConfig helper plugin
-Vue.use(BVConfig, {
+Vue.use(BVConfigPlugin, {
   breakpoints: ['xs', 'sm', 'lg', 'xl', 'xxl'],
   BAlert: { variant: 'danger' },
   BButton: { variant: 'primary' }
@@ -177,9 +179,10 @@ export default {
 
 **Caveat:** Vue only installs plugins _once_. If you import a plugin that has already been imported
 by another component plugin, the configuration passed to the component plugin will **not** be merged
-in. It is best to set the complete configuration using the `BVConfig` helper plugin as shown in
-**Example 3** and **Example 4** above. The `BVConfig` plugin should be used in the main entry point of
-your app, and before any `Vue.use()` of component plugins or `Vue.component()` of indivdual components.
+in. It is best to set the complete configuration using the `BVConfigPlugin` helper plugin as shown in
+**Example 3** and **Example 4** above. The `BVConfigPlugin` plugin should be used in the main entry
+point of your app, and **before** any `Vue.use()` of component plugins or `Vue.component()` or
+indivdual components.
 
 ### Setting the config via Nuxt.js BootstrapVue plugin
 
