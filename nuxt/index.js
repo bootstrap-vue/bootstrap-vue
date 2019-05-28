@@ -49,7 +49,11 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Transpile src/
     this.options.build.transpile.push('bootstrap-vue/src')
 
-    const templateOptions = {}
+    // Base options/methods available to template
+    const templateOptions = {
+      // Default options
+      treeShake: false,
+    }
 
     // Specific component and/or directive plugins
     for (const type of ['componentPlugins', 'directivePlugins']) {
@@ -65,6 +69,10 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         })
         // Remove duplicate items
         .filter((plugin, i, arr) => arr.indexOf(plugin) === i)
+
+      if (templateOptions[type].length > 0) {
+        templateOptions.treeShake = true
+      }
     }
 
     // Specific components and/or directives
@@ -74,6 +82,10 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       templateOptions[type] = ComponentsOrDirectives
         // Remove duplicate items
         .filter((item, i, arr) => arr.indexOf(item) === i)
+
+      if (templateOptions[type].length > 0) {
+        templateOptions.treeShake = true
+      }
     }
 
     // Add BootstrapVue configuration if present
