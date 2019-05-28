@@ -45,7 +45,10 @@ export * from './tabs'
 export * from './toast'
 export * from './tooltip'
 
-// Export default as a plugin that installs all the component group plugins
-export default {
+export const componentsPlugin = {
   install: installFactory({ plugins: componentPlugins })
 }
+
+// Export default as a plugin that installs all the component group plugins
+// To be removed shortly
+export default componentsPlugin
