@@ -374,6 +374,18 @@ components and/or directives.
   </p>
 </div>
 
+Note: If importing individual plugins, components, and/or directives in **Nuxt.js**, replace the
+path `bootstrap-vue/es/` with `bootstrap-vue/src/`, and enable tranpilation of `bootstrap-vue/src`.
+This is needed in order for the Nuxt development server to correctly function:
+
+```js
+export default {
+  build: {
+    transpile: ['bootstrap-vue']
+  }
+}
+```
+
 ### Component groups and directives as Vue plugins
 
 You can import component groups and directives as Vue plugins by importing from the `components`
