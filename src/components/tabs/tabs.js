@@ -3,7 +3,7 @@ import BLink from '../link/link'
 import BNav, { props as BNavProps } from '../nav/nav'
 import { requestAF, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
-import observeDom from '../../utils/observe-dom'
+import { arrayIncludes, concat } from '../../utils/array'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -222,8 +222,10 @@ export default Vue.extend({
     return {
       // Index of current tab
       currentTab: tabIdx,
-      // Array of direct child <b-tab> instances
+      // Array of direct child <b-tab> instances, in DOM order
       tabs: [],
+      // Array of child instances registered (for triggering reactive updates)
+      registeredTabs: [],
       // Flag to know if we are mounted or not
       isMounted: false
     }
@@ -281,7 +283,19 @@ export default Vue.extend({
         }
       }
     },
+    registeredTabs(newVal, oldVal) {
+      // Each b-tab will register/unregister itself.
+      // We use this to detect when tabs are added/removed
+      // to trigger the update of the tabs.
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.updateTabs()
+        })
+      })
+    },
     isMounted(newVal, oldVal) {
+      // Trigger an update after mounted.  Needed
+      // for tabs inside lazy modals.
       if (newVal) {
         requestAF(() => {
           this.updateTabs()
@@ -292,8 +306,6 @@ export default Vue.extend({
   created() {
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
-    // Create private non-reactive prop
-    this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
@@ -301,17 +313,17 @@ export default Vue.extend({
     })
   },
   mounted() {
+    // Call `updateTabs()` just in case...
+    this.updateTabs()
     this.$nextTick(() => {
-      // Call `updateTabs()` just in case...
-      this.updateTabs()
-      // Observe child changes so we can update list of tabs
-      this.setObserver(true)
-      // Flag we are now mounted and to switch to DOM for tab probing
+      // Flag we are now mounted and to switch to DOM for tab probing.
+      // As this.$slots.default appears to lie about component instances
+      // after b-tabs is destroyed and re-instantiated.
+      // And this.$children does not respect DOM order.
       this.isMounted = true
     })
   },
   deactivated() /* istanbul ignore next */ {
-    this.setObserver(false)
     this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
@@ -319,38 +331,33 @@ export default Vue.extend({
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.$nextTick(() => {
       this.updateTabs()
-      this.setObserver(true)
       this.isMounted = true
     })
   },
-  beforeDestroy() /* istanbul ignore next */ {
-    this.setObserver(false)
+  destroyed() {
+    // Ensure no references to child instances exist
+    this.tabs = []
   },
   methods: {
-    setObserver(on) {
-      if (on) {
-        // Make sure no existing observer running
-        this.setObserver(false)
-        // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
-          childList: true,
-          subtree: false,
-          attributes: true,
-          attributeFilter: ['style', 'class']
+    registerTab(tab) {
+      if (!arrayIncludes(this.registeredTabs, tab)) {
+        this.registeredTabs.push(tab)
+        tab.$once('hook:destroyed', () => {
+          this.unregisterTab(tab)
         })
-      } else {
-        if (this._bvObserver && this._bvObserver.disconnect) {
-          this._bvObserver.disconnect()
-        }
-        this._bvObserver = null
       }
+    },
+    unregisterTab(tab) {
+      this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
     getTabs() {
       let tabs = []
       if (!this.isMounted) {
         tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
       } else {
-        // We rely on the DOM when mounted to get the list of tabs
+        // We rely on the DOM when mounted to get the list of tabs,
+        // as this.$slots.default appears to lie about current tab vm instances, after being
+        // destroyed and then re-intantiated (cached vNodes which don't reflect correct vm)
         // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/3361
         tabs = selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-pane`, this.$el)
           .map(el => el.__vue__)
@@ -608,13 +615,12 @@ export default Vue.extend({
     if (!tabs || tabs.length === 0) {
       empty = h(
         'div',
-        { key: 'empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
+        { key: 'bv-empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
         this.normalizeSlot('empty')
       )
     }
 
     // Main content section
-    // TODO: This container should be a helper component
     const content = h(
       'div',
       {
@@ -624,7 +630,7 @@ export default Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      [this.normalizeSlot('default'), empty]
+      concat(this.normalizeSlot('default'), empty)
     )
 
     // Render final output
