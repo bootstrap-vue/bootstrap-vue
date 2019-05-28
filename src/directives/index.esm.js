@@ -12,7 +12,9 @@ export * from './scrollspy'
 export * from './tooltip'
 export * from './popover'
 
-// Default export is a plugin that installs all plugins
-export default {
+export const directivesPlugin = {
   install: installFactory({ plugins: directivePlugins })
 }
+
+// To be removed shortly
+export default directivesPlugin
