@@ -92,7 +92,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     }
 
     // Pass the template the kebabCase utility
-    templateOptions.kebabCase = str => {
+    templateOptions.kebabCase = function kebabCase(str) {
       return str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
     }
 
