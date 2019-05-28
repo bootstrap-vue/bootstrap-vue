@@ -69,7 +69,6 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       // Default options
       treeShake: false,
       // Methods
-      kebabCase: kebabCase,
       pluginToDir: pluginToDir
     }
 
