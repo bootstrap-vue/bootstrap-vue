@@ -379,10 +379,13 @@ path `bootstrap-vue/es/` with `bootstrap-vue/src/`, and enable tranpilation of `
 This is needed in order for the Nuxt development server to correctly function:
 
 ```js
+// nuxt.config.js
 export default {
+  // ...
   build: {
     transpile: ['bootstrap-vue']
   }
+  // ...
 }
 ```
 
