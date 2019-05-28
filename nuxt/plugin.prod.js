@@ -1,20 +1,21 @@
 import Vue from 'vue';
-<% if (
-  options.componentPlugins.length ||
-  options.directivePlugins.length ||
-  options.components.length ||
-  options.directives.length
-) { %>
+<% if (!options.treeShake) { %>
+import BootstrapVue from 'bootstrap-vue/src';
 
-<%= options.componentPlugins.reduce((acc, p) => {
-    const path = options.kebabCase(p.replace(/Plugin$/, ''))
-    acc += `import ${p} from 'bootstrap-vue/src/components/${path}';\n`
+Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
+<% } %>
+
+<% if (options.treeShake) { %>
+
+<%= options.componentPlugins.reduce((acc, plugin) => {
+    const path = options.kebabCase(plugin.replace(/Plugin$/, ''))
+    acc += `import ${plugin} from 'bootstrap-vue/src/components/${path}';\n`
     return acc
 }, '') %>
 
-<%= options.directivePlugins.reduce((acc, p) => {
-  const path = options.kebabCase(p.replace(/^VB|Plugin$/g, ''))
-  acc += `import ${p} from 'bootstrap-vue/src/directives/${path}';\n`
+<%= options.directivePlugins.reduce((acc, plugin) => {
+  const path = options.kebabCase(plugin.replace(/^VB|Plugin$/g, ''))
+  acc += `import ${plugin} from 'bootstrap-vue/src/directives/${path}';\n`
   return acc
 }, '') %>
 
@@ -46,8 +47,4 @@ options.components.reduce((acc, c) => (acc += `Vue.component('${c}', ${c});\n` )
 options.directives.reduce((acc, d) => (acc += `Vue.directive('${d.replace(/^VB/, 'B')}', ${d});\n` ), '')
 %>
 
-<% } else { %>
-import BootstrapVue from 'bootstrap-vue/src';
-
-Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
 <% } %>
