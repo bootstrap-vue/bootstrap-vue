@@ -74,7 +74,7 @@ section.
 
 BootstrapVue and PortalVue require access to the global `Vue` reference (via `import Vue from 'vue'`).
 
-<div class="alert alert-info mb-0">
+<div class="alert alert-info mb-3">
   <p class="mb-0">
     If you are using a specific build of Vue (i.e. runtime-only vs. compiler + runtime), you will
     need to set up an alias to <code>'vue'</code> in your bundler config to ensure that your
@@ -376,6 +376,8 @@ components and/or directives.
 
 ### Component groups and directives as Vue plugins
 
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
+
 You can import component groups and directives as Vue plugins by importing from the `components`
 or `directives` directory:
 
@@ -414,6 +416,8 @@ you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are availabl
   [on demand toasts](/docs/components/toast#toasts-on-demand).
 
 ### Individual components and directives
+
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
 
 If you would like to only pull in a specific component or set of components, you can do this by
 directly importing those components.
@@ -494,7 +498,7 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
-dependencies are included in the `commonjs2` and `UMD` bundles, not not the `ESM` build.
+dependencies are included in the `commonjs2` and `UMD` bundles, but not the `ESM` build.
 
 <div class="alert alert-info">
   <p class="mb-0">
