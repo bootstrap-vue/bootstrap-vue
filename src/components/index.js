@@ -1,10 +1,10 @@
-// Legacy index file supporting legacy plugin names.
+// Legacy index file supporting legacy plugin names and default export.
 // This file is only here from transpilation purposes for `es/` build.
 // src/index imports /src/components/index.esm so that we don't
 // have top-level duplicate plugin names.
 
 // Import the main components plugin
-import { componentsPlugins } from './index.esm'
+import { componentsPlugin } from './index.esm'
 
 // Export all component group plugins and components as named exports
 export * from './index.esm'
@@ -14,4 +14,4 @@ export * from './index.esm'
 export * from './plugins-legacy'
 
 // Export default as a plugin that installs all the component group plugins
-export default componentsPlugins
+export default componentsPlugin
