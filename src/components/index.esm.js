@@ -48,7 +48,3 @@ export * from './tooltip'
 export const componentsPlugin = {
   install: installFactory({ plugins: componentPlugins })
 }
-
-// Export default as a plugin that installs all the component group plugins
-// To be removed shortly
-export default componentsPlugin
