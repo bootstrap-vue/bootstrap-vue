@@ -374,16 +374,17 @@ components and/or directives.
   </p>
 </div>
 
-Note: If importing individual plugins, components, and/or directives in **Nuxt.js**, replace the
-path `bootstrap-vue/es/` with `bootstrap-vue/src/`, and enable tranpilation of `bootstrap-vue/src`.
-This is needed in order for the Nuxt development server to correctly function:
+Note: If importing individual plugins, components, and/or directives in **Nuxt.js** (when not using
+the Nuxt plugin modue), replace the path `bootstrap-vue/es/` with `bootstrap-vue/src/`, and enable
+tranpilation of `bootstrap-vue/src`. This is needed in order for the Nuxt development server to
+correctly function:
 
 ```js
 // nuxt.config.js
 export default {
   // ...
   build: {
-    transpile: ['bootstrap-vue']
+    transpile: ['bootstrap-vue/src']
   }
   // ...
 }
