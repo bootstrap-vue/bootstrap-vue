@@ -211,6 +211,10 @@ export default {
       return [
         `import { ${firstComponent} } from '${firstComponentImport.importPath}'`,
         `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
+        '',
+        '// Or use alternate import path',
+        `import { ${firstComponent} } from '${firstComponentImport.alternateImportPath}'`,
+        `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
       ].join('\n')
     },
     directiveImportCode() {
@@ -221,7 +225,7 @@ export default {
         "// Note: Vue automatically prefixes the directive name with 'v-'",
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`,
         '',
-        // Or use alternate import path
+        '// Or use alternate import path',
         `import { ${firstDirective} } from '${firstDirectiveImport.alternateImportPath}'`,
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
