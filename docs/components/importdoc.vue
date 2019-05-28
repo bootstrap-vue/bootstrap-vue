@@ -210,7 +210,7 @@ export default {
       const firstComponentImport = this.componentImports[0]
       return [
         `import { ${firstComponent} } from '${firstComponentImport.importPath}'`,
-        `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
+        `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`,
         '',
         '// Or use alternate import path',
         `import { ${firstComponent} } from '${firstComponentImport.alternateImportPath}'`,
