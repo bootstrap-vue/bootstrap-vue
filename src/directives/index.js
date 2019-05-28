@@ -4,7 +4,7 @@
 // have top-level duplicate plugin names.
 
 // Import the main directives plugin
-import directivesPlugin from './index.esm'
+import { directivesPlugin } from './index.esm'
 
 // Export all directive group plugins and directives as named exports
 export * from './index.esm'
