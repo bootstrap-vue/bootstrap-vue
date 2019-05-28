@@ -1,15 +1,16 @@
-// Legacy index file supporting leagacy plugin names.
+// Legacy index file supporting legacy plugin names.
 // This file is only here from transpilation purposes for `es/` build.
-// src/index import /src/components/index.esm so that we don't
+// src/index imports /src/directives/index.esm so that we don't
 // have top-level duplicate plugin names.
 
-// Import teh main plugin
+// Import the main directives plugin
 import directivesPlugin from './index.esm'
 
-// Export all directive group plugins as named exports
+// Export all directive group plugins and directives as named exports
 export * from './index.esm'
 
 // Export all legacy named directive group plugins as named exports
+// To be removed in stable release
 export * from './plugins-legacy'
 
 // Default export is a plugin that installs all plugins
