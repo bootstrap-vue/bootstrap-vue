@@ -33,9 +33,11 @@ if (!fs.existsSync(dist)) {
 }
 
 export default [
-  // UMD
+  // UMD Browser Build
   {
     ...baseConfig,
+    // We use a specific input entrypoint for the browser build
+    input: path.resolve(src, 'browser.js'),
     external: externals.filter(dep => !externalExcludes.includes(dep)),
     output: {
       format: 'umd',
@@ -49,7 +51,7 @@ export default [
     }
   },
 
-  // COMMON
+  // COMMONJS Module Build
   {
     ...baseConfig,
     external: externals.filter(dep => !externalExcludes.includes(dep)),
@@ -62,7 +64,7 @@ export default [
     }
   },
 
-  // ESM
+  // ESM Module Build
   {
     ...baseConfig,
     output: {
