@@ -306,8 +306,6 @@ export default Vue.extend({
   created() {
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
-    // Create private non-reactive prop
-    this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
@@ -321,6 +319,7 @@ export default Vue.extend({
       // Flag we are now mounted and to switch to DOM for tab probing.
       // As this.$slots.default appears to lie about component instances
       // after b-tabs is destroyed and re-instantiated.
+      // And this.$children does not respect DOM order.
       this.isMounted = true
     })
   },
