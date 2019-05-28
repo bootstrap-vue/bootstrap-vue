@@ -172,17 +172,16 @@ export default {
       const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         {
+          namedExport: 'default',
+          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`
+        },
+        {
           namedExport: this.pluginName,
           importPath: `bootstrap-vue/es/${pluginLocation}`
         },
         {
           namedExport: legacyName,
           importPath: `bootstrap-vue/es/${pluginLocation}`,
-          legacy: true
-        },
-        {
-          namedExport: 'default',
-          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`,
           legacy: true
         }
       ]
@@ -210,7 +209,7 @@ export default {
       const firstDirective = this.directives[0]
       const firstDirectiveImport = this.directiveImports[0]
       return [
-        `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
+        `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
         "// Note: Vue automatically prefixes the directive name with 'v-'",
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
@@ -219,13 +218,13 @@ export default {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
-        '// Importing the named export',
-        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
+        '// Importing the default export',
+        `import ${this.pluginName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
         `Vue.use(${this.pluginName})`,
         '',
-        '// Or importing the default export (deprecated)',
-        `import ${legacyName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
-        `Vue.use(${legacyName})`
+        '// Or Importing the named export',
+        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
+        `Vue.use(${this.pluginName})`
       ].join('\n')
     }
   },
@@ -245,7 +244,8 @@ export default {
     componentPath(component) {
       // const componentName = this.componentName(component).replace(/^b-/, '')
       // return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
-      return `bootstrap-vue/es/components`
+      // return `bootstrap-vue/es/components`
+      return `bootstrap-vue/es/components/${this.pluginDir}`
     },
     directiveName(directive) {
       return kebabCase(directive)
@@ -258,7 +258,8 @@ export default {
     directivePath(directive) {
       // const directiveName = this.directiveName(directive).replace(/^b-/, '')
       // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
-      return `bootstrap-vue/es/directives`
+      // return `bootstrap-vue/es/directives`
+      return `bootstrap-vue/es/directives/${directiveName}`
     }
   }
 }
