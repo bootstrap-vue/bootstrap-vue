@@ -22,7 +22,7 @@ const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-
 
 // The base rollup configuration
 const baseConfig = {
-  input: path.resolve(src, 'index.esm.js'),
+  input: path.resolve(src, 'index.js'),
   external: externals,
   plugins: [resolve({ external: ['vue'] }), commonjs(), babel({ exclude: 'node_modules/**' })]
 }
@@ -62,6 +62,7 @@ export default [
       banner: bannerComment,
       sourcemap: true,
       // Disable warning arbout mixed named/default exports
+      // We we have handled this in the index file
       exports: 'named'
     }
   },
