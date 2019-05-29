@@ -63,6 +63,9 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       // We prepend a $ to ensure that it is only used for
       // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
       this.extendBuild((config, { isServer }) => {
+        if (!config.alias) {
+          config.alias = {}
+        }
         config.alias['bootstrap-vue$'] = require.resolve(srcIndex)
       })
     }
