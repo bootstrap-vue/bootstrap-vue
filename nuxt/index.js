@@ -54,8 +54,6 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     // Component src prop resolving
     this.options.build.loaders.vue.transformAssetUrls = {
-      // Ensure defaults are not lost
-      ...this.options.build.loaders.vue.transformAssetUrls,
       // Nuxt default is missing `poster` for video
       video: ['src', 'poster'],
       // Nuxt default is missing image
@@ -67,7 +65,9 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       'b-card-img': 'img-src',
       'b-card-img-lazy': ['src', 'blank-src'],
       'b-carousel-slide': 'img-src',
-      'b-embed': 'src'
+      'b-embed': 'src',
+      // Ensure super supplied values/overrides are not lost
+      ...this.options.build.loaders.vue.transformAssetUrls
     }
 
     // Transpile src/ directory
