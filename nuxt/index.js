@@ -51,12 +51,25 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     // Use pre-tranpiled or src/
     const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev, false)
+    if (!usePretranspiled) {
+      // Use bootstrap-vue source code for smaller prod builds
+      // by aliasing bootstrap-vue to the source files.
+      const srcIndex = require.resolve('bootstrap-vue/src/index.esm.js')
+      if (this.options.alias) {
+        // Nuxt 2.6+
+        this.options.alias['bootstrap-vue$'] = srcIndex
+      } else {
+        // Nuxt < 2.6
+        this.externalBuild(config, { isServer } => {
+          config.alias['bootstrap-vue$'] = srcIndex
+        })
+      }
+    }
 
-    // Base options/methods available to template
+    // Base options available to template
     const templateOptions = {
       // Flag for tree shaking
-      treeShake: false,
-      dist: usePretranspiled ? 'bootstrap-vue' : 'bootstrap-vue/src/index.esm.js'
+      treeShake: false
     }
 
     // Specific component and/or directive plugins
