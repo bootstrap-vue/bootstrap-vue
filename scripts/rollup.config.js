@@ -60,7 +60,9 @@ export default [
       name: camelCase(name),
       file: path.resolve(dist, `${name}.common.js`),
       banner: bannerComment,
-      sourcemap: true
+      sourcemap: true,
+      // Disable warning arbout mixed named/default exports
+      exports: 'named'
     }
   },
 
