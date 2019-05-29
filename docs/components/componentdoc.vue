@@ -13,7 +13,7 @@
       </b-col>
     </b-row>
 
-    <article v-if="aliases && aliases.length > 0">
+    <article v-if="aliases && aliases.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
         Component aliases
       </anchored-heading>
@@ -27,7 +27,7 @@
       </p>
     </article>
 
-    <article v-if="propsItems && propsItems.length > 0">
+    <article v-if="propsItems && propsItems.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-props`" level="4">
         Properties
       </anchored-heading>
@@ -82,7 +82,7 @@
       </template>
     </article>
 
-    <article v-if="slots && slots.length > 0">
+    <article v-if="slots && slots.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-slots`" level="4">
         Slots
       </anchored-heading>
@@ -101,7 +101,7 @@
       </b-table>
     </article>
 
-    <article v-if="events && events.length > 0">
+    <article v-if="events && events.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-events`" level="4">
         Events
       </anchored-heading>
@@ -129,7 +129,7 @@
       </b-table>
     </article>
 
-    <article v-if="rootEventListeners && rootEventListeners.length > 0">
+    <article v-if="rootEventListeners && rootEventListeners.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4">
         $root Event Listeners
       </anchored-heading>
