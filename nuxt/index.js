@@ -13,7 +13,7 @@ const pickFirst = (...args) => {
 // --- Constants ---
 
 // Path to index file when using bootstrap-vue source code
-const srcIndex = 'bootstrap-vue/src/index.esm.js'
+const srcIndex = 'bootstrap-vue/src/index.js'
 
 // --- Main Nuxt module ---
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
