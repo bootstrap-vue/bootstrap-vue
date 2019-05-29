@@ -4,7 +4,7 @@
     class="bd-content"
   >
     <template v-if="components.length > 0">
-      <article>
+      <article class="bd-content">
         <anchored-heading id="importing-individual-components" level="3">
           Importing individual components
         </anchored-heading>
@@ -39,7 +39,7 @@
     </template>
 
     <template v-if="directives.length > 0">
-      <article>
+      <article class="bd-content">
         <anchored-heading id="importing-individual-directives" level="3">
           Importing individual directives
         </anchored-heading>
@@ -73,7 +73,7 @@
       </article>
     </template>
 
-    <article>
+    <article class="bd-content">
       <anchored-heading id="importing-as-a-plugin" level="3">
         Importing as a Vue.js plugin
       </anchored-heading>
@@ -124,13 +124,13 @@
       <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
     </article>
 
-    <div class="alert alert-warning my-3">
+    <div class="alert alert-warning my-4">
       <p class="mb-0">
         <strong>Deprecation Warning:</strong> importing components, directives and plugins
         from <code>bootstrap-vue/es/*</code> has been deprecated. All components, directives
         and plugins are now available as top-level named exports in the
         <code>dist/bootstrap-vue.esm.js</code> and <code>dist/bootstrap-vue.common.js</code>
-        builds. The <code>es/</code> build will be removed in a future release.
+        builds. The <code>es/</code> directory build will be removed in a future release.
       </p>
     </div>
   </section>
