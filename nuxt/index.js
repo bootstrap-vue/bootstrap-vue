@@ -52,21 +52,39 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       this.options.css.unshift('bootstrap/dist/css/bootstrap.css')
     }
 
-    // Transpile src/
+    // Component src prop resolving
+    this.options.build.loaders.vue.transformAssetUrls = {
+      // Ensure defaults are not lost
+      ...this.options.build.loaders.vue.transformAssetUrls,
+      // Nuxt default is missing `poster` for video
+      video: ['src', 'poster'],
+      // Nuxt default is missing image
+      image: 'xlink:href',
+      // Add BootstrapVue specific component asset items
+      'b-img': 'src',
+      'b-img-lazy': ['src', 'blank-src'],
+      'b-card': 'img-src',
+      'b-card-img': 'img-src',
+      'b-card-img-lazy': ['src', 'blank-src'],
+      'b-carousel-slide': 'img-src',
+      'b-embed': 'src'
+    }
+
+    // Transpile src/ directory
     this.options.build.transpile.push('bootstrap-vue/src')
 
     // Use pre-tranpiled or src/
     const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev, false)
     if (!usePretranspiled) {
       // Use bootstrap-vue source code for smaller prod builds
-      // by aliasing bootstrap-vue to the source files.
+      // by aliasing 'bootstrap-vue' to the source files.
       // We prepend a $ to ensure that it is only used for
       // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
       this.extendBuild((config, { isServer }) => {
-        if (!config.alias) {
-          config.alias = {}
+        if (!config.resolve.alias) {
+          config.resolve.alias = {}
         }
-        config.alias['bootstrap-vue$'] = require.resolve(srcIndex)
+        config.resolve.alias['bootstrap-vue$'] = require.resolve(srcIndex)
       })
     }
 
