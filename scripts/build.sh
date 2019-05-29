@@ -22,9 +22,8 @@ echo ''
 
 echo 'Build ESM modules...'
 NODE_ENV=esm babel src --out-dir esm --ignore 'src/**/*.spec.js'
-rm -f esm/index.js esm/browser.js
-echo "${BV_BANNER}" | cat - esm/index.esm.js > esm/index.js
-# echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
+rm -f esm/legacy-es.js esm/browser.js
+echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
 echo 'Done.'
 echo ''
 
