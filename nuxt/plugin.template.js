@@ -8,12 +8,16 @@ Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>)
 
 <% if (options.treeShake) { %>
 import {
-  <%= [].concat(options.componentPlugins, options.directivePlugins, options.components, options.directives).filter(Boolean).join(',\n  ') %>
+  <%= [].concat(
+    options.config ? 'BVConfigPlugin' : null,
+    options.componentPlugins,
+    options.directivePlugins,
+    options.components,
+    options.directives
+  ).filter(Boolean).join(',\n  ') %>
 } from 'bootstrap-vue';
 
 <%   if (options.config) { %>
-import BVConfigPlugin from 'bootstrap-vue';
-
 Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>);
 <%   } %>
 
