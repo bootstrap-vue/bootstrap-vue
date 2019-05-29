@@ -1,4 +1,5 @@
 // Index file used for the main builds, which does not include legacy plugin names
+// Once es/ buld is removed, then this file will be renamed to index.js
 import { installFactory } from '../utils/plugins'
 import * as directivePlugins from './plugins'
 
