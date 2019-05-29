@@ -11,9 +11,12 @@ export * from './components/index.esm'
 // Named exports of all directives and directive group plugins
 export * from './directives/index.esm'
 
+// BootstrapVue installer
+const install = installFactory({ plugins: { componentsPlugin, directivesPlugin } })
+
 // BootstrapVue plugin
 const BootstrapVue = {
-  install: installFactory({ plugins: { componentsPlugin, directivesPlugin } }),
+  install: install,
   setConfig: setConfig
 }
 
@@ -28,11 +31,11 @@ export {
   BootstrapVue,
   // Installer and setConfig exported in case the consumer does not
   // import `default` as the plugin in CommonJS build (or does not
-  // have interop enabled for CommonJS). Both the following should work:
+  // have interop enabled for CommonJS). Both the following will work:
   //   BootstrapVue = require('bootstrap-vue')
   //   BootstrapVue = require('bootstrap-vue').default
   //   Vue.use(BootstrapVue)
-  install: BootstrapVue.install,
+  install,
   setConfig
 }
 
