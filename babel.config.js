@@ -12,6 +12,9 @@ module.exports = api => {
       es: {
         plugins: [['@babel/plugin-transform-modules-commonjs', { loose: true }]]
       },
+      esm: {
+        presets: [['@babel/env', { modules: false }]]
+      },
       test: {
         presets: [['@babel/env', { targets: { node: 'current' } }]]
       }
