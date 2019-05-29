@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 <% if (!options.treeShake) { %>
 import BootstrapVue from 'bootstrap-vue';
+
 Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
 <% } %>
 
@@ -13,7 +14,7 @@ import {
 <%   if (options.config) { %>
 import BVConfigPlugin from 'bootstrap-vue';
 
-Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>)'
+Vue.use(BVConfigPlugin, <%= JSON.stringify(options.config, undefined, 2) %>);
 <%   } %>
 
 <%= options.componentPlugins.reduce((acc, plugin) => (acc += `Vue.use(${plugin});\n` ), '') %>
