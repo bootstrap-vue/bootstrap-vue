@@ -56,15 +56,9 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       // by aliasing bootstrap-vue to the source files.
       // We prepend a $ to ensure that it is only used for
       // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
-      const srcIndex = require.resolve('bootstrap-vue/src/index.esm.js')
-      if (this.options.alias) {
-        // Nuxt 2.6+
-        this.options.alias['bootstrap-vue$'] = srcIndex
-      } else {
-        // Nuxt < 2.6
-        this.externalBuild((config, { isServer }) => {
-          config.alias['bootstrap-vue$'] = srcIndex
-        })
+      const srcIndex = 'bootstrap-vue/src/index.esm.js'
+      this.externalBuild((config, { isServer }) => {
+        config.alias['bootstrap-vue$'] = require.resolve('srcIndex')
       }
     }
 
