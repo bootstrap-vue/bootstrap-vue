@@ -13,15 +13,23 @@ echo 'Done.'
 echo ''
 
 # Cleanup
-rm -rf dist es
+rm -rf dist es esm
 
 echo 'Compile JS...'
 rollup -c scripts/rollup.config.js
 echo 'Done.'
 echo ''
 
-echo 'Build ES modules...'
+echo 'Build ESM modules...'
+NODE_ENV=esm babel src --out-dir esm --ignore 'src/**/*.spec.js'
+rm -f esm/index.js esm/browser.js
+echo "${BV_BANNER}" | cat - esm/index.esm.js > esm/index.js
+echo 'Done.'
+echo ''
+
+echo 'Build ES modules (legacy)...'
 NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
+rm -f es/index.esm.js es/browser.js
 echo "${BV_BANNER}" | cat - es/index.js > es/tmp.js && mv es/tmp.js es/index.js
 echo 'Done.'
 echo ''
@@ -65,6 +73,20 @@ cleancss --level 1 \
          --source-map-inline-sources \
          --output dist/bootstrap-vue.min.css \
          dist/bootstrap-vue.css
+echo 'Done.'
+echo ''
+
+echo 'Copying types from src/ to esm/ ...'
+# There must be a better way to do this
+#
+# The following does not preserve the paths
+#   shopt -s globstar
+#   cp src/**/*.d.ts es
+#
+# So we resort to a find with exec
+cd src
+find . -type f -name '*.d.ts' -exec cp {} ../esm/{} ';'
+cd ..
 echo 'Done.'
 echo ''
 
