@@ -45,6 +45,7 @@
     "src",
     "dist",
     "nuxt",
+    "esm",
     "es",
     "types"
   ],
