@@ -10,6 +10,12 @@ const pickFirst = (...args) => {
   }
 }
 
+// --- Constants ---
+
+// Path to index file when using bootstrap-vue source code
+const srcIndex = 'bootstrap-vue/src/index.esm.js'
+
+// --- Main Nuxt module ---
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   this.nuxt.hook('build:before', () => {
     // Merge moduleOptions with default
@@ -56,10 +62,9 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       // by aliasing bootstrap-vue to the source files.
       // We prepend a $ to ensure that it is only used for
       // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
-      const srcIndex = 'bootstrap-vue/src/index.esm.js'
       this.externalBuild((config, { isServer }) => {
         config.alias['bootstrap-vue$'] = require.resolve('srcIndex')
-      }
+      })
     }
 
     // Base options available to template
