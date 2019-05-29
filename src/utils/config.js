@@ -1,3 +1,4 @@
+import Vue from './vue'
 import cloneDeep from './clone-deep'
 import get from './get'
 import memoize from './memoize'
@@ -154,7 +155,7 @@ const DEFAULTS = {
 }
 
 // This contains user defined configuration
-let CONFIG = {}
+Vue.prototype.$bvConfig = Vue.prototype.$bvConfig || {}
 
 // Method to get a deep clone (immutable) copy of the defaults
 const getDefaults = () => cloneDeep(DEFAULTS)
@@ -193,7 +194,7 @@ const setConfig = (config = {}) => {
           /* istanbul ignore next */
           warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
         } else {
-          CONFIG.breakpoints = cloneDeep(breakpoints)
+          Vue.prototype.$bvConfig.breakpoints = cloneDeep(breakpoints)
         }
       } else if (isObject(cmpConfig)) {
         keys(cmpConfig)
@@ -204,9 +205,9 @@ const setConfig = (config = {}) => {
               warn(`config: unknown config property "${cmpName}.{$key}"`)
             } else {
               // If we pre-populate the config with defaults, we can skip this line
-              CONFIG[cmpName] = CONFIG[cmpName] || {}
+              Vue.prototype.$bvConfig[cmpName] = Vue.prototype.$bvConfig[cmpName] || {}
               if (!isUndefined(cmpConfig[key])) {
-                CONFIG[cmpName][key] = cloneDeep(cmpConfig[key])
+                Vue.prototype.$bvConfig[cmpName][key] = cloneDeep(cmpConfig[key])
               }
             }
           })
@@ -217,19 +218,19 @@ const setConfig = (config = {}) => {
 // Reset the user config to default
 // For testing purposes only
 const resetConfig = () => {
-  CONFIG = {}
+  Vue.prototype.$bvConfig = {}
 }
 
 // Get the current user config
 // For testing purposes only
-const getConfig = () => cloneDeep(CONFIG)
+const getConfig = () => cloneDeep(Vue.prototype.$bvConfig)
 
 // Method to grab a config value based on a dotted/array notation key
 // Returns a deep clone (immutable) copy
 const getConfigValue = key => {
   // First we try the user config, and if key not found we fall back to default value
   // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
-  return cloneDeep(get(CONFIG, key, get(getDefaults(), key)))
+  return cloneDeep(get(Vue.prototype.$bvConfig, key, get(getDefaults(), key)))
 }
 
 // Method to grab a config value for a particular component.
