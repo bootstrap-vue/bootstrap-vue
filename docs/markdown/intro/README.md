@@ -490,24 +490,17 @@ JavaScript files.
 Choosing the best variant for your build environment / packager helps less bundle sizes. If your
 bundler supports es modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments           | Package path                                                           |
-| -------------- | ---------------------- | ---------------------------------------------------------------------- |
-| **ESM Module** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
-| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
-| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
+| Variant        | Environments           | Package path                                                                     |
+| -------------- | ---------------------- | -------------------------------------------------------------------------------- |
+| **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                                   |
+| **ESM bundle** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`                 |
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js`           |
+| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`                         |
+| ES module      | webpack 2+ / rollup.js | `es/index.js` <span class="badge badge-warning">Deprecated in 2.0.0-rc.22</span> |
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
-dependencies are included in the `commonjs2` and `UMD` bundles, but not the `ESM` build.
-
-<div class="alert alert-info">
-  <p class="mb-0">
-    <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing the default
-    export (the full <b>BootstrapVue</b> plugin), you may need to explicitly <code>require</code> the
-    <code>.default</code> export when not importing named exports. i.e.
-    <code class="text-nowrap">const BootstrapVue = require("bootstrap-vue").default;</code>
-  </p>
-</div>
+dependencies are included in the `commonjs2` and `UMD` bundles, but not the `ESM` builds.
 
 ## Migrating a project already using Bootstrap
 
