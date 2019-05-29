@@ -49,10 +49,14 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Transpile src/
     this.options.build.transpile.push('bootstrap-vue/src')
 
+    // Use pre-tranpiled or src/
+    const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev, false)
+
     // Base options/methods available to template
     const templateOptions = {
       // Flag for tree shaking
-      treeShake: false
+      treeShake: false,
+      dist: usePretranspiled ? 'bootstrap-vue' : 'bootstrap-vue/src/index.esm.js'
     }
 
     // Specific component and/or directive plugins
@@ -95,7 +99,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     // Register plugin, passing options to plugin template
     this.addPlugin({
-      src: resolve(__dirname, `plugin.${this.options.dev ? 'dev' : 'prod'}.js`),
+      src: resolve(__dirname, 'plugin.template.js'),
       fileName: 'bootstrap-vue.js',
       options: templateOptions
     })
