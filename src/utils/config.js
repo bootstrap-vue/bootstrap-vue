@@ -161,20 +161,21 @@ const BvConfig = Vue.extend({
   },
   methods: {
     getDefaults() {
-      // Returns the defaults
+      // Returns a copy of the defaults
       return cloneDeep(DEFAULTS)
     },
     getConfig() {
+      // Returns a copy of the user config
       return cloneDeep(this.$_config)
     },
     resetConfig() {
-      // Clear the config. for testing purposes only
+      // Clear the config. For testing purposes only
       this.$_config = {}
     },
     getConfigValue(key) {
       // First we try the user config, and if key not found we fall back to default value
       // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
-      return cloneDeep(get(this.getConfig(), key, get(this.getDefaults(), key)))
+      return cloneDeep(get(this.$_config, key, get(DEFAULTS, key)))
     },
     getComponentConfig(cmpName, key = null) {
       // Return the particular config value for key for if specified,
@@ -183,7 +184,7 @@ const BvConfig = Vue.extend({
     },
     getBreakpoints() {
       // Convenience method for getting all breakpoint names
-      this.getConfigValue('breakpoints')
+      return this.getConfigValue('breakpoints')
     },
     getBreakpointsCached() {
       // Convenience method for getting all breakpoint names
