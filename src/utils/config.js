@@ -1,7 +1,6 @@
 import Vue from './vue'
 import cloneDeep from './clone-deep'
 import get from './get'
-import memoize from './memoize'
 import warn from './warn'
 import { isArray, isObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
