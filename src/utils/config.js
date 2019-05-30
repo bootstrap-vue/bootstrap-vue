@@ -188,7 +188,7 @@ const BvConfig = Vue.extend({
     getBreakpointsCached() {
       // Convenience method for getting all breakpoint names
       // Caches the results after first access
-      if (!this.cachedBreakpoints) {
+      if (!this.$_cachedBreakpoints) {
         this.$_cachedBreakpoints = this.getBreakpoints()
       }
       return cloneDeep(this.$_cachedBreakpoints)
