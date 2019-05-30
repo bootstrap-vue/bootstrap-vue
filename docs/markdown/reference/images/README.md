@@ -117,6 +117,10 @@ module.exports = {
 }
 ```
 
+<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> If using the
+[BootstrapVue Nuxt](/docs#nuxtjs-module) module with Nuxt.js, the plugin module will automatically
+add in the BootstrapVue specific `transformAssetUrls` configuration for you. 
+
 ## Using `require` to resolve image paths
 
 If you cannot set the `transformAssetUrls` in your view-loader config, you can alternatively use the
