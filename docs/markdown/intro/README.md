@@ -74,7 +74,7 @@ section.
 
 BootstrapVue and PortalVue require access to the global `Vue` reference (via `import Vue from 'vue'`).
 
-<div class="alert alert-info mb-0">
+<div class="alert alert-info mb-3">
   <p class="mb-0">
     If you are using a specific build of Vue (i.e. runtime-only vs. compiler + runtime), you will
     need to set up an alias to <code>'vue'</code> in your bundler config to ensure that your
@@ -261,6 +261,15 @@ module.exports = {
 }
 ```
 
+### Using pretranspiled version of BootstrapVue for Nuxt.js
+
+Nuxt.js module uses the precompiled versions of BootstrapVue for faster development builds and the
+source (`src/`) of BootstrapVue for higher quality production builds.
+
+You can override this option using `usePretranspiled` option. Setting to `true` uses the
+pre-transpiled versions instead of `src/`. By default `usePretranspiled` is enabled in development
+mode only. You should not need to use this option as the default is most optimal.
+
 ## Vue CLI 2
 
 <span class="badge badge-warning small">DEPRECATED</span> Use [Vue CLI 3](#vue-cli-3) instead.
@@ -321,24 +330,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 ```
 
-Optionally, you can import components individually, as
-[below](#individual-components-and-directives). To shorten import paths, we can add a webpack alias
-via `vue.config.js`.
-
-```js
-const path = require('path')
-
-module.exports = {
-  configureWebpack: {
-    resolve: {
-      alias: {
-        'bootstrap-components': path.resolve(__dirname, 'node_modules/bootstrap-vue/es/components')
-      }
-    }
-  }
-}
-```
-
 For additional configuration for Vue CLI 3 for using project relative paths for image src props on
 various BootstrapVue components, refer to the Vue CLI 3 section of the
 [Image Src Resolving](/docs/reference/images#vue-cli-3-support) reference page.
@@ -376,6 +367,8 @@ components and/or directives.
 
 ### Component groups and directives as Vue plugins
 
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
+
 You can import component groups and directives as Vue plugins by importing from the `components`
 or `directives` directory:
 
@@ -383,19 +376,19 @@ or `directives` directory:
 
 ```js
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
-import { LayoutPlugin } from 'bootstrap-vue/es/components'
+import { LayoutPlugin } from 'bootstrap-vue'
 Vue.use(LayoutPlugin)
 
 // This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import { ModalPlugin } from 'bootstrap-vue/es/components'
+import { ModalPlugin } from 'bootstrap-vue'
 Vue.use(ModalPlugin)
 
 // This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import { CardPlugin } from 'bootstrap-vue/es/components'
+import { CardPlugin } from 'bootstrap-vue'
 Vue.use(CardPlugin)
 
 // This imports directive v-b-scrollspy as a plugin:
-import { VBScrollspyPlugin } from 'bootstrap-vue/es/directives'
+import { VBScrollspyPlugin } from 'bootstrap-vue'
 Vue.use(VBScrollspyPlugin)
 ```
 
@@ -406,7 +399,7 @@ component and directive documentation for details.
 
 There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
 you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are available for import from
-`'bootstrap-vue/es/components'` and `'bootstrap-vue/src/components'`:
+`'bootstrap-vue'`:
 
 - `BVModalPlugin` - provides the injection `$bvModal` for generating
   [message boxes](/docs/components/modal#modal-message-boxes).
@@ -414,6 +407,8 @@ you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are availabl
   [on demand toasts](/docs/components/toast#toasts-on-demand).
 
 ### Individual components and directives
+
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
 
 If you would like to only pull in a specific component or set of components, you can do this by
 directly importing those components.
@@ -423,8 +418,9 @@ To cherry pick a component/directive, start by importing it in the file where it
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-import { BModal } from 'bootstrap-vue/es/components'
-import { VBModal } from 'bootstrap-vue/es/directives'
+// Place all imports from 'bootstrap-vue' in a single import
+// statement for optimal bundle sizes
+import { BModal, VBModal } from 'bootstrap-vue'
 ```
 
 Then add it to your component definition:
@@ -458,37 +454,6 @@ Vue allows for various component and directive name syntaxes here, so feel free 
 <samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or object
 property shorthand (components only).
 
-### webpack + Babel
-
-When importing components/directives individually, you must configure your app to properly build the
-BootstrapVue library source code. This commonly involves white-listing the node module for your
-babel loader rule in webpack.
-
-```js
-// webpack.config.js
-const path = require('path')
-
-module.exports = {
-  entry: './app.js',
-  output: {
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include: [
-          // Use `include` vs `exclude` to whitelist vs blacklist
-          path.resolve(__dirname, 'src'), // Whitelist your app source files
-          require.resolve('bootstrap-vue') // Whitelist `bootstrap-vue`
-        ],
-        loader: 'babel-loader'
-      }
-    ]
-  }
-}
-```
-
 ## Browser
 
 Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the required
@@ -518,25 +483,22 @@ JavaScript files.
 Choosing the best variant for your build environment / packager helps less bundle sizes. If your
 bundler supports es modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments           | Package path                                                           |
-| -------------- | ---------------------- | ---------------------------------------------------------------------- |
-| **ES Modules** | webpack 2+ / rollup.js | `es/index.js`                                                          |
-| **ESM Module** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
-| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
-| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
+| Variant        | Environments           | Package path                                                                     |
+| -------------- | ---------------------- | -------------------------------------------------------------------------------- |
+| **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                                   |
+| **ESM bundle** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`                 |
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js`           |
+| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`                         |
+| ES module      | webpack 2+ / rollup.js | `es/index.js` <span class="badge badge-warning">Deprecated in 2.0.0-rc.22</span> |
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
-dependencies are included in the `commonjs2` and `UMD` bundles.
+dependencies are included in the `commonjs2` and `UMD` bundles, but not the `ESM` builds.
 
-<div class="alert alert-info">
-  <p class="mb-0">
-    <strong>Note:</strong> When using the <code>commonjs2</code> build, and importing indvidual
-    plugins or components, you may need to explicitly <code>require</code> the
-    <code>.default</code> export when not importing named exports. i.e.
-    <code class="text-nowrap">const foo = require("some/module").default;</code>
-  </p>
-</div>
+All of the build variants listed above have been pre-transpiled targeting the browsers supported by
+BootstrapVue. However, if you are targeting only modern browsers, you may want to import `BootstrapVue`
+from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your own project.
+This can potentially reduce bundle sizes.
 
 ## Migrating a project already using Bootstrap
 

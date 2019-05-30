@@ -33,9 +33,11 @@ if (!fs.existsSync(dist)) {
 }
 
 export default [
-  // UMD
+  // UMD Browser Build
   {
     ...baseConfig,
+    // We use a specific input entrypoint for the browser build
+    input: path.resolve(src, 'browser.js'),
     external: externals.filter(dep => !externalExcludes.includes(dep)),
     output: {
       format: 'umd',
@@ -49,7 +51,7 @@ export default [
     }
   },
 
-  // COMMON
+  // COMMONJS Module Build
   {
     ...baseConfig,
     external: externals.filter(dep => !externalExcludes.includes(dep)),
@@ -58,11 +60,14 @@ export default [
       name: camelCase(name),
       file: path.resolve(dist, `${name}.common.js`),
       banner: bannerComment,
-      sourcemap: true
+      sourcemap: true,
+      // Disable warning arbout mixed named/default exports
+      // We we have handled this in the index file
+      exports: 'named'
     }
   },
 
-  // ESM
+  // ESM Module Build
   {
     ...baseConfig,
     output: {
