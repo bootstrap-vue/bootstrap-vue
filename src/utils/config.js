@@ -310,7 +310,7 @@ const getConfig = () => {
 
 // Method to grab a config value based on a dotted/array notation key
 // Returns a deep clone (immutable) copy
-const getConfigValue = (key) => {
+const getConfigValue = key => {
   return Vue.prototype.$bvConfig.getConfigValue(key)
 }
 
@@ -345,7 +345,7 @@ const getBreakpointsUp = () => {
 // Useful for components that create breakpoint specific props
 // Caches the results after first access
 const getBreakpointsUpCached = () => {
-  return Vue.prototype.$bvConfig.getBreakpointsCached()
+  return Vue.prototype.$bvConfig.getBreakpointsUpCached()
 }
 
 // Convenience method for getting breakpoints with
