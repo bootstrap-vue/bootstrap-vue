@@ -154,11 +154,10 @@ const DEFAULTS = {
 }
 
 const BvConfig = Vue.extend({
-  data() {
-    return {
-      config: {},
-      cachedBreakpoints: null
-    }
+  created() {
+    // Non reactive private properties
+    this.$_config = {}
+    this.$_cachedBreakpoints = null
   },
   methods: {
     getDefaults() {
@@ -166,16 +165,16 @@ const BvConfig = Vue.extend({
       return cloneDeep(DEFAULTS)
     },
     getConfig() {
-      return cloneDeep(this.config)
+      return cloneDeep(this.$_config)
     },
     resetConfig() {
       // Clear the config. for testing purposes only
-      this.config = {}
+      this.$_config = {}
     },
     getConfigValue(key) {
       // First we try the user config, and if key not found we fall back to default value
       // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
-      return cloneDeep(get(this.getConfig(), key, get(DEFAULTS, key)))
+      return cloneDeep(get(this.$_config, key, get(DEFAULTS, key)))
     },
     getComponentConfig(cmpName, key = null) {
       // Return the particular config value for key for if specified,
@@ -190,9 +189,9 @@ const BvConfig = Vue.extend({
       // Convenience method for getting all breakpoint names
       // Caches the results after first access
       if (!this.cachedBreakpoints) {
-        this.cachedBreakpoints = this.getBreakpoints()
+        this.$_cachedBreakpoints = this.getBreakpoints()
       }
-      return cloneDeep(this.cachedBreakpoints)
+      return cloneDeep(this.$_cachedBreakpoints)
     },
     getBreakpointsUp() {
       // Convenience method for getting breakpoints with
@@ -254,7 +253,7 @@ const BvConfig = Vue.extend({
               /* istanbul ignore next */
               warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
             } else {
-              this.$set(config, 'breakpoints', cloneDeep(breakpoints))
+              this.$_config.breakpoints = cloneDeep(breakpoints)
             }
           } else if (isObject(cmpConfig)) {
             keys(cmpConfig)
@@ -265,9 +264,9 @@ const BvConfig = Vue.extend({
                   warn(`config: unknown config property "${cmpName}.{$key}"`)
                 } else {
                   // If we pre-populate the config with defaults, we can skip this line
-                  this.$set(config, cmpName, this.config[cmpName] || {})
+                  this.$_config[cmpName] = this.$_config[cmpName] || {}
                   if (!isUndefined(cmpConfig[key])) {
-                    this.$set(config[cmpName], key, cloneDeep(cmpConfig[key]))
+                    this.$_config[cmpName][key] = cloneDeep(cmpConfig[key])
                   }
                 }
               })
