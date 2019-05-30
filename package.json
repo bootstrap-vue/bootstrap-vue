@@ -6,6 +6,7 @@
   "web": "dist/bootstrap-vue.js",
   "module": "esm/index.js",
   "jsnext:main": "esm/index.js",
+  "source": "src/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
   "types": "src/index.d.ts",
