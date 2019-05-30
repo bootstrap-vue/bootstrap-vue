@@ -268,7 +268,7 @@ source (`src/`) of BootstrapVue for higher quality production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` uses the
 pre-transpiled versions instead of `src/`. By default `usePretranspiled` is enabled in development
-mode only.
+mode only. You should not need to use this option as the default is most optimal.
 
 ## Vue CLI 2
 
@@ -328,24 +328,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
-```
-
-Optionally, you can import components individually, as
-[below](#individual-components-and-directives). To shorten import paths, we can add a webpack alias
-via `vue.config.js`.
-
-```js
-const path = require('path')
-
-module.exports = {
-  configureWebpack: {
-    resolve: {
-      alias: {
-        'bootstrap-components': path.resolve(__dirname, 'node_modules/bootstrap-vue/es/components')
-      }
-    }
-  }
-}
 ```
 
 For additional configuration for Vue CLI 3 for using project relative paths for image src props on
@@ -436,6 +418,8 @@ To cherry pick a component/directive, start by importing it in the file where it
 <!-- eslint-disable no-unused-vars -->
 
 ```js
+// Place all imports from 'bootstrap-vue' in a single import
+// statement for optimal bundle sizes
 import { BModal, VBModal } from 'bootstrap-vue'
 ```
 
@@ -510,6 +494,11 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
 dependencies are included in the `commonjs2` and `UMD` bundles, but not the `ESM` builds.
+
+All of the build variants listed above have been pre-transpiled targeting the browsers supported by
+BootstrapVue. However, if you are targeting only modern browsers, you may want to import `BootstrapVue`
+from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your own project.
+This can potentially reduce bundle sizes.
 
 ## Migrating a project already using Bootstrap
 
