@@ -10,6 +10,13 @@ const pickFirst = (...args) => {
   }
 }
 
+// Converts a kebab-case or camelCase string to PascaleCase
+const unKebabRE = /-(\w)/g
+const pascalCase = str => {
+  str = str.replace(unKebabRE, (_, c) => c ? c.toUpperCase() : '')
+  return str.charAt(0).toUpperCase() + str.slice(1)
+})
+
 // --- Constants ---
 
 // Path to index file when using bootstrap-vue source code
@@ -70,7 +77,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       ...this.options.build.loaders.vue.transformAssetUrls
     }
 
-    // Transpile src/ directory
+    // Enable transpilation of src/ directory
     this.options.build.transpile.push('bootstrap-vue/src')
 
     // Use pre-tranpiled or src/
@@ -90,7 +97,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     // Base options available to template
     const templateOptions = {
-      // Flag for tree shaking
+      // Flag if we are tree shaking
       treeShake: false
     }
 
@@ -102,7 +109,11 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         // Normalize plugin name to `${Name}Plugin` (component) or `VB${Name}Plugin` (directive)
         // Required for backwards compatability with old plugin import names
         .map(plugin => {
+          // Ensure PascalCase name
+          plugin = pascalCase(plugin)
+          // Ensure new naming convention for directive plugins prefixed with `VB`
           plugin = type === 'directivePlugins' && !/^VB/.test(plugin) ? `VB${plugin}` : plugin
+          // Ensure prefixed with `Plugin`
           plugin = /Plugin$/.test(plugin) ? plugin : `${plugin}Plugin`
           return plugin
         })
@@ -119,6 +130,10 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       const ComponentsOrDirectives = Array.isArray(options[type]) ? options[type] : []
 
       templateOptions[type] = ComponentsOrDirectives
+        // Ensure PascalCase name
+        .map(item => pascalCase(item))
+        // Ensure prefixed with `V`
+        .map(item => (type === 'directives' && !/^V/.test(item) ? `V${item}` : item))
         // Remove duplicate items
         .filter((item, i, arr) => arr.indexOf(item) === i)
 
