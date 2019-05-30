@@ -15,9 +15,9 @@ const dist = path.resolve(base, 'dist')
 const externals = ['vue', ...Object.keys(dependencies)]
 
 // Libs in `external` will not be bundled to dist, since they
-// are expected to be provided later
-// In some cases, wee want to include some of them in the build,
-// so we exclude the external here
+// are expected to be provided later.
+// In some cases (i.e. browser UMD build), we want to include some of
+// them in the build, so we exclude the external here.
 const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-data-merge']
 
 // The base rollup configuration
@@ -54,14 +54,13 @@ export default [
   // COMMONJS Module Build
   {
     ...baseConfig,
-    external: externals.filter(dep => !externalExcludes.includes(dep)),
     output: {
       format: 'cjs',
       name: camelCase(name),
       file: path.resolve(dist, `${name}.common.js`),
       banner: bannerComment,
       sourcemap: true,
-      // Disable warning arbout mixed named/default exports
+      // Disable warning about mixed named/default exports
       // We we have handled this in the index file
       exports: 'named'
     }
