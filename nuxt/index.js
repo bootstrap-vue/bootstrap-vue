@@ -13,7 +13,7 @@ const pickFirst = (...args) => {
 // Converts a kebab-case or camelCase string to PascaleCase
 const unKebabRE = /-(\w)/g
 const pascalCase = str => {
-  str = str.replace(unKebabRE, (_, c) => c ? c.toUpperCase() : '')
+  str = str.replace(unKebabRE, (_, c) => (c ? c.toUpperCase() : ''))
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
