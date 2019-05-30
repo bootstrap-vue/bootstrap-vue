@@ -56,6 +56,13 @@ This will allow you to use the following format in your `.vue` files:
 <b-card-img img-src="~/static/picture.jpg"></b-card-img>
 ```
 
+## Nuxt
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.22</span>
+
+If using the BootstrapVue Nuxt module with Nuxt.js, the plugin module will automatically add in the
+BootstrapVue specific `transformAssetUrls` configuration for you. 
+
 ### Vue CLI 3 Support
 
 Vue CLI 3 changed the way that webpack compiles a Vue app, in order to make BootstrapVue work again,
