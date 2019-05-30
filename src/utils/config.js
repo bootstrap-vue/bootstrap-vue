@@ -154,11 +154,138 @@ const DEFAULTS = {
   }
 }
 
-// This contains user defined configuration
-Vue.prototype.$bvConfig = Vue.prototype.$bvConfig || {}
+const BvConfig = Vue.extend({
+  data() {
+    return {
+      config: {},
+      cachedBreakpoints: null
+    }
+  },
+  methods: {
+    getDefaults() {
+      // Returns the defaults
+      return cloneDeep(DEFAULTS)
+    },
+    getConfig() {
+      return cloneDeep(this.config)
+    },
+    resetConfig() {
+      // Clear the config. for testing purposes only
+      this.config = {}
+    },
+    getConfigValue(key) {
+      // First we try the user config, and if key not found we fall back to default value
+      // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
+      return cloneDeep(get(this.getConfig(), key, get(DEFAULTS, key)))
+    },
+    getComponentConfig(cmpName, key = null) {
+      // Return the particular config value for key for if specified,
+      // otherwise we return the full config
+      return key ? this.getConfigValue(`${cmpName}.${key}`) : this.getConfigValue(cmpName) || {}
+    },
+    getBreakpoints() {
+      // Convenience method for getting all breakpoint names
+      this.getConfigValue('breakpoints')
+    },
+    getBreakpointsCached() {
+      // Convenience method for getting all breakpoint names
+      // Caches the results after first access
+      if (!this.cachedBreakpoints) {
+        this.cachedBreakpoints = this.getBreakpoints()
+      }
+      return cloneDeep(this.cachedBreakpoints)
+    },
+    getBreakpointsUp() {
+      // Convenience method for getting breakpoints with
+      // the smallest breakpoint set as ''
+      // Useful for components that create breakpoint specific props
+      const breakpoints = this.getBreakpoints()
+      breakpoints[0] = ''
+      return breakpoints
+    },
+    getBreakpointsUpCached() {
+      // Convenience method for getting breakpoints with
+      // the smallest breakpoint set as ''
+      // Useful for components that create breakpoint specific props
+      // Caches the results after first access
+      const breakpoints = this.getBreakpointsCached()
+      breakpoints[0] = ''
+      return breakpoints
+    },
+    getBreakpointsDown() {
+      // Convenience method for getting breakpoints with
+      // the largest breakpoint set as ''
+      // Useful for components that create breakpoint specific props
+      const breakpoints = this.getBreakpoints()
+      breakpoints[breakpoints.length - 1] = ''
+      return breakpoints
+    },
+    getBreakpointsDownCached() /* istanbul ignore next: we don't use this method anywhere, yet */ {
+      // Convenience method for getting breakpoints with
+      // the largest breakpoint set as ''
+      // Useful for components that create breakpoint specific props
+      // Caches the results after first access
+      const breakpoints = this.getBreakpointsCached()
+      breakpoints[breakpoints.length - 1] = ''
+      return breakpoints
+    },
+    setConfig(config = {}) {
+      if (!isObject(config)) {
+        /* istanbul ignore next */
+        return
+      }
+      keys(config)
+        .filter(cmpName => config.hasOwnProperty(cmpName))
+        .forEach(cmpName => {
+          if (!DEFAULTS.hasOwnProperty(cmpName)) {
+            /* istanbul ignore next */
+            warn(`config: unknown config property "${cmpName}"`)
+            /* istanbul ignore next */
+            return
+          }
+          const cmpConfig = config[cmpName]
+          if (cmpName === 'breakpoints') {
+            // Special case for breakpoints
+            const breakpoints = config.breakpoints
+            if (
+              !isArray(breakpoints) ||
+              breakpoints.length < 2 ||
+              breakpoints.some(b => !isString(b) || b.length === 0)
+            ) {
+              /* istanbul ignore next */
+              warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
+            } else {
+              this.$set(config, 'breakpoints', cloneDeep(breakpoints))
+            }
+          } else if (isObject(cmpConfig)) {
+            keys(cmpConfig)
+              .filter(key => cmpConfig.hasOwnProperty(key))
+              .forEach(key => {
+                if (!DEFAULTS[cmpName].hasOwnProperty(key)) {
+                  /* istanbul ignore next */
+                  warn(`config: unknown config property "${cmpName}.{$key}"`)
+                } else {
+                  // If we pre-populate the config with defaults, we can skip this line
+                  this.$set(config, cmpName, this.config[cmpName] || {})
+                  if (!isUndefined(cmpConfig[key])) {
+                    this.$set(config[cmpName], key, cloneDeep(cmpConfig[key]))
+                  }
+                }
+              })
+          }
+        })
+    }
+  }
+})
+
+// This contains user defined configuration manager object.
+// This object should be treated as private!
+Vue.prototype.$bvConfig = Vue.prototype.$bvConfig || new BvConfig()
 
 // Method to get a deep clone (immutable) copy of the defaults
-const getDefaults = () => cloneDeep(DEFAULTS)
+const getDefaults = () => {
+  return Vue.prototype.$bvConfig.getDefaults()
+}
 
 // Method to set the config
 // Merges in only known top-level and sub-level keys
@@ -166,71 +293,26 @@ const getDefaults = () => cloneDeep(DEFAULTS)
 // or
 //   BootstrapVue.setConfig(config)
 //   Vue.use(BootstrapVue)
-
 const setConfig = (config = {}) => {
-  if (!isObject(config)) {
-    /* istanbul ignore next */
-    return
-  }
-
-  keys(config)
-    .filter(cmpName => config.hasOwnProperty(cmpName))
-    .forEach(cmpName => {
-      if (!DEFAULTS.hasOwnProperty(cmpName)) {
-        /* istanbul ignore next */
-        warn(`config: unknown config property "${cmpName}"`)
-        /* istanbul ignore next */
-        return
-      }
-      const cmpConfig = config[cmpName]
-      if (cmpName === 'breakpoints') {
-        // Special case for breakpoints
-        const breakpoints = config.breakpoints
-        if (
-          !isArray(breakpoints) ||
-          breakpoints.length < 2 ||
-          breakpoints.some(b => !isString(b) || b.length === 0)
-        ) {
-          /* istanbul ignore next */
-          warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
-        } else {
-          Vue.prototype.$bvConfig.breakpoints = cloneDeep(breakpoints)
-        }
-      } else if (isObject(cmpConfig)) {
-        keys(cmpConfig)
-          .filter(key => cmpConfig.hasOwnProperty(key))
-          .forEach(key => {
-            if (!DEFAULTS[cmpName].hasOwnProperty(key)) {
-              /* istanbul ignore next */
-              warn(`config: unknown config property "${cmpName}.{$key}"`)
-            } else {
-              // If we pre-populate the config with defaults, we can skip this line
-              Vue.prototype.$bvConfig[cmpName] = Vue.prototype.$bvConfig[cmpName] || {}
-              if (!isUndefined(cmpConfig[key])) {
-                Vue.prototype.$bvConfig[cmpName][key] = cloneDeep(cmpConfig[key])
-              }
-            }
-          })
-      }
-    })
+  Vue.prototype.$bvConfig.setConfig(config)
 }
 
 // Reset the user config to default
 // For testing purposes only
 const resetConfig = () => {
-  Vue.prototype.$bvConfig = {}
+  Vue.prototype.$bvConfig.resetConfig()
 }
 
 // Get the current user config
 // For testing purposes only
-const getConfig = () => cloneDeep(Vue.prototype.$bvConfig)
+const getConfig = () => {
+  return Vue.prototype.$bvConfig.getConfig()
+}
 
 // Method to grab a config value based on a dotted/array notation key
 // Returns a deep clone (immutable) copy
-const getConfigValue = key => {
-  // First we try the user config, and if key not found we fall back to default value
-  // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
-  return cloneDeep(get(Vue.prototype.$bvConfig, key, get(getDefaults(), key)))
+const getConfigValue = (key) => {
+  return Vue.prototype.$bvConfig.getConfigValue(key)
 }
 
 // Method to grab a config value for a particular component.
@@ -238,42 +320,40 @@ const getConfigValue = key => {
 const getComponentConfig = (cmpName, key = null) => {
   // Return the particular config value for key for if specified,
   // otherwise we return the full config
-  return key ? getConfigValue(`${cmpName}.${key}`) : getConfigValue(cmpName) || {}
+  return Vue.prototype.$bvConfig.getComponentConfig(cmpName, key)
 }
 
 // Convenience method for getting all breakpoint names
-const getBreakpoints = () => getConfigValue('breakpoints')
+const getBreakpoints = () => {
+  return Vue.prototype.$bvConfig.getBreakpoints()
+}
 
 // Convenience method for getting all breakpoint names
 // Caches the results after first access
-const getBreakpointsCached = memoize(() => getConfigValue('breakpoints'))
+const getBreakpointsCached = () => {
+  return Vue.prototype.$bvConfig.getBreakpointsCached()
+}
 
 // Convenience method for getting breakpoints with
 // the smallest breakpoint set as ''
 // Useful for components that create breakpoint specific props
 const getBreakpointsUp = () => {
-  const breakpoints = getBreakpoints()
-  breakpoints[0] = ''
-  return breakpoints
+  return Vue.prototype.$bvConfig.getBreakpointsUp()
 }
 
 // Convenience method for getting breakpoints with
 // the smallest breakpoint set as ''
 // Useful for components that create breakpoint specific props
 // Caches the results after first access
-const getBreakpointsUpCached = memoize(() => {
-  const breakpoints = getBreakpointsCached().slice()
-  breakpoints[0] = ''
-  return breakpoints
-})
+const getBreakpointsUpCached = () => {
+  return Vue.prototype.$bvConfig.getBreakpointsCached()
+}
 
 // Convenience method for getting breakpoints with
 // the largest breakpoint set as ''
 // Useful for components that create breakpoint specific props
 const getBreakpointsDown = () => {
-  const breakpoints = getBreakpoints()
-  breakpoints[breakpoints.length - 1] = ''
-  return breakpoints
+  return Vue.prototype.$bvConfig.getBreakpointsDown()
 }
 
 // Convenience method for getting breakpoints with
@@ -281,11 +361,9 @@ const getBreakpointsDown = () => {
 // Useful for components that create breakpoint specific props
 // Caches the results after first access
 /* istanbul ignore next: we don't use this method anywhere, yet */
-const getBreakpointsDownCached = memoize(() => {
-  const breakpoints = getBreakpointsCached().slice()
-  breakpoints[breakpoints.length - 1] = ''
-  return breakpoints
-})
+const getBreakpointsDownCached = () => {
+  return Vue.prototype.$bvConfig.getBreakpointsDownCached()
+}
 
 // Named Exports
 export {
