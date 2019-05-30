@@ -129,9 +129,8 @@
         <b-badge variant="warning" tag="strong">Deprecation Warning as of v2.0.0-rc.22:</b-badge>
         Importing components, directives and plugins from <code>bootstrap-vue/es/*</code> has been
         deprecated. All components, directives and plugins are now available as top-level named
-        exports in the <code>dist/bootstrap-vue.esm.js</code> and
-        <code>dist/bootstrap-vue.common.js</code> builds. The <code>es/</code> directory build
-        will be removed in a future release.
+        exports in the <code>ESM</code> and <code>CommonJS</code> builds. The <code>es/</code>
+        directory build will be removed in a future release.
       </p>
     </aside>
   </section>
