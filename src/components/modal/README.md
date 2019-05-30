@@ -150,7 +150,7 @@ methods.
 The `hide()` method accepts an optional string `trigger` argument for defining what triggered the
 modal to close. See section [Prevent Closing](#prevent-closing) below for details.
 
-**Note:** It is reccomended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
+**Note:** It is recommended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
 (mentioned in the previous section) instead of using `$ref` methods.
 
 ### Using `v-model` property
@@ -223,7 +223,7 @@ export default {
 }
 ```
 
-**Note:** It is reccomended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
+**Note:** It is recommended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
 (mentioned in a previous section) instead of emitting `$root` events.
 
 ### Prevent closing
