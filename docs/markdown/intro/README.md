@@ -271,9 +271,10 @@ module.exports = {
 Nuxt.js module uses the precompiled versions of BootstrapVue for faster development builds and the
 source (`src/`) of BootstrapVue for higher quality production builds.
 
-You can override this option using `usePretranspiled` option. Setting to `true` uses the
-pre-transpiled versions instead of `src/`. By default `usePretranspiled` is enabled in development
-mode only. You should not need to use this option as the default is most optimal.
+You can override this option using `usePretranspiled` option. Setting to `true` always uses the
+pre-transpiled versions, while setting it to `false` will always use `src/`. By default
+`usePretranspiled` is enabled in development mode only. You should not need to use this option as
+the default is most optimal for performance.
 
 ## Vue CLI 2
 
