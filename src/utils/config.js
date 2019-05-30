@@ -329,6 +329,7 @@ const getBreakpoints = () => {
 
 // Convenience method for getting all breakpoint names
 // Caches the results after first access
+/* istanbul ignore next: we don't use this method directly in any components, yet */
 const getBreakpointsCached = () => {
   return Vue.prototype.$bvConfig.getBreakpointsCached()
 }
