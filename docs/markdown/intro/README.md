@@ -174,6 +174,11 @@ In your app main entry point include the single custom SCSS file (when using `sa
 // app.js
 import 'custom.scss'
 ```
+### transformAssetUrls with Nuxt.js
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin
+module will automatically add in the BootstrapVue specific
+[`transformAssetUrls`](/docs/reference/images) image `src` prop configuration for you.
 
 ### Tree shaking with Nuxt.js
 
@@ -491,14 +496,14 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`                         |
 | ES module      | webpack 2+ / rollup.js | `es/index.js` <span class="badge badge-warning">Deprecated in 2.0.0-rc.22</span> |
 
-BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts, etc), and `vue-functional-data-merge` (for functional components). These three
-dependencies are included in the `commonjs2` and `UMD` bundles, but not the `ESM` builds.
-
 All of the build variants listed above have been pre-transpiled targeting the browsers supported by
 BootstrapVue. However, if you are targeting only modern browsers, you may want to import `BootstrapVue`
 from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your own project.
 This can potentially reduce bundle sizes.
+
+BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
+(for toasts, etc), and `vue-functional-data-merge` (for functional components) and parts of `core-ui`.
+These four dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 
