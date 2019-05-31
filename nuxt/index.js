@@ -10,7 +10,7 @@ const pickFirst = (...args) => {
   }
 }
 
-// Converts a kebab-case or camelCase string to PascaleCase
+// Converts a kebab-case or camelCase string to PascalCase
 const unKebabRE = /-(\w)/g
 const pascalCase = str => {
   str = str.replace(unKebabRE, (_, c) => (c ? c.toUpperCase() : ''))
@@ -85,17 +85,17 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     if (!usePretranspiled) {
       // Use bootstrap-vue source code for smaller prod builds
       // by aliasing 'bootstrap-vue' to the source files.
-      // We prepend a $ to ensure that it is only used for
-      // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
       this.extendBuild((config, { isServer }) => {
         if (!config.resolve.alias) {
           config.resolve.alias = {}
         }
         const index = require.resolve(srcIndex)
         const srcDir = index.replace(/index\.js$/, '')
+        // We prepend a $ to ensure that it is only used for
+        // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
         config.resolve.alias['bootstrap-vue$'] = index
-        // If users are cherry-picking modules from esm/ or es/ (legacy),
-        // alias to src/ to prevent duplicate code imports
+        // If users are still cherry-picking modules from esm/ or es/ (legacy),
+        // alias them to src/ to prevent duplicate code imports
         config.resolve.alias['bootstrap-vue/esm/'] = srcDir
         config.resolve.alias['bootstrap-vue/es/'] = srcDir
       })
