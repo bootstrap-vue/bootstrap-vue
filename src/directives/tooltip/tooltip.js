@@ -22,9 +22,11 @@ const validTriggers = {
 /* istanbul ignore next: not easy to test */
 const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
+  const NAME = 'BTooltip'
   let config = {
-    boundary: String(getComponentConfig('BTooltip', 'boundary')),
-    boundaryPadding: parseInt(getComponentConfig('BTooltip', 'boundaryPadding'), 10) || 0
+    delay: getComponentConfig(NAME, 'delay'),
+    boundary: String(getComponentConfig(NAME, 'boundary')),
+    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0
   }
 
   // Process bindings.value

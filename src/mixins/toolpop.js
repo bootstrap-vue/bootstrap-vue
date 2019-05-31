@@ -42,10 +42,6 @@ export default {
       type: [String, Object, HTMLElement, Function]
       // default: undefined
     },
-    delay: {
-      type: [Number, Object, String],
-      default: 0
-    },
     offset: {
       type: [Number, String],
       default: 0
