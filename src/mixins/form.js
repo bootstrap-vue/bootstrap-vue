@@ -1,4 +1,4 @@
-import { matches, select, isVisible } from '../utils/dom'
+import { matches, select, isVisible, requestAF } from '../utils/dom'
 
 const SELECTOR = 'input, textarea, select'
 
@@ -38,13 +38,15 @@ export default {
   methods: {
     handleAutofocus() {
       this.$nextTick(() => {
-        let el = this.$el
-        if (this.autofocus && isVisible(el)) {
-          if (!matches(el, SELECTOR)) {
-            el = select(SELECTOR, el)
+        requestAF(() => {
+          let el = this.$el
+          if (this.autofocus && isVisible(el)) {
+            if (!matches(el, SELECTOR)) {
+              el = select(SELECTOR, el)
+            }
+            el && el.focus && el.focus()
           }
-          el && el.focus && el.focus()
-        }
+        })
       })
     }
   }

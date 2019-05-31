@@ -44,7 +44,7 @@ For pagination that changes to a new URL, use the
           { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
           { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
           { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 8, first_name: 'Mr', last_name: 'Slate' },
+          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
           { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
         ]
       }

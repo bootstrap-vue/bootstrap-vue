@@ -1,20 +1,17 @@
-import { installFactory } from '../utils/plugins'
-import * as directivePlugins from './plugins'
+// Legacy index file supporting legacy plugin names.
+// This file is only here from transpilation purposes for `es/` build.
+// src/index imports /src/directives/index.esm so that we don't
+// have top-level duplicate plugin names.
 
-// Export all directive group plugins as named exports
-export * from './plugins'
+// Import the main directives plugin
+import { directivesPlugin } from './index.esm'
+
+// Export all directive group plugins and directives as named exports
+export * from './index.esm'
 
 // Export all legacy named directive group plugins as named exports
+// To be removed in stable release
 export * from './plugins-legacy'
 
-// Named exports of all directives
-export * from './toggle'
-export * from './modal'
-export * from './scrollspy'
-export * from './tooltip'
-export * from './popover'
-
 // Default export is a plugin that installs all plugins
-export default {
-  install: installFactory({ plugins: directivePlugins })
-}
+export default directivesPlugin

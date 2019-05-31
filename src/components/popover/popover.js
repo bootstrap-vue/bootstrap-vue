@@ -33,6 +33,10 @@ export const props = {
       return isArray(value) || arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
     }
   },
+  delay: {
+    type: [Number, Object, String],
+    default: () => getComponentConfig(NAME, 'delay')
+  },
   boundary: {
     // String: scrollParent, window, or viewport
     // Element: element reference

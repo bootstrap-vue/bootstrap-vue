@@ -4,11 +4,92 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.22"></a>
+
+## [v2.0.0-rc.22](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.21...v2.0.0-rc.22)
+
+Released 2019-05-31
+
+### Notable Changes v2.0.0-rc.22
+
+- Improved/shortened method for importing of plugins, components, and directives, as top-level
+  named exports. The ESM and CJS builds now both include these top level named exports:
+  - Default export is still the BootstrapVue plugin
+  - Simplified import format for importing components, directives, plugins:<br>
+   `import { ModalPlugin, CardPlugin, BAlert, BRow, BCol, VBScollspyPlugin } from 'bootstrap-vue'`
+  - New `esm/` modular build with top-level named exports (tree shakeable)
+  - New `dist/bootstrap-vue.esm.js` esm bundle with top-level named exports
+  - New `dist/bootstrap-vue.common.js` cjs bundle with top-level named exports
+  - No need to cherry-pick from sub directories for plugins/components/directives
+  - Most package bundlers will pick the appropriate build automatically
+- Nuxt module:
+  - Improved tree shaking using the new import syntax
+  - Automatically adds `transformAssetUrls` settings for BootstrapVue component props.
+- Reverted the `es/` build directory back to mini-commonjs modules (from true ES modules introduced
+  in v2.0.0-rc.21) due to issues with Nuxt.js and some webpack builds expecting CJS format when
+  cherry-picking individual components, directives and plugins from sub-directories.
+- **DEPRECATION: The `es/` build has been deprecated in favour of the newer `esm` build and `cjs`
+  bundle, which allow for importing individual components, directives and plugins from top-level
+  named exports.** Users are encouraged to convert their existing imports to the new syntax.
+
+### Bug Fixes v2.0.0-rc.22
+
+- **b-modal:** use `safeId()` when comparing `id` received by hide/show handler (closes
+  [#3389](https://github.com/bootstrap-vue/bootstrap-vue/issues/3389)
+  ([#3394](https://github.com/bootstrap-vue/bootstrap-vue/issues/3394)
+  [fae3d25](https://github.com/bootstrap-vue/bootstrap-vue/commit/fae3d25))
+- **b-tabs:** fix regression with dynamically added tabs (fixes
+  [#3395](https://github.com/bootstrap-vue/bootstrap-vue/issues/3395))
+  ([#3396](https://github.com/bootstrap-vue/bootstrap-vue/issues/3396)
+  [f254f90](https://github.com/bootstrap-vue/bootstrap-vue/commit/f254f90))
+- **form controls:** handle autofocus inside modal or when inside a transition
+  ([#3386](https://github.com/bootstrap-vue/bootstrap-vue/issues/3386)
+  [c4a8edb](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4a8edb))
+- **es:** revert to tranforming `es/` modules into CJS, and simplify main build with top-level
+  named import/exports
+  (closes [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397),
+  [#3393](https://github.com/bootstrap-vue/bootstrap-vue/issues/3393),
+  [#3323](https://github.com/bootstrap-vue/bootstrap-vue/issues/3323))
+  ([#3404](https://github.com/bootstrap-vue/bootstrap-vue/issues/3404)
+  [6c386d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c386d3))
+- **nuxt:** use new bundle for development mode (closes
+  [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397))
+  ([#3399](https://github.com/bootstrap-vue/bootstrap-vue/issues/3399)
+  [f43097e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f43097e),
+  [#3404](https://github.com/bootstrap-vue/bootstrap-vue/issues/3404)
+  [6c386d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c386d3))
+- **types:** fix typing error for `BvComponent` and `BvPlugin` (closes
+  [#3390](https://github.com/bootstrap-vue/bootstrap-vue/issues/3390))
+  ([#3391](https://github.com/bootstrap-vue/bootstrap-vue/issues/3391)
+  [6f0f3fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f0f3fd))
+
+### Features v2.0.0-rc.22
+
+- **b-button:** add new `squared` prop for making buttons with square corners
+  ([#3387](https://github.com/bootstrap-vue/bootstrap-vue/issues/3387)
+  [004963d](https://github.com/bootstrap-vue/bootstrap-vue/commit/004963d))
+- **b-tooltip, b-popover:** allow global `delay` customization via config
+  ([#3426](https://github.com/bootstrap-vue/bootstrap-vue/issues/3426)
+  [2aaec76](https://github.com/bootstrap-vue/bootstrap-vue/commit/2aaec76))
+- **nuxt:** handle edge cases where component, directive and plugin names are passed as `camelCase`
+  or `kebab-case` and convert to new `PascalCase` names
+  ([#3418](https://github.com/bootstrap-vue/bootstrap-vue/issues/3418)
+  [ce3ba73](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce3ba73))
+- **nuxt module:** alias `esm/` and `es/` to `src/` for Nuxt prod mode
+  ([#3423](https://github.com/bootstrap-vue/bootstrap-vue/issues/3423)
+  [ae2040b](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae2040b))
+- add `"source": "src/index.js"` entry in package.json for Parcel bundler
+  ([#3422](https://github.com/bootstrap-vue/bootstrap-vue/issues/3422)
+  [0878ca6](https://github.com/bootstrap-vue/bootstrap-vue/commit/0878ca6))
+
 <a name="2.0.0-rc.21"></a>
 
 ## [v2.0.0-rc.21](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.20...v2.0.0-rc.21)
 
 Released 2019-05-26
+
+Note: this version introduced a bug when using BootstrapVue with Nuxt.js module in dev mode.
+Please use version v2.0.0-rc.22 or newer.
 
 ### Bug Fixes v2.0.0-rc.21
 
