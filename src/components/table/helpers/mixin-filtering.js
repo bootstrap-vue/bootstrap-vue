@@ -1,3 +1,4 @@
+import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
@@ -56,7 +57,8 @@ export default {
       } else {
         // Could be a string, object or array, as needed by external filter function
         // We use `cloneDeep` to ensure we have a new copy of an object or array
-        return this.filter
+        // without Vue reactive observers.
+        return cloneDeep(this.filter)
       }
     },
     localFilterFn() {
