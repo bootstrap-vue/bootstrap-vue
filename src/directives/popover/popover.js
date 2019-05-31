@@ -22,9 +22,11 @@ const validTriggers = {
 /* istanbul ignore next: not easy to test */
 const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
+  const NAME = 'BPopover'
   let config = {
-    boundary: String(getComponentConfig('BPopover', 'boundary')),
-    boundaryPadding: parseInt(getComponentConfig('BPopover', 'boundaryPadding'), 10) || 0
+    delay: getComponentConfig(NAME, 'delay'),
+    boundary: String(getComponentConfig(NAME, 'boundary')),
+    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0
   }
 
   // Process bindings.value
