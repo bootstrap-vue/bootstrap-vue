@@ -53,7 +53,7 @@ export default {
         ctx.perPage = this.perPage
         ctx.currentPage = this.currentPage
       }
-      return ctx
+      return { ...ctx }
     }
   },
   watch: {
