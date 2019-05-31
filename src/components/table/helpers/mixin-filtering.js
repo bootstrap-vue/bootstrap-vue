@@ -47,6 +47,7 @@ export default {
         /* istanbul ignore next */
         return ''
       } else if (
+        this.localFiltering &&
         !isFunction(this.filterFunction) &&
         !(isString(this.filter) || isRegExp(this.filter))
       ) {
@@ -54,6 +55,7 @@ export default {
         return ''
       } else {
         // Could be a string, object or array, as needed by external filter function
+        // We use `cloneDeep` to ensure we have a new copy of an object or array
         return this.filter
       }
     },
