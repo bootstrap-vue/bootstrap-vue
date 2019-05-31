@@ -56,6 +56,9 @@ Released 2019-05-31
 - **b-button:** add new `squared` prop for making buttons with square corners
   ([#3387](https://github.com/bootstrap-vue/bootstrap-vue/issues/3387)
   [004963d](https://github.com/bootstrap-vue/bootstrap-vue/commit/004963d))
+- **b-tooltip, b-popover:** allow global `delay` customization via config
+  ([#3426](https://github.com/bootstrap-vue/bootstrap-vue/issues/3426)
+  [2aaec76](https://github.com/bootstrap-vue/bootstrap-vue/commit/2aaec76))
 - **nuxt:** handle edge cases where component, directive and plugin names are passed as `camelCase`
   or `kebab-case` ([#3418](https://github.com/bootstrap-vue/bootstrap-vue/issues/3418)
   [ce3ba73](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce3ba73))
