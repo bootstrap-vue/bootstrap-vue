@@ -10,6 +10,19 @@ const pickFirst = (...args) => {
   }
 }
 
+// Converts a kebab-case or camelCase string to PascaleCase
+const unKebabRE = /-(\w)/g
+const pascalCase = str => {
+  str = str.replace(unKebabRE, (_, c) => (c ? c.toUpperCase() : ''))
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+// --- Constants ---
+
+// Path to index file when using bootstrap-vue source code
+const srcIndex = 'bootstrap-vue/src/index.js'
+
+// --- Main Nuxt module ---
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   this.nuxt.hook('build:before', () => {
     // Merge moduleOptions with default
@@ -46,10 +59,53 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       this.options.css.unshift('bootstrap/dist/css/bootstrap.css')
     }
 
-    // Transpile src/
+    // Component src prop resolving
+    this.options.build.loaders.vue.transformAssetUrls = {
+      // Nuxt default is missing `poster` for video
+      video: ['src', 'poster'],
+      // Nuxt default is missing image
+      image: 'xlink:href',
+      // Add BootstrapVue specific component asset items
+      'b-img': 'src',
+      'b-img-lazy': ['src', 'blank-src'],
+      'b-card': 'img-src',
+      'b-card-img': 'img-src',
+      'b-card-img-lazy': ['src', 'blank-src'],
+      'b-carousel-slide': 'img-src',
+      'b-embed': 'src',
+      // Ensure super supplied values/overrides are not lost
+      ...this.options.build.loaders.vue.transformAssetUrls
+    }
+
+    // Enable transpilation of src/ directory
     this.options.build.transpile.push('bootstrap-vue/src')
 
-    const templateOptions = {}
+    // Use pre-tranpiled or src/
+    const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev, false)
+    if (!usePretranspiled) {
+      // Use bootstrap-vue source code for smaller prod builds
+      // by aliasing 'bootstrap-vue' to the source files.
+      // We prepend a $ to ensure that it is only used for
+      // `import from 'bootstrap-vue'` not `import from 'bootstrap-vue/*'`
+      this.extendBuild((config, { isServer }) => {
+        if (!config.resolve.alias) {
+          config.resolve.alias = {}
+        }
+        const index = require.resolve(srcIndex)
+        const srcDir = index.replace(/index\.js$/, '')
+        config.resolve.alias['bootstrap-vue$'] = index
+        // If users are cherry-picking modules from esm/ or es/ (legacy),
+        // alias to src/ to prevent duplicate code imports
+        config.resolve.alias['bootstrap-vue/esm/'] = srcDir
+        config.resolve.alias['bootstrap-vue/es/'] = srcDir
+      })
+    }
+
+    // Base options available to template
+    const templateOptions = {
+      // Flag if we are tree shaking
+      treeShake: false
+    }
 
     // Specific component and/or directive plugins
     for (const type of ['componentPlugins', 'directivePlugins']) {
@@ -59,12 +115,20 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         // Normalize plugin name to `${Name}Plugin` (component) or `VB${Name}Plugin` (directive)
         // Required for backwards compatability with old plugin import names
         .map(plugin => {
+          // Ensure PascalCase name
+          plugin = pascalCase(plugin)
+          // Ensure new naming convention for directive plugins prefixed with `VB`
           plugin = type === 'directivePlugins' && !/^VB/.test(plugin) ? `VB${plugin}` : plugin
+          // Ensure prefixed with `Plugin`
           plugin = /Plugin$/.test(plugin) ? plugin : `${plugin}Plugin`
           return plugin
         })
         // Remove duplicate items
         .filter((plugin, i, arr) => arr.indexOf(plugin) === i)
+
+      if (templateOptions[type].length > 0) {
+        templateOptions.treeShake = true
+      }
     }
 
     // Specific components and/or directives
@@ -72,8 +136,16 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       const ComponentsOrDirectives = Array.isArray(options[type]) ? options[type] : []
 
       templateOptions[type] = ComponentsOrDirectives
+        // Ensure PascalCase name
+        .map(item => pascalCase(item))
+        // Ensure prefixed with `V`
+        .map(item => (type === 'directives' && !/^V/.test(item) ? `V${item}` : item))
         // Remove duplicate items
         .filter((item, i, arr) => arr.indexOf(item) === i)
+
+      if (templateOptions[type].length > 0) {
+        templateOptions.treeShake = true
+      }
     }
 
     // Add BootstrapVue configuration if present
@@ -83,7 +155,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
     // Register plugin, passing options to plugin template
     this.addPlugin({
-      src: resolve(__dirname, `plugin.${this.options.dev ? 'dev' : 'prod'}.js`),
+      src: resolve(__dirname, 'plugin.template.js'),
       fileName: 'bootstrap-vue.js',
       options: templateOptions
     })

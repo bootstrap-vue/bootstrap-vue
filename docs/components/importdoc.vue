@@ -4,13 +4,13 @@
     class="bd-content"
   >
     <template v-if="components.length > 0">
-      <article>
+      <article class="bd-content">
         <anchored-heading id="importing-individual-components" level="3">
           Importing individual components
         </anchored-heading>
 
         <p>
-          <b-badge variant="info" class="small">ENHANCED in 2.0.0-rc.20</b-badge> You can
+          <b-badge variant="info" class="small">CHANGED in 2.0.0-rc.22</b-badge> You can
           import individual components into your project via the following named exports:
         </p>
 
@@ -39,13 +39,13 @@
     </template>
 
     <template v-if="directives.length > 0">
-      <article>
+      <article class="bd-content">
         <anchored-heading id="importing-individual-directives" level="3">
           Importing individual directives
         </anchored-heading>
 
         <p>
-          <b-badge variant="info" class="small">ENHANCED in 2.0.0-rc.20 </b-badge> You can
+          <b-badge variant="info" class="small">CHANGED in 2.0.0-rc.22 </b-badge> You can
           import individual directives into your project via the following named exports:
         </p>
 
@@ -73,13 +73,13 @@
       </article>
     </template>
 
-    <article>
+    <article class="bd-content">
       <anchored-heading id="importing-as-a-plugin" level="3">
         Importing as a Vue.js plugin
       </anchored-heading>
 
       <p>
-        <b-badge variant="info" class="small">ENHANCED in 2.0.0-rc.20</b-badge> Importing plugins
+        <b-badge variant="info" class="small">CHANGED in 2.0.0-rc.22</b-badge> Importing plugins
         has been simplified.
       </p>
 
@@ -123,6 +123,16 @@
       <p><strong>Example:</strong></p>
       <pre class="hljs js text-monospace p-2">{{ pluginImportCode }}</pre>
     </article>
+
+    <aside class="alert alert-warning my-4">
+      <p class="mb-0">
+        <b-badge variant="warning" tag="strong">Deprecation Warning as of v2.0.0-rc.22:</b-badge>
+        Importing components, directives and plugins from <code>bootstrap-vue/es/*</code> has been
+        deprecated. All components, directives and plugins are now available as top-level named
+        exports in the <code>ESM</code> and <code>CommonJS</code> builds. The <code>es/</code>
+        directory build will be removed in a future release.
+      </p>
+    </aside>
   </section>
 </template>
 
@@ -169,14 +179,14 @@ export default {
     },
     pluginImports() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
+      // const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         {
           namedExport: this.pluginName,
-          importPath: `bootstrap-vue/es/${pluginLocation}`
+          importPath: 'bootstrap-vue'
         },
         {
-          namedExport: legacyName,
+          namedExport: this.pluginName,
           importPath: `bootstrap-vue/es/${pluginLocation}`,
           legacy: true
         },
@@ -216,16 +226,12 @@ export default {
       ].join('\n')
     },
     pluginImportCode() {
-      const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
+      // const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
         '// Importing the named export',
-        `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
-        `Vue.use(${this.pluginName})`,
-        '',
-        '// Or importing the default export (deprecated)',
-        `import ${legacyName} from 'bootstrap-vue/es/${pluginLocation}/${this.pluginDir}'`,
-        `Vue.use(${legacyName})`
+        // `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
+        `import { ${this.pluginName} } from 'bootstrap-vue'`,
+        `Vue.use(${this.pluginName})`
       ].join('\n')
     }
   },
@@ -245,7 +251,7 @@ export default {
     componentPath(component) {
       // const componentName = this.componentName(component).replace(/^b-/, '')
       // return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
-      return `bootstrap-vue/es/components`
+      return 'bootstrap-vue'
     },
     directiveName(directive) {
       return kebabCase(directive)
@@ -258,7 +264,7 @@ export default {
     directivePath(directive) {
       // const directiveName = this.directiveName(directive).replace(/^b-/, '')
       // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
-      return `bootstrap-vue/es/directives`
+      return 'bootstrap-vue'
     }
   }
 }
