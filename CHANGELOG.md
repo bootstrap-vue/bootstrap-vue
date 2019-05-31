@@ -13,12 +13,23 @@ Released 2019-05-31
 ### Notable Changes v2.0.0-rc.22
 
 - Improved/shortened method for importing of plugins, components, and directives, as top-level named
-  exports. The ESM and CJS builds now both include these top level named exports.
+  exports. The ESM and CJS builds now both include these top level named exports:
+  - Default export is still the BootstrapVue plugin
+  - Simplified import format for importing components, directives, plugins: import { ModalPlugin,
+    CardPlugin, BAlert, BRow, BCol, VBScollspyPlugin } from 'bootstrap-vue'
+  - New esm/ modular build with top-level named exports (tree shakeable)
+  - New dist/bootstrap-vue.esm.js esm bundle with top-level named exports
+  - New dist/bootstrap-vue.common.js bundle with top-level named exports
+  - No need to cherry-pick from sub directories for plugins/components/directives
+  - Most package bundlers will pick the appropriate build automatically
+- Nuxt module:
+  - Improved tree shaking using the new import methods
+  - Automatically adds transformAssetUrls settings for BootstrapVue component props.
 - Reverted the `es/` build directory back to mini-commonjs modules (from true ES modules introduced in
   v2.0.0-rc.21) due to issues with Nuxt.js and some webpack builds expecting CJS format when
   cherry-picking individual components, directives and plugins from sub-directories.
 - **DEPRECATION: The `es/` build has been deprecated in favour of the newer `esm` build and `cjs`
-  bundle, which allows importing individual components, directives and plugins as top-level named
+  bundle, which allows importing individual components, directives and plugins from top-level named
   exports.**
 
 ### Bug Fixes v2.0.0-rc.22
