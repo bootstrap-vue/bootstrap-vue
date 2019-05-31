@@ -91,7 +91,13 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
         if (!config.resolve.alias) {
           config.resolve.alias = {}
         }
-        config.resolve.alias['bootstrap-vue$'] = require.resolve(srcIndex)
+        const index = require.resolve(srcIndex)
+        const srcDir = index.replace(/index\.js$/, '')
+        config.resolve.alias['bootstrap-vue$'] = index
+        // If users are cherry-picking modules from esm/ or es/ (legacy),
+        // alias to src/ to prevent duplicate code imports
+        config.resolve.alias['bootstrap-vue/esm/'] = srcDir
+        config.resolve.alias['bootstrap-vue/es/'] = srcDir
       })
     }
 
