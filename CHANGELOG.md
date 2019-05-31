@@ -23,14 +23,14 @@ Released 2019-05-31
   - No need to cherry-pick from sub directories for plugins/components/directives
   - Most package bundlers will pick the appropriate build automatically
 - Nuxt module:
-  - Improved tree shaking using the new import methods
-  - Automatically adds transformAssetUrls settings for BootstrapVue component props.
+  - Improved tree shaking using the new import syntax
+  - Automatically adds `transformAssetUrls` settings for BootstrapVue component props.
 - Reverted the `es/` build directory back to mini-commonjs modules (from true ES modules introduced in
   v2.0.0-rc.21) due to issues with Nuxt.js and some webpack builds expecting CJS format when
   cherry-picking individual components, directives and plugins from sub-directories.
 - **DEPRECATION: The `es/` build has been deprecated in favour of the newer `esm` build and `cjs`
-  bundle, which allows importing individual components, directives and plugins from top-level named
-  exports.**
+  bundle, which allow for importing individual components, directives and plugins from top-level named
+  exports.** Users are encouraged to convert their existing imports to the new syntax.
 
 ### Bug Fixes v2.0.0-rc.22
 
@@ -52,10 +52,12 @@ Released 2019-05-31
   [#3323](https://github.com/bootstrap-vue/bootstrap-vue/issues/3323))
   ([#3404](https://github.com/bootstrap-vue/bootstrap-vue/issues/3404)
   [6c386d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c386d3))
-- **nuxt:** use bundle for development mode (closes
+- **nuxt:** use new bundle for development mode (closes
   [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397))
   ([#3399](https://github.com/bootstrap-vue/bootstrap-vue/issues/3399)
-  [f43097e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f43097e))
+  [f43097e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f43097e),
+  [#3404](https://github.com/bootstrap-vue/bootstrap-vue/issues/3404)
+  [6c386d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c386d3))
 - **types:** fix typing error for `BvComponent` and `BvPlugin` (closes
   [#3390](https://github.com/bootstrap-vue/bootstrap-vue/issues/3390))
   ([#3391](https://github.com/bootstrap-vue/bootstrap-vue/issues/3391)
@@ -70,7 +72,8 @@ Released 2019-05-31
   ([#3426](https://github.com/bootstrap-vue/bootstrap-vue/issues/3426)
   [2aaec76](https://github.com/bootstrap-vue/bootstrap-vue/commit/2aaec76))
 - **nuxt:** handle edge cases where component, directive and plugin names are passed as `camelCase`
-  or `kebab-case` ([#3418](https://github.com/bootstrap-vue/bootstrap-vue/issues/3418)
+  or `kebab-case` and convert to new `PascalCase` names
+  ([#3418](https://github.com/bootstrap-vue/bootstrap-vue/issues/3418)
   [ce3ba73](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce3ba73))
 - **nuxt module:** alias `esm/` and `es/` to `src/` for Nuxt prod mode
   ([#3423](https://github.com/bootstrap-vue/bootstrap-vue/issues/3423)
