@@ -4,6 +4,68 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.22"></a>
+
+## [v2.0.0-rc.22](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.21...v2.0.0-rc.22)
+
+Released 2019-05-31
+
+### Noteable changes v2.0.0-rc.22
+
+- Improved/shortened method for importing of plugins, components, and directives, as top-level named
+  exports. The ESM and CJS builds now both include these top level named exports.
+- Reverted the `es/` build directory back to mini-commonjs modules (from true ES modules introduced in
+  v2.0.0-rc.21) due to issues with Nuxt.js and some webpack builds expecting CJS format when
+  cherry-picking individual components, directives and plugins from sub-directories.
+- **DEPRECATION: The `es/` build has been deprecated in favour of the newer `esm` build, which allows
+  importing individual components, directives and plugins as top-level named exports.**
+
+
+### Bug Fixes v2.0.0-rc.22
+
+- **b-modal:** use `safeId()` when comparing `id` received by hide/show handler (closes
+  [#3389](https://github.com/bootstrap-vue/bootstrap-vue/issues/3389)
+  ([#3394](https://github.com/bootstrap-vue/bootstrap-vue/issues/3394)
+  [fae3d25](https://github.com/bootstrap-vue/bootstrap-vue/commit/fae3d25))
+- **b-tabs:** fix regression with dynamically added tabs (fixes
+  [#3395](https://github.com/bootstrap-vue/bootstrap-vue/issues/3395))
+  ([#3396](https://github.com/bootstrap-vue/bootstrap-vue/issues/3396)
+  [f254f90](https://github.com/bootstrap-vue/bootstrap-vue/commit/f254f90))
+- **es:** revert to tranforming `es/` modules into CJS, and simplify build with top-level named
+  import/exports (closes [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397),
+  [#3393](https://github.com/bootstrap-vue/bootstrap-vue/issues/3393),
+  [#3323](https://github.com/bootstrap-vue/bootstrap-vue/issues/3323))
+  ([#3404](https://github.com/bootstrap-vue/bootstrap-vue/issues/3404)
+  [6c386d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c386d3))
+- **docs:** fix typo in modal ([#3413](https://github.com/bootstrap-vue/bootstrap-vue/issues/3413)
+  [510577f](https://github.com/bootstrap-vue/bootstrap-vue/commit/510577f))
+- **form controls:** handle autofocus inside modal or when inside a transition
+  ([#3386](https://github.com/bootstrap-vue/bootstrap-vue/issues/3386)
+  [c4a8edb](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4a8edb))
+- **nuxt:** use bundle for development mode (closes
+  [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397))
+  ([#3399](https://github.com/bootstrap-vue/bootstrap-vue/issues/3399)
+  [f43097e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f43097e))
+- **types:** adjust typing of BvComponent and BvPlugin (closes
+  [#3390](https://github.com/bootstrap-vue/bootstrap-vue/issues/3390))
+  ([#3391](https://github.com/bootstrap-vue/bootstrap-vue/issues/3391)
+  [6f0f3fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f0f3fd))
+
+### Features v2.0.0-rc.22
+
+- **b-button:** add new `squared` prop for making buttons with square corners
+  ([#3387](https://github.com/bootstrap-vue/bootstrap-vue/issues/3387)
+  [004963d](https://github.com/bootstrap-vue/bootstrap-vue/commit/004963d))
+- **nuxt:** handle edge cases where component, directive and plugin names are passed as `camelCase`
+  or `kebab-case` ([#3418](https://github.com/bootstrap-vue/bootstrap-vue/issues/3418)
+  [ce3ba73](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce3ba73))
+- **nuxt module:** alias `esm/` and `es/` to `src/` for Nuxt prod mode
+  ([#3423](https://github.com/bootstrap-vue/bootstrap-vue/issues/3423)
+  [ae2040b](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae2040b))
+- add `"source": "src/index.js"` entry in package.json
+  ([#3422](https://github.com/bootstrap-vue/bootstrap-vue/issues/3422)
+  [0878ca6](https://github.com/bootstrap-vue/bootstrap-vue/commit/0878ca6))
+
 <a name="2.0.0-rc.21"></a>
 
 ## [v2.0.0-rc.21](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.20...v2.0.0-rc.21)
