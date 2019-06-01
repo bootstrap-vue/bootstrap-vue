@@ -12834,10 +12834,10 @@ vue-eslint-parser@^5.0.0:
     esquery "^1.0.1"
     lodash "^4.17.11"
 
-vue-functional-data-merge@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.7.tgz#bdee655181eacdcb1f96ce95a4cc14e75313d1da"
-  integrity sha512-pvLc+H+x2prwBj/uSEIITyxjz/7ZUVVK8uYbrYMmhDvMXnzh9OvQvVEwcOSBQjsubd4Eq41/CSJaWzy4hemMNQ==
+vue-functional-data-merge@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-3.0.1.tgz#79bbe00bac42723ccee97ab96106fcff40ea5740"
+  integrity sha512-Zr4gcy+cUKbwd96U/DVrWsdhXTdneHfsXqFln2gqAhqcUNjm46rV3bDDTNdDGlm98lZIKg2rpKVJSxjEda5Z2g==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
