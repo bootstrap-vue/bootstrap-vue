@@ -75,7 +75,7 @@
     "bootstrap": "^4.3.1",
     "core-js": ">=2.6.5 <3.0.0",
     "popper.js": "^1.15.0",
-    "portal-vue": "^2.1.4",
+    "portal-vue": "^2.1.5",
     "vue-functional-data-merge": "^2.0.7"
   },
   "devDependencies": {
@@ -123,7 +123,7 @@
     "nuxt": "^2.8.0",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
-    "rollup": "^1.13.0",
+    "rollup": "^1.13.1",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
