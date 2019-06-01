@@ -34,7 +34,12 @@ export default {
       // regular this.context is sent to the provider during fetches though, as they
       // may need all the prop info.
       const ctx = {
-        apiUrl: this.apiUrl
+        apiUrl: this.apiUrl,
+        filter: null,
+        sortBy: null,
+        sortDesc: null,
+        perPage: null,
+        currentPage: null
       }
       if (!this.noProviderFiltering) {
         // Either a string, or could be an object or array.
@@ -48,7 +53,7 @@ export default {
         ctx.perPage = this.perPage
         ctx.currentPage = this.currentPage
       }
-      return ctx
+      return { ...ctx }
     }
   },
   watch: {
