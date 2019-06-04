@@ -80,7 +80,7 @@ export default {
       const keyCode = evt.keyCode
       const target = evt.target
       const trs = this.$refs.itemRows
-      if (this.stopIfBusy(evt)) {
+      if (this.stopIfBusy && this.stopIfBusy(evt)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
@@ -274,6 +274,10 @@ export default {
         }
       }
 
+      // Selctable classes and attributes
+      const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
+      const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
+
       // Add the item row
       $rows.push(
         h(
@@ -284,7 +288,7 @@ export default {
             refInFor: true,
             class: [
               this.rowClasses(item),
-              this.selectableRowClasses(rowIndex),
+              selectableClasses,
               {
                 'b-table-has-details': rowShowDetails
               }
@@ -297,7 +301,7 @@ export default {
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
               role: 'row',
-              ...this.selectableRowAttrs(rowIndex)
+              ...selectableAttrs
             },
             on: {
               ...handlers,
