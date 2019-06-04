@@ -352,10 +352,11 @@ export default Vue.extend({
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
     getTabs() {
-      const tabs = this.registeredTabs.slice()
-      // Filter out any BTab components that are extended BTab with a root child BTab
+      // We use registeredTabs as the shouce of truth for child tab components. And we
+      // filter out any BTab components that are extended BTab with a root child BTab.
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
-      tabs = tabs.filter(tab => (tab.$children.filter(t => t._isTab).length === 0))
+      const tabs = this.registeredTabs
+        .filter(tab => tab.$children.filter(t => t._isTab).length === 0)
       // DOM Order of Tabs
       let order = []
       if (this.isMounted && tabs.length > 0) {
@@ -368,7 +369,7 @@ export default Vue.extend({
           .filter(Boolean)
       }
       // Stable sort keeps the original order if not found in the
-      // `order` array, which could happen before mount.
+      // `order` array, which will be an empty array before mount.
       return stableSort(tabs, (a, b) => {
         return order.indexOf(a.safeId()) - order.indexOf(b.safeId())
       })
