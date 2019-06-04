@@ -107,10 +107,6 @@ export default Vue.extend({
   },
   created() {
     this.setNumPages()
-    // For SSR, assuming a page URL can be detected
-    this.$nextTick(() => {
-      this.guessCurrentPage()
-    })
   },
   mounted() {
     if (this.$router) {
@@ -131,6 +127,9 @@ export default Vue.extend({
       } else {
         this.localNumPages = sanitizeNumPages(this.numberOfPages)
       }
+      this.$nextTick(() => {
+        this.guessCurrentPage()
+      })
     },
     onClick(pageNum, evt) {
       // Dont do anything if clicking the current active page
