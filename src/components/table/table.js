@@ -1,8 +1,5 @@
 import Vue from '../../utils/vue'
 
-// Utilities
-import looseEqual from '../../utils/loose-equal'
-
 // Mixins
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -146,11 +143,11 @@ export default Vue.extend({
         [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
       const items = this.computedItems
       const fields = this.computedFields
-      const selectableAttrs = this.selectableTableAttrs || {} 
+      const selectableAttrs = this.selectableTableAttrs || {}
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
         'aria-rowcount':
-          this.filteredItems&& this.filteredItems.length > items.length
+          this.filteredItems && this.filteredItems.length > items.length
             ? String(this.filteredItems.length)
             : null,
         // Merge in user supplied $attrs if any
@@ -167,10 +164,10 @@ export default Vue.extend({
   },
   render(h) {
     // Build the caption (from caption mixin)
-    const $caption = this.renderCaption()
+    const $caption = this.renderCaption ? this.renderCaption() : null
 
     // Build the colgroup
-    const $colgroup = this.renderColgroup()
+    const $colgroup = this.renderColgroup ? this.renderColgroup() : null
 
     // Build the thead
     const $thead = this.renderThead()
@@ -190,7 +187,7 @@ export default Vue.extend({
         class: this.tableClasses,
         attrs: this.tableAttrs
       },
-      [$caption, $colgroup, $thead, $tfoot, $tbody]
+      [$caption, $colgroup, $thead, $tfoot, $tbody].filter(Boolean)
     )
 
     // Add responsive wrapper if needed and return table
