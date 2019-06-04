@@ -171,9 +171,6 @@ export default Vue.extend({
         currentPage: parseInt(this.currentPage, 10) || 1,
         apiUrl: this.apiUrl
       }
-    },
-    computedItems() {
-      return this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []
     }
   },
   watch: {
