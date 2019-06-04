@@ -173,7 +173,7 @@ export default Vue.extend({
       }
     },
     computedItems() {
-      return this.paginatedItems || []
+      return this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []
     }
   },
   watch: {
