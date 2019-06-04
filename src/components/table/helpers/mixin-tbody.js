@@ -1,7 +1,7 @@
 import tbodyRowMixin from './mixin-tbody-row'
 
 export default {
-  mixins: [tbodyRowMixin, emptyMixin, topRowMixin, bottomRowMixin],
+  mixins: [tbodyRowMixin],
   props: {
     tbodyClass: {
       type: [String, Array],
