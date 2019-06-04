@@ -51,8 +51,10 @@ export default {
       }, {})
     },
     computedItems() {
-      // Fallback if mixins not provided
-      return (this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []).slice()
+      // Fallback if various mixins not provided
+      return (
+        this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []
+      ).slice()
     },
     context() {
       // Current state of sorting, filtering and pagination props/values
