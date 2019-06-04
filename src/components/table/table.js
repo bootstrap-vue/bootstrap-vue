@@ -42,11 +42,11 @@ export default Vue.extend({
     captionMixin,
     colgroupMixin,
     selectableMixin,
-    providerMixin,
     emptyMixin,
     topRowMixin,
     bottomRowMixin,
     busyMixin,
+    providerMixin,
     // Required Mixins
     theadMixin,
     tfootMixin,
