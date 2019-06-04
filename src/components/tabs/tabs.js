@@ -362,8 +362,9 @@ export default Vue.extend({
         tabs = selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-pane`, this.$el)
           .map(el => el.__vue__)
           .filter(Boolean)
-          // The VM attached to the element is `transition` so we need the $parent to get tab
-          // but sometimes the vm attached to the element is teh b-tab (depended on render cycle)
+          // The VM attached to the element is usually `transition` so we need the $parent
+          // to get tab vm, but sometimes the tab vm is the one attached to the element
+          // (dependent on render cycle)
           .map(vm => (vm._isTab ? vm : vm.$parent))
       }
       return tabs.filter(tab => tab && tab._isTab)
