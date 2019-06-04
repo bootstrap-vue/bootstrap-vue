@@ -1,3 +1,4 @@
+import looseEqual from '../../../utils/loose-equal'
 import { isArray, isNull, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
 
