@@ -203,10 +203,10 @@ export default {
         unformatted: get(item, field.key, ''),
         value: formatted,
         toggleDetails: toggleDetailsFn,
-        detailsShowing: Boolean(item._showDetails),
+        detailsShowing: Boolean(item._showDetails)
       }
       if (this.selectedRows) {
-        // Add in rowSelected scope property if selctable rows supported
+        // Add in rowSelected scope property if selectable rows supported
         slotScope.rowSelected = Boolean(this.selectedRows[rowIndex])
       }
       let $childNodes = $scoped[field.key] ? $scoped[field.key](slotScope) : toString(formatted)
