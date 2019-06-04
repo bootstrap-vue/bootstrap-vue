@@ -352,18 +352,19 @@ export default Vue.extend({
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
     getTabs() {
-      const tabs = this.registeredTabs
+      const tabs = this.registeredTabs.slice()
       let order = []
       if (this.isMounted && tabs.length > 0) {
         // We rely on the DOM when mounted to get the 'true' order of the b-tab instances,
         // as this.$slots.default appears to lie about current tab vm instances, after being
         // destroyed and then re-intantiated (cached vNodes which don't reflect correct vm).
         // querySelectorAll(...) always returns elements in document order
-        order = selectAll(tabs.map(tab => `#${tab.safeId()}`).join(','), this.$el)
+        const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
+        order = selectAll(selector, this.$el)
           .map(el => el.id)
           .filter(Boolean)
       }
-      // Stable sort returns a new array reference, and leaves the original array intact
+      // Stable sort keeps the original order if not found in the `order` array
       return stableSort(tabs, (a, b) => {
         return order.indexOf(a.safeId()) - order.indexOf(b.safeId())
       })
