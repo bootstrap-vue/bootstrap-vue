@@ -355,8 +355,9 @@ export default Vue.extend({
       // We use registeredTabs as the shouce of truth for child tab components. And we
       // filter out any BTab components that are extended BTab with a root child BTab.
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
-      const tabs = this.registeredTabs
-        .filter(tab => tab.$children.filter(t => t._isTab).length === 0)
+      const tabs = this.registeredTabs.filter(
+        tab => tab.$children.filter(t => t._isTab).length === 0
+      )
       // DOM Order of Tabs
       let order = []
       if (this.isMounted && tabs.length > 0) {
