@@ -52,7 +52,7 @@ export default {
     },
     computedItems() {
       // Fallback if mixins not provided
-      return this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []
+      return (this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []).slice()
     },
     context() {
       // Current state of sorting, filtering and pagination props/values
@@ -78,7 +78,7 @@ export default {
       }
     },
     // Watch for changes on computedItems and update the v-model
-    computedItems(newVal, oldVal) {
+    computedItems(newVal) {
       this.$emit('input', newVal)
     },
     // Watch for context changes
