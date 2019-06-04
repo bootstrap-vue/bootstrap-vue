@@ -2,6 +2,7 @@
 // Which indlues all main table stlying options
 
 export default {
+  // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
   inheritAttrs: false,
   props: {
     striped: {
