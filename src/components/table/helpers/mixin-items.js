@@ -40,6 +40,10 @@ export default {
         obj[f.key] = f
         return obj
       }, {})
+    },
+    computedItems() {
+      // Fallback if mixins not provided
+      return this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []
     }
   },
   watch: {
