@@ -5,7 +5,8 @@ import normalizeFields from './normalize-fields'
 export default {
   props: {
     items: {
-      type: [Array, Function],
+      // Provider mixin adds in `Function` type
+      type: Array,
       default() /* istanbul ignore next */ {
         return []
       }
