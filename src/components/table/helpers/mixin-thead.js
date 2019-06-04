@@ -82,7 +82,7 @@ export default {
             }
           }
         }
-        const sortAttrs = this.isSortable ?  this.sortTheadThAttrs(field.key, field, isFoot) : {}
+        const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
         const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
         const data = {
           key: field.key,
