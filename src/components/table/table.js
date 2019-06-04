@@ -48,5 +48,5 @@ export default Vue.extend({
     // Mixins add to data
     return {}
   }
-  // render function provided by table-renderer miin
+  // render function provided by table-renderer mixin
 })
