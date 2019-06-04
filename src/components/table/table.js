@@ -146,10 +146,13 @@ export default Vue.extend({
         [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
       const items = this.computedItems
       const fields = this.computedFields
+      const selectableAttrs = this.selectableTableAttrs || {} 
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
         'aria-rowcount':
-          this.filteredItems.length > items.length ? String(this.filteredItems.length) : null,
+          this.filteredItems&& this.filteredItems.length > items.length
+            ? String(this.filteredItems.length)
+            : null,
         // Merge in user supplied $attrs if any
         ...this.$attrs,
         // Now we can override any $attrs here
@@ -158,36 +161,9 @@ export default Vue.extend({
         'aria-busy': this.computedBusy ? 'true' : 'false',
         'aria-colcount': String(fields.length),
         'aria-describedby': adb,
-        ...this.selectableTableAttrs
-      }
-    },
-    context() {
-      // Current state of sorting, filtering and pagination props/values
-      return {
-        filter: this.localFilter,
-        sortBy: this.localSortBy,
-        sortDesc: this.localSortDesc,
-        perPage: parseInt(this.perPage, 10) || 0,
-        currentPage: parseInt(this.currentPage, 10) || 1,
-        apiUrl: this.apiUrl
+        ...selectableAttrs
       }
     }
-  },
-  watch: {
-    // Watch for changes on computedItems and update the v-model
-    computedItems(newVal, oldVal) {
-      this.$emit('input', newVal)
-    },
-    context(newVal, oldVal) {
-      // Emit context info for external paging/filtering/sorting handling
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context-changed', newVal)
-      }
-    }
-  },
-  mounted() {
-    // Initially update the v-model of displayed items
-    this.$emit('input', this.computedItems)
   },
   render(h) {
     // Build the caption (from caption mixin)
