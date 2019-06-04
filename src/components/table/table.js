@@ -28,20 +28,24 @@ export default Vue.extend({
   // Order of mixins is important!
   // They are merged from left to fight, followed by this component.
   mixins: [
+    // Required Mixins
     idMixin,
     normalizeSlotMixin,
     itemsMixin,
+    // Features Mixins
     filteringMixin,
     sortingMixin,
     paginationMixin,
     busyMixin,
     captionMixin,
     colgroupMixin,
+    selectableMixin,
+    providerMixin,
+    // Required Mixins
     theadMixin,
     tfootMixin,
     tbodyMixin,
-    selectableMixin,
-    providerMixin,
+    // Required mixin for rendering the final table
     tableRendererMixin
   ],
   data() {
