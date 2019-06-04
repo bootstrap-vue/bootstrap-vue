@@ -53,7 +53,11 @@ export default {
     computedItems() {
       // Fallback if various mixins not provided
       return (
-        this.paginatedItems || this.sortedItems || this.filteredItems || this.localItems || []
+        this.paginatedItems ||
+        this.sortedItems ||
+        this.filteredItems ||
+        this.localItems ||
+        []
       ).slice()
     },
     context() {
