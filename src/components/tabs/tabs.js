@@ -354,7 +354,7 @@ export default Vue.extend({
     getTabs() {
       const tabs = this.registeredTabs
       let order = []
-      if (this.isMounted) {
+      if (this.isMounted && tabs.length > 0) {
         // We rely on the DOM when mounted to get the 'true' order of the b-tab instances,
         // as this.$slots.default appears to lie about current tab vm instances, after being
         // destroyed and then re-intantiated (cached vNodes which don't reflect correct vm).
