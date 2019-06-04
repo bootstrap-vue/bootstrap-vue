@@ -14,6 +14,9 @@ import colgroupMixin from './helpers/mixin-colgroup'
 import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
 import tbodyMixin from './helpers/mixin-tbody'
+import emptyMixin from './helpers//mixin-empty'
+import topRowMixin from './helpers//mixin-top-row'
+import bottomRowMixin from './helpers//mixin-bottom-row'
 import busyMixin from './helpers/mixin-busy'
 import selectableMixin from './helpers/mixin-selectable'
 import providerMixin from './helpers/mixin-provider'
@@ -36,11 +39,14 @@ export default Vue.extend({
     filteringMixin,
     sortingMixin,
     paginationMixin,
-    busyMixin,
     captionMixin,
     colgroupMixin,
     selectableMixin,
     providerMixin,
+    emptyMixin,
+    topRowMixin,
+    bottomRowMixin,
+    busyMixin,
     // Required Mixins
     theadMixin,
     tfootMixin,
