@@ -363,7 +363,8 @@ export default Vue.extend({
           .map(el => el.__vue__)
           .filter(Boolean)
           // The VM attached to the element is `transition` so we need the $parent to get tab
-          .map(vm => vm.$parent)
+          // but sometimes the vm attached to the element is teh b-tab (depended on render cycle)
+          .map(vm => vm._isTab ? vm : vm.$parent)
       }
       return tabs.filter(tab => tab && tab._isTab)
     },
