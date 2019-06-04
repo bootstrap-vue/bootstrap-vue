@@ -183,7 +183,6 @@ export default {
       // Renders a TD or TH for a row's field
       const $scoped = this.$scopedSlots
       const detailsSlot = $scoped['row-details']
-      const rowSelected = this.selectedRows[rowIndex]
       const formatted = this.getFormattedValue(item, field)
       const data = {
         // For the Vue key, we concatenate the column index and
@@ -205,7 +204,10 @@ export default {
         value: formatted,
         toggleDetails: toggleDetailsFn,
         detailsShowing: Boolean(item._showDetails),
-        rowSelected: Boolean(rowSelected)
+      }
+      if (this.selectedRows) {
+        // Add in rowSelected scope property if selctable rows supported
+        slotScope.rowSelected = Boolean(this.selectedRows[rowIndex])
       }
       let $childNodes = $scoped[field.key] ? $scoped[field.key](slotScope) : toString(formatted)
       if (this.isStacked) {
