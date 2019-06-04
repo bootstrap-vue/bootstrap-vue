@@ -6,6 +6,15 @@ import listenOnRootMixin from '../../../mixins/listen-on-root'
 export default {
   mixins: [listenOnRootMixin],
   props: {
+    // Prop override(s)
+    items: {
+      // Adds in 'Function' support
+      type: [Array, Function],
+      default() /* istanbul ignore next */ {
+        return []
+      }
+    },
+    // Additional props
     noProviderPaging: {
       type: Boolean,
       default: false
