@@ -353,18 +353,22 @@ export default Vue.extend({
     },
     getTabs() {
       const tabs = this.registeredTabs.slice()
+      // Filter out any BTab components that are extended BTab with a root child BTab
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
+      tabs = tabs.filter(tab => (tab.$children.filter(t => t._isTab).length === 0))
+      // DOM Order of Tabs
       let order = []
       if (this.isMounted && tabs.length > 0) {
-        // We rely on the DOM when mounted to get the 'true' order of the b-tab instances,
-        // as this.$slots.default appears to lie about current tab vm instances, after being
-        // destroyed and then re-intantiated (cached vNodes which don't reflect correct vm).
-        // querySelectorAll(...) always returns elements in document order
+        // We rely on the DOM when mounted to get the 'true' order of the b-tab children.
+        // querySelectorAll(...) always returns elements in document order, regardless of
+        // order specified in the selector.
         const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
         order = selectAll(selector, this.$el)
           .map(el => el.id)
           .filter(Boolean)
       }
-      // Stable sort keeps the original order if not found in the `order` array
+      // Stable sort keeps the original order if not found in the
+      // `order` array, which could happen before mount.
       return stableSort(tabs, (a, b) => {
         return order.indexOf(a.safeId()) - order.indexOf(b.safeId())
       })
