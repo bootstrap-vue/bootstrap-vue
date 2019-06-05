@@ -3,7 +3,7 @@
  */
 
 import { concat } from '../../../utils/array'
-import { setConfig, getComponentConfig } from '../../../utils/config'
+import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
 import { isUndefined, isString } from '../../../utils/inspect'
 import {
@@ -14,6 +14,7 @@ import {
   omit,
   readonlyDescriptor
 } from '../../../utils/object'
+import { installFactory } from '../../../utils/plugins'
 import { warn, warnNotClient } from '../../../utils/warn'
 import BToast, { props as toastProps } from '../toast'
 
@@ -47,16 +48,7 @@ const filterOptions = options => {
 }
 
 // Method to install `$bvToast` VM injection
-const install = (Vue, config = {}) => {
-  if (install.installed) {
-    // Only install once
-    /* istanbul ignore next */
-    return
-  }
-  install.installed = true
-
-  setConfig(config)
-
+const plugin = Vue => {
   // Create a private sub-component constructor that
   // extends BToast and self-destructs after hidden
   // @vue/component
@@ -198,9 +190,7 @@ const install = (Vue, config = {}) => {
   }
 }
 
-install.installed = false
-
 // Default export is the Plugin
 export default {
-  install: install
+  install: installFactory({ plugins: { plugin } })
 }
