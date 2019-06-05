@@ -164,7 +164,7 @@ const BvConfig = Vue.extend({
   methods: {
     getDefaults() {
       // Returns a copy of the defaults
-      return DEFAULTS
+      return cloneDeep(DEFAULTS)
     },
     getConfig() {
       // Returns a copy of the user config
