@@ -92,7 +92,7 @@ export const setConfig = (config = {}, Vue = OurVue) => {
   // Ensure we have a $bvConfig Object on the Vue prototype.
   // We set on Vue and OurVue just in case consumer has not set an alias of `vue`.
   Vue.prototype.$bvConfig = OurVue.prototype.$bvConfig =
-    Vue.prototype.$bvConfig || OurVue.prototype.$bvConfig || new Vue.extend(BvConfig)()
+    Vue.prototype.$bvConfig || OurVue.prototype.$bvConfig || new (Vue.extend(BvConfig))()
   // Apply the config values
   Vue.prototype.$bvConfig.setConfig(config)
 }
