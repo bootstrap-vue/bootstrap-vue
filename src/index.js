@@ -16,7 +16,7 @@ const install = installFactory({ plugins: { componentsPlugin, directivesPlugin }
 // BootstrapVue plugin
 const BootstrapVue = {
   install: install,
-  setConfig: config => /* istanbul ignore next: to be deprecated */ {
+  setConfig: config => /* istanbul ignore next: to be deprecated. not documented */ {
     setConfig(config)
   }
 }
@@ -37,7 +37,7 @@ export {
   //   BootstrapVue = require('bootstrap-vue').default
   //   Vue.use(BootstrapVue)
   install,
-  /* istanbul ignore next: to be deprecated */
+  /* istanbul ignore next: to be deprecated. not documented */
   setConfig
 }
 
