@@ -80,7 +80,7 @@ export const getBreakpointsUpCached = memoize(() => {
   const breakpoints = getBreakpointsCached()
   breakpoints[0] = ''
   return breakpoints
-}
+})
 
 // Convenience method for getting breakpoints with
 // the largest breakpoint set as ''.
