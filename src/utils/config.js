@@ -3,7 +3,7 @@ import cloneDeep from './clone-deep'
 import get from './get'
 import warn from './warn'
 import { isArray, isObject, isString, isUndefined } from './inspect'
-import { keys } from './object'
+import { deepFreeze, keys } from './object'
 
 // General BootstrapVue configuration
 //
@@ -32,7 +32,7 @@ import { keys } from './object'
 //  }
 
 // prettier-ignore
-const DEFAULTS = {
+const DEFAULTS = deepFreeze({
   // Breakpoints
   breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'],
 
@@ -153,7 +153,7 @@ const DEFAULTS = {
     boundary: 'scrollParent',
     boundaryPadding: 5
   }
-}
+})
 
 const BvConfig = Vue.extend({
   created() {
@@ -164,7 +164,7 @@ const BvConfig = Vue.extend({
   methods: {
     getDefaults() {
       // Returns a copy of the defaults
-      return cloneDeep(DEFAULTS)
+      return DEFAULTS
     },
     getConfig() {
       // Returns a copy of the user config
