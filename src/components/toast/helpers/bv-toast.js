@@ -3,7 +3,8 @@
  */
 
 import { concat } from '../../../utils/array'
-import { setConfig, getComponentConfig } from '../../../utils/config'
+import { getComponentConfig } from '../../../utils/config'
+import { setConfig } from '../../../utils/config-set'
 import { requestAF } from '../../../utils/dom'
 import { isUndefined, isString } from '../../../utils/inspect'
 import {
