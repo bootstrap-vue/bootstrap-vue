@@ -1537,7 +1537,7 @@ should usually be treated as readonly.
 The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
 changes to a record's properties in the `v-model` will be reflected in the original `items` array
 (except when `items` is set to a provider function). Deleting a record from the `v-model` will
-**not** remove the record from the original items array.
+**not** remove the record from the original items array nor will it remove it from the displayed rows.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
