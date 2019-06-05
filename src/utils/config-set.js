@@ -22,7 +22,21 @@ class BvConfig {
     this.$_config = {}
     this.$_cachedBreakpoints = null
   }
-    // Merge in config parameters
+
+  static get Defaults() /* istanbul ignore next */ {
+    return DEFAULTS
+  }
+
+  get defaults() /* istanbul ignore next */ {
+    return DEFAULTS
+  }
+
+  // Returns the defaults
+  getDefaults() /* istanbul ignore next */ {
+    return this.defaults
+  }
+
+  // Merge in config parameters
   setConfig(config = {}) {
     if (!isPlainObject(config)) {
       /* istanbul ignore next */
@@ -69,27 +83,14 @@ class BvConfig {
       })
   }
 
-  static get Defaults() /* istanbul ignore next */ {
-    return DEFAULTS
-  }
-
-  get defaults() /* istanbul ignore next */ {
-    return DEFAULTS
-  }
-
-  // Returns the defaults
-  getDefaults() /* istanbul ignore next: not used in production */ {
-    return DEFAULTS
-  }
-
-  // Returns a copy of the user config
-  getConfig() {
-    return cloneDeep(this.$_config)
-  }
-
   // Clear the config. For testing purposes only
   resetConfig() {
     this.$_config = {}
+  }
+
+  // Returns a deep copy of the user config
+  getConfig() {
+    return cloneDeep(this.$_config)
   }
 
   getConfigValue(key) {
