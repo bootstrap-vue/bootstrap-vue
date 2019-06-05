@@ -14,6 +14,7 @@ import {
   defineProperties,
   readonlyDescriptor
 } from '../../../utils/object'
+import { installFactory } from '../../../utils/plugins'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 
 // --- Constants ---
