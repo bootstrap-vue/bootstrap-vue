@@ -2,17 +2,13 @@ import OurVue from './vue'
 import cloneDeep from './clone-deep'
 import get from './get'
 import warn from './warn'
-import { isArray, isPlainObject, isString, isUndefined } from './inspect'
+import { hasOwnProperty, isArray, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import DEFAULTS from './config-defaults'
 
 // --- Constants ---
 
 const PROP_NAME = '$bvConfig'
-
-// --- Utils ---
-
-const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 
 // Config manager class
 class BvConfig {
