@@ -15,7 +15,7 @@ const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, 
 const BvConfig = {
   created() {
     // Non reactive private properties
-    // TODO: pre-populate with default config values
+    // TODO: pre-populate with default config values (needs updated tests)
     // this.$config = cloneDeep(DEFAULTS)
     this.$_config = {}
     this.$_cachedBreakpoints = null
@@ -30,22 +30,21 @@ const BvConfig = {
       keys(config)
         .filter(cmpName => hasOwnProperty(config, cmpName))
         .forEach(cmpName => {
+          /* istanbul ignore next */
           if (!hasOwnProperty(DEFAULTS, cmpName)) {
-            /* istanbul ignore next */
             warn(`config: unknown config property "${cmpName}"`)
-            /* istanbul ignore next */
             return
           }
           const cmpConfig = config[cmpName]
           if (cmpName === 'breakpoints') {
             // Special case for breakpoints
             const breakpoints = config.breakpoints
+            /* istanbul ignore if */
             if (
               !isArray(breakpoints) ||
               breakpoints.length < 2 ||
               breakpoints.some(b => !isString(b) || b.length === 0)
             ) {
-              /* istanbul ignore next */
               warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
             } else {
               this.$_config.breakpoints = cloneDeep(breakpoints)
@@ -54,8 +53,8 @@ const BvConfig = {
             keys(cmpConfig)
               .filter(key => hasOwnProperty(cmpConfig, key))
               .forEach(key => {
+                /* istanbul ignore if */
                 if (!hasOwnProperty(DEFAULTS[cmpName], key)) {
-                  /* istanbul ignore next */
                   warn(`config: unknown config property "${cmpName}.{$key}"`)
                 } else {
                   // TODO: If we pre-populate the config with defaults, we can skip this line
