@@ -18,17 +18,18 @@ export const is = Object.is || isPolyfill
 
 /**
  * Deep-freezes and object, making it immutable / read-only.
- * Returns the same object passed-in, but frozen 
+ * Returns the same object passed-in, but frozen.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
  */
 export const deepFreeze = (obj) => {
   // Retrieve the property names defined on object
-  const props = getOwnPropertyNames(obj);
+  const props = getOwnPropertyNames(obj)
   // Freeze properties before freezing self
   for (let prop of props) {
     let value = obj[prop]
     obj[prop] = value && isObject(value) ? deepFreeze(value) : value
   }
-  return freeze(obj);
+  return freeze(obj)
 }
 
 /**
