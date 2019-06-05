@@ -31,7 +31,7 @@ export const getConfig = () => {
 export const getConfigValue = key => {
   return Vue.prototype.$bvConfig
     ? Vue.prototype.$bvConfig.getConfigValue(key)
-    : cloneDeep(get(DEFAULTS, key)))
+    : cloneDeep(get(DEFAULTS, key))
 }
 
 // Method to grab a config value for a particular component.
