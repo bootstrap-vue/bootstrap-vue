@@ -1860,8 +1860,8 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 ## Light-weight tables
 
 `<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple dipslay of
-tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of `<b-table>`,
-while **excluding** the following features:
+tabular data. The `<b-table-lite>` component provides all of the styling and formatting features
+of `<b-table>` (including row details support), while **excluding** the following features:
 
 - Filtering
 - Sorting
