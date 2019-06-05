@@ -642,74 +642,6 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
 
-### Table busy state
-
-`<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
-just before you update your items, and then set it to `false` once you have your items. When in the
-busy state, the table will have the attribute `aria-busy="true"`.
-
-During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
-following custom CSS:
-
-```css
-/* Busy table styling */
-table.b-table[aria-busy='true'] {
-  opacity: 0.6;
-}
-```
-
-You can override this styling using your own CSS.
-
-You may optionally provide a `table-busy` slot to show a custom loading message or spinner whenever
-the table's busy state is `true`. The slot will be placed in a `<tr>` element with class
-`b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
-
-**Example of `table-busy` slot usage:**
-
-```html
-<template>
-  <div>
-    <b-button @click="toggleBusy">Toggle Busy State</b-button>
-
-    <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
-      <div slot="table-busy" class="text-center text-danger my-2">
-        <b-spinner class="align-middle"></b-spinner>
-        <strong>Loading...</strong>
-      </div>
-    </b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        isBusy: false,
-        items: [
-          { first_name: 'Dickerson', last_name: 'MacDonald', age: 40 },
-          { first_name: 'Larsen', last_name: 'Shaw', age: 21 },
-          { first_name: 'Geneva', last_name: 'Wilson', age: 89 },
-          { first_name: 'Jami', last_name: 'Carney', age: 38 }
-        ]
-      }
-    },
-    methods: {
-      toggleBusy() {
-        this.isBusy = !this.isBusy
-      }
-    }
-  }
-</script>
-
-<!-- b-table-busy-slot.vue -->
-```
-
-Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
-additional information on the `busy` state.
-
-**Note:** All click related and hover events, and sort-changed events will **not** be emitted when
-the table is in the `busy` state.
-
 ### Table caption
 
 Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
@@ -788,6 +720,76 @@ Slot `table-colgroup` can be optionally scoped, receiving an object with the fol
 | --------- | ------ | ----------------------------------------------------------------------------- |
 | `columns` | Number | The number of columns in the rendered table                                   |
 | `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+
+### Table busy state
+
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
+just before you update your items, and then set it to `false` once you have your items. When in the
+busy state, the table will have the attribute `aria-busy="true"`.
+
+During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
+following custom CSS:
+
+```css
+/* Busy table styling */
+table.b-table[aria-busy='true'] {
+  opacity: 0.6;
+}
+```
+
+You can override this styling using your own CSS.
+
+You may optionally provide a `table-busy` slot to show a custom loading message or spinner whenever
+the table's busy state is `true`. The slot will be placed in a `<tr>` element with class
+`b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
+
+**Example of `table-busy` slot usage:**
+
+```html
+<template>
+  <div>
+    <b-button @click="toggleBusy">Toggle Busy State</b-button>
+
+    <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
+      <div slot="table-busy" class="text-center text-danger my-2">
+        <b-spinner class="align-middle"></b-spinner>
+        <strong>Loading...</strong>
+      </div>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        isBusy: false,
+        items: [
+          { first_name: 'Dickerson', last_name: 'MacDonald', age: 40 },
+          { first_name: 'Larsen', last_name: 'Shaw', age: 21 },
+          { first_name: 'Geneva', last_name: 'Wilson', age: 89 },
+          { first_name: 'Jami', last_name: 'Carney', age: 38 }
+        ]
+      }
+    },
+    methods: {
+      toggleBusy() {
+        this.isBusy = !this.isBusy
+      }
+    }
+  }
+</script>
+
+<!-- b-table-busy-slot.vue -->
+```
+
+Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
+additional information on the `busy` state.
+
+**Notes:**
+- All click related and hover events, and sort-changed events will **not** be emitted when
+  the table is in the `busy` state.
+- Busy styling and slot are not available in the `<b-table-lite>` component.
 
 ## Custom data rendering
 
@@ -1858,6 +1860,8 @@ Make sure you handle any special situations that may be needed server side when 
 When `<b-table>` is mounted in the document, it will automatically trigger a provider update call.
 
 ## Light-weight tables
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.23</span>
 
 `<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple dipslay of
 tabular data. The `<b-table-lite>` component provides all of the styling and formatting features
