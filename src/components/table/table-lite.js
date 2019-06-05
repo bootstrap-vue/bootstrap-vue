@@ -22,24 +22,18 @@ export default Vue.extend({
   // Order of mixins is important!
   // They are merged from left to fight, followed by this component.
   mixins: [
-    // Required miins
+    // Required mixins
     idMixin,
     normalizeSlotMixin,
     itemsMixin,
+    tableRendererMixin,
+    theadMixin,
+    tfootMixin,
+    tbodyMixin
     // Features Mixins
     // These are pretty lightweight, and are useful for plain tables
     captionMixin,
     colgroupMixin,
-    // Required mixins
-    theadMixin,
-    tfootMixin,
-    tbodyMixin,
-    // Required mixin for rendering the final table
-    tableRendererMixin
-  ],
-  data() {
-    // Mixins add to data
-    return {}
-  }
+  ]
   // render function provided by table-renderer mixin
 })
