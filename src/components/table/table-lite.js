@@ -29,11 +29,11 @@ export default Vue.extend({
     tableRendererMixin,
     theadMixin,
     tfootMixin,
-    tbodyMixin
+    tbodyMixin,
     // Features Mixins
     // These are pretty lightweight, and are useful for plain tables
     captionMixin,
-    colgroupMixin,
+    colgroupMixin
   ]
   // render function provided by table-renderer mixin
 })
