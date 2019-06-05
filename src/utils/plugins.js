@@ -30,7 +30,9 @@ export const checkMultipleVue = (() => {
  * @param {object} { components, directives }
  * @returns {function} plugin install function
  */
-export const installFactory = ({ components, directives, plugins }) => {
+export const installFactory = (
+  { components, directives, plugins } = { components: {}, directives: {}, plugins: {} }
+) => {
   const install = (Vue, config = {}) => {
     if (install.installed) {
       /* istanbul ignore next */
