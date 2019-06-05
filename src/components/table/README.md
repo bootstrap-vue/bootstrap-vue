@@ -1,7 +1,9 @@
 # Tables
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
-> rendering, various style options, events, and asynchronous data.
+> rendering, various style options, events, and asynchronous data. For simple display of
+> tabular data without all the fancy features, BootstrapVue provides a lightweight alternative
+> component [`<b-table-lite>`](#light-weight-tables).
 
 **Example: Basic usage**
 
@@ -1854,6 +1856,21 @@ Special care must be taken when using server side rendering (SSR) and an `items`
 Make sure you handle any special situations that may be needed server side when fetching your data!
 
 When `<b-table>` is mounted in the document, it will automatically trigger a provider update call.
+
+## Light-weight tables
+
+`<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple dipslay of
+tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of `<b-table>`,
+while **excluding** the following features:
+
+- Filtering
+- Sorting
+- Pagination
+- Items provider support
+- Selectable rows
+- Busy table state and styling
+- Fixed top and bottom rows
+- Empty row support
 
 ## Accessibility
 
