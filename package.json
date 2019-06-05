@@ -123,7 +123,7 @@
     "nuxt": "^2.8.1",
     "postcss-cli": "^6.1.2",
     "prettier": "1.14.3",
-    "rollup": "^1.13.1",
+    "rollup": "^1.14.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
