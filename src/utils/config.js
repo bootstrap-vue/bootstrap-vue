@@ -7,6 +7,7 @@ import DEFAULTS from './config-defaults'
 // --- Constants ---
 
 const PROP_NAME = '$bvConfig'
+const VueProto = Vue.prototype
 
 // --- Getter methods ---
 // All methods return a deep clone (immutable) copy of the config
@@ -21,14 +22,12 @@ export const getDefaults = () => {
 
 // Get the current user config. For testing purposes only
 export const getConfig = () => {
-  return Vue.prototype[PROP_NAME] ? Vue.prototype[PROP_NAME].getConfig() : {}
+  return VueProto[PROP_NAME] ? VueProto[PROP_NAME].getConfig() : {}
 }
 
 // Method to grab a config value based on a dotted/array notation key
 export const getConfigValue = key => {
-  return Vue.prototype[PROP_NAME]
-    ? Vue.prototype[PROP_NAME].getConfigValue(key)
-    : cloneDeep(get(DEFAULTS, key))
+  return VueProto[PROP_NAME] ? VueProto[PROP_NAME].getConfigValue(key) : cloneDeep(get(DEFAULTS, key))
 }
 
 // Method to grab a config value for a particular component
