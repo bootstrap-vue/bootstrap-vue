@@ -4,20 +4,17 @@ import get from './get'
 import memoize from './memoize'
 import DEFAULTS from './config-defaults'
 
-// TODO: Temporary, until plugin installers are updated and tests are updated
-export { setConfig } from './config-set'
-
-// Method to get a deep clone (immutable) copy of the defaults
-// For testing purposes only
-export const getDefaults = () => {
-  return cloneDeep(DEFAULTS)
-}
-
 // Reset the user config to default
 // For testing purposes only
 // TODO: MOVE to config-set.js
 export const resetConfig = () => {
   Vue.prototype.$bvConfig && Vue.prototype.$bvConfig.resetConfig()
+}
+
+// Method to get a deep clone (immutable) copy of the defaults
+// For testing purposes only
+export const getDefaults = () => {
+  return cloneDeep(DEFAULTS)
 }
 
 // Get the current user config
