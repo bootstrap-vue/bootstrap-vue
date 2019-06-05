@@ -67,7 +67,7 @@ const BvConfig = {
           }
         })
     },
-    getDefaults() {
+    getDefaults() /* istanbul ignore next: not used in production */ {
       // Returns a copy of the defaults
       return DEFAULTS
     },
