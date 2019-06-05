@@ -20,7 +20,7 @@ export const is = Object.is || isPolyfill
  * Deep-freezes and object, making it immutable / read-only.
  * Returns the same object passed-in, but frozen 
  */
-export const deepFreeze = (obj) {
+export const deepFreeze = (obj) => {
   // Retrieve the property names defined on object
   const props = getOwnPropertyNames(obj);
   // Freeze properties before freezing self
