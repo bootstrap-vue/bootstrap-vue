@@ -1,11 +1,7 @@
 import tbodyRowMixin from './mixin-tbody-row'
-import emptyMixin from './mixin-empty'
-import topRowMixin from './mixin-top-row'
-import bottomRowMixin from './mixin-bottom-row'
-// busy mixin is imported in main table.js as it is used by multiple mixins
 
 export default {
-  mixins: [tbodyRowMixin, emptyMixin, topRowMixin, bottomRowMixin],
+  mixins: [tbodyRowMixin],
   props: {
     tbodyClass: {
       type: [String, Array],
@@ -30,15 +26,15 @@ export default {
       const $rows = []
 
       // Add the item data rows or the busy slot
-      const $busy = this.renderBusy()
+      const $busy = this.renderBusy ? this.renderBusy() : null
       if ($busy) {
         // If table is busy and a busy slot, then return only the busy "row" indicator
         $rows.push($busy)
       } else {
-        // Table isn't bsuy, or we don't have a busy slot
+        // Table isn't busy, or we don't have a busy slot
 
-        // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
-        $rows.push(this.renderTopRow())
+        // Add static Top Row slot (hidden in visibly stacked mode as we can't control data-label attr)
+        $rows.push(this.renderTopRow ? this.renderTopRow() : h(false))
 
         // render the rows
         items.forEach((item, rowIndex) => {
@@ -46,11 +42,11 @@ export default {
           $rows.push(this.renderTbodyRow(item, rowIndex))
         })
 
-        // Empty Items / Empty Filtered Row slot (only shows if items.length < -
-        $rows.push(this.renderEmpty())
+        // Empty Items / Empty Filtered Row slot (only shows if items.length < 1)
+        $rows.push(this.renderEmpty ? this.renderEmpty() : h(false))
 
-        // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
-        $rows.push(this.renderBottomRow())
+        // Static bottom row slot (hidden in visibly stacked mode as we can't control data-label attr)
+        $rows.push(this.renderBottomRow ? this.renderBottomRow() : h(false))
       }
 
       // If tbody transition enabled

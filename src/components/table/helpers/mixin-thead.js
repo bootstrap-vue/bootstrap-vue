@@ -82,9 +82,11 @@ export default {
             }
           }
         }
+        const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
+        const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
         const data = {
           key: field.key,
-          class: [this.fieldClasses(field), this.sortTheadThClasses(field.key, field, isFoot)],
+          class: [this.fieldClasses(field), sortClass],
           style: field.thStyle || {},
           attrs: {
             // We only add a tabindex of 0 if there is a head-clicked listener
@@ -95,7 +97,7 @@ export default {
             scope: 'col',
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
-            ...this.sortTheadThAttrs(field.key, field, isFoot)
+            ...sortAttrs
           },
           on: handlers
         }

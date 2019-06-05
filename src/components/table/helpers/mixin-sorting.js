@@ -73,7 +73,7 @@ export default {
     sortedItems() {
       // Sorts the filtered items and returns a new array of the sorted items
       // or the original items array if not sorted.
-      let items = (this.filteredItems || []).slice()
+      let items = (this.filteredItems || this.localItems || []).slice()
       const sortBy = this.localSortBy
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare

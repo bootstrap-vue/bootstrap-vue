@@ -14,7 +14,7 @@ export default {
       return this.hasProvider ? !!this.noProviderPaging : true
     },
     paginatedItems() {
-      let items = this.sortedItems || []
+      let items = this.sortedItems || this.filteredItems || this.localItems || []
       const currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1)
       const perPage = Math.max(parseInt(this.perPage, 10) || 0, 0)
       // Apply local pagination
