@@ -1,6 +1,6 @@
 // Utils/config-set
 
-import Vue from './vue'
+import OurVue from './vue'
 import cloneDeep from './clone-deep'
 import get from './get'
 import warn from './warn'
@@ -88,11 +88,11 @@ const BvConfig = {
   }
 }
 
-export const setConfig = (config = {}, _Vue = Vue) => {
+export const setConfig = (config = {}, Vue = OurVue) => {
   // Ensure we have a $bvConfig Object on the Vue prototype.
-  // We set on _Vue and Vue just in case consumer has not set an alias of `vue`.
-  _Vue.prototype.$bvConfig = Vue.prototype.$bvConfig =
-    _Vue.prototype.$bvConfig || Vue.prototype.$bvConfig || new _Vue.extend(BvConfig)()
+  // We set on Vue and OurVue just in case consumer has not set an alias of `vue`.
+  Vue.prototype.$bvConfig = OurVue.prototype.$bvConfig =
+    Vue.prototype.$bvConfig || OurVue.prototype.$bvConfig || new Vue.extend(BvConfig)()
   // Apply the config values
-  _Vue.prototype.$bvConfig.setConfig(config)
+  Vue.prototype.$bvConfig.setConfig(config)
 }
