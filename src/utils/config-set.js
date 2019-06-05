@@ -8,7 +8,7 @@ import { isArray, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import DEFAULTS from './config-defaults'
 
-// --- utils --
+// --- Utils ---
 
 const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 
