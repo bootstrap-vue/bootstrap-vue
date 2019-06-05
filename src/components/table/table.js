@@ -35,6 +35,10 @@ export default Vue.extend({
     idMixin,
     normalizeSlotMixin,
     itemsMixin,
+    tableRendererMixin,
+    theadMixin,
+    tfootMixin,
+    tbodyMixin,
     // Features Mixins
     filteringMixin,
     sortingMixin,
@@ -46,17 +50,7 @@ export default Vue.extend({
     topRowMixin,
     bottomRowMixin,
     busyMixin,
-    providerMixin,
-    // Required Mixins
-    theadMixin,
-    tfootMixin,
-    tbodyMixin,
-    // Required mixin for rendering the final table
-    tableRendererMixin
-  ],
-  data() {
-    // Mixins add to data
-    return {}
-  }
+    providerMixin
+  ]
   // render function provided by table-renderer mixin
 })
