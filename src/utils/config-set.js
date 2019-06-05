@@ -1,5 +1,3 @@
-// Utils/config-set
-
 import OurVue from './vue'
 import cloneDeep from './clone-deep'
 import get from './get'
@@ -13,10 +11,12 @@ import DEFAULTS from './config-defaults'
 const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 
 // Config manager "class"
+// TODO: Convert to real class constructor
 const BvConfig = {
   created() {
     // Non reactive private properties
     // TODO: pre-populate with default config values
+    // this.$config = cloneDeep(DEFAULTS)
     this.$_config = {}
     this.$_cachedBreakpoints = null
   },
@@ -30,7 +30,7 @@ const BvConfig = {
       keys(config)
         .filter(cmpName => hasOwnProperty(config, cmpName))
         .forEach(cmpName => {
-          if (!DEFAULTS.hasOwnProperty(cmpName)) {
+          if (!hasOwnProperty(DEFAULTS, cmpName)) {
             /* istanbul ignore next */
             warn(`config: unknown config property "${cmpName}"`)
             /* istanbul ignore next */
@@ -58,7 +58,7 @@ const BvConfig = {
                   /* istanbul ignore next */
                   warn(`config: unknown config property "${cmpName}.{$key}"`)
                 } else {
-                  // If we pre-populate the config with defaults, we can skip this line
+                  // TODO: If we pre-populate the config with defaults, we can skip this line
                   this.$_config[cmpName] = this.$_config[cmpName] || {}
                   if (!isUndefined(cmpConfig[key])) {
                     this.$_config[cmpName][key] = cloneDeep(cmpConfig[key])
