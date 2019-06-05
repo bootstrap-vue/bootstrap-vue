@@ -21,7 +21,7 @@ export const is = Object.is || isPolyfill
  * Returns the same object passed-in, but frozen.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
  */
-export const deepFreeze = (obj) => {
+export const deepFreeze = obj => {
   // Retrieve the property names defined on object
   const props = getOwnPropertyNames(obj)
   // Freeze properties before freezing self
