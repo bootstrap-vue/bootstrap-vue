@@ -29,7 +29,7 @@ import tableRendererMixin from './helpers/mixin-table-renderer'
 export default Vue.extend({
   name: 'BTable',
   // Order of mixins is important!
-  // They are merged from left to fight, followed by this component.
+  // They are merged from first to last, followed by this component.
   mixins: [
     // Required Mixins
     idMixin,
