@@ -14,7 +14,7 @@ import {
   omit,
   readonlyDescriptor
 } from '../../../utils/object'
-import { installFactory } from '../../../plugins'
+import { installFactory } from '../../../utils/plugins'
 import { warn, warnNotClient } from '../../../utils/warn'
 import BToast, { props as toastProps } from '../toast'
 
