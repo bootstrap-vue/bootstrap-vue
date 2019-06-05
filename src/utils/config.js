@@ -58,7 +58,7 @@ const _getBreakpointsCached = memoize(() => {
 // Caches the results after first access
 // Returns a deep clone (immutable) copy
 export const getBreakpointsCached = () => {
-  return cloneDeep(_getBreakpointscached())
+  return cloneDeep(_getBreakpointsCached())
 }
 
 // Convenience method for getting breakpoints with
