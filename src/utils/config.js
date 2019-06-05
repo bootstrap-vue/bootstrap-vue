@@ -98,7 +98,7 @@ export const getBreakpointsDown = () => {
 // Caches the results after first access.
 // Returns a deep clone (immutable) copy.
 /* istanbul ignore next: we don't use this method anywhere, yet */
-export const getBreakpointsDownCached = () => {
+export const getBreakpointsDownCached = () => /* istanbul ignore next */ {
   const breakpoints = getBreakpointsCached()
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
