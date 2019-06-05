@@ -1,10 +1,12 @@
+import looseEqual from '../../../utils/loose-equal'
 import { isArray, isNull, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
 
 export default {
   props: {
     items: {
-      type: [Array, Function],
+      // Provider mixin adds in `Function` type
+      type: Array,
       default() /* istanbul ignore next */ {
         return []
       }
@@ -19,6 +21,13 @@ export default {
       // If provided the value in each row must be unique!!!
       type: String,
       default: null
+    },
+    value: {
+      // v-model for retrieving the current displayed rows
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
   data() {
@@ -40,6 +49,27 @@ export default {
         obj[f.key] = f
         return obj
       }, {})
+    },
+    computedItems() {
+      // Fallback if various mixins not provided
+      return (
+        this.paginatedItems ||
+        this.sortedItems ||
+        this.filteredItems ||
+        this.localItems ||
+        []
+      ).slice()
+    },
+    context() {
+      // Current state of sorting, filtering and pagination props/values
+      return {
+        filter: this.localFilter,
+        sortBy: this.localSortBy,
+        sortDesc: this.localSortDesc,
+        perPage: parseInt(this.perPage, 10) || 0,
+        currentPage: parseInt(this.currentPage, 10) || 1,
+        apiUrl: this.apiUrl
+      }
     }
   },
   watch: {
@@ -52,6 +82,21 @@ export default {
         /* istanbul ignore next */
         this.localItems = []
       }
+    },
+    // Watch for changes on computedItems and update the v-model
+    computedItems(newVal) {
+      this.$emit('input', newVal)
+    },
+    // Watch for context changes
+    context(newVal, oldVal) {
+      // Emit context info for external paging/filtering/sorting handling
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('context-changed', newVal)
+      }
     }
+  },
+  mounted() {
+    // Initially update the v-model of displayed items
+    this.$emit('input', this.computedItems)
   }
 }
