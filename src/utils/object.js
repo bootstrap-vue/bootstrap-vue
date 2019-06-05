@@ -16,6 +16,12 @@ export const create = Object.create
 export const isFrozen = Object.isFrozen
 export const is = Object.is || isPolyfill
 
+// --- "Instance" ---
+
+export const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+
+// --- Utilities ---
+
 /**
  * Deep-freezes and object, making it immutable / read-only.
  * Returns the same object passed-in, but frozen.
