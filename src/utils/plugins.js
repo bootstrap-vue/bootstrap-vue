@@ -1,6 +1,6 @@
 import OurVue from './vue'
 import warn from './warn'
-import { setConfig } from './config'
+import { setConfig } from './config-set'
 import { hasWindowSupport, isJSDOM } from './env'
 
 /**
@@ -38,7 +38,7 @@ export const installFactory = ({ components, directives, plugins }) => {
     }
     install.installed = true
     checkMultipleVue(Vue)
-    setConfig(config)
+    setConfig(config, Vue)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
