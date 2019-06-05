@@ -4,7 +4,8 @@
 
 import BModal, { props as modalProps } from '../modal'
 import { concat } from '../../../utils/array'
-import { setConfig, getComponentConfig } from '../../../utils/config'
+import { getComponentConfig } from '../../../utils/config'
+import { setConfig } from '../../../utils/config-set'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
@@ -62,7 +63,7 @@ const install = (Vue, config = {}) => {
   }
   install.installed = true
 
-  setConfig(config)
+  setConfig(config, Vue)
 
   // Create a private sub-component that extends BModal
   // which self-destructs after hidden
