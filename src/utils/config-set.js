@@ -13,7 +13,7 @@ import DEFAULTS from './config-defaults'
 const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 
 // Config manager "class"
-const BvConfig = Vue.extend({
+const BvConfig = {
   created() {
     // Non reactive private properties
     // TODO: pre-populate with default config values
@@ -50,7 +50,7 @@ const BvConfig = Vue.extend({
             } else {
               this.$_config.breakpoints = cloneDeep(breakpoints)
             }
-          } else if (isObject(cmpConfig)) {
+          } else if (isPlainObject(cmpConfig)) {
             keys(cmpConfig)
               .filter(key => hasOwnProperty(cmpConfig, key))
               .forEach(key => {
@@ -86,14 +86,13 @@ const BvConfig = Vue.extend({
       return cloneDeep(get(this.$_config, key, get(DEFAULTS, key)))
     }
   }
-})
+}
 
 export const setConfig = (config = {}, _Vue = Vue) => {
   // Ensure we have a $bvConfig Object on the Vue prototype.
   // We set on _Vue and Vue just in case consumer has not set an alias of `vue`.
-  _Vue.prototype.$bvConfig = Vue.prototype.$bvConfig = (
-    _Vue.prototype.$bvConfig || Vue.prototype.$bvConfig || new BvConfig()
-  )
+  _Vue.prototype.$bvConfig = Vue.prototype.$bvConfig =
+    _Vue.prototype.$bvConfig || Vue.prototype.$bvConfig || new _Vue.extend(BvConfig)()
   // Apply the config values
   _Vue.prototype.$bvConfig.setConfig(config)
 }
