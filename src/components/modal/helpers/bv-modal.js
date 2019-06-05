@@ -5,7 +5,6 @@
 import BModal, { props as modalProps } from '../modal'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
-import { setConfig } from '../../../utils/config-set'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
@@ -55,16 +54,7 @@ const filterOptions = options => {
 }
 
 // Method to install `$bvModal` VM injection
-const install = (Vue, config = {}) => {
-  if (install.installed) {
-    // Only install once
-    /* istanbul ignore next */
-    return
-  }
-  install.installed = true
-
-  setConfig(config, Vue)
-
+const plugin = Vue => {
   // Create a private sub-component that extends BModal
   // which self-destructs after hidden
   // @vue/component
@@ -271,8 +261,6 @@ const install = (Vue, config = {}) => {
   }
 }
 
-install.installed = false
-
 export default {
-  install: install
+  install: installFactory({ plugins: { plugin } })
 }
