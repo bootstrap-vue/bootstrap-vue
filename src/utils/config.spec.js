@@ -36,7 +36,7 @@ describe('utils/config', () => {
     // Component's full config
     expect(getComponentConfig('BAlert')).toEqual(DEFAULTS.BAlert)
     // Should return a deep clone for full config
-    expect(getComponentConfig('BAlert')).not.toBe(DEFAULTS..BAlert)
+    expect(getComponentConfig('BAlert')).not.toBe(DEFAULTS.BAlert)
     // Should return empty object for not found component
     expect(getComponentConfig('foobar')).toEqual({})
     // Should return null for not found component key
