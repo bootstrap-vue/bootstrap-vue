@@ -13,13 +13,6 @@ const VueProto = Vue.prototype
 // All methods return a deep clone (immutable) copy of the config
 // value, to prevent mutation of the user config object.
 
-// Method to get a deep clone (immutable) copy of the defaults
-// For testing purposes only
-export const getDefaults = () => {
-  // DEFAULTS is a deep frozen object that is immutable
-  return DEFAULTS
-}
-
 // Get the current user config. For testing purposes only
 export const getConfig = () => {
   return VueProto[PROP_NAME] ? VueProto[PROP_NAME].getConfig() : {}
