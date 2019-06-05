@@ -4,7 +4,7 @@
 import { installFactory } from './utils/plugins'
 
 const BVConfigPlugin = {
-  install: installFactory({})
+  install: installFactory()
 }
 
 export default BVConfigPlugin
