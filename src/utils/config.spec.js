@@ -1,5 +1,4 @@
 import {
-  resetConfig,
   getConfig,
   getDefaults,
   getConfigValue,
@@ -8,7 +7,7 @@ import {
   getBreakpointsUp,
   getBreakpointsDown
 } from './config'
-import { setConfig } from './config-set'
+import { setConfig, resetConfig } from './config-set'
 import looseEqual from './loose-equal'
 import { createLocalVue } from '@vue/test-utils'
 import BootstrapVue from '../../src'
