@@ -83,6 +83,7 @@ describe('utils/config', () => {
   })
 
   it('getConfig() return current empty user config', async () => {
+    // TODO: will return default config instead of empty object
     expect(getConfig()).toEqual({})
   })
 
@@ -96,6 +97,7 @@ describe('utils/config', () => {
 
     const defaults = getDefaults()
 
+    // TODO: getConfig will return default config instead of empty object
     expect(getConfig()).toEqual({})
 
     // Try a conponent config
