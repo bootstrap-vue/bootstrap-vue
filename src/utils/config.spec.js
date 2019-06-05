@@ -60,6 +60,10 @@ describe('utils/config', () => {
   })
 
   it('getDefaults() returns deep clone', async () => {
+    // TODO: remove deepClone from getDefaults, and change test
+    // to attempt changing a frozen value
+    // When we get a config by key, we always return a deep clone
+    // So this change will reduce config getting time (performance)
     const defaults = getDefaults()
 
     expect(Object.keys(defaults).length).toBeGreaterThan(1)
