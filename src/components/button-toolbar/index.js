@@ -1,13 +1,13 @@
 import BButtonToolbar from './button-toolbar'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BButtonToolbar,
-  BBtnToolbar: BButtonToolbar
-}
+const ButtonToolbarPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BButtonToolbar,
+    BBtnToolbar: BButtonToolbar
+  }
+})
 
 export { BButtonToolbar }
 
-export default {
-  install: installFactory({ components })
-}
+export default ButtonToolbarPlugin
