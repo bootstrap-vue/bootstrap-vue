@@ -17,7 +17,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BCardGroup = /*#__PURE__*/ Vue.extend({
   name: 'BCardGroup',
   functional: true,
   props,
@@ -32,3 +32,5 @@ export default Vue.extend({
     return h(props.tag, mergeData(data, { class: baseClass }), children)
   }
 })
+
+export default BCardGroup
