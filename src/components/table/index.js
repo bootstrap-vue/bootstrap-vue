@@ -3,7 +3,7 @@ import BTableLite from './table-lite'
 import { pluginFactory } from '../../utils/plugins'
 
 const TablePlugin = /*#__PURE__*/ pluginFactory({
-  components { BTable, BTableLite}
+  components: { BTable, BTableLite }
 })
 
 export { BTable, BTableLite }
