@@ -24,7 +24,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BMedia = /*#__PURE__*/ Vue.extend({
   name: 'BMedia',
   functional: true,
   props,
@@ -63,3 +63,5 @@ export default Vue.extend({
     return h(props.tag, mergeData(data, { staticClass: 'media' }), childNodes)
   }
 })
+
+export default BMedia
