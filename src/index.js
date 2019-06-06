@@ -18,7 +18,7 @@ const BootstrapVue = /*#__PURE__*/ {
   install: install,
   // To be deprecated. not documented
   setConfig: setConfig
-)
+}
 
 // Named exports for BvConfigPlugin and BootstrapVue
 export {
