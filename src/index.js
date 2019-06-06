@@ -10,9 +10,6 @@ export * from './components/index.esm'
 // Named exports of all directives and directive group plugins
 export * from './directives/index.esm'
 
-// BootstrapVue installer
-const install = installFactory({ plugins: { componentsPlugin, directivesPlugin } })
-
 // BootstrapVue plugin
 const BootstrapVue = /*#__PURE__*/ pluginFactory(
   { plugins: { componentsPlugin, directivesPlugin } },
