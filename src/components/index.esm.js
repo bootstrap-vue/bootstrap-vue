@@ -1,6 +1,6 @@
 // Index file used for the main builds, which does not include legacy plugin names
 // Once es/ buld is removed, then this file will be renamed to index.js
-import { installFactory } from '../utils/plugins'
+import { pluginFactory } from '../utils/plugins'
 import * as componentPlugins from './plugins'
 
 // Export all component group plugins as named exports
@@ -46,6 +46,4 @@ export * from './tabs'
 export * from './toast'
 export * from './tooltip'
 
-export const componentsPlugin = {
-  install: installFactory({ plugins: componentPlugins })
-}
+export const componentsPlugin = /*#__PURE__*/ pluginFactory({ plugins: componentPlugins })
