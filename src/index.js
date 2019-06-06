@@ -32,7 +32,7 @@ export {
   //   BootstrapVue = require('bootstrap-vue')
   //   BootstrapVue = require('bootstrap-vue').default
   //   Vue.use(BootstrapVue)
-  install,
+  install: BootstrapVue.install,
   // To be deprecated. not documented
   setConfig
 }
