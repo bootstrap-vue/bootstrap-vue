@@ -12,7 +12,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BBreadcrumb = /*#__PURE__*/ Vue.extend({
   name: 'BBreadcrumb',
   functional: true,
   props,
@@ -42,3 +42,5 @@ export default Vue.extend({
     return h('ol', mergeData(data, { staticClass: 'breadcrumb' }), childNodes)
   }
 })
+
+export default BBreadcrumb
