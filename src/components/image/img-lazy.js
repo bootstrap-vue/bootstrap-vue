@@ -91,7 +91,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BImgLazy = /*#__PURE__*/ Vue.extend({
   name: NAME,
   props,
   data() {
@@ -247,3 +247,5 @@ export default Vue.extend({
     })
   }
 })
+
+export default BImgLazy
