@@ -33,7 +33,7 @@ const parseShow = show => {
 const isNumericLike = value => !isNaN(parseInt(value, 10))
 
 // @vue/component
-export default Vue.extend({
+const BAlert = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   model: {
@@ -164,3 +164,5 @@ export default Vue.extend({
     return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
   }
 })
+
+export default BAlert
