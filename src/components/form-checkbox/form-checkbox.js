@@ -9,7 +9,7 @@ import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 
 // @vue/component
-export default Vue.extend({
+const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   name: 'BFormCheckbox',
   mixins: [
     formRadioCheckMixin, // Includes shared render function
@@ -123,3 +123,5 @@ export default Vue.extend({
     }
   }
 })
+
+export default BFormCheckbox
