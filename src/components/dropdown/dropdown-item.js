@@ -6,7 +6,7 @@ import nomalizeSlotMixin from '../../mixins/normalize-slot'
 export const props = linkPropsFactory()
 
 // @vue/component
-export default Vue.extend({
+const BDropdownItem = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownItem',
   mixins: [nomalizeSlotMixin],
   inheritAttrs: false,
@@ -55,3 +55,5 @@ export default Vue.extend({
     ])
   }
 })
+
+export default BDropdownItem
