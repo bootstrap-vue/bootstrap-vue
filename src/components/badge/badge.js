@@ -27,7 +27,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BBadge = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -50,3 +50,5 @@ export default Vue.extend({
     return h(tag, mergeData(data, componentData), children)
   }
 })
+
+export default BBadge
