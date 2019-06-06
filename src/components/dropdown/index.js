@@ -6,28 +6,30 @@ import BDropdownDivider from './dropdown-divider'
 import BDropdownForm from './dropdown-form'
 import BDropdownText from './dropdown-text'
 import BDropdownGroup from './dropdown-group'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BDropdown,
-  BDd: BDropdown,
-  BDropdownItem,
-  BDdItem: BDropdownItem,
-  BDropdownItemButton,
-  BDropdownItemBtn: BDropdownItemButton,
-  BDdItemButton: BDropdownItemButton,
-  BDdItemBtn: BDropdownItemButton,
-  BDropdownHeader,
-  BDdHeader: BDropdownHeader,
-  BDropdownDivider,
-  BDdDivider: BDropdownDivider,
-  BDropdownForm,
-  BDdForm: BDropdownForm,
-  BDropdownText,
-  BDdText: BDropdownText,
-  BDropdownGroup,
-  BDdGroup: BDropdownGroup
-}
+const DropdownPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BDropdown,
+    BDd: BDropdown,
+    BDropdownItem,
+    BDdItem: BDropdownItem,
+    BDropdownItemButton,
+    BDropdownItemBtn: BDropdownItemButton,
+    BDdItemButton: BDropdownItemButton,
+    BDdItemBtn: BDropdownItemButton,
+    BDropdownHeader,
+    BDdHeader: BDropdownHeader,
+    BDropdownDivider,
+    BDdDivider: BDropdownDivider,
+    BDropdownForm,
+    BDdForm: BDropdownForm,
+    BDropdownText,
+    BDdText: BDropdownText,
+    BDropdownGroup,
+    BDdGroup: BDropdownGroup
+  }
+})
 
 export {
   BDropdown,
@@ -40,6 +42,4 @@ export {
   BDropdownGroup
 }
 
-export default {
-  install: installFactory({ components })
-}
+export default DropdownPlugin
