@@ -1,13 +1,13 @@
 import BFormGroup from './form-group'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BFormGroup,
-  BFormFieldset: BFormGroup
-}
+const FormGroupPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BFormGroup,
+    BFormFieldset: BFormGroup
+  }
+})
 
 export { BFormGroup }
 
-export default {
-  install: installFactory({ components })
-}
+export default FormGroupPlugin
