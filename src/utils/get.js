@@ -41,7 +41,7 @@ const get = (obj, path, defaultValue = null) => {
   // We use `!=` vs `!==` to test for both `null` and `undefined`
   // Switched to `in` operator vs `hasOwnProperty` to handle obj.prototype getters
   // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
-  return steps.every(step => isObject(obj) && (step in obj) && (obj = obj[step]) != null)
+  return steps.every(step => isObject(obj) && step in obj && (obj = obj[step]) != null)
     ? obj
     : defaultValue
 }
