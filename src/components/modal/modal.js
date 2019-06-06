@@ -218,7 +218,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
@@ -911,3 +911,5 @@ export default Vue.extend({
     }
   }
 })
+
+export default BModal
