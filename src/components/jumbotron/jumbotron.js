@@ -63,7 +63,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BJumbotron = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -129,3 +129,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BJumbotron
