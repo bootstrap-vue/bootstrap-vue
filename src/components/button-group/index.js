@@ -10,4 +10,4 @@ const ButtonGroupPlugin = /*#__PURE__*/ pluginFactory({
 
 export { BButtonGroup }
 
-export ButtonGroupPlugin
+export default ButtonGroupPlugin
