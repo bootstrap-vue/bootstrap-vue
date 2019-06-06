@@ -3,7 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import InputGroupAddon, { commonProps } from './input-group-addon'
 
 // @vue/component
-export default Vue.extend({
+const BInputGroupPrepend = /*#__PURE__*/ Vue.extend({
   name: 'BInputGroupPrepend',
   functional: true,
   props: commonProps,
@@ -18,3 +18,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BInputGroupPrepend
