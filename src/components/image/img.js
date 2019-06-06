@@ -96,8 +96,8 @@ function makeBlankImgSrc(width, height, color) {
 }
 
 // @vue/component
-export default Vue.extend({
-  name: 'BImg',
+const BImg = /*#__PURE__*/ Vue.extend({
+  name: NAME,
   functional: true,
   props,
   render(h, { props, data }) {
@@ -149,3 +149,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BImg
