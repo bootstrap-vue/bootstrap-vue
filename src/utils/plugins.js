@@ -50,6 +50,18 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
 }
 
 /**
+ * Plugin object factory function.
+ * @param {object} { components, directives, plugins }
+ * @returns {object} plugin install object
+ */
+export const pluginFactory = (opts = {}) => {
+  return {
+    install: installFactory(opts),
+    setConfig: (config = {}) => setConfig(config)
+  }
+}
+
+/**
  * Load a group of plugins.
  * @param {object} Vue
  * @param {object} Plugin definitions
