@@ -8,20 +8,22 @@ import BCardImg from './card-img'
 import BCardImgLazy from './card-img-lazy'
 import BCardText from './card-text'
 import BCardGroup from './card-group'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BCard,
-  BCardHeader,
-  BCardBody,
-  BCardTitle,
-  BCardSubTitle,
-  BCardFooter,
-  BCardImg,
-  BCardImgLazy,
-  BCardText,
-  BCardGroup
-}
+const CardPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BCard,
+    BCardHeader,
+    BCardBody,
+    BCardTitle,
+    BCardSubTitle,
+    BCardFooter,
+    BCardImg,
+    BCardImgLazy,
+    BCardText,
+    BCardGroup
+  }
+})
 
 export {
   BCard,
@@ -36,6 +38,4 @@ export {
   BCardGroup
 }
 
-export default {
-  install: installFactory({ components })
-}
+export default CardPlugin
