@@ -1,5 +1,5 @@
 import BAlert from './alert'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
 const AlertPlugin = /#__PURE__*/pluginFactory({
   components: { BAlert }
