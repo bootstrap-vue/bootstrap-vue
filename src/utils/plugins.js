@@ -57,7 +57,7 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
 export const pluginFactory = (opts = {}) => {
   return {
     install: installFactory(opts),
-    setConfig: (config = {}) => setConfig(config)
+    setConfig: setConfig
   }
 }
 
