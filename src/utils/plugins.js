@@ -54,10 +54,10 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
  * @param {object} { components, directives, plugins }
  * @returns {object} plugin install object
  */
-export const pluginFactory = (opts = {}) => {
+export const pluginFactory = (opts = {}, extend = {}) => {
   return {
-    install: installFactory(opts),
-    setConfig: setConfig
+    ...extend,
+    install: installFactory(opts)
   }
 }
 
