@@ -31,7 +31,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BCard = /*#__PURE__*/ Vue.extend({
   name: 'BCard',
   functional: true,
   props,
@@ -100,3 +100,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCard
