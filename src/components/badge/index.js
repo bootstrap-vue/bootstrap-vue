@@ -1,12 +1,10 @@
 import BBadge from './badge'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BBadge
-}
+const BadgePlugin = /*#__PURE__*/pluginFactory({
+  components: { BBadge }
+})
 
 export { BBadge }
 
-export default {
-  install: installFactory({ components })
-}
+export default BadgePlugin
