@@ -63,7 +63,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BCarouselSlide = /*#__PURE__*/ Vue.extend({
   name: 'BCarouselSlide',
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
@@ -154,3 +154,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCarouselSlide
