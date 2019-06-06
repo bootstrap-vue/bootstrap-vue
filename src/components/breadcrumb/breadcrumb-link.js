@@ -21,7 +21,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
   name: 'BBreadcrumbLink',
   functional: true,
   props,
@@ -40,3 +40,5 @@ export default Vue.extend({
     return h(tag, mergeData(data, componentData), children)
   }
 })
+
+export default BBreadcrumbLink
