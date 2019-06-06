@@ -32,7 +32,7 @@ export const props = {
   ...linkProps
 }
 // @vue/component
-export default Vue.extend({
+const BListGroupItem = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -70,3 +70,5 @@ export default Vue.extend({
     return h(tag, mergeData(data, componentData), children)
   }
 })
+
+export default BListGroupItem
