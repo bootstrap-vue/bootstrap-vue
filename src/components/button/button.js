@@ -144,7 +144,7 @@ const computeAttrs = (props, data) => {
 }
 
 // @vue/component
-export default Vue.extend({
+const BButton = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -186,3 +186,5 @@ export default Vue.extend({
     return h(link ? BLink : props.tag, mergeData(data, componentData), children)
   }
 })
+
+export default BButton
