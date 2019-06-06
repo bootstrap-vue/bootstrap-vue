@@ -1,13 +1,13 @@
 import BFormSelect from './form-select'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BFormSelect,
-  BSelect: BFormSelect
-}
+const FormSelectPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BFormSelect,
+    BSelect: BFormSelect
+  }
+})
 
 export { BFormSelect }
 
-export default {
-  install: installFactory({ components })
-}
+export default FormSelectPlugin
