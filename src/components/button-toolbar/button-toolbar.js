@@ -12,7 +12,7 @@ const ITEM_SELECTOR = [
 ].join(',')
 
 // @vue/component
-export default Vue.extend({
+const BButtonToolbar = /*#__PURE__*/ Vue.extend({
   name: 'BButtonToolbar',
   mixins: [normalizeSlotMixin],
   props: {
@@ -115,3 +115,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BButtonToolbar
