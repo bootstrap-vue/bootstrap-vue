@@ -18,7 +18,7 @@ export const commonProps = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BInputGroupAddon = /*#__PURE__*/ Vue.extend({
   name: 'BInputGroupAddon',
   functional: true,
   props: {
@@ -44,3 +44,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BInputGroupAddon
