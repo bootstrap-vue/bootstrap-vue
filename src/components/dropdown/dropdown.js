@@ -68,7 +68,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BDropdown = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -191,3 +191,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BDropdown
