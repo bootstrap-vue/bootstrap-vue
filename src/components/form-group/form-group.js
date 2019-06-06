@@ -254,7 +254,7 @@ const generateProps = () => {
 // We do not use Vue.extend here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
-export default {
+const BFormGroup = {
   name: NAME,
   mixins: [idMixin, formStateMixin, normalizeSlotMixin],
   get props() {
@@ -466,3 +466,5 @@ export default {
     )
   }
 }
+
+export default BFormGroup
