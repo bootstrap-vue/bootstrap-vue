@@ -1,14 +1,14 @@
 import BCarousel from './carousel'
 import BCarouselSlide from './carousel-slide'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BCarousel,
-  BCarouselSlide
-}
+const CarouselPlugin = /*#__PURE*/ pluginFactory({
+  components: {
+    BCarousel,
+    BCarouselSlide
+  }
+})
 
 export { BCarousel, BCarouselSlide }
 
-export default {
-  install: installFactory({ components })
-}
+export default CarouselPlugin
