@@ -1,12 +1,10 @@
 import VBScrollspy from './scrollspy'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const directives = {
-  VBScrollspy
-}
+const VBScrollspyPlugin = /*#__PURE__*/ pluginFactory({
+  directives: { VBScrollspy }
+})
 
 export { VBScrollspy }
 
-export default {
-  install: installFactory({ directives })
-}
+export default VBScrollspyPlugin
