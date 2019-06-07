@@ -6,7 +6,7 @@ import BProgressBar from './progress-bar'
 const NAME = 'BProgress'
 
 // @vue/component
-export default Vue.extend({
+const BProgress = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   provide() {
@@ -76,3 +76,5 @@ export default Vue.extend({
     return h('div', { class: ['progress'], style: this.progressHeight }, [childNodes])
   }
 })
+
+export default BProgress
