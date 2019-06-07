@@ -16,7 +16,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BNavbarBrand = /*#__PURE__*/ Vue.extend({
   name: 'BNavbarBrand',
   functional: true,
   props,
@@ -34,3 +34,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavbarBrand
