@@ -1,12 +1,10 @@
 import VBToggle from './toggle'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const directives = {
-  VBToggle
-}
+const VBTogglePlugin = /*#__PURE__*/ pluginFactory({
+  directives: { VBToggle }
+})
 
 export { VBToggle }
 
-export default {
-  install: installFactory({ directives })
-}
+export default VBTogglePlugin
