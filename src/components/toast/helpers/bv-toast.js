@@ -14,7 +14,7 @@ import {
   omit,
   readonlyDescriptor
 } from '../../../utils/object'
-import { installFactory } from '../../../utils/plugins'
+import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient } from '../../../utils/warn'
 import BToast, { props as toastProps } from '../toast'
 
@@ -190,7 +190,9 @@ const plugin = Vue => {
   }
 }
 
+const BVToastPlugin = /*#__PURE__*/ pluginFactory({
+  plugins: { plugin }
+})
+
 // Default export is the Plugin
-export default {
-  install: installFactory({ plugins: { plugin } })
-}
+export default BVToastPlugin
