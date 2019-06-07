@@ -66,7 +66,7 @@ export const DefaultTransition = Vue.extend({
 })
 
 // @vue/component
-export default Vue.extend({
+const BToaster = /*#__PURE__*/ Vue.extend({
   name: NAME,
   props,
   data() {
@@ -132,3 +132,5 @@ export default Vue.extend({
     return $toaster
   }
 })
+
+export default BToaster
