@@ -105,7 +105,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -442,3 +442,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BToast
