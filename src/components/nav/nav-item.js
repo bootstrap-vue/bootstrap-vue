@@ -5,7 +5,7 @@ import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 export const props = linkPropsFactory()
 
 // @vue/component
-export default Vue.extend({
+const BNavItem = /*#__PURE__*/ Vue.extend({
   name: 'BNavItem',
   functional: true,
   props: {
@@ -45,3 +45,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavItem
