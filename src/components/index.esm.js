@@ -41,7 +41,15 @@ export * from './pagination-nav'
 export * from './popover'
 export * from './progress'
 export * from './spinner'
-export * from './table'
+// Webpack 4 has difficulties with re-eport of re-export optimizations
+// So we import the table components indivisulaly here for better tree shaking.
+// the table components are one of hte largest components in the library
+// so we do this here to help with consumer optimizations.
+// Webpack v5 fixes the optimizations with re-export of re-exports so this
+// can be reverted back to `export * from './table'` when Webpack v5 is released.
+// export * from './table'
+export { default as BTable } from './table/table'
+export { default as BTableLite } from './table/table-lite'
 export * from './tabs'
 export * from './toast'
 export * from './tooltip'
