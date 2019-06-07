@@ -14,7 +14,7 @@ const EVENT_STATE = 'bv::collapse::state'
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 // @vue/component
-export default Vue.extend({
+const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [listenOnRootMixin, normalizeSlotMixin],
   props: {
@@ -66,3 +66,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavbarToggle
