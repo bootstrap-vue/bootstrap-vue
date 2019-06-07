@@ -29,7 +29,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
   name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -116,3 +116,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavItemDropdown
