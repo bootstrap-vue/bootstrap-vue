@@ -1,20 +1,14 @@
 import BToast from './toast'
 import BToaster from './toaster'
 import BVToastPlugin from './helpers/bv-toast'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BToast,
-  BToaster
-}
-
-const plugins = {
+const ToastPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BToast, BToaster },
   // $bvToast injection
-  BVToastPlugin
-}
+  plugins: { BVToastPlugin }
+})
 
 export { BToast, BToaster }
 
-export default {
-  install: installFactory({ components, plugins })
-}
+export default ToastPlugin
