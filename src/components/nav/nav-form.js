@@ -6,7 +6,7 @@ import { omit } from '../../utils/object'
 export const props = omit(BFormProps, ['inline'])
 
 // @vue/component
-export default Vue.extend({
+const BNavForm = /*#__PURE__*/ Vue.extend({
   name: 'BNavForm',
   functional: true,
   props,
@@ -14,3 +14,5 @@ export default Vue.extend({
     return h(BForm, mergeData(data, { props: { ...props, inline: true } }), children)
   }
 })
+
+export default BNavForm
