@@ -140,7 +140,7 @@ const BTabButtonHelper = Vue.extend({
 })
 
 // @vue/component
-export default Vue.extend({
+const BTabs = /*#__PURE__*/ Vue.extend({
   name: 'BTabs',
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
@@ -660,3 +660,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BTabs
