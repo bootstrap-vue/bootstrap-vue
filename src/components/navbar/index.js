@@ -5,24 +5,23 @@ import BNavbarToggle from './navbar-toggle'
 import NavPlugin from '../nav'
 import CollapsePlugin from '../collapse'
 import DropdownPlugin from '../dropdown'
-import { installFactory } from '../../utils/plugins'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BNavbar,
-  BNavbarNav,
-  BNavbarBrand,
-  BNavbarToggle,
-  BNavToggle: BNavbarToggle
-}
-
-const plugins = {
-  NavPlugin,
-  CollapsePlugin,
-  DropdownPlugin
-}
+const NavbarPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BNavbar,
+    BNavbarNav,
+    BNavbarBrand,
+    BNavbarToggle,
+    BNavToggle: BNavbarToggle
+  },
+  plugins: {
+    NavPlugin,
+    CollapsePlugin,
+    DropdownPlugin
+  }
+})
 
 export { BNavbar, BNavbarNav, BNavbarBrand, BNavbarToggle }
 
-export default {
-  install: installFactory({ components, plugins })
-}
+export default NavbarPlugin
