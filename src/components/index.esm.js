@@ -47,6 +47,7 @@ export * from './spinner'
 // so we do this here to help with consumer optimizations.
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
 // can be reverted back to `export * from './table'` when Webpack v5 is released.
+// https://github.com/webpack/webpack/pull/9203
 // export * from './table'
 export { default as BTable } from './table/table'
 export { default as BTableLite } from './table/table-lite'
