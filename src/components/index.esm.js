@@ -6,7 +6,17 @@ import * as componentPlugins from './plugins'
 // Export all component group plugins as named exports
 export * from './plugins'
 
-// Export all individual components as named exports
+// Export all individual components as named exports.
+// This is mainly for users who import individual components and directives.
+//
+// Webpack 4 has optimization difficulties with re-eport of re-exports, so
+// we import some of the components individulaly here for better tree shaking,
+// specifically some of the component groups that have components that would
+// be used individually or not as the full complement.
+//
+// Webpack v5 fixes the optimizations with re-export of re-exports so this
+// can be reverted back to `export * from './table'` when Webpack v5 is released.
+// https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 export * from './alert'
 export * from './badge'
 export * from './breadcrumb'
@@ -28,7 +38,9 @@ export * from './form-input'
 export * from './form-textarea'
 export * from './form-file'
 export * from './form-select'
-export * from './image'
+// export * from './image'
+export { default as BImg } from './image/img'
+export { default as BImgLazy } from './image/img-lazy'
 export * from './jumbotron'
 export * from './link'
 export * from './list-group'
@@ -41,13 +53,6 @@ export * from './pagination-nav'
 export * from './popover'
 export * from './progress'
 export * from './spinner'
-// Webpack 4 has difficulties with re-eport of re-export optimizations
-// So we import the table components indivisulaly here for better tree shaking.
-// the table components are one of hte largest components in the library
-// so we do this here to help with consumer optimizations.
-// Webpack v5 fixes the optimizations with re-export of re-exports so this
-// can be reverted back to `export * from './table'` when Webpack v5 is released.
-// https://github.com/webpack/webpack/pull/9203
 // export * from './table'
 export { default as BTable } from './table/table'
 export { default as BTableLite } from './table/table-lite'
