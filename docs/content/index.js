@@ -1,6 +1,6 @@
 import { importAll, parseVersion } from '~/utils'
 import { version, dependencies, devDependencies, description } from '~/../package.json'
-import { getDefaults } from '~/../src/utils/config'
+import DEFAULT_CONFIG from '~/../src/utils/config-defaults'
 
 const componentsContext = require.context('~/../src/components/', true, /package.json/)
 export const components = importAll(componentsContext)
@@ -46,7 +46,7 @@ export const bootstrapVersion = parseVersion(dependencies.bootstrap)
 export const nuxtVersion = parseVersion(devDependencies.nuxt)
 export const portalVueVersion = parseVersion(dependencies['portal-vue'])
 export const vueVersion = parseVersion(devDependencies.vue)
-export const defaultConfig = getDefaults()
+export const defaultConfig = DEFAULT_CONFIG
 export const bvDescription = description
 
 export { version }
