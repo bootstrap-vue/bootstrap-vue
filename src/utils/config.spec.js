@@ -1,15 +1,13 @@
 import {
-  setConfig,
-  resetConfig,
   getConfig,
-  getDefaults,
   getConfigValue,
   getComponentConfig,
   getBreakpoints,
   getBreakpointsUp,
   getBreakpointsDown
 } from './config'
-import looseEqual from './loose-equal'
+import { setConfig, resetConfig } from './config-set'
+import DEFAULTS from './config-defaults'
 import { createLocalVue } from '@vue/test-utils'
 import BootstrapVue from '../../src'
 import AlertPlugin from '../../src/components/alert'
@@ -24,6 +22,8 @@ describe('utils/config', () => {
     expect(getConfigValue('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
     expect(getConfigValue('breakpoints')).not.toBe(getConfigValue('breakpoints'))
+    // Shape of returned value should be the same each call
+    expect(getConfigValue('breakpoints')).toEqual(getConfigValue('breakpoints'))
     // Should return null for not found
     expect(getConfigValue('foo.bar[1].baz')).toBe(null)
   })
@@ -32,9 +32,9 @@ describe('utils/config', () => {
     // Specific component config key
     expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
     // Component's full config
-    expect(getComponentConfig('BAlert')).toEqual(getDefaults().BAlert)
+    expect(getComponentConfig('BAlert')).toEqual(DEFAULTS.BAlert)
     // Should return a deep clone for full config
-    expect(getComponentConfig('BAlert')).not.toBe(getDefaults().BAlert)
+    expect(getComponentConfig('BAlert')).not.toBe(DEFAULTS.BAlert)
     // Should return empty object for not found component
     expect(getComponentConfig('foobar')).toEqual({})
     // Should return null for not found component key
@@ -45,6 +45,7 @@ describe('utils/config', () => {
     expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
     expect(getBreakpoints()).not.toBe(getBreakpoints())
+    expect(getBreakpoints()).not.toBe(DEFAULTS.breakpoints)
   })
 
   it('getBreakpointsUp() works', async () => {
@@ -59,26 +60,8 @@ describe('utils/config', () => {
     expect(getBreakpointsDown()).not.toBe(getBreakpointsDown())
   })
 
-  it('getDefaults() returns deep clone', async () => {
-    const defaults = getDefaults()
-
-    expect(Object.keys(defaults).length).toBeGreaterThan(1)
-    expect(getDefaults()).toEqual(defaults)
-    expect(getDefaults()).not.toBe(defaults)
-
-    // Each key should be a clone (top level key test)
-    expect(
-      Object.keys(defaults).every(key => {
-        // Should not point to the same reference
-        const param = getConfigValue(key)
-        return param !== defaults[key] && looseEqual(param, defaults[key])
-      })
-    ).toBe(true)
-
-    // TODO: Test each nested key (if Array or plain Object)
-  })
-
   it('getConfig() return current empty user config', async () => {
+    // TODO: will return default config instead of empty object
     expect(getConfig()).toEqual({})
   })
 
@@ -90,8 +73,7 @@ describe('utils/config', () => {
       breakpoints: ['aa', 'bb', 'cc', 'dd', 'ee']
     }
 
-    const defaults = getDefaults()
-
+    // TODO: getConfig will return default config instead of empty object
     expect(getConfig()).toEqual({})
 
     // Try a conponent config
@@ -99,6 +81,7 @@ describe('utils/config', () => {
     expect(getConfig()).toEqual(testConfig)
     expect(getConfig()).not.toBe(testConfig)
     expect(getComponentConfig('BAlert')).toEqual(testConfig.BAlert)
+    expect(getComponentConfig('BAlert')).not.toBe(testConfig.BAlert)
     expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
 
     // Try breakpoint config (should merge)
@@ -115,8 +98,9 @@ describe('utils/config', () => {
     resetConfig()
     expect(getConfig()).toEqual({})
     expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
-    expect(getComponentConfig('BAlert', 'variant')).toEqual(defaults.BAlert.variant)
-    expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
+    expect(getComponentConfig('BAlert', 'variant')).toEqual(DEFAULTS.BAlert.variant)
+    expect(getComponentConfig('BAlert')).toEqual(DEFAULTS.BAlert)
+    expect(getBreakpoints()).toEqual(DEFAULTS.breakpoints)
   })
 
   it('config via Vue.use(BootstrapVue) works', async () => {

@@ -1,12 +1,10 @@
 //
 // Utility Plugin for setting the configuration
 //
-import { setConfig } from './utils/config'
+import { installFactory } from './utils/plugins'
 
 const BVConfigPlugin = {
-  install(Vue, config = {}) {
-    setConfig(config)
-  }
+  install: installFactory()
 }
 
 export default BVConfigPlugin
