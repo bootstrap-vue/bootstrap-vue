@@ -21,9 +21,7 @@ const get = (obj, path, defaultValue = null) => {
 
   // Handle edge case where user has dot(s) in top-level item field key
   // See https://github.com/bootstrap-vue/bootstrap-vue/issues/2762
-  // Switched to `in` operator vs `hasOwnProperty` to handle obj.prototype getters
-  // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
-  if (path in obj) {
+  if (obj.hasOwnProperty(path)) {
     return obj[path]
   }
 
@@ -38,10 +36,7 @@ const get = (obj, path, defaultValue = null) => {
   }
 
   // Traverse path in object to find result
-  // We use `!=` vs `!==` to test for both `null` and `undefined`
-  // Switched to `in` operator vs `hasOwnProperty` to handle obj.prototype getters
-  // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
-  return steps.every(step => isObject(obj) && step in obj && (obj = obj[step]) != null)
+  return steps.every(step => isObject(obj) && obj.hasOwnProperty(step) && (obj = obj[step]) != null)
     ? obj
     : defaultValue
 }
