@@ -68,7 +68,7 @@ export { default as BDropdownHeader } from './dropdown/dropdown-header'
 export { default as BDropdownText } from './dropdown/dropdown-text'
 
 // export * from './embed'
-export { default as BEmbed } from './embed/embed'
+export { BEmbed } from './embed/embed'
 
 // export * from './form'
 export { default as BForm } from './form/form'
@@ -112,25 +112,25 @@ export { default as BInputGroupPrepend } from './input-group/input-group-prepend
 export { default as BInputGroupText } from './input-group/input-group-text'
 
 // export * from './jumbotron'
-export { default as BJumbotron } from './jumbotron/jumbotron'
+export { BJumbotron } from './jumbotron/jumbotron'
 
 // export * from './layout'
-export { default as BContainer } from './layout/container'
-export { default as BRow } from './layout/row'
-export { default as BCol } from './layout/col'
-export { default as BFormRow } from './layout/form-row'
+export { BContainer } from './layout/container'
+export { BRow } from './layout/row'
+export { BCol } from './layout/col'
+export { BFormRow } from './layout/form-row'
 
 // export * from './link'
 export { BLink } from './link/link'
 
 // export * from './list-group'
-export { default as BListGroup } from './list-group/list-group'
-export { default as BListGroupItem } from './list-group/list-group-item'
+export { BListGroup } from './list-group/list-group'
+export { BListGroupItem } from './list-group/list-group-item'
 
 // export * from './media'
-export { default as BMedia } from './media/media'
-export { default as BMediaAside } from './media/media-aside'
-export { default as BMediaBody } from './media/media-body'
+export { BMedia } from './media/media'
+export { BMediaAside } from './media/media-aside'
+export { BMediaBody } from './media/media-body'
 
 // export * from './modal'
 export { default as BModal } from './modal/modal'
