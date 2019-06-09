@@ -32,7 +32,7 @@ export const props = {
 }
 
 // @vue/component
-const BInputGroup = /*#__PURE__*/ Vue.extend({
+export const BInputGroup = /*#__PURE__*/ Vue.extend({
   name: 'BInputGroup',
   functional: true,
   props: props,
