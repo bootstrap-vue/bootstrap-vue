@@ -10,7 +10,7 @@ import { from as arrayFrom } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-const BFormSelect = /*#__PURE__*/ Vue.extend({
+export const BFormSelect = /*#__PURE__*/ Vue.extend({
   name: 'BFormSelect',
   mixins: [
     idMixin,
