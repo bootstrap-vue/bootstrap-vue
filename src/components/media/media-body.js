@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-const BMediaBody = /*#__PURE__*/ Vue.extend({
+export const BMediaBody = /*#__PURE__*/ Vue.extend({
   name: 'BMediaBody',
   functional: true,
   props,
