@@ -1,4 +1,4 @@
-import BJumbotron from './jumbotron'
+import { BJumbotron } from './jumbotron'
 import { pluginFactory } from '../../utils/plugins'
 
 const JumbotronPlugin = /*#__PURE__*/ pluginFactory({
