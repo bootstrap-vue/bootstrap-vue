@@ -36,7 +36,7 @@ export const props = {
 }
 
 // @vue/component
-const BNavbar = /*#__PURE__*/ Vue.extend({
+export const BNavbar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
