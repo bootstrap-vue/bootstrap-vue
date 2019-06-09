@@ -1,4 +1,4 @@
-import BFormGroup from './form-group'
+import { BFormGroup } from './form-group'
 import { pluginFactory } from '../../utils/plugins'
 
 const FormGroupPlugin = /*#__PURE__*/ pluginFactory({
