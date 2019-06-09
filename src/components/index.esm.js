@@ -149,17 +149,17 @@ export { default as BNavbarNav } from './navbar/navbar-nav'
 export { default as BNavbarToggle } from './navbar/navbar-toggle'
 
 // export * from './pagination'
-export { default as BPagination } from './pagination/pagination'
+export { BPagination } from './pagination/pagination'
 
 // export * from './pagination-nav'
-export { default as BPaginationNav } from './pagination-nav/pagination-nav'
+export { BPaginationNav } from './pagination-nav/pagination-nav'
 
 // export * from './popover'
-export { default as BPopover } from './popover/popover'
+export { BPopover } from './popover/popover'
 
 // export * from './progress'
-export { default as BProgress } from './progress/progress'
-export { default as BProgressBar } from './progress/progress-bar'
+export { BProgress } from './progress/progress'
+export { BProgressBar } from './progress/progress-bar'
 
 // export * from './spinner'
 export { BSpinner } from './spinner/spinner'
@@ -173,11 +173,11 @@ export { default as BTabs } from './tabs/tabs'
 export { default as BTab } from './tabs/tab'
 
 // export * from './toast'
-export { default as BToast } from './toast/toast'
-export { default as BToaster } from './toast/toaster'
+export { BToast } from './toast/toast'
+export { BToaster } from './toast/toaster'
 
 // export * from './tooltip'
-export { default as BTooltip } from './tooltip/tooltip'
+export { BTooltip } from './tooltip/tooltip'
 
 // Main plugin to install all component plugins
 export const componentsPlugin = /*#__PURE__*/ pluginFactory({ plugins: componentPlugins })
