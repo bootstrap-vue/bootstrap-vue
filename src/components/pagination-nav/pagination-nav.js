@@ -78,7 +78,7 @@ const sanitizeNumPages = value => {
 
 // Our render function is brought in via the pagination mixin
 // @vue/component
-const BPaginationNav = /*#__PURE__*/ Vue.extend({
+export const BPaginationNav = /*#__PURE__*/ Vue.extend({
   name: 'BPaginationNav',
   mixins: [paginationMixin],
   props,
