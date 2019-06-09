@@ -24,7 +24,7 @@ export const props = {
 }
 
 // @vue/component
-const BMedia = /*#__PURE__*/ Vue.extend({
+export const BMedia = /*#__PURE__*/ Vue.extend({
   name: 'BMedia',
   functional: true,
   props,
