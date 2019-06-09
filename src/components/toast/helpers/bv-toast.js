@@ -16,7 +16,7 @@ import {
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient } from '../../../utils/warn'
-import BToast, { props as toastProps } from '../toast'
+import { BToast, props as toastProps } from '../toast'
 
 // --- Constants ---
 
