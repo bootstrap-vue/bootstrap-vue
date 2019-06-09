@@ -20,7 +20,7 @@ export const props = {
 }
 
 // @vue/component
-const BEmbed = /*#__PURE__*/ Vue.extend({
+export const BEmbed = /*#__PURE__*/ Vue.extend({
   name: 'BEmbed',
   functional: true,
   props,
