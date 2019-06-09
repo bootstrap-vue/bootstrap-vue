@@ -29,7 +29,7 @@ const TYPES = [
 ]
 
 // @vue/component
-const BFormInput = /*#__PURE__*/ Vue.extend({
+export const BFormInput = /*#__PURE__*/ Vue.extend({
   name: 'BFormInput',
   mixins: [
     idMixin,
