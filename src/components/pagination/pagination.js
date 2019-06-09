@@ -32,7 +32,7 @@ const props = {
 
 // Our render function is brought in from the pagination mixin
 // @vue/component
-const BPagination = /*#__PURE__*/ Vue.extend({
+export const BPagination = /*#__PURE__*/ Vue.extend({
   name: 'BPagination',
   mixins: [paginationMixin],
   props,
