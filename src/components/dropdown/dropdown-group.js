@@ -30,7 +30,7 @@ export const props = {
 }
 
 // @vue/component
-const BDropdownGroup = /*#__PURE__*/ Vue.extend({
+export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownGroup',
   functional: true,
   inheritAttrs: false,
