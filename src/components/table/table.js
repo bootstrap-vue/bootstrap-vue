@@ -26,7 +26,7 @@ import tableRendererMixin from './helpers/mixin-table-renderer'
 
 // b-table component definition
 // @vue/component
-const BTable = /*#__PURE__*/ Vue.extend({
+export const BTable = /*#__PURE__*/ Vue.extend({
   name: 'BTable',
   // Order of mixins is important!
   // They are merged from first to last, followed by this component.
