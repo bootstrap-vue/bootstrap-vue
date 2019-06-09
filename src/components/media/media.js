@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import BMediaBody from './media-body'
-import BMediaAside from './media-aside'
 import { normalizeSlot } from '../../utils/normalize-slot'
+import { BMediaBody } from './media-body'
+import { BMediaAside } from './media-aside'
 
 export const props = {
   tag: {
