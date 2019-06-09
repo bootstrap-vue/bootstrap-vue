@@ -7,7 +7,7 @@ import formRadioCheckMixin from '../../mixins/form-radio-check'
 import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
-const BFormRadio = /*#__PURE__*/ Vue.extend({
+export const BFormRadio = /*#__PURE__*/ Vue.extend({
   name: 'BFormRadio',
   mixins: [
     idMixin,
