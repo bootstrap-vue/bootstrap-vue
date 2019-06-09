@@ -19,14 +19,14 @@ export * from './plugins'
 // https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
 // export * from './alert'
-export { default as BAlert } from './alert/alert'
+export { BAlert } from './alert/alert'
 
 // export * from './badge'
-export { default as BBadge } from './badge/badge'
+export { BBadge } from './badge/badge'
 
 // export * from './breadcrumb'
-export { default as BBreadcrumb } from './breadcrumb/breadcrumb'
-export { default as BBreadcrumbItem } from './breadcrumb/breadcrumb-item'
+export { BBreadcrumb } from './breadcrumb/breadcrumb'
+export { BBreadcrumbItem } from './breadcrumb/breadcrumb-item'
 
 // export * from './button'
 export { default as BButton } from './button/button'
