@@ -21,7 +21,7 @@ const props = {
 }
 
 // @vue/component
-const BButtonClose = /*#__PURE__*/ Vue.extend({
+export const BButtonClose = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
