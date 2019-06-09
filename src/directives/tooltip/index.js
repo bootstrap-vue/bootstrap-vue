@@ -1,4 +1,4 @@
-import VBTooltip from './tooltip'
+import { VBTooltip } from './tooltip'
 import { pluginFactory } from '../../utils/plugins'
 
 const VBTooltipPlugin = /*#__PURE__*/ pluginFactory({
