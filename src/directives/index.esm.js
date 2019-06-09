@@ -7,10 +7,21 @@ import * as directivePlugins from './plugins'
 export * from './plugins'
 
 // Named exports of all directives (VB<Name>)
-export * from './toggle'
-export * from './modal'
-export * from './scrollspy'
-export * from './tooltip'
-export * from './popover'
 
+// export * from './toggle'
+export { default as VBToggle } from './toggle/toggle'
+
+// export * from './modal'
+export { default as VBModal } from './modal/modal'
+
+// export * from './scrollspy'
+export { default as VBScrollspy } from './scrollspy/scrollspy'
+
+// export * from './tooltip'
+export { default as VBTooltip } from './tooltip/tooltip'
+
+// export * from './popover'
+export { default as VBPopover } from './popover'
+
+// Main plugin for installing all directive plugins
 export const directivesPlugin = /*#__PURE__*/ pluginFactory({ plugins: directivePlugins })
