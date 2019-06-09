@@ -11,7 +11,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 const NAME = 'BFormFile'
 
 // @vue/component
-const BFormFile = /*#__PURE__*/ Vue.extend({
+export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   model: {
