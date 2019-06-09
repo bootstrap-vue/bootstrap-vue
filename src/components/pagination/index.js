@@ -1,4 +1,4 @@
-import BPagination from './pagination'
+import { BPagination } from './pagination'
 import { pluginFactory } from '../../utils/plugins'
 
 const PaginationPlugin = /*#__PURE__*/ pluginFactory({
