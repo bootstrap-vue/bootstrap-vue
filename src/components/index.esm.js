@@ -29,8 +29,8 @@ export { BBreadcrumb } from './breadcrumb/breadcrumb'
 export { BBreadcrumbItem } from './breadcrumb/breadcrumb-item'
 
 // export * from './button'
-export { default as BButton } from './button/button'
-export { default as BButtonClose } from './button/button-close'
+export { BButton } from './button/button'
+export { BButtonClose } from './button/button-close'
 
 // export * from './button-group'
 export { default as BButtonGroup } from './button-group/button-group'
@@ -121,7 +121,7 @@ export { default as BCol } from './layout/col'
 export { default as BFormRow } from './layout/form-row'
 
 // export * from './link'
-export { default as BLink } from './link/link'
+export { BLink } from './link/link'
 
 // export * from './list-group'
 export { default as BListGroup } from './list-group/list-group'
