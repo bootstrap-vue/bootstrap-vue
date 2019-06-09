@@ -33,10 +33,10 @@ export { BButton } from './button/button'
 export { BButtonClose } from './button/button-close'
 
 // export * from './button-group'
-export { default as BButtonGroup } from './button-group/button-group'
+export { BButtonGroup } from './button-group/button-group'
 
 // export * from './button-toolbar'
-export { default as BButtonToolbar } from './button-toolbar/button-toolbar'
+export { BButtonToolbar } from './button-toolbar/button-toolbar'
 
 // export * from './card'
 export { default as BCard } from './card/card'
@@ -101,8 +101,8 @@ export { default as BFormSelect } from './form-select/form-select'
 export { default as BFormTextArea } from './form-textarea/form-textarea'
 
 // export * from './image'
-export { default as BImg } from './image/img'
-export { default as BImgLazy } from './image/img-lazy'
+export { BImg } from './image/img'
+export { BImgLazy } from './image/img-lazy'
 
 // export * from './input-group'
 export { default as BInputGroup } from './input-group/input-group'
