@@ -22,7 +22,7 @@ export const props = {
 }
 
 // @vue/component
-const BCardHeader = /*#__PURE__*/ Vue.extend({
+export const BCardHeader = /*#__PURE__*/ Vue.extend({
   name: 'BCardHeader',
   functional: true,
   props,
