@@ -6,7 +6,7 @@ import { normalizeSlot } from '../../utils/normalize-slot'
 const NAME = 'BSpinner'
 
 // @vue/component
-const BSpinner = /*#__PURE__*/ Vue.extend({
+export const BSpinner = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props: {
