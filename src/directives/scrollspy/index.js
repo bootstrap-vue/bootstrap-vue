@@ -1,4 +1,4 @@
-import VBScrollspy from './scrollspy'
+import { VBScrollspy } from './scrollspy'
 import { pluginFactory } from '../../utils/plugins'
 
 const VBScrollspyPlugin = /*#__PURE__*/ pluginFactory({
