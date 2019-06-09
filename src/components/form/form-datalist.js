@@ -4,7 +4,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-const BFormDatalist = /*#__PURE__*/ Vue.extend({
+export const BFormDatalist = /*#__PURE__*/ Vue.extend({
   name: 'BFormDatalist',
   mixins: [formOptionsMixin, normalizeSlotMixin],
   props: {
