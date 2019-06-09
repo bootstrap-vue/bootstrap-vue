@@ -4,8 +4,8 @@ import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copy-props'
 import pluckProps from '../../utils/pluck-props'
 import cardMixin from '../../mixins/card-mixin'
-import BCardTitle, { props as titleProps } from './card-title'
-import BCardSubTitle, { props as subTitleProps } from './card-sub-title'
+import { BCardTitle, props as titleProps } from './card-title'
+import { BCardSubTitle, props as subTitleProps } from './card-sub-title'
 
 export const props = {
   // Import common card props and prefix them with `body-`
@@ -23,7 +23,7 @@ export const props = {
 }
 
 // @vue/component
-const BCardBody = /*#__PURE__*/ Vue.extend({
+export const BCardBody = /*#__PURE__*/ Vue.extend({
   name: 'BCardBody',
   functional: true,
   props,
