@@ -52,7 +52,7 @@ export { default as BCardTitle } from './card/card-title'
 
 // export * from './carousel'
 export { default as BCarousel } from './carousel/carousel'
-export { default as BCarouselItem } from './carousel/carousel-item'
+export { default as BCarouselSlide } from './carousel/carousel-slide'
 
 // export * from './collapse'
 export { default as BCollapse } from './collapse/collapse'
