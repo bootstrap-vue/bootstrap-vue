@@ -31,7 +31,7 @@ export const props = {
 }
 
 // @vue/component
-const BRow = /*#__PURE__*/ Vue.extend({
+export const BRow = /*#__PURE__*/ Vue.extend({
   name: 'BRow',
   functional: true,
   props,
