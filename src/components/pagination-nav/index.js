@@ -1,4 +1,4 @@
-import BPaginationNav from './pagination-nav'
+import { BPaginationNav } from './pagination-nav'
 import { pluginFactory } from '../../utils/plugins'
 
 const PaginationNavPlugin = /*#__PURE__*/ pluginFactory({
