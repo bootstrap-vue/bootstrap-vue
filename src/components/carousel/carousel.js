@@ -69,7 +69,7 @@ function getTransitionEndEvent(el) {
 }
 
 // @vue/component
-const BCarousel = /*#__PURE__*/ Vue.extend({
+export const BCarousel = /*#__PURE__*/ Vue.extend({
   name: 'BCarousel',
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
