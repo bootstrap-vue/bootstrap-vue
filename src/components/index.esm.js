@@ -78,27 +78,27 @@ export { BFormInvalidFeedback } from './form/form-invalid-feedback'
 export { BFormValidFeedback } from './form/form-valid-feedback'
 
 // export * from './form-checkbox'
-export { default as BFormCheckbox } from './form-checkbox/form-checkbox'
-export { default as BFormCheckboxGroup } from './form-checkbox/form-checkbox-group'
+export { BFormCheckbox } from './form-checkbox/form-checkbox'
+export { BFormCheckboxGroup } from './form-checkbox/form-checkbox-group'
 
 // export * from './form-file'
-export { default as BFormFile } from './form-file/form-file'
+export { BFormFile } from './form-file/form-file'
 
 // export * from './form-group'
-export { default as BFormGroup } from './form-group/form-group'
+export { BFormGroup } from './form-group/form-group'
 
 // export * from './form-input'
-export { default as BFormInput } from './form-input/form-input'
+export { BFormInput } from './form-input/form-input'
 
 // export * from './form-radio'
-export { default as BFormRadio } from './form-radio/form-radio'
-export { default as BFormRadioGroup } from './form-radio/form-radio-group'
+export { BFormRadio } from './form-radio/form-radio'
+export { BFormRadioGroup } from './form-radio/form-radio-group'
 
 // export * from './form-select'
-export { default as BFormSelect } from './form-select/form-select'
+export { BFormSelect } from './form-select/form-select'
 
 // export * from './form-textarea'
-export { default as BFormTextArea } from './form-textarea/form-textarea'
+export { BFormTextarea } from './form-textarea/form-textarea'
 
 // export * from './image'
 export { BImg } from './image/img'
