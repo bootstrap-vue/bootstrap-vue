@@ -20,7 +20,7 @@ export const props = {
 }
 
 // @vue/component
-const BCardSubTitle = /*#__PURE__*/ Vue.extend({
+export const BCardSubTitle = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
