@@ -5,7 +5,7 @@ import { HTMLElement } from '../../utils/safe-types'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BButton from '../button/button'
+import { BButton } from '../button/button'
 
 const NAME = 'BDropdown'
 
@@ -68,7 +68,7 @@ export const props = {
 }
 
 // @vue/component
-const BDropdown = /*#__PURE__*/ Vue.extend({
+export const BDropdown = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
