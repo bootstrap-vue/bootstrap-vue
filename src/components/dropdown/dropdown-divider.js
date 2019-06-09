@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-const BDropdownDivider = /*#__PURE__*/ Vue.extend({
+export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownDivider',
   functional: true,
   inheritAttrs: false,
