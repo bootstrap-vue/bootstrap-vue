@@ -20,7 +20,7 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 // Tranporter target used by BTransporterSingle
 // Supports only a single root element.
 // @vue/component
-const BTransporterTargetSingle = Vue.extend({
+const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
   // as an abstract component, it doesn't appear in the $parent chain of
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
@@ -57,7 +57,7 @@ const BTransporterTargetSingle = Vue.extend({
 
 // This omponent has no root element, so only a single VNode is allowed
 // @vue/component
-export const BTransporterSingle = Vue.extend({
+export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   name: 'BTransporterSingle',
   mixins: [normalizeSlotMixin],
   props: {
