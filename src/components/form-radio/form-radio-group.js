@@ -14,7 +14,7 @@ export const props = {
 }
 
 // @vue/component
-const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
+export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
   name: 'BFormRadioGroup',
   mixins: [
     idMixin,
