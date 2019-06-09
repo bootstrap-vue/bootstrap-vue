@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-const BFormRow = /*#__PURE__*/ Vue.extend({
+export const BFormRow = /*#__PURE__*/ Vue.extend({
   name: 'BFormRow',
   functional: true,
   props,
