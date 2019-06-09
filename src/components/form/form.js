@@ -21,7 +21,7 @@ export const props = {
 }
 
 // @vue/component
-const BForm = /*#__PURE__*/ Vue.extend({
+export const BForm = /*#__PURE__*/ Vue.extend({
   name: 'BForm',
   functional: true,
   props,
