@@ -50,7 +50,7 @@ export const props = {
 }
 
 // @vue/component
-const BPopover = /*#__PURE__*/ Vue.extend({
+export const BPopover = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [toolpopMixin, normalizeSlotMixin],
   props,
