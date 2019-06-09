@@ -1,4 +1,4 @@
-import BButtonToolbar from './button-toolbar'
+import { BButtonToolbar } from './button-toolbar'
 import { pluginFactory } from '../../utils/plugins'
 
 const ButtonToolbarPlugin = /*#__PURE__*/ pluginFactory({
