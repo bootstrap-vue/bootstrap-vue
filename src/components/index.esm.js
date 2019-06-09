@@ -36,7 +36,7 @@ export { default as BButtonClose } from './button/button-close'
 export { default as BButtonGroup } from './button-group/button-group'
 
 // export * from './button-toolbar'
-export { default as BButtonGroup } from './button-toolbar/button-toolbar'
+export { default as BButtonToolbar } from './button-toolbar/button-toolbar'
 
 // export * from './card'
 export { default as BCard } from './card/card'
