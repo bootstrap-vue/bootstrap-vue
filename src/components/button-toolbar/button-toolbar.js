@@ -12,7 +12,7 @@ const ITEM_SELECTOR = [
 ].join(',')
 
 // @vue/component
-const BButtonToolbar = /*#__PURE__*/ Vue.extend({
+export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
   name: 'BButtonToolbar',
   mixins: [normalizeSlotMixin],
   props: {
