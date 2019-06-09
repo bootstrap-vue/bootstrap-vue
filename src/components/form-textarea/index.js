@@ -1,4 +1,4 @@
-import BFormTextarea from './form-textarea'
+import { BFormTextarea } from './form-textarea'
 import { pluginFactory } from '../../utils/plugins'
 
 const FormTextareaPlugin = /*#__PURE__*/ pluginFactory({
