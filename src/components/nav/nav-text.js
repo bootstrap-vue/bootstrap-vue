@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-const BNavText = /*#__PURE__*/ Vue.extend({
+export const BNavText = /*#__PURE__*/ Vue.extend({
   name: 'BNavText',
   functional: true,
   props,
