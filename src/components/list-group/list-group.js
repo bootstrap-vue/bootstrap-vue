@@ -18,7 +18,7 @@ export const props = {
 }
 
 // @vue/component
-const BListGroup = /*#__PURE__*/ Vue.extend({
+export const BListGroup = /*#__PURE__*/ Vue.extend({
   name: 'BListGroup',
   functional: true,
   props,
