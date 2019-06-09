@@ -1,9 +1,9 @@
-import BForm from './form'
-import BFormDatalist from './form-datalist'
-import BFormText from './form-text'
-import BFormInvalidFeedback from './form-invalid-feedback'
-import BFormValidFeedback from './form-valid-feedback'
-import BFormRow from '../layout/form-row'
+import { BForm } from './form'
+import { BFormDatalist } from './form-datalist'
+import { BFormText } from './form-text'
+import { BFormInvalidFeedback } from './form-invalid-feedback'
+import { BFormValidFeedback } from './form-valid-feedback'
+import { BFormRow } from '../layout/form-row'
 import { pluginFactory } from '../../utils/plugins'
 
 const FormPlugin = /*#__PURE__*/ pluginFactory({
