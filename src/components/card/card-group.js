@@ -17,7 +17,7 @@ export const props = {
 }
 
 // @vue/component
-const BCardGroup = /*#__PURE__*/ Vue.extend({
+export const BCardGroup = /*#__PURE__*/ Vue.extend({
   name: 'BCardGroup',
   functional: true,
   props,
