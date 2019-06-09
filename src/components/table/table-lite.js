@@ -17,7 +17,7 @@ import tableRendererMixin from './helpers/mixin-table-renderer'
 
 // b-table-lite component definition
 // @vue/component
-const BTableLite = /*#__PURE__*/ Vue.extend({
+export const BTableLite = /*#__PURE__*/ Vue.extend({
   name: 'BTableLite',
   // Order of mixins is important!
   // They are merged from first to last, followed by this component.
