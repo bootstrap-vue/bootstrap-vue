@@ -23,7 +23,7 @@ export const props = {
 }
 
 // @vue/component
-const BCardFooter = /*#__PURE__*/ Vue.extend({
+export const BCardFooter = /*#__PURE__*/ Vue.extend({
   name: 'BCardFooter',
   functional: true,
   props,
