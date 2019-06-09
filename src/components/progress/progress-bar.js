@@ -7,7 +7,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 const NAME = 'BProgressBar'
 
 // @vue/component
-const BProgressBar = /*#__PURE__*/ Vue.extend({
+export const BProgressBar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   inject: {
