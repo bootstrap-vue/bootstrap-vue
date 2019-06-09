@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-const BCardText = /*#__PURE__*/ Vue.extend({
+export const BCardText = /*#__PURE__*/ Vue.extend({
   name: 'BCardText',
   functional: true,
   props,
