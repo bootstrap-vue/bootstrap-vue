@@ -1,6 +1,4 @@
 import Vue from '../../utils/vue'
-import BLink from '../link/link'
-import BNav, { props as BNavProps } from '../nav/nav'
 import KeyCodes from '../../utils/key-codes'
 import stableSort from '../../utils/stable-sort'
 import { requestAF, selectAll } from '../../utils/dom'
@@ -8,6 +6,8 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { BLink } from '../link/link'
+import { BNav, props as BNavProps } from '../nav/nav'
 
 // -- Constants --
 
@@ -21,7 +21,7 @@ const notDisabled = tab => !tab.disabled
 // --- Helper components ---
 
 // @vue/component
-const BTabButtonHelper = Vue.extend({
+const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
@@ -140,7 +140,7 @@ const BTabButtonHelper = Vue.extend({
 })
 
 // @vue/component
-const BTabs = /*#__PURE__*/ Vue.extend({
+export const BTabs = /*#__PURE__*/ Vue.extend({
   name: 'BTabs',
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
