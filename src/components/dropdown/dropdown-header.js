@@ -17,7 +17,7 @@ export const props = {
 }
 
 // @vue/component
-const BDropdownHeader = /*#__PURE__*/ Vue.extend({
+export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownHeader',
   functional: true,
   inheritAttrs: false,
