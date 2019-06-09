@@ -6,7 +6,7 @@ import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isFunction } from '../../utils/inspect'
 import { keys } from '../../utils/object'
-import BLink, { propsFactory as linkPropsFactory } from '../link/link'
+import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
 // --- Constants --
 
@@ -144,7 +144,7 @@ const computeAttrs = (props, data) => {
 }
 
 // @vue/component
-const BButton = /*#__PURE__*/ Vue.extend({
+export const BButton = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
