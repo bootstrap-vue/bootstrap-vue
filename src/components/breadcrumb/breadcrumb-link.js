@@ -21,7 +21,7 @@ export const props = {
 }
 
 // @vue/component
-const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
+export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
   name: 'BBreadcrumbLink',
   functional: true,
   props,
