@@ -19,7 +19,7 @@ export const props = {
 }
 
 // @vue/component
-const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
+export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
   name: 'BFormCheckboxGroup',
   mixins: [
     idMixin,
