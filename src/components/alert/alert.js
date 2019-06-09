@@ -33,7 +33,7 @@ const parseShow = show => {
 const isNumericLike = value => !isNaN(parseInt(value, 10))
 
 // @vue/component
-const BAlert = /*#__PURE__*/ Vue.extend({
+export const BAlert = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   model: {
