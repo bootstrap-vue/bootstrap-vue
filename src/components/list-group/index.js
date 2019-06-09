@@ -1,5 +1,5 @@
-import BListGroup from './list-group'
-import BListGroupItem from './list-group-item'
+import { BListGroup } from './list-group'
+import { BListGroupItem } from './list-group-item'
 import { pluginFactory } from '../../utils/plugins'
 
 const ListGroupPlugin = /*#__PURE__*/ pluginFactory({
