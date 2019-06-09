@@ -4,7 +4,7 @@ import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
 import BVTransition from '../../utils/bv-transition'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BButtonClose from '../button/button-close'
+import { BButtonClose } from '../button/button-close'
 
 const NAME = 'BAlert'
 
