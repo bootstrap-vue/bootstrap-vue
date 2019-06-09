@@ -13,7 +13,7 @@ export const props = {
 }
 
 // @vue/component
-const BContainer = /*#__PURE__*/ Vue.extend({
+export const BContainer = /*#__PURE__*/ Vue.extend({
   name: 'BContainer',
   functional: true,
   props,
