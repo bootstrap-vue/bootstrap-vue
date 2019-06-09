@@ -1,4 +1,4 @@
-import BButtonGroup from './button-group'
+import { BButtonGroup } from './button-group'
 import { pluginFactory } from '../../utils/plugins'
 
 const ButtonGroupPlugin = /*#__PURE__*/ pluginFactory({
