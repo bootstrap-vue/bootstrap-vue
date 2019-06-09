@@ -1,4 +1,4 @@
-import VBToggle from './toggle'
+import { VBToggle } from './toggle'
 import { pluginFactory } from '../../utils/plugins'
 
 const VBTogglePlugin = /*#__PURE__*/ pluginFactory({
