@@ -119,7 +119,7 @@ const generateProps = () => {
 // We do not use Vue.extend here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
-const BCol = {
+export const BCol = {
   name: 'BCol',
   functional: true,
   get props() {
