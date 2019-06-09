@@ -1,5 +1,5 @@
-import BPopover from './popover'
-import VBPopover from '../../directives/popover/popover'
+import { BPopover } from './popover'
+import { VBPopover } from '../../directives/popover/popover'
 import { pluginFactory } from '../../utils/plugins'
 
 const PopoverPlugin = /*#__PURE__*/ pluginFactory({
