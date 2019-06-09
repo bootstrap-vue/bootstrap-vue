@@ -21,7 +21,7 @@ export const props = {
 }
 
 // @vue/component
-const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
+export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownItemButton',
   mixins: [nomalizeSlotMixin],
   inheritAttrs: false,
