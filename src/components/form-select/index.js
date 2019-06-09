@@ -1,4 +1,4 @@
-import BFormSelect from './form-select'
+import { BFormSelect } from './form-select'
 import { pluginFactory } from '../../utils/plugins'
 
 const FormSelectPlugin = /*#__PURE__*/ pluginFactory({
