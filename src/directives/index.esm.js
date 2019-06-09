@@ -9,7 +9,7 @@ export * from './plugins'
 // Named exports of all directives (VB<Name>)
 
 // export * from './toggle'
-export { default as VBToggle } from './toggle/toggle'
+export { VBToggle } from './toggle/toggle'
 
 // export * from './modal'
 export { default as VBModal } from './modal/modal'
