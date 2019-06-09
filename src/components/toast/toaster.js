@@ -35,7 +35,7 @@ export const props = {
 }
 
 // @vue/component
-export const DefaultTransition = Vue.extend({
+export const DefaultTransition = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       // Transition classes base name
@@ -66,7 +66,7 @@ export const DefaultTransition = Vue.extend({
 })
 
 // @vue/component
-const BToaster = /*#__PURE__*/ Vue.extend({
+export const BToaster = /*#__PURE__*/ Vue.extend({
   name: NAME,
   props,
   data() {
