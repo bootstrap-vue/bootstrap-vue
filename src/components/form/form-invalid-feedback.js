@@ -33,7 +33,7 @@ export const props = {
 }
 
 // @vue/component
-const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
+export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
   name: 'BFormInvalidFeedback',
   functional: true,
   props,
