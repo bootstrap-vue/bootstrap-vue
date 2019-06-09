@@ -133,7 +133,7 @@ export { BMediaAside } from './media/media-aside'
 export { BMediaBody } from './media/media-body'
 
 // export * from './modal'
-export { default as BModal } from './modal/modal'
+export { BModal } from './modal/modal'
 
 // export * from './nav'
 export { default as BNav } from './nav/nav'
@@ -165,8 +165,8 @@ export { BProgressBar } from './progress/progress-bar'
 export { BSpinner } from './spinner/spinner'
 
 // export * from './table'
-export { default as BTable } from './table/table'
-export { default as BTableLite } from './table/table-lite'
+export { BTable } from './table/table'
+export { BTableLite } from './table/table-lite'
 
 // export * from './tabs'
 export { default as BTabs } from './tabs/tabs'
