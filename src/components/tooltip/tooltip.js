@@ -10,7 +10,7 @@ import toolpopMixin from '../../mixins/toolpop'
 const NAME = 'BTooltip'
 
 // @vue/component
-const BTooltip = /*#__PURE__*/ Vue.extend({
+export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [toolpopMixin, normalizeSlotMixin],
   props: {
