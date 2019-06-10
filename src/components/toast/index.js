@@ -1,4 +1,4 @@
-import BVToastPlugin from './helpers/bv-toast'
+import { BVToastPlugin } from './helpers/bv-toast'
 import { BToast } from './toast'
 import { BToaster } from './toaster'
 import { pluginFactory } from '../../utils/plugins'
