@@ -8,6 +8,6 @@ const FormFilePlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BFormFile }
+export { FormFilePlugin, BFormFile }
 
 export default FormFilePlugin
