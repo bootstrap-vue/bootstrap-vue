@@ -5,6 +5,6 @@ const EmbedPlugin = /*#__PURE__*/ pluginFactory({
   components: { BEmbed }
 })
 
-export { BEmbed }
+export { EmbedPlugin, BEmbed }
 
 export default EmbedPlugin
