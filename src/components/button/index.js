@@ -11,6 +11,6 @@ const ButtonPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BButton, BButtonClose }
+export { ButtonPlugin, BButton, BButtonClose }
 
 export default ButtonPlugin
