@@ -11,6 +11,6 @@ const FormRadioPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BFormRadio, BFormRadioGroup }
+export { FormRadioPlugin, BFormRadio, BFormRadioGroup }
 
 export default FormRadioPlugin
