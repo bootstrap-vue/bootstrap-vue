@@ -32,6 +32,7 @@ const DropdownPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export {
+  DropdownPlugin,
   BDropdown,
   BDropdownItem,
   BDropdownItemButton,
