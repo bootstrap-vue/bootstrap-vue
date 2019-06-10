@@ -8,6 +8,6 @@ const FormGroupPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BFormGroup }
+export { FormGroupPlugin, BFormGroup }
 
 export default FormGroupPlugin
