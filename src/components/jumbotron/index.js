@@ -5,6 +5,6 @@ const JumbotronPlugin = /*#__PURE__*/ pluginFactory({
   components: { BJumbotron }
 })
 
-export { BJumbotron }
+export { JumbotronPlugin, BJumbotron }
 
 export default JumbotronPlugin
