@@ -190,7 +190,7 @@ const plugin = Vue => {
   }
 }
 
-const BVToastPlugin = /*#__PURE__*/ pluginFactory({
+export const BVToastPlugin = /*#__PURE__*/ pluginFactory({
   plugins: { plugin }
 })
 
