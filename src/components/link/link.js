@@ -121,11 +121,11 @@ const clickHandlerFactory = ({ disabled, tag, href, suppliedHandler, parent }) =
       // Needed to prevent vue-router for doing its thing
       evt.stopImmediatePropagation()
     } else {
-      if (isRouterLink(tag) && evt.target.__vue__) {
+      if (isRouterLink(tag) && evt.currentTarget.__vue__) {
         // Router links do not emit instance 'click' events, so we
         // add in an $emit('click', evt) on it's vue instance
         /* istanbul ignore next: difficult to test, but we know it works */
-        evt.target.__vue__.$emit('click', evt)
+        evt.currentTarget.__vue__.$emit('click', evt)
       }
       // Call the suppliedHandler(s), if any provided
       concat(suppliedHandler)
