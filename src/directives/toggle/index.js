@@ -5,6 +5,6 @@ const VBTogglePlugin = /*#__PURE__*/ pluginFactory({
   directives: { VBToggle }
 })
 
-export { VBToggle }
+export { VBTogglePlugin, VBToggle }
 
 export default VBTogglePlugin
