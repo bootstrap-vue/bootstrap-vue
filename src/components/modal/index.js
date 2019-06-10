@@ -10,6 +10,6 @@ const ModalPlugin = /*#__PURE__*/ pluginFactory({
   plugins: { BVModalPlugin }
 })
 
-export { BModal }
+export { ModalPlugin, BModal }
 
 export default ModalPlugin
