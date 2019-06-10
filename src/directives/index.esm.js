@@ -2,11 +2,11 @@
 // Once es/ buld is removed, then this file will be renamed to index.js
 import { pluginFactory } from '../utils/plugins'
 
-import { default as VBModalPlugin } from './modal'
-import { default as VBPopoverPlugin } from './popover'
-import { default as VBScrollspyPlugin } from './scrollspy'
-import { default as VBTogglePlugin } from './toggle'
-import { default as VBTooltipPlugin } from './tooltip'
+import { VBModalPlugin } from './modal'
+import { VBPopoverPlugin } from './popover'
+import { VBScrollspyPlugin } from './scrollspy'
+import { VBTogglePlugin } from './toggle'
+import { VBTooltipPlugin } from './tooltip'
 
 // Main plugin for installing all directive plugins
 export const directivesPlugin = /*#__PURE__*/ pluginFactory({
