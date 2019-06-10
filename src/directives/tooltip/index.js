@@ -5,6 +5,6 @@ const VBTooltipPlugin = /*#__PURE__*/ pluginFactory({
   directives: { VBTooltip }
 })
 
-export { VBTooltip }
+export { VBTooltipPlugin, VBTooltip }
 
 export default VBTooltipPlugin
