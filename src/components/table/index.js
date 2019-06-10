@@ -6,6 +6,6 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
   components: { BTable, BTableLite }
 })
 
-export { BTable, BTableLite }
+export { TablePlugin, BTable, BTableLite }
 
 export default TablePlugin
