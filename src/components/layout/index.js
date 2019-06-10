@@ -13,6 +13,6 @@ const LayoutPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BContainer, BRow, BCol, BFormRow }
+export { LayoutPlugin, BContainer, BRow, BCol, BFormRow }
 
 export default LayoutPlugin
