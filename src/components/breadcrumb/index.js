@@ -7,6 +7,6 @@ const BreadcrumbPlugin = /*#__PURE__*/ pluginFactory({
   components: { BBreadcrumb, BBreadcrumbItem, BBreadcrumbLink }
 })
 
-export { BBreadcrumb, BBreadcrumbItem, BBreadcrumbLink }
+export { BreadcrumbPlugin, BBreadcrumb, BBreadcrumbItem, BBreadcrumbLink }
 
 export default BreadcrumbPlugin
