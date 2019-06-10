@@ -15,6 +15,6 @@ const InputGroupPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BInputGroup, BInputGroupAddon, BInputGroupPrepend, BInputGroupAppend, BInputGroupText }
+export { InputGroupPlugin, BInputGroup, BInputGroupAddon, BInputGroupPrepend, BInputGroupAppend, BInputGroupText }
 
 export default InputGroupPlugin
