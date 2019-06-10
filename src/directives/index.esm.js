@@ -23,7 +23,7 @@ export const directivesPlugin = /*#__PURE__*/ pluginFactory({
 // See src/compinents/index.esm.js for notes/comment
 
 // export * from './modal'
-export { VBModalPlugin } from './modal/modal'
+export { VBModalPlugin } from './modal'
 export { VBModal } from './modal/modal'
 
 // export * from './popover'
