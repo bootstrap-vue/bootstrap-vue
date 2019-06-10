@@ -296,5 +296,5 @@ export { BToast } from './toast/toast'
 export { BToaster } from './toast/toaster'
 
 // export * from './tooltip'
-export { TooltipPlugin } from './tooltip/tooltip'
+export { TooltipPlugin } from './tooltip'
 export { BTooltip } from './tooltip/tooltip'
