@@ -9,10 +9,8 @@ import { BreadcrumbPlugin } from './breadcrumb'
 import { ButtonPlugin } from './button'
 import { ButtonGroupPlugin } from './button-group'
 import { ButtonToolbarPlugin } from './button-toolbar'
-import { InputGroupPlugin } from './input-group'
 import { CardPlugin } from './card'
 import { CarouselPlugin } from './carousel'
-import { LayoutPlugin } from './layout'
 import { CollapsePlugin } from './collapse'
 import { DropdownPlugin } from './dropdown'
 import { EmbedPlugin } from './embed'
@@ -25,7 +23,9 @@ import { FormTextareaPlugin } from './form-textarea'
 import { FormFilePlugin } from './form-file'
 import { FormSelectPlugin } from './form-select'
 import { ImagePlugin } from './image'
+import { InputGroupPlugin } from './input-group'
 import { JumbotronPlugin } from './jumbotron'
+import { LayoutPlugin } from './layout'
 import { LinkPlugin } from './link'
 import { ListGroupPlugin } from './list-group'
 import { MediaPlugin } from './media'
@@ -86,7 +86,9 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-// Export injection plugins
+// Export named injection plugins
+// These two plugins are not directly included in the above installer, as they are
+// installed via the ModalPlugin and ToastPlugin respectively.
 export { BVModalPlugin } from './modal/helpers/bv-modal'
 export { BVToastPlugin } from './toast/helpers/bv-toast'
 
