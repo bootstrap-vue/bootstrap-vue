@@ -21,6 +21,6 @@ const FormPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 // BFormRow is not exported here as a named export, as it is exported by Layout
-export { BForm, BFormDatalist, BFormText, BFormInvalidFeedback, BFormValidFeedback }
+export { FormPlugin, BForm, BFormDatalist, BFormText, BFormInvalidFeedback, BFormValidFeedback }
 
 export default FormPlugin
