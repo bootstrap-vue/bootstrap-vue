@@ -22,6 +22,6 @@ const NavbarPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BNavbar, BNavbarNav, BNavbarBrand, BNavbarToggle }
+export { NavbarPlugin, BNavbar, BNavbarNav, BNavbarBrand, BNavbarToggle }
 
 export default NavbarPlugin
