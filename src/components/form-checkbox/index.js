@@ -13,6 +13,6 @@ const FormCheckboxPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BFormCheckbox, BFormCheckboxGroup }
+export { FormCheckboxPlugin, BFormCheckbox, BFormCheckboxGroup }
 
 export default FormCheckboxPlugin
