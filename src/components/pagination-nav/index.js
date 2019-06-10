@@ -5,6 +5,6 @@ const PaginationNavPlugin = /*#__PURE__*/ pluginFactory({
   components: { BPaginationNav }
 })
 
-export { BPaginationNav }
+export { PaginationNavPlugin, BPaginationNav }
 
 export default PaginationNavPlugin
