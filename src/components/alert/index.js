@@ -5,6 +5,6 @@ const AlertPlugin = /*#__PURE__*/ pluginFactory({
   components: { BAlert }
 })
 
-export { BAlert }
+export { AlertPlugin, BAlert }
 
 export default AlertPlugin
