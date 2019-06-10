@@ -5,6 +5,6 @@ const VBScrollspyPlugin = /*#__PURE__*/ pluginFactory({
   directives: { VBScrollspy }
 })
 
-export { VBScrollspy }
+export { VBScrollspyPlugin, VBScrollspy }
 
 export default VBScrollspyPlugin
