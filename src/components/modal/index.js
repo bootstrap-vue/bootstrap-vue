@@ -1,6 +1,6 @@
 import { BModal } from './modal'
 import { VBModal } from '../../directives/modal/modal'
-import BVModalPlugin from './helpers/bv-modal'
+import { BVModalPlugin } from './helpers/bv-modal'
 import { pluginFactory } from '../../utils/plugins'
 
 const ModalPlugin = /*#__PURE__*/ pluginFactory({
