@@ -21,8 +21,6 @@ The following are convenience links to Bootstrap V4's documentation:
 - <a href="https://getbootstrap.com/docs/4.3/utilities/float/" target="_blank">Float utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/image-replacement/" target="_blank">Image
   replacement utilities</a>
-- <a href="https://getbootstrap.com/docs/4.3/utilities/position/" target="_blank">Position
-  utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/overflow/" target="_blank">Overflow
   utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/position/" target="_blank">Position
