@@ -5,6 +5,6 @@ const SpinnerPlugin = /*#__PURE__*/ pluginFactory({
   components: { BSpinner }
 })
 
-export { BSpinner }
+export { SpinnerPlugin, BSpinner }
 
 export default SpinnerPlugin
