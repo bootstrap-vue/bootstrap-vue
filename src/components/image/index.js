@@ -9,6 +9,6 @@ const ImagePlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BImg, BImgLazy }
+export { ImagePlugin, BImg, BImgLazy }
 
 export default ImagePlugin
