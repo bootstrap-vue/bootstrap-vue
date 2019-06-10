@@ -8,6 +8,6 @@ const FormTextareaPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { BFormTextarea }
+export { FormTextareaPlugin, BFormTextarea }
 
 export default FormTextareaPlugin
