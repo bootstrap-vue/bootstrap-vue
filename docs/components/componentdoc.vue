@@ -6,6 +6,7 @@
           <code>{{ tag }}</code>
         </anchored-heading>
         <b-badge
+          v-if="componentFunctional"
           variant="secondary"
           target="_blank"
           href="https://vuejs.org/v2/guide/render-function.html#Functional-Components"
