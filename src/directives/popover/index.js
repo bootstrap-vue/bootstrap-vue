@@ -5,6 +5,6 @@ const VBPopoverPlugin = /*#__PURE__*/ pluginFactory({
   directives: { VBPopover }
 })
 
-export { VBPopover }
+export { VBPopoverPlugin, VBPopover }
 
 export default VBPopoverPlugin
