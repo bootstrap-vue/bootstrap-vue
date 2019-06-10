@@ -9,6 +9,6 @@ const ToastPlugin = /*#__PURE__*/ pluginFactory({
   plugins: { BVToastPlugin }
 })
 
-export { BToast, BToaster }
+export { ToastPlugin, BToast, BToaster }
 
 export default ToastPlugin
