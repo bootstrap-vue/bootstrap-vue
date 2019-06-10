@@ -5,6 +5,6 @@ const VBModalPlugin = /*#__PURE__*/ pluginFactory({
   directives: { VBModal }
 })
 
-export { VBModal }
+export { VBModalPlugin, VBModal }
 
 export default VBModalPlugin
