@@ -7,6 +7,6 @@ const CollapsePlugin = /*#__PURE__*/ pluginFactory({
   directives: { VBToggle }
 })
 
-export { BCollapse }
+export { CollapsePlugin, BCollapse }
 
 export default CollapsePlugin
