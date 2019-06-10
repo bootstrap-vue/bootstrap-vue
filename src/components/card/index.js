@@ -26,7 +26,7 @@ const CardPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export {
-  CardPlugin
+  CardPlugin,
   BCard,
   BCardHeader,
   BCardBody,
