@@ -7,7 +7,7 @@ import warn from '../../utils/warn'
 const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead.'
 
 // @vue/component
-export default Vue.extend({
+export const BTab = /*#__PURE__*/ Vue.extend({
   name: 'BTab',
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
@@ -214,3 +214,5 @@ export default Vue.extend({
     return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [content])
   }
 })
+
+export default BTab

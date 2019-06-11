@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BNavText = /*#__PURE__*/ Vue.extend({
   name: 'BNavText',
   functional: true,
   props,
@@ -17,3 +17,5 @@ export default Vue.extend({
     return h(props.tag, mergeData(data, { staticClass: 'navbar-text' }), children)
   }
 })
+
+export default BNavText

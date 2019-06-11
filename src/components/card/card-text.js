@@ -9,7 +9,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BCardText = /*#__PURE__*/ Vue.extend({
   name: 'BCardText',
   functional: true,
   props,
@@ -17,3 +17,5 @@ export default Vue.extend({
     return h(props.textTag, mergeData(data, { staticClass: 'card-text' }), children)
   }
 })
+
+export default BCardText

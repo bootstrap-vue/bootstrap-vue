@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
-import BForm, { props as formProps } from '../form/form'
 import { mergeData } from 'vue-functional-data-merge'
+import { BForm, props as formProps } from '../form/form'
 
-export default Vue.extend({
+export const BDropdownForm = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownForm',
   functional: true,
   inheritAttrs: false,
@@ -33,3 +33,5 @@ export default Vue.extend({
     ])
   }
 })
+
+export default BDropdownForm

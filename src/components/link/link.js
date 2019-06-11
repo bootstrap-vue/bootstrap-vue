@@ -145,7 +145,7 @@ const clickHandlerFactory = ({ disabled, tag, href, suppliedHandler, parent }) =
 }
 
 // @vue/component
-export default Vue.extend({
+export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
   functional: true,
   props: propsFactory(),
@@ -186,3 +186,5 @@ export default Vue.extend({
     return h(tag, componentData, children)
   }
 })
+
+export default BLink

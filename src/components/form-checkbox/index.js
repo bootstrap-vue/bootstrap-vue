@@ -1,18 +1,18 @@
-import BFormCheckbox from './form-checkbox'
-import BFormCheckboxGroup from './form-checkbox-group'
-import { installFactory } from '../../utils/plugins'
+import { BFormCheckbox } from './form-checkbox'
+import { BFormCheckboxGroup } from './form-checkbox-group'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BFormCheckbox,
-  BCheckbox: BFormCheckbox,
-  BCheck: BFormCheckbox,
-  BFormCheckboxGroup,
-  BCheckboxGroup: BFormCheckboxGroup,
-  BCheckGroup: BFormCheckboxGroup
-}
+const FormCheckboxPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BFormCheckbox,
+    BCheckbox: BFormCheckbox,
+    BCheck: BFormCheckbox,
+    BFormCheckboxGroup,
+    BCheckboxGroup: BFormCheckboxGroup,
+    BCheckGroup: BFormCheckboxGroup
+  }
+})
 
-export { BFormCheckbox, BFormCheckboxGroup }
+export { FormCheckboxPlugin, BFormCheckbox, BFormCheckboxGroup }
 
-export default {
-  install: installFactory({ components })
-}
+export default FormCheckboxPlugin

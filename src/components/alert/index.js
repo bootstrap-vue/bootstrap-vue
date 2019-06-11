@@ -1,12 +1,10 @@
-import BAlert from './alert'
-import { installFactory } from '../../utils/plugins'
+import { BAlert } from './alert'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BAlert
-}
+const AlertPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BAlert }
+})
 
-export { BAlert }
+export { AlertPlugin, BAlert }
 
-export default {
-  install: installFactory({ components })
-}
+export default AlertPlugin

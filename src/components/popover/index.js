@@ -1,17 +1,12 @@
-import BPopover from './popover'
-import VBPopover from '../../directives/popover/popover'
-import { installFactory } from '../../utils/plugins'
+import { BPopover } from './popover'
+import { VBPopover } from '../../directives/popover/popover'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BPopover
-}
+const PopoverPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BPopover },
+  directives: { VBPopover }
+})
 
-const directives = {
-  VBPopover
-}
+export { PopoverPlugin, BPopover }
 
-export { BPopover }
-
-export default {
-  install: installFactory({ components, directives })
-}
+export default PopoverPlugin

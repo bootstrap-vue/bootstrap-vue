@@ -1,10 +1,10 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import InputGroupPrepend from './input-group-prepend'
-import InputGroupAppend from './input-group-append'
-import InputGroupText from './input-group-text'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import { BInputGroupPrepend } from './input-group-prepend'
+import { BInputGroupAppend } from './input-group-append'
+import { BInputGroupText } from './input-group-text'
 
 export const props = {
   id: {
@@ -32,7 +32,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BInputGroup = /*#__PURE__*/ Vue.extend({
   name: 'BInputGroup',
   functional: true,
   props: props,
@@ -45,10 +45,10 @@ export default Vue.extend({
     // Prepend prop/slot
     if (props.prepend || props.prependHTML || hasNormalizedSlot('prepend', $scopedSlots, $slots)) {
       childNodes.push(
-        h(InputGroupPrepend, [
+        h(BInputGroupPrepend, [
           // Prop
           props.prepend || props.prependHTML
-            ? h(InputGroupText, { domProps: htmlOrText(props.prependHTML, props.prepend) })
+            ? h(BInputGroupText, { domProps: htmlOrText(props.prependHTML, props.prepend) })
             : h(false),
           // Slot
           normalizeSlot('prepend', {}, $scopedSlots, $slots) || h(false)
@@ -68,10 +68,10 @@ export default Vue.extend({
     // Append prop
     if (props.append || props.appendHTML || hasNormalizedSlot('append', $scopedSlots, $slots)) {
       childNodes.push(
-        h(InputGroupAppend, [
+        h(BInputGroupAppend, [
           // prop
           props.append || props.appendHTML
-            ? h(InputGroupText, { domProps: htmlOrText(props.appendHTML, props.append) })
+            ? h(BInputGroupText, { domProps: htmlOrText(props.appendHTML, props.append) })
             : h(false),
           // Slot
           normalizeSlot('append', {}, $scopedSlots, $slots) || h(false)
@@ -97,3 +97,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BInputGroup

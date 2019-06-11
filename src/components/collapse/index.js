@@ -1,17 +1,12 @@
-import BCollapse from './collapse'
-import VBToggle from '../../directives/toggle/toggle'
-import { installFactory } from '../../utils/plugins'
+import { BCollapse } from './collapse'
+import { VBToggle } from '../../directives/toggle/toggle'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BCollapse
-}
+const CollapsePlugin = /*#__PURE__*/ pluginFactory({
+  components: { BCollapse },
+  directives: { VBToggle }
+})
 
-const directives = {
-  VBToggle
-}
+export { CollapsePlugin, BCollapse }
 
-export { BCollapse }
-
-export default {
-  install: installFactory({ components, directives })
-}
+export default CollapsePlugin

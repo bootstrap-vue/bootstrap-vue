@@ -1,14 +1,14 @@
-import BProgress from './progress'
-import BProgressBar from './progress-bar'
-import { installFactory } from '../../utils/plugins'
+import { BProgress } from './progress'
+import { BProgressBar } from './progress-bar'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BProgress,
-  BProgressBar
-}
+const ProgressPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BProgress,
+    BProgressBar
+  }
+})
 
-export { BProgress, BProgressBar }
+export { ProgressPlugin, BProgress, BProgressBar }
 
-export default {
-  install: installFactory({ components })
-}
+export default ProgressPlugin

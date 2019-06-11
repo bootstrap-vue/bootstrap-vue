@@ -1,13 +1,13 @@
-import BFormInput from './form-input'
-import { installFactory } from '../../utils/plugins'
+import { BFormInput } from './form-input'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BFormInput,
-  BInput: BFormInput
-}
+const FormInputPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BFormInput,
+    BInput: BFormInput
+  }
+})
 
-export { BFormInput }
+export { FormInputPlugin, BFormInput }
 
-export default {
-  install: installFactory({ components })
-}
+export default FormInputPlugin

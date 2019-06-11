@@ -1,12 +1,10 @@
-import BEmbed from './embed'
-import { installFactory } from '../../utils/plugins'
+import { BEmbed } from './embed'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BEmbed
-}
+const EmbedPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BEmbed }
+})
 
-export { BEmbed }
+export { EmbedPlugin, BEmbed }
 
-export default {
-  install: installFactory({ components })
-}
+export default EmbedPlugin

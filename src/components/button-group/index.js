@@ -1,13 +1,13 @@
-import BButtonGroup from './button-group'
-import { installFactory } from '../../utils/plugins'
+import { BButtonGroup } from './button-group'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BButtonGroup,
-  BBtnGroup: BButtonGroup
-}
+const ButtonGroupPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BButtonGroup,
+    BBtnGroup: BButtonGroup
+  }
+})
 
-export { BButtonGroup }
+export { ButtonGroupPlugin, BButtonGroup }
 
-export default {
-  install: installFactory({ components })
-}
+export default ButtonGroupPlugin

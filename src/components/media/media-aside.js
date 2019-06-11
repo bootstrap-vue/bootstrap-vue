@@ -13,7 +13,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BMediaAside = /*#__PURE__*/ Vue.extend({
   name: 'BMediaAside',
   functional: true,
   props,
@@ -30,3 +30,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BMediaAside

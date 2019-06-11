@@ -1,8 +1,6 @@
 import Vue from '../../utils/vue'
 import modalManager from './helpers/modal-manager'
 import BvModalEvent from './helpers/bv-modal-event.class'
-import BButton from '../button/button'
-import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -15,6 +13,8 @@ import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
+import { BButton } from '../button/button'
+import { BButtonClose } from '../button/button-close'
 
 // --- Constants ---
 
@@ -218,7 +218,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
@@ -911,3 +911,5 @@ export default Vue.extend({
     }
   }
 })
+
+export default BModal

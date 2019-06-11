@@ -1,12 +1,12 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BProgressBar from './progress-bar'
+import { BProgressBar } from './progress-bar'
 
 const NAME = 'BProgress'
 
 // @vue/component
-export default Vue.extend({
+export const BProgress = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   provide() {
@@ -76,3 +76,5 @@ export default Vue.extend({
     return h('div', { class: ['progress'], style: this.progressHeight }, [childNodes])
   }
 })
+
+export default BProgress

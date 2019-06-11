@@ -10,7 +10,7 @@ import warn from '../utils/warn'
 import { isFunction, isNull } from '../utils/inspect'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import normalizeSlotMixin from '../mixins/normalize-slot'
-import BLink from '../components/link/link'
+import { BLink } from '../components/link/link'
 
 // Threshold of limit size when we start/stop showing ellipsis
 const ELLIPSIS_THRESHOLD = 3

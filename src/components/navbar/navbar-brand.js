@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
-import BLink, { propsFactory } from '../link/link'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
+import { BLink, propsFactory } from '../link/link'
 
 const linkProps = propsFactory()
 linkProps.href.default = undefined
@@ -16,7 +16,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
   name: 'BNavbarBrand',
   functional: true,
   props,
@@ -34,3 +34,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavbarBrand

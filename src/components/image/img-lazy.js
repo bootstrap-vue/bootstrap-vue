@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import BImg from './img'
+import { BImg } from './img'
 import { getComponentConfig } from '../../utils/config'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
 import { hasIntersectionObserverSupport } from '../../utils/env'
@@ -91,7 +91,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BImgLazy = /*#__PURE__*/ Vue.extend({
   name: NAME,
   props,
   data() {
@@ -247,3 +247,5 @@ export default Vue.extend({
     })
   }
 })
+
+export default BImgLazy

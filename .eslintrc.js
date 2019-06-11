@@ -14,6 +14,7 @@ module.exports = {
     Vue: true
   },
   rules: {
+    'spaced-comment': 'off', // needed to ignore `/*#__PURE__*/` comments
     'vue/html-self-closing': [
       'error',
       {

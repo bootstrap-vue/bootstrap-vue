@@ -3,7 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
-import Container from '../layout/container'
+import { BContainer } from '../layout/container'
 
 const NAME = 'BJumbotron'
 
@@ -63,7 +63,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BJumbotron = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
@@ -110,7 +110,7 @@ export default Vue.extend({
     // If fluid, wrap content in a container/container-fluid
     if (props.fluid) {
       // Children become a child of a container
-      childNodes = [h(Container, { props: { fluid: props.containerFluid } }, childNodes)]
+      childNodes = [h(BContainer, { props: { fluid: props.containerFluid } }, childNodes)]
     }
     // Return the jumbotron
     return h(
@@ -129,3 +129,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BJumbotron
