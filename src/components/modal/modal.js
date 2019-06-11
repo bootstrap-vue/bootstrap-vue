@@ -573,15 +573,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       eventOn(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
     },
     onClickOut(evt) {
+      if (this.ignoreBackdropClick) {
+        // Click was initiated inside the modal content, but finished outside.
+        // Set by the above onDialogMousedown handler
+        this.ignoreBackdropClick = false
+        return
+      }
       // Do nothing if not visible, backdrop click disabled, or element
       // that generated click event is no longer in document body
       if (!this.isVisible || this.noCloseOnBackdrop || !contains(document.body, evt.target)) {
-        return
-      }
-      if (this.ignoreBackdropClick) {
-        // Click was initiated inside the modal content, but finished outside
-        // Set by the above onDialogMousedown handler
-        this.ignoreBackdropClick = false
         return
       }
       // If backdrop clicked, hide modal
