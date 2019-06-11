@@ -271,6 +271,27 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('title-html prop works', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        propsData: {
+          static: true,
+          id: 'test',
+          titleHtml: '<em>title</em>'
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await waitNT(wrapper.vm)
+
+      // Modal title
+      const $title = wrapper.find('.modal-title')
+      expect($title.exists()).toBe(true)
+      expect($title.html()).toContain('<em>title</em>')
+
+      wrapper.destroy()
+    })
   })
 
   describe('default button content, classes and attributes', () => {
@@ -321,6 +342,37 @@ describe('modal', () => {
       expect($close.attributes('type')).toBe('button')
       expect($close.attributes('aria-label')).toBe('Close')
       expect($close.classes()).toContain('close')
+
+      wrapper.destroy()
+    })
+
+    it('ok-title-html and cancel-title-html works', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        propsData: {
+          static: true,
+          okTitleHtml: '<em>ok</em>',
+          cancelTitleHtml: '<em>cancel</em>'
+        }
+      })
+      expect(wrapper).toBeDefined()
+
+      const $buttons = wrapper.findAll('footer button')
+      expect($buttons.length).toBe(2)
+
+      // Cancel button (left-most button)
+      const $cancel = $buttons.at(0)
+      expect($cancel.attributes('type')).toBe('button')
+      expect($cancel.text()).toContain('cancel')
+      // v-html is applied to a span
+      expect($cancel.html()).toContain('<span><em>cancel</em></span>')
+
+      // OK button (right-most button)
+      const $ok = $buttons.at(1)
+      expect($ok.attributes('type')).toBe('button')
+      expect($ok.text()).toContain('ok')
+      // v-html is applied to a span
+      expect($ok.html()).toContain('<span><em>ok</em></span>')
 
       wrapper.destroy()
     })
