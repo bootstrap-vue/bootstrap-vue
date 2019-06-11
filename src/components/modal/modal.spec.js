@@ -244,7 +244,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
@@ -388,7 +388,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should still be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal (and not prevent it)
       cancelHide = false
