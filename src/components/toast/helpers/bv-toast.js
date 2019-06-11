@@ -106,7 +106,7 @@ const plugin = Vue => {
       propsData: {
         ...filterOptions(getComponentConfig('BToast') || {}),
         // Add in (filtered) user supplied props
-        ...omit(props, ['toastContent']),
+        ...omit(props, keys(propsToSlots)),
         // Props that can't be overridden
         static: false,
         visible: true
