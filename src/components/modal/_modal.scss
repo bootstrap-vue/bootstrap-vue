@@ -3,8 +3,3 @@
 .modal-backdrop {
   opacity: $modal-backdrop-opacity;
 }
-
-// Needed to fix issue https://github.com/bootstrap-vue/bootstrap-vue/issues/3457
-.modal.show {
-  display: block;
-}
