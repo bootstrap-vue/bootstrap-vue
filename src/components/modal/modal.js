@@ -250,8 +250,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       return [
         {
           fade: !this.noFade,
-          show: this.isShow,
-          'd-block': this.isBlock
+          show: this.isShow
         },
         this.modalClass
       ]
@@ -261,6 +260,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       return {
         paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
         paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : '',
+        // Needed to fix issue https://github.com/bootstrap-vue/bootstrap-vue/issues/3457
         display: this.isBlock ? 'block' : ''
       }
     },
