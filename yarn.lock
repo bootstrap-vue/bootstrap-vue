@@ -11089,10 +11089,10 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.15.0.tgz#bb179a93370612ccbccfe53d09866b249a74ee04"
-  integrity sha512-IeZwWTqJHkZpU3zXtY3rtWkeoZc299DN8MOyNtkzlm2PpsZZLmLGlffW5giTRe7z5mhgBYvQKKpFtnnzyDOySw==
+rollup@^1.15.1:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.15.1.tgz#76580d9a3e7e8632530bcc5809baf431e9e16aa9"
+  integrity sha512-JErZxFKs0w7wpHZXWonAlom1Jezo0gJ7mf7JHTjOAjFGKAqNMEnlzEjMYhy6cqHgSfSPj/idVscuW+Lo6y6AoQ==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "^12.0.7"
