@@ -260,7 +260,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       const sbWidth = `${this.scrollbarWidth}px`
       return {
         paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
-        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : ''
+        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : '',
+        display: this.isBlock ? 'block' : ''
       }
     },
     dialogClasses() {
