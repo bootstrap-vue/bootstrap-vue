@@ -713,11 +713,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               [this.normalizeSlot('modal-header-close', {})]
             )
           }
+          const domProps = !this.hasNormalizedSlot('modal-title') && this.titleHtml
+            ? { innerHTML: this.titleHtml }
+            : {}
           modalHeader = [
-            h(this.titleTag, { class: ['modal-title'] }, [
-              this.normalizeSlot('modal-title', this.slotScope) ||
-                this.titleHtml ||
-                stripTags(this.title)
+            h(this.titleTag, { class: ['modal-title'], domProps }, [
+              this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)
             ]),
             closeButton
           ]
