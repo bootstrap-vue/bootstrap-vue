@@ -715,11 +715,13 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               [this.normalizeSlot('modal-header-close', {})]
             )
           }
+          const domProps =
+            !this.hasNormalizedSlot('modal-title') && this.titleHtml
+              ? { innerHTML: this.titleHtml }
+              : {}
           modalHeader = [
-            h(this.titleTag, { class: ['modal-title'] }, [
-              this.normalizeSlot('modal-title', this.slotScope) ||
-                this.titleHtml ||
-                stripTags(this.title)
+            h(this.titleTag, { class: ['modal-title'], domProps }, [
+              this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)
             ]),
             closeButton
           ]
@@ -755,6 +757,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         if (!modalFooter) {
           let cancelButton = h(false)
           if (!this.okOnly) {
+            const cancelHtml = this.cancelTitleHtml ? { innerHTML: this.cancelTitleHtml } : null
             cancelButton = h(
               BButton,
               {
@@ -767,11 +770,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               },
               [
                 this.normalizeSlot('modal-cancel', {}) ||
-                  this.cancelTitleHtml ||
-                  stripTags(this.cancelTitle)
+                  (cancelHtml ? h('span', { domProps: cancelHtml }) : stripTags(this.cancelTitle))
               ]
             )
           }
+          const okHtml = this.okTitleHtml ? { innerHTML: this.okTitleHtml } : null
           const okButton = h(
             BButton,
             {
@@ -782,7 +785,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               },
               on: { click: this.onOk }
             },
-            [this.normalizeSlot('modal-ok', {}) || this.okTitleHtml || stripTags(this.okTitle)]
+            [
+              this.normalizeSlot('modal-ok', {}) ||
+                (okHtml ? h('span', { domProps: okHtml }) : stripTags(this.okTitle))
+            ]
           )
           modalFooter = [cancelButton, okButton]
         }
