@@ -13,11 +13,11 @@ import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Sub components
-import BCol from '../layout/col'
-import BFormInvalidFeedback from '../form/form-invalid-feedback'
-import BFormRow from '../layout/form-row'
-import BFormText from '../form/form-text'
-import BFormValidFeedback from '../form/form-valid-feedback'
+import { BCol } from '../layout/col'
+import { BFormRow } from '../layout/form-row'
+import { BFormText } from '../form/form-text'
+import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
+import { BFormValidFeedback } from '../form/form-valid-feedback'
 
 // Component name
 const NAME = 'BFormGroup'
@@ -254,7 +254,7 @@ const generateProps = () => {
 // We do not use Vue.extend here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
-export default {
+export const BFormGroup = {
   name: NAME,
   mixins: [idMixin, formStateMixin, normalizeSlotMixin],
   get props() {
@@ -466,3 +466,5 @@ export default {
     )
   }
 }
+
+export default BFormGroup

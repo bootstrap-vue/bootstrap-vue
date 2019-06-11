@@ -1,23 +1,15 @@
-import BModal from './modal'
-import BVModalPlugin from './helpers/bv-modal'
-import VBModal from '../../directives/modal/modal'
-import { installFactory } from '../../utils/plugins'
+import { BModal } from './modal'
+import { VBModal } from '../../directives/modal/modal'
+import { BVModalPlugin } from './helpers/bv-modal'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BModal
-}
-
-const directives = {
-  VBModal
-}
-
-const plugins = {
+const ModalPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BModal },
+  directives: { VBModal },
   // $bvModal injection
-  BVModalPlugin
-}
+  plugins: { BVModalPlugin }
+})
 
-export { BModal }
+export { ModalPlugin, BModal }
 
-export default {
-  install: installFactory({ components, directives, plugins })
-}
+export default ModalPlugin

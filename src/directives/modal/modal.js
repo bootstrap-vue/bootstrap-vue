@@ -16,7 +16,7 @@ const setRole = (el, binding, vnode) => {
 /*
  * Export our directive
  */
-export default {
+export const VBModal = {
   // eslint-disable-next-line no-shadow-restricted-names
   bind(el, binding, vnode) {
     bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
@@ -37,3 +37,5 @@ export default {
     }
   }
 }
+
+export default VBModal

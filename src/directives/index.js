@@ -11,7 +11,11 @@ export * from './index.esm'
 
 // Export all legacy named directive group plugins as named exports
 // To be removed in stable release
-export * from './plugins-legacy'
+export { VBModalPlugin as Modal } from './modal'
+export { VBPopoverPlugin as Popover } from './popover'
+export { VBScrollspyPlugin as Scrollspy } from './scrollspy'
+export { VBTogglePlugin as Toggle } from './toggle'
+export { VBTooltipPlugin as Tooltip } from './tooltip'
 
 // Default export is a plugin that installs all plugins
 export default directivesPlugin

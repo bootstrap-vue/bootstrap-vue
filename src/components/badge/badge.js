@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
-import Link, { propsFactory as linkPropsFactory } from '../link/link'
+import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
 const NAME = 'BBadge'
 
@@ -27,12 +27,12 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BBadge = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const tag = !props.href && !props.to ? props.tag : Link
+    const tag = !props.href && !props.to ? props.tag : BLink
 
     const componentData = {
       staticClass: 'badge',
@@ -50,3 +50,5 @@ export default Vue.extend({
     return h(tag, mergeData(data, componentData), children)
   }
 })
+
+export default BBadge

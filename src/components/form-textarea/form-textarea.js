@@ -10,7 +10,7 @@ import { getCS, isVisible } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 
 // @vue/component
-export default Vue.extend({
+export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   name: 'BFormTextarea',
   mixins: [
     idMixin,
@@ -215,3 +215,5 @@ export default Vue.extend({
     })
   }
 })
+
+export default BFormTextarea

@@ -7,9 +7,9 @@ import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BButtonClose from '../button/button-close'
-import BToaster from './toaster'
-import BLink from '../link/link'
+import { BToaster } from './toaster'
+import { BButtonClose } from '../button/button-close'
+import { BLink } from '../link/link'
 
 // --- Constants ---
 
@@ -105,7 +105,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -442,3 +442,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BToast

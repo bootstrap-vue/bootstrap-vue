@@ -4,7 +4,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { htmlOrText } from '../../utils/html'
 
 // @vue/component
-export default Vue.extend({
+export const BFormDatalist = /*#__PURE__*/ Vue.extend({
   name: 'BFormDatalist',
   mixins: [formOptionsMixin, normalizeSlotMixin],
   props: {
@@ -25,3 +25,5 @@ export default Vue.extend({
     return h('datalist', { attrs: { id: this.id } }, [options, this.normalizeSlot('default')])
   }
 })
+
+export default BFormDatalist

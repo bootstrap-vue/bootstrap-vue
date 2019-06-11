@@ -1,14 +1,14 @@
-import BListGroup from './list-group'
-import BListGroupItem from './list-group-item'
-import { installFactory } from '../../utils/plugins'
+import { BListGroup } from './list-group'
+import { BListGroupItem } from './list-group-item'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BListGroup,
-  BListGroupItem
-}
+const ListGroupPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BListGroup,
+    BListGroupItem
+  }
+})
 
-export { BListGroup, BListGroupItem }
+export { ListGroupPlugin, BListGroup, BListGroupItem }
 
-export default {
-  install: installFactory({ components })
-}
+export default ListGroupPlugin

@@ -14,7 +14,7 @@ import {
   defineProperties,
   readonlyDescriptor
 } from '../../../utils/object'
-import { installFactory } from '../../../utils/plugins'
+import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 
 // --- Constants ---
@@ -262,6 +262,8 @@ const plugin = Vue => {
   }
 }
 
-export default {
-  install: installFactory({ plugins: { plugin } })
-}
+export const BVModalPlugin = /*#__PURE__*/ pluginFactory({
+  plugins: { plugin }
+})
+
+export default BVModalPlugin

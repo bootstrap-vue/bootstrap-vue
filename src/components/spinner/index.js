@@ -1,12 +1,10 @@
-import BSpinner from './spinner'
-import { installFactory } from '../../utils/plugins'
+import { BSpinner } from './spinner'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BSpinner
-}
+const SpinnerPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BSpinner }
+})
 
-export { BSpinner }
+export { SpinnerPlugin, BSpinner }
 
-export default {
-  install: installFactory({ components })
-}
+export default SpinnerPlugin

@@ -1,11 +1,11 @@
 import Vue from '../../utils/vue'
-import BLink from '../link/link'
 import { props as BDropdownProps } from '../dropdown/dropdown'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
+import { BLink } from '../link/link'
 
 // -- Constants --
 
@@ -29,7 +29,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
   name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -116,3 +116,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavItemDropdown

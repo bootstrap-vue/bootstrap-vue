@@ -77,7 +77,7 @@ const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
 /*
  * Export our directive
  */
-export default {
+export const VBScrollspy = {
   bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyScrollspy(el, bindings, vnode)
   },
@@ -98,3 +98,5 @@ export default {
     removeScrollspy(el)
   }
 }
+
+export default VBScrollspy

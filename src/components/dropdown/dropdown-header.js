@@ -17,7 +17,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownHeader',
   functional: true,
   inheritAttrs: false,
@@ -42,3 +42,5 @@ export default Vue.extend({
     ])
   }
 })
+
+export default BDropdownHeader
