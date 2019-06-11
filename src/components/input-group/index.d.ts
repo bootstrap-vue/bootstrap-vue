@@ -8,6 +8,9 @@ import { BvPlugin, BvComponent } from '../../'
 export declare const InputGroupPlugin: BvPlugin
 export default InputGroupPlugin
 
+// Component: b-input-group
+export declare class BInputGroup extends BvComponent {}
+
 // Component: b-input-group-append
 export declare class BInputGroupAppend extends BvComponent {}
 
