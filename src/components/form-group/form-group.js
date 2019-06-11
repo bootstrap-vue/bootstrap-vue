@@ -158,7 +158,7 @@ const makePropName = memoize((breakpoint = '', prefix) => {
   return `${prefix}${upperFirst(breakpoint)}`
 })
 
-// BFormgroup prop generator for lazy generation of props
+// BFormGroup prop generator for lazy generation of props
 const generateProps = () => {
   const BREAKPOINTS = getBreakpointsUpCached()
 

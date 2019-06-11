@@ -6,8 +6,8 @@
 - [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
 - [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
   recommended
-- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required
-  by [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required by
+  [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
 
 ## Using module bundlers
@@ -72,7 +72,8 @@ section.
 
 ### Aliasing Vue import
 
-BootstrapVue and PortalVue require access to the global `Vue` reference (via `import Vue from 'vue'`).
+BootstrapVue and PortalVue require access to the global `Vue` reference (via
+`import Vue from 'vue'`).
 
 <div class="alert alert-info mb-3">
   <p class="mb-0">
@@ -164,7 +165,7 @@ $grid-breakpoints: (
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
 
-// And define any of your custom overides or additional CSS/SCSS here,
+// And define any of your custom overrides or additional CSS/SCSS here,
 // or via an @import
 ```
 
@@ -174,11 +175,12 @@ In your app main entry point include the single custom SCSS file (when using `sa
 // app.js
 import 'custom.scss'
 ```
+
 ### transformAssetUrls with Nuxt.js
 
-<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin
-module will automatically add in the BootstrapVue specific
-[`transformAssetUrls`](/docs/reference/images) image `src` prop configuration for you.
+<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin module
+will automatically add in the BootstrapVue specific [`transformAssetUrls`](/docs/reference/images)
+image `src` prop configuration for you.
 
 ### Tree shaking with Nuxt.js
 
@@ -245,8 +247,8 @@ Note that when importing individual components, any component aliases will **not
 </div>
 
 Do not use the Nuxt module If you want to import individual BootstrapVue components into _specific_
-pages and/or components of your Nuxt app. Instead follow the [module bundlers](#using-module-bundlers)
-section above as well as the
+pages and/or components of your Nuxt app. Instead follow the
+[module bundlers](#using-module-bundlers) section above as well as the
 [selective import](#selective-component-and-directive-inclusion-in-module-bundlers) sections below.
 
 ### Passing custom BootstrapVue config with Nuxt.js
@@ -375,8 +377,8 @@ components and/or directives.
 
 <span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
 
-You can import component groups and directives as Vue plugins by importing from the `components`
-or `directives` directory:
+You can import component groups and directives as Vue plugins by importing from the `components` or
+`directives` directory:
 
 <!-- eslint-disable import/first, import/no-duplicates -->
 
@@ -457,8 +459,8 @@ Vue.directive('b-modal', VBModal)
 ```
 
 Vue allows for various component and directive name syntaxes here, so feel free to utilize
-<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or object
-property shorthand (components only).
+<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or
+object property shorthand (components only).
 
 ## Browser
 
@@ -498,13 +500,13 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 | ES module      | webpack 2+ / rollup.js | `es/index.js` <span class="badge badge-warning">Deprecated in 2.0.0-rc.22</span> |
 
 All of the build variants listed above have been pre-transpiled targeting the browsers supported by
-BootstrapVue. However, if you are targeting only modern browsers, you may want to import `BootstrapVue`
-from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your own project.
-This can potentially reduce bundle sizes.
+BootstrapVue. However, if you are targeting only modern browsers, you may want to import
+`BootstrapVue` from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your
+own project. This can potentially reduce bundle sizes.
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts, etc), and `vue-functional-data-merge` (for functional components) and parts of `core-ui`.
-These four dependencies are included in the `UMD` bundle.
+(for toasts, etc), and `vue-functional-data-merge` (for functional components) and parts of
+`core-ui`. These four dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 

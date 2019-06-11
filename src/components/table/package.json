@@ -405,7 +405,6 @@
             "name": "row-details",
             "description": "Scoped slot for optional rendering additional record details. See docs for Row details support"
           },
-
           {
             "name": "thead-top",
             "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"

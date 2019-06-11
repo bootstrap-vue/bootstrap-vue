@@ -57,8 +57,8 @@ The values provided as the config option to `Vue.use` will be merged with the de
 
 **Note:** When defining custom breakpoints, keep the names short (2 to 3 characters). At least two
 breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined
-in your custom Bootstrap SCSS. Breakpoint names must not conflict with non-breakpoint prop names used on
-various components (i.e. avoid `to`, `col`, etc)
+in your custom Bootstrap SCSS. Breakpoint names must not conflict with non-breakpoint prop names
+used on various components (i.e. avoid `to`, `col`, etc)
 
 ### Setting config via individual component group plugin imports
 
@@ -123,7 +123,6 @@ Vue.use(AlertPlugin)
 Vue.use(ButtonPlugin)
 ```
 
-
 **Example 4 when importing individual components (preferred method):**
 
 <!-- eslint-disable import/first, import/no-duplicates -->
@@ -160,10 +159,10 @@ export default {
 
 **Caveat:** Vue only installs plugins _once_. If you import a plugin that has already been imported
 by another component plugin, the configuration passed to the component plugin will **not** be merged
-in. It is best to set the complete configuration using the `BVConfigPlugin` helper plugin as shown in
-**Example 3** and **Example 4** above. The `BVConfigPlugin` plugin should be used in the main entry
-point of your app, and **before** any `Vue.use()` of component plugins or `Vue.component()` or
-indivdual components.
+in. It is best to set the complete configuration using the `BVConfigPlugin` helper plugin as shown
+in **Example 3** and **Example 4** above. The `BVConfigPlugin` plugin should be used in the main
+entry point of your app, and **before** any `Vue.use()` of component plugins or `Vue.component()` or
+individual components.
 
 ### Setting the config via Nuxt.js BootstrapVue plugin
 

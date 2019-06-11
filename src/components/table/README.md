@@ -1,9 +1,9 @@
 # Tables
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
-> rendering, various style options, events, and asynchronous data. For simple display of
-> tabular data without all the fancy features, BootstrapVue provides a lightweight alternative
-> component [`<b-table-lite>`](#light-weight-tables).
+> rendering, various style options, events, and asynchronous data. For simple display of tabular
+> data without all the fancy features, BootstrapVue provides a lightweight alternative component
+> [`<b-table-lite>`](#light-weight-tables).
 
 **Example: Basic usage**
 
@@ -787,8 +787,9 @@ Also see the [**Using Items Provider Functions**](#using-items-provider-function
 additional information on the `busy` state.
 
 **Notes:**
-- All click related and hover events, and sort-changed events will **not** be emitted when
-  the table is in the `busy` state.
+
+- All click related and hover events, and sort-changed events will **not** be emitted when the table
+  is in the `busy` state.
 - Busy styling and slot are not available in the `<b-table-lite>` component.
 
 ## Custom data rendering
@@ -1394,9 +1395,9 @@ record objects for the rows being compared, the third argument is the field `key
 (`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
 (`true` for descending, `false` for ascending).
 
-The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`,
-or `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used,
-as `b-table` will handle the direction). The routine can also return `null` to fall back to the
+The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
+`1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
+`b-table` will handle the direction). The routine can also return `null` to fall back to the
 built-in sort-compare routine for the particular `key`. You can use this feature (i.e. by returning
 `null`) to have your custom sort-compare routine handle only certain fields (keys) such as the
 special case of virtual columns.
@@ -1539,7 +1540,8 @@ should usually be treated as readonly.
 The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
 changes to a record's properties in the `v-model` will be reflected in the original `items` array
 (except when `items` is set to a provider function). Deleting a record from the `v-model` will
-**not** remove the record from the original items array nor will it remove it from the displayed rows.
+**not** remove the record from the original items array nor will it remove it from the displayed
+rows.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
@@ -1863,9 +1865,9 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.23</span>
 
-`<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple dipslay of
-tabular data. The `<b-table-lite>` component provides all of the styling and formatting features
-of `<b-table>` (including row details support), while **excluding** the following features:
+`<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple display of
+tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of
+`<b-table>` (including row details support), while **excluding** the following features:
 
 - Filtering
 - Sorting

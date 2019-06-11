@@ -186,8 +186,8 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 ```
 
 Sometimes you want to add your own class names to the generated dropdown toggle button, that by
-default have the classes `nav-link` and `dropdown-toggle`. Use the `toggle-class` prop to
-add them (like above) which will produce something like:
+default have the classes `nav-link` and `dropdown-toggle`. Use the `toggle-class` prop to add them
+(like above) which will produce something like:
 
 ```html
 <li id="my-nav-dropdown" class="nav-item b-nav-dropdown dropdown">
@@ -211,7 +211,7 @@ Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub
 The dropdown default slot is optionally scoped with the following scope available:
 
 | Property or Method | Description                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
 
 ## Using in navbar

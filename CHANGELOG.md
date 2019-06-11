@@ -12,11 +12,11 @@ Released 2019-05-31
 
 ### Notable Changes v2.0.0-rc.22
 
-- Improved/shortened method for importing of plugins, components, and directives, as top-level
-  named exports. The ESM and CJS builds now both include these top level named exports:
+- Improved/shortened method for importing of plugins, components, and directives, as top-level named
+  exports. The ESM and CJS builds now both include these top level named exports:
   - Default export is still the BootstrapVue plugin
   - Simplified import format for importing components, directives, plugins:<br>
-   `import { ModalPlugin, CardPlugin, BAlert, BRow, BCol, VBScollspyPlugin } from 'bootstrap-vue'`
+    `import { ModalPlugin, CardPlugin, BAlert, BRow, BCol, VBScollspyPlugin } from 'bootstrap-vue'`
   - New `esm/` modular build with top-level named exports (tree shakeable)
   - New `dist/bootstrap-vue.esm.js` esm bundle with top-level named exports
   - New `dist/bootstrap-vue.common.js` cjs bundle with top-level named exports
@@ -45,9 +45,8 @@ Released 2019-05-31
 - **form controls:** handle autofocus inside modal or when inside a transition
   ([#3386](https://github.com/bootstrap-vue/bootstrap-vue/issues/3386)
   [c4a8edb](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4a8edb))
-- **es:** revert to tranforming `es/` modules into CJS, and simplify main build with top-level
-  named import/exports
-  (closes [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397),
+- **es:** revert to tranforming `es/` modules into CJS, and simplify main build with top-level named
+  import/exports (closes [#3397](https://github.com/bootstrap-vue/bootstrap-vue/issues/3397),
   [#3393](https://github.com/bootstrap-vue/bootstrap-vue/issues/3393),
   [#3323](https://github.com/bootstrap-vue/bootstrap-vue/issues/3323))
   ([#3404](https://github.com/bootstrap-vue/bootstrap-vue/issues/3404)
@@ -88,8 +87,8 @@ Released 2019-05-31
 
 Released 2019-05-26
 
-Note: this version introduced a bug when using BootstrapVue with Nuxt.js module in dev mode.
-Please use version v2.0.0-rc.22 or newer.
+Note: this version introduced a bug when using BootstrapVue with Nuxt.js module in dev mode. Please
+use version v2.0.0-rc.22 or newer.
 
 ### Bug Fixes v2.0.0-rc.21
 
@@ -354,8 +353,8 @@ Released 2019-04-21
 
 ### Notes v2.0.0-rc.19
 
-- Removed built in polyfills (hack) for Mutation Observer. IE 11 users should include
-  the appropriate polyfills as mentioned in the getting started docs page.
+- Removed built in polyfills (hack) for Mutation Observer. IE 11 users should include the
+  appropriate polyfills as mentioned in the getting started docs page.
 
 <a name="2.0.0-rc.18"></a>
 

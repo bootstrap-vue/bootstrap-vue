@@ -233,7 +233,7 @@ _local_ `href` or `to`. Scroll the area next to the list group and watch the act
 ## Using scrollspy on components with the `to` prop
 
 When Vue Router (or Nuxt.js) is used, and you are generating your links with the `to` prop, use one
-of the following methods to generate the apropriate `href` on the rendered link:
+of the following methods to generate the appropriate `href` on the rendered link:
 
 ```html
 <!-- using a string path -->
@@ -402,7 +402,7 @@ const app = new Vue({
   },
   methods: {
     onActivate(target) {
-      console.log('Receved Event: bv::scrollspy::activate for target ', target)
+      console.log('Received event: "bv::scrollspy::activate" for target ', target)
     }
   }
 })
