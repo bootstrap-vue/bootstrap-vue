@@ -261,7 +261,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
         paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : '',
         // Needed to fix issue https://github.com/bootstrap-vue/bootstrap-vue/issues/3457
-        display: this.isBlock ? 'block' : ''
+        display: this.isBlock ? 'block' : 'none'
       }
     },
     dialogClasses() {
