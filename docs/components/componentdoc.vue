@@ -10,7 +10,9 @@
           variant="secondary"
           target="_blank"
           href="https://vuejs.org/v2/guide/render-function.html#Functional-Components"
-        >Functional Component</b-badge>
+        >
+          Functional Component
+        </b-badge>
       </b-col>
       <b-col sm="3" class="text-sm-right">
         <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
