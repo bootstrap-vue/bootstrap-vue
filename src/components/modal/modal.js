@@ -768,7 +768,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               },
               [
                 this.normalizeSlot('modal-cancel', {}) ||
-                  cancelHtml ? h('span', { innerHTML: cancelHtml }) : stripTags(this.cancelTitle)
+                  (cancelHtml ? h('span', { innerHTML: cancelHtml }) : stripTags(this.cancelTitle))
               ]
             )
           }
@@ -785,7 +785,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             },
             [
               this.normalizeSlot('modal-ok', {}) ||
-                tokHtml ? h('span', { innerHTML: okHtml }) : stripTags(this.okTitle)
+                (okHtml ? h('span', { innerHTML: okHtml }) : stripTags(this.okTitle))
             ]
           )
           modalFooter = [cancelButton, okButton]
