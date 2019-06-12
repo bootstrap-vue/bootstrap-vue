@@ -122,7 +122,7 @@ export default {
         }
         // Update the v-model
         this.$emit('update', value)
-      } else if (value !== this.$refs.input.value) {
+      } else if (this.$refs.input && value !== this.$refs.input.value) {
         // When the `localValue` hasn't changed but the actual input value
         // is out of sync, make sure to change it to the given one
         /* istanbul ignore next: hard to test */
