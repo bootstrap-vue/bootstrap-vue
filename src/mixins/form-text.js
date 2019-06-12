@@ -124,7 +124,9 @@ export default {
         this.$emit('update', value)
       } else if (this.$refs.input && value !== this.$refs.input.value) {
         // When the `localValue` hasn't changed but the actual input value
-        // is out of sync, make sure to change it to the given one
+        // is out of sync, make sure to change it to the given one.
+        // Usually casued by browser autocomplete and how it triggers the
+        // change or input event.
         /* istanbul ignore next: hard to test */
         this.$refs.input.value = value
       }
