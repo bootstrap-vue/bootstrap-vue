@@ -126,7 +126,9 @@ export default {
         // When the `localValue` hasn't changed but the actual input value
         // is out of sync, make sure to change it to the given one.
         // Usually casued by browser autocomplete and how it triggers the
-        // change or input event.
+        // change or input event, or depending on the formatter function.
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/2657
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
         /* istanbul ignore next: hard to test */
         this.$refs.input.value = value
       }
