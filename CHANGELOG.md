@@ -4,6 +4,71 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.23"></a>
+
+## [v2.0.0-rc.23](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.22...v2.0.0-rc.23)
+
+Released 2019-06-12
+
+### Bug Fixes v2.0.0-rc.23
+
+- **b-dropdown:** close when clicking on nested elements inside items with `to` prop
+  ([#3476](https://github.com/bootstrap-vue/bootstrap-vue/issues/3476)
+  [8ec2eb1](https://github.com/bootstrap-vue/bootstrap-vue/commit/8ec2eb1))
+- **b-form-input, b-form-textarea:** handle case where input has been removed from document (closes
+  [#3498](https://github.com/bootstrap-vue/bootstrap-vue/issues/3498))
+  ([#3501](https://github.com/bootstrap-vue/bootstrap-vue/issues/3501)
+  [9a62e44](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a62e44))
+- **b-modal:** ensure `ignoreBackdropClick` flag is cleared in `clickOutHandler`
+  ([#3488](https://github.com/bootstrap-vue/bootstrap-vue/issues/3488)
+  [afb4680](https://github.com/bootstrap-vue/bootstrap-vue/commit/afb4680))
+- **b-modal:** fix IE11 issue with copy/paste from modal into MS Word (fixes
+  [#3457](https://github.com/bootstrap-vue/bootstrap-vue/issues/3457))
+  ([#3489](https://github.com/bootstrap-vue/bootstrap-vue/issues/3489)
+  [16dbdf1](https://github.com/bootstrap-vue/bootstrap-vue/commit/16dbdf1))
+- **b-modal:** properly render `*-html` props if provided (closes
+  [#3491](https://github.com/bootstrap-vue/bootstrap-vue/issues/3491))
+  ([#3492](https://github.com/bootstrap-vue/bootstrap-vue/issues/3492)
+  [c1ada9f](https://github.com/bootstrap-vue/bootstrap-vue/commit/c1ada9f))
+- **b-pagination-nav:** fix incorrect name in component package.json file (closes
+  [#3458](https://github.com/bootstrap-vue/bootstrap-vue/issues/3458))
+  ([#3459](https://github.com/bootstrap-vue/bootstrap-vue/issues/3459)
+  [ef252df](https://github.com/bootstrap-vue/bootstrap-vue/commit/ef252df))
+- **b-pagination-nav:** attempt to auto-detect current page when `pages` array or `number of pages`
+  changes (closes [#3443](https://github.com/bootstrap-vue/bootstrap-vue/issues/3443))
+  ([#3444](https://github.com/bootstrap-vue/bootstrap-vue/issues/3444)
+  [88b95c6](https://github.com/bootstrap-vue/bootstrap-vue/commit/88b95c6))
+- **b-table:** ensure provider is refreshed when filter is an object (closes
+  [#3428](https://github.com/bootstrap-vue/bootstrap-vue/issues/3428))
+  ([#3429](https://github.com/bootstrap-vue/bootstrap-vue/issues/3429)
+  [b95c614](https://github.com/bootstrap-vue/bootstrap-vue/commit/b95c614))
+- **b-tabs:** improve child `b-tab` detection routine and fix bug with IDs (closes
+  [#3260](https://github.com/bootstrap-vue/bootstrap-vue/issues/3260))
+  ([#3442](https://github.com/bootstrap-vue/bootstrap-vue/issues/3442)
+  [4a54e8d](https://github.com/bootstrap-vue/bootstrap-vue/commit/4a54e8d))
+- **types:** add missing `BInputGroup` to TypeScript definitions
+  ([#3487](https://github.com/bootstrap-vue/bootstrap-vue/issues/3487)
+  [b4ac081](https://github.com/bootstrap-vue/bootstrap-vue/commit/b4ac081))
+- **utils/get:** handle edge case with inherited object getters (fixes
+  [#3463](https://github.com/bootstrap-vue/bootstrap-vue/issues/3463))
+  ([#3465](https://github.com/bootstrap-vue/bootstrap-vue/issues/3465)
+  [e2c8cb1](https://github.com/bootstrap-vue/bootstrap-vue/commit/e2c8cb1))
+
+### Features v2.0.0-rc.23
+
+- **b-table-lite:** new `<b-table-lite>` light-weight table component
+  ([#3447](https://github.com/bootstrap-vue/bootstrap-vue/issues/3447)
+  [0477941](https://github.com/bootstrap-vue/bootstrap-vue/commit/0477941))
+- improved tree-shaking when importing individual components
+  ([#3462](https://github.com/bootstrap-vue/bootstrap-vue/issues/3462)
+  [2df1ab9](https://github.com/bootstrap-vue/bootstrap-vue/commit/2df1ab9))
+
+### Deprecation v2.0.0-rc.23
+
+Users should switch to the simplified import syntax (introduced in 2.0.0-rc.22) when importing
+individual plugins, components, and/or directives. **Importing from the `es/` build has been
+deprecated and will be removed in 2.0.0 stable release.**
+
 <a name="2.0.0-rc.22"></a>
 
 ## [v2.0.0-rc.22](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.21...v2.0.0-rc.22)
