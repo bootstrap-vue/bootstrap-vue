@@ -98,7 +98,7 @@ messages.
 
 **Important**
 
-You **must** configure `vee-validate`'s fields property or it will conflict with the `:fields`
+You **must** configure `vee-validate`'s `fields` property or it will conflict with the `:fields`
 property of `<b-table>` (and possibly other components) when it injects itself.
 
 ```js
@@ -132,7 +132,6 @@ Same example as above, just modified for VeeValidate:
           aria-describedby="input-1-live-feedback"
           placeholder="Enter name"
         ></b-form-input>
-
         <b-form-invalid-feedback id="input-1-live-feedback">
           This is a required field and must be at least 3 characters.
         </b-form-invalid-feedback>
@@ -146,7 +145,6 @@ Same example as above, just modified for VeeValidate:
           :options="foods"
           :state="validateState('form.foods')"
         ></b-form-select>
-
         <b-form-invalid-feedback id="input-2-live-feedback">
           This is a required field.
         </b-form-invalid-feedback>
@@ -171,7 +169,7 @@ Same example as above, just modified for VeeValidate:
     methods: {
       validateState(ref) {
         if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
-          return !this.errors.has(ref)
+          return !this.veeErrors.has(ref)
         }
         return null
       },
