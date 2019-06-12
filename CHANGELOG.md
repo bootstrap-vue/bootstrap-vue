@@ -65,9 +65,9 @@ Released 2019-06-12
 
 ### Deprecation v2.0.0-rc.23
 
-Users should switch to the simplified import syntax (introduced in 2.0.0-rc.22) when importing
-individual plugins, components, and/or directives. **Importing from the `es/` build has been
-deprecated and will be removed in 2.0.0 stable release.**
+Users should switch to the simplified import syntax (introduced in `v2.0.0-rc.22`) when importing
+individual plugins, components, and/or directives. **Importing from the `es/` build directory has
+been deprecated and will be removed in 2.0.0 stable release.**
 
 <a name="2.0.0-rc.22"></a>
 
