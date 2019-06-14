@@ -1515,8 +1515,6 @@ Setting the prop `filter` to null or an empty string will clear local items filt
 
 ### Filtering notes
 
-You can disable local filtering completely by setting the `no-local-filtering` prop to `true`.
-
 See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
 
 ## Pagination
