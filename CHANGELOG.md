@@ -8,7 +8,7 @@
 
 ## [v2.0.0-rc.23](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.22...v2.0.0-rc.23)
 
-Released 2019-06-12
+Released 2019-06-13
 
 ### Bug Fixes v2.0.0-rc.23
 
