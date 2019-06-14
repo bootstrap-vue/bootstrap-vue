@@ -59,7 +59,11 @@ export default {
       }
 
       // Using internal filter function, which only accepts string or RegExp
-      if (!isFunction(this.filterFunction) && !(isString(this.filter) || isRegExp(this.filter))) {
+      if (
+        this.localFiltering &&
+        !isFunction(this.filterFunction) &&
+        !(isString(this.filter) || isRegExp(this.filter))
+      ) {
         return ''
       }
 
@@ -70,14 +74,15 @@ export default {
     },
     // Sanitized/normalize filter-function prop
     localFilterFn() {
-      // Prefer `filterFn` prop
       const filterFn = this.filterFunction
+      const filter = this.filter
+
+      // Prefer `filterFn` prop
       if (isFunction(filterFn)) {
         return filterFn
       }
 
       // Deprecate setting `filter` prop to a function
-      const filter = this.filter
       if (isFunction(filter)) {
         /* istanbul ignore next */
         warn(`b-table: ${DEPRECATION_MSG}`)
