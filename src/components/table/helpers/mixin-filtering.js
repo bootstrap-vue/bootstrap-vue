@@ -46,11 +46,6 @@ export default {
     },
     // Sanitized/normalized version of filter prop
     localFilter() {
-      // Early exit when filtering is disabled
-      if (!this.localFiltering) {
-        return ''
-      }
-
       // Deprecate setting prop filter to a function
       // `localFilterFn` will contain the correct function ref
       if (isFunction(this.filter)) {
