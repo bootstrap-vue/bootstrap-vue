@@ -5,6 +5,8 @@ import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BNavbarToggle'
 
+// TODO: Switch to using VBToggle directive, will reduce code footprint
+
 // Events we emit on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
@@ -14,7 +16,7 @@ const EVENT_STATE = 'bv::collapse::state'
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 // @vue/component
-export default Vue.extend({
+export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [listenOnRootMixin, normalizeSlotMixin],
   props: {
@@ -66,3 +68,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNavbarToggle

@@ -30,7 +30,7 @@ const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 const EventOptions = { passive: true, capture: false }
 
 // @vue/component
-export default Vue.extend({
+export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: 'BCollapse',
   mixins: [listenOnRootMixin, normalizeSlotMixin],
   model: {
@@ -270,3 +270,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCollapse

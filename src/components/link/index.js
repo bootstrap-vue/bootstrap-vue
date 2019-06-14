@@ -1,12 +1,10 @@
-import BLink from './link'
-import { installFactory } from '../../utils/plugins'
+import { BLink } from './link'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BLink
-}
+const LinkPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BLink }
+})
 
-export { BLink }
+export { LinkPlugin, BLink }
 
-export default {
-  install: installFactory({ components })
-}
+export default LinkPlugin

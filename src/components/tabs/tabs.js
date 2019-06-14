@@ -1,12 +1,13 @@
 import Vue from '../../utils/vue'
-import BLink from '../link/link'
-import BNav, { props as BNavProps } from '../nav/nav'
-import { requestAF, selectAll } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
+import stableSort from '../../utils/stable-sort'
+import { requestAF, selectAll } from '../../utils/dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { BLink } from '../link/link'
+import { BNav, props as BNavProps } from '../nav/nav'
 
 // -- Constants --
 
@@ -20,7 +21,7 @@ const notDisabled = tab => !tab.disabled
 // --- Helper components ---
 
 // @vue/component
-const BTabButtonHelper = Vue.extend({
+const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
@@ -139,7 +140,7 @@ const BTabButtonHelper = Vue.extend({
 })
 
 // @vue/component
-export default Vue.extend({
+export const BTabs = /*#__PURE__*/ Vue.extend({
   name: 'BTabs',
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
@@ -351,21 +352,28 @@ export default Vue.extend({
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
     getTabs() {
-      let tabs = []
-      if (!this.isMounted) {
-        tabs = (this.normalizeSlot('default') || []).map(vnode => vnode.componentInstance)
-      } else {
-        // We rely on the DOM when mounted to get the list of tabs,
-        // as this.$slots.default appears to lie about current tab vm instances, after being
-        // destroyed and then re-intantiated (cached vNodes which don't reflect correct vm)
-        // Fix for https://github.com/bootstrap-vue/bootstrap-vue/issues/3361
-        tabs = selectAll(`#${this.safeId('_BV_tab_container_')} > .tab-pane`, this.$el)
-          .map(el => el.__vue__)
+      // We use registeredTabs as the shouce of truth for child tab components. And we
+      // filter out any BTab components that are extended BTab with a root child BTab.
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
+      const tabs = this.registeredTabs.filter(
+        tab => tab.$children.filter(t => t._isTab).length === 0
+      )
+      // DOM Order of Tabs
+      let order = []
+      if (this.isMounted && tabs.length > 0) {
+        // We rely on the DOM when mounted to get the 'true' order of the b-tab children.
+        // querySelectorAll(...) always returns elements in document order, regardless of
+        // order specified in the selector.
+        const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
+        order = selectAll(selector, this.$el)
+          .map(el => el.id)
           .filter(Boolean)
-          // The VM attached to the element is `transition` so we need the $parent to get tab
-          .map(vm => vm.$parent)
       }
-      return tabs.filter(tab => tab && tab._isTab)
+      // Stable sort keeps the original order if not found in the
+      // `order` array, which will be an empty array before mount.
+      return stableSort(tabs, (a, b) => {
+        return order.indexOf(a.safeId()) - order.indexOf(b.safeId())
+      })
     },
     // Update list of <b-tab> children
     updateTabs() {
@@ -652,3 +660,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BTabs

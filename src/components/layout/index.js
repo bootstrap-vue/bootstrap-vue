@@ -1,18 +1,18 @@
-import BContainer from './container'
-import BRow from './row'
-import BCol from './col'
-import BFormRow from './form-row'
-import { installFactory } from '../../utils/plugins'
+import { BContainer } from './container'
+import { BRow } from './row'
+import { BCol } from './col'
+import { BFormRow } from './form-row'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BContainer,
-  BRow,
-  BCol,
-  BFormRow
-}
+const LayoutPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BContainer,
+    BRow,
+    BCol,
+    BFormRow
+  }
+})
 
-export { BContainer, BRow, BCol, BFormRow }
+export { LayoutPlugin, BContainer, BRow, BCol, BFormRow }
 
-export default {
-  install: installFactory({ components })
-}
+export default LayoutPlugin

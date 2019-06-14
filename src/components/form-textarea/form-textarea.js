@@ -10,7 +10,7 @@ import { getCS, isVisible } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 
 // @vue/component
-export default Vue.extend({
+export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   name: 'BFormTextarea',
   mixins: [
     idMixin,
@@ -56,14 +56,14 @@ export default Vue.extend({
     computedStyle() {
       const styles = {
         // Setting `noResize` to true will disable the ability for the user to
-        // manually resize the textarea. We also disable when in auto resize mode
+        // manually resize the textarea. We also disable when in auto height mode
         resize: !this.computedRows || this.noResize ? 'none' : null
       }
       if (!this.computedRows) {
-        // The computed height for auto resize.
-        // We avoid setting the style to null, which can override user manual resize.
+        // Conditionaly set the computed CSS height when auto rows/height is enabled.
+        // We avoid setting the style to null, which can override user manual resize handle.
         styles.height = this.heightInPx
-        // We always add a vertical scrollbar to the textarea when auto-resize is
+        // We always add a vertical scrollbar to the textarea when auto-height is
         // enabled so that the computed height calcaultion returns a stable value.
         styles.overflowY = 'scroll'
       }
@@ -80,7 +80,7 @@ export default Vue.extend({
     },
     computedRows() {
       // This is used to set the attribute 'rows' on the textarea.
-      // If auto-resize is enabled, then we return null as we use CSS to control height.
+      // If auto-height is enabled, then we return null as we use CSS to control height.
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     }
   },
@@ -215,3 +215,5 @@ export default Vue.extend({
     })
   }
 })
+
+export default BFormTextarea

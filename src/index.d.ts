@@ -1,7 +1,14 @@
 import Vue, { Component, PluginFunction, PluginObject } from 'vue'
 
 // Plugin Config Options
-export type BvConfigComponentOptionValue = string | string[] | number | number[] | boolean | object | null
+export type BvConfigComponentOptionValue =
+  | string
+  | string[]
+  | number
+  | number[]
+  | boolean
+  | object
+  | null
 export type BvConfigBreakpointsValue = string[]
 export interface BvConfigComponentOptions {
   [key: string]: BvConfigComponentOptionValue | any

@@ -1,13 +1,13 @@
-import BFormTextarea from './form-textarea'
-import { installFactory } from '../../utils/plugins'
+import { BFormTextarea } from './form-textarea'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BFormTextarea,
-  BTextarea: BFormTextarea
-}
+const FormTextareaPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BFormTextarea,
+    BTextarea: BFormTextarea
+  }
+})
 
-export { BFormTextarea }
+export { FormTextareaPlugin, BFormTextarea }
 
-export default {
-  install: installFactory({ components })
-}
+export default FormTextareaPlugin

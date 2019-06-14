@@ -1,6 +1,6 @@
 import OurVue from './vue'
 import warn from './warn'
-import { setConfig } from './config'
+import { setConfig } from './config-set'
 import { hasWindowSupport, isJSDOM } from './env'
 
 /**
@@ -30,7 +30,7 @@ export const checkMultipleVue = (() => {
  * @param {object} { components, directives }
  * @returns {function} plugin install function
  */
-export const installFactory = ({ components, directives, plugins }) => {
+export const installFactory = ({ components, directives, plugins } = {}) => {
   const install = (Vue, config = {}) => {
     if (install.installed) {
       /* istanbul ignore next */
@@ -38,7 +38,7 @@ export const installFactory = ({ components, directives, plugins }) => {
     }
     install.installed = true
     checkMultipleVue(Vue)
-    setConfig(config)
+    setConfig(config, Vue)
     registerComponents(Vue, components)
     registerDirectives(Vue, directives)
     registerPlugins(Vue, plugins)
@@ -47,6 +47,18 @@ export const installFactory = ({ components, directives, plugins }) => {
   install.installed = false
 
   return install
+}
+
+/**
+ * Plugin object factory function.
+ * @param {object} { components, directives, plugins }
+ * @returns {object} plugin install object
+ */
+export const pluginFactory = (opts = {}, extend = {}) => {
+  return {
+    ...extend,
+    install: installFactory(opts)
+  }
 }
 
 /**

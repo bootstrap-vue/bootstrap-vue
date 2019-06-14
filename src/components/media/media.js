@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import BMediaBody from './media-body'
-import BMediaAside from './media-aside'
 import { normalizeSlot } from '../../utils/normalize-slot'
+import { BMediaBody } from './media-body'
+import { BMediaAside } from './media-aside'
 
 export const props = {
   tag: {
@@ -24,7 +24,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BMedia = /*#__PURE__*/ Vue.extend({
   name: 'BMedia',
   functional: true,
   props,
@@ -63,3 +63,5 @@ export default Vue.extend({
     return h(props.tag, mergeData(data, { staticClass: 'media' }), childNodes)
   }
 })
+
+export default BMedia

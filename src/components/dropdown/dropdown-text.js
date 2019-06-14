@@ -1,7 +1,8 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 
-export default Vue.extend({
+// @vue/component
+export const BDropdownText = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownText',
   functional: true,
   inheritAttrs: false,
@@ -32,3 +33,5 @@ export default Vue.extend({
     ])
   }
 })
+
+export default BDropdownText

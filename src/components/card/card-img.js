@@ -48,7 +48,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BCardImg = /*#__PURE__*/ Vue.extend({
   name: 'BCardImg',
   functional: true,
   props,
@@ -78,3 +78,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCardImg

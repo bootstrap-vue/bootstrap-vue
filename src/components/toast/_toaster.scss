@@ -10,7 +10,7 @@
   .b-toaster-slot {
     position: relative;
     display: block;
-    
+
     &:empty {
       display: none !important;
     }
@@ -64,7 +64,7 @@
       .toast {
         // Override Bootstrap toast max-width
         width: 100%;
-        max-width: 100%
+        max-width: 100%;
       }
     }
   }
@@ -90,7 +90,7 @@
       bottom: $b-toaster-offset-bottom;
     }
   }
-  
+
   &.b-toaster-top-right,
   &.b-toaster-bottom-right,
   &.b-toaster-top-center,

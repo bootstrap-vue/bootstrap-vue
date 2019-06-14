@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Table",
-    "description": "For displaying tabular data. <b-table> supports pagination, filtering, sorting, custom rendering, events, and asynchronous data.",
+    "description": "For displaying tabular data. <b-table> supports pagination, filtering, sorting, custom rendering, events, and asynchronous data. For simple display of tabular data without all the fancy features, BootstrapVue provides a lightweight alternative component <b-table-lite>",
     "components": [
       {
         "component": "BTable",
@@ -243,6 +243,171 @@
           {
             "name": "bottom-row",
             "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+          }
+        ]
+      },
+      {
+        "component": "BTableLite",
+        "events": [
+          {
+            "event": "row-clicked",
+            "description": "Emitted when a row is clicked.",
+            "args": [
+              {
+                "arg": "item",
+                "description": "Item data of the row being clicked."
+              },
+              {
+                "arg": "index",
+                "description": "Index of the row being clicked."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
+            "event": "row-dblclicked",
+            "description": "Emitted when a row is double clicked.",
+            "args": [
+              {
+                "arg": "item",
+                "description": "Item data of the row being double clicked."
+              },
+              {
+                "arg": "index",
+                "description": "Index of the row being double clicked."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
+            "event": "row-middle-clicked",
+            "description": "Emitted when a row is middle clicked.",
+            "args": [
+              {
+                "arg": "item",
+                "description": "Item data of the row being middle clicked."
+              },
+              {
+                "arg": "index",
+                "description": "Index of the row being middle clicked."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
+            "event": "row-contextmenu",
+            "description": "Emitted when a row is right clicked.",
+            "args": [
+              {
+                "arg": "item",
+                "description": "Item data of the row being right clicked."
+              },
+              {
+                "arg": "index",
+                "description": "Index of the row being right clicked."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
+            "event": "row-hovered",
+            "description": "Emitted when a row is hovered.",
+            "args": [
+              {
+                "arg": "item",
+                "description": "Item data of the row being hovered."
+              },
+              {
+                "arg": "index",
+                "description": "Index of the row being hovered."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
+            "event": "row-unhovered",
+            "description": "Emitted when a row is unhovered.",
+            "args": [
+              {
+                "arg": "item",
+                "description": "Item data of the row being unhovered."
+              },
+              {
+                "arg": "index",
+                "description": "Index of the row being unhovered."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
+            "event": "head-clicked",
+            "description": "Emitted when a header or footer cell is clicked.",
+            "args": [
+              {
+                "arg": "key",
+                "description": "Column key clicked (field name)."
+              },
+              {
+                "arg": "field",
+                "description": "Field definition object."
+              },
+              {
+                "arg": "event",
+                "description": "Native event object."
+              },
+              {
+                "arg": "isFooter",
+                "description": "'True' if this event originated from clicking on the footer cell"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "table-caption",
+            "description": "Content to display in the table's caption element"
+          },
+          {
+            "name": "table-colgroup",
+            "description": "Slot to place custom colgroup and col elements (optionally scoped: columns - number of columns, fields - array of field definition objects)"
+          },
+          {
+            "name": "[field]",
+            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "HEAD_[field]",
+            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "FOOT_[field]",
+            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
+            "name": "row-details",
+            "description": "Scoped slot for optional rendering additional record details. See docs for Row details support"
+          },
+          {
+            "name": "thead-top",
+            "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
           }
         ]
       }

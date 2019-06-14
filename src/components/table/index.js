@@ -1,12 +1,11 @@
-import BTable from './table'
-import { installFactory } from '../../utils/plugins'
+import { BTable } from './table'
+import { BTableLite } from './table-lite'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BTable
-}
+const TablePlugin = /*#__PURE__*/ pluginFactory({
+  components: { BTable, BTableLite }
+})
 
-export { BTable }
+export { TablePlugin, BTable, BTableLite }
 
-export default {
-  install: installFactory({ components })
-}
+export default TablePlugin

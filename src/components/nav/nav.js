@@ -57,7 +57,7 @@ const computeJustifyContent = value => {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BNav = /*#__PURE__*/ Vue.extend({
   name: 'BNav',
   functional: true,
   props,
@@ -81,3 +81,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BNav

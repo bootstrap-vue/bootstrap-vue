@@ -8,7 +8,8 @@ export const props = {
   }
 }
 
-export default Vue.extend({
+// @vue/component
+export const BMediaBody = /*#__PURE__*/ Vue.extend({
   name: 'BMediaBody',
   functional: true,
   props,
@@ -22,3 +23,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BMediaBody

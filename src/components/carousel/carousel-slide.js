@@ -1,9 +1,9 @@
 import Vue from '../../utils/vue'
-import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
+import { BImg } from '../image/img'
 
 export const props = {
   imgSrc: {
@@ -63,7 +63,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
   name: 'BCarouselSlide',
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
@@ -154,3 +154,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCarouselSlide

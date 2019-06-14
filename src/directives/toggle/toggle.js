@@ -78,7 +78,7 @@ const handleUpdate = (el, binding, vnode) => {
 /*
  * Export our directive
  */
-export default {
+export const VBToggle = {
   bind(el, binding, vnode) {
     const targets = bindTargets(vnode, binding, listenTypes, handleTargets)
     if (isBrowser && vnode.context && targets.length > 0) {
@@ -138,3 +138,5 @@ export default {
     removeAttr(el, 'role')
   }
 }
+
+export default VBToggle

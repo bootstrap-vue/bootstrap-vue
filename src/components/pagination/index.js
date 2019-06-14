@@ -1,12 +1,10 @@
-import BPagination from './pagination'
-import { installFactory } from '../../utils/plugins'
+import { BPagination } from './pagination'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BPagination
-}
+const PaginationPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BPagination }
+})
 
-export { BPagination }
+export { PaginationPlugin, BPagination }
 
-export default {
-  install: installFactory({ components })
-}
+export default PaginationPlugin

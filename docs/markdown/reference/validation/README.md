@@ -21,14 +21,14 @@ error message component.
 ```html
 <template>
   <div>
-    <b-form @submit="onSubmit">
+    <b-form @submit.stop.prevent="onSubmit">
       <b-form-group id="example-input-group-1" label="Name" label-for="example-input-1">
         <b-form-input
           id="example-input-1"
+          name="example-input-1"
           v-model="$v.form.name.$model"
           :state="$v.form.name.$dirty ? !$v.form.name.$error : null"
           aria-describedby="input-1-live-feedback"
-          placeholder="Enter name"
         ></b-form-input>
 
         <b-form-invalid-feedback id="input-1-live-feedback">
@@ -39,9 +39,11 @@ error message component.
       <b-form-group id="example-input-group-2" label="Food" label-for="example-input-2">
         <b-form-select
           id="example-input-2"
+          name="example-input-2"
           v-model="$v.form.food.$model"
           :options="foods"
           :state="$v.form.food.$dirty ? !$v.form.food.$error : null"
+          aria-describedby="input-2-live-feedback"
         ></b-form-select>
 
         <b-form-invalid-feedback id="input-2-live-feedback">
@@ -82,6 +84,11 @@ error message component.
     },
     methods: {
       onSubmit() {
+        this.$v.form.$touch()
+        if (this.$v.form.$anyError) {
+          return
+        }
+
         // Form submit logic
       }
     }
@@ -98,7 +105,7 @@ messages.
 
 **Important**
 
-You **must** configure `vee-validate`'s fields property or it will conflict with the `:fields`
+You **must** configure `vee-validate`'s `fields` property or it will conflict with the `:fields`
 property of `<b-table>` (and possibly other components) when it injects itself.
 
 ```js
@@ -122,15 +129,15 @@ Same example as above, just modified for VeeValidate:
 ```html
 <template>
   <div>
-    <b-form @submit="onSubmit">
+    <b-form @submit.stop.prevent="onSubmit">
       <b-form-group id="example-input-group-1" label="Name" label-for="example-input-1">
         <b-form-input
           id="example-input-1"
+          name="example-input-1"
           v-model="form.name"
           v-validate="{ required: true, min: 3 }"
-          :state="validateState('form.name')"
+          :state="validateState('example-input-1')"
           aria-describedby="input-1-live-feedback"
-          placeholder="Enter name"
         ></b-form-input>
 
         <b-form-invalid-feedback id="input-1-live-feedback">
@@ -141,10 +148,12 @@ Same example as above, just modified for VeeValidate:
       <b-form-group id="example-input-group-2" label="Food" label-for="example-input-2">
         <b-form-select
           id="example-input-2"
+          name="example-input-2"
           v-model="form.food"
           v-validate="{ required: true }"
           :options="foods"
-          :state="validateState('form.foods')"
+          :state="validateState('example-input-2')"
+          aria-describedby="input-2-live-feedback"
         ></b-form-select>
 
         <b-form-invalid-feedback id="input-2-live-feedback">
@@ -170,13 +179,22 @@ Same example as above, just modified for VeeValidate:
     },
     methods: {
       validateState(ref) {
-        if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
-          return !this.errors.has(ref)
+        if (
+          this.veeFields[ref] &&
+          (this.veeFields[ref].dirty || this.veeFields[ref].validated)
+        ) {
+          return !this.veeErrors.has(ref)
         }
         return null
       },
       onSubmit() {
-        // Form submit logic
+        this.$validator.validateAll().then((result) => {
+          if (!result) {
+            return
+          }
+
+          // Form submit logic
+        })
       }
     }
   }

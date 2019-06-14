@@ -1,14 +1,14 @@
-import BImg from './img'
-import BImgLazy from './img-lazy'
-import { installFactory } from '../../utils/plugins'
+import { BImg } from './img'
+import { BImgLazy } from './img-lazy'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BImg,
-  BImgLazy
-}
+const ImagePlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BImg,
+    BImgLazy
+  }
+})
 
-export { BImg, BImgLazy }
+export { ImagePlugin, BImg, BImgLazy }
 
-export default {
-  install: installFactory({ components })
-}
+export default ImagePlugin

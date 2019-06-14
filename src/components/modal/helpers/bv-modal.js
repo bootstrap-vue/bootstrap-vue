@@ -4,7 +4,7 @@
 
 import BModal, { props as modalProps } from '../modal'
 import { concat } from '../../../utils/array'
-import { setConfig, getComponentConfig } from '../../../utils/config'
+import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
@@ -14,6 +14,7 @@ import {
   defineProperties,
   readonlyDescriptor
 } from '../../../utils/object'
+import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 
 // --- Constants ---
@@ -54,16 +55,7 @@ const filterOptions = options => {
 }
 
 // Method to install `$bvModal` VM injection
-const install = (Vue, config = {}) => {
-  if (install.installed) {
-    // Only install once
-    /* istanbul ignore next */
-    return
-  }
-  install.installed = true
-
-  setConfig(config)
-
+const plugin = Vue => {
   // Create a private sub-component that extends BModal
   // which self-destructs after hidden
   // @vue/component
@@ -120,7 +112,7 @@ const install = (Vue, config = {}) => {
         hideHeaderClose: true,
         hideHeader: !(props.title || props.titleHtml),
         // Add in (filtered) user supplied props
-        ...omit(props, ['msgBoxContent']),
+        ...omit(props, keys(propsToSlots)),
         // Props that can't be overridden
         lazy: false,
         busy: false,
@@ -270,8 +262,8 @@ const install = (Vue, config = {}) => {
   }
 }
 
-install.installed = false
+export const BVModalPlugin = /*#__PURE__*/ pluginFactory({
+  plugins: { plugin }
+})
 
-export default {
-  install: install
-}
+export default BVModalPlugin

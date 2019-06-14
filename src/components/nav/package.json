@@ -6,7 +6,7 @@
     "enhanced": true,
     "description": "Navigation components that share general markup and styles, from the base <b-nav> class to the active and disabled states. Swap modifier props to switch between each style.",
     "plugins": [
-      "Dropdown"
+      "DropdownPlugin"
     ],
     "components": [
       "BNav",
