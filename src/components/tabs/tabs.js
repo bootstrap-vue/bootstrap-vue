@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
 import { requestAF, selectAll } from '../../utils/dom'
 import { arrayIncludes, concat } from '../../utils/array'
