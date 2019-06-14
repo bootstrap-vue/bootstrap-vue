@@ -302,11 +302,14 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           this.updateTabs()
         })
       }
+      // Enable or disable the observer
+      this.setObserver(newVal)
     }
   },
   created() {
     let tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+    this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
@@ -335,6 +338,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       this.isMounted = true
     })
   },
+  beforeDestroy() {
+    this.isMounted = false
+  },
   destroyed() {
     // Ensure no references to child instances exist
     this.tabs = []
@@ -350,6 +356,24 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     unregisterTab(tab) {
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
+    },
+    setObserver(on) {
+      // DOM observer is needed to detect changes in order of tabs
+      if (on) {
+        // Make sure no existing observer running
+        this.setObserver(false)
+        // Watch for changes to <b-tab> sub components
+        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+          childList: true,
+          subtree: false,
+          attributes: false
+        })
+      } else {
+        if (this._bvObserver && this._bvObserver.disconnect) {
+          this._bvObserver.disconnect()
+        }
+        this._bvObserver = null
+      }
     },
     getTabs() {
       // We use registeredTabs as the shouce of truth for child tab components. And we
