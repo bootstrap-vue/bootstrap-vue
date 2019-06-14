@@ -28,8 +28,7 @@ export default {
   },
   data() {
     return {
-      // Flag for displaying which empty slot to show
-      // and for some event triggering
+      // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false
     }
   },
@@ -37,8 +36,8 @@ export default {
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : !this.noLocalFiltering
     },
+    // For watching changes to `filteredItems` vs `localItems`
     filteredCheck() {
-      // For watching changes to filteredItems vs localItems
       return {
         filteredItems: this.filteredItems,
         localItems: this.localItems,
@@ -53,14 +52,13 @@ export default {
       }
 
       // Deprecate setting prop filter to a function
-      // `this.localFilterFn` will contain the correct function ref
+      // `localFilterFn` will contain the correct function ref
       if (isFunction(this.filter)) {
         /* istanbul ignore next */
         return ''
       }
 
-      // Using internal filter function, which only accepts
-      // string or RegExp at the moment
+      // Using internal filter function, which only accepts string or RegExp
       if (!isFunction(this.filterFunction) && !(isString(this.filter) || isRegExp(this.filter))) {
         return ''
       }
