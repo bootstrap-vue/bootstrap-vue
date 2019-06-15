@@ -35,7 +35,7 @@ export default {
       ]
     },
     headClicked(evt, field, isFoot) {
-      if (this.stopIfBusy(evt)) {
+      if (this.stopIfBusy && this.stopIfBusy(evt)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (filterEvent(evt)) {
