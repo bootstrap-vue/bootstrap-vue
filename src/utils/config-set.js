@@ -39,7 +39,7 @@ class BvConfig {
       return
     }
     const configKeys = getOwnPropertyNames(config)
-    for (let cmpName of configKeys) {
+    configKeys.forEach(cmpName => {
       /* istanbul ignore next */
       if (!hasOwnProperty(DEFAULTS, cmpName)) {
         warn(`config: unknown config property "${cmpName}"`)
@@ -62,7 +62,7 @@ class BvConfig {
       } else if (isPlainObject(cmpConfig)) {
         // Component prop defaults
         const props = getOwnPropertyNames(cmpConfig)
-        for (let prop of props) {
+        props.forEach(prop => {
           /* istanbul ignore if */
           if (!hasOwnProperty(DEFAULTS[cmpName], prop)) {
             warn(`config: unknown config property "${cmpName}.{$prop}"`)
@@ -73,9 +73,9 @@ class BvConfig {
               this.$_config[cmpName][prop] = cloneDeep(cmpConfig[prop])
             }
           }
-        }
+        })
       }
-    }
+    })
   }
 
   // Clear the config. For testing purposes only
