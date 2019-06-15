@@ -124,7 +124,7 @@ export default {
     },
     // Row event handlers
     rowClicked(e, item, index) {
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy && this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (filterEvent(e)) {
@@ -138,14 +138,14 @@ export default {
       this.$emit('row-clicked', item, index, e)
     },
     middleMouseRowClicked(e, item, index) {
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy && this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-middle-clicked', item, index, e)
     },
     rowDblClicked(e, item, index) {
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy && this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       } else if (filterEvent(e)) {
@@ -156,21 +156,21 @@ export default {
       this.$emit('row-dblclicked', item, index, e)
     },
     rowHovered(e, item, index) {
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy && this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-hovered', item, index, e)
     },
     rowUnhovered(e, item, index) {
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy && this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-unhovered', item, index, e)
     },
     rowContextmenu(e, item, index) {
-      if (this.stopIfBusy(e)) {
+      if (this.stopIfBusy && this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
