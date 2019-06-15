@@ -1,6 +1,6 @@
 # Getting Started
 
-> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
+> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for
 > building responsive, mobile-first sites using Vue.js.
 
 - [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
@@ -9,6 +9,20 @@
 - [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
+
+## Prerequisites
+
+Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
+and Bootstrap v4.3 CSS. If you are unfamiliar with Vue and/or Bootstrap, good starting points would
+be:
+
+- [Vue Guide](https://vuejs.org/v2/guide/)
+- [Vue API](https://vuejs.org/v2/api/)
+- [Bootstrap documentation](https://getbootstrap.com/)
+
+In many of the examples in BootstrapVue's documentation, you may see CSS classes used such as `ml-2`,
+`py-1`, etc., which are Bootstrap v4.3 utility classes. You can find information on these classes in
+the [Utility Classes](/docs/reference/utility-classes) reference section.
 
 ## Using module bundlers
 
