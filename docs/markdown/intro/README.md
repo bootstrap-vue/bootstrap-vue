@@ -519,8 +519,8 @@ BootstrapVue. However, if you are targeting only modern browsers, you may want t
 own project. This can potentially reduce bundle sizes.
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts, etc), and `vue-functional-data-merge` (for functional components) and parts of
-`core-ui`. These four dependencies are included in the `UMD` bundle.
+(for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
+These four dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 
@@ -552,22 +552,6 @@ Following features and APIs are used by BootstrapVue:
 - `MutationObserver`
 
 If you want to support older IE, Android and iOS devices, you may want to use
-[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/) and
-[mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
-
-- `npm install @babel/polyfill mutationobserver-shim`
-- Import the polyfills in your app main entry point:
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-import '@babel/polyfill'
-import 'mutationobserver-shim'
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
-```
-
-Or, as `@babel/polyfill` is now being deprecated, you can use
 [core-js](https://github.com/zloirock/core-js) and
 [mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
 
@@ -579,6 +563,20 @@ Or, as `@babel/polyfill` is now being deprecated, you can use
 ```js
 import 'core-js/stable"'
 import 'regenerator-runtime/runtime'
+import 'mutationobserver-shim'
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+```
+
+If using deprecated [@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/):
+
+- `npm install @babel/polyfill mutationobserver-shim`
+- Import the polyfills in your app main entry point:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
