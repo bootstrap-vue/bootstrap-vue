@@ -50,9 +50,11 @@ export const readonlyDescriptor = () => ({ enumerable: true, configurable: false
  * Returns the same object passed-in, but frozen.
  * Freezes inner object/array/values first.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+ * Note: this method will not work for property values using Symbol() as a key
  */
 export const deepFreeze = obj => {
   // Retrieve the property names defined on object/array
+  // Note: `keys` will ignore properties that are keyed by a `Symbol()`
   const props = keys(obj)
   // Iterate over each prop and recursively freeze it
   props.forEach(prop => {
