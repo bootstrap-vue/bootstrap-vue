@@ -567,9 +567,26 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 ```
 
-Alternatively use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
-polyfills via `<script>` tags in the HTML `<head>` section. See [Browser](#browser) section for an
-example.
+Or, as `@babel/polyfill` is now being deprecated, you can use
+[core-js](https://github.com/zloirock/core-js) and
+[mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
+
+- `npm install core-js regenerator-runtime mutationobserver-shim`
+- Import the polyfills in your app main entry point:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+import 'core-js/stable"'
+import 'regenerator-runtime/runtime'
+import 'mutationobserver-shim'
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+```
+
+Alternatively, use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
+polyfills via `<script>` tags in the HTML `<head>` section. See the [Browser](#browser) section
+above for an example.
 
 ## Tooling support
 
