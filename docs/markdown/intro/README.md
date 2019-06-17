@@ -519,8 +519,8 @@ BootstrapVue. However, if you are targeting only modern browsers, you may want t
 own project. This can potentially reduce bundle sizes.
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts, etc), and `vue-functional-data-merge` (for functional components) and parts of
-`core-ui`. These four dependencies are included in the `UMD` bundle.
+(for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
+These four dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 
@@ -552,8 +552,23 @@ Following features and APIs are used by BootstrapVue:
 - `MutationObserver`
 
 If you want to support older IE, Android and iOS devices, you may want to use
-[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/) and
+[core-js](https://github.com/zloirock/core-js) and
 [mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
+
+- `npm install core-js regenerator-runtime mutationobserver-shim`
+- Import the polyfills in your app main entry point:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+import 'core-js/stable"'
+import 'regenerator-runtime/runtime'
+import 'mutationobserver-shim'
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+```
+
+If using deprecated [@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/):
 
 - `npm install @babel/polyfill mutationobserver-shim`
 - Import the polyfills in your app main entry point:
@@ -567,9 +582,9 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 ```
 
-Alternatively use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
-polyfills via `<script>` tags in the HTML `<head>` section. See [Browser](#browser) section for an
-example.
+Alternatively, use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
+polyfills via `<script>` tags in the HTML `<head>` section. See the [Browser](#browser) section
+above for an example.
 
 ## Tooling support
 
