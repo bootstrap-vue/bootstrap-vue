@@ -40,8 +40,8 @@ The following are convenience links to Bootstrap v4's documentation:
 - <a href="https://getbootstrap.com/docs/4.3/utilities/visibility/" target="_blank">Visibility
   utilities</a>
 
-Bootstrap v4 also has defined typography styles for various native HTML elements. You can find
-out more at the following links:
+Bootstrap v4 also has defined typography styles and classes for various native HTML elements. You
+can find out more at the following links:
 
 - <a href="https://getbootstrap.com/docs/4.3/content/reboot/" target="_blank">Reboot</a>
 - <a href="https://getbootstrap.com/docs/4.3/content/typography/" target="_blank">Typography</a>
