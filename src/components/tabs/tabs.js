@@ -367,7 +367,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
           childList: true,
           subtree: false,
-          attributes: false
+          attributes: true,
+          attributeFilter: ['id']
         })
       } else {
         if (this._bvObserver && this._bvObserver.disconnect) {
