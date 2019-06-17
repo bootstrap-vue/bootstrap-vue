@@ -111,12 +111,13 @@ and optgroups _above_ the options specified by the `options` prop, use the named
 
 - **`value`** The selected value which will be set on `v-model`
 - **`disabled`** Disables item for selection
-- **`text`** Display text, or **`html`** Display html
+- **`text`** Display text, or **`html`** Display basic inline html
 
 `value` can be a string, number, or simple object. Avoid using complex types in values.
 
 If both `html` and `text` are provided, `html` will take precedence. Only basic/native HTML is
-supported in the `html` field (components will not work).
+supported in the `html` field (components will not work). Note that not all browsers will render
+inline html (i.e. `<i>`, `<strong>`, etc) inside `<option>` elements of a `<select>`.
 
 <p class="alert alert-danger">
   <strong>Be cautious</strong> of placing user supplied content in the <code>html</code> field,
