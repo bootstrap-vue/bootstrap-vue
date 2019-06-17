@@ -49,7 +49,7 @@
 
 ## Color schemes
 
-`<b-navbar>` supports the standard Bootstrap V4 available background color variants. Set the
+`<b-navbar>` supports the standard Bootstrap v4 available background color variants. Set the
 `variant` prop to one of the following values to change the background color: `primary`, `success`,
 `info`, `warning`, `danger`, `dark`, or `light`.
 

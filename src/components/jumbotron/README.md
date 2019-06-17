@@ -12,7 +12,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 
 ```html
 <div>
-  <b-jumbotron header="BootstrapVue" lead="Bootstrap 4 Components for Vue.js 2">
+  <b-jumbotron header="BootstrapVue" lead="Bootstrap v4 Components for Vue.js 2">
     <p>For more information visit website</p>
     <b-button variant="primary" href="#">More Info</b-button>
   </b-jumbotron>

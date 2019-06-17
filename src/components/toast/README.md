@@ -161,7 +161,7 @@ the `solid` prop to `true`
 ### Variants
 
 BootstrapVue toasts provide custom CSS to define color variants. Variants follow the standard
-Bootstrap V4 variant names. If you have custom SCSS defined Bootstrap color variants, the toast
+Bootstrap v4 variant names. If you have custom SCSS defined Bootstrap color variants, the toast
 custom SCSS will automatically create toast variants for you.
 
 ```html

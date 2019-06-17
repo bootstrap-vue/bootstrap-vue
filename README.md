@@ -7,7 +7,7 @@
 
 <p align="center">
   BootstrapVue, with over 40 available plugins and more than 75 custom components, provides
-  one of the most comprehensive implementations of the Bootstrap 4.3 component and grid
+  one of the most comprehensive implementations of the Bootstrap v4.3 component and grid
   system for Vue.js, complete with extensive and automated WAI-ARIA accessibility markup.
 </p>
 <br>

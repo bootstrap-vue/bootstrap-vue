@@ -937,7 +937,7 @@ Released: (2019-02-14)
   ([7b5fde8](https://github.com/bootstrap-vue/bootstrap-vue/commit/7b5fde8))
 - **docs:** typo fix ([#2009](https://github.com/bootstrap-vue/bootstrap-vue/issues/2009))
   ([9e0eb67](https://github.com/bootstrap-vue/bootstrap-vue/commit/9e0eb67))
-- **docs:** Update links to Bootstrap V4.2
+- **docs:** Update links to Bootstrap v4.2
   ([#2370](https://github.com/bootstrap-vue/bootstrap-vue/issues/2370))
   ([470a083](https://github.com/bootstrap-vue/bootstrap-vue/commit/470a083))
 - **docs:** vue-loader v15 changes
@@ -1323,7 +1323,7 @@ Released: (2019-02-14)
 - **security:** strip html tags
   ([#2479](https://github.com/bootstrap-vue/bootstrap-vue/issues/2479))
   ([3c6ba3e](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c6ba3e))
-- **spinner:** Support Bootstrap V4.2 spinner component
+- **spinner:** Support Bootstrap v4.2 spinner component
   ([#2306](https://github.com/bootstrap-vue/bootstrap-vue/issues/2306))
   ([bf3994f](https://github.com/bootstrap-vue/bootstrap-vue/commit/bf3994f))
 - **table:** "Debounce" providerFunction and refresh methods
@@ -1703,8 +1703,8 @@ Released: 2018-01-23
 With `v2.0.0` release, BootstrapVue is compatible with final stable release of Bootstrap `v4.0.0`
 and beyond.
 
-- If you are using any custom theme which was based on BS beta, there may be minor problems to be
-  fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
+- If you are using any custom theme which was based on Bootstrap beta, there may be minor problems
+  to be fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
 - With this release, we have removed majority of CSS fixes. If you are using ES builds, you may have
   to add a `css-loader` to make it working probably.
 - `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please

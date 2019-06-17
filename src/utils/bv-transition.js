@@ -1,4 +1,4 @@
-// Generic Bootstrap V4 fade (no-fade) transition component
+// Generic Bootstrap v4 fade (no-fade) transition component
 
 import Vue from './vue'
 import { mergeData } from 'vue-functional-data-merge'

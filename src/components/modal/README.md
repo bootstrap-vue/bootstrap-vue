@@ -681,7 +681,7 @@ The scope available to the slots that support optional scoping are:
 
 ## Multiple modal support
 
-Unlike native Bootstrap V4, BootstrapVue supports multiple modals opened at the same time.
+Unlike native Bootstrap v4, BootstrapVue supports multiple modals opened at the same time.
 
 To disable stacking for a specific modal, just set the prop `no-stacking` on the `<b-modal>`
 component. This will hide the modal before another modal is shown.
