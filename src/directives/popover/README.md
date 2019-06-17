@@ -1,7 +1,7 @@
 # Popovers
 
 > Documentation and examples for adding BootstrapVue popovers to any element on your site, using
-> Bootstrap V4 CSS for styling and animations. Popovers can be triggered by hovering, focusing, or
+> Bootstrap v4 CSS for styling and animations. Popovers can be triggered by hovering, focusing, or
 > clicking an element, and can contain both content and a title heading. Popovers are tooltips on
 > steroids.
 

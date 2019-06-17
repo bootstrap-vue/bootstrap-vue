@@ -1,6 +1,6 @@
 # Tooltips
 
-> Documentation and examples for adding custom BootstrapVue tooltips, using Bootstrap V4 CSS for
+> Documentation and examples for adding custom BootstrapVue tooltips, using Bootstrap v4 CSS for
 > styling and animations. Tooltips can be triggered by hovering, focusing, or clicking an element
 
 Use the `v-b-tooltip` directive on any element or component where you would like a tooltip to

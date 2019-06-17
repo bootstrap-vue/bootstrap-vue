@@ -55,7 +55,7 @@ renderer.blockquote = function(text) {
   return text.replace('<p>', '<p class="bd-lead">')
 }
 
-// BS4 table support for markdown renderer
+// Bootstrap v4 table support for markdown renderer
 const originalTable = renderer.table
 renderer.table = function(header, body) {
   let table = originalTable.apply(this, arguments)
@@ -119,7 +119,7 @@ module.exports = {
   manifest: {
     name: 'BootstrapVue',
     short_name: 'BootstrapVue',
-    description: 'Quickly integrate Bootstrap 4 components with Vue.js',
+    description: 'Quickly integrate Bootstrap v4 components with Vue.js',
     theme_color: '#563d7c'
   },
 

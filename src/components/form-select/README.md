@@ -227,7 +227,7 @@ guaranteed. For this reason, it is recommended to use the above array formats.
 
 ## Standard (single) select
 
-By default, Bootstrap V4's custom select styling is applied.
+By default, Bootstrap v4's custom select styling is applied.
 
 ### Value in single mode
 
@@ -268,7 +268,7 @@ You can use the `select-size` prop to switch the custom select into a select lis
 dropdown. Set the `select-size` prop to a numerical value greater than 1 to control how many rows of
 options are visible.
 
-Note when `select-size` is set to a value greater than 1, the Bootstrap V4 custom styling will
+Note when `select-size` is set to a value greater than 1, the Bootstrap v4 custom styling will
 **not** be applied, unless the `multiple` prop is also set.
 
 Note: not all mobile browsers will show a the select as a list-box.

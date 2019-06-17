@@ -12,7 +12,7 @@
   }
 }
 
-// Bootstrap V4.x does not have special styling for color input
+// Bootstrap v4.x does not have special styling for color input
 // So we define some basic styles to compensate
 input[type="color"].form-control {
   height: $input-height;
@@ -39,7 +39,7 @@ input[type="color"].form-control:disabled {
   opacity: $btn-disabled-opacity;
 }
 
-// --- Base `.input-group > .custom-range` styling (no PR yet on BS V4) ---
+// --- Base `.input-group > .custom-range` styling (no PR yet on Bootstrap v4) ---
 .input-group {
   > .custom-range {
     position: relative;
@@ -95,7 +95,7 @@ input[type="color"].form-control:disabled {
 
     @include box-shadow($input-box-shadow);
     @include transition($input-transition);
-    // Bootstrap V4.3.2 has deprecated this mixin
+    // Bootstrap v4.3.2 has deprecated this mixin
     // @include form-control-focus();
     // So we manually add it's content here
     &:focus {
@@ -129,7 +129,7 @@ input[type="color"].form-control:disabled {
   @include border-radius($input-border-radius-sm);
 }
 
-// --- <b-form-input>: custom-range validation styling - valid (no PR yet for BS V4.2) ---
+// --- <b-form-input>: custom-range validation styling - valid (no PR yet for Bootstrap v4.2) ---
 // Mixin for generating `.input-group .custom-range` validation styling
 @mixin bv-custom-range-validation-state($state, $color) {
   .input-group .custom-range {

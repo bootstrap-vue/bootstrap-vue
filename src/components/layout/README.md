@@ -5,8 +5,8 @@
 > five default responsive tiers, CSS Sass variables and mixins, and dozens of predefined classes.
 
 BootstrapVue provides several convenient _functional_ components tailored for layout, which can
-simplify your complex page markup compared to traditional Bootstrap V4 markup. Feel free to switch
-back and forth between traditional Bootstrap V4 markup (i.e. `<div>`s and classes) and BootstrapVue
+simplify your complex page markup compared to traditional Bootstrap v4 markup. Feel free to switch
+back and forth between traditional Bootstrap v4 markup (i.e. `<div>`s and classes) and BootstrapVue
 functional layout components.
 
 ## How it works
@@ -28,7 +28,7 @@ grid comes together.
 ```
 
 The above example creates three equal-width columns on small, medium, large, and extra large devices
-using BS4's predefined grid classes. Those columns are centered in the page with the parent
+using Bootstrap v4's predefined grid classes. Those columns are centered in the page with the parent
 .container.
 
 Here's how it works:
