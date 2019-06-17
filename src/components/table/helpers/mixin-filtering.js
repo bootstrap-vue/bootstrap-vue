@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      // Flag for displaying which empty slot to show, and for some event triggering.
+      // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false
     }
   },
@@ -32,65 +32,80 @@ export default {
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
     },
+    // For watching changes to `filteredItems` vs `localItems`
     filteredCheck() {
-      // For watching changes to filteredItems vs localItems
       return {
         filteredItems: this.filteredItems,
         localItems: this.localItems,
         localFilter: this.localFilter
       }
     },
+    // Sanitized/normalized version of filter prop
     localFilter() {
-      // Returns a sanitized/normalized version of filter prop
+      // Deprecate setting prop filter to a function
+      // `localFilterFn` will contain the correct function ref
       if (isFunction(this.filter)) {
-        // this.localFilterFn will contain the correct function ref.
-        // Deprecate setting prop filter to a function
         /* istanbul ignore next */
         return ''
-      } else if (
+      }
+
+      // Using internal filter function, which only accepts string or RegExp
+      if (
         this.localFiltering &&
         !isFunction(this.filterFunction) &&
         !(isString(this.filter) || isRegExp(this.filter))
       ) {
-        // Using internal filter function, which only accepts string or regexp at the moment
         return ''
-      } else {
-        // Could be a string, object or array, as needed by external filter function
-        // We use `cloneDeep` to ensure we have a new copy of an object or array
-        // without Vue reactive observers.
-        return cloneDeep(this.filter)
       }
+
+      // Could be a string, object or array, as needed by external filter function
+      // We use `cloneDeep` to ensure we have a new copy of an object or array
+      // without Vue reactive observers
+      return cloneDeep(this.filter)
     },
+    // Sanitized/normalize filter-function prop
     localFilterFn() {
-      let filter = this.filter
-      let filterFn = this.filterFunction
-      // Sanitized/normalize filter-function prop
+      const filterFn = this.filterFunction
+      const filter = this.filter
+
+      // Prefer `filterFn` prop
       if (isFunction(filterFn)) {
         return filterFn
-      } else if (isFunction(filter)) {
-        // Deprecate setting prop filter to a function
+      }
+
+      // Deprecate setting `filter` prop to a function
+      if (isFunction(filter)) {
         /* istanbul ignore next */
         warn(`b-table: ${DEPRECATION_MSG}`)
         /* istanbul ignore next */
         return filter
-      } else {
-        // no filterFunction, so signal to use internal filter function
-        return null
       }
-    },
-    filteredItems() {
-      // Returns the records in localItems that match the filter criteria.
-      // Returns the original localItems array if not sorting
-      let items = this.localItems || []
-      const criteria = this.localFilter
-      const filterFn =
-        this.filterFnFactory(this.localFilterFn, criteria) || this.defaultFilterFnFactory(criteria)
 
-      // We only do local filtering if requested, and if the are records to filter and
-      // if a filter criteria was specified
-      if (this.localFiltering && filterFn && items.length > 0) {
-        items = items.filter(filterFn)
+      // No `filterFunction`, so signal to use internal filter function
+      return null
+    },
+    // Returns the records in `localItems` that match the filter criteria
+    // Returns the original `localItems` array if not sorting
+    filteredItems() {
+      let items = this.localItems || []
+
+      // Resolve the filtering function, when requested
+      // We prefer the provided filtering function and fallback to the internal one
+      // When no filtering criteria is specified the filtering factories will return `null`
+      let filterFn = null
+      if (this.localFiltering) {
+        const criteria = this.localFilter
+        filterFn =
+          this.filterFnFactory(this.localFilterFn, criteria) ||
+          this.defaultFilterFnFactory(criteria)
       }
+
+      // We only do local filtering when requested and there are records to filter
+      if (filterFn && items.length > 0) {
+        return items.filter(filterFn)
+      }
+
+      // Otherwise return all items
       return items
     }
   },
@@ -99,7 +114,7 @@ export default {
     // And set visual state and emit events as required
     filteredCheck({ filteredItems, localItems, localFilter }) {
       // Determine if the dataset is filtered or not
-      let isFiltered
+      let isFiltered = false
       if (!localFilter) {
         // If filter criteria is falsey
         isFiltered = false
@@ -107,11 +122,8 @@ export default {
         // If filter criteria is an empty array or object
         isFiltered = false
       } else if (localFilter) {
-        // if Filter criteria is truthy
+        // If filter criteria is truthy
         isFiltered = true
-      } else {
-        /* istanbul ignore next: rare chance of reaching this else */
-        isFiltered = false
       }
       if (isFiltered) {
         this.$emit('filtered', filteredItems, filteredItems.length)
