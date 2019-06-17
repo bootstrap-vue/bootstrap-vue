@@ -29,7 +29,7 @@ the [Utility Classes](/docs/reference/utility-classes) reference section.
 If you are using module bundlers like [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org/), etc you may prefer to directly include the package into your
 project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
-Bootstrap 4:
+Bootstrap v4:
 
 ```bash
 # With npm
@@ -524,7 +524,7 @@ These four dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 
-If you've already been using Bootstrap 4, there are a couple adjustments you may need to make to
+If you've already been using Bootstrap v4, there are a couple adjustments you may need to make to
 your project:
 
 - Remove the bootstrap.js file from your page scripts or build pipeline
@@ -536,9 +536,9 @@ your project:
 
 ### CSS
 
-BootstrapVue is to be used with Bootstrap 4.3 CSS/SCSS. Please see
+BootstrapVue is to be used with Bootstrap v4.3 CSS/SCSS. Please see
 [Browsers and devices](https://getbootstrap.com/docs/4.3/getting-started/browsers-devices) for more
-information about browsers currently supported by Bootstrap 4.
+information about browsers currently supported by Bootstrap v4.
 
 ### JS
 

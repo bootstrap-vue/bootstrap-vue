@@ -329,7 +329,7 @@ See also:
 
 Disable browser native HTML5 validation by setting the `novalidate` prop to true on `<b-form>`.
 
-Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was-validated` class to
+Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap v4 `.was-validated` class to
 the form to trigger validation states
 
 All of the form controls support a `state` prop, which can be used to set the form control into one
@@ -343,8 +343,8 @@ of three contextual states:
 - Setting `state` to `null` Displays no validation state.
 
 Refer to the
-[Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
-for details on the new Bootstrap V4 validation states.
+[Bootstrap v4 Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
+for details on the new Bootstrap v4 validation states.
 
 ### Validation mechanisms
 
@@ -352,7 +352,7 @@ Documentation and examples (hopefully) coming soon.
 
 Please see the following references:
 
-- [Bootstrap V4: Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
+- [Bootstrap v4: Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
 - [MDN: Learn Form Validation - Using JavaScript API](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript)
 - [MDN: HTML5 Constraint Validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
 - [MDN: Validity State API](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)

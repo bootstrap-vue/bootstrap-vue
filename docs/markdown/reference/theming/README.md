@@ -4,8 +4,8 @@
 > stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
 
 While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue uses custom CSS (i.e.
-stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap V4.x SCSS. The
-`bootstrap-vue.css` is compiled using the default Bootstrap V4.x variables. Using the BootstrapVue
+stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap v4.x SCSS. The
+`bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables. Using the BootstrapVue
 source SCSS, you can have your variable overrides (such as breakpoints, etc) adjust the custom
 BootstrapVue css.
 
@@ -60,7 +60,7 @@ import 'custom.scss'
 ```
 
 The `_custom.scss` file, which needs to be loaded before Bootstrap's SCSS, will include your
-Bootstrap V4 variable overrides (i.e. colors, shadows, font sizes, breakpoints, etc). You can find
+Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes, breakpoints, etc). You can find
 all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
 
 Do not forget to include `node-sass` and `sass-loader` to use `scss` in Vue:
@@ -77,4 +77,4 @@ npm install --save-dev node-sass sass-loader
   [BootstrapVue settings](/docs/misc/settings) page on how to update BootstrapVue `<b-col>` and
   `<b-form-group>` breakpoint specific props.
 - For more details on theming Bootstrap's SCSS/CSS, refer to the
-  [**Official Bootstrap V4 Theming Documentation**](https://getbootstrap.com/docs/4.3/getting-started/theming/).
+  [**Official Bootstrap v4 Theming Documentation**](https://getbootstrap.com/docs/4.3/getting-started/theming/).

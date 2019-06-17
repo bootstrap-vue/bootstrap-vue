@@ -1,4 +1,4 @@
-// Needed to allow Vue transition system to work with Bootstrap V4 .modal-backdrop
+// Needed to allow Vue transition system to work with Bootstrap v4 .modal-backdrop
 // as modal opacity is 1 by default
 .modal-backdrop {
   opacity: $modal-backdrop-opacity;

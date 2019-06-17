@@ -249,7 +249,7 @@ To apply one of the contextual states on `<b-form-group>`, set the `state` prop 
 `false`), `'valid'` (or `true`), or `null`. This will programmatically show the appropriate feedback
 text.
 
-Bootstrap V4 uses sibling CSS selectors of `:invalid` or `:valid` inputs to show the feedback text.
+Bootstrap v4 uses sibling CSS selectors of `:invalid` or `:valid` inputs to show the feedback text.
 Some form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
 wrapped in additional markup that will no longer make the feedback text a sibling of the input, and
 hence the feedback will not show. In these situations you will need to set the validity `state` on
@@ -257,7 +257,7 @@ the `<b-form-group>` _as well as_ the input.
 
 Feedback will be shown if the parent `<b-form>` component does _not_ have the `novalidate` prop set
 (or set to `false`) along with the `vadidated` prop set (and the input fails or passes native
-browser validation constraints such as `required`). Refer to Bootstrap V4's
+browser validation constraints such as `required`). Refer to Bootstrap v4's
 [Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation for
 details on validation methods.
 
@@ -293,7 +293,7 @@ the feedback so that it shows as a static tooltip when visible, by setting the p
 **Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`, `<b-form-radio>`,
 `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a `<b-form-group>`, setting an invalid (or
 valid) `state` on the `input` alone will **not** trigger the invalid (or valid) feedback to show
-(due to limitations with the new Bootstrap V4 validation CSS). To get around this, **you must also**
+(due to limitations with the new Bootstrap v4 validation CSS). To get around this, **you must also**
 set the invalid/valid `state` on `<b-form-group>`. Native browser validation will **not** trigger
 the invalid feedback to show when using one of the above mentioned form controls.
 

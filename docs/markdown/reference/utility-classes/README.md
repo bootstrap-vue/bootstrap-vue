@@ -1,11 +1,11 @@
-# Bootstrap V4 utility classes
+# Bootstrap v4 utility classes
 
-> Bootstrap V4 CSS provides various utility classes to control color, spacing, flex-box, text
+> Bootstrap v4 CSS provides various utility classes to control color, spacing, flex-box, text
 > alignment, floating, position, responsive display/hiding and much more.
 
 ## External references
 
-The following are convenience links to Bootstrap V4's documentation:
+The following are convenience links to Bootstrap v4's documentation:
 
 - <a href="https://getbootstrap.com/docs/4.3/utilities/borders/" target="_blank">Border
   utilities</a>

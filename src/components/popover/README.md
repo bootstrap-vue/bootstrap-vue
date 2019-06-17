@@ -570,7 +570,7 @@ when the trigger element is clicked a second time), then you can either:
   event), and re-enable it when appropriate (i.e. via the `hide` or `hidden` event).
 
 For practical purposes, interactive content popovers should be minimal. The maximum width of the
-popover is hard coded by Bootstrap V4 CSS to `276px`. Tall popovers on small screens can be harder
+popover is hard coded by Bootstrap v4 CSS to `276px`. Tall popovers on small screens can be harder
 to deal with on mobile devices (such as smart-phones).
 
 ```html

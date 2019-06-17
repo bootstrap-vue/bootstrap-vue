@@ -56,7 +56,7 @@ Use the `variant` prop to generate the various Bootstrap contextual button varia
 
 By default `<b-button>` will render with the `secondary` variant.
 
-The `variant` prop adds the Bootstrap V4.3 class `.btn-<variant>` on the rendered button.
+The `variant` prop adds the Bootstrap v4.3 class `.btn-<variant>` on the rendered button.
 
 ### Solid color variants
 
@@ -113,7 +113,7 @@ padding and size of a button.
 <!-- b-button-link.vue -->
 ```
 
-**Tip:** remove the hover underline from a link variant button by adding the Bootstrap V4.3 utility
+**Tip:** remove the hover underline from a link variant button by adding the Bootstrap v4.3 utility
 class `text-decoration-none` to `<b-button>`.
 
 ## Block level buttons
@@ -148,7 +148,7 @@ Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 <!-- b-button-pill.vue -->
 ```
 
-This prop adds the Bootstrap V4.3 utility class `.rounded-pill` on the rendered button.
+This prop adds the Bootstrap v4.3 utility class `.rounded-pill` on the rendered button.
 
 ## Squared style
 
@@ -169,7 +169,7 @@ Prefer buttons with a more square corner style? Just set the prop `squared` to t
 <!-- b-button-square.vue -->
 ```
 
-The `squared` prop adds the Bootstrap V4.3 utility class `.rounded-0` on the rendered button. The
+The `squared` prop adds the Bootstrap v4.3 utility class `.rounded-0` on the rendered button. The
 `pill` prop takes precedence over the `squared` prop.
 
 ## Disabled state

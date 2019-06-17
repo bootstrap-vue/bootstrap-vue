@@ -77,9 +77,9 @@ Released: 2017-12-15
   [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
 - **form-group:** import b-form-row directly from layout
   ([8dcce39](https://github.com/bootstrap-vue/bootstrap-vue/commit/8dcce39))
-- **form-radio-group:** prepare for Bootstrap V4.beta.3
+- **form-radio-group:** prepare for Bootstrap v4.beta.3
   ([39eb237](https://github.com/bootstrap-vue/bootstrap-vue/commit/39eb237))
-- **form-radio-group:** prepare for Bootstrap V4.beta.3
+- **form-radio-group:** prepare for Bootstrap v4.beta.3
   ([5b659d1](https://github.com/bootstrap-vue/bootstrap-vue/commit/5b659d1))
 - **id mixin:** set prop type to String
   ([9a6eaa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a6eaa5))
@@ -89,7 +89,7 @@ Released: 2017-12-15
 - **modal:** rounded-top class no longer needed when header variant applied
   ([#1433](https://github.com/bootstrap-vue/bootstrap-vue/issues/1433))
   ([ecf1bf5](https://github.com/bootstrap-vue/bootstrap-vue/commit/ecf1bf5))
-- **modal:** update centered modal margins to align with BSV4.beta.3 update
+- **modal:** update centered modal margins to align with Bootstrap v4.beta.3 update
   ([f7e80a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/f7e80a8))
 - **table:** better custom css specificity for when nesting tables
   ([7acccb9](https://github.com/bootstrap-vue/bootstrap-vue/commit/7acccb9))
@@ -242,7 +242,7 @@ Released: 2017-11-20
 
 - **ci:** auto deploy docs from master branch
   ([22e432d](https://github.com/bootstrap-vue/bootstrap-vue/commit/22e432d))
-- **form-file:** invalid/valid feedback display for plain file input missing in Bootstrap V4
+- **form-file:** invalid/valid feedback display for plain file input missing in Bootstrap v4
   ([#1373](https://github.com/bootstrap-vue/bootstrap-vue/issues/1373))
   ([85ab0d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/85ab0d0))
 - **form-textarea:** initial value population
@@ -261,7 +261,7 @@ Released: 2017-11-20
 - **modal:** fix for overflowing centered modal to scroll
   ([#1363](https://github.com/bootstrap-vue/bootstrap-vue/issues/1363))
   ([3b3ba32](https://github.com/bootstrap-vue/bootstrap-vue/commit/3b3ba32))
-- **pagination+pagination-nav:** disabled styling now works in BS V4.beta.2
+- **pagination+pagination-nav:** disabled styling now works in Bootstrap v4.beta.2
   ([#1381](https://github.com/bootstrap-vue/bootstrap-vue/issues/1381))
   ([d51349f](https://github.com/bootstrap-vue/bootstrap-vue/commit/d51349f))
 - **tabs:** vertical tabs + new props for adding classes to inner elements
@@ -410,7 +410,7 @@ Released: 2017-11-07
 
 ### Bug Fixes v1.0.2
 
-- **form-file:** control size not supported in BS V4
+- **form-file:** control size not supported in Bootstrap v4
   ([#1305](https://github.com/bootstrap-vue/bootstrap-vue/issues/1305))
   ([e9a26cf](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9a26cf)) Reverts
   [#1304](https://github.com/bootstrap-vue/bootstrap-vue/pull/1304)
@@ -437,7 +437,7 @@ Released: 2017-11-05
 **Version v1.0.0 marks BootstrapVue's departure from the beta development phase.**
 
 BootstrapVue v1.0.0 is based on the latest Bootstrap v4.0.0-beta.2 CSS, although it should work
-without major changes when Bootstrap V4.0.0-beta.3 is released.
+without major changes when Bootstrap v4.0.0-beta.3 is released.
 
 Notable changes:
 
@@ -448,7 +448,7 @@ Notable changes:
 - `<b-table>` enhancements
 - `<b-modal>` improvements and features
 - Tooltip and popover fixes and new positioning options
-- Form invalid-feedback fixes (via new BSV4.beta.2 CSS)
+- Form invalid-feedback fixes (via new Bootstrap v4.beta.2 CSS)
 - Various fixes/improvements to form controls
 - ARIA improvements
 - Expanded documentation and examples
@@ -470,7 +470,7 @@ importing.
   ([18f5129](https://github.com/bootstrap-vue/bootstrap-vue/commit/18f5129))
 - **button-close:** hardcode `&times;` character to prevent SSR bailing
   ([b0dd1ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/b0dd1ba))
-- **button-group:** Bootstrap V4.beta.2 CSS changes
+- **button-group:** Bootstrap v4.beta.2 CSS changes
   ([1b4618f](https://github.com/bootstrap-vue/bootstrap-vue/commit/1b4618f))
 - **carousel:** minor adjustments to focusout/mouseout event handler
   ([#1239](https://github.com/bootstrap-vue/bootstrap-vue/issues/1239))
@@ -478,7 +478,7 @@ importing.
 - **dom utils:** use `getBoundingClientRect()` to determine element visibility
   ([#1203](https://github.com/bootstrap-vue/bootstrap-vue/issues/1203))
   ([6e2fff4](https://github.com/bootstrap-vue/bootstrap-vue/commit/6e2fff4))
-- **dropdown:** Bootstrap V4.beta.2 now has better hover/focus styling
+- **dropdown:** Bootstrap v4.beta.2 now has better hover/focus styling
   ([#1224](https://github.com/bootstrap-vue/bootstrap-vue/issues/1224))
   ([0b8bc67](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b8bc67))
 - **form-checkbox-group:** support changes to button styles
@@ -487,7 +487,7 @@ importing.
   ([09187ea](https://github.com/bootstrap-vue/bootstrap-vue/commit/09187ea))
 - **form-file:** focus styling tweaks
   ([c3bc583](https://github.com/bootstrap-vue/bootstrap-vue/commit/c3bc583))
-- **form-input:** BS V4.beta.2 is missing `width:100%` on readonly plaintext
+- **form-input:** Bootstrap v4.beta.2 is missing `width:100%` on readonly plaintext
   ([#1225](https://github.com/bootstrap-vue/bootstrap-vue/issues/1225))
   ([c37cef4](https://github.com/bootstrap-vue/bootstrap-vue/commit/c37cef4))
 - **form-options:** handle object special cases
@@ -504,13 +504,13 @@ importing.
 - **form-radio-group:** fix missing import of `b-form-radio`
   ([82bb078](https://github.com/bootstrap-vue/bootstrap-vue/commit/82bb078)) Closes
   [#1201](https://github.com/bootstrap-vue/bootstrap-vue/issues/1201)
-- **form-select:** custom select now supports `multiple` attribute in V4.beta.2 CSS
+- **form-select:** custom select now supports `multiple` attribute in v4.beta.2 CSS
   ([#1223](https://github.com/bootstrap-vue/bootstrap-vue/issues/1223))
   ([3a4262d](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a4262d))
 - **img-lazy:** `alt` tag was being removed when image loaded
   ([f2fb99c](https://github.com/bootstrap-vue/bootstrap-vue/commit/f2fb99c)) Closes
   [#1179](https://github.com/bootstrap-vue/bootstrap-vue/issues/1179)
-- **input-group:** BS V4.beta CSS no longer has the `has-${state}` classes
+- **input-group:** Bootstrap v4.beta CSS no longer has the `has-${state}` classes
   ([#1155](https://github.com/bootstrap-vue/bootstrap-vue/issues/1155))
   ([9f4df16](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f4df16))
 - **link:** Only set attribute `aria-disabled` when actually disabled
@@ -534,11 +534,11 @@ importing.
   ([92d0810](https://github.com/bootstrap-vue/bootstrap-vue/commit/92d0810))
 - **progress:** apply height style correctly
   ([675c1c9](https://github.com/bootstrap-vue/bootstrap-vue/commit/675c1c9))
-- **progress:** Bootstrap V4.beta.2 CSS height prop change
+- **progress:** Bootstrap v4.beta.2 CSS height prop change
   ([#1217](https://github.com/bootstrap-vue/bootstrap-vue/issues/1217))
   ([a963ea3](https://github.com/bootstrap-vue/bootstrap-vue/commit/a963ea3)), closes
   [#1216](https://github.com/bootstrap-vue/bootstrap-vue/issues/1216)
-- **progress:** Bootstrap V4.beta.2 missing progress bar transition
+- **progress:** Bootstrap v4.beta.2 missing progress bar transition
   ([1f1064f](https://github.com/bootstrap-vue/bootstrap-vue/commit/1f1064f26fd2b052500ffbed2f68d2cf3c2193f1))
 - **table:** don't startcase field label when label explicitly given
   ([76a511f](https://github.com/bootstrap-vue/bootstrap-vue/commit/76a511f)) Closes
@@ -568,7 +568,7 @@ importing.
   ([#1250](https://github.com/bootstrap-vue/bootstrap-vue/issues/1250))
   ([23fc3be](https://github.com/bootstrap-vue/bootstrap-vue/commit/23fc3be)) Closes
   [1249](https://github.com/bootstrap-vue/bootstrap-vue/issues/1249)
-- **col:** column offsets are now back with the release Bootstrap V4.0-.0-beta.2
+- **col:** column offsets are now back with the release Bootstrap v4.0-.0-beta.2
 - **docs:** various expanded examples and additions
 - **dropdown:** optionally hide the dropdown toggle caret
   ([#1197](https://github.com/bootstrap-vue/bootstrap-vue/issues/1197))
@@ -579,12 +579,12 @@ importing.
 - **form-group:** switch to fieldset + legend for better semantic markup and ARIA support
   ([#1129](https://github.com/bootstrap-vue/bootstrap-vue/issues/1129))
   ([7a62b75](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a62b75))
-- **form-radio + form-checkbox:** prep for BSV4.beta.3 plain checkbox/radio validation styling
-  ([81989ab](https://github.com/bootstrap-vue/bootstrap-vue/commit/81989ab))
+- **form-radio + form-checkbox:** prep for Bootstrap v4.beta.3 plain checkbox/radio validation
+  styling ([81989ab](https://github.com/bootstrap-vue/bootstrap-vue/commit/81989ab))
 - **form-select:** emit `change` event on user interaction
   ([3cc0f05](https://github.com/bootstrap-vue/bootstrap-vue/commit/3cc0f05)) Closes
   [#959](https://github.com/bootstrap-vue/bootstrap-vue/issues/959)
-- **modal:** add Bootstrap V4 anticipated verticaly centered modal
+- **modal:** add Bootstrap v4 anticipated verticaly centered modal
   ([#1246](https://github.com/bootstrap-vue/bootstrap-vue/issues/1246))
   ([4a8ce2c](https://github.com/bootstrap-vue/bootstrap-vue/commit/4a8ce2c))
 - **navbar-nav:** new `b-navbar-nav` component
@@ -599,7 +599,7 @@ importing.
 - **table:** allow custom attributes in table cell (`td`)
   ([#1193](https://github.com/bootstrap-vue/bootstrap-vue/issues/1193))
   ([485adbf](https://github.com/bootstrap-vue/bootstrap-vue/commit/485adbf))
-- **table:** BS V4.beta.2 new responsive breakpoints and `table-dark` class
+- **table:** Bootstrap v4.beta.2 new responsive breakpoints and `table-dark` class
   ([#1222](https://github.com/bootstrap-vue/bootstrap-vue/issues/1222))
   ([febdfd1](https://github.com/bootstrap-vue/bootstrap-vue/commit/febdfd1))
 - **table:** pass computed fields array to details scoped slot
@@ -985,7 +985,8 @@ Released: 2017-08-30
 - **carousel:** Use b-img component and id Mixin
   ([#945](https://github.com/bootstrap-vue/bootstrap-vue/issues/945))
   ([d95321b](https://github.com/bootstrap-vue/bootstrap-vue/commit/d95321b))
-- **col:** BS4 column component ([#906](https://github.com/bootstrap-vue/bootstrap-vue/issues/906))
+- **col:** Bootstrap v4 column component
+  ([#906](https://github.com/bootstrap-vue/bootstrap-vue/issues/906))
   ([9de80f8](https://github.com/bootstrap-vue/bootstrap-vue/commit/9de80f8))
 - **docs:** Improved collapse examples and documentation
   ([541fada](https://github.com/bootstrap-vue/bootstrap-vue/commit/541fada))
@@ -1027,7 +1028,7 @@ Released: 2017-08-21
   ([1403ec4](https://github.com/bootstrap-vue/bootstrap-vue/commit/1403ec4))
 - **badge:** Default variant changed
   ([8d3be9e](https://github.com/bootstrap-vue/bootstrap-vue/commit/8d3be9e))
-- **badge:** Default variant no longer exists in V4.beta
+- **badge:** Default variant no longer exists in v4.beta
   ([#875](https://github.com/bootstrap-vue/bootstrap-vue/issues/875))
   ([5fc14d2](https://github.com/bootstrap-vue/bootstrap-vue/commit/5fc14d2))
 - **card:** change prop no-block to no-body
@@ -1083,7 +1084,7 @@ Released: 2017-08-21
 - **forms:** Adjustments to form-textarea and form-input
   ([#880](https://github.com/bootstrap-vue/bootstrap-vue/issues/880))
   ([79a7aa8](https://github.com/bootstrap-vue/bootstrap-vue/commit/79a7aa8))
-- **forms:** BS4.beta form/input validation styles & components
+- **forms:** Bootstrap v4.beta form/input validation styles & components
   ([#847](https://github.com/bootstrap-vue/bootstrap-vue/issues/847))
   ([00e2b6f](https://github.com/bootstrap-vue/bootstrap-vue/commit/00e2b6f))
 - **link:** default href to null
