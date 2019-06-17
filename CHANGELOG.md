@@ -4,6 +4,36 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.24"></a>
+
+## [v2.0.0-rc.24](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.23...v2.0.0-rc.24)
+Released 2019-06-17)
+
+### Bug Fixes
+
+- **b-table:** ensure `ctx.sortBy` is an empty string when no sort key specified (closes
+  [#3532](https://github.com/bootstrap-vue/bootstrap-vue/issues/3532))
+  ([#3534](https://github.com/bootstrap-vue/bootstrap-vue/issues/3534)
+  [d451687](https://github.com/bootstrap-vue/bootstrap-vue/commit/d451687))
+- **b-table-lite:** add checks to helper mixins for existence of `stopIfBusy` (fixes
+  [#3518](https://github.com/bootstrap-vue/bootstrap-vue/issues/3518))
+  ([#3520](https://github.com/bootstrap-vue/bootstrap-vue/issues/3520))
+  ([285cf94](https://github.com/bootstrap-vue/bootstrap-vue/commit/285cf94))
+- **b-tabs:** add detection of when registered tabs change order (closes
+  [#3506](https://github.com/bootstrap-vue/bootstrap-vue/issues/3506))
+  ([#3513](https://github.com/bootstrap-vue/bootstrap-vue/issues/3513)
+  [130f8ff](https://github.com/bootstrap-vue/bootstrap-vue/commit/130f8ff),
+  [#3537](https://github.com/bootstrap-vue/bootstrap-vue/issues/3537)
+  [b80b2b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/b80b2b4))
+- **config:** avoid using `of` operator (closes
+  [#3525](https://github.com/bootstrap-vue/bootstrap-vue/issues/3525))
+  ([#3526](https://github.com/bootstrap-vue/bootstrap-vue/issues/3526)
+  [17ec8d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/17ec8d0))
+- **nuxt module:** correct `transformAssetUrls` value for `b-card-img` (fixes
+  [#3521](https://github.com/bootstrap-vue/bootstrap-vue/issues/3521))
+  ([#3523](https://github.com/bootstrap-vue/bootstrap-vue/issues/3523)
+  [db8c6fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/db8c6fd))
+
 <a name="2.0.0-rc.23"></a>
 
 ## [v2.0.0-rc.23](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.22...v2.0.0-rc.23)
