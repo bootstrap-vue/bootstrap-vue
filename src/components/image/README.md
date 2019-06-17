@@ -54,7 +54,7 @@ default of inline-block element.
 
 **Note:** _In Internet Explorer 10, SVG images with `fluid` are disproportionately sized. To fix
 this, add the style `width: 100% \9;` where necessary. This fix improperly sizes other image
-formats, so Bootstrap V4 doesn't apply it automatically._
+formats, so Bootstrap v4 doesn't apply it automatically._
 
 ### Image thumbnails
 

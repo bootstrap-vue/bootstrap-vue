@@ -2,7 +2,7 @@
 
 > The `<b-spinner>` component can be used to show the loading state in your projects. They're
 > rendered only with basic HTML and CSS as a lightweight Vue functional component. Their appearance,
-> alignment, and sizing can be easily customized with a few built-in props and/or Bootstrap V4
+> alignment, and sizing can be easily customized with a few built-in props and/or Bootstrap v4
 > utility classes.
 
 Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s
@@ -57,7 +57,7 @@ Spinners use `currentColor` for their color, meaning it inherits the current fon
 customize the color using the standard text color variants using the `variant` prop, or place
 classes or styles on the component to change it's color.
 
-The `variant` prop translates the variant name to the Bootstrap V4 class `.text-{variant}`, so if
+The `variant` prop translates the variant name to the Bootstrap v4 class `.text-{variant}`, so if
 you have custom defined text color variants, feel free to use them via the `variant` prop.
 
 ```html

@@ -10,7 +10,7 @@ control and customization. Built with flexbox, they offer easy alignment and mix
 components.
 
 `<b-card>` has no fixed width to start, so they'll naturally fill the full width of its parent
-element. This is easily customized via styles or standard Bootstrap V4 sizing classes.
+element. This is easily customized via styles or standard Bootstrap v4 sizing classes.
 
 Change the default `div` root tag to any other HTML element by specifying via the `tag` prop
 
@@ -458,7 +458,7 @@ the `bg-variant` and `border-variant` props. Darker solid variants my require se
 
 #### Variant to class mapping
 
-BootstrapVue `<b-card>` variants are directly mapped to Bootstrap V4 card classes by pre-pending
+BootstrapVue `<b-card>` variants are directly mapped to Bootstrap v4 card classes by pre-pending
 `bg-` (for solid) or `border-` (for bordered) to the above variant names.
 
 ### Header and footer variants

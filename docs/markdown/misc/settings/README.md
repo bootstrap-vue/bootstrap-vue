@@ -6,7 +6,7 @@
 
 ## Configuring defaults
 
-BootstrapVue is pre-configured for the default Bootstrap V4.x configuration. It assumes the
+BootstrapVue is pre-configured for the default Bootstrap v4.x configuration. It assumes the
 breakpoints are the standard breakpoint names of `xs`, `sm`, `md`, `lg`, and `xl`. Also various
 BootstrapVue components have props with default variants and text content.
 

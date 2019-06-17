@@ -1,6 +1,6 @@
 # Color variants and CSS class mapping
 
-> Below are the variants available when using the default Bootstrap V4 CSS. When using BootstrapVue
+> Below are the variants available when using the default Bootstrap v4 CSS. When using BootstrapVue
 > components, the variants are referred to by their variant name, rather than by the underlying CSS
 > classname
 
@@ -15,7 +15,7 @@
 - `light` - <span class="text-light">Light</span>
 - `dark` - <span class="text-dark">Dark</span>
 
-The base variants will translate to various Bootstrap V4 contextual class names based on the
+The base variants will translate to various Bootstrap v4 contextual class names based on the
 component (and variant purpose) where they are used.
 
 ## Background and border variants
@@ -44,7 +44,7 @@ provide `text-variant` and `*-text-variant` props
 
 ## Component specific variants
 
-Some Bootstrap V4 components require additional CSS styling, or additional pseudo selector styling
+Some Bootstrap v4 components require additional CSS styling, or additional pseudo selector styling
 (i.e buttons), and hence have their own underlying variant CSS classes.
 
 ### Alert variants
@@ -87,6 +87,6 @@ standard HTML `class="..."` attribute.
 
 ## Creating custom variants
 
-When creating custom variants, follow the Bootstrap V4 variant CSS class naming scheme and they will
+When creating custom variants, follow the Bootstrap v4 variant CSS class naming scheme and they will
 become available to the various components that use that scheme (i.e. create a custom CSS class
 `btn-purple` and `purple` becomes a valid variant to use on `<b-button>`).

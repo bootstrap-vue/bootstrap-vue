@@ -4,6 +4,36 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.24"></a>
+
+## [v2.0.0-rc.24](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.23...v2.0.0-rc.24)
+Released 2019-06-17
+
+### Bug Fixes v2.0.0-rc.24
+
+- **b-table:** ensure `ctx.sortBy` is an empty string when no sort key specified (closes
+  [#3532](https://github.com/bootstrap-vue/bootstrap-vue/issues/3532))
+  ([#3534](https://github.com/bootstrap-vue/bootstrap-vue/issues/3534)
+  [d451687](https://github.com/bootstrap-vue/bootstrap-vue/commit/d451687))
+- **b-table-lite:** add checks to helper mixins for existence of `stopIfBusy` (fixes
+  [#3518](https://github.com/bootstrap-vue/bootstrap-vue/issues/3518))
+  ([#3520](https://github.com/bootstrap-vue/bootstrap-vue/issues/3520))
+  ([285cf94](https://github.com/bootstrap-vue/bootstrap-vue/commit/285cf94))
+- **b-tabs:** add detection of when registered tabs change order (closes
+  [#3506](https://github.com/bootstrap-vue/bootstrap-vue/issues/3506))
+  ([#3513](https://github.com/bootstrap-vue/bootstrap-vue/issues/3513)
+  [130f8ff](https://github.com/bootstrap-vue/bootstrap-vue/commit/130f8ff),
+  [#3537](https://github.com/bootstrap-vue/bootstrap-vue/issues/3537)
+  [b80b2b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/b80b2b4))
+- **config:** avoid using `of` operator (closes
+  [#3525](https://github.com/bootstrap-vue/bootstrap-vue/issues/3525))
+  ([#3526](https://github.com/bootstrap-vue/bootstrap-vue/issues/3526)
+  [17ec8d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/17ec8d0))
+- **nuxt module:** correct `transformAssetUrls` value for `b-card-img` (fixes
+  [#3521](https://github.com/bootstrap-vue/bootstrap-vue/issues/3521))
+  ([#3523](https://github.com/bootstrap-vue/bootstrap-vue/issues/3523)
+  [db8c6fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/db8c6fd))
+
 <a name="2.0.0-rc.23"></a>
 
 ## [v2.0.0-rc.23](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.22...v2.0.0-rc.23)
@@ -937,7 +967,7 @@ Released: (2019-02-14)
   ([7b5fde8](https://github.com/bootstrap-vue/bootstrap-vue/commit/7b5fde8))
 - **docs:** typo fix ([#2009](https://github.com/bootstrap-vue/bootstrap-vue/issues/2009))
   ([9e0eb67](https://github.com/bootstrap-vue/bootstrap-vue/commit/9e0eb67))
-- **docs:** Update links to Bootstrap V4.2
+- **docs:** Update links to Bootstrap v4.2
   ([#2370](https://github.com/bootstrap-vue/bootstrap-vue/issues/2370))
   ([470a083](https://github.com/bootstrap-vue/bootstrap-vue/commit/470a083))
 - **docs:** vue-loader v15 changes
@@ -1323,7 +1353,7 @@ Released: (2019-02-14)
 - **security:** strip html tags
   ([#2479](https://github.com/bootstrap-vue/bootstrap-vue/issues/2479))
   ([3c6ba3e](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c6ba3e))
-- **spinner:** Support Bootstrap V4.2 spinner component
+- **spinner:** Support Bootstrap v4.2 spinner component
   ([#2306](https://github.com/bootstrap-vue/bootstrap-vue/issues/2306))
   ([bf3994f](https://github.com/bootstrap-vue/bootstrap-vue/commit/bf3994f))
 - **table:** "Debounce" providerFunction and refresh methods
@@ -1703,8 +1733,8 @@ Released: 2018-01-23
 With `v2.0.0` release, BootstrapVue is compatible with final stable release of Bootstrap `v4.0.0`
 and beyond.
 
-- If you are using any custom theme which was based on BS beta, there may be minor problems to be
-  fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
+- If you are using any custom theme which was based on Bootstrap beta, there may be minor problems
+  to be fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
 - With this release, we have removed majority of CSS fixes. If you are using ES builds, you may have
   to add a `css-loader` to make it working probably.
 - `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please
