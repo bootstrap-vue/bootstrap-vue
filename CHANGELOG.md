@@ -9,7 +9,7 @@
 ## [v2.0.0-rc.24](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.23...v2.0.0-rc.24)
 Released 2019-06-17
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.24
 
 - **b-table:** ensure `ctx.sortBy` is an empty string when no sort key specified (closes
   [#3532](https://github.com/bootstrap-vue/bootstrap-vue/issues/3532))
