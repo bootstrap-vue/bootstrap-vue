@@ -8,7 +8,7 @@ export default {
   props: {
     sortBy: {
       type: String,
-      default: null
+      default: ''
     },
     sortDesc: {
       // To Do: Make this tri-state: true, false, null
@@ -120,7 +120,7 @@ export default {
         /* istanbul ignore next */
         return
       }
-      this.localSortBy = newVal || null
+      this.localSortBy = newVal || ''
     },
     // Update .sync props
     localSortDesc(newVal, oldVal) {
@@ -177,7 +177,7 @@ export default {
         }
         sortChanged = true
       } else if (this.localSortBy && !this.noSortReset) {
-        this.localSortBy = null
+        this.localSortBy = ''
         toggleLocalSortDesc()
         sortChanged = true
       }
