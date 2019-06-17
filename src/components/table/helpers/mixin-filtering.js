@@ -20,10 +20,6 @@ export default {
     filterFunction: {
       type: Function,
       default: null
-    },
-    noLocalFiltering: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -34,7 +30,7 @@ export default {
   },
   computed: {
     localFiltering() {
-      return this.hasProvider ? !!this.noProviderFiltering : !this.noLocalFiltering
+      return this.hasProvider ? !!this.noProviderFiltering : true
     },
     // For watching changes to `filteredItems` vs `localItems`
     filteredCheck() {
