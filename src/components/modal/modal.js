@@ -77,6 +77,10 @@ export const props = {
     type: Boolean,
     default: false
   },
+  noSubmitOnEnter: {
+    type: Boolean,
+    default: false
+  },
   noEnforceFocus: {
     type: Boolean,
     default: false
@@ -600,10 +604,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     onClose() {
       this.hide('headerclose')
     },
-    onEsc(evt) {
+    onKeyDown(evt) {
       // If ESC pressed, hide modal
       if (evt.keyCode === KeyCodes.ESC && this.isVisible && !this.noCloseOnEsc) {
         this.hide('esc')
+      }
+      // If Enter pressed, submit modal
+      if (evt.keyCode === KeyCodes.ENTER && this.isVisible && !this.noSubmitOnEnter) {
+        this.onOk()
       }
     },
     // Document focusin listener
@@ -850,7 +858,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null
           },
-          on: { keydown: this.onEsc, click: this.onClickOut }
+          on: { keydown: this.onKeyDown, click: this.onClickOut }
         },
         [modalDialog]
       )

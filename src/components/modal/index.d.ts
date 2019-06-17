@@ -41,6 +41,7 @@ export interface BvMsgBoxOptions {
   noFade?: boolean
   noCloseOnBackdrop?: boolean
   noCloseOnEsc?: boolean
+  noSubmitOnEnter?: boolean
   headerBgVariant?: string
   headerBorderVariant?: string
   headerTextVariant?: string
