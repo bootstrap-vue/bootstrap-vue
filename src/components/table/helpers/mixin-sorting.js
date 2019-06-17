@@ -48,10 +48,6 @@ export default {
       type: String,
       default: 'Click to clear sorting'
     },
-    noLocalSorting: {
-      type: Boolean,
-      default: false
-    },
     noFooterSorting: {
       type: Boolean,
       default: false
@@ -65,7 +61,7 @@ export default {
   },
   computed: {
     localSorting() {
-      return this.hasProvider ? !!this.noProviderSorting : !this.noLocalSorting
+      return this.hasProvider ? !!this.noProviderSorting : true
     },
     isSortable() {
       return this.computedFields.some(f => f.sortable)
