@@ -119,7 +119,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="html" mode="htmlmixed" class="notranslate" translate="no"></codemirror>
+              <codemirror v-model="html" mode="htmlmixed"></codemirror>
             </b-card>
           </b-col>
 
@@ -147,7 +147,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="js" mode="javascript" class="notranslate" translate="no"></codemirror>
+              <codemirror v-model="js" mode="javascript"></codemirror>
             </b-card>
           </b-col>
         </transition-group>
