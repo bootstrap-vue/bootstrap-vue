@@ -256,7 +256,8 @@ Note that when importing individual components, any component aliases will **not
 <div class="alert alert-info">
   <p class="mb-0">
     <b>Note:</b> Optimal tree shaking only works when your Nuxt.js app is in <code>production</code>
-    mode. You may notice larger bundle sizes when not in `production` mode (i.e. `dev` mode).
+    mode. You may notice larger bundle sizes when not in <code>production</code> mode (i.e.
+    <code>dev</code> mode).
   </p>
 </div>
 
@@ -527,9 +528,9 @@ These four dependencies are included in the `UMD` bundle.
 If you've already been using Bootstrap v4, there are a couple adjustments you may need to make to
 your project:
 
-- Remove the bootstrap.js file from your page scripts or build pipeline
-- If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does
-  not** depend on jQuery
+- Remove the `bootstrap.js` file from your page scripts or build pipeline
+- If Bootstrap is the only thing relying on `jQuery`, you can safely remove it — BootstrapVue **does
+  not** depend on `jQuery`
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
 
 ## Browser support
@@ -547,7 +548,7 @@ supported.
 
 Following features and APIs are used by BootstrapVue:
 
-- ES5 (e.g. `Array.from()`, `Array.isArray()`, `Object.assign()`, `Object.is()`, etc.)
+- ES6 (e.g. `Array.from()`, `Array.isArray()`, `Object.assign()`, `Object.is()`, etc.)
 - `Promise`
 - `MutationObserver`
 
