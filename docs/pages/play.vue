@@ -116,7 +116,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="html" mode="htmlmixed" class="notranslate"></codemirror>
+              <codemirror v-model="html" mode="htmlmixed" class="notranslate" translate="no"></codemirror>
             </b-card>
           </b-col>
 
@@ -144,7 +144,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="js" mode="javascript" class="notranslate"></codemirror>
+              <codemirror v-model="js" mode="javascript" class="notranslate" translate="no"></codemirror>
             </b-card>
           </b-col>
         </transition-group>
@@ -173,12 +173,12 @@
                 </b-btn>
               </div>
 
-              <div ref="result" class="notranslate"></div>
+              <div ref="result" class="notranslate" translate="no"></div>
             </b-card>
           </b-col>
 
           <!-- Console column -->
-          <b-col cols="12" class="mt-3 notranslate">
+          <b-col cols="12" class="mt-3 notranslate" translate="no">
             <!-- Console -->
             <b-card no-body>
               <div slot="header" class="d-flex justify-content-between align-items-center">
