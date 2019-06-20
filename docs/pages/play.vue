@@ -105,7 +105,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span>Template</span>
+                <span class="notranslate">Template</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -116,7 +116,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="html" mode="htmlmixed"></codemirror>
+              <codemirror v-model="html" mode="htmlmixed" class="notranslate"></codemirror>
             </b-card>
           </b-col>
 
@@ -144,7 +144,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="js" mode="javascript"></codemirror>
+              <codemirror v-model="js" mode="javascript" class="notranslate"></codemirror>
             </b-card>
           </b-col>
         </transition-group>
@@ -173,12 +173,12 @@
                 </b-btn>
               </div>
 
-              <div ref="result"></div>
+              <div ref="result" class="notranslate"></div>
             </b-card>
           </b-col>
 
           <!-- Console column -->
-          <b-col cols="12" class="mt-3">
+          <b-col cols="12" class="mt-3 notranslate">
             <!-- Console -->
             <b-card no-body>
               <div slot="header" class="d-flex justify-content-between align-items-center">
