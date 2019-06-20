@@ -46,6 +46,7 @@
         <!-- Export to CodePen -->
         <b-form
           class="d-inline-block mr-1 notranslate"
+          translate="no"
           method="post"
           action="https://codepen.io/pen/define"
           target="_blank"
@@ -57,6 +58,7 @@
         <!-- Export to CodeSandbox -->
         <b-form
           class="d-inline-block mr-1 notranslate"
+          translate="no"
           method="post"
           action="https://codesandbox.io/api/v1/sandboxes/define"
           target="_blank"
@@ -68,6 +70,7 @@
         <!-- Export to JSFiddle -->
         <b-form
           class="d-inline-block notranslate"
+          translate="no"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
@@ -105,7 +108,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span class="notranslate">Template</span>
+                <span class="notranslate" translate="no">Template</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
