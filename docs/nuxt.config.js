@@ -23,8 +23,8 @@ renderer.code = (code, language) => {
 }
 
 // Instruct google translate not to translate `<code>` content
-renderer.codespan = (code) => {
-  return `<code translate="no">${code}</code>`
+renderer.codespan = text => {
+  return `<code translate="no">${text}</code>`
 }
 
 // Custom heading implementation for markdown renderer
