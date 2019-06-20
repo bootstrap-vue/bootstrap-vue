@@ -81,9 +81,8 @@ export default {
     }
   },
   render(h) {
-    return h('textarea', {
-      props: { value: this.value },
-      ref: 'textarea'
-    })
+    return h('div', { staticClass: 'notranslate m-0 p-0', attrs: { translate: 'no' } }, [
+      h('textarea', { props: { value: this.value }, ref: 'textarea' })
+    ])
   }
 }
