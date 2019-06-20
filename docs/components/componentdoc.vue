@@ -3,7 +3,7 @@
     <b-row tag="header" align-v="center">
       <b-col sm="9">
         <anchored-heading :id="`comp-ref-${componentName}`" level="3">
-          <code>{{ tag }}</code>
+          <code class="notranslate" translate="no">{{ tag }}</code>
         </anchored-heading>
         <b-badge
           v-if="componentFunctional"
@@ -25,9 +25,11 @@
       <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
         Component aliases
       </anchored-heading>
-      <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
+      <p><code class="notranslate" translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
-        <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
+        <li v-for="alias in aliases" :key="alias">
+          <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
+        </li>
       </ul>
       <p class="small text-muted">
         Note: component aliases are only available when importing all of BootstrapVue or using
@@ -49,7 +51,7 @@
         striped
       >
         <template slot="prop" slot-scope="{ value, item }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
@@ -63,7 +65,7 @@
           </p>
         </template>
         <template slot="defaultValue" slot-scope="{ value }">
-          <code v-if="value">{{ value }}</code>
+          <code v-if="value" class="notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
 
@@ -73,7 +75,7 @@
         </anchored-heading>
         <b-table
           :items="[componentVModel]"
-          :fields="['prop', 'event']"
+          :fields="[{ key: 'prop', label: 'Property' }, 'event']"
           class="bv-docs-table"
           responsive="sm"
           head-variant="default"
@@ -81,10 +83,10 @@
           striped
         >
           <template slot="prop" slot-scope="{ value }">
-            <code>{{ kebabCase(value) }}</code>
+            <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
           </template>
           <template slot="event" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code class="notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
       </template>
@@ -104,7 +106,7 @@
         striped
       >
         <template slot="name" slot-scope="{ value }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
     </article>
@@ -123,14 +125,16 @@
         striped
       >
         <template slot="event" slot-scope="{ value }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <template v-if="arg.arg"><code class="text-nowrap">{{ arg.arg }}</code> - </template>
+            <template v-if="arg.arg">
+              <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code> -
+            </template>
             <span>{{ arg.description }}</span>
           </div>
         </template>
@@ -139,11 +143,11 @@
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4">
-        $root Event Listeners
+        <code class="notranslate" translate="no">$root</code> Event Listeners
       </anchored-heading>
       <p>
-        You can control <code>{{ tag }}</code> by emitting the following events on
-        <samp>$root</samp>:
+        You can control <code class="notranslate" translate="no">{{ tag }}</code> by emitting the
+        following events on <samp class="notranslate" translate="no">$root</samp>:
       </p>
       <b-table
         :items="rootEventListeners"
@@ -155,7 +159,7 @@
         striped
       >
         <template slot="event" slot-scope="{ value }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
@@ -163,7 +167,7 @@
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg">
-              <code class="text-nowrap">{{ arg.arg }}</code>
+              <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code>
               <span v-if="arg.description"> - {{ arg.description }}</span>
             </template>
           </div>
@@ -229,11 +233,7 @@ export default {
     },
     componentVModel() {
       const model = this.componentOptions.model
-      if (model && model.prop && model.event) {
-        return model
-      } else {
-        return false
-      }
+      return model && model.prop && model.event ? model : false
     },
     componentProps() {
       return this.componentOptions.props || {}
