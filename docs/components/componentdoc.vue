@@ -25,9 +25,9 @@
       <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
         Component aliases
       </anchored-heading>
-      <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
+      <p><code translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
-        <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
+        <li v-for="alias in aliases" :key="alias"><code translate="no">&lt;{{ kebabCase(alias) }}&gt;</code></li>
       </ul>
       <p class="small text-muted">
         Note: component aliases are only available when importing all of BootstrapVue or using
@@ -49,7 +49,7 @@
         striped
       >
         <template slot="prop" slot-scope="{ value, item }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
@@ -63,7 +63,7 @@
           </p>
         </template>
         <template slot="defaultValue" slot-scope="{ value }">
-          <code v-if="value">{{ value }}</code>
+          <code v-if="value" translate="no">{{ value }}</code>
         </template>
       </b-table>
 
@@ -81,10 +81,10 @@
           striped
         >
           <template slot="prop" slot-scope="{ value }">
-            <code>{{ kebabCase(value) }}</code>
+            <code translate="no">{{ kebabCase(value) }}</code>
           </template>
           <template slot="event" slot-scope="{ value }">
-            <code>{{ value }}</code>
+            <code translate="no">{{ value }}</code>
           </template>
         </b-table>
       </template>
@@ -104,7 +104,7 @@
         striped
       >
         <template slot="name" slot-scope="{ value }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap" translate="no">{{ value }}</code>
         </template>
       </b-table>
     </article>
@@ -123,14 +123,14 @@
         striped
       >
         <template slot="event" slot-scope="{ value }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap" translate="no">{{ value }}</code>
         </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <template v-if="arg.arg"><code class="text-nowrap">{{ arg.arg }}</code> - </template>
+            <template v-if="arg.arg"><code class="text-nowrap" translate="no">{{ arg.arg }}</code> - </template>
             <span>{{ arg.description }}</span>
           </div>
         </template>
@@ -155,7 +155,7 @@
         striped
       >
         <template slot="event" slot-scope="{ value }">
-          <code class="text-nowrap">{{ value }}</code>
+          <code class="text-nowrap" translate="no">{{ value }}</code>
         </template>
         <template slot="args" slot-scope="{ value, item }">
           <div
@@ -163,7 +163,7 @@
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
             <template v-if="arg.arg">
-              <code class="text-nowrap">{{ arg.arg }}</code>
+              <code class="text-nowrap" translate="no">{{ arg.arg }}</code>
               <span v-if="arg.description"> - {{ arg.description }}</span>
             </template>
           </div>
