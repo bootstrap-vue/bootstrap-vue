@@ -23,18 +23,18 @@
           striped
         >
           <template slot="component" slot-scope="{ value }">
-            <code class="text-nowrap" translate="no">{{ value }}</code>
+            <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
           <template slot="namedExport" slot-scope="{ value }">
-            <code class="text-nowrap" translate="no">{{ value }}</code>
+            <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
-            <code class="text-nowrap" translate="no">{{ value }}</code>
+            <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
-        <pre class="hljs js text-monospace p-2" translate="no">{{ componentImportCode }}</pre>
+        <pre class="hljs js text-monospace p-2 notranslate" translate="no">{{ componentImportCode }}</pre>
       </article>
     </template>
 
@@ -58,18 +58,18 @@
           striped
         >
           <template slot="directive" slot-scope="{ value }">
-            <code class="text-nowrap" translate="no">{{ value }}</code>
+            <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
           <template slot="namedExport" slot-scope="{ value }">
-            <code class="text-nowrap" translate="no">{{ value }}</code>
+            <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
           <template slot="importPath" slot-scope="{ value }">
-            <code class="text-nowrap" translate="no">{{ value }}</code>
+            <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
 
         <p><strong>Example:</strong></p>
-        <pre class="hljs js text-monospace p-2" translate="no">{{ directiveImportCode }}</pre>
+        <pre class="hljs js text-monospace p-2 notranslate" translate="no">{{ directiveImportCode }}</pre>
       </article>
     </template>
 
@@ -104,33 +104,38 @@
         striped
       >
         <template slot="namedExport" slot-scope="{ value, item }">
-          <code class="text-nowrap" translate="no">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.legacy" variant="warning" class="small">DEPRECATED</b-badge>
           <b-badge v-else variant="success" class="small">PREFERRED</b-badge>
         </template>
         <template slot="importPath" slot-scope="{ value }">
-          <code class="text-nowrap" translate="no">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
 
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
         <ul>
-          <li v-for="plugin in meta.plugins" :key="plugin"><code translate="no">{{ plugin }}</code></li>
+          <li v-for="plugin in meta.plugins" :key="plugin">
+            <code class="notranslate" translate="no">{{ plugin }}</code>
+          </li>
         </ul>
       </template>
 
       <p><strong>Example:</strong></p>
-      <pre class="hljs js text-monospace p-2" translate="no">{{ pluginImportCode }}</pre>
+      <pre class="hljs js text-monospace p-2 notranslate" translate="no">{{ pluginImportCode }}</pre>
     </article>
 
     <aside class="alert alert-warning my-4">
       <p class="mb-0">
         <b-badge variant="warning" tag="strong">Deprecation Warning as of v2.0.0-rc.22:</b-badge>
-        Importing components, directives and plugins from <code translate="no">bootstrap-vue/es/*</code>
+        Importing components, directives and plugins from
+        <code class="notranslate" translate="no">bootstrap-vue/es/*</code>
         has been deprecated. All components, directives and plugins are now available as top-level named
-        exports in the <code translate="no">ESM</code> and <code translate="no">CommonJS</code> builds.
-        The <code translate="no">es/</code> directory build will be removed in a future release.
+        exports in the <code class="notranslate" translate="no">ESM</code> and
+        <code class="notranslate" translate="no">CommonJS</code> builds. The
+        <code class="notranslate" translate="no">es/</code> directory build will be removed in a future
+        release.
       </p>
     </aside>
   </section>
