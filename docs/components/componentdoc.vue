@@ -75,7 +75,7 @@
         </anchored-heading>
         <b-table
           :items="[componentVModel]"
-          :fields="['prop', 'event']"
+          :fields="[{ key: 'prop', label: 'Property' }, 'event']"
           class="bv-docs-table"
           responsive="sm"
           head-variant="default"
@@ -233,11 +233,7 @@ export default {
     },
     componentVModel() {
       const model = this.componentOptions.model
-      if (model && model.prop && model.event) {
-        return model
-      } else {
-        return false
-      }
+      return model && model.prop && model.event ? model : false
     },
     componentProps() {
       return this.componentOptions.props || {}
