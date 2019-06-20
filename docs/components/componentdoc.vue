@@ -147,7 +147,7 @@
       </anchored-heading>
       <p>
         You can control <code class="notranslate" translate="no">{{ tag }}</code> by emitting the
-        following events on <samp class="notranslate">$root</samp>:
+        following events on <samp class="notranslate" translate="no">$root</samp>:
       </p>
       <b-table
         :items="rootEventListeners"
