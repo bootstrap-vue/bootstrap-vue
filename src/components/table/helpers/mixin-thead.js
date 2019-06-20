@@ -52,13 +52,13 @@ export default {
     },
     renderThead(isFoot = false) {
       const h = this.$createElement
+      const fields = this.computedFields || []
 
-      if (this.isStacked === true) {
-        // In always stacked mode, we don't bother rendering the head/foot
+      if (this.isStacked === true || fields.length === 0) {
+        // In always stacked mode, we don't bother rendering the head/foot.
+        // Or if no field headings (empty table)
         return h(false)
       }
-
-      const fields = this.computedFields || []
 
       // Helper function to generate a field TH cell
       const makeCell = (field, colIndex) => {
