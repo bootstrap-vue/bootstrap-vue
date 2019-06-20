@@ -66,7 +66,7 @@ const createVM = (name, node, vnode) => {
     return new Vue({
       ...options,
       el: holder,
-      template: `<div class="bd-example vue-example vue-example-${name}" translate="no">${template}</div>`,
+      template: `<div class="bd-example vue-example vue-example-${name} notranslate" translate="no">${template}</div>`,
       router: vnode.context.$router
     })
   } catch (e) {
