@@ -19,7 +19,7 @@ const getRoutesByDir = (root, dir, excludes = []) =>
 renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language} text-monospace p-2">${highlighted}</pre>`
+  return `<pre class="hljs ${language} text-monospace p-2" translate="no">${highlighted}</pre>`
 }
 
 // Custom heading implementation for markdown renderer
