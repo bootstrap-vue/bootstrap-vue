@@ -16,5 +16,5 @@ module.exports = function(markdown) {
   // Return the converted file as HTML
   const html = marked(markdown) || ''
   // Mark certain elements as translate="no"
-  return html.replace(/<(kbd|code)>/gi, '<$1 translate="no">')
+  return html.replace(/<(kbd|code)>/gi, '<$1 class="notranslate" translate="no">')
 }
