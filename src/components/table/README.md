@@ -1,9 +1,9 @@
 # Tables
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
-> rendering, various style options, events, and asynchronous data. For simple display of
-> tabular data without all the fancy features, BootstrapVue provides a lightweight alternative
-> component [`<b-table-lite>`](#light-weight-tables).
+> rendering, various style options, events, and asynchronous data. For simple display of tabular
+> data without all the fancy features, BootstrapVue provides a lightweight alternative component
+> [`<b-table-lite>`](#light-weight-tables).
 
 **Example: Basic usage**
 
@@ -407,7 +407,7 @@ place a unique `:key` on your element/components in your custom formatted field 
 | `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                   |
 | `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
 | `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
-| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)                                                                                                                                                                                                                                           |
+| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                           |
 | `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
 | `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [**Sorting**](#sorting) section below for more details.                                                                                                                                              |
@@ -645,7 +645,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 ### Table caption
 
 Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
-slot takes precedence over the prop). The default Bootstrap V4 styling places the caption at the
+slot takes precedence over the prop). The default Bootstrap v4 styling places the caption at the
 bottom of the table:
 
 ```html
@@ -787,8 +787,9 @@ Also see the [**Using Items Provider Functions**](#using-items-provider-function
 additional information on the `busy` state.
 
 **Notes:**
-- All click related and hover events, and sort-changed events will **not** be emitted when
-  the table is in the `busy` state.
+
+- All click related and hover events, and sort-changed events will **not** be emitted when the table
+  is in the `busy` state.
 - Busy styling and slot are not available in the `<b-table-lite>` component.
 
 ## Custom data rendering
@@ -1394,9 +1395,9 @@ record objects for the rows being compared, the third argument is the field `key
 (`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
 (`true` for descending, `false` for ascending).
 
-The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`,
-or `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used,
-as `b-table` will handle the direction). The routine can also return `null` to fall back to the
+The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
+`1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
+`b-table` will handle the direction). The routine can also return `null` to fall back to the
 built-in sort-compare routine for the particular `key`. You can use this feature (i.e. by returning
 `null`) to have your custom sort-compare routine handle only certain fields (keys) such as the
 special case of virtual columns.
@@ -1514,8 +1515,6 @@ Setting the prop `filter` to null or an empty string will clear local items filt
 
 ### Filtering notes
 
-You can disable local filtering completely by setting the `no-local-filtering` prop to `true`.
-
 See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
 
 ## Pagination
@@ -1539,7 +1538,8 @@ should usually be treated as readonly.
 The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
 changes to a record's properties in the `v-model` will be reflected in the original `items` array
 (except when `items` is set to a provider function). Deleting a record from the `v-model` will
-**not** remove the record from the original items array nor will it remove it from the displayed rows.
+**not** remove the record from the original items array nor will it remove it from the displayed
+rows.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
@@ -1633,14 +1633,14 @@ provider(ctx, [callback])
 The `ctx` is the context object associated with the table state, and contains the following five
 properties:
 
-| Property      | Type                         | Description                                                                       |
-| ------------- | ---------------------------- | --------------------------------------------------------------------------------- |
-| `currentPage` | Number                       | The current page number (starting from 1, the value of the `current-page` prop)   |
-| `perPage`     | Number                       | The maximum number of rows per page to display (the value of the `per-page` prop) |
-| `filter`      | String or RegExp or Function | the value of the `Filter` prop                                                    |
-| `sortBy`      | String                       | The current column key being sorted, or `null` if not sorting                     |
-| `sortDesc`    | Boolean                      | The current sort direction (`true` for descending, `false` for ascending)         |
-| `apiUrl`      | String                       | the value provided to the `api-url` prop. `null` if none provided.                |
+| Property      | Type                       | Description                                                                       |
+| ------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| `currentPage` | Number                     | The current page number (starting from 1, the value of the `current-page` prop)   |
+| `perPage`     | Number                     | The maximum number of rows per page to display (the value of the `per-page` prop) |
+| `filter`      | String or RegExp or Object | the value of the `filter` prop                                                    |
+| `sortBy`      | String                     | The current column key being sorted, or an empty string if not sorting            |
+| `sortDesc`    | Boolean                    | The current sort direction (`true` for descending, `false` for ascending)         |
+| `apiUrl`      | String                     | the value provided to the `api-url` prop. `null` if none provided.                |
 
 The second argument `callback` is an optional parameter for when using the callback asynchronous
 method.
@@ -1863,9 +1863,9 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.23</span>
 
-`<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple dipslay of
-tabular data. The `<b-table-lite>` component provides all of the styling and formatting features
-of `<b-table>` (including row details support), while **excluding** the following features:
+`<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple display of
+tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of
+`<b-table>` (including row details support), while **excluding** the following features:
 
 - Filtering
 - Sorting

@@ -44,7 +44,7 @@
           },
           {
             "event": "hide",
-            "description": "Always emits just before modal has hidden. Cancelable (as long as modal wasn't forceably hidden)",
+            "description": "Always emits just before modal has hidden. Cancelable (as long as modal wasn't forcibly hidden)",
             "args": [
               {
                 "arg": "bvModalEvt",
@@ -122,7 +122,7 @@
           },
           {
             "event": "bv::modal::hide",
-            "description": "Emitted on $root when modal is about to be hidden. Cancelable (as long as modal wasn't forceably hidden)",
+            "description": "Emitted on $root when modal is about to be hidden. Cancelable (as long as modal wasn't forcibly hidden)",
             "args": [
               {
                 "arg": "bvModalEvt",

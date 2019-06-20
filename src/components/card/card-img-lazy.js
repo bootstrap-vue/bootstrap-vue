@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
-import BImgLazy, { props as imgLazyProps } from '../image/img-lazy'
 import { omit } from '../../utils/object'
 import { mergeData } from 'vue-functional-data-merge'
+import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
 
 // Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
 // The `omit()` util creates a new object, so we can just pass the original props
@@ -47,7 +47,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
   name: 'BCardImgLazy',
   functional: true,
   props,
@@ -74,3 +74,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCardImgLazy

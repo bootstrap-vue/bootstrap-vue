@@ -43,7 +43,7 @@ tags to load the required JavaScript and CSS in your page.
     <!-- Our application root element -->
     <div id="app">
       <b-container>
-        <b-jumbotron header="BootstrapVue" lead="Bootstrap 4 Components for Vue.js 2">
+        <b-jumbotron header="BootstrapVue" lead="Bootstrap v4 Components for Vue.js 2">
           <p>For more information visit our website</p>
           <b-btn variant="primary" href="https://bootstrap-vue.js.org/">More Info</b-btn>
         </b-jumbotron>
@@ -104,13 +104,13 @@ Vue CLI 3 is the newest way to create Vue apps.
 A Vue CLI 3 BootStrapVue plugin is available for setting up a basic app. refer to the
 [Getting Started](/docs/#vue-cli-3-plugin) docs page for more details.
 
-## Building with customized Bootstrap V4 CSS
+## Building with customized Bootstrap v4 CSS
 
-If you are using a build system, and would like to customize the Bootstrap V4 CSS, the following
+If you are using a build system, and would like to customize the Bootstrap v4 CSS, the following
 references will be handy starting points:
 
 - Article on
-  [Integrating and Customising Bootstrap 4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e)
+  [Integrating and Customising Bootstrap v4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e)
   hosted on medium.com
 - Official Bootstrap [Theming Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/theming/)
   guide

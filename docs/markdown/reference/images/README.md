@@ -40,7 +40,7 @@ const options = {
     'b-img': 'src',
     'b-img-lazy': ['src', 'blank-src'],
     'b-card': 'img-src',
-    'b-card-img': 'img-src',
+    'b-card-img': 'src',
     'b-card-img-lazy': ['src', 'blank-src'],
     'b-carousel-slide': 'img-src',
     'b-embed': 'src'
@@ -53,7 +53,7 @@ This will allow you to use the following format in your `.vue` files:
 ```html
 <b-img src="~/static/picture.jpg"></b-img>
 
-<b-card-img img-src="~/static/picture.jpg"></b-card-img>
+<b-card-img src="~/static/picture.jpg"></b-card-img>
 ```
 
 ### Vue CLI 3 Support
@@ -78,7 +78,7 @@ module.exports = {
           'b-img': 'src',
           'b-img-lazy': ['src', 'blank-src'],
           'b-card': 'img-src',
-          'b-card-img': 'img-src',
+          'b-card-img': 'src',
           'b-card-img-lazy': ['src', 'blank-src'],
           'b-carousel-slide': 'img-src',
           'b-embed': 'src'
@@ -107,7 +107,7 @@ module.exports = {
         'b-img': 'src',
         'b-img-lazy': ['src', 'blank-src'],
         'b-card': 'img-src',
-        'b-card-img': 'img-src',
+        'b-card-img': 'src',
         'b-card-img-lazy': ['src', 'blank-src'],
         'b-carousel-slide': 'img-src',
         'b-embed': 'src'
@@ -119,7 +119,7 @@ module.exports = {
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.22</span> If using the
 [BootstrapVue Nuxt](/docs#nuxtjs-module) module with Nuxt.js, the plugin module will automatically
-add in the BootstrapVue specific `transformAssetUrls` configuration for you. 
+add in the BootstrapVue specific `transformAssetUrls` configuration for you.
 
 ## Using `require` to resolve image paths
 
@@ -129,5 +129,5 @@ If you cannot set the `transformAssetUrls` in your view-loader config, you can a
 ```html
 <b-img :src="require('../static/picture.jpg')"></b-img>
 
-<b-card-img :img-src="require('../static/picture.jpg')"></b-card-img>
+<b-card-img :src="require('../static/picture.jpg')"></b-card-img>
 ```

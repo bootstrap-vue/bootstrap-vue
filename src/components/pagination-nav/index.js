@@ -1,12 +1,10 @@
-import BPaginationNav from './pagination-nav'
-import { installFactory } from '../../utils/plugins'
+import { BPaginationNav } from './pagination-nav'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BPaginationNav
-}
+const PaginationNavPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BPaginationNav }
+})
 
-export { BPaginationNav }
+export { PaginationNavPlugin, BPaginationNav }
 
-export default {
-  install: installFactory({ components })
-}
+export default PaginationNavPlugin

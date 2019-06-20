@@ -304,7 +304,7 @@ split button its own variant via the `split-variant` prop.
 ### Dropdown sub-component color variants
 
 Many of the supported dropdown [sub-components](#dropdown-supported-sub-components) provide a
-`variant` prop for controling their text color.
+`variant` prop for controlling their text color.
 
 ### Hidden caret
 
@@ -486,8 +486,8 @@ the component.
 ### `<b-dropdown-item-group>`
 
 Group a set of dropdown sub components with an optional associated header. Place a
-`<b-dropdown-divider>` between your `<b-dropdown-group>` and other groups or non-grouped
-dropdown contents
+`<b-dropdown-divider>` between your `<b-dropdown-group>` and other groups or non-grouped dropdown
+contents
 
 ```html
 <div>
@@ -579,7 +579,7 @@ the full list of events.
 The default slot is optionally scoped with the following scope available:
 
 | Property or Method | Description                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
 
 ## Accessibility
@@ -624,8 +624,9 @@ dropdown item:
 
 <!-- b-dropdown-aria.vue -->
 ```
-As a simplified alternative, use the `<b-dropdown-group>` instead to easily associate header text
-to the contained dropdown sub-components.
+
+As a simplified alternative, use the `<b-dropdown-group>` instead to easily associate header text to
+the contained dropdown sub-components.
 
 ### Keyboard navigation
 
@@ -640,8 +641,8 @@ form controls within the menu.
 <span class="badge badge-info small">NEW in 2.0.0-rc.19</span> The dropdown menu is rendered with
 semantic `<ul>` and `<li>` elements for accessibility reasons. The `.dropdown-menu` is the `<ul>`
 element, while dropdown items (items, buttons, text, form, headers, and dividers) are wrapped in an
-`<li>` element. If creating custom items to place inside the dropdown menu, ensure they are wrapped with
-a plain `<li>`.
+`<li>` element. If creating custom items to place inside the dropdown menu, ensure they are wrapped
+with a plain `<li>`.
 
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover` handlers to the
 immediate children of the `<body>` element. This admittedly ugly hack is necessary to work around a

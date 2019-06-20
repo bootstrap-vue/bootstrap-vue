@@ -47,7 +47,7 @@
             "args": [
               {
                 "arg": "event",
-                "description": "Native blur event (before any formmating)"
+                "description": "Native blur event (before any formatting)"
               }
             ]
           }

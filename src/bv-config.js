@@ -1,10 +1,8 @@
 //
 // Utility Plugin for setting the configuration
 //
-import { installFactory } from './utils/plugins'
+import { pluginFactory } from './utils/plugins'
 
-const BVConfigPlugin = {
-  install: installFactory()
-}
+const BVConfigPlugin = /*#__PURE__*/ pluginFactory()
 
 export default BVConfigPlugin

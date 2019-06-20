@@ -1,11 +1,11 @@
-# Bootstrap V4 utility classes
+# Bootstrap v4 utility classes
 
-> Bootstrap V4 CSS provides various utility classes to control color, spacing, flex-box, text
+> Bootstrap v4 CSS provides various utility classes to control color, spacing, flex-box, text
 > alignment, floating, position, responsive display/hiding and much more.
 
 ## External references
 
-The following are convenience links to Bootstrap V4's documentation:
+The following are convenience links to Bootstrap v4's documentation:
 
 - <a href="https://getbootstrap.com/docs/4.3/utilities/borders/" target="_blank">Border
   utilities</a>
@@ -21,8 +21,6 @@ The following are convenience links to Bootstrap V4's documentation:
 - <a href="https://getbootstrap.com/docs/4.3/utilities/float/" target="_blank">Float utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/image-replacement/" target="_blank">Image
   replacement utilities</a>
-- <a href="https://getbootstrap.com/docs/4.3/utilities/position/" target="_blank">Position
-  utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/overflow/" target="_blank">Overflow
   utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/position/" target="_blank">Position
@@ -41,3 +39,11 @@ The following are convenience links to Bootstrap V4's documentation:
   align utilities</a>
 - <a href="https://getbootstrap.com/docs/4.3/utilities/visibility/" target="_blank">Visibility
   utilities</a>
+
+Bootstrap v4 also has defined typography styles and classes for various native HTML elements. You
+can find out more at the following links:
+
+- <a href="https://getbootstrap.com/docs/4.3/content/reboot/" target="_blank">Reboot</a>
+- <a href="https://getbootstrap.com/docs/4.3/content/typography/" target="_blank">Typography</a>
+- <a href="https://getbootstrap.com/docs/4.3/content/code/" target="_blank">Code</a>
+- <a href="https://getbootstrap.com/docs/4.3/content/code/" target="_blank">Figures</a>

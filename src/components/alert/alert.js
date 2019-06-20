@@ -4,7 +4,7 @@ import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
 import BVTransition from '../../utils/bv-transition'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BButtonClose from '../button/button-close'
+import { BButtonClose } from '../button/button-close'
 
 const NAME = 'BAlert'
 
@@ -33,7 +33,7 @@ const parseShow = show => {
 const isNumericLike = value => !isNaN(parseInt(value, 10))
 
 // @vue/component
-export default Vue.extend({
+export const BAlert = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   model: {
@@ -164,3 +164,5 @@ export default Vue.extend({
     return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
   }
 })
+
+export default BAlert

@@ -18,7 +18,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BListGroup = /*#__PURE__*/ Vue.extend({
   name: 'BListGroup',
   functional: true,
   props,
@@ -36,3 +36,5 @@ export default Vue.extend({
     return h(props.tag, mergeData(data, componentData), children)
   }
 })
+
+export default BListGroup

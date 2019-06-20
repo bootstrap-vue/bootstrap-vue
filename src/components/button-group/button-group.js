@@ -21,7 +21,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BButtonGroup = /*#__PURE__*/ Vue.extend({
   name: 'BButtonGroup',
   functional: true,
   props,
@@ -40,3 +40,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BButtonGroup

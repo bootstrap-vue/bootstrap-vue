@@ -147,7 +147,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
@@ -244,7 +244,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
@@ -268,6 +268,27 @@ describe('modal', () => {
 
       // Backdrop should be removed
       expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('title-html prop works', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        propsData: {
+          static: true,
+          id: 'test',
+          titleHtml: '<em>title</em>'
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+      await waitNT(wrapper.vm)
+
+      // Modal title
+      const $title = wrapper.find('.modal-title')
+      expect($title.exists()).toBe(true)
+      expect($title.html()).toContain('<em>title</em>')
 
       wrapper.destroy()
     })
@@ -324,6 +345,37 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('ok-title-html and cancel-title-html works', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        propsData: {
+          static: true,
+          okTitleHtml: '<em>ok</em>',
+          cancelTitleHtml: '<em>cancel</em>'
+        }
+      })
+      expect(wrapper).toBeDefined()
+
+      const $buttons = wrapper.findAll('footer button')
+      expect($buttons.length).toBe(2)
+
+      // Cancel button (left-most button)
+      const $cancel = $buttons.at(0)
+      expect($cancel.attributes('type')).toBe('button')
+      expect($cancel.text()).toContain('cancel')
+      // v-html is applied to a span
+      expect($cancel.html()).toContain('<span><em>cancel</em></span>')
+
+      // OK button (right-most button)
+      const $ok = $buttons.at(1)
+      expect($ok.attributes('type')).toBe('button')
+      expect($ok.text()).toContain('ok')
+      // v-html is applied to a span
+      expect($ok.html()).toContain('<span><em>ok</em></span>')
+
+      wrapper.destroy()
+    })
   })
 
   describe('button and event functionality', () => {
@@ -362,7 +414,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       const $buttons = wrapper.findAll('header button')
       expect($buttons.length).toBe(1)
@@ -388,7 +440,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should still be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal (and not prevent it)
       cancelHide = false
@@ -442,7 +494,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       const $buttons = wrapper.findAll('footer button')
       expect($buttons.length).toBe(2)
@@ -468,7 +520,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should still be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal (and not prevent it)
       cancelHide = false
@@ -524,7 +576,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       expect(wrapper.emitted('hide')).not.toBeDefined()
       expect(trigger).toEqual(null)
@@ -582,7 +634,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       expect(wrapper.emitted('hide')).not.toBeDefined()
       expect(trigger).toEqual(null)
@@ -648,7 +700,7 @@ describe('modal', () => {
       const $footer = wrapper.find('footer.modal-footer')
       expect($footer.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       expect(wrapper.emitted('hide')).not.toBeDefined()
       expect(trigger).toEqual(null)
@@ -668,7 +720,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Modal should not be closed
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via a "dragged" click out
       // starting from inside modal and finishing on backdrop
@@ -685,7 +737,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Modal should not be closed
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via click out
       $modal.trigger('click')
@@ -738,7 +790,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
@@ -788,7 +840,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via `bv::toggle::modal`
       wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
@@ -809,7 +861,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // Modal should now be open
+      // Modal should not be open
       expect($modal.element.style.display).toEqual('none')
 
       wrapper.destroy()
@@ -880,7 +932,7 @@ describe('modal', () => {
 
       // Modal should now be open
       expect(called).toBe(true)
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       wrapper.destroy()
     })
@@ -919,7 +971,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via `.toggle()` method
       wrapper.vm.toggle()
@@ -990,7 +1042,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).not.toBe($button.element)
       expect($modal.element.contains(document.activeElement)).toBe(true)
@@ -1072,7 +1124,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).not.toBe($button2.element)
@@ -1128,7 +1180,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('')
+      expect($modal.element.style.display).toEqual('block')
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).toBe($modal.element)
 

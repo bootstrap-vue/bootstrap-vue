@@ -13,7 +13,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BCardTitle = /*#__PURE__*/ Vue.extend({
   name: 'BCardTitle',
   functional: true,
   props,
@@ -27,3 +27,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCardTitle

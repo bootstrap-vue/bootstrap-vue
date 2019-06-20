@@ -1,8 +1,6 @@
 import Vue from '../../utils/vue'
 import modalManager from './helpers/modal-manager'
 import BvModalEvent from './helpers/bv-modal-event.class'
-import BButton from '../button/button'
-import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -15,6 +13,8 @@ import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
+import { BButton } from '../button/button'
+import { BButtonClose } from '../button/button-close'
 
 // --- Constants ---
 
@@ -218,7 +218,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
@@ -250,8 +250,7 @@ export default Vue.extend({
       return [
         {
           fade: !this.noFade,
-          show: this.isShow,
-          'd-block': this.isBlock
+          show: this.isShow
         },
         this.modalClass
       ]
@@ -260,7 +259,10 @@ export default Vue.extend({
       const sbWidth = `${this.scrollbarWidth}px`
       return {
         paddingLeft: !this.isBodyOverflowing && this.isModalOverflowing ? sbWidth : '',
-        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : ''
+        paddingRight: this.isBodyOverflowing && !this.isModalOverflowing ? sbWidth : '',
+        // Needed to fix issue https://github.com/bootstrap-vue/bootstrap-vue/issues/3457
+        // Even though we are using v-show, we must ensure 'none' is restored in the styles
+        display: this.isBlock ? 'block' : 'none'
       }
     },
     dialogClasses() {
@@ -573,15 +575,15 @@ export default Vue.extend({
       eventOn(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
     },
     onClickOut(evt) {
+      if (this.ignoreBackdropClick) {
+        // Click was initiated inside the modal content, but finished outside.
+        // Set by the above onDialogMousedown handler
+        this.ignoreBackdropClick = false
+        return
+      }
       // Do nothing if not visible, backdrop click disabled, or element
       // that generated click event is no longer in document body
       if (!this.isVisible || this.noCloseOnBackdrop || !contains(document.body, evt.target)) {
-        return
-      }
-      if (this.ignoreBackdropClick) {
-        // Click was initiated inside the modal content, but finished outside
-        // Set by the above onDialogMousedown handler
-        this.ignoreBackdropClick = false
         return
       }
       // If backdrop clicked, hide modal
@@ -713,11 +715,13 @@ export default Vue.extend({
               [this.normalizeSlot('modal-header-close', {})]
             )
           }
+          const domProps =
+            !this.hasNormalizedSlot('modal-title') && this.titleHtml
+              ? { innerHTML: this.titleHtml }
+              : {}
           modalHeader = [
-            h(this.titleTag, { class: ['modal-title'] }, [
-              this.normalizeSlot('modal-title', this.slotScope) ||
-                this.titleHtml ||
-                stripTags(this.title)
+            h(this.titleTag, { class: ['modal-title'], domProps }, [
+              this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)
             ]),
             closeButton
           ]
@@ -753,6 +757,7 @@ export default Vue.extend({
         if (!modalFooter) {
           let cancelButton = h(false)
           if (!this.okOnly) {
+            const cancelHtml = this.cancelTitleHtml ? { innerHTML: this.cancelTitleHtml } : null
             cancelButton = h(
               BButton,
               {
@@ -765,11 +770,11 @@ export default Vue.extend({
               },
               [
                 this.normalizeSlot('modal-cancel', {}) ||
-                  this.cancelTitleHtml ||
-                  stripTags(this.cancelTitle)
+                  (cancelHtml ? h('span', { domProps: cancelHtml }) : stripTags(this.cancelTitle))
               ]
             )
           }
+          const okHtml = this.okTitleHtml ? { innerHTML: this.okTitleHtml } : null
           const okButton = h(
             BButton,
             {
@@ -780,7 +785,10 @@ export default Vue.extend({
               },
               on: { click: this.onOk }
             },
-            [this.normalizeSlot('modal-ok', {}) || this.okTitleHtml || stripTags(this.okTitle)]
+            [
+              this.normalizeSlot('modal-ok', {}) ||
+                (okHtml ? h('span', { domProps: okHtml }) : stripTags(this.okTitle))
+            ]
           )
           modalFooter = [cancelButton, okButton]
         }
@@ -911,3 +919,5 @@ export default Vue.extend({
     }
   }
 })
+
+export default BModal

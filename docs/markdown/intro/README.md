@@ -1,21 +1,35 @@
 # Getting Started
 
-> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap V4, for
+> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for
 > building responsive, mobile-first sites using Vue.js.
 
 - [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
 - [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
   recommended
-- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required
-  by [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required by
+  [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
+
+## Prerequisites
+
+Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
+and Bootstrap v4.3 CSS. If you are unfamiliar with Vue and/or Bootstrap, good starting points would
+be:
+
+- [Vue Guide](https://vuejs.org/v2/guide/)
+- [Vue API](https://vuejs.org/v2/api/)
+- [Bootstrap documentation](https://getbootstrap.com/)
+
+In many of the examples in BootstrapVue's documentation, you may see CSS classes used such as `ml-2`,
+`py-1`, etc., which are Bootstrap v4.3 utility classes. You can find information on these classes in
+the [Utility Classes](/docs/reference/utility-classes) reference section.
 
 ## Using module bundlers
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org/), etc you may prefer to directly include the package into your
 project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
-Bootstrap 4:
+Bootstrap v4:
 
 ```bash
 # With npm
@@ -72,7 +86,8 @@ section.
 
 ### Aliasing Vue import
 
-BootstrapVue and PortalVue require access to the global `Vue` reference (via `import Vue from 'vue'`).
+BootstrapVue and PortalVue require access to the global `Vue` reference (via
+`import Vue from 'vue'`).
 
 <div class="alert alert-info mb-3">
   <p class="mb-0">
@@ -164,7 +179,7 @@ $grid-breakpoints: (
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
 
-// And define any of your custom overides or additional CSS/SCSS here,
+// And define any of your custom overrides or additional CSS/SCSS here,
 // or via an @import
 ```
 
@@ -174,11 +189,12 @@ In your app main entry point include the single custom SCSS file (when using `sa
 // app.js
 import 'custom.scss'
 ```
+
 ### transformAssetUrls with Nuxt.js
 
-<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin
-module will automatically add in the BootstrapVue specific
-[`transformAssetUrls`](/docs/reference/images) image `src` prop configuration for you.
+<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin module
+will automatically add in the BootstrapVue specific [`transformAssetUrls`](/docs/reference/images)
+image `src` prop configuration for you.
 
 ### Tree shaking with Nuxt.js
 
@@ -245,8 +261,8 @@ Note that when importing individual components, any component aliases will **not
 </div>
 
 Do not use the Nuxt module If you want to import individual BootstrapVue components into _specific_
-pages and/or components of your Nuxt app. Instead follow the [module bundlers](#using-module-bundlers)
-section above as well as the
+pages and/or components of your Nuxt app. Instead follow the
+[module bundlers](#using-module-bundlers) section above as well as the
 [selective import](#selective-component-and-directive-inclusion-in-module-bundlers) sections below.
 
 ### Passing custom BootstrapVue config with Nuxt.js
@@ -366,8 +382,8 @@ components and/or directives.
 <div class="alert alert-info">
   <p class="mb-0">
     <b>Note:</b> Optimal tree shaking only works when webpack 4 is in
-    [<code>production</code>](https://webpack.js.org/guides/tree-shaking) mode and javascript
-    minification is enabled.
+    <a href="https://webpack.js.org/guides/tree-shaking"><code>production</code></a> mode and
+    javascript minification is enabled.
   </p>
 </div>
 
@@ -375,8 +391,8 @@ components and/or directives.
 
 <span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
 
-You can import component groups and directives as Vue plugins by importing from the `components`
-or `directives` directory:
+You can import component groups and directives as Vue plugins by importing from the `components` or
+`directives` directory:
 
 <!-- eslint-disable import/first, import/no-duplicates -->
 
@@ -457,8 +473,8 @@ Vue.directive('b-modal', VBModal)
 ```
 
 Vue allows for various component and directive name syntaxes here, so feel free to utilize
-<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or object
-property shorthand (components only).
+<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or
+object property shorthand (components only).
 
 ## Browser
 
@@ -498,17 +514,17 @@ bundler supports es modules, it will automatically prefer it over commonjs.
 | ES module      | webpack 2+ / rollup.js | `es/index.js` <span class="badge badge-warning">Deprecated in 2.0.0-rc.22</span> |
 
 All of the build variants listed above have been pre-transpiled targeting the browsers supported by
-BootstrapVue. However, if you are targeting only modern browsers, you may want to import `BootstrapVue`
-from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your own project.
-This can potentially reduce bundle sizes.
+BootstrapVue. However, if you are targeting only modern browsers, you may want to import
+`BootstrapVue` from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your
+own project. This can potentially reduce bundle sizes.
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts, etc), and `vue-functional-data-merge` (for functional components) and parts of `core-ui`.
+(for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
 These four dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 
-If you've already been using Bootstrap 4, there are a couple adjustments you may need to make to
+If you've already been using Bootstrap v4, there are a couple adjustments you may need to make to
 your project:
 
 - Remove the bootstrap.js file from your page scripts or build pipeline
@@ -520,9 +536,9 @@ your project:
 
 ### CSS
 
-BootstrapVue is to be used with Bootstrap 4.3 CSS/SCSS. Please see
+BootstrapVue is to be used with Bootstrap v4.3 CSS/SCSS. Please see
 [Browsers and devices](https://getbootstrap.com/docs/4.3/getting-started/browsers-devices) for more
-information about browsers currently supported by Bootstrap 4.
+information about browsers currently supported by Bootstrap v4.
 
 ### JS
 
@@ -536,8 +552,23 @@ Following features and APIs are used by BootstrapVue:
 - `MutationObserver`
 
 If you want to support older IE, Android and iOS devices, you may want to use
-[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/) and
+[core-js](https://github.com/zloirock/core-js) and
 [mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
+
+- `npm install core-js regenerator-runtime mutationobserver-shim`
+- Import the polyfills in your app main entry point:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+import 'core-js/stable"'
+import 'regenerator-runtime/runtime'
+import 'mutationobserver-shim'
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+```
+
+If using deprecated [@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/):
 
 - `npm install @babel/polyfill mutationobserver-shim`
 - Import the polyfills in your app main entry point:
@@ -551,9 +582,9 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 ```
 
-Alternatively use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
-polyfills via `<script>` tags in the HTML `<head>` section. See [Browser](#browser) section for an
-example.
+Alternatively, use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
+polyfills via `<script>` tags in the HTML `<head>` section. See the [Browser](#browser) section
+above for an example.
 
 ## Tooling support
 

@@ -191,7 +191,7 @@ Visually move the tab controls to the bottom by setting the prop `end`.
 **Caveats:**
 
 - Bottom placement visually works best with the `pills` variant. When using the default `tabs`
-  variant, you may want to provided your own custom styling classes, as Bootstrap V4 CSS assumes the
+  variant, you may want to provided your own custom styling classes, as Bootstrap v4 CSS assumes the
   tabs will always be placed on the top of the tabs content.
 - To provide a better user experience with bottom placed controls, ensure that the content of each
   tab pane is the same height and fits completely within the visible viewport, otherwise the user
@@ -254,7 +254,7 @@ column classes such as `col-2`, `col-3`, etc.
 ```
 
 Vertical placement visually works best with the `pills` variant. When using the default `tabs`
-variant, you may want to provided your own custom styling classes, as Bootstrap V4 CSS assumes the
+variant, you may want to provided your own custom styling classes, as Bootstrap v4 CSS assumes the
 tab controls will always be placed on the top of the tabs content.
 
 **Note:** _overflowing text may occur if your width is narrower than the tab title. You may need
@@ -338,7 +338,7 @@ which does not support child interactive elements per the HTML5 spec.
 
 ## Apply custom classes to the generated nav-tabs or pills
 
-The tab selectors are based on Bootstrap V4's `nav` markup ( i.e.
+The tab selectors are based on Bootstrap v4's `nav` markup ( i.e.
 `ul.nav > li.nav-item > a.nav-link`). In some situations, you may want to add classes to the `<li>`
 (nav-item) and/or the `<a>` (nav-link) on a per tab basis. To do so, simply supply the classname to
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the `<a>`

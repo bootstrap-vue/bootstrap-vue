@@ -1,14 +1,14 @@
-import BTabs from './tabs'
-import BTab from './tab'
-import { installFactory } from '../../utils/plugins'
+import { BTabs } from './tabs'
+import { BTab } from './tab'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BTabs,
-  BTab
-}
+const TabsPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BTabs,
+    BTab
+  }
+})
 
-export { BTabs, BTab }
+export { TabsPlugin, BTabs, BTab }
 
-export default {
-  install: installFactory({ components })
-}
+export default TabsPlugin

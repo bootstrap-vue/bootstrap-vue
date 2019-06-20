@@ -1,13 +1,13 @@
-import BFormFile from './form-file'
-import { installFactory } from '../../utils/plugins'
+import { BFormFile } from './form-file'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BFormFile,
-  BFile: BFormFile
-}
+const FormFilePlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BFormFile,
+    BFile: BFormFile
+  }
+})
 
-export { BFormFile }
+export { FormFilePlugin, BFormFile }
 
-export default {
-  install: installFactory({ components })
-}
+export default FormFilePlugin

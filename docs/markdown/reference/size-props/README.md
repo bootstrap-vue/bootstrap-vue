@@ -1,12 +1,12 @@
 # Sizing props and classes
 
-> Bootstrap V4 CSS provides several classes that control the sizing of elements, of which some of
+> Bootstrap v4 CSS provides several classes that control the sizing of elements, of which some of
 > these have been translated into props on components.
 
 ## Component `size` prop
 
 Various components allow for an optional size (via the `size` prop). Below are the sizes supported
-via the default Bootstrap V4 CSS.
+via the default Bootstrap v4 CSS.
 
 Available Sizes:
 
@@ -21,7 +21,7 @@ component used on, such as `.btn-<size>` for buttons, `.modal-<size>` for modal,
 
 ## Breakpoint sizes
 
-Bootstrap V4 also includes viewport breakpoint sizes: `xs`, `sm`, `md`, `lg`, and `xl`. which refer
+Bootstrap v4 also includes viewport breakpoint sizes: `xs`, `sm`, `md`, `lg`, and `xl`. which refer
 to the width of the user's view port.
 
 For details on breakpoint sizes, please check the [Layout and Grid](/docs/layout/) documentation.
@@ -76,4 +76,4 @@ needed.
 
 ## Additional resources
 
-Refer to [Bootstrap V4](https://getbootstrap.com/) official documentation site for more information.
+Refer to [Bootstrap v4](https://getbootstrap.com/) official documentation site for more information.

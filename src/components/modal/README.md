@@ -39,9 +39,10 @@ present, nor can you use the `modal-title` slot.
 
 <span class="badge badge-warning small">CHANGED in 2.0.0-rc.20</span> Modals will not render their
 content in the document until they are shown (lazily rendered). Modals, when visible, are rendered
-**appended to the `<body>` element**. The placement of the `<b-modal>` component will not affect layout,
-as it always renders as a placeholder comment node (`<!---->`). You can revert to the behaviour of
-previous BootstrapVue versions via the use of the [`static` prop](#lazy-loading-and-static-modals).
+**appended to the `<body>` element**. The placement of the `<b-modal>` component will not affect
+layout, as it always renders as a placeholder comment node (`<!---->`). You can revert to the
+behaviour of previous BootstrapVue versions via the use of the
+[`static` prop](#lazy-loading-and-static-modals).
 
 ## Toggle modal visibility
 
@@ -76,9 +77,9 @@ See the [Accessibility](#accessibility) section below for details.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
-When BootstrapVue is installed as a plugin, or the <samp>ModalPlugin</samp> plugin is used, BoostrapVue
-will inject a `$bvModal` object on every Vue instance (components, apps). `this.$bvModal` exposes
-several methods, of which two are for showing and hiding modals:
+When BootstrapVue is installed as a plugin, or the <samp>ModalPlugin</samp> plugin is used,
+BoostrapVue will inject a `$bvModal` object on every Vue instance (components, apps).
+`this.$bvModal` exposes several methods, of which two are for showing and hiding modals:
 
 | Method                   | Description                            |
 | ------------------------ | -------------------------------------- |
@@ -389,9 +390,9 @@ render changes of the content into the target.
 Modals can be rendered _in-place_ in the document (i.e. where the `<b-modal>` component is placed in
 the document) by setting the `static` prop to `true`. Note that the content of the modal will be
 rendered in the DOM even if the modal is not visible/shown when `static` is `true`. To make `static`
-modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the
-document _only_ when it is visible. Note, when in `static` mode, placement of the `<b-modal>`
-component _may affect layout_ of your document and the modal.
+modals lazy rendered, also set the `lazy` prop to `true`. The modal will then appear in the document
+_only_ when it is visible. Note, when in `static` mode, placement of the `<b-modal>` component _may
+affect layout_ of your document and the modal.
 
 The `lazy` prop will have no effect if the prop `static` is not `true` (non-static modals will
 _always_ be lazily rendered).
@@ -680,7 +681,7 @@ The scope available to the slots that support optional scoping are:
 
 ## Multiple modal support
 
-Unlike native Bootstrap V4, BootstrapVue supports multiple modals opened at the same time.
+Unlike native Bootstrap v4, BootstrapVue supports multiple modals opened at the same time.
 
 To disable stacking for a specific modal, just set the prop `no-stacking` on the `<b-modal>`
 component. This will hide the modal before another modal is shown.

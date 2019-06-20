@@ -145,7 +145,7 @@ const removeTooltip = el => {
 /*
  * Export our directive
  */
-export default {
+export const VBTooltip = {
   bind(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
   },
@@ -166,3 +166,5 @@ export default {
     removeTooltip(el)
   }
 }
+
+export default VBTooltip

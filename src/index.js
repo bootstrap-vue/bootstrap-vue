@@ -11,14 +11,13 @@ export * from './components/index.esm'
 export * from './directives/index.esm'
 
 // BootstrapVue installer
-const install = installFactory({ plugins: { componentsPlugin, directivesPlugin } })
+const install = /*#__PURE__*/ installFactory({ plugins: { componentsPlugin, directivesPlugin } })
 
 // BootstrapVue plugin
-const BootstrapVue = {
+const BootstrapVue = /*#__PURE__*/ {
   install: install,
-  setConfig: config => /* istanbul ignore next: to be deprecated. not documented */ {
-    setConfig(config)
-  }
+  // To be deprecated. not documented
+  setConfig: setConfig
 }
 
 // Named exports for BvConfigPlugin and BootstrapVue
@@ -37,7 +36,7 @@ export {
   //   BootstrapVue = require('bootstrap-vue').default
   //   Vue.use(BootstrapVue)
   install,
-  /* istanbul ignore next: to be deprecated. not documented */
+  // To be deprecated. not documented
   setConfig
 }
 

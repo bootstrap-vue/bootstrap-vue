@@ -23,7 +23,7 @@ export const props = {
 }
 
 // @vue/component
-export default Vue.extend({
+export const BCardFooter = /*#__PURE__*/ Vue.extend({
   name: 'BCardFooter',
   functional: true,
   props,
@@ -45,3 +45,5 @@ export default Vue.extend({
     )
   }
 })
+
+export default BCardFooter

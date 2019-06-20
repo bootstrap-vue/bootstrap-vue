@@ -254,7 +254,7 @@ export default {
             'custom-checkbox': this.isCustom && this.isCheck && !this.isSwitch,
             'custom-switch': this.isSwitch,
             'custom-radio': this.isCustom && this.isRadio,
-            // Temporary until BS V4 supports sizing (most likely in V5)
+            // Temporary until Bootstrap v4 supports sizing (most likely in V5)
             [`form-control-${this.getSize}`]: Boolean(this.getSize && !this.isBtnMode)
           }
         },

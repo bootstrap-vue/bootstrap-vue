@@ -1,12 +1,10 @@
-import BJumbotron from './jumbotron'
-import { installFactory } from '../../utils/plugins'
+import { BJumbotron } from './jumbotron'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BJumbotron
-}
+const JumbotronPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BJumbotron }
+})
 
-export { BJumbotron }
+export { JumbotronPlugin, BJumbotron }
 
-export default {
-  install: installFactory({ components })
-}
+export default JumbotronPlugin

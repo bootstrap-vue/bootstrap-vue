@@ -1,16 +1,16 @@
-import BButton from './button'
-import BButtonClose from './button-close'
-import { installFactory } from '../../utils/plugins'
+import { BButton } from './button'
+import { BButtonClose } from './button-close'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BButton,
-  BBtn: BButton,
-  BButtonClose,
-  BBtnClose: BButtonClose
-}
+const ButtonPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BButton,
+    BBtn: BButton,
+    BButtonClose,
+    BBtnClose: BButtonClose
+  }
+})
 
-export { BButton, BButtonClose }
+export { ButtonPlugin, BButton, BButtonClose }
 
-export default {
-  install: installFactory({ components })
-}
+export default ButtonPlugin

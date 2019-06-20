@@ -1,4 +1,4 @@
-// Generic Bootstrap V4 fade (no-fade) transition component
+// Generic Bootstrap v4 fade (no-fade) transition component
 
 import Vue from './vue'
 import { mergeData } from 'vue-functional-data-merge'
@@ -20,7 +20,7 @@ const FADE_PROPS = {
   leaveActiveClass: 'fade'
 }
 
-export const BVTransition = Vue.extend({
+export const BVTransition = /*#__PURE__*/ Vue.extend({
   name: 'BVTransition',
   functional: true,
   props: {

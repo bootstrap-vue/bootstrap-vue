@@ -145,7 +145,7 @@ const removePopover = el => {
 /*
  * Export our directive
  */
-export default {
+export const VBPopover = {
   bind(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
   },
@@ -166,3 +166,5 @@ export default {
     removePopover(el)
   }
 }
+
+export default VBPopover

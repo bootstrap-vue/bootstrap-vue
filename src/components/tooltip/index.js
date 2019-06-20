@@ -1,17 +1,12 @@
-import BTooltip from './tooltip'
-import VBTooltip from '../../directives/tooltip/tooltip'
-import { installFactory } from '../../utils/plugins'
+import { BTooltip } from './tooltip'
+import { VBTooltip } from '../../directives/tooltip/tooltip'
+import { pluginFactory } from '../../utils/plugins'
 
-const components = {
-  BTooltip
-}
+const TooltipPlugin = /*#__PURE__*/ pluginFactory({
+  components: { BTooltip },
+  directives: { VBTooltip }
+})
 
-const directives = {
-  VBTooltip
-}
+export { TooltipPlugin, BTooltip }
 
-export { BTooltip }
-
-export default {
-  install: installFactory({ components, directives })
-}
+export default TooltipPlugin

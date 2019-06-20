@@ -32,7 +32,7 @@ const Selector = {
 }
 
 // @vue/component
-const ModalManager = Vue.extend({
+const ModalManager = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       modals: [],

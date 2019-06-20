@@ -1,12 +1,10 @@
-import VBModal from './modal'
-import { installFactory } from '../../utils/plugins'
+import { VBModal } from './modal'
+import { pluginFactory } from '../../utils/plugins'
 
-const directives = {
-  VBModal
-}
+const VBModalPlugin = /*#__PURE__*/ pluginFactory({
+  directives: { VBModal }
+})
 
-export { VBModal }
+export { VBModalPlugin, VBModal }
 
-export default {
-  install: installFactory({ directives })
-}
+export default VBModalPlugin
