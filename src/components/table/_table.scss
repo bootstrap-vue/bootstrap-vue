@@ -26,18 +26,6 @@
     }
   }
 
-  // Make cells relatively position for thinks like tooltips, etc.
-  > thead,
-  > tfoot {
-    > tr {
-      > th,
-      > td {
-        // So dropdowns, tooltips, sorting, etc., will position properly
-        position: relative;
-      }
-    }
-  }
-
   // --- Header sort styling ---
   > thead,
   > tfoot {
@@ -45,17 +33,13 @@
       > th {
         &[aria-sort] {
           // `&.sorting`
-          position: relative;
-          padding-right: 1.125em;
           cursor: pointer;
 
           // Up/down sort=null indicator
           &::after {
-            position: absolute;
-            display: block;
-            bottom: 0;
-            right: 0.35em;
-            padding-bottom: inherit;
+            display: inline-block;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
             font-size: inherit;
             line-height: inherit;
             opacity: 0.4;
