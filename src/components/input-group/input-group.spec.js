@@ -83,6 +83,33 @@ describe('input-group', () => {
     )
   })
 
+  it('renders input-group-prepend & input-group-append when prepend-html & append-html props set', async () => {
+    const wrapper = mount(BInputGroup, {
+      propsData: {
+        prependHtml: '<i>foo</i>',
+        appendHtml: '<b>bar</b>'
+      },
+      slots: {
+        default: 'baz'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('input-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('foobazbar')
+    expect(wrapper.findAll('.input-group > *').length).toBe(2)
+    expect(wrapper.findAll('.input-group-prepend').length).toBe(1)
+    expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(1)
+    expect(wrapper.find('.input-group-prepend').text()).toBe('foo')
+    expect(wrapper.findAll('.input-group-append').length).toBe(1)
+    expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(1)
+    expect(wrapper.find('.input-group-append').text()).toBe('bar')
+    expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
+      true
+    )
+  })
+
   it('renders input-group-prepend & input-group-append when prepend & append slots present', async () => {
     const wrapper = mount(BInputGroup, {
       slots: {
