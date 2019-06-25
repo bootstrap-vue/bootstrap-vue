@@ -38,8 +38,7 @@
           // Up/down sort=null indicator
           &::after {
             display: inline-block;
-            padding-left: 0.5em;
-            padding-right: 0.5em;
+            padding-left: $b-table-sort-icon-padding-left;
             font-size: inherit;
             line-height: inherit;
             opacity: 0.4;
