@@ -39,7 +39,8 @@
           &::before {
             display: inline-block;
             float: right;
-            padding-left: $b-table-sort-icon-padding-left;
+            margin-left: $b-table-sort-icon-margin-left;
+            width: $b-table-sort-icon-width;
             font-size: inherit;
             line-height: inherit;
             opacity: 0.4;
