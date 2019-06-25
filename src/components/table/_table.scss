@@ -36,8 +36,9 @@
           cursor: pointer;
 
           // Up/down sort=null indicator
-          &::after {
+          &::before {
             display: inline-block;
+            float: right;
             padding-left: $b-table-sort-icon-padding-left;
             font-size: inherit;
             line-height: inherit;
@@ -47,14 +48,14 @@
           }
 
           // Ascending indicator
-          &[aria-sort="ascending"]::after {
+          &[aria-sort="ascending"]::before {
             // `&.sorting_asc::after.sorting_asc`
             opacity: 1;
             content: $b-table-sort-icon-ascending; // Down arrow
           }
 
           // Descending indicator
-          &[aria-sort="descending"]::after {
+          &[aria-sort="descending"]::before {
             // `&.sorting_desc::after`
             opacity: 1;
             content: $b-table-sort-icon-descending; // Up arrow
