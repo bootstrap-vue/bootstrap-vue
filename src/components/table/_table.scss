@@ -26,18 +26,6 @@
     }
   }
 
-  // Make cells relatively position for thinks like tooltips, etc.
-  > thead,
-  > tfoot {
-    > tr {
-      > th,
-      > td {
-        // So dropdowns, tooltips, sorting, etc., will position properly
-        position: relative;
-      }
-    }
-  }
-
   // --- Header sort styling ---
   > thead,
   > tfoot {
@@ -45,17 +33,14 @@
       > th {
         &[aria-sort] {
           // `&.sorting`
-          position: relative;
-          padding-right: 1.125em;
           cursor: pointer;
 
           // Up/down sort=null indicator
-          &::after {
-            position: absolute;
-            display: block;
-            bottom: 0;
-            right: 0.35em;
-            padding-bottom: inherit;
+          &::before {
+            display: inline-block;
+            float: right;
+            margin-left: $b-table-sort-icon-margin-left;
+            width: $b-table-sort-icon-width;
             font-size: inherit;
             line-height: inherit;
             opacity: 0.4;
@@ -64,14 +49,14 @@
           }
 
           // Ascending indicator
-          &[aria-sort="ascending"]::after {
+          &[aria-sort="ascending"]::before {
             // `&.sorting_asc::after.sorting_asc`
             opacity: 1;
             content: $b-table-sort-icon-ascending; // Down arrow
           }
 
           // Descending indicator
-          &[aria-sort="descending"]::after {
+          &[aria-sort="descending"]::before {
             // `&.sorting_desc::after`
             opacity: 1;
             content: $b-table-sort-icon-descending; // Up arrow
