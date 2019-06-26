@@ -18,8 +18,10 @@ and requirements.
 BootstrapVue’s custom components have been optimized for accessible/semantic generated HTML markup out of
 the box. This documentation aims to provide developers with best practice examples to demonstrate the use
 of Bootstrap itself and illustrate appropriate semantic markup, including ways in which potential
-accessibility concerns can be addressed. Most component documentation pages include an accessibility
-section (or sections) noting best practices and limitations.
+accessibility concerns can be addressed.
+
+Most component documentation pages include an accessibility section (or sections) noting best practices
+and limitations.
 
 ## Interactive components
 
@@ -76,12 +78,12 @@ In browsers/environments that allow the user to specify their preference for red
 transition effects in Bootstrap (for instance, when a modal dialog is opened or closed, or the sliding
 animation in carousels) will be disabled.
 
-If you are epecting animations and/or transitions to work and they are not, then you may have the
-reduced motion (no animation) setting enabled in your operating system.
+If you are expecting animations and/or transitions to work and they are not, then you may have the
+reduced motion (no animation) setting enabled in your operating system control panel.
 
 ## Additional resources
 
-- <a href="https://getbootstrap.com/docs/4.3/getting-started/accessibility/">Bootstrap v4 Accessibility Documentation</a>
+- <a href="https://getbootstrap.com/docs/4.3/getting-started/accessibility/" rel="noopener">Bootstrap v4 Accessibility Documentation</a>
 - <a href="https://www.w3.org/TR/WCAG20/" rel="noopener">Web Content Accessibility Guidelines (WCAG) 2.0</a>
 - <a href="https://a11yproject.com/" rel="noopener">The A11Y Project</a>
 - <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" rel="noopener">MDN accessibility documentation</a>
