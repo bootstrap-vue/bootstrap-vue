@@ -63,7 +63,7 @@ also be conveyed to non-visual users.
 </p>
 ```
 
-For visually hidden interactive controls, such as traditional "skip” links, class `.sr-only` can be
+For visually hidden interactive controls, such as traditional "skip" links, class `.sr-only` can be
 combined with the `.sr-only-focusable` class. This will ensure that the control becomes visible once
 focused (for sighted keyboard users).
 
