@@ -57,7 +57,7 @@
             Local copy
           </b-dropdown-item>
           <b-dropdown-item v-else-if="isPR" active href="/">
-            Pull Request {{ isPR }}
+            Pull Request #{{ isPR }}
           </b-dropdown-item>
           <b-dropdown-item :active="!isLocal && !isPR" href="https://bootstrap-vue.netlify.com" rel="nofollow">
             Development
