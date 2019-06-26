@@ -7,6 +7,7 @@
 <a name="2.0.0-rc.24"></a>
 
 ## [v2.0.0-rc.24](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.23...v2.0.0-rc.24)
+
 Released 2019-06-17
 
 ### Bug Fixes v2.0.0-rc.24

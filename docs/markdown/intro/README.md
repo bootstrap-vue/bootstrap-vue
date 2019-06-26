@@ -20,9 +20,9 @@ be:
 - [Vue API](https://vuejs.org/v2/api/)
 - [Bootstrap documentation](https://getbootstrap.com/)
 
-In many of the examples in BootstrapVue's documentation, you may see CSS classes used such as `ml-2`,
-`py-1`, etc., which are Bootstrap v4.3 utility classes. You can find information on these classes in
-the [Utility Classes](/docs/reference/utility-classes) reference section.
+In many of the examples in BootstrapVue's documentation, you may see CSS classes used such as
+`ml-2`, `py-1`, etc., which are Bootstrap v4.3 utility classes. You can find information on these
+classes in the [Utility Classes](/docs/reference/utility-classes) reference section.
 
 ## Using module bundlers
 

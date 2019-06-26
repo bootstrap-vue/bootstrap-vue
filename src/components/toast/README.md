@@ -482,10 +482,10 @@ for generating more complex toast content:
 Toasts are intended to be **small interruptions** to your visitors or users, so to help those with
 screen readers and similar assistive technologies, toasts are wrapped in an aria-live region.
 Changes to live regions (such as injecting/updating a toast component) are automatically announced
-by screen readers without needing to move the user’s focus or otherwise interrupt the user.
+by screen readers without needing to move the user's focus or otherwise interrupt the user.
 Additionally, `aria-atomic="true"` is automatically set to ensure that the entire toast is always
 announced as a single (atomic) unit, rather than announcing what was changed (which could lead to
-problems if you only update part of the toast’s content, or if displaying the same toast content at
+problems if you only update part of the toast's content, or if displaying the same toast content at
 a later point in time).
 
 ### Accessibility tips
@@ -498,7 +498,7 @@ provides general guidelines when using toasts.
 - If the information needed is important for the process, e.g. for a list of errors in a form, then
   use the [`<b-alert>`](/docs/components/alert) component instead of `<b-toast>`.
 - `<b-toast>`, by default, sets the attributes `role` to `'alert'` and `aria-live` to `'assertive'`.
-  If it’s an important message like an error, this default setting is appropriate, otherwise set the
+  If it's an important message like an error, this default setting is appropriate, otherwise set the
   prop `is-status` to `true` which will change the attributes `role` to `'status'` and `aria-live`
   to `'polite'`.
 - Avoid popping up a toast message on page load. Performing unexpected actions on page load is very
