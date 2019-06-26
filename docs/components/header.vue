@@ -48,15 +48,18 @@
 
     <b-navbar-nav class="flex-row ml-md-auto d-none d-md-flex">
       <b-nav-item-dropdown
-        :text="isDev ? (isLocal ? 'Local Copy' : 'Development') : `v${version}`"
+        :text="isDev ? (isLocal ? 'Local Copy' : (isPR ? `Pull #${isPR}` : 'Development')) : `v${version}`"
         toggle-class="mr-md-2"
         right
       >
-        <template v-if="isDev || isLocal">
+        <template v-if="isDev || isLocal || isPR">
           <b-dropdown-item v-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :active="!isLocal" href="https://bootstrap-vue.netlify.com" rel="nofollow">
+          <b-dropdown-item v-else-if="isPR" active href="/">
+            Pull Request {{ isPR }}
+          </b-dropdown-item>
+          <b-dropdown-item :active="!isLocal && !isPR" href="https://bootstrap-vue.netlify.com" rel="nofollow">
             Development
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
@@ -175,13 +178,16 @@ export default {
     return {
       version,
       isDev: false,
-      isLocal: false
+      isLocal: false,
+      isPR: false
     }
   },
   mounted() {
     const host = window.location.host || ''
     this.isLocal = host === 'localhost' || host === '127.0.0.1'
     this.isDev = host !== 'bootstrap-vue.js.org'
+    const matches = host.match(/^deploy-preview-(\d+)--bootstrap-vue\.netlify\.com$/i)
+    this.isPR = matches && matches[1]
   }
 }
 </script>
