@@ -305,7 +305,7 @@ recommended unless the content of the button textually conveys it's purpose.
 `<b-pagination>` supports keyboard navigation out of the box, and follows the
 [WAI-ARIA roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/#kbd_roving_tabindex)
 pattern.
- 
+
 - Tabbing into the pagination component will autofocus the current active page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the
   page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
