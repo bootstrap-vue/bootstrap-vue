@@ -304,7 +304,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         // In a nextTick to ensure currentTab has been set first.
         this.$nextTick(() => {
           // We emit shallow copies of the new and old arrays of tabs, to
-          // prevent users from mutating the internal arrays.
+          // prevent users from potentially mutating the internal arrays.
           this.$emit('changed', newVal.slice(), oldVal.slice())
         })
       }
@@ -377,21 +377,24 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       if (on) {
         // Make sure no existing observer running
         this.setObserver(false)
-        const config = {
+        const self = this
+        /* istanbul ignore next: difficult to test mutation observer in JSDOM */
+        const handler = () => {
+          // We delay the update to ensure that `tab.safeId()` has
+          // updated with the final ID value.
+          self.$nextTick(() => {
+            requestAF(() => {
+              self.updateTabs()
+            })
+          })
+        }
+        // Watch for changes to <b-tab> sub components
+        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, {
           childList: true,
           subtree: false,
           attributes: true,
           attributeFilter: ['id']
-        }
-        const handler = () => {
-          // We delay the update to ensure that `tab.safeId()` has
-          // updated with the final ID value.
-          this.$nextTick(() => {
-            requestAF(() => this.updateTabs)
-          })
-        }
-        // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), config)
+        })
       } else {
         if (this._bvObserver && this._bvObserver.disconnect) {
           this._bvObserver.disconnect()
