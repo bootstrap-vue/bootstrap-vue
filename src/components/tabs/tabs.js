@@ -317,7 +317,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           this.setObserver(true)
         })
       }
-      // enable/disable the observer
+      // enable or disable the observer
       this.setObserver(newVal)
     }
   },
