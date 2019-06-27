@@ -608,17 +608,24 @@ export const BModal = /*#__PURE__*/ Vue.extend({
 
       // if BACKSPACE is pressed and we are not inside a textarea or input
       // prevent default behavior of navigating to the previous page and hide the modal
-      if (
-        evt.keyCode === KeyCodes.BACKSPACE &&
-        (evt.target || evt.srcElement).tagName !== 'TEXTAREA' &&
-        (evt.target || evt.srcElement).tagName !== 'INPUT' &&
-        this.isVisible
-      ) {
+      if (evt.keyCode === KeyCodes.BACKSPACE && !isInputField(evt) && this.isVisible) {
         evt.preventDefault()
 
         if (!this.noCloseOnEsc) {
           this.hide('esc')
         }
+      }
+
+      function isInputField(evt) {
+        const target = evt.target || evt.srcElement
+        if (
+          target.tagName !== 'TEXTAREA' &&
+          target.tagName !== 'INPUT' &&
+          target.isContentEditable === false
+        ) {
+          return false
+        }
+        return true
       }
     },
     // Document focusin listener
