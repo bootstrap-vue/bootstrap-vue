@@ -610,8 +610,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // prevent default behavior of navigating to the previous page and hide the modal
       if (
         evt.keyCode === KeyCodes.BACKSPACE &&
-        (evt.target || evt.srcElement).tagName != 'TEXTAREA' &&
-        (evt.target || evt.srcElement).tagName != 'INPUT' &&
+        (evt.target || evt.srcElement).tagName !== 'TEXTAREA' &&
+        (evt.target || evt.srcElement).tagName !== 'INPUT' &&
         this.isVisible
       ) {
         evt.preventDefault()
