@@ -148,7 +148,7 @@ class ToolTip {
     this.updateConfig(config)
     // Destroy ourselves if the parent is destroyed
     if ($parent) {
-      $parent.$once('hook:beforeDestroy', this.destroy)
+      $parent.$once('hook:beforeDestroy', this.destroy.bind(this))
     }
   }
 
