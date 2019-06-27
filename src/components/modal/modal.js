@@ -600,10 +600,25 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     onClose() {
       this.hide('headerclose')
     },
-    onEsc(evt) {
+    onKeydown(evt) {
       // If ESC pressed, hide modal
       if (evt.keyCode === KeyCodes.ESC && this.isVisible && !this.noCloseOnEsc) {
         this.hide('esc')
+      }
+
+      // if BACKSPACE is pressed and we are not inside a textarea or input
+      // prevent default behavior of navigating to the previous page and hide the modal
+      if (
+        evt.keyCode === KeyCodes.BACKSPACE &&
+        (evt.target || evt.srcElement).tagName != 'TEXTAREA' &&
+        (evt.target || evt.srcElement).tagName != 'INPUT' &&
+        this.isVisible
+      ) {
+        evt.preventDefault()
+
+        if (!this.noCloseOnEsc) {
+          this.hide('esc')
+        }
       }
     },
     // Document focusin listener
@@ -850,7 +865,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null
           },
-          on: { keydown: this.onEsc, click: this.onClickOut }
+          on: { keydown: this.onKeydown, click: this.onClickOut }
         },
         [modalDialog]
       )
