@@ -24,11 +24,11 @@
             "description": "Emitted when a tab is added, removed, or tabs are re-ordered",
             "args": [
               {
-                "arg": "newTabs",
+                "arg": "currentTabs",
                 "description": "Array of the current b-tab instances, in document order."
               },
               {
-                "arg": "oldTabs",
+                "arg": "previousTabs",
                 "description": "Array of the previous b-tab instances, in document order."
               }
             ]
