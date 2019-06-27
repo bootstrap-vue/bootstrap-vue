@@ -375,10 +375,12 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         const handler = () => {
           // We wrap in a next tick to ensure that `tab.safeId()` has
           // updated with the final ID value.
-          this.$nextTick(() => this.updateTabs)
+          this.$nextTick(() => {
+            this.updateTabs()
+          })
         }
         // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), config)
+        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, config)
       } else {
         if (this._bvObserver && this._bvObserver.disconnect) {
           this._bvObserver.disconnect()
