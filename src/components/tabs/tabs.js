@@ -292,7 +292,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Wrapped in a nextTick + requestAF to ensure DOM and transitions have completed first.
       this.$nextTick(() => {
         requestAF(() => {
-          this.updateTabs()
+          // this.updateTabs()
         })
       })
     },
@@ -391,7 +391,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      // We use registeredTabs as the shouce of truth for child tab components. And we
+      // We use registeredTabs as the source of truth for child tab components. And we
       // filter out any BTab components that are extended BTab with a root child BTab.
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
       const tabs = this.registeredTabs.filter(
