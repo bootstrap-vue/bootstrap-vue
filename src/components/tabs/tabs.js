@@ -304,10 +304,12 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       if (newVal) {
         requestAF(() => {
           this.updateTabs()
+          this.setObserver(true)
         })
+      } else {
+        // disable the observer
+        this.setObserver(false)
       }
-      // Enable or disable the observer
-      this.setObserver(newVal)
     }
   },
   created() {
@@ -373,11 +375,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           attributeFilter: ['id']
         }
         const handler = () => {
-          // We wrap in a next tick to ensure that `tab.safeId()` has
+          // We delay the update to ensure that `tab.safeId()` has
           // updated with the final ID value.
-          this.$nextTick(() => {
-            requestAF(() => this.updateTabs)
-          })
+          requestAF(() => this.updateTabs)
         }
         // Watch for changes to <b-tab> sub components
         this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), config)
