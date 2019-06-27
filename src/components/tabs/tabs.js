@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
 import { requestAF, selectAll } from '../../utils/dom'
@@ -295,9 +296,21 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         })
       })
     },
+    tabs(newVal, oldVal) {
+      // If tabs added, removed, or re-ordered, we emit a `changed` event.
+      // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
+      // in a nextTick if no explicit ID is provided, causing duplicate emits.
+      if (!looseEqual(newVal.map(t => t._uid), oldVal.map(t => t._uid))) {
+        // In a nextTick to ensure currentTab has been set first.
+        this.$nextTick(() => {
+          // We emit shallow copies of the new and old arrays of tabs, to
+          // prevent users from potentially mutating the internal arrays.
+          this.$emit('changed', newVal.slice(), oldVal.slice())
+        })
+      }
+    },
     isMounted(newVal, oldVal) {
-      // Trigger an update after mounted.  Needed
-      // for tabs inside lazy modals.
+      // Trigger an update after mounted.  Needed for tabs inside lazy modals.
       if (newVal) {
         requestAF(() => {
           this.updateTabs()
@@ -363,8 +376,19 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       if (on) {
         // Make sure no existing observer running
         this.setObserver(false)
+        const self = this
+        /* istanbul ignore next: difficult to test mutation observer in JSDOM */
+        const handler = () => {
+          // We delay the update to ensure that `tab.safeId()` has
+          // updated with the final ID value.
+          self.$nextTick(() => {
+            requestAF(() => {
+              self.updateTabs()
+            })
+          })
+        }
         // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, {
           childList: true,
           subtree: false,
           attributes: true,
@@ -378,7 +402,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      // We use registeredTabs as the shouce of truth for child tab components. And we
+      // We use registeredTabs as the source of truth for child tab components. And we
       // filter out any BTab components that are extended BTab with a root child BTab.
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
       const tabs = this.registeredTabs.filter(
