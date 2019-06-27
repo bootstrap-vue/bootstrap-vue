@@ -617,15 +617,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
 
       function isInputField(evt) {
-        const target = evt.target || evt.srcElement
-        if (
-          target.tagName !== 'TEXTAREA' &&
-          target.tagName !== 'INPUT' &&
-          target.isContentEditable === false
-        ) {
-          return false
-        }
-        return true
+        const el = evt.target || evt.srcElement
+        return el && (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT' || el.isContentEditable)
       }
     },
     // Document focusin listener
