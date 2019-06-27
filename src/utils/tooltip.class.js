@@ -684,6 +684,7 @@ class ToolTip {
 
   listen() {
     const el = this.$element
+    /* istanbul ignore next */
     if (!el) {
       return
     }
@@ -712,6 +713,7 @@ class ToolTip {
 
   unListen() {
     const el = this.$element
+    /* istanbul ignore next */
     if (!el) {
       return
     }
@@ -779,6 +781,7 @@ class ToolTip {
   /* istanbul ignore next */
   setModalListener(on) {
     const el = this.$element
+    /* istanbul ignore next */
     if (!el || !this.$root) {
       return
     }
