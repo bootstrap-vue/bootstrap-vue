@@ -297,8 +297,10 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       })
     },
     tabs(newVal, oldVal) {
-      // If tabs added, removed, or re-ordered, we emit a `changed` event
-      if (!looseEqual(newVal.map(t => t.safeId()), oldVal.map(t => t.safeId()))) {
+      // If tabs added, removed, or re-ordered, we emit a `changed` event.
+      // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
+      // in a nextTick if no explicit ID is provided, causing duplicate emits.
+      if (!looseEqual(newVal.map(t => t._uid), oldVal.map(t => t._uid))) {
         // In a nextTick to ensure currentTab has been set first.
         this.$nextTick(() => {
           // We emit shallow copies of the new and old arrays of tabs, to
