@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
 import { requestAF, selectAll } from '../../utils/dom'
@@ -287,17 +288,27 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     registeredTabs(newVal, oldVal) {
       // Each b-tab will register/unregister itself.
-      // We use this to detect when tabs are added/removed
-      // to trigger the update of the tabs.
+      // We use this to detect when tabs are added/removed to trigger the update of the tabs.
+      // Wrapped in a nextTick + requestAF to ensure DOM and transitions have completed first.
       this.$nextTick(() => {
         requestAF(() => {
           this.updateTabs()
         })
       })
     },
+    tabs(newVal, oldVal) {
+      // If tabs added, removed, or re-ordered, we emit a `changed` event
+      if (!looseEqual(newVal.map(t => t.safeId()), oldVal.map(t => t.safeId()))) {
+        // In a nextTick to ensure currentTab has been set first.
+        this.$nextTick(() => {
+          // We emit shallow copies of the new and old arrays of tabs, to
+          // prevent users from mutating the internal arrays.
+          this.$emit('changed', newVal.slice(), oldVal.slice())
+        })
+      }
+    },
     isMounted(newVal, oldVal) {
-      // Trigger an update after mounted.  Needed
-      // for tabs inside lazy modals.
+      // Trigger an update after mounted.  Needed for tabs inside lazy modals.
       if (newVal) {
         requestAF(() => {
           this.updateTabs()
