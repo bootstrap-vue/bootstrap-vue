@@ -314,7 +314,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       if (newVal) {
         requestAF(() => {
           this.updateTabs()
-          this.setObserver(true)
         })
       }
       // Enable or disable the observer
