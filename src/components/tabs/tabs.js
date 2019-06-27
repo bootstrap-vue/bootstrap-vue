@@ -366,13 +366,17 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       if (on) {
         // Make sure no existing observer running
         this.setObserver(false)
-        // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+        const config = {
           childList: true,
           subtree: false,
           attributes: true,
           attributeFilter: ['id']
-        })
+        }
+        const handler = () => {
+          this.$nextTick(() => this.updateTabs)
+        }
+        // Watch for changes to <b-tab> sub components
+        this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), config)
       } else {
         if (this._bvObserver && this._bvObserver.disconnect) {
           this._bvObserver.disconnect()
