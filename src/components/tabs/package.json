@@ -11,11 +11,25 @@
         "events": [
           {
             "event": "input",
-            "description": "Emits when a tab is shown. Used to update the v-model",
+            "description": "Emitted when a tab is shown. Used to update the v-model",
             "args": [
               {
                 "arg": "tabIndex",
                 "description": "Current selected tab index (0-based index)"
+              }
+            ]
+          },
+          {
+            "event": "changed",
+            "description": "Emitted when a tab is added, removed, or tabs are re-ordered",
+            "args": [
+              {
+                "arg": "newTabs",
+                "description": "Array of current b-tab instances"
+              },
+              {
+                "arg": "oldTabs",
+                "description": "Array of previous b-tab instances"
               }
             ]
           }
