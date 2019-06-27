@@ -373,6 +373,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           attributeFilter: ['id']
         }
         const handler = () => {
+          // We wrap in a next tick to ensure that `tab.safeId()` has
+          // updated with the final ID value.
           this.$nextTick(() => this.updateTabs)
         }
         // Watch for changes to <b-tab> sub components
