@@ -286,16 +286,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    registeredTabs(newVal, oldVal) {
-      // Each b-tab will register/unregister itself.
-      // We use this to detect when tabs are added/removed to trigger the update of the tabs.
-      // Wrapped in a nextTick + requestAF to ensure DOM and transitions have completed first.
-      this.$nextTick(() => {
-        requestAF(() => {
-          // this.updateTabs()
-        })
-      })
-    },
     tabs(newVal, oldVal) {
       // If tabs added, removed, or re-ordered, we emit a `changed` event.
       // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
