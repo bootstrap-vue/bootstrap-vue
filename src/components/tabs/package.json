@@ -25,11 +25,11 @@
             "args": [
               {
                 "arg": "newTabs",
-                "description": "Array of current b-tab instances"
+                "description": "Array of the current b-tab instances, in document order."
               },
               {
                 "arg": "oldTabs",
-                "description": "Array of previous b-tab instances"
+                "description": "Array of the previous b-tab instances, in document order."
               }
             ]
           }
