@@ -286,6 +286,16 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         }
       }
     },
+    registeredTabs(newVal, oldVal) {
+      // Each b-tab will register/unregister itself.
+      // We use this to detect when tabs are added/removed
+      // to trigger the update of the tabs.
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.updateTabs()
+        })
+      })
+    },
     tabs(newVal, oldVal) {
       // If tabs added, removed, or re-ordered, we emit a `changed` event.
       // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
@@ -306,10 +316,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           this.updateTabs()
           this.setObserver(true)
         })
-      } else {
-        // disable the observer
-        this.setObserver(false)
       }
+      // enable/disable the observer
+      this.setObserver(newVal)
     }
   },
   created() {
@@ -377,7 +386,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         const handler = () => {
           // We delay the update to ensure that `tab.safeId()` has
           // updated with the final ID value.
-          requestAF(() => this.updateTabs)
+          this.$nextTick(() => {
+            requestAF(() => this.updateTabs)
+          })
         }
         // Watch for changes to <b-tab> sub components
         this._bvObserver = observeDom(this.$refs.tabsContainer, handler.bind(this), config)
