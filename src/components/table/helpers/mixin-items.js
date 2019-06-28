@@ -45,7 +45,7 @@ export default {
     computedFieldsObj() {
       // Fields as a simple lookup hash object
       // Mainly for formatter lookup and scopedSlots for convenience
-      return this.computedFields.reduce((f, obj) => {
+      return this.computedFields.reduce((obj, f) => {
         obj[f.key] = f
         return obj
       }, {})
@@ -105,7 +105,7 @@ export default {
       const fieldsObj = this.computedFieldsObj
       const field = fieldsObj[key]
       const parent = this.$parent
-      let formatter = field.formatter
+      let formatter = field && field.formatter
       if (isString(formatter) && isFunction(parent[formatter])) {
         formatter = parent[formatter]
       } else if (!isFunction(formatter)) {
