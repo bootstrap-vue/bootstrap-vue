@@ -1,5 +1,5 @@
 import looseEqual from '../../../utils/loose-equal'
-import { isArray, isNull, isUndefined } from '../../../utils/inspect'
+import { isArray, isNull, isString, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
 
 export default {
@@ -113,6 +113,6 @@ export default {
       }
       // Return formatter function or undefind if none
       return formatter
-    },
+    }
   }
 }
