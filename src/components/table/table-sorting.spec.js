@@ -730,14 +730,14 @@ describe('table > sorting', () => {
     expect($tds.at(1).text()).toBe('2')
     expect($tds.at(1).text()).toBe('3') // 5 - 2
 
-    wrapper.setData({
+    wrapper.setProps({
       sortBy: 'c',
       sortDesc: false
     })
 
     // Grab the sorted TRs
     $trs = wrapper.findAll('tbody > tr')
-    expect ($trs.length).toBe(2)
+    expect($trs.length).toBe(2)
 
     // First Row - sorted (smallest first)
     $tds = $trs.at(0).findAll('td')
