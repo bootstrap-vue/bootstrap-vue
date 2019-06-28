@@ -9,7 +9,13 @@ import stringifyObjectValues from './stringify-object-values'
 //  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
 //  Multisort will most likey be handled in mixin-sort.js by calling this method for each sortBy
 
-export default function defaultSortCompare(a, b, sortBy, formatter , localeCompareOpts = { numeric: true }) {
+export default function defaultSortCompare(
+  a,
+  b,
+  sortBy,
+  formatter,
+  localeCompareOpts = { numeric: true }
+) {
   let aa = get(a, sortBy, '')
   let bb = get(b, sortBy, '')
   if (isFunction(formatter)) {
@@ -24,6 +30,10 @@ export default function defaultSortCompare(a, b, sortBy, formatter , localeCompa
     return aa < bb ? -1 : aa > bb ? 1 : 0
   } else {
     // Do localized string comparison
-    return stringifyObjectValues(aa).localeCompare(stringifyObjectValues(bb), undefined, localeCompareOpts)
+    return stringifyObjectValues(aa).localeCompare(
+      stringifyObjectValues(bb),
+      undefined,
+      localeCompareOpts
+    )
   }
 }
