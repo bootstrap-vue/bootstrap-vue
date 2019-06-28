@@ -1,5 +1,5 @@
 import looseEqual from '../../../utils/loose-equal'
-import { isArray, isNull, isString, isUndefined } from '../../../utils/inspect'
+import { isArray, isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
 
 export default {
