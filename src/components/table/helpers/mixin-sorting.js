@@ -90,7 +90,7 @@ export default {
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
       const localSorting = this.localSorting
-      const sortOptions = this.sortCompareOptions || {}
+      const sortOptions = { ...this.sortCompareOptions, usage: 'sort' }
       const sortLocale = this.sortCompareLocale || undefined
       if (sortBy && localSorting) {
         const formatter = this.getFieldFormatter(sortBy)
