@@ -36,6 +36,10 @@ export default {
         return { numeric: true }
       }
     },
+    sortCompareLocale: {
+      type: String
+      // default: undefined
+    },
     noSortReset: {
       // Another prop that should have had a better name.
       // It should be noSortClear (on non-sortable headers).
@@ -86,7 +90,8 @@ export default {
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
       const localSorting = this.localSorting
-      const sortCompareOptions = this.sortCompareOptions
+      const sortOptions = this.sortCompareOptions || {}
+      const sortLocale = this.sortCompareLocale || undefined
       if (sortBy && localSorting) {
         const formatter = this.getFieldFormatter(sortBy)
         // stableSort returns a new array, and leaves the original array intact
@@ -94,12 +99,12 @@ export default {
           let result = null
           if (isFunction(sortCompare)) {
             // Call user provided sortCompare routine
-            result = sortCompare(a, b, sortBy, sortDesc, formatter, sortCompareOptions || {})
+            result = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
           }
           if (isUndefined(result) || isNull(result) || result === false) {
             // Fallback to built-in defaultSortCompare if sortCompare
             // is not defined or returns null/false
-            result = defaultSortCompare(a, b, sortBy, formatter, sortCompareOptions || {})
+            result = defaultSortCompare(a, b, sortBy, formatter, sortOptions, sortLocale)
           }
           // Negate result if sorting in descending order
           return (result || 0) * (sortDesc ? -1 : 1)
