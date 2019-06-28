@@ -728,7 +728,7 @@ describe('table > sorting', () => {
     expect($tds.length).toBe(3)
     expect($tds.at(0).text()).toBe('5')
     expect($tds.at(1).text()).toBe('2')
-    expect($tds.at(1).text()).toBe('3') // 5 - 2
+    expect($tds.at(2).text()).toBe('3') // 5 - 2
 
     wrapper.setProps({
       sortBy: 'c',
@@ -744,7 +744,7 @@ describe('table > sorting', () => {
     expect($tds.length).toBe(3)
     expect($tds.at(0).text()).toBe('10')
     expect($tds.at(1).text()).toBe('9')
-    expect($tds.at(1).text()).toBe('1') // 10 - 9
+    expect($tds.at(2).text()).toBe('1') // 10 - 9
 
     wrapper.destroy()
   })
