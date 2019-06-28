@@ -14,7 +14,8 @@ export default function defaultSortCompare(
   b,
   sortBy,
   formatter,
-  localeCompareOpts = { numeric: true }
+  localeOpts,
+  locale
 ) {
   let aa = get(a, sortBy, '')
   let bb = get(b, sortBy, '')
@@ -32,8 +33,8 @@ export default function defaultSortCompare(
     // Do localized string comparison
     return stringifyObjectValues(aa).localeCompare(
       stringifyObjectValues(bb),
-      undefined,
-      localeCompareOpts
+      locale,
+      localeOpts
     )
   }
 }
