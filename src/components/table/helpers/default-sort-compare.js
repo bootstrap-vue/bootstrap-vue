@@ -1,5 +1,5 @@
 import get from '../../../utils/get'
-import { isDate, isNumber } from '../../../utils/inspect'
+import { isDate, isDefined, isFunction, isNumber } from '../../../utils/inspect'
 import stringifyObjectValues from './stringify-object-values'
 
 // Default sort compare routine
@@ -7,24 +7,23 @@ import stringifyObjectValues from './stringify-object-values'
 // TODO: add option to sort by multiple columns (tri-state per column, plus order of columns in sort)
 //  where sortBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
 //  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
+//  Multisort will most likey be handled in mixin-sort.js by calling this method for each sortBy
 
-export default function defaultSortCompare(a, b, sortBy) {
-  a = get(a, sortBy, '')
-  b = get(b, sortBy, '')
-  if ((isDate(a) && isDate(b)) || (isNumber(a) && isNumber(b))) {
+export default function defaultSortCompare(a, b, sortBy, formatter , localeCompareOpts = { numeric: true }) {
+  let aa = get(a, sortBy, '')
+  let bb = get(b, sortBy, '')
+  if (isFunction(formatter)) {
+    aa = formatter(aa, sortBy, a)
+    bb = formatter(bb, sortBy, b)
+  }
+  aa = isUndefined(aa) ? '' : aa
+  bb = isUndefined(bb) ? '' : bb
+  if ((isDate(aa) && isDate(bb)) || (isNumber(aa) && isNumber(bb))) {
     // Special case for comparing Dates and Numbers
     // Internally dates are compared via their epoch number values
-    if (a < b) {
-      return -1
-    } else if (a > b) {
-      return 1
-    } else {
-      return 0
-    }
+    return aa < bb ? -1 : aa > bb ? 1 : 0
   } else {
     // Do localized string comparison
-    return stringifyObjectValues(a).localeCompare(stringifyObjectValues(b), undefined, {
-      numeric: true
-    })
+    return stringifyObjectValues(aa).localeCompare(stringifyObjectValues(bb), undefined, localeCompareOpts)
   }
 }
