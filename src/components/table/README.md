@@ -1478,18 +1478,21 @@ direction) is **not** used in the sort comparison:
 function sortCompare(aRow, bRow, key) {
   const a = aRow[key] // or use Lodash _.get()
   const b = bRow[key]
-  if ((typeof a === 'number' && typeof b === 'number') || (a instanceof Date && b instanceof Date)) {
-    // If both compared fields are native numbers or both dates
+  if (
+    (typeof a === 'number' && typeof b === 'number') ||
+    (a instanceof Date && b instanceof Date)
+  ) {
+    // If both compared fields are native numbers or both are dates
     return a < b ? -1 : a > b ? 1 : 0
   } else {
-    // Stringify the field data and use String.localeCompare
-    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+    // Otherwise stringify the field data and use String.prototype.localeCompare
+    return toString(a).localeCompare(toString(b), undefined, {
       numeric: true
     })
   }
 }
 
-// Helper function to stringify the values of an object
+// Helper function to stringify the values of an Object
 function toString(value) {
   if (value === null || typeof value === 'undefined') {
     return ''
@@ -1498,8 +1501,9 @@ function toString(value) {
       .sort()
       .map(key => toString(value[key]))
       .join(' ')
+  } else {
+    return String(value)
   }
-  return String(value)
 }
 ```
 
