@@ -1,5 +1,5 @@
 import get from '../../../utils/get'
-import { isDate, isDefined, isFunction, isNumber } from '../../../utils/inspect'
+import { isDate, isUndefined, isFunction, isNumber } from '../../../utils/inspect'
 import stringifyObjectValues from './stringify-object-values'
 
 // Default sort compare routine
