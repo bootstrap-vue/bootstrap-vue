@@ -1,5 +1,5 @@
 import get from '../../../utils/get'
-import { isDate, isUndefined, isFunction, isNumber } from '../../../utils/inspect'
+import { isDate, isUndefined, isFunction, isNull, isNumber } from '../../../utils/inspect'
 import stringifyObjectValues from './stringify-object-values'
 
 // Default sort compare routine
@@ -22,8 +22,8 @@ export default function defaultSortCompare(
     aa = formatter(aa, sortBy, a)
     bb = formatter(bb, sortBy, b)
   }
-  aa = isUndefined(aa) ? '' : aa
-  bb = isUndefined(bb) ? '' : bb
+  aa = isUndefined(aa) || isNull(aa) ? '' : aa
+  bb = isUndefined(bb) || isNull(bb) ? '' : bb
   if ((isDate(aa) && isDate(bb)) || (isNumber(aa) && isNumber(bb))) {
     // Special case for comparing Dates and Numbers
     // Internally dates are compared via their epoch number values
