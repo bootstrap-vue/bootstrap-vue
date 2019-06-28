@@ -63,7 +63,7 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       /* istanbul ignore else */
       if (target) {
-        this._toolpop = new PopOver(target, this.getConfig(), this.$root)
+        this._toolpop = new PopOver(target, this.getConfig(), this)
       } else {
         this._toolpop = null
         warn("b-popover: 'target' element not found!")

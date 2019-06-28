@@ -129,7 +129,7 @@ const applyTooltip = (el, bindings, vnode) => {
   if (el[BV_TOOLTIP]) {
     el[BV_TOOLTIP].updateConfig(config)
   } else {
-    el[BV_TOOLTIP] = new ToolTip(el, config, vnode.context.$root)
+    el[BV_TOOLTIP] = new ToolTip(el, config, vnode.context)
   }
 }
 
