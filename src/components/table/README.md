@@ -1157,8 +1157,13 @@ as read-only.**
       :select-mode="selectMode"
       selectedVariant="success"
       :items="items"
+      :fields="fields"
       @row-selected="rowSelected"
-    ></b-table>
+    >
+      <template slot="selected" slot-scope="{ rowSelected }">
+        <b v-if="rowSelected">✓</b>
+      </template>
+    </b-table>
 
     {{ selected }}
   </div>
@@ -1169,6 +1174,13 @@ as read-only.**
     data() {
       return {
         modes: ['multi', 'single', 'range'],
+        fields: [ 
+          { key: 'selected', label: '', headerTitle: 'Selected' },
+          'isActive',
+          'age',
+          'first_name',
+          'last_name'
+        ],
         items: [
           { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
           { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
