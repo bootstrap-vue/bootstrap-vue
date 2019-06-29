@@ -881,7 +881,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 
 By default `b-table` escapes HTML tags in items data and results of formatter functions, if you need
 to display raw HTML code in `b-table`, you should use `v-html` directive on an element in a in
-scoped field slot
+scoped field slot.
 
 ```html
 <template>
@@ -921,11 +921,12 @@ scoped field slot
 
 ### Formatter callback
 
-One more option to customize field output is to use formatter callback function. To enable this
-field's property `formatter` is used. Value of this property may be String or function reference. In
-case of a String value, the function must be defined at the parent component's methods. Providing
-formatter as a `Function`, it must be declared at global scope (window or as global mixin at Vue),
-unless it has been bound to a `this` context.
+Optionally, you can customize field output by using a formatter callback function. To enable this,
+the field's `formatter` property is used. The value of this property may be String or function
+reference. In case of a String value, the function must be defined at the parent component's
+methods. When providing `formatter` as a `Function`, it must be declared at global scope (window
+or as global mixin at Vue, or as an anonymous function), unless it has been bound to a `this`
+context.
 
 The callback function accepts three arguments - `value`, `key`, and `item`, and should return the
 formatted value as a string (HTML strings are not supported)
@@ -1377,15 +1378,18 @@ _before_ `z`) or Sweedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts
 **Notes:**
 - The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the field
   data (scoped slots are used only for presentation only, and do not affect the underlying data).
-- Fields that have a formatter function (virtual field or regular field) will be sorted by the value
-  returned via the formater function.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> Fields that have a
+  [`formatter` function](#formatter-callback) (virtual field or regular field) will  be sorted by the
+  value returned via the formater function.
 - Refer to [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
   for details on the options object property values.
 - Refer to
   [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
   for details on locale values.
-- Not all browsers support the `locale` and `options` with `String.prototype.localeCompare()`. Refer
-  to [Can I Use](https://caniuse.com/#feat=localecompare) for browser support.
+- Not all browsers (or Node.js) support the `locale` and `options` with `String.prototype.localeCompare()`.
+  Refer to [Can I Use](https://caniuse.com/#feat=localecompare) for browser support. For Node.js, you may
+  need to add in [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the
+  default, to prevent [SSR hydration mismatch](https://ssr.vuejs.org/guide/hydration.html) errors.
 
 Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on sorting
 by presentational data.
@@ -1451,9 +1455,9 @@ The `sort-compare` routine is passed seven (7) arguments:
 - the third argument is the field `key` being sorted on (`sortBy`)
 - the fourth argument (`sortDesc`) is the order `<b-table>` will be displaying the records (`true`
   for descending, `false` for ascending)
-- the fith argument is the field's [formatter function](#formatter-callback) (or `undefined` if no
-  field formatter). You will need to call this method to get the formatted field value:
-  `val = formatter(a[key], key, a)`
+- the fith argument is a reference to the field's [formatter function](#formatter-callback) (or
+  `undefined` if no field formatter). You will need to call this method to get the formatted field
+  value: `val = formatter(a[key], key, a)`
 - the sixth argument is the value of the `sort-compare-options` prop (default is `{ numeric: true }`)
 - the seventh agument is the value of the `sort-compare-locale` prop (default is `undefined`)
 
@@ -1464,10 +1468,10 @@ method to compare strings.
 The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
 `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
 `b-table` will handle the direction, and is typically only needed when special handling of how `null`
-values are sorted). Tour custom sort-compare routine can also return `null` to fall back to the
-_built-in sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning
+values are sorted). Your custom sort-compare routine can also return `null` or `false` to fall back to
+the _built-in sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning
 `null`) to have your custom sort-compare routine handle only certain fields (keys) such as the special
-case of virtual (scoped slot) columns.
+case of virtual (scoped slot) columns, and have the internal sort-compare handle all other fields.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
