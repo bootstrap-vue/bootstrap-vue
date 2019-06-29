@@ -64,15 +64,10 @@ export default {
     // Method to get the value for a field
     getFormattedValue(item, field) {
       const key = field.key
-      const formatter = field.formatter
-      const parent = this.$parent
+      const formatter = this.getFieldFormatter(key)
       let value = get(item, key, null)
-      if (formatter) {
-        if (isFunction(formatter)) {
-          value = formatter(value, key, item)
-        } else if (isString(formatter) && isFunction(parent[formatter])) {
-          value = parent[formatter](value, key, item)
-        }
+      if (isFunction(formatter)) {
+        value = formatter(value, key, item)
       }
       return isUndefined(value) || isNull(value) ? '' : value
     },

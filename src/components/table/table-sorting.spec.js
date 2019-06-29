@@ -698,4 +698,54 @@ describe('table > sorting', () => {
 
     wrapper.destroy()
   })
+
+  it('sorting by virutal column formatter works', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        items: [{ a: 5, b: 2 }, { a: 10, b: 9 }],
+        fields: [
+          'a',
+          'b',
+          {
+            key: 'c',
+            sortable: true,
+            formatter(value, key, item) {
+              return item.a - item.b
+            }
+          }
+        ],
+        // Initialy unsorted
+        sortBy: ''
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    let $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(2)
+
+    // First Row - unsorted
+    let $tds = $trs.at(0).findAll('td')
+    expect($tds.length).toBe(3)
+    expect($tds.at(0).text()).toBe('5')
+    expect($tds.at(1).text()).toBe('2')
+    expect($tds.at(2).text()).toBe('3') // 5 - 2
+
+    wrapper.setProps({
+      sortBy: 'c',
+      sortDesc: false
+    })
+
+    // Grab the sorted TRs
+    $trs = wrapper.findAll('tbody > tr')
+    expect($trs.length).toBe(2)
+
+    // First Row - sorted (smallest first)
+    $tds = $trs.at(0).findAll('td')
+    expect($tds.length).toBe(3)
+    expect($tds.at(0).text()).toBe('10')
+    expect($tds.at(1).text()).toBe('9')
+    expect($tds.at(2).text()).toBe('1') // 10 - 9
+
+    wrapper.destroy()
+  })
 })
