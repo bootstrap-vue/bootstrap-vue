@@ -111,7 +111,7 @@ export default {
       } else if (!isFunction(formatter)) {
         formatter = undefined
       }
-      // Return formatter function or undefind if none
+      // Return formatter function or undefined if none
       return formatter
     }
   }
