@@ -98,7 +98,7 @@
     "codemirror": "^5.48.0",
     "codesandbox": "^2.1.6",
     "cross-env": "^5.2.0",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-vue": "^2.0.2",
