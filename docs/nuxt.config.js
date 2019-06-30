@@ -91,7 +91,7 @@ module.exports = {
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
 
-      config.devtool = 'source-map'
+      config.devtool = 'eval-source-map'
 
       config.module.rules.push({
         test: /\.md$/,
