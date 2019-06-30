@@ -107,7 +107,7 @@ workflows:
     jobs:
       - setup
       - lint:  { requires: [setup] }
-      - audit: { requires: [setup] }
+      # - audit: { requires: [setup] }
       - build: { requires: [setup] }
       - lint:  { requires: [build] }
       - test:  { requires: [build] }
