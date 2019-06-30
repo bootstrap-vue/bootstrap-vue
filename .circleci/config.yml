@@ -109,6 +109,6 @@ workflows:
       - lint:  { requires: [setup] }
       # - audit: { requires: [setup] }
       - build: { requires: [setup] }
-      - lint:  { requires: [build] }
-      - test:  { requires: [build] }
-      - docs:  { requires: [build], filters: { branches: { only: [master] } } }
+      - lint:  { requires: [setup] }
+      - test:  { requires: [setup] }
+      - docs:  { requires: [setup], filters: { branches: { only: [master] } } }
