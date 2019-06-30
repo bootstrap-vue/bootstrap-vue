@@ -4,6 +4,50 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.25"></a>
+
+## [v2.0.0-rc.25](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.24...v2.0.0-rc.24)
+
+Released 2019-06-30
+
+### Bug Fixes v2.0.0-rc.25
+
+- **b-input-group:** fix kebab-case prop names for `prepend-html` and `append-html` (fixes
+  [#3565](https://github.com/bootstrap-vue/bootstrap-vue/issues/3565))
+  ([#3567](https://github.com/bootstrap-vue/bootstrap-vue/issues/3567)
+  [e48d3dc](https://github.com/bootstrap-vue/bootstrap-vue/commit/e48d3dc))
+- **b-table:** adjustments to sort icon positioning SCSS (closes
+  [#3563](https://github.com/bootstrap-vue/bootstrap-vue/issues/3563))
+  ([#3568](https://github.com/bootstrap-vue/bootstrap-vue/issues/3568)
+  [5c572e8](https://github.com/bootstrap-vue/bootstrap-vue/commit/5c572e8))
+
+### Features v2.0.0-rc.25
+
+- **b-table:** sort fields by formatted value for fields that have a formatter function + support
+  for optional `localCompare` options and locale
+  (closes [#3178](https://github.com/bootstrap-vue/bootstrap-vue/issues/3178),
+  [#1173](https://github.com/bootstrap-vue/bootstrap-vue/issues/1173))
+  ([#3585](https://github.com/bootstrap-vue/bootstrap-vue/issues/3585)
+  [c0ca1fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/c0ca1fd))
+- **b-table, b-table-lite:** don't render `thead` or `tfoot` if no detected fields for accessibility
+  reasons (closes [#3547](https://github.com/bootstrap-vue/bootstrap-vue/issues/3547))
+  ([#3553](https://github.com/bootstrap-vue/bootstrap-vue/issues/3553)
+  [a924889](https://github.com/bootstrap-vue/bootstrap-vue/commit/a924889))
+- **b-tabs:** emit new `changed` event whenever tabs are added, removed or re-ordered (closes
+  [#3575](https://github.com/bootstrap-vue/bootstrap-vue/issues/3575))
+  ([#3577](https://github.com/bootstrap-vue/bootstrap-vue/issues/3577)
+  [841419a](https://github.com/bootstrap-vue/bootstrap-vue/commit/841419a))
+- **tooltips, popovers:** remove need for route watcher, preventing open tooltip/popover from
+  automatically closing if child route changes and trigger element is still in document
+  ([#3583](https://github.com/bootstrap-vue/bootstrap-vue/issues/3583)
+  [98844b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/98844b4))
+
+### Notes v2.0.0-rc.25
+
+Users should switch to the simplified import syntax (introduced in `v2.0.0-rc.22`) when importing
+individual plugins, components, and/or directives. **Importing from the `es/` build directory has
+been deprecated and will be removed in 2.0.0 stable release.**
+
 <a name="2.0.0-rc.24"></a>
 
 ## [v2.0.0-rc.24](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.23...v2.0.0-rc.24)
