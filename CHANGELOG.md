@@ -6,7 +6,7 @@
 
 <a name="2.0.0-rc.25"></a>
 
-## [v2.0.0-rc.25](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.24...v2.0.0-rc.24)
+## [v2.0.0-rc.25](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.24...v2.0.0-rc.25)
 
 Released 2019-06-30
 
