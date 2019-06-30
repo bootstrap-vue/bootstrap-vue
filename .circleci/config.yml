@@ -83,7 +83,7 @@ jobs:
           at: ~/project
       - run:
           name: Tests
-          command: yarn test -w=2 --coverage && yarn coverage
+          command: yarn test -w=2 --coverage && yarn codecov
 
   # --------------------------------------------------------------------------
   # Phase 4: Publish docs (master branch only)
