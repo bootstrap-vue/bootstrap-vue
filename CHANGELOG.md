@@ -23,20 +23,22 @@ Released 2019-06-30
 
 ### Features v2.0.0-rc.25
 
-- **b-table:** sort fields that have a formatter function + support `localCompare` options (closes
-  [#3178](https://github.com/bootstrap-vue/bootstrap-vue/issues/3178),
+- **b-table:** sort fields by formatted value for fields that have a formatter function + support
+  for optional `localCompare` options and locale
+  (closes [#3178](https://github.com/bootstrap-vue/bootstrap-vue/issues/3178),
   [#1173](https://github.com/bootstrap-vue/bootstrap-vue/issues/1173))
   ([#3585](https://github.com/bootstrap-vue/bootstrap-vue/issues/3585)
   [c0ca1fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/c0ca1fd))
-- **b-table, b-table-lite:** don't render `thead` or `tfoot` if no detected fields (closes
-  [#3547](https://github.com/bootstrap-vue/bootstrap-vue/issues/3547))
+- **b-table, b-table-lite:** don't render `thead` or `tfoot` if no detected fields for accessibility
+  reasons (closes [#3547](https://github.com/bootstrap-vue/bootstrap-vue/issues/3547))
   ([#3553](https://github.com/bootstrap-vue/bootstrap-vue/issues/3553)
   [a924889](https://github.com/bootstrap-vue/bootstrap-vue/commit/a924889))
-- **b-tabs:** emit `changed` event whenever tabs added, removed or re-ordered (closes
+- **b-tabs:** emit new `changed` event whenever tabs are added, removed or re-ordered (closes
   [#3575](https://github.com/bootstrap-vue/bootstrap-vue/issues/3575))
   ([#3577](https://github.com/bootstrap-vue/bootstrap-vue/issues/3577)
   [841419a](https://github.com/bootstrap-vue/bootstrap-vue/commit/841419a))
-- **tooltips, popovers:** remove need for route watcher
+- **tooltips, popovers:** remove need for route watcher, preventing open tooltip/popover from
+  automatically closing if child route changes and trigger element is still in document
   ([#3583](https://github.com/bootstrap-vue/bootstrap-vue/issues/3583)
   [98844b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/98844b4))
 
