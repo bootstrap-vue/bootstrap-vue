@@ -57,7 +57,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       /* istanbul ignore else */
       if (target) {
-        this._toolpop = new ToolTip(target, this.getConfig(), this.$root)
+        this._toolpop = new ToolTip(target, this.getConfig(), this)
       } else {
         this._toolpop = null
         warn("b-tooltip: 'target' element not found!")

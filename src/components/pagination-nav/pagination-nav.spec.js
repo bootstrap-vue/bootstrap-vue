@@ -408,6 +408,7 @@ describe('pagination-nav', () => {
   it('clicking buttons updates the v-model', async () => {
     const wrapper = mount(BPaginationNav, {
       propsData: {
+        baseUrl: '#', // needed to prevent JSDOM errors
         numberOfPages: 3,
         value: 1,
         limit: 10

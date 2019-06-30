@@ -35,8 +35,8 @@ purpose, these users will simply be presented with the content of the badge. Dep
 specific situation, these badges may seem like random additional words or numbers at the end of a
 sentence, link, or button.
 
-Unless the context is clear (as with the “Notifications” example, where it is understood that the
-“4” is the number of notifications), consider including additional context with a visually hidden
+Unless the context is clear (as with the "Notifications" example, where it is understood that the
+"4" is the number of notifications), consider including additional context with a visually hidden
 piece of additional text.
 
 ```html

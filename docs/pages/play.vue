@@ -45,7 +45,8 @@
 
         <!-- Export to CodePen -->
         <b-form
-          class="d-inline-block mr-1"
+          class="d-inline-block mr-1 notranslate"
+          translate="no"
           method="post"
           action="https://codepen.io/pen/define"
           target="_blank"
@@ -56,7 +57,8 @@
 
         <!-- Export to CodeSandbox -->
         <b-form
-          class="d-inline-block mr-1"
+          class="d-inline-block mr-1 notranslate"
+          translate="no"
           method="post"
           action="https://codesandbox.io/api/v1/sandboxes/define"
           target="_blank"
@@ -67,7 +69,8 @@
 
         <!-- Export to JSFiddle -->
         <b-form
-          class="d-inline-block"
+          class="d-inline-block notranslate"
+          translate="no"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
@@ -105,7 +108,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span>Template</span>
+                <span class="notranslate" translate="no">Template</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -133,7 +136,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span>JS</span>
+                <span class="notranslate" translate="no">JS</span>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -173,12 +176,12 @@
                 </b-btn>
               </div>
 
-              <div ref="result"></div>
+              <div ref="result" class="notranslate" translate="no"></div>
             </b-card>
           </b-col>
 
           <!-- Console column -->
-          <b-col cols="12" class="mt-3">
+          <b-col cols="12" class="mt-3 notranslate" translate="no">
             <!-- Console -->
             <b-card no-body>
               <div slot="header" class="d-flex justify-content-between align-items-center">

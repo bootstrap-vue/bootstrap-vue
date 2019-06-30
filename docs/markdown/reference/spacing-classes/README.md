@@ -18,31 +18,31 @@ by a media query. The remaining breakpoints, however, do include a breakpoint ab
 The classes are named using the format `{property}{sides}-{size}` for `xs` and
 `{property}{sides}-{breakpoint}-{size}` for `sm`, `md`, `lg`, and `xl`.
 
-Where _property_ is one of:
+Where _`property`_ is one of:
 
 - `m` - for classes that set margin
 - `p` - for classes that set padding
 
-Where _sides_ is one of:
+Where _`sides`_ is one of:
 
-- `t` - for classes that set margin-top or padding-top
-- `b` - for classes that set margin-bottom or padding-bottom
-- `l` - for classes that set margin-left or padding-left
-- `r` - for classes that set margin-right or padding-right
-- `x` - for classes that set both _-left and _-right
-- `y` - for classes that set both _-top and _-bottom
-- blank - for classes that set a margin or padding on all 4 sides of the element
+- `t` - for classes that set `margin-top` or `padding-top`
+- `b` - for classes that set `margin-bottom` or `padding-bottom`
+- `l` - for classes that set `margin-left` or `padding-left`
+- `r` - for classes that set `margin-right` or `padding-right`
+- `x` - for classes that set both `*-left` and `*-right`
+- `y` - for classes that set both `*-top` and `*-bottom`
+- blank - for classes that set `margin` or `padding` on all 4 sides of the element
 
-Where _size_ is one of:
+Where _`size`_ is one of:
 
-- `0` - for classes that eliminate the margin or padding by setting it to 0
-- `1` - (by default) for classes that set the margin or padding to \$spacer \* .25
-- `2` - (by default) for classes that set the margin or padding to \$spacer \* .5
-- `3` - (by default) for classes that set the margin or padding to \$spacer
-- `4` - (by default) for classes that set the margin or padding to \$spacer \* 1.5
-- `5` - (by default) for classes that set the margin or padding to \$spacer \* 3
+- `0` - for classes that eliminate the margin or padding by setting it to `0`
+- `1` - (by default) for classes that set the `margin` or `padding` to `$spacer * .25`
+- `2` - (by default) for classes that set the `margin` or `padding` to `$spacer * .5`
+- `3` - (by default) for classes that set the `margin` or `padding` to `$spacer`
+- `4` - (by default) for classes that set the `margin` or `padding` to `$spacer * 1.5`
+- `5` - (by default) for classes that set the `margin` or `padding` to `$spacer * 3`
 
-_(You can add more sizes by adding entries to the \$spacers Sass map variable.)_
+_(You can add more sizes by adding entries to the `$spacers` Sass map variable.)_
 
 ## Examples
 

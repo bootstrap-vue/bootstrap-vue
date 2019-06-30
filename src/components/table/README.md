@@ -872,16 +872,16 @@ The slot's scope variable (`data` in the above sample) will have the following p
 
 **Notes:**
 
-- _`index` will not always be the actual row's index number, as it is computed after filtering,
+- `index` will not always be the actual row's index number, as it is computed after filtering,
   sorting and pagination have been applied to the original table data. The `index` value will refer
   to the **displayed row number**. This number will align with the indexes from the optional
-  `v-model` bound variable._
+  `v-model` bound variable.
 
 #### Displaying raw HTML
 
 By default `b-table` escapes HTML tags in items data and results of formatter functions, if you need
 to display raw HTML code in `b-table`, you should use `v-html` directive on an element in a in
-scoped field slot
+scoped field slot.
 
 ```html
 <template>
@@ -921,11 +921,11 @@ scoped field slot
 
 ### Formatter callback
 
-One more option to customize field output is to use formatter callback function. To enable this
-field's property `formatter` is used. Value of this property may be String or function reference. In
-case of a String value, the function must be defined at the parent component's methods. Providing
-formatter as a `Function`, it must be declared at global scope (window or as global mixin at Vue),
-unless it has been bound to a `this` context.
+Optionally, you can customize field output by using a formatter callback function. To enable this,
+the field's `formatter` property is used. The value of this property may be String or function
+reference. In case of a String value, the function must be defined at the parent component's
+methods. When providing `formatter` as a `Function`, it must be declared at global scope (window or
+as global mixin at Vue, or as an anonymous function), unless it has been bound to a `this` context.
 
 The callback function accepts three arguments - `value`, `key`, and `item`, and should return the
 formatted value as a string (HTML strings are not supported)
@@ -1157,8 +1157,14 @@ as read-only.**
       :select-mode="selectMode"
       selectedVariant="success"
       :items="items"
+      :fields="fields"
       @row-selected="rowSelected"
-    ></b-table>
+    >
+      <!-- Example scoped slot for illustrative purposes only -->
+      <template slot="selected" slot-scope="{ rowSelected }">
+        <span v-if="rowSelected">✔</span>
+      </template>
+    </b-table>
 
     {{ selected }}
   </div>
@@ -1169,6 +1175,7 @@ as read-only.**
     data() {
       return {
         modes: ['multi', 'single', 'range'],
+        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
         items: [
           { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
           { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
@@ -1301,6 +1308,8 @@ initially showing.
 
 ## Sorting
 
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+
 As mentioned in the [**Fields**](#fields-column-definitions-) section above, you can make columns
 sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
 first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
@@ -1330,11 +1339,71 @@ When the prop `foot-clone` is set, the footer headings will also allow sorting b
 you have custom formatted footer field headers. To disable the sort icons and sorting via heading
 clicks in the footer, set the `no-footer-sorting` prop to true.
 
-**Note:** The built-in `sort-compare` routine **cannot** sort virtual columns, nor sort based on the
-custom rendering of the field data (formatter functions and/or scoped slots are used only for
-presentation only, and do not affect the underlying data). Refer to the
-[**Sort-compare routine**](#sort-compare-routine) section below for details on sorting by
-presentational data.
+The internal sort-compare routine uses `String.prototype.localeCompare()` for comparing the
+stringified column value (if value type is not `Number` or `Date`). `localeCompare()` accepts a
+`locale` string and an `options` object for controlling how strings are sorted. The default options
+used is `{ numeric: true }`, and locale is `undefined` (which uses the browser default locale).
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale via the
+`sort-compare-locale` prop to set the locale for sorting, as well as pass sort options via the
+`sort-compare-options` prop. Valid sort option properties are:
+
+- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
+  `'best fit'`. The default is `'best fit'`. For information about this option, see the
+  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
+  for details.
+- `sensitivity`: Which differences in the strings should lead to non-zero compare result values.
+  Possible values are:
+  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
+    `a = á`, `a = A`.
+  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
+    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
+  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
+    `a ≠ b`, `a = á`, `a ≠ A`.
+  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
+    marks, or case compare as unequal. Other differences may also be taken into consideration.
+    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
+- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
+  `false`. The default is `false`.
+- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
+  are `true` and `false`. The default is `false`. Implementations are not required to support this
+  property.
+- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
+  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
+  not required to support this property.
+- `'usage'`: Always set to `'sort'` by `<b-table>`
+
+**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
+sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
+
+**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
+
+```html
+<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
+```
+
+**Notes:**
+
+- The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
+  field data (scoped slots are used only for presentation only, and do not affect the underlying
+  data).
+- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> Fields that have a
+  [`formatter` function](#formatter-callback) (virtual field or regular field) will be sorted by the
+  value returned via the formatter function.
+- Refer to
+  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+  for details on the options object property values.
+- Refer to
+  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
+  for details on locale values.
+- Not all browsers (or Node.js) support the `locale` and `options` with
+  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
+  for browser support. For Node.js, you may need to add in
+  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
+  prevent [SSR hydration mismatch](https://ssr.vuejs.org/guide/hydration.html) errors.
+
+Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on sorting
+by presentational data.
 
 ```html
 <template>
@@ -1381,26 +1450,41 @@ presentational data.
 
 ### Sort-compare routine
 
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+
 The built-in default `sort-compare` function sorts the specified field `key` based on the data in
-the underlying record object (not by the formatted value). The field value is first stringified if
-it is an object, and then sorted.
+the underlying record object (formatted value if a field has a formatter function). The field value
+is first stringified if it is an object, and then sorted.
 
-The default `sort-compare` routine **cannot** sort virtual columns, nor sort based on the custom
-rendering of the field data (formatter functions and/or scoped slots are used only for
-presentation). For this reason, you can provide your own custom sort compare routine by passing a
-function reference to the prop `sort-compare`.
+The default `sort-compare` routine **cannot** sort based on the custom rendering of the field data
+(scoped slots are used only for presentation). For this reason, you can provide your own custom sort
+compare routine by passing a function reference to the prop `sort-compare`.
 
-The `sort-compare` routine is passed four arguments. The first two arguments (`a` and `b`) are the
-record objects for the rows being compared, the third argument is the field `key` being sorted on
-(`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
-(`true` for descending, `false` for ascending).
+The `sort-compare` routine is passed seven (7) arguments:
+
+- the first two arguments (`a` and `b`) are the _record objects_ for the rows being compared
+- the third argument is the field `key` being sorted on (`sortBy`)
+- the fourth argument (`sortDesc`) is the order `<b-table>` will be displaying the records (`true`
+  for descending, `false` for ascending)
+- the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
+  `undefined` if no field formatter). You will need to call this method to get the formatted field
+  value: `val = formatter(a[key], key, a)`
+- the sixth argument is the value of the `sort-compare-options` prop (default is
+  `{ numeric: true }`)
+- the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
+
+The sixth and seventh arguments can be used if you are using the
+[`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+method to compare strings.
 
 The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
 `1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
-`b-table` will handle the direction). The routine can also return `null` to fall back to the
-built-in sort-compare routine for the particular `key`. You can use this feature (i.e. by returning
-`null`) to have your custom sort-compare routine handle only certain fields (keys) such as the
-special case of virtual columns.
+`b-table` will handle the direction, and is typically only needed when special handling of how
+`null` values are sorted). Your custom sort-compare routine can also return `null` or `false` to
+fall back to the _built-in sort-compare routine_ for the particular `key`. You can use this feature
+(i.e. by returning `null`) to have your custom sort-compare routine handle only certain fields
+(keys) such as the special case of virtual (scoped slot) columns, and have the internal sort-compare
+handle all other fields.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
@@ -1408,28 +1492,35 @@ direction) is **not** used in the sort comparison:
 <!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
-function sortCompare(a, b, key) {
-  if (typeof a[key] === 'number' && typeof b[key] === 'number') {
-    // If both compared fields are native numbers
-    return a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0
+function sortCompare(aRow, bRow, key) {
+  const a = aRow[key] // or use Lodash _.get()
+  const b = bRow[key]
+  if (
+    (typeof a === 'number' && typeof b === 'number') ||
+    (a instanceof Date && b instanceof Date)
+  ) {
+    // If both compared fields are native numbers or both are dates
+    return a < b ? -1 : a > b ? 1 : 0
   } else {
-    // Stringify the field data and use String.localeCompare
-    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+    // Otherwise stringify the field data and use String.prototype.localeCompare
+    return toString(a).localeCompare(toString(b), undefined, {
       numeric: true
     })
   }
 }
 
+// Helper function to stringify the values of an Object
 function toString(value) {
-  if (!value) {
+  if (value === null || typeof value === 'undefined') {
     return ''
   } else if (value instanceof Object) {
-    return keys(value)
+    return Object.keys(value)
       .sort()
       .map(key => toString(value[key]))
       .join(' ')
+  } else {
+    return String(value)
   }
-  return String(value)
 }
 ```
 

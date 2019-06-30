@@ -19,7 +19,12 @@ const getRoutesByDir = (root, dir, excludes = []) =>
 renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language} text-monospace p-2">${highlighted}</pre>`
+  return `<pre class="hljs ${language} text-monospace p-2 notranslate" translate="no">${highlighted}</pre>`
+}
+
+// Instruct google translate not to translate `<code>` content
+renderer.codespan = text => {
+  return `<code translate="no" class="notranslate">${text}</code>`
 }
 
 // Custom heading implementation for markdown renderer
@@ -86,7 +91,7 @@ module.exports = {
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
 
-      config.devtool = 'source-map'
+      config.devtool = 'eval-source-map'
 
       config.module.rules.push({
         test: /\.md$/,

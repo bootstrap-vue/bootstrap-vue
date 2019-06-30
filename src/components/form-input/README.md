@@ -123,7 +123,7 @@ new values for those using the `min` and `max` props.
 <!-- b-form-input-range.vue -->
 ```
 
-By default, range inputs “snap” to integer values. To change this, you can specify a `step` value.
+By default, range inputs "snap" to integer values. To change this, you can specify a `step` value.
 In the example below, we double the number of steps by using step="0.5".
 
 ```html

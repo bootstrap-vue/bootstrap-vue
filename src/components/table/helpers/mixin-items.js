@@ -1,5 +1,5 @@
 import looseEqual from '../../../utils/loose-equal'
-import { isArray, isNull, isUndefined } from '../../../utils/inspect'
+import { isArray, isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
 
 export default {
@@ -42,10 +42,10 @@ export default {
       // [ { key:..., label:..., ...}, {...}, ..., {..}]
       return normalizeFields(this.fields, this.localItems)
     },
-    computedFieldsObj() /* istanbul ignore next: not using at the moment */ {
+    computedFieldsObj() {
       // Fields as a simple lookup hash object
-      // Mainly for scopedSlots for convenience
-      return this.computedFields.reduce((f, obj) => {
+      // Mainly for formatter lookup and scopedSlots for convenience
+      return this.computedFields.reduce((obj, f) => {
         obj[f.key] = f
         return obj
       }, {})
@@ -98,5 +98,21 @@ export default {
   mounted() {
     // Initially update the v-model of displayed items
     this.$emit('input', this.computedItems)
+  },
+  methods: {
+    // Method to get the formatter method for a given field key
+    getFieldFormatter(key) {
+      const fieldsObj = this.computedFieldsObj
+      const field = fieldsObj[key]
+      const parent = this.$parent
+      let formatter = field && field.formatter
+      if (isString(formatter) && isFunction(parent[formatter])) {
+        formatter = parent[formatter]
+      } else if (!isFunction(formatter)) {
+        formatter = undefined
+      }
+      // Return formatter function or undefined if none
+      return formatter
+    }
   }
 }

@@ -129,7 +129,7 @@ const applyPopover = (el, bindings, vnode) => {
   if (el[BV_POPOVER]) {
     el[BV_POPOVER].updateConfig(config)
   } else {
-    el[BV_POPOVER] = new PopOver(el, config, vnode.context.$root)
+    el[BV_POPOVER] = new PopOver(el, config, vnode.context)
   }
 }
 
