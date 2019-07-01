@@ -33,7 +33,7 @@
       </ul>
       <p class="small text-muted">
         Note: component aliases are only available when importing all of BootstrapVue or using
-        the component group plugin.
+        the component group's plugin.
       </p>
     </article>
 
