@@ -13,16 +13,16 @@ echo 'Done.'
 echo ''
 
 # Cleanup
-rm -rf dist es esm
+rm -rf dist esm
 
 echo 'Compile JS...'
 rollup -c scripts/rollup.config.js
 echo 'Done.'
 echo ''
 
-echo 'Build ESM modules...'
+echo 'Compiling ESM modular build...'
 NODE_ENV=esm babel src --out-dir esm --ignore 'src/**/*.spec.js'
-rm -f esm/legacy-es.js esm/browser.js
+rm -f esm/browser.js
 echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
 echo 'Done.'
 echo ''
@@ -70,8 +70,9 @@ echo 'Done.'
 echo ''
 
 echo 'Copying types from src/ to esm/ ...'
-# There must be a better way to do this
+# This may no longer be needed, as all exports are at top level now.
 #
+# There must be a better way to do this
 # The following does not preserve the paths
 #   shopt -s globstar
 #   cp src/**/*.d.ts es
