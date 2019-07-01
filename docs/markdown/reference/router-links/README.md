@@ -169,7 +169,10 @@ do not support IntersectionObserver, you can use the following conditional polyf
 export default {
   head: {
     script: [
-      { src: 'https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver', body: true }
+      {
+        src: 'https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver',
+        body: true
+      }
     ]
   }
 }

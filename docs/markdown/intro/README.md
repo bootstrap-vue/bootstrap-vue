@@ -494,7 +494,7 @@ JavaScript files.
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
 <!-- Load polyfills to support older browsers -->
-<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver" crossorigin="anonymous"></script>
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
@@ -551,10 +551,11 @@ Following features and APIs are used by BootstrapVue:
 - ES6 (e.g. `Array.from()`, `Array.isArray()`, `Object.assign()`, `Object.is()`, etc.)
 - `Promise`
 - `MutationObserver`
+- `IntersectionObserver` (optional)
 
 If you want to support older IE, Android and iOS devices, you may want to use
 [core-js](https://github.com/zloirock/core-js) and
-[mutationobserver-shim](https://www.npmjs.com/package/mutationobserver-shim):
+[intersection-observer](https://www.npmjs.com/package/intersection-observer):
 
 - `npm install core-js regenerator-runtime mutationobserver-shim`
 - Import the polyfills in your app main entry point:
@@ -562,23 +563,23 @@ If you want to support older IE, Android and iOS devices, you may want to use
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-import 'core-js/stable"'
+import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import 'mutationobserver-shim'
+import 'intersection-observer' // Optional
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 ```
 
 If using deprecated [@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/):
 
-- `npm install @babel/polyfill mutationobserver-shim`
+- `npm install @babel/polyfill intersection-observer`
 - Import the polyfills in your app main entry point:
 
 <!-- eslint-disable no-unused-vars -->
 
 ```js
 import '@babel/polyfill'
-import 'mutationobserver-shim'
+import 'intersection-observer' // Optional
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 ```
