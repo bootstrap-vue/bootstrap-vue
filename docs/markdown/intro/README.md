@@ -562,7 +562,7 @@ If you want to support older IE, Android and iOS devices, you may want to use
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-import 'core-js/stable"'
+import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import 'mutationobserver-shim'
 import Vue from 'vue'
