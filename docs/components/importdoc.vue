@@ -210,7 +210,6 @@ export default {
     },
     directiveImportCode() {
       const firstDirective = this.directives[0]
-      const firstDirectiveImport = this.directiveImports[0]
       return [
         `import { ${firstDirective} } from '${importPath}'`,
         "// Note: Vue automatically prefixes the directive name with 'v-'",
