@@ -103,7 +103,7 @@
         bordered
         striped
       >
-        <template slot="namedExport" slot-scope="{ value, item }">
+        <template slot="namedExport" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
         <template slot="importPath" slot-scope="{ value }">
@@ -166,7 +166,7 @@ export default {
         return {
           component: this.componentTag(c),
           namedExport: c,
-          importPath: this.componentPath(c)
+          importPath: `bootstrap-vue`
         }
       })
     },
@@ -175,13 +175,11 @@ export default {
         return {
           directive: this.directiveAttr(d),
           namedExport: d,
-          importPath: this.directivePath(d)
+          importPath: `bootstrap-vue`
         }
       })
     },
     pluginImports() {
-      const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      // const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         {
           namedExport: this.pluginName,
@@ -218,7 +216,6 @@ export default {
       ].join('\n')
     },
     pluginImportCode() {
-      // const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
         '// Importing the named export',
         `import { ${this.pluginName} } from 'bootstrap-vue'`,
@@ -239,9 +236,6 @@ export default {
     componentTag(component) {
       return `<${this.componentName(component)}>`
     },
-    componentPath(component) {
-      return 'bootstrap-vue'
-    },
     directiveName(directive) {
       return kebabCase(directive)
         .replace(/^v-/, '')
@@ -249,9 +243,6 @@ export default {
     },
     directiveAttr(directive) {
       return kebabCase(directive).replace(/^vb-/, 'v-b-')
-    },
-    directivePath(directive) {
-      return 'bootstrap-vue'
     }
   }
 }
