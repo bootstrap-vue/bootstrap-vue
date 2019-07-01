@@ -526,11 +526,11 @@ export default {
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default
-          // Run the setup code
-          this.doSetup()
           // Stop the loading indicator
           this.loading = false
           window && window.$nuxt && window.$nuxt.$loading.finish()
+          // Run the setup code
+          this.doSetup()
         })
       } else {
         this.doSetup()
