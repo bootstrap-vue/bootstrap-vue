@@ -49,13 +49,16 @@
 
 // Sticky footer
 // See: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
-#__layout {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+// Added @supports hack to get around layout issue with IE 11
+@supports (position: sticky) {
+  #__layout {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 
-  main {
-    flex: 1;
+    main {
+      flex: 1;
+    }
   }
 }
 
