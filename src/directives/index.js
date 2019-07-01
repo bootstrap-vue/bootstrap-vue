@@ -1,21 +1,47 @@
-// Legacy index file supporting legacy plugin names.
-// This file is only here from transpilation purposes for `es/` build.
-// src/index imports /src/directives/index.esm so that we don't
-// have top-level duplicate plugin names.
+import { pluginFactory } from '../utils/plugins'
 
-// Import the main directives plugin
-import { directivesPlugin } from './index.esm'
+import { VBModalPlugin } from './modal'
+import { VBPopoverPlugin } from './popover'
+import { VBScrollspyPlugin } from './scrollspy'
+import { VBTogglePlugin } from './toggle'
+import { VBTooltipPlugin } from './tooltip'
 
-// Export all directive group plugins and directives as named exports
-export * from './index.esm'
+// Main plugin for installing all directive plugins
+export const directivesPlugin = /*#__PURE__*/ pluginFactory({
+  plugins: {
+    VBModalPlugin,
+    VBPopoverPlugin,
+    VBScrollspyPlugin,
+    VBTogglePlugin,
+    VBTooltipPlugin
+  }
+})
 
-// Export all legacy named directive group plugins as named exports
-// To be removed in stable release
-export { VBModalPlugin as Modal } from './modal'
-export { VBPopoverPlugin as Popover } from './popover'
-export { VBScrollspyPlugin as Scrollspy } from './scrollspy'
-export { VBTogglePlugin as Toggle } from './toggle'
-export { VBTooltipPlugin as Tooltip } from './tooltip'
+// Named exports of all directives (VB<Name>) and Plugins (VB<name>Plugin)
+//
+// Webpack 4 has optimization difficulties with re-eport of re-exports, so
+// we import the directives individulaly here for better tree shaking,
+//
+// Webpack v5 fixes the optimizations with re-export of re-exports so this
+// can be reverted back to `export * from './scrollspy'` when Webpack v5 is released.
+// https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
-// Default export is a plugin that installs all plugins
-export default directivesPlugin
+// export * from './modal'
+export { VBModalPlugin } from './modal'
+export { VBModal } from './modal/modal'
+
+// export * from './popover'
+export { VBPopoverPlugin } from './popover'
+export { VBPopover } from './popover/popover'
+
+// export * from './scrollspy'
+export { VBScrollspyPlugin } from './scrollspy'
+export { VBScrollspy } from './scrollspy/scrollspy'
+
+// export * from './toggle'
+export { VBTogglePlugin } from './toggle'
+export { VBToggle } from './toggle/toggle'
+
+// export * from './tooltip'
+export { VBTooltipPlugin } from './tooltip'
+export { VBTooltip } from './tooltip/tooltip'
