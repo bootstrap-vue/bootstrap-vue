@@ -1,11 +1,11 @@
 import { installFactory } from './utils/plugins'
 import { setConfig } from './utils/config-set'
-import { componentsPlugin } from './components/index.esm'
+import { componentsPlugin } from './components'
 import { directivesPlugin } from './directives'
 import BVConfigPlugin from './bv-config'
 
 // Named exports of all components and component group plugins
-export * from './components/index.esm'
+export * from './components'
 
 // Named exports of all directives and directive group plugins
 export * from './directives'
