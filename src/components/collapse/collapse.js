@@ -104,7 +104,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.emitState()
     })
     // Listen for "Sync state" requests from `v-b-toggle`
-    this.$root.$on(EVENT_STATE_REQUEST, id => {
+    this.listenOnRoot(EVENT_STATE_REQUEST, id => {
       if (id === this.id) {
         this.$nextTick(this.emitSync)
       }
