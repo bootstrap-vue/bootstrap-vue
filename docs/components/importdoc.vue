@@ -105,8 +105,6 @@
       >
         <template slot="namedExport" slot-scope="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
-          <b-badge v-if="item.legacy" variant="warning" class="small">DEPRECATED</b-badge>
-          <b-badge v-else variant="success" class="small">PREFERRED</b-badge>
         </template>
         <template slot="importPath" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
@@ -128,14 +126,13 @@
 
     <aside class="alert alert-warning my-4">
       <p class="mb-0">
-        <b-badge variant="warning" tag="strong">Deprecation Warning as of v2.0.0-rc.22:</b-badge>
+        <b-badge variant="warning" tag="strong">CHANGED as of v2.0.0:</b-badge>
         Importing components, directives and plugins from
         <code class="notranslate" translate="no">bootstrap-vue/es/*</code>
-        has been deprecated. All components, directives and plugins are now available as top-level named
+        has been removed. All components, directives and plugins are now available as top-level named
         exports in the <code class="notranslate" translate="no">ESM</code> and
         <code class="notranslate" translate="no">CommonJS</code> builds. The
-        <code class="notranslate" translate="no">es/</code> directory build will be removed in a future
-        release.
+        <code class="notranslate" translate="no">es/</code> directory build has been removed.
       </p>
     </aside>
   </section>
@@ -189,16 +186,6 @@ export default {
         {
           namedExport: this.pluginName,
           importPath: 'bootstrap-vue'
-        },
-        {
-          namedExport: this.pluginName,
-          importPath: `bootstrap-vue/es/${pluginLocation}`,
-          legacy: true
-        },
-        {
-          namedExport: 'default',
-          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`,
-          legacy: true
         }
       ]
     },
@@ -234,7 +221,6 @@ export default {
       // const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
         '// Importing the named export',
-        // `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
         `import { ${this.pluginName} } from 'bootstrap-vue'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
@@ -254,8 +240,6 @@ export default {
       return `<${this.componentName(component)}>`
     },
     componentPath(component) {
-      // const componentName = this.componentName(component).replace(/^b-/, '')
-      // return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
       return 'bootstrap-vue'
     },
     directiveName(directive) {
@@ -267,8 +251,6 @@ export default {
       return kebabCase(directive).replace(/^vb-/, 'v-b-')
     },
     directivePath(directive) {
-      // const directiveName = this.directiveName(directive).replace(/^b-/, '')
-      // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
       return 'bootstrap-vue'
     }
   }
