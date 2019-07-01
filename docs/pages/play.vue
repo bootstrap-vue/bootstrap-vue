@@ -526,11 +526,11 @@ export default {
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default
-          // Run the setup code
-          this.doSetup()
           // Stop the loading indicator
           this.loading = false
           window && window.$nuxt && window.$nuxt.$loading.finish()
+          // Run the setup code
+          this.doSetup()
         })
       } else {
         this.doSetup()
@@ -591,7 +591,7 @@ export default {
         // the "global" console reference just for the user app
         const code = this.compiler(`;options = ${js};`)
         /* eslint-disable no-eval */
-        eval(`console = this.fakeConsole; ${code}`)
+        eval(`var console = this.fakeConsole; ${code}`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
