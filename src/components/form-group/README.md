@@ -256,7 +256,7 @@ hence the feedback will not show. In these situations you will need to set the v
 the `<b-form-group>` _as well as_ the input.
 
 Feedback will be shown if the parent `<b-form>` component does _not_ have the `novalidate` prop set
-(or set to `false`) along with the `vadidated` prop set (and the input fails or passes native
+(or set to `false`) along with the `validated` prop set (and the input fails or passes native
 browser validation constraints such as `required`). Refer to Bootstrap v4's
 [Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation for
 details on validation methods.
