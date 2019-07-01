@@ -557,7 +557,7 @@ If you want to support older IE, Android and iOS devices, you may want to use
 [core-js](https://github.com/zloirock/core-js) and
 [intersection-observer](https://www.npmjs.com/package/intersection-observer):
 
-- `npm install core-js regenerator-runtime mutationobserver-shim`
+- `npm install core-js regenerator-runtime intersection-observer`
 - Import the polyfills in your app main entry point:
 
 <!-- eslint-disable no-unused-vars -->
