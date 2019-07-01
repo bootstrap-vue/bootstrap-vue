@@ -144,6 +144,8 @@ import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
 
+const importPath = 'bootstrap-vue'
+
 export default {
   name: 'BDVImportdoc',
   components: { AnchoredHeading },
@@ -166,7 +168,7 @@ export default {
         return {
           component: this.componentTag(c),
           namedExport: c,
-          importPath: `bootstrap-vue`
+          importPath: importPath
         }
       })
     },
@@ -175,7 +177,7 @@ export default {
         return {
           directive: this.directiveAttr(d),
           namedExport: d,
-          importPath: `bootstrap-vue`
+          importPath: importPath
         }
       })
     },
@@ -183,7 +185,7 @@ export default {
       return [
         {
           namedExport: this.pluginName,
-          importPath: 'bootstrap-vue'
+          importPath: importPath
         }
       ]
     },
@@ -210,7 +212,7 @@ export default {
       const firstDirective = this.directives[0]
       const firstDirectiveImport = this.directiveImports[0]
       return [
-        `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
+        `import { ${firstDirective} } from '${importPath}'`,
         "// Note: Vue automatically prefixes the directive name with 'v-'",
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
@@ -218,7 +220,7 @@ export default {
     pluginImportCode() {
       return [
         '// Importing the named export',
-        `import { ${this.pluginName} } from 'bootstrap-vue'`,
+        `import { ${this.pluginName} } from '${importPath}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
     }
