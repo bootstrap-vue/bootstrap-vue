@@ -6,5 +6,3 @@ const VBModalPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { VBModalPlugin, VBModal }
-
-export default VBModalPlugin
