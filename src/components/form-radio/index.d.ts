@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const FormRadioPlugin: BvPlugin
-export default FormRadioPlugin
 
 // Component: b-form-radio
 export declare class BFormRadio extends BvComponent {}
