@@ -1,9 +1,9 @@
 <template>
-  <main id="content" class="bd-masthead" role="main">
+  <main id="content" class="bd-masthead pt-5 pb-0" role="main">
     <div class="container">
       <div class="row align-items-center">
         <aside class="col-md-6 order-md-2">
-          <img src="~/static/icon.png" alt="BootstrapVue logo" class="img-fluid mx-auto d-block mb-3 mb-md-0">
+          <img src="~/static/logo.svg" alt="BootstrapVue logo" class="img-fluid d-block w-75 mx-auto mb-4 mb-md-0">
         </aside>
         <section class="col-md-6 order-md-1">
           <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
