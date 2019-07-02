@@ -35,14 +35,14 @@ various components and export your results to JSFiddle, CodePen, and/or CodeSand
 
 ## Important HTML globals
 
-Bootstrap v4.3 CSS employs a handful of important global styles and settings that you’ll need to be
+Bootstrap v4.3 CSS employs a handful of important global styles and settings that you'll need to be
 aware of when using it, all of which are almost exclusively geared towards the normalization of
 cross browser styles. Refer to the following sub-sections for details.
 
 ### HTML5 doctype
 
 Bootstrap requires the use of the HTML5 doctype. Without it, you _may_ see some funky incomplete
-styling, but including it shouldn’t cause any considerable hiccups.
+styling, but including it shouldn't cause any considerable hiccups.
 
 ```html
 <!doctype html>
