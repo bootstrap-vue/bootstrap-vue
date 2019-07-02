@@ -389,7 +389,7 @@ vue init bootstrap-vue/webpack-simple my-project
 cd my-project
 
 # Install dependencies
-npm i
+npm install
 
 # Fire up the dev server with HMR
 npm run dev
