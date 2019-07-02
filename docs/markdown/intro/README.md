@@ -486,10 +486,10 @@ Vue.use(CardPlugin)
 import { VBScrollspyPlugin } from 'bootstrap-vue'
 Vue.use(VBScrollspyPlugin)
 
-// This imports the layout plugin and modal plugin
-import { LayoutPlugin, ModalPlugin } from 'bootstrap-vue'
-Vue.use(LayoutPlugin)
-Vue.use(ModalPlugin)
+// This imports the dropdown and table plugins
+import { DropdownPlugin, TablePlugin } from 'bootstrap-vue'
+Vue.use(DropdownPlugin)
+Vue.use(TablePlugin)
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
