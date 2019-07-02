@@ -6,5 +6,3 @@ const EmbedPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { EmbedPlugin, BEmbed }
-
-export default EmbedPlugin
