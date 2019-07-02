@@ -7,5 +7,3 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { TablePlugin, BTable, BTableLite }
-
-export default TablePlugin
