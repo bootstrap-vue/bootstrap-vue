@@ -261,7 +261,7 @@ In your app main entry point include the _single_ custom SCSS file (when using `
 
 ```js
 // app.js
-import 'path/to/custom.scss'
+import 'custom.scss'
 ```
 
 ### `transformAssetUrls` with Nuxt.js
