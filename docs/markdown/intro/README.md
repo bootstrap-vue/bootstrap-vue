@@ -52,7 +52,7 @@ and touch zooming for all devices, **add the responsive viewport meta** tag to y
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 ```
 
-### Box-sizing
+### CSS box-sizing
 
 For more straightforward sizing in CSS, the global `box-sizing` value is switched from `content-box`
 to `border-box`. This ensures `padding` does not affect the final computed width of an element, but it
@@ -70,6 +70,12 @@ With the above snippet, nested elements — including generated content via `::b
 will all inherit the specified `box-sizing` for that `.selector-for-some-widget`.
 
 Learn more about [box model and sizing at CSS Tricks](https://css-tricks.com/box-sizing/).
+
+### Style reboot
+
+For improved cross-browser rendering, Bootstrap v4.3 uses
+[Reboot](https://getbootstrap.com/docs/4.3/content/reboot/) to correct inconsistencies across browsers
+and devices while providing slightly more opinionated resets to common HTML elements.
 
 ## Using module bundlers
 
