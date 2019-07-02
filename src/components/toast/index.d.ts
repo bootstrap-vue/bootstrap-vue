@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Toast Plugin
 export declare const ToastPlugin: BvPlugin
-export default ToastPlugin
 
 // Component: b-toast
 export declare class BToast extends BvComponent {
