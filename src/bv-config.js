@@ -4,5 +4,3 @@
 import { pluginFactory } from './utils/plugins'
 
 export const BVConfigPlugin = /*#__PURE__*/ pluginFactory()
-
-export default BVConfigPlugin
