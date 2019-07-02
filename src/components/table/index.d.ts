@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Modal Plugin
 export declare const TablePlugin: BvPlugin
-export default TablePlugin
 
 // Component: b-table
 export declare class BTable extends BvComponent {
