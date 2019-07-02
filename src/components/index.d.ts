@@ -1,8 +1,7 @@
 import { BvPlugin } from '../'
 
 // Plugin that installs all plugins
-declare const componentsPlugin: BvPlugin
-export { componentsPlugin }
+export declare const componentsPlugin: BvPlugin
 
 // Export all components as named exports
 export * from './alert'
