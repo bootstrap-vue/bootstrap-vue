@@ -51,8 +51,8 @@ actionalable items. see below).
 
 ## Actionable list group items
 
-Turn a `<b-list-group-item>` into an actionable link by specifying either an `href` prop or
-[router-link](/docs/reference/router-links) `to` prop.
+Turn a `<b-list-group-item>` into an actionable _link_ (`<a href="...">`) by specifying
+either an `href` prop or [router-link](/docs/reference/router-links) `to` prop.
 
 ```html
 <b-list-group>
@@ -65,7 +65,7 @@ Turn a `<b-list-group-item>` into an actionable link by specifying either an `hr
 <!-- b-list-group-link.vue -->
 ```
 
-Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
+Or if you prefer `<button>` elements over links, set the `button` prop to `true`.
 
 ```html
 <b-list-group>
