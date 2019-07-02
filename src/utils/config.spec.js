@@ -10,8 +10,8 @@ import { setConfig, resetConfig } from './config-set'
 import DEFAULTS from './config-defaults'
 import { createLocalVue } from '@vue/test-utils'
 import BootstrapVue from '../../src'
-import AlertPlugin from '../../src/components/alert'
-import BVConfigPlugin from '../../src/bv-config'
+import { AlertPlugin } from '../../src/components/alert'
+import { BVConfigPlugin } from '../../src/bv-config'
 
 describe('utils/config', () => {
   afterEach(() => {
