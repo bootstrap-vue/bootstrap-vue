@@ -13,27 +13,92 @@
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
-and Bootstrap v4.3 CSS. If you are unfamiliar with Vue and/or Bootstrap, good starting points would
-be:
+and Bootstrap v4.3 CSS. If you are unfamiliar with Vue and/or Bootstrap, some good starting points
+would be:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
-- [Bootstrap documentation](https://getbootstrap.com/)
+- [Bootstrap v4.3 documentation](https://getbootstrap.com/)
 
-In many of the examples in BootstrapVue's documentation, you may see CSS classes used such as
-`ml-2`, `py-1`, etc., which are Bootstrap v4.3 utility classes. You can find information on these
-classes in the [Utility Classes](/docs/reference/utility-classes) reference section.
+## Documentation information
+
+In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
+such as `ml-2`, `py-1`, etc. These are Bootstrap v4.3 utility classes that help control padding,
+margins, positioning and more. You can find information on these classes in the
+[Utility Classes](/docs/reference/utility-classes) reference section.
+
+Many of the examples in this documentation are _live_ and can be edited in-place for for an enhanced
+learning experience.
+
+BootstrapVue also provides an [interactive playground](/play) where you can experiment with the
+various components and export your results to JSFiddle, CodePen, and/or CodeSandbox.
+
+## Important HTML globals
+
+Bootstrap v4.3 CSS employs a handful of important global styles and settings that you'll need to be
+aware of when using it, all of which are almost exclusively geared towards the normalization of
+cross browser styles. Refer to the following sub-sections for details.
+
+### HTML5 doctype
+
+Bootstrap requires the use of the HTML5 doctype. Without it, you _may_ see some funky incomplete
+styling, but including it shouldn't cause any considerable hiccups.
+
+```html
+<!doctype html>
+<html lang="en">
+  ...
+</html>
+```
+
+### Responsive meta tag
+
+Bootstrap v4.3 is developed for mobile first, a strategy in which code is optimized for mobile
+devices first and then scales up components as necessary using CSS media queries. To ensure proper
+rendering and touch zooming for all devices, **add the responsive viewport meta** tag to your
+`<head>`.
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+```
+
+### CSS box-sizing
+
+For more straightforward sizing in CSS, the global `box-sizing` value is switched from `content-box`
+to `border-box`. This ensures `padding` does not affect the final computed width of an element, but
+it can cause problems with some third party software like Google Maps and Google Custom Search
+Engine.
+
+On the rare occasion you need to override it, use something like the following:
+
+```css
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+```
+
+With the above snippet, nested elements — including generated content via `::before` and `::after` —
+will all inherit the specified `box-sizing` for that `.selector-for-some-widget`.
+
+Learn more about [box model and sizing at CSS Tricks](https://css-tricks.com/box-sizing/).
+
+### Style reboot
+
+For improved cross-browser rendering, Bootstrap v4.3 uses
+[Reboot](https://getbootstrap.com/docs/4.3/content/reboot/) to correct inconsistencies across
+browsers and devices while providing slightly more opinionated resets to common
+<abbr title="Hyper Text markup Language">HTML</abbr> elements.
 
 ## Using module bundlers
 
 If you are using module bundlers like [webpack](https://webpack.js.org/),
-[rollup.js](https://rollupjs.org/), etc you may prefer to directly include the package into your
+[rollup.js](https://rollupjs.org/), etc, you may prefer to directly include the package into your
 project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
 Bootstrap v4:
 
 ```bash
 # With npm
-npm i vue bootstrap-vue bootstrap
+npm install vue bootstrap-vue bootstrap
 
 # With yarn
 yarn add vue bootstrap-vue bootstrap
@@ -74,12 +139,12 @@ Be sure to `@import` or define your custom variable values _before_ including Bo
 (`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
 variables are set up correctly.
 
-Make sure you place all the SCSS `@import`s into a single SCSS file, and import that single file
-into your project. Importing individual SCSS files into your project will **not** share variable
-values and functions between files by default.
+Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into your
+project. Importing individual SCSS files into your project will **not** share variable values and
+functions between files by default.
 
-**Note**: _Requires webpack configuration to load CSS/SCSS files
-([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_.
+**Note**: Requires webpack configuration to load CSS/SCSS files
+([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
 
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
@@ -117,7 +182,7 @@ module.exports = {
 
 **Note:** If your project has multiple webpack config files (i.e. `webpack.config.js`,
 `webpack.renderer.config.js`, `webpack.vendor.config.js`, `webpack.server.config.js`,
-`webpack.client.config.js`, etc), you will need to set the appropriate alias in all of them.
+`webpack.client.config.js`, etc), you will need to set the appropriate alias in _all_ of them.
 
 See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only)
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
@@ -125,19 +190,24 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 
 ## Nuxt.js module
 
+BootstrapVue provides a Nuxt.js module for easily importing BootstrapVue (or portions of
+BootstrapVue) into your Nuxt.js app.
+
+### Getting started with Nuxt.js
+
 [Nuxt.js](https://nuxtjs.org/) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
 
 Install dependencies:
 
 ```bash
 # With npm
-npm i bootstrap-vue
+npm install bootstrap-vue
 
 # With yarn
 yarn add bootstrap-vue
 ```
 
-Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**.
+Add `bootstrap-vue/nuxt` to modules section of your **`nuxt.config.js`** file.
 
 This will include both `boostrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
 
@@ -146,6 +216,8 @@ module.exports = {
   modules: ['bootstrap-vue/nuxt']
 }
 ```
+
+### Using custom Bootstrap SCSS
 
 If you are using custom Bootstrap SCSS, you can disable automatic inclusion of Bootstrap and
 BootstrapVue pre-compiled CSS files by setting the following option(s) to `false`:
@@ -160,13 +232,14 @@ module.exports = {
 }
 ```
 
-BootstrapVue's custom SCSS relies on Bootstrap SCSS variables and mixins. You can include Bootstrap
-and BootstrapVue SCSS in your project's custom SCSS file:
+BootstrapVue's custom SCSS relies on Bootstrap SCSS variables and mixins, and any variable overrides
+you may have set. You can include Bootstrap and BootstrapVue SCSS in your project's custom SCSS
+file:
 
 ```scss
 // custom.scss
 
-// Custom overrides go first
+// Custom Bootstrap variable overrides go first
 $grid-breakpoints: (
   xs: 0,
   sm: 480px,
@@ -174,23 +247,24 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1300px
 );
+$enable-rounded: false;
 
 // Then include the following
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
 
-// And define any of your custom overrides or additional CSS/SCSS here,
+// And define any of your custom or additional CSS/SCSS here,
 // or via an @import
 ```
 
-In your app main entry point include the single custom SCSS file (when using `sass-loader`):
+In your app main entry point include the _single_ custom SCSS file (when using `sass-loader`):
 
 ```js
 // app.js
 import 'custom.scss'
 ```
 
-### transformAssetUrls with Nuxt.js
+### `transformAssetUrls` with Nuxt.js
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin module
 will automatically add in the BootstrapVue specific [`transformAssetUrls`](/docs/reference/images)
@@ -285,8 +359,8 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt.js module uses the precompiled versions of BootstrapVue for faster development builds and the
-source (`src/`) of BootstrapVue for higher quality production builds.
+Nuxt.js module uses the pre-transpiled versions of BootstrapVue for faster development builds and
+the source (`src/`) of BootstrapVue for higher quality and smaller production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` always uses the
 pre-transpiled versions, while setting it to `false` will always use `src/`. By default
@@ -306,7 +380,7 @@ BootstrapVue has two Vue CLI templates available:
 
 ```bash
 # Ensure Vue CLI is installed and up to date
-npm i -g vue-cli
+npm install -g vue-cli
 
 # Initialize a BootstrapVue project in the directory 'my-project'
 vue init bootstrap-vue/webpack-simple my-project
@@ -315,7 +389,7 @@ vue init bootstrap-vue/webpack-simple my-project
 cd my-project
 
 # Install dependencies
-npm i
+npm install
 
 # Fire up the dev server with HMR
 npm run dev
@@ -337,7 +411,7 @@ npx @vue/cli create my-project
 Enter the `my-project` directory and install `bootstrap-vue`:
 
 ```bash
-npm i bootstrap-vue
+npm install bootstrap-vue
 ```
 
 Under the hood, Vue CLI uses webpack, so we can register the BootstrapVue plugin as with the webpack
@@ -392,8 +466,7 @@ components and/or directives.
 
 <span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
 
-You can import component groups and directives as Vue plugins by importing from the `components` or
-`directives` directory:
+You can import component groups and directives as Vue plugins by importing from the `bootstrap-vue`:
 
 <!-- eslint-disable import/first, import/no-duplicates -->
 
@@ -413,6 +486,11 @@ Vue.use(CardPlugin)
 // This imports directive v-b-scrollspy as a plugin:
 import { VBScrollspyPlugin } from 'bootstrap-vue'
 Vue.use(VBScrollspyPlugin)
+
+// This imports the dropdown and table plugins
+import { DropdownPlugin, TablePlugin } from 'bootstrap-vue'
+Vue.use(DropdownPlugin)
+Vue.use(TablePlugin)
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
@@ -428,6 +506,9 @@ you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are availabl
   [message boxes](/docs/components/modal#modal-message-boxes).
 - `BVToastPlugin` - provides the injection `$bvToast` for generating
   [on demand toasts](/docs/components/toast#toasts-on-demand).
+
+When importing multiple component group and/or directive group plugins, include all imports in a
+single `import` statement for optimal tree shaking.
 
 ### Individual components and directives
 
@@ -506,18 +587,18 @@ JavaScript files.
 Choosing the best variant for your build environment / packager helps less bundle sizes. If your
 bundler supports es modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments           | Package path                                                                     |
-| -------------- | ---------------------- | -------------------------------------------------------------------------------- |
-| **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                                   |
-| **ESM bundle** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`                 |
-| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js`           |
-| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`                         |
-| ES module      | webpack 2+ / rollup.js | `es/index.js` <span class="badge badge-warning">Deprecated in 2.0.0-rc.22</span> |
+| Variant        | Environments           | Package path                                                           |
+| -------------- | ---------------------- | ---------------------------------------------------------------------- |
+| **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                         |
+| **ESM bundle** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
+| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
 All of the build variants listed above have been pre-transpiled targeting the browsers supported by
 BootstrapVue. However, if you are targeting only modern browsers, you may want to import
-`BootstrapVue` from `src/index.js`, and whitelisting `bootstrap-vue/src` for transpilation via your
-own project. This can potentially reduce bundle sizes.
+`BootstrapVue` from `src/index.js`, (by aliasing `bootstrap-vue` to `bootstrap-vue/src/index.js`)
+and whitelisting `bootstrap-vue/src` for transpilation via your own project. This can potentially
+reduce final project bundle sizes.
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
@@ -553,7 +634,7 @@ Following features and APIs are used by BootstrapVue:
 - `MutationObserver`
 - `IntersectionObserver` (optional)
 
-If you want to support older IE, Android and iOS devices, you may want to use
+If you want to support older IE, Android, and iOS device web browsers, you may want to use
 [core-js](https://github.com/zloirock/core-js) and
 [intersection-observer](https://www.npmjs.com/package/intersection-observer):
 
