@@ -22,22 +22,22 @@ would be:
 
 ## Documentation information
 
-In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes such
-as `ml-2`, `py-1`, etc. These are Bootstrap v4.3 utility classes that help control padding, margins,
-positioning and more. You can find information on these classes in the
+In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
+such as `ml-2`, `py-1`, etc. These are Bootstrap v4.3 utility classes that help control padding,
+margins, positioning and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
-Many of the examples in this documentation are _live_ and can be editted in-place for for an ehnahced
-learning eperience.
+Many of the examples in this documentation are _live_ and can be edited in-place for for an enhanced
+learning experience.
 
-BootstrapVue also provides an [interactive playground](/play) where you can experiment with the various
-components and export your results to JSFiddle, CodePen, and/or CodeSandbox.
+BootstrapVue also provides an [interactive playground](/play) where you can experiment with the
+various components and export your results to JSFiddle, CodePen, and/or CodeSandbox.
 
 ## Important HTML globals
 
-Bootstrap v4.3 CSS employs a handful of important global styles and settings that you’ll need to be aware
-of when using it, all of which are almost exclusively geared towards the normalization of cross browser
-styles. Refer to the following sub-sections for details.
+Bootstrap v4.3 CSS employs a handful of important global styles and settings that you’ll need to be
+aware of when using it, all of which are almost exclusively geared towards the normalization of
+cross browser styles. Refer to the following sub-sections for details.
 
 ### HTML5 doctype
 
@@ -53,9 +53,10 @@ styling, but including it shouldn’t cause any considerable hiccups.
 
 ### Responsive meta tag
 
-Bootstrap v4.3 is developed for mobile first, a strategy in which code is optimized for mobile devices
-first and then scales up components as necessary using CSS media queries. To ensure proper rendering
-and touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
+Bootstrap v4.3 is developed for mobile first, a strategy in which code is optimized for mobile
+devices first and then scales up components as necessary using CSS media queries. To ensure proper
+rendering and touch zooming for all devices, **add the responsive viewport meta** tag to your
+`<head>`.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -65,7 +66,8 @@ and touch zooming for all devices, **add the responsive viewport meta** tag to y
 
 For more straightforward sizing in CSS, the global `box-sizing` value is switched from `content-box`
 to `border-box`. This ensures `padding` does not affect the final computed width of an element, but
-it can cause problems with some third party software like Google Maps and Google Custom Search Engine.
+it can cause problems with some third party software like Google Maps and Google Custom Search
+Engine.
 
 On the rare occasion you need to override it, use something like the following:
 
@@ -96,7 +98,7 @@ Bootstrap v4:
 
 ```bash
 # With npm
-npm i vue bootstrap-vue bootstrap
+npm install vue bootstrap-vue bootstrap
 
 # With yarn
 yarn add vue bootstrap-vue bootstrap
@@ -137,9 +139,9 @@ Be sure to `@import` or define your custom variable values _before_ including Bo
 (`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
 variables are set up correctly.
 
-Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into
-your project. Importing individual SCSS files into your project will **not** share variable
-values and functions between files by default.
+Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into your
+project. Importing individual SCSS files into your project will **not** share variable values and
+functions between files by default.
 
 **Note**: Requires webpack configuration to load CSS/SCSS files
 ([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
@@ -191,7 +193,6 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 BootstrapVue provides a Nuxt.js module for easily importing BootstrapVue (or portions of
 BootstrapVue) into your Nuxt.js app.
 
-
 ### Getting started with Nuxt.js
 
 [Nuxt.js](https://nuxtjs.org/) version <code>{{ nuxtVersion }}</code> (or greater) is recommended.
@@ -200,7 +201,7 @@ Install dependencies:
 
 ```bash
 # With npm
-npm i bootstrap-vue
+npm install bootstrap-vue
 
 # With yarn
 yarn add bootstrap-vue
@@ -231,9 +232,9 @@ module.exports = {
 }
 ```
 
-BootstrapVue's custom SCSS relies on Bootstrap SCSS variables and mixins, and any variable
-overrides you may have set. You can include Bootstrap and BootstrapVue SCSS in your project's
-custom SCSS file:
+BootstrapVue's custom SCSS relies on Bootstrap SCSS variables and mixins, and any variable overrides
+you may have set. You can include Bootstrap and BootstrapVue SCSS in your project's custom SCSS
+file:
 
 ```scss
 // custom.scss
@@ -358,8 +359,8 @@ module.exports = {
 
 ### Using pretranspiled version of BootstrapVue for Nuxt.js
 
-Nuxt.js module uses the pre-transpiled versions of BootstrapVue for faster development builds and the
-source (`src/`) of BootstrapVue for higher quality and smaller production builds.
+Nuxt.js module uses the pre-transpiled versions of BootstrapVue for faster development builds and
+the source (`src/`) of BootstrapVue for higher quality and smaller production builds.
 
 You can override this option using `usePretranspiled` option. Setting to `true` always uses the
 pre-transpiled versions, while setting it to `false` will always use `src/`. By default
@@ -379,7 +380,7 @@ BootstrapVue has two Vue CLI templates available:
 
 ```bash
 # Ensure Vue CLI is installed and up to date
-npm i -g vue-cli
+npm install -g vue-cli
 
 # Initialize a BootstrapVue project in the directory 'my-project'
 vue init bootstrap-vue/webpack-simple my-project
@@ -410,7 +411,7 @@ npx @vue/cli create my-project
 Enter the `my-project` directory and install `bootstrap-vue`:
 
 ```bash
-npm i bootstrap-vue
+npm install bootstrap-vue
 ```
 
 Under the hood, Vue CLI uses webpack, so we can register the BootstrapVue plugin as with the webpack
@@ -506,8 +507,8 @@ you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are availabl
 - `BVToastPlugin` - provides the injection `$bvToast` for generating
   [on demand toasts](/docs/components/toast#toasts-on-demand).
 
-When importing multiple component group and/or directive group plugins, include all imports in
-a single `import` statement for optimal tree shaking.
+When importing multiple component group and/or directive group plugins, include all imports in a
+single `import` statement for optimal tree shaking.
 
 ### Individual components and directives
 
