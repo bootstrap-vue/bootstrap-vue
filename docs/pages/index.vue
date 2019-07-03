@@ -1,5 +1,5 @@
 <template>
-  <main id="content" class="bd-masthead pt-5 pb-0" role="main">
+  <main id="content" class="bd-masthead pt-5 pb-4" role="main">
     <b-container>
       <b-row align-v="center" class="mb-4">
         <b-col tag="aside" md="6" order-md="2">
@@ -336,6 +336,11 @@
 </template>
 
 <style scoped>
+main#content {
+  margin-bottom: -4rem;
+  background-image: linear-gradient(to top, #563d7c, transparent 50%);
+}
+
 .bv-logo {
   filter: drop-shadow(4px 12px 4px #bbb);
 }
