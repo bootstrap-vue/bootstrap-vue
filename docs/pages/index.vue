@@ -1,11 +1,17 @@
 <template>
-  <main id="content" class="bd-masthead" role="main">
-    <div class="container">
-      <div class="row align-items-center">
-        <aside class="col-md-6 order-md-2">
-          <img src="~/static/icon.png" alt="BootstrapVue logo" class="img-fluid mx-auto d-block mb-3 mb-md-0">
-        </aside>
-        <section class="col-md-6 order-md-1">
+  <main id="content" class="bd-masthead pt-5 pb-0" role="main">
+    <b-container>
+      <b-row align-v="center">
+        <b-col tag="aside" md="6" order-md="2">
+          <b-img
+            src="~/static/logo.svg"
+            alt="BootstrapVue logo"
+            fluid
+            center
+            class="w-75 mb-4 mb-md-0"
+          ></b-img>
+        </b-col>
+        <b-col tag="section" md="6" order-md="1">
           <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
 
           <p class="lead">
@@ -97,9 +103,9 @@
           <b-link class="text-muted mb-0" to="/docs/misc/changelog">
             Currently v{{ version }}
           </b-link>
-        </section>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </main>
 </template>
 
