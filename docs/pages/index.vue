@@ -300,7 +300,7 @@
               />
             </g>
           </svg>
-          <b-card-text>
+          <b-card-text class="text-center">
             BootstrapVue's documentation is created using
             <span class="bd-text-purple-bright">BootstrapVue</span> components and
             generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
