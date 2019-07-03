@@ -100,7 +100,9 @@
         </section>
       </div>
 
-      <b-card-group class="mb-0 mt-3">
+      <hr class="my-3">
+
+      <b-card-group class="mb-0">
         <b-card tag="article" bg-variant="transparent" border-variant="white" body-text-variant="muted">
           <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
             <svg
