@@ -4,7 +4,7 @@
       <b-row align-v="center" class="mb-4">
         <b-col tag="aside" md="6" order-md="2">
           <!-- vue-loader will inline the svg as a data uri -->
-          <b-img src="~static/logo.svg" center fluid class="w-75 mb-4 mb-md-0"></b-img>
+          <b-img src="~static/logo.svg" center fluid class="bv-logo w-75 mb-4 mb-md-0"></b-img>
         </b-col>
 
         <b-col tag="section" md="6" order-md="1">
@@ -308,6 +308,7 @@
             focusable="false"
             role="img"
           >
+            <title>Nuxt.js logo</title>
             <g transform="translate(0 49)" fill="none" fill-rule="evenodd">
               <path
                 fill="#00C58E"
@@ -335,16 +336,16 @@
 </template>
 
 <style scoped>
-.version a {
-  color: white;
+.bv-logo {
+  filter: drop-shadow(4px 12px 4px #bbb);
 }
 
 #logo {
-  animation: flip 1s;
+  animation: logo-flip 1s;
   transform-style: preserve-3d;
 }
 
-@keyframes flip {
+@keyframes logo-flip {
   0% {
     opacity: 0.5;
     transform: rotateY(180deg);
