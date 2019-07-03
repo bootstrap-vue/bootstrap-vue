@@ -338,7 +338,7 @@
 <style scoped>
 main#content {
   margin-bottom: -4rem;
-  background-image: linear-gradient(to top, #563d7c, transparent 50%);
+  background-image: linear-gradient(to top, #eee, transparent 50%);
 }
 
 .bv-logo {
