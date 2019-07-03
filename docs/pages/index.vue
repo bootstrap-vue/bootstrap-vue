@@ -65,10 +65,10 @@
         </b-col>
       </b-row>
 
-      <b-card class="mb-4">
-        <b-row>
-          <b-col md="10" offset-md="1">
-            <b-card-text class="text-md-center">
+      <b-card class="mb-4 border-0" bg-variant="light">
+        <b-row class="mb-4">
+          <b-col lg="10" offset-lg="1">
+            <b-card-text class="text-lg-center">
               With over 40 available plugins and more than 75 custom UI components,
               <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
               comprehensive implementations of the
@@ -83,30 +83,30 @@
           </b-col>
         </b-row>
 
-        <b-row>
-          <b-col sm md="3" offset-md="2">
+        <b-row class="justify-content-lg-center">
+          <b-col md="4" lg="3">
             <b-btn
               to="/docs"
               variant="bd-primary"
               size="lg"
-              class="mb-3 mb-md-0 mr-md-3"
+              class="mb-3 mb-md-0"
               block
             >
               Get started
             </b-btn>
           </b-col>
-          <b-col sm md="3">
+          <b-col md="4" lg="3">
             <b-btn
               to="/play"
               variant="bd-primary"
               size="lg"
-              class="mb-3 mb-md-0 mr-md-3"
+              class="mb-3 mb-md-0"
               block
             >
               Playground
             </b-btn>
           </b-col>
-          <b-col sm md="2">
+          <b-col md="4" lg="3">
             <b-btn
               href="https://github.com/bootstrap-vue/bootstrap-vue"
               variant="outline-secondary"
