@@ -65,7 +65,7 @@
         </b-col>
       </b-row>
 
-      <b-card class="mb-4 border-0" bg-variant="light">
+      <b-card class="mt-5 mb-4 border-0" body-class="p-4" bg-variant="light">
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
             <b-card-text class="text-lg-center">
@@ -78,7 +78,7 @@
               <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
                 <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
               </b-link>
-              accessibility markup. <samp>jQuery</samp> is not required.
+              accessibility markup.
             </b-card-text>
           </b-col>
         </b-row>
@@ -125,7 +125,7 @@
           <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="3.5em"
+              height="2.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -154,7 +154,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="3.5em"
+              height="2.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -184,7 +184,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="3.5em"
+              height="2.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -214,7 +214,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="3.5em"
+              height="2.5em"
               viewBox="0 0 448 512"
               class="mx-auto d-block mb-3"
               aria-hidden="true"
@@ -239,7 +239,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="3.5em"
+              height="2.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -274,7 +274,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="3.5em"
+              height="2.5em"
               viewBox="0 0 496 512"
               class="mx-auto d-block mb-3"
               aria-hidden="true"
@@ -296,13 +296,13 @@
         </b-card>
       </b-card-group>
 
-      <b-card tag="article">
+      <b-card class="border-0" body-class="p-4" tag="article" bg-variant="light">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="3em"
             height="3em"
             viewBox="0 0 400 400"
-            class="mx-auto d-block"
+            class="d-block mx-auto mb-2"
             version="1"
             aria-hidden="true"
             focusable="false"
