@@ -113,6 +113,21 @@ module.exports = {
 
       loaders.scss.precision = 6
       loaders.scss.outputStyle = 'expanded'
+
+      loaders.vue.transformAssetUrls = {
+        // Nuxt default is missing `poster` for video
+        video: ['src', 'poster'],
+        // Nuxt default is missing image
+        image: 'xlink:href',
+        // Add BootstrapVue specific component asset items
+        'b-img': 'src',
+        'b-img-lazy': ['src', 'blank-src'],
+        'b-card': 'img-src',
+        'b-card-img': 'src',
+        'b-card-img-lazy': ['src', 'blank-src'],
+        'b-carousel-slide': 'img-src',
+        'b-embed': 'src'
+      }
     }
   },
 
