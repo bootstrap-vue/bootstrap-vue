@@ -3,14 +3,23 @@
     <b-container>
       <b-row align-v="center">
         <b-col tag="aside" md="6" order-md="2">
-          <b-img
-            src="~/static/logo.svg"
-            alt="BootstrapVue logo"
-            fluid
-            center
-            class="w-75 mb-4 mb-md-0"
-          ></b-img>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 2041 2160"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            class="img-fluid d-block w-75 mx-auto mb-4 mb-md-0"
+            focusable="false"
+            role="img"
+          >
+            <title>BootstrapVue logo</title>
+            <path d="m1397 271-370 642-371-642h-592l963 1667 962-1667z" fill="#34495e" />
+            <path d="m44 0h1952l-979 1696z" fill="#563d7c" fill-rule="nonzero" />
+            <path d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" fill="#41b883" />
+            <path d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z" fill="#fff" />
+          </svg>
         </b-col>
+
         <b-col tag="section" md="6" order-md="1">
           <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
 
@@ -50,7 +59,7 @@
                 focusable="false"
                 role="img"
               >
-                <title>Bootstrap v4 Logo</title>
+                <title>Bootstrap logo</title>
                 <path fill="#563D7C" d="M612 510c0 56.1-45.9 102-102 102H102C45.9 612 0 566.1 0 510V102C0 45.9 45.9 0 102 0h408c56.1 0 102 45.9 102 102v408z" />
                 <path fill="#FFF" d="M166.3 133h173.5c32 0 57.7 7.3 77 22s29 36.8 29 66.5c0 18-4.4 33.4-13.2 46.2-8.8 12.8-21.4 22.8-37.8 29.8v1c22 4.7 38.7 15.1 50 31.2 11.3 16.2 17 36.4 17 60.8 0 14-2.5 27.1-7.5 39.2-5 12.2-12.8 22.7-23.5 31.5s-24.3 15.8-41 21-36.5 7.8-59.5 7.8h-164V133zm62.5 149.5h102c15 0 27.5-4.2 37.5-12.8s15-20.8 15-36.8c0-18-4.5-30.7-13.5-38s-22-11-39-11h-102v98.6zm0 156.5h110.5c19 0 33.8-4.9 44.2-14.8 10.5-9.8 15.8-23.8 15.8-41.8 0-17.7-5.2-31.2-15.8-40.8s-25.2-14.2-44.2-14.2H228.8V439z" />
               </svg>
@@ -71,7 +80,7 @@
                 focusable="false"
                 role="img"
               >
-                <title>Vue.js Logo</title>
+                <title>Vue.js logo</title>
                 <path fill="#42b883" d="M120.83 0L98.16 39.26 75.49 0H0l98.16 170.02L196.32 0h-75.49z" />
                 <path fill="#35495e" d="M120.83 0L98.16 39.26 75.49 0H39.26l58.9 102.01L157.06 0h-36.23z" />
               </svg>
@@ -125,6 +134,7 @@
               focusable="false"
               role="img"
             >
+              <!-- eslint-disable-next-line vue/max-attributes-per-line -->
               <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
               <line x1="12" y1="18" x2="12" y2="18" />
             </svg>
