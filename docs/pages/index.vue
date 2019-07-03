@@ -1,7 +1,7 @@
 <template>
   <main id="content" class="bd-masthead pt-5 pb-0" role="main">
     <b-container>
-      <b-row align-v="center">
+      <b-row align-v="center" class="mb-4">
         <b-col tag="aside" md="6" order-md="2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -109,20 +109,18 @@
               GitHub
             </b-btn>
           </div>
-          <b-link class="text-muted mb-0" to="/docs/misc/changelog">
+          <b-badge variant="info" class="mb-0" to="/docs/misc/changelog">
             Currently v{{ version }}
-          </b-link>
+          </b-badge>
         </b-col>
       </b-row>
-
-      <hr class="my-5">
 
       <b-card-group deck class="mb-4">
         <b-card tag="article" body-text-variant="muted">
           <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="48px"
+              height="3.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -151,7 +149,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="48px"
+              height="3.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -173,8 +171,7 @@
           </b-card-text>
 
           <b-card-text class="text-center">
-            <!-- make this a shorter url i.e. /docs/#tree-shaking -->
-            <b-link to="/docs/#selective-component-and-directive-inclusion-in-module-bundlers">Import</b-link> only the features that you need
+            <b-link to="/docs/#tree-shaking-with-module-bundlers">Import</b-link> only the features that you need
           </b-card-text>
         </b-card>
 
@@ -182,7 +179,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="48px"
+              height="3.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -212,7 +209,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="48px"
+              height="3.5em"
               viewBox="0 0 448 512"
               class="img-responsive mx-auto d-block mb-3"
               aria-hidden="true"
@@ -237,7 +234,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="48px"
+              height="3.5em"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -272,7 +269,7 @@
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="48px"
+              height="3.5em"
               viewBox="0 0 496 512"
               class="img-responsive mx-auto d-block mb-3"
               aria-hidden="true"
