@@ -109,13 +109,13 @@
               GitHub
             </b-btn>
           </div>
-          <b-badge variant="info" class="mb-0" to="/docs/misc/changelog">
-            Currently v{{ version }}
-          </b-badge>
+          <p class="mb-0 text-muted">
+            Currently <b-link to="/docs/misc/changelog">v{{ version }}</b-link>
+          </p>
         </b-col>
       </b-row>
 
-      <b-card-group deck class="mb-4">
+      <b-card-group deck class="mb-sm-4">
         <b-card tag="article" body-text-variant="muted">
           <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
             <svg
