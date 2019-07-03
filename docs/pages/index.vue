@@ -1,5 +1,5 @@
 <template>
-  <main id="content" class="pt-5 pb-4" role="main">
+  <main id="content" role="main">
     <section class="bd-masthead">
       <b-container>
         <b-row align-v="center" class="mb-4">
