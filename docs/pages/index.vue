@@ -80,7 +80,7 @@
               </b-link>
               accessibility markup. <samp>jQuery</samp> is not required.
             </b-card-text>
-          <b-col>
+          </b-col>
         </b-row>
 
         <b-row>
