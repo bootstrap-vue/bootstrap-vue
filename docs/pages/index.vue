@@ -17,19 +17,6 @@
             <span class="bd-text-purple-bright">Bootstrap v4</span>.
           </p>
 
-          <p class="mb-3">
-            With over 40 available plugins and more than 75 custom UI components,
-            <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
-            comprehensive implementations of the
-            <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
-            available for <span class="bd-text-purple-bright">Vue.js v2.6+</span>, complete with
-            extensive and automated
-            <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
-              <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
-            </b-link>
-            accessibility markup. <samp>jQuery</samp> is not required.
-          </p>
-
           <b-media no-body class="my-3">
             <b-media-aside vertical-align="center">
               <svg
@@ -72,29 +59,66 @@
             </b-media-body>
           </b-media>
 
-          <div class="d-flex flex-column flex-md-row lead mb-3">
-            <b-btn
-              to="/docs"
-              variant="bd-primary"
-              size="lg"
-              class="mb-3 mb-md-0 mr-md-3"
-            >
-              Get started
-            </b-btn>
-            <b-btn
-              href="https://github.com/bootstrap-vue/bootstrap-vue"
-              variant="outline-secondary"
-              size="lg"
-              target="_blank"
-            >
-              GitHub
-            </b-btn>
-          </div>
           <p class="mb-0 text-muted">
             Currently <b-link to="/docs/misc/changelog">v{{ version }}</b-link>
           </p>
         </b-col>
       </b-row>
+
+      <b-card class="mb-4">
+        <b-row>
+          <b-col md="10" offset-md="1">
+            <b-card-text class="text-md-center">
+              With over 40 available plugins and more than 75 custom UI components,
+              <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
+              comprehensive implementations of the
+              <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
+              available for <span class="bd-text-purple-bright">Vue.js v2.6+</span>, complete with
+              extensive and automated
+              <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
+                <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
+              </b-link>
+              accessibility markup. <samp>jQuery</samp> is not required.
+            </b-card-text>
+          <b-col>
+        </b-row>
+
+        <b-row>
+          <b-col sm md="3" offset-md="2">
+            <b-btn
+              to="/docs"
+              variant="bd-primary"
+              size="lg"
+              class="mb-3 mb-md-0 mr-md-3"
+              block
+            >
+              Get started
+            </b-btn>
+          </b-col>
+          <b-col sm md="3">
+            <b-btn
+              to="/play"
+              variant="bd-primary"
+              size="lg"
+              class="mb-3 mb-md-0 mr-md-3"
+              block
+            >
+              Playground
+            </b-btn>
+          </b-col>
+          <b-col sm md="2">
+            <b-btn
+              href="https://github.com/bootstrap-vue/bootstrap-vue"
+              variant="outline-secondary"
+              size="lg"
+              target="_blank"
+              block
+            >
+              GitHub
+            </b-btn>
+          </b-col>
+        </b-row>
+      </b-card>
 
       <b-card-group deck class="mb-sm-4">
         <b-card tag="article" body-text-variant="muted">
