@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row align-items-center">
         <aside class="col-md-6 order-md-2">
-          <img src="~/static/logo.svg" alt="BootstrapVue logo" class="img-fluid d-block w-75 mx-auto mb-4 mb-md-0">
+          <b-img src="~/static/logo.svg" fluid center alt="BootstrapVue logo" class="w-75 mb-4 mb-md-0"></b-img>
         </aside>
         <section class="col-md-6 order-md-1">
           <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
