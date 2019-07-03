@@ -30,7 +30,7 @@
             accessibility markup. <samp>jQuery</samp> is not required.
           </p>
 
-          <p class="mb-2 text-muted">
+          <p class="mb-2">
             BootstrapVue's documentation is created using
             <span class="bd-text-purple-bright">BootstrapVue</span> components and
             generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>.
@@ -51,7 +51,7 @@
                 <path fill="#FFF" d="M166.3 133h173.5c32 0 57.7 7.3 77 22s29 36.8 29 66.5c0 18-4.4 33.4-13.2 46.2-8.8 12.8-21.4 22.8-37.8 29.8v1c22 4.7 38.7 15.1 50 31.2 11.3 16.2 17 36.4 17 60.8 0 14-2.5 27.1-7.5 39.2-5 12.2-12.8 22.7-23.5 31.5s-24.3 15.8-41 21-36.5 7.8-59.5 7.8h-164V133zm62.5 149.5h102c15 0 27.5-4.2 37.5-12.8s15-20.8 15-36.8c0-18-4.5-30.7-13.5-38s-22-11-39-11h-102v98.6zm0 156.5h110.5c19 0 33.8-4.9 44.2-14.8 10.5-9.8 15.8-23.8 15.8-41.8 0-17.7-5.2-31.2-15.8-40.8s-25.2-14.2-44.2-14.2H228.8V439z" />
               </svg>
             </b-media-aside>
-            <b-media-body class="ml-3 text-muted">
+            <b-media-body class="ml-3">
               <a href="https://getbootstrap.com/docs/4.3" target="_blank">Bootstrap v4</a> is the
               world's most popular framework for building responsive, mobile-first sites.
             </b-media-body>
@@ -72,7 +72,7 @@
                 <path fill="#35495e" d="M120.83 0L98.16 39.26 75.49 0H39.26l58.9 102.01L157.06 0h-36.23z" />
               </svg>
             </b-media-aside>
-            <b-media-body class="ml-3 text-muted">
+            <b-media-body class="ml-3">
               <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /<i>vjuː</i>/, like view)
               is a progressive framework for building user interfaces.
             </b-media-body>
