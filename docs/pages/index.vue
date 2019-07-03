@@ -1,6 +1,6 @@
 <template>
-  <main id="content" class="bd-masthead pt-5 pb-4" role="main">
-    <b-container>
+  <main id="content" class="pt-5 pb-4" role="main">
+    <b-container class="bd-masthead">
       <b-row align-v="center" class="mb-4">
         <b-col tag="aside" md="6" order-md="2">
           <!-- vue-loader will inline the svg as a data uri -->
@@ -331,22 +331,21 @@
           generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
         </b-card-text>
       </b-card>
+    </b-container>
 
+    <b-container tag="section" class="pt-5 text-center">
+      <b-button size="sm" href="https://opencollective.com/bootstrap-vue#backer" target="_blank">
+        Become a backer
+      </b-button>
+      <b-button size="sm" href="https://opencollective.com/bootstrap-vue#sponsor" target="_blank">
+        Become a sponsor
+      </b-button>
     </b-container>
   </main>
-
-  <b-container tag="section" class="pt-5 text-center">
-    <b-button size="sm" href="https://opencollective.com/bootstrap-vue#backer" target="_blank">
-      Become a backer
-    </b-button>
-    <b-button size="sm" href="https://opencollective.com/bootstrap-vue#sponsor" target="_blank">
-      Become a sponsor
-    </b-button>
-  </b-container>
 </template>
 
 <style scoped>
-main#content {
+.bd-masthead {
   background-image: linear-gradient(to top, #eee, transparent 50%);
 }
 
