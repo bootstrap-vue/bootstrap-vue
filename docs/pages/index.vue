@@ -121,7 +121,7 @@
       </b-card>
 
       <b-card-group deck class="mb-sm-4">
-        <b-card tag="article" body-text-variant="muted">
+        <b-card tag="article" body-text-variant="muted" class="rounded-0">
           <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@
           </b-card-text>
         </b-card>
 
-        <b-card tag="article" body-text-variant="muted">
+        <b-card tag="article" body-text-variant="muted" class="rounded-0">
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +180,7 @@
           </b-card-text>
         </b-card>
 
-        <b-card tag="article" body-text-variant="muted">
+        <b-card tag="article" body-text-variant="muted" class="rounded-0">
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +210,7 @@
       </b-card-group>
 
       <b-card-group deck class="mb-4">
-        <b-card tag="article" body-text-variant="muted">
+        <b-card tag="article" body-text-variant="muted" class="rounded-0">
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +235,7 @@
           </b-card-text>
         </b-card>
 
-        <b-card tag="article" body-text-variant="muted">
+        <b-card tag="article" body-text-variant="muted" class="rounded-0">
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -270,7 +270,7 @@
           </b-card-text>
         </b-card>
 
-        <b-card tag="article" body-text-variant="muted">
+        <b-card tag="article" body-text-variant="muted" class="rounded-0">
           <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
