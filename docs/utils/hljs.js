@@ -18,7 +18,7 @@ hljs.registerLanguage('json', hljsJSON)
 hljs.registerLanguage('xml', hljsXML) // includes HTML
 hljs.registerLanguage('css', hljsCSS)
 hljs.registerLanguage('scss', hljsSCSS)
-hljs.registerLanguage('bash', hljsBash) // icludes sh
+hljs.registerLanguage('bash', hljsBash) // includes sh
 hljs.registerLanguage('shell', hljsShell)
 hljs.registerLanguage('plaintext', hljsPlaintext)
 
