@@ -1,8 +1,19 @@
 const fs = require('fs')
 const path = require('path')
-const hljs = require('highlight.js')
 const marked = require('marked')
+const hljs = require('highlight.js/lib/highlight.js')
 
+// import only the languages we need for hljs
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
+hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
+hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
+hljs.registerLanguage('html', require('highlight.js/lib/languages/html'))
+hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
+hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
+hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'))
+hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
+
+// Create a new marked renderer
 const renderer = new marked.Renderer()
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
