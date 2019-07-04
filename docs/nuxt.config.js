@@ -97,13 +97,16 @@ module.exports = {
         }
       }
     },
-    extend(config, { loaders }) {
+    extend(config, { isDev, loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
 
-      config.devtool = 'eval-source-map'
+      if (isDev) {
+        // Source maps make the bundles monsterous, do leave it off in prod mode
+        config.devtool = 'eval-source-map'
+      }
 
       config.module.rules.push({
         test: /\.md$/,
