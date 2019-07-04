@@ -9,6 +9,11 @@
             GitHub
           </a>
         </li>
+        <li>
+          <a href="https://discord.gg/j2Mtcny" target="_blank">
+            Discord Chat Forum
+          </a>
+        </li>
       </ul>
 
       <p>

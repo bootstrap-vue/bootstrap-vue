@@ -447,7 +447,7 @@ This will create a new app with basic BootstrapVue settings to get your project 
 
 In the future this plugin will provide options for more advanced configurations and templates.
 
-## Selective component and directive inclusion in module bundlers
+## Tree shaking with module bundlers
 
 <span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
 

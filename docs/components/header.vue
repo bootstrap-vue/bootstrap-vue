@@ -4,6 +4,7 @@
       class="mr-0 mr-md-2"
       to="/"
       exact
+      active-class="active"
       aria-label="BootstrapVue"
     >
       <svg
@@ -16,7 +17,7 @@
         role="img"
       >
         <title>BootstrapVue</title>
-        <g fill="#fff">
+        <g fill="currentColor">
           <path
             fill-rule="nonzero"
             d="M510,8 C561.846401,8.16468012 603.83532,50.1535995 604,102 L604,510 C603.83532,561.846401 561.846401,603.83532 510,604 L102,604 C50.1535995,603.83532 8.16468012,561.846401 8,510 L8,102 C8.16468012,50.1535995 50.1535995,8.16468012 102,8 L510,8 L510,8 Z M510,0 L102,0 C45.9,6.21724894e-15 0,45.9 0,102 L0,510 C0,566.1 45.9,612 102,612 L510,612 C566.1,612 612,566.1 612,510 L612,102 C612,45.9 566.1,6.21724894e-15 510,0 Z"
@@ -37,7 +38,7 @@
 
     <div class="navbar-nav-scroll">
       <b-navbar-nav is-nav class="bd-navbar-nav flex-row">
-        <b-nav-item to="/docs" exact>Docs</b-nav-item>
+        <b-nav-item to="/docs" active-class="active" exact>Docs</b-nav-item>
         <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
         <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
         <b-nav-item to="/docs/reference" active-class="active">Reference</b-nav-item>
@@ -168,6 +169,15 @@
     </b-navbar-nav>
   </b-navbar>
 </template>
+
+<style scoped>
+.navbar-brand {
+  color: #cbbde2;
+}
+.navbar-brand.active {
+  color: #fff;
+}
+</style>
 
 <script>
 import { version } from '~/content'
