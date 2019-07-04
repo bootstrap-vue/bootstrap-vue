@@ -12,7 +12,7 @@ hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
 hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
 hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'))
 hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
-hljs.registerLanguage('shell', require('highlight.js/lib/languages/plaintext'))
+hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
 
 // Create a new marked renderer
 const renderer = new marked.Renderer()
