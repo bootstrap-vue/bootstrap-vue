@@ -406,7 +406,7 @@ $bv-angle-depth: 8rem;
   background-position: top;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + 6rem);
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
 }
 
 .bv-p-reset {
