@@ -298,7 +298,8 @@
             </b-card-text>
 
             <b-card-text class="text-center">
-              Open sourced on <a href="https://github.com/bootstrap-vue/bootstrap-vue/" target="_blank">GitHub</a>, MIT License
+              Open sourced on <a href="https://github.com/bootstrap-vue/bootstrap-vue/" target="_blank">GitHub</a>,
+              <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a> License
             </b-card-text>
           </b-card>
         </b-card-group>
