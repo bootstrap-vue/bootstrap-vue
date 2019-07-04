@@ -126,7 +126,7 @@
     </section>
 
     <section class="bv-section-white">
-      <b-container class="pt-4">
+      <b-container>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
@@ -371,6 +371,7 @@
 .bv-section-white,
 .bv-section-gray {
   padding-top: calc(25px + 1rem);
+  padding-bottom: 1rem;
 }
 
 .bv-section-white {
