@@ -307,7 +307,7 @@
     </section>
 
     <section class="bv-section-gray">
-      <b-container tag="article">
+      <b-container tag="article" class="text-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="3em"
@@ -336,11 +336,12 @@
             />
           </g>
         </svg>
-        <p class="text-center mb-0">
+        <p>
           BootstrapVue's documentation is created using
           <span class="bd-text-purple-bright">BootstrapVue</span> and
           generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
         </p>
+        <b-button to="/docs#nuxtjs-module" size="sm">BootstrapVue Nuxt.js plugin</b-button>
       </b-container>
     </section>
 
