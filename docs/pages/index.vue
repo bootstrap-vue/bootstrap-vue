@@ -390,7 +390,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray bv-p25-p0">
+    <section class="bv-section-gray bv-p-reset">
       <!-- to give footer on landing page angled top -->
     </section>
   </main>
@@ -399,24 +399,24 @@
 <style scoped>
 .bv-section-white,
 .bv-section-gray {
-  padding-top: calc(25px + 2rem);
-  padding-bottom: 1.5rem;
+  padding-top: calc(75px + 6rem);
+  padding-bottom: 4rem;
 }
 
 .bv-section-white {
-  background: no-repeat top / 100% 25px
+  background: no-repeat top / 100% 75px
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
   background-color: #fff;
 }
 
 .bv-section-gray {
-  background: no-repeat top / 100% 25px
+  background: no-repeat top / 100% 75px
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
   background-color: #eee;
 }
 
-.bv-p25-p0 {
-  padding-top: 25px;
+.bv-p-reset {
+  padding-top: 75px;
   padding-bottom: 0;
 }
 
