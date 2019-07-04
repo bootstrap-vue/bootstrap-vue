@@ -344,7 +344,7 @@
     </section>
 
     <section>
-      <b-container tag="article" class="pt-3 text-center">
+      <b-container tag="article" class="pt-5 text-center">
         <b-button size="sm" href="https://opencollective.com/bootstrap-vue#backer" target="_blank">
           Become a backer
         </b-button>
