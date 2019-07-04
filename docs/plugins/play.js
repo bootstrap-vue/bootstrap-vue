@@ -5,7 +5,7 @@ import hljs from 'highlight.js/lib/highlight.js'
 import hljsJS from 'highlight.js/lib/languages/javascript'
 import hljsTS from 'highlight.js/lib/languages/typescript'
 import hljsJSON from 'highlight.js/lib/languages/json'
-import hljsHTML from 'highlight.js/lib/languages/html'
+import hljsXML from 'highlight.js/lib/languages/xml'
 import hljsCSS from 'highlight.js/lib/languages/css'
 import hljsSCSS from 'highlight.js/lib/languages/scss'
 import hljsBash from 'highlight.js/lib/languages/bash'
@@ -16,10 +16,10 @@ import hljsPlaintext from 'highlight.js/lib/languages/plaintext'
 hljs.registerLanguage('javascript', hljsJS)
 hljs.registerLanguage('typescript', hljsTS)
 hljs.registerLanguage('json', hljsJSON)
-hljs.registerLanguage('html', hljsHTML)
+hljs.registerLanguage('xml', hljsXML) // includes HTML
 hljs.registerLanguage('css', hljsCSS)
 hljs.registerLanguage('scss', hljsSCSS)
-hljs.registerLanguage('bash', hljsBash)
+hljs.registerLanguage('bash', hljsBash) // icludes sh
 hljs.registerLanguage('shell', hljsShell)
 hljs.registerLanguage('plaintext', hljsPlaintext)
 
