@@ -347,7 +347,7 @@
 
     <section class="bv-section-white">
       <b-container tag="article" class="text-center">
-        <h5 class="text-center bd-text-purple-bright">
+        <h5 class="text-center bd-text-purple-bright mb-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 40 41"
@@ -360,6 +360,7 @@
             focusable="false"
             role="img"
           >
+            <title>Open Collective logo</title>
             <path
               fill-opacity=".4"
               d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z"
