@@ -346,10 +346,20 @@
 
     <section>
       <b-container tag="article" class="pt-5 text-center">
-        <b-button size="sm" href="https://opencollective.com/bootstrap-vue#backer" target="_blank">
+        <b-button
+          href="https://opencollective.com/bootstrap-vue#backer"
+          size="sm"
+          variant="outline-secondary"
+          target="_blank"
+        >
           Become a backer
         </b-button>
-        <b-button size="sm" href="https://opencollective.com/bootstrap-vue#sponsor" target="_blank">
+        <b-button
+          href="https://opencollective.com/bootstrap-vue#sponsor"
+          size="sm"
+          variant="outline-secondary"
+          target="_blank"
+        >
           Become a sponsor
         </b-button>
       </b-container>
