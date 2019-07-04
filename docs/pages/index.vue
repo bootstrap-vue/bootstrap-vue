@@ -341,7 +341,7 @@
           <span class="bd-text-purple-bright">BootstrapVue</span> and
           generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
         </p>
-        <b-button to="/docs#nuxtjs-module" size="sm">BootstrapVue Nuxt.js plugin</b-button>
+        <b-button to="/docs#nuxtjs-module" size="sm" variant="outline-secondary">BootstrapVue Nuxt.js module</b-button>
       </b-container>
     </section>
 
