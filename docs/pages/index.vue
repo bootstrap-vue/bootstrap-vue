@@ -216,7 +216,7 @@
           </b-card>
         </b-card-group>
 
-        <b-card-group deck class="mb-4">
+        <b-card-group deck>
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
               <svg
