@@ -7,10 +7,10 @@ const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
-hljs.registerLanguage('html', require('highlight.js/lib/languages/html'))
+hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml')) // includes HTML
 hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
 hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
-hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'))
+hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // includes sh
 hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
 hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
 
