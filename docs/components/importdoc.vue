@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import hljs from '../utils/jljs'
+import hljs from '../utils/hljs'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
