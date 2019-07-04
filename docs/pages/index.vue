@@ -364,6 +364,10 @@
         </b-button>
       </b-container>
     </section>
+
+    <section class="bv-section-gray">
+      <!-- to give footer on landing page angled top -->
+    </section>
   </main>
 </template>
 
