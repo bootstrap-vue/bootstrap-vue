@@ -1,5 +1,5 @@
 <template>
-  <b-container tag="main">
+  <b-container fluid tag="main" class="pb-5">
     <!-- Introduction -->
     <div class="bd-content mb-4">
       <h1><span class="bd-content-title">{{ title }}</span></h1>
