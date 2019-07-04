@@ -391,7 +391,7 @@
 }
 
 .bv-logo {
-  filter: drop-shadow(4px 12px 4px #bbb);
+  filter: drop-shadow(-3px 12px 2px #e7e7e7);
 }
 
 #logo {
