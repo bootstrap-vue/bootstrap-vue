@@ -345,7 +345,7 @@
     </section>
 
     <section class="bv-section-white">
-      <b-container tag="article" class="pt-5 text-center">
+      <b-container tag="article" class="py-5 text-center">
         <b-button
           href="https://opencollective.com/bootstrap-vue#backer"
           size="sm"
