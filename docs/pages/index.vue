@@ -242,7 +242,7 @@
             </b-card-text>
           </b-card>
 
-          <b-card tag="article" body-text-variant="muted" class="rounded-0">
+          <b-card tag="article" body-text-variant="muted" body-class="px-2" class="rounded-0">
             <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
