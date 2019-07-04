@@ -1,5 +1,5 @@
 <template>
-  <footer class="bd-footer text-muted">
+  <footer class="bd-footer text-muted mt-0">
     <b-container fluid>
       <ul class="bd-footer-links">
         <li><b-link to="/">Home</b-link></li>
