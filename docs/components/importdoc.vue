@@ -34,7 +34,7 @@
         </b-table>
 
         <p><strong>Example:</strong></p>
-        <pre class="hljs js text-monospace p-2 notranslate" translate="no">{{ componentImportCode }}</pre>
+        <pre class="hljs language-js text-monospace p-2 notranslate" translate="no">{{ componentImportCode }}</pre>
       </article>
     </template>
 
@@ -69,7 +69,7 @@
         </b-table>
 
         <p><strong>Example:</strong></p>
-        <pre class="hljs js text-monospace p-2 notranslate" translate="no">{{ directiveImportCode }}</pre>
+        <pre class="hljs language-js text-monospace p-2 notranslate" translate="no">{{ directiveImportCode }}</pre>
       </article>
     </template>
 
@@ -123,7 +123,7 @@
       </template>
 
       <p><strong>Example:</strong></p>
-      <pre class="hljs js text-monospace p-2 notranslate" translate="no">{{ pluginImportCode }}</pre>
+      <pre class="hljs language-js text-monospace p-2 notranslate" translate="no">{{ pluginImportCode }}</pre>
     </article>
 
     <aside class="alert alert-warning my-4">
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import hljs from 'highlight.js'
+import hljs from '../utils/jljs'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
