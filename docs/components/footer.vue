@@ -1,5 +1,5 @@
 <template>
-  <footer class="bd-footer text-muted">
+  <footer :class="['bd-footer', 'text-muted', { 'docs-border': isDocs }]">
     <b-container>
       <b-row class="justify-content-center">
         <b-col cols="12" sm="auto" md="3" class="text-center text-sm-left">
@@ -54,11 +54,23 @@
   </footer>
 </template>
 
+<style scoped>
+.docs-border {
+  border-top: 3px solid #dee2e6;
+}
+</style>
+
 <script>
 import { version } from '~/content'
 
 export default {
   name: 'BVDFooter',
+  props: {
+    isDocs: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return { version }
   }
