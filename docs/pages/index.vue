@@ -4,13 +4,13 @@
       <b-container tag="article">
         <b-row align-v="center" class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-          <b-col tag="aside" cols="8" offset="2" md="5" offset-md="0" order-md="2" lg="4">
+          <b-col tag="aside" cols="8" offset="2" sm="6" offset-sm="3" md="4" offset-md="0" order-md="2">
             <!-- vue-loader will inline the svg as a data uri -->
             <!-- eslint-disable-next-line vue/max-attributes-per-line -->
             <b-img src="~static/logo.svg" alt="BootstrapVue logo" class="bv-logo mb-4 mb-md-0" center fluid></b-img>
           </b-col>
 
-          <b-col tag="section" md="7" order-md="1" lg="8">
+          <b-col tag="section" md="8" order-md="1">
             <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
 
             <p class="lead">
