@@ -744,8 +744,6 @@ to deal with on mobile devices (such as smart-phones).
 <!-- b-popover-advanced.vue -->
 ```
 
-
-
 ## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
@@ -849,8 +847,8 @@ are traditionally keyboard-focusable and interactive (such as links or form cont
 arbitrary HTML elements (such as `<span>`s) can be made focusable by adding the `tabindex="0"`
 attribute, this will add potentially annoying and confusing tab stops on non-interactive elements
 for keyboard users, and most assistive technologies currently do not announce the popover's content
-in this situation. Additionally, do not rely solely on `hover` as the trigger for your popovers,
-as this will make them impossible to trigger for keyboard users.
+in this situation. Additionally, do not rely solely on `hover` as the trigger for your popovers, as
+this will make them impossible to trigger for keyboard users.
 
 While you can insert rich, structured HTML and/or components in popovers via slots, we strongly
 recommend that you avoid adding an excessive amount of content. The way popovers currently work is

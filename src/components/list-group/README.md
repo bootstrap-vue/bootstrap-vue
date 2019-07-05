@@ -51,8 +51,8 @@ actionalable items. see below).
 
 ## Actionable list group items
 
-Turn a `<b-list-group-item>` into an actionable _link_ (`<a href="...">`) by specifying
-either an `href` prop or [router-link](/docs/reference/router-links) `to` prop.
+Turn a `<b-list-group-item>` into an actionable _link_ (`<a href="...">`) by specifying either an
+`href` prop or [router-link](/docs/reference/router-links) `to` prop.
 
 ```html
 <b-list-group>
