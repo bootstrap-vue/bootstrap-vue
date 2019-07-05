@@ -2,7 +2,7 @@
   <footer class="bd-footer text-muted">
     <b-container>
       <b-row class="justify-content-center">
-        <b-col cols="12" sm="auto" class="text-center text-sm-left">
+        <b-col cols="12" sm="auto" md="3" class="text-center text-sm-left">
           <b-img
             src="~static/logo.svg"
             class="mb-4 mt-0 mt-sm-4"
