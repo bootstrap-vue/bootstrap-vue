@@ -187,7 +187,7 @@
               <div slot="header" class="d-flex justify-content-between align-items-center">
                 <span>Console</span>
                 <b-btn
-                  v-if="messages.length"
+                  :disabled="messages.length === 0"
                   size="sm"
                   variant="outline-danger"
                   @click="clear"
@@ -227,7 +227,8 @@
 </template>
 
 <style scoped>
-.play-result /deep/ .card-body {
+.play-result /deep/ .card-body,
+.play-log {
   min-height: 300px;
 }
 
