@@ -569,7 +569,7 @@ when the trigger element is clicked a second time), then you can either:
 - Disable your trigger element (if possible) as soon as the popover begins to open (via the `show`
   event), and re-enable it when appropriate (i.e. via the `hide` or `hidden` event).
 
-For practical purposes, interactive content popovers should be minimal. The maximum width of the
+For practical purposes, **interactive content popovers should be minimal**. The maximum width of the
 popover is hard coded by Bootstrap v4 CSS to `276px`. Tall popovers on small screens can be harder
 to deal with on mobile devices (such as smart-phones).
 
@@ -744,6 +744,8 @@ to deal with on mobile devices (such as smart-phones).
 <!-- b-popover-advanced.vue -->
 ```
 
+
+
 ## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
@@ -839,5 +841,31 @@ possible. When the popover is closed, you should return focus back to your trigg
 
 You may also want to implement focus containment in the popover content while the user is
 interacting with it (keeping focus inside the popover until it is closed by the user).
+
+### Making popovers work for keyboard and assistive technology users
+
+To allow keyboard users to activate your popovers, you should only add them to HTML elements that
+are traditionally keyboard-focusable and interactive (such as links or form controls). Although
+arbitrary HTML elements (such as `<span>`s) can be made focusable by adding the `tabindex="0"`
+attribute, this will add potentially annoying and confusing tab stops on non-interactive elements
+for keyboard users, and most assistive technologies currently do not announce the popover's content
+in this situation. Additionally, do not rely solely on `hover` as the trigger for your popovers,
+as this will make them impossible to trigger for keyboard users.
+
+While you can insert rich, structured HTML and/or components in popovers via slots, we strongly
+recommend that you avoid adding an excessive amount of content. The way popovers currently work is
+that, once displayed, their content is tied to the trigger element with the `aria-describedby`
+attribute. As a result, the entirety of the popover's content will be announced (read) to assistive
+technology users as one long, uninterrupted stream.
+
+Additionally, while it is possible to also include interactive controls (such as form elements or
+links) in your popover, be aware that currently the popover does not manage keyboard focus order.
+When a keyboard user opens a popover, focus remains on the triggering element, and as the popover
+usually does not immediately follow the trigger in the document's structure, there is no guarantee
+that moving forward/pressing <kbd>TAB</kbd> will move a keyboard user into the popover itself. In
+short, simply adding interactive controls to a popover is likely to make these controls
+unreachable/unusable for keyboard users and users of assistive technologies, or at the very least
+make for an illogical overall focus order. **In these cases, consider using a `<b-modal>` dialog
+instead**.
 
 <!-- Component reference added automatically from component package.json -->
