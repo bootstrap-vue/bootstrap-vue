@@ -1,12 +1,12 @@
 <template>
   <footer class="bd-footer text-muted">
     <b-container>
-      <b-row class="justify-sm-content-sm-center">
-        <b-col cols="12" sm="auto" align-self="center" class="text-center">
+      <b-row class="justify-content-center">
+        <b-col cols="12" sm="auto" align-self="center" class="text-center text-sm-left">
           <b-img src="~static/logo.svg" width="100" alt="BootstrapVue logo" fluid></b-img>
         </b-col>
 
-        <b-col cols="6" sm="auto" class="text-left">
+        <b-col cols="auto" md="4" lg="3" class="text-left">
           <h5 class="bd-text-purple-bright mb-1">Documentation</h5>
           <ul class="list-unstyled ml-3">
             <li><b-link to="/" exact>Home</b-link></li>
@@ -19,7 +19,7 @@
           </ul>
         </b-col>
 
-        <b-col cols="6" sm="auto" class="text-left">
+        <b-col cols="auto" class="text-left">
           <h5 class="bd-text-purple-bright mb-1">Communnity</h5>
           <ul class="list-unstyled ml-3">
             <li><a href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">GitHub</a></li>
