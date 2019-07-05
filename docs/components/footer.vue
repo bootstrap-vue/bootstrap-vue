@@ -2,7 +2,7 @@
   <footer :class="['bd-footer', 'text-muted', { 'docs-border': isDocs }]">
     <b-container>
       <b-row class="justify-content-center">
-        <b-col cols="12" sm="auto" md="3" class="text-center text-sm-left">
+        <b-col cols="12" sm order-sm="3" class="text-center text-sm-right">
           <b-img
             src="~static/logo.svg"
             class="mb-4 mt-0 mt-sm-4"
@@ -57,6 +57,11 @@
 <style scoped>
 .docs-border {
   border-top: 3px solid #dee2e6;
+}
+
+@media (min-width: 1200px)
+.bd-footer > .container {
+  max-width: 960px;
 }
 </style>
 
