@@ -59,9 +59,10 @@
   border-top: 3px solid #dee2e6;
 }
 
-@media (min-width: 1200px)
-.bd-footer > .container {
-  max-width: 960px;
+@media (min-width: 1200px) {
+  .bd-footer > .container {
+    max-width: 960px;
+  }
 }
 </style>
 
