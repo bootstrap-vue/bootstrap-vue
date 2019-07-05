@@ -291,7 +291,7 @@ const DEFAULT_JS = `{
       this.show = !this.show
     },
     dismissed() {
-      console.log('Dismiss button clicked')
+      console.log('Alert dismissed')
     }
   }
 }`
