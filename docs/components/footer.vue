@@ -12,7 +12,7 @@
           ></b-img>
         </b-col>
 
-        <b-col cols="auto" md="4" lg="3" class="text-left">
+        <b-col cols="auto" md="4" class="text-left">
           <h5 class="bd-text-purple-bright mb-1">Documentation</h5>
           <ul class="list-unstyled ml-3">
             <li><b-link to="/" exact>Home</b-link></li>
