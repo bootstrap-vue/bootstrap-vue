@@ -26,7 +26,7 @@
         </b-col>
 
         <b-col cols="auto" class="text-left">
-          <h5 class="bd-text-purple-bright mb-1">Communnity</h5>
+          <h5 class="bd-text-purple-bright mb-1">Community</h5>
           <ul class="list-unstyled ml-3">
             <li><a href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">GitHub</a></li>
             <li><a href="https://discord.gg/j2Mtcny" target="_blank">Discord chat</a></li>
