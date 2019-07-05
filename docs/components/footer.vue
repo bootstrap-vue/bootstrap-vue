@@ -38,7 +38,7 @@
 
       <hr>
 
-      <p>
+      <p class="mb-2">
         Designed and built with all the love in the world. Maintained by the
         <a href="https://github.com/orgs/bootstrap-vue/people" target="_blank">core team</a>
         with the help of
