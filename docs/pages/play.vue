@@ -159,7 +159,7 @@
           <!-- Result column -->
           <b-col cols="12" class="mt-3">
             <!-- Result -->
-            <b-card>
+            <b-card class="play-result">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
@@ -227,6 +227,10 @@
 </template>
 
 <style scoped>
+.play-result /deep/ .card-body {
+  min-height: 300px;
+}
+
 .flip-move {
   transition: all 0.3s;
 }
