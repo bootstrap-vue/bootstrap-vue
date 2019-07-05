@@ -1,13 +1,13 @@
 <template>
   <footer class="bd-footer text-muted">
     <b-container>
-      <b-row>
-        <b-col cols="12" sm="auto" class="text-center text-sm-left mr-sm-auto">
+      <b-row class="justify-sm-content-sm-center">
+        <b-col cols="12" sm="auto" align-self="center" class="text-center">
           <b-img src="~static/logo.svg" width="100" alt="BootstrapVue logo" fluid></b-img>
         </b-col>
 
-        <b-col cols="12" sm="auto">
-          <h5 class="bd-text-purple-bright">Documentation</h5>
+        <b-col cols="6" sm="auto">
+          <h5 class="bd-text-purple-bright mb-1">Documentation</h5>
           <ul class="list-unstyled ml-3">
             <li><b-link to="/" exact>Home</b-link></li>
             <li><b-link to="/docs" exact>Getting started</b-link></li>
@@ -19,8 +19,8 @@
           </ul>
         </b-col>
 
-        <b-col cols="12" sm="auto">
-          <h5 class="bd-text-purple-bright">Communnity</h5>
+        <b-col cols="6" sm="auto">
+          <h5 class="bd-text-purple-bright mb-1">Communnity</h5>
           <ul class="list-unstyled ml-3">
             <li><a href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">GitHub</a></li>
             <li><a href="https://discord.gg/j2Mtcny" target="_blank">Discord chat</a></li>
@@ -29,6 +29,8 @@
           </ul>
         </b-col>
       </b-row>
+
+      <hr>
 
       <p>
         Designed and built with all the love in the world. Maintained by the
