@@ -14,7 +14,7 @@
             <li><b-link to="/docs/components" exact>Components</b-link></li>
             <li><b-link to="/docs/directives" exact>Directives</b-link></li>
             <li><b-link to="/docs/reference" exact>Reference</b-link></li>
-            <li><b-link to="/docs/misc" exact>Miscelaneous</b-link></li>
+            <li><b-link to="/docs/misc" exact>Miscellaneous</b-link></li>
             <li><b-link to="/play" exact>Playground</b-link></li>
           </ul>
         </b-col>
