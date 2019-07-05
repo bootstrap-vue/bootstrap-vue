@@ -5,7 +5,7 @@
         <b-col cols="12" sm="auto" class="text-center text-sm-left">
           <b-img
             src="~static/logo.svg"
-            class="my-4"
+            class="mb-4 mt-0 mt-sm-4"
             alt="BootstrapVue logo"
             width="100"
             fluid
