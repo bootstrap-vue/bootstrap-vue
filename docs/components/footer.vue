@@ -2,8 +2,14 @@
   <footer class="bd-footer text-muted">
     <b-container>
       <b-row class="justify-content-center">
-        <b-col cols="12" sm="auto" align-self="center" class="text-center text-sm-left">
-          <b-img src="~static/logo.svg" width="100" alt="BootstrapVue logo" fluid></b-img>
+        <b-col cols="12" sm="auto" class="text-center text-sm-left">
+          <b-img
+            src="~static/logo.svg"
+            class="my-4"
+            alt="BootstrapVue logo"
+            width="100"
+            fluid
+          ></b-img>
         </b-col>
 
         <b-col cols="auto" md="4" lg="3" class="text-left">
