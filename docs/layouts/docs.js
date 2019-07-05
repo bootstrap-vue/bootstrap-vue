@@ -12,7 +12,7 @@ export default {
     const $sidebarCol = h(
       'b-col',
       {
-        staticClass: 'bd-sidebar',
+        staticClass: 'bd-sidebar border-bottom-0',
         props: { cols: 12, md: 3, xl: 2 }
       },
       [h(Search), h(Sidebar)]
