@@ -1,4 +1,4 @@
-/*! BootstrapVue Docs Additional Styles */
+/*! BootstrapVue Docs Additional Styles and overrides */
 
 .nuxt-progress {
   position: fixed;
@@ -63,9 +63,17 @@
 }
 
 .bd-toc {
+  @media (min-width: 768px) {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
   .section-nav {
+    border-left: none;
+
     .toc-entry {
       > .nav-link {
+        padding-left: 0;
+        padding-right: 0;
         + .nav {
           display: none;
         }

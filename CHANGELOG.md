@@ -24,8 +24,8 @@ Released 2019-06-30
 ### Features v2.0.0-rc.25
 
 - **b-table:** sort fields by formatted value for fields that have a formatter function + support
-  for optional `localCompare` options and locale
-  (closes [#3178](https://github.com/bootstrap-vue/bootstrap-vue/issues/3178),
+  for optional `localCompare` options and locale (closes
+  [#3178](https://github.com/bootstrap-vue/bootstrap-vue/issues/3178),
   [#1173](https://github.com/bootstrap-vue/bootstrap-vue/issues/1173))
   ([#3585](https://github.com/bootstrap-vue/bootstrap-vue/issues/3585)
   [c0ca1fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/c0ca1fd))
