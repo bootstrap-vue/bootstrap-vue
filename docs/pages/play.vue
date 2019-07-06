@@ -1,5 +1,5 @@
 <template>
-  <b-container tag="main">
+  <b-container fluid tag="main" class="pb-5">
     <!-- Introduction -->
     <div class="bd-content mb-4">
       <h1><span class="bd-content-title">{{ title }}</span></h1>
@@ -159,7 +159,7 @@
           <!-- Result column -->
           <b-col cols="12" class="mt-3">
             <!-- Result -->
-            <b-card>
+            <b-card class="play-result">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
@@ -187,7 +187,7 @@
               <div slot="header" class="d-flex justify-content-between align-items-center">
                 <span>Console</span>
                 <b-btn
-                  v-if="messages.length"
+                  :disabled="messages.length === 0"
                   size="sm"
                   variant="outline-danger"
                   @click="clear"
@@ -227,6 +227,11 @@
 </template>
 
 <style scoped>
+.play-result /deep/ .card-body,
+.play-log {
+  min-height: 300px;
+}
+
 .flip-move {
   transition: all 0.3s;
 }
@@ -286,7 +291,7 @@ const DEFAULT_JS = `{
       this.show = !this.show
     },
     dismissed() {
-      console.log('Dismiss button clicked')
+      console.log('Alert dismissed')
     }
   }
 }`
@@ -526,11 +531,11 @@ export default {
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default
-          // Run the setup code
-          this.doSetup()
           // Stop the loading indicator
           this.loading = false
           window && window.$nuxt && window.$nuxt.$loading.finish()
+          // Run the setup code
+          this.doSetup()
         })
       } else {
         this.doSetup()
@@ -591,7 +596,7 @@ export default {
         // the "global" console reference just for the user app
         const code = this.compiler(`;options = ${js};`)
         /* eslint-disable no-eval */
-        eval(`console = this.fakeConsole; ${code}`)
+        eval(`var console = this.fakeConsole; ${code}`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
