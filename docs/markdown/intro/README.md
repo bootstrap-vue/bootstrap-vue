@@ -623,8 +623,8 @@ In the future this plugin will provide options for more advanced configurations 
 
 ## Browser
 
-Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the required
-JavaScript files.
+If not using a module bundler or compile process, you can instead add the Boostrap and BootstrapVue
+CSS URLs in your HTML `<head>` section, followed by the required JavaScript files.
 
 When supporting older browsers (see [Browser Support](#browser-support) below), you will need to
 include a polyfill for handling modern JavaScript features before loading Vue and BoostrapVue
@@ -653,7 +653,7 @@ bundler supports esm modules, it will automatically prefer it over commonjs.
 | Variant        | Environments           | Package path                                                           |
 | -------------- | ---------------------- | ---------------------------------------------------------------------- |
 | **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                         |
-| ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
+| ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js`                                            |
 | commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
@@ -666,11 +666,17 @@ reduce final project bundle sizes. See the
 [Using BootstrapVue source code for smaller bundles](#using-bootstrapvue-source-code-for-smaller-bundles)
 section above for more details.
 
+Both the `ESM` module and `ESM` bundle (single file) are
+[tree-shakeable](#tree-shaking-with-module-bundlers), but you will experience smaller final bundle
+sizes when using the `ESM` module _vs._ the `ESM` bundle.
+
 ### Dependencies
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
-These four dependencies are included in the `UMD` bundle.
+(for toasts), and
+[`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
+our functional components) and parts of `core-js`. These four dependencies are included in the `UMD`
+bundle.
 
 ## Migrating a project already using Bootstrap
 
