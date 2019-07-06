@@ -334,9 +334,9 @@ module.exports = {
             presets: ['env']
           }
         }
-      },
+      }
       // ...
-    ],
+    ]
     // ...
   }
 }
