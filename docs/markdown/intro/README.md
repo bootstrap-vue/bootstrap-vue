@@ -647,21 +647,26 @@ JavaScript files.
 
 ## Build variants
 
-Choosing the best variant for your build environment / packager helps less bundle sizes. If your
-bundler supports es modules, it will automatically prefer it over commonjs.
+Choosing the best variant for your build environment / packager helps reduce bundle sizes. If your
+bundler supports esm modules, it will automatically prefer it over commonjs.
 
 | Variant        | Environments           | Package path                                                           |
 | -------------- | ---------------------- | ---------------------------------------------------------------------- |
 | **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                         |
-| **ESM bundle** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
+| ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
 | commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-All of the build variants listed above have been pre-transpiled targeting the browsers supported by
+All of the build variants listed above have been pre-transpiled targeting the
+[browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc) supported by
 BootstrapVue. However, if you are targeting only modern browsers, you may want to import
 `BootstrapVue` from `src/index.js`, (by aliasing `bootstrap-vue` to `bootstrap-vue/src/index.js`)
 and whitelisting `bootstrap-vue/src` for transpilation via your own project. This can potentially
-reduce final project bundle sizes.
+reduce final project bundle sizes. See the
+[Using BootstrapVue source code for smaller bundles](#using-bootstrapvue-source-code-for-smaller-bundles)
+section above for more details.
+
+### Dependencies
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
