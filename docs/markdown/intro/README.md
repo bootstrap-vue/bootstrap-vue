@@ -301,13 +301,13 @@ object property shorthand (components only).
 
 ### Using BootstrapVue source code for smaller bundles
 
-When using module bundlers, they will default to using the `esm/` modular build, which has been
-pre-transpiled by Babel for our
+When using module bundlers, they will usually default to using the `esm/` modular build, which
+has been pre-transpiled by Babel for our
 [supported browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc).
 
-You can override the use of the `esm/` build by aliasing '`Bootstrap-vue'` to use the BootstrapVue
-`src/` files in your module bundler config, and whitelisting `node_modules/bootstrap-vue/src/*` for
-transpilation by your build process. This will allow you to transpile BootstrapVue for your target
+You can override the use of the `esm/` build by aliasing `bootstrap-vue'` to use the BootstrapVue
+source files, and whitelisting `node_modules/bootstrap-vue/src/*` for transpilation by your build
+process, in your module bundler config. This will allow you to transpile BootstrapVue for your target
 browsers/environments and potentially reduce bundle sizes (and will only include the babel helper
 utils once) at the expense of slightly longer build times.
 
@@ -319,7 +319,7 @@ module.exports = {
   resolve: {
     alias: {
       // Alias to use source of BootstrapVue
-      'bootstrap-vue$`: 'bootstrap-vue/src/index.js'
+      'bootstrap-vue$': 'bootstrap-vue/src/index.js'
     }
   },
   module: {
