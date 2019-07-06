@@ -135,7 +135,7 @@ As an example, you can import `<b-card>` (plus some of it's sub components) and 
 
 ```js
 // Import the individual components
-import { BCard, BCardBody, BCardBody, BCardFooter, BCardHeader, BCardImg, BTable } from 'bootstrap-vue'
+import { BCard, BCardBody, BCardFooter, BCardHeader, BCardImg, BTable } from 'bootstrap-vue'
 
 // Add components globally
 Vue.component('b-card', BCard)
