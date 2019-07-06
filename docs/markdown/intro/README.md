@@ -352,13 +352,10 @@ npm install babel-core babel-loader babel-preset-env --save-dev
 yarn add babel-core babel-loader babel-preset-env --dev
 ```
 
-For mode details see:
+For more details see:
 
 - Webpack `resolve.alias`: https://webpack.js.org/configuration/resolve/
 - Webpack `rule`: https://webpack.js.org/configuration/module/#rule
-
-For module bulders other than webpack:
-
 - [rollup.js](https://rollupjs.org/)
 - [Parcel](https://parceljs.org/)
 
