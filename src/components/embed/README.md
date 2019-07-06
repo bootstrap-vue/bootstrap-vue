@@ -10,7 +10,7 @@ Rules are directly applied to `<iframe>`, `<embed>`, `<video>`, and `<object>` e
   <b-embed
     type="iframe"
     aspect="16by9"
-    src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+    src="https://www.youtube.com/embed/-eBSN3QYzB0?rel=0"
     allowfullscreen
   ></b-embed>
 </div>
