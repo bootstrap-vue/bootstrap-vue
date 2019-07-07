@@ -409,7 +409,7 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
   background-position: top;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 }
 
 .bv-p-reset {
@@ -422,6 +422,7 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
   .bv-section-gray {
     background-size: 100% $bv-angle-depth-md;
     padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+    padding-bottom: 2rem;
   }
 
   .bv-p-reset {
