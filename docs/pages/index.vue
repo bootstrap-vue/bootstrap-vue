@@ -398,7 +398,8 @@
 
 <style lang="scss" scoped>
 // Depth of section angle
-$bv-angle-depth: 8rem;
+$bv-angle-depth: 4rem;
+$bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
 
 .bv-section-white,
 .bv-section-gray {
@@ -412,6 +413,18 @@ $bv-angle-depth: 8rem;
 .bv-p-reset {
   padding-top: $bv-angle-depth;
   padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .bv-section-white,
+  .bv-section-gray {
+    background-size: 100% $bv-angle-depth-md;
+    padding-top: calc(#{$bv-angle-depth-md} + 6rem);
+  }
+
+  .bv-p-reset {
+    padding-top: $bv-angle-depth-md;
+  }
 }
 
 .bv-section-white {
