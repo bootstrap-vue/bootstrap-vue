@@ -144,10 +144,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // Needed to prevent vue-router for doing its thing
         evt.stopImmediatePropagation()
       } else {
+        /* istanbul ignore next: difficult to test, but we know it works */
         if (isRouterLink && evt.currentTarget.__vue__) {
           // Router links do not emit instance 'click' events, so we
           // add in an $emit('click', evt) on it's vue instance
-          /* istanbul ignore next: difficult to test, but we know it works */
           evt.currentTarget.__vue__.$emit('click', evt)
         }
         // Call the suppliedHandler(s), if any provided
