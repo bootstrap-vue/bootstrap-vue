@@ -1,7 +1,6 @@
 import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
 import { arrayIncludes, concat } from '../../utils/array'
-import { isFunction } from '../../utils/inspect'
+import { isFunction, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { isRouterLink, computeTag, computeRel, computeHref } from '../../utils/router'
 
@@ -112,66 +111,84 @@ export const omitLinkProps = propsToOmit => {
   }, {})
 }
 
-const clickHandlerFactory = ({ disabled, tag, href, suppliedHandler, parent }) => {
-  return function onClick(evt) {
-    if (disabled && evt instanceof Event) {
-      // Stop event from bubbling up.
-      evt.stopPropagation()
-      // Kill the event loop attached to this specific EventTarget.
-      // Needed to prevent vue-router for doing its thing
-      evt.stopImmediatePropagation()
-    } else {
-      if (isRouterLink(tag) && evt.currentTarget.__vue__) {
-        // Router links do not emit instance 'click' events, so we
-        // add in an $emit('click', evt) on it's vue instance
-        /* istanbul ignore next: difficult to test, but we know it works */
-        evt.currentTarget.__vue__.$emit('click', evt)
-      }
-      // Call the suppliedHandler(s), if any provided
-      concat(suppliedHandler)
-        .filter(h => isFunction(h))
-        .forEach(handler => {
-          handler(...arguments)
-        })
-      parent.$root.$emit('clicked::link', evt)
-    }
-
-    if ((!isRouterLink(tag) && href === '#') || disabled) {
-      // Stop scroll-to-top behavior or navigation on regular links
-      // when href is just '#'
-      evt.preventDefault()
-    }
-  }
-}
-
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
-  functional: true,
   props: propsFactory(),
-  render(h, { props, data, parent, children }) {
-    const tag = computeTag(props, parent)
-    const rel = computeRel(props)
-    const href = computeHref(props, tag)
-    const eventType = isRouterLink(tag) ? 'nativeOn' : 'on'
-    const suppliedHandler = (data[eventType] || {}).click
-    const handlers = {
-      click: clickHandlerFactory({ tag, href, disabled: props.disabled, suppliedHandler, parent })
+  computed: {
+    computedTag() {
+      // We don't pass `this` as 
+      return computeTag({ to: this.to, disabled: this.disabled }, this)
+    },
+    isRouterLink() {
+      return isRouterLink(this.computedTag)
+    },
+    computedRel() {
+      return computeRel({ target: this.target, rel: this.rel })
+    },
+    computedHref() {
+      return computeHref({ to: this.to, href: this.href }, this.computedTag)
     }
+  },
+  methods: {
+    onClick(evt) {
+      const isRouterLink = this.isRouterLink
+      const suppliedHandler = this.$listeners.click
+      if (this.disabled && evt instanceof Event) {
+        // Stop event from bubbling up.
+        evt.stopPropagation()
+        // Kill the event loop attached to this specific EventTarget.
+        // Needed to prevent vue-router for doing its thing
+        evt.stopImmediatePropagation()
+      } else {
+        if (isRouterLink && evt.currentTarget.__vue__) {
+          // Router links do not emit instance 'click' events, so we
+          // add in an $emit('click', evt) on it's vue instance
+          /* istanbul ignore next: difficult to test, but we know it works */
+          evt.currentTarget.__vue__.$emit('click', evt)
+        }
+        // Call the suppliedHandler(s), if any provided
+        concat(suppliedHandler)
+          .filter(h => isFunction(h))
+          .forEach(handler => {
+            handler(...arguments)
+          })
+        // Emit the global $root click event
+        this.$root.$emit('clicked::link', evt)
+      }
+      if ((!isRouterLink && this.computedHref === '#') || this.disabled) {
+        // Stop scroll-to-top behavior or navigation on
+        // regular links when href is just '#'
+        evt && evt.preventDefault()
+      }
+    }
+  },
+  render(h) {
+    const tag = this.computedTag
+    const rel = this.computedRel
+    const href = this.computeHref
+    const isRouterLink = this.isRouterLink
+    const eventType = isRouterLink ? 'nativeOn' : 'on'
 
-    const componentData = mergeData(data, {
-      class: { active: props.active, disabled: props.disabled },
+    // We want to overwrite any click handler since our callback
+    // will invoke the user supplied handler9s) if !props.disabled
+    const handlers = { ...this.$listeners, click: this.OnClick }
+ 
+    const componentData = {
+      class: { active: this.active, disabled: this.disabled },
       attrs: {
         rel,
-        target: props.target,
-        tabindex: props.disabled ? '-1' : data.attrs ? data.attrs.tabindex : null,
-        'aria-disabled': props.disabled ? 'true' : null
+        target: this.target,
+        tabindex: this.disabled ? '-1' : isUndefined(this.$attrs.tabindex) ? null : this.$attrs.tabindex,
+        'aria-disabled': this.disabled ? 'true' : null
       },
-      props: { ...props, tag: props.routerTag }
+      props: isRouterLink ? { ...this.$props, tag: this.routerTag } : {},
+      on: isRouterLink ? {} : handlers,
+      nativeOn: isRouterLink ? handlers : {}
     })
 
-    // If href attribute exists on router-link (even undefined or null) it fails working on SSR
-    // So we explicitly add it here if needed (i.e. if computeHref() is truthy)
+    // If href attribute exists on <router-link> (even undefined or null) it fails working on
+    // SSR, so we explicitly add it here if needed (i.e. if computedHref() is truthy)
     if (href) {
       componentData.attrs.href = href
     } else {
@@ -179,11 +196,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       delete componentData.props.href
     }
 
-    // We want to overwrite any click handler since our callback
-    // will invoke the user supplied handler if !props.disabled
-    componentData[eventType] = { ...(componentData[eventType] || {}), ...handlers }
-
-    return h(tag, componentData, children)
+    return h(tag, componentData, this.$slots.default)
   }
 })
 
