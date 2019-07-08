@@ -80,38 +80,6 @@ export const propsFactory = () => {
 
 export const props = propsFactory()
 
-// Return a fresh copy of <b-link> props
-// Containing only the specified prop(s)
-export const pickLinkProps = propsToPick => {
-  const freshLinkProps = propsFactory()
-  // Normalize everything to array.
-  propsToPick = concat(propsToPick)
-
-  return keys(freshLinkProps).reduce((memo, prop) => {
-    if (arrayIncludes(propsToPick, prop)) {
-      memo[prop] = freshLinkProps[prop]
-    }
-
-    return memo
-  }, {})
-}
-
-// Return a fresh copy of <b-link> props
-// Keeping all but the specified omitting prop(s)
-export const omitLinkProps = propsToOmit => {
-  const freshLinkProps = propsFactory()
-  // Normalize everything to array.
-  propsToOmit = concat(propsToOmit)
-
-  return keys(props).reduce((memo, prop) => {
-    if (!arrayIncludes(propsToOmit, prop)) {
-      memo[prop] = freshLinkProps[prop]
-    }
-
-    return memo
-  }, {})
-}
-
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
