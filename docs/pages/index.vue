@@ -398,20 +398,36 @@
 
 <style lang="scss" scoped>
 // Depth of section angle
-$bv-angle-depth: 8rem;
+$bv-angle-depth: 4rem;
+$bv-angle-padding: 3rem;
+$bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
+$bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 .bv-section-white,
 .bv-section-gray {
   background-size: 100% $bv-angle-depth;
   background-position: top;
   background-repeat: no-repeat;
-  padding-top: calc(#{$bv-angle-depth} + 6rem);
-  padding-bottom: 2rem;
+  padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
+  padding-bottom: 3rem;
 }
 
 .bv-p-reset {
   padding-top: $bv-angle-depth;
   padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .bv-section-white,
+  .bv-section-gray {
+    background-size: 100% $bv-angle-depth-md;
+    padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+    padding-bottom: 2rem;
+  }
+
+  .bv-p-reset {
+    padding-top: $bv-angle-depth-md;
+  }
 }
 
 .bv-section-white {

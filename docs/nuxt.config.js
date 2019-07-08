@@ -147,7 +147,7 @@ module.exports = {
   },
 
   loading: {
-    color: '#59cc93',
+    color: '#ccc',
     height: '3px'
   },
 
