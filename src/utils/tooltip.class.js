@@ -608,8 +608,8 @@ class ToolTip {
     // set as relatedTarget in focusin/out events
     this.$tip.tabIndex = -1
     // Add variant if specified
-    if (this.$options.variant) {
-      addClass(this.$tip, `${this.constructor.NAME}-${this.$options.variant}`)
+    if (this.$config.variant) {
+      addClass(this.$tip, `${this.constructor.NAME}-${this.$config.variant}`)
     }
     return this.$tip
   }
