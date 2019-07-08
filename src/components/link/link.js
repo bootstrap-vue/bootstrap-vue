@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import normalizeSlotMixin from '../../normalize-slot'
+import normalizeSlotMixin from '../../mixns/normalize-slot'
 import { arrayIncludes, concat } from '../../utils/array'
 import { isFunction, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
@@ -115,8 +115,8 @@ export const omitLinkProps = propsToOmit => {
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
-  inheritAttrs: false,
   mixins: [normalizeSlotMixin],
+  inheritAttrs: false,
   props: propsFactory(),
   computed: {
     computedTag() {
@@ -135,7 +135,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return computeHref({ to: this.to, href: this.href }, this.computedTag)
     },
     computedProps() {
-      return this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {} 
+      return this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {}
     }
   },
   methods: {
