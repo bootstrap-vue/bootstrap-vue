@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import normalizeSlotMixin from '../../normalize-slot'
 import { arrayIncludes, concat } from '../../utils/array'
 import { isFunction, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
@@ -115,6 +116,7 @@ export const omitLinkProps = propsToOmit => {
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
   inheritAttrs: false,
+  mixins: [normalizeSlotMixin],
   props: propsFactory(),
   computed: {
     computedTag() {
@@ -131,6 +133,9 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     computedHref() {
       // We don't pass `this` as the first arg as we need reactivity of the props
       return computeHref({ to: this.to, href: this.href }, this.computedTag)
+    },
+    computedProps() {
+      return this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {} 
     }
   },
   methods: {
@@ -195,7 +200,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
             : this.$attrs.tabindex,
         'aria-disabled': this.disabled ? 'true' : null
       },
-      props: isRouterLink ? { ...this.$props, tag: this.routerTag } : {},
+      props: this.computedProps,
       on: isRouterLink ? {} : handlers,
       nativeOn: isRouterLink ? handlers : {}
     }
@@ -209,7 +214,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       delete componentData.props.href
     }
 
-    return h(tag, componentData, this.$slots.default)
+    return h(tag, componentData, this.normalizeSlot('default', {})
   }
 })
 
