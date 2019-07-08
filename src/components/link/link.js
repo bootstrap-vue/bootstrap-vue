@@ -164,6 +164,12 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // regular links when href is just '#'
         evt && evt.preventDefault()
       }
+    },
+    focus() {
+      this.$el && this.$el.focus && this.$el.focus()
+    },
+    blur() /* istanbul ignore next */ {
+      this.$el && this.$el.blur && this.$el.blur()
     }
   },
   render(h) {
