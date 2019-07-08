@@ -328,6 +328,8 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 
 ## Lazy dropdown
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
 By default, `<b-dropdown>` renders the menu contents in the DOM even when the menu is not shown.
 When there are a large number of dropdowns are rendered on the same page, performance can be
 impacted (due to larger memory utilization). You can instruct `<b-dropdown>` to render the menu
