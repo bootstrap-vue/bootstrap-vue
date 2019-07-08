@@ -187,7 +187,8 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).tobe(true)
+    expect(wrapper.is('a')).toBe(true)
+
     expect(document.activeElement).not.toBe(wrapper.element)
     wrapper.vm.focus()
     expect(document.activeElement).toBe(wrapper.element)
