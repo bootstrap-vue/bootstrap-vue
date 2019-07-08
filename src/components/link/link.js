@@ -185,7 +185,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       props: isRouterLink ? { ...this.$props, tag: this.routerTag } : {},
       on: isRouterLink ? {} : handlers,
       nativeOn: isRouterLink ? handlers : {}
-    })
+    }
 
     // If href attribute exists on <router-link> (even undefined or null) it fails working on
     // SSR, so we explicitly add it here if needed (i.e. if computedHref() is truthy)
