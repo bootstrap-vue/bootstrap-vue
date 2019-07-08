@@ -169,7 +169,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   render(h) {
     const tag = this.computedTag
     const rel = this.computedRel
-    const href = this.computeHref
+    const href = this.computedHref
     const isRouterLink = this.isRouterLink
 
     // We want to overwrite any click handler since our callback
