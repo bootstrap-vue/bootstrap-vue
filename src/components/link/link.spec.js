@@ -50,7 +50,7 @@ describe('b-link', () => {
   it('sets attribute href when user supplied href is hash target', async () => {
     const wrapper = mount(BLink, {
       propsData: {
-        href: '#oobar'
+        href: '#foobar'
       }
     })
 
@@ -309,12 +309,18 @@ describe('b-link', () => {
       const $links = wrapper.findAll('a')
 
       expect($links.at(0).isVueInstance()).toBe(true)
-      expect($links.at(1).isVueInstance()).toBe(false)
-      expect($links.at(2).isVueInstance()).toBe(true)
-      expect($links.at(3).isVueInstance()).toBe(false)
-
       expect($links.at(0).vm.$options.name).toBe('RouterLink')
+
+      expect($links.at(1).isVueInstance()).toBe(true)
+      expect($links.at(1).vm.$options.name).not.toBe('RouterLink')
+      expect($links.at(1).vm.$options.name).toBe('BLink')
+
+      expect($links.at(2).isVueInstance()).toBe(true)
       expect($links.at(2).vm.$options.name).toBe('RouterLink')
+
+      expect($links.at(3).isVueInstance()).toBe(true)
+      expect($links.at(3).vm.$options.name).not.toBe('RouterLink')
+      expect($links.at(3).vm.$options.name).toBe('BLink')
 
       wrapper.destroy()
     })
