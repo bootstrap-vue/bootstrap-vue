@@ -47,6 +47,22 @@ describe('b-link', () => {
     expect(wrapper.text()).toEqual('')
   })
 
+  it('sets attribute href when user supplied href is hash target', async () => {
+    const wrapper = mount(BLink, {
+      propsData: {
+        href: '#oobar'
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.attributes('href')).toEqual('#foobar')
+    expect(wrapper.attributes('target')).toEqual('_self')
+    expect(wrapper.attributes('rel')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.classes().length).toBe(0)
+    expect(wrapper.text()).toEqual('')
+  })
+
   it('should set href to string `to` prop', async () => {
     const wrapper = mount(BLink, {
       propsData: {
