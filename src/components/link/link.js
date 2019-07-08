@@ -171,10 +171,14 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       }
     },
     focus() {
-      this.$el && this.$el.focus && this.$el.focus()
+      if (this.$el && this.$el.focus) {
+        this.$el.focus()
+      }
     },
     blur() {
-      this.$el && this.$el.blur && this.$el.blur()
+      if (this.$el && this.$el.blur) {
+        this.$el.blur()
+      }
     }
   },
   render(h) {
