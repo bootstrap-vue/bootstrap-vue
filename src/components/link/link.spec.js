@@ -13,6 +13,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders content from default slot', async () => {
@@ -29,6 +31,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('sets attribute href to user supplied value', async () => {
@@ -45,6 +49,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('sets attribute href when user supplied href is hash target', async () => {
@@ -61,6 +67,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should set href to string `to` prop', async () => {
@@ -77,6 +85,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should set href to path from `to` prop', async () => {
@@ -93,6 +103,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should default rel to `noopener` when target==="_blank"', async () => {
@@ -108,6 +120,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('target')).toEqual('_blank')
     expect(wrapper.attributes('rel')).toEqual('noopener')
     expect(wrapper.classes().length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('should render the given rel to when target==="_blank"', async () => {
@@ -124,6 +138,8 @@ describe('b-link', () => {
     expect(wrapper.attributes('target')).toEqual('_blank')
     expect(wrapper.attributes('rel')).toEqual('alternate')
     expect(wrapper.classes().length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('should add "active" class when prop active=true', async () => {
@@ -136,6 +152,8 @@ describe('b-link', () => {
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('should add aria-disabled="true" when disabled', async () => {
@@ -146,6 +164,8 @@ describe('b-link', () => {
     })
     expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toEqual('true')
+
+    wrapper.destroy()
   })
 
   it("should add '.disabled' class when prop disabled=true", async () => {
@@ -155,6 +175,26 @@ describe('b-link', () => {
       }
     })
     expect(wrapper.classes()).toContain('disabled')
+
+    wrapper.destroy()
+  })
+
+  it('focus and blur methods work', async () => {
+    const wrapper = mount(BLink, {
+      attachToDocument: true,
+      propsData: {
+        href: '#foobar'
+      }
+    })
+
+    expect(wrapper.is('a')).tobe(true)
+    expect(document.activeElement).not.toBe(wrapper.element)
+    wrapper.vm.focus()
+    expect(document.activeElement).toBe(wrapper.element)
+    wrapper.vm.blur()
+    expect(document.activeElement).not.toBe(wrapper.element)
+
+    wrapper.destroy()
   })
 
   describe('click handling', () => {
@@ -177,6 +217,8 @@ describe('b-link', () => {
       wrapper.find('a').trigger('click')
       expect(called).toBe(1)
       expect(evt).toBeInstanceOf(MouseEvent)
+
+      wrapper.destroy()
     })
 
     it('should invoke multiple click handlers bound by Vue when clicked on', async () => {
@@ -193,6 +235,8 @@ describe('b-link', () => {
       wrapper.find('a').trigger('click')
       expect(spy1).toHaveBeenCalled()
       expect(spy2).toHaveBeenCalled()
+
+      wrapper.destroy()
     })
 
     it('should NOT invoke click handler bound by Vue when disabled and clicked', async () => {
@@ -215,6 +259,8 @@ describe('b-link', () => {
       wrapper.find('a').trigger('click')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
+
+      wrapper.destroy()
     })
 
     it('should NOT invoke click handler bound via "addEventListener" when disabled and clicked', async () => {
@@ -228,6 +274,8 @@ describe('b-link', () => {
       wrapper.find('a').element.addEventListener('click', spy)
       wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
+
+      wrapper.destroy()
     })
 
     it('should emit "clicked::link" on $root when clicked on', async () => {
