@@ -73,7 +73,6 @@
   "dependencies": {
     "@nuxt/opencollective": "^0.2.2",
     "bootstrap": "^4.3.1",
-    "core-js": ">=2.6.5 <3.0.0",
     "popper.js": "^1.15.0",
     "portal-vue": "^2.1.5",
     "vue-functional-data-merge": "^3.1.0"
@@ -97,6 +96,7 @@
     "codecov": "^3.5.0",
     "codemirror": "^5.48.0",
     "codesandbox": "^2.1.6",
+    "core-js": ">=2.6.5 <3.0.0",
     "cross-env": "^5.2.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
