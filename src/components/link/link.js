@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { arrayIncludes, concat } from '../../utils/array'
+import { concat } from '../../utils/array'
 import { isFunction, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { isRouterLink, computeTag, computeRel, computeHref } from '../../utils/router'
