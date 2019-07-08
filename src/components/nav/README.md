@@ -220,8 +220,8 @@ The dropdown default slot is optionally scoped with the following scope availabl
 
 By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even when the menu is not
 shown. When there are a large number of dropdowns rendered on the same page, performance could be
-impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to render
-the menu contents only when it is shown by setting the `lazy` prop to true.
+impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
+render the menu contents only when it is shown by setting the `lazy` prop to true.
 
 ## Using in navbar
 

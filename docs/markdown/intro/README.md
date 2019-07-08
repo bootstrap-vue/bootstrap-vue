@@ -667,10 +667,9 @@ sizes when using the `ESM` module _vs._ the `ESM` bundle.
 ### Dependencies
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts), and
+(for toasts) and
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
-our functional components) and parts of `core-js`. These four dependencies are included in the `UMD`
-bundle.
+our functional components). These three dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 
