@@ -114,19 +114,22 @@ export const omitLinkProps = propsToOmit => {
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
+  inheritAttrs: false,
   props: propsFactory(),
   computed: {
     computedTag() {
-      // We don't pass `this` as 
+      // We don't pass `this` as the first arg as we need reactivity of the props
       return computeTag({ to: this.to, disabled: this.disabled }, this)
     },
     isRouterLink() {
       return isRouterLink(this.computedTag)
     },
     computedRel() {
+      // We don't pass `this` as the first arg as we need reactivity of the props
       return computeRel({ target: this.target, rel: this.rel })
     },
     computedHref() {
+      // We don't pass `this` as the first arg as we need reactivity of the props
       return computeHref({ to: this.to, href: this.href }, this.computedTag)
     }
   },
@@ -168,18 +171,22 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     const rel = this.computedRel
     const href = this.computeHref
     const isRouterLink = this.isRouterLink
-    const eventType = isRouterLink ? 'nativeOn' : 'on'
 
     // We want to overwrite any click handler since our callback
     // will invoke the user supplied handler9s) if !props.disabled
     const handlers = { ...this.$listeners, click: this.OnClick }
- 
+
     const componentData = {
       class: { active: this.active, disabled: this.disabled },
       attrs: {
+        ...this.$attrs,
         rel,
         target: this.target,
-        tabindex: this.disabled ? '-1' : isUndefined(this.$attrs.tabindex) ? null : this.$attrs.tabindex,
+        tabindex: this.disabled
+          ? '-1'
+          : isUndefined(this.$attrs.tabindex)
+            ? null
+            : this.$attrs.tabindex,
         'aria-disabled': this.disabled ? 'true' : null
       },
       props: isRouterLink ? { ...this.$props, tag: this.routerTag } : {},
