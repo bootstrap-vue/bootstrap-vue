@@ -168,7 +168,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     focus() {
       this.$el && this.$el.focus && this.$el.focus()
     },
-    blur() /* istanbul ignore next */ {
+    blur() {
       this.$el && this.$el.blur && this.$el.blur()
     }
   },
