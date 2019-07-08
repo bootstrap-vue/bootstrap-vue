@@ -382,30 +382,4 @@ describe('b-link', () => {
       wrapper.destroy()
     })
   })
-
-  describe('helper methods', () => {
-    it('propsFactory() helper', async () => {
-      expect(propsFactory()).toEqual(linkProps)
-      expect(propsFactory()).not.toBe(linkProps)
-    })
-
-    it('pickLinkProps() helper', async () => {
-      expect(pickLinkProps([])).toEqual({})
-      expect(pickLinkProps(['append'])).toEqual({ append: linkProps.append })
-      expect(pickLinkProps('to')).toEqual({ to: linkProps.to })
-      expect(pickLinkProps(['append', 'routerTag'])).toEqual({
-        append: linkProps.append,
-        routerTag: linkProps.routerTag
-      })
-    })
-
-    it('omitLinkProps() helper', async () => {
-      expect(omitLinkProps([])).toEqual({ ...linkProps })
-      const propsOmitted = Object.keys(linkProps).filter(p => p !== 'to' && p !== 'append')
-      expect(omitLinkProps(propsOmitted)).toEqual({
-        to: linkProps.to,
-        append: linkProps.append
-      })
-    })
-  })
 })
