@@ -214,6 +214,13 @@ The dropdown default slot is optionally scoped with the following scope availabl
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `hide()`           | Can be used to close the dropdown menu. Accepts an optional boolean argument, which if `true` returns focus to the toggle button |
 
+### Lazy dropdown
+
+By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even when the menu is not
+shown. When there are a large number of dropdowns are rendered on the same page, performance can be
+impacted (due to larger memory utilization). You can instruct `<b-nav-item-dropdown>` to render the
+menu contents only when it is shown by setting the `lazy` prop to true.
+
 ## Using in navbar
 
 Prop `is-nav-bar` has been deprecated and will be removed in a future release.
