@@ -96,7 +96,8 @@ const Defaults = {
   fallbackPlacement: 'flip',
   callbacks: {},
   boundary: 'scrollParent',
-  boundaryPadding: 5
+  boundaryPadding: 5,
+  variant: null
 }
 
 // Transition event names
@@ -606,6 +607,10 @@ class ToolTip {
     // Add tab index so tip can be focused, and to allow it to be
     // set as relatedTarget in focusin/out events
     this.$tip.tabIndex = -1
+    // Add variant if specified
+    if (this.$options.variant) {
+      addClass(this.$tip, `${this.constructor.NAME}-${this.$options.variant}`)
+    }
     return this.$tip
   }
 
