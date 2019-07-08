@@ -62,6 +62,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    variant: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -95,6 +99,8 @@ export default {
         offset: this.offset || 0,
         // Disable fade Animation?
         animation: !this.noFade,
+        // Variant
+        variant: this.variant,
         // Open/Close Trigger(s)
         trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
         // Callbacks so we can trigger events on component
