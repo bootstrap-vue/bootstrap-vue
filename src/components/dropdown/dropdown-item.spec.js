@@ -137,7 +137,7 @@ describe('dropdown-item', () => {
       expect($links.at(2).vm.$children.length).toBe(1)
       expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(3).isVueInstance()).toBe(false)
+      expect($links.at(3).isVueInstance()).toBe(true)
       expect($links.at(1).vm.$options.name).toBe('BLink')
       expect($links.at(1).vm.$children.length).toBe(0)
 
