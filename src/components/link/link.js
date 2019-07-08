@@ -174,7 +174,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
 
     // We want to overwrite any click handler since our callback
     // will invoke the user supplied handler9s) if !props.disabled
-    const handlers = { ...this.$listeners, click: this.OnClick }
+    const handlers = { ...this.$listeners, click: this.onClick }
 
     const componentData = {
       class: { active: this.active, disabled: this.disabled },
