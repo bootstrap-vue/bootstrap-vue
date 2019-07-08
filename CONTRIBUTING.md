@@ -72,7 +72,7 @@ Thank you to all our backers! [[Become a backer](https://opencollective.com/boot
 Thank you to all our sponsors! (please ask your company to also support this open source project by
 [becoming a sponsor](https://opencollective.com/bootstrap-vue#sponsor))
 
-<div class="p-3 mb-3 rounded-lg text-center" style="background-color: #aaa;">
+<div class="p-3 mb-3 rounded-lg text-center" style="background-color: #d7d7d7;">
   <a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
   <a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
   <a href="https://opencollective.com/bootstrap-vue/sponsor/2/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/2/avatar.svg"></a>
