@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { concat } from '../../utils/array'
 import { isFunction, isUndefined } from '../../utils/inspect'
-import { isRouterLink, computeTag, computeRel, computeHref } from '../../utils/router'
+import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 
 /**
  * The Link component is used in many other BV components.
@@ -107,18 +107,19 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     onClick(evt) {
+      const isEvent = evt instanceof Event
       const isRouterLink = this.isRouterLink
       const suppliedHandler = this.$listeners.click
-      if (this.disabled && evt instanceof Event) {
-        // Stop event from bubbling up.
+      if (isEvent && this.disabled) {
+        // Stop event from bubbling up
         evt.stopPropagation()
-        // Kill the event loop attached to this specific EventTarget.
-        // Needed to prevent vue-router for doing its thing
+        // Kill the event loop attached to this specific `EventTarget`
+        // Needed to prevent `vue-router` for doing it's thing
         evt.stopImmediatePropagation()
       } else {
         /* istanbul ignore next: difficult to test, but we know it works */
         if (isRouterLink && evt.currentTarget.__vue__) {
-          // Router links do not emit instance 'click' events, so we
+          // Router links do not emit instance `click` events, so we
           // add in an $emit('click', evt) on it's vue instance
           evt.currentTarget.__vue__.$emit('click', evt)
         }
@@ -131,10 +132,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // Emit the global $root click event
         this.$root.$emit('clicked::link', evt)
       }
-      if ((!isRouterLink && this.computedHref === '#') || this.disabled) {
-        // Stop scroll-to-top behavior or navigation on
-        // regular links when href is just '#'
-        evt && evt.preventDefault()
+      // Stop scroll-to-top behavior or navigation on
+      // regular links when href is just '#'
+      if (isEvent && (this.disabled || (!isRouterLink && this.computedHref === '#'))) {
+        evt.preventDefault()
       }
     },
     focus() {
