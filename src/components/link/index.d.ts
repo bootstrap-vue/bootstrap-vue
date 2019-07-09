@@ -9,4 +9,7 @@ export declare const LinkPlugin: BvPlugin
 export default LinkPlugin
 
 // Component: b-link
-export declare class BLink extends BvComponent {}
+export declare class BLink extends BvComponent {
+  focus: () => void
+  blur: () => void
+}
