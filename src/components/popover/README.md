@@ -16,17 +16,15 @@
 
 Things to know when using popover component:
 
-- Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with
-  BootstrapVue dist files!
+- Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
 - Popovers with zero-length title _and_ content are never displayed.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use `container` to optionally
-  specify a different element to append the popover to.
+  specify a different element to append the rendered popover to.
 - Triggering popovers on hidden elements will not work.
 - Popovers for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
-- Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
 element at the point in the DOM where the `<b-popover>` component is placed. This may affect layout
