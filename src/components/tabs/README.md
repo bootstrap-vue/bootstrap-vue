@@ -474,9 +474,9 @@ order to use these methods.
     <b-card no-body>
       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
-        <b-tab v-for="i in tabs" :key="`dyn-tab-${i}`" :title="`Tab ${i}`">
+        <b-tab v-for="i in tabs" :key="'dyn-tab-' + i" :title="'Tab ' + i">
           Tab Contents {{ i }}
-          <b-button size="sm" variant="danger" class="float-right" @click="() => closeTab(i)">
+          <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)">
             Close tab
           </b-button>
         </b-tab>

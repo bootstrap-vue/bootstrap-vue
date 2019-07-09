@@ -84,7 +84,7 @@ export const parseQuery = query => {
   return parsed
 }
 
-export const isRouterLink = tag => tag !== ANCHOR_TAG
+export const isRouterLink = tag => toString(tag).toLowerCase() !== ANCHOR_TAG
 
 export const computeTag = ({ to, disabled } = {}, thisOrParent) => {
   return thisOrParent.$router && to && !disabled

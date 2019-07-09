@@ -28,6 +28,7 @@ export interface BvToastOptions {
   noAutoHide?: boolean
   noHoverPause?: boolean
   autoHideDelay?: number
+  noCloseButton?: boolean
   appendToast?: boolean
   isStatus?: boolean
   noFade?: boolean

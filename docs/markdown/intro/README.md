@@ -188,6 +188,174 @@ See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-v
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org/), [Parcel](https://parceljs.org/), etc.
 
+## Tree shaking with module bundlers
+
+<span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
+
+When using a module bundler you can optionally import only specific components groups (plugins),
+components and/or directives.
+
+<div class="alert alert-info">
+  <p class="mb-0">
+    <b>Note:</b> Optimal tree shaking only works when webpack 4 is in
+    <a href="https://webpack.js.org/guides/tree-shaking"><code>production</code></a> mode and
+    javascript minification is enabled.
+  </p>
+</div>
+
+### Component groups and directives as Vue plugins
+
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
+
+You can import component groups and directives as Vue plugins by importing from the `bootstrap-vue`:
+
+<!-- eslint-disable import/first, import/no-duplicates -->
+
+```js
+// This imports all the layout components such as <b-container>, <b-row>, <b-col>:
+import { LayoutPlugin } from 'bootstrap-vue'
+Vue.use(LayoutPlugin)
+
+// This imports <b-modal> as well as the v-b-modal directive as a plugin:
+import { ModalPlugin } from 'bootstrap-vue'
+Vue.use(ModalPlugin)
+
+// This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
+import { CardPlugin } from 'bootstrap-vue'
+Vue.use(CardPlugin)
+
+// This imports directive v-b-scrollspy as a plugin:
+import { VBScrollspyPlugin } from 'bootstrap-vue'
+Vue.use(VBScrollspyPlugin)
+
+// This imports the dropdown and table plugins
+import { DropdownPlugin, TablePlugin } from 'bootstrap-vue'
+Vue.use(DropdownPlugin)
+Vue.use(TablePlugin)
+```
+
+When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
+When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
+sub components. Component shorthand aliases (if any) are also included in the plugin. Refer to the
+component and directive documentation for details.
+
+There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
+you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are available for import from
+`'bootstrap-vue'`:
+
+- `BVModalPlugin` - provides the injection `$bvModal` for generating
+  [message boxes](/docs/components/modal#modal-message-boxes).
+- `BVToastPlugin` - provides the injection `$bvToast` for generating
+  [on demand toasts](/docs/components/toast#toasts-on-demand).
+
+When importing multiple component group and/or directive group plugins, include all imports in a
+single `import` statement for optimal tree shaking.
+
+### Individual components and directives
+
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
+
+If you would like to only pull in a specific component or set of components, you can do this by
+directly importing those components.
+
+To cherry pick a component/directive, start by importing it in the file where it is being used:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+// Place all imports from 'bootstrap-vue' in a single import
+// statement for optimal bundle sizes
+import { BModal, VBModal } from 'bootstrap-vue'
+```
+
+Then add it to your component definition:
+
+<!-- eslint-disable no-undef -->
+
+```js
+Vue.component('my-component', {
+  components: {
+    'b-modal': BModal
+  },
+  directives: {
+    // Note that Vue automatically prefixes directive names with `v-`
+    'b-modal': VBModal
+  }
+  // ...
+})
+```
+
+Or register them globally:
+
+<!-- eslint-disable no-undef -->
+
+```js
+Vue.component('b-modal', BModal)
+// Note that Vue automatically prefixes directive names with `v-`
+Vue.directive('b-modal', VBModal)
+```
+
+Vue allows for various component and directive name syntaxes here, so feel free to utilize
+<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or
+object property shorthand (components only).
+
+### Using BootstrapVue source code for smaller bundles
+
+When using module bundlers, they will usually default to using the `esm/` modular build, which has
+been pre-transpiled by Babel for our
+[supported browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc).
+
+You can override the use of the `esm/` build by aliasing `bootstrap-vue'` to use the BootstrapVue
+source files, and whitelisting `node_modules/bootstrap-vue/src/*` for transpilation by your build
+process, in your module bundler config. This will allow you to transpile BootstrapVue for your
+target browsers/environments and potentially reduce bundle sizes (and will only include the babel
+helper utils once) at the expense of slightly longer build times.
+
+**Example webpack.config.js for Babel transpilation:**
+
+```js
+module.exports = {
+  resolve: {
+    alias: {
+      // Alias to use source of BootstrapVue
+      'bootstrap-vue$': 'bootstrap-vue/src/index.js'
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+        exclude: /node_modules\/(?!bootstrap-vue\/src\/)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+You may need to install `babel-core`, `babel-loader`, and `babel-preset-env`:
+
+```bash
+# If using npm
+npm install babel-core babel-loader babel-preset-env --save-dev
+
+# If using yarn
+yarn add babel-core babel-loader babel-preset-env --dev
+```
+
+For more details see:
+
+- Webpack `resolve.alias`: https://webpack.js.org/configuration/resolve/
+- Webpack `rule`: https://webpack.js.org/configuration/module/#rule
+- [rollup.js](https://rollupjs.org/)
+- [Parcel](https://parceljs.org/)
+
 ## Nuxt.js module
 
 BootstrapVue provides a Nuxt.js module for easily importing BootstrapVue (or portions of
@@ -447,121 +615,10 @@ This will create a new app with basic BootstrapVue settings to get your project 
 
 In the future this plugin will provide options for more advanced configurations and templates.
 
-## Tree shaking with module bundlers
-
-<span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
-
-When using a module bundler you can optionally import only specific components groups (plugins),
-components and/or directives.
-
-<div class="alert alert-info">
-  <p class="mb-0">
-    <b>Note:</b> Optimal tree shaking only works when webpack 4 is in
-    <a href="https://webpack.js.org/guides/tree-shaking"><code>production</code></a> mode and
-    javascript minification is enabled.
-  </p>
-</div>
-
-### Component groups and directives as Vue plugins
-
-<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
-
-You can import component groups and directives as Vue plugins by importing from the `bootstrap-vue`:
-
-<!-- eslint-disable import/first, import/no-duplicates -->
-
-```js
-// This imports all the layout components such as <b-container>, <b-row>, <b-col>:
-import { LayoutPlugin } from 'bootstrap-vue'
-Vue.use(LayoutPlugin)
-
-// This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import { ModalPlugin } from 'bootstrap-vue'
-Vue.use(ModalPlugin)
-
-// This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import { CardPlugin } from 'bootstrap-vue'
-Vue.use(CardPlugin)
-
-// This imports directive v-b-scrollspy as a plugin:
-import { VBScrollspyPlugin } from 'bootstrap-vue'
-Vue.use(VBScrollspyPlugin)
-
-// This imports the dropdown and table plugins
-import { DropdownPlugin, TablePlugin } from 'bootstrap-vue'
-Vue.use(DropdownPlugin)
-Vue.use(TablePlugin)
-```
-
-When importing as plugins, all subcomponents and related directives are imported in most cases. i.e.
-When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all dropdown
-sub components. Component shorthand aliases (if any) are also included in the plugin. Refer to the
-component and directive documentation for details.
-
-There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
-you are not using the `ModalPlugin` or `ToastPlugin` plugins) which are available for import from
-`'bootstrap-vue'`:
-
-- `BVModalPlugin` - provides the injection `$bvModal` for generating
-  [message boxes](/docs/components/modal#modal-message-boxes).
-- `BVToastPlugin` - provides the injection `$bvToast` for generating
-  [on demand toasts](/docs/components/toast#toasts-on-demand).
-
-When importing multiple component group and/or directive group plugins, include all imports in a
-single `import` statement for optimal tree shaking.
-
-### Individual components and directives
-
-<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
-
-If you would like to only pull in a specific component or set of components, you can do this by
-directly importing those components.
-
-To cherry pick a component/directive, start by importing it in the file where it is being used:
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-// Place all imports from 'bootstrap-vue' in a single import
-// statement for optimal bundle sizes
-import { BModal, VBModal } from 'bootstrap-vue'
-```
-
-Then add it to your component definition:
-
-<!-- eslint-disable no-undef -->
-
-```js
-Vue.component('my-component', {
-  components: {
-    'b-modal': BModal
-  },
-  directives: {
-    // Note that Vue automatically prefixes directive names with `v-`
-    'b-modal': VBModal
-  }
-  // ...
-})
-```
-
-Or register them globally:
-
-<!-- eslint-disable no-undef -->
-
-```js
-Vue.component('b-modal', BModal)
-// Note that Vue automatically prefixes directive names with `v-`
-Vue.directive('b-modal', VBModal)
-```
-
-Vue allows for various component and directive name syntaxes here, so feel free to utilize
-<samp>kebab-casing</samp> (shown), <samp>camelCasing</samp>, <samp>PascalCasing</samp>, and/or
-object property shorthand (components only).
-
 ## Browser
 
-Add the Boostrap and BootstrapVue CSS URLs in your HTML `<head>` section, followed by the required
-JavaScript files.
+If not using a module bundler or compile process, you can instead add the Boostrap and BootstrapVue
+CSS URLs in your HTML `<head>` section, followed by the required JavaScript files.
 
 When supporting older browsers (see [Browser Support](#browser-support) below), you will need to
 include a polyfill for handling modern JavaScript features before loading Vue and BoostrapVue
@@ -584,25 +641,35 @@ JavaScript files.
 
 ## Build variants
 
-Choosing the best variant for your build environment / packager helps less bundle sizes. If your
-bundler supports es modules, it will automatically prefer it over commonjs.
+Choosing the best variant for your build environment / packager helps reduce bundle sizes. If your
+bundler supports esm modules, it will automatically prefer it over commonjs.
 
 | Variant        | Environments           | Package path                                                           |
 | -------------- | ---------------------- | ---------------------------------------------------------------------- |
 | **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                         |
-| **ESM bundle** | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`       |
+| ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js`                                            |
 | commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-All of the build variants listed above have been pre-transpiled targeting the browsers supported by
+All of the build variants listed above have been pre-transpiled targeting the
+[browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc) supported by
 BootstrapVue. However, if you are targeting only modern browsers, you may want to import
 `BootstrapVue` from `src/index.js`, (by aliasing `bootstrap-vue` to `bootstrap-vue/src/index.js`)
 and whitelisting `bootstrap-vue/src` for transpilation via your own project. This can potentially
-reduce final project bundle sizes.
+reduce final project bundle sizes. See the
+[Using BootstrapVue source code for smaller bundles](#using-bootstrapvue-source-code-for-smaller-bundles)
+section above for more details.
+
+Both the `ESM` module and `ESM` bundle (single file) are
+[tree-shakeable](#tree-shaking-with-module-bundlers), but you will experience smaller final bundle
+sizes when using the `ESM` module _vs._ the `ESM` bundle.
+
+### Dependencies
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts), and `vue-functional-data-merge` (for functional components) and parts of `core-js`.
-These four dependencies are included in the `UMD` bundle.
+(for toasts) and
+[`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
+our functional components). These three dependencies are included in the `UMD` bundle.
 
 ## Migrating a project already using Bootstrap
 

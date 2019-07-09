@@ -20,7 +20,7 @@ to appear.
 
 Things to know when using popovers:
 
-- Popovers rely on the 3rd party library Popper.js for positioning. It is bundled with BootstrapVue!
+- Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
 - Zero-length title and content values will never show a popover.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).
@@ -28,9 +28,6 @@ Things to know when using popovers:
 - Popovers for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   white-space: nowrap; on your `<a>`s, `<b-link>`s or `<router-link>`s b to avoid this behavior.
-- Popovers must be hidden before their corresponding elements have been removed from the DOM.
-- When using a client side router, popovers will listen to changes in `$route` and automatically
-  hide.
 - Elements that trigger popovers should be in the document tab sequence. Add `tabindex="0"` if
   required.
 
@@ -350,6 +347,59 @@ Content can also be a function reference, which is called each time the popover 
 <!-- b-popover-content.vue -->
 ```
 
+## Variants and custom class
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
+BootstrapVue's popovers support contextual color variants via our custom CSS, either by using
+directive modifiers or config options:
+
+```html
+<template>
+  <b-container fluid>
+    <b-row class="text-center">
+      <b-col>
+        <b-button
+          v-b-popover.hover.v-danger="{ content: 'Popover content' }"
+          title="Danger variant"
+        >
+          Danger Modifier
+        </b-button>
+      </b-col>
+      <b-col>
+        <b-button
+          v-b-popover.hover="{ variant: 'info',  content: 'Popover content' }"
+          title="Info variant"
+        >
+          Info Config
+        </b-button>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<!-- b-popover-variants.vue -->
+```
+
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`,
+`info`, `light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
+
+A custom class can be applied to the popover outer wrapper <div> by using the customClass option
+property:
+
+```html
+<b-button
+  v-b-popover.hover="{ customClass: 'my-popover-class', content: 'Popover content' }"
+  title="Popover"
+>
+  Button
+</b-button>
+```
+
+**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
+document `<body>` element by default.
+
 ## Directive syntax and usage
 
 ```
@@ -380,11 +430,12 @@ Where `[mod]` can be (all optional):
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   popover. If not specified, the boundary defaults to the trigger element's scroll parent (in most
   cases this will suffice).
+- A contextual variant in the form of `v-XXX` (where `XXX` is the color variant name).
 
 Where `[container]` can be (optional):
 
-- An element ID (minus the #) to place the popover markup in when visible
-- If not provided, popovers are appended to the body when visible
+- An element ID (minus the #) to place the popover markup in, when visible
+- If not provided, popovers are appended to the `<body>` when visible
 
 ### Usage
 

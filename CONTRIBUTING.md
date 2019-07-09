@@ -59,26 +59,33 @@ open collective by the core contributors and the person who filed the expense wi
 ### Contributors
 
 Thank you to all the people who have already contributed to bootstrap-vue!
-<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" class="img-fluid"></a>
+
+<div class="p-3 mb-3text-center">
+  <a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors" class="d-inline-block"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" class="img-fluid"></a>
+</div>
 
 ### Backers
 
 Thank you to all our backers! [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
 
-<a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890" class="img-fluid"></a>
+<div class="p-3 mb-3 text-center">
+  <a href="https://opencollective.com/bootstrap-vue#backers" target="_blank" class="d-inline-block"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890" class="img-fluid"></a>
+</div>
 
 ### Sponsors
 
 Thank you to all our sponsors! (please ask your company to also support this open source project by
 [becoming a sponsor](https://opencollective.com/bootstrap-vue#sponsor))
 
-<a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/5/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/6/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/7/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/bootstrap-vue/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/9/avatar.svg"></a>
+<div class="p-3 mb-3 rounded-lg text-center" style="background-color: #d7d7d7;">
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/2/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/2/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/3/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/3/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/4/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/4/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/5/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/5/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/6/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/6/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/7/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/7/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/8/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/8/avatar.svg"></a>
+  <a href="https://opencollective.com/bootstrap-vue/sponsor/9/website" target="_blank" class="d-inline-block m-3"><img src="https://opencollective.com/bootstrap-vue/sponsor/9/avatar.svg"></a>
+</div>
