@@ -1,50 +1,52 @@
 // Create custom variants for tooltips
-@each $color, $value in $theme-colors {
-  .tooltip.b-tooltip-#{$color} {
-    $tip-text-color: color-yiq($value);
+@if $bv-enable-tooltip-variants {
+  @each $color, $value in $theme-colors {
+    .tooltip.b-tooltip-#{$color} {
+      $tip-text-color: color-yiq($value);
 
-    &.bs-tooltip-top {
-      .arrow::before {
-        border-top-color: $value;
+      &.bs-tooltip-top {
+        .arrow::before {
+          border-top-color: $value;
+        }
       }
-    }
 
-    &.bs-tooltip-right {
-      .arrow::before {
-        border-right-color: $value;
+      &.bs-tooltip-right {
+        .arrow::before {
+          border-right-color: $value;
+        }
       }
-    }
 
-    &.bs-tooltip-bottom {
-      .arrow::before {
-        border-bottom-color: $value;
+      &.bs-tooltip-bottom {
+        .arrow::before {
+          border-bottom-color: $value;
+        }
       }
-    }
 
-    &.bs-tooltip-left {
-      .arrow::before {
-        border-left-color: $value;
+      &.bs-tooltip-left {
+        .arrow::before {
+          border-left-color: $value;
+        }
       }
-    }
 
-    &.bs-tooltip-auto {
-      &[x-placement^="top"] {
-        @extend .bs-tooltip-top;
+      &.bs-tooltip-auto {
+        &[x-placement^="top"] {
+          @extend .bs-tooltip-top;
+        }
+        &[x-placement^="right"] {
+          @extend .bs-tooltip-right;
+        }
+        &[x-placement^="bottom"] {
+          @extend .bs-tooltip-bottom;
+        }
+        &[x-placement^="left"] {
+          @extend .bs-tooltip-left;
+        }
       }
-      &[x-placement^="right"] {
-        @extend .bs-tooltip-right;
-      }
-      &[x-placement^="bottom"] {
-        @extend .bs-tooltip-bottom;
-      }
-      &[x-placement^="left"] {
-        @extend .bs-tooltip-left;
-      }
-    }
 
-    .tooltip-inner {
-      color: color-yiq($value);
-      background-color: $value;
+      .tooltip-inner {
+        color: color-yiq($value);
+        background-color: $value;
+      }
     }
   }
 }
