@@ -350,6 +350,47 @@ Content can also be a function reference, which is called each time the popover 
 <!-- b-popover-content.vue -->
 ```
 
+## Variants and custom class
+
+BootstrapVue's popovers support contextual color variants via our custom CSS, either by using directive
+modifiers or config options:
+
+```html
+<template>
+  <b-container fluid>
+    <b-row class="text-center">
+      <b-col>
+        <b-button
+          v-b-popover.hover.v-danger="{ content: 'Popover content' }"
+          title="Danger variant"
+        >
+          Danger Modifier
+        </b-button>
+      </b-col>
+      <b-col>
+        <b-button
+          v-b-popover.hover="{ variant: 'info',  content: 'Popover content' }"
+          title="Info variant"
+        >
+          Info Config
+        </b-button>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<!-- b-popover-variants.vue -->
+```
+
+A custom class can be applied to the popover outer wrapper <div> by using the customClass option property:
+
+```html
+<b-button v-b-tooltip.hover="{ customClass: 'my-tooltip-class' }" title="Tooltip">Button</b-button>
+```
+
+**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the document
+`<body>` element by default.
+
 ## Directive syntax and usage
 
 ```
@@ -380,11 +421,12 @@ Where `[mod]` can be (all optional):
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   popover. If not specified, the boundary defaults to the trigger element's scroll parent (in most
   cases this will suffice).
+- A contextual variant in the form of `v-XXXX` (where `XXXX` is the color variant name).
 
 Where `[container]` can be (optional):
 
-- An element ID (minus the #) to place the popover markup in when visible
-- If not provided, popovers are appended to the body when visible
+- An element ID (minus the #) to place the popover markup in, when visible
+- If not provided, popovers are appended to the `<body>` when visible
 
 ### Usage
 
