@@ -6,8 +6,27 @@
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
           <b-col tag="aside" cols="8" offset="2" sm="6" offset-sm="3" md="4" offset-md="0" order-md="2">
             <!-- vue-loader will inline the svg as a data uri -->
+            <!-- <b-img src="~static/logo.svg" alt="BootstrapVue logo" class="bv-logo mb-4 mb-md-0" center fluid></b-img> -->
             <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-            <b-img src="~static/logo.svg" alt="BootstrapVue logo" class="bv-logo mb-4 mb-md-0" center fluid></b-img>
+            <svg class="bv-logo mb-4 mb-md-0" alt="BootstrapVue logo" clip-rule="evenodd" fill-rule="evenodd" viewBox="0 0 2041 2160" xmlns="http://www.w3.org/2000/svg">
+              <path
+                class="logo-back"
+                fill="#34495e"
+                d="m1397 271-370 642-371-642h-592l963 1667 962-1667z"
+              />
+              <path
+                class="logo-v"
+                fill="#563d7c"
+                d="m44 0h1952l-979 1696z" fill="#563d7c"
+              />
+              <g class="logo-vb">
+                <path fill="#41b883" d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" />
+                <path
+                  fill="#fff"
+                  d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z"
+                />
+              </g>
+            </svg>
           </b-col>
 
           <b-col tag="section" md="8" order-md="1">
@@ -442,18 +461,32 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 .bv-logo {
   filter: drop-shadow(-3px 12px 2px #e7e7e7);
-  animation: logo-splash 0.35s 1 ease-in;
+  width: 100%; // IE11 Fix
+  max-width: 75%;
+  margin-left: auto;
+  margin-right: auto;
   transform-style: preserve-3d;
+}
+
+.bv-logo .logo-v {
+  animation: logo-zoom 0.35s 1 ease-in;
+}
+
+.bv-logo .logo-bv {
+  animation: logo-slide 0.35s 1 ease-in;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bv-logo {
-    transition: none;
-    animation: none;
+    .logo-v,
+    .logo-bv {
+      transition: none;
+      animation: none;
+    }
   }
 }
 
-@keyframes logo-splash {
+@keyframes logo-zoom {
   0% {
     opacity: 0.25;
     transform: scale(0.8);
@@ -461,6 +494,17 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes logo-slide {
+  0% {
+    opacity: 0.25;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
