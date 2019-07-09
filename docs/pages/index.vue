@@ -442,21 +442,29 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 .bv-logo {
   filter: drop-shadow(-3px 12px 2px #e7e7e7);
-}
-
-#logo {
-  animation: logo-flip 1s;
+  animation: logo-splash 0.35s 1 ease-in-out;
+  width: 100%; // IE11 Fix
+  max-width: 75%;
+  margin-left: auto;
+  margin-right: auto;
   transform-style: preserve-3d;
 }
 
-@keyframes logo-flip {
+@media (prefers-reduced-motion: reduce) {
+  .bv-logo {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes logo-splash {
   0% {
-    opacity: 0.5;
-    transform: rotateY(180deg);
+    opacity: 0.1;
+    transform: scale(0.75);
   }
   100% {
     opacity: 1;
-    transform: rotateY(0deg);
+    transform: scale(1);
   }
 }
 </style>
