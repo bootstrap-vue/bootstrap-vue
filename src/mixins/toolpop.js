@@ -62,14 +62,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
-    variant: {
-      type: String,
-      default: null
-    },
-    customClass: {
-      type: String,
-      default: null
     }
   },
   data() {
