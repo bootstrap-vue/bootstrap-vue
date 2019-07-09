@@ -54,7 +54,7 @@ const appDef = {
 
 // Note: `wrapper.destroy()` MUST be called at the end of each test in order for
 // the next test to function properly!
-describe('tooltip', () => {
+describe('b-tooltip', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
