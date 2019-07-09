@@ -266,6 +266,44 @@ The special `blur` trigger **must** be used in combination with the `click` trig
 | `container`          | `null`           | Element string ID to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
+| `variant`            | `null`           | Contextual color variant for the popover                                                                                                                                                                   | Any contextual theme color variant name                                                                                                      |
+| `customClass`        | `null`           | A custom classname to apply to the popover outer wrapper element                                                                                                                                     | A string                                                                                                                  |
+
+### Variants and custom class
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
+BootstrapVue's popovers support contextual color variants via our custom CSS, via the `variant` prop:
+
+```html
+<div class="text-center">
+  <b-button id="popover-button-variant">Button</b-button>
+  <b-popover target="popover-button-variant" variant="danger">
+    <template slot="title">Danger!</template>
+    Danger variant popover
+  </b-popover>
+</div>
+
+<!-- b-popover-variant.vue -->
+```
+
+A custom class can be applied to the popover outer wrapper `<div>` by using the `custom-class` prop:
+
+```html
+<div class="text-center">
+  <b-button id="my-button">Button</b-button>
+  <b-popover target="my-button" custom-class="my-popover-class">
+    <template slot="title">Popover Title</template>
+    Popover content
+  </b-popover>
+</div>
+```
+
+**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the document
+`<body>` element by default.
+
+Refer to the [popover directive](/docs/directives/popover) docs on applying variants and custom class
+to the directive version.
 
 ### Programmatically show and hide popover
 
