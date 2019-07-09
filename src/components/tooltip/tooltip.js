@@ -33,6 +33,14 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         return isArray(value) || arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
       }
     },
+    variant: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'variant')
+    },
+    customClass: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'customClass')
+    },
     delay: {
       type: [Number, Object, String],
       default: () => getComponentConfig(NAME, 'delay')
