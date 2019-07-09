@@ -6,7 +6,17 @@ const localVue = new CreateLocalVue()
 
 // Our test application definition
 const appDef = {
-  props: ['triggers', 'show', 'disabled', 'noFade', 'title', 'titleAttr', 'btnDisabled'],
+  props: [
+    'triggers',
+    'show',
+    'disabled',
+    'noFade',
+    'title',
+    'titleAttr',
+    'btnDisabled',
+    'variant',
+    'customClass'
+  ],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
       h(
@@ -31,7 +41,9 @@ const appDef = {
             show: this.show,
             disabled: this.disabled,
             noFade: this.noFade || false,
-            title: this.title || null
+            title: this.title || null,
+            variant: this.variant,
+            customClass: this.customClass
           }
         },
         this.$slots.default || ''
@@ -42,7 +54,7 @@ const appDef = {
 
 // Note: `wrapper.destroy()` MUST be called at the end of each test in order for
 // the next test to function properly!
-describe('tooltip', () => {
+describe('b-tooltip', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
@@ -851,6 +863,92 @@ describe('tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.querySelector(`#${adb}`)).toBe(null)
+
+    wrapper.destroy()
+  })
+
+  it('Applies variant class', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        show: true,
+        variant: 'danger'
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip-danger')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('Applies custom class', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        show: true,
+        customClass: 'foobar-class'
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // Find the tooltip element in the document
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('foobar-class')).toBe(true)
 
     wrapper.destroy()
   })

@@ -6,7 +6,17 @@ const localVue = new CreateLocalVue()
 
 // Our test application definition
 const appDef = {
-  props: ['triggers', 'show', 'disabled', 'noFade', 'title', 'titleAttr', 'btnDisabled'],
+  props: [
+    'triggers',
+    'show',
+    'disabled',
+    'noFade',
+    'title',
+    'titleAttr',
+    'btnDisabled',
+    'variant',
+    'customClass'
+  ],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
       h(
@@ -30,7 +40,9 @@ const appDef = {
             triggers: this.triggers,
             show: this.show,
             disabled: this.disabled,
-            noFade: this.noFade || false
+            noFade: this.noFade || false,
+            variant: this.variant,
+            customClass: this.customClass
           }
         },
         [h('template', { slot: 'title' }, this.$slots.title), this.$slots.default || '']
@@ -45,7 +57,7 @@ const appDef = {
 
 // Note: `wrapper.destroy()` MUST be called at the end of each test in order for
 // the next test to function properly!
-describe('tooltip', () => {
+describe('b-popover', () => {
   const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 

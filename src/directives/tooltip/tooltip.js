@@ -17,6 +17,15 @@ const validTriggers = {
   blur: true
 }
 
+// Directive modifier test regular expressions. Pre-compile for performance
+const htmlRE = /^html$/
+const noFadeRE = /^nofade$/i
+const placementRE = /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/
+const boundaryRE = /^(window|viewport|scrollParent)$/
+const delayRE = /^d\d+$/
+const offsetRE = /^o-?\d+$/
+const variantRE = /^v-.+$/
+
 // Build a ToolTip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
@@ -26,7 +35,9 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   let config = {
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
-    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0
+    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
+    variant: getComponentConfig(NAME, 'variant'),
+    customClass: getComponentConfig(NAME, 'customClass')
   }
 
   // Process bindings.value
@@ -50,32 +61,33 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 
   // Process modifiers
   keys(bindings.modifiers).forEach(mod => {
-    if (/^html$/.test(mod)) {
+    if (htmlRE.test(mod)) {
       // Title allows HTML
       config.html = true
-    } else if (/^nofade$/.test(mod)) {
+    } else if (noFadeRE.test(mod)) {
       // No animation
       config.animation = false
-    } else if (
-      /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)
-    ) {
+    } else if (placementRE.test(mod)) {
       // Placement of tooltip
       config.placement = mod
-    } else if (/^(window|viewport|scrollParent)$/.test(mod)) {
+    } else if (boundaryRE.test(mod)) {
       // Boundary of tooltip
       config.boundary = mod
-    } else if (/^d\d+$/.test(mod)) {
+    } else if (delayRE.test(mod)) {
       // Delay value
       const delay = parseInt(mod.slice(1), 10) || 0
       if (delay) {
         config.delay = delay
       }
-    } else if (/^o-?\d+$/.test(mod)) {
+    } else if (offsetRE.test(mod)) {
       // Offset value, negative allowed
       const offset = parseInt(mod.slice(1), 10) || 0
       if (offset) {
         config.offset = offset
       }
+    } else if (variantRE.test(mod)) {
+      // Variant
+      config.variant = mod.slice(2) || null
     }
   })
 

@@ -110,6 +110,13 @@ export default deepFreeze({
   BNavbarToggle: {
     label: 'Toggle navigation'
   },
+  BPopover: {
+    boundary: 'scrollParent',
+    boundaryPadding: 5,
+    customClass: null,
+    delay: 0,
+    variant: null
+  },
   BProgress: {
     variant: null
   },
@@ -139,13 +146,10 @@ export default deepFreeze({
     role: null
   },
   BTooltip: {
-    delay: 0,
     boundary: 'scrollParent',
-    boundaryPadding: 5
-  },
-  BPopover: {
+    boundaryPadding: 5,
+    customClass: null,
     delay: 0,
-    boundary: 'scrollParent',
-    boundaryPadding: 5
+    variant: null
   }
 })
