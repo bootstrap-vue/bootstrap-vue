@@ -1,6 +1,6 @@
 // Create custom variants for tooltips
 @each $color, $value in $theme-colors {
-  .tooltip.tooltip-#{$color} {
+  .tooltip.b-tooltip-#{$color} {
     $tip-text-color: color-yiq($value);
 
     &.bs-tooltip-top {
