@@ -221,7 +221,7 @@ Title can also be a function reference, which is called each time the tooltip is
 
 ## Variants and custom class
 
-BootstrapVue's tooltips support contetual color variants via our custom CSS, either by using 
+BootstrapVue's tooltips support contextual color variants via our custom CSS, either by using 
 directive modifiers or config options:
 
 ```html
@@ -244,7 +244,7 @@ A custom class can be applied to the tooltip outer wrapper `<div>` by using the 
 property:
 
 ```html
-<b-button v-b-tooltip.hover="{ customClass: 'my-tooltip-class' } title="Tooltip">Button</b-button>
+<b-button v-b-tooltip.hover="{ customClass: 'my-tooltip-class' }" title="Tooltip">Button</b-button>
 ```
 
 **Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
