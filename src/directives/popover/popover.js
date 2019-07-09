@@ -24,7 +24,7 @@ const placementRE = /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom
 const boundaryRE = /^(window|viewport|scrollParent)$/
 const delayRE = /^d\d+$/
 const offsetRE = /^o-?\d+$/
-const variantRE = /^v-\s+$/
+const variantRE = /^v-.+$/
 
 // Build a PopOver config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
