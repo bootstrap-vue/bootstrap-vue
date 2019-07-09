@@ -66,6 +66,10 @@ export default {
     variant: {
       type: String,
       default: null
+    },
+    customClass: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -101,6 +105,8 @@ export default {
         animation: !this.noFade,
         // Variant
         variant: this.variant,
+        // Custom class
+        customClass: this.customClass,
         // Open/Close Trigger(s)
         trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
         // Callbacks so we can trigger events on component
