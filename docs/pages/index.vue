@@ -14,11 +14,7 @@
                 fill="#34495e"
                 d="m1397 271-370 642-371-642h-592l963 1667 962-1667z"
               />
-              <path
-                class="logo-v"
-                fill="#563d7c"
-                d="m44 0h1952l-979 1696z" fill="#563d7c"
-              />
+              <path class="logo-v" fill="#563d7c" d="m44 0h1952l-979 1696z" />
               <g class="logo-vb">
                 <path fill="#41b883" d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" />
                 <path
