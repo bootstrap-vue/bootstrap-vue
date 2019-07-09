@@ -25,8 +25,10 @@
       caption-side: top !important;
     }
   }
+}
 
-  // --- Header sort styling ---
+// --- Header sort styling ---
+.table.b-table {
   > thead,
   > tfoot {
     > tr {
@@ -65,8 +67,10 @@
       }
     }
   }
+}
 
-  // --- Stacked tables ---
+// --- Stacked tables ---
+.table.b-table {
   &.b-table-stacked {
     @each $breakpoint in map-keys($grid-breakpoints) {
       $next: breakpoint-next($breakpoint, $grid-breakpoints);
@@ -120,6 +124,13 @@
                   margin: 0;
                 }
 
+                // Add clearfix in-case field label wraps
+                &::after {
+                  display: block;
+                  clear: both;
+                  content: "";
+                }
+
                 // Cell value (we wrap the cell value in a div when stacked)
                 > div {
                   display: inline-block;
@@ -146,8 +157,10 @@
       }
     }
   }
+}
 
-  // --- Selectable rows ---
+// --- Selectable rows ---
+.table.b-table {
   &.b-table-selectable {
     & > tbody > tr {
       cursor: pointer;
