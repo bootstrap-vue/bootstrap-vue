@@ -444,19 +444,20 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
   filter: drop-shadow(-3px 12px 2px #e7e7e7);
 }
 
-#logo {
-  animation: logo-flip 1s;
+.bv-logo {
+  animation: logo-splash 0.6s;
+  animation-iteration-count: 1;
   transform-style: preserve-3d;
 }
 
 @keyframes logo-flip {
   0% {
     opacity: 0.5;
-    transform: rotateY(180deg);
+    transform: scale(0.75);
   }
   100% {
     opacity: 1;
-    transform: rotateY(0deg);
+    transform: scale(1);
   }
 }
 </style>
