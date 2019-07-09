@@ -485,11 +485,11 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 @keyframes logo-zoom {
   0% {
     opacity: 0.25;
-    transform: scale(0.8);
+    transform: scale(1.25), translateY(30px);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1), translateY(0);
   }
 }
 
