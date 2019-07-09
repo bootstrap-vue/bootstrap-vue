@@ -212,9 +212,9 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
 ## Hide slide text content on small screens
 
 On smaller screens you may want to hide the captions and headings. You can do so via the
-`content-visisble-up` prop of `<b-carousel-slide>`.  The prop accepts a breakpint name (i.e.
-`sm`, `md`, `lg`, `xl`, or custom breakpoint names if you have defined them), and will hide
-the headings and captions on screens _smaller_ than the breakpoint.
+`content-visible-up` prop of `<b-carousel-slide>`. The prop accepts a breakpoint name (i.e. `sm`,
+`md`, `lg`, `xl`, or custom breakpoint names if you have defined them), and will hide the headings
+and captions on screens _smaller_ than the breakpoint.
 
 ## Touch swipe support
 
