@@ -145,7 +145,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       content = h(
         this.contentTag,
         { staticClass: 'carousel-caption', class: this.contentClasses },
-        contentChildren.map(i => i ? i : h(false))
+        contentChildren.map(i => i || h(false))
       )
     }
 
