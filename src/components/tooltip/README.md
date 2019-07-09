@@ -172,6 +172,10 @@ BootstrapVue's tooltips support contextual color variants via our custom CSS, vi
 <!-- b-tooltip-variant.vue -->
 ```
 
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
+`light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
+
 A custom class can be applied to the tooltip outer wrapper `<div>` by using the `custom-class` prop:
 
 ```html
