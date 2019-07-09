@@ -219,6 +219,37 @@ Title can also be a function reference, which is called each time the tooltip is
 <!-- b-tooltip-content.vue -->
 ```
 
+## Variants and custom class
+
+BootstrapVue's tooltips support contetual color variants via our custom CSS, either by using 
+directive modifiers or config options:
+
+```html
+<template>
+  <b-container fluid>
+    <b-row class="text-center">
+      <b-col>
+        <b-button v-b-tooltip.hover.v-danger title="Danger variant">Danger Modifier</b-button>
+      </b-col>
+      <b-col>
+        <b-button v-b-tooltip.hover="{ variant: 'info' }" title="Info variant">Info Config</b-button>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+<!-- b-tooltip-variants.vue -->
+```
+
+A custom class can be applied to the tooltip outer wrapper `<div>` by using the `customClass` option
+property:
+
+```html
+<b-button v-b-tooltip.hover="{ customClass: 'my-tooltip-class' } title="Tooltip">Button</b-button>
+```
+
+**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
+document `<body>` element by default.
+
 ## Directive syntax and usage
 
 ```
@@ -240,12 +271,13 @@ Where [modX] can be (all optional):
   `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
 - `nofade` to turn off animation
 - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
+- A delay value in the format of `d###` (where `###` is in ms, defaults to 0)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
   to 0. Negative values allowed)
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most
-  cases this will suffice).
+  cases this will suffice)
+- A contextual variant in the form of `v-XXXX` (where `XXXX` is the color variant name)
 
 Where `<value>` can be (optional):
 
@@ -270,6 +302,8 @@ Where `<value>` can be (optional):
 | `fallbackPlacement` | String or Array                 | `'flip'`         | Allow to specify which position Popper will use on fallback. Can be `flip`, `clockwise`, `counterclockwise` or an array of placements. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                            |
 | `boundary`          | String or HTMLElement reference | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                     |
 | `boundaryPadding`   | Number                          | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                                                                                                                                                                                                                                                                                      |
+| `variant`           | String                          | `null`           | Contextual color vaiant name                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `customClass`       | String                          | `null`           | Custom class to applye to the outer wrapper `div`.                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ### Usage
 
@@ -292,6 +326,13 @@ v-b-tooltip.bottom
 v-b-tooltip.right
 ```
 
+**Variant examples:**
+
+```
+v-b-tooltip.v-primary => `primary` variant
+v-b-tooltip.v-danger => `danger` variant
+```
+
 **Trigger examples:**
 
 ```
@@ -305,12 +346,13 @@ v-b-tooltip.hover.focus => Both hover and focus
 ```
 v-b-tooltip.hover.bottom => Show on hover and place at bottom
 v-b-tooltip.bottom.hover => Same as above
+v-b-tooltip.bottom.hover.v-danger => Same as above, but with variant
 ```
 
 **Object:**
 
 ```
-v-b-tooltip="{title: 'Title', placement: 'bottom'}"
+v-b-tooltip="{ title: 'Title', placement: 'bottom', variant: 'danger' }"
 ```
 
 ## Hiding and showing tooltips via \$root events
