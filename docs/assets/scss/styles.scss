@@ -74,8 +74,12 @@
       > .nav-link {
         padding-left: 0;
         padding-right: 0;
+
         + .nav {
-          display: none;
+          @supports (position: sticky) {
+            // Collapse non-active entries if supports sticky
+            display: none;
+          }
         }
 
         &.active {
