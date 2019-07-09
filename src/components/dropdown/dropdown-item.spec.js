@@ -97,9 +97,13 @@ describe('dropdown-item', () => {
         router,
         render(h) {
           return h('ul', {}, [
+            // router-link
             h(BDropdownItem, { props: { to: '/a' } }, ['to-a']),
+            // regular link
             h(BDropdownItem, { props: { href: '/a' } }, ['href-a']),
+            // router-link
             h(BDropdownItem, { props: { to: { path: '/b' } } }, ['to-path-b']),
+            // regular link
             h(BDropdownItem, { props: { href: '/b' } }, ['href-a']),
             h('router-view')
           ])
@@ -120,12 +124,22 @@ describe('dropdown-item', () => {
       const $links = wrapper.findAll('a')
 
       expect($links.at(0).isVueInstance()).toBe(true)
-      expect($links.at(1).isVueInstance()).toBe(false)
-      expect($links.at(2).isVueInstance()).toBe(true)
-      expect($links.at(3).isVueInstance()).toBe(false)
+      expect($links.at(0).vm.$options.name).toBe('BLink')
+      expect($links.at(0).vm.$children.length).toBe(1)
+      expect($links.at(0).vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(0).vm.$options.name).toBe('RouterLink')
-      expect($links.at(2).vm.$options.name).toBe('RouterLink')
+      expect($links.at(1).isVueInstance()).toBe(true)
+      expect($links.at(1).vm.$options.name).toBe('BLink')
+      expect($links.at(1).vm.$children.length).toBe(0)
+
+      expect($links.at(2).isVueInstance()).toBe(true)
+      expect($links.at(2).vm.$options.name).toBe('BLink')
+      expect($links.at(2).vm.$children.length).toBe(1)
+      expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
+
+      expect($links.at(3).isVueInstance()).toBe(true)
+      expect($links.at(3).vm.$options.name).toBe('BLink')
+      expect($links.at(3).vm.$children.length).toBe(0)
 
       wrapper.destroy()
     })

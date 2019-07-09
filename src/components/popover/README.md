@@ -16,17 +16,15 @@
 
 Things to know when using popover component:
 
-- Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with
-  BootstrapVue dist files!
+- Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
 - Popovers with zero-length title _and_ content are never displayed.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use `container` to optionally
-  specify a different element to append the popover to.
+  specify a different element to append the rendered popover to.
 - Triggering popovers on hidden elements will not work.
 - Popovers for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
-- Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
 element at the point in the DOM where the `<b-popover>` component is placed. This may affect layout
@@ -266,6 +264,49 @@ The special `blur` trigger **must** be used in combination with the `click` trig
 | `container`          | `null`           | Element string ID to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
+| `variant`            | `null`           | Contextual color variant for the popover                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
+| `customClass`        | `null`           | A custom classname to apply to the popover outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+
+### Variants and custom class
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
+BootstrapVue's popovers support contextual color variants via our custom CSS, via the `variant`
+prop:
+
+```html
+<div class="text-center">
+  <b-button id="popover-button-variant">Button</b-button>
+  <b-popover target="popover-button-variant" variant="danger" triggers="focus">
+    <template slot="title">Danger!</template>
+    Danger variant popover
+  </b-popover>
+</div>
+
+<!-- b-popover-variant.vue -->
+```
+
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`,
+`info`, `light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
+
+A custom class can be applied to the popover outer wrapper `<div>` by using the `custom-class` prop:
+
+```html
+<div class="text-center">
+  <b-button id="my-button">Button</b-button>
+  <b-popover target="my-button" custom-class="my-popover-class">
+    <template slot="title">Popover Title</template>
+    Popover content
+  </b-popover>
+</div>
+```
+
+**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
+document `<body>` element by default.
+
+Refer to the [popover directive](/docs/directives/popover) docs on applying variants and custom
+class to the directive version.
 
 ### Programmatically show and hide popover
 
@@ -569,7 +610,7 @@ when the trigger element is clicked a second time), then you can either:
 - Disable your trigger element (if possible) as soon as the popover begins to open (via the `show`
   event), and re-enable it when appropriate (i.e. via the `hide` or `hidden` event).
 
-For practical purposes, interactive content popovers should be minimal. The maximum width of the
+For practical purposes, **interactive content popovers should be minimal**. The maximum width of the
 popover is hard coded by Bootstrap v4 CSS to `276px`. Tall popovers on small screens can be harder
 to deal with on mobile devices (such as smart-phones).
 
@@ -839,5 +880,31 @@ possible. When the popover is closed, you should return focus back to your trigg
 
 You may also want to implement focus containment in the popover content while the user is
 interacting with it (keeping focus inside the popover until it is closed by the user).
+
+### Making popovers work for keyboard and assistive technology users
+
+To allow keyboard users to activate your popovers, you should only add them to HTML elements that
+are traditionally keyboard-focusable and interactive (such as links or form controls). Although
+arbitrary HTML elements (such as `<span>`s) can be made focusable by adding the `tabindex="0"`
+attribute, this will add potentially annoying and confusing tab stops on non-interactive elements
+for keyboard users, and most assistive technologies currently do not announce the popover's content
+in this situation. Additionally, do not rely solely on `hover` as the trigger for your popovers, as
+this will make them impossible to trigger for keyboard users.
+
+While you can insert rich, structured HTML and/or components in popovers via slots, we strongly
+recommend that you avoid adding an excessive amount of content. The way popovers currently work is
+that, once displayed, their content is tied to the trigger element with the `aria-describedby`
+attribute. As a result, the entirety of the popover's content will be announced (read) to assistive
+technology users as one long, uninterrupted stream.
+
+Additionally, while it is possible to also include interactive controls (such as form elements or
+links) in your popover, be aware that currently the popover does not manage keyboard focus order.
+When a keyboard user opens a popover, focus remains on the triggering element, and as the popover
+usually does not immediately follow the trigger in the document's structure, there is no guarantee
+that moving forward/pressing <kbd>TAB</kbd> will move a keyboard user into the popover itself. In
+short, simply adding interactive controls to a popover is likely to make these controls
+unreachable/unusable for keyboard users and users of assistive technologies, or at the very least
+make for an illogical overall focus order. **In these cases, consider using a `<b-modal>` dialog
+instead**.
 
 <!-- Component reference added automatically from component package.json -->

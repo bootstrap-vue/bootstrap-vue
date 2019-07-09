@@ -51,8 +51,8 @@ actionalable items. see below).
 
 ## Actionable list group items
 
-Turn a `<b-list-group-item>` into an actionable link by specifying either an `href` prop or
-[router-link](/docs/reference/router-links) `to` prop.
+Turn a `<b-list-group-item>` into an actionable _link_ (`<a href="...">`) by specifying either an
+`href` prop or [router-link](/docs/reference/router-links) `to` prop.
 
 ```html
 <b-list-group>
@@ -65,7 +65,7 @@ Turn a `<b-list-group-item>` into an actionable link by specifying either an `hr
 <!-- b-list-group-link.vue -->
 ```
 
-Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
+Or if you prefer `<button>` elements over links, set the `button` prop to `true`.
 
 ```html
 <b-list-group>
@@ -165,7 +165,7 @@ prop when using cards with `no-body` to make the sides of the list group flush w
 
 ```html
 <b-card-group deck>
-  <b-card header="<b>Card with list group</b>">
+  <b-card header="Card with list group">
     <b-list-group>
       <b-list-group-item href="#">Cras justo odio</b-list-group-item>
       <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
@@ -179,7 +179,7 @@ prop when using cards with `no-body` to make the sides of the list group flush w
     </p>
   </b-card>
 
-  <b-card no-body header="<b>Card with flush list group</b>">
+  <b-card no-body header="Card with flush list group">
     <b-list-group flush>
       <b-list-group-item href="#">Cras justo odio</b-list-group-item>
       <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
@@ -221,7 +221,7 @@ list group item.
 <!-- b-list-group-horizontal.vue -->
 ```
 
-**Horizontal at breakpoint md and above:**
+**Horizontal at breakpoint `md` and above:**
 
 ```html
 <div>
@@ -238,7 +238,7 @@ list group item.
 ## Custom content
 
 Add nearly any HTML or component within, even for linked list groups like the one below, with the
-help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
+help of [flexbox utility classes](/docs/reference/utility-classes).
 
 ```html
 <b-list-group>

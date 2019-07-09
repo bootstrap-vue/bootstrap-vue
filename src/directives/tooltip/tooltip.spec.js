@@ -123,4 +123,52 @@ describe('v-b-tooltip directive', () => {
 
     wrapper.destroy()
   })
+
+  it('variant and customClass should work', async () => {
+    jest.useFakeTimers()
+    const localVue = new CreateLocalVue()
+
+    const App = localVue.extend({
+      directives: {
+        bTooltip: tooltipDirective
+      },
+      data() {
+        return {}
+      },
+      template: `<button v-b-tooltip.click.html.v-info="{ customClass: 'foobar'}" title="<b>foobar</b>">button</button>`
+    })
+
+    const wrapper = mount(App, {
+      localVue: localVue,
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('button')).toBe(true)
+    const $button = wrapper.find('button')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+
+    // Trigger click
+    $button.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    const adb = $button.attributes('aria-describedby')
+
+    const tip = document.querySelector(`#${adb}`)
+    expect(tip).not.toBe(null)
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip-info')).toBe(true)
+    expect(tip.classList.contains('foobar')).toBe(true)
+
+    wrapper.destroy()
+  })
 })

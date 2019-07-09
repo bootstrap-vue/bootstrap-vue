@@ -326,6 +326,15 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 
 **Note:** The caret will always be shown when using `split` mode.
 
+## Lazy dropdown
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
+By default, `<b-dropdown>` renders the menu contents in the DOM even when the menu is not shown.
+When there are a large number of dropdowns rendered on the same page, performance could be impacted
+due to larger overall memory utilization. You can instruct `<b-dropdown>` to render the menu
+contents only when it is shown by setting the `lazy` prop to true.
+
 ## Dropdown supported sub-components
 
 The following components can be placed inside of your dropdowns. Using any other component or markup

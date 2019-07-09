@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
-import hljs from 'highlight.js'
 import needsTranspiler from '../utils/needs-transpiler'
+import hljs from '../utils/hljs'
 
 // --- Constants ---
 

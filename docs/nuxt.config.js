@@ -1,8 +1,20 @@
 const fs = require('fs')
 const path = require('path')
-const hljs = require('highlight.js')
 const marked = require('marked')
+const hljs = require('highlight.js/lib/highlight.js')
 
+// import only the languages we need for hljs
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
+hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
+hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
+hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml')) // includes HTML
+hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
+hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
+hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // includes sh
+hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
+hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
+
+// Create a new marked renderer
 const renderer = new marked.Renderer()
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
@@ -85,13 +97,16 @@ module.exports = {
         }
       }
     },
-    extend(config, { loaders }) {
+    extend(config, { isDev, loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
 
-      config.devtool = 'eval-source-map'
+      if (isDev) {
+        // Source maps make the bundles monsterous, do leave it off in prod mode
+        config.devtool = 'eval-source-map'
+      }
 
       config.module.rules.push({
         test: /\.md$/,
@@ -113,11 +128,26 @@ module.exports = {
 
       loaders.scss.precision = 6
       loaders.scss.outputStyle = 'expanded'
+
+      loaders.vue.transformAssetUrls = {
+        // Nuxt default is missing `poster` for video
+        video: ['src', 'poster'],
+        // Nuxt default is missing image
+        image: 'xlink:href',
+        // Add BootstrapVue specific component asset items
+        'b-img': 'src',
+        'b-img-lazy': ['src', 'blank-src'],
+        'b-card': 'img-src',
+        'b-card-img': 'src',
+        'b-card-img-lazy': ['src', 'blank-src'],
+        'b-carousel-slide': 'img-src',
+        'b-embed': 'src'
+      }
     }
   },
 
   loading: {
-    color: '#59cc93',
+    color: '#ccc',
     height: '3px'
   },
 
@@ -158,7 +188,7 @@ module.exports = {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
       {
-        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CMutationObserver',
+        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver',
         crossorigin: 'anonymous'
       }
     ]

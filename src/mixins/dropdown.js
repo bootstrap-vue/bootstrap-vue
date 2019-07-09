@@ -92,6 +92,11 @@ export default {
       type: Boolean,
       default: false
     },
+    lazy: {
+      // If true, only render menu contents when open
+      type: Boolean,
+      default: false
+    },
     popperOpts: {
       // type: Object,
       default: () => {}

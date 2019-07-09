@@ -18,7 +18,7 @@ const externals = ['vue', ...Object.keys(dependencies)]
 // are expected to be provided later.
 // In some cases (i.e. browser UMD build), we want to include some of
 // them in the build, so we exclude the external here.
-const externalExcludes = ['core-js', 'popper.js', 'portal-vue', 'vue-functional-data-merge']
+const externalExcludes = ['popper.js', 'portal-vue', 'vue-functional-data-merge']
 
 // The base rollup configuration
 const baseConfig = {
@@ -36,7 +36,7 @@ export default [
   // UMD Browser Build
   {
     ...baseConfig,
-    // We use a specific input entrypoint for the browser build
+    // We use a specific input for the browser build
     input: path.resolve(src, 'browser.js'),
     external: externals.filter(dep => !externalExcludes.includes(dep)),
     output: {

@@ -1,5 +1,6 @@
 import Feedback from '~/components/feedback'
 import Header from '~/components/header'
+import Footer from '~/components/footer'
 import Search from '~/components/search'
 import Sidebar from '~/components/sidebar.vue'
 import Toc from '~/components/toc.vue'
@@ -11,7 +12,7 @@ export default {
     const $sidebarCol = h(
       'b-col',
       {
-        staticClass: 'bd-sidebar',
+        staticClass: 'bd-sidebar border-bottom-0',
         props: { cols: 12, md: 3, xl: 2 }
       },
       [h(Search), h(Sidebar)]
@@ -40,6 +41,6 @@ export default {
     )
     const $row = h('b-row', { class: ['flex-xl-nowrap2'] }, [$sidebarCol, $contentCol, $tocCol])
     const $container = h('b-container', { props: { fluid: true } }, [$row])
-    return [h(Header), $container]
+    return [h(Header), $container, h(Footer, { props: { isDocs: true } })]
   }
 }

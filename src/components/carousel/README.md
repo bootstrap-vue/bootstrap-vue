@@ -209,6 +209,13 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
 <!-- b-carousel-no-animation.vue -->
 ```
 
+## Hide slide text content on small screens
+
+On smaller screens you may want to hide the captions and headings. You can do so via the
+`content-visible-up` prop of `<b-carousel-slide>`. The prop accepts a breakpoint name (i.e. `sm`,
+`md`, `lg`, `xl`, or custom breakpoint names if you have defined them), and will hide the headings
+and captions on screens _smaller_ than the breakpoint.
+
 ## Touch swipe support
 
 On touch enabled devices, users can switch slides by swiping left or right on the carousel. To

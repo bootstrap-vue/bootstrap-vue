@@ -1,12 +1,12 @@
-/*! BootstrapVue Docs Additional Styles */
+/*! BootstrapVue Docs Additional Styles and overrides */
 
 .nuxt-progress {
   position: fixed;
-  top: 0;
+  top: 1px;
   left: 0;
   width: 0;
   height: 3px;
-  background-color: #59cc93;
+  background-color: #ccc;
   transition: width 0.2s, opacity 0.4s;
   opacity: 1;
   z-index: 999999;
@@ -49,22 +49,37 @@
 
 // Sticky footer
 // See: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
-#__layout {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+// Added @supports hack to get around layout issue with IE 11
+@supports (position: sticky) {
+  #__layout {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 
-  main {
-    flex: 1;
+    main {
+      flex: 1;
+    }
   }
 }
 
 .bd-toc {
+  @media (min-width: 768px) {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
   .section-nav {
+    border-left: none;
+
     .toc-entry {
       > .nav-link {
+        padding-left: 0;
+        padding-right: 0;
+
         + .nav {
-          display: none;
+          @supports (position: sticky) {
+            // Collapse non-active entries if supports sticky
+            display: none;
+          }
         }
 
         &.active {
@@ -104,9 +119,9 @@
 }
 
 .bd-footer {
-  margin-top: 4rem;
   padding: 4rem 0;
   text-align: center;
+  background-color: #eee;
 }
 
 pre.editable {

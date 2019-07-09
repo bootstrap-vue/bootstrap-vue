@@ -1,0 +1,53 @@
+// Create custom variants for tooltips
+@if $bv-enable-tooltip-variants {
+  @each $color, $value in $theme-colors {
+    .tooltip.b-tooltip-#{$color} {
+      $tip-bg-color: theme-color-level($color, $bv-tooltip-bg-level);
+      $tip-text-color: color-yiq($tip-bg-color);
+
+      &.bs-tooltip-top {
+        .arrow::before {
+          border-top-color: $tip-bg-color;
+        }
+      }
+
+      &.bs-tooltip-right {
+        .arrow::before {
+          border-right-color: $tip-bg-color;
+        }
+      }
+
+      &.bs-tooltip-bottom {
+        .arrow::before {
+          border-bottom-color: $tip-bg-color;
+        }
+      }
+
+      &.bs-tooltip-left {
+        .arrow::before {
+          border-left-color: $tip-bg-color;
+        }
+      }
+
+      &.bs-tooltip-auto {
+        &[x-placement^="top"] {
+          @extend .bs-tooltip-top;
+        }
+        &[x-placement^="right"] {
+          @extend .bs-tooltip-right;
+        }
+        &[x-placement^="bottom"] {
+          @extend .bs-tooltip-bottom;
+        }
+        &[x-placement^="left"] {
+          @extend .bs-tooltip-left;
+        }
+      }
+
+      .tooltip-inner {
+        color: $tip-text-color;
+        background-color: $tip-bg-color;
+      }
+    }
+  }
+}

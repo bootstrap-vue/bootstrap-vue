@@ -1,0 +1,97 @@
+@if $bv-enable-popover-variants {
+  @each $color, $value in $theme-colors {
+    .b-popover-#{$color} {
+      $po-bg-color: theme-color-level($color, $bv-popover-bg-level);
+      $po-border-color: theme-color-level($color, $bv-popover-border-level);
+      $po-color: theme-color-level($color, $bv-popover-color-level);
+      $po-header-bg: darken($po-bg-color, 3%);
+      $po-header-color: color-yiq($po-header-bg);
+      $po-arrow-color: $po-bg-color;
+      $po-arrow-color-bottom: $po-header-bg;
+      $po-arrow-outer-color: fade-in($po-border-color, 0.05);
+
+      &.popover {
+        background-color: $po-bg-color;
+        border-color: $po-border-color;
+      }
+
+      &.bs-popover-top {
+        > .arrow {
+          &::before {
+            border-top-color: $po-arrow-outer-color;
+          }
+
+          &::after {
+            border-top-color: $po-arrow-color;
+          }
+        }
+      }
+
+      &.bs-popover-right {
+        > .arrow {
+          &::before {
+            border-right-color: $po-arrow-outer-color;
+          }
+
+          &::after {
+            border-right-color: $po-arrow-color;
+          }
+        }
+      }
+
+      &.bs-popover-bottom {
+        > .arrow {
+          &::before {
+            border-bottom-color: $po-arrow-outer-color;
+          }
+
+          &::after {
+            // Use the header bg color
+            border-bottom-color: $po-arrow-color-bottom;
+          }
+        }
+
+        .popover-header::before {
+          border-bottom-color: $po-header-bg;
+        }
+      }
+
+      &.bs-popover-left {
+        > .arrow {
+          &::before {
+            border-left-color: $po-arrow-outer-color;
+          }
+
+          &::after {
+            border-left-color: $po-arrow-color;
+          }
+        }
+      }
+
+      &.bs-popover-auto {
+        &[x-placement^="top"] {
+          @extend .bs-popover-top;
+        }
+        &[x-placement^="right"] {
+          @extend .bs-popover-right;
+        }
+        &[x-placement^="bottom"] {
+          @extend .bs-popover-bottom;
+        }
+        &[x-placement^="left"] {
+          @extend .bs-popover-left;
+        }
+      }
+
+      .popover-header {
+        color: $po-header-color;
+        background-color: $po-header-bg;
+        border-bottom-color: darken($po-header-bg, 5%);
+      }
+
+      .popover-body {
+        color: $po-color;
+      }
+    }
+  }
+}

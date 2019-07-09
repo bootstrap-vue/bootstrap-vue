@@ -1,4 +1,4 @@
-import hljs from 'highlight.js'
+import hljs from '~/utils/hljs'
 import Main from '~/components/main'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'

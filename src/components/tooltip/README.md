@@ -15,8 +15,7 @@
 
 Things to know when using tooltip component:
 
-- Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with
-  BootstrapVue in the dist files!
+- Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
 - Tooltips with zero-length titles are never displayed.
 - Triggering tooltips on hidden elements will not work.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
@@ -25,7 +24,6 @@ Things to know when using tooltip component:
 - Tooltips for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use
   white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
-- Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
 The `<b-tooltip>` component inserts a hidden (`display:none`) `<div>` intermediate container element
 at the point in the DOM where the `<b-tooltip>` component is placed. This may affect layout and/or
@@ -156,6 +154,43 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `container`          | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
+| `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
+| `customClass`        | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+
+### Variants and custom class
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
+BootstrapVue's tooltips support contextual color variants via our custom CSS, via the `variant`
+prop:
+
+```html
+<div class="text-center">
+  <b-button id="tooltip-button-variant">Button</b-button>
+  <b-tooltip target="tooltip-button-variant" variant="danger">Danger variant tooltip</b-tooltip>
+</div>
+
+<!-- b-tooltip-variant.vue -->
+```
+
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`,
+`info`, `light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
+
+A custom class can be applied to the tooltip outer wrapper `<div>` by using the `custom-class` prop:
+
+```html
+<div class="text-center">
+  <b-button id="my-button">Button</b-button>
+  <b-tooltip target="my-button" custom-class="my-tooltip-class">Tooltip Title</b-tooltip>
+</div>
+```
+
+**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
+document `<body>` element by default.
+
+Refer to the [tooltip directive](/docs/directives/tooltip) docs on applying variants and custom
+class to the directive version.
 
 ### Programmatically show and hide tooltip
 
@@ -412,5 +447,15 @@ export default {
 
 Refer to the [Events](/docs/components/tooltip#component-reference) section of documentation for the
 full list of events.
+
+## Making tooltips work for keyboard and assistive technology users
+
+You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users, and most assistive
+technologies currently do not announce the tooltip in this situation. Additionally, do not rely
+solely on `hover` as the trigger for your tooltip, as this will make your tooltips impossible to
+trigger for keyboard users.
 
 <!-- Component reference added automatically from component package.json -->
