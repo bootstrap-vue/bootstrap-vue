@@ -141,7 +141,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       this.normalizeSlot('default') || false
     ]
 
-    if (content.some(Boolean)) {
+    if (contentChildren.some(Boolean)) {
       content = h(
         this.contentTag,
         { staticClass: 'carousel-caption', class: this.contentClasses },
