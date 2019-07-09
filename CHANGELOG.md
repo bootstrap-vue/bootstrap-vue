@@ -16,6 +16,9 @@ Released 2019-07-09
   [#3607](https://github.com/bootstrap-vue/bootstrap-vue/issues/3607))
   ([#3608](https://github.com/bootstrap-vue/bootstrap-vue/issues/3608))
   ([10cb3a9](https://github.com/bootstrap-vue/bootstrap-vue/commit/10cb3a9))
+- **b-carousel-slide**: do not render `carousel-caption` wrapper if no content
+  ([#3662](https://github.com/bootstrap-vue/bootstrap-vue/issues/3662))
+  ([615a719](https://github.com/bootstrap-vue/bootstrap-vue/commit/615a719))
 - **b-table:** add clearfix to table cells in case label wraps in stacked mode
   ([#3652](https://github.com/bootstrap-vue/bootstrap-vue/issues/3652))
   ([3115dae](https://github.com/bootstrap-vue/bootstrap-vue/commit/3115dae))
@@ -32,14 +35,14 @@ Released 2019-07-09
   [#3634](https://github.com/bootstrap-vue/bootstrap-vue/issues/3634))
   ([#3639](https://github.com/bootstrap-vue/bootstrap-vue/issues/3639))
   ([f742a8a](https://github.com/bootstrap-vue/bootstrap-vue/commit/f742a8a))
-- **tooltip:** add in SCSS support for specifying tooltip variant background color level
-  ([#3653](https://github.com/bootstrap-vue/bootstrap-vue/issues/3653))
-  ([d7cb071](https://github.com/bootstrap-vue/bootstrap-vue/commit/d7cb071))
 - **tooltip, popover:** add support for contextual variants and custom class (closes
   [#1983](https://github.com/bootstrap-vue/bootstrap-vue/issues/1983),
   [#2075](https://github.com/bootstrap-vue/bootstrap-vue/issues/2075))
   ([#3644](https://github.com/bootstrap-vue/bootstrap-vue/issues/3644))
   ([695edae](https://github.com/bootstrap-vue/bootstrap-vue/commit/695edae))
+- **tooltip:** add in SCSS support for specifying tooltip variant background color level
+  ([#3653](https://github.com/bootstrap-vue/bootstrap-vue/issues/3653))
+  ([d7cb071](https://github.com/bootstrap-vue/bootstrap-vue/commit/d7cb071))
 - **docs:** add home and playground links to sidebar navigation
   ([#3654](https://github.com/bootstrap-vue/bootstrap-vue/issues/3654))
   ([e5eb9fc](https://github.com/bootstrap-vue/bootstrap-vue/commit/e5eb9fc))
@@ -52,7 +55,7 @@ Released 2019-07-09
 - **b-link**: convert from functional component to regular component
   ([#3637](https://github.com/bootstrap-vue/bootstrap-vue/issues/3637))
   ([d3641ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/d3641ba))
-- remove default array/object polyfills
+- remove default array and object polyfills
   ([#3641](https://github.com/bootstrap-vue/bootstrap-vue/issues/3641))
   ([8b34bf2](https://github.com/bootstrap-vue/bootstrap-vue/commit/8b34bf2))
 
