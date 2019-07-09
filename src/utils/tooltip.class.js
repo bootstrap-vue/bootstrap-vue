@@ -609,7 +609,7 @@ class ToolTip {
     this.$tip.tabIndex = -1
     // Add variant if specified
     if (this.$config.variant) {
-      addClass(this.$tip, `${this.constructor.NAME}-${this.$config.variant}`)
+      addClass(this.$tip, `b-${this.constructor.NAME}-${this.$config.variant}`)
     }
     return this.$tip
   }
