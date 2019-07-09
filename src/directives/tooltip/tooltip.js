@@ -35,7 +35,9 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   let config = {
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
-    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0
+    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
+    variant: getComponentConfig(NAME, 'variant'),
+    customClass: getComponentConfig(NAME, 'customClass')
   }
 
   // Process bindings.value
