@@ -25,10 +25,10 @@ $b-toast-color-level: $alert-color-level !default;
 // --- Enable tooltip variants ---
 $bv-enable-tooltip-variants: true !default;
 
-// --- Tooltip background variant color level ---
-$bv-popover-bg-level: 0 !default;
+// --- Tooltip background variant level wrt theme color value ---
+$bv-tooltip-bg-level: 0 !default;
 
-// --- Enable popover variants
+// --- Enable popover variants ---
 $bv-enable-popover-variants: true !default;
 
 // --- Popover variant levels wrt theme color value ---
