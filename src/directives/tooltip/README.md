@@ -282,7 +282,7 @@ Where [modX] can be (all optional):
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most
   cases this will suffice)
-- A contextual variant in the form of `v-XXXX` (where `XXXX` is the color variant name)
+- A contextual variant in the form of `v-XXX` (where `XXX` is the color variant name)
 
 Where `<value>` can be (optional):
 
