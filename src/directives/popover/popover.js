@@ -62,7 +62,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     if (htmlRE.test(mod)) {
       // Title allows HTML
       config.html = true
-    } else if (notFadeRE.test(mod)) {
+    } else if (noFadeRE.test(mod)) {
       // no animation
       config.animation = false
     } else if (placementRE.test(mod)) {
