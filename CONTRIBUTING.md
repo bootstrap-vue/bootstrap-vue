@@ -59,13 +59,18 @@ open collective by the core contributors and the person who filed the expense wi
 ### Contributors
 
 Thank you to all the people who have already contributed to bootstrap-vue!
-<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" class="img-fluid"></a>
+
+<div class="p-3 mb-3text-center">
+  <a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors" class="d-inline-block"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" class="img-fluid"></a>
+</div>
 
 ### Backers
 
 Thank you to all our backers! [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
 
-<a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890" class="img-fluid"></a>
+<div class="p-3 mb-3 text-center">
+  <a href="https://opencollective.com/bootstrap-vue#backers" target="_blank" class="d-inline-block"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890" class="img-fluid"></a>
+</div>
 
 ### Sponsors
 
