@@ -76,6 +76,9 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
       if (offset) {
         config.offset = offset
       }
+    } else if (/^v-\s+$/.test(mod)) {
+      // Variant
+      config.variant = mod.slice(1) || null
     }
   })
 
