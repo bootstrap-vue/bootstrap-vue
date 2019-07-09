@@ -8,7 +8,7 @@
       $po-header-color: color-yiq($po-header-bg);
       $po-arrow-color: $po-bg-color;
       $po-arrow-color-bottom: $po-header-bg;
-      $po-arrow-outer-color: fade-in($po-border-color, .05);
+      $po-arrow-outer-color: fade-in($po-border-color, 0.05);
 
       &.popover {
         background-color: $po-bg-color;
