@@ -1,5 +1,11 @@
 <template>
   <b-collapse id="bd-docs-nav" class="bd-links" tag="nav" is-nav>
+    <b-link to="/" exact router-tag="div" active-class="active">
+      <b-link to="/" exact class="bd-toc-link" active-class="">
+        BootstrapVue
+      </b-link>
+    </b-link>
+
     <b-link
       v-for="group in nav"
       :key="group.base"
