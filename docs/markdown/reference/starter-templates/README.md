@@ -131,7 +131,8 @@ created when you run `yarn build`.
 
 ### Importing individual components and directives
 
-As an example, you can import `<b-card>` (plus some of it's sub components) and `<b-table>` as follows:
+As an example, you can import `<b-card>` (plus some of it's sub components) and `<b-table>` as
+follows:
 
 ```js
 // Import the individual components

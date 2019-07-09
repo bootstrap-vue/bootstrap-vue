@@ -1,10 +1,8 @@
-import assignPolyfill from 'core-js/library/fn/object/assign'
-import isPolyfill from 'core-js/library/fn/object/is'
 import { isArray } from './array'
 
 // --- Static ---
 
-export const assign = Object.assign || assignPolyfill
+export const assign = Object.assign
 export const getOwnPropertyNames = Object.getOwnPropertyNames
 export const keys = Object.keys
 export const defineProperties = Object.defineProperties
@@ -15,7 +13,7 @@ export const getOwnPropertySymbols = Object.getOwnPropertySymbols
 export const getPrototypeOf = Object.getPrototypeOf
 export const create = Object.create
 export const isFrozen = Object.isFrozen
-export const is = Object.is || isPolyfill
+export const is = Object.is
 
 // --- "Instance" ---
 

@@ -2,11 +2,11 @@
 
 .nuxt-progress {
   position: fixed;
-  top: 0;
+  top: 1px;
   left: 0;
   width: 0;
   height: 3px;
-  background-color: #59cc93;
+  background-color: #ccc;
   transition: width 0.2s, opacity 0.4s;
   opacity: 1;
   z-index: 999999;

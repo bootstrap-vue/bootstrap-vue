@@ -167,6 +167,27 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('does not render default slot inside menu when prop lazy set', async () => {
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        lazy: true
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
+    const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.text()).not.toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
   it('has user supplied ID', async () => {
     const wrapper = mount(BDropdown, {
       attachToDocument: true,

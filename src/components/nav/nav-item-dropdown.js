@@ -103,7 +103,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
           keydown: this.onKeydown // up, down, esc
         }
       },
-      [this.normalizeSlot('default', { hide: this.hide })]
+      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h(false)]
     )
     return h(
       'li',
