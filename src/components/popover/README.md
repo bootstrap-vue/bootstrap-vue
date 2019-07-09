@@ -276,7 +276,7 @@ BootstrapVue's popovers support contextual color variants via our custom CSS, vi
 ```html
 <div class="text-center">
   <b-button id="popover-button-variant">Button</b-button>
-  <b-popover target="popover-button-variant" variant="danger">
+  <b-popover target="popover-button-variant" variant="danger" triggers="focus">
     <template slot="title">Danger!</template>
     Danger variant popover
   </b-popover>
@@ -284,6 +284,10 @@ BootstrapVue's popovers support contextual color variants via our custom CSS, vi
 
 <!-- b-popover-variant.vue -->
 ```
+
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
+`light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
 
 A custom class can be applied to the popover outer wrapper `<div>` by using the `custom-class` prop:
 
