@@ -388,7 +388,7 @@ A custom class can be applied to the popover outer wrapper <div> by using the cu
 
 ```html
 <b-button
-  v-b-popover.hover="{ customClass: 'my-tooltip-class', content: 'Popover content' }"
+  v-b-popover.hover="{ customClass: 'my-popover-class', content: 'Popover content' }"
   title="Popover"
 >
   Button
