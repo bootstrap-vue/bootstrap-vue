@@ -14,7 +14,9 @@
                 fill="#34495e"
                 d="m1397 271-370 642-371-642h-592l963 1667 962-1667z"
               />
-              <path class="logo-v" fill="#563d7c" d="m44 0h1952l-979 1696z" />
+              <g class="logo-v">
+                <path fill="#563d7c" d="m44 0h1952l-979 1696z" />
+              </g>
               <g class="logo-vb">
                 <path fill="#41b883" d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" />
                 <path
@@ -457,6 +459,7 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 .bv-logo {
   filter: drop-shadow(-3px 12px 2px #e7e7e7);
+  animation: logo-fade 0.35s 1 ease-in;
   width: 100%; // IE11 Fix
   max-width: 75%;
   margin-left: auto;
@@ -473,33 +476,37 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bv-logo {
-    .logo-v,
-    .logo-bv {
-      transition: none;
-      animation: none;
-    }
+  .bv-logo,
+  .bv-logo .logo-v,
+  .bv-logo .logo-bv {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes logo-fade {
+  0% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
 @keyframes logo-zoom {
   0% {
-    opacity: 0.25;
-    transform: scale(1.25), translateY(30px);
+    transform: scale(1.35);
   }
   100% {
-    opacity: 1;
-    transform: scale(1), translateY(0);
+    transform: scale(1);
   }
 }
 
 @keyframes logo-slide {
   0% {
-    opacity: 0.25;
-    transform: translateY(-30px);
+    transform: translateY(-40px);
   }
   100% {
-    opacity: 1;
     transform: translateY(0);
   }
 }
