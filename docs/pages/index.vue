@@ -445,12 +445,18 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 }
 
 .bv-logo {
-  animation: logo-splash 0.6s;
-  animation-iteration-count: 1;
+  animation: logo-splash 0.6s 1 ease-in;
   transform-style: preserve-3d;
 }
 
-@keyframes logo-flip {
+@media (prefers-reduced-motion: reduce) {
+  .bv-logo {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes logo-splash {
   0% {
     opacity: 0.5;
     transform: scale(0.75);
