@@ -6,7 +6,17 @@ const localVue = new CreateLocalVue()
 
 // Our test application definition
 const appDef = {
-  props: ['triggers', 'show', 'disabled', 'noFade', 'title', 'titleAttr', 'btnDisabled', 'variant', 'customClass'],
+  props: [
+    'triggers',
+    'show',
+    'disabled',
+    'noFade',
+    'title',
+    'titleAttr',
+    'btnDisabled',
+    'variant',
+    'customClass'
+  ],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
       h(
