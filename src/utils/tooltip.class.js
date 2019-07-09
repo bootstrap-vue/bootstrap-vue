@@ -608,6 +608,7 @@ class ToolTip {
     // set as relatedTarget in focusin/out events
     this.$tip.tabIndex = -1
     // Add variant if specified
+    /* istanbul ignore next: until viant test is written */
     if (this.$config.variant) {
       addClass(this.$tip, `b-${this.constructor.NAME}-${this.$config.variant}`)
     }
