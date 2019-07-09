@@ -352,6 +352,8 @@ Content can also be a function reference, which is called each time the popover 
 
 ## Variants and custom class
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
+
 BootstrapVue's popovers support contextual color variants via our custom CSS, either by using directive
 modifiers or config options:
 
