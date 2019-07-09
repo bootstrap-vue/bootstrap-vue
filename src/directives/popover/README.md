@@ -20,7 +20,7 @@ to appear.
 
 Things to know when using popovers:
 
-- Popovers rely on the 3rd party library Popper.js for positioning. It is bundled with BootstrapVue!
+- Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
 - Zero-length title and content values will never show a popover.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).
@@ -28,9 +28,6 @@ Things to know when using popovers:
 - Popovers for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   white-space: nowrap; on your `<a>`s, `<b-link>`s or `<router-link>`s b to avoid this behavior.
-- Popovers must be hidden before their corresponding elements have been removed from the DOM.
-- When using a client side router, popovers will listen to changes in `$route` and automatically
-  hide.
 - Elements that trigger popovers should be in the document tab sequence. Add `tabindex="0"` if
   required.
 
