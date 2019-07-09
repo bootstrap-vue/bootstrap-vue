@@ -42,8 +42,8 @@ const appDef = {
             disabled: this.disabled,
             noFade: this.noFade || false,
             title: this.title || null,
-            variant: this.variant || null,
-            customClass: this.customClass || null
+            variant: this.variant,
+            customClass: this.customClass
           }
         },
         this.$slots.default || ''
