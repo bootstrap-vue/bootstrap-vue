@@ -381,6 +381,10 @@ modifiers or config options:
 <!-- b-popover-variants.vue -->
 ```
 
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
+`light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
+
 A custom class can be applied to the popover outer wrapper <div> by using the customClass option property:
 
 ```html
