@@ -97,7 +97,8 @@ const Defaults = {
   callbacks: {},
   boundary: 'scrollParent',
   boundaryPadding: 5,
-  variant: null
+  variant: null,
+  customClass: null
 }
 
 // Transition event names
@@ -611,6 +612,10 @@ class ToolTip {
     /* istanbul ignore next: until variant test is written */
     if (this.$config.variant) {
       addClass(this.$tip, `b-${this.constructor.NAME}-${this.$config.variant}`)
+    }
+    /* istanbul ignore next: until custom-class test is written */
+    if (this.$config.customClass) {
+      addClass(this.$tip, String(this.$config.customClass))
     }
     return this.$tip
   }
