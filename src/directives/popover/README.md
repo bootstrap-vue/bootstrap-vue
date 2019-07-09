@@ -351,8 +351,8 @@ Content can also be a function reference, which is called each time the popover 
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
 
-BootstrapVue's popovers support contextual color variants via our custom CSS, either by using directive
-modifiers or config options:
+BootstrapVue's popovers support contextual color variants via our custom CSS, either by using
+directive modifiers or config options:
 
 ```html
 <template>
@@ -381,11 +381,12 @@ modifiers or config options:
 <!-- b-popover-variants.vue -->
 ```
 
-Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
-`light`, and `dark`. You can change or add additional variants via Bootstrap
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`,
+`info`, `light`, and `dark`. You can change or add additional variants via Bootstrap
 [SCSS variables](/docs/reference/theming)
 
-A custom class can be applied to the popover outer wrapper <div> by using the customClass option property:
+A custom class can be applied to the popover outer wrapper <div> by using the customClass option
+property:
 
 ```html
 <b-button
@@ -396,8 +397,8 @@ A custom class can be applied to the popover outer wrapper <div> by using the cu
 </b-button>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the document
-`<body>` element by default.
+**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
+document `<body>` element by default.
 
 ## Directive syntax and usage
 

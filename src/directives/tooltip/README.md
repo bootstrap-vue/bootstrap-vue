@@ -222,7 +222,7 @@ Title can also be a function reference, which is called each time the tooltip is
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
 
-BootstrapVue's tooltips support contextual color variants via our custom CSS, either by using 
+BootstrapVue's tooltips support contextual color variants via our custom CSS, either by using
 directive modifiers or config options:
 
 ```html
@@ -241,8 +241,8 @@ directive modifiers or config options:
 <!-- b-tooltip-variants.vue -->
 ```
 
-Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
-`light`, and `dark`. You can change or add additional variants via Bootstrap
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`,
+`info`, `light`, and `dark`. You can change or add additional variants via Bootstrap
 [SCSS variables](/docs/reference/theming)
 
 A custom class can be applied to the tooltip outer wrapper `<div>` by using the `customClass` option
@@ -307,8 +307,8 @@ Where `<value>` can be (optional):
 | `fallbackPlacement` | String or Array                 | `'flip'`         | Allow to specify which position Popper will use on fallback. Can be `flip`, `clockwise`, `counterclockwise` or an array of placements. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                            |
 | `boundary`          | String or HTMLElement reference | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                     |
 | `boundaryPadding`   | Number                          | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                                                                                                                                                                                                                                                                                      |
-| `variant`           | String                          | `null`           | Contextual color vaiant name                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `customClass`       | String                          | `null`           | Custom class to applye to the outer wrapper `div`.                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `variant`           | String                          | `null`           | Contextual color variant for the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `customClass`       | String                          | `null`           | A custom classname to apply to the tooltip outer wrapper element.                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ### Usage
 

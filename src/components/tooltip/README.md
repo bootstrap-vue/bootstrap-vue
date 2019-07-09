@@ -154,14 +154,15 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `container`          | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
-| `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                      |
-| `customClass`        | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                     | A string                                                                                                                  |
+| `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
+| `customClass`        | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
 
 ### Variants and custom class
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
 
-BootstrapVue's tooltips support contextual color variants via our custom CSS, via the `variant` prop:
+BootstrapVue's tooltips support contextual color variants via our custom CSS, via the `variant`
+prop:
 
 ```html
 <div class="text-center">
@@ -172,8 +173,8 @@ BootstrapVue's tooltips support contextual color variants via our custom CSS, vi
 <!-- b-tooltip-variant.vue -->
 ```
 
-Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
-`light`, and `dark`. You can change or add additional variants via Bootstrap
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`,
+`info`, `light`, and `dark`. You can change or add additional variants via Bootstrap
 [SCSS variables](/docs/reference/theming)
 
 A custom class can be applied to the tooltip outer wrapper `<div>` by using the `custom-class` prop:
@@ -185,11 +186,11 @@ A custom class can be applied to the tooltip outer wrapper `<div>` by using the 
 </div>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the document
-`<body>` element by default.
+**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
+document `<body>` element by default.
 
-Refer to the [tooltip directive](/docs/directives/tooltip) docs on applying variants and custom class
-to the directive version.
+Refer to the [tooltip directive](/docs/directives/tooltip) docs on applying variants and custom
+class to the directive version.
 
 ### Programmatically show and hide tooltip
 
