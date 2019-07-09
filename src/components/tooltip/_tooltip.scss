@@ -2,29 +2,30 @@
 @if $bv-enable-tooltip-variants {
   @each $color, $value in $theme-colors {
     .tooltip.b-tooltip-#{$color} {
-      $tip-text-color: color-yiq($value);
+      $tip-bg-color: theme-color-level($color, $bv-tooltip-bg-level);
+      $tip-text-color: color-yiq($tip-bg-color);
 
       &.bs-tooltip-top {
         .arrow::before {
-          border-top-color: $value;
+          border-top-color: $tip-bg-color;
         }
       }
 
       &.bs-tooltip-right {
         .arrow::before {
-          border-right-color: $value;
+          border-right-color: $tip-bg-color;
         }
       }
 
       &.bs-tooltip-bottom {
         .arrow::before {
-          border-bottom-color: $value;
+          border-bottom-color: $tip-bg-color;
         }
       }
 
       &.bs-tooltip-left {
         .arrow::before {
-          border-left-color: $value;
+          border-left-color: $tip-bg-color;
         }
       }
 
@@ -44,8 +45,8 @@
       }
 
       .tooltip-inner {
-        color: color-yiq($value);
-        background-color: $value;
+        color: $tip-text-color;
+        background-color: $tip-bg-color;
       }
     }
   }
