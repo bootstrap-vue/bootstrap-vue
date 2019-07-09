@@ -158,7 +158,10 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 | `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                      |
 | `customClass`        | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                     | A string                                                                                                                  |
+
 ### Variants and custom class
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
 
 BootstrapVue's tooltips support contextual color variants via our custom CSS, via the `variant` prop:
 
@@ -176,7 +179,7 @@ A custom class can be applied to the tooltip outer wrapper `<div>` by using the 
 ```html
 <div class="text-center">
   <b-button id="my-button">Button</b-button>
-  <b-tooltip target="my-button" custom class="my-tooltip-class">Tooltip Title</b-tooltip>
+  <b-tooltip target="my-button" custom-class="my-tooltip-class">Tooltip Title</b-tooltip>
 </div>
 ```
 
