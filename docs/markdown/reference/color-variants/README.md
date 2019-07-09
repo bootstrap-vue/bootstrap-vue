@@ -148,7 +148,7 @@ $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-800 !default;
 
-// This table defines the theme colors
+// This table defines the theme colors (variant names)
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
