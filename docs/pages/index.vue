@@ -442,10 +442,7 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 .bv-logo {
   filter: drop-shadow(-3px 12px 2px #e7e7e7);
-}
-
-.bv-logo {
-  animation: logo-splash 1s 1 ease-in;
+  animation: logo-splash 0.5s 1 ease-in;
   transform-style: preserve-3d;
 }
 
@@ -458,12 +455,8 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 @keyframes logo-splash {
   0% {
-    opacity: 0.3;
-    transform: scale(0.65);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(0.75);
+    opacity: 0.2;
+    transform: scale(0.5);
   }
   100% {
     opacity: 1;
