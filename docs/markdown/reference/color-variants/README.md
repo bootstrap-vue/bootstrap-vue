@@ -112,7 +112,7 @@ become available to the various components that use that scheme (i.e. create a c
 Alternatively, you can create new variant theme colors by supplying custom Bootstrap SCSS them color
 maps. The default theme color map is (from `boootstrap/scss/_variables.scss`):
 
-```sass
+```scss
 // Base grayscale colors definitions
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
