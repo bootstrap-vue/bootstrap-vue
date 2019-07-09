@@ -1159,6 +1159,7 @@ as read-only.**
       :items="items"
       :fields="fields"
       @row-selected="rowSelected"
+      responsive="sm"
     >
       <!-- Example scoped slot for illustrative purposes only -->
       <template slot="selected" slot-scope="{ rowSelected }">
@@ -1250,7 +1251,7 @@ initially showing.
 ```html
 <template>
   <div>
-    <b-table :items="items" :fields="fields" striped>
+    <b-table :items="items" :fields="fields" striped responsive="sm">
       <template slot="show_details" slot-scope="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
@@ -1413,6 +1414,7 @@ by presentational data.
       :fields="fields"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      responsive="sm"
     ></b-table>
 
     <div>
