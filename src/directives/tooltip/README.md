@@ -241,6 +241,10 @@ directive modifiers or config options:
 <!-- b-tooltip-variants.vue -->
 ```
 
+Bootstrap default theme variants are: `danger`, `warning`, `success`, `primary`, `secondary`, `info`,
+`light`, and `dark`. You can change or add additional variants via Bootstrap
+[SCSS variables](/docs/reference/theming)
+
 A custom class can be applied to the tooltip outer wrapper `<div>` by using the `customClass` option
 property:
 
