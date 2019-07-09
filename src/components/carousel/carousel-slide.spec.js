@@ -25,10 +25,9 @@ describe('carousel-slide', () => {
     wrapper.destroy()
   })
 
-  it('has child div.carousel-caption by default', async () => {
+  it('does not have child div.carousel-caption by default', async () => {
     const wrapper = mount(BCarouselSlide)
-    expect(wrapper.find('.carousel-caption').exists()).toBe(true)
-    expect(wrapper.find('.carousel-caption').is('div')).toBe(true)
+    expect(wrapper.find('.carousel-caption').exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -96,6 +95,9 @@ describe('carousel-slide', () => {
     const wrapper = mount(BCarouselSlide, {
       propsData: {
         contentTag: 'span'
+      },
+      slots: {
+        default: 'foobar'
       }
     })
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
@@ -108,6 +110,9 @@ describe('carousel-slide', () => {
     const wrapper = mount(BCarouselSlide, {
       propsData: {
         contentVisibleUp: 'lg'
+      },
+      slots: {
+        default: 'foobar'
       }
     })
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
