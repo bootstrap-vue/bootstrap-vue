@@ -4,6 +4,67 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.26"></a>
+
+## [v2.0.0-rc.26](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.25...v2.0.0-rc.26)
+
+Released 2019-07-09
+
+### Bug Fixes v2.0.0-rc.26
+
+- **b-collapse:** fix memory leak from `$root` listener (fixes
+  [#3607](https://github.com/bootstrap-vue/bootstrap-vue/issues/3607))
+  ([#3608](https://github.com/bootstrap-vue/bootstrap-vue/issues/3608))
+  ([10cb3a9](https://github.com/bootstrap-vue/bootstrap-vue/commit/10cb3a9))
+- **b-carousel-slide**: do not render `carousel-caption` wrapper if no content
+  ([#3662](https://github.com/bootstrap-vue/bootstrap-vue/issues/3662))
+  ([615a719](https://github.com/bootstrap-vue/bootstrap-vue/commit/615a719))
+- **b-table:** add clearfix to table cells in case label wraps in stacked mode
+  ([#3652](https://github.com/bootstrap-vue/bootstrap-vue/issues/3652))
+  ([3115dae](https://github.com/bootstrap-vue/bootstrap-vue/commit/3115dae))
+- **docs:** correct polyfilling suggestions
+  ([#3605](https://github.com/bootstrap-vue/bootstrap-vue/issues/3605))
+  ([35806e7](https://github.com/bootstrap-vue/bootstrap-vue/commit/35806e7))
+- **playground:** fix undefined variable error in IE 11
+  ([#3606](https://github.com/bootstrap-vue/bootstrap-vue/issues/3606))
+  ([b3f7053](https://github.com/bootstrap-vue/bootstrap-vue/commit/b3f7053))
+
+### Features v2.0.0-rc.26
+
+- **b-dropdown, b-nav-item-dropdown:** add new lazy prop (addresses
+  [#3634](https://github.com/bootstrap-vue/bootstrap-vue/issues/3634))
+  ([#3639](https://github.com/bootstrap-vue/bootstrap-vue/issues/3639))
+  ([f742a8a](https://github.com/bootstrap-vue/bootstrap-vue/commit/f742a8a))
+- **tooltip, popover:** add support for contextual variants and custom class (closes
+  [#1983](https://github.com/bootstrap-vue/bootstrap-vue/issues/1983),
+  [#2075](https://github.com/bootstrap-vue/bootstrap-vue/issues/2075))
+  ([#3644](https://github.com/bootstrap-vue/bootstrap-vue/issues/3644))
+  ([695edae](https://github.com/bootstrap-vue/bootstrap-vue/commit/695edae))
+- **tooltip:** add in SCSS support for specifying tooltip variant background color level
+  ([#3653](https://github.com/bootstrap-vue/bootstrap-vue/issues/3653))
+  ([d7cb071](https://github.com/bootstrap-vue/bootstrap-vue/commit/d7cb071))
+- **docs:** add home and playground links to sidebar navigation
+  ([#3654](https://github.com/bootstrap-vue/bootstrap-vue/issues/3654))
+  ([e5eb9fc](https://github.com/bootstrap-vue/bootstrap-vue/commit/e5eb9fc))
+- **types:** add `noCloseButton` property to `BvToastOptions` type declaration
+  ([#3636](https://github.com/bootstrap-vue/bootstrap-vue/issues/3636))
+  ([5aa9211](https://github.com/bootstrap-vue/bootstrap-vue/commit/5aa9211))
+
+### Performance v2.0.0-rc.26
+
+- **b-link**: convert from functional component to regular component
+  ([#3637](https://github.com/bootstrap-vue/bootstrap-vue/issues/3637))
+  ([d3641ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/d3641ba))
+- remove default array and object polyfills
+  ([#3641](https://github.com/bootstrap-vue/bootstrap-vue/issues/3641))
+  ([8b34bf2](https://github.com/bootstrap-vue/bootstrap-vue/commit/8b34bf2))
+
+### Notes v2.0.0-rc.26
+
+Users should switch to the simplified import syntax (introduced in `v2.0.0-rc.22`) when importing
+individual plugins, components, and/or directives. **Importing from the `es/` build directory has
+been deprecated and will be removed in 2.0.0 stable release!**
+
 <a name="2.0.0-rc.25"></a>
 
 ## [v2.0.0-rc.25](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.24...v2.0.0-rc.25)
