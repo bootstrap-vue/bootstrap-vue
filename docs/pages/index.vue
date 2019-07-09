@@ -459,11 +459,11 @@ $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
 @keyframes logo-splash {
   0% {
-    opacity: 0.1
+    opacity: 0.1;
     transform: scale(0.75);
   }
   100% {
-    opacity: 1
+    opacity: 1;
     transform: scale(1);
   }
 }
