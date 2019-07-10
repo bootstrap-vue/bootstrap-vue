@@ -72,7 +72,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section bv-gray">
+    <section class="bv-section bv-gray-color">
       <b-container tag="article">
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
@@ -426,6 +426,13 @@
     background-color: #eee;
   }
 
+  &.bv-gray-color {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none' version='1.1'%3E%3Cdefs%3E%3Cfilter id='bv-shadow'%3E%3CfeDropShadow dx='0' dy='25' stdDeviation='25' flood-opacity='0.65'/%3E%3C/filter%3E%3C/defs%3E%3Cpolygon fill='%2342B883' style='filter:url(%23bv-shadow);' points='13943,3336 5092,1668 0,708 0,0 13943,0 27826,0 27826,719 22794,1668'/%3E%3Cpolygon fill='%237952B3' style='filter:url(%23bv-shadow);' points='0,0 27826,0 27826,371 22759,1326 13908,2994 5058,1326 0,373'/%3E%3Cpolygon fill='%23ffffff' style='filter:url(%23bv-shadow);' points='0,0 27826,0 22761,954 13910,2622 5059,954 0,1'/%3E%3C/svg%3E%0A");
+    background-size: 150% calc(#{$bv-angle-depth} + #{$bv-angle-padding});
+    background-position-y: calc(#{$bv-angle-padding} * -1);
+    background-color: #eee;
+  }
+
   &.bv-p-reset {
     padding-top: $bv-angle-depth;
     padding-bottom: 0;
@@ -436,6 +443,12 @@
     &.bv-gray {
       background-size: 90% $bv-angle-depth-md;
       padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+      padding-bottom: 2rem;
+    }
+
+    &.bv-gray-color {
+      background-size: 100% calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+      background-position-y: calc(#{$bv-angle-padding-md} * -1);
       padding-bottom: 2rem;
     }
 
