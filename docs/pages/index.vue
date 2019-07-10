@@ -16,7 +16,7 @@
             </h1>
 
             <p class="lead">
-              With <span class="font-weight-bold">BootstrapVue</span> you can build responsive,
+              With <span class="font-weight-bolder">BootstrapVue</span> you can build responsive,
               mobile-first projects on the web using <span class="bd-text-purple-bright">Vue.js</span>
               and the world's most popular front-end CSS library &mdash;
               <span class="bd-text-purple-bright">Bootstrap v4</span>.
