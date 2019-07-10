@@ -72,7 +72,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray">
+    <section class="bv-section bv-gray">
       <b-container tag="article">
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
@@ -129,7 +129,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-white">
+    <section class="bv-section bv-white">
       <b-container>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
@@ -310,7 +310,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray">
+    <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -349,7 +349,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-white">
+    <section class="bv-section bv-white">
       <b-container tag="article" class="text-center">
         <h5 class="text-center bd-text-purple-bright mb-3">
           <svg
@@ -392,7 +392,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray bv-p-reset">
+    <section class="bv-section bv-gray bv-p-reset">
       <!-- to give footer on landing page angled top -->
     </section>
   </main>
@@ -403,47 +403,46 @@
   color: #42b883;
 }
 
-// Depth of section angle
-$bv-angle-depth: 4rem;
-$bv-angle-padding: 3rem;
-$bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
-$bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
+.bv-section {
+  // Depth of section angle
+  $bv-angle-depth: 4rem;
+  $bv-angle-padding: 3rem;
+  $bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
+  $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
-.bv-section-white,
-.bv-section-gray {
   background-size: 100% $bv-angle-depth;
-  background-position: top;
+  background-position: center top;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
   padding-bottom: 3rem;
-}
 
-.bv-p-reset {
-  padding-top: $bv-angle-depth;
-  padding-bottom: 0;
-}
-
-@media (min-width: 768px) {
-  .bv-section-white,
-  .bv-section-gray {
-    background-size: 100% $bv-angle-depth-md;
-    padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
-    padding-bottom: 2rem;
+  &.bv-white {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
+    background-color: #fff;
   }
 
-  .bv-p-reset {
-    padding-top: $bv-angle-depth-md;
+  &.bv-gray {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #eee;
   }
-}
 
-.bv-section-white {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
-  background-color: #fff;
-}
+  &.bv-p-reset {
+    padding-top: $bv-angle-depth;
+    padding-bottom: 0;
+  }
 
-.bv-section-gray {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
-  background-color: #eee;
+  @media (min-width: 768px) {
+    &.bv-white,
+    &.bv-gray {
+      background-size: 100% $bv-angle-depth-md;
+      padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+      padding-bottom: 2rem;
+    }
+
+    &.bv-p-reset {
+      padding-top: $bv-angle-depth-md;
+    }
+  }
 }
 
 .bv-logo {
