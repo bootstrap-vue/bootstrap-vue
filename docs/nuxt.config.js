@@ -90,13 +90,13 @@ module.exports = {
   build: {
     extractCSS: true,
     cssSourceMap: true,
-    plugins: {
-      'cssnano': {
-        // Prevent cssnano from mangling filters in SVG
-        preset: ['default', { svgo: false }]
-      }
-    },
     postcss: {
+      plugins: {
+        'cssnano': {
+          // Prevent cssnano from mangling filters in SVG
+          preset: ['default', { svgo: { plugins: [{ removeUnknownsAndDefaults: false }] } }]
+        }
+      },
       preset: {
         autoprefixer: {
           cascade: false
