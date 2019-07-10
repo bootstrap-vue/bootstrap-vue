@@ -454,7 +454,7 @@ $bv-angle-padding-md: 6rem;
     &.bv-gray-color {
       background-size: 100% 12rem;
       background-position-y: top;
-      padding-top: 14rem;
+      padding-top: 16rem;
     }
 
     &.bv-p-reset {
