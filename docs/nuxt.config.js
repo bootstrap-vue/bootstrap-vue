@@ -93,7 +93,7 @@ module.exports = {
     plugins: {
       'cssnano': {
         // Prevent cssnano from mangling filters in SVG
-        preset: ['default', { svgo: { plugins: [{removeUnknownsAndDefaults: false }] } }]
+        preset: ['default', { svgo: false }]
       }
     },
     postcss: {
