@@ -410,7 +410,7 @@
   $bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
   $bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
 
-  background-size: 100% $bv-angle-depth;
+  background-size: 90% $bv-angle-depth;
   background-position: center top;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
@@ -434,7 +434,7 @@
   @media (min-width: 768px) {
     &.bv-white,
     &.bv-gray {
-      background-size: 100% $bv-angle-depth-md;
+      background-size: 90% $bv-angle-depth-md;
       padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
       padding-bottom: 2rem;
     }
