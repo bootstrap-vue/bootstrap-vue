@@ -67,7 +67,7 @@ export const pluginFactory = (opts = {}, extend = {}) => {
  * @param {object} Plugin definitions
  */
 export const registerPlugins = (Vue, plugins = {}) => {
-  for (let plugin in plugins) {
+  for (const plugin in plugins) {
     if (plugin && plugins[plugin]) {
       Vue.use(plugins[plugin])
     }
@@ -92,7 +92,7 @@ export const registerComponent = (Vue, name, def) => {
  * @param {object} Object of component definitions
  */
 export const registerComponents = (Vue, components = {}) => {
-  for (let component in components) {
+  for (const component in components) {
     registerComponent(Vue, component, components[component])
   }
 }
@@ -117,7 +117,7 @@ export const registerDirective = (Vue, name, def) => {
  * @param {object} Object of directive definitions
  */
 export const registerDirectives = (Vue, directives = {}) => {
-  for (let directive in directives) {
+  for (const directive in directives) {
     registerDirective(Vue, directive, directives[directive])
   }
 }
