@@ -428,7 +428,7 @@ $bv-angle-padding-md: 6rem;
 
   &.bv-gray-color {
     // Post CSS or Vue-loader is mangling the <filter> for some reason, making hte SVG broken
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none' version='1.1'%3E%3Cpolygon fill='%2342B883' style='filter:url(%23a);' points='13943,3336 5092,1668 0,708 0,0 13943,0 27826,0 27826,719 22794,1668' /%3E%3Cpolygon fill='%237952B3' style='filter:url(%23a);' points='0,0 27826,0 27826,371 22759,1326 13908,2994 5058,1326 0,373' /%3E%3Cpolygon fill='%23ffffff' style='filter:url(%23a);' points='0,0 27826,0 22761,954 13910,2622 5059,954 0,1' /%3E%3Cdefs%3E%3Cfilter id='a'%3E%3CfeDropShadow dx='0' dy='25' stdDeviation='25' flood-opacity='0.65' /%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none' version='1.1'%3E%3Cpolygon fill='%2342B883' style='filter:url(%23a);' points='13943,3336 5092,1668 0,708 0,0 13943,0 27826,0 27826,719 22794,1668' /%3E%3Cpolygon fill='%237952B3' style='filter:url(%23a);' points='0,0 27826,0 27826,371 22759,1326 13908,2994 5058,1326 0,373' /%3E%3Cpolygon fill='%23ffffff' style='filter:url(%23a);' points='0,0 27826,0 22761,954 13910,2622 5059,954 0,1' /%3E%3Cdefs%3E%3Cfilter id='a'%3E%3CfeDropShadow id='b' dx='0' dy='25' stdDeviation='25' flood-opacity='0.65' /%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
     background-size: 150% 5rem;
     background-position-y: -2rem;
     background-color: #eee;
