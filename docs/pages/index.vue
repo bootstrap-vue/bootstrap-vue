@@ -11,7 +11,9 @@
           </b-col>
 
           <b-col tag="section" md="8" order-md="1">
-            <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
+            <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
+              Bootstrap<span class="text-vue-green">Vue</span>
+            </h1>
 
             <p class="lead">
               With <span class="bd-text-purple-bright">BootstrapVue</span> you can build responsive,
@@ -397,6 +399,10 @@
 </template>
 
 <style lang="scss" scoped>
+.text-vue-green {
+  color: #42b883;
+}
+
 // Depth of section angle
 $bv-angle-depth: 4rem;
 $bv-angle-padding: 3rem;
