@@ -441,6 +441,7 @@
 
     &.bv-p-reset {
       padding-top: $bv-angle-depth-md;
+      padding-bottom: 0;
     }
   }
 }
