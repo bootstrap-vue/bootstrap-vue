@@ -11,10 +11,12 @@
           </b-col>
 
           <b-col tag="section" md="8" order-md="1">
-            <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
+            <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
+              Bootstrap<span class="text-vue-green">Vue</span>
+            </h1>
 
             <p class="lead">
-              With <span class="bd-text-purple-bright">BootstrapVue</span> you can build responsive,
+              With <span class="font-weight-bolder">BootstrapVue</span> you can build responsive,
               mobile-first projects on the web using <span class="bd-text-purple-bright">Vue.js</span>
               and the world's most popular front-end CSS library &mdash;
               <span class="bd-text-purple-bright">Bootstrap v4</span>.
@@ -70,7 +72,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray">
+    <section class="bv-section bv-gray-color">
       <b-container tag="article">
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
@@ -127,7 +129,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-white">
+    <section class="bv-section bv-white">
       <b-container>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
@@ -308,7 +310,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray">
+    <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -347,7 +349,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-white">
+    <section class="bv-section bv-white">
       <b-container tag="article" class="text-center">
         <h5 class="text-center bd-text-purple-bright mb-3">
           <svg
@@ -390,54 +392,73 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray bv-p-reset">
+    <section class="bv-section bv-gray bv-p-reset">
       <!-- to give footer on landing page angled top -->
     </section>
   </main>
 </template>
 
 <style lang="scss" scoped>
+.text-vue-green {
+  color: #42b883;
+}
+
 // Depth of section angle
 $bv-angle-depth: 4rem;
 $bv-angle-padding: 3rem;
-$bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
-$bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
+$bv-angle-depth-md: 8rem;
+$bv-angle-padding-md: 6rem;
 
-.bv-section-white,
-.bv-section-gray {
+.bv-section {
   background-size: 100% $bv-angle-depth;
-  background-position: top;
+  background-position: center top;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
   padding-bottom: 3rem;
-}
 
-.bv-p-reset {
-  padding-top: $bv-angle-depth;
-  padding-bottom: 0;
-}
+  &.bv-white {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
+    background-color: #fff;
+  }
 
-@media (min-width: 768px) {
-  .bv-section-white,
-  .bv-section-gray {
-    background-size: 100% $bv-angle-depth-md;
-    padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+  &.bv-gray {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #eee;
+  }
+
+  &.bv-gray-color {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='a' filterUnits='objectBoundingBox' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeOffset in='SourceGraphic' result='b' dy='20'/%3E%3CfeGaussianBlur in='b' stdDeviation='25'/%3E%3C/filter%3E%3C/defs%3E%3Cpath filter='url(%23a)' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath fill='%2342B883' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath fill='%237952B3' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3Cpath fill='%23fff' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3C/svg%3E%0A");
+    background-size: 175% 9rem;
+    background-position-y: -2.75rem;
+    background-color: #eee;
+    padding-top: 9rem;
+  }
+
+  &.bv-p-reset {
+    padding-top: $bv-angle-depth;
+    padding-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
     padding-bottom: 2rem;
+    padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+
+    &.bv-white,
+    &.bv-gray {
+      background-size: 100% $bv-angle-depth-md;
+    }
+
+    &.bv-gray-color {
+      background-size: 100% 12rem;
+      background-position-y: top;
+      padding-top: 16rem;
+    }
+
+    &.bv-p-reset {
+      padding-top: $bv-angle-depth-md;
+      padding-bottom: 0;
+    }
   }
-
-  .bv-p-reset {
-    padding-top: $bv-angle-depth-md;
-  }
-}
-
-.bv-section-white {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
-  background-color: #fff;
-}
-
-.bv-section-gray {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
-  background-color: #eee;
 }
 
 .bv-logo {
