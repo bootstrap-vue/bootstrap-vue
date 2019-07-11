@@ -205,7 +205,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       this.dragging = true
-      if (evt && evt.dataTransfer) {
+      if (evt.dataTransfer) {
         evt.dataTransfer.dropEffect = 'copy'
       }
     },
@@ -224,6 +224,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       this.dragging = false
+      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
+        this.onFileChange(evt)
+      }
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
