@@ -205,7 +205,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       this.dragging = true
-      evt.dataTransfer.dropEffect = 'copy'
+      if (evt && evt.dataTransfer) {
+        evt.dataTransfer.dropEffect = 'copy'
+      }
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       if (this.noDrop) {
@@ -222,9 +224,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       this.dragging = false
-      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
-        this.onFileChange(evt)
-      }
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
@@ -252,6 +251,23 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const dragHandlers = {
+      dragover: this.onDragover,
+      dragleave: this.onDragleave,
+      drop: this.onDrop
+    }
+
+    let inputHandlers = {
+      change: this.onFileChange,
+      focusin: this.focusHandler,
+      focusout: this.focusHandler,
+      reset: this.onReset
+    }
+
+    if (this.plain) {
+      inputHandlers = { ...inputHandlers, ...dragHandlers }
+    }
+
     // Form Input
     const input = h('input', {
       ref: 'input',
@@ -276,12 +292,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         webkitdirectory: this.directory,
         'aria-required': this.required ? 'true' : null
       },
-      on: {
-        change: this.onFileChange,
-        focusin: this.focusHandler,
-        focusout: this.focusHandler,
-        reset: this.onReset
-      }
+      on: inputHandlers
     })
 
     if (this.plain) {
@@ -309,11 +320,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         staticClass: 'custom-file b-form-file',
         class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
-        on: {
-          dragover: this.onDragover,
-          dragleave: this.onDragleave,
-          drop: this.onDrop
-        }
+        on: dragHandlers
       },
       [input, label]
     )
