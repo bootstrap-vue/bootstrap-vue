@@ -34,9 +34,11 @@ tags to load the required JavaScript and CSS in your page.
       href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
     />
 
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
     <!-- Required scripts -->
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   </head>
   <body>
@@ -111,10 +113,8 @@ A Vue CLI 3 BootStrapVue plugin is available for setting up a basic app. refer t
 If you are using a build system, and would like to customize the Bootstrap v4 CSS, the following
 references will be handy starting points:
 
-- Article on
-  [Integrating and Customising Bootstrap v4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e)
-  hosted on medium.com
-- Official Bootstrap [Theming Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/theming/)
+- BootstrapVue's [Theming](/docs/reference/theming) reference section
+- Official Bootstrap [Theming Bootstrap ](https://getbootstrap.com/docs/4.3/getting-started/theming/)
   guide
 
 ## Individual component import
