@@ -86,7 +86,7 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       this.setItemFocus(items[0])
     },
     getItems() {
-      let items = selectAll(ITEM_SELECTOR, this.$el)
+      const items = selectAll(ITEM_SELECTOR, this.$el)
       items.forEach(item => {
         // Ensure tabfocus is -1 on any new elements
         item.tabIndex = -1
