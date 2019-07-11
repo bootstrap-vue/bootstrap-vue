@@ -651,7 +651,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           small: this.small
         }
       },
-      [buttons, this.normalizeSlot('tabs')]
+      [this.normalizeSlot('tabs-first') || h(false), buttons, this.normalizeSlot('tabs') || h(false)]
     )
     nav = h(
       'div',
