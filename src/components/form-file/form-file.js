@@ -91,7 +91,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.hasNormalizedSlot('file-name')) {
         // There is a slot for formatting the files/names
         const makeNames = file => {
-          return isArray(file) ? [makeNames(file)] : `${(file.$path || '')}${file.name}`
+          return isArray(file) ? [makeNames(file)] : `${file.$path || ''}${file.name}`
         }
         return [
           this.normalizeSlot('file-name', {
@@ -165,7 +165,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.dropping = false
     },
     onFileChange(evt) {
-       // Always emit original event
+      // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode event)
       // Can be disabled by setting no-traverse
@@ -238,7 +238,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         this.dropping = false
       }
-        
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
