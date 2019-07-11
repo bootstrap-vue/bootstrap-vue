@@ -4748,10 +4748,10 @@ eslint-config-prettier@^6.0.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-standard@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-12.0.0.tgz#638b4c65db0bd5a41319f96bba1f15ddad2107d9"
-  integrity sha512-COUz8FnXhqFitYj4DTqHzidjIL/t4mumGZto5c7DrBpvWoie+Sn3P4sLEzUGeYhRElWuFEf8K1S1EfvD1vixCQ==
+eslint-config-standard@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-13.0.0.tgz#8032d6fe954f651399763ba4607294aa3c201a23"
+  integrity sha512-GRvEpe2lnML3qPqNryLPjgbU0nDeGBEWOC/IMfn/DjDLyO7DoASyDtGtPhN+Z+XDGUzrHWF8dKDLdDx2bO6CGw==
 
 eslint-config-vue@^2.0.2:
   version "2.0.2"
