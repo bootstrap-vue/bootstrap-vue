@@ -67,7 +67,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      selectedFile: null,
+      selectedFile: this.multiple ? [] : null,
       dragging: false,
       hasFocus: false
     }
