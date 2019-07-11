@@ -54,6 +54,19 @@ files are selected the return value will be an array of JavaScript
 
 ## Directory mode
 
+<div class="alert alert-warning mb-3">
+  <p class="mb-0">
+    <strong>CAUTION:</strong> Directory mode is a _non-standard_ feature while being supported by
+    latest Firefox and Chrome versions, and should not be relied for production.
+    <a
+      class="alert-link"
+      href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory"
+    >
+      Read more on MDN
+    </a>
+  </p>
+</div>
+
 By adding `directory` prop, the user can select directories instead of files. When a directory is
 selected, the directory and its entire hierarchy of contents are included in the set of selected
 items. The selected file system entries can be obtained using the `webkitEntries` property.
@@ -62,30 +75,26 @@ When in `directory` mode, files are returned in a nested array format by default
 
 ```
 dirA/
-  - file-A1
-  - file-A2
+  - fileA1
+  - fileA2
   dirB/
-    - file-B1
+    - fileB1
   dirC/
-    - file-C1
-    - file-C2
+    - fileC1
+    - fileC2
 ```
 
 will be returned as:
 
 ```
-[file-A1, file-A2, [file-B1], [file-C1, file-C2] ]
+[fileA1, fileA2, [fileB1], [fileC1, fileC2] ]
 ```
 
 If you set the `no-traverse` prop, the array will be flattened:
 
 ```
-[file-A1, file-A2, file-B1, file-C1, file-C2]
+[fileA1, fileA2, fileB1, fileC1, fileC2]
 ```
-
-**CAUTION** Directory mode is a non standard feature while being supported by latest Firefox and
-Chrome versions, and should not be relied for production.
-[Read more on MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 
 Directory mode is not supported when the file input is in plain mode.
 
