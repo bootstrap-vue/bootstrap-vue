@@ -72,7 +72,7 @@ const props = {
 
 // TODO: move this to an instance method in pagination mixin
 const sanitizeNumPages = value => {
-  let num = parseInt(value, 10) || 1
+  const num = parseInt(value, 10) || 1
   return num < 1 ? 1 : num
 }
 
