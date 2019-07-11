@@ -303,8 +303,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <!-- b-tabs-item-slot.vue -->
 ```
 
-**Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have the class `nav-item`
-with a root element of `<li>` and class `nav-item` for proper rendering and semantic markup.
+**Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of `<li>` and class `nav-item` for proper rendering and semantic markup.
 
 ## Add custom content to tab title
 
