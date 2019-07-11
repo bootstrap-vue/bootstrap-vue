@@ -287,13 +287,16 @@ Fade is enabled by default when changing tabs. It can disabled with `no-fade` pr
 
 ## Add tabs without content
 
-If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
+<span class="badge badge-wanting small">CHANGED in v2.0.0-rc.27</span>
+
+If you want to add extra tabs that do not have any content, you can put them in `tabs-start` or
+`tabs-end` slot(s):
 
 ```html
 <div>
   <b-tabs>
     <!-- Add your b-tab components here -->
-    <template slot="tabs">
+    <template slot="tabs-end">
       <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
       <li class="nav-item align-self-center">Plain Text</li>
     </template>
@@ -303,8 +306,13 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <!-- b-tabs-item-slot.vue -->
 ```
 
+Use the `tabs-start` slot to place extra tab buttons before the content tab buttons, and use the
+`tabs-end` slot to place etra tab buttons after the content tab buttons.
+
 **Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of
 `<li>` and class `nav-item` for proper rendering and semantic markup.
+
+**DEPRECATION:** The `tabs` slot has been deprecated. please use the `tabs-end` slot instead.
 
 ## Add custom content to tab title
 
@@ -466,7 +474,7 @@ order to use these methods.
 <!-- b-tabs-controls.vue -->
 ```
 
-### Dynamic tabs + tabs slot
+### Dynamic tabs + tabs-end slot
 
 ```html
 <template>
@@ -482,7 +490,7 @@ order to use these methods.
         </b-tab>
 
         <!-- New Tab Button (Using tabs slot) -->
-        <template slot="tabs">
+        <template slot="tabs-end">
           <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
 
