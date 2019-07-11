@@ -18,6 +18,7 @@ const copyProps = (props, transformFn = identity) => {
 
   for (const prop in props) {
     /* istanbul ignore else */
+    // eslint-disable-next-line no-prototype-builtins
     if (props.hasOwnProperty(prop)) {
       // If the prop value is an object, do a shallow clone to prevent
       // potential mutations to the original object.

@@ -289,7 +289,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     doSlide(to, from) {
       const isCycling = Boolean(this.interval)
       // Determine sliding direction
-      let direction = this.calcDirection(this.direction, from, to)
+      const direction = this.calcDirection(this.direction, from, to)
       const overlayClass = direction.overlayClass
       const dirClass = direction.dirClass
       // Determine current and next slides

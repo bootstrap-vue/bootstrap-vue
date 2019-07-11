@@ -28,7 +28,7 @@ export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
   render(h, { props: suppliedProps, data, children }) {
     const tag = suppliedProps.active ? 'span' : BLink
 
-    let componentData = { props: pluckProps(props, suppliedProps) }
+    const componentData = { props: pluckProps(props, suppliedProps) }
     if (suppliedProps.active) {
       componentData.attrs = { 'aria-current': suppliedProps.ariaCurrent }
     }

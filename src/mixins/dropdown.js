@@ -134,7 +134,7 @@ export default {
 
       if (newValue !== oldValue) {
         const evtName = newValue ? 'show' : 'hide'
-        let bvEvt = new BvEvent(evtName, {
+        const bvEvt = new BvEvent(evtName, {
           cancelable: true,
           vueTarget: this,
           target: this.$refs.menu,
@@ -253,7 +253,7 @@ export default {
       } else if (this.right) {
         placement = AttachmentMap.BOTTOMEND
       }
-      let popperConfig = {
+      const popperConfig = {
         placement,
         modifiers: {
           offset: { offset: this.offset || 0 },
@@ -419,7 +419,7 @@ export default {
       })
     },
     focusItem(idx, items) {
-      let el = items.find((el, i) => i === idx)
+      const el = items.find((el, i) => i === idx)
       if (el && el.focus) {
         el.focus()
       }
@@ -432,7 +432,7 @@ export default {
       this.$refs.menu.focus && this.$refs.menu.focus()
     },
     focusToggler() {
-      let toggler = this.toggler
+      const toggler = this.toggler
       if (toggler && toggler.focus) {
         toggler.focus()
       }

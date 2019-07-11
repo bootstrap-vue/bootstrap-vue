@@ -211,7 +211,7 @@ export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedSty
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
 export const offset = el => /* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */ {
-  let _offset = { top: 0, left: 0 }
+  const _offset = { top: 0, left: 0 }
   if (!isElement(el) || el.getClientRects().length === 0) {
     return _offset
   }

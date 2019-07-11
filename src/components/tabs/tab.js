@@ -186,7 +186,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let content = h(
+    const content = h(
       this.tag,
       {
         ref: 'panel',

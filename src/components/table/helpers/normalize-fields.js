@@ -26,7 +26,7 @@ const processField = (key, value) => {
 // We normalize fields into an array of objects
 // [ { key:..., label:..., ...}, {...}, ..., {..}]
 const normalizeFields = (origFields, items) => {
-  let fields = []
+  const fields = []
 
   if (isArray(origFields)) {
     // Normalize array Form
@@ -48,7 +48,7 @@ const normalizeFields = (origFields, items) => {
   } else if (origFields && isObject(origFields) && keys(origFields).length > 0) {
     // Normalize object Form (deprecated)
     keys(origFields).forEach(key => {
-      let field = processField(key, origFields[key])
+      const field = processField(key, origFields[key])
       if (field) {
         fields.push(field)
       }

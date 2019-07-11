@@ -181,16 +181,14 @@ describe('table > sorting', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    const $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    const columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -215,7 +213,6 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     let $rows
     let columnA
-    let columnB
 
     // Should not be sorted
     await waitNT(wrapper.vm)
@@ -288,7 +285,7 @@ describe('table > sorting', () => {
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
-    columnB = $rows.map(row => {
+    const columnB = $rows.map(row => {
       return row
         .findAll('td')
         .at(1)
@@ -335,7 +332,6 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     let $rows
     let columnA
-    let columnB
 
     // Should not be sorted
     await waitNT(wrapper.vm)
@@ -417,7 +413,7 @@ describe('table > sorting', () => {
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
-    columnB = $rows.map(row => {
+    const columnB = $rows.map(row => {
       return row
         .findAll('td')
         .at(1)

@@ -242,7 +242,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       return this.pills ? 'pills' : 'tabs'
     },
     localNavClass() {
-      let classes = []
+      const classes = []
       if (this.card) {
         if (this.vertical) {
           classes.push('card-header', 'h-100', 'border-bottom-0', 'rounded-0')
@@ -321,7 +321,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    let tabIdx = parseInt(this.value, 10)
+    const tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
@@ -345,7 +345,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
-    let tabIdx = parseInt(this.value, 10)
+    const tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.$nextTick(() => {
       this.updateTabs()
@@ -585,7 +585,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     const tabs = this.tabs
 
     // Currently active tab
-    let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+    const activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
 
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)

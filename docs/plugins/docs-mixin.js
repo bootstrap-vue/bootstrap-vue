@@ -96,7 +96,7 @@ export default {
 
   methods: {
     focusScroll() {
-      let hash = this.$route.hash
+      const hash = this.$route.hash
       this.$nextTick(() => {
         let el
         if (hash) {

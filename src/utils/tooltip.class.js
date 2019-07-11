@@ -167,7 +167,7 @@ class ToolTip {
   // Update config
   updateConfig(config) {
     // Merge config into defaults. We use "this" here because PopOver overrides Default
-    let updatedConfig = { ...this.constructor.Default, ...config }
+    const updatedConfig = { ...this.constructor.Default, ...config }
 
     // Sanitize delay
     if (config.delay && isNumber(config.delay)) {

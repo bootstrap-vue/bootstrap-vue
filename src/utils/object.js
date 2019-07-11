@@ -56,7 +56,7 @@ export const deepFreeze = obj => {
   const props = keys(obj)
   // Iterate over each prop and recursively freeze it
   props.forEach(prop => {
-    let value = obj[prop]
+    const value = obj[prop]
     // If value is a plain object or array, we deepFreeze it
     obj[prop] = value && (isPlainObject(value) || isArray(value)) ? deepFreeze(value) : value
   })
