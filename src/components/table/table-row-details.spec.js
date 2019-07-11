@@ -16,10 +16,10 @@ describe('table > row details', () => {
         items: testItems
       }
     })
-    const $trs
+
     expect(wrapper).toBeDefined()
     expect(wrapper.find('tbody').exists()).toBe(true)
-    $trs = wrapper.findAll('tbody > tr')
+    const $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(3)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(false)
