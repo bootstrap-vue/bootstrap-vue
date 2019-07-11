@@ -51,7 +51,7 @@ describe('table > filtering', () => {
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
-    let $rows = wrapper.findAll('tbody > tr')
+    const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(1)
 
     const $tds = $rows.at(0).findAll('td')

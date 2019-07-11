@@ -46,7 +46,9 @@ const looseEqual = (a, b) => {
       return false
     }
     for (const key in a) {
+      // eslint-disable-next-line no-prototype-builtins
       const aHasKey = a.hasOwnProperty(key)
+      // eslint-disable-next-line no-prototype-builtins
       const bHasKey = b.hasOwnProperty(key)
       if ((aHasKey && !bHasKey) || (!aHasKey && bHasKey) || !looseEqual(a[key], b[key])) {
         return false

@@ -129,7 +129,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
 
     let content = h(false)
 
-    let contentChildren = [
+    const contentChildren = [
       this.caption || this.captionHtml
         ? h(this.captionTag, {
             domProps: htmlOrText(this.captionHtml, this.caption)

@@ -30,8 +30,7 @@ export default {
   },
   computed: {
     formOptions() {
-      let options = this.options
-
+      const options = this.options
       const valueField = this.valueField
       const textField = this.textField
       const htmlField = this.htmlField
@@ -60,7 +59,7 @@ export default {
         // options is Object
         // Normalize Objects to Array of Objects
         return keys(options).map(key => {
-          let option = options[key] || {}
+          const option = options[key] || {}
           if (isPlainObject(option)) {
             const value = option[valueField]
             const text = option[textField]
