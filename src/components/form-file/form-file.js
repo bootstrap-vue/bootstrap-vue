@@ -69,6 +69,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     return {
       selectedFile: this.multiple ? [] : null,
       dragging: false,
+      dropping: false,
       hasFocus: false
     }
   },
@@ -89,10 +90,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
 
       if (this.hasNormalizedSlot('file-name')) {
         // There is a slot for formatting the files/names
+        const makeNames = file => {
+          return isArray(file) ? [makeNames(file)] : `${(file.$path || '')}${file.name}`
+        }
         return [
           this.normalizeSlot('file-name', {
             files: files,
-            names: files.map(f => f.name)
+            names: files.map(makeNames)
           })
         ]
       } else {
@@ -154,13 +158,19 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.$refs.input.type = 'file'
       this.selectedFile = this.multiple ? [] : null
     },
+    onChange(evt) {
+      if (!this.dropping) {
+        this.onFileChange(evt)
+      }
+      this.dropping = false
+    },
     onFileChange(evt) {
-      // Always emit original event
+       // Always emit original event
       this.$emit('change', evt)
-      // Check if special `items` prop is available on event (drop mode)
+      // Check if special `items` prop is available on event (drop mode event)
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
-      /* istanbul ignore next: not supported in JSDOM */
+      /* istanbul ignore if: not supported in JSDOM */
       if (items && !this.noTraverse) {
         const queue = []
         for (let i = 0; i < items.length; i++) {
@@ -172,10 +182,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         Promise.all(queue).then(filesArr => {
           this.setFiles(arrayFrom(filesArr))
         })
-        return
+      } else {
+        // Normal handling
+        this.setFiles(arrayFrom(evt.target.files || evt.dataTransfer.files))
       }
-      // Normal handling
-      this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
     setFiles(files = []) {
       if (!files) {
@@ -199,9 +209,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFile = this.multiple ? [] : null
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      evt.preventDefault()
+      evt.stopPropagation()
       if (this.noDrop || this.disabled) {
-        evt.preventDefault()
-        evt.stopPropagation()
         return
       }
       this.dragging = true
@@ -210,23 +220,25 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop) {
-        evt.preventDefault()
-        evt.stopPropagation()
-        return
-      }
+      evt.preventDefault()
+      evt.stopPropagation()
       this.dragging = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      // Preventing default makes the file input not work with `required`
+      // evt.preventDefault()
+      evt.stopPropagation()
       if (this.noDrop || this.disabled) {
-        evt.preventDefault()
-        evt.stopPropagation()
         return
       }
       this.dragging = false
       if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
+        this.dropping = true
         this.onFileChange(evt)
+      } else {
+        this.dropping = false
       }
+        
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
@@ -254,23 +266,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const dragHandlers = {
-      dragover: this.onDragover,
-      dragleave: this.onDragleave,
-      drop: this.onDrop
-    }
-
-    let inputHandlers = {
-      change: this.onFileChange,
-      focusin: this.focusHandler,
-      focusout: this.focusHandler,
-      reset: this.onReset
-    }
-
-    if (this.plain) {
-      inputHandlers = { ...inputHandlers, ...dragHandlers }
-    }
-
     // Form Input
     const input = h('input', {
       ref: 'input',
@@ -295,7 +290,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         webkitdirectory: this.directory,
         'aria-required': this.required ? 'true' : null
       },
-      on: inputHandlers
+      on: {
+        change: this.onChange,
+        focusin: this.focusHandler,
+        focusout: this.focusHandler,
+        reset: this.onReset
+      }
     })
 
     if (this.plain) {
@@ -323,7 +323,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         staticClass: 'custom-file b-form-file',
         class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
-        on: dragHandlers
+        on: {
+          dragover: this.onDragover,
+          dragleave: this.onDragleave,
+          drop: this.onDrop
+        }
       },
       [input, label]
     )
