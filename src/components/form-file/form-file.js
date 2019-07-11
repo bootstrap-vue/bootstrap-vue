@@ -199,7 +199,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFile = this.multiple ? [] : null
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop) {
+      if (this.noDrop || this.disabled) {
         evt.preventDefault()
         evt.stopPropagation()
         return
@@ -216,7 +216,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.dragging = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop) {
+      if (this.noDrop || this.disabled) {
         evt.preventDefault()
         evt.stopPropagation()
         return
