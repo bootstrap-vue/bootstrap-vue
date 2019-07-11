@@ -58,20 +58,44 @@ By adding `directory` prop, the user can select directories instead of files. Wh
 selected, the directory and its entire hierarchy of contents are included in the set of selected
 items. The selected file system entries can be obtained using the `webkitEntries` property.
 
-**CAUTION** This is a non standard feature while being supported by latest Firefox and Chrome
-versions, and should not be relied for production.
+When in `directory` mode, files are returned in a nested array format by default. i.e. 
+
+```
+dirA/
+  - file-A1
+  - file-A2
+  dirB/
+    - file-B1
+  dirC/
+    - file-C1
+    - file-C2
+```
+
+will be returned as:
+
+```
+[file-A1, file-A2, [file-B1], [file-C1, file-C2] ]
+```
+
+If you set the `no-traverse` prop, the array will be flattened:
+
+```
+[file-A1, file-A2, file-B1, file-C1, file-C2]
+```
+
+**CAUTION** Directory mode is a non standard feature while being supported by latest Firefox and
+Chrome versions, and should not be relied for production.
 [Read more on MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 
 Directory mode is not supported when the file input is in plain mode.
 
 ## Drag and Drop support
 
-Drop mode is enabled by default. It can disabled by setting the `no-drop` prop. `no-drop`has no
-effect in plain mode.
+Drop mode is enabled by default. It can disabled by setting the `no-drop` prop.
 
 You can optionally set a different placeholder while dragging via the `drop-placeholder` prop. The
 default is no drop placeholder text. Only plain text is supported. HTML and components are not
-supported. The `drop-placeholder` prop has no effect if `no-drop`is set or in `plain` mode,
+supported. The `drop-placeholder` prop has no effect if `no-drop` is set or in `plain` mode,
 
 ## Limiting to certain file types
 
