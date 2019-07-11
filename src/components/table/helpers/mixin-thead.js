@@ -101,8 +101,8 @@ export default {
           },
           on: handlers
         }
-        let fieldScope = { label: field.label, column: field.key, field: field }
-        let slot =
+        const fieldScope = { label: field.label, column: field.key, field: field }
+        const slot =
           isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
             ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
             : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
