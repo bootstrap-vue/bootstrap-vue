@@ -30,7 +30,7 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, children }) {
     let cardTitle = h(false)
     let cardSubTitle = h(false)
-    let cardContent = children || [h(false)]
+    const cardContent = children || [h(false)]
 
     if (props.title) {
       cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })
