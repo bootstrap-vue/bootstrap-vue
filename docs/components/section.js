@@ -14,7 +14,7 @@ export default {
     }
   },
   render(h, { props, data, children }) {
-    let directives = []
+    const directives = []
     if (props.play) {
       directives.push({ name: 'play' })
     }
