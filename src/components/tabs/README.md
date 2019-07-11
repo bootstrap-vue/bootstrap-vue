@@ -26,7 +26,7 @@ attribute, see https://vuejs.org/v2/api/#key).
 
 ## Cards integration
 
-Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
+Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>` and place
 it inside a `<b-card>` component. Note that you should add the`no-body` prop on the `<b-card>`
 component in order to properly decorate the card header and remove the extra padding introduced by
 `card-body`.
@@ -303,8 +303,8 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <!-- b-tabs-item-slot.vue -->
 ```
 
-**Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have the class `nav-item`
-with a root element of `<li>` and class `nav-item` for proper rendering and semantic markup.
+**Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of
+`<li>` and class `nav-item` for proper rendering and semantic markup.
 
 ## Add custom content to tab title
 
