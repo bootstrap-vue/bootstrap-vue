@@ -180,7 +180,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     setFiles(files = []) {
       if (!files) {
         /* istanbul ignore next: this will probably not happen */
-        this.selectedFile = null
+        this.selectedFile = this.multiple ? [] : null
       } else if (this.multiple) {
         // Convert files to array
         const filesArray = []
