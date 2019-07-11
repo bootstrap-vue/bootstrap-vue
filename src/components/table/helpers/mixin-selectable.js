@@ -75,7 +75,7 @@ export default {
     },
     selectedRows(selectedRows, oldVal) {
       if (this.selectable && !looseEqual(selectedRows, oldVal)) {
-        let items = []
+        const items = []
         // forEach skips over non-existant indicies (on sparse arrays)
         selectedRows.forEach((v, idx) => {
           if (v) {
@@ -111,7 +111,7 @@ export default {
       }
     },
     clearSelected() {
-      let hasSelection = this.selectedRows.reduce((prev, v) => {
+      const hasSelection = this.selectedRows.reduce((prev, v) => {
         return prev || v
       }, false)
       if (hasSelection) {
@@ -138,7 +138,7 @@ export default {
       }
       let selectedRows = this.selectedRows.slice()
       let selected = !selectedRows[index]
-      let mode = this.selectMode
+      const mode = this.selectMode
       // Note 'multi' mode needs no special handling
       if (mode === 'single') {
         selectedRows = []

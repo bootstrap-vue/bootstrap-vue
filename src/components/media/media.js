@@ -29,7 +29,7 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots, children }) {
-    let childNodes = props.noBody ? children : []
+    const childNodes = props.noBody ? children : []
 
     if (!props.noBody) {
       const $slots = slots()

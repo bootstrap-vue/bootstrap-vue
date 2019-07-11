@@ -186,7 +186,7 @@ describe('modal', () => {
       expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-      let outer = document.getElementById('testtarget___BV_modal_outer_')
+      const outer = document.getElementById('testtarget___BV_modal_outer_')
       expect(outer).toBeDefined()
       expect(outer).not.toBe(null)
 

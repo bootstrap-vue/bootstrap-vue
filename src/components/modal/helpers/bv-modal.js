@@ -249,6 +249,7 @@ const plugin = Vue => {
 
   // Define our read-only `$bvModal` instance property
   // Placed in an if just in case in HMR mode
+  // eslint-disable-next-line no-prototype-builtins
   if (!Vue.prototype.hasOwnProperty(PROP_NAME)) {
     defineProperty(Vue.prototype, PROP_NAME, {
       get() {

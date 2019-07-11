@@ -455,7 +455,7 @@ export default {
     this.pageList.forEach((page, idx) => {
       const active = isActivePage(page.number) && !noCurrPage
       // Active page will have tabindex of 0, or if no current page and first page button
-      let tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
+      const tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
       const attrs = {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,

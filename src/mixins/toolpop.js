@@ -73,7 +73,7 @@ export default {
   computed: {
     baseConfig() {
       const cont = this.container
-      let delay = isObject(this.delay) ? this.delay : parseInt(this.delay, 10) || 0
+      const delay = isObject(this.delay) ? this.delay : parseInt(this.delay, 10) || 0
       return {
         // Title prop
         title: (this.title || '').trim() || '',

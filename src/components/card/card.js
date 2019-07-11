@@ -48,7 +48,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     let imgLast = h(false)
 
     if (props.imgSrc) {
-      let img = h(BCardImg, {
+      const img = h(BCardImg, {
         props: pluckProps(cardImgProps, props, unPrefixPropName.bind(null, 'img'))
       })
       if (props.imgBottom) {

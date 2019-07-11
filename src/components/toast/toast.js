@@ -343,7 +343,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       // Render helper for generating the toast
       // Assemble the header content
       const $headerContent = []
-      let $title = this.normalizeSlot('toast-title', this.slotScope)
+      const $title = this.normalizeSlot('toast-title', this.slotScope)
       if ($title) {
         $headerContent.push($title)
       } else if (this.title) {

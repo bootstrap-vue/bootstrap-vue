@@ -53,7 +53,7 @@ const btnProps = {
   }
 }
 
-let linkProps = linkPropsFactory()
+const linkProps = linkPropsFactory()
 delete linkProps.href.default
 delete linkProps.to.default
 const linkPropKeys = keys(linkProps)

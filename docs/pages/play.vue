@@ -585,6 +585,8 @@ export default {
       const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
+      // Options gets assinged to by our eval after compilation
+      // eslint-disable-next-line prefer-const
       let options = {}
 
       // Disable the export buttons
@@ -655,7 +657,7 @@ export default {
 
       // Try and buld the user app
       try {
-        let holder = document.createElement('div')
+        const holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         this.playVM = new Vue({
           ...options,

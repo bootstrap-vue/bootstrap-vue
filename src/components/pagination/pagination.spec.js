@@ -84,7 +84,7 @@ describe('pagination', () => {
   })
 
   it('renders scopedSlot page', async () => {
-    let scopes = []
+    const scopes = []
     const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 3,
@@ -609,7 +609,7 @@ describe('pagination', () => {
     expect(wrapper.is('ul')).toBe(true)
 
     // Grab the page buttons
-    let lis = wrapper.findAll('li')
+    const lis = wrapper.findAll('li')
     expect(lis.length).toBe(7)
 
     expect(wrapper.vm.computedCurrentPage).toBe(1)
@@ -761,7 +761,7 @@ describe('pagination', () => {
       expect(wrapper.is('ul')).toBe(true)
       await waitNT(wrapper.vm)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
-      let links = wrapper.findAll('a.page-link')
+      const links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(7)
 
       // Sanity check for getBCR override
@@ -812,7 +812,7 @@ describe('pagination', () => {
       await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
-      let links = wrapper.findAll('a.page-link')
+      const links = wrapper.findAll('a.page-link')
       expect(links.length).toBe(7)
 
       // Focus the last button

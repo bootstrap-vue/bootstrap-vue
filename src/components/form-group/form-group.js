@@ -30,7 +30,7 @@ const DEPRECATED_MSG =
 
 // Render helper functions (here rather than polluting the instance with more methods)
 const renderInvalidFeedback = (h, ctx) => {
-  let content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback
+  const content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback
   let invalidFeedback = h(false)
   if (content) {
     invalidFeedback = h(

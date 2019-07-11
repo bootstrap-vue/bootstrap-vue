@@ -1,7 +1,7 @@
 module.exports = api => {
   const isDocs = api.env('docs')
 
-  let presets = []
+  const presets = []
   if (!isDocs) {
     presets.push(['@babel/env', { useBuiltIns: 'entry', corejs: { version: 2 } }])
   }

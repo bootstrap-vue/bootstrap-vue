@@ -14,14 +14,14 @@ const stripHTML = (str = '') => str.replace(/<[^>]+>/g, '')
 const stripQuotes = (str = '') => str.replace(/"/g, '')
 
 export const parseUrl = value => {
-  let anchor = document.createElement('a')
+  const anchor = document.createElement('a')
   anchor.href = value
 
   // We need to add the anchor to the document to make sure the
   // `pathname` is correctly detected in any browser
   document.body.appendChild(anchor)
 
-  let result = ['hash', 'host', 'hostname', 'pathname', 'port', 'protocol', 'search'].reduce(
+  const result = ['hash', 'host', 'hostname', 'pathname', 'port', 'protocol', 'search'].reduce(
     (result, prop) => {
       result[prop] = anchor[prop] || null
       return result
@@ -81,7 +81,7 @@ export const makeTOC = (readme, meta = null) => {
 
   let top = ''
   let title = ''
-  let toc = []
+  const toc = []
   let parentIdx = 0
 
   // Get the first <h1> tag with ID
@@ -108,7 +108,7 @@ export const makeTOC = (readme, meta = null) => {
         toc.push({ href, label })
         parentIdx = toc.length - 1
       } else if (tag === 'h3') {
-        let parent = toc[parentIdx]
+        const parent = toc[parentIdx]
         if (parent) {
           // We nest <h3> tags as a sub array
           parent.toc = parent.toc || []
@@ -123,7 +123,7 @@ export const makeTOC = (readme, meta = null) => {
     const hasComponents = meta.components && meta.components.length > 0
     const hasDirectives = meta.directives && meta.directives.length > 0
     if (!isDirective && (hasComponents || hasDirectives)) {
-      let componentToc = []
+      const componentToc = []
       if (hasComponents) {
         componentToc.push(
           // Add component sub-headings
