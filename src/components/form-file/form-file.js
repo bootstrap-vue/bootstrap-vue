@@ -199,23 +199,26 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFile = this.multiple ? [] : null
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evt.preventDefault()
-      evt.stopPropagation()
-      if (this.noDrop || !this.custom) {
+      if (this.noDrop) {
+        evt.preventDefault()
+        evt.stopPropagation()
         return
       }
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evt.preventDefault()
-      evt.stopPropagation()
+      if (this.noDrop) {
+        evt.preventDefault()
+        evt.stopPropagation()
+        return
+      }
       this.dragging = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evt.preventDefault()
-      evt.stopPropagation()
       if (this.noDrop) {
+        evt.preventDefault()
+        evt.stopPropagation()
         return
       }
       this.dragging = false
