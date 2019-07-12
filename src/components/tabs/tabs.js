@@ -27,7 +27,9 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
-      default: () => {}
+      default() /* istanbul ignore next */ {
+        return {}
+      }
     }
   },
   props: {
