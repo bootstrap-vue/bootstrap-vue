@@ -1,6 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
-import { isArray, isFunction } from '../../../utils/inspect'
+import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
@@ -144,7 +144,7 @@ export default {
         try {
           // Call provider function passing it the context and optional callback
           const data = this.items(this.context, this._providerSetLocal)
-          if (data && data.then && isFunction(data.then)) {
+          if (isPromise(data)) {
             // Provider returned Promise
             data.then(items => {
               // Provider resolved with items
