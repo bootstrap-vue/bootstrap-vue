@@ -1,6 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
-import { isArray, isFunction } from '../../../utils/inspect'
+import { isArray, isPromise, isNull, isUndefined } from '../../../utils/inspect'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
@@ -144,16 +144,19 @@ export default {
         try {
           // Call provider function passing it the context and optional callback
           const data = this.items(this.context, this._providerSetLocal)
-          if (data && data.then && isFunction(data.then)) {
+          // Wether the provider has a callback function as second argument
+          const hasCallback = this.items.length === 2
+          if (isPromise(data)) {
             // Provider returned Promise
             data.then(items => {
               // Provider resolved with items
               this._providerSetLocal(items)
             })
-          } else if (isArray(data)) {
-            // Provider returned Array data
+          } else if (isArray(data) || (hasCallback && (isUndefined(data) || isNull(data)))) {
+            // Provider returned array or a provider function with callback
+            // returned `undefined` or `null`
             this._providerSetLocal(data)
-          } else if (this.items.length !== 2) {
+          } else if (!hasCallback) {
             // Check number of arguments provider function requested
             // Provider not using callback (didn't request second argument), so we clear
             // busy state as most likely there was an error in the provider function
