@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { concat } from '../../utils/array'
-import { isFunction, isUndefined } from '../../utils/inspect'
+import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 
 /**
@@ -105,10 +105,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     onClick(evt) {
-      const isEvent = evt instanceof Event
+      const evtIsEvent = isEvent(evt)
       const isRouterLink = this.isRouterLink
       const suppliedHandler = this.$listeners.click
-      if (isEvent && this.disabled) {
+      if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
         evt.stopPropagation()
         // Kill the event loop attached to this specific `EventTarget`
@@ -132,7 +132,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       }
       // Stop scroll-to-top behavior or navigation on
       // regular links when href is just '#'
-      if (isEvent && (this.disabled || (!isRouterLink && this.computedHref === '#'))) {
+      if (evtIsEvent && (this.disabled || (!isRouterLink && this.computedHref === '#'))) {
         evt.preventDefault()
       }
     },

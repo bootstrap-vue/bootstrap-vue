@@ -27,6 +27,8 @@ export const isPrimitive = val => isBoolean(val) || isString(val) || isNumber(va
 
 export const isDate = val => val instanceof Date
 
+export const isEvent = val => val instanceof Event
+
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
 export const isPromise = val =>

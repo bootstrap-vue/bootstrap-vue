@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     hasProvider() {
-      return this.items instanceof Function
+      return isFunction(this.items)
     },
     providerTriggerContext() {
       // Used to trigger the provider function via a watcher. Only the fields that
@@ -69,7 +69,7 @@ export default {
     // Provider update triggering
     items(newVal, oldVal) {
       // If a new provider has been specified, trigger an update
-      if (this.hasProvider || newVal instanceof Function) {
+      if (this.hasProvider || isFunction(newVal)) {
         this.$nextTick(this._providerUpdate)
       }
     },

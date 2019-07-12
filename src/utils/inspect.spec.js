@@ -11,6 +11,7 @@ import {
   isNumber,
   isPrimitive,
   isDate,
+  isEvent,
   isRegExp,
   isPromise
 } from './inspect'
@@ -182,6 +183,22 @@ describe('utils/inspect', () => {
     expect(isDate(new Date())).toEqual(true)
     expect(isDate(undefined)).toEqual(false)
     expect(isDate(null)).toEqual(false)
+  })
+
+  it('isEvent', async () => {
+    expect(isEvent(123)).toEqual(false)
+    expect(isEvent('123')).toEqual(false)
+    expect(isEvent(true)).toEqual(false)
+    expect(isEvent({})).toEqual(false)
+    expect(isEvent([])).toEqual(false)
+    expect(isEvent(/abc/)).toEqual(false)
+    expect(isEvent(() => {})).toEqual(false)
+    expect(isEvent(Date)).toEqual(false)
+    expect(isEvent(new Date())).toEqual(false)
+    expect(isEvent(Event)).toEqual(false)
+    expect(isEvent(new Event('click'))).toEqual(true)
+    expect(isEvent(undefined)).toEqual(false)
+    expect(isEvent(null)).toEqual(false)
   })
 
   it('isRegExp', async () => {

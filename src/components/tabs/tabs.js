@@ -3,8 +3,9 @@ import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
-import { requestAF, selectAll } from '../../utils/dom'
 import { arrayIncludes, concat } from '../../utils/array'
+import { requestAF, selectAll } from '../../utils/dom'
+import { isEvent } from '../../utils/inspect'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -531,7 +532,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Emit a click event on a specified <b-tab> component instance
     emitTabClick(tab, evt) {
-      if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
+      if (isEvent(evt) && tab && tab.$emit && !tab.disabled) {
         tab.$emit('click', evt)
       }
     },

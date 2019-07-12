@@ -4,7 +4,7 @@ import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
-import { isBoolean, isFunction } from '../../utils/inspect'
+import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
@@ -152,11 +152,11 @@ export const BButton = /*#__PURE__*/ Vue.extend({
     const toggle = isToggle(props)
     const link = isLink(props)
     const on = {
-      click(e) {
+      click(evt) {
         /* istanbul ignore if: blink/button disabled should handle this */
-        if (props.disabled && e instanceof Event) {
-          e.stopPropagation()
-          e.preventDefault()
+        if (props.disabled && isEvent(evt)) {
+          evt.stopPropagation()
+          evt.preventDefault()
         } else if (toggle && listeners && listeners['update:pressed']) {
           // Send .sync updates to any "pressed" prop (if .sync listeners)
           // Concat will normalize the value to an array
