@@ -191,13 +191,16 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         })
       } else {
         // Normal handling
-        const files = flatten(arrayFrom(evt.target.files || evt.dataTransfer.files))
-          .filter(Boolean)
-          .map(f => {
-            f.$path = ''
-            return f
-          })
-        this.setFiles(files)
+        let files = arrayFrom(evt.target.files || evt.dataTransfer.files)
+        files = this.directory ? flatten(files) : files.filter(i => !isArray(i))
+        this.setFiles(
+          files
+            .filter(Boolean)
+            .map(f => {
+              f.$path = ''
+              return f
+            })
+        )
       }
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
@@ -229,16 +232,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore next: this will probably not happen */
         this.selectedFile = this.multiple ? [] : null
       } else if (this.multiple) {
-        // Convert files to array
-        // const filesArray = []
-        // for (let i = 0; i < files.length; i++) {
-        //  filesArray.push(files[i])
-        // }
-        // Return file(s) as array
-        // this.selectedFile = filesArray
         this.selectedFile = files
       } else {
-        // Return single file object
+        // Return single file object (first one)
         this.selectedFile = files[0] || null
       }
     },
