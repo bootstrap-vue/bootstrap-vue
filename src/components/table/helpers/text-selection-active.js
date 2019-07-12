@@ -7,7 +7,6 @@ import { getSel, isElement } from '../../../utils/dom'
 // contained within the element
 const textSelectionActive = (el = document) => {
   const sel = getSel()
-  /* istanbul ignore next: JSDOM doesn't support getSelection */
   return sel && sel.toString() !== '' && sel.containsNode && isElement(el)
     ? sel.containsNode(el, true)
     : false
