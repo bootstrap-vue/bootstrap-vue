@@ -1,4 +1,4 @@
-import { isObject } from '../../../utils'
+import { isObject } from '../../../utils/inspect'
 import sanitizeRow from './sanitize-row'
 import stringifyObjectValues from './stringify-object-values'
 
