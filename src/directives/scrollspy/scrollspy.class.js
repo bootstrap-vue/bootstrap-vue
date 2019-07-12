@@ -87,10 +87,11 @@ const EventOptions = { passive: true, capture: false }
  */
 
 // Better var type detection
-const toType = obj =>
-  /* istanbul ignore next: not easy to test */ objectToString(obj)
+const toType = obj => /* istanbul ignore next: not easy to test */ {
+  return objectToString(obj)
     .match(/\s([a-zA-Z]+)/)[1]
     .toLowerCase()
+}
 
 // Check config properties for expected types
 const typeCheckConfig = (
