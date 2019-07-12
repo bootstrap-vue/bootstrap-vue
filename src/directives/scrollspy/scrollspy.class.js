@@ -87,9 +87,8 @@ const EventOptions = { passive: true, capture: false }
  */
 
 // Better var type detection
-/* istanbul ignore next: not easy to test */
 const toType = obj =>
-  objectToString(obj)
+  /* istanbul ignore next: not easy to test */ objectToString(obj)
     .match(/\s([a-zA-Z]+)/)[1]
     .toLowerCase()
 
