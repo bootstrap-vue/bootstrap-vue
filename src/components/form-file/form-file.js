@@ -80,9 +80,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     fileNamesFlat() {
-      const files = concat(this.selectedFile).filter(Boolean)
-      const makeNames = file => isArray(file) ? [makeNames(file)] : `${file.$path || ''}${file.name}`
-      return makeNames(files)
+      return flatten(this.selectedFile)
+        .filter(Boolean)
+        .map(file => `${file.$path || ''}${file.name}`)
     },
     selectLabel() {
       // Draging active
@@ -193,8 +193,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // Normal handling
         const files = flatten(arrayFrom(evt.target.files || evt.dataTransfer.files))
           .filter(boolean)
-          .map(f => { f.$path = ''; return f)
-        this.setFiles(arrayFrom(evt.target.files || evt.dataTransfer.files))
+          .map(f => { f.$path = ''; return f })
+        this.setFiles(files)
       }
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
@@ -227,12 +227,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.selectedFile = this.multiple ? [] : null
       } else if (this.multiple) {
         // Convert files to array
-        const filesArray = []
-        for (let i = 0; i < files.length; i++) {
-          filesArray.push(files[i])
-        }
+        // const filesArray = []
+        // for (let i = 0; i < files.length; i++) {
+        //  filesArray.push(files[i])
+        // }
         // Return file(s) as array
-        this.selectedFile = filesArray
+        // this.selectedFile = filesArray
+        this.selectedFile = files
       } else {
         // Return single file object
         this.selectedFile = files[0] || null
