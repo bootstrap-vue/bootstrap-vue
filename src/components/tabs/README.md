@@ -307,7 +307,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 ```
 
 Use the `tabs-start` slot to place extra tab buttons before the content tab buttons, and use the
-`tabs-end` slot to place etra tab buttons after the content tab buttons.
+`tabs-end` slot to place extra tab buttons after the content tab buttons.
 
 **Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of
 `<li>` and class `nav-item` for proper rendering and semantic markup.
