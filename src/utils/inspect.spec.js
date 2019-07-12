@@ -4,6 +4,7 @@ import {
   toRawTypeLC,
   isUndefined,
   isNull,
+  isUndefinedOrNull,
   isFunction,
   isBoolean,
   isString,
@@ -83,6 +84,20 @@ describe('utils/inspect', () => {
     expect(isNull(new Date())).toEqual(false)
     expect(isNull(undefined)).toEqual(false)
     expect(isNull(null)).toEqual(true)
+  })
+
+  it('isUndefinedOrNull', async () => {
+    expect(isUndefinedOrNull(123)).toEqual(false)
+    expect(isUndefinedOrNull('123')).toEqual(false)
+    expect(isUndefinedOrNull(true)).toEqual(false)
+    expect(isUndefinedOrNull({})).toEqual(false)
+    expect(isUndefinedOrNull([])).toEqual(false)
+    expect(isUndefinedOrNull(/abc/)).toEqual(false)
+    expect(isUndefinedOrNull(() => {})).toEqual(false)
+    expect(isUndefinedOrNull(Date)).toEqual(false)
+    expect(isUndefinedOrNull(new Date())).toEqual(false)
+    expect(isUndefinedOrNull(undefined)).toEqual(true)
+    expect(isUndefinedOrNull(null)).toEqual(true)
   })
 
   it('isFunction', async () => {
