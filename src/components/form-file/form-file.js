@@ -192,7 +192,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         // Normal handling
         let files = arrayFrom(evt.target.files || evt.dataTransfer.files)
+        console.log('FILES 1', files)
         files = this.directory ? flatten(files) : files.filter(i => !isArray(i))
+        console.log('FILES 2', files)
         this.setFiles(
           files.filter(Boolean).map(f => {
             f.$path = ''
