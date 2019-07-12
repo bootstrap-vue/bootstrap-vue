@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { from as arrayFrom, isArray, concat } from '../../utils/array'
+import { from as arrayFrom, concat, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isFunction } from '../../utils/inspect'
 import formCustomMixin from '../../mixins/form-custom'
@@ -9,11 +9,6 @@ import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BFormFile'
-
-// Utility to recursively flatten an array
-const flatten = x => {
-  return concat(x).reduce((accum, y) => concat(accum, isArray(y) ? flatten(y) : y), [])
-}
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -80,7 +75,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     fileNamesFlat() {
-      return flatten(this.selectedFile)
+      return flattenDeep(this.selectedFile)
         .filter(Boolean)
         .map(file => `${file.$path || ''}${file.name}`)
     },
@@ -193,7 +188,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // Normal handling
         let files = arrayFrom(evt.target.files || evt.dataTransfer.files)
         console.log('FILES 1', files)
-        files = this.directory ? flatten(files) : files.filter(i => !isArray(i))
+        files = this.directory ? flattenDeep(files) : files.filter(i => !isArray(i))
         console.log('FILES 2', files)
         this.setFiles(
           files.filter(Boolean).map(f => {
