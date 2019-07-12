@@ -71,7 +71,7 @@ By adding `directory` prop, the user can select directories instead of files. Wh
 selected, the directory and its entire hierarchy of contents are included in the set of selected
 items. The selected file system entries can be obtained using the `webkitEntries` property.
 
-When in `directory` mode, files are returned in a nested array format by default. i.e. 
+When in `directory` mode, files are returned in a nested array format by default. i.e.
 
 ```
 dirA/
@@ -108,7 +108,7 @@ default is no drop placeholder text. Only plain text is supported. HTML and comp
 supported. The `drop-placeholder` prop has no effect if `no-drop` is set or in `plain` mode,
 
 Note that native browser constraints (such `required`) will not work with drop mode, as the hidden
-file input does not handle the drag and drop functionality and will have zero files selcted.
+file input does not handle the drag and drop functionality and will have zero files selected.
 
 ## Limiting to certain file types
 
