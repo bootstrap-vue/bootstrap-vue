@@ -12,9 +12,6 @@ describe('v-b-modal directive', () => {
       directives: {
         bModal: modalDirective
       },
-      data() {
-        return {}
-      },
       mounted() {
         this.$root.$on(EVENT_SHOW, spy)
       },

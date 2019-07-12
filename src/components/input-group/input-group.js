@@ -49,20 +49,20 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
           // Prop
           props.prepend || props.prependHtml
             ? h(BInputGroupText, { domProps: htmlOrText(props.prependHtml, props.prepend) })
-            : h(false),
+            : h(),
           // Slot
-          normalizeSlot('prepend', {}, $scopedSlots, $slots) || h(false)
+          normalizeSlot('prepend', {}, $scopedSlots, $slots) || h()
         ])
       )
     } else {
-      childNodes.push(h(false))
+      childNodes.push(h())
     }
 
     // Default slot
     if (hasNormalizedSlot('default', $scopedSlots, $slots)) {
       childNodes.push(...normalizeSlot('default', {}, $scopedSlots, $slots))
     } else {
-      childNodes.push(h(false))
+      childNodes.push(h())
     }
 
     // Append prop
@@ -72,13 +72,13 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
           // prop
           props.append || props.appendHtml
             ? h(BInputGroupText, { domProps: htmlOrText(props.appendHtml, props.append) })
-            : h(false),
+            : h(),
           // Slot
-          normalizeSlot('append', {}, $scopedSlots, $slots) || h(false)
+          normalizeSlot('append', {}, $scopedSlots, $slots) || h()
         ])
       )
     } else {
-      childNodes.push(h(false))
+      childNodes.push(h())
     }
 
     return h(

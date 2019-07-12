@@ -54,12 +54,10 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
  * @param {object} { components, directives, plugins }
  * @returns {object} plugin install object
  */
-export const pluginFactory = (opts = {}, extend = {}) => {
-  return {
-    ...extend,
-    install: installFactory(opts)
-  }
-}
+export const pluginFactory = (opts = {}, extend = {}) => ({
+  ...extend,
+  install: installFactory(opts)
+})
 
 /**
  * Load a group of plugins.

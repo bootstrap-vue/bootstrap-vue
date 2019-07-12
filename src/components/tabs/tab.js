@@ -209,7 +209,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
         }
       },
       // Render content lazily if requested
-      [this.localActive || !this.computedLazy ? this.normalizeSlot('default') : h(false)]
+      [this.localActive || !this.computedLazy ? this.normalizeSlot('default') : h()]
     )
     return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [content])
   }

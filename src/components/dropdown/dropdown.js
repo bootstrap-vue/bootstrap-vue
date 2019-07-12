@@ -105,7 +105,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let split = h(false)
+    let split = h()
     const buttonContent =
       this.normalizeSlot('button-content') ||
       this.normalizeSlot('text') ||
@@ -178,7 +178,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           keydown: this.onKeydown // up, down, esc
         }
       },
-      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h(false)]
+      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
     )
     return h(
       'div',

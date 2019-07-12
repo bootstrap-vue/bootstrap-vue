@@ -25,16 +25,14 @@ describe('v-b-popover directive', () => {
     })
     // Mock getBCR so that the isVisible(el) test returns true
     // Needed for visibility checks of trigger element, etc.
-    Element.prototype.getBoundingClientRect = jest.fn(() => {
-      return {
-        width: 24,
-        height: 24,
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-      }
-    })
+    Element.prototype.getBoundingClientRect = jest.fn(() => ({
+      width: 24,
+      height: 24,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    }))
   })
 
   afterEach(() => {
@@ -49,9 +47,6 @@ describe('v-b-popover directive', () => {
     const App = localVue.extend({
       directives: {
         bPopover: popoverDirective
-      },
-      data() {
-        return {}
       },
       template: `<button v-b-popover="'content'" title="foobar">button</button>`
     })
@@ -79,9 +74,6 @@ describe('v-b-popover directive', () => {
     const App = localVue.extend({
       directives: {
         bPopover: popoverDirective
-      },
-      data() {
-        return {}
       },
       template: `<button v-b-popover.click.html="'content'" title="<b>foobar</b>">button</button>`
     })

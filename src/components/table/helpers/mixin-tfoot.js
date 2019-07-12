@@ -30,7 +30,7 @@ export default {
       const h = this.$createElement
 
       // Passing true to renderThead will make it render a tfoot
-      return this.footClone ? this.renderThead(true) : h(false)
+      return this.footClone ? this.renderThead(true) : h()
     }
   }
 }

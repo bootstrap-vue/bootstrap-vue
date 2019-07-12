@@ -4,12 +4,14 @@ import {
   toRawTypeLC,
   isUndefined,
   isNull,
+  isUndefinedOrNull,
   isFunction,
   isBoolean,
   isString,
   isNumber,
   isPrimitive,
   isDate,
+  isEvent,
   isRegExp,
   isPromise
 } from './inspect'
@@ -83,6 +85,20 @@ describe('utils/inspect', () => {
     expect(isNull(new Date())).toEqual(false)
     expect(isNull(undefined)).toEqual(false)
     expect(isNull(null)).toEqual(true)
+  })
+
+  it('isUndefinedOrNull', async () => {
+    expect(isUndefinedOrNull(123)).toEqual(false)
+    expect(isUndefinedOrNull('123')).toEqual(false)
+    expect(isUndefinedOrNull(true)).toEqual(false)
+    expect(isUndefinedOrNull({})).toEqual(false)
+    expect(isUndefinedOrNull([])).toEqual(false)
+    expect(isUndefinedOrNull(/abc/)).toEqual(false)
+    expect(isUndefinedOrNull(() => {})).toEqual(false)
+    expect(isUndefinedOrNull(Date)).toEqual(false)
+    expect(isUndefinedOrNull(new Date())).toEqual(false)
+    expect(isUndefinedOrNull(undefined)).toEqual(true)
+    expect(isUndefinedOrNull(null)).toEqual(true)
   })
 
   it('isFunction', async () => {
@@ -167,6 +183,22 @@ describe('utils/inspect', () => {
     expect(isDate(new Date())).toEqual(true)
     expect(isDate(undefined)).toEqual(false)
     expect(isDate(null)).toEqual(false)
+  })
+
+  it('isEvent', async () => {
+    expect(isEvent(123)).toEqual(false)
+    expect(isEvent('123')).toEqual(false)
+    expect(isEvent(true)).toEqual(false)
+    expect(isEvent({})).toEqual(false)
+    expect(isEvent([])).toEqual(false)
+    expect(isEvent(/abc/)).toEqual(false)
+    expect(isEvent(() => {})).toEqual(false)
+    expect(isEvent(Date)).toEqual(false)
+    expect(isEvent(new Date())).toEqual(false)
+    expect(isEvent(Event)).toEqual(false)
+    expect(isEvent(new Event('click'))).toEqual(true)
+    expect(isEvent(undefined)).toEqual(false)
+    expect(isEvent(null)).toEqual(false)
   })
 
   it('isRegExp', async () => {

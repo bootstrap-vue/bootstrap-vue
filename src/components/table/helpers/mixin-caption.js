@@ -31,8 +31,8 @@ export default {
       const h = this.$createElement
 
       // Build the caption
-      const $captionSlot = this.normalizeSlot('table-caption', {})
-      let $caption = h(false)
+      const $captionSlot = this.normalizeSlot('table-caption')
+      let $caption = h()
 
       if ($captionSlot || this.caption || this.captionHtml) {
         const data = {

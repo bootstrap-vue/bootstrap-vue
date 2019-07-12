@@ -76,7 +76,7 @@ export default {
         )
       }
 
-      return $empty || h(false)
+      return $empty || h()
     }
   }
 }
