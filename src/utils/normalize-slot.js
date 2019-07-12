@@ -6,7 +6,7 @@ import { isFunction } from './inspect'
 // object and may be undefined (for Vue < 2.6.x)
 
 /**
- * Returns true if either scoped or unscoped named slot eists
+ * Returns true if either scoped or unscoped named slot exists
  *
  * @param {String} name
  * @param {Object} scopedSlots
@@ -36,5 +36,5 @@ const normalizeSlot = (name, scope = {}, $scopedSlots = {}, $slots = {}) => {
 // Named exports
 export { hasNormalizedSlot, normalizeSlot }
 
-// Default export (backwards compatability)
+// Default export (backwards compatibility)
 export default normalizeSlot

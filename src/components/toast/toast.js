@@ -287,8 +287,9 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     setHoverHandler(on) {
       const method = on ? eventOn : eventOff
-      method(this.$refs.btoast, 'mouseenter', this.onPause, EVENT_OPTIONS)
-      method(this.$refs.btoast, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
+      const el = this.$refs['b-toast']
+      method(el, 'mouseenter', this.onPause, EVENT_OPTIONS)
+      method(el, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
     },
     onPause(evt) {
       // Determine time remaining, and then pause timer
@@ -362,7 +363,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         )
       }
       // Assemble the header (if needed)
-      let $header = h(false)
+      let $header = h()
       if ($headerContent.length > 0) {
         $header = h(
           'header',
@@ -380,7 +381,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           props: isLink ? { to: this.to, href: this.href } : {},
           on: isLink ? { click: this.onLinkClick } : {}
         },
-        [this.normalizeSlot('default', this.slotScope) || h(false)]
+        [this.normalizeSlot('default', this.slotScope) || h()]
       )
       // Build the toast
       const $toast = h(
@@ -403,7 +404,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     if (!this.doRender || !this.isMounted) {
-      return h(false)
+      return h()
     }
     const name = `b-toast-${this._uid}`
     return h(
@@ -422,7 +423,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           'div',
           {
             key: name,
-            ref: 'btoast',
+            ref: 'b-toast',
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {
@@ -434,7 +435,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           },
           [
             h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
-              this.localShow ? this.makeToast(h) : h(false)
+              this.localShow ? this.makeToast(h) : h()
             ])
           ]
         )

@@ -4,7 +4,7 @@ export default {
       const h = this.$createElement
 
       const fields = this.computedFields
-      let $colgroup = h(false)
+      let $colgroup = h()
 
       if (this.hasNormalizedSlot('table-colgroup')) {
         $colgroup = h('colgroup', { key: 'colgroup' }, [

@@ -27,7 +27,7 @@ describe('mixins/listen-on-root', () => {
         }
       },
       render(h) {
-        return h('div', {}, [this.destroy ? h(false) : h(TestComponent, {}, 'test-component')])
+        return h('div', {}, [this.destroy ? h() : h(TestComponent, {}, 'test-component')])
       }
     })
 

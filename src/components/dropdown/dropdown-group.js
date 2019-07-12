@@ -63,7 +63,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
       .trim()
 
     return h('li', [
-      header || h(false),
+      header || h(),
       h(
         'ul',
         mergeData(data, {

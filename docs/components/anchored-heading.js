@@ -20,7 +20,7 @@ export default {
         staticClass: 'anchorjs-link',
         attrs: { to: { hash: `#${props.id}` }, 'aria-label': 'Anchor' }
       },
-      [h(false)]
+      [h()]
     )
     const $content = h('span', { staticClass: 'bd-content-title' }, [children, $anchor])
     return h(

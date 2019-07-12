@@ -8,7 +8,7 @@ export default {
       // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
       // If in always stacked mode, we don't bother rendering the row
       if (!this.hasNormalizedSlot('top-row') || this.isStacked === true) {
-        return h(false)
+        return h()
       }
 
       const fields = this.computedFields

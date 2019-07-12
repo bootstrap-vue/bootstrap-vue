@@ -36,8 +36,16 @@
         ],
         "slots": [
           {
+            "name": "tabs-start",
+            "description": "Additional tab buttons without tab content placed before content tab buttons"
+          },
+          {
+            "name": "tabs-end",
+            "description": "Additional tab buttons without tab content placed after content tab buttons"
+          },
+          {
             "name": "tabs",
-            "description": "Additional tab buttons without tab content"
+            "description": "Deprecated. Use 'tabs-end' instead. Additional tab buttons without tab content."
           },
           {
             "name": "empty",

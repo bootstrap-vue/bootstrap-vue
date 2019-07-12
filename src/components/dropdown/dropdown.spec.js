@@ -22,16 +22,14 @@ describe('dropdown', () => {
     })
     // Mock getBCR so that the isVisible(el) test returns true
     // Needed for keyboard navigation testing
-    Element.prototype.getBoundingClientRect = jest.fn(() => {
-      return {
-        width: 24,
-        height: 24,
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-      }
-    })
+    Element.prototype.getBoundingClientRect = jest.fn(() => ({
+      width: 24,
+      height: 24,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    }))
   })
 
   afterEach(() => {
@@ -520,7 +518,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Should close on root emit when argument is not self
-    wrapper.vm.$root.$emit('bv::dropdown::shown', {})
+    wrapper.vm.$root.$emit('bv::dropdown::shown')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')

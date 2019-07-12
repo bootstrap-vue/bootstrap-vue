@@ -61,7 +61,7 @@ export default {
             ],
             attrs: trAttrs
           },
-          [h('td', { attrs: tdAttrs }, [this.normalizeSlot('table-busy', {})])]
+          [h('td', { attrs: tdAttrs }, [this.normalizeSlot('table-busy')])]
         )
       } else {
         // We return null here so that we can determine if we need to

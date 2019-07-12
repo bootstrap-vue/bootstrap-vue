@@ -1,6 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
-import { isArray, isFunction } from '../../../utils/inspect'
+import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     hasProvider() {
-      return this.items instanceof Function
+      return isFunction(this.items)
     },
     providerTriggerContext() {
       // Used to trigger the provider function via a watcher. Only the fields that
@@ -69,7 +69,7 @@ export default {
     // Provider update triggering
     items(newVal, oldVal) {
       // If a new provider has been specified, trigger an update
-      if (this.hasProvider || newVal instanceof Function) {
+      if (this.hasProvider || isFunction(newVal)) {
         this.$nextTick(this._providerUpdate)
       }
     },
@@ -140,11 +140,11 @@ export default {
       this.localBusy = true
 
       // Call provider function with context and optional callback after DOM is fully updated
-      this.$nextTick(function() {
+      this.$nextTick(() => {
         try {
           // Call provider function passing it the context and optional callback
           const data = this.items(this.context, this._providerSetLocal)
-          if (data && data.then && isFunction(data.then)) {
+          if (isPromise(data)) {
             // Provider returned Promise
             data.then(items => {
               // Provider resolved with items
