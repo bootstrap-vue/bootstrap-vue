@@ -287,8 +287,9 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     setHoverHandler(on) {
       const method = on ? eventOn : eventOff
-      method(this.$refs.btoast, 'mouseenter', this.onPause, EVENT_OPTIONS)
-      method(this.$refs.btoast, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
+      const el = this.$refs['b-toast']
+      method(el, 'mouseenter', this.onPause, EVENT_OPTIONS)
+      method(el, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
     },
     onPause(evt) {
       // Determine time remaining, and then pause timer
@@ -422,7 +423,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           'div',
           {
             key: name,
-            ref: 'btoast',
+            ref: 'b-toast',
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {

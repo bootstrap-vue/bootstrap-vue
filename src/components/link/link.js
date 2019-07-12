@@ -184,7 +184,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       delete componentData.props.href
     }
 
-    return h(tag, componentData, this.normalizeSlot('default', {}))
+    return h(tag, componentData, this.normalizeSlot('default'))
   }
 })
 

@@ -712,7 +712,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 },
                 on: { click: this.onClose }
               },
-              [this.normalizeSlot('modal-header-close', {})]
+              [this.normalizeSlot('modal-header-close')]
             )
           }
           const domProps =
@@ -769,7 +769,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 on: { click: this.onCancel }
               },
               [
-                this.normalizeSlot('modal-cancel', {}) ||
+                this.normalizeSlot('modal-cancel') ||
                   (cancelHtml ? h('span', { domProps: cancelHtml }) : stripTags(this.cancelTitle))
               ]
             )
@@ -786,7 +786,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               on: { click: this.onOk }
             },
             [
-              this.normalizeSlot('modal-ok', {}) ||
+              this.normalizeSlot('modal-ok') ||
                 (okHtml ? h('span', { domProps: okHtml }) : stripTags(this.okTitle))
             ]
           )
@@ -888,7 +888,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         backdrop = h(
           'div',
           { staticClass: 'modal-backdrop', attrs: { id: this.safeId('__BV_modal_backdrop_') } },
-          [this.normalizeSlot('modal-backdrop', {})]
+          [this.normalizeSlot('modal-backdrop')]
         )
       }
       backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])

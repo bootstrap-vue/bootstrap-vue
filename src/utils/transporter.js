@@ -8,20 +8,20 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 
 // BTransporterSingle/BTransporterTargetSingle:
 //
-// Single root node portaling of content, which retains parent/child hierarchy,
-// Unlike Portal-Vue where portaled content is no longer a descendent of
-// it's inteden parent components
+// Single root node portaling of content, which retains parent/child hierarchy
+// Unlike Portal-Vue where portaled content is no longer a descendent of it's
+// intended parent components
 //
 // Private components for use by Tooltips, Popovers and Modals
 //
 // Based on vue-simple-portal
 // https://github.com/LinusBorg/vue-simple-portal
 
-// Tranporter target used by BTransporterSingle
-// Supports only a single root element.
+// Transporter target used by BTransporterSingle
+// Supports only a single root element
 // @vue/component
 const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
-  // as an abstract component, it doesn't appear in the $parent chain of
+  // As an abstract component, it doesn't appear in the $parent chain of
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
   abstract: true,
@@ -55,7 +55,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
   }
 })
 
-// This omponent has no root element, so only a single VNode is allowed
+// This component has no root element, so only a single VNode is allowed
 // @vue/component
 export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   name: 'BTransporterSingle',
@@ -127,7 +127,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
             parent: this,
             propsData: {
               // Initial nodes to be rendered
-              nodes: concat(this.normalizeSlot('default', {}))
+              nodes: concat(this.normalizeSlot('default'))
             }
           })
         }
@@ -142,10 +142,10 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
           if (defaultFn && this._bv_defaultFn !== defaultFn) {
             // We only update the target component if the scoped slot
             // function is a fresh one. The new slot syntax (since Vue 2.6)
-            // can cache unchanged slot functions and we want to respect that here.
+            // can cache unchanged slot functions and we want to respect that here
             this._bv_target.updatedNodes = defaultFn
           } else if (!defaultFn) {
-            // We also need to be back compatable with non-scoped default slot (i.e. 2.5.x)
+            // We also need to be back compatible with non-scoped default slot (i.e. 2.5.x)
             this._bv_target.updatedNodes = this.$slots.default
           }
         }
@@ -163,7 +163,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     if (this.disabled) {
-      const nodes = concat(this.normalizeSlot('default', {})).filter(Boolean)
+      const nodes = concat(this.normalizeSlot('default')).filter(Boolean)
       if (nodes.length > 0 && !nodes[0].text) {
         return nodes[0]
       }

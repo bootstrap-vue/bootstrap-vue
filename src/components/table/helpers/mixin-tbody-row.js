@@ -271,7 +271,7 @@ export default {
         }
       }
 
-      // Selctable classes and attributes
+      // Selectable classes and attributes
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
       const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
 

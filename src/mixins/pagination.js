@@ -421,7 +421,7 @@ export default {
         },
         [
           h('span', { staticClass: 'page-link' }, [
-            this.normalizeSlot('ellipsis-text', {}) || toString(this.ellipsisText) || h()
+            this.normalizeSlot('ellipsis-text') || toString(this.ellipsisText) || h()
           ])
         ]
       )

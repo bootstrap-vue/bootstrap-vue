@@ -518,7 +518,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Should close on root emit when argument is not self
-    wrapper.vm.$root.$emit('bv::dropdown::shown', {})
+    wrapper.vm.$root.$emit('bv::dropdown::shown')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')

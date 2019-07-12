@@ -7,31 +7,31 @@ import BButtonToolbar from './button-toolbar'
 
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.is('div')).toBe(true)
     wrapper.destroy()
   })
 
   it('toolbar should contain base class', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.classes()).toContain('btn-toolbar')
     wrapper.destroy()
   })
 
   it('toolbar should not have class "justify-content-between"', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.classes()).not.toContain('justify-content-between')
     wrapper.destroy()
   })
 
   it('toolbar should have role', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.attributes('role')).toBe('toolbar')
     wrapper.destroy()
   })
 
   it('toolbar should not have tabindex by default', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
     wrapper.destroy()
   })
