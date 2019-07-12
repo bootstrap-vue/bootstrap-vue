@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { from as arrayFrom, concat, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isFunction } from '../../utils/inspect'
+import { isFunction, isString } from '../../utils/inspect'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
@@ -9,6 +9,12 @@ import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BFormFile'
+
+// Helper method
+const evtStopPrevent = evt => {
+  evt.preventDefault()
+  evt.stopPropagation()
+}
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -29,7 +35,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     // Instruct input to capture from camera
     capture: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false
     },
     placeholder: {
@@ -67,15 +73,41 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      selectedFile: this.multiple ? [] : null,
+      // Internally files are always stored in true Array format
+      selectedFiles: [],
       dragging: false,
-      dropping: false,
       hasFocus: false
     }
   },
   computed: {
+    computedAccept() /* istanbul ignore next: for now until testing can be created */ {
+      // Convert `accept` to an array of [{ RegExpr, isMime }, ...]
+      let accept = isString(accept) ? this.accept.trim() : ''
+      accept = accept.split(/[,\s]+/).filter(Boolean)
+      if (accept.length === 0) {
+        return null
+      }
+      return accept.map(extOrType => {
+        let rx
+        let isMime = false
+        if (/^\..+/.test(extOrType)) {
+          // File extension /\.ext$/
+          rx = new RegExp(`\\${extOrType}$`) 
+        } else {
+          // MIME type /^mime\/.+$/ or /^mime\/type$/
+          isMime = true
+          extOrType = extOrType.replace(/\//g, '\/').replace(/\*/g, '.+')
+          rx = new RegExp(`^${extOrType}$`)
+        }
+        return { rx, isMime }
+      })
+    },
+    computedCapture() {
+      const capture = this.capture
+      return capture === true || capture === '' ? true : capture || null
+    },
     fileNamesFlat() {
-      return flattenDeep(this.selectedFile)
+      return flattenDeep(this.selectedFiles)
         .filter(Boolean)
         .map(file => `${file.$path || ''}${file.name}`)
     },
@@ -86,12 +118,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
 
       // No file chosen
-      if (!this.selectedFile || this.selectedFile.length === 0) {
+      if (this.selectedFiles.length === 0) {
         return this.placeholder
       }
 
-      // Convert selectedFile to an array (if not already one)
-      const files = concat(this.selectedFile).filter(Boolean)
+      const files = this.selectedFiles.filter(Boolean)
 
       if (this.hasNormalizedSlot('file-name')) {
         // There is a slot for formatting the files/names
@@ -110,33 +141,32 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    selectedFile(newVal, oldVal) {
+    selectedFiles(newVal, oldVal) {
       // The following test is needed when the file input is "reset" or the
       // exact same file(s) are selected to prevent an infinite loop.
       // When in `multiple` mode we need to check for two empty arrays or
       // two arrays with identical files
       if (
         newVal === oldVal ||
-        (isArray(newVal) &&
-          isArray(oldVal) &&
-          newVal.length === oldVal.length &&
-          newVal.every((v, i) => v === oldVal[i]))
+        (newVal.length === oldVal.length && newVal.every((v, i) => v === oldVal[i]))
       ) {
         return
       }
-      if (!newVal && this.multiple) {
-        this.$emit('input', [])
-      } else {
-        this.$emit('input', newVal)
-      }
+      this.$emit('input', this.multiple ? newVal : newVal[0] || null)
     },
-    value(newVal) {
-      if (!newVal || (isArray(newVal) && newVal.length === 0)) {
+    value(newVal, oldVal) {
+      // Handle "clearing" the input file(s)
+      if ((newVal !== oldVal && !newVal) || (isArray(newVal) && newVal.length === 0)) {
         this.reset()
       }
     }
   },
   methods: {
+    fileValid(f) /* istanbul ignore next: for now until testing can be created */ {
+      // Check if a file matches one of the accept types
+      const accept = this.computedAccept
+      return accept ? accept.some(a => a.rx.test(a.isMime ? f.type : f.name)) : true
+    },
     focusHandler(evt) {
       // Bootstrap v4 doesn't have focus styling for custom file input
       // Firefox has a '[type=file]:focus ~ sibling' selector issue,
@@ -158,15 +188,25 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // This also appears to work on modern browsers as well.
       this.$refs.input.type = ''
       this.$refs.input.type = 'file'
-      this.selectedFile = this.multiple ? [] : null
+      this.selectedFiles = []
     },
     onChange(evt) {
-      if (!this.dropping) {
+      // triggerd by the input's change event
+      this.onFileChange(evt)
+    },
+    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      // Triggered by a file drop onto drop target
+      evtStopPrevent(evt)
+      this.dragging = false
+      if (this.noDrop || this.disabled) {
+        return
+      }
+      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
         this.onFileChange(evt)
       }
-      this.dropping = false
     },
     onFileChange(evt) {
+      const isDrop = evt.type === 'drop'
       // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode event)
@@ -187,9 +227,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         // Normal handling
         let files = arrayFrom(evt.target.files || evt.dataTransfer.files)
-        console.log('FILES 1', files)
         files = this.directory ? flattenDeep(files) : files.filter(i => !isArray(i))
-        console.log('FILES 2', files)
         this.setFiles(
           files.filter(Boolean).map(f => {
             f.$path = ''
@@ -223,23 +261,19 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       })
     },
     setFiles(files = []) {
+      /* istanbul ignore if: this will probably not happen */
       if (!files) {
-        /* istanbul ignore next: this will probably not happen */
-        this.selectedFile = this.multiple ? [] : null
-      } else if (this.multiple) {
-        this.selectedFile = files
+        this.selectedFiles = []
       } else {
-        // Return single file object (first one)
-        this.selectedFile = files[0] || null
+        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0] || null]
       }
     },
     onReset() {
       // Triggered when the parent form (if any) is reset
-      this.selectedFile = this.multiple ? [] : null
+      this.selectedFiles = []
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evt.preventDefault()
-      evt.stopPropagation()
+      evtStopPrevent(evt)
       if (this.noDrop || this.disabled) {
         return
       }
@@ -249,24 +283,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evt.preventDefault()
-      evt.stopPropagation()
+      evtStopPrevent(evt)
       this.dragging = false
-    },
-    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      // Preventing default makes the file input not work with `required`
-      // evt.preventDefault()
-      evt.stopPropagation()
-      if (this.noDrop || this.disabled) {
-        return
-      }
-      this.dragging = false
-      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
-        this.dropping = true
-        this.onFileChange(evt)
-      } else {
-        this.dropping = false
-      }
     }
   },
   render(h) {
@@ -288,10 +306,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         disabled: this.disabled,
         required: this.required,
         form: this.form || null,
-        capture: this.capture || null,
+        capture: this.computedCapture,
         accept: this.accept || null,
         multiple: this.multiple,
         webkitdirectory: this.directory,
+        // directory: this.directory,
+        // allowdirs: this.directory,
         'aria-required': this.required ? 'true' : null
       },
       on: {
@@ -311,7 +331,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'label',
       {
         staticClass: 'custom-file-label',
-        class: [this.dragging ? 'dragging' : null],
+        // We add overflow-hidden to prevent filenames from breaking out of the input
+        class: [this.dragging ? 'dragging' : null, 'overflow-hidden'],
         attrs: {
           for: this.safeId(),
           'data-browse': this.browseText || null
