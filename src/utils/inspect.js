@@ -32,7 +32,7 @@ export const isEvent = val => val instanceof Event
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
 export const isPromise = val =>
-  !isUndefined(val) && !isNull(val) && isFunction(val.then) && isFunction(val.catch)
+  !isUndefinedOrNull(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
 export { isArray, isObject, isPlainObject }
