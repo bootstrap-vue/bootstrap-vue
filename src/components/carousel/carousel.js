@@ -467,7 +467,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     )
 
     // Prev and next controls
-    let controls = h(false)
+    let controls = h()
     if (this.controls) {
       controls = [
         h(

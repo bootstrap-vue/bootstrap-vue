@@ -696,11 +696,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     makeModal(h) {
       // Modal header
-      let header = h(false)
+      let header = h()
       if (!this.hideHeader) {
         let modalHeader = this.normalizeSlot('modal-header', this.slotScope)
         if (!modalHeader) {
-          let closeButton = h(false)
+          let closeButton = h()
           if (!this.hideHeaderClose) {
             closeButton = h(
               BButtonClose,
@@ -751,11 +751,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       )
 
       // Modal footer
-      let footer = h(false)
+      let footer = h()
       if (!this.hideFooter) {
         let modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
         if (!modalFooter) {
-          let cancelButton = h(false)
+          let cancelButton = h()
           if (!this.okOnly) {
             const cancelHtml = this.cancelTitleHtml ? { innerHTML: this.cancelTitleHtml } : null
             cancelButton = h(
@@ -883,7 +883,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       )
 
       // Modal backdrop
-      let backdrop = h(false)
+      let backdrop = h()
       if (!this.hideBackdrop && this.isVisible) {
         backdrop = h(
           'div',
@@ -895,7 +895,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
 
       // Tab trap to prevent page from scrolling to next element in
       // tab index during enforce focus tab cycle
-      let tabTrap = h(false)
+      let tabTrap = h()
       if (this.isVisible && this.isTop && !this.noEnforceFocus) {
         tabTrap = h('div', { attrs: { tabindex: '0' } })
       }
@@ -913,9 +913,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     if (this.static) {
-      return this.lazy && this.isHidden ? h(false) : this.makeModal(h)
+      return this.lazy && this.isHidden ? h() : this.makeModal(h)
     } else {
-      return this.isHidden ? h(false) : h(BTransporterSingle, {}, [this.makeModal(h)])
+      return this.isHidden ? h() : h(BTransporterSingle, {}, [this.makeModal(h)])
     }
   }
 })

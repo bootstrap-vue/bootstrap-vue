@@ -50,7 +50,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
     if (nodes && nodes.length > 0 && !nodes[0].text) {
       return nodes[0]
     } else {
-      return h(false)
+      return h()
     }
   }
 })
@@ -168,6 +168,6 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
         return nodes[0]
       }
     }
-    return h(false)
+    return h()
   }
 })

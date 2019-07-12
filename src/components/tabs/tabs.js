@@ -669,7 +669,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       [nav]
     )
 
-    let empty = h(false)
+    let empty = h()
     if (!tabs || tabs.length === 0) {
       empty = h(
         'div',
@@ -703,9 +703,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId() }
       },
       [
-        this.end || this.bottom ? content : h(false),
+        this.end || this.bottom ? content : h(),
         [nav],
-        this.end || this.bottom ? h(false) : content
+        this.end || this.bottom ? h() : content
       ]
     )
   }

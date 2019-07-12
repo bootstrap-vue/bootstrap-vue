@@ -378,10 +378,10 @@ export default {
         )
       } else if ($detailsSlot) {
         // Only add the placeholder if a the table has a row-details slot defined (but not shown)
-        $rows.push(h(false))
+        $rows.push(h())
         if (tableStriped) {
           // add extra placeholder if table is striped
-          $rows.push(h(false))
+          $rows.push(h())
         }
       }
 

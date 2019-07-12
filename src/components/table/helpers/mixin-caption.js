@@ -32,7 +32,7 @@ export default {
 
       // Build the caption
       const $captionSlot = this.normalizeSlot('table-caption', {})
-      let $caption = h(false)
+      let $caption = h()
 
       if ($captionSlot || this.caption || this.captionHtml) {
         const data = {

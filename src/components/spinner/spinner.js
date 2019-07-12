@@ -55,7 +55,7 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
           [`text-${props.variant}`]: Boolean(props.variant)
         }
       }),
-      [label || h(false)]
+      [label || h()]
     )
   }
 })

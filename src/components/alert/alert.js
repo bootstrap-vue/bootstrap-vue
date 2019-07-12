@@ -137,7 +137,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   render(h) {
     let $alert // undefined
     if (this.localShow) {
-      let $dismissBtn = h(false)
+      let $dismissBtn = h()
       if (this.dismissible) {
         // Add dismiss button
         $dismissBtn = h(

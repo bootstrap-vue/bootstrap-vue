@@ -370,7 +370,7 @@ export default {
         disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
       const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
       const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
-      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h(false)
+      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
       const inner = h(
         isDisabled ? 'span' : BLink,
         {
@@ -421,7 +421,7 @@ export default {
         },
         [
           h('span', { staticClass: 'page-link' }, [
-            this.normalizeSlot('ellipsis-text', {}) || toString(this.ellipsisText) || h(false)
+            this.normalizeSlot('ellipsis-text', {}) || toString(this.ellipsisText) || h()
           ])
         ]
       )
@@ -430,7 +430,7 @@ export default {
     // Goto First Page button bookend
     buttons.push(
       this.hideGotoEndButtons
-        ? h(false)
+        ? h()
         : makeEndBtn(1, this.labelFirstPage, 'first-text', this.firstText, 1, 'bookend-goto-first')
     )
 
@@ -447,7 +447,7 @@ export default {
     )
 
     // First Ellipsis Bookend
-    buttons.push(showFirstDots ? makeEllipsis(false) : h(false))
+    buttons.push(showFirstDots ? makeEllipsis(false) : h())
 
     // Individual Page links
     this.pageList.forEach((page, idx) => {
@@ -507,7 +507,7 @@ export default {
     })
 
     // Last Ellipsis Bookend
-    buttons.push(showLastDots ? makeEllipsis(true) : h(false))
+    buttons.push(showLastDots ? makeEllipsis(true) : h())
 
     // Goto Next page button bookend
     buttons.push(
@@ -524,7 +524,7 @@ export default {
     // Goto Last Page button bookend
     buttons.push(
       this.hideGotoEndButtons
-        ? h(false)
+        ? h()
         : makeEndBtn(
             numberOfPages,
             this.labelLastPage,
