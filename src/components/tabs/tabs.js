@@ -27,9 +27,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
-      default() /* istanbul ignore next */ {
-        return {}
-      }
+      default: () => {}
     }
   },
   props: {
@@ -55,7 +53,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       }
     },
     handleEvt(evt) {
-      function stop() {
+      const stop = () => {
         evt.preventDefault()
         evt.stopPropagation()
       }

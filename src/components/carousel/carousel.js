@@ -57,13 +57,13 @@ const TransitionEndEvents = {
 const EventOptions = { passive: true, capture: false }
 
 // Return the browser specific transitionEnd event name
-function getTransitionEndEvent(el) {
+const getTransitionEndEvent = el => {
   for (const name in TransitionEndEvents) {
     if (!isUndefined(el.style[name])) {
       return TransitionEndEvents[name]
     }
   }
-  // fallback
+  // Fallback
   /* istanbul ignore next */
   return null
 }

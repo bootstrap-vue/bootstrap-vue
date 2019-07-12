@@ -77,9 +77,6 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     }
   },
   props,
-  data() {
-    return {}
-  },
   computed: {
     contentClasses() {
       return [

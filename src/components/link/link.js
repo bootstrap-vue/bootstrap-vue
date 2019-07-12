@@ -14,68 +14,66 @@ import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/r
  * https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
  * @return {{}}
  */
-export const propsFactory = () => {
-  return {
-    href: {
-      type: String,
-      default: null
-    },
-    rel: {
-      type: String,
-      default: null
-    },
-    target: {
-      type: String,
-      default: '_self'
-    },
-    active: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    // router-link specific props
-    to: {
-      type: [String, Object],
-      default: null
-    },
-    append: {
-      type: Boolean,
-      default: false
-    },
-    replace: {
-      type: Boolean,
-      default: false
-    },
-    event: {
-      type: [String, Array],
-      default: 'click'
-    },
-    activeClass: {
-      type: String
-      // default: undefined
-    },
-    exact: {
-      type: Boolean,
-      default: false
-    },
-    exactActiveClass: {
-      type: String
-      // default: undefined
-    },
-    routerTag: {
-      type: String,
-      default: 'a'
-    },
-    // nuxt-link specific prop(s)
-    noPrefetch: {
-      type: Boolean,
-      default: false
-    }
+export const propsFactory = () => ({
+  href: {
+    type: String,
+    default: null
+  },
+  rel: {
+    type: String,
+    default: null
+  },
+  target: {
+    type: String,
+    default: '_self'
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  // router-link specific props
+  to: {
+    type: [String, Object],
+    default: null
+  },
+  append: {
+    type: Boolean,
+    default: false
+  },
+  replace: {
+    type: Boolean,
+    default: false
+  },
+  event: {
+    type: [String, Array],
+    default: 'click'
+  },
+  activeClass: {
+    type: String
+    // default: undefined
+  },
+  exact: {
+    type: Boolean,
+    default: false
+  },
+  exactActiveClass: {
+    type: String
+    // default: undefined
+  },
+  routerTag: {
+    type: String,
+    default: 'a'
+  },
+  // nuxt-link specific prop(s)
+  noPrefetch: {
+    type: Boolean,
+    default: false
   }
-}
+})
 
 export const props = propsFactory()
 

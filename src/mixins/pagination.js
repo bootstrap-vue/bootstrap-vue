@@ -19,26 +19,24 @@ const ELLIPSIS_THRESHOLD = 3
 const DEFAULT_LIMIT = 5
 
 // Make an array of N to N+X
-function makePageArray(startNum, numPages) {
-  return range(numPages).map(function(value, index) {
-    return { number: index + startNum, classes: null }
-  })
-}
+const makePageArray = (startNum, numPages) =>
+  range(numPages).map((val, i) => ({ number: startNum + i, classes: null }))
 
-// Sanitize the provided Limit value (converting to a number)
-function sanitizeLimit(value) {
-  const limit = parseInt(value, 10) || 1
+// Sanitize the provided limit value (converting to a number)
+const sanitizeLimit = val => {
+  const limit = parseInt(val, 10) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided current page number (converting to a number)
-function sanitizeCurPage(value, numPages) {
-  const page = parseInt(value, 10) || 1
+const sanitizeCurPage = (val, numPages) => {
+  const page = parseInt(val, 10) || 1
   return page > numPages ? numPages : page < 1 ? 1 : page
 }
 
-// Links don't normally respond to SPACE, so we add that functionality via this handler
-function onSpaceKey(evt) {
+// Links don't normally respond to SPACE, so we add that
+// functionality via this handler
+const onSpaceKey = evt => {
   if (evt.keyCode === KeyCodes.SPACE) {
     evt.preventDefault() // Stop page from scrolling
     evt.stopImmediatePropagation()

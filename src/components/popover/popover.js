@@ -62,9 +62,6 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [toolpopMixin, normalizeSlotMixin],
   props,
-  data() {
-    return {}
-  },
   methods: {
     createToolpop() {
       // getTarget is in toolpop mixin

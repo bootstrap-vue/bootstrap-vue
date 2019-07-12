@@ -1,9 +1,7 @@
-/**
- * Convenience inspection utilities
- */
-
 import { isArray } from './array'
 import { isObject, isPlainObject } from './object'
+
+// --- Convenience inspection utilities ---
 
 export const toType = val => typeof val
 
@@ -14,6 +12,8 @@ export const toRawTypeLC = val => toRawType(val).toLowerCase()
 export const isUndefined = val => val === undefined
 
 export const isNull = val => val === null
+
+export const isUndefinedOrNull = val => isUndefined(val) || isNull(val)
 
 export const isFunction = val => toType(val) === 'function'
 

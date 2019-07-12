@@ -12,11 +12,10 @@ import { keys } from './object'
  * @param {Function} transformFn
  * @return {{}}
  */
-const pluckProps = (keysToPluck, objToPluck, transformFn = identity) => {
-  return (isArray(keysToPluck) ? keysToPluck.slice() : keys(keysToPluck)).reduce((memo, prop) => {
+const pluckProps = (keysToPluck, objToPluck, transformFn = identity) =>
+  (isArray(keysToPluck) ? keysToPluck.slice() : keys(keysToPluck)).reduce((memo, prop) => {
     memo[transformFn(prop)] = objToPluck[prop]
     return memo
   }, {})
-}
 
 export default pluckProps

@@ -18,6 +18,7 @@ export const is = Object.is
 // --- "Instance" ---
 
 export const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+export const toString = obj => Object.prototype.toString.call(obj)
 
 // --- Utilities ---
 
