@@ -702,11 +702,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         },
         attrs: { id: this.safeId() }
       },
-      [
-        this.end || this.bottom ? content : h(),
-        [nav],
-        this.end || this.bottom ? h() : content
-      ]
+      [this.end || this.bottom ? content : h(), [nav], this.end || this.bottom ? h() : content]
     )
   }
 })
