@@ -10,6 +10,11 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BFormFile'
 
+// Utility to recursively flatten an array
+const flatten = x => {
+  return concat(x).reduce((accum, y) => concat(accum, isArray(y) ? flatten(y) : y), [])
+}
+
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -74,6 +79,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    fileNamesFlat() {
+      const files = concat(this.selectedFile).filter(Boolean)
+      const makeNames = file => isArray(file) ? [makeNames(file)] : `${file.$path || ''}${file.name}`
+      return makeNames(files)
+    },
     selectLabel() {
       // Draging active
       if (this.dragging && this.dropPlaceholder) {
@@ -90,13 +100,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
 
       if (this.hasNormalizedSlot('file-name')) {
         // There is a slot for formatting the files/names
-        const makeNames = file => {
-          return isArray(file) ? [makeNames(file)] : `${file.$path || ''}${file.name}`
-        }
         return [
           this.normalizeSlot('file-name', {
             files: files,
-            names: files.map(makeNames)
+            names: this.fileNamesFlat
           })
         ]
       } else {
@@ -184,8 +191,35 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         })
       } else {
         // Normal handling
+        const files = flatten(arrayFrom(evt.target.files || evt.dataTransfer.files))
+          .filter(boolean)
+          .map(f => { f.$path = ''; return f)
         this.setFiles(arrayFrom(evt.target.files || evt.dataTransfer.files))
       }
+    },
+    traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
+      // Based on http://stackoverflow.com/questions/3590058
+      return new Promise(resolve => {
+        path = path || ''
+        if (item.isFile) {
+          // Get file
+          item.file(file => {
+            file.$path = path // Inject $path to file obj
+            resolve(file)
+          })
+        } else if (item.isDirectory) {
+          // Get folder contents
+          item.createReader().readEntries(entries => {
+            const queue = []
+            for (let i = 0; i < entries.length; i++) {
+              queue.push(this.traverseFileTree(entries[i], `${path}${item.name}/`))
+            }
+            Promise.all(queue).then(filesArr => {
+              resolve(arrayFrom(filesArr))
+            })
+          })
+        }
+      })
     },
     setFiles(files = []) {
       if (!files) {
@@ -238,30 +272,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         this.dropping = false
       }
-    },
-    traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
-      // Based on http://stackoverflow.com/questions/3590058
-      return new Promise(resolve => {
-        path = path || ''
-        if (item.isFile) {
-          // Get file
-          item.file(file => {
-            file.$path = path // Inject $path to file obj
-            resolve(file)
-          })
-        } else if (item.isDirectory) {
-          // Get folder contents
-          item.createReader().readEntries(entries => {
-            const queue = []
-            for (let i = 0; i < entries.length; i++) {
-              queue.push(this.traverseFileTree(entries[i], path + item.name + '/'))
-            }
-            Promise.all(queue).then(filesArr => {
-              resolve(arrayFrom(filesArr))
-            })
-          })
-        }
-      })
     }
   },
   render(h) {
