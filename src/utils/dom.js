@@ -207,7 +207,7 @@ export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedSty
 // Returns a `Selection` object representing the range of text selected
 // Returns `null` if no window support is given
 /* istanbul ignore next: getSelection() doesn't work in JSDOM */
-export const getSel = () => (hasWindowSupport ? w.getSelection() : null)
+export const getSel = () => (hasWindowSupport && w.getSelection ? w.getSelection() : null)
 
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
