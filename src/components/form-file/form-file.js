@@ -207,7 +207,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFiles = []
     },
     onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget)) {
+      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
         return
       }
       this.dragging = true
@@ -245,7 +245,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget)) {
+      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
         return
       }
       evtStopPrevent(evt)
@@ -263,16 +263,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
-          // Reset "drop here" propmt
-          this.dragging = false
           return
         }
       }
-      // this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget)) {
+      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
         return
       }
       evtStopPrevent(evt)
@@ -280,7 +277,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget)) {
+      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
         return
       }
       evtStopPrevent(evt)
@@ -407,7 +404,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
           focus: this.custom && this.hasFocus,
-          // Needed for IE to prevent the input from blocking dropped files
+          // IE 11 the input gets in the "way" of the drop events
+          // So we move it out of the way during dragging
           'sr-only': this.custom && this.dragging
         },
         this.stateClass
@@ -463,10 +461,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
-          dragover: this.onDragover,
-          dragenter: this.onDragenter,
-          dragleave: this.onDragleave,
-          drop: this.onDrop
+          // `!` signifies capturing phase
+          // We only want this `<div>` to receive the events
+          '!dragover': this.onDragover,
+          '!dragenter': this.onDragenter,
+          '!dragleave': this.onDragleave,
+          '!drop': this.onDrop
         }
       },
       [input, label]
