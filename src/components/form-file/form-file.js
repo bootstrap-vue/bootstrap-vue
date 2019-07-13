@@ -450,6 +450,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         attrs: {
           for: this.safeId(),
           'data-browse': this.browseText || null
+        },
+        on: {
+          // `!` signifies capturing phase
+          // We only want this `<label>` to receive the events (not it's contents)
+          '!dragover': this.onDragover,
+          '!dragenter': this.onDragenter,
+          '!dragleave': this.onDragleave,
+          '!drop': this.onDrop
         }
       },
       this.selectLabel
@@ -461,15 +469,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'custom-file b-form-file',
         class: this.stateClass,
-        attrs: { id: this.safeId('_BV_file_outer_') },
-        on: {
-          // `!` signifies capturing phase
-          // We only want this `<div>` to receive the events
-          '!dragover': this.onDragover,
-          '!dragenter': this.onDragenter,
-          '!dragleave': this.onDragleave,
-          '!drop': this.onDrop
-        }
+        attrs: { id: this.safeId('_BV_file_outer_') }
       },
       [input, label]
     )
