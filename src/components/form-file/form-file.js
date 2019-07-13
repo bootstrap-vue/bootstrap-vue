@@ -262,10 +262,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         // Standard file input handling (native file input change event)
         const files = arrayFrom(target.files).filter(this.fileValid)
-        this.setFiles(files.map(f => {
-          f.$path = ''
-          return f
-        }))
+        this.setFiles(
+          files.map(f => {
+            f.$path = ''
+            return f
+          })
+        )
       }
     },
     traverseFileTree(item, path = '') /* istanbul ignore next: not supported in JSDOM */ {
@@ -282,7 +284,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           item.createReader().readEntries(entries => {
             const queue = []
             for (let i = 0; i < entries.length; i++) {
-              queue.push(traverseFileTree(entries[i], `${path}${item.name}/`))
+              queue.push(this.traverseFileTree(entries[i], `${path}${item.name}/`))
             }
             Promise.all(queue).then(filesArr => {
               // Remove empty arrays and files that don't match accept
