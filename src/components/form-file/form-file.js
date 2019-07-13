@@ -94,7 +94,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    computedAccept() /* istanbul ignore next: for now until testing can be created */ {
+    computedAccept() {
       // Convert `accept` to an array of [{ RegExpr, isMime }, ...]
       let accept = this.accept
       accept = (isString(accept) ? accept.trim() : '').split(/[,\s]+/).filter(Boolean)
@@ -189,7 +189,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    fileValid(file) /* istanbul ignore next: for now until testing can be created */ {
+    fileValid(file) {
       // Check if a file matches one of the accept types
       const accept = this.computedAccept
       if (!file) {
