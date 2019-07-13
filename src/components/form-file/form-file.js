@@ -276,7 +276,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Triggered by a file drop onto drop target
       evtStopPrevent(evt)
       this.dragging = false
-      if (this.noDrop || this.disabled || evt.dataTransfer.dropEffect === 'none') {
+      if (this.noDrop || this.disabled /* || evt.dataTransfer.dropEffect === 'none' */) {
         return
       }
       if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
