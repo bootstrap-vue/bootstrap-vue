@@ -220,13 +220,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     processFilesEvt(evt) {
+      const target = evt.target
       // Always emit original event
       this.$emit('change', evt)
-      // Check if special `items` prop is available on event (drop mode event)
-      // Can be disabled by setting no-traverse
-      const items = evt.dataTransfer && evt.dataTransfer.items
       /* istanbul ignore if: not supported in JSDOM */
-      if (items) {
+      if (evt.dataTransfer && evt.dataTransfer.items) {
+        // Special `items` prop is available on `drop` event
+        const items = evt.dataTransfer.items
         const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
@@ -249,22 +249,23 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
             this.$refs.input.files = dt.files
           } catch (e) {}
         })
-      } else if (evt.target.webkitEntries) {
-        // Change event on modern browsers (that support directory mode)
-        Promise.all(evt.target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
+      } else if (target.webkitEntries && target.webkitEntries.length > 0) {
+        // Change event on modern browsers (ones that usually support directory mode)
+        // When dropping files (or dirs) directly on the native input (plain mode)
+        // Supported by Chrome, Firefox, Edge, and maybe Safari
+        /* istanbul ignore next: can't test in JSDOM */
+        Promise.all(target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
           // Remove empty arrays and files that don't match accept, update local model
           this.setFiles(filesArr.filter(this.fileArrayFilter))
-          // We don't need to set input.files, as this was caused by clicking the file input
+          // We don't need to set input.files, as this is done natively
         })
       } else {
-        // Non-drop handling, change event
-        const files = arrayFrom(evt.target.files).filter(Boolean)
-        this.setFiles(
-          files.filter(this.fileValid).map(f => {
-            f.$path = ''
-            return f
-          })
-        )
+        // Standard file input handling (native file input change event)
+        const files = arrayFrom(target.files).filter(this.fileValid)
+        this.setFiles(files.map(f => {
+          f.$path = ''
+          return f
+        }))
       }
     },
     traverseFileTree(item, path = '') /* istanbul ignore next: not supported in JSDOM */ {
