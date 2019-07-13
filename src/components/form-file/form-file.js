@@ -210,9 +210,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.noDrop || this.disabled) {
         return
       }
+      /*
       this.dragging = true
       const dt = evt.dataTransfer
-      if (dt) {
+      if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point
         const items = arrayFrom(dt.items).filter(Boolean)
         if (
@@ -240,9 +241,32 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         }
         dt.dropEffect = 'copy'
       }
+      */
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      // Note this event fires repeatedly while the mouse is over the dropzone
       evtStopPrevent(evt)
+      const dt = evt.dataTransfer
+      this.dragging = true
+      if (dt && dt.items) {
+        // Can't check dt.files, as it is empty at this point
+        const items = arrayFrom(dt.items).filter(Boolean)
+        if (
+          // No files
+          items.length === 0 ||
+          // Not a file/directory (check first item only)
+          items[0].kind !== 'file' ||
+          // Too many files
+          (!this.multiple && items.length > 1)
+        ) {
+          // Show deny feedback
+          dt.dropEffect = 'none'
+          // Reset "drop here" propmt
+          this.dragging = false
+          return
+        }
+      }
+      evt.dataTransfer.dropEffect = 'copy'
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
