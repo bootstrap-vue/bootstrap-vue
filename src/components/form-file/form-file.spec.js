@@ -526,4 +526,120 @@ describe('form-file', () => {
       wrapper.destroy()
     })
   })
+
+  describe('accept methods', () => {
+    // Faked files (needs name and type properties only)
+    const fileText = { name: 'file.txt', type: 'text/plain' }
+    const fileHTML = { name: 'file.html', type: 'text/html' }
+    const fileJSON = { name: 'file.json', type: 'application/json' }
+    const filePNG = { name: 'file.jpg', type: 'image/png' }
+
+    it('fileValid works with accept not set', async () => {
+      const wrapper = mount(BFormFile)
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(true)
+      expect(vm.fileValid(fileHTML)).toBe(true)
+      expect(vm.fileValid(fileJSON)).toBe(true)
+      expect(vm.fileValid(filePNG)).toBe(true)
+
+      wrapper.destroy()
+    })
+
+    it('fileValid works with accept set to single extension', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: '.txt'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(true)
+      expect(vm.fileValid(fileHTML)).toBe(false)
+      expect(vm.fileValid(fileJSON)).toBe(false)
+      expect(vm.fileValid(filePNG)).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('fileValid works with accept set to multiple extensions', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: '.txt,.html, .png'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(true)
+      expect(vm.fileValid(fileHTML)).toBe(true)
+      expect(vm.fileValid(fileJSON)).toBe(false)
+      expect(vm.fileValid(filePNG)).toBe(true)
+
+      wrapper.destroy()
+    })
+
+    it('fileValid works with accept set to single mime type', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: 'text/plain'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(true)
+      expect(vm.fileValid(fileHTML)).toBe(false)
+      expect(vm.fileValid(fileJSON)).toBe(false)
+      expect(vm.fileValid(filePNG)).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('fileValid works with accept set to single wildcard mime type', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: 'text/*'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(true)
+      expect(vm.fileValid(fileHTML)).toBe(true)
+      expect(vm.fileValid(fileJSON)).toBe(false)
+      expect(vm.fileValid(filePNG)).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('fileValid works with accept set to multiple mime types', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: 'text/*, application/json'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(true)
+      expect(vm.fileValid(fileHTML)).toBe(true)
+      expect(vm.fileValid(fileJSON)).toBe(true)
+      expect(vm.fileValid(filePNG)).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('fileValid works with accept set to mime and etenion', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: '.png, application/json'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.fileValid(fileText)).toBe(false)
+      expect(vm.fileValid(fileHTML)).toBe(false)
+      expect(vm.fileValid(fileJSON)).toBe(true)
+      expect(vm.fileValid(filePNG)).toBe(true)
+
+      wrapper.destroy()
+    })
+  })
 })
