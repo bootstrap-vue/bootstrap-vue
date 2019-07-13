@@ -88,16 +88,22 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (accept.length === 0) {
         return null
       }
+      const escapeRx = /[-/\\^$*+?.()|[\]{}]/g, '\\$&')
       return accept.map(extOrType => {
         let rx
         let isMime = false
         if (/^\..+/.test(extOrType)) {
           // File extension /\.ext$/
-          rx = new RegExp(`\\${extOrType}$`)
+          // Escape all RegExp special chars
+          extOrType = extOrType.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+          rx = new RegExp(`${extOrType}$`)
         } else {
           // MIME type /^mime\/.+$/ or /^mime\/type$/
           isMime = true
-          extOrType = extOrType.replace(/\//g, '\\/').replace(/\*/g, '.+')
+          // Escape all RegExp special chars, ecept `*`
+          extOrType = extOrType.replace(/[-/\\^$+?.()|[\]{}]/g, '\\$&')
+          // Special handling, we convert `*` as `.+`
+          extOrType = extOrType.replace(/\*/g, '.+')
           rx = new RegExp(`^${extOrType}$`)
         }
         return { rx, isMime }
@@ -244,8 +250,15 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
             this.$refs.input.files = dt.files
           } catch (e) {}
         })
+      } else if (evt.target.webkitEntries) {
+        // Change event on modern browsers (that support directory mode)
+        Promise.all(evt.target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
+          // Remove empty arrays and files that don't match accept, update local model
+          this.setFiles(filesArr.filter(this.fileArrayFilter))
+          // We don't need to set input.files, as this was caused by clicking the file input
+        }
       } else {
-        // Non-drop handling
+        // Non-drop handling, change event
         const files = arrayFrom(evt.target.files).filter(Boolean)
         this.setFiles(
           files.filter(this.fileValid).map(f => {
@@ -329,6 +342,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         accept: this.accept || null,
         multiple: this.multiple,
         webkitdirectory: this.directory,
+        directory: this.directory,
         // directory: this.directory,
         // allowdirs: this.directory,
         'aria-required': this.required ? 'true' : null
