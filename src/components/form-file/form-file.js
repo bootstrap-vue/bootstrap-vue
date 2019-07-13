@@ -206,20 +206,49 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.$refs.input.type = 'file'
       this.selectedFiles = []
     },
-    onChange(evt) {
-      // Triggered by the input's change event
-      this.processFilesEvt(evt)
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      evtStopPrevent(evt)
+      if (this.noDrop || this.disabled) {
+        return
+      }
+      this.dragging = true
+      const dt = evt.dataTransfer
+      if (dt) {
+        if (
+          // No files
+          dt.files.length === 0 ||
+          // Too many files
+          (!this.multiple && dt.items.length > 1) ||
+          // All invalid file types
+          !arrayFrom(dt.files).some(this.fileValid)
+        ) {
+          // Show deny feedback
+          dt.dropEffect = 'none'
+          // Reset "drop here" propmt
+          this.dragging = false
+        } else {
+          dt.dropEffect = 'copy'
+        }
+      }
+    },
+    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      evtStopPrevent(evt)
+      this.dragging = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
       evtStopPrevent(evt)
       this.dragging = false
-      if (this.noDrop || this.disabled) {
+      if (this.noDrop || this.disabled || evt.dataTransfer.dropEffect === 'none') {
         return
       }
       if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
         this.processFilesEvt(evt)
       }
+    },
+    onChange(evt) {
+      // Triggered by the input's change event
+      this.processFilesEvt(evt)
     },
     processFilesEvt(evt) {
       const target = evt.target
@@ -307,25 +336,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     onReset() {
       // Triggered when the parent form (if any) is reset
       this.selectedFiles = []
-    },
-    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evtStopPrevent(evt)
-      if (this.noDrop || this.disabled) {
-        return
-      }
-      this.dragging = true
-      const dt = evt.dataTransfer
-      if (dt) {
-        if (!this.multiple && dt.items.length > 1) {
-          dt.dropEffect = 'none' // not allowed
-        } else {
-          dt.dropEffect = 'copy'
-        }
-      }
-    },
-    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evtStopPrevent(evt)
-      this.dragging = false
     }
   },
   render(h) {
