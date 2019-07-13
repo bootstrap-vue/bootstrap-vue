@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { from as arrayFrom, concat, flattenDeep, isArray } from '../../utils/array'
+import { from as arrayFrom, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isFunction, isString } from '../../utils/inspect'
 import formCustomMixin from '../../mixins/form-custom'
@@ -10,7 +10,8 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BFormFile'
 
-// Helper method
+// --- Helper methods ---
+
 const evtStopPrevent = evt => {
   evt.preventDefault()
   evt.stopPropagation()
@@ -82,8 +83,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   computed: {
     computedAccept() /* istanbul ignore next: for now until testing can be created */ {
       // Convert `accept` to an array of [{ RegExpr, isMime }, ...]
-      let accept = isString(accept) ? this.accept.trim() : ''
-      accept = accept.split(/[,\s]+/).filter(Boolean)
+      let accept = this.accept
+      accept = (isString(accept) ? this.accept.trim() : '').split(/[,\s]+/).filter(Boolean)
       if (accept.length === 0) {
         return null
       }
@@ -92,11 +93,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         let isMime = false
         if (/^\..+/.test(extOrType)) {
           // File extension /\.ext$/
-          rx = new RegExp(`\\${extOrType}$`) 
+          rx = new RegExp(`\\${extOrType}$`)
         } else {
           // MIME type /^mime\/.+$/ or /^mime\/type$/
           isMime = true
-          extOrType = extOrType.replace(/\//g, '\/').replace(/\*/g, '.+')
+          extOrType = extOrType.replace(/\//g, '\\/').replace(/\*/g, '.+')
           rx = new RegExp(`^${extOrType}$`)
         }
         return { rx, isMime }
@@ -106,10 +107,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const capture = this.capture
       return capture === true || capture === '' ? true : capture || null
     },
+    filesFlat() {
+      return flattenDeep(this.selectedFiles).filter(Boolean)
+    },
     fileNamesFlat() {
-      return flattenDeep(this.selectedFiles)
-        .filter(Boolean)
-        .map(file => `${file.$path || ''}${file.name}`)
+      return this.filesFlat.map(file => `${file.$path || ''}${file.name}`)
     },
     selectLabel() {
       // Draging active
@@ -152,7 +154,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       ) {
         return
       }
-      this.$emit('input', this.multiple ? newVal : newVal[0] || null)
+      this.$emit('input', this.multiple ? newVal : flattenDeep(newVal)[0] || null)
     },
     value(newVal, oldVal) {
       // Handle "clearing" the input file(s)
@@ -164,8 +166,15 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   methods: {
     fileValid(f) /* istanbul ignore next: for now until testing can be created */ {
       // Check if a file matches one of the accept types
+      if (!f) {
+        return false
+      }
       const accept = this.computedAccept
       return accept ? accept.some(a => a.rx.test(a.isMime ? f.type : f.name)) : true
+    },
+    fileArrayFilter(entry) {
+      // Filters out empty arrays and files that don't match accept
+      entry => isArray(entry) ? entry.length !== 0 : this.fileValid(entry)
     },
     focusHandler(evt) {
       // Bootstrap v4 doesn't have focus styling for custom file input
@@ -191,8 +200,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFiles = []
     },
     onChange(evt) {
-      // triggerd by the input's change event
-      this.onFileChange(evt)
+      // Triggered by the input's change event
+      this.processFilesEvt(evt)
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
@@ -202,18 +211,17 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
-        this.onFileChange(evt)
+        this.processFilesEvt(evt)
       }
     },
-    onFileChange(evt) {
-      const isDrop = evt.type === 'drop'
+    processFilesEvt(evt) {
       // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode event)
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
       /* istanbul ignore if: not supported in JSDOM */
-      if (items && !this.noTraverse) {
+      if (items) {
         const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
@@ -222,39 +230,50 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           }
         }
         Promise.all(queue).then(filesArr => {
-          this.setFiles(arrayFrom(filesArr))
+          // Remove empty arrays and files that don't match accept
+          filesArr = filesArr.filter(this.fileArrayFilter)
+          this.setFiles(filesArr)
+          // Try an set the file input files array so that `required`
+          // constraint works for dropped files (will fail in IE11 though)
+          try {
+            // First we need to convert the array of files
+            filesArr = flattenDeep(filesArr)
+            // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
+            const dt = new ClipboardEvent('').clipboardData || new DataTransfer()
+            filesArr.forEach(file => dt.items.add(file))
+            this.$refs.input.files = dt.files
+          } catch (e) {}
         })
       } else {
-        // Normal handling
-        let files = arrayFrom(evt.target.files || evt.dataTransfer.files)
-        files = this.directory ? flattenDeep(files) : files.filter(i => !isArray(i))
+        // Non-drop handling
+        const files = arrayFrom(evt.target.files).filter(Boolean)
         this.setFiles(
-          files.filter(Boolean).map(f => {
+          files.filter(this.fileValid).map(f => {
             f.$path = ''
             return f
           })
         )
       }
     },
-    traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
+    traverseFileTree(item, path = '') /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
-        path = path || ''
         if (item.isFile) {
           // Get file
           item.file(file => {
             file.$path = path // Inject $path to file obj
             resolve(file)
           })
-        } else if (item.isDirectory) {
+        } else if (item.isDirectory && this.directory)) {
           // Get folder contents
           item.createReader().readEntries(entries => {
             const queue = []
             for (let i = 0; i < entries.length; i++) {
-              queue.push(this.traverseFileTree(entries[i], `${path}${item.name}/`))
+              queue.push(traverseFileTree(entries[i], `${path}${item.name}/`))
             }
             Promise.all(queue).then(filesArr => {
-              resolve(arrayFrom(filesArr))
+              // Remove empty arrays and files that don't match accept
+              resolve(filesArr.filter(this.fileArrayFilter))
             })
           })
         }
@@ -265,7 +284,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (!files) {
         this.selectedFiles = []
       } else {
-        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0] || null]
+        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0]] || null]
       }
     },
     onReset() {
