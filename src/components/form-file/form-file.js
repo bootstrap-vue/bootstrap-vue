@@ -232,7 +232,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const dt = evt.dataTransfer
       if (this.noDrop || this.disabled) {
         dt.dropEffect = 'none'
-        return
+        // return
       }
       /*
       if (dt && dt.items) {
@@ -261,9 +261,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
-          this.dropAllowed = false
           // Reset "drop here" propmt
           this.dragging = false
+          this.dropAllowed = false
           return
         }
         dt.dropEffect = 'copy'
@@ -302,9 +302,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
       this.dragging = false
-      if (this.noDrop || this.disabled) {
-        return
-      }
+      this.dropAllowed = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
@@ -496,10 +494,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
-          'dragover': this.onDragover,
-          'dragenter': this.onDragenter,
-          'dragleave': this.onDragleave,
-          'drop': this.onDrop
+          dragover: this.onDragover,
+          dragenter: this.onDragenter,
+          dragleave: this.onDragleave,
+          drop: this.onDrop
         }
       },
       [input, label]
