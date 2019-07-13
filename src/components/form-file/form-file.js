@@ -327,17 +327,19 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // We don't need to set input.files, as this is done natively
         })
       } else {
-        // Standard file input handling (native file input change event), or fallback drop mode
-        const files = arrayFrom(target.files || (dataTransfer || { files: [] }).files).filter(
-          Boolean
-        )
+        // Standard file input handling (native file input change event), or
+        // fallback drop mode (IE 11 / Opera)
+        let files = arrayFrom(target.files || (dataTransfer || { files: [] }).files)
         files.forEach(f => (f.$path = ''))
-        this.setFiles(files.filter(this.fileValid))
+        /* istanbul ignore if: dropmode not easily tested in JSDOM */
         if (evt.type === 'drop') {
-          // If this was a result of a drop, ensure that the input's
-          // files property also reflect the dropped files
-          /* istanbul ignore next: drop mode only */
+          files = files.filter(this.fileValid)
+          // Set the v-model
+          this.setFiles(files)
+          // Ensure the input's files array is updated
           this.setInputFiles(files)
+        } else {
+          this.setFiles(files)
         }
       }
     },
@@ -368,7 +370,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     setFiles(files = []) {
       this.selectedFiles = this.multiple ? files || [] : [flattenDeep(files)[0]].filter(Boolean)
     },
-    setInputFiles(files = []) {
+    setInputFiles(files = []) /* istanbul ignore next: used by Drag/Drop */ {
       // Try an set the file input files array so that `required`
       // constraint works for dropped files (will fail in IE11 though).
       // To be used only when dropping files
