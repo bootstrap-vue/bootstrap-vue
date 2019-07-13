@@ -179,7 +179,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const accept = this.computedAccept
       return accept ? accept.some(a => a.rx.test(a.isMime ? f.type : f.name)) : true
     },
-    fileArrayFilter(entry) {
+    fileArrayFilter(entry)  /* istanbul ignore next: directory mode not supported in JSDOM */{
       // Filters out empty arrays and files that don't match accept
       return isArray(entry) ? entry.length !== 0 : this.fileValid(entry)
     },
