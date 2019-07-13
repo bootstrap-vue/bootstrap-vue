@@ -178,7 +178,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       ) {
         return
       }
-      this.$emit('input', this.multiple ? newVal : flattenDeep(newVal)[0] || null)
+      const files = this.noTraverse ? flattenDeep(newVal) : newVal
+      this.$emit('input', this.multiple ? files : files[0] || null)
     },
     value(newVal, oldVal) {
       // Handle "clearing" the input file(s)
