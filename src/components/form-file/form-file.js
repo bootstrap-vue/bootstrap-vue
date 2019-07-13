@@ -207,7 +207,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFiles = []
     },
     onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
+      // evtStopPrevent(evt)
+      if (this.noDrop || this.disabled) {
         return
       }
       this.dragging = true
@@ -245,10 +246,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
+      evtStopPrevent(evt)
+      if (this.noDrop || this.disabled) {
         return
       }
-      evtStopPrevent(evt)
       const dt = evt.dataTransfer
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point
@@ -269,18 +270,18 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       evt.dataTransfer.dropEffect = 'copy'
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
+      evtStopPrevent(evt)
+      if (this.noDrop || this.disabled) {
         return
       }
-      evtStopPrevent(evt)
       this.dragging = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
+      evtStopPrevent(evt)
       if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
         return
       }
-      evtStopPrevent(evt)
       this.dragging = false
       if (this.noDrop || this.disabled /* || evt.dataTransfer.dropEffect === 'none' */) {
         return
