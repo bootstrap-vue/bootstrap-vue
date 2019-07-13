@@ -134,7 +134,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       return flattenDeep(this.selectedFiles).filter(Boolean)
     },
     fileNamesFlat() {
-      return this.filesFlat.map(file => `${file.$path || ''}${file.name}`)
+      return this.filesFlat.map(file => file.name)
     },
     selectLabel() {
       // Draging active
