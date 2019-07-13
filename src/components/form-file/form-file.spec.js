@@ -532,7 +532,7 @@ describe('form-file', () => {
     const fileText = { name: 'file.txt', type: 'text/plain' }
     const fileHTML = { name: 'file.html', type: 'text/html' }
     const fileJSON = { name: 'file.json', type: 'application/json' }
-    const filePNG = { name: 'file.jpg', type: 'image/png' }
+    const filePNG = { name: 'file.png', type: 'image/png' }
 
     it('fileValid works with accept not set', async () => {
       const wrapper = mount(BFormFile)
