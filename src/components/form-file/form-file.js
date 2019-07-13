@@ -328,7 +328,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         })
       } else {
         // Standard file input handling (native file input change event), or fallback drop mode
-        const files = arrayFrom(target.files || (dataTransfer || { files: [] }).files).filter(Boolean)
+        const files = arrayFrom(target.files || (dataTransfer || { files: [] }).files).filter(
+          Boolean
+        )
         files.forEach(f => (f.$path = ''))
         this.setFiles(files.filter(this.fileValid))
         if (evt.type === 'drop') {
