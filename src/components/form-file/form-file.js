@@ -88,7 +88,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (accept.length === 0) {
         return null
       }
-      const escapeRx = /[-/\\^$*+?.()|[\]{}]/g, '\\$&')
       return accept.map(extOrType => {
         let rx
         let isMime = false
