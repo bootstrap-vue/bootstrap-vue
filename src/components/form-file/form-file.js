@@ -210,8 +210,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.noDrop || this.disabled) {
         return
       }
-      /*
       this.dragging = true
+      /*
       const dt = evt.dataTransfer
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point
