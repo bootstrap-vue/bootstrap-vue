@@ -264,12 +264,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     processFilesEvt(evt) {
       const target = evt.target
+      const dataTransfer = evt.dataTransfer
       // Always emit original event
       this.$emit('change', evt)
       /* istanbul ignore if: not supported in JSDOM */
-      if (evt.dataTransfer && evt.dataTransfer.items) {
-        // Special `items` prop is available on `drop` event
-        const items = evt.dataTransfer.items
+      if (dataTransfer && dataTransfer.items) {
+        // Special `items` prop is available on `drop` event (except IE)
+        const items = dataTransfer.items
         const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
@@ -303,10 +304,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // We don't need to set input.files, as this is done natively
         })
       } else {
-        // Standard file input handling (native file input change event)
-        const files = arrayFrom(target.files).filter(this.fileValid)
+        // Standard file input handling (native file input change event), or IE 11 drop mode
+        const files = arrayFrom(target.files || (dataTransfer || { files: []}).files)
         this.setFiles(
-          files.map(f => {
+          files.filter(this.fileValid).map(f => {
             f.$path = ''
             return f
           })
