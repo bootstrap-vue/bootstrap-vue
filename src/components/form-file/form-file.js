@@ -12,6 +12,7 @@ const NAME = 'BFormFile'
 
 // --- Helper methods ---
 
+/* istanbul ignore next: used by drag/drop which cant be tested easily */
 const evtStopPrevent = evt => {
   evt.preventDefault()
   evt.stopPropagation()
@@ -121,6 +122,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     selectLabel() {
       // Draging active
       if (this.dragging && this.dropPlaceholder) {
+        /* istanbul ignore next: used by drag/drop which cant be tested easily */
         return this.dropPlaceholder
       }
 
