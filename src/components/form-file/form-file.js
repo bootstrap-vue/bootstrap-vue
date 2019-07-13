@@ -301,7 +301,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (!files) {
         this.selectedFiles = []
       } else {
-        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0] || null]
+        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0]].filter(Boolean)
       }
     },
     onReset() {
@@ -314,8 +314,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       this.dragging = true
-      if (evt.dataTransfer) {
-        evt.dataTransfer.dropEffect = 'copy'
+      const dt = evt.dataTransfer
+      if (dt) {
+        if (!this.multiple && dt.items.length > 1) {
+          dt.dropEffect = 'none' // not allowed
+        } else {
+          dt.dropEffect = 'copy'
+        }
       }
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
