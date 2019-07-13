@@ -296,7 +296,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (!files) {
         this.selectedFiles = []
       } else {
-        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0]] || null]
+        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0] || null]
       }
     },
     onReset() {
