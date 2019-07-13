@@ -236,9 +236,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           dt.dropEffect = 'none'
           // Reset "drop here" propmt
           this.dragging = false
-        } else {
-          dt.dropEffect = 'copy'
+          return
         }
+        dt.dropEffect = 'copy'
       }
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
