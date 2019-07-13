@@ -197,7 +197,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (!accept || accept.length === 0) {
         return true
       }
-      return accept.some(a => a.rx.test(file[a.prop])) : true
+      return accept.some(a => a.rx.test(file[a.prop]))
     },
     fileArrayFilter(entry) /* istanbul ignore next: directory mode not supported in JSDOM */ {
       // Filters out empty arrays and files that don't match accept
