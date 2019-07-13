@@ -12,7 +12,7 @@ const NAME = 'BFormFile'
 
 // --- Helper methods ---
 
-/* istanbul ignore next: used by drag/drop which cant be tested easily */
+/* istanbul ignore next: used by drag/drop which can't be tested easily */
 const evtStopPrevent = evt => {
   evt.preventDefault()
   evt.stopPropagation()
@@ -206,21 +206,30 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.$refs.input.type = 'file'
       this.selectedFiles = []
     },
-    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      evtStopPrevent(evt)
+    onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       if (this.noDrop || this.disabled) {
         return
       }
       this.dragging = true
       const dt = evt.dataTransfer
       if (dt) {
+        // Can't check dt.files, as it is empty at this point
+        const items = arrayFrom(dt.items).filter(Boolean)
         if (
           // No files
-          dt.files.length === 0 ||
+          items.length === 0 ||
+          // Not a file/directory (check first item only)
+          items[0].kind !== 'file' ||
           // Too many files
-          (!this.multiple && dt.items.length > 1) ||
-          // All invalid file types
-          !arrayFrom(dt.files).some(this.fileValid)
+          (!this.multiple && items.length > 1) ||
+          // Non-directory mode and no accepted file types (note: directories appear as a file!)
+          (
+            !this.directory &&
+            !items.filter(i => i.kind === 'file').map(i => i.getAsFile()).some(this.fileValid)
+          )
+          // Checking files in directory mode is too much code, so we just
+          // rely on the directory processing during the drop to filter
+          // out non accepted files
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
@@ -230,6 +239,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           dt.dropEffect = 'copy'
         }
       }
+    },
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      evtStopPrevent(evt)
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
@@ -402,6 +414,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragover: this.onDragover,
+          dragenter: this.onDragenter,
           dragleave: this.onDragleave,
           drop: this.onDrop
         }
