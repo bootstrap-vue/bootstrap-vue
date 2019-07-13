@@ -200,6 +200,9 @@ array. When in directory mode, the passed files array will be flattened.
 <!-- file-formatter-function.vue -->
 ```
 
+Note the `File` objects will have a custom `$path` property which contains the relative directory
+path, or an empty string if not available.
+
 ### File name formatting via scoped slot
 
 Alternatively, you can use the scoped slot `file-name` to render the file names. The scoped slot
