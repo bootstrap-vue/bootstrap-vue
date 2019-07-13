@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { concat } from '../../utils/array'
-import { isFunction, isUndefined } from '../../utils/inspect'
+import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 
 /**
@@ -14,68 +14,66 @@ import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/r
  * https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
  * @return {{}}
  */
-export const propsFactory = () => {
-  return {
-    href: {
-      type: String,
-      default: null
-    },
-    rel: {
-      type: String,
-      default: null
-    },
-    target: {
-      type: String,
-      default: '_self'
-    },
-    active: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    // router-link specific props
-    to: {
-      type: [String, Object],
-      default: null
-    },
-    append: {
-      type: Boolean,
-      default: false
-    },
-    replace: {
-      type: Boolean,
-      default: false
-    },
-    event: {
-      type: [String, Array],
-      default: 'click'
-    },
-    activeClass: {
-      type: String
-      // default: undefined
-    },
-    exact: {
-      type: Boolean,
-      default: false
-    },
-    exactActiveClass: {
-      type: String
-      // default: undefined
-    },
-    routerTag: {
-      type: String,
-      default: 'a'
-    },
-    // nuxt-link specific prop(s)
-    noPrefetch: {
-      type: Boolean,
-      default: false
-    }
+export const propsFactory = () => ({
+  href: {
+    type: String,
+    default: null
+  },
+  rel: {
+    type: String,
+    default: null
+  },
+  target: {
+    type: String,
+    default: '_self'
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  // router-link specific props
+  to: {
+    type: [String, Object],
+    default: null
+  },
+  append: {
+    type: Boolean,
+    default: false
+  },
+  replace: {
+    type: Boolean,
+    default: false
+  },
+  event: {
+    type: [String, Array],
+    default: 'click'
+  },
+  activeClass: {
+    type: String
+    // default: undefined
+  },
+  exact: {
+    type: Boolean,
+    default: false
+  },
+  exactActiveClass: {
+    type: String
+    // default: undefined
+  },
+  routerTag: {
+    type: String,
+    default: 'a'
+  },
+  // nuxt-link specific prop(s)
+  noPrefetch: {
+    type: Boolean,
+    default: false
   }
-}
+})
 
 export const props = propsFactory()
 
@@ -107,10 +105,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     onClick(evt) {
-      const isEvent = evt instanceof Event
+      const evtIsEvent = isEvent(evt)
       const isRouterLink = this.isRouterLink
       const suppliedHandler = this.$listeners.click
-      if (isEvent && this.disabled) {
+      if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
         evt.stopPropagation()
         // Kill the event loop attached to this specific `EventTarget`
@@ -134,7 +132,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       }
       // Stop scroll-to-top behavior or navigation on
       // regular links when href is just '#'
-      if (isEvent && (this.disabled || (!isRouterLink && this.computedHref === '#'))) {
+      if (evtIsEvent && (this.disabled || (!isRouterLink && this.computedHref === '#'))) {
         evt.preventDefault()
       }
     },
@@ -186,7 +184,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       delete componentData.props.href
     }
 
-    return h(tag, componentData, this.normalizeSlot('default', {}))
+    return h(tag, componentData, this.normalizeSlot('default'))
   }
 })
 

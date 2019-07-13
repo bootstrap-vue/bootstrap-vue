@@ -12,9 +12,7 @@ export const BNavItem = /*#__PURE__*/ Vue.extend({
     ...props,
     linkAttrs: {
       type: Object,
-      default() {
-        return {}
-      }
+      default: () => {}
     },
     linkClasses: {
       type: [String, Object, Array],

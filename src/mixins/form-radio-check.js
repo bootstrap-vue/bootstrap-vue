@@ -226,7 +226,7 @@ export default {
       return button
     } else {
       // Not button mode
-      let label = h(false)
+      let label = h()
       // If no label content in plain mode we dont render the label
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
       if (!(this.isPlain && !defaultSlot)) {

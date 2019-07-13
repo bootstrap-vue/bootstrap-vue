@@ -28,9 +28,9 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    let cardTitle = h(false)
-    let cardSubTitle = h(false)
-    const cardContent = children || [h(false)]
+    let cardTitle = h()
+    let cardSubTitle = h()
+    const cardContent = children || [h()]
 
     if (props.title) {
       cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })

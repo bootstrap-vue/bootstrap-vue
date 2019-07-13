@@ -56,9 +56,6 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'boundaryPadding')
     }
   },
-  data() {
-    return {}
-  },
   methods: {
     createToolpop() {
       // getTarget is in toolpop mixin

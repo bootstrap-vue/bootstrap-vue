@@ -14,7 +14,7 @@ const testFields = Object.keys(testItems[0]).sort()
 
 describe('table > provider functions', () => {
   it('synchronous items provider works', async () => {
-    function provider(ctx) {
+    const provider = () => {
       return testItems.slice()
     }
     const wrapper = mount(BTable, {
@@ -47,7 +47,7 @@ describe('table > provider functions', () => {
     const promise = new Promise(resolve => {
       doResolve = resolve
     })
-    function provider(ctx) {
+    const provider = () => {
       return promise
     }
     const wrapper = mount(BTable, {
@@ -93,7 +93,7 @@ describe('table > provider functions', () => {
 
   it('callback items provider works', async () => {
     let callback
-    function provider(ctx, cb) {
+    const provider = (ctx, cb) => {
       callback = cb
       return null
     }
@@ -139,7 +139,7 @@ describe('table > provider functions', () => {
   })
 
   it('callback items provider expects 2 arguments', async () => {
-    function provider(ctx) {
+    const provider = () => {
       return Promise.resolve(null)
     }
     const wrapper = mount(BTable, {
@@ -184,7 +184,7 @@ describe('table > provider functions', () => {
   })
 
   it('provider refreshing works', async () => {
-    function provider(ctx) {
+    const provider = () => {
       return testItems.slice()
     }
     const wrapper = mount(BTable, {
@@ -217,7 +217,7 @@ describe('table > provider functions', () => {
 
   it('refresh debouncing works', async () => {
     let callback
-    function provider(ctx, cb) {
+    const provider = (ctx, cb) => {
       callback = cb
       return null
     }
@@ -266,11 +266,11 @@ describe('table > provider functions', () => {
   })
 
   it('reacts to items provider function change', async () => {
-    function provider1(ctx) {
+    const provider1 = () => {
       return testItems.slice()
     }
 
-    function provider2(ctx) {
+    const provider2 = () => {
       return testItems.slice(testItems.length - 1)
     }
 

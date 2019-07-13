@@ -7,10 +7,8 @@ import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
 
-// Return an Array of visible items
-function filterVisibles(els) {
-  return (els || []).filter(isVisible)
-}
+// Return an array of visible items
+const filterVisibles = els => (els || []).filter(isVisible)
 
 // Dropdown item CSS selectors
 const Selector = {

@@ -109,7 +109,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let childNodes = h(false)
+    let childNodes = h()
     if (this.hasNormalizedSlot('default')) {
       childNodes = this.normalizeSlot('default')
     } else if (this.label || this.labelHtml) {

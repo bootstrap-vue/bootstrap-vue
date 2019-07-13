@@ -41,11 +41,11 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     const $scopedSlots = scopedSlots || {}
 
     // Create placeholder elements for each section
-    let imgFirst = h(false)
-    let header = h(false)
-    let content = h(false)
-    let footer = h(false)
-    let imgLast = h(false)
+    let imgFirst = h()
+    let header = h()
+    let content = h()
+    let footer = h()
+    let imgLast = h()
 
     if (props.imgSrc) {
       const img = h(BCardImg, {

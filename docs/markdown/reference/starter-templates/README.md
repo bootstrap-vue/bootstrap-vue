@@ -114,8 +114,8 @@ If you are using a build system, and would like to customize the Bootstrap v4 CS
 references will be handy starting points:
 
 - BootstrapVue's [Theming](/docs/reference/theming) reference section
-- Official Bootstrap [Theming Bootstrap ](https://getbootstrap.com/docs/4.3/getting-started/theming/)
-  guide
+- Official Bootstrap
+  [Theming Bootstrap ](https://getbootstrap.com/docs/4.3/getting-started/theming/) guide
 
 ## Individual component import
 
