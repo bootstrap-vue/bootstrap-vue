@@ -12,11 +12,18 @@ const NAME = 'BFormFile'
 
 // --- Helper methods ---
 
-/* istanbul ignore next: used by drag/drop which can't be tested easily */
+/* istanbul ignore next: used by drag/drop which can't be tested easily (yet) */
 const evtStopPrevent = evt => {
   evt.preventDefault()
   evt.stopPropagation()
+  // evt.stopImmediatePropagation()
 }
+
+// Pre-compile RegExp for improved performance
+// This regexp/method is also used by `table/helpers/mixin-filtering.js`, so we
+// could move this into a utils module (maybe a string.js utils file)
+const regExpEscapeRx = /[-/\\^$*+?.()|[\]{}]/g
+const escapeRegExpString = str => str.replace(regExpEscapeRx, '\\$&')
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -53,6 +60,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'dropPlaceholder')
     },
     multiple: {
+      // Note `directory` implies multiple files (where supported)
       type: Boolean,
       default: false
     },
@@ -78,6 +86,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Internally files are always stored in true Array format
       selectedFiles: [],
       dragging: false,
+      // IE 11 doesn't respect setting `evt.dataTransfer.dropEffect`, so
+      // we handle it ourselves as well
+      // https://stackoverflow.com/a/46915971/2744776
+      dropAllowed: false,
       hasFocus: false
     }
   },
@@ -85,28 +97,33 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     computedAccept() /* istanbul ignore next: for now until testing can be created */ {
       // Convert `accept` to an array of [{ RegExpr, isMime }, ...]
       let accept = this.accept
-      accept = (isString(accept) ? this.accept.trim() : '').split(/[,\s]+/).filter(Boolean)
+      accept = (isString(accept) ? accept.trim() : '').split(/[,\s]+/).filter(Boolean)
       if (accept.length === 0) {
+        // Allow any file type/extension
         return null
       }
+      const extRx = /^\..+/
+      const starRx = /\/\*$/
       return accept.map(extOrType => {
-        let rx
-        let isMime = false
-        if (/^\..+/.test(extOrType)) {
+        let prop = 'name'
+        let startMatch = '^'
+        let endMatch = '$'
+        if (extRx.test(extOrType)) {
           // File extension /\.ext$/
-          // Escape all RegExp special chars
-          extOrType = extOrType.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-          rx = new RegExp(`${extOrType}$`)
+          startMatch = ''
         } else {
           // MIME type /^mime\/.+$/ or /^mime\/type$/
-          isMime = true
-          // Escape all RegExp special chars, ecept `*`
-          extOrType = extOrType.replace(/[-/\\^$+?.()|[\]{}]/g, '\\$&')
-          // Special handling, we convert `*` as `.+`
-          extOrType = extOrType.replace(/\*/g, '.+')
-          rx = new RegExp(`^${extOrType}$`)
+          prop = 'type'
+          if (starRx.test(extOrType)) {
+            endMatch = '.+$'
+            // Remove trailing `*`
+            extOrType = extOrType.slice(0, -1)
+          }
         }
-        return { rx, isMime }
+        // Escape all RegExp special chars
+        extOrType = escapeRegExpString(extOrType)
+        const rx = new RegExp(`${startMatch}${extOrType}${endMatch}`)
+        return { rx, prop }
       })
     },
     computedCapture() {
@@ -171,13 +188,16 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    fileValid(f) /* istanbul ignore next: for now until testing can be created */ {
+    fileValid(file) /* istanbul ignore next: for now until testing can be created */ {
       // Check if a file matches one of the accept types
-      if (!f) {
+      const accept = this.computedAccept
+      if (!file) {
         return false
       }
-      const accept = this.computedAccept
-      return accept ? accept.some(a => a.rx.test(a.isMime ? f.type : f.name)) : true
+      if (!accept || accept.length === 0) {
+        return true
+      }
+      return accept.some(a => a.rx.test(file[a.prop])) : true
     },
     fileArrayFilter(entry) /* istanbul ignore next: directory mode not supported in JSDOM */ {
       // Filters out empty arrays and files that don't match accept
@@ -207,13 +227,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.selectedFiles = []
     },
     onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      this.dragging = true
       // evtStopPrevent(evt)
+      const dt = evt.dataTransfer
       if (this.noDrop || this.disabled) {
+        dt.dropEffect = 'none'
         return
       }
-      this.dragging = true
       /*
-      const dt = evt.dataTransfer
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point
         const items = arrayFrom(dt.items).filter(Boolean)
@@ -224,7 +245,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           items[0].kind !== 'file' ||
           // Too many files
           (!this.multiple && items.length > 1) ||
-          // Non-directory mode and no accepted file types (note: directories appear as a file!)
+          // Non-directory mode and no accepted file types
+          // Note: directories appear as a kind=file, with type = ""
+          // Should have a way to detect if is a directory
+          // `directory` mode on file inputs appears to only allow one directory to
+          // be selected (not multiple, regardless of `multiple` attribute, although drag/drop allows it)
           (!this.directory &&
             !items
               .filter(i => i.kind === 'file')
@@ -236,21 +261,24 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
+          this.dropAllowed = false
           // Reset "drop here" propmt
           this.dragging = false
           return
         }
         dt.dropEffect = 'copy'
+        this.dropAllowed = true
       }
       */
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone
       evtStopPrevent(evt)
+      const dt = evt.dataTransfer
       if (this.noDrop || this.disabled) {
+        dt.dropEffect = 'none'
         return
       }
-      const dt = evt.dataTransfer
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point
         const items = arrayFrom(dt.items).filter(Boolean)
@@ -264,29 +292,29 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
+          this.dropAllowed = false
           return
         }
       }
       evt.dataTransfer.dropEffect = 'copy'
+      this.dropAllowed = true
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
+      this.dragging = false
       if (this.noDrop || this.disabled) {
         return
       }
-      this.dragging = false
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
       evtStopPrevent(evt)
-      if (this.noDrop || this.disabled || evt.target !== evt.currentTarget) {
-        return
-      }
+      const dt = evt.dataTransfer
       this.dragging = false
-      if (this.noDrop || this.disabled /* || evt.dataTransfer.dropEffect === 'none' */) {
+      if (this.noDrop || this.disabled || !this.dropAllowed /* || dt.dropEffect === 'none' */) {
         return
       }
-      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
+      if (dt.files && dt.files.length > 0) {
         this.processFilesEvt(evt)
       }
     },
@@ -331,11 +359,17 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         Promise.all(target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
           // Remove empty arrays and files that don't match accept, update local model
           this.setFiles(filesArr.filter(this.fileArrayFilter))
-          // We don't need to set input.files, as this is done natively
+          // We don't need to set input.files, as this is done natively, although
+          // depending on various combos of multiple and webkitdirectory, `input.files`
+          // may be an empty array or `input.webkitEntries` might be an empty array,
+          // so we may want to set input.files to equal the flattened files array
+          // TODO:
+          // - Determine if we should set `input.files` to flatened array from files specified
+          //   in `input.webkitEntries`, mainly for `required` constraint
         })
       } else {
         // Standard file input handling (native file input change event), or
-        // fallback drop mode (IE 11 / Opera)
+        // fallback drop mode (IE 11 / Opera) which don't support directry mode
         let files = arrayFrom(target.files || (dataTransfer || { files: [] }).files)
         files.forEach(f => (f.$path = ''))
         /* istanbul ignore if: dropmode not easily tested in JSDOM */
@@ -343,7 +377,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           files = files.filter(this.fileValid)
           // Set the v-model
           this.setFiles(files)
-          // Ensure the input's files array is updated
+          // Ensure the input's files array is updated (if we can)
           this.setInputFiles(files)
         } else {
           this.setFiles(files)
@@ -405,10 +439,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
           focus: this.custom && this.hasFocus,
-          // IE 11 the input gets in the "way" of the drop events
-          // So we move it out of the way
-          'sr-only': this.custom,
-          'sr-only-focusable': this.custom
+          // IE 11, the input gets in the "way" of the drop events
+          // So we move it out of the way during drag/drop events
+          'sr-only': this.custom && this.dragging
         },
         this.stateClass
       ],
@@ -450,14 +483,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         attrs: {
           for: this.safeId(),
           'data-browse': this.browseText || null
-        },
-        on: {
-          // `!` signifies capturing phase
-          // We only want this `<label>` to receive the events (not it's contents)
-          '!dragover': this.onDragover,
-          '!dragenter': this.onDragenter,
-          '!dragleave': this.onDragleave,
-          '!drop': this.onDrop
         }
       },
       this.selectLabel
@@ -469,7 +494,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'custom-file b-form-file',
         class: this.stateClass,
-        attrs: { id: this.safeId('_BV_file_outer_') }
+        attrs: { id: this.safeId('_BV_file_outer_') },
+        on: {
+          'dragover': this.onDragover,
+          'dragenter': this.onDragenter,
+          'dragleave': this.onDragleave,
+          'drop': this.onDrop
+        }
       },
       [input, label]
     )
