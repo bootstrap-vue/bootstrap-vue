@@ -255,7 +255,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // Remove empty arrays and files that don't match accept, update local model
           this.setFiles(filesArr.filter(this.fileArrayFilter))
           // We don't need to set input.files, as this was caused by clicking the file input
-        }
+        })
       } else {
         // Non-drop handling, change event
         const files = arrayFrom(evt.target.files).filter(Boolean)
