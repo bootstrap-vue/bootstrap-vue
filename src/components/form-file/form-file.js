@@ -223,10 +223,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // Too many files
           (!this.multiple && items.length > 1) ||
           // Non-directory mode and no accepted file types (note: directories appear as a file!)
-          (
-            !this.directory &&
-            !items.filter(i => i.kind === 'file').map(i => i.getAsFile()).some(this.fileValid)
-          )
+          (!this.directory &&
+            !items.filter(i => i.kind === 'file')
+              .map(i => i.getAsFile())
+              .some(this.fileValid))
           // Checking files in directory mode is too much code, so we just
           // rely on the directory processing during the drop to filter
           // out non accepted files
