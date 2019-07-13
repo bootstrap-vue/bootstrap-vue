@@ -277,7 +277,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
             file.$path = path // Inject $path to file obj
             resolve(file)
           })
-        } else if (item.isDirectory && this.directory)) {
+        } else if (item.isDirectory && this.directory) {
           // Get folder contents
           item.createReader().readEntries(entries => {
             const queue = []
