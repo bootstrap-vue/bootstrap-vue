@@ -179,7 +179,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     fileArrayFilter(entry) {
       // Filters out empty arrays and files that don't match accept
-      entry => isArray(entry) ? entry.length !== 0 : this.fileValid(entry)
+      return isArray(entry) ? entry.length !== 0 : this.fileValid(entry)
     },
     focusHandler(evt) {
       // Bootstrap v4 doesn't have focus styling for custom file input
