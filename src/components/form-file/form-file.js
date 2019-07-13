@@ -179,7 +179,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const accept = this.computedAccept
       return accept ? accept.some(a => a.rx.test(a.isMime ? f.type : f.name)) : true
     },
-    fileArrayFilter(entry)  /* istanbul ignore next: directory mode not supported in JSDOM */{
+    fileArrayFilter(entry) /* istanbul ignore next: directory mode not supported in JSDOM */{
       // Filters out empty arrays and files that don't match accept
       return isArray(entry) ? entry.length !== 0 : this.fileValid(entry)
     },
@@ -247,7 +247,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Note this event fires repeatedly while the mouse is over the dropzone
       evtStopPrevent(evt)
       const dt = evt.dataTransfer
-      this.dragging = true
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point
         const items = arrayFrom(dt.items).filter(Boolean)
@@ -266,6 +265,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           return
         }
       }
+      // this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
@@ -399,7 +399,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'custom-file-input': this.custom,
           focus: this.custom && this.hasFocus,
           // Needed for IE to prevent the input from blocking dropped files
-          'd-none': this.custom && this.dragging
+          'sr-only': this.custom && this.dragging
         },
         this.stateClass
       ],
