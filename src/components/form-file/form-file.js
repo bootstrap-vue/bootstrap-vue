@@ -293,7 +293,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Always emit original event
       this.$emit('change', evt)
       /* istanbul ignore if: not supported in JSDOM */
-      if (dataTransfer && dataTransfer.items) {
+      if (
+        dataTransfer &&
+        dataTransfer.items &&
+        dataTransfer.items[0] &&
+        isFunction(dataTransfer.items[0].webkitGetAsEntry)
+      ) {
         // Special `items` prop is available on `drop` event (except IE)
         const items = dataTransfer.items
         const queue = []
@@ -307,16 +312,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // Remove empty arrays and files that don't match accept
           filesArr = filesArr.filter(this.fileArrayFilter)
           this.setFiles(filesArr)
-          // Try an set the file input files array so that `required`
+          // Try an set the file input's files array so that `required`
           // constraint works for dropped files (will fail in IE11 though)
-          try {
-            // First we need to convert the array of files
-            filesArr = flattenDeep(filesArr)
-            // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
-            const dt = new ClipboardEvent('').clipboardData || new DataTransfer()
-            filesArr.forEach(file => dt.items.add(file))
-            this.$refs.input.files = dt.files
-          } catch (e) {}
+          this.setInputFiles(filesArr)
         })
       } else if (target.webkitEntries && target.webkitEntries.length > 0) {
         // Change event on modern browsers (ones that usually support directory mode)
@@ -329,14 +327,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // We don't need to set input.files, as this is done natively
         })
       } else {
-        // Standard file input handling (native file input change event), or IE 11 drop mode
-        const files = arrayFrom(target.files || (dataTransfer || { files: [] }).files)
-        this.setFiles(
-          files.filter(this.fileValid).map(f => {
-            f.$path = ''
-            return f
-          })
-        )
+        // Standard file input handling (native file input change event), or fallback drop mode
+        const files = arrayFrom(target.files || (dataTransfer || { files: [] }).files).filter(Boolean)
+        files.forEach(f => f && f.$path = '')
+        this.setFiles(files.filter(this.fileValid))
+        if (evt.type === 'drop') {
+          /* istanbul ignore next: drop mode only */
+          this.setInputFiles(files)
+        }
       }
     },
     traverseFileTree(item, path = '') /* istanbul ignore next: not supported in JSDOM */ {
@@ -364,12 +362,21 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       })
     },
     setFiles(files = []) {
-      /* istanbul ignore if: this will probably not happen */
-      if (!files) {
-        this.selectedFiles = []
-      } else {
-        this.selectedFiles = this.multiple ? files : [flattenDeep(files)[0]].filter(Boolean)
-      }
+      this.selectedFiles = this.multiple ? files || [] : [flattenDeep(files)[0]].filter(Boolean)
+    },
+    setInputFiles(files = []) {
+      // Try an set the file input files array so that `required`
+      // constraint works for dropped files (will fail in IE11 though).
+      // To be used only when dropping files
+      try {
+        // First we need to convert the array of files
+        const filesArr = flattenDeep(files)
+        // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
+        const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer()
+        // Add flattened files to temp dataTransfer object to get a true `FileList` array
+        filesArr.forEach(file => dataTransfer.items.add(file))
+        this.$refs.input.files = dataTransfer.files
+      } catch (e) {}
     },
     onReset() {
       // Triggered when the parent form (if any) is reset
@@ -384,7 +391,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         {
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
-          focus: this.custom && this.hasFocus
+          focus: this.custom && this.hasFocus,
+          // Needed for IE to prevent the input from blocking dropped files
+          'd-none': this.custom && this.dragging
         },
         this.stateClass
       ],
