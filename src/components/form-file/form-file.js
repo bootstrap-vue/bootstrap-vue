@@ -224,7 +224,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           (!this.multiple && items.length > 1) ||
           // Non-directory mode and no accepted file types (note: directories appear as a file!)
           (!this.directory &&
-            !items.filter(i => i.kind === 'file')
+            !items
+              .filter(i => i.kind === 'file')
               .map(i => i.getAsFile())
               .some(this.fileValid))
           // Checking files in directory mode is too much code, so we just
@@ -305,7 +306,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         })
       } else {
         // Standard file input handling (native file input change event), or IE 11 drop mode
-        const files = arrayFrom(target.files || (dataTransfer || { files: []}).files)
+        const files = arrayFrom(target.files || (dataTransfer || { files: [] }).files)
         this.setFiles(
           files.filter(this.fileValid).map(f => {
             f.$path = ''
