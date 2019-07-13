@@ -542,6 +542,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(true)
       expect(vm.fileValid(fileJSON)).toBe(true)
       expect(vm.fileValid(filePNG)).toBe(true)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
@@ -558,6 +559,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(false)
       expect(vm.fileValid(fileJSON)).toBe(false)
       expect(vm.fileValid(filePNG)).toBe(false)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
@@ -574,6 +576,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(true)
       expect(vm.fileValid(fileJSON)).toBe(false)
       expect(vm.fileValid(filePNG)).toBe(true)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
@@ -590,6 +593,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(false)
       expect(vm.fileValid(fileJSON)).toBe(false)
       expect(vm.fileValid(filePNG)).toBe(false)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
@@ -606,6 +610,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(true)
       expect(vm.fileValid(fileJSON)).toBe(false)
       expect(vm.fileValid(filePNG)).toBe(false)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
@@ -622,6 +627,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(true)
       expect(vm.fileValid(fileJSON)).toBe(true)
       expect(vm.fileValid(filePNG)).toBe(false)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
@@ -638,6 +644,7 @@ describe('form-file', () => {
       expect(vm.fileValid(fileHTML)).toBe(false)
       expect(vm.fileValid(fileJSON)).toBe(true)
       expect(vm.fileValid(filePNG)).toBe(true)
+      expect(vm.fileValid()).toBe(false)
 
       wrapper.destroy()
     })
