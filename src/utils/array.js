@@ -11,4 +11,6 @@ export const concat = (...args) => Array.prototype.concat.apply([], args)
 // --- Utilities ---
 
 export const flattenDeep = array =>
-  concat(array).reduce((result, item) => result.concat(isArray(item) ? flattenDeep(item) : item), [])
+  concat(array).reduce(
+    (result, item) => result.concat(isArray(item) ? flattenDeep(item) : item), []
+  )
