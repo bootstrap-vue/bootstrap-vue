@@ -161,8 +161,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         // Use the user supplied formatter, or the built in one.
         return isFunction(this.fileNameFormatter)
-          ? String(this.fileNameFormatter(files))
-          : files.map(file => file.name).join(', ')
+          ? String(this.fileNameFormatter(this.filesFlat))
+          : this.fileNamesFlat.map(file => `${file.$path || ''}${file.name}`).join(', ')
       }
     }
   },
