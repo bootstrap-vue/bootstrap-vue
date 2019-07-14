@@ -420,6 +420,41 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
+  it('form native reset event triggers BFormFile reset', async () => {
+    const App = {
+      render(h) {
+        return h('form', {}, [h(BFormFile, { id: 'foo' })])
+      }
+    }
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
+
+    expect(wrapper.is('form')).toBe(true)
+    const formFile = wrapper.find(BFormFile)
+    expect(formFile.exists()).toBe(true)
+    expect(formFile.is(BFormFile).toBe(true)
+
+    // Emulate the files array
+    formFile.vm.setFiles([file1])
+    await waitNT(wrapper.vm)
+    expect(formFile.emitted('input')).toBeDefined()
+    expect(formFile.emitted('input').length).toEqual(1)
+    expect(formFile.emitted('input')[0][0]).toEqual(file1)
+
+    // Trigger form's native reset event
+    wrapper.find('form').trigger('reset')
+    await waitNT(wrapper.vm)
+    expect(formFile.emitted('input').length).toEqual(2)
+    expect(formFile.emitted('input')[1][0]).toEqual(null)
+
+    wrapper.destroy()
+  })
+
   it('file-name-formatter works', async () => {
     let called = false
     let filesArray = null
