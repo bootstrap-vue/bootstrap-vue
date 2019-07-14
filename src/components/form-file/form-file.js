@@ -489,7 +489,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'data-browse': this.browseText || null
         }
       },
-      h('span', { staticClass: 'd-block form-file-text' }, this.labelContent || [h()])
+      [h('span', { staticClass: 'd-block form-file-text' }, this.labelContent || [h()])]
       // Future Bootstrap v5: add button
       // h('span', { staticClass: 'form-file-button' }, this.browseContent || 'Browse')
     )
