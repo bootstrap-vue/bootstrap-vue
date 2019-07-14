@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import cloneDeep from '../../utils/clone-deep'
 import { from as arrayFrom, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { closest, eventOn, eventOff } from '../../utils/dom'
 import { isFunction, isString } from '../../utils/inspect'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
@@ -191,6 +192,16 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  mounted() {
+    const form = closest('form', this.$el)
+    // Listen for form reset events, to reset the file input
+    if (form) {
+      eventOn(form, 'reset', this.onReset, { passive: true })
+      this.$on('hook:beforeDestroy', () => {
+        eventOff(form, 'reset', this.onReset, { passive: true })
+      })
+    }
+  },
   methods: {
     fileValid(file) {
       // Check if a file matches one of the accept types
@@ -334,13 +345,15 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         dataTransfer &&
         dataTransfer.items &&
         dataTransfer.items[0] &&
-        isFunction(dataTransfer.items[0].webkitGetAsEntry)
+        // while `webkitGetAsEntry` is webkit specific, most modern browsers have
+        // implmented this. Future proof by checking for `getAsEntry` as well
+        isFunction(dataTransfer.items[0].getAsEntry || dataTransfer.items[0].webkitGetAsEntry)
       ) {
         // Special `items` prop is available on `drop` event (except IE)
         const items = dataTransfer.items
         const queue = []
         for (let i = 0; i < items.length; i++) {
-          const item = items[i].webkitGetAsEntry()
+          const item = (items[i].getAsEntry || items[i].webkitGetAsEntry)()
           if (item) {
             queue.push(this.traverseFileTree(item))
           }
@@ -354,25 +367,30 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           this.setInputFiles(filesArr)
         })
       } else if (target.webkitEntries && target.webkitEntries.length > 0) {
-        // Change event on modern browsers (ones that usually support directory mode)
-        // When dropping files (or dirs) directly on the native input (plain mode)
+        // Input `change` event on modern browsers (ones that usually support directory mode)
+        // when dropping files (or dirs) directly on the native input (when in plain mode)
         // Supported by Chrome, Firefox, Edge, and maybe Safari
+        // Will need to see what the standard property will be
         /* istanbul ignore next: can't test in JSDOM */
         Promise.all(target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
           // Remove empty arrays and files that don't match accept, update local model
-          this.setFiles(filesArr.filter(this.fileArrayFilter))
-          // We don't need to set input.files, as this is done natively, although
+          filesArr = filesArr.filter(this.fileArrayFilter)
+          this.setFiles(filesArr)
+          // We don't need to set `input.files`, as this is done natively, although
           // depending on various combos of multiple and webkitdirectory, `input.files`
           // may be an empty array or `input.webkitEntries` might be an empty array,
           // so we may want to set input.files to equal the flattened files array
           // TODO:
           // - Determine if we should set `input.files` to flatened array from files specified
           //   in `input.webkitEntries`, mainly for `required` constraint
+          //   Needs further manual testing/investigation
         })
       } else {
         // Standard file input handling (native file input change event), or
         // fallback drop mode (IE 11 / Opera) which don't support directry mode
-        let files = arrayFrom(target.files || (dataTransfer || { files: [] }).files)
+        const dt = dataTransfer || { files: [] }
+        let files = arrayFrom(target.files || dt.files)
+        // Add custom `$path` property to each file (to be consitant with drop mode)
         files.forEach(f => (f.$path = ''))
         /* istanbul ignore if: dropmode not easily tested in JSDOM */
         if (evt.type === 'drop') {
@@ -411,7 +429,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       })
     },
     setFiles(files = []) {
-      this.selectedFiles = this.multiple ? files || [] : [flattenDeep(files)[0]].filter(Boolean)
+      this.selectedFiles = this.multiple
+        ? (this.directory ? files : flattenDeep(files)).filter(Boolean)
+        : [flattenDeep(files)[0]].filter(Boolean)
     },
     setInputFiles(files = []) /* istanbul ignore next: used by Drag/Drop */ {
       // Try an set the file input files array so that `required`
