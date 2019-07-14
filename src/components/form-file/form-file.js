@@ -91,7 +91,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // IE 11 doesn't respect setting `evt.dataTransfer.dropEffect`, so
       // we handle it ourselves as well
       // https://stackoverflow.com/a/46915971/2744776
-      dropAllowed: false,
+      dropAllowed: !this.noDrop,
       hasFocus: false
     }
   },
