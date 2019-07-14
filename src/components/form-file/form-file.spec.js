@@ -437,7 +437,7 @@ describe('form-file', () => {
     expect(wrapper.is('form')).toBe(true)
     const formFile = wrapper.find(BFormFile)
     expect(formFile.exists()).toBe(true)
-    expect(formFile.is(BFormFile).toBe(true)
+    expect(formFile.is(BFormFile)).toBe(true)
 
     // Emulate the files array
     formFile.vm.setFiles([file1])
