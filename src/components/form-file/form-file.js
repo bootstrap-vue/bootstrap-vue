@@ -353,7 +353,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         const items = dataTransfer.items
         const queue = []
         for (let i = 0; i < items.length; i++) {
-          const item = (items[i].getAsEntry || items[i].webkitGetAsEntry)()
+          let item = items[i]
+          item = isFunction(item.getAsEntry)
+            ? item.getAsEntry()
+            : isFunction(item.webkitGetAsEntry)
+              ? item.webkitGetAsEntry()
+              : null
           if (item) {
             queue.push(this.traverseFileTree(item))
           }
