@@ -479,8 +479,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         accept: this.accept || null,
         multiple: this.multiple,
         webkitdirectory: this.directory,
+        // Future proof with `directory` prop
         directory: this.directory,
-        // directory: this.directory,
+        // This is potentially a future alternative prop to allow directory select
         // allowdirs: this.directory,
         'aria-required': this.required ? 'true' : null
       },
