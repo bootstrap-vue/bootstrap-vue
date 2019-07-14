@@ -423,13 +423,15 @@ describe('form-file', () => {
   it('file-name-formatter works', async () => {
     let called = false
     let filesIsArray = false
+    let filesTraversedIsArray = false
     const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
-        fileNameFormatter: files => {
+        fileNameFormatter: (files, filesTraversed) => {
           called = true
           filesIsArray = Array.isArray(files)
-          return 'foobar'
+          filesTraversedIsArray = Array.isArray(filesTraversed)
+          return 'some files'
         }
       }
     })
@@ -444,11 +446,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
-    // Formatter should have been called, and passed an array
+    // Formatter should have been called, and passed two arrays
     expect(called).toBe(true)
     expect(filesIsArray).toBe(true)
+    expect(filesTraversedIsArray).toBe(true)
     // Should have our custom formatted "filename"
-    expect(wrapper.find('label').text()).toContain('foobar')
+    expect(wrapper.find('label').text()).toContain('some files')
 
     wrapper.destroy()
   })
@@ -478,7 +481,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
     // Scoped slot should have been called, with expected scope
-    expect(slotScope).toEqual({ files: [file], names: [file.name] })
+    expect(slotScope).toEqual({ files: [file], filesTraversed: [file], names: [file.name] })
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('foobar')
 
