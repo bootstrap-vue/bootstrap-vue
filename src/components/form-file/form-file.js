@@ -61,6 +61,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'dropPlaceholder')
     },
+    noDropPlaceholder: {
+      // TODO: add to global config
+      type: String,
+      default: 'Not allowed'
+    },
     multiple: {
       // Note `directory` implies multiple files (where supported)
       type: Boolean,
@@ -145,7 +150,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Draging active
       if (this.dragging && (this.hasNormalizedSlot('drop-paceholder') || this.dropPlaceholder)) {
         /* istanbul ignore next: used by drag/drop which cant be tested easily */
-        return this.normalizeSlot('drop-placeholder') || this.dropPlaceholder
+        return this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
+          this.dropAllowed ? this.dropPlaceholder : this.noDropPlaceholder
       }
 
       // No file chosen
@@ -247,6 +253,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const dt = evt.dataTransfer
       if (this.noDrop || this.disabled) {
         dt.dropEffect = 'none'
+        this.dropAllowed = false
         // return
       }
       /*
@@ -288,10 +295,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone
+      this.dragging = true
       evtStopPrevent(evt)
       const dt = evt.dataTransfer
       if (this.noDrop || this.disabled) {
         dt.dropEffect = 'none'
+        this.dropAllowed = false
         return
       }
       if (dt && dt.items) {
@@ -316,8 +325,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
-      this.dragging = false
-      this.dropAllowed = false
+      this.$nextTick(() => {
+        this.dragging = false
+        this.dropAllowed = !this.noDrop
+      })
     },
     onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Triggered by a file drop onto drop target
@@ -325,6 +336,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const dt = evt.dataTransfer
       this.dragging = false
       if (this.noDrop || this.disabled || !this.dropAllowed /* || dt.dropEffect === 'none' */) {
+        this.dropAlowed = !this.noDrop
         return
       }
       if (dt.files && dt.files.length > 0) {
@@ -434,6 +446,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       })
     },
     setFiles(files = []) {
+      // Reset the dragging flags
+      this.dropAllowed = !this.noDrop
+      this.dragging = false
+      // Set teh selected file(s)
       this.selectedFiles = this.multiple
         ? (this.directory ? files : flattenDeep(files)).filter(Boolean)
         : [flattenDeep(files)[0]].filter(Boolean)
