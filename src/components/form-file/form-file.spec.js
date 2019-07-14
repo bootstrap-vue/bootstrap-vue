@@ -422,15 +422,15 @@ describe('form-file', () => {
 
   it('file-name-formatter works', async () => {
     let called = false
-    let filesIsArray = false
-    let filesTraversedIsArray = false
+    let filesArray = null
+    let filesTraversedArray = null
     const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         fileNameFormatter: (files, filesTraversed) => {
           called = true
-          filesIsArray = Array.isArray(files)
-          filesTraversedIsArray = Array.isArray(filesTraversed)
+          filesArray = files
+          filesTraversedArray = filesTraversed
           return 'some files'
         }
       }
@@ -448,8 +448,10 @@ describe('form-file', () => {
 
     // Formatter should have been called, and passed two arrays
     expect(called).toBe(true)
-    expect(filesIsArray).toBe(true)
-    expect(filesTraversedIsArray).toBe(true)
+    expect(Array.isArray(filesArray)).toBe(true)
+    expect(filesArray).toEqual([file])
+    expect(Array.isArray(filesTraversedArray)).toBe(true)
+    expect(filesTraversedArray).toEqual([file])
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('some files')
 
