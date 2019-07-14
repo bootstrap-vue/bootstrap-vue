@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form File",
-    "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload.",
+    "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, drag and drop, and directory upload.",
     "components": [
       {
         "component": "BFormFile",
