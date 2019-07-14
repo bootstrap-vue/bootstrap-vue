@@ -438,10 +438,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
           focus: this.custom && this.hasFocus,
-          // IE 11, the input gets in the "way" of the drop events
-          // So we move it out of the way
-          'sr-only': this.custom,
-          'sr-only-focusable': this.custom
+          // IE 11, the input gets in the "way" of the drop events, so we move it out of the way.
+          // Clicking the custom-file-label opens the file dialog, and we don't need
+          // the input in-view for drag/drop to work
+          'sr-only': this.custom
         },
         this.stateClass
       ],
