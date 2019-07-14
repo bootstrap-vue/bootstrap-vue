@@ -140,7 +140,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     fileNamesFlat() {
       return this.filesFlat.map(file => file.name)
     },
-    selectLabel() {
+    labelContent() {
       // Draging active
       if (this.dragging && (this.hasNormalizedSlot('drop-paceholder') || this.dropPlaceholder)) {
         /* istanbul ignore next: used by drag/drop which cant be tested easily */
@@ -485,12 +485,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: [this.dragging ? 'dragging' : null, 'overflow-hidden'],
         attrs: {
           for: this.safeId(),
+          // This goes away in Bootstrap v5
           'data-browse': this.browseText || null
         }
       },
-      h('span', { staticClass: 'd-block form-file-text' }, this.selectLabel || [h()])
-      // Future Bootstrap v5: button add in 
-      // h('span', { staticClass: 'form-file-button' }, this.browseLabel || 'Browse')
+      h('span', { staticClass: 'd-block form-file-text' }, this.labelContent || [h()])
+      // Future Bootstrap v5: add button
+      // h('span', { staticClass: 'form-file-button' }, this.browseContent || 'Browse')
     )
 
     // Return rendered custom file input
