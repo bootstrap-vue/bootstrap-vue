@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import cloneDeep from '../../utils/clone-deep'
 import { from as arrayFrom, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isFunction, isString } from '../../utils/inspect'
@@ -130,6 +131,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const capture = this.capture
       return capture === true || capture === '' ? true : capture || null
     },
+    filesCloned() {
+      return cloneDeep(this.selectedFiles)
+    },
     filesFlat() {
       return flattenDeep(this.selectedFiles).filter(Boolean)
     },
@@ -138,30 +142,29 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     selectLabel() {
       // Draging active
-      if (this.dragging && this.dropPlaceholder) {
+      if (this.dragging && (this.hasNormalizedSlot('drop-paceholder') || this.dropPlaceholder)) {
         /* istanbul ignore next: used by drag/drop which cant be tested easily */
-        return this.dropPlaceholder
+        return this.normalizeSlot('drop-placeholder') || this.dropPlaceholder
       }
 
       // No file chosen
       if (this.selectedFiles.length === 0) {
-        return this.placeholder
+        return this.normalizeSlot('placeholder') || this.placeholder
       }
-
-      const files = this.selectedFiles.filter(Boolean)
 
       if (this.hasNormalizedSlot('file-name')) {
         // There is a slot for formatting the files/names
         return [
           this.normalizeSlot('file-name', {
-            files: files,
+            files: this.filesFlat,
+            filesTraversed: this.filesCloned,
             names: this.fileNamesFlat
           })
         ]
       } else {
         // Use the user supplied formatter, or the built in one.
         return isFunction(this.fileNameFormatter)
-          ? String(this.fileNameFormatter(this.filesFlat))
+          ? String(this.fileNameFormatter(this.filesFlat, this.filesCloned))
           : this.fileNamesFlat.join(', ')
       }
     }
@@ -485,7 +488,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'data-browse': this.browseText || null
         }
       },
-      this.selectLabel
+      h('span', { staticClass: 'd-block form-file-text' }, this.selectLabel || [h()])
+      // Future Bootstrap v5: button add in 
+      // h('span', { staticClass: 'form-file-button' }, this.browseLabel || 'Browse')
     )
 
     // Return rendered custom file input
