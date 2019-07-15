@@ -22,8 +22,8 @@ const evtStopPrevent = evt => {
   // evt.stopImmediatePropagation()
 }
 
-// convert a DataTransferItemList to an array, with only types
-// of 'file' (which includes directory and file) allowed
+// convert a DataTransferItemList to an array, filtered for only entries of
+// of type (kind) 'file' (which also includes directorys) allowed
 // Array.from (or [].concat(...)) will not work
 const dtItemListToArray = list => {
   const items = []
@@ -363,14 +363,16 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         //   Change this from a promise method based on comments in `traverseFileTree`
         //   Can add fallback method if `webkitGetAsEntry` is not available (i.e. no
         //   native directory support)
-        const queue = dtItemListToArray(dataTransfer.items).map(item => {
-          item = isFunction(item.getAsEntry)
-            ? item.getAsEntry()
-            : isFunction(item.webkitGetAsEntry)
-              ? item.webkitGetAsEntry()
-              : null
-          return item ? this.traverseFileTree(item) : null
-        }).filter(Boolean)
+        const queue = dtItemListToArray(dataTransfer.items)
+          .map(item => {
+            item = isFunction(item.getAsEntry)
+              ? item.getAsEntry()
+              : isFunction(item.webkitGetAsEntry)
+                ? item.webkitGetAsEntry()
+                : null
+            return item ? this.traverseFileTree(item) : null
+          })
+          .filter(Boolean)
         // Process the queue
         Promise.all(queue).then(filesArr => {
           // Remove empty arrays and files that don't match accept
