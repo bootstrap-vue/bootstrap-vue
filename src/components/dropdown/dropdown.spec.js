@@ -151,7 +151,6 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
-
   it('split mode accepts split-button-type value', async () => {
     const wrapper = mount(BDropdown, {
       attachToDocument: true,
