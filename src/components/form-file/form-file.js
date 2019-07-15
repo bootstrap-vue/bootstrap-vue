@@ -22,6 +22,20 @@ const evtStopPrevent = evt => {
   // evt.stopImmediatePropagation()
 }
 
+// convert a DataTransferItemList to an array, with only types
+// of 'file' (which includes directory and file) allowed
+// Array.from (or [].concat(...)) will not work
+const dtItemListToArray = list => {
+  const items = []
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i]
+    if (item.kind === 'file') {
+      items.push(item)
+    }
+  }
+  return items
+}
+
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -308,27 +322,22 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
         // const items = arrayFrom(dt.items).filter(Boolean)
-        const items = []
-        for (let i = 0; i < dt.items.length; i++) {
-          // `DataTransferItemList` is not array-like, so we need to use a loop
-          // to convert it into an array
-          items.push(dt.items[i])
-        }
+        const items = dtItemListToArray(dt.items)
         if (
           // No files
           items.length === 0 ||
-          // No file/directory items
-          items.every(i => i.kind !== 'file') ||
           // Too many files
-          (!this.multiple && items.length > 1) ||
+          (!this.multiple && items.length > 1)
+          /*
           // Non-directory mode, and no valid files
           // TODO: check file entry type (isDirectory/isFile using webkitGetEntry)
           // This may need to be moved into it's own if statement for better checking
-          (!this.directory &&
+          || (!this.directory &&
             !items
               .filter(i => i.kind === 'file')
               .map(i => i.getAsFile())
               .some(this.fileValid))
+          */
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
@@ -384,19 +393,15 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         //   Change this from a promise method based on comments in `traverseFileTree`
         //   Can add fallback method if `webkitGetAsEntry` is not available (i.e. no
         //   native directory support)
-        const items = dataTransfer.items
-        const queue = []
-        for (let i = 0; i < items.length; i++) {
-          let item = items[i]
+        const queue = dtItemListToArray(dataTransfer.items).map(item => {
           item = isFunction(item.getAsEntry)
             ? item.getAsEntry()
             : isFunction(item.webkitGetAsEntry)
               ? item.webkitGetAsEntry()
               : null
-          if (item) {
-            queue.push(this.traverseFileTree(item))
-          }
-        }
+          return item ? this.traverseFileTree(item) : null
+        }).filter(Boolean)
+        // Process the queue
         Promise.all(queue).then(filesArr => {
           // Remove empty arrays and files that don't match accept
           filesArr = filesArr.filter(this.fileArrayFilter)
@@ -560,7 +565,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'data-browse': this.browseText || null
         }
       },
-      [h('span', { staticClass: 'd-block form-file-text' }, this.labelContent || [h()])]
+      [h('span', { staticClass: 'd-block form-file-text' }, [this.labelContent])]
       // Future Bootstrap v5: add button
       // h('span', { staticClass: 'form-file-button' }, this.browseContent || 'Browse')
     )
