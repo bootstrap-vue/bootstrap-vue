@@ -22,9 +22,9 @@ const evtStopPrevent = evt => {
   // evt.stopImmediatePropagation()
 }
 
-// convert a DataTransferItemList to an array, filtered for only entries of
-// of type (kind) 'file' (which also includes directorys) allowed
-// Array.from (or [].concat(...)) will not work
+// Convert a `DataTransferItemList` to an array, filtered for only entries
+// of type (kind) 'file' (which also includes directories) allowed
+// `Array.from` (or `[].concat(...)`) will not work
 const dtItemListToArray = list => {
   const items = []
   for (let i = 0; i < list.length; i++) {
@@ -99,11 +99,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      // Internally files are always stored in true Array format
+      // Internally files are always stored in true array format
       selectedFiles: [],
       dragging: false,
-      // IE 11 doesn't respect setting `evt.dataTransfer.dropEffect`, so
-      // we handle it ourselves as well
+      // IE 11 doesn't respect setting `evt.dataTransfer.dropEffect`,
+      // so we handle it ourselves as well
       // https://stackoverflow.com/a/46915971/2744776
       dropAllowed: !this.noDrop,
       hasFocus: false
@@ -111,7 +111,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     computedAccept() {
-      // Convert `accept` to an array of [{ RegExpr, isMime }, ...]
+      // Convert `accept` to an array of `[{ RegExpr, isMime }, ...]`
       let accept = this.accept
       accept = (isString(accept) ? accept.trim() : '').split(/[,\s]+/).filter(Boolean)
       if (accept.length === 0) {
@@ -161,7 +161,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore next: used by drag/drop which can't be tested easily */
       if (this.dragging && !this.noDrop) {
         return (
-          // TODO: add additional scope with file count, and other not-allowed reasons
+          // TODO: Add additional scope with file count, and other not-allowed reasons
           this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
           (this.dropAllowed
             ? this.dropPlaceholder
@@ -184,7 +184,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           })
         ]
       } else {
-        // Use the user supplied formatter, or the built in one.
+        // Use the user supplied formatter, or the built in one
         return isFunction(this.fileNameFormatter)
           ? String(this.fileNameFormatter(this.filesFlat, this.filesCloned))
           : this.fileNamesFlat.join(', ')
@@ -193,9 +193,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     selectedFiles(newVal, oldVal) {
-      // The following test is needed when the file input is "reset" or the
-      // exact same file(s) are selected to prevent an infinite loop.
-      // When in `multiple` mode we need to check for two empty arrays or
+      // The following test is needed when the file input is 'reset' or the
+      // exact same file(s) are selected to prevent an infinite loop
+      // When in 'multiple' mode we need to check for two empty arrays or
       // two arrays with identical files
       if (
         newVal === oldVal ||
@@ -241,7 +241,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     focusHandler(evt) {
       // Bootstrap v4 doesn't have focus styling for custom file input
-      // Firefox has a '[type=file]:focus ~ sibling' selector issue,
+      // Firefox has a `[type=file]:focus ~ sibling` selector issue,
       // so we add a 'focus' class to get around these bugs
       if (this.plain || evt.type === 'focusout') {
         this.hasFocus = false
@@ -255,9 +255,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // Wrapped in try in case IE 11 craps out
         this.$refs.input.value = ''
       } catch (e) {}
-      // IE 11 doesn't support setting `input.value` to '' or null
-      // So we use this little extra hack to reset the value, just in case.
-      // This also appears to work on modern browsers as well.
+      // IE 11 doesn't support setting `input.value` to '' or null, so we
+      // use this little extra hack to reset the value, just in case
+      // This also appears to work on modern browsers as well
       this.$refs.input.type = ''
       this.$refs.input.type = 'file'
       this.selectedFiles = []
@@ -272,7 +272,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // return
       }
       if (dt && dt.items) {
-        // Can't check dt.files, as it is empty at this point for some reason
+        // Can't check `dt.files`, as it is empty at this point for some reason
         // const items = arrayFrom(dt.items).filter(Boolean)
         const items = dtItemListToArray(dt.items)
         if (
@@ -282,7 +282,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           (!this.multiple && items.length > 1)
           /*
           // Non-directory mode, and no valid files
-          // TODO: check file entry type (isDirectory/isFile using webkitGetEntry)
+          // TODO: Check file entry type (isDirectory/isFile using webkitGetEntry)
           // This may need to be moved into it's own if statement for better checking
           || (!this.directory &&
             !items
@@ -319,7 +319,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       evtStopPrevent(evt)
       this.$nextTick(() => {
         this.dragging = false
-        // Reset dropAllowed to default
+        // Reset `dropAllowed` to default
         this.dropAllowed = !this.noDrop
       })
     },
@@ -354,7 +354,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         dataTransfer &&
         dataTransfer.items &&
         dataTransfer.items[0] &&
-        // while `webkitGetAsEntry` is webkit specific, most modern browsers have
+        // While `webkitGetAsEntry` is webkit specific, most modern browsers have
         // implemented this. Future proof by checking for `getAsEntry` as well
         isFunction(dataTransfer.items[0].getAsEntry || dataTransfer.items[0].webkitGetAsEntry)
       ) {
@@ -401,9 +401,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // may be an empty array or `input.webkitEntries` might be an empty array,
           // so we may want to set input.files to equal the flattened files array
           // TODO:
-          //  Determine if we should set `input.files` to flattened array from files
-          //  specified in `input.webkitEntries`, mainly for `required` constraint
-          //  Needs further manual testing/investigation
+          //   Determine if we should set `input.files` to flattened array from files
+          //   specified in `input.webkitEntries`, mainly for `required` constraint
+          //   Needs further manual testing/investigation
         })
       } else {
         // Standard file input handling (native file input change event), or
@@ -465,7 +465,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     setInputFiles(files = []) /* istanbul ignore next: used by Drag/Drop */ {
       // Try an set the file input files array so that `required`
-      // constraint works for dropped files (will fail in IE11 though).
+      // constraint works for dropped files (will fail in IE11 though)
       // To be used only when dropping files
       try {
         // First we need to convert the array of files
@@ -494,7 +494,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         },
         this.stateClass
       ],
-      // with IE 11, the input gets in the "way" of the drop events, so we move it out
+      // With IE 11, the input gets in the "way" of the drop events, so we move it out
       // of the way by putting it behind the label (Bootstrap v4 has it in front)
       style: this.custom ? { zIndex: -5 } : {},
       attrs: {
@@ -531,7 +531,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'label',
       {
         staticClass: 'custom-file-label',
-        // We add overflow-hidden to prevent filenames from breaking out of the input
+        // We add `overflow-hidden` to prevent filenames from breaking out of the input
         class: [this.dragging ? 'dragging' : null, 'overflow-hidden'],
         attrs: {
           for: this.safeId(),
@@ -545,7 +545,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           this.labelContent
         ])
       ]
-      // Future Bootstrap v5: add brows button
+      // Future Bootstrap v5: Add brows button
       // h('span', { staticClass: 'form-file-button' }, this.browseContent || 'Browse')
     )
 
@@ -555,8 +555,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'custom-file b-form-file',
         // TODO:
-        //   Possibly add state feedback (invalid) if !this.dropAllowed
-        //   OR use `text-danger` class on the noDropPlaceholder content
+        //   Possibly add state feedback (invalid) if `!this.dropAllowed`
+        //   or use `text-danger` class on the `noDropPlaceholder` content
         class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
