@@ -319,13 +319,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // intervals in the milliseconds, so avoid doing much processing in this event
       this.dragging = true
       evtStopPrevent(evt)
-      /*
       const dt = evt.dataTransfer
-      if (this.noDrop || this.disabled) {
+      if (this.noDrop || this.disabled || !this.dropAllowed) {
         dt.dropEffect = 'none'
-        this.dropAllowed = false
-        return
+        // return
       }
+      /*
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
         const items = arrayFrom(dt.items).filter(Boolean)
@@ -363,7 +362,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.dropAlowed = !this.noDrop
         return
       }
-      if (dt.files && dt.files.length > 0) {
+      if ((dt.items && dt.items.length > 0) || (dt.files && dt.files.length > 0)) {
         this.processFilesEvt(evt)
       }
     },
