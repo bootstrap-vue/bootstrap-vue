@@ -377,10 +377,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         Promise.all(queue).then(filesArr => {
           // Remove empty arrays and files that don't match accept
           filesArr = filesArr.filter(this.fileArrayFilter)
-          this.setFiles(filesArr)
-          // Try an set the file input's files array so that `required`
-          // constraint works for dropped files (will fail in IE11 though)
-          this.setInputFiles(filesArr)
+          if (filesArr.length) {
+            // Only set the files if there are files
+            this.setFiles(filesArr)
+            // Try an set the file input's files array so that `required`
+            // constraint works for dropped files (will fail in IE11 though)
+            this.setInputFiles(filesArr)
+          }
         })
       } else if (!isDrop && target.webkitEntries && target.webkitEntries.length > 0) {
         // Input `change` event on modern browsers (ones that usually support directory mode)
