@@ -175,8 +175,8 @@ Set the prop `file-name-formatter` to a function that accepts a single argument 
 a single formatted string (HTML is not supported). The formatter will not be called if no files are
 selected.
 
-Regardless of if the prop `multiple` is set or not, the argument to the formatter will **always** be an
-array. When in directory mode, the passed files array will be flattened.
+Regardless of if the prop `multiple` is set or not, the argument to the formatter will **always** be
+an array. When in directory mode, the passed files array will be flattened.
 
 ```html
 <template>
@@ -208,10 +208,10 @@ path, or an empty string if not available.
 Alternatively, you can use the scoped slot `file-name` to render the file names. The scoped slot
 will receive the following properties:
 
-| Property | Type  | Description                                                                                             |
-| -------- | ----- | ------------------------------------------------------------------------------------------------------- |
-| `files`  | Array | Array of `File` objects (array of arrays for directory mode when `no-traverse` is not set)              |
-| `names`  | Array | Array of file names (flattened)                                                                         |
+| Property | Type  | Description                                                                                |
+| -------- | ----- | ------------------------------------------------------------------------------------------ |
+| `files`  | Array | Array of `File` objects (array of arrays for directory mode when `no-traverse` is not set) |
+| `names`  | Array | Array of file names (flattened)                                                            |
 
 Both properties are always arrays, regardless of the setting of the `multiple` prop.
 
@@ -230,8 +230,8 @@ Both properties are always arrays, regardless of the setting of the `multiple` p
 <!-- file-formatter-slot.vue -->
 ```
 
-When using the `file-name` slot, the `file-name-formatter` prop is ignored. The slot **will not**
-be rendered when there are no file(s) selected.
+When using the `file-name` slot, the `file-name-formatter` prop is ignored. The slot **will not** be
+rendered when there are no file(s) selected.
 
 ## Non custom file input
 

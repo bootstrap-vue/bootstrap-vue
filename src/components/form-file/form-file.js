@@ -313,13 +313,15 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // Not a file/directory (check first item only)
           items[0].kind !== 'file' ||
           // Too many files
-          (!this.multiple && items.length > 1)
-          // Non directory mode, and valid files
-          (!this.directory &&
-            !items
-              .filter(i => i.kind === 'file')
-              .map(i => i.getAsFile())
-              .some(this.fileValid))        ) {
+          (!this.multiple && items.length > 1)(
+            // Non directory mode, and valid files
+            !this.directory &&
+              !items
+                .filter(i => i.kind === 'file')
+                .map(i => i.getAsFile())
+                .some(this.fileValid)
+          )
+        ) {
           // Show deny feedback
           dt.dropEffect = 'none'
           this.dropAllowed = false
