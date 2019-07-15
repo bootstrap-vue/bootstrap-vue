@@ -1,10 +1,20 @@
-import { isArray, isPlainObject, isUndefinedOrNull } from './inspect'
+import { isArray, isPlainObject, isString, isUndefinedOrNull } from './inspect'
 
 // --- Constants ---
 
 export const regExpReplaceRE = /[-/\\^$*+?.()|[\]{}]/g
 
 // --- Utilities ---
+
+export const lowerFirst = str => {
+  str = isString(str) ? str.trim() : String(str)
+  return str.charAt(0).toLowerCase() + str.slice(1)
+}
+
+export const upperFirst = str => {
+  str = isString(str) ? str.trim() : String(str)
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 
 export const escapeRegExp = str => str.replace(regExpReplaceRE, '\\$&')
 
