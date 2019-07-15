@@ -25,6 +25,7 @@ const evtStopPrevent = evt => {
 // Convert a `DataTransferItemList` to an array, filtered for only entries
 // of type (kind) 'file' (which also includes directories) allowed
 // `Array.from` (or `[].concat(...)`) will not work
+/* istanbul ignore next: used by drag/drop which can't be tested easily (yet) */
 const dtItemListToArray = list => {
   const items = []
   for (let i = 0; i < list.length; i++) {
