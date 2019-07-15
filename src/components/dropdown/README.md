@@ -201,8 +201,8 @@ router link `to` value via the `split-to` prop, while maintaining the look of a 
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.27</span>
 
-The split button defaults to a button `type` of `'button'`. You can specify an alternate type via the
-`split-button-type` prop. Supported values are: `'button'`, `'submit'` and `'reset'`.
+The split button defaults to a button `type` of `'button'`. You can specify an alternate type via
+the `split-button-type` prop. Supported values are: `'button'`, `'submit'` and `'reset'`.
 
 If props `split-to` or `split-href` are set, the `split-button-type` prop will be ignored.
 
