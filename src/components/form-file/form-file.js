@@ -151,7 +151,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.dragging && (this.hasNormalizedSlot('drop-paceholder') || this.dropPlaceholder)) {
         /* istanbul ignore next: used by drag/drop which cant be tested easily */
         return this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
-          this.dropAllowed ? this.dropPlaceholder : this.noDropPlaceholder
+          (this.dropAllowed ? this.dropPlaceholder : this.noDropPlaceholder)
       }
 
       // No file chosen
