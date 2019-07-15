@@ -142,6 +142,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       return this.filesFlat.map(file => file.name)
     },
     labelContent() {
+      const h = this.$createElement
       // Draging active
       /* istanbul ignore next: used by drag/drop which can't be tested easily */
       if (this.dragging && !this.noDrop) {
@@ -317,7 +318,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // No files
           items.length === 0 ||
           // No file/directory items
-          items.every(i => i.kind !== 'file')
+          items.every(i => i.kind !== 'file') ||
           // Too many files
           (!this.multiple && items.length > 1) ||
           // Non-directory mode, and no valid files
