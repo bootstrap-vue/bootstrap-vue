@@ -204,9 +204,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     const form = closest('form', this.$el)
     // Listen for form reset events, to reset the file input
     if (form) {
-      eventOn(form, 'reset', this.onReset, { passive: true })
+      eventOn(form, 'reset', this.reset, { passive: true })
       this.$on('hook:beforeDestroy', () => {
-        eventOff(form, 'reset', this.onReset, { passive: true })
+        eventOff(form, 'reset', this.reset, { passive: true })
       })
     }
   },
@@ -256,27 +256,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.noDrop || this.disabled) {
         dt.dropEffect = 'none'
         this.dropAllowed = false
-        return
+        // return
       }
-      if (dt && dt.items) {
-        // Can't check dt.files, as it is empty at this point for some reason
-        const items = arrayFrom(dt.items).filter(Boolean)
-        if (
-          // No files
-          items.length === 0 ||
-          // Not a file/directory (check first item only)
-          items[0].kind !== 'file' ||
-          // Too many files
-          (!this.multiple && items.length > 1)
-        ) {
-          // Show deny feedback
-          dt.dropEffect = 'none'
-          this.dropAllowed = false
-          return
-        }
-      }
-      dt.dropEffect = 'copy'
-      this.dropAllowed = true
       /*
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
@@ -304,8 +285,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         ) {
           // Show deny feedback
           dt.dropEffect = 'none'
-          // Reset "drop here" propmt
-          this.dragging = false
           this.dropAllowed = false
           return
         }
@@ -317,14 +296,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone at
       // intervals in the milliseconds, so avoid doing much processing in this event
-      this.dragging = true
       evtStopPrevent(evt)
+      this.dragging = true
       const dt = evt.dataTransfer
       if (this.noDrop || this.disabled || !this.dropAllowed) {
         dt.dropEffect = 'none'
-        // return
+        this.dropAllowed = false
+        return
       }
-      /*
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
         const items = arrayFrom(dt.items).filter(Boolean)
@@ -335,7 +314,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           items[0].kind !== 'file' ||
           // Too many files
           (!this.multiple && items.length > 1)
-        ) {
+          // Non directory mode, and valid files
+          (!this.directory &&
+            !items
+              .filter(i => i.kind === 'file')
+              .map(i => i.getAsFile())
+              .some(this.fileValid))        ) {
           // Show deny feedback
           dt.dropEffect = 'none'
           this.dropAllowed = false
@@ -344,7 +328,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
       dt.dropEffect = 'copy'
       this.dropAllowed = true
-      */
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
@@ -359,7 +342,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       const dt = evt.dataTransfer
       this.dragging = false
       if (this.noDrop || this.disabled || !this.dropAllowed /* || dt.dropEffect === 'none' */) {
-        this.dropAlowed = !this.noDrop
+        this.$nextTick(() => {
+          this.dropAlowed = !this.noDrop
+        })
         return
       }
       if ((dt.items && dt.items.length > 0) || (dt.files && dt.files.length > 0)) {
@@ -385,6 +370,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         isFunction(dataTransfer.items[0].getAsEntry || dataTransfer.items[0].webkitGetAsEntry)
       ) {
         // Special `items` prop is available on `drop` event (except IE)
+        // TODO:
+        //   change this from a promize method based on comments in `traverseFileTree`
+        //   Can add fallback method if `webkitGetAsEntry` is not available (i.e. no
+        //   native directory support)
         const items = dataTransfer.items
         const queue = []
         for (let i = 0; i < items.length; i++) {
@@ -411,6 +400,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // when dropping files (or dirs) directly on the native input (when in plain mode)
         // Supported by Chrome, Firefox, Edge, and maybe Safari
         // Will need to see what the standard property will be
+        // TODO:
+        //   change this from a promize method based on comments in `traverseFileTree`
         /* istanbul ignore next: can't test in JSDOM */
         Promise.all(target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
           // Remove empty arrays and files that don't match accept, update local model
@@ -446,6 +437,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     traverseFileTree(item, path = '') /* istanbul ignore next: not supported in JSDOM */ {
       // Based on http://stackoverflow.com/questions/3590058
+      // TODO:
+      //   Change this to be modelled after the code from
+      //   https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/webkitGetAsEntry
+      //   And have it return the structured array of Files
+      //   So we can use this method in the draging handlers to check validity
+      //   of dragged content before it is dropped
       return new Promise(resolve => {
         if (item.isFile) {
           // Get file
@@ -564,6 +561,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'custom-file b-form-file',
+        // TODO:
+        //   Possibly add state feedback (invalid) if !this.dropAllowed
+        //   OR use `text-danger` class on the noDropPlaceholder content
         class: this.stateClass,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
