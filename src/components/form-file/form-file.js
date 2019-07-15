@@ -297,6 +297,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           return
         }
       }
+      dt.dropEffect = 'copy'
+      this.dropAllowed = true
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone at
@@ -311,12 +313,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       dt.dropEffect = 'copy'
-      this.dropAllowed = true
+      // this.dropAllowed = true
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
       this.$nextTick(() => {
         this.dragging = false
+        // Reset dropAllowed to default
         this.dropAllowed = !this.noDrop
       })
     },
@@ -340,12 +343,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.processFilesEvt(evt)
     },
     processFilesEvt(evt) {
+      const isDrop = evt.type === 'drop'
       const target = evt.target
       const dataTransfer = evt.dataTransfer
       // Always emit original event
       this.$emit('change', evt)
       /* istanbul ignore if: not supported in JSDOM */
       if (
+        isDrop &&
         dataTransfer &&
         dataTransfer.items &&
         dataTransfer.items[0] &&
@@ -375,7 +380,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // constraint works for dropped files (will fail in IE11 though)
           this.setInputFiles(filesArr)
         })
-      } else if (target.webkitEntries && target.webkitEntries.length > 0) {
+      } else if (!isDrop && target.webkitEntries && target.webkitEntries.length > 0) {
         // Input `change` event on modern browsers (ones that usually support directory mode)
         // when dropping files (or dirs) directly on the native input (when in plain mode)
         // Supported by Chrome, Firefox, Edge, and maybe Safari
@@ -480,14 +485,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         {
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
-          focus: this.custom && this.hasFocus,
-          // IE 11, the input gets in the "way" of the drop events, so we move it out of the way.
-          // Clicking the custom-file-label opens the file dialog, and we don't need
-          // the input in-view for drag/drop to work
-          'sr-only': this.custom
+          focus: this.custom && this.hasFocus
         },
         this.stateClass
       ],
+      // with IE 11, the input gets in the "way" of the drop events, so we move it out
+      // of the way by putting it behind the label (Bootstrap v4 has it in front)
+      style: this.custom ? { zIndex: -5 } : {},
       attrs: {
         type: 'file',
         id: this.safeId(),
