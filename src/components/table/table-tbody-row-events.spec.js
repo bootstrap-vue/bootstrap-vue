@@ -376,9 +376,9 @@ describe('table > tbody row events', () => {
     $label.trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
-    const $label = wrapper.find('label.f-label')
-    expect($label.exists()).toBe(true)
-    $label.trigger('click')
+    const $labelf = wrapper.find('label.f-label')
+    expect($labelf.exists()).toBe(true)
+    $labelf.trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     wrapper.destroy()
