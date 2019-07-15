@@ -271,54 +271,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.dropAllowed = false
         // return
       }
-      /*
-      if (dt && dt.items) {
-        // Can't check dt.files, as it is empty at this point for some reason
-        const items = arrayFrom(dt.items).filter(Boolean)
-        if (
-          // No files
-          items.length === 0 ||
-          // Not a file/directory (check first item only)
-          items[0].kind !== 'file' ||
-          // Too many files
-          (!this.multiple && items.length > 1) ||
-          // Non-directory mode and no accepted file types
-          // Note: directories appear as a kind=file, with type = ""
-          // Should have a way to detect if is a directory
-          // `directory` mode on file inputs appears to only allow one directory to
-          // be selected (not multiple, regardless of `multiple` attribute, although drag/drop allows it)
-          (!this.directory &&
-            !items
-              .filter(i => i.kind === 'file')
-              .map(i => i.getAsFile())
-              .some(this.fileValid))
-          // Checking files in directory mode is too much code, so we just
-          // rely on the directory processing during the drop to filter
-          // out non accepted files
-        ) {
-          // Show deny feedback
-          dt.dropEffect = 'none'
-          this.dropAllowed = false
-          return
-        }
-        dt.dropEffect = 'copy'
-        this.dropAllowed = true
-      }
-      */
-    },
-    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      // Note this event fires repeatedly while the mouse is over the dropzone at
-      // intervals in the milliseconds, so avoid doing much processing in this event
-      // Unfortunately we can't do this in the initial `dragenter` event (maybe)
-      evtStopPrevent(evt)
-      this.dragging = true
-      const dt = evt.dataTransfer
-      if (this.noDrop || this.disabled || !this.dropAllowed) {
-        // Early exit
-        dt.dropEffect = 'none'
-        this.dropAllowed = false
-        return
-      }
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
         // const items = arrayFrom(dt.items).filter(Boolean)
@@ -344,6 +296,19 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           this.dropAllowed = false
           return
         }
+      }
+    },
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      // Note this event fires repeatedly while the mouse is over the dropzone at
+      // intervals in the milliseconds, so avoid doing much processing in this event
+      evtStopPrevent(evt)
+      this.dragging = true
+      const dt = evt.dataTransfer
+      if (this.noDrop || this.disabled || !this.dropAllowed) {
+        // Early exit
+        dt.dropEffect = 'none'
+        this.dropAllowed = false
+        return
       }
       dt.dropEffect = 'copy'
       this.dropAllowed = true
@@ -565,8 +530,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'data-browse': this.browseText || null
         }
       },
-      [h('span', { staticClass: 'd-block form-file-text' }, [this.labelContent])]
-      // Future Bootstrap v5: add button
+      // `pointer-events: none` is used to make sure the drag events fire only on the label
+      [
+        h('span', { staticClass: 'd-block form-file-text', style: { pointerEvents: 'none' } }, [
+          this.labelContent
+        ])
+      ]
+      // Future Bootstrap v5: add brows button
       // h('span', { staticClass: 'form-file-button' }, this.browseContent || 'Browse')
     )
 
