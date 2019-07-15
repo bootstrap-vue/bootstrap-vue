@@ -256,11 +256,30 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.noDrop || this.disabled) {
         dt.dropEffect = 'none'
         this.dropAllowed = false
-        // return
+        return
       }
+      if (dt && dt.items) {
+        // Can't check dt.files, as it is empty at this point for some reason
+        const items = arrayFrom(dt.items).filter(Boolean)
+        if (
+          // No files
+          items.length === 0 ||
+          // Not a file/directory (check first item only)
+          items[0].kind !== 'file' ||
+          // Too many files
+          (!this.multiple && items.length > 1)
+        ) {
+          // Show deny feedback
+          dt.dropEffect = 'none'
+          this.dropAllowed = false
+          return
+        }
+      }
+      dt.dropEffect = 'copy'
+      this.dropAllowed = true
       /*
       if (dt && dt.items) {
-        // Can't check dt.files, as it is empty at this point
+        // Can't check dt.files, as it is empty at this point for some reason
         const items = arrayFrom(dt.items).filter(Boolean)
         if (
           // No files
@@ -296,9 +315,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       */
     },
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
-      // Note this event fires repeatedly while the mouse is over the dropzone
+      // Note this event fires repeatedly while the mouse is over the dropzone at
+      // intervals in the milliseconds, so avoid doing much processing in this event
       this.dragging = true
       evtStopPrevent(evt)
+      /*
       const dt = evt.dataTransfer
       if (this.noDrop || this.disabled) {
         dt.dropEffect = 'none'
@@ -306,7 +327,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       if (dt && dt.items) {
-        // Can't check dt.files, as it is empty at this point
+        // Can't check dt.files, as it is empty at this point for some reason
         const items = arrayFrom(dt.items).filter(Boolean)
         if (
           // No files
@@ -322,8 +343,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           return
         }
       }
-      evt.dataTransfer.dropEffect = 'copy'
+      dt.dropEffect = 'copy'
       this.dropAllowed = true
+      */
     },
     onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       evtStopPrevent(evt)
