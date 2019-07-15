@@ -105,11 +105,11 @@ Directory mode is also supported when the file input is in plain mode on **most*
 ## Drag and Drop support
 
 Drop mode is enabled by default. It can disabled by setting the `no-drop` prop. `no-drop` has no
-effect in plain mode (some browsers support dropping files onto a plain input file)
+effect in plain mode (some browsers support dropping files onto a plain input file).
 
 You can optionally set a different placeholder while dragging via the `drop-placeholder` prop. The
 default is no drop placeholder text. Only plain text is supported. HTML and components are not
-supported. The `drop-placeholder` prop has no effect if `no-drop` is set or in `plain` mode,
+supported. The `drop-placeholder` prop has no effect if `no-drop` is set or in `plain` mode.
 
 Note that native browser constraints (such `required`) will not work with drop mode, as the hidden
 file input does not handle the drag and drop functionality and will have zero files selected.
@@ -140,7 +140,7 @@ standard media types.
 
 **Note:** Not all browsers support or respect the `accept` attribute on file inputs.
 
-For drag and drop, BootstrapVue uses an internal file type checking routine and will fillter out
+For drag and drop, BootstrapVue uses an internal file type checking routine and will filter out
 files that do not have the correct IANA media type or extension.
 
 ## Customize the placeholder text

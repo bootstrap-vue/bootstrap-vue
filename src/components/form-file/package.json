@@ -14,7 +14,7 @@
         "slots": [
           {
             "name": "file-name",
-            "description": "Scoped slot for formatting the file names. Scoped props: `files` - flat array of `File` objects, `names`: flat array of file names, `filesTraversed`: array of arrays of `File` objects when in directoy mode"
+            "description": "Scoped slot for formatting the file names. Scoped props: `files` - flat array of `File` objects, `names`: flat array of file names, `filesTraversed`: array of arrays of `File` objects when in directory mode"
           },
           {
             "name": "placeholder",
@@ -22,7 +22,7 @@
           },
           {
             "name": "drop-placeholder",
-            "description": "Plcaeholder content when files are about to be dropped. Defaults to value of `drop-placeholder` prop"
+            "description": "Placeholder content when files are about to be dropped. Defaults to value of `drop-placeholder` prop"
           }
         ],
         "events": [
