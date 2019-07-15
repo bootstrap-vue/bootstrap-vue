@@ -291,10 +291,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       // Note this event fires repeatedly while the mouse is over the dropzone at
       // intervals in the milliseconds, so avoid doing much processing in this event
+      // Unfortunately we can't do this in the initial `dragenter` event (maybe)
       evtStopPrevent(evt)
       this.dragging = true
       const dt = evt.dataTransfer
       if (this.noDrop || this.disabled || !this.dropAllowed) {
+        // Early exit
         dt.dropEffect = 'none'
         this.dropAllowed = false
         return
@@ -309,14 +311,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           items[0].kind !== 'file' ||
           // Too many files
           (!this.multiple && items.length > 1) ||
-          // Non directory mode, and no valid files
+          // Non-directory mode, and no valid files
           // TODO: check file entry type (isDirectory/isFile using webkitGetEntry)
-          (
-            !this.directory &&
-              !items
-                .filter(i => i.kind === 'file')
-                .map(i => i.getAsFile())
-                .some(this.fileValid)
+          (!this.directory &&
+            !items
+              .filter(i => i.kind === 'file')
+              .map(i => i.getAsFile())
+              .some(this.fileValid)
           )
         ) {
           // Show deny feedback
