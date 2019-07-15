@@ -4,6 +4,7 @@ import { from as arrayFrom, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { closest, eventOn, eventOff } from '../../utils/dom'
 import { isFunction, isString } from '../../utils/inspect'
+import { escapeRegExp } from '../../utils/string'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
@@ -20,12 +21,6 @@ const evtStopPrevent = evt => {
   evt.stopPropagation()
   // evt.stopImmediatePropagation()
 }
-
-// Pre-compile RegExp for improved performance
-// This regexp/method is also used by `table/helpers/mixin-filtering.js`, so we
-// could move this into a utils module (maybe a string.js utils file)
-const regExpEscapeRx = /[-/\\^$*+?.()|[\]{}]/g
-const escapeRegExpString = str => str.replace(regExpEscapeRx, '\\$&')
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -128,7 +123,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           }
         }
         // Escape all RegExp special chars
-        extOrType = escapeRegExpString(extOrType)
+        extOrType = escapeRegExp(extOrType)
         const rx = new RegExp(`${startMatch}${extOrType}${endMatch}`)
         return { rx, prop }
       })

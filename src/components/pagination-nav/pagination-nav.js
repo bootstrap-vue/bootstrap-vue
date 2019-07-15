@@ -1,11 +1,11 @@
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
-import toString from '../../utils/to-string'
 import warn from '../../utils/warn'
 import { requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
 import { computeHref, parseQuery } from '../../utils/router'
+import { toString } from '../../utils/string'
 import paginationMixin from '../../mixins/pagination'
 
 // Props object

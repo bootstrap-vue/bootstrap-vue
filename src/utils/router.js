@@ -1,6 +1,6 @@
-import toString from './to-string'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
+import { toString } from './string'
 
 const ANCHOR_TAG = 'a'
 
