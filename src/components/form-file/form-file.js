@@ -345,7 +345,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.dragging = false
       if (this.noDrop || this.disabled || !this.dropAllowed /* || dt.dropEffect === 'none' */) {
         this.$nextTick(() => {
-          this.dropAlowed = !this.noDrop
+          this.dropAllowed = !this.noDrop
         })
         return
       }
@@ -368,12 +368,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         dataTransfer.items &&
         dataTransfer.items[0] &&
         // while `webkitGetAsEntry` is webkit specific, most modern browsers have
-        // implmented this. Future proof by checking for `getAsEntry` as well
+        // implemented this. Future proof by checking for `getAsEntry` as well
         isFunction(dataTransfer.items[0].getAsEntry || dataTransfer.items[0].webkitGetAsEntry)
       ) {
         // Special `items` prop is available on `drop` event (except IE)
         // TODO:
-        //   change this from a promize method based on comments in `traverseFileTree`
+        //   Change this from a promise method based on comments in `traverseFileTree`
         //   Can add fallback method if `webkitGetAsEntry` is not available (i.e. no
         //   native directory support)
         const items = dataTransfer.items
@@ -402,8 +402,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // when dropping files (or dirs) directly on the native input (when in plain mode)
         // Supported by Chrome, Firefox, Edge, and maybe Safari
         // Will need to see what the standard property will be
-        // TODO:
-        //   change this from a promize method based on comments in `traverseFileTree`
+        // TODO: Change this from a promise method based on comments in `traverseFileTree`
         /* istanbul ignore next: can't test in JSDOM */
         Promise.all(target.webkitEntries.map(this.traverseFileTree)).then(filesArr => {
           // Remove empty arrays and files that don't match accept, update local model
@@ -414,18 +413,18 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // may be an empty array or `input.webkitEntries` might be an empty array,
           // so we may want to set input.files to equal the flattened files array
           // TODO:
-          // - Determine if we should set `input.files` to flatened array from files specified
-          //   in `input.webkitEntries`, mainly for `required` constraint
-          //   Needs further manual testing/investigation
+          //  Determine if we should set `input.files` to flattened array from files
+          //  specified in `input.webkitEntries`, mainly for `required` constraint
+          //  Needs further manual testing/investigation
         })
       } else {
         // Standard file input handling (native file input change event), or
-        // fallback drop mode (IE 11 / Opera) which don't support directry mode
+        // fallback drop mode (IE 11 / Opera) which don't support directory mode
         const dt = dataTransfer || { files: [] }
         let files = arrayFrom(target.files || dt.files)
-        // Add custom `$path` property to each file (to be consitant with drop mode)
+        // Add custom `$path` property to each file (to be consistent with drop mode)
         files.forEach(f => (f.$path = ''))
-        /* istanbul ignore if: dropmode not easily tested in JSDOM */
+        /* istanbul ignore if: drop mode not easily tested in JSDOM */
         if (evt.type === 'drop') {
           files = files.filter(this.fileValid)
           // Set the v-model
