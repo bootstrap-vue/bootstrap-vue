@@ -115,6 +115,8 @@ describe('dropdown', () => {
     expect($split.classes()).toContain('btn-secondary')
     expect($split.attributes('id')).toBeDefined()
     expect($split.attributes('id')).toEqual(`${wrapperId}__BV_button_`)
+    expect($split.attributes('type')).toBeDefined()
+    expect($split.attributes('type')).toEqual('button')
     expect($split.text()).toEqual('')
 
     expect($toggle.classes()).toContain('btn')
@@ -128,6 +130,8 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($toggle.attributes('id')).toBeDefined()
     expect($toggle.attributes('id')).toEqual(`${wrapperId}__BV_toggle_`)
+    expect($toggle.attributes('type')).toBeDefined()
+    expect($toggle.attributes('type')).toEqual('button')
     expect($toggle.findAll('span.sr-only').length).toBe(1)
     expect($toggle.find('span.sr-only').text()).toEqual('Toggle Dropdown')
     expect($toggle.text()).toEqual('Toggle Dropdown')
@@ -143,6 +147,37 @@ describe('dropdown', () => {
     expect($menu.attributes('aria-labelledby')).toBeDefined()
     expect($menu.attributes('aria-labelledby')).toEqual(`${wrapperId}__BV_button_`)
     expect($menu.text()).toEqual('')
+
+    wrapper.destroy()
+  })
+
+
+  it('split mode accepts split-button-type value', async () => {
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        split: true,
+        splitButtonType: 'submit'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.classes()).toContain('dropdown')
+
+    expect(wrapper.findAll('button').length).toBe(2)
+    const $buttons = wrapper.findAll('button')
+    const $split = $buttons.at(0)
+    const $toggle = $buttons.at(1)
+
+    expect($split.attributes('type')).toBeDefined()
+    expect($split.attributes('type')).toEqual('submit')
+
+    expect($toggle.attributes('type')).toBeDefined()
+    expect($toggle.attributes('type')).toEqual('button')
 
     wrapper.destroy()
   })
