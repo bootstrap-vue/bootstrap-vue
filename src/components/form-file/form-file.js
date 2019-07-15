@@ -306,9 +306,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
-        const items = arrayFrom(dt.items).filter(Boolean)
-        // DEBUG
-        console.log('ITEMS:', items, dt.items)
+        // const items = arrayFrom(dt.items).filter(Boolean)
+        const items = []
+        for (let i = 0; i < dt.items.length; i++) {
+          // `DataTransferItemList` is not array-like, so we need to use a loop
+          // to convert it into an array
+          items.push(dt.items[i])
+        }
         if (
           // No files
           items.length === 0 ||
