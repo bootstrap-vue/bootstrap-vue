@@ -308,8 +308,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           // Not a file/directory (check first item only)
           items[0].kind !== 'file' ||
           // Too many files
-          (!this.multiple && items.length > 1)(
-            // Non directory mode, and valid files
+          (!this.multiple && items.length > 1) ||
+          // Non directory mode, and no valid files
+          // TODO: check file entry type (isDirectory/isFile using webkitGetEntry)
+          (
             !this.directory &&
               !items
                 .filter(i => i.kind === 'file')
