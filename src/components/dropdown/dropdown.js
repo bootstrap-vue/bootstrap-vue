@@ -60,7 +60,7 @@ export const props = {
     type: String,
     default: 'button',
     validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
-  }.
+  },
   role: {
     type: String,
     default: 'menu'
