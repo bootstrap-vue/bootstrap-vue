@@ -149,7 +149,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     labelContent() {
       // Draging active
       /* istanbul ignore next: used by drag/drop which can't be tested easily */
-      if (this.dragging && !this.noDrop) [
+      if (this.dragging && !this.noDrop) {
         return this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
           (this.dropAllowed ? this.dropPlaceholder : this.noDropPlaceholder)
       }
