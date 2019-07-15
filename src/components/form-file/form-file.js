@@ -307,6 +307,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (dt && dt.items) {
         // Can't check dt.files, as it is empty at this point for some reason
         const items = arrayFrom(dt.items).filter(Boolean)
+        // DEBUG
+        console.log('ITEMS:', items, dt.items)
         if (
           // No files
           items.length === 0 ||
