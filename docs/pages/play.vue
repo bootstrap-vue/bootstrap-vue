@@ -324,7 +324,7 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 }
 
 export default {
-  components {
+  components: {
     CodeMirror
   },
   data() {
