@@ -71,7 +71,8 @@ export default {
         readOnly: this.readOnly
       })
 
-      this.CM.on('change', () => {
+      // this.CM.on('change', () => {
+      this.CM.on('changes', () => {
         this.$emit('input', this.CM.getValue())
       })
 
