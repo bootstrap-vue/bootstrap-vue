@@ -1,13 +1,16 @@
 import Vue from 'vue'
 
 // Lazy load coadmorror, so that it appears in a separate chunk
-Vue.component('codemirror', () => {
-  return {
-    component: import('../components/codemirror' /* webpackChunkName: "codemirror" */),
-    loading: {
-      render(h) {
-        return h('div', { style: { minHeight: '300px' } }, [h()])
-      }
+Vue.component('codemirror', () => ({
+  delay: 100,
+  loading: {
+    render(h) {
+      return h(
+        'div',
+        { statcClass: 'text-center pt-5', style: { minHeight: '300px' } },
+        [h('b-spinner')]
+      )
     }
-  }
-})
+  },
+  component: import(/* webpackChunkName: "codemirror-vue" */ '../components/codemirror')
+}))
