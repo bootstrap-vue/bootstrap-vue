@@ -25,7 +25,7 @@
 
         <!-- Reset action -->
         <b-btn
-          v-else
+          v-else-if="!loading && ready"
           size="sm"
           variant="danger"
           :disabled="isDefault"
@@ -37,7 +37,7 @@
 
       <!-- Export actions -->
       <b-col
-        v-if="!loading"
+        v-if="!loading && ready"
         md="auto"
         class="mt-2 mt-md-0"
       >
@@ -85,11 +85,11 @@
       </b-col>
     </b-row>
 
-    <!-- Editors -->
+    <!-- Editors / Result / Console -->
     <transition-group
-      v-if="!loading"
+      v-if="!loading && ready"
       tag="div"
-      class="row"
+      class="row min-vh-100"
       name="flip"
     >
       <!-- Left/Top column -->
@@ -331,7 +331,8 @@ export default {
       isOk: false,
       vertical: false,
       full: false,
-      loading: false
+      loading: false,
+      ready: false
     }
   },
   head() {
@@ -521,22 +522,25 @@ export default {
     // Default code "transpiler"
     this.compiler = code => code
   },
+  beforeMount() {
+    // Set the loading indicator if needed
+    this.loading = !needsTranspiler
+  },
   mounted() {
+    this.ready = true
     this.$nextTick(() => {
       if (needsTranspiler) {
-        // Start the loading indicator
-        this.loading = true
         window && window.$nuxt && window.$nuxt.$loading.start()
         // Lazy load the babel transpiler
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default
-          // Run the setup code. We pass 1000ms as the debounce
-          // timeout, as transpilation can be slow
-          this.doSetup(1000)
           // Stop the loading indicator
           this.loading = false
           window && window.$nuxt && window.$nuxt.$loading.finish()
+          // Run the setup code. We pass 1000ms as the debounce
+          // timeout, as transpilation can be slow
+          this.doSetup(1000)
         })
       } else {
         this.doSetup()
@@ -553,6 +557,8 @@ export default {
   },
   methods: {
     doSetup(timeout = 500) {
+      // Load our content into the editors
+      this.$nextTick(this.loadFromStorage)
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
       // Set up our editor content watcher
@@ -562,8 +568,8 @@ export default {
           this.run()
         }
       )
-      // Load our content into the editors
-      this.$nextTick(this.loadFromStorage)
+      // Set ready state
+      this.ready = true
     },
     destroyVM() {
       let vm = this.playVM
@@ -697,16 +703,12 @@ export default {
       if (this.$isServer) {
         return
       }
-      // In a setTimeout for better responsiveness in
-      // browsers that require a transpiler
-      setTimeout(() => {
-        // Destroy old VM if exists
-        this.destroyVM()
-        // clear the log
-        this.clear()
-        // create and render the instance
-        this.createVM()
-      }, 0)
+      // Destroy old VM if exists
+      this.destroyVM()
+      // clear the log
+      this.clear()
+      // create and render the instance
+      this.createVM()
     },
     toggleVertical() {
       this.vertical = !this.vertical
