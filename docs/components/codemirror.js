@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 }
 
 export default {
-  name: 'BDVCodemirror',
+  name: 'CodeMirror',
   props: {
     value: {
       type: String,
