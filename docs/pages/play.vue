@@ -525,6 +525,8 @@ export default {
   beforeMount() {
     // Set the loading state if needed
     this.loading = needsTranspiler
+    // Load content and preferences (or defaults if not available)
+    this.loadFromStorage()
   },
   mounted() {
     this.$nextTick(() => {
@@ -552,7 +554,7 @@ export default {
     if (this.contentUnWatch) {
       this.contentUnWatch()
     }
-     if (!this.$isServer) {
+    if (!this.$isServer) {
       this.destroyVM()
     }
     // hide deitors, etc.
@@ -560,8 +562,6 @@ export default {
   },
   methods: {
     doSetup(timeout = 500) {
-      // Load our content into the editors
-      this.loadFromStorage
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
       // Set up our editor content watcher
