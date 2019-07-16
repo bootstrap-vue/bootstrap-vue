@@ -562,6 +562,10 @@ export default {
   },
   methods: {
     doSetup(timeout = 500) {
+      // Set ready state
+      this.ready = true
+      // Build the initial app
+      this.$nextTick(() => this._run)
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
       // Set up our editor content watcher
@@ -571,8 +575,6 @@ export default {
           this.run()
         }
       )
-      // Set ready state
-      this.ready = true
     },
     destroyVM() {
       let vm = this.playVM
