@@ -69,7 +69,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.CM = CodeMirror.fromTextarea(this.$refs.input, {
+      this.CM = CodeMirror.fromTextArea(this.$refs.input, {
         mode: this.mode,
         theme: this.theme,
         tabMode: this.tabMode,
@@ -92,6 +92,8 @@ export default {
     this.CM = null
   },
   render(h) {
-    return h('div', this.componentData, [h('textarea', { ref: 'input' })])
+    return h('div', this.componentData, [
+      h('textarea', { ref: 'input', staticClass: 'w-100 border-0', style: { minWidth: '100px' } })
+    ])
   }
 }
