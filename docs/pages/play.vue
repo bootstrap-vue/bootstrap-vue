@@ -338,7 +338,7 @@ export default {
       full: false,
       loading: false,
       ready: false,
-      busy: false
+      busy: true
     }
   },
   head() {
@@ -713,14 +713,16 @@ export default {
         return
       }
       this.busy = true
+      // Destroy old VM if exists
+      this.destroyVM()
+      // Clear the log
+      this.clear()
       this.$nextTick(() => {
-        // Destroy old VM if exists
-        this.destroyVM()
-        // Clear the log
-        this.clear()
         // Create and render the instance
         this.createVM()
-        this.busy = false
+        this.$nextTick(() => {
+          this.busy = false
+        })
       })
     },
     toggleVertical() {
