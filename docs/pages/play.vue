@@ -653,7 +653,7 @@ export default {
       }
 
       // Sanitize template possibilities
-      if (!html && typeof options.template !== 'string' && typeof options.render !== 'function')) {
+      if (!html && typeof options.template !== 'string' && typeof options.render !== 'function') {
         this.errHandler('No template or render function provided', 'template')
         return
       } else if (
