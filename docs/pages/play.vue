@@ -25,7 +25,7 @@
 
         <!-- Reset action -->
         <b-btn
-          v-else-if="!loading && ready"
+          v-else-if="ready"
           size="sm"
           variant="danger"
           :disabled="isDefault"
@@ -87,7 +87,7 @@
 
     <!-- Editors / Result / Console -->
     <transition-group
-      v-if="!loading && ready"
+      v-if="ready"
       tag="div"
       class="row min-vh-100"
       name="flip"
