@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted() {
-    import('../utils/code-mirror').then(module => {
+    import('../utils/code-mirror' /* webpackChunkName: "code-mirror" */).then(module => {
       const CodeMirror = module.default || module
 
       this.CM = CodeMirror.fromTextArea(this.$refs.input, {
