@@ -332,7 +332,7 @@ export default {
       isOk: false,
       vertical: false,
       full: false,
-      loading: true,
+      loading: false,
       ready: false
     }
   },
@@ -524,13 +524,13 @@ export default {
     this.compiler = code => code
   },
   beforeMount() {
-    // Set the loading state if needed
-    this.loading = needsTranspiler
     // Load content and preferences (or defaults if not available)
     this.loadFromStorage()
   },
   mounted() {
-    if (this.loading) {
+    // Set the loading state if needed
+    this.loading = needsTranspiler
+    if (needsTranspiler) {
       window && window.$nuxt && window.$nuxt.$loading.start()
       // Lazy load the babel transpiler
       import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
