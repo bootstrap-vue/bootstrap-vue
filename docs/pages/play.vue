@@ -10,19 +10,23 @@
       </p>
     </div>
 
-    <!-- Actions -->
-    <b-row>
+    <!-- Compiler loading satee -->
+    <b-row v-if="loading">
       <b-col class="mb-2 mb-md-0">
         <!-- Loading indicator -->
         <b-alert
-          v-if="loading"
           variant="info"
           class="text-center"
           show
         >
           Loading JavaScript compiler...
         </b-alert>
+      </b-col>
+    </b-row>
 
+    <!-- Actions -->
+    <b-row>
+      <b-col class="mb-2 mb-md-0">
         <!-- Reset action -->
         <b-btn
           size="sm"
