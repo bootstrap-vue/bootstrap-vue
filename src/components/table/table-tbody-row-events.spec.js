@@ -324,9 +324,10 @@ describe('table > tbody row events', () => {
 
   it('should not emit row-clicked event when clicking on a button or other interactive element', async () => {
     const wrapper = mount(BTable, {
+      attachToDocument: true,
       propsData: {
         // Add extra virtual columns
-        fields: [].concat(testFields, ['d', 'e']),
+        fields: [].concat(testFields, ['d', 'e', 'f']),
         // We just use a single row for testing
         items: [testItems[0]]
       },
@@ -336,7 +337,8 @@ describe('table > tbody row events', () => {
         b: '<input id="b">',
         c: '<a href="#" id="c">link</a>',
         d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
-        e: '<label for="e">label</label><input id="e">'
+        e: '<label for="e">label</label><input id="e">',
+        f: '<label class="f-label"><input id="e"></label>'
       },
       listeners: {
         // Row-clicked will only occur if there is a registered listener
@@ -372,6 +374,11 @@ describe('table > tbody row events', () => {
     const $label = wrapper.find('label[for="e"]')
     expect($label.exists()).toBe(true)
     $label.trigger('click')
+    expect(wrapper.emitted('row-clicked')).not.toBeDefined()
+
+    const $labelf = wrapper.find('label.f-label')
+    expect($labelf.exists()).toBe(true)
+    $labelf.trigger('click')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     wrapper.destroy()
