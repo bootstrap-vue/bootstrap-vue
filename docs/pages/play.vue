@@ -25,10 +25,9 @@
 
         <!-- Reset action -->
         <b-btn
-          v-else-if="ready"
           size="sm"
           variant="danger"
-          :disabled="isDefault"
+          :disabled="isDefault || !ready"
           @click="reset"
         >
           Reset to default
@@ -37,7 +36,6 @@
 
       <!-- Export actions -->
       <b-col
-        v-if="!loading && ready"
         md="auto"
         class="mt-2 mt-md-0"
       >
@@ -52,7 +50,7 @@
           target="_blank"
         >
           <input type="hidden" name="data" :value="codepenData">
-          <b-btn size="sm" type="submit" :disabled="!isOk">CodePen</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || !ready">CodePen</b-btn>
         </b-form>
 
         <!-- Export to CodeSandbox -->
@@ -64,7 +62,7 @@
           target="_blank"
         >
           <input type="hidden" name="parameters" :value="codesandboxData">
-          <b-btn size="sm" type="submit" :disabled="!isOk">CodeSandbox</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || !ready">CodeSandbox</b-btn>
         </b-form>
 
         <!-- Export to JSFiddle -->
@@ -80,7 +78,7 @@
           <input type="hidden" name="resources" :value="[...exportData.externalCss, exportData.externalJs].join(',')">
           <input type="hidden" name="css" :value="exportData.css">
           <input type="hidden" name="js_wrap" value="l">
-          <b-btn size="sm" type="submit" :disabled="!isOk">JSFiddle</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || !ready">JSFiddle</b-btn>
         </b-form>
       </b-col>
     </b-row>
