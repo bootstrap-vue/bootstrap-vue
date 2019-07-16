@@ -85,7 +85,9 @@ export default {
         this.$emit('input', this.CM.getValue())
       })
 
-      this.CM.setValue(this.value)
+      this.$nextTick(() => {
+        this.CM.setValue(this.value)
+      })
     })
   },
   beforeDestroy() {
@@ -96,7 +98,12 @@ export default {
   },
   render(h) {
     return h('div', this.componentData, [
-      h('textarea', { ref: 'input', staticClass: 'w-100 border-0', style: { minWidth: '100px' } })
+      h('textarea', {
+        ref: 'input',
+        staticClass: 'w-100 border-0',
+        style: { minWidth: '100px' },
+        props: { value: this.value }
+      })
     ])
   }
 }
