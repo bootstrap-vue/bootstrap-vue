@@ -19,7 +19,6 @@
           class="text-center"
           show
         >
-          <b-spinner type="grow"></b-spinner>
           Loading JavaScript compiler...
         </b-alert>
       </b-col>
