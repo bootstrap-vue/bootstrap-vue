@@ -331,7 +331,7 @@ export default {
       isOk: false,
       vertical: false,
       full: false,
-      loading: false,
+      loading: needsTranspiler,
       ready: false
     }
   },
@@ -529,8 +529,7 @@ export default {
     this.loadFromStorage()
   },
   mounted() {
-    // Or if `(this.loading) { ... }`
-    if (needsTranspiler) {
+    if (this.loading) {
       window && window.$nuxt && window.$nuxt.$loading.start()
       // Lazy load the babel transpiler
       import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
@@ -565,13 +564,15 @@ export default {
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
       // Set up our editor content watcher
-      this.contentUnWatch = this.$watch(
-        () => `${this.js.trim()}::${this.html.trim()}`,
-        (newVal, oldVal) => {
-          this.run()
-        },
-        { immediate: true }
-      )
+      this.$nextTick(() => {
+        this.contentUnWatch = this.$watch(
+          () => `${this.js.trim()}::${this.html.trim()}`,
+          (newVal, oldVal) => {
+            this.run()
+          },
+          { immediate: true }
+        )
+      })
     },
     destroyVM() {
       let vm = this.playVM
