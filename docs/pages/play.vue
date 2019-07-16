@@ -531,11 +531,12 @@ export default {
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default
+          // Run the setup code. We pass 1000ms as the debounce
+          // timeout, as transpilation can be slow
+          this.doSetup(1000)
           // Stop the loading indicator
           this.loading = false
           window && window.$nuxt && window.$nuxt.$loading.finish()
-          // Run the setup code
-          this.doSetup()
         })
       } else {
         this.doSetup()
@@ -551,9 +552,9 @@ export default {
     }
   },
   methods: {
-    doSetup() {
+    doSetup(timeout = 500) {
       // Create our debounced runner
-      this.run = debounce(this._run, 500)
+      this.run = debounce(this._run, timeout)
       // Set up our editor content watcher
       this.contentUnWatch = this.$watch(
         () => `${this.js.trim()}::${this.html.trim()}`,
@@ -696,12 +697,16 @@ export default {
       if (this.$isServer) {
         return
       }
-      // Destroy old VM if exists
-      this.destroyVM()
-      // clear the log
-      this.clear()
-      // create and render the instance
-      this.createVM()
+      // In a setTimeout for better responsiveness in
+      // browsers that require a transpiler
+      this.setTimeout(() => {
+        // Destroy old VM if exists
+        this.destroyVM()
+        // clear the log
+        this.clear()
+        // create and render the instance
+        this.createVM()
+      }, 0)
     },
     toggleVertical() {
       this.vertical = !this.vertical
