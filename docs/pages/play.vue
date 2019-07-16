@@ -366,7 +366,7 @@ export default {
       return 'Online Playground'
     },
     isDefault() {
-      // Check if editors contain default JS and Template
+      // Check if editors contain default JS and template
       return this.js.trim() === DEFAULT_JS.trim() && this.html.trim() === DEFAULT_HTML.trim()
     },
     layout() {
@@ -529,7 +529,7 @@ export default {
     this.loadFromStorage()
   },
   mounted() {
-    // Or if (this.loading) { ... }
+    // Or if `(this.loading) { ... }`
     if (needsTranspiler) {
       window && window.$nuxt && window.$nuxt.$loading.start()
       // Lazy load the babel transpiler
@@ -555,7 +555,7 @@ export default {
     if (!this.$isServer) {
       this.destroyVM()
     }
-    // hide deitors, etc.
+    // Hide editors, etc.
     this.ready = false
   },
   methods: {
@@ -641,7 +641,7 @@ export default {
         delete options.template
       }
 
-      // Vue's errorCapture doesn't always handle errors in methods,
+      // Vue's `errorCapture` doesn't always handle errors in methods,
       // so we wrap any methods with a try/catch handler so we can
       // show the error in our GUI console
       // Doesn't handle errors in async methods
@@ -707,9 +707,9 @@ export default {
       }
       // Destroy old VM if exists
       this.destroyVM()
-      // clear the log
+      // Clear the log
       this.clear()
-      // create and render the instance
+      // Create and render the instance
       this.createVM()
     },
     toggleVertical() {
