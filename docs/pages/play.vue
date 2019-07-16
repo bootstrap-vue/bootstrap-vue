@@ -120,7 +120,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="html" mode="htmlmixed"></codemirror>
+              <code-mirror v-model="html" mode="htmlmixed"></code-mirror>
             </b-card>
           </b-col>
 
@@ -148,7 +148,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="js" mode="javascript"></codemirror>
+              <code-mirror v-model="js" mode="javascript"></code-mirror>
             </b-card>
           </b-col>
         </transition-group>
