@@ -523,18 +523,18 @@ export default {
     this.compiler = code => code
   },
   beforeMount() {
-    // Set the loading indicator if needed
-    this.loading = !needsTranspiler
+    // Set the loading state if needed
+    this.loading = needsTranspiler
   },
   mounted() {
-    this.ready = true
     this.$nextTick(() => {
+      // Or if (this.loading) { ... }
       if (needsTranspiler) {
         window && window.$nuxt && window.$nuxt.$loading.start()
         // Lazy load the babel transpiler
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
-          this.compiler = module.default
+          this.compiler = module.default || module
           // Stop the loading indicator
           this.loading = false
           window && window.$nuxt && window.$nuxt.$loading.finish()
@@ -548,17 +548,20 @@ export default {
     })
   },
   beforeDestroy() {
+    // Stop out watcher
     if (this.contentUnWatch) {
       this.contentUnWatch()
     }
-    if (!this.$isServer) {
+     if (!this.$isServer) {
       this.destroyVM()
     }
+    // hide deitors, etc.
+    this.ready = false
   },
   methods: {
     doSetup(timeout = 500) {
       // Load our content into the editors
-      this.$nextTick(this.loadFromStorage)
+      this.loadFromStorage
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
       // Set up our editor content watcher
