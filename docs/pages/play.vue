@@ -334,13 +334,16 @@ export default {
       compiledJs: null, // Place to hold the transpiled JS code string
       logIdx: 1, // Used as the ":key" on console section for transition hooks
       messages: [],
-      isOk: false,
       vertical: false,
       full: false,
       // Flags for various UI stuff
+      isOk: false,
       loading: false,
       ready: false,
       compiling: false,
+      building: false,
+      // TODO: Change busy to a computed prop
+      // return this.loading || !this.ready || this.compiling || this.building
       busy: true
     }
   },
@@ -550,7 +553,7 @@ export default {
     if (needsTranspiler) {
       this.$nextTick(() => {
         this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.start()
-        // Lazy load the babel transpiler
+        // Lazy load the babel transpiler (in a separate chunk)
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default || module
