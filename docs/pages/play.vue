@@ -699,7 +699,7 @@ export default {
       }
       // In a setTimeout for better responsiveness in
       // browsers that require a transpiler
-      this.setTimeout(() => {
+      setTimeout(() => {
         // Destroy old VM if exists
         this.destroyVM()
         // clear the log
