@@ -331,7 +331,7 @@ export default {
       isOk: false,
       vertical: false,
       full: false,
-      loading: needsTranspiler,
+      loading: true,
       ready: false
     }
   },
