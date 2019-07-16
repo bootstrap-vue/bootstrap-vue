@@ -51,6 +51,15 @@ export default {
       CM: null
     }
   },
+  computed: {
+    componentData() {
+      return {
+        staticClass: 'notranslate m-0 p-0',
+        style: { minHeight: '300px' },
+        attrs: { translate: 'no' }
+      }
+    }
+  },
   watch: {
     value(newVal, oldVal) {
       if (!oldVal || oldVal === '') {
@@ -83,8 +92,8 @@ export default {
     }
   },
   render(h) {
-    return h('div', { staticClass: 'notranslate m-0 p-0', attrs: { translate: 'no' } }, [
-      h('textarea', { props: { value: this.value }, ref: 'textarea' })
+    return h('div', this.componentData, [
+      this.$isServer ? h() : h('textarea', { props: { value: this.value }, ref: 'textarea' })
     ])
   }
 }
