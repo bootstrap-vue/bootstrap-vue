@@ -165,7 +165,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <div>Result <b-spinner v-if="busy" type="grow" label="busy"></b-spinner></div>
+                <div>Result <b-spinner v-if="busy" small type="grow" label="busy"></b-spinner></div>
                 <b-btn
                   v-if="!full"
                   size="sm"
