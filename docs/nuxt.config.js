@@ -168,11 +168,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    '~/plugins/bootstrap-vue.js',
-    '~/plugins/play.js',
-    '~/plugins/docs.js'
-  ],
+  plugins: ['~/plugins/bootstrap-vue.js', '~/plugins/play.js', '~/plugins/docs.js'],
 
   modules: ['@nuxtjs/pwa', '@nuxtjs/google-analytics'],
 
