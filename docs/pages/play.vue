@@ -10,7 +10,7 @@
       </p>
     </div>
 
-    <!-- Compiler loading satee -->
+    <!-- Compiler loading state -->
     <b-row v-if="loading">
       <b-col class="mb-2 mb-md-0">
         <!-- Loading indicator -->
@@ -257,6 +257,7 @@ import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
+import CodeMirror from '~/components/codemirror'
 
 // --- Constants ---
 
@@ -323,6 +324,9 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 }
 
 export default {
+  components {
+    CodeMirror
+  },
   data() {
     return {
       html: '',
