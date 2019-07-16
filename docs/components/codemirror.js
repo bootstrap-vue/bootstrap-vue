@@ -68,7 +68,9 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
+    import('../utils/code-mirror').then(module => {
+      const CodeMirror = module.default || module
+
       this.CM = CodeMirror.fromTextArea(this.$refs.input, {
         mode: this.mode,
         theme: this.theme,
@@ -86,7 +88,9 @@ export default {
       })
 
       this.$nextTick(() => {
-        this.CM.setValue(this.value)
+        this.$nextTick(() => {
+          this.CM.setValue(this.value)
+        })
       })
     })
   },
