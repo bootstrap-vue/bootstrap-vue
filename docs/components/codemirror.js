@@ -68,22 +68,24 @@ export default {
     }
   },
   mounted() {
-    this.CM = CodeMirror.fromTextArea(this.$refs.textarea, {
-      mode: this.mode,
-      theme: this.theme,
-      tabMode: this.tabMode,
-      tabSize: parseInt(this.tabSize, 10) || 2,
-      lineWrapping: this.lineWrapping,
-      lineNumbers: this.lineNumbers,
-      autoCloseTags: true,
-      autoCloseBrackets: true,
-      readOnly: this.readOnly
-    })
+    this.$nextTick(() => {
+      this.CM = CodeMirror.fromTextArea(this.$refs.textarea, {
+        mode: this.mode,
+        theme: this.theme,
+        tabMode: this.tabMode,
+        tabSize: parseInt(this.tabSize, 10) || 2,
+        lineWrapping: this.lineWrapping,
+        lineNumbers: this.lineNumbers,
+        autoCloseTags: true,
+        autoCloseBrackets: true,
+        readOnly: this.readOnly
+      })
 
-    this.CM.setValue(this.value)
+      this.CM.setValue(this.value)
 
-    this.CM.on('changes', () => {
-      this.$emit('input', this.CM.getValue())
+      this.CM.on('changes', () => {
+        this.$emit('input', this.CM.getValue())
+      })
     })
   },
   beforeDestroy() {
