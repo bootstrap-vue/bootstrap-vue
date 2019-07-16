@@ -90,7 +90,7 @@
     <!-- Editors / Result / Console -->
     <transition-group
       tag="div"
-      class="row min-vh-100"
+      class="row"
       name="flip"
     >
       <!-- Left/Top column -->
