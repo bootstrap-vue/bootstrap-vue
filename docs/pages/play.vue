@@ -165,7 +165,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span>Result</span>
+                <div>Result <b-spinner v-if="busy" type="grow" label="busy"></b-spinner></div>
                 <b-btn
                   v-if="!full"
                   size="sm"
@@ -337,7 +337,8 @@ export default {
       vertical: false,
       full: false,
       loading: false,
-      ready: false
+      ready: false,
+      busy: false
     }
   },
   head() {
@@ -711,12 +712,16 @@ export default {
       if (this.$isServer) {
         return
       }
-      // Destroy old VM if exists
-      this.destroyVM()
-      // Clear the log
-      this.clear()
-      // Create and render the instance
-      this.createVM()
+      this.busy = true
+      this.$nextTick(() => {
+        // Destroy old VM if exists
+        this.destroyVM()
+        // Clear the log
+        this.clear()
+        // Create and render the instance
+        this.createVM()
+        this.busy = false
+      })
     },
     toggleVertical() {
       this.vertical = !this.vertical
