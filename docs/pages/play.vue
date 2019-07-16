@@ -529,25 +529,23 @@ export default {
     this.loadFromStorage()
   },
   mounted() {
-    this.$nextTick(() => {
-      // Or if (this.loading) { ... }
-      if (needsTranspiler) {
-        window && window.$nuxt && window.$nuxt.$loading.start()
-        // Lazy load the babel transpiler
-        import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
-          // Update compiler reference
-          this.compiler = module.default || module
-          // Stop the loading indicator
-          this.loading = false
-          window && window.$nuxt && window.$nuxt.$loading.finish()
-          // Run the setup code. We pass 1000ms as the debounce
-          // timeout, as transpilation can be slow
-          this.doSetup(1000)
-        })
-      } else {
-        this.doSetup()
-      }
-    })
+    // Or if (this.loading) { ... }
+    if (needsTranspiler) {
+      window && window.$nuxt && window.$nuxt.$loading.start()
+      // Lazy load the babel transpiler
+      import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
+        // Update compiler reference
+        this.compiler = module.default || module
+        // Stop the loading indicator
+        this.loading = false
+        window && window.$nuxt && window.$nuxt.$loading.finish()
+        // Run the setup code. We pass 1000ms as the debounce
+        // timeout, as transpilation can be slow
+        this.doSetup(1000)
+      })
+    } else {
+      this.doSetup()
+    }
   },
   beforeDestroy() {
     // Stop out watcher
@@ -562,7 +560,7 @@ export default {
   },
   methods: {
     doSetup(timeout = 500) {
-      // Set ready state
+      // Set ready state (render page editors, etc )
       this.ready = true
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
@@ -571,12 +569,9 @@ export default {
         () => `${this.js.trim()}::${this.html.trim()}`,
         (newVal, oldVal) => {
           this.run()
-        }
+        },
+        { immediate: true }
       )
-      // Build the initial app
-      this.$nextTick(() => {
-        this.$nextTick(() => this._run)
-      })
     },
     destroyVM() {
       let vm = this.playVM
