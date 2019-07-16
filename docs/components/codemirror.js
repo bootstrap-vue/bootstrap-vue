@@ -95,7 +95,11 @@ export default {
   },
   render(h) {
     return h('div', this.componentData, [
-      this.$isServer ? h() : h('textarea', { props: { value: this.value }, ref: 'textarea' })
+      h('textarea', {
+        ref: 'textarea',
+        style: {width: '100%', minHeight: '300px' },
+        props: { value: this.value }
+      })
     ])
   }
 }
