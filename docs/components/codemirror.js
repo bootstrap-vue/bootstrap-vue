@@ -97,7 +97,7 @@ export default {
     return h('div', this.componentData, [
       h('textarea', {
         ref: 'textarea',
-        style: {width: '100%', minHeight: '300px' },
+        style: { width: '100%', minHeight: '300px' },
         props: { value: this.value }
       })
     ])
