@@ -331,13 +331,16 @@ export default {
     return {
       html: '',
       js: '',
+      compiledJs: null, // Place to hold the transpiled JS code string
       logIdx: 1, // Used as the ":key" on console section for transition hooks
       messages: [],
       isOk: false,
       vertical: false,
       full: false,
+      // Flags for various UI stuff
       loading: false,
       ready: false,
+      compiling: false,
       busy: true
     }
   },
@@ -374,6 +377,13 @@ export default {
     isDefault() {
       // Check if editors contain default JS and template
       return this.js.trim() === DEFAULT_JS.trim() && this.html.trim() === DEFAULT_HTML.trim()
+    },
+    appData() {
+      // Used by our debounced `run` watcher to build the app
+      return {
+        html: this.html.trim(),
+        js: this.compiledJs // Transpiled String or null if transpilation failed
+      }
     },
     layout() {
       return this.full ? 'full' : this.vertical ? 'vertical' : 'horizontal'
@@ -524,7 +534,9 @@ export default {
     // Create some non reactive properties
     this.playVM = null
     this.contentUnWatch = null
+    this.jsUnWatch = null
     this.run = () => {}
+    this.compileJs = () => {}
     // Default code "transpiler"
     this.compiler = code => code
   },
@@ -555,7 +567,10 @@ export default {
     }
   },
   beforeDestroy() {
-    // Stop our watcher
+    // Stop our watchers
+    if (this.jsUnWatch) {
+      this.jsUnWatch()
+    }
     if (this.contentUnWatch) {
       this.contentUnWatch()
     }
@@ -566,13 +581,24 @@ export default {
   methods: {
     doSetup(timeout = 500) {
       // Create our debounced runner
-      this.run = debounce(this._run, timeout)
+      this.run = debounce(this._run, 500)
+      // Create our debounced javascript compiler
+      this.compileJs = debounce(this._compileJs, timeout)
       // Set up our editor content watcher
       this.$nextTick(() => {
+        // appData watcher
         this.contentUnWatch = this.$watch(
-          () => `${this.js.trim()}::${this.html.trim()}`,
+          'appData',
           (newVal, oldVal) => {
             this.run()
+          },
+          { deep: true }
+        )
+        // Javascript watcher
+        this.jsUnWatch = this.$watch(
+          () => this.js.trim(),
+          (newVal, oldVal) => {
+            this.compileJs()
           },
           { immediate: true }
         )
@@ -599,22 +625,26 @@ export default {
     },
     createVM() {
       const playground = this
-      const js = this.js.trim() || '{}'
+      const js = this.compiledJs
       const html = this.html.trim()
-      // Options gets assinged to by our eval after compilation
-      // eslint-disable-next-line prefer-const
-      let options = {}
 
       // Disable the export buttons
       this.isOk = false
 
-      // Test and assign options JavaScript
+      if (js === null) {
+        // Error compiling JS
+        return
+      }
+
+      // Options gets assiged to by our eval of the compiled JS
+      // eslint-disable-nenxt-line prefer-const
+      let options = {}
+      // Test JavaScript for syntax errors
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
-        const code = this.compiler(`;options = ${js};`)
         /* eslint-disable no-eval */
-        eval(`var console = this.fakeConsole; ${code}`)
+        eval(`var console = this.fakeConsole; ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
@@ -623,7 +653,7 @@ export default {
       }
 
       // Sanitize template possibilities
-      if (!(html || typeof options.template === 'string' || typeof options.render === 'function')) {
+      if (!html && typeof options.template !== 'string' && typeof options.render !== 'function')) {
         this.errHandler('No template or render function provided', 'template')
         return
       } else if (
@@ -648,10 +678,10 @@ export default {
         delete options.template
       }
 
-      // Vue's `errorCapture` doesn't always handle errors in methods,
-      // so we wrap any methods with a try/catch handler so we can
-      // show the error in our GUI console
-      // Doesn't handle errors in async methods
+      // Vue's `errorCapture` doesn't always handle errors in methods (although it
+      // does if the method is used as a `v-on`/`@` handler), so we wrap any methods
+      // with a try/catch handler so we can show the error in our GUI log console.
+      // Note: Doesn't handle errors in async methods
       // See: https://github.com/vuejs/vue/issues/8568
       if (options.methods) {
         Object.keys(options.methods).forEach(methodName => {
@@ -682,13 +712,13 @@ export default {
           // docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
-          // render errors (error boundary)
+          // render errors (this is an error boundary component)
           parent: new Vue({
             template: '<span></span>',
             errorCaptured(err, vm, info) {
               // Pass error to playground error handler
               playground.errHandler(err, info)
-              // Don't propegate to parent/global error handler!
+              // Don't propagate to parent/global error handler!
               return false
             }
           })
@@ -707,6 +737,28 @@ export default {
     errHandler(err, info) {
       this.log('danger', `Error in ${info}: ${String(err)}`)
       this.destroyVM()
+    },
+    _compileJs() {
+      if (this.$isServer) {
+        this.compiledJs = null
+        return
+      }
+      const js = this.js.trim() || '{}'
+      this.compiling = true
+      let compiled = null
+      this.$nextTick(() => {
+        try {
+          // The app build process expects the app options to
+          // be assigned to the `options` variable
+          compiled = this.compiler(`;options = ${js};`)
+        } catch (err) {
+          this.errHandler(err, 'javascript')
+          window.console.error('Error in javascript', err)
+          compiled = null
+        }
+        this.compiledJs = compiled
+        this.compiling = false
+      })
     },
     _run() {
       if (this.$isServer) {
