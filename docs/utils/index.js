@@ -242,3 +242,16 @@ export const offsetTop = el => {
   const win = el.ownerDocument.defaultView
   return bcr.top + win.pageYOffset
 }
+
+// `requestAnimationFrame()` convenience method
+const w = window || {}
+export const requestAF =
+  w.requestAnimationFrame ||
+  w.webkitRequestAnimationFrame ||
+  w.mozRequestAnimationFrame ||
+  w.msRequestAnimationFrame ||
+  w.oRequestAnimationFrame ||
+  // Fallback, but not a true polyfill
+  // Only needed for Opera Mini
+  /* istanbul ignore next */
+  (cb => setTimeout(cb, 16))
