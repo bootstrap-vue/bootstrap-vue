@@ -89,6 +89,9 @@ export default {
     })
   },
   beforeDestroy() {
+    if (this.CM) {
+      this.CM.toTextArea()
+    }
     this.CM = null
   },
   render(h) {
