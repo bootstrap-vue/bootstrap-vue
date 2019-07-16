@@ -169,9 +169,8 @@ module.exports = {
   },
 
   plugins: [
-    '~plugins/bootstrap-vue.js',
-    '~plugins/codemirror.js',
-    '~plugins/play.js',
+    '~/plugins/bootstrap-vue.js',
+    '~/plugins/play.js',
     '~/plugins/docs.js'
   ],
 
