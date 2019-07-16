@@ -574,7 +574,7 @@ export default {
           (newVal, oldVal) => {
             this.run()
           },
-          immediate: true
+          { immediate: true }
         )
         // Set ready state
         this.ready = true
