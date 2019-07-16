@@ -5,11 +5,9 @@ Vue.component('codemirror', () => ({
   delay: 100,
   loading: {
     render(h) {
-      return h(
-        'div',
-        { statcClass: 'text-center pt-5', style: { minHeight: '300px' } },
-        [h('b-spinner')]
-      )
+      return h('div', { staticClass: 'text-center pt-5', style: { minHeight: '300px' } }, [
+        h('b-spinner')
+      ])
     }
   },
   component: import(/* webpackChunkName: "codemirror-vue" */ '../components/codemirror')
