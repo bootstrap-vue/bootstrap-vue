@@ -87,7 +87,6 @@
 
     <!-- Editors / Result / Console -->
     <transition-group
-      v-if="ready"
       tag="div"
       class="row min-vh-100"
       name="flip"
