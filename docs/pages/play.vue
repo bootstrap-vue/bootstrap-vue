@@ -526,10 +526,10 @@ export default {
   beforeMount() {
     // Load content and preferences (or defaults if not available)
     this.loadFromStorage()
-    // Set the loading state if needed
-    this.loading = needsTranspiler
   },
   mounted() {
+    // Set the loading state if needed
+    this.loading = needsTranspiler
     if (needsTranspiler) {
       window && window.$nuxt && window.$nuxt.$loading.start()
       // Lazy load the babel transpiler
@@ -548,19 +548,17 @@ export default {
     }
   },
   beforeDestroy() {
-    // Stop out watcher
+    // Stop our watcher
     if (this.contentUnWatch) {
       this.contentUnWatch()
     }
     if (!this.$isServer) {
       this.destroyVM()
     }
-    // Hide editors, etc.
-    this.ready = false
   },
   methods: {
     doSetup(timeout = 500) {
-      // Set ready state (render page editors, etc )
+      // Set ready state
       this.ready = true
       // Create our debounced runner
       this.run = debounce(this._run, timeout)
