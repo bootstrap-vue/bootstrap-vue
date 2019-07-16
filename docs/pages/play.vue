@@ -537,14 +537,14 @@ export default {
   mounted() {
     if (needsTranspiler) {
       this.$nextTick(() => {
-        this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.start()
+        this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.start && this.$nuxt.$loading.start()
         // Lazy load the babel transpiler
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
           this.compiler = module.default || module
           // Stop the loading indicator
           this.loading = false
-          this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.finish()
+          this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.finish && this.$nuxt.$loading.finish()
           // Run the setup code. We pass 1000ms as the debounce
           // timeout, as transpilation can be slow
           this.doSetup(1000)
