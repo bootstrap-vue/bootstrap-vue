@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import CodeMirror from '../components/codemirror'
 
-Vue.component('codemirror', CodeMirror)
+// Lazy load coadmorror, so that it apperas in a separate chunk
+Vue.component('codemirror', () = import('../components/codemirror'  /* webpackChunkName: "codemirror" */))
