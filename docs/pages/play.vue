@@ -256,6 +256,7 @@ import Vue from 'vue'
 import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
+import { requestAF } from '~/utils'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
 import CodeMirror from '~/components/codemirror'
 
@@ -717,7 +718,7 @@ export default {
       this.destroyVM()
       // Clear the log
       this.clear()
-      this.$nextTick(() => {
+      requestAF(() => {
         // Create and render the instance
         this.createVM()
         this.$nextTick(() => {
