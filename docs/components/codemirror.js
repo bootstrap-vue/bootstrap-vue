@@ -73,7 +73,7 @@ export default {
 
     this.CM.setValue(this.value)
 
-    this.CM.on('change', () => {
+    this.CM.on('changes', () => {
       this.$emit('input', this.CM.getValue())
     })
   },
