@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 // Lazy load coadmorror, so that it appears in a separate chunk
-Vue.component('codemirror', () => ({
+Vue.component('CodeMirror', () => ({
   delay: 100,
   loading: {
     render(h) {
