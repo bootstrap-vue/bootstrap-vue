@@ -1,4 +1,4 @@
-import { closest, matches, select, getAttr, getById } from '../../../utils/dom'
+import { closest, getAttr, getById, matches, select } from '../../../utils/dom'
 import { EVENT_FILTER } from './constants'
 
 const TABLE_TAG_NAMES = ['TD', 'TH', 'TR']
@@ -21,9 +21,9 @@ const filterEvent = evt => {
     return true
   }
   const label = el.tagName === 'LABEL' ? el : closest('label', el)
-  // If the label's form control is not disabled then we don't propagate event.
+  // If the label's form control is not disabled then we don't propagate event
   // Modern browsers have `label.control` that references the associated input, but IE11
-  // does not have this property on the label element. so we resort to DOM lookups.
+  // does not have this property on the label element, so we resort to DOM lookups
   if (label) {
     const labelFor = getAttr(label, 'for')
     const input = labelFor ? getById(labelFor) : select('input, select, textarea', label)
