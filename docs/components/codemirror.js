@@ -54,6 +54,7 @@ export default {
   computed: {
     componentData() {
       return {
+        ref: 'div',
         staticClass: 'notranslate m-0 p-0',
         style: { minHeight: '300px' },
         attrs: { translate: 'no' }
@@ -69,7 +70,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.CM = CodeMirror.fromTextArea(this.$refs.textarea, {
+      this.CM = CodeMirror(this.$refs.div, {
+        value: this.value,
         mode: this.mode,
         theme: this.theme,
         tabMode: this.tabMode,
@@ -81,26 +83,17 @@ export default {
         readOnly: this.readOnly
       })
 
-      this.CM.setValue(this.value)
+      // this.CM.setValue(this.value)
 
-      this.CM.on('changes', () => {
+      this.CM.on('change', () => {
         this.$emit('input', this.CM.getValue())
       })
     })
   },
   beforeDestroy() {
-    if (this.CM) {
-      this.CM.toTextArea()
-    }
+    this.CM = null
   },
   render(h) {
-    return h('div', this.componentData, [
-      h('textarea', {
-        ref: 'textarea',
-        staticClass: 'w-100 border-0',
-        style: { minHeight: '300px' },
-        props: { value: this.value }
-      })
-    ])
+    return h('div', this.componentData)
   }
 }
