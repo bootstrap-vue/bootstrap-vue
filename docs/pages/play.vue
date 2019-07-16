@@ -536,12 +536,12 @@ export default {
       import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
         // Update compiler reference
         this.compiler = module.default
-        // Run the setup code. We pass 1000ms as the debounce
-        // timeout, as transpilation can be slow
-        this.doSetup(1000)
         // Stop the loading indicator
         this.loading = false
         window && window.$nuxt && window.$nuxt.$loading.finish()
+        // Run the setup code. We pass 1000ms as the debounce
+        // timeout, as transpilation can be slow
+        this.doSetup(1000)
       })
     } else {
       this.doSetup()
@@ -558,6 +558,8 @@ export default {
   },
   methods: {
     doSetup(timeout = 500) {
+      // Build the initial app
+      this._run()
       // Set ready state
       this.ready = true
       // Create our debounced runner
@@ -568,8 +570,7 @@ export default {
           () => `${this.js.trim()}::${this.html.trim()}`,
           (newVal, oldVal) => {
             this.run()
-          },
-          { immediate: true }
+          }
         )
       })
     },
