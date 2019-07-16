@@ -325,7 +325,7 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 
 export default {
   components: {
-    CodeMirror
+    'code-mirror': CodeMirror
   },
   data() {
     return {
@@ -528,12 +528,12 @@ export default {
     this.compiler = code => code
   },
   beforeMount() {
-    // Set the loading state if needed
-    this.loading = needsTranspiler
     // Load content and preferences (or defaults if not available)
     this.loadFromStorage()
   },
   mounted() {
+    // Set the loading state if needed
+    this.loading = needsTranspiler
     if (needsTranspiler) {
       this.$nextTick(() => {
         // this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.start && this.$nuxt.$loading.start()
