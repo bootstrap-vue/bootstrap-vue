@@ -71,11 +71,6 @@ export default {
       readOnly: this.readOnly
     })
 
-    this.$netTick(() => {
-      // Load the editor content
-      this.CM.setValue(this.value)
-    })
-
     this.CM.on('change', () => {
       this.$emit('input', this.CM.getValue())
     })
