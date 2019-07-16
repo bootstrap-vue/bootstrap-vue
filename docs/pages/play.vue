@@ -637,7 +637,7 @@ export default {
       }
 
       // Options gets assiged to by our eval of the compiled JS
-      // eslint-disable-nenxt-line prefer-const
+      // eslint-disable-next-line prefer-const
       let options = {}
       // Test JavaScript for syntax errors
       try {
