@@ -35,9 +35,9 @@
             fade
             dismissible
           >
-            Your browser does not support modern ES6 javascript syntax. However, the javascipt
-            code will be transpiled to work with your browser, except for any ES6 code that may be
-            in your template (i.e. destructuring, arrow functions, etc.)
+            Your browser does not support modern ES6 javascript syntax. However, the code in the
+            JavaScipt editor will be transpiled to work with your browser, except for any ES6 code
+            that is in the template editor (i.e. destructuring, arrow functions, etc.)
           </b-alert>
         </b-col>
       </b-row>
@@ -159,9 +159,8 @@
                 class="d-flex justify-content-between align-items-center"
               >
                 <h5 class="mb-0">
-                  <span class="notranslate" translate="no">JS</span>
+                  <span class="notranslate" translate="no">JavaScript</span>
                   <small v-if="compiling" class="text-muted"> compiling</small>
-                  <b-spinner v-if="compiling" small type="grow" label="Compiling"></b-spinner>
                 </h5>
                 <b-btn
                   size="sm"
@@ -193,7 +192,6 @@
                 <h5 class="mb-0">
                   <span>Result</span>
                   <small v-if="compiling || building" class="text-muted"> building</small>
-                  <b-spinner v-if="isBusy" small type="grow" label="busy"></b-spinner>
                 </h5>
                 <b-btn
                   v-if="!full"
