@@ -137,7 +137,12 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span class="notranslate" translate="no">JS</span>
+                <div>
+                  <span class="notranslate" translate="no">JS</span>
+                  <span v-if="compiling">
+                    <b-spinner small></b-spinner> <span class="text-muted">compiling...</span>
+                  </span>
+                </div>
                 <b-btn
                   size="sm"
                   variant="outline-info"
