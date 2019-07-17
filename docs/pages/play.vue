@@ -759,7 +759,7 @@ export default {
       const js = this.js.trim() || '{}'
       this.compiling = true
       let compiled = null
-      this.$nextTick(() => {
+      this.requestAF(() => {
         try {
           // The app build process expects the app options to
           // be assigned to the `options` variable
@@ -770,7 +770,9 @@ export default {
           compiled = null
         }
         this.compiledJs = compiled
-        this.compiling = false
+        this.$nextTick(() => {
+          this.compiling = false
+        })
       })
     },
     _run() {
@@ -782,7 +784,7 @@ export default {
       this.destroyVM()
       // Clear the log
       this.clear()
-      this.$nextTick(() => {
+      this.requestAF(() => {
         // Create and render the instance
         this.createVM()
         this.$nextTick(() => {
@@ -899,6 +901,20 @@ export default {
       } catch (err) {
         // Silently ignore errors on safari iOS private mode
       }
+    },
+    requestAF(fn) {
+      const w = typeof window === 'undefined' ? {} : window
+      const raf =
+        w.requestAnimationFrame ||
+        w.webkitRequestAnimationFrame ||
+        w.mozRequestAnimationFrame ||
+        w.msRequestAnimationFrame ||
+        w.oRequestAnimationFrame ||
+        // Fallback, but not a true polyfill
+        // Only needed for Opera Mini
+        (cb => setTimeout(cb, 16))
+
+      return raf(cb)
     }
   }
 }
