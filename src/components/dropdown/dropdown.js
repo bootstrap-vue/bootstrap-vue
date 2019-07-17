@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { arrayIncludes } from '../../utils/array'
 import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
@@ -54,6 +55,11 @@ export const props = {
   splitVariant: {
     type: String,
     default: () => getComponentConfig(NAME, 'splitVariant')
+  },
+  splitButtonType: {
+    type: String,
+    default: 'button',
+    validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
   },
   role: {
     type: String,
@@ -120,9 +126,10 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       // We add these as needed due to router-link issues with defined property with undefined/null values
       if (this.splitTo) {
         btnProps.to = this.splitTo
-      }
-      if (this.splitHref) {
+      } else if (this.splitHref) {
         btnProps.href = this.splitHref
+      } else if (this.splitButtonType) {
+        btnProps.type = this.splitButtonType
       }
       split = h(
         BButton,

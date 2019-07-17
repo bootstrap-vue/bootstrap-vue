@@ -1,17 +1,5 @@
-let CodeMirror
-if (typeof window !== 'undefined') {
-  CodeMirror = require('codemirror')
-  require('codemirror/mode/javascript/javascript')
-  // require('codemirror/mode/shell/shell')
-  require('codemirror/mode/vue/vue')
-  require('codemirror/mode/htmlmixed/htmlmixed')
-  require('codemirror/addon/edit/closetag')
-  require('codemirror/addon/edit/closebrackets')
-  require('codemirror/addon/fold/xml-fold')
-}
-
 export default {
-  name: 'BDVCodemirror',
+  name: 'CodeMirror',
   props: {
     value: {
       type: String,
@@ -51,6 +39,15 @@ export default {
       CM: null
     }
   },
+  computed: {
+    componentData() {
+      return {
+        staticClass: 'notranslate m-0 p-0',
+        style: { minHeight: '300px' },
+        attrs: { translate: 'no' }
+      }
+    }
+  },
   watch: {
     value(newVal, oldVal) {
       if (!oldVal || oldVal === '') {
@@ -59,30 +56,47 @@ export default {
     }
   },
   mounted() {
-    this.CM = CodeMirror.fromTextArea(this.$refs.textarea, {
-      mode: this.mode,
-      theme: this.theme,
-      tabMode: this.tabMode,
-      tabSize: parseInt(this.tabSize, 10) || 2,
-      lineWrapping: this.lineWrapping,
-      lineNumbers: this.lineNumbers,
-      autoCloseTags: true,
-      autoCloseBrackets: true,
-      readOnly: this.readOnly
-    })
+    import('../utils/code-mirror' /* webpackChunkName: "code-mirror" */).then(module => {
+      const CodeMirror = module.default || module
 
-    this.CM.on('change', () => {
-      this.$emit('input', this.CM.getValue())
+      this.CM = CodeMirror.fromTextArea(this.$refs.input, {
+        mode: this.mode,
+        theme: this.theme,
+        tabMode: this.tabMode,
+        tabSize: parseInt(this.tabSize, 10) || 2,
+        lineWrapping: this.lineWrapping,
+        lineNumbers: this.lineNumbers,
+        autoCloseTags: true,
+        autoCloseBrackets: true,
+        readOnly: this.readOnly
+      })
+
+      // this.CM.on('change', () => {
+      this.CM.on('changes', () => {
+        this.$emit('input', this.CM.getValue())
+      })
+
+      this.$nextTick(() => {
+        this.$nextTick(() => {
+          this.CM.setValue(this.value)
+        })
+      })
     })
   },
   beforeDestroy() {
     if (this.CM) {
       this.CM.toTextArea()
     }
+    this.CM = null
   },
   render(h) {
-    return h('div', { staticClass: 'notranslate m-0 p-0', attrs: { translate: 'no' } }, [
-      h('textarea', { props: { value: this.value }, ref: 'textarea' })
+    return h('div', this.componentData, [
+      h('textarea', {
+        ref: 'input',
+        staticClass: 'w-100 border-0',
+        style: { minWidth: '100px' },
+        props: { value: this.value }
+      })
     ])
   }
 }

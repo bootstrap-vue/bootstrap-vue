@@ -10,25 +10,47 @@
       </p>
     </div>
 
-    <!-- Actions -->
-    <b-row>
+    <!-- Compiler loading state -->
+    <b-row v-if="loading">
       <b-col class="mb-2 mb-md-0">
         <!-- Loading indicator -->
         <b-alert
-          v-if="loading"
           variant="info"
           class="text-center"
           show
         >
           Loading JavaScript compiler...
         </b-alert>
+      </b-col>
+    </b-row>
 
+    <!-- Transpiler warning -->
+    <b-container v-if="ready && needsTranspiler">
+      <b-row>
+        <b-col>
+          <b-alert
+            variant="info"
+            class="mb-3"
+            show
+            fade
+            dismissible
+          >
+            Your browser does not support modern ES6 JavaScript syntax. However, the code in the
+            JavaScipt editor will be transpiled to work with your browser, except for any ES6 code
+            that is in the Template editor (i.e. destructuring, arrow functions, etc.)
+          </b-alert>
+        </b-col>
+      </b-row>
+    </b-container>
+
+    <!-- Actions -->
+    <b-row>
+      <b-col class="mb-2 mb-md-0">
         <!-- Reset action -->
         <b-btn
-          v-else
           size="sm"
           variant="danger"
-          :disabled="isDefault"
+          :disabled="isDefault || isBusy"
           @click="reset"
         >
           Reset to default
@@ -37,7 +59,6 @@
 
       <!-- Export actions -->
       <b-col
-        v-if="!loading"
         md="auto"
         class="mt-2 mt-md-0"
       >
@@ -52,7 +73,7 @@
           target="_blank"
         >
           <input type="hidden" name="data" :value="codepenData">
-          <b-btn size="sm" type="submit" :disabled="!isOk">CodePen</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || isBusy">CodePen</b-btn>
         </b-form>
 
         <!-- Export to CodeSandbox -->
@@ -64,7 +85,7 @@
           target="_blank"
         >
           <input type="hidden" name="parameters" :value="codesandboxData">
-          <b-btn size="sm" type="submit" :disabled="!isOk">CodeSandbox</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || isBusy">CodeSandbox</b-btn>
         </b-form>
 
         <!-- Export to JSFiddle -->
@@ -80,14 +101,13 @@
           <input type="hidden" name="resources" :value="[...exportData.externalCss, exportData.externalJs].join(',')">
           <input type="hidden" name="css" :value="exportData.css">
           <input type="hidden" name="js_wrap" value="l">
-          <b-btn size="sm" type="submit" :disabled="!isOk">JSFiddle</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || isBusy">JSFiddle</b-btn>
         </b-form>
       </b-col>
     </b-row>
 
-    <!-- Editors -->
+    <!-- Editors / Result / Console -->
     <transition-group
-      v-if="!loading"
       tag="div"
       class="row"
       name="flip"
@@ -103,12 +123,14 @@
             class="mt-3"
           >
             <!-- Template -->
-            <b-card no-body>
+            <b-card no-body header-tag="header">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span class="notranslate" translate="no">Template</span>
+                <h5 class="mb-0">
+                  <span class="notranslate" translate="no">Template</span>
+                </h5>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -119,7 +141,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="html" mode="htmlmixed"></codemirror>
+              <code-mirror v-model="html" mode="htmlmixed"></code-mirror>
             </b-card>
           </b-col>
 
@@ -131,12 +153,15 @@
             class="mt-3"
           >
             <!-- JavaScript -->
-            <b-card no-body>
+            <b-card no-body header-tag="header">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span class="notranslate" translate="no">JS</span>
+                <h5 class="mb-0">
+                  <span class="notranslate" translate="no">JavaScript</span>
+                  <small v-if="compiling" class="text-muted"> compiling</small>
+                </h5>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -147,7 +172,7 @@
                 </b-btn>
               </div>
 
-              <codemirror v-model="js" mode="javascript"></codemirror>
+              <code-mirror v-model="js" mode="javascript"></code-mirror>
             </b-card>
           </b-col>
         </transition-group>
@@ -159,12 +184,15 @@
           <!-- Result column -->
           <b-col cols="12" class="mt-3">
             <!-- Result -->
-            <b-card class="play-result">
+            <b-card class="play-result" header-tag="header">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span>Result</span>
+                <h5 class="mb-0">
+                  <span>Result</span>
+                  <small v-if="compiling || building" class="text-muted"> building</small>
+                </h5>
                 <b-btn
                   v-if="!full"
                   size="sm"
@@ -183,9 +211,11 @@
           <!-- Console column -->
           <b-col cols="12" class="mt-3 notranslate" translate="no">
             <!-- Console -->
-            <b-card no-body>
+            <b-card no-body header-tag="header">
               <div slot="header" class="d-flex justify-content-between align-items-center">
-                <span>Console</span>
+                <h5 class="mb-0">
+                  <span>Console log</span>
+                </h5>
                 <b-btn
                   :disabled="messages.length === 0"
                   size="sm"
@@ -256,6 +286,7 @@ import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
+import CodeMirror from '~/components/codemirror'
 
 // --- Constants ---
 
@@ -322,16 +353,24 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 }
 
 export default {
+  components: {
+    'code-mirror': CodeMirror
+  },
   data() {
     return {
       html: '',
       js: '',
+      compiledJs: null, // Place to hold the transpiled JS code string
       logIdx: 1, // Used as the ":key" on console section for transition hooks
       messages: [],
-      isOk: false,
       vertical: false,
       full: false,
-      loading: false
+      // Flags for various UI stuff
+      isOk: false,
+      loading: false,
+      ready: false,
+      compiling: false,
+      building: false
     }
   },
   head() {
@@ -365,8 +404,21 @@ export default {
       return 'Online Playground'
     },
     isDefault() {
-      // Check if editors contain default JS and Template
+      // Check if editors contain default JS and template
       return this.js.trim() === DEFAULT_JS.trim() && this.html.trim() === DEFAULT_HTML.trim()
+    },
+    isBusy() {
+      return this.compiling || this.building || this.loading || !this.ready
+    },
+    needsTranspiler() {
+      return needsTranspiler
+    },
+    appData() {
+      // Used by our debounced `run` watcher to build the app
+      return {
+        html: this.html.trim(),
+        js: this.compiledJs // Transpiled String or null if transpilation failed
+      }
     },
     layout() {
       return this.full ? 'full' : this.vertical ? 'vertical' : 'horizontal'
@@ -517,32 +569,43 @@ export default {
     // Create some non reactive properties
     this.playVM = null
     this.contentUnWatch = null
+    this.jsUnWatch = null
     this.run = () => {}
+    this.compileJs = () => {}
     // Default code "transpiler"
     this.compiler = code => code
   },
+  beforeMount() {
+    // Load content and preferences (or defaults if not available)
+    this.loadFromStorage()
+  },
   mounted() {
-    this.$nextTick(() => {
-      if (needsTranspiler) {
-        // Start the loading indicator
-        this.loading = true
-        window && window.$nuxt && window.$nuxt.$loading.start()
-        // Lazy load the babel transpiler
+    // Set the loading state if needed
+    this.loading = needsTranspiler
+    if (needsTranspiler) {
+      this.$nextTick(() => {
+        this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.start()
+        // Lazy load the babel transpiler (in a separate chunk)
         import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then(module => {
           // Update compiler reference
-          this.compiler = module.default
+          this.compiler = module.default || module
           // Stop the loading indicator
           this.loading = false
-          window && window.$nuxt && window.$nuxt.$loading.finish()
-          // Run the setup code
-          this.doSetup()
+          this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.finish()
+          // Run the setup code. We pass 750ms as the debounce
+          // timeout, as transpilation can be slow
+          this.doSetup(750)
         })
-      } else {
-        this.doSetup()
-      }
-    })
+      })
+    } else {
+      this.doSetup()
+    }
   },
   beforeDestroy() {
+    // Stop our watchers
+    if (this.jsUnWatch) {
+      this.jsUnWatch()
+    }
     if (this.contentUnWatch) {
       this.contentUnWatch()
     }
@@ -551,18 +614,32 @@ export default {
     }
   },
   methods: {
-    doSetup() {
+    doSetup(timeout = 500) {
       // Create our debounced runner
       this.run = debounce(this._run, 500)
+      // Create our debounced javascript compiler
+      this.compileJs = debounce(this._compileJs, timeout)
       // Set up our editor content watcher
-      this.contentUnWatch = this.$watch(
-        () => `${this.js.trim()}::${this.html.trim()}`,
-        (newVal, oldVal) => {
-          this.run()
-        }
-      )
-      // Load our content into the editors
-      this.$nextTick(this.loadFromStorage)
+      this.$nextTick(() => {
+        // appData watcher
+        this.contentUnWatch = this.$watch(
+          'appData',
+          (newVal, oldVal) => {
+            this.run()
+          },
+          { deep: true }
+        )
+        // Javascript watcher
+        this.jsUnWatch = this.$watch(
+          () => this.js.trim(),
+          (newVal, oldVal) => {
+            this.compileJs()
+          },
+          { immediate: true }
+        )
+        // Set ready state
+        this.ready = true
+      })
     },
     destroyVM() {
       let vm = this.playVM
@@ -583,22 +660,26 @@ export default {
     },
     createVM() {
       const playground = this
-      const js = this.js.trim() || '{}'
+      const js = this.compiledJs
       const html = this.html.trim()
-      // Options gets assinged to by our eval after compilation
-      // eslint-disable-next-line prefer-const
-      let options = {}
 
       // Disable the export buttons
       this.isOk = false
 
-      // Test and assign options JavaScript
+      if (js === null) {
+        // Error compiling JS
+        return
+      }
+
+      // Options gets assiged to by our eval of the compiled JS
+      // eslint-disable-next-line prefer-const
+      let options = {}
+      // Test JavaScript for syntax errors
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
-        const code = this.compiler(`;options = ${js};`)
         /* eslint-disable no-eval */
-        eval(`var console = this.fakeConsole; ${code}`)
+        eval(`var console = this.fakeConsole; ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
@@ -607,7 +688,7 @@ export default {
       }
 
       // Sanitize template possibilities
-      if (!(html || typeof options.template === 'string' || typeof options.render === 'function')) {
+      if (!html && typeof options.template !== 'string' && typeof options.render !== 'function') {
         this.errHandler('No template or render function provided', 'template')
         return
       } else if (
@@ -632,10 +713,10 @@ export default {
         delete options.template
       }
 
-      // Vue's errorCapture doesn't always handle errors in methods,
-      // so we wrap any methods with a try/catch handler so we can
-      // show the error in our GUI console
-      // Doesn't handle errors in async methods
+      // Vue's `errorCapture` doesn't always handle errors in methods (although it
+      // does if the method is used as a `v-on`/`@` handler), so we wrap any methods
+      // with a try/catch handler so we can show the error in our GUI log console.
+      // Note: Doesn't handle errors in async methods
       // See: https://github.com/vuejs/vue/issues/8568
       if (options.methods) {
         Object.keys(options.methods).forEach(methodName => {
@@ -666,13 +747,13 @@ export default {
           // docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
-          // render errors (error boundary)
+          // render errors (this is an error boundary component)
           parent: new Vue({
             template: '<span></span>',
             errorCaptured(err, vm, info) {
               // Pass error to playground error handler
               playground.errHandler(err, info)
-              // Don't propegate to parent/global error handler!
+              // Don't propagate to parent/global error handler!
               return false
             }
           })
@@ -692,16 +773,48 @@ export default {
       this.log('danger', `Error in ${info}: ${String(err)}`)
       this.destroyVM()
     },
+    _compileJs() {
+      if (this.$isServer) {
+        this.compiledJs = null
+        return
+      }
+      const js = this.js.trim() || '{}'
+      this.compiling = true
+      let compiled = null
+      this.$nextTick(() => {
+        this.requestAF(() => {
+          try {
+            // The app build process expects the app options to
+            // be assigned to the `options` variable
+            compiled = this.compiler(`;options = ${js};`)
+          } catch (err) {
+            this.errHandler(err, 'javascript')
+            window.console.error('Error in javascript', err)
+            compiled = null
+          }
+          this.compiledJs = compiled
+          this.$nextTick(() => {
+            this.compiling = false
+          })
+        })
+      })
+    },
     _run() {
       if (this.$isServer) {
         return
       }
+      this.building = true
       // Destroy old VM if exists
       this.destroyVM()
-      // clear the log
+      // Clear the log
       this.clear()
-      // create and render the instance
-      this.createVM()
+      this.requestAF(() => {
+        // Create and render the instance
+        this.createVM()
+        this.$nextTick(() => {
+          this.building = false
+        })
+      })
     },
     toggleVertical() {
       this.vertical = !this.vertical
@@ -812,6 +925,20 @@ export default {
       } catch (err) {
         // Silently ignore errors on safari iOS private mode
       }
+    },
+    requestAF(fn) {
+      const w = typeof window === 'undefined' ? {} : window
+      const raf =
+        w.requestAnimationFrame ||
+        w.webkitRequestAnimationFrame ||
+        w.mozRequestAnimationFrame ||
+        w.msRequestAnimationFrame ||
+        w.oRequestAnimationFrame ||
+        // Fallback, but not a true polyfill
+        // Only needed for Opera Mini
+        (cb => setTimeout(cb, 16))
+
+      return raf(fn)
     }
   }
 }
