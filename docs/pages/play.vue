@@ -141,6 +141,7 @@
               >
                 <h5 class="mb-0">
                   <span class="notranslate" translate="no">JS</span>
+                  <span v-if="compiling" class="text-muted"> compiling</span>
                   <b-spinner v-if="compiling" small type="grow" label="Compiling"></b-spinner>
                 </h5>
                 <b-btn
