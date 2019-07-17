@@ -35,9 +35,9 @@
             fade
             dismissible
           >
-            Your browser does not support modern ES6 javascript syntax. However, the code in the
+            Your browser does not support modern ES6 JavaScript syntax. However, the code in the
             JavaScipt editor will be transpiled to work with your browser, except for any ES6 code
-            that is in the template editor (i.e. destructuring, arrow functions, etc.)
+            that is in the Template editor (i.e. destructuring, arrow functions, etc.)
           </b-alert>
         </b-col>
       </b-row>
