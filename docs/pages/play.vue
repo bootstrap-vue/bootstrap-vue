@@ -914,7 +914,7 @@ export default {
         // Only needed for Opera Mini
         (cb => setTimeout(cb, 16))
 
-      return raf(cb)
+      return raf(fn)
     }
   }
 }
