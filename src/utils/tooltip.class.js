@@ -4,6 +4,7 @@ import noop from './noop'
 import { from as arrayFrom } from './array'
 import {
   closest,
+  matches,
   select,
   isVisible,
   isDisabled,
@@ -78,6 +79,14 @@ const Selector = {
   ARROW: '.arrow'
 }
 
+// Selector for matches testing on trigger event targets that we should ignore.
+// If the event trigger is, or is contained within one of the classes, it will be ignored.
+// Created as an array for future matches
+const EVENT_FILTER_SELECTOR = [
+  '.dropdown-menu'
+].join(',')
+
+// Defaults
 const Defaults = {
   animation: true,
   template:
@@ -751,6 +760,15 @@ class ToolTip {
     const type = e.type
     const target = e.target
     const relatedTarget = e.relatedTarget
+
+    if (matches(target, EVENT_FILTER_SELECTOR) || closest(EVENT_FILTER_SELECTOR, target)) {
+      // If the event target is or is contained within anything that
+      // matches EVENT_FILTER_SELECTOR, we ignore the event and close the tooltip
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3703
+      this.forceHide()
+      return
+    }
+
     const $element = this.$element
     const $tip = this.$tip
     if (type === 'click') {
