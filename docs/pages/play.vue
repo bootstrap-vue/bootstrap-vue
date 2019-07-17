@@ -24,6 +24,22 @@
       </b-col>
     </b-row>
 
+    <!-- Transpiler warning -->
+    <b-row v-if="ready && needsTranspiler">
+      <b-col>
+        <b-alert
+          variant="info"
+          class="mb-2 mb-md-0"
+          show
+          dismissible
+        >
+          Your browser does not support modern ES6 javascript syntax. However, the javascipt
+          code will be transpiled to work with your browser, except for any ES6 code that may be
+          in your template (i.e. destructuring, arrow functions, etc.)
+        </b-alert>
+      </b-col>
+    </b-row>
+
     <!-- Actions -->
     <b-row>
       <b-col class="mb-2 mb-md-0">
@@ -392,6 +408,9 @@ export default {
     },
     isBusy() {
       return this.compiling || this.building || this.loading || !this.ready
+    },
+    needsTranspiler() {
+      return needsTranspiler
     },
     appData() {
       // Used by our debounced `run` watcher to build the app
