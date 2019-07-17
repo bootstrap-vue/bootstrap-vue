@@ -104,12 +104,14 @@
             class="mt-3"
           >
             <!-- Template -->
-            <b-card no-body>
+            <b-card no-body header-tag="header">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <span class="notranslate" translate="no">Template</span>
+                <h5 class="mb-0">
+                  <span class="notranslate" translate="no">Template</span>
+                </h5>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -132,17 +134,15 @@
             class="mt-3"
           >
             <!-- JavaScript -->
-            <b-card no-body>
+            <b-card no-body header-tag="header">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <div>
+                <h5 class="mb-0">
                   <span class="notranslate" translate="no">JS</span>
-                  <span v-if="compiling">
-                    <b-spinner small></b-spinner> <span class="text-muted">compiling...</span>
-                  </span>
-                </div>
+                  <b-spinner v-if="compiling" small label="Compiling"></b-spinner>
+                </h5>
                 <b-btn
                   size="sm"
                   variant="outline-info"
@@ -165,12 +165,15 @@
           <!-- Result column -->
           <b-col cols="12" class="mt-3">
             <!-- Result -->
-            <b-card class="play-result">
+            <b-card class="play-result" header-tag="header">
               <div
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <div>Result <b-spinner v-if="busy" small type="grow" label="isBusy"></b-spinner></div>
+                <h5 class="mb-0">
+                  <span>Result</span>
+                  <b-spinner v-if="busy" small label="busy"></b-spinner>
+                </h5>
                 <b-btn
                   v-if="!full"
                   size="sm"
@@ -189,9 +192,11 @@
           <!-- Console column -->
           <b-col cols="12" class="mt-3 notranslate" translate="no">
             <!-- Console -->
-            <b-card no-body>
+            <b-card no-body header-tag="header">
               <div slot="header" class="d-flex justify-content-between align-items-center">
-                <span>Console</span>
+                <h5 clas="mb-0">
+                  <span>Console log</span>
+                </h5>
                 <b-btn
                   :disabled="messages.length === 0"
                   size="sm"
