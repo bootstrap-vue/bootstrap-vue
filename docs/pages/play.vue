@@ -759,19 +759,21 @@ export default {
       const js = this.js.trim() || '{}'
       this.compiling = true
       let compiled = null
-      this.requestAF(() => {
-        try {
-          // The app build process expects the app options to
-          // be assigned to the `options` variable
-          compiled = this.compiler(`;options = ${js};`)
-        } catch (err) {
-          this.errHandler(err, 'javascript')
-          window.console.error('Error in javascript', err)
-          compiled = null
-        }
-        this.compiledJs = compiled
-        this.$nextTick(() => {
-          this.compiling = false
+      this.$nextTick(() => {
+        this.requestAF(() => {
+          try {
+            // The app build process expects the app options to
+            // be assigned to the `options` variable
+            compiled = this.compiler(`;options = ${js};`)
+          } catch (err) {
+            this.errHandler(err, 'javascript')
+            window.console.error('Error in javascript', err)
+            compiled = null
+          }
+          this.compiledJs = compiled
+          this.$nextTick(() => {
+            this.compiling = false
+          })
         })
       })
     },
