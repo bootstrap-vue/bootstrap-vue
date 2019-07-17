@@ -54,7 +54,7 @@
           target="_blank"
         >
           <input type="hidden" name="data" :value="codepenData">
-          <b-btn size="sm" type="submit" :disabled="!isOk || !ready">CodePen</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || isBusy">CodePen</b-btn>
         </b-form>
 
         <!-- Export to CodeSandbox -->
@@ -66,7 +66,7 @@
           target="_blank"
         >
           <input type="hidden" name="parameters" :value="codesandboxData">
-          <b-btn size="sm" type="submit" :disabled="!isOk || !ready">CodeSandbox</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || isBusy">CodeSandbox</b-btn>
         </b-form>
 
         <!-- Export to JSFiddle -->
@@ -82,7 +82,7 @@
           <input type="hidden" name="resources" :value="[...exportData.externalCss, exportData.externalJs].join(',')">
           <input type="hidden" name="css" :value="exportData.css">
           <input type="hidden" name="js_wrap" value="l">
-          <b-btn size="sm" type="submit" :disabled="!isOk || !ready">JSFiddle</b-btn>
+          <b-btn size="sm" type="submit" :disabled="!isOk || isBusy">JSFiddle</b-btn>
         </b-form>
       </b-col>
     </b-row>
@@ -165,7 +165,7 @@
                 slot="header"
                 class="d-flex justify-content-between align-items-center"
               >
-                <div>Result <b-spinner v-if="busy" small type="grow" label="busy"></b-spinner></div>
+                <div>Result <b-spinner v-if="busy" small type="grow" label="isBusy"></b-spinner></div>
                 <b-btn
                   v-if="!full"
                   size="sm"
@@ -341,10 +341,7 @@ export default {
       loading: false,
       ready: false,
       compiling: false,
-      building: false,
-      // TODO: Change busy to a computed prop
-      // return this.loading || !this.ready || this.compiling || this.building
-      busy: true
+      building: false
     }
   },
   head() {
@@ -380,6 +377,9 @@ export default {
     isDefault() {
       // Check if editors contain default JS and template
       return this.js.trim() === DEFAULT_JS.trim() && this.html.trim() === DEFAULT_HTML.trim()
+    },
+    isBusy() {
+      return this.compiling || this.building || this.loading || !this.ready
     },
     appData() {
       // Used by our debounced `run` watcher to build the app
@@ -767,7 +767,7 @@ export default {
       if (this.$isServer) {
         return
       }
-      this.busy = true
+      this.building = true
       // Destroy old VM if exists
       this.destroyVM()
       // Clear the log
@@ -776,7 +776,7 @@ export default {
         // Create and render the instance
         this.createVM()
         this.$nextTick(() => {
-          this.busy = false
+          this.building = false
         })
       })
     },
