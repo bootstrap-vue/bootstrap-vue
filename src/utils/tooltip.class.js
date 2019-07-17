@@ -25,14 +25,13 @@ const BS_CLASS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
 const TRANSITION_DURATION = 150
 
-// Modal $root hidden event
+// Modal `$root` hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
-// Modal container for appending tooltip/popover (needs leading `.`)
-const MODAL_CLASS = '.modal-content'
+// Modal container selector for appending tooltip/popover
+const MODAL_SELECTOR = '.modal-content'
 
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
-const DROPDOWN_SHOW_EVENT = 'show'
 
 const AttachmentMap = {
   AUTO: 'auto',
@@ -144,7 +143,7 @@ class ToolTip {
     this.$root = $parent && $parent.$root ? $parent.$root : null
     this.$routeWatcher = null
     // We use a bound version of the following handlers for root/modal
-    // listeners to maintain the 'this' context
+    // listeners to maintain the `this` context
     this.$forceHide = this.forceHide.bind(this)
     this.$doHide = this.doHide.bind(this)
     this.$doShow = this.doShow.bind(this)
@@ -171,7 +170,7 @@ class ToolTip {
 
   // Update config
   updateConfig(config) {
-    // Merge config into defaults. We use "this" here because PopOver overrides Default
+    // Merge config into defaults. We use `this` here because PopOver overrides Default
     const updatedConfig = { ...this.constructor.Default, ...config }
 
     // Sanitize delay
@@ -502,7 +501,7 @@ class ToolTip {
     // If we are in a modal, we append to the modal instead of body,
     // unless a container is specified
     return container === false
-      ? closest(MODAL_CLASS, this.$element) || body
+      ? closest(MODAL_SELECTOR, this.$element) || body
       : select(container, body) || body
   }
 
@@ -709,8 +708,8 @@ class ToolTip {
     // Listen for global show/hide events
     this.setRootListener(true)
 
-    // Using 'this' as the handler will get automatically directed to
-    // this.handleEvent and maintain our binding to 'this'
+    // Using `this` as the handler will get automatically directed to
+    // this.handleEvent and maintain our binding to `this`
     triggers.forEach(trigger => {
       if (trigger === 'click') {
         eventOn(el, 'click', this, EvtOpts)
@@ -734,7 +733,7 @@ class ToolTip {
       return
     }
     const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
-    // Using "this" as the handler will get automatically directed to this.handleEvent
+    // Using `this` as the handler will get automatically directed to this.handleEvent
     events.forEach(evt => {
       eventOff(el, evt, this, EvtOpts)
     }, this)
@@ -743,16 +742,17 @@ class ToolTip {
     this.setRootListener(false)
   }
 
+  // This special method allows us to use `this` as the event handlers
   handleEvent(e) {
-    // This special method allows us to use "this" as the event handlers
+    // If disabled, don't do anything
+    // If tip is shown before element gets disabled, then tip will not
+    // close until no longer disabled or forcefully closed
     if (isDisabled(this.$element)) {
-      // If disabled, don't do anything. Note: If tip is shown before element gets
-      // disabled, then tip not close until no longer disabled or forcefully closed.
       /* istanbul ignore next */
       return
     }
+    // Exit if not enabled
     if (!this.$isEnabled) {
-      // If not enable
       return
     }
     const type = e.type
@@ -766,26 +766,27 @@ class ToolTip {
     } else if (type === 'focusin' || type === 'mouseenter') {
       this.enter(e)
     } else if (type === 'focusout') {
-      // target is the element which is loosing focus
-      // and relatedTarget is the element gaining focus
+      // `target` is the element which is loosing focus and
+      // `relatedTarget` is the element gaining focus
+
+      // If focus moves from `$element` to `$tip`, don't trigger a leave
       if ($tip && $element && $element.contains(target) && $tip.contains(relatedTarget)) {
-        // If focus moves from $element to $tip, don't trigger a leave
         /* istanbul ignore next */
         return
       }
+      // If focus moves from `$tip` to `$element`, don't trigger a leave
       if ($tip && $element && $tip.contains(target) && $element.contains(relatedTarget)) {
-        // If focus moves from $tip to $element, don't trigger a leave
         /* istanbul ignore next */
         return
       }
-      /* istanbul ignore next: difficult to test */
+      // If focus moves within `$tip`, don't trigger a leave
       if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
-        // If focus moves within $tip, don't trigger a leave
+        /* istanbul ignore next */
         return
       }
-      /* istanbul ignore next: difficult to test */
+      // If focus moves within `$element`, don't trigger a leave
       if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
-        // If focus moves within $element, don't trigger a leave
+        /* istanbul ignore next */
         return
       }
       // Otherwise trigger a leave
@@ -798,38 +799,36 @@ class ToolTip {
   /* istanbul ignore next */
   setModalListener(on) {
     const el = this.$element
-    /* istanbul ignore next */
     if (!el || !this.$root) {
       return
     }
-    const modal = closest(MODAL_CLASS, el)
+    const modal = closest(MODAL_SELECTOR, el)
+    // If we are not in a modal, don't worry
     if (!modal) {
-      // If we are not in a modal, don't worry. be happy
       return
     }
-    // We can listen for modal hidden events on $root
+    // We can listen for modal hidden events on `$root`
     this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.$forceHide)
   }
 
   /* istanbul ignore next */
   setDropdownListener(on) {
     const el = this.$element
-    /* istanbul ignore next */
     if (!el || !this.$root) {
       return
     }
+    // If we are not on a dropdown menu, don't worry
     if (!hasClass(el, DROPDOWN_CLASS)) {
-      // If we are not on a dropdown menu, don't wory. behappy
       return
     }
-    // We can listen for modal hidden events on it's instance
+    // We can listen for dropdown show events on it's instance
     if (el && el.__vue__) {
-      el.__vue__[on ? '$on' : '$off'](DROPDOWN_SHOW_EVENT, this.$forceHide)
+      el.__vue__[on ? '$on' : '$off']('show', this.$forceHide)
     }
   }
 
   setRootListener(on) {
-    // Listen for global 'bv::{hide|show}::{tooltip|popover}' hide request event
+    // Listen for global `bv::{hide|show}::{tooltip|popover}` hide request event
     const $root = this.$root
     if ($root) {
       $root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.$doHide)
@@ -839,8 +838,8 @@ class ToolTip {
     }
   }
 
+  // Programmatically hide tooltip or popover
   doHide(id) {
-    // Programmatically hide tooltip or popover
     if (!id) {
       // Close all tooltips or popovers
       this.forceHide()
@@ -850,8 +849,8 @@ class ToolTip {
     }
   }
 
+  // Programmatically show tooltip or popover
   doShow(id) {
-    // Programmatically show tooltip or popover
     if (!id) {
       // Open all tooltips or popovers
       this.show()
@@ -861,8 +860,8 @@ class ToolTip {
     }
   }
 
+  // Programmatically disable tooltip or popover
   doDisable(id) {
-    // Programmatically disable tooltip or popover
     if (!id) {
       // Disable all tooltips or popovers
       this.disable()
@@ -872,8 +871,8 @@ class ToolTip {
     }
   }
 
+  // Programmatically enable tooltip or popover
   doEnable(id) {
-    // Programmatically enable tooltip or popover
     if (!id) {
       // Enable all tooltips or popovers
       this.enable()
@@ -884,12 +883,12 @@ class ToolTip {
   }
 
   setOnTouchStartListener(on) {
-    // If this is a touch-enabled device we add extra
-    // empty mouseover listeners to the body's immediate children
+    // If this is a touch-enabled device we add extra empty
+    // `mouseover` listeners to the body's immediate children
     // Only needed because of broken event delegation on iOS
     // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
     if ('ontouchstart' in document.documentElement) {
-      /* istanbul ignore next: JSDOM does not support 'ontouchstart' event */
+      /* istanbul ignore next: JSDOM does not support `ontouchstart` event */
       arrayFrom(document.body.children).forEach(el => {
         if (on) {
           eventOn(el, 'mouseover', this._noop)
