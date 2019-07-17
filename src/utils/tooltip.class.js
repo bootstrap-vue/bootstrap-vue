@@ -4,7 +4,6 @@ import noop from './noop'
 import { from as arrayFrom } from './array'
 import {
   closest,
-  matches,
   select,
   isVisible,
   isDisabled,
@@ -28,8 +27,12 @@ const TRANSITION_DURATION = 150
 
 // Modal $root hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
-// Modal container for appending tooltip/popover
+// Modal container for appending tooltip/popover (needs leading `.`)
 const MODAL_CLASS = '.modal-content'
+
+// For dropdown sniffing
+const DROPDOWN_CLASS = 'dropdown'
+const DROPDOWN_SHOW_EVENT = 'show'
 
 const AttachmentMap = {
   AUTO: 'auto',
@@ -78,13 +81,6 @@ const Selector = {
   TOOLTIP_INNER: '.tooltip-inner',
   ARROW: '.arrow'
 }
-
-// Selector for matches testing on trigger event targets that we should ignore.
-// If the event trigger is, or is contained within one of the classes, it will be ignored.
-// Created as an array for future matches
-const EVENT_FILTER_SELECTOR = [
-  '.dropdown-menu'
-].join(',')
 
 // Defaults
 const Defaults = {
@@ -394,6 +390,8 @@ class ToolTip {
   setWhileOpenListeners(on) {
     // Modal close events
     this.setModalListener(on)
+    // Dropdown open events (if we are attached to a dropdown)
+    this.setDropdownListener(on)
     // Periodic $element visibility check
     // For handling when tip is in <keepalive>, tabs, carousel, etc
     this.visibleCheck(on)
@@ -761,14 +759,6 @@ class ToolTip {
     const target = e.target
     const relatedTarget = e.relatedTarget
 
-    if (matches(target, EVENT_FILTER_SELECTOR) || closest(EVENT_FILTER_SELECTOR, target)) {
-      // If the event target is or is contained within anything that
-      // matches EVENT_FILTER_SELECTOR, we ignore the event and close the tooltip
-      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3703
-      this.forceHide()
-      return
-    }
-
     const $element = this.$element
     const $tip = this.$tip
     if (type === 'click') {
@@ -819,6 +809,23 @@ class ToolTip {
     }
     // We can listen for modal hidden events on $root
     this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.$forceHide)
+  }
+
+  /* istanbul ignore next */
+  setDropdownListener(on) {
+    const el = this.$element
+    /* istanbul ignore next */
+    if (!el || !this.$root) {
+      return
+    }
+    if (!hasClass(el, DROPDOWN_CLASS)) {
+      // If we are not on a dropdown menu, don't wory. behappy
+      return
+    }
+    // We can listen for modal hidden events on $it's instance
+    if (el && el.__vue__ && el.__vue__.bvDropdown) {
+      el.__vue__[on ? '$on' : '$off'](DROPDOWN_SHOW_EVENT, this.$forceHide)
+    }
   }
 
   setRootListener(on) {
