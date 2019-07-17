@@ -25,20 +25,23 @@
     </b-row>
 
     <!-- Transpiler warning -->
-    <b-row v-if="ready && needsTranspiler">
-      <b-col>
-        <b-alert
-          variant="info"
-          class="mb-2 mb-md-0"
-          show
-          dismissible
-        >
-          Your browser does not support modern ES6 javascript syntax. However, the javascipt
-          code will be transpiled to work with your browser, except for any ES6 code that may be
-          in your template (i.e. destructuring, arrow functions, etc.)
-        </b-alert>
-      </b-col>
-    </b-row>
+    <b-container v-if="ready && needsTranspiler">
+      <b-row>
+        <b-col>
+          <b-alert
+            variant="info"
+            class="mb-3"
+            show
+            fade
+            dismissible
+          >
+            Your browser does not support modern ES6 javascript syntax. However, the javascipt
+            code will be transpiled to work with your browser, except for any ES6 code that may be
+            in your template (i.e. destructuring, arrow functions, etc.)
+          </b-alert>
+        </b-col>
+      </b-row>
+    </b-container>
 
     <!-- Actions -->
     <b-row>
