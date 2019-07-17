@@ -194,7 +194,7 @@
             <!-- Console -->
             <b-card no-body header-tag="header">
               <div slot="header" class="d-flex justify-content-between align-items-center">
-                <h5 clas="mb-0">
+                <h5 class="mb-0">
                   <span>Console log</span>
                 </h5>
                 <b-btn
