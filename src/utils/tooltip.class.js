@@ -822,8 +822,8 @@ class ToolTip {
       // If we are not on a dropdown menu, don't wory. behappy
       return
     }
-    // We can listen for modal hidden events on $it's instance
-    if (el && el.__vue__ && el.__vue__.bvDropdown) {
+    // We can listen for modal hidden events on it's instance
+    if (el && el.__vue__) {
       el.__vue__[on ? '$on' : '$off'](DROPDOWN_SHOW_EVENT, this.$forceHide)
     }
   }
