@@ -31,7 +31,7 @@
         <b-btn
           size="sm"
           variant="danger"
-          :disabled="isDefault || !ready"
+          :disabled="isDefault || isBusy"
           @click="reset"
         >
           Reset to default
