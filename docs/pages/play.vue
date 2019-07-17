@@ -172,7 +172,7 @@
               >
                 <h5 class="mb-0">
                   <span>Result</span>
-                  <b-spinner v-if="busy || compiling" small type="grow" label="busy"></b-spinner>
+                  <b-spinner v-if="isBusy" small type="grow" label="busy"></b-spinner>
                 </h5>
                 <b-btn
                   v-if="!full"
