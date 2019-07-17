@@ -141,7 +141,7 @@
               >
                 <h5 class="mb-0">
                   <span class="notranslate" translate="no">JS</span>
-                  <b-spinner v-if="compiling" small label="Compiling"></b-spinner>
+                  <b-spinner v-if="compiling" small type="grow" label="Compiling"></b-spinner>
                 </h5>
                 <b-btn
                   size="sm"
@@ -172,7 +172,7 @@
               >
                 <h5 class="mb-0">
                   <span>Result</span>
-                  <b-spinner v-if="busy" small label="busy"></b-spinner>
+                  <b-spinner v-if="busy || compiling" small type="grow" label="busy"></b-spinner>
                 </h5>
                 <b-btn
                   v-if="!full"
@@ -570,9 +570,9 @@ export default {
           // Stop the loading indicator
           this.loading = false
           this.$nuxt && this.$nuxt.$loading && this.$nuxt.$loading.finish()
-          // Run the setup code. We pass 1000ms as the debounce
+          // Run the setup code. We pass 750ms as the debounce
           // timeout, as transpilation can be slow
-          this.doSetup(1000)
+          this.doSetup(750)
         })
       })
     } else {
