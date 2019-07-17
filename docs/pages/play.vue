@@ -141,7 +141,7 @@
               >
                 <h5 class="mb-0">
                   <span class="notranslate" translate="no">JS</span>
-                  <span v-if="compiling" class="text-muted"> compiling</span>
+                  <small v-if="compiling" class="text-muted"> compiling</small>
                   <b-spinner v-if="compiling" small type="grow" label="Compiling"></b-spinner>
                 </h5>
                 <b-btn
@@ -173,6 +173,7 @@
               >
                 <h5 class="mb-0">
                   <span>Result</span>
+                  <small v-if="compiling || building" class="text-muted"> building</small>
                   <b-spinner v-if="isBusy" small type="grow" label="busy"></b-spinner>
                 </h5>
                 <b-btn
