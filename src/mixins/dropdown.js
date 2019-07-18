@@ -329,12 +329,14 @@ export default {
         return
       }
       this.$emit('toggle', evt)
-      evt.preventDefault()
+      // evt.preventDefault()
       evt.stopPropagation()
       // Toggle visibility
-      this.visible = !this.visible
-      // DEBUG:
-      console.log('Toggle visible state is now', this.visible)
+      if (this.visible) {
+        this.hide(true)
+      } else {
+        this.show()
+      }
     },
     click(evt) {
       // Called only in split button mode, for the split button
