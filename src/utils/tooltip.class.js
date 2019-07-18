@@ -770,7 +770,7 @@ class ToolTip {
       return
     }
     // Prevent showing if tip/popover is on a dropdown and the menu is open
-    if (this.dropdownOpen())) {
+    if (this.dropdownOpen()) {
       /* istanbul ignore next */
       return
     }
