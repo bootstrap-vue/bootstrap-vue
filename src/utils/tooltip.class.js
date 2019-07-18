@@ -770,6 +770,13 @@ class ToolTip {
 
     const $element = this.$element
     const $tip = this.$tip
+
+    // Prevent showing if tip/popover is on a dropdown and the menu is open
+    if (hasClass($element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, $element)) {
+      /* istanbul ignore next */
+      return
+    }
+
     if (type === 'click') {
       this.toggle(e)
     } else if (type === 'focusin' || type === 'mouseenter') {
@@ -919,11 +926,6 @@ class ToolTip {
 
   // Enter handler
   enter(e) {
-    // Prevent showing if tip/popover is on a dropdown and the menu is open
-    if (hasClass(this.$element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, this.$element)) {
-      /* istanbul ignore next */
-      return
-    }
     if (e) {
       this.$activeTrigger[e.type === 'focusin' ? 'focus' : 'hover'] = true
     }
