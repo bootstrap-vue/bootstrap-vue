@@ -3446,29 +3446,29 @@ codemirror@^5.48.0:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.48.0.tgz#66e6dae6ca79b955e34b322881ebb7b5512f3cc5"
   integrity sha512-3Ter+tYtRlTNtxtYdYNPxGxBL/b3cMcvPdPm70gvmcOO2Rauv/fUEewWa0tT596Hosv6ea2mtpx28OXBy1mQCg==
 
-codesandbox-import-util-types@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.5.tgz#de28decc4deca5a43cc83cd75f1b72d890c380af"
-  integrity sha512-4F0hQY4duS9Jmxzr/dufOtrk6i1aXrh4W/96ylQtT4I4tfsqnMQAvdAxlqAsAQ3TtCyPVKNfI6B6Vjb0boEJbw==
+codesandbox-import-util-types@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.9.tgz#24ba5ec3d966f51f18b78c48d32e6411da90aa74"
+  integrity sha512-Vc4qh+neVfHtS3RG+7wvaErMoEKdNTnLFnyj4Dcbn3NV7v9nlPj/z6MGhHp9S+vAjegWorFzxg9lKB1WGHTt5Q==
 
-codesandbox-import-utils@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.6.tgz#5eacbef741619e2caed645b7f8444437a86be8e1"
-  integrity sha512-efI6jHRcvBr0iLWc54UwX6YkED2sjUSIGajM12PwBOr2Wfe7UnRxXZr/K6BgVpRcHDb6D1+mXGa9rhdPz0bH3A==
+codesandbox-import-utils@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.9.tgz#8126c08e9ab509d00a164ef5583c549b9252c7c1"
+  integrity sha512-fsymevaFbWFhT0jYHwyDvJTaEz5kBzR5celw9vbqj3uIaqjdh1CLBbZS+FtiOnJisOu+xGV9ZndnKEn5y08JGA==
   dependencies:
-    codesandbox-import-util-types "^2.1.5"
+    codesandbox-import-util-types "^2.1.9"
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
-codesandbox@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.6.tgz#3ed410e2002b91fcc0b3ea80a384f95f46c2ef0c"
-  integrity sha512-J8CxcM9KqouRG02Mq7iWwkvP9cbHtI1pjFLBrrkUnzdmbZgYOZ5SdRjghOF711wQAi0rEueEvzmdYazrdUJjqA==
+codesandbox@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.9.tgz#64dbbbd166546808a05402fcf13530fb002a17f4"
+  integrity sha512-/pzfhCrLYBDZ3dJv+4J0J2A9DhyiLXSeOcMxldGqxElwFpwWvKkHNwK7VZ6mOZOj5mgzrh0v9DVUcUVZaIUr2w==
   dependencies:
     axios "^0.16.2"
     chalk "^2.4.1"
-    codesandbox-import-util-types "^2.1.5"
-    codesandbox-import-utils "^2.1.6"
+    codesandbox-import-util-types "^2.1.9"
+    codesandbox-import-utils "^2.1.9"
     commander "^2.9.0"
     datauri "^1.1.0"
     filesize "^3.6.1"
@@ -3481,7 +3481,7 @@ codesandbox@^2.1.6:
     lodash "^4.17.5"
     lz-string "^1.4.4"
     ms "^2.0.0"
-    opn "^5.1.0"
+    open "^6.3.0"
     ora "^1.3.0"
     pacote "^2.7.36"
     shortid "^2.2.8"
@@ -4917,10 +4917,10 @@ eslint-plugin-import@^2.18.0:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jest@^22.10.0:
-  version "22.10.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.10.0.tgz#a22be77f4dc692808b88ead0059620bda299a97d"
-  integrity sha512-iBEWJn60Z5bctcjacymUnOQ3xN3gdvGOy3tDHpalAa99r4+jwH0CvICsIIHBNXNlJxuklkbx+wxr49tXk6M0tg==
+eslint-plugin-jest@^22.11.1:
+  version "22.11.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.11.1.tgz#04b586e2fddd07e55900a381255d6b3d9242ae87"
+  integrity sha512-kPF1Nmr5xMLz6DT7qEttz0TTeyx1x6SozIkNO9y4F2yxuWjHMp/e70fo742pR3y0MewgXQQMIIXeSKLB66iO7Q==
 
 eslint-plugin-markdown@^1.0.0:
   version "1.0.0"
@@ -8888,12 +8888,19 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
+open@^6.3.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/open/-/open-6.4.0.tgz#5c13e96d0dc894686164f18965ecfe889ecfc8a9"
+  integrity sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==
+  dependencies:
+    is-wsl "^1.1.0"
+
 opener@1.5.1, opener@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.1.tgz#6d2f0e77f1a0af0032aca716c2c1fbb8e7e8abed"
   integrity sha512-goYSy5c2UXE4Ra1xixabeVh1guIX/ZV/YokJksb6q2lubWu6UbvPQ20p542/sFIll1nl8JnCyK9oBaOcCWXwvA==
 
-opn@^5.1.0, opn@^5.5.0:
+opn@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
   integrity sha512-PqHpggC9bLV0VeWcdKhkpxY+3JTzetLSqTCWL/z/tFIbI6G8JCjondXklT1JinczLz2Xib62sSp0T/gKT4KksA==
