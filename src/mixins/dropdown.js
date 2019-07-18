@@ -322,6 +322,8 @@ export default {
         /* istanbul ignore next */
         return
       }
+      // DEBUG:
+      console.log('Toggle event:', type, evt)
       if (this.disabled) {
         /* istanbul ignore next */
         this.visible = false
