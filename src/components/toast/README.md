@@ -7,7 +7,8 @@ Toasts are lightweight notifications designed to mimic the push notifications th
 popularized by mobile and desktop operating systems.
 
 Toasts are intended to be small interruptions to your visitors or users, and therefore should
-contain minimal, to-the-point, non-interactive content.
+contain minimal, to-the-point, non-interactive content. Please refer to the
+[Accessibility tips](#accessibility-tips) section below for **important** usage information.
 
 <div class="alert alert-warning">
   <p class="mb-0">
@@ -62,7 +63,8 @@ transparency only.
 - Titles are optional, but should be included, titles are rendered inside a `<strong>` element,
   unless using the `toast-title` slot.
 - If you disable the auto-hide feature, avoid hiding the close button, or if you hide the close
-  button be sure to allow the toast to auto-dismiss.
+  button be sure to allow the toast to auto-dismiss. Please refer to the
+  [Accessibility tips](#accessibility-tips) section below for **important** usage information.
 - Toast transparency can be disabled by setting the `solid` prop to `true`.
 - Toasts will show inside a named `<b-toaster>` target component. BootstrapVue comes with several
   pre-defined toaster targets. Toasts will check for the named toaster in the document before they
@@ -505,8 +507,8 @@ provides general guidelines when using toasts.
   confusing to screen reader users. If a toast is needed on page load or route change, delay showing
   the toast by several seconds so that the screen reader will finishing announcing information about
   the current page without interruption by a the toast.
-- When setting prop `auto-hide` to `false`, you must have a close button to allow users to dismiss
-  the toast. If you have also set prop `no-close-button` to true, you must provide your own close
+- When setting prop `no-auto-hide` to `true`, you must have a close button to allow users to dismiss
+  the toast. If you have also set prop `no-close-button` to `true`, you must provide your own close
   button or dismiss the toast by some other means. Toasts have a tab index of `0` so that they can
   be reached by keyboard-only users.
 - Avoid initiating many toasts in quick succession, as screen readers may interrupt reading the
