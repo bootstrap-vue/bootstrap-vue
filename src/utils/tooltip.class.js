@@ -32,7 +32,7 @@ const MODAL_SELECTOR = '.modal-content'
 
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
-const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.open'
+const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
 
 const AttachmentMap = {
   AUTO: 'auto',
