@@ -329,10 +329,6 @@ export default {
         return
       }
       this.$emit('toggle', evt)
-      if (evt.defaultPrevented) {
-        // Exit if canceled
-        return
-      }
       evt.preventDefault()
       evt.stopPropagation()
       // Toggle visibility
