@@ -430,10 +430,12 @@ export default {
       this.$refs.menu.focus && this.$refs.menu.focus()
     },
     focusToggler() {
-      const toggler = this.toggler
-      if (toggler && toggler.focus) {
-        toggler.focus()
-      }
+      this.$nextTick(() => {
+        const toggler = this.toggler
+        if (toggler && toggler.focus) {
+          toggler.focus()
+        }
+      })
     }
   }
 }
