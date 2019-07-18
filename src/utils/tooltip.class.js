@@ -860,9 +860,8 @@ class ToolTip {
     }
   }
 
-  /* istanbul ignore next */
   dropdownOpen() {
-    // Returns true if trigger is a dropdown and dropdown is open
+    // Returns true if trigger is a dropdown and the dropdown menu is open
     return hasClass(this.$element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, this.$element)
   }
 
