@@ -269,6 +269,11 @@ class ToolTip {
       /* istanbul ignore next */
       return
     }
+    // Prevent showing if tip/popover is on a dropdown and the menu is open
+    if (this.dropdownOpen()) {
+      /* istanbul ignore next */
+      return
+    }
     /* istanbul ignore else */
     if (event) {
       this.$activeTrigger.click = !this.$activeTrigger.click
@@ -295,7 +300,7 @@ class ToolTip {
     }
 
     // Prevent showing if tip/popover is on a dropdown and the menu is open
-    if (hasClass(this.$element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, this.$element)) {
+    if (this.dropdownOpen()) {
       /* istanbul ignore next */
       return
     }
@@ -424,6 +429,7 @@ class ToolTip {
     clearTimeout(this.$hoverTimeout)
     this.$hoverTimeout = null
     this.$hoverState = ''
+    this.$activeTrigger = {}
     // Hide the tip
     this.hide(null, true)
   }
@@ -481,9 +487,8 @@ class ToolTip {
     // Hide tip
     removeClass(tip, ClassName.SHOW)
 
-    this.$activeTrigger.click = false
-    this.$activeTrigger.focus = false
-    this.$activeTrigger.hover = false
+    // Clear any active triggers
+    this.$activeTrigger = {}
 
     // Start the hide transition
     this.transitionOnce(tip, complete)
@@ -764,18 +769,18 @@ class ToolTip {
     if (!this.$isEnabled) {
       return
     }
+    // Prevent showing if tip/popover is on a dropdown and the menu is open
+    if (this.dropdownOpen())) {
+      /* istanbul ignore next */
+      return
+    }
+
     const type = e.type
     const target = e.target
     const relatedTarget = e.relatedTarget
 
     const $element = this.$element
     const $tip = this.$tip
-
-    // Prevent showing if tip/popover is on a dropdown and the menu is open
-    if (hasClass($element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, $element)) {
-      /* istanbul ignore next */
-      return
-    }
 
     if (type === 'click') {
       this.toggle(e)
@@ -853,6 +858,12 @@ class ToolTip {
       $root[method](`bv::disable::${this.constructor.NAME}`, this.$doDisable)
       $root[method](`bv::enable::${this.constructor.NAME}`, this.$doEnable)
     }
+  }
+
+  /* istanbul ignore next */
+  dropdownOpen() {
+    // Returns true if trigger is a dropdown and dropdown is open
+    return hasClass(this.$element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, this.$element)
   }
 
   // Programmatically hide tooltip or popover
