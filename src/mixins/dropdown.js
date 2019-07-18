@@ -331,14 +331,16 @@ export default {
         return
       }
       this.$emit('toggle', evt)
-      // evt.preventDefault()
+      evt.preventDefault()
       evt.stopPropagation()
       // Toggle visibility
-      if (this.visible) {
-        this.hide(true)
-      } else {
-        this.show()
-      }
+      requestAF(() => {
+        if (this.visible) {
+          this.hide(true)
+        } else {
+          this.show()
+        }
+      })
     },
     click(evt) {
       // Called only in split button mode, for the split button
