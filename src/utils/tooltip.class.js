@@ -459,6 +459,7 @@ class ToolTip {
         this.$tip = null
       }
       if (callback) {
+        /* istanbul ignore next */
         callback()
       }
       // Create a non-cancelable BvEvent
