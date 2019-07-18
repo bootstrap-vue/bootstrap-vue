@@ -333,6 +333,8 @@ export default {
       evt.stopPropagation()
       // Toggle visibility
       this.visible = !this.visible
+      // DEBUG:
+      console.log('Toggle visible state is now', this.visible)
     },
     click(evt) {
       // Called only in split button mode, for the split button
