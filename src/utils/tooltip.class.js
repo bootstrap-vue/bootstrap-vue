@@ -32,6 +32,7 @@ const MODAL_SELECTOR = '.modal-content'
 
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
+const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.open'
 
 const AttachmentMap = {
   AUTO: 'auto',
@@ -143,7 +144,7 @@ class ToolTip {
     this.$root = $parent && $parent.$root ? $parent.$root : null
     this.$routeWatcher = null
     // We use a bound version of the following handlers for root/modal
-    // listeners to maintain the `this` context
+    // listeners to maintain the correct `this` context
     this.$forceHide = this.forceHide.bind(this)
     this.$doHide = this.doHide.bind(this)
     this.$doShow = this.doShow.bind(this)
@@ -292,6 +293,12 @@ class ToolTip {
       // If trigger element isn't in the DOM or is not visible
       return
     }
+
+    // Prevent showing if tip/popover is on a dropdown and the menu is open
+    if (hasClass(this.$element, DROPDOWN_CLASS) && select(DROPDOWN_OPEN_SELECTOR, this.$element)) {
+      return
+    }
+
     // Build tooltip element (also sets this.$tip)
     const tip = this.getTipElement()
     this.fixTitle()
@@ -821,9 +828,9 @@ class ToolTip {
     if (!hasClass(el, DROPDOWN_CLASS)) {
       return
     }
-    // We can listen for dropdown show events on it's instance
+    // We can listen for dropdown shown events on it's instance
     if (el && el.__vue__) {
-      el.__vue__[on ? '$on' : '$off']('show', this.$forceHide)
+      el.__vue__[on ? '$on' : '$off']('shown', this.$forceHide)
     }
   }
 
@@ -831,10 +838,11 @@ class ToolTip {
     // Listen for global `bv::{hide|show}::{tooltip|popover}` hide request event
     const $root = this.$root
     if ($root) {
-      $root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.$doHide)
-      $root[on ? '$on' : '$off'](`bv::show::${this.constructor.NAME}`, this.$doShow)
-      $root[on ? '$on' : '$off'](`bv::disable::${this.constructor.NAME}`, this.$doDisable)
-      $root[on ? '$on' : '$off'](`bv::enable::${this.constructor.NAME}`, this.$doEnable)
+      const method = on ? '$on' : '$off'
+      $root[method](`bv::hide::${this.constructor.NAME}`, this.$doHide)
+      $root[method](`bv::show::${this.constructor.NAME}`, this.$doShow)
+      $root[method](`bv::disable::${this.constructor.NAME}`, this.$doDisable)
+      $root[method](`bv::enable::${this.constructor.NAME}`, this.$doEnable)
     }
   }
 
