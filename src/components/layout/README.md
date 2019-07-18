@@ -47,7 +47,7 @@ Here's how it works:
   row regardless of breakpoint (starting at breakpoint `xs`). So, if you want three equal-width
   columns at any breakpoint, you can use `<b-col cols="4">`.
 - Column props `sm`, `md`, `lg`, `xl` indicate the number of columns you'd like to use out of the
-  possible 12 per row. at the various breakpoints. So, if you want three equal-width columns at
+  possible 12 per row, at the various breakpoints. So, if you want three equal-width columns at
   breakpoint `sm`, you can use `<b-col sm="4">`. the special value `auto` can be used to take up the
   remaining available column space in a row.
 - Column widths, internally, are set in percentages, so they're always fluid and sized relative to
@@ -189,6 +189,8 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
   </tbody>
 </table>
 
+Note: there is no `xs` prop. The `cols` prop refers to the `xs` (smallest) breakpoint.
+
 ## Auto-layout columns
 
 Utilize breakpoint-specific column classes for easy column sizing without an explicit numbered prop
@@ -268,7 +270,7 @@ of the center column.
 
 ### Variable width content
 
-Use `${breakpoint}-auto` props to size columns based on the natural width of their content.
+Use `{breakpoint}="auto"` props to size columns based on the natural width of their content.
 
 ```html
 <b-container class="bv-example-row">
