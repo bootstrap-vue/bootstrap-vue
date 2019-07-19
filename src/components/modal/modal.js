@@ -721,7 +721,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               : {}
           modalHeader = [
             h(
-              this.titleTag, {
+              this.titleTag,
+              {
                 class: ['modal-title'],
                 attrs: { id: this.safeId('__BV_modal_title_') },
                 domProps
@@ -853,7 +854,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
             'aria-labelledby':
-              this.hideHeader || !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
+              this.hideHeader ||
+              !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
                 ? null
                 : this.safeId('__BV_modal_title_'),
             'aria-describedby': this.safeId('__BV_modal_body_')
