@@ -109,6 +109,10 @@ export const props = {
     type: Boolean,
     default: false
   },
+  ariaLabel: {
+    type: String,
+    default: null
+  },
   bodyBgVariant: {
     type: String,
     default: () => getComponentConfig(NAME, 'bodyBgVariant')
@@ -865,8 +869,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
+            'aria-label': this.ariaLabel,
             'aria-labelledby':
               this.hideHeader ||
+              this.ariaLabel ||
               !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
                 ? null
                 : this.safeId('__BV_modal_title_'),
