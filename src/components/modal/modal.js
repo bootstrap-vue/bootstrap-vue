@@ -294,10 +294,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       ]
     },
     titleClases() {
-      return [
-        { 'sr-only': this.titleSrOnly },
-        this.titleClass
-      ]
+      return [{ 'sr-only': this.titleSrOnly }, this.titleClass]
     },
     bodyClasses() {
       return [
