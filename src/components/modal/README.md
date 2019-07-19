@@ -933,7 +933,7 @@ cases.
   modals (when using the built in header). You can visually hide the header title, but still make it
   available to screen readers by setting the `title-sr-only` prop. If you do not have a header, you
   can supply a label for the modal by passing a string to the `aria-label` prop
-- `aria-describedby` will always point to the modal's body
+- The `aria-describedby` attribute will always point to the modal's body
 - If the `aria-label` prop is specified with a string value, the `aria-labelledby` attribute will not
   be rendered, even if you have a title/header for your modal.
 
