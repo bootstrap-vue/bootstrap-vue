@@ -918,10 +918,12 @@ full list of events emitted.
 
 ## Accessibility
 
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.27</span>
-
 `<b-modal>` provides several accessibility features, including auto focus, return focus, keyboard
 (tab) _focus containment_, and automated `aria-*` attributes.
+
+### ARIA attributes
+
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.27</span>
 
 The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in most
 cases.
