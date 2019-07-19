@@ -94,7 +94,7 @@
     "babel-plugin-istanbul": "^5.1.4",
     "clean-css-cli": "^4.3.0",
     "codecov": "^3.5.0",
-    "codemirror": "^5.48.0",
+    "codemirror": "^5.48.2",
     "codesandbox": "^2.1.9",
     "core-js": ">=2.6.5 <3.0.0",
     "cross-env": "^5.2.0",
