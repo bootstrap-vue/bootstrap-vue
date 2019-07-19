@@ -723,7 +723,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             h(
               this.titleTag,
               {
-                class: ['modal-title'],
+                staticClass: 'modal-title',
                 attrs: { id: this.safeId('__BV_modal_title_') },
                 domProps
               },
