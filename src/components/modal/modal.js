@@ -720,9 +720,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               ? { innerHTML: this.titleHtml }
               : {}
           modalHeader = [
-            h(this.titleTag, { class: ['modal-title'], domProps }, [
-              this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)
-            ]),
+            h(
+              this.titleTag, {
+                class: ['modal-title'],
+                attrs: { id: this.safeId('__BV_modal_title_') },
+                domProps
+              },
+              [this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)]
+            ),
             closeButton
           ]
         }
@@ -847,7 +852,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
-            'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
+            'aria-labelledby':
+              this.hideHeader || !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
+                ? null
+                : this.safeId('__BV_modal_title_'),
             'aria-describedby': this.safeId('__BV_modal_body_')
           },
           on: { keydown: this.onEsc, click: this.onClickOut }
