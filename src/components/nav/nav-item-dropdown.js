@@ -56,7 +56,6 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         this.extraToggleClasses, // Deprecated
         this.toggleClass,
         {
-          disabled: this.disabled,
           'dropdown-toggle-no-caret': this.noCaret
         }
       ]
@@ -76,7 +75,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId('_BV_button_'),
           'aria-haspopup': 'true',
-          'aria-expanded': String(this.visible)
+          'aria-expanded': this.visible ? 'true' : 'false'
         },
         on: {
           click: this.toggle,
