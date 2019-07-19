@@ -41,10 +41,6 @@ export const props = {
   titleHtml: {
     type: String
   },
-  titleTag: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'titleTag')
-  },
   size: {
     type: String,
     default: () => getComponentConfig(NAME, 'size')
@@ -98,8 +94,20 @@ export const props = {
     default: () => getComponentConfig(NAME, 'headerCloseVariant')
   },
   headerClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
+  },
+  titleTag: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'titleTag')
+  },
+  titleClass: {
+    type: [String, Array, Object],
+    default: null
+  },
+  titleSrOnly: {
+    type: Boolean,
+    default: false
   },
   bodyBgVariant: {
     type: String,
@@ -110,19 +118,19 @@ export const props = {
     default: () => getComponentConfig(NAME, 'bodyTextVariant')
   },
   modalClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   dialogClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   contentClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   bodyClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   footerBgVariant: {
@@ -138,7 +146,7 @@ export const props = {
     default: () => getComponentConfig(NAME, 'footerTextVariant')
   },
   footerClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   hideHeader: {
@@ -283,6 +291,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           [`border-${this.headerBorderVariant}`]: Boolean(this.headerBorderVariant)
         },
         this.headerClass
+      ]
+    },
+    titleClases() {
+      return [
+        { 'sr-only': this.titleSrOnly },
+        this.titleClass
       ]
     },
     bodyClasses() {
@@ -724,6 +738,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               this.titleTag,
               {
                 staticClass: 'modal-title',
+                class: this.titleClases,
                 attrs: { id: this.safeId('__BV_modal_title_') },
                 domProps
               },
