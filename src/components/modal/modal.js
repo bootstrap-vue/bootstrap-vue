@@ -34,13 +34,6 @@ const OBSERVER_CONFIG = {
 const EVT_OPTIONS = { passive: true, capture: false }
 
 export const props = {
-  title: {
-    type: String,
-    default: ''
-  },
-  titleHtml: {
-    type: String
-  },
   size: {
     type: String,
     default: () => getComponentConfig(NAME, 'size')
@@ -77,6 +70,29 @@ export const props = {
     type: Boolean,
     default: false
   },
+  title: {
+    type: String,
+    default: ''
+  },
+  titleHtml: {
+    type: String
+  },
+  titleTag: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'titleTag')
+  },
+  titleClass: {
+    type: [String, Array, Object],
+    default: null
+  },
+  titleSrOnly: {
+    type: Boolean,
+    default: false
+  },
+  ariaLabel: {
+    type: String,
+    default: null
+  },
   headerBgVariant: {
     type: String,
     default: () => getComponentConfig(NAME, 'headerBgVariant')
@@ -95,22 +111,6 @@ export const props = {
   },
   headerClass: {
     type: [String, Array, Object],
-    default: null
-  },
-  titleTag: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'titleTag')
-  },
-  titleClass: {
-    type: [String, Array, Object],
-    default: null
-  },
-  titleSrOnly: {
-    type: Boolean,
-    default: false
-  },
-  ariaLabel: {
-    type: String,
     default: null
   },
   bodyBgVariant: {
