@@ -918,12 +918,24 @@ full list of events emitted.
 
 ## Accessibility
 
-`<b-modal>` provides several accessibility features, including auto focus, return focus, and
-keyboard (tab) _focus containment_.
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.27</span>
 
-For `aria-labelledby` and `aria-described` by attributes to appear on the modal, you **must** supply
-an `id` attribute on `<b-modal>`. `aria-labelledby` will not be present if you have the header
-hidden.
+`<b-modal>` provides several accessibility features, including auto focus, return focus, keyboard
+(tab) _focus containment_, and automated `aria-*` attributes.
+
+The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in most
+cases.
+
+- The `aria-labelledby` attribute will **not** be present if you have the header hidden, or supplied
+  your own header, or have not supplied a modal title. It is recommended to supply a title for your
+  modals (when using the built in header). You can visually hide the header title, but still make it
+  available to screen readers by setting the `title-sr-only` prop. If you do not have a header, you
+  can supply a label for the modal by passing a string to the `aria-label` prop
+- `aria-describedby` will always point to the modal's body
+- If the `aria-label` prop is specified with a string value, the `aria-labelledby` attribute will not
+  be rendered, even if you have a title/header for your modal.
+
+The `aria-label` and `title-sr-only` props were added in version 2.0.0-rc.27.
 
 ### Auto focus on open
 
@@ -964,9 +976,14 @@ export default {
 }
 ```
 
-Note: it is not recommended to autofocus an input inside a modal for accessibility reasons, as
+Alternatively, if using `b-form-*` form controls, you can use the `autofocus` prop to automatically
+focus a form control when the modal opens. Note that the `autofocus` prop will not work with `b-modal`
+if the `static` prop is used without the `lazy` prop set, as `autofocus` happens when the `b-form-*`
+controls are _mounted in the DOM_.
+
+**Note:** it is **not recommended** to autofocus an input inside a modal for accessibility reasons, as
 screen reader users will not know the context of where the input is. It is best to let `<b-modal>`
-focus the modal container.
+focus the modal's container and then allow the user to tab into the input.
 
 ### Returning focus to the triggering element
 
