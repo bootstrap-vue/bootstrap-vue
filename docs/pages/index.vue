@@ -339,10 +339,10 @@
               />
             </g>
           </svg>
-          <b class="text-muted">+</b>
+          <b class="text-muted h2" aria-hidden="true">&plus;</b>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            height="3em"
+            height="2.5em"
             viewBox="0 0 2041 2160"
             clip-rule="evenodd"
             fill-rule="evenodd"
