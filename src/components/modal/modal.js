@@ -813,9 +813,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.contentClass,
           attrs: {
             role: 'document',
-            id: this.safeId('__BV_modal_content_'),
-            'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
-            'aria-describedby': this.safeId('__BV_modal_body_')
+            id: this.safeId('__BV_modal_content_')
           }
         },
         [header, body, footer]
@@ -848,7 +846,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             role: 'dialog',
             tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
-            'aria-modal': this.isVisible ? 'true' : null
+            'aria-modal': this.isVisible ? 'true' : null,
+            'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
+            'aria-describedby': this.safeId('__BV_modal_body_')
           },
           on: { keydown: this.onEsc, click: this.onClickOut }
         },
