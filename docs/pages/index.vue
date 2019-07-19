@@ -315,8 +315,8 @@
         <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            height="3em"
-            width="3em"
+            height="3.5em"
+            width="3.5em"
             viewBox="0 0 400 400"
             version="1"
             aria-hidden="true"
@@ -343,12 +343,13 @@
           <b class="text-muted h2" aria-hidden="true">&plus;</b>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            height="2.5em"
-            width="2.5em"
+            height="3em"
+            width="3em"
             viewBox="0 0 2041 2160"
             clip-rule="evenodd"
             fill-rule="evenodd"
           >
+            <title>BootstrapVue logo</title>
             <path d="m1397 271-370 642-371-642h-592l963 1667 962-1667z" fill="#34495e" />
             <path d="m44 0h1952l-979 1696z" fill="#563d7c" fill-rule="nonzero" />
             <path d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" fill="#41b883" />
