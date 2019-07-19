@@ -316,6 +316,7 @@
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="3em"
+            width="3em"
             viewBox="0 0 400 400"
             version="1"
             aria-hidden="true"
@@ -342,7 +343,8 @@
           <b class="text-muted h2" aria-hidden="true">&plus;</b>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            height="2.5em"
+            height="3em"
+            width="3em"
             viewBox="0 0 2041 2160"
             clip-rule="evenodd"
             fill-rule="evenodd"
