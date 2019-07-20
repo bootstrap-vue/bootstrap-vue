@@ -34,17 +34,6 @@ const OBSERVER_CONFIG = {
 const EVT_OPTIONS = { passive: true, capture: false }
 
 export const props = {
-  title: {
-    type: String,
-    default: ''
-  },
-  titleHtml: {
-    type: String
-  },
-  titleTag: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'titleTag')
-  },
   size: {
     type: String,
     default: () => getComponentConfig(NAME, 'size')
@@ -81,6 +70,29 @@ export const props = {
     type: Boolean,
     default: false
   },
+  title: {
+    type: String,
+    default: ''
+  },
+  titleHtml: {
+    type: String
+  },
+  titleTag: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'titleTag')
+  },
+  titleClass: {
+    type: [String, Array, Object],
+    default: null
+  },
+  titleSrOnly: {
+    type: Boolean,
+    default: false
+  },
+  ariaLabel: {
+    type: String,
+    default: null
+  },
   headerBgVariant: {
     type: String,
     default: () => getComponentConfig(NAME, 'headerBgVariant')
@@ -98,7 +110,7 @@ export const props = {
     default: () => getComponentConfig(NAME, 'headerCloseVariant')
   },
   headerClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   bodyBgVariant: {
@@ -110,19 +122,19 @@ export const props = {
     default: () => getComponentConfig(NAME, 'bodyTextVariant')
   },
   modalClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   dialogClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   contentClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   bodyClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   footerBgVariant: {
@@ -138,7 +150,7 @@ export const props = {
     default: () => getComponentConfig(NAME, 'footerTextVariant')
   },
   footerClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   hideHeader: {
@@ -284,6 +296,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         },
         this.headerClass
       ]
+    },
+    titleClases() {
+      return [{ 'sr-only': this.titleSrOnly }, this.titleClass]
     },
     bodyClasses() {
       return [
@@ -720,9 +735,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               ? { innerHTML: this.titleHtml }
               : {}
           modalHeader = [
-            h(this.titleTag, { class: ['modal-title'], domProps }, [
-              this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)
-            ]),
+            h(
+              this.titleTag,
+              {
+                staticClass: 'modal-title',
+                class: this.titleClases,
+                attrs: { id: this.safeId('__BV_modal_title_') },
+                domProps
+              },
+              [this.normalizeSlot('modal-title', this.slotScope) || stripTags(this.title)]
+            ),
             closeButton
           ]
         }
@@ -847,7 +869,13 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
-            'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
+            'aria-label': this.ariaLabel,
+            'aria-labelledby':
+              this.hideHeader ||
+              this.ariaLabel ||
+              !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
+                ? null
+                : this.safeId('__BV_modal_title_'),
             'aria-describedby': this.safeId('__BV_modal_body_')
           },
           on: { keydown: this.onEsc, click: this.onClickOut }
