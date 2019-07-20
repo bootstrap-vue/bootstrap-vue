@@ -312,34 +312,50 @@
 
     <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="3em"
-          height="3em"
-          viewBox="0 0 400 400"
-          class="d-block mx-auto mb-2"
-          version="1"
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-        >
-          <title>Nuxt.js logo</title>
-          <g transform="translate(0 49)" fill="none" fill-rule="evenodd">
-            <path
-              fill="#00C58E"
-              d="M123 292l-1-1c-2-4-2-8-2-12H25L167 27l59 107 19-14-59-107c-1-2-8-13-20-13-5 0-13 2-19 13L4 268c-1 2-7 14-1 24 2 5 8 10 21 10h120c-13 0-19-5-21-10z"
-            />
-            <path
-              fill="#108775"
-              d="M395 269L280 62c-2-2-8-13-20-13-5 0-12 2-19 13l-15 24v48l34-59 114 204h-43a20 20 0 0 1-2 12v1c-6 10-19 10-21 10h68c2 0 15 0 21-10 2-5 4-13-2-23z"
-            />
-            <path
-              fill="#2F495E"
-              fill-rule="nonzero"
-              d="M332 292v-1l1-2c1-3 2-7 1-10l-4-11-90-158-13-24h-1l-13 24-91 158-3 11a21 21 0 0 0 2 13c3 5 9 10 21 10h168c3 0 16 0 22-10zM226 134l83 145H144l82-145z"
-            />
-          </g>
-        </svg>
+        <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="3.5em"
+            width="3.5em"
+            viewBox="0 0 400 400"
+            version="1"
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+          >
+            <title>Nuxt.js logo</title>
+            <g transform="translate(0 49)" fill="none" fill-rule="evenodd">
+              <path
+                fill="#00C58E"
+                d="M123 292l-1-1c-2-4-2-8-2-12H25L167 27l59 107 19-14-59-107c-1-2-8-13-20-13-5 0-13 2-19 13L4 268c-1 2-7 14-1 24 2 5 8 10 21 10h120c-13 0-19-5-21-10z"
+              />
+              <path
+                fill="#108775"
+                d="M395 269L280 62c-2-2-8-13-20-13-5 0-12 2-19 13l-15 24v48l34-59 114 204h-43a20 20 0 0 1-2 12v1c-6 10-19 10-21 10h68c2 0 15 0 21-10 2-5 4-13-2-23z"
+              />
+              <path
+                fill="#2F495E"
+                fill-rule="nonzero"
+                d="M332 292v-1l1-2c1-3 2-7 1-10l-4-11-90-158-13-24h-1l-13 24-91 158-3 11a21 21 0 0 0 2 13c3 5 9 10 21 10h168c3 0 16 0 22-10zM226 134l83 145H144l82-145z"
+              />
+            </g>
+          </svg>
+          <b class="text-muted h2" aria-hidden="true">&plus;</b>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="3em"
+            width="3em"
+            viewBox="0 0 2041 2160"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+          >
+            <title>BootstrapVue logo</title>
+            <path d="m1397 271-370 642-371-642h-592l963 1667 962-1667z" fill="#34495e" />
+            <path d="m44 0h1952l-979 1696z" fill="#563d7c" fill-rule="nonzero" />
+            <path d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" fill="#41b883" />
+            <path d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z" fill="#fff" />
+          </svg>
+        </div>
         <p>
           BootstrapVue's documentation is created using
           <span class="bd-text-purple-bright">BootstrapVue</span> and
