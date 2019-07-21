@@ -91,7 +91,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
-    "babel-plugin-istanbul": "^5.1.4",
+    "babel-plugin-istanbul": "^5.2.0",
     "clean-css-cli": "^4.3.0",
     "codecov": "^3.5.0",
     "codemirror": "^5.48.2",
