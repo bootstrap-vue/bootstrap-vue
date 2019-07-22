@@ -9,6 +9,11 @@ export const props = {
   fluid: {
     type: Boolean,
     default: false
+  },
+  breakpoint: {
+    // New in Bootstrap v4.4.x
+    type: String,
+    default: null
   }
 }
 
@@ -22,8 +27,9 @@ export const BContainer = /*#__PURE__*/ Vue.extend({
       props.tag,
       mergeData(data, {
         class: {
-          container: !props.fluid,
-          'container-fluid': props.fluid
+          container: !props.fluid && !props.breakpoint,
+          'container-fluid': props.fluid && !props.breakpoint,
+          [`container-${props.breakpoint}`]: !!props.breakpoint
         }
       }),
       children
