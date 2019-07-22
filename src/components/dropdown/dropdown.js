@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { arrayIncludes } from '../../utils/array'
 import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
@@ -55,6 +56,11 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
+  splitButtonType: {
+    type: String,
+    default: 'button',
+    validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
+  },
   role: {
     type: String,
     default: 'menu'
@@ -105,7 +111,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let split = h(false)
+    let split = h()
     const buttonContent =
       this.normalizeSlot('button-content') ||
       this.normalizeSlot('text') ||
@@ -120,9 +126,10 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       // We add these as needed due to router-link issues with defined property with undefined/null values
       if (this.splitTo) {
         btnProps.to = this.splitTo
-      }
-      if (this.splitHref) {
+      } else if (this.splitHref) {
         btnProps.href = this.splitHref
+      } else if (this.splitButtonType) {
+        btnProps.type = this.splitButtonType
       }
       split = h(
         BButton,
@@ -178,7 +185,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           keydown: this.onKeydown // up, down, esc
         }
       },
-      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h(false)]
+      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
     )
     return h(
       'div',

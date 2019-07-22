@@ -42,7 +42,7 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
   props,
   render(h, { props, data, children }) {
     let breakpoint = ''
-    let xs = getBreakpoints()[0]
+    const xs = getBreakpoints()[0]
     if (props.toggleable && isString(props.toggleable) && props.toggleable !== xs) {
       breakpoint = `navbar-expand-${props.toggleable}`
     } else if (props.toggleable === false) {

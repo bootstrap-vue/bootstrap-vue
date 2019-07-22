@@ -26,8 +26,8 @@ const removeNode = node => node && node.parentNode && node.parentNode.removeChil
 
 const parseVueTemplate = text => {
   let template = match(TEMPLATE_REGEX, text)
-  let script = match(SCRIPT_REGEX, text)
-  let options = {}
+  const script = match(SCRIPT_REGEX, text)
+  const options = {}
 
   // It is plain code
   if (!template) {
@@ -51,15 +51,15 @@ const parseVueTemplate = text => {
 const createVM = (name, node, vnode) => {
   try {
     // Try to parse the vue template
-    let vt = parseVueTemplate(node.textContent)
+    const vt = parseVueTemplate(node.textContent)
     if (!vt) {
       return null
     }
 
-    let { template, options } = vt
+    const { template, options } = vt
 
     // Create a placeholder after node
-    let holder = document.createElement('div')
+    const holder = document.createElement('div')
     node.parentNode.insertBefore(holder, node)
 
     // Create VM
@@ -109,7 +109,7 @@ const processExamples = (el, binding, vnode, oldVnode) => {
     }
 
     // Remove name definition
-    let text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
+    const text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
     pre.textContent = text
 
     // Highlight again

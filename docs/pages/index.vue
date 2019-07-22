@@ -11,10 +11,12 @@
           </b-col>
 
           <b-col tag="section" md="8" order-md="1">
-            <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">Bootstrap + Vue</h1>
+            <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
+              Bootstrap<span class="text-vue-green">Vue</span>
+            </h1>
 
             <p class="lead">
-              With <span class="bd-text-purple-bright">BootstrapVue</span> you can build responsive,
+              With <span class="font-weight-bolder">BootstrapVue</span> you can build responsive,
               mobile-first projects on the web using <span class="bd-text-purple-bright">Vue.js</span>
               and the world's most popular front-end CSS library &mdash;
               <span class="bd-text-purple-bright">Bootstrap v4</span>.
@@ -70,7 +72,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray">
+    <section class="bv-section bv-gray-color">
       <b-container tag="article">
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
@@ -127,7 +129,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-white">
+    <section class="bv-section bv-white">
       <b-container>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
@@ -308,36 +310,52 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray">
+    <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="3em"
-          height="3em"
-          viewBox="0 0 400 400"
-          class="d-block mx-auto mb-2"
-          version="1"
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-        >
-          <title>Nuxt.js logo</title>
-          <g transform="translate(0 49)" fill="none" fill-rule="evenodd">
-            <path
-              fill="#00C58E"
-              d="M123 292l-1-1c-2-4-2-8-2-12H25L167 27l59 107 19-14-59-107c-1-2-8-13-20-13-5 0-13 2-19 13L4 268c-1 2-7 14-1 24 2 5 8 10 21 10h120c-13 0-19-5-21-10z"
-            />
-            <path
-              fill="#108775"
-              d="M395 269L280 62c-2-2-8-13-20-13-5 0-12 2-19 13l-15 24v48l34-59 114 204h-43a20 20 0 0 1-2 12v1c-6 10-19 10-21 10h68c2 0 15 0 21-10 2-5 4-13-2-23z"
-            />
-            <path
-              fill="#2F495E"
-              fill-rule="nonzero"
-              d="M332 292v-1l1-2c1-3 2-7 1-10l-4-11-90-158-13-24h-1l-13 24-91 158-3 11a21 21 0 0 0 2 13c3 5 9 10 21 10h168c3 0 16 0 22-10zM226 134l83 145H144l82-145z"
-            />
-          </g>
-        </svg>
+        <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="3.5em"
+            width="3.5em"
+            viewBox="0 0 400 400"
+            version="1"
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+          >
+            <title>Nuxt.js logo</title>
+            <g transform="translate(0 49)" fill="none" fill-rule="evenodd">
+              <path
+                fill="#00C58E"
+                d="M123 292l-1-1c-2-4-2-8-2-12H25L167 27l59 107 19-14-59-107c-1-2-8-13-20-13-5 0-13 2-19 13L4 268c-1 2-7 14-1 24 2 5 8 10 21 10h120c-13 0-19-5-21-10z"
+              />
+              <path
+                fill="#108775"
+                d="M395 269L280 62c-2-2-8-13-20-13-5 0-12 2-19 13l-15 24v48l34-59 114 204h-43a20 20 0 0 1-2 12v1c-6 10-19 10-21 10h68c2 0 15 0 21-10 2-5 4-13-2-23z"
+              />
+              <path
+                fill="#2F495E"
+                fill-rule="nonzero"
+                d="M332 292v-1l1-2c1-3 2-7 1-10l-4-11-90-158-13-24h-1l-13 24-91 158-3 11a21 21 0 0 0 2 13c3 5 9 10 21 10h168c3 0 16 0 22-10zM226 134l83 145H144l82-145z"
+              />
+            </g>
+          </svg>
+          <b class="text-muted h2" aria-hidden="true">&plus;</b>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="3em"
+            width="3em"
+            viewBox="0 0 2041 2160"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+          >
+            <title>BootstrapVue logo</title>
+            <path d="m1397 271-370 642-371-642h-592l963 1667 962-1667z" fill="#34495e" />
+            <path d="m44 0h1952l-979 1696z" fill="#563d7c" fill-rule="nonzero" />
+            <path d="m1633 392-612 1061-613-1061h-408l1021 1768 1020-1768z" fill="#41b883" />
+            <path d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z" fill="#fff" />
+          </svg>
+        </div>
         <p>
           BootstrapVue's documentation is created using
           <span class="bd-text-purple-bright">BootstrapVue</span> and
@@ -347,7 +365,7 @@
       </b-container>
     </section>
 
-    <section class="bv-section-white">
+    <section class="bv-section bv-white">
       <b-container tag="article" class="text-center">
         <h5 class="text-center bd-text-purple-bright mb-3">
           <svg
@@ -390,54 +408,73 @@
       </b-container>
     </section>
 
-    <section class="bv-section-gray bv-p-reset">
+    <section class="bv-section bv-gray bv-p-reset">
       <!-- to give footer on landing page angled top -->
     </section>
   </main>
 </template>
 
 <style lang="scss" scoped>
+.text-vue-green {
+  color: #42b883;
+}
+
 // Depth of section angle
 $bv-angle-depth: 4rem;
 $bv-angle-padding: 3rem;
-$bv-angle-depth-md: calc(#{$bv-angle-depth} * 2);
-$bv-angle-padding-md: calc(#{$bv-angle-padding} * 2);
+$bv-angle-depth-md: 8rem;
+$bv-angle-padding-md: 6rem;
 
-.bv-section-white,
-.bv-section-gray {
+.bv-section {
   background-size: 100% $bv-angle-depth;
-  background-position: top;
+  background-position: center top;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
   padding-bottom: 3rem;
-}
 
-.bv-p-reset {
-  padding-top: $bv-angle-depth;
-  padding-bottom: 0;
-}
+  &.bv-white {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
+    background-color: #fff;
+  }
 
-@media (min-width: 768px) {
-  .bv-section-white,
-  .bv-section-gray {
-    background-size: 100% $bv-angle-depth-md;
-    padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+  &.bv-gray {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #eee;
+  }
+
+  &.bv-gray-color {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='a' filterUnits='objectBoundingBox' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeOffset in='SourceGraphic' result='b' dy='20'/%3E%3CfeGaussianBlur in='b' stdDeviation='25'/%3E%3C/filter%3E%3C/defs%3E%3Cpath filter='url(%23a)' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath fill='%2342B883' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath fill='%237952B3' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3Cpath fill='%23fff' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3C/svg%3E%0A");
+    background-size: 175% 9rem;
+    background-position-y: -2.75rem;
+    background-color: #eee;
+    padding-top: 9rem;
+  }
+
+  &.bv-p-reset {
+    padding-top: $bv-angle-depth;
+    padding-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
     padding-bottom: 2rem;
+    padding-top: calc(#{$bv-angle-depth-md} + #{$bv-angle-padding-md});
+
+    &.bv-white,
+    &.bv-gray {
+      background-size: 100% $bv-angle-depth-md;
+    }
+
+    &.bv-gray-color {
+      background-size: 100% 12rem;
+      background-position-y: top;
+      padding-top: 16rem;
+    }
+
+    &.bv-p-reset {
+      padding-top: $bv-angle-depth-md;
+      padding-bottom: 0;
+    }
   }
-
-  .bv-p-reset {
-    padding-top: $bv-angle-depth-md;
-  }
-}
-
-.bv-section-white {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
-  background-color: #fff;
-}
-
-.bv-section-gray {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cg%3E%3Cpolygon fill='%23fff' points='13913,3336 0,0 27826,0'/%3E%3C/g%3E%3C/svg%3E");
-  background-color: #eee;
 }
 
 .bv-logo {

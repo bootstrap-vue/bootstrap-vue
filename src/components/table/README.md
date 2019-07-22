@@ -1740,7 +1740,7 @@ method.
 
 **Example: returning an array of data (synchronous):**
 
-<!-- eslint-disable no-unused-vars -->
+<!-- eslint-disable no-unused-vars, prefer-const -->
 
 ```js
 function myProvider(ctx) {
@@ -1783,12 +1783,12 @@ function myProvider(ctx, callback) {
 
 ```js
 function myProvider(ctx) {
-  let promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
+  const promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
 
   // Must return a promise that resolves to an array of items
   return promise.then(data => {
     // Pluck the array of items off our axios response
-    let items = data.items
+    const items = data.items
     // Must return an array of items or an empty array if an error occurred
     return items || []
   })

@@ -57,7 +57,7 @@ export default {
       if (this.isStacked === true || fields.length === 0) {
         // In always stacked mode, we don't bother rendering the head/foot.
         // Or if no field headings (empty table)
-        return h(false)
+        return h()
       }
 
       // Helper function to generate a field TH cell
@@ -101,8 +101,8 @@ export default {
           },
           on: handlers
         }
-        let fieldScope = { label: field.label, column: field.key, field: field }
-        let slot =
+        const fieldScope = { label: field.label, column: field.key, field: field }
+        const slot =
           isFoot && this.hasNormalizedSlot(`FOOT_${field.key}`)
             ? this.normalizeSlot(`FOOT_${field.key}`, fieldScope)
             : this.normalizeSlot(`HEAD_${field.key}`, fieldScope)
@@ -124,7 +124,7 @@ export default {
           columns: fields.length,
           fields: fields
         }
-        $trs.push(this.normalizeSlot('thead-top', scope) || h(false))
+        $trs.push(this.normalizeSlot('thead-top', scope) || h())
         $trs.push(h('tr', { class: this.theadTrClass, attrs: { role: 'row' } }, $cells))
       }
 

@@ -8,7 +8,7 @@ import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 const NAME = 'BListGroupItem'
 
 const actionTags = ['a', 'router-link', 'button', 'b-link']
-let linkProps = linkPropsFactory()
+const linkProps = linkPropsFactory()
 delete linkProps.href.default
 delete linkProps.to.default
 

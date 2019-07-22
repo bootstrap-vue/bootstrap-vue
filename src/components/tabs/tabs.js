@@ -3,8 +3,9 @@ import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
-import { requestAF, selectAll } from '../../utils/dom'
 import { arrayIncludes, concat } from '../../utils/array'
+import { requestAF, selectAll } from '../../utils/dom'
+import { isEvent } from '../../utils/inspect'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -55,7 +56,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       }
     },
     handleEvt(evt) {
-      function stop() {
+      const stop = () => {
         evt.preventDefault()
         evt.stopPropagation()
       }
@@ -242,7 +243,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       return this.pills ? 'pills' : 'tabs'
     },
     localNavClass() {
-      let classes = []
+      const classes = []
       if (this.card) {
         if (this.vertical) {
           classes.push('card-header', 'h-100', 'border-bottom-0', 'rounded-0')
@@ -321,7 +322,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    let tabIdx = parseInt(this.value, 10)
+    const tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
@@ -345,7 +346,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     this.isMounted = false
   },
   activated() /* istanbul ignore next */ {
-    let tabIdx = parseInt(this.value, 10)
+    const tabIdx = parseInt(this.value, 10)
     this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
     this.$nextTick(() => {
       this.updateTabs()
@@ -531,7 +532,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Emit a click event on a specified <b-tab> component instance
     emitTabClick(tab, evt) {
-      if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
+      if (isEvent(evt) && tab && tab.$emit && !tab.disabled) {
         tab.$emit('click', evt)
       }
     },
@@ -585,7 +586,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     const tabs = this.tabs
 
     // Currently active tab
-    let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+    const activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
 
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
@@ -651,7 +652,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           small: this.small
         }
       },
-      [buttons, this.normalizeSlot('tabs')]
+      [
+        this.normalizeSlot('tabs-start') || h(false),
+        buttons,
+        this.normalizeSlot('tabs-end') || this.normalizeSlot('tabs') || h(false)
+      ]
     )
     nav = h(
       'div',
@@ -669,7 +674,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       [nav]
     )
 
-    let empty = h(false)
+    let empty = h()
     if (!tabs || tabs.length === 0) {
       empty = h(
         'div',
@@ -702,11 +707,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         },
         attrs: { id: this.safeId() }
       },
-      [
-        this.end || this.bottom ? content : h(false),
-        [nav],
-        this.end || this.bottom ? h(false) : content
-      ]
+      [this.end || this.bottom ? content : h(), [nav], this.end || this.bottom ? h() : content]
     )
   }
 })

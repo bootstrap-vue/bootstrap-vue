@@ -30,8 +30,8 @@ const DEPRECATED_MSG =
 
 // Render helper functions (here rather than polluting the instance with more methods)
 const renderInvalidFeedback = (h, ctx) => {
-  let content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback
-  let invalidFeedback = h(false)
+  const content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback
+  let invalidFeedback = h()
   if (content) {
     invalidFeedback = h(
       BFormInvalidFeedback,
@@ -54,7 +54,7 @@ const renderInvalidFeedback = (h, ctx) => {
 
 const renderValidFeedback = (h, ctx) => {
   const content = ctx.normalizeSlot('valid-feedback') || ctx.validFeedback
-  let validFeedback = h(false)
+  let validFeedback = h()
   if (content) {
     validFeedback = h(
       BFormValidFeedback,
@@ -78,7 +78,7 @@ const renderValidFeedback = (h, ctx) => {
 const renderHelpText = (h, ctx) => {
   // Form help text (description)
   const content = ctx.normalizeSlot('description') || ctx.description
-  let description = h(false)
+  let description = h()
   if (content) {
     description = h(
       BFormText,
@@ -102,9 +102,9 @@ const renderLabel = (h, ctx) => {
   const isHorizontal = ctx.isHorizontal
   const labelTag = isLegend ? 'legend' : 'label'
   if (!content && !isHorizontal) {
-    return h(false)
+    return h()
   } else if (ctx.labelSrOnly) {
-    let label = h(false)
+    let label = h()
     if (content) {
       label = h(
         labelTag,
@@ -432,7 +432,7 @@ export const BFormGroup = {
         }
       },
       [
-        this.normalizeSlot('default') || h(false),
+        this.normalizeSlot('default') || h(),
         renderInvalidFeedback(h, this),
         renderValidFeedback(h, this),
         renderHelpText(h, this)

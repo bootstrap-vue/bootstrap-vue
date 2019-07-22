@@ -19,26 +19,24 @@ const ELLIPSIS_THRESHOLD = 3
 const DEFAULT_LIMIT = 5
 
 // Make an array of N to N+X
-function makePageArray(startNum, numPages) {
-  return range(numPages).map(function(value, index) {
-    return { number: index + startNum, classes: null }
-  })
-}
+const makePageArray = (startNum, numPages) =>
+  range(numPages).map((val, i) => ({ number: startNum + i, classes: null }))
 
-// Sanitize the provided Limit value (converting to a number)
-function sanitizeLimit(value) {
-  const limit = parseInt(value, 10) || 1
+// Sanitize the provided limit value (converting to a number)
+const sanitizeLimit = val => {
+  const limit = parseInt(val, 10) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided current page number (converting to a number)
-function sanitizeCurPage(value, numPages) {
-  const page = parseInt(value, 10) || 1
+const sanitizeCurPage = (val, numPages) => {
+  const page = parseInt(val, 10) || 1
   return page > numPages ? numPages : page < 1 ? 1 : page
 }
 
-// Links don't normally respond to SPACE, so we add that functionality via this handler
-function onSpaceKey(evt) {
+// Links don't normally respond to SPACE, so we add that
+// functionality via this handler
+const onSpaceKey = evt => {
   if (evt.keyCode === KeyCodes.SPACE) {
     evt.preventDefault() // Stop page from scrolling
     evt.stopImmediatePropagation()
@@ -372,7 +370,7 @@ export default {
         disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
       const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
       const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
-      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h(false)
+      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
       const inner = h(
         isDisabled ? 'span' : BLink,
         {
@@ -423,7 +421,7 @@ export default {
         },
         [
           h('span', { staticClass: 'page-link' }, [
-            this.normalizeSlot('ellipsis-text', {}) || toString(this.ellipsisText) || h(false)
+            this.normalizeSlot('ellipsis-text') || toString(this.ellipsisText) || h()
           ])
         ]
       )
@@ -432,7 +430,7 @@ export default {
     // Goto First Page button bookend
     buttons.push(
       this.hideGotoEndButtons
-        ? h(false)
+        ? h()
         : makeEndBtn(1, this.labelFirstPage, 'first-text', this.firstText, 1, 'bookend-goto-first')
     )
 
@@ -449,13 +447,13 @@ export default {
     )
 
     // First Ellipsis Bookend
-    buttons.push(showFirstDots ? makeEllipsis(false) : h(false))
+    buttons.push(showFirstDots ? makeEllipsis(false) : h())
 
     // Individual Page links
     this.pageList.forEach((page, idx) => {
       const active = isActivePage(page.number) && !noCurrPage
       // Active page will have tabindex of 0, or if no current page and first page button
-      let tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
+      const tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
       const attrs = {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
@@ -509,7 +507,7 @@ export default {
     })
 
     // Last Ellipsis Bookend
-    buttons.push(showLastDots ? makeEllipsis(true) : h(false))
+    buttons.push(showLastDots ? makeEllipsis(true) : h())
 
     // Goto Next page button bookend
     buttons.push(
@@ -526,7 +524,7 @@ export default {
     // Goto Last Page button bookend
     buttons.push(
       this.hideGotoEndButtons
-        ? h(false)
+        ? h()
         : makeEndBtn(
             numberOfPages,
             this.labelLastPage,

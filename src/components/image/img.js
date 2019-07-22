@@ -86,7 +86,7 @@ export const props = {
 
 // --- Helper methods ---
 
-function makeBlankImgSrc(width, height, color) {
+const makeBlankImgSrc = (width, height, color) => {
   const src = encodeURIComponent(
     BLANK_TEMPLATE.replace('%{w}', String(width))
       .replace('%{h}', String(height))

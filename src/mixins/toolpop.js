@@ -73,7 +73,7 @@ export default {
   computed: {
     baseConfig() {
       const cont = this.container
-      let delay = isObject(this.delay) ? this.delay : parseInt(this.delay, 10) || 0
+      const delay = isObject(this.delay) ? this.delay : parseInt(this.delay, 10) || 0
       return {
         // Title prop
         title: (this.title || '').trim() || '',
@@ -81,7 +81,7 @@ export default {
         content: (this.content || '').trim() || '',
         // Tooltip/Popover placement
         placement: PLACEMENTS[this.placement] || 'auto',
-        // Tooltip/popover fallback placemenet
+        // Tooltip/popover fallback placement
         fallbackPlacement: this.fallbackPlacement || 'flip',
         // Container currently needs to be an ID with '#' prepended, if null then body is used
         container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,

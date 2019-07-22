@@ -22,6 +22,7 @@ import {
   eventOff
 } from '../../utils/dom'
 import { isString, isUndefined } from '../../utils/inspect'
+import { toString as objectToString } from '../../utils/object'
 
 /*
  * Constants / Defaults
@@ -86,19 +87,18 @@ const EventOptions = { passive: true, capture: false }
  */
 
 // Better var type detection
-function toType(obj) /* istanbul ignore next: not easy to test */ {
-  return {}.toString
-    .call(obj)
+const toType = obj => /* istanbul ignore next: not easy to test */ {
+  return objectToString(obj)
     .match(/\s([a-zA-Z]+)/)[1]
     .toLowerCase()
 }
 
 // Check config properties for expected types
-function typeCheckConfig(
+const typeCheckConfig = (
   componentName,
   config,
   configTypes
-) /* istanbul ignore next: not easy to test */ {
+) => /* istanbul ignore next: not easy to test */ {
   for (const property in configTypes) {
     if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
       const expectedTypes = configTypes[property]
@@ -261,12 +261,12 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     }
   }
 
-  // general event handler
+  // General event handler
   handleEvent(evt) {
     const type = isString(evt) ? evt : evt.type
 
     const self = this
-    function resizeThrottle() {
+    const resizeThrottle = () => {
       if (!self.$resizeTimeout) {
         self.$resizeTimeout = setTimeout(() => {
           self.refresh()

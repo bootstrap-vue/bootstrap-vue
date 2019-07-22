@@ -87,7 +87,7 @@ export default {
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting
     filteredItems() {
-      let items = this.localItems || []
+      const items = this.localItems || []
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one

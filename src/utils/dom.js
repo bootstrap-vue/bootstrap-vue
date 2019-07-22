@@ -32,20 +32,16 @@ export const closestEl =
   }
 
 // `requestAnimationFrame()` convenience method
-// We don't have a version for cancelAnimationFrame, but we don't call it anywhere
 export const requestAF =
   w.requestAnimationFrame ||
   w.webkitRequestAnimationFrame ||
   w.mozRequestAnimationFrame ||
   w.msRequestAnimationFrame ||
   w.oRequestAnimationFrame ||
-  (cb => {
-    // Fallback, but not a true polyfill
-    // All browsers we support (other than Opera Mini) support
-    // `requestAnimationFrame()` without a polyfill
-    /* istanbul ignore next */
-    return setTimeout(cb, 16)
-  })
+  // Fallback, but not a true polyfill
+  // Only needed for Opera Mini
+  /* istanbul ignore next */
+  (cb => setTimeout(cb, 16))
 
 export const MutationObs =
   w.MutationObserver || w.WebKitMutationObserver || w.MozMutationObserver || null
@@ -178,9 +174,9 @@ export const hasClass = (el, className) => {
 }
 
 // Set an attribute on an element
-export const setAttr = (el, attr, value) => {
+export const setAttr = (el, attr, val) => {
   if (attr && isElement(el)) {
-    el.setAttribute(attr, value)
+    el.setAttribute(attr, val)
   }
 }
 
@@ -208,10 +204,15 @@ export const getBCR = el => (isElement(el) ? el.getBoundingClientRect() : null)
 /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
 export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedStyle(el) : {})
 
+// Returns a `Selection` object representing the range of text selected
+// Returns `null` if no window support is given
+/* istanbul ignore next: getSelection() doesn't work in JSDOM */
+export const getSel = () => (hasWindowSupport && w.getSelection ? w.getSelection() : null)
+
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
 export const offset = el => /* istanbul ignore next: getBoundingClientRect(), getClientRects() doesn't work in JSDOM */ {
-  let _offset = { top: 0, left: 0 }
+  const _offset = { top: 0, left: 0 }
   if (!isElement(el) || el.getClientRects().length === 0) {
     return _offset
   }

@@ -20,9 +20,6 @@ describe('v-b-toggle directive', () => {
       directives: {
         bToggle: toggleDirective
       },
-      data() {
-        return {}
-      },
       mounted() {
         this.$root.$on(EVENT_TOGGLE, spy)
       },
@@ -60,9 +57,6 @@ describe('v-b-toggle directive', () => {
     const App = localVue.extend({
       directives: {
         bToggle: toggleDirective
-      },
-      data() {
-        return {}
       },
       mounted() {
         this.$root.$on(EVENT_TOGGLE, spy)
@@ -159,9 +153,6 @@ describe('v-b-toggle directive', () => {
       directives: {
         bToggle: toggleDirective
       },
-      data() {
-        return {}
-      },
       template: '<button v-b-toggle.test>button</button>'
     })
 
@@ -200,9 +191,6 @@ describe('v-b-toggle directive', () => {
     const App = localVue.extend({
       directives: {
         bToggle: toggleDirective
-      },
-      data() {
-        return {}
       },
       template: '<button v-b-toggle.test>button</button>'
     })

@@ -17,16 +17,14 @@ describe('collapse', () => {
   beforeEach(() => {
     // Mock getBCR so that the we can get a fake height for element
     // Needed for keyboard navigation testing
-    Element.prototype.getBoundingClientRect = jest.fn(() => {
-      return {
-        width: 100,
-        height: 100,
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-      }
-    })
+    Element.prototype.getBoundingClientRect = jest.fn(() => ({
+      width: 100,
+      height: 100,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    }))
   })
 
   afterEach(() => {

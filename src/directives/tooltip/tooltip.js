@@ -96,7 +96,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   const selectedTriggers = {}
 
   // Parse current config object trigger
-  let triggers = isString(config.trigger) ? config.trigger.trim().split(/\s+/) : []
+  const triggers = isString(config.trigger) ? config.trigger.trim().split(/\s+/) : []
   triggers.forEach(trigger => {
     if (validTriggers[trigger]) {
       selectedTriggers[trigger] = true

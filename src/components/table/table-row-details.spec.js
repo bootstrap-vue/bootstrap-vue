@@ -16,10 +16,10 @@ describe('table > row details', () => {
         items: testItems
       }
     })
-    let $trs
+
     expect(wrapper).toBeDefined()
     expect(wrapper.find('tbody').exists()).toBe(true)
-    $trs = wrapper.findAll('tbody > tr')
+    const $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(3)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(false)
@@ -45,10 +45,10 @@ describe('table > row details', () => {
         'row-details': '<div>foobar</div>'
       }
     })
-    let $trs
+
     expect(wrapper).toBeDefined()
     expect(wrapper.find('tbody').exists()).toBe(true)
-    $trs = wrapper.findAll('tbody > tr')
+    const $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(4)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(true)
@@ -76,13 +76,13 @@ describe('table > row details', () => {
         'row-details': '<div>foobar</div>'
       }
     })
-    let $trs
+
     expect(wrapper).toBeDefined()
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(4)
 
     wrapper.vm.localItems[2]._showDetails = true
-    $trs = wrapper.findAll('tbody > tr')
+    const $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(5)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(1).is('tr.b-table-details')).toBe(true)
@@ -152,10 +152,10 @@ describe('table > row details', () => {
         'row-details': '<div>foobar</div>'
       }
     })
-    let $trs
+
     expect(wrapper).toBeDefined()
     expect(wrapper.find('tbody').exists()).toBe(true)
-    $trs = wrapper.findAll('tbody > tr')
+    const $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(5)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
     expect($trs.at(0).is('tr.d-none')).toBe(false)

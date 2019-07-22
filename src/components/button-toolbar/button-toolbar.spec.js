@@ -7,31 +7,31 @@ import BButtonToolbar from './button-toolbar'
 
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.is('div')).toBe(true)
     wrapper.destroy()
   })
 
   it('toolbar should contain base class', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.classes()).toContain('btn-toolbar')
     wrapper.destroy()
   })
 
   it('toolbar should not have class "justify-content-between"', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.classes()).not.toContain('justify-content-between')
     wrapper.destroy()
   })
 
   it('toolbar should have role', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.attributes('role')).toBe('toolbar')
     wrapper.destroy()
   })
 
   it('toolbar should not have tabindex by default', async () => {
-    const wrapper = mount(BButtonToolbar, {})
+    const wrapper = mount(BButtonToolbar)
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
     wrapper.destroy()
   })
@@ -66,16 +66,14 @@ describe('button-toolbar', () => {
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true
       // In our test below, all pagination buttons would normally be visible
-      Element.prototype.getBoundingClientRect = jest.fn(() => {
-        return {
-          width: 24,
-          height: 24,
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0
-        }
-      })
+      Element.prototype.getBoundingClientRect = jest.fn(() => ({
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }))
     })
 
     afterEach(() => {

@@ -34,7 +34,7 @@ export default {
         // Table isn't busy, or we don't have a busy slot
 
         // Add static Top Row slot (hidden in visibly stacked mode as we can't control data-label attr)
-        $rows.push(this.renderTopRow ? this.renderTopRow() : h(false))
+        $rows.push(this.renderTopRow ? this.renderTopRow() : h())
 
         // render the rows
         items.forEach((item, rowIndex) => {
@@ -43,10 +43,10 @@ export default {
         })
 
         // Empty Items / Empty Filtered Row slot (only shows if items.length < 1)
-        $rows.push(this.renderEmpty ? this.renderEmpty() : h(false))
+        $rows.push(this.renderEmpty ? this.renderEmpty() : h())
 
         // Static bottom row slot (hidden in visibly stacked mode as we can't control data-label attr)
-        $rows.push(this.renderBottomRow ? this.renderBottomRow() : h(false))
+        $rows.push(this.renderBottomRow ? this.renderBottomRow() : h())
       }
 
       // If tbody transition enabled
