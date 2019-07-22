@@ -6,7 +6,7 @@
 
 BootstrapVue provides several convenient _functional_ components tailored for layout, which can
 simplify your complex page markup compared to traditional Bootstrap v4 markup. Feel free to switch
-back and forth between traditional Bootstrap v4 markup (i.e. `<div>`s and classes) and BootstrapVue
+back and forth between traditional Bootstrap v4 markup (i.e. `<div>`s and classes) and BootstrapVue's
 functional layout components.
 
 ## How it works
@@ -70,11 +70,18 @@ like the
 Containers (`<b-container>`) are the most basic layout element in Bootstrap and is **required when
 using the grid system**. Choose from a responsive, fixed-width container (meaning its max-width
 changes at each breakpoint) by default, or fluid-width (meaning it's 100% wide all the time) by
-setting 'fluid' prop.
+setting 'fluid' prop, or responsive containers where the container is fluid up until a specific
+breakpoint.
 
 While containers can be nested, most layouts do not require a nested container.
 
-**Fixed width container, based on viewport breakpoints:**
+The default breakpoint widths can be configured using Bootstrap V4.x SCSS variables. See the
+[Theming](/docs/reference/theming) reference page for additional details.
+
+### Default container
+
+The default `<b-container>` is a responsive, fixed-width container, meaning its `max-width` changes
+at each breakpoint.
 
 ```html
 <b-container>
@@ -82,11 +89,36 @@ While containers can be nested, most layouts do not require a nested container.
 </b-container>
 ```
 
-**Fluid container which is always 100% width, regardless of viewport breakpoint:**
+### Fluid width container
+
+Using the `fluid` prop on `<b-container>` will render a container that is always 100% width,
+regardless of viewport breakpoint.
 
 ```html
 <b-container fluid>
   <!-- Content here -->
+</b-container>
+```
+
+### Responsive containers
+
+Responsive containers are new in Bootstrap v4.4. They allow you to specify a contaier that is 100%
+wide until particular breakpoint is reached at which point a `max-width` is applied. For example,
+setting prop `breakpoint` to `'md'` will render a container that is 100% wide to start until the
+`'md'` breakpoint is reached, where it will remain through the higher breakpoints.
+
+```html
+<b-container breakpoint="sm">
+  100% wide until small breakpoint
+</b-container>
+<b-container breakpoint="md">
+  100% wide until medium breakpoint
+</b-container>
+<b-container breakpoint="lg">
+  100% wide until large breakpoint
+</b-container>
+<b-container breakpoint="xl">
+  100% wide until extra large breakpoint
 </b-container>
 ```
 
