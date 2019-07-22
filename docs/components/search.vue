@@ -1,5 +1,6 @@
 <template>
   <form
+    role="search"
     class="bd-search d-flex align-items-center"
     @submit.stop.prevent
   >

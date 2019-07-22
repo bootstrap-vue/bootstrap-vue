@@ -406,6 +406,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         return
       }
       const direction = absDeltaX / this.touchDeltaX
+      // Reset touch delta X
+      // https://github.com/twbs/bootstrap/pull/28558
+      this.touchDeltaX = 0
       if (direction > 0) {
         // Swipe left
         this.prev()
