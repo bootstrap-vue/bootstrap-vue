@@ -7,13 +7,9 @@ export const props = {
     default: 'div'
   },
   fluid: {
-    type: Boolean,
+    // String breakpoint name new in Bootstrap v4.4.x
+    type: [Boolean, String],
     default: false
-  },
-  breakpoint: {
-    // New in Bootstrap v4.4.x
-    type: String,
-    default: null
   }
 }
 
@@ -27,9 +23,10 @@ export const BContainer = /*#__PURE__*/ Vue.extend({
       props.tag,
       mergeData(data, {
         class: {
-          container: !props.fluid && !props.breakpoint,
-          'container-fluid': props.fluid && !props.breakpoint,
-          [`container-${props.breakpoint}`]: !!props.breakpoint
+          container: !(props.fluid || props.fluid === ''),
+          'container-fluid': props.fluid === true || props.fluid === '',
+          // Bootstrap v4.4+ responsive containers
+          [`container-${props.fluid}`]: props.fluid && props.fluid !== true
         }
       }),
       children
