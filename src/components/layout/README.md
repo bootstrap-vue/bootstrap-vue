@@ -100,6 +100,9 @@ regardless of viewport breakpoint.
 </b-container>
 ```
 
+Setting the `fluid` prop to true (or an empty string) is equivalent to the `.container-fluid`
+class.
+
 ### Responsive fluid containers
 
 <span class="badge badge-warning small">Requires Bootstrap v4.4+ CSS</span>
@@ -123,6 +126,8 @@ breakpoint is reached, at which point it will remain at that breakpoint's max-wi
   100% wide until extra large breakpoint
 </b-container>
 ```
+
+Setting the fluid prop to a breakpoint name translates to the class `.container-{breakpoint}`.
 
 ## Rows `<b-row>` and `<b-form-row>`
 
