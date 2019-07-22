@@ -4,6 +4,54 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.27"></a>
+
+## [v2.0.0-rc.27](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.26...v2.0.0-rc.27)
+
+Released: 2019-07-21
+
+### Bug Fixes v2.0.0-rc.27
+
+- **b-modal:** ensure header is read for accessibility with JAWS (closes
+  [#3712](https://github.com/bootstrap-vue/bootstrap-vue/issues/3712))
+  ([#3713](https://github.com/bootstrap-vue/bootstrap-vue/issues/3713))
+  ([6a9d0ce](https://github.com/bootstrap-vue/bootstrap-vue/commit/6a9d0ce))
+- **b-nav-item-dropdown:** clicking toggle a second time should close menu (closes
+  [#3707](https://github.com/bootstrap-vue/bootstrap-vue/issues/3707))
+  ([#3706](https://github.com/bootstrap-vue/bootstrap-vue/issues/3706))
+  ([629951e](https://github.com/bootstrap-vue/bootstrap-vue/commit/629951e))
+- **b-table:** IE11 edge case where custom inputs were not clickable in clickable/sortable cells
+  (fixes [#3693](https://github.com/bootstrap-vue/bootstrap-vue/issues/3693))
+  ([#3697](https://github.com/bootstrap-vue/bootstrap-vue/issues/3697))
+  ([fce8b5b](https://github.com/bootstrap-vue/bootstrap-vue/commit/fce8b5b))
+- **tooltip, popover:** handle case where tooltips are applied to dropdown root elements (closes
+  [#3703](https://github.com/bootstrap-vue/bootstrap-vue/issues/3703))
+  ([#3704](https://github.com/bootstrap-vue/bootstrap-vue/issues/3704))
+  ([39df4f1](https://github.com/bootstrap-vue/bootstrap-vue/commit/39df4f1))
+
+### Features v2.0.0-rc.27
+
+- **b-dropdown:** new `split-button-type` prop to specify split button type (closes
+  [#3694](https://github.com/bootstrap-vue/bootstrap-vue/issues/3694))
+  ([#3695](https://github.com/bootstrap-vue/bootstrap-vue/issues/3695))
+  ([1157589](https://github.com/bootstrap-vue/bootstrap-vue/commit/1157589))
+- **b-modal:** for accessibility, read only modal title and not whole header + additional A11Y
+  options (addresses [#3712](https://github.com/bootstrap-vue/bootstrap-vue/issues/3712))
+  ([#3715](https://github.com/bootstrap-vue/bootstrap-vue/issues/3715))
+  ([1ce8c6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/1ce8c6d))
+- **b-tabs:** new named slot `tabs-start` for prepending tab buttons, deprecates `tabs` slot in favour
+  of `tabs-end` (closes [#3678](https://github.com/bootstrap-vue/bootstrap-vue/issues/3678))
+  ([#3679](https://github.com/bootstrap-vue/bootstrap-vue/issues/3679))
+  ([0b5f552](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b5f552))
+- minor code improvements ([#3682](https://github.com/bootstrap-vue/bootstrap-vue/issues/3682))
+  ([2fb5ce8](https://github.com/bootstrap-vue/bootstrap-vue/commit/2fb5ce8))
+
+### Notes v2.0.0-rc.27
+
+Users should switch to the simplified import syntax (introduced in `v2.0.0-rc.22`) when importing
+individual plugins, components, and/or directives. **Importing from the `es/` build directory has
+been deprecated and will be removed in 2.0.0 stable release!**
+
 <a name="2.0.0-rc.26"></a>
 
 ## [v2.0.0-rc.26](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.25...v2.0.0-rc.26)
