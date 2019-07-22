@@ -10,14 +10,6 @@ Toasts are intended to be small interruptions to your visitors or users, and the
 contain minimal, to-the-point, non-interactive content. Please refer to the
 [Accessibility tips](#accessibility-tips) section below for **important** usage information.
 
-<div class="alert alert-warning">
-  <p class="mb-0">
-    <strong>BETA warning:</strong><br>
-    Toasts are in their preliminary stages of being developed, and usage and custom CSS is subject
-    to change in future releases.
-  </p>
-</div>
-
 ## Overview
 
 To encourage extensible and predictable toasts, we recommend providing a header (title) and body.
