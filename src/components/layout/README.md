@@ -100,26 +100,26 @@ regardless of viewport breakpoint.
 </b-container>
 ```
 
-### Responsive containers
+### Responsive fluid containers
 
 <span class="badge badge-warning small">Requires Bootstrap v4.4+ CSS</span>
 
 Responsive containers are new in Bootstrap v4.4. They allow you to specify a contaier that is 100%
 wide until particular breakpoint is reached at which point a `max-width` is applied. For example,
-setting prop `breakpoint` to `'md'` will render a container that is 100% wide to start until the
-`'md'` breakpoint is reached, where it will remain through the higher breakpoints.
+setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the `'md'`
+breakpoint is reached, at which point it will have set widths of a regular non-fluid container.
 
 ```html
-<b-container breakpoint="sm">
+<b-container fluid="sm">
   100% wide until small breakpoint
 </b-container>
-<b-container breakpoint="md">
+<b-container fluid="md">
   100% wide until medium breakpoint
 </b-container>
-<b-container breakpoint="lg">
+<b-container fluid="lg">
   100% wide until large breakpoint
 </b-container>
-<b-container breakpoint="xl">
+<b-container fluid="xl">
   100% wide until extra large breakpoint
 </b-container>
 ```
