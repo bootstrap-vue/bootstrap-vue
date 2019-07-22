@@ -37,10 +37,10 @@ describe('layout > container', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it('should have container-md class when prop breakkpoint="md"', async () => {
+  it('should have container-md class when prop fluid="md"', async () => {
     const wrapper = mount(BContainer, {
       propsData: {
-        breakpoint: 'md'
+        fluid: 'md'
       }
     })
 
