@@ -35,7 +35,8 @@ export default {
       {
         staticClass: 'bd-toc',
         class: ['d-none', 'd-xl-block'],
-        props: { xl: 2 }
+        props: { tag: 'nav', xl: 2 },
+        attrs: { 'aria-label': 'Secondary navigation' }
       },
       [h(Toc)]
     )
