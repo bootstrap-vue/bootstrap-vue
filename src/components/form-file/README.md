@@ -10,7 +10,7 @@
     <b-form-file
       v-model="file"
       :state="Boolean(file)"
-      placeholder="Choose a file..."
+      placeholder="Choose a file or drop it here..."
       drop-placeholder="Drop file here..."
     ></b-form-file>
     <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
