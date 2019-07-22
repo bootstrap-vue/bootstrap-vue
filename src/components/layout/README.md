@@ -102,6 +102,8 @@ regardless of viewport breakpoint.
 
 ### Responsive containers
 
+<span class="badge badge-warning small">Requires Bootstrap v4.4+ CSS</span>
+
 Responsive containers are new in Bootstrap v4.4. They allow you to specify a contaier that is 100%
 wide until particular breakpoint is reached at which point a `max-width` is applied. For example,
 setting prop `breakpoint` to `'md'` will render a container that is 100% wide to start until the
