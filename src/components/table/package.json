@@ -198,24 +198,24 @@
         ],
         "slots": [
           {
-            "name": "[field key]",
-            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
+            "name": "[key]",
+            "description": "Scoped slot for custom data rendering of field data. 'key' is hte fields key name. See docs for scoped data"
           },
           {
             "name": "[]",
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "HEAD[field key]",
-            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
+            "name": "HEAD[key]",
+            "description": "Scoped slot for custom rendering of field header. 'key' is hte fields key name. See docs for scoped header"
           },
           {
             "name": "HEAD[]",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "FOOT[field key]",
-            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
+            "name": "FOOT[key]",
+            "description": "Scoped slot for custom rendering of field footer. 'key' is hte fields key name. See docs for scoped footer"
           },
           {
             "name": "FOOT[]",
@@ -256,7 +256,19 @@
           {
             "name": "bottom-row",
             "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
-          }
+          },
+          {
+            "name": "key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
+          },
+          {
+            "name": "HEAD_key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
+          },
+          {
+            "name": "FOOT_key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
+          } 
         ]
       },
       {
