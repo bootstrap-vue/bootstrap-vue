@@ -7,7 +7,7 @@
 BootstrapVue provides several convenient _functional_ components tailored for layout, which can
 simplify your complex page markup compared to traditional Bootstrap v4 markup. Feel free to switch
 back and forth between traditional Bootstrap v4 markup (i.e. `<div>`s and classes) and BootstrapVue's
-functional layout components.
+convenient functional layout components.
 
 ## How it works
 
@@ -76,7 +76,8 @@ breakpoint.
 While containers can be nested, most layouts do not require a nested container.
 
 The default breakpoint widths can be configured using Bootstrap V4.x SCSS variables. See the
-[Theming](/docs/reference/theming) reference page for additional details.
+[Theming](/docs/reference/theming) reference page for additional details, and the table in the
+[Grid options](#grid-options) section below.
 
 ### Default container
 
@@ -100,7 +101,7 @@ regardless of viewport breakpoint.
 </b-container>
 ```
 
-Setting the `fluid` prop to true (or an empty string) is equivalent to the `.container-fluid`
+Setting the `fluid` prop to true (or an empty string) is equivalent to the Bootstrap `.container-fluid`
 class.
 
 ### Responsive fluid containers
@@ -108,9 +109,9 @@ class.
 <span class="badge badge-warning small">Requires Bootstrap v4.4+ CSS</span>
 
 Responsive containers are new in Bootstrap v4.4. They allow you to specify a contaier that is 100%
-wide until particular breakpoint is reached at which point a `max-width` is applied. For example,
+wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For example,
 setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the `'md'`
-breakpoint is reached, at which point it will remain at that breakpoint's max-width.
+breakpoint is reached, at which point it will remain at that breakpoint's container `max-width`.
 
 ```html
 <b-container fluid="sm">
@@ -127,28 +128,28 @@ breakpoint is reached, at which point it will remain at that breakpoint's max-wi
 </b-container>
 ```
 
-Setting the fluid prop to a breakpoint name translates to the class `.container-{breakpoint}`.
+Setting the fluid prop to a breakpoint name translates to the Bootstrap class `.container-{breakpoint}`.
 
 ## Rows `<b-row>` and `<b-form-row>`
 
-`<b-row>` components must be placed inside a `<b-container>` component, or an element (such as a
+`<b-row>` components should be placed inside a `<b-container>` component, or an element (such as a
 `<div>`) that has the class `container` or `container-fluid` applied to it.
 
 You can remove the margin from `<b-row>` and padding from `<b-col>` by setting the `no-gutters` prop
 on `<b-row>`.
 
 Or, for compact margins (smaller gutters between columns), use the `<b-form-row>` component, which
-is typically used in [forms](/docs/components/form).
+is typically used when laying out [forms](/docs/components/form).
 
 ## Columns `<b-col>`
 
 `<b-col>` Must be placed inside a `<b-row>` component, or an element (such as a `<div>`) that has
 the class `row` applied to it, or - in the case of [forms](/docs/components/form) - inside a
-`<b-form-row>` component to obtain columns with more compact margins.
+`<b-form-row>` component (to obtain columns with more compact margins).
 
 ## Grid options
 
-While Bootstrap uses `ems` or `rems` for defining most sizes, `px`s are used for grid breakpoints
+While Bootstrap uses `em` or `rem` units for defining most sizes, `px`s are used for grid breakpoints
 and container widths. This is because the viewport width is in pixels and does not change with the
 [font size](https://drafts.csswg.org/mediaqueries-3/#units).
 
@@ -159,30 +160,30 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
     <tr>
       <th></th>
       <th>
-        <strong>Extra small</strong><br>
+        <strong>Extra small</strong> (xs)<br>
         <code>&lt;576px</code>
       </th>
       <th>
-        <strong>Small</strong><br>
+        <strong>Small</strong> (sm)<br>
         <code>≥576px</code>
       </th>
       <th>
-        <strong>Medium</strong><br>
+        <strong>Medium</strong> (md)<br>
         <code>≥768px</code>
       </th>
       <th>
-        <strong>Large</strong><br>
+        <strong>Large</strong> (lg)<br>
         <code>≥992px</code>
       </th>
       <th>
-        <strong>Extra large</strong><br>
+        <strong>Extra large</strong> (xl)<br>
         <code>≥1200px</code>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Max container width</strong></td>
+      <th class="text-left">Max container width</th>
       <td>None (auto)</td>
       <td>540px</td>
       <td>720px</td>
@@ -190,7 +191,7 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
       <td>1140px</td>
     </tr>
     <tr>
-      <td><strong>Prop</strong></td>
+      <th class="text-left">Prop</th>
       <td><code>cols="*"</code></td>
       <td><code>sm="*"</code></td>
       <td><code>md="*"</code></td>
@@ -198,19 +199,19 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
       <td><code>xl="*"</code></td>
     </tr>
     <tr>
-      <td><strong># of columns</strong>
+      <th class="text-left"># of columns</th>
       <td colspan="5">12</td>
     </tr>
     <tr>
-      <td><strong>Gutter width</strong>
+      <th class="text-left">Gutter width</th>
       <td colspan="5">30px (15px on each side of a column)</td>
     </tr>
     <tr>
-      <td><strong>Nestable</strong>
+      <th class="text-left">Nestable</th>
       <td colspan="5">Yes</td>
     </tr>
     <tr>
-      <td><strong>Offset</strong></td>
+      <th class="text-left">Offset</th>
       <td><code>offset="*"</code></td>
       <td><code>offset-sm="*"</code></td>
       <td><code>offset-md="*"</code></td>
@@ -218,7 +219,7 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
       <td><code>offset-xl="*"</code></td>
     </tr>
     <tr>
-      <td><strong>Order</strong></td>
+      <th class="text-left">Order</th>
       <td><code>order="*"</code></td>
       <td><code>order-sm="*"</code></td>
       <td><code>order-md="*"</code></td>
@@ -228,7 +229,12 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
   </tbody>
 </table>
 
-Note: there is no `xs` prop. The `cols` prop refers to the `xs` (smallest) breakpoint.
+**Notes:**
+
+- There is no `xs` prop. The `cols` prop refers to the `xs` (smallest) breakpoint.
+- The above breakpoint values and names are the Bootstrap defaults. They can be customized via
+  [SCSS variables](/docs/reference/theming), and (if also using custom breakpoint names), via the
+  BootstrapVue [global configuration](/docs/misc/settings).
 
 ## Auto-layout columns
 
