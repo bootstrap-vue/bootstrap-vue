@@ -1,0 +1,18 @@
+{
+  "extends": ["@nuxtjs"],
+  "labels": ["Type: Dependencies"],
+  "packageRules": [
+    {
+      "packageNames": ["bootstrap"],
+      "allowedVersions": "<5.0.0"
+    },
+    {
+      "packageNames": ["core-js"],
+      "allowedVersions": "<3.0.0"
+    },
+    {
+      "packageNames": ["prettier"],
+      "allowedVersions": "<=1.14.3"
+    }
+  ]
+}

@@ -1,4 +1,0 @@
-{
-  "extends": ["@nuxtjs"],
-  "ignoreDeps": ["prettier", "core-js"]
-}
