@@ -1059,29 +1059,56 @@ favour of the new bracketed syntax, and support will be removed in a future rele
 slot `HEAD[]` or `FOOT[]` to format any header or footer cells that do not have an explicit scoped slot.
 
 ```html
-<div>
-  <b-table :fields="fields" :items="items" foot-clone>
-    <!-- A custom formatted data column cell -->
-    <template slot="[name]" slot-scope="data">
-      {{ data.value.first }} {{ data.value.last }}
-    </template>
+<template>
+  <div>
+    <b-table :fields="fields" :items="items" foot-clone>
+      <!-- A custom formatted data column cell -->
+      <template slot="[name]" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+      </template>
 
-    <!-- A custom formatted header cell for field 'name' -->
-    <template slot="HEAD[name]" slot-scope="data">
-      <em>{{ data.label }}</em>
-    </template>
+      <!-- A custom formatted header cell for field 'name' -->
+      <template slot="HEAD[name]" slot-scope="data">
+        <span class="text-info">{{ data.label }}</b>
+      </template>
 
-    <!-- A custom formatted footer cell  for field 'name' -->
-    <template slot="FOOT[name]" slot-scope="data">
-      <strong>{{ data.label }}</strong>
-    </template>
+      <!-- A custom formatted footer cell  for field 'name' -->
+      <template slot="FOOT[name]" slot-scope="data">
+        <span class="text-danger">{{ data.label }}</span>
+      </template>
 
-    <!-- Default fall-back custom formatted footer cell -->
-    <template slot="FOOT[]" slot-scope="data">
-      <i>{{ data.label }}</i>
-    </template>
-  </b-table>
-</div>
+      <!-- Default fall-back custom formatted footer cell -->
+      <template slot="FOOT[]" slot-scope="data">
+        <i>{{ data.label }}</i>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: [
+          // A column that needs custom formatting
+          { key: 'name', label: 'Full Name' },
+          // A regular column
+          'age',
+          // A regular column
+          'sex'
+        ],
+        items: [
+          { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+          { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+          { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+          { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-head-foot-slots.vue -->
 ```
 
 The slots can be optionally scoped (`data` in the above example), and will have the following
