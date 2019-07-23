@@ -6,8 +6,8 @@
 
 BootstrapVue provides several convenient _functional_ components tailored for layout, which can
 simplify your complex page markup compared to traditional Bootstrap v4 markup. Feel free to switch
-back and forth between traditional Bootstrap v4 markup (i.e. `<div>`s and classes) and BootstrapVue's
-convenient functional layout components.
+back and forth between traditional Bootstrap v4 markup (i.e. `<div>`s and classes) and
+BootstrapVue's convenient functional layout components.
 
 ## How it works
 
@@ -101,17 +101,18 @@ regardless of viewport breakpoint.
 </b-container>
 ```
 
-Setting the `fluid` prop to true (or an empty string) is equivalent to the Bootstrap `.container-fluid`
-class.
+Setting the `fluid` prop to true (or an empty string) is equivalent to the Bootstrap
+`.container-fluid` class.
 
 ### Responsive fluid containers
 
 <span class="badge badge-warning small">Requires Bootstrap v4.4+ CSS</span>
 
-Responsive containers are new in Bootstrap v4.4. They allow you to specify a contaier that is 100%
-wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For example,
-setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the `'md'`
-breakpoint is reached, at which point it will remain at that breakpoint's container `max-width`.
+Responsive containers are new in Bootstrap v4.4. They allow you to specify a container that is 100%
+wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For
+example, setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the
+`'md'` breakpoint is reached, at which point it will remain at that breakpoint's container
+`max-width`.
 
 ```html
 <b-container fluid="sm">
@@ -128,7 +129,8 @@ breakpoint is reached, at which point it will remain at that breakpoint's contai
 </b-container>
 ```
 
-Setting the fluid prop to a breakpoint name translates to the Bootstrap class `.container-{breakpoint}`.
+Setting the fluid prop to a breakpoint name translates to the Bootstrap class
+`.container-{breakpoint}`.
 
 ## Rows `<b-row>` and `<b-form-row>`
 
@@ -149,9 +151,9 @@ the class `row` applied to it, or - in the case of [forms](/docs/components/form
 
 ## Grid options
 
-While Bootstrap uses `em` or `rem` units for defining most sizes, `px`s are used for grid breakpoints
-and container widths. This is because the viewport width is in pixels and does not change with the
-[font size](https://drafts.csswg.org/mediaqueries-3/#units).
+While Bootstrap uses `em` or `rem` units for defining most sizes, `px`s are used for grid
+breakpoints and container widths. This is because the viewport width is in pixels and does not
+change with the [font size](https://drafts.csswg.org/mediaqueries-3/#units).
 
 See how aspects of the Bootstrap grid system work across multiple devices with a handy table.
 
