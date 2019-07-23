@@ -198,6 +198,30 @@
         ],
         "slots": [
           {
+            "name": "[field key]",
+            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "[]",
+            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "HEAD[field key]",
+            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "HEAD[]",
+            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "FOOT[field key]",
+            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
+            "name": "FOOT[]",
+            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
             "name": "table-caption",
             "description": "Content to display in the table's caption element"
           },
@@ -208,18 +232,6 @@
           {
             "name": "table-busy",
             "description": "Optional slot to place loading message when table is in the busy state"
-          },
-          {
-            "name": "[field]",
-            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
-          },
-          {
-            "name": "HEAD_[field]",
-            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
-          },
-          {
-            "name": "FOOT_[field]",
-            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
             "name": "row-details",
@@ -383,24 +395,36 @@
         ],
         "slots": [
           {
+            "name": "[field key]",
+            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "[]",
+            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "HEAD[field key]",
+            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "HEAD[]",
+            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "FOOT[field key]",
+            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
+            "name": "FOOT[]",
+            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
             "name": "table-caption",
             "description": "Content to display in the table's caption element"
           },
           {
             "name": "table-colgroup",
             "description": "Slot to place custom colgroup and col elements (optionally scoped: columns - number of columns, fields - array of field definition objects)"
-          },
-          {
-            "name": "[field]",
-            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
-          },
-          {
-            "name": "HEAD_[field]",
-            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
-          },
-          {
-            "name": "FOOT_[field]",
-            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
             "name": "row-details",
