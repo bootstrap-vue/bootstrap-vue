@@ -6,6 +6,8 @@ import { isFunction, isNull, isString, isUndefined } from '../../../utils/inspec
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 
+const detailsSlotName = 'row-details'
+
 export default {
   props: {
     tbodyTrClass: {
@@ -173,21 +175,19 @@ export default {
     },
     // Render helpers
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
-      const h = this.$createElement
-
       // Renders a TD or TH for a row's field
-      const $scoped = this.$scopedSlots
-      const detailsSlot = $scoped['row-details']
+      const h = this.$createElement
+      const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const data = {
         // For the Vue key, we concatenate the column index and
-        // field key (as field keys can be duplicated)
+        // field key (as field keys could be duplicated)
         key: `row-${rowIndex}-cell-${colIndex}-${field.key}`,
         class: this.tdClasses(field, item),
         attrs: this.tdAttrs(field, item, colIndex)
       }
       const toggleDetailsFn = () => {
-        if (detailsSlot) {
+        if (hasDetailsSlot) {
           this.$set(item, '_showDetails', !item._showDetails)
         }
       }
@@ -204,7 +204,9 @@ export default {
         // Add in rowSelected scope property if selectable rows supported
         slotScope.rowSelected = Boolean(this.selectedRows[rowIndex])
       }
-      let $childNodes = $scoped[field.key] ? $scoped[field.key](slotScope) : toString(formatted)
+      // TODO: Using field.key as scoped slot name is deprecated, to be removed in future release.
+      //   New format uses the square bracketed naming convention 
+      let $childNodes = this.normalizeSlot([`[${field.key}]`, '[]', field.key], slotScope) || toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]
@@ -215,12 +217,11 @@ export default {
     renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)
       const h = this.$createElement
-      const $scoped = this.$scopedSlots
       const fields = this.computedFields
       const tableStriped = this.striped
+      const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
+      const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
-      const $detailsSlot = $scoped['row-details']
-      const rowShowDetails = Boolean(item._showDetails && $detailsSlot)
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -228,7 +229,7 @@ export default {
       // Details ID needed for aria-describedby when details showing
       const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
       const toggleDetailsFn = () => {
-        if ($detailsSlot) {
+        if (hasDetailsSlot) {
           this.$set(item, '_showDetails', !item._showDetails)
         }
       }
@@ -340,7 +341,7 @@ export default {
         }
         // Render the details slot
         const $details = h('td', { attrs: tdAttrs }, [
-          $detailsSlot({
+          this.normalizeSlot(detailsSlotName, {
             item: item,
             index: rowIndex,
             fields: fields,
@@ -368,7 +369,7 @@ export default {
               staticClass: 'b-table-details',
               class: [
                 isFunction(this.tbodyTrClass)
-                  ? this.tbodyTrClass(item, 'row-details')
+                  ? this.tbodyTrClass(item, detailsSlotName)
                   : this.tbodyTrClass
               ],
               attrs: trAttrs
@@ -376,7 +377,7 @@ export default {
             [$details]
           )
         )
-      } else if ($detailsSlot) {
+      } else if (hasDetailsSlot) {
         // Only add the placeholder if a the table has a row-details slot defined (but not shown)
         $rows.push(h())
         if (tableStriped) {
