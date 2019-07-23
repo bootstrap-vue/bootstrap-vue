@@ -103,12 +103,21 @@ export default {
         }
         const fieldScope = { label: field.label, column: field.key, field: field }
         let slot
-        if (isFoot && this.hasNormalizedSlot([`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`])) {
+        if (
+          isFoot &&
+          this.hasNormalizedSlot([`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`])
+        ) {
           // TODO: FOOT_${field.key} is deprecated, to be removed in future release
-          slot = this.normalizeSlot([`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`], fieldScope)
+          slot = this.normalizeSlot(
+            [`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`],
+            fieldScope
+          )
         } else {
           // TODO: HEAD_${field.key} is deprecated, to be removed in future release
-          slot = this.normalizeSlot([`HEAD[${field.key}]`, 'HEAD[]', `HEAD_${field.key}`], fieldScope)
+          slot = this.normalizeSlot(
+            [`HEAD[${field.key}]`, 'HEAD[]', `HEAD_${field.key}`],
+            fieldScope
+          )
         }
         if (!slot) {
           data.domProps = htmlOrText(field.labelHtml)
