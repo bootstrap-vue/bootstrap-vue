@@ -826,7 +826,7 @@ slot `[]` to format any cells that do not have an explicit scoped slot.
 
       <!-- A custom formatted column -->
       <template slot="[name]" slot-scope="data">
-        {{ data.value.first }} {{ data.value.last }}
+        <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
