@@ -1,5 +1,6 @@
 {
   "extends": ["@nuxtjs"],
+  "labels": ["Type: Dependencies"],
   "packageRules": [
     {
       "packageNames": ["bootstrap"],
