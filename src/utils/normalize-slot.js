@@ -24,7 +24,7 @@ const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
 /**
  * Returns vNodes for named slot either scoped or unscoped
  *
- * @param {String} name
+ * @param {String, Array} name or name[]
  * @param {String} scope
  * @param {Object} scopedSlots
  * @param {Object} slots
