@@ -1043,7 +1043,7 @@ Users are encouraged to switch to the new bracketed syntax.
         <span class="text-info">{{ data.label }}</b>
       </template>
 
-      <!-- A custom formatted footer cell  for field 'name' -->
+      <!-- A custom formatted footer cell for field 'name' -->
       <template slot="FOOT[name]" slot-scope="data">
         <span class="text-danger">{{ data.label }}</span>
       </template>
