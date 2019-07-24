@@ -3,10 +3,11 @@
 > Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for
 > building responsive, mobile-first sites using Vue.js.
 
-- [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
-- [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
+- [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
-- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required by
+- [Bootstrap](https://getbootstrap.com/) `v{{ bootstrapVersionMinor }}` is required,
+  `v{{ bootstrapVersion }}` is recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v{{ portalVueVersionMinor }}` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
 
@@ -18,13 +19,14 @@ would be:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
-- [Bootstrap v4.3 documentation](https://getbootstrap.com/)
+- [Bootstrap v{{bootstrapVersionMinor}} documentation](https://getbootstrap.com/)
 
 ## Documentation information
 
 In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
-such as `ml-2`, `py-1`, etc. These are Bootstrap v4.3 utility classes that help control padding,
-margins, positioning and more. You can find information on these classes in the
+such as <code class="text-nowrap">ml-2</code>, <code class="text-nowrap">py-1</code>, etc. These are
+Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins, positioning
+and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
 Many of the examples in this documentation are _live_ and can be edited in-place for for an enhanced
@@ -35,13 +37,13 @@ various components and export your results to JSFiddle, CodePen, and/or CodeSand
 
 ## Important HTML globals
 
-Bootstrap v4.3 CSS employs a handful of important global styles and settings that you'll need to be
-aware of when using it, all of which are almost exclusively geared towards the normalization of
-cross browser styles. Refer to the following sub-sections for details.
+Bootstrap v{{bootstrapVersionMajor}} CSS employs a handful of important global styles and settings
+that you'll need to be aware of when using it, all of which are almost exclusively geared towards
+the normalization of cross browser styles. Refer to the following sub-sections for details.
 
 ### HTML5 doctype
 
-Bootstrap requires the use of the HTML5 doctype. Without it, you _may_ see some funky incomplete
+Bootstrap requires the use of the `HTML5` doctype. Without it, you _may_ see some funky incomplete
 styling, but including it shouldn't cause any considerable hiccups.
 
 ```html
@@ -53,10 +55,9 @@ styling, but including it shouldn't cause any considerable hiccups.
 
 ### Responsive meta tag
 
-Bootstrap v4.3 is developed for mobile first, a strategy in which code is optimized for mobile
-devices first and then scales up components as necessary using CSS media queries. To ensure proper
-rendering and touch zooming for all devices, **add the responsive viewport meta** tag to your
-`<head>`.
+Bootstrap is developed for mobile first, a strategy in which code is optimized for mobile devices
+first and then scales up components as necessary using CSS media queries. To ensure proper rendering
+and touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -84,7 +85,7 @@ Learn more about [box model and sizing at CSS Tricks](https://css-tricks.com/box
 
 ### Style reboot
 
-For improved cross-browser rendering, Bootstrap v4.3 uses
+For improved cross-browser rendering, Bootstrap v{{ bootstrapVersionMinor }} uses
 [Reboot](https://getbootstrap.com/docs/4.3/content/reboot/) to correct inconsistencies across
 browsers and devices while providing slightly more opinionated resets to common
 <abbr title="Hyper Text markup Language">HTML</abbr> elements.
@@ -301,11 +302,13 @@ object property shorthand (components only).
 
 ### Using BootstrapVue source code for smaller bundles
 
+<span class="badge badge-info small">For advanced users</span>
+
 When using module bundlers, they will usually default to using the `esm/` modular build, which has
 been pre-transpiled by Babel for our
 [supported browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc).
 
-You can override the use of the `esm/` build by aliasing `bootstrap-vue'` to use the BootstrapVue
+You can override the use of the `esm/` build by aliasing `'bootstrap-vue'` to use the BootstrapVue
 source files, and whitelisting `node_modules/bootstrap-vue/src/*` for transpilation by your build
 process, in your module bundler config. This will allow you to transpile BootstrapVue for your
 target browsers/environments and potentially reduce bundle sizes (and will only include the babel
@@ -317,7 +320,7 @@ helper utils once) at the expense of slightly longer build times.
 module.exports = {
   resolve: {
     alias: {
-      // Alias to use source of BootstrapVue
+      // Alias for using source of BootstrapVue
       'bootstrap-vue$': 'bootstrap-vue/src/index.js'
     }
   },
