@@ -3,50 +3,13 @@ import { offsetTop, scrollTo } from '~/utils'
 
 // -- Utility handlers --
 
-const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
-
-const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE)
-
-const matchesEl = elProto.matches || elProto.msMatchesSelector || elProto.webkitMatchesSelector
-
-const matches = (el, selector) => {
-  if (!isElement(el)) {
-    return false
-  }
-  return matchesEl.call(el, selector)
-}
-
-const closestEl =
-  elProto.closest ||
-  function(sel) {
-    let el = this
-    do {
-      // Use our "patched" matches function
-      if (matches(el, sel)) {
-        return el
-      }
-      el = el.parentElement || el.parentNode
-    } while (el !== null && el.nodeType === Node.ELEMENT_NODE)
-    return null
-  }
-
-const closest = (selector, root) => {
-  if (!isElement(root)) {
-    return null
-  }
-  const el = closestEl.call(root, selector)
-  // Emulate jQuery closest and return `null` if match is the passed in element (root)
-  // return el === root ? null : el
-  // In this case
-  return el || null
-}
-
 // Scroll an in-page link target into view
+// this is the same as in toc.vue (as an instance method)
 const scrollIntoView = (evt, href) => {
   evt.preventDefault()
   evt.stopPropagation()
   // We use an attribute `querySelector()` rather than `getElementByID()`,
-  // as some auto-generated ID's are invalid or not unique
+  // as some auto-generated ID's are invalid or may not be unique
   const id = (href || '').replace(/#/g, '')
   const $el = document.body.querySelector(`[id="${id}"]`)
   if ($el) {
@@ -64,15 +27,23 @@ const scrollIntoView = (evt, href) => {
 
 // Convert local links to router push or scrollIntoView
 const linkToRouter = evt => {
-  const target = closest('a[href]', evt.target)
-  if (!target || closest('.bd-example', target) || closest('pre', target) || evt.defaultPrevented) {
-    // early exit if click inside example, not a link, or default prevented
+  const target = evt && evt.target && evt.target.closest ? evt.target.closest('a[href]') : null
+  if (
+    !target ||
+    evt.type !== 'click' ||
+    target.__vue__ ||
+    target.closest('.bd-example') ||
+    target.closest('pre') ||
+    evt.defaultPrevented
+  ) {
+    // Early exit if click inside an example, not a link, or
+    // default prevented or is a Vue instance
     return
   }
   const href = target.getAttribute('href')
   // if local docs link, convert to router push
   if (href && href.indexOf('/') === 0 && href.indexOf('//') === -1) {
-    // Internal page link
+    // Internal page to page link
     evt.preventDefault()
     if (typeof window !== 'undefined' && window.$nuxt) {
       // Since we are a functional component, we can't use this.$router
@@ -83,7 +54,7 @@ const linkToRouter = evt => {
     // Use scrollIntoView utility method to smooth scroll page
     scrollIntoView(evt, href)
   }
-  // Else, normal handling
+  // Else, normal browser link handling (i.e. external links)
 }
 
 export default {
