@@ -60,10 +60,10 @@ renderer.link = (href, title, text) => {
     }
   }
   if (href.indexOf('#') === 0) {
-    // Page links
+    // In-page links
     classAttr = ' class="font-italic"'
-  } else if (href.indexOf('/') === 0 && href.indexOf('//') !== 0)) {
-    // Page links
+  } else if (href.indexOf('/') === 0 && href.indexOf('//') !== 0) {
+    // Page to page links
     classAttr = ' class="font-weight-bold"'
   }
   title = title ? ` title="${title}"` : ''
