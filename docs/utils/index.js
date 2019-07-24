@@ -2,7 +2,7 @@ import kebabCase from 'lodash/kebabCase'
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
-  const matches = version.match(/[^<]?([0-9]+\.[0-9]+\.[0-9]+)/g)
+  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+)/)
   const matchesCount = matches.length
   return matchesCount > 0 ? matches[matchesCount - 1] : ''
 }
