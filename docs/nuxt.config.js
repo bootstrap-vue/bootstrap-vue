@@ -14,6 +14,10 @@ hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // inc
 hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
 hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
 
+// Constants which should be grabbed from package.json
+// Bootstrap minor version (for links)
+const bootstrapDocsVersion = '4.3'
+
 // Create a new marked renderer
 const renderer = new marked.Renderer()
 
@@ -37,6 +41,21 @@ renderer.code = (code, language) => {
 // Instruct google translate not to translate `<code>` content
 renderer.codespan = text => {
   return `<code translate="no" class="notranslate">${text}</code>`
+}
+
+// Custom link renderer, to update bootstrap docs version in href
+// Only applies to markdown links (not explicit `<a href="..">...</a>` tags
+renderer.link = (href, title, text) => {
+  let target = ''
+  if (/^https?:\/\//.test(href)) {
+    target = ' target="_blank"'
+    if (/^https:\/\/getgootstrap\.com\/docs\//.test(href)) {
+      // Update the bootstrap version in URLs with the one specified in `bootstrapDocsVersion`
+      href = href.replace(/\/docs\/\d\.\d\//, `/docs/${bootstrapDocsVersion}/`)
+    }
+  }
+  title = title ? ` title="${title}"` : ''
+  return `<a href="${href}"${title}${target}>${text}</a>`
 }
 
 // Custom heading implementation for markdown renderer
