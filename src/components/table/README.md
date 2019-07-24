@@ -359,8 +359,8 @@ const fields = [
 
 ## Primary key
 
-`<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
-that _uniquely_ identifies the row.
+`<b-table>` provides an additional prop `primary-key`, which you can use to identify the _name_ of
+the field key that _uniquely_ identifies the row.
 
 The value specified by the primary column key **must be** either a `string` or `number`, and **must
 be unique** across all rows in the table.
@@ -804,16 +804,16 @@ function.
 
 Scoped field slots give you greater control over how the record data appears. If you want to add an
 extra field which does not exist in the records, just add it to the `fields` array, And then
-reference the field(s) in the scoped slot(s). Field slots use the following naming syntax:
+reference the field(s) in the scoped slot(s). Scoped field slots use the following naming syntax:
 `'[' + field key + ']'`.
 
-<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
-`2.0.0-rc.28` did not surround the key with square brackets. Using the old field slot names have
-been deprecated in favour of the new bracketed syntax, and support will be removed in a future
-release.
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use the default _fall-back_
+scoped slot `'[]'` to format any cells that do not have an explicit scoped slot provided.
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
-scoped slot `[]` to format any cells that do not have an explicit scoped slot.
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` did not surround the field key with square brackets. Using the old field slot names
+have been deprecated in favour of the new bracketed syntax, and support will be removed in a future
+release. Users are encouraged to switch to the new bracketed syntax.
 
 **Example: Custom data rendering with scoped slots**
 
@@ -1009,39 +1009,6 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
-## Custom empty and emptyfiltered rendering via slots
-
-Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
-also possible to provide custom rendering for tables that have no data to display using named slots.
-
-In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
-either falsy or an array of length 0.
-
-```html
-<div>
-  <b-table :fields="fields" :items="items" show-empty>
-    <template slot="empty" slot-scope="scope">
-      <h4>{{ scope.emptyText }}</h4>
-    </template>
-    <template slot="emptyfiltered" slot-scope="scope">
-      <h4>{{ scope.emptyFilteredText }}</h4>
-    </template>
-  </b-table>
-</div>
-```
-
-The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
-following properties:
-
-| Property            | Type   | Description                                        |
-| ------------------- | ------ | -------------------------------------------------- |
-| `emptyHtml`         | String | The `empty-html` prop                              |
-| `emptyText`         | String | The `empty-text` prop                              |
-| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
-| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
-| `fields`            | Array  | The `fields` prop                                  |
-| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
-
 ## Header and Footer custom rendering via scoped slots
 
 <span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
@@ -1049,18 +1016,18 @@ following properties:
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
-Scoped slots for the header and footer cells uses a special naming convention of `HEAD[<fieldkey>]`
-and `FOOT[<fieldkey>]` respectively. if a `FOOT[...]` slot for a field is not provided, but a
-`HEAD[...]` slot is provided, then the footer will use the `HEAD[...]` slot content.
-
-<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
-`2.0.0-rc.28` used slot names `HEAD_<key>` and `FOOT_<key>`. Using the old field slot names have
-been deprecated in favour of the new bracketed syntax, and support will be removed in a future
-release.
+Scoped slots for the header and footer cells uses a special naming convention of `'HEAD[<fieldkey>]'`
+and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is not provided, but a
+`'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot content.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
-scoped slot `HEAD[]` or `FOOT[]` to format any header or footer cells that do not have an explicit
-scoped slot.
+scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or footer cells that do not have an
+explicit scoped slot provided.
+
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` used slot names `'HEAD_<key>'` and `'FOOT_<key>'`. Using the old slot names has been
+deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
+Users are encouraged to switch to the new bracketed syntax.
 
 ```html
 <template>
@@ -1189,91 +1156,38 @@ Slot `thead-top` can be optionally scoped, receiving an object with the followin
 | `columns` | Number | The number of columns in the rendered table                                   |
 | `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
-## Row select support
+## Custom empty and emptyfiltered rendering via slots
 
-You can make rows selectable, by using the prop `selectable`.
+Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
+also possible to provide custom rendering for tables that have no data to display using named slots.
 
-Users can easily change the selecting mode by setting the `select-mode` prop.
-
-- `multi`: each click will select/deselect the row (default mode)
-- `single`: only a single row can be selected at one time
-- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
-  and CTRL/CMD click will toggle the selected row.
-
-When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
-event, passing a single argument which is the complete list of selected items. **Treat this argument
-as read-only.**
+In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
+either falsy or an array of length 0.
 
 ```html
-<template>
-  <div>
-    <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
-    </b-form-group>
-
-    <b-table
-      selectable
-      :select-mode="selectMode"
-      selectedVariant="success"
-      :items="items"
-      :fields="fields"
-      @row-selected="rowSelected"
-      responsive="sm"
-    >
-      <!-- Example scoped slot for illustrative purposes only -->
-      <template slot="[selected]" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">✔</span>
-      </template>
-    </b-table>
-
-    {{ selected }}
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        modes: ['multi', 'single', 'range'],
-        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
-        items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ],
-        selectMode: 'multi',
-        selected: []
-      }
-    },
-    methods: {
-      rowSelected(items) {
-        this.selected = items
-      }
-    }
-  }
-</script>
-
-<!-- b-table-selectable.vue -->
+<div>
+  <b-table :fields="fields" :items="items" show-empty>
+    <template slot="empty" slot-scope="scope">
+      <h4>{{ scope.emptyText }}</h4>
+    </template>
+    <template slot="emptyfiltered" slot-scope="scope">
+      <h4>{{ scope.emptyFilteredText }}</h4>
+    </template>
+  </b-table>
+</div>
 ```
 
-When table is selectable, it will have class `b-table-selectable`, and one of the following three
-classes (depending on which mode is in use), on the `<table>` element:
+The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
+following properties:
 
-- `b-table-select-single`
-- `b-table-select-multi`
-- `b-table-select-range`
-
-When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
-element.
-
-**Notes:**
-
-- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
-  with an empty array if needed._
-- _Selected rows will have a class of `b-row-selected` added to them._
-- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for accessibility reasons._
+| Property            | Type   | Description                                        |
+| ------------------- | ------ | -------------------------------------------------- |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
+| `fields`            | Array  | The `fields` prop                                  |
+| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
 ## Row details support
 
@@ -1365,6 +1279,92 @@ initially showing.
 
 <!-- b-table-details.vue -->
 ```
+
+## Row select support
+
+You can make rows selectable, by using the prop `selectable`.
+
+Users can easily change the selecting mode by setting the `select-mode` prop.
+
+- `multi`: each click will select/deselect the row (default mode)
+- `single`: only a single row can be selected at one time
+- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
+  and CTRL/CMD click will toggle the selected row.
+
+When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
+event, passing a single argument which is the complete list of selected items. **Treat this argument
+as read-only.**
+
+```html
+<template>
+  <div>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
+    </b-form-group>
+
+    <b-table
+      selectable
+      :select-mode="selectMode"
+      selectedVariant="success"
+      :items="items"
+      :fields="fields"
+      @row-selected="rowSelected"
+      responsive="sm"
+    >
+      <!-- Example scoped slot for illustrative purposes only -->
+      <template slot="[selected]" slot-scope="{ rowSelected }">
+        <span v-if="rowSelected">✔</span>
+      </template>
+    </b-table>
+
+    {{ selected }}
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        modes: ['multi', 'single', 'range'],
+        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ],
+        selectMode: 'multi',
+        selected: []
+      }
+    },
+    methods: {
+      rowSelected(items) {
+        this.selected = items
+      }
+    }
+  }
+</script>
+
+<!-- b-table-selectable.vue -->
+```
+
+When table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
+
+**Notes:**
+
+- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
+  with an empty array if needed._
+- _Selected rows will have a class of `b-row-selected` added to them._
+- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for accessibility reasons._
 
 ## Sorting
 
