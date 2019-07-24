@@ -48,6 +48,7 @@ renderer.codespan = text => {
 renderer.link = (href, title, text) => {
   let target = ''
   let rel = ''
+  let classAttr = ''
   if (/^https?:\/\//.test(href)) {
     target = ' target="_blank"'
     // We add in rel="noopener" to all external links for security and performance reasons
@@ -58,8 +59,15 @@ renderer.link = (href, title, text) => {
       href = href.replace(/\/docs\/\d\.\d\//, `/docs/${bootstrapDocsVersion}/`)
     }
   }
+  if (href.indexOf('#') === 0) {
+    // Page links
+    classAttr = ' class="font-italic"'
+  } else if (href.indexOf('/') === 0 && href.indexOf('//') !== 0)) {
+    // Page links
+    classAttr = ' class="font-weight-bold"'
+  }
   title = title ? ` title="${title}"` : ''
-  return `<a href="${href}"${title}${target}${rel}>${text}</a>`
+  return `<a href="${href}"${classAttr}${title}${target}${rel}>${text}</a>`
 }
 
 // Custom heading implementation for markdown renderer
