@@ -204,7 +204,8 @@ export default {
         // Add in rowSelected scope property if selectable rows supported
         slotScope.rowSelected = Boolean(this.selectedRows[rowIndex])
       }
-      // TODO: Using field.key as scoped slot name is deprecated, to be removed in future release.
+      // TODO:
+      //   Using `field.key` as scoped slot name is deprecated, to be removed in future release
       //   New format uses the square bracketed naming convention
       let $childNodes =
         this.normalizeSlot([`[${field.key}]`, '[]', field.key], slotScope) || toString(formatted)
@@ -304,8 +305,9 @@ export default {
             },
             on: {
               ...handlers,
-              // TODO: Instantiate the following handlers only if we have registered
-              //       listeners i.e. this.$listeners['row-middle-clicked'], etc.
+              // TODO:
+              //   Instantiate the following handlers only if we have registered
+              //   listeners i.e. `this.$listeners['row-middle-clicked']`, etc.
               auxclick: evt => {
                 if (evt.which === 2) {
                   this.middleMouseRowClicked(evt, item, rowIndex)
