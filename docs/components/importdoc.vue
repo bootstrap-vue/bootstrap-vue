@@ -103,7 +103,7 @@
         bordered
         striped
       >
-        <template slot="[namedExport]" slot-scope="{ value }">
+        <template slot="[namedExport]" slot-scope="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
         <template slot="[importPath]" slot-scope="{ value }">
