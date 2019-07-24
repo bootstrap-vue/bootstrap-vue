@@ -22,13 +22,13 @@
           bordered
           striped
         >
-          <template slot="component" slot-scope="{ value }">
+          <template slot="[component]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="namedExport" slot-scope="{ value }">
+          <template slot="[namedExport]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="{ value }">
+          <template slot="[importPath]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -57,13 +57,13 @@
           bordered
           striped
         >
-          <template slot="directive" slot-scope="{ value }">
+          <template slot="[directive]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="namedExport" slot-scope="{ value }">
+          <template slot="[namedExport]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="{ value }">
+          <template slot="[importPath]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -103,12 +103,12 @@
         bordered
         striped
       >
-        <template slot="namedExport" slot-scope="{ value, item }">
+        <template slot="[namedExport]" slot-scope="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.legacy" variant="warning" class="small">DEPRECATED</b-badge>
           <b-badge v-else variant="success" class="small">PREFERRED</b-badge>
         </template>
-        <template slot="importPath" slot-scope="{ value }">
+        <template slot="[importPath]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
