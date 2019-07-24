@@ -3,14 +3,16 @@ import { concat } from '../utils/array'
 
 export default {
   methods: {
-    hasNormalizedSlot(name) {
+    hasNormalizedSlot(names) {
       // Returns true if the either a $scopedSlot or $slot exists with the specified name
-      return hasNormalizedSlot(name, this.$scopedSlots, this.$slots)
+      // `names` can be a string name or an array of names
+      return hasNormalizedSlot(names, this.$scopedSlots, this.$slots)
     },
-    normalizeSlot(name, scope = {}) {
+    normalizeSlot(names, scope = {}) {
       // Returns an array of rendered vNodes if slot found.
       // Returns undefined if not found.
-      const vNodes = normalizeSlot(name, scope, this.$scopedSlots, this.$slots)
+      // `names` can be a string name or an array of names
+      const vNodes = normalizeSlot(names, scope, this.$scopedSlots, this.$slots)
       return vNodes ? concat(vNodes) : vNodes
     }
   }
