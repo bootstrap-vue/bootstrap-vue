@@ -10,8 +10,10 @@ import {
 } from '~/content'
 import readme from '~/markdown/intro/README.md'
 
-// RegExp to grab the minor version of a full version
-const minorRe = /^(\d+\.\d+)\.+/
+// RegExp to grab the minor version from a full version
+const minorRe = /^(\d+\.\d+)(\..+)$/
+// RegExp to grab the major version from a full version
+const majorRe = /^(\d+)(\.\d+\..+)$/
 
 export default {
   name: 'BDVDocs',
@@ -27,14 +29,18 @@ export default {
     return {
       bootstrapVersion,
       bootstrapVersionMinor: bootstrapVersion.replace(minorRe, '$1'),
+      bootstrapVersionMajor: bootstrapVersion.replace(majorRe, '$1'),
       defaultConfig,
       nuxtVersion,
       nuxtVersionMinor: nuxtVersion.replace(minorRe, '$1'),
+      nuxtVersionMajor: nuxtVersion.replace(majorRe, '$1'),
       portalVueVersion,
       portalVueVersionMinor: portalVueVersion.replace(minorRe, '$1'),
+      portalVueVersionMajor: portalVueVersion.replace(majorRe, '$1'),
       readme,
       vueVersion,
-      vueVersionMinor: '2.5'
+      vueVersionMinor: '2.5',
+      vueVersionMajor: vueVersion.replace(majorRe, '$1')
     }
   }
 }
