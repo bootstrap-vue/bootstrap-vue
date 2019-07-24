@@ -802,16 +802,18 @@ function.
 
 <span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
 
-Scoped field slots give you greater control over how the record data appears. If you want to add an extra
-field which does not exist in the records, just add it to the `fields` array, And then reference the
-field(s) in the scoped slot(s). Field slots use the following naming syntax: `'[' + field key + ']'`.
+Scoped field slots give you greater control over how the record data appears. If you want to add an
+extra field which does not exist in the records, just add it to the `fields` array, And then
+reference the field(s) in the scoped slot(s). Field slots use the following naming syntax:
+`'[' + field key + ']'`.
 
-<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions pror to `2.0.0-rc.28`
-did not surround the key with square brackets. Using the old field slot names have been deprecated in
-favour of the new bracketed syntax, and support will be removed in a future release.
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` did not surround the key with square brackets. Using the old field slot names have
+been deprecated in favour of the new bracketed syntax, and support will be removed in a future
+release.
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_ scoped
-slot `[]` to format any cells that do not have an explicit scoped slot.
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
+scoped slot `[]` to format any cells that do not have an explicit scoped slot.
 
 **Example: Custom data rendering with scoped slots**
 
@@ -1048,15 +1050,17 @@ It is also possible to provide custom rendering for the tables `thead` and `tfoo
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming convention of `HEAD[<fieldkey>]`
-and `FOOT[<fieldkey>]` respectively. if a `FOOT[...]` slot for a field is not provided, but a `HEAD[..]`
-slot is provided, then the footer will use the `HEAD[...]` slot content.
+and `FOOT[<fieldkey>]` respectively. if a `FOOT[...]` slot for a field is not provided, but a
+`HEAD[...]` slot is provided, then the footer will use the `HEAD[...]` slot content.
 
-<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions pror to `2.0.0-rc.28`
-used slot names `HEAD_<key>` and `FOOT_<key>`. Using the old field slot names have been deprecated in
-favour of the new bracketed syntax, and support will be removed in a future release.
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` used slot names `HEAD_<key>` and `FOOT_<key>`. Using the old field slot names have
+been deprecated in favour of the new bracketed syntax, and support will be removed in a future
+release.
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_ scoped
-slot `HEAD[]` or `FOOT[]` to format any header or footer cells that do not have an explicit scoped slot.
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
+scoped slot `HEAD[]` or `FOOT[]` to format any header or footer cells that do not have an explicit
+scoped slot.
 
 ```html
 <template>
@@ -1120,7 +1124,7 @@ properties:
 | `field`  | Object | the field's object (from the `fields` prop)                   |
 | `label`  | String | The fields label value (also available as `data.field.label`) |
 
-When placing inputs, buttons, selects or links within a `HEAD[..]` or `FOOT[...]` slot, note that
+When placing inputs, buttons, selects or links within a `HEAD[...]` or `FOOT[...]` slot, note that
 `head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
 are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
 scoped slots (even when disabled)
