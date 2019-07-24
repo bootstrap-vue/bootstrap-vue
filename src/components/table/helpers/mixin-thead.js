@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     fieldClasses(field) {
-      // header field (th) classes
+      // Header field (<th>) classes
       return [
         field.variant ? 'table-' + field.variant : '',
         field.class ? field.class : '',
@@ -39,7 +39,7 @@ export default {
         // If table is busy (via provider) then don't propagate
         return
       } else if (filterEvent(evt)) {
-        // clicked on a non-disabled control so ignore
+        // Clicked on a non-disabled control so ignore
         return
       } else if (textSelectionActive(this.$el)) {
         // User is selecting text, so ignore
@@ -60,7 +60,7 @@ export default {
         return h()
       }
 
-      // Helper function to generate a field TH cell
+      // Helper function to generate a field <th> cell
       const makeCell = (field, colIndex) => {
         let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
@@ -107,13 +107,13 @@ export default {
           isFoot &&
           this.hasNormalizedSlot([`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`])
         ) {
-          // TODO: FOOT_${field.key} is deprecated, to be removed in future release
+          // TODO: `FOOT_${field.key}` is deprecated, to be removed in future release
           slot = this.normalizeSlot(
             [`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`],
             fieldScope
           )
         } else {
-          // TODO: HEAD_${field.key} is deprecated, to be removed in future release
+          // TODO: `HEAD_${field.key}` is deprecated, to be removed in future release
           slot = this.normalizeSlot(
             [`HEAD[${field.key}]`, 'HEAD[]', `HEAD_${field.key}`],
             fieldScope
@@ -125,7 +125,7 @@ export default {
         return h('th', data, slot || field.label)
       }
 
-      // Generate the array of TH cells
+      // Generate the array of <th> cells
       const $cells = fields.map(makeCell).filter(th => th)
 
       // Genrate the row(s)
