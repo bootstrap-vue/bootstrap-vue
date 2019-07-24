@@ -3,10 +3,11 @@
 > Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for
 > building responsive, mobile-first sites using Vue.js.
 
-- [Vue.js](https://vuejs.org/) `v2.6` is required, `v{{ vueVersion }}` is recommended
-- [Bootstrap](https://getbootstrap.com/) `v4.3` is required, `v{{ bootstrapVersion }}` is
+- [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
-- [PortalVue](https://portal-vue.linusb.org/) `v2.1` is required by
+- [Bootstrap](https://getbootstrap.com/) `v{{ bootstrapVersionMinor }}` is required,
+  `v{{ bootstrapVersion }}` is recommended
+- [PortalVue](https://portal-vue.linusb.org/) `v{{ portalVueVersionMinor }}` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
 
@@ -18,7 +19,7 @@ would be:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
-- [Bootstrap v4.3 documentation](https://getbootstrap.com/)
+- [Bootstrap v${bootstrapVersionMinor} documentation](https://getbootstrap.com/)
 
 ## Documentation information
 
