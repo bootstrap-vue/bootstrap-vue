@@ -47,15 +47,17 @@ renderer.codespan = text => {
 // Only applies to markdown links (not explicit `<a href="..">...</a>` tags
 renderer.link = (href, title, text) => {
   let target = ''
+  let rel = ''
   if (/^https?:\/\//.test(href)) {
     target = ' target="_blank"'
+    rel = ' rel="external"'
     if (/^https:\/\/getgootstrap\.com\/docs\//.test(href)) {
       // Update the bootstrap version in URLs with the one specified in `bootstrapDocsVersion`
       href = href.replace(/\/docs\/\d\.\d\//, `/docs/${bootstrapDocsVersion}/`)
     }
   }
   title = title ? ` title="${title}"` : ''
-  return `<a href="${href}"${title}${target}>${text}</a>`
+  return `<a href="${href}"${title}${rel}${target}>${text}</a>`
 }
 
 // Custom heading implementation for markdown renderer
