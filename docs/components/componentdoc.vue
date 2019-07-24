@@ -130,8 +130,8 @@
         <template slot="[args]" slot-scope="{ value, item }">
           <p
             v-for="arg in value"
-            class="mb-1"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
+            class="mb-1"
           >
             <template v-if="arg.arg">
               <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code> -
@@ -165,8 +165,8 @@
         <template slot="[args]" slot-scope="{ value, item }">
           <p
             v-for="arg in value"
-            class="mb-1"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
+            class="mb-1"
           >
             <template v-if="arg.arg">
               <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code>
