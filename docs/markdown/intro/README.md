@@ -26,7 +26,7 @@ would be:
 In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
 such as <code class="text-nowrap">ml-2</code>, <code class="text-nowrap">py-1</code>, etc. These are
 Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins, positioning
-and more. You can find information on these classes in the 
+and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
 Many of the examples in this documentation are _live_ and can be edited in-place for for an enhanced
@@ -38,8 +38,8 @@ various components and export your results to JSFiddle, CodePen, and/or CodeSand
 ## Important HTML globals
 
 Bootstrap v{{bootstrapVersionMajor}} CSS employs a handful of important global styles and settings
-that you'll need to be aware of when using it, all of which are almost exclusively geared towards the
-normalization of cross browser styles. Refer to the following sub-sections for details.
+that you'll need to be aware of when using it, all of which are almost exclusively geared towards
+the normalization of cross browser styles. Refer to the following sub-sections for details.
 
 ### HTML5 doctype
 
@@ -55,9 +55,9 @@ styling, but including it shouldn't cause any considerable hiccups.
 
 ### Responsive meta tag
 
-Bootstrap is developed for mobile first, a strategy in which code is optimized for mobile devices first
-and then scales up components as necessary using CSS media queries. To ensure proper rendering and
-touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
+Bootstrap is developed for mobile first, a strategy in which code is optimized for mobile devices
+first and then scales up components as necessary using CSS media queries. To ensure proper rendering
+and touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
