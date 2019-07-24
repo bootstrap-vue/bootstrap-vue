@@ -22,13 +22,13 @@
           bordered
           striped
         >
-          <template slot="component" slot-scope="{ value }">
+          <template slot="[component]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="namedExport" slot-scope="{ value }">
+          <template slot="[namedExport]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="{ value }">
+          <template slot="[importPath]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -57,13 +57,13 @@
           bordered
           striped
         >
-          <template slot="directive" slot-scope="{ value }">
+          <template slot="[directive]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="namedExport" slot-scope="{ value }">
+          <template slot="[namedExport]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="{ value }">
+          <template slot="[importPath]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -103,10 +103,10 @@
         bordered
         striped
       >
-        <template slot="namedExport" slot-scope="{ value }">
+        <template slot="[namedExport]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="importPath" slot-scope="{ value }">
+        <template slot="[importPath]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
