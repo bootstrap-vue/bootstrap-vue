@@ -27,7 +27,10 @@ const scrollIntoView = (evt, href) => {
 
 // Convert local links to router push or scrollIntoView
 const linkToRouter = evt => {
-  const target = evt && evt.target && evt.target.closest ? evt.target.closest('a[href]') : null
+  if (!evt || evt.type !== 'click') {
+    return
+  }
+  const target = evt.target && evt.target.closest ? evt.target.closest('a[href]') : null
   if (
     !target ||
     evt.type !== 'click' ||
@@ -41,17 +44,15 @@ const linkToRouter = evt => {
     return
   }
   const href = target.getAttribute('href')
-  // if local docs link, convert to router push
-  if (href && href.indexOf('/') === 0 && href.indexOf('//') === -1) {
-    // Internal page to page link
+  if (href && href.indexOf('/') === 0 && href.indexOf('//') !== 0) {
+    // if local page-to-page-docs link, convert click to `$router.push()`
     evt.preventDefault()
     if (typeof window !== 'undefined' && window.$nuxt) {
       // Since we are a functional component, we can't use this.$router
       window.$nuxt.$router.push(href)
     }
   } else if (href && href.indexOf('#') === 0) {
-    // In page anchor link.
-    // Use scrollIntoView utility method to smooth scroll page
+    // In page anchor link, so use scrollIntoView utility method
     scrollIntoView(evt, href)
   }
   // Else, normal browser link handling (i.e. external links)
