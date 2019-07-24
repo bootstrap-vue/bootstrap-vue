@@ -49,22 +49,23 @@ renderer.link = (href, title, text) => {
   let target = ''
   let rel = ''
   let classAttr = ''
-  if (/^https?:\/\//.test(href)) {
+  if (href.indexOf('http') === 0 || href.indexOf('//') === 0) {
+    // External links
     target = ' target="_blank"'
     // We add in rel="noopener" to all external links for security and performance reasons
     // https://developers.google.com/web/tools/lighthouse/audits/noopener
     rel = ' rel="noopener"'
     if (/^https:\/\/getgootstrap\.com\/docs\//.test(href)) {
-      // Update the bootstrap version in URLs with the one specified in `bootstrapDocsVersion`
+      // Update the bootstrap version in URLs with the one specified in
+      // variable `bootstrapDocsVersion` above
       href = href.replace(/\/docs\/\d\.\d\//, `/docs/${bootstrapDocsVersion}/`)
     }
-  }
-  if (href.indexOf('#') === 0) {
-    // In-page links
-    classAttr = ' class="font-italic"'
-  } else if (href.indexOf('/') === 0 && href.indexOf('//') !== 0) {
+  } else if (href.indexOf('/') === 0) {
     // Page to page links
     classAttr = ' class="font-weight-bold"'
+  } else if (href.indexOf('#') === 0) {
+    // In-page links
+    classAttr = ' class="font-italic"'
   }
   title = title ? ` title="${title}"` : ''
   return `<a href="${href}"${classAttr}${title}${target}${rel}>${text}</a>`
