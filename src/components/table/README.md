@@ -359,8 +359,8 @@ const fields = [
 
 ## Primary key
 
-`<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
-that _uniquely_ identifies the row.
+`<b-table>` provides an additional prop `primary-key`, which you can use to identify the _name_ of
+the field key that _uniquely_ identifies the row.
 
 The value specified by the primary column key **must be** either a `string` or `number`, and **must
 be unique** across all rows in the table.
@@ -800,9 +800,20 @@ function.
 
 ### Scoped field slots
 
-Scoped slots give you greater control over how the record data appears. If you want to add an extra
-field which does not exist in the records, just add it to the `fields` array, And then reference the
-field(s) in the scoped slot(s).
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
+
+Scoped field slots give you greater control over how the record data appears. If you want to add an
+extra field which does not exist in the records, just add it to the `fields` array, And then
+reference the field(s) in the scoped slot(s). Scoped field slots use the following naming syntax:
+`'[' + field key + ']'`.
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use the default _fall-back_
+scoped slot `'[]'` to format any cells that do not have an explicit scoped slot provided.
+
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` did not surround the field key with square brackets. Using the old field slot names
+have been deprecated in favour of the new bracketed syntax, and support will be removed in a future
+release. Users are encouraged to switch to the new bracketed syntax.
 
 **Example: Custom data rendering with scoped slots**
 
@@ -811,18 +822,23 @@ field(s) in the scoped slot(s).
   <div>
     <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
-      <template slot="index" slot-scope="data">
+      <template slot="[index]" slot-scope="data">
         {{ data.index + 1 }}
       </template>
 
       <!-- A custom formatted column -->
-      <template slot="name" slot-scope="data">
-        {{ data.value.first }} {{ data.value.last }}
+      <template slot="[name]" slot-scope="data">
+        <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
-      <template slot="nameage" slot-scope="data">
+      <template slot="[nameage]" slot-scope="data">
         {{ data.item.name.first }} is {{ data.item.age }} years old
+      </template>
+
+      <!-- Optional default data cell scoped slot -->
+      <template slot="[]" slot-scope="data">
+        <i>{{ data.value }}</i>
       </template>
     </b-table>
   </div>
@@ -887,7 +903,7 @@ scoped field slot.
 <template>
   <div>
     <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value"></span>
+      <span slot="[html]" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -936,7 +952,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <div>
     <b-table :fields="fields" :items="items">
-      <template slot="name" slot-scope="data">
+      <template slot="[name]" slot-scope="data">
         <!-- `data.value` is the value after formatted by the Formatter -->
         <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
       </template>
@@ -993,67 +1009,77 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
-## Custom empty and emptyfiltered rendering via slots
-
-Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
-also possible to provide custom rendering for tables that have no data to display using named slots.
-
-In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
-either falsy or an array of length 0.
-
-```html
-<div>
-  <b-table :fields="fields" :items="items" show-empty>
-    <template slot="empty" slot-scope="scope">
-      <h4>{{ scope.emptyText }}</h4>
-    </template>
-    <template slot="emptyfiltered" slot-scope="scope">
-      <h4>{{ scope.emptyFilteredText }}</h4>
-    </template>
-  </b-table>
-</div>
-```
-
-The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
-following properties:
-
-| Property            | Type   | Description                                        |
-| ------------------- | ------ | -------------------------------------------------- |
-| `emptyHtml`         | String | The `empty-html` prop                              |
-| `emptyText`         | String | The `empty-text` prop                              |
-| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
-| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
-| `fields`            | Array  | The `fields` prop                                  |
-| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
-
 ## Header and Footer custom rendering via scoped slots
+
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
 
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
-Scoped slots for the header and footer cells uses a special naming convention of `HEAD_<fieldkey>`
-and `FOOT_<fieldkey>` respectively. if a `FOOT_` slot for a field is not provided, but a `HEAD_`
-slot is provided, then the footer will use the `HEAD_` slot content.
+Scoped slots for the header and footer cells uses a special naming convention of `'HEAD[<fieldkey>]'`
+and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is not provided, but a
+`'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot content.
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
+scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or footer cells that do not have an
+explicit scoped slot provided.
+
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` used slot names `'HEAD_<key>'` and `'FOOT_<key>'`. Using the old slot names has been
+deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
+Users are encouraged to switch to the new bracketed syntax.
 
 ```html
-<div>
-  <b-table :fields="fields" :items="items" foot-clone>
-    <!-- A custom formatted data column cell -->
-    <template slot="name" slot-scope="data">
-      {{ data.value.first }} {{ data.value.last }}
-    </template>
+<template>
+  <div>
+    <b-table :fields="fields" :items="items" foot-clone>
+      <!-- A custom formatted data column cell -->
+      <template slot="[name]" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+      </template>
 
-    <!-- A custom formatted header cell for field 'name' -->
-    <template slot="HEAD_name" slot-scope="data">
-      <em>{{ data.label }}</em>
-    </template>
+      <!-- A custom formatted header cell for field 'name' -->
+      <template slot="HEAD[name]" slot-scope="data">
+        <span class="text-info">{{ data.label }}</b>
+      </template>
 
-    <!-- A custom formatted footer cell  for field 'name' -->
-    <template slot="FOOT_name" slot-scope="data">
-      <strong>{{ data.label }}</strong>
-    </template>
-  </b-table>
-</div>
+      <!-- A custom formatted footer cell for field 'name' -->
+      <template slot="FOOT[name]" slot-scope="data">
+        <span class="text-danger">{{ data.label }}</span>
+      </template>
+
+      <!-- Default fall-back custom formatted footer cell -->
+      <template slot="FOOT[]" slot-scope="data">
+        <i>{{ data.label }}</i>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: [
+          // A column that needs custom formatting
+          { key: 'name', label: 'Full Name' },
+          // A regular column
+          'age',
+          // A regular column
+          'sex'
+        ],
+        items: [
+          { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+          { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+          { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+          { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-head-foot-slots.vue -->
 ```
 
 The slots can be optionally scoped (`data` in the above example), and will have the following
@@ -1065,7 +1091,7 @@ properties:
 | `field`  | Object | the field's object (from the `fields` prop)                   |
 | `label`  | String | The fields label value (also available as `data.field.label`) |
 
-When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot, note that
+When placing inputs, buttons, selects or links within a `HEAD[...]` or `FOOT[...]` slot, note that
 `head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
 are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
 scoped slots (even when disabled)
@@ -1130,91 +1156,38 @@ Slot `thead-top` can be optionally scoped, receiving an object with the followin
 | `columns` | Number | The number of columns in the rendered table                                   |
 | `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
-## Row select support
+## Custom empty and emptyfiltered rendering via slots
 
-You can make rows selectable, by using the prop `selectable`.
+Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
+also possible to provide custom rendering for tables that have no data to display using named slots.
 
-Users can easily change the selecting mode by setting the `select-mode` prop.
-
-- `multi`: each click will select/deselect the row (default mode)
-- `single`: only a single row can be selected at one time
-- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
-  and CTRL/CMD click will toggle the selected row.
-
-When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
-event, passing a single argument which is the complete list of selected items. **Treat this argument
-as read-only.**
+In order for these slots to be shown, the `show-empty` attribute must be set and `items` must be
+either falsy or an array of length 0.
 
 ```html
-<template>
-  <div>
-    <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
-    </b-form-group>
-
-    <b-table
-      selectable
-      :select-mode="selectMode"
-      selectedVariant="success"
-      :items="items"
-      :fields="fields"
-      @row-selected="rowSelected"
-      responsive="sm"
-    >
-      <!-- Example scoped slot for illustrative purposes only -->
-      <template slot="selected" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">✔</span>
-      </template>
-    </b-table>
-
-    {{ selected }}
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        modes: ['multi', 'single', 'range'],
-        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
-        items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ],
-        selectMode: 'multi',
-        selected: []
-      }
-    },
-    methods: {
-      rowSelected(items) {
-        this.selected = items
-      }
-    }
-  }
-</script>
-
-<!-- b-table-selectable.vue -->
+<div>
+  <b-table :fields="fields" :items="items" show-empty>
+    <template slot="empty" slot-scope="scope">
+      <h4>{{ scope.emptyText }}</h4>
+    </template>
+    <template slot="emptyfiltered" slot-scope="scope">
+      <h4>{{ scope.emptyFilteredText }}</h4>
+    </template>
+  </b-table>
+</div>
 ```
 
-When table is selectable, it will have class `b-table-selectable`, and one of the following three
-classes (depending on which mode is in use), on the `<table>` element:
+The slot can optionally be scoped. The slot's scope (`scope` in the above example) will have the
+following properties:
 
-- `b-table-select-single`
-- `b-table-select-multi`
-- `b-table-select-range`
-
-When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
-element.
-
-**Notes:**
-
-- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
-  with an empty array if needed._
-- _Selected rows will have a class of `b-row-selected` added to them._
-- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for accessibility reasons._
+| Property            | Type   | Description                                        |
+| ------------------- | ------ | -------------------------------------------------- |
+| `emptyHtml`         | String | The `empty-html` prop                              |
+| `emptyText`         | String | The `empty-text` prop                              |
+| `emptyFilteredHtml` | String | The `empty-filtered-html` prop                     |
+| `emptyFilteredText` | String | The `empty-filtered-text` prop                     |
+| `fields`            | Array  | The `fields` prop                                  |
+| `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
 ## Row details support
 
@@ -1252,7 +1225,7 @@ initially showing.
 <template>
   <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template slot="show_details" slot-scope="row">
+      <template slot="[show_details]" slot-scope="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
         </b-button>
@@ -1306,6 +1279,92 @@ initially showing.
 
 <!-- b-table-details.vue -->
 ```
+
+## Row select support
+
+You can make rows selectable, by using the prop `selectable`.
+
+Users can easily change the selecting mode by setting the `select-mode` prop.
+
+- `multi`: each click will select/deselect the row (default mode)
+- `single`: only a single row can be selected at one time
+- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
+  and CTRL/CMD click will toggle the selected row.
+
+When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
+event, passing a single argument which is the complete list of selected items. **Treat this argument
+as read-only.**
+
+```html
+<template>
+  <div>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
+    </b-form-group>
+
+    <b-table
+      selectable
+      :select-mode="selectMode"
+      selectedVariant="success"
+      :items="items"
+      :fields="fields"
+      @row-selected="rowSelected"
+      responsive="sm"
+    >
+      <!-- Example scoped slot for illustrative purposes only -->
+      <template slot="[selected]" slot-scope="{ rowSelected }">
+        <span v-if="rowSelected">✔</span>
+      </template>
+    </b-table>
+
+    {{ selected }}
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        modes: ['multi', 'single', 'range'],
+        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ],
+        selectMode: 'multi',
+        selected: []
+      }
+    },
+    methods: {
+      rowSelected(items) {
+        this.selected = items
+      }
+    }
+  }
+</script>
+
+<!-- b-table-selectable.vue -->
+```
+
+When table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
+
+**Notes:**
+
+- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
+  with an empty array if needed._
+- _Selected rows will have a class of `b-row-selected` added to them._
+- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for accessibility reasons._
 
 ## Sorting
 
@@ -2071,15 +2130,15 @@ differences between operating systems, this too is not a preventable default beh
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template slot="name" slot-scope="row">
+      <template slot="[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
-      <template slot="isActive" slot-scope="row">
+      <template slot="[isActive]" slot-scope="row">
         {{ row.value ? 'Yes :)' : 'No :(' }}
       </template>
 
-      <template slot="actions" slot-scope="row">
+      <template slot="[actions]" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>

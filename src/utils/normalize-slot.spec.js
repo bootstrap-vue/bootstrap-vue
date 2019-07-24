@@ -47,5 +47,17 @@ describe('utils/normalizeSlot', () => {
     // Returns undefined if slot name not found
     result = normalizeSlot('baz', {}, $scoped, $slots)
     expect(result).not.toBeDefined()
+
+    // Works with array (named slot)
+    result = normalizeSlot(['none', 'default'], { a: ' foo' }, undefined, $slots)
+    expect(result).toBe('bar')
+
+    // Works with arrays (scoped slot)
+    result = normalizeSlot(['none', 'default'], { a: ' bar' }, $scoped, {})
+    expect(result).toBe('foo bar')
+
+    // Returns undefined if slot name not found with array
+    result = normalizeSlot(['baz', 'bar'], {}, $scoped, $slots)
+    expect(result).not.toBeDefined()
   })
 })
