@@ -52,6 +52,13 @@ const linkToRouter = evt => {
       window.$nuxt.$router.push(href)
     }
   } else if (href && href.indexOf('#') === 0) {
+    // Even though we are on teh same page, we do a router push so that
+    // a history state is saved. Router pushes to in page links
+    // does not cause a scroll though, so we use scrollIntoView as well
+    if (typeof window !== 'undefined' && window.$nuxt) {
+      // Since we are a functional component, we can't use this.$router
+      window.$nuxt.$router.push(href)
+    }
     // In page anchor link, so use scrollIntoView utility method
     scrollIntoView(evt, href)
   }
