@@ -65,12 +65,7 @@ const scrollIntoView = (evt, href) => {
 // Convert local links to router push or scrollIntoView
 const linkToRouter = evt => {
   const target = closest('a[href]', evt.target)
-  if (
-    !target ||
-    closest('.bd-example', target) ||
-    closest('pre', target) ||
-    evt.defaultPrevented
-  ) {
+  if (!target || closest('.bd-example', target) || closest('pre', target) || evt.defaultPrevented) {
     // early exit if click inside example, not a link, or default prevented
     return
   }
