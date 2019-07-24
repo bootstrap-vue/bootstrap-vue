@@ -37,7 +37,7 @@ various components and export your results to JSFiddle, CodePen, and/or CodeSand
 
 ## Important HTML globals
 
-Bootstrap v{{bootstrapVersionMinor}} CSS employs a handful of important global styles and settings
+Bootstrap v{{bootstrapVersionMajor}} CSS employs a handful of important global styles and settings
 that you'll need to be aware of when using it, all of which are almost exclusively geared towards the
 normalization of cross browser styles. Refer to the following sub-sections for details.
 
@@ -85,7 +85,7 @@ Learn more about [box model and sizing at CSS Tricks](https://css-tricks.com/box
 
 ### Style reboot
 
-For improved cross-browser rendering, Bootstrap v4.3 uses
+For improved cross-browser rendering, Bootstrap v{{ bootstrapVersionMinor }} uses
 [Reboot](https://getbootstrap.com/docs/4.3/content/reboot/) to correct inconsistencies across
 browsers and devices while providing slightly more opinionated resets to common
 <abbr title="Hyper Text markup Language">HTML</abbr> elements.
