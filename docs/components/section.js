@@ -3,8 +3,45 @@ import { offsetTop, scrollTo } from '~/utils'
 
 // -- Utility handlers --
 
-// Scroll an inpage link target into view
-//
+const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
+
+const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE)
+
+const matchesEl = elProto.matches || elProto.msMatchesSelector || elProto.webkitMatchesSelector
+
+const matches = (el, selector) => {
+  if (!isElement(el)) {
+    return false
+  }
+  return matchesEl.call(el, selector)
+}
+
+const closestEl =
+  elProto.closest ||
+  function(sel) {
+    let el = this
+    do {
+      // Use our "patched" matches function
+      if (matches(el, sel)) {
+        return el
+      }
+      el = el.parentElement || el.parentNode
+    } while (el !== null && el.nodeType === Node.ELEMENT_NODE)
+    return null
+  }
+
+const closest = (selector, root) => {
+  if (!isElement(root)) {
+    return null
+  }
+  const el = closestEl.call(root, selector)
+  // Emulate jQuery closest and return `null` if match is the passed in element (root)
+  // return el === root ? null : el
+  // In this case
+  return el || null
+}
+
+// Scroll an in-page link target into view
 const scrollIntoView = (evt, href) => {
   evt.preventDefault()
   evt.stopPropagation()
@@ -27,18 +64,19 @@ const scrollIntoView = (evt, href) => {
 
 // Convert local links to router push or scrollIntoView
 const linkToRouter = evt => {
-  let target = evt.target
-  if (closest('.bd-example', target) || closest('pre', target) || evt.defaultPrevented) {
-    // if click inside example or default prevented, early exit
-    return
-  }
-  target = target.tagName === 'A' ? target : closest('a[href]', target)
-  if (!target) {
+  const target = closest('a[href]', evt.target)
+  if (
+    !target ||
+    closest('.bd-example', target) ||
+    closest('pre', target) ||
+    evt.defaultPrevented
+  ) {
+    // early exit if click inside example, not a link, or default prevented
     return
   }
   const href = target.getAttribute('href')
   // if local docs link, convert to router push
-  if (href && href.indexOf('\/') === 0 && href.indexOf('\/\/') === -1) {
+  if (href && href.indexOf('/') === 0 && href.indexOf('//') === -1) {
     // Internal page link
     evt.preventDefault()
     if (typeof window !== 'undefined' && window.$nuxt) {
