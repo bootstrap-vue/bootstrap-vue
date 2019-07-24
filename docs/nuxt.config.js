@@ -50,14 +50,16 @@ renderer.link = (href, title, text) => {
   let rel = ''
   if (/^https?:\/\//.test(href)) {
     target = ' target="_blank"'
-    rel = ' rel="external"'
+    // We add in rel="noopener" to all external links for security and performance reasons
+    // https://developers.google.com/web/tools/lighthouse/audits/noopener
+    rel = ' rel="noopener"'
     if (/^https:\/\/getgootstrap\.com\/docs\//.test(href)) {
       // Update the bootstrap version in URLs with the one specified in `bootstrapDocsVersion`
       href = href.replace(/\/docs\/\d\.\d\//, `/docs/${bootstrapDocsVersion}/`)
     }
   }
   title = title ? ` title="${title}"` : ''
-  return `<a href="${href}"${title}${rel}${target}>${text}</a>`
+  return `<a href="${href}"${title}${target}${rel}>${text}</a>`
 }
 
 // Custom heading implementation for markdown renderer
