@@ -199,7 +199,7 @@
         "slots": [
           {
             "name": "[key]",
-            "description": "Scoped slot for custom data rendering of field data. 'key' is hte fields key name. See docs for scoped data"
+            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
             "name": "[]",
@@ -207,7 +207,7 @@
           },
           {
             "name": "HEAD[key]",
-            "description": "Scoped slot for custom rendering of field header. 'key' is hte fields key name. See docs for scoped header"
+            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
             "name": "HEAD[]",
@@ -215,7 +215,7 @@
           },
           {
             "name": "FOOT[key]",
-            "description": "Scoped slot for custom rendering of field footer. 'key' is hte fields key name. See docs for scoped footer"
+            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
             "name": "FOOT[]",
@@ -408,7 +408,7 @@
         "slots": [
           {
             "name": "[key]",
-            "description": "Scoped slot for custom data rendering of field data. 'key' is hte fields key name. See docs for scoped data"
+            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
             "name": "[]",
@@ -416,7 +416,7 @@
           },
           {
             "name": "HEAD[key]",
-            "description": "Scoped slot for custom rendering of field header. 'key' is hte fields key name. See docs for scoped header"
+            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
             "name": "HEAD[]",
@@ -424,7 +424,7 @@
           },
           {
             "name": "FOOT[key]",
-            "description": "Scoped slot for custom rendering of field footer. 'key' is hte fields key name. See docs for scoped footer"
+            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
             "name": "FOOT[]",
