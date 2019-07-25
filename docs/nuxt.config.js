@@ -14,10 +14,6 @@ hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // inc
 hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
 hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
 
-// Constants which should be grabbed from package.json
-// Bootstrap minor version (for links)
-const bootstrapDocsVersion = '4.3'
-
 // Create a new marked renderer
 const renderer = new marked.Renderer()
 
@@ -49,17 +45,17 @@ renderer.link = (href, title, text) => {
   let target = ''
   let rel = ''
   let classAttr = ''
+  href = href || '#'
+  title = title ? ` title="${title}"` : ''
+  text = text || ''
   if (href.indexOf('http') === 0 || href.indexOf('//') === 0) {
     // External links
+    // Open in a new window (will reduce bounce rates in analytics)
     target = ' target="_blank"'
     // We add in rel="noopener" to all external links for security and performance reasons
     // https://developers.google.com/web/tools/lighthouse/audits/noopener
     rel = ' rel="noopener"'
-    if (/^https:\/\/getgootstrap\.com\/docs\//.test(href)) {
-      // Update the bootstrap version in URLs with the one specified in
-      // variable `bootstrapDocsVersion` above
-      href = href.replace(/\/docs\/\d\.\d\//, `/docs/${bootstrapDocsVersion}/`)
-    }
+    // External links use the default link style
   } else if (href.indexOf('/') === 0) {
     // Page to page links
     classAttr = ' class="font-weight-bold"'
@@ -67,7 +63,6 @@ renderer.link = (href, title, text) => {
     // In-page links
     classAttr = ' class="font-italic"'
   }
-  title = title ? ` title="${title}"` : ''
   return `<a href="${href}"${classAttr}${title}${target}${rel}>${text}</a>`
 }
 
