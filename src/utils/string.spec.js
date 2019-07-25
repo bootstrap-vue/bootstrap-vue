@@ -35,6 +35,8 @@ describe('utils/string', () => {
   it('toString works', async () => {
     expect(toString(null)).toBe('')
     expect(toString(undefined)).toBe('')
+    expect(toString(true)).toBe('true')
+    expect(toString(false)).toBe('false')
     expect(toString({ a: 1, b: 2, c: { d: 'foo' } })).toBe(`{
   "a": 1,
   "b": 2,
