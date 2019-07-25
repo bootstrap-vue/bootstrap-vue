@@ -58,12 +58,12 @@ data). Field names are automatically "humanized" by converting `kebab-case`, `sn
 - `isActive` becomes `Is Active`
 
 These titles will be displayed in the table header, in the order they appear in the **first** record
-of data. See the [**Fields**](#fields-column-definitions-) section below for customizing how field
+of data. See the [Fields](#fields-column-definitions) section below for customizing how field
 headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
 in the first row, but this may not always be the case depending on the version of browser in use.
-See section [**Fields (column definitions)**](#fields-column-definitions-) below to see how to
+See section [Fields (column definitions)](#fields-column-definitions) below to see how to
 guarantee the order of fields, and to override the headings generated.
 
 Record data may also have additional special reserved name keys for colorizing rows and individual
@@ -121,7 +121,7 @@ Provider functions can also be asynchronous:
   array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
-See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for
+See the ["Using Items Provider functions"](#using-items-provider-functions) section below for
 more details.
 
 ### Table item notes and warnings
@@ -139,7 +139,7 @@ more details.
 The `fields` prop is used to customize the table columns headings, and in which order the columns of
 data are displayed. The field object keys (i.e. `age` or `first_name` as shown below) are used to
 extract the value from each item (record) row, and to provide additional features such as enabling
-[**sorting**](#sorting) on the column, etc.
+[sorting](#sorting) on the column, etc.
 
 Fields can be provided as a _simple array_, an _array of objects_, or an _object_. **Internally the
 fields data will be normalized into the _array of objects_ format**. Events or slots that include
@@ -321,9 +321,9 @@ The following field properties are recognized:
 | `headerTitle`   | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
 | `headerAbbr`    | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
 | `class`         | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.                                                                 |
-| `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [**Change initial sort direction**](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
+| `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                 |
+| `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                         |
+| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
 | `tdClass`       | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
 | `thClass`       | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
 | `thStyle`       | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
@@ -342,7 +342,7 @@ The following field properties are recognized:
   via the named scoped slots for custom data, header, and footer rendering._
 
 For information and usage about scoped slots and formatters, refer to the
-[**Custom Data Rendering**](#custom-data-rendering) section below.
+[Custom Data Rendering](#custom-data-rendering) section below.
 
 Feel free to mix and match simple array and object array together:
 
@@ -409,12 +409,12 @@ place a unique `:key` on your element/components in your custom formatted field 
 | `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
 | `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                           |
 | `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
-| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
-| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [**Sorting**](#sorting) section below for more details.                                                                                                                                              |
-| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [**Responsive tables**](#responsive-tables) below for details. |
-| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [**Stacked tables**](#stacked-tables) below for details.                                                 |
+| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
+| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
 | `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                             |
 | `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                          |
+| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
+| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
 
 **Example: Basic table styles**
 
@@ -634,8 +634,8 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - Custom rendered header slots will not be shown, rather, the fields' `label` will be used.
 - The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an
   external control to select the field to sort by and the sort direction. See the
-  [**Sorting**](#sorting) section below for sorting control information, as well as the
-  [**complete example**](#complete-example) at the bottom of this page for an example of controlling
+  [Sorting](#sorting) section below for sorting control information, as well as the
+  [complete example](#complete-example) at the bottom of this page for an example of controlling
   sorting via the use of form controls.
 - The slots `top-row` and `bottom-row` will be hidden when visually stacked.
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
@@ -783,7 +783,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 <!-- b-table-busy-slot.vue -->
 ```
 
-Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
+Also see the [Using Items Provider Functions](#using-items-provider-functions) below for
 additional information on the `busy` state.
 
 **Notes:**
@@ -882,9 +882,9 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                         |
 | `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for information on field `formatter` callback functions) |
 | `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                      |
-| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information                                          |
-| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information                              |
-| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [**Row select support**](#row-select-support) for additional information                                                                       |
+| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                                              |
+| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information                                  |
+| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                                                           |
 
 **Notes:**
 
@@ -1370,7 +1370,7 @@ element.
 
 <span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
 
-As mentioned in the [**Fields**](#fields-column-definitions-) section above, you can make columns
+As mentioned in the [Fields](#fields-column-definitions) section above, you can make columns
 sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
 first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
 column will clear the sorting. The prop `no-sort-reset` can be used to disable this feature.
@@ -1462,7 +1462,7 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
   [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
   prevent [SSR hydration mismatch](https://ssr.vuejs.org/guide/hydration.html) errors.
 
-Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on sorting
+Refer to the [Sort-compare routine](#sort-compare-routine) section below for details on sorting
 by presentational data.
 
 ```html
@@ -1771,7 +1771,7 @@ table#table-transition-example .flip-list-move {
 
 ## Using items provider functions
 
-As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a
+As mentioned under the [Items](#items-record-data) prop section, it is possible to use a
 function to provide the row data (items), by specifying a function reference via the `items` prop.
 
 The provider function is called with the following signature:
@@ -1995,7 +1995,7 @@ export default {
 ```
 
 You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
-`:sort-desc.sync` two-way props respectively (see section [**Sorting**](#sorting) above for
+`:sort-desc.sync` two-way props respectively (see section [Sorting](#sorting) above for
 details).
 
 ```html
