@@ -56,12 +56,9 @@ renderer.link = (href, title, text) => {
     // https://developers.google.com/web/tools/lighthouse/audits/noopener
     rel = ' rel="noopener"'
     // External links use the default link style
-  } else if (href.indexOf('/') === 0) {
-    // Page to page links
+  } else if (href.indexOf('/') === 0 || href.indexOf('#') === 0) {
+    // Internal docs links
     classAttr = ' class="font-weight-bold"'
-  } else if (href.indexOf('#') === 0) {
-    // In-page links
-    classAttr = ' class="font-italic"'
   }
   return `<a href="${href}"${classAttr}${title}${target}${rel}>${text}</a>`
 }
