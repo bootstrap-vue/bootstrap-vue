@@ -333,13 +333,13 @@ The following field properties are recognized:
 
 **Notes:**
 
-- _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
-- _`class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS_
-- _For information on the syntax supported by `thStyle`, see
+- Field properties, if not present, default to `null` (falsey) unless otherwise stated above.
+- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS.
+- For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
-  in the Vue.js guide._
-- _Any additional properties added to the field objects will be left intact - so you can access them
-  via the named scoped slots for custom data, header, and footer rendering._
+  in the Vue.js guide.
+- Any additional properties added to the field objects will be left intact - so you can access them
+  via the named scoped slots for custom data, header, and footer rendering.
 
 For information and usage about scoped slots and formatters, refer to the
 [Custom Data Rendering](#custom-data-rendering) section below.
@@ -1360,11 +1360,11 @@ element.
 
 **Notes:**
 
-- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
-  with an empty array if needed._
-- _Selected rows will have a class of `b-row-selected` added to them._
-- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for accessibility reasons._
+- Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
+  with an empty array if needed.
+- Selected rows will have a class of `b-row-selected` added to them.
+- When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for accessibility reasons.
 
 ## Sorting
 
