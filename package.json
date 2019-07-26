@@ -103,7 +103,7 @@
     "eslint-config-standard": "^13.0.1",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.13.7",
+    "eslint-plugin-jest": "^22.14.0",
     "eslint-plugin-markdown": "^1.0.0",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-prettier": "^3.1.0",
