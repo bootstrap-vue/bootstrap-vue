@@ -137,8 +137,7 @@ export default deepFreeze({
     variant: null,
     toastClass: null,
     headerClass: null,
-    bodyClass: null,
-    solid: false
+    bodyClass: null
   },
   BToaster: {
     ariaLive: null,
