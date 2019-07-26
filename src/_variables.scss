@@ -49,7 +49,7 @@ $b-tooltip-bg-level: 0 !default;
 // Deprecated
 //   $bv-tooltip-bg-level: 0 !default;
 @if (variable-defined($bv-tooltip-bg-level)) {
-  @warn("Variable '$bv-tooltip-bg-level' has been deprecated. Use '$b-tooltip-bg-level' instead.";
+  @warn("Variable '$bv-tooltip-bg-level' has been deprecated. Use '$b-tooltip-bg-level' instead.");
   $b-tooltip-bg-level: $bv-tooltip-bg-level;
 }
 
@@ -67,14 +67,14 @@ $b-popover-color-level: $alert-color-level !default;
 //   $bv-popover-border-level: $alert-border-level !default;
 //   $bv-popover-color-level: $alert-color-level !default;
 @if (variable-defined($bv-popover-bg-level)) {
-  @warn("Variable '$bv-popover-bg-level' has been deprecated. Use '$b-popover-bg-level' instead.";
+  @warn("Variable '$bv-popover-bg-level' has been deprecated. Use '$b-popover-bg-level' instead.");
   $b-popover-bg-level: $bv-popover-bg-level;
 }
 @if (variable-defined($bv-popover-border-level)) {
-  @warn("Variable '$bv-popover-border-level' has been deprecated. Use '$b-popover-border-level' instead.";
+  @warn("Variable '$bv-popover-border-level' has been deprecated. Use '$b-popover-border-level' instead.");
   $b-popover-border-level: $bv-popover-border-level;
 }
 @if (variable-defined($bv-popover-color-level)) {
-  @warn("Variable '$bv-popover-color-level' has been deprecated. Use '$b-popover-color-level' instead.";
+  @warn("Variable '$bv-popover-color-level' has been deprecated. Use '$b-popover-color-level' instead.");
   $b-popover-color-level: $bv-popover-color-level;
 }
