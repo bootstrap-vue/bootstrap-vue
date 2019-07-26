@@ -8,6 +8,31 @@
       aria-label="BootstrapVue"
     >
       <svg
+       viewBox="0 0 1100 1100"
+       xmlns="http://www.w3.org/2000/svg"
+       width="32"
+       height="32"
+       version="1.1"
+       shape-rendering="geometricPrecision"
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       focusable="false"
+       role="img"
+       class="d-block"
+      >
+        <path
+          fill="currentColor"
+          d="M106 0h888c58 0 106 48 106 106v888c0 58-48 106-106 106H106c-58 0-106-48-106-106V106C0 48 48 0 106 0z"
+        />
+        <path
+          fill="#7952B3"
+          fill-rule="nonzero"
+          d="M360 823c117 0 188-59 188-155 0-72-52-126-127-133v-3c57-9 100-60 100-119 0-83-64-136-163-136H131v546h229zM229 353h104c59 0 92 27 92 74 0 51-39 80-107 80h-89V353zm0 394V576h105c75 0 114 29 114 85s-38 86-110 86H229z"
+        />
+        <path fill="#42B883" fill-rule="nonzero" d="M816 823l190-546H901L762 718h-2L621 277H514l190 546z"/>
+      </svg>
+      <!--
+      <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 953 953"
         width="32"
@@ -26,6 +51,7 @@
           d="M92 0h769c50 0 92 42 92 92v769c0 50-42 92-92 92H92c-50 0-92-42-92-92V92C0 42 42 0 92 0zm216 710c100 0 160-50 160-133 0-62-44-107-108-113v-3c48-8 86-52 86-102 0-71-55-117-140-117H111v468h197zM195 307h90c50 0 78 23 78 64 0 44-33 68-91 68h-77V307zm0 338V499h90c64 0 98 25 98 73s-33 73-94 73h-94zm503 65l163-468h-90L652 621h-2L531 242h-92l163 468h96z"
         />
       </svg>
+      -->
     </b-navbar-brand>
 
     <div class="navbar-nav-scroll">
