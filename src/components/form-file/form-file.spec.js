@@ -135,6 +135,20 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
+  it('default has custom attributes transferred input element', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo',
+        foo: 'bar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('foo')).toBeDefined()
+    expect(input.attributes('foo')).toEqual('bar')
+
+    wrapper.destroy()
+  })
+
   it('default has class focus when input focused', async () => {
     const wrapper = mount(BFormFile, {
       propsData: {
