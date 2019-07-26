@@ -14,6 +14,7 @@ const NAME = 'BFormFile'
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'input'
@@ -261,6 +262,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.stateClass
       ],
       attrs: {
+        ...this.$attrs,
         type: 'file',
         id: this.safeId(),
         name: this.name,
