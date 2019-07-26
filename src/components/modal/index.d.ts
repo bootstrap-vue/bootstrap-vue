@@ -69,17 +69,17 @@ export interface BvModalMsgBoxResolver {
 }
 
 export interface BvModalMsgBoxShortcutMethod {
-  (message: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
+  (message: string | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
   // Future
   // (options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
-  // (message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
+  // (message: string | Array<VNode>, title: string | Array<VNode>, options?: BvMsgBoxOptions): Promise<BvMsgBoxData>
 }
 
-// Not yet documented
+// Not yet documented or implemented (Future)
 // export interface BvModalMsgBoxMethod {
 //   (options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
-//   (message: string | VNode | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
-//   (message: string | VNode | Array<VNode>, title: string | VNode | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
+//   (message: string | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
+//   (message: string | Array<VNode>, title: string | Array<VNode>, options: BvMsgBoxOptions, resolver: BvModalMsgBoxResolver): Promise<BvMsgBoxData>
 // }
 
 export interface BvModal {
@@ -88,9 +88,6 @@ export interface BvModal {
 
   // Show Confirm MsgBox
   msgBoxConfirm: BvModalMsgBoxShortcutMethod
-
-  // Show general MsgBox (not yet documented)
-  // msgBox: BvModalMsgBoxMethod
 
   // Show a modal by id
   show: (id: string) => void
