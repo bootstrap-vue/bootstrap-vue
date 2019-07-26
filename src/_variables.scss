@@ -1,37 +1,66 @@
 // BootstrapVue custom SCSS variables
+//
+// Users can override thes variables in their custom SCSS
+//
 
 // --- Tables ---
+
+// Table busy state
 $b-table-busy-opacity: 0.55 !default;
+
+// Table sorting
 $b-table-sort-icon-null: "\2195" !default; // Up-Down arrow
 $b-table-sort-icon-ascending: "\2193" !default; // Down arrow
 $b-table-sort-icon-descending: "\2191" !default; // Up arrow
 $b-table-sort-icon-margin-left: 0.5em !default;
 $b-table-sort-icon-width: 0.5em !default;
+
+// Table stacked defaults
 $b-table-stacked-heading-width: 40% !default;
 $b-table-stacked-gap: 1rem !default;
 
 // --- Toasts ---
+
+// Toaster defaults
 $b-toaster-zindex: 1100 !default;
 $b-toaster-offset-top: 0.5rem !default;
 $b-toaster-offset-bottom: $b-toaster-offset-top !default;
 $b-toaster-offset-left: $b-toaster-offset-top !default;
 $b-toaster-offset-right: $b-toaster-offset-top !default;
 
-// --- Toast variant levels wrt theme color value ---
+// Default toast opacity
+// Value from 0 to 1, or 0% to 100%
+// Bootstrap default is 0.85 (extracted from the `$toast-background-color` value)
+// Bootstrap does not have this as a variable, so we add it in.
+$b-toast-opacity: alpha($toast-background-color) !default;
+
+// Toast variant levels wrt theme color value
 $b-toast-bg-level: $alert-bg-level !default;
 $b-toast-border-level: $alert-border-level !default;
 $b-toast-color-level: $alert-color-level !default;
 
-// --- Enable tooltip variants ---
+// --- Tooltips ---
+
+// Flag to enable tooltip variant CSS generation
 $bv-enable-tooltip-variants: true !default;
 
-// --- Tooltip background variant level wrt theme color value ---
+// Tooltip background variant level wrt theme color value
+// Deprecated
 $bv-tooltip-bg-level: 0 !default;
+// Replaced by
+$b-tooltip-bg-level: $bv-tooltip-bg-level !default;
 
-// --- Enable popover variants ---
+// --- Popovers ---
+
+// Flag to enable popover variant CSS genearation
 $bv-enable-popover-variants: true !default;
 
-// --- Popover variant levels wrt theme color value ---
+// Popover variant levels wrt theme color value
+// Deprecated
 $bv-popover-bg-level: $alert-bg-level !default;
 $bv-popover-border-level: $alert-border-level !default;
 $bv-popover-color-level: $alert-color-level !default;
+// Replaced by
+$b-popover-bg-level: $bv-popover-bg-level !default;
+$b-popover-border-level: $bv-popover-border-level !default;
+$b-popover-color-level: $bv-popover-color-level !default;
