@@ -94,7 +94,7 @@ const plugin = Vue => {
 
   // Method to generate the on-demand modal message box
   // Returns a promise that resolves to a value returned by the resolve
-  const asyncMsgBox = (props, $parent, resolver = defaultResolver) => {
+  const asyncMsgBox = ($parent, props, resolver = defaultResolver) => {
     if (warnNotClient(PROP_NAME) || warnNoPromiseSupport(PROP_NAME)) {
       /* istanbul ignore next */
       return
@@ -155,6 +155,21 @@ const plugin = Vue => {
     })
   }
 
+  // Private utility method to open a user defined message box and returns a promise.
+  // Not to be used directly by consumers, as this method may change calling syntax
+  const makeMsgBox = ($parent, content, options = {}, resolver) => {
+    if (
+      !content ||
+      warnNoPromiseSupport(PROP_NAME) ||
+      warnNotClient(PROP_NAME) ||
+      !isFunction(resolver)
+    ) {
+      /* istanbul ignore next */
+      return
+    }
+    return asyncMsgBox($parent, { ...filterOptions(options), msgBoxContent: content }, resolver)
+  }
+
   // BvModal instance class
   class BvModal {
     constructor(vm) {
@@ -187,21 +202,6 @@ const plugin = Vue => {
     // IE 11 and others do not support Promise natively, so users
     // should have a Polyfill loaded (which they need anyways for IE 11 support)
 
-    // Opens a user defined message box and returns a promise
-    // Not yet documented
-    msgBox(content, options = {}, resolver) {
-      if (
-        !content ||
-        warnNoPromiseSupport(PROP_NAME) ||
-        warnNotClient(PROP_NAME) ||
-        !isFunction(resolver)
-      ) {
-        /* istanbul ignore next */
-        return
-      }
-      return asyncMsgBox({ ...filterOptions(options), msgBoxContent: content }, this._vm, resolver)
-    }
-
     // Open a message box with OK button only and returns a promise
     msgBoxOk(message, options = {}) {
       // Pick the modal props we support from options
@@ -213,7 +213,7 @@ const plugin = Vue => {
         hideFooter: false,
         msgBoxContent: message
       }
-      return this.msgBox(message, props, bvModalEvt => {
+      return makeMsgBox(this._vm, message, props, bvModalEvt => {
         // Always resolve to true for OK
         return true
       })
@@ -231,7 +231,7 @@ const plugin = Vue => {
         cancelDisabled: false,
         hideFooter: false
       }
-      return this.msgBox(message, props, bvModalEvt => {
+      return makeMsgBox(this._vm, message, props, bvModalEvt => {
         const trigger = bvModalEvt.trigger
         return trigger === 'ok' ? true : trigger === 'cancel' ? false : null
       })
