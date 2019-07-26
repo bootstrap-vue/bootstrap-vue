@@ -1,7 +1,16 @@
 import { deepFreeze } from './object'
 
 // General BootstrapVue configuration
+
+// NOTES:
 //
+// The global config SHALL NOT be used to set defaults for Boolean props
+// as the props would loose their semanitc meaning, and force people writing
+// 3rd party component to explicity set a true or false value using the v-bind syntax.
+//
+// Supported config values: String, Array, Object, null or undefined, depending on the
+// prop's supported type(s).
+
 // BREAKPOINT DEFINITIONS
 //
 // Some components (BCol and BFormGroup) generate props based on breakpoints, and this
@@ -137,8 +146,7 @@ export default deepFreeze({
     variant: null,
     toastClass: null,
     headerClass: null,
-    bodyClass: null,
-    solid: false
+    bodyClass: null
   },
   BToaster: {
     ariaLive: null,
