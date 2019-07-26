@@ -10,8 +10,8 @@
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1100 1100"
-        width="36"
-        height="36"
+        width="32"
+        height="32"
         version="1.1"
         shape-rendering="geometricPrecision"
         fill-rule="evenodd"
