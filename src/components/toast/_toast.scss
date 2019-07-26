@@ -1,5 +1,9 @@
 // --- <b-toast> custom SCSS ---
 
+// Value from 0 to 1, or 0% to 100%
+// Bootstrap default is 0.85 (extracted from the `$toast-background-color` value)
+$bv-toast-opacity: alpha($toast-background-color) !default;
+
 // Toast wrapper element class (needed for list transition in toasters)
 .b-toast {
   display: block;
@@ -7,8 +11,15 @@
   max-width: $toast-max-width;
   backface-visibility: hidden;
   background-clip: padding-box;
+  
   z-index: 1;
   @include border-radius($toast-border-radius);
+
+  .toast {
+    // Allow us to override Bootstrap's default toast opacity
+    // As they do not provide it as a variable
+    background-color: rgba($toast-background-color, $bv-toast-opacity);
+  }
 
   &:not(:last-child) {
     margin-bottom: $toast-padding-x;
@@ -38,14 +49,14 @@
 @mixin b-toast-variant($background, $border, $color) {
   // Based on alert-variant mixin
   .toast {
-    background-color: rgba(lighten($background, 5%), 0.85);
+    background-color: rgba(lighten($background, 5%), $bv-toast-opacity);
     border-color: rgba($border, 0.85);
     color: $color;
 
     .toast-header {
       color: $color;
-      background-color: rgba($background, 0.85);
-      border-bottom-color: rgba($border, 0.85);
+      background-color: rgba($background, $bv-toast-opacity);
+      border-bottom-color: rgba($border, $bv-toast-opacity);
     }
 
     // .toast-body[href] {
