@@ -279,6 +279,20 @@ describe('form-checkbox', () => {
     wrapper.destroy()
   })
 
+  it('has custom attributes transferred to input element', async () => {
+    const wrapper = mount(BFormCheckbox, {
+      propsData: {
+        id: 'foo',
+        foo: 'bar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('foo')).toBeDefined()
+    expect(input.attributes('foo')).toEqual('bar')
+
+    wrapper.destroy()
+  })
+
   it('default has class custom-control-inline when prop inline=true', async () => {
     const wrapper = mount(BFormCheckbox, {
       propsData: {

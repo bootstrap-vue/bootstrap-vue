@@ -34,9 +34,34 @@ renderer.code = (code, language) => {
   return `<pre class="hljs ${language} text-monospace p-2 notranslate" translate="no">${highlighted}</pre>`
 }
 
-// Instruct google translate not to translate `<code>` content
+// Instruct google translate not to translate `<code>` content, and
+// don't let browsers wrap the contents across lines
 renderer.codespan = text => {
-  return `<code translate="no" class="notranslate">${text}</code>`
+  return `<code translate="no" class="notranslate text-nowrap">${text}</code>`
+}
+
+// Custom link renderer, to update bootstrap docs version in href
+// Only applies to markdown links (not explicit `<a href="..">...</a>` tags
+renderer.link = (href, title, text) => {
+  let target = ''
+  let rel = ''
+  let classAttr = ''
+  href = href || '#'
+  title = title ? ` title="${title}"` : ''
+  text = text || ''
+  if (href.indexOf('http') === 0 || href.indexOf('//') === 0) {
+    // External links
+    // Open in a new window (will reduce bounce rates in analytics)
+    target = ' target="_blank"'
+    // We add in rel="noopener" to all external links for security and performance reasons
+    // https://developers.google.com/web/tools/lighthouse/audits/noopener
+    rel = ' rel="noopener"'
+    // External links use the default link style
+  } else if (href.indexOf('/') === 0 || href.indexOf('#') === 0) {
+    // Internal docs links
+    classAttr = ' class="font-weight-bold"'
+  }
+  return `<a href="${href}"${classAttr}${title}${target}${rel}>${text}</a>`
 }
 
 // Custom heading implementation for markdown renderer
