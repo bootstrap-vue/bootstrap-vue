@@ -157,7 +157,7 @@ const plugin = Vue => {
 
   // Private utility method to open a user defined message box and returns a promise.
   // Not to be used directly by consumers, as this method may change calling syntax
-  const createMsgBox = ($parent, content, options = {}, resolver) => {
+  const makeMsgBox = ($parent, content, options = {}, resolver) => {
     if (
       !content ||
       warnNoPromiseSupport(PROP_NAME) ||
@@ -213,7 +213,7 @@ const plugin = Vue => {
         hideFooter: false,
         msgBoxContent: message
       }
-      return createMsgBox(this._vm, message, props, bvModalEvt => {
+      return makeMsgBox(this._vm, message, props, bvModalEvt => {
         // Always resolve to true for OK
         return true
       })
@@ -231,7 +231,7 @@ const plugin = Vue => {
         cancelDisabled: false,
         hideFooter: false
       }
-      return createMsgBox(this._vm, message, props, bvModalEvt => {
+      return makeMsgBox(this._vm, message, props, bvModalEvt => {
         const trigger = bvModalEvt.trigger
         return trigger === 'ok' ? true : trigger === 'cancel' ? false : null
       })
