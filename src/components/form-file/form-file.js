@@ -41,6 +41,7 @@ const dtItemListToArray = list => {
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'input'
@@ -499,6 +500,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // of the way by putting it behind the label (Bootstrap v4 has it in front)
       style: this.custom ? { zIndex: -5 } : {},
       attrs: {
+        ...this.$attrs,
         type: 'file',
         id: this.safeId(),
         name: this.name,
