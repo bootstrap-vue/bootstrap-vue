@@ -30,6 +30,7 @@ A clear and concise description of what the pull request does.
 **If new features/enhancement/fixes are added or changed:**
 
 - [ ] Includes documentation updates (including updating the component's `package.json` for slot and event changes)
+- [ ] Includes any needed typscript declaration file updates
 - [ ] New/updated tests are included and passing (if required)
 - [ ] Existing test suites are passing
 - [ ] The changes have not impacted the functionality of other components or directives
