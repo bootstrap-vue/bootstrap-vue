@@ -89,6 +89,7 @@ export default deepFreeze({
   BModal: {
     titleTag: 'h5',
     size: 'md',
+    centered: false,
     headerBgVariant: null,
     headerBorderVariant: null,
     headerTextVariant: null,
