@@ -40,7 +40,7 @@ export const props = {
   },
   centered: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME, 'centered')
   },
   scrollable: {
     type: Boolean,
