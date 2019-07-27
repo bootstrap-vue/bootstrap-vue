@@ -421,7 +421,21 @@
   background-color: #343a40;
 
   .text-muted {
-    color: #99a3ad !important;
+    color: #a6adb5 !important;
+  }
+
+  a[href] {
+    color: #007bff;
+
+    &:active,
+    &:visited {
+      color: #007bff;
+    }
+    
+    &:hover {
+      color: #3f9bff;
+      text-decoration: underline;
+    }
   }
 }
 
