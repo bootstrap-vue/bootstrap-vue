@@ -33,6 +33,7 @@ $b-toaster-offset-right: $b-toaster-offset-top !default;
 // Bootstrap default is 0.85 (extracted from the `$toast-background-color` value)
 // Bootstrap does not have this as a variable, so we add it in.
 $b-toast-opacity: alpha($toast-background-color) !default;
+$b-toast-background-opacity: alpha($toast-background-color) !default;
 
 // Toast variant levels wrt theme color value
 $b-toast-bg-level: $alert-bg-level !default;
