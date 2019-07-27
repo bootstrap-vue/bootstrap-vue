@@ -1,18 +1,25 @@
 import { deepFreeze } from './object'
 
 // General BootstrapVue configuration
+
+// NOTES:
 //
+// The global config SHALL NOT be used to set defaults for Boolean props, as the props
+// would loose their semanitc meaning, and force people writing 3rd party components to
+// explicity set a true or false value using the v-bind syntax on boolean props.
+//
+// Supported config values: String, Array, Object, null or undefined, depending on the
+// prop's supported type(s).
+
 // BREAKPOINT DEFINITIONS
 //
 // Some components (BCol and BFormGroup) generate props based on breakpoints, and this
 // occurs when the component is first loaded (evaluated), which may happen before the
 // config is created/modified
 //
-// To get around this we make these components async (lazy evaluation)
+// To get around this we make these components' props async (lazy evaluation)
 // The component definition is only called/executed when the first access to the
 // component is used (and cached on subsequent uses)
-//
-// See: https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
 //
 // PROP DEFAULTS
 //
@@ -25,6 +32,8 @@ import { deepFreeze } from './object'
 //      default: () => getConfigComponent('BAlert', 'variant')
 //    }
 //  }
+//
+// We also provide a cached getter for breakpoints, which are "frozen" on first access
 
 // prettier-ignore
 export default deepFreeze({
