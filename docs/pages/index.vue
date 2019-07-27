@@ -426,6 +426,7 @@
 
   a[href] {
     color: #007bff;
+    font-weight: bold;
 
     &:active,
     &:visited {
