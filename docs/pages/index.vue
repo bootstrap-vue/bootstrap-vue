@@ -538,8 +538,8 @@ import { version, bootstrapVersion, vueVersion } from '~/content'
 
 export default {
   computed: {
-    version: () => version
-    bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, '')
+    version: () => version,
+    bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
     vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
   }
 }
