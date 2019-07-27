@@ -59,7 +59,8 @@
                 </svg>
               </b-media-aside>
               <b-media-body class="ml-3 text-muted">
-                <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /<i>vjuː</i>/, like view)
+                <a href="https://vuejs.org" target="_blank">Vue.js</a>
+                (pronounced <span class="text-nowrap">/<i>vjuː</i>/</span>, like view)
                 is a progressive framework for building user interfaces.
               </b-media-body>
             </b-media>
