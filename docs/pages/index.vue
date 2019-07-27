@@ -417,7 +417,7 @@
 <style lang="scss" scoped>
 .bd-masthead {
   color: #f8f9fa;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   background-color: #343a40;
   
   .text-muted: {
