@@ -9,30 +9,22 @@
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 612 612"
-        width="36"
-        height="36"
-        class="d-block"
+        viewBox="0 0 953 953"
+        width="32"
+        height="32"
+        version="1.1"
+        shape-rendering="geometricPrecision"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
         focusable="false"
         role="img"
+        class="d-block"
       >
         <title>BootstrapVue</title>
-        <g fill="currentColor">
-          <path
-            fill-rule="nonzero"
-            d="M510,8 C561.846401,8.16468012 603.83532,50.1535995 604,102 L604,510 C603.83532,561.846401 561.846401,603.83532 510,604 L102,604 C50.1535995,603.83532 8.16468012,561.846401 8,510 L8,102 C8.16468012,50.1535995 50.1535995,8.16468012 102,8 L510,8 L510,8 Z M510,0 L102,0 C45.9,6.21724894e-15 0,45.9 0,102 L0,510 C0,566.1 45.9,612 102,612 L510,612 C566.1,612 612,566.1 612,510 L612,102 C612,45.9 566.1,6.21724894e-15 510,0 Z"
-          />
-          <text
-            id="BV"
-            font-family="Arial"
-            font-size="350"
-            font-weight="light"
-            letter-spacing="2"
-          >
-            <tspan x="72.0527344" y="446">B</tspan>
-            <tspan x="307.5" y="446">V</tspan>
-          </text>
-        </g>
+        <path
+          fill="currentColor"
+          d="M92 0h769c50 0 92 42 92 92v769c0 50-42 92-92 92H92c-50 0-92-42-92-92V92C0 42 42 0 92 0zm216 710c100 0 160-50 160-133 0-62-44-107-108-113v-3c48-8 86-52 86-102 0-71-55-117-140-117H111v468h197zM195 307h90c50 0 78 23 78 64 0 44-33 68-91 68h-77V307zm0 338V499h90c64 0 98 25 98 73s-33 73-94 73h-94zm503 65l163-468h-90L652 621h-2L531 242h-92l163 468h96z"
+        />
       </svg>
     </b-navbar-brand>
 
