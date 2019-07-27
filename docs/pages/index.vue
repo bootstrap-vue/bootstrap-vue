@@ -80,8 +80,8 @@
               With over 40 available plugins and more than 75 custom UI components,
               <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
               comprehensive implementations of the
-              <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
-              available for <span class="bd-text-purple-bright">Vue.js v2.6+</span>, complete with
+              <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMinor }}</span> component and grid system
+              available for <span class="bd-text-purple-bright">Vue.js v{{ vueVersionMinor }}</span>, complete with
               extensive and automated
               <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
                 <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
@@ -242,7 +242,8 @@
             </b-card-text>
 
             <b-card-text class="text-center" bg-variant="light">
-              Built with <a href="https://vuejs.org/">Vue.js v2.6</a> and <a href="https://getbootstrap.com">Bootstrap SCSS v4.3</a>
+              Built with <a href="https://vuejs.org/">Vue.js v{{ vueVersionMinor }}</a> and
+              <a href="https://getbootstrap.com">Bootstrap SCSS v{{ bootstrapVersionMinor }}</a>
             </b-card-text>
           </b-card>
 
@@ -533,11 +534,13 @@ $bv-angle-padding-md: 6rem;
 </style>
 
 <script>
-import { version } from '~/content'
+import { version, bootstrapVersion, vueVersion } from '~/content'
 
 export default {
   computed: {
     version: () => version
+    bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, '')
+    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
   }
 }
 </script>
