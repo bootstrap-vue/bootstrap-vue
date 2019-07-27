@@ -432,7 +432,7 @@
     &:visited {
       color: #007bff;
     }
-    
+
     &:hover {
       color: #3f9bff;
       text-decoration: underline;
