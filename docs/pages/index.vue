@@ -573,17 +573,17 @@ $bv-angle-padding-md: 6rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
-  // transform-style: preserve-3d;
-  // animation: logo-splash-alpha 0.35s 1 ease-in-out;
+  transform-style: preserve-3d;
+  animation: logo-splash-alpha 0.35s 1 ease-in-out;
 
   .logo-purple-v {
     transform-style: preserve-3d;
-    animation: logo-splash-purple 0.35s 1 ease-in-out;
+    animation: logo-splash-purple 0.45s 1 ease-in-out;
   }
 
   .logo-green-v {
     transform-style: preserve-3d;
-    animation: logo-splash-green 0.35s 1 ease-in-out;
+    animation: logo-splash-green 0.45s 1 ease-in-out;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -625,23 +625,25 @@ $bv-angle-padding-md: 6rem;
 
 @keyframes logo-splash-purple {
   0% {
-    opacity: 0.1;
-    transform: traslateY(-8%);
+    transform: translateY(-8%);
+  }
+  20% {
+    transform: translateY(-8%);
   }
   100% {
-    opacity: 1;
-    transform: traslateY(0);
+    transform: translateY(0);
   }
 }
 
 @keyframes logo-splash-green {
   0% {
-    opacity: 0.1;
-    transform: traslateY(8%);
+    transform: translateY(8%);
+  }
+  20% {
+    transform: translateY(8%);
   }
   100% {
-    opacity: 1;
-    transform: traslateY(0);
+    transform: translateY(0);
   }
 }
 </style>
