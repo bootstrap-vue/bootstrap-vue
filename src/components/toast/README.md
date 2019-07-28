@@ -150,13 +150,18 @@ example of passing an array of `VNodes` as the message and title.
 ### Transparency
 
 Toasts have a semi-transparent background by default. To disable the default transparency, just set
-the `solid` prop to `true`
+the `solid` prop to `true` to remove the alpha channel from the background color.
+
+Transparency can also be altered via the BootstrapVue custom SCSS variable
+`$b-toast-background-opacity` when using the SCSS files rather than CSS files. Refer to the
+[Theming](/docs/reference/theming) reference section.
 
 ### Variants
 
 BootstrapVue toasts provide custom CSS to define color variants. Variants follow the standard
-Bootstrap v4 variant names. If you have custom SCSS defined Bootstrap color variants, the toast
-custom SCSS will automatically create toast variants for you.
+Bootstrap v4 variant names. If you have custom SCSS defined Bootstrap color theme variants, the
+toast custom SCSS will automatically create toast variants for you (refer to the
+[Theming](/docs/reference/theming) reference section).
 
 ```html
 <template>
