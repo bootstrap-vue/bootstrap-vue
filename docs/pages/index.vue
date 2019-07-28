@@ -518,6 +518,7 @@ $bv-angle-padding-md: 6rem;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
   padding-bottom: 3rem;
+  margin-top: -1px;
 
   &.bv-white {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
