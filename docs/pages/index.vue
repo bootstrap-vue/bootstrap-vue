@@ -573,7 +573,7 @@ $bv-angle-padding-md: 6rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
-  overflow: visible
+  overflow: visible;
   transform-style: preserve-3d;
   animation: logo-splash-alpha 0.3s 1 ease-in-out;
 
