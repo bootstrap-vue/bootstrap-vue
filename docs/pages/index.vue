@@ -4,13 +4,62 @@
       <b-container tag="article">
         <b-row align-v="center" class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-          <b-col tag="aside" cols="8" offset="2" sm="6" offset-sm="3" md="4" offset-md="0" order-md="2">
-            <!-- vue-loader will inline the svg as a data uri -->
-            <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-            <b-img src="~static/logo.svg" alt="BootstrapVue logo" class="bv-logo mb-4 mb-md-0" center fluid></b-img>
+          <b-col tag="aside" cols="12" md="4" order-md="2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 1200"
+              version="1.1"
+              shape-rendering="geometricPrecision"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              focusable="false"
+              class="bv-logo mb-4 mb-md-0"
+            >
+              <title>BootstrapVue</title>
+              <defs>
+                <filter id="logo-shadow" filterUnits="objectBoundingBox" x="-50%" y="-50%" width="200%" height="200%">
+                <feOffset in="SourceAlpha" dx="-10" dy="25" result="ALPHA1" />
+                  <feMorphology in="ALPHA1" operator="dilate" radius="15" result="ALPHA" />
+                  <feGaussianBlur in="ALPHA" stdDeviation="20" result="DROP" />
+                  <feFlood in="DROP" flood-color="#333" result="SOLID" />
+                <feComposite in="DROP" in2="SOLID" operator="in" result="SHADOW1" />
+                  <feComponentTransfer in="SHADOW1" result="SHADOW">
+                    <feFuncA type="table" tableValues="0 0.5" />
+                  </feComponentTransfer>
+                  <feMerge>
+                    <feMergeNode in="SHADOW" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <g class="logo-dark-v">
+                <polygon fill="#34495E" filter="url(#logo-shadow)" points="747,311 602,562 458,311 227,311 602,962 978,311" />
+              </g>
+              <g class="logo-purple-v">
+                <polygon
+                  fill="#563D7C"
+                  fill-rule="nonzero"
+                  filter="url(#logo-shadow)"
+                  points="219,195 981,195 599,857"
+              />
+                <path
+                fill="#ffffff"
+                d="M501 282l132 0c25,0 44,5 59,16 15,12 22,28 22,51 0,14 -3,26 -10,35 -7,10 -16,18 -29,23l0 1c17,3 30,11 38,24 9,12 13,27 13,46 0,11 -2,21 -6,30 -3,9 -9,17 -17,24 -9,6 -19,12 -32,16 -12,4 -28,6 -45,6l-125 0 0 -272 0 0zm48 114l77 0c12,0 21,-4 29,-10 8,-7 11,-16 11,-28 0,-14 -3,-24 -10,-29 -7,-6 -17,-9 -30,-9l-77 0 0 76 0 0zm0 119l84 0c14,0 26,-4 33,-11 8,-8 13,-19 13,-32 0,-14 -4,-24 -13,-31 -8,-8 -19,-11 -33,-11l-84 0 0 85z"
+                />
+              </g>
+              <g class="logo-green-v">
+                <polygon
+                  fill="#41B883"
+                  filter="url(#logo-shadow)"
+                  points="839,357 600,771 361,357 202,357 600,1047 998,357"
+                />
+              </g>
+            </svg>
           </b-col>
 
-          <b-col tag="section" md="8" order-md="1">
+          <b-col tag="section" cols="12" md="8" order-md="1">
             <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
               Bootstrap<span class="text-vue-green">Vue</span>
             </h1>
@@ -417,6 +466,10 @@
 </template>
 
 <style lang="scss" scoped>
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
 .bd-masthead {
   color: #f8f9fa;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -505,31 +558,56 @@ $bv-angle-padding-md: 6rem;
   }
 }
 
+// Main masthead logo
 .bv-logo {
-  filter: drop-shadow(-3px 12px 2px #00000080);
-  animation: logo-splash 0.35s 1 ease-in-out;
-  width: 100%; // IE11 Fix
-  max-width: 75%;
+  display: block;
+  width: 240px;
+  height: 240px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 0;
   transform-style: preserve-3d;
-}
+  filter: drop-shadow(-3px 12px 2px #00000080);
+  animation: logo-splash 0.35s 1 ease-in-out;
 
-@media (prefers-reduced-motion: reduce) {
-  .bv-logo {
+  @media (prefers-reduced-motion: reduce) {
     transition: none;
     animation: none;
   }
-}
 
-@keyframes logo-splash {
-  0% {
-    opacity: 0.1;
-    transform: scale(0.75);
+  @media (min-width: map-get($grid-breakpoints, 'md')) {
+    width: 210px;
+    height: 210px;
+    margin-bottom: 0;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+
+  @media (min-width: map-get($grid-breakpoints, 'lg')) {
+    width: 285px;
+    height: 285px;
+  }
+
+  @media (min-width: map-get($grid-breakpoints, 'xl')) {
+    width: 350px;
+    height: 350px;
+  }
+
+  @keyframes logo-splash {
+    0% {
+      opacity: 0.1;
+      .logo-purple-v {
+        transform: traslateY(-12%)
+      }
+      .logo-green-v {
+        transform: traslateY(12%)
+      }
+    }
+    100% {
+      opacity: 1;
+      .logo-purple-v,
+      .logo-green-v {
+        transform: traslateY(0)
+      }
+    }
   }
 }
 </style>
