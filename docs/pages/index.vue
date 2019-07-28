@@ -574,7 +574,7 @@ $bv-angle-padding-md: 6rem;
   margin-right: auto;
   margin-top: 0;
   transform-style: preserve-3d;
-  animation: logo-splash-alpha 0.3s 1 ease-in-out;
+  animation: logo-splash-alpha 0.15s 1 ease-in-out;
   // Allow logo path elements to expand outside the svg viewbox
   overflow: visible;
 
@@ -619,9 +619,11 @@ $bv-angle-padding-md: 6rem;
 @keyframes logo-splash-alpha {
   0% {
     opacity: 0.1;
+    transform: scale(0.75);
   }
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
