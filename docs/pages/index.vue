@@ -580,12 +580,12 @@ $bv-angle-padding-md: 6rem;
 
   .logo-purple-v {
     transform-style: preserve-3d;
-    animation: logo-splash-purple 0.85s 1 ease-in-out;
+    animation: logo-splash-purple 1.25s 1 ease-in-out;
   }
 
   .logo-green-v {
     transform-style: preserve-3d;
-    animation: logo-splash-green 0.85s 1 ease-in-out;
+    animation: logo-splash-green 1.25s 1 ease-in-out;
   }
 
   @media (prefers-reduced-motion: reduce) {
