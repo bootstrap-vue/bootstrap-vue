@@ -1,6 +1,6 @@
 <template>
   <main id="content" role="main">
-    <section class="bd-masthead pb-2">
+    <section class="bd-masthead pt-5 pb-2">
       <b-container tag="article">
         <b-row align-v="center" class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
