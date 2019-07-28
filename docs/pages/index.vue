@@ -2,7 +2,7 @@
   <main id="content" role="main">
     <section class="bd-masthead pt-3 pt-sm-5 pb-2">
       <b-container tag="article">
-        <b-row align-v="center" class="mb-4">
+        <b-row align-v="center" no-gutters class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
           <b-col tag="aside" cols="12" md="4" order-md="2">
             <svg
@@ -599,18 +599,18 @@ $bv-angle-padding-md: 6rem;
   }
 
   @media (min-width: map-get($grid-breakpoints, 'md')) {
-    width: 210px;
-    height: 210px;
+    width: 230px;
+    height: 230px;
   }
 
   @media (min-width: map-get($grid-breakpoints, 'lg')) {
-    width: 285px;
-    height: 285px;
+    width: 309px;
+    height: 309px;
   }
 
   @media (min-width: map-get($grid-breakpoints, 'xl')) {
-    width: 350px;
-    height: 350px;
+    width: 370px;
+    height: 370px;
   }
 }
 
