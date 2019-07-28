@@ -620,7 +620,7 @@ $bv-angle-padding-md: 6rem;
 @keyframes logo-splash-alpha {
   0% {
     opacity: 0.1;
-    transform: scale(0.75);
+    transform: scale(0.95);
   }
   100% {
     opacity: 1;
