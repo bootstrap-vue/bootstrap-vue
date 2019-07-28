@@ -574,27 +574,25 @@ $bv-angle-padding-md: 6rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
-  transform-style: preserve-3d;
   animation: logo-splash-alpha 0.15s 1 ease-in-out;
   // Allow logo path elements to expand outside the svg viewbox
   overflow: visible;
 
   .logo-purple-v {
-    transform-style: preserve-3d;
-    animation: logo-splash-purple 1.25s 1 ease-in-out;
+    animation: logo-splash-purple 1.25s ease-in-out 1;
   }
 
   .logo-green-v {
-    transform-style: preserve-3d;
-    animation: logo-splash-green 1.25s 1 ease-in-out;
+    animation: logo-splash-green 1.25s ease-in-out 1;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    animation: none;
+  &,
+  .logo-purple-v,
+  .logo-green-v {
+    transform-style: preserve-3d;
+    animation-delay: 0s;
 
-    .logo-purple-v,
-    .logo-green-v {
+    @media (prefers-reduced-motion: reduce) {
       transition: none;
       animation: none;
     }
@@ -603,7 +601,6 @@ $bv-angle-padding-md: 6rem;
   @media (min-width: map-get($grid-breakpoints, 'md')) {
     width: 210px;
     height: 210px;
-    margin-bottom: 0;
   }
 
   @media (min-width: map-get($grid-breakpoints, 'lg')) {
@@ -620,11 +617,9 @@ $bv-angle-padding-md: 6rem;
 @keyframes logo-splash-alpha {
   0% {
     opacity: 0.1;
-    transform: scale(0.95);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
