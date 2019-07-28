@@ -612,32 +612,32 @@ $bv-angle-padding-md: 6rem;
     width: 350px;
     height: 350px;
   }
+}
 
-  @keyframes logo-splash-alpha {
-    0% {
-      opacity: 0.1;
-    }
-    100% {
-      opacity: 1;
-    }
+@keyframes logo-splash-alpha {
+  0% {
+    opacity: 0.1;
   }
-
-  @keyframes logo-splash-purple {
-    0% {
-      transform: traslateY(-12%);
-    }
-    100% {
-      transform: traslateY(0);
-    }
+  100% {
+    opacity: 1;
   }
+}
 
-  @keyframes logo-splash-green {
-    0% {
-      transform: traslateY(12%);
-    }
-    100% {
-      transform: traslateY(0);
-    }
+@keyframes logo-splash-purple {
+  0% {
+    transform: traslateY(-12%);
+  }
+  100% {
+    transform: traslateY(0);
+  }
+}
+
+@keyframes logo-splash-green {
+  0% {
+    transform: traslateY(12%);
+  }
+  100% {
+    transform: traslateY(0);
   }
 }
 </style>
