@@ -625,7 +625,7 @@ $bv-angle-padding-md: 6rem;
 
 @keyframes logo-splash-purple {
   0% {
-    transform: traslateY(-12%);
+    transform: traslateY(-8%);
   }
   100% {
     transform: traslateY(0);
@@ -634,7 +634,7 @@ $bv-angle-padding-md: 6rem;
 
 @keyframes logo-splash-green {
   0% {
-    transform: traslateY(12%);
+    transform: traslateY(8%);
   }
   100% {
     transform: traslateY(0);
