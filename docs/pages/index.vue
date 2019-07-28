@@ -19,12 +19,19 @@
             >
               <title>BootstrapVue</title>
               <defs>
-                <filter id="logo-shadow" filterUnits="objectBoundingBox" x="-50%" y="-50%" width="200%" height="200%">
-                <feOffset in="SourceAlpha" dx="-10" dy="25" result="ALPHA1" />
-                  <feMorphology in="ALPHA1" operator="dilate" radius="15" result="ALPHA" />
-                  <feGaussianBlur in="ALPHA" stdDeviation="20" result="DROP" />
-                  <feFlood in="DROP" flood-color="#333" result="SOLID" />
-                <feComposite in="DROP" in2="SOLID" operator="in" result="SHADOW1" />
+                <filter
+                  id="logo-shadow"
+                  filterUnits="objectBoundingBox"
+                  x="-50%"
+                  y="-50%"
+                  width="200%"
+                  height="200%"
+                >
+                  <feOffset in="SourceAlpha" dx="-10" dy="25" result="ALPHA1" />
+                    <feMorphology in="ALPHA1" operator="dilate" radius="15" result="ALPHA" />
+                    <feGaussianBlur in="ALPHA" stdDeviation="20" result="DROP" />
+                    <feFlood in="DROP" flood-color="#333" result="SOLID" />
+                  <feComposite in="DROP" in2="SOLID" operator="in" result="SHADOW1" />
                   <feComponentTransfer in="SHADOW1" result="SHADOW">
                     <feFuncA type="table" tableValues="0 0.5" />
                   </feComponentTransfer>
@@ -466,9 +473,9 @@
 </template>
 
 <style lang="scss" scoped>
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
 
 .bd-masthead {
   color: #f8f9fa;
@@ -595,17 +602,17 @@ $bv-angle-padding-md: 6rem;
     0% {
       opacity: 0.1;
       .logo-purple-v {
-        transform: traslateY(-12%)
+        transform: traslateY(-12%);
       }
       .logo-green-v {
-        transform: traslateY(12%)
+        transform: traslateY(12%);
       }
     }
     100% {
       opacity: 1;
       .logo-purple-v,
       .logo-green-v {
-        transform: traslateY(0)
+        transform: traslateY(0);
       }
     }
   }
