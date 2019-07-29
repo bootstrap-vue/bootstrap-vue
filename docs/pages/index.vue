@@ -674,8 +674,8 @@ export default {
     vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
   },
   mounted() {
-    this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
     this.$nextTick(() => {
+      this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
       this.showLogo = true
     })
   }
