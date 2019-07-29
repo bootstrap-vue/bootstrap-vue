@@ -577,13 +577,17 @@ $bv-angle-padding-md: 6rem;
     min-height: 240px;
   }
 
-  .logo-purple-v {
+  .logo-purple-v,
+  .logo-green-v {
     will-change: transform;
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .logo-purple-v {
     animation: logo-splash-purple 1.25s ease-in-out 1;
   }
 
   .logo-green-v {
-    will-change: transform;
     animation: logo-splash-green 1.25s ease-in-out 1;
   }
 
@@ -603,7 +607,6 @@ $bv-angle-padding-md: 6rem;
     transform-style: preserve-3d;
     backface-visibility: hidden;
     animation-delay: 0s;
-    transition: transform 0.15s;
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
