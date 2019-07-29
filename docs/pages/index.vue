@@ -650,15 +650,14 @@ const hasNavigatorSupport = typeof navigator !== 'undefined'
 const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
 
 // Browser type sniffing
-export const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
-export const isIE = /msie|trident/.test(userAgent)
+const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
 
 export default {
   computed: {
     version: () => version,
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
     vueVersionMinor: () => vueVersion.replace(/\.\d+$/, ''),
-    isIE: () => isIE
+    isIE: () => /msie|trident/.test(userAgent)
   }
 }
 </script>
