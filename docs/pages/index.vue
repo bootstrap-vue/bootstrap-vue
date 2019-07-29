@@ -579,17 +579,18 @@ $bv-angle-padding-md: 6rem;
   }
 
   .logo-purple-v {
+    will-change: transform;
     animation: logo-splash-purple 1.25s ease-in-out 1;
   }
 
   .logo-green-v {
+    will-change: transform;
     animation: logo-splash-green 1.25s ease-in-out 1;
   }
 
   &,
   .logo-purple-v,
   .logo-green-v {
-    will-change: transform;
     transform-style: preserve-3d;
     backface-visibility: hidden;
     animation-delay: 0s;
