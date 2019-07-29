@@ -658,7 +658,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
-    }
+    })
   }
 }
 </script>
