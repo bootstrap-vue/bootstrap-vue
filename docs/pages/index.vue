@@ -34,9 +34,8 @@
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
-                <!-- eslint-disable-next-line vue/max-attributes-per-line -->
               </defs>
-              <g filter="url(#logo-shadow1)">
+              <g filter="url(#logo-shadow)">
                 <g class="logo-dark-v" filter="url(#logo-shadow)">
                   <path fill="#34495E" d="M747 311L602 562 458 311H227l375 651 376-651z"/>
                 </g>
