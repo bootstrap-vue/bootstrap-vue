@@ -588,12 +588,23 @@ $bv-angle-padding-md: 6rem;
     animation: logo-splash-green 1.25s ease-in-out 1;
   }
 
+  &:hover {
+    .logo-purple-v {
+      transform: translateY(-12%);
+    }
+
+    .logo-green-v {
+      transform: translateY(12%);
+    }
+  }
+
   &,
   .logo-purple-v,
   .logo-green-v {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     animation-delay: 0s;
+    transition: transform 0.15s;
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
@@ -640,10 +651,10 @@ $bv-angle-padding-md: 6rem;
 
 @keyframes logo-splash-purple {
   0% {
-    transform: translateY(-15%);
+    transform: translateY(-12%);
   }
   45% {
-    transform: translateY(-15%);
+    transform: translateY(-12%);
   }
   100% {
     transform: translateY(0);
@@ -652,10 +663,10 @@ $bv-angle-padding-md: 6rem;
 
 @keyframes logo-splash-green {
   0% {
-    transform: translateY(15%);
+    transform: translateY(12%);
   }
   45% {
-    transform: translateY(15%);
+    transform: translateY(12%);
   }
   100% {
     transform: translateY(0);
