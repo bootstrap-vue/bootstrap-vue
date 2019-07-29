@@ -27,7 +27,7 @@
                   <feFlood in="DROP" flood-color="#333" result="SOLID" />
                   <feComposite in="DROP" in2="SOLID" operator="in" result="SHADOW1" />
                   <feComponentTransfer in="SHADOW1" result="SHADOW">
-                    <feFuncA type="table" tableValues="0 0.65" />
+                    <feFuncA type="linear" slope="0.35" />
                   </feComponentTransfer>
                   <feMerge>
                     <feMergeNode in="SHADOW" />
