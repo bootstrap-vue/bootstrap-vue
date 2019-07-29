@@ -670,7 +670,7 @@ $bv-angle-padding-md: 6rem;
     transform: translateY(-6%) scale(1.15);
   }
   100% {
-    transform: translateY(0) scale(0);
+    transform: translateY(0) scale(1);
   }
 }
 
