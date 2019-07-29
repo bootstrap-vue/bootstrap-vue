@@ -644,20 +644,19 @@ $bv-angle-padding-md: 6rem;
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
 
-const hasWindowSupport = typeof window !== 'undefined'
-const hasDocumentSupport = typeof document !== 'undefined'
-const hasNavigatorSupport = typeof navigator !== 'undefined'
-const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
-
-// Browser type sniffing
-const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
-
 export default {
+  data() {
+    return {
+      isIE: false
+    }
+  },
   computed: {
     version: () => version,
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
-    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, ''),
-    isIE: () => /msie|trident/.test(userAgent)
+    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
+  },
+  beforeMount() {
+    this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
   }
 }
 </script>
