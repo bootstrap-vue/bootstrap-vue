@@ -94,7 +94,8 @@ export default {
       const sortLocale = this.sortCompareLocale || undefined
       if (sortBy && localSorting) {
         const field = this.computedFieldsObj[sortBy]
-        const formatter = field && field.sortByFormatted ? this.getFieldFormatter(sortBy) : undefined
+        const formatter =
+          field && field.sortByFormatted ? this.getFieldFormatter(sortBy) : undefined
         // stableSort returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
