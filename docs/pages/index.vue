@@ -568,6 +568,8 @@ $bv-angle-padding-md: 6rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
+  will-change: opacity;
+  pointer-events: none;
   animation: logo-splash-alpha 0.15s 1 ease-in-out;
   // Allow logo path elements to expand outside the svg viewbox
   overflow: visible;
@@ -587,7 +589,9 @@ $bv-angle-padding-md: 6rem;
   &,
   .logo-purple-v,
   .logo-green-v {
+    will-change: transform;
     transform-style: preserve-3d;
+    backface-visibility: hidden;
     animation-delay: 0s;
 
     @media (prefers-reduced-motion: reduce) {
