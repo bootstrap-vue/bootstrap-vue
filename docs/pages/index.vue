@@ -577,10 +577,16 @@ $bv-angle-padding-md: 6rem;
     min-height: 240px;
   }
 
+  .logo-dark-v,
   .logo-purple-v,
   .logo-green-v {
     will-change: transform;
     transition: transform 0.15s ease-in-out;
+  }
+
+  .logo-dark-v {
+    transform-origin: top;
+    animation: logo-splash-dark 1.25s ease-in-out 1;
   }
 
   .logo-purple-v {
@@ -592,6 +598,10 @@ $bv-angle-padding-md: 6rem;
   }
 
   &:hover {
+    .logo-dark-v {
+      transform: translateY(-6%) scale(1.15);
+    }
+
     .logo-purple-v {
       transform: translateY(-12%);
     }
@@ -602,6 +612,7 @@ $bv-angle-padding-md: 6rem;
   }
 
   &,
+  .logo-dark-v,
   .logo-purple-v,
   .logo-green-v {
     transform-style: preserve-3d;
@@ -648,6 +659,18 @@ $bv-angle-padding-md: 6rem;
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes logo-splash-dark {
+  0% {
+    transform: translateY(-6%) scale(1.15);
+  }
+  45% {
+    transform: translateY(-6%) scale(1.15);
+  }
+  100% {
+    transform: translateY(0) scale(0);
   }
 }
 
