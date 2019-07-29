@@ -71,8 +71,10 @@ export interface BvTableCtxObject {
   [key: string]: any
 }
 
+export type BvTableProviderPromiseResult = Array<any> | null | any
+
 export interface BvTableProviderCallback {
-  (ctx: BvTableCtxObject): any
+  (ctx: BvTableCtxObject): Array<any> | Promise<BvTableProviderPromiseResult> | any
   (ctx: BvTableCtxObject, callback: () => Array<any>): null
 }
 
@@ -84,6 +86,7 @@ export interface BvTableField {
   formatter?: string | BvTableFormatterCallback
   sortable?: boolean
   sortDirection?: BvTableSortDirection
+  sortByFormatted?: boolean
   tdClass?: string | string[] | BvTableFormatterCallback
   thClass?: string | string[]
   thStyle?: any
