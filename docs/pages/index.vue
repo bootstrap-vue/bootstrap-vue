@@ -585,7 +585,7 @@ $bv-angle-padding-md: 6rem;
   }
 
   .logo-dark-v {
-    transform-origin: top;
+    transform-origin: center top;
     animation: logo-splash-dark 1.25s ease-in-out 1;
   }
 
