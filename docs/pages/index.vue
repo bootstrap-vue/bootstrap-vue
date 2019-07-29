@@ -4,8 +4,9 @@
       <b-container tag="article">
         <b-row align-v="center" no-gutters class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-          <b-col tag="aside" cols="12" md="4" order-md="2">
+          <b-col tag="aside" cols="12" md="4" order-md="2" class="logo-aside">
             <svg
+              v-if="showLogo"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1200 1200"
               version="1.1"
@@ -571,6 +572,10 @@ $bv-angle-padding-md: 6rem;
   // Allow logo path elements to expand outside the svg viewbox
   overflow: visible;
 
+  @at-root .logo-aside {
+    min-height: 240px;
+  }
+
   .logo-purple-v {
     animation: logo-splash-purple 1.25s ease-in-out 1;
   }
@@ -594,16 +599,28 @@ $bv-angle-padding-md: 6rem;
   @media (min-width: map-get($grid-breakpoints, 'md')) {
     width: 230px;
     height: 230px;
+
+    @at-root .logo-aside {
+      min-height: 230px;
+    }
   }
 
   @media (min-width: map-get($grid-breakpoints, 'lg')) {
     width: 309px;
     height: 309px;
+
+    @at-root .logo-aside {
+      min-height: 309px;
+    }
   }
 
   @media (min-width: map-get($grid-breakpoints, 'xl')) {
     width: 370px;
     height: 370px;
+
+    @at-root .logo-aside {
+      min-height: 370px;
+    }
   }
 }
 
@@ -647,7 +664,8 @@ import { version, bootstrapVersion, vueVersion } from '~/content'
 export default {
   data() {
     return {
-      isIE: false
+      isIE: false,
+      showLogo: false
     }
   },
   computed: {
@@ -655,8 +673,11 @@ export default {
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
     vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
   },
-  beforeMount() {
+  mounted() {
     this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
+    this.$nextTick(() => {
+      this.showLogo = true
+    })
   }
 }
 </script>
