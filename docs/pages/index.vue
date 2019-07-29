@@ -655,10 +655,8 @@ export default {
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
     vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
-    })
+  beforeMount() {
+    this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
   }
 }
 </script>
