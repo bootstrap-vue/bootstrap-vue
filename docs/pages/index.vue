@@ -4,7 +4,7 @@
       <b-container tag="article">
         <b-row align-v="center" no-gutters class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-          <b-col tag="aside" cols="12" md="4" order-md="2" class="logo-aside">
+          <b-col tag="aside" cols="12" md="4" order-md="2" class="logo-aside mb-4 mb-md-0">
             <svg
               v-if="showLogo"
               xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
               preserveAspectRatio="xMidYMid meet"
               role="img"
               focusable="false"
-              class="bv-logo mb-4 mb-md-0"
+              class="bv-logo"
             >
               <title>BootstrapVue</title>
               <defs>
