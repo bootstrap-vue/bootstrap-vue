@@ -35,11 +35,16 @@
                   </feMerge>
                 </filter>
               </defs>
-              <g filter="url(#logo-shadow)">
-                <g class="logo-dark-v" filter="url(#logo-shadow)">
+              <!--
+                IE11 has issues with the same filter being applied to multiple elements,
+                So we only apply it to the outer `g` for IE (as IE11 also doesn't support
+                animating SVG child elements)
+              -->
+              <g :filter="isIE ? 'url(#logo-shadow)' : null">
+                <g class="logo-dark-v" :filter="isIE ? null: 'url(#logo-shadow)'">
                   <path fill="#34495E" d="M747 311L602 562 458 311H227l375 651 376-651z"/>
                 </g>
-                <g class="logo-purple-v" filter="url(#logo-shadow)">
+                <g class="logo-purple-v" :filter="isIE ? null: 'url(#logo-shadow)'">
                   <path fill="#563D7C" fill-rule="nonzero" d="M219 195h762L599 857z"/>
                   <path
                     class="logo-white-b"
@@ -47,7 +52,7 @@
                     d="M501 282l132 0c25,0 44,5 59,16 15,12 22,28 22,51 0,14 -3,26 -10,35 -7,10 -16,18 -29,23l0 1c17,3 30,11 38,24 9,12 13,27 13,46 0,11 -2,21 -6,30 -3,9 -9,17 -17,24 -9,6 -19,12 -32,16 -12,4 -28,6 -45,6l-125 0 0 -272 0 0zm48 114l77 0c12,0 21,-4 29,-10 8,-7 11,-16 11,-28 0,-14 -3,-24 -10,-29 -7,-6 -17,-9 -30,-9l-77 0 0 76 0 0zm0 119l84 0c14,0 26,-4 33,-11 8,-8 13,-19 13,-32 0,-14 -4,-24 -13,-31 -8,-8 -19,-11 -33,-11l-84 0 0 85z"
                   />
                 </g>
-                <g class="logo-green-v" filter="url(#logo-shadow)">
+                <g class="logo-green-v" :filter="isIE ? null: 'url(#logo-shadow)'">
                   <path fill="#41B883" d="M839 357L600 771 361 357H202l398 690 398-690z"/>
                 </g>
               </g>
@@ -639,11 +644,21 @@ $bv-angle-padding-md: 6rem;
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
 
+const hasWindowSupport = typeof window !== 'undefined'
+const hasDocumentSupport = typeof document !== 'undefined'
+const hasNavigatorSupport = typeof navigator !== 'undefined'
+const isBrowser = hasWindowSupport && hasDocumentSupport && hasNavigatorSupport
+
+// Browser type sniffing
+export const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
+export const isIE = /msie|trident/.test(userAgent)
+
 export default {
   computed: {
     version: () => version,
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
-    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
+    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, ''),
+    isIE: () => isIE
   }
 }
 </script>
