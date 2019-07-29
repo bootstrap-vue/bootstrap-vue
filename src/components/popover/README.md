@@ -687,7 +687,7 @@ to deal with on mobile devices (such as smart-phones).
             :state="input2state"
             :options="options"
             size="sm"
-          ></b-form-input>
+          ></b-form-select>
         </b-form-group>
 
         <b-alert show class="small">
