@@ -2197,7 +2197,7 @@ differences between operating systems, this too is not a preventable default beh
           label="Filter On"
           label-cols-sm="3"
           label-align-sm="right"
-          description="Leave unchecked to filter on all data"
+          description="Leave all unchecked to filter on all data"
           class="mb-0">
           <b-form-checkbox-group v-model="filterOn" class="mt-1">
             <b-form-checkbox value="name">Name</b-form-checkbox>
