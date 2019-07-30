@@ -23,7 +23,7 @@ export declare class BTable extends BvComponent {
   sortDirection?: BvTableSortDirection
   sortCompare?: BvTableSortCompareCallback
   sortCompareLocale?: string | Array<string>
-  sortCompareOptions?: object
+  sortCompareOptions?: BvTableLocaleCompareOptions
   perPage?: number | string
   currentPage?: number | string
   filter?: string | Array<any> | RegExp | object | any
@@ -61,6 +61,23 @@ export type BvTableTbodyTrClassCallback = ((item: any, type: string) => any)
 
 export type BvTableFilterCallback = ((item: any, filter: any) => boolean)
 
+export type BvTableLocaleCompareOptionLocaleMatcher = 'lookup' | 'best fit'
+
+export type BvTableLocaleCompareOptionSensitivity = 'base' | 'accent' | 'case' | 'variant'
+
+export type BvTableLocaleCompareOptionCaseFirst = 'upper' | 'lower' | 'false'
+
+export type BvTableLocaleCompareOptionUsage = 'sort'
+
+export interface BvTableLocaleCompareOptions {
+  ignorePunctuation?: boolean
+  numeric?: boolean
+  localeMatcher?: BvTableLocaleCompareOptionLocaleMatcher
+  sensitivity?: BvTableLocaleCompareOptionSensitivity
+  caseFirst?: BvTableLocaleCompareOptionCaseFirst
+  usage?: BvTableLocaleCompareOptionUsage
+}
+  
 export type BvTableSortCompareCallback = (
   (
     a: any,
@@ -68,7 +85,7 @@ export type BvTableSortCompareCallback = (
     field: string,
     sortDesc?: boolean,
     formatter?: BvTableFormatterCallback | undefined | null,
-    localeOptions?: object | undefined | null,
+    localeOptions?: BvTableLocaleCompareOptions,
     locale?: string | Array<string> | undefined | null
   ) => number | boolean | null | undefined
 )
