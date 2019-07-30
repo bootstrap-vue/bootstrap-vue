@@ -3,10 +3,11 @@ import sanitizeRow from './sanitize-row'
 import stringifyObjectValues from './stringify-object-values'
 
 // Stringifies the values of a record, ignoring any special top level field keys
-// TODO: add option to stringify formatted/scopedSlot items, and only specific fields
-/* istanbul ignore next */
-const stringifyRecordValues = (row, ignoreFields, includeFields) => {
-  return isObject(row) ? stringifyObjectValues(sanitizeRow(row, ignoreFields, includeFields)) : ''
+// TODO: add option to stringify scopedSlot items
+const stringifyRecordValues = (row, ignoreFields, includeFields, fieldsObj) => {
+  return isObject(row)
+    ? stringifyObjectValues(sanitizeRow(row, ignoreFields, includeFields, fieldsObj))
+    : ''
 }
 
 export default stringifyRecordValues
