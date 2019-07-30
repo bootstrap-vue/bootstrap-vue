@@ -1,6 +1,7 @@
 import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
+import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import stringifyRecordValues from './stringify-record-values'
 
@@ -37,6 +38,12 @@ export default {
     }
   },
   computed: {
+    computedFilterIgnored() {
+      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(Boolean) : null
+    },
+    computedFilterIncluded() {
+      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
+    },
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
     },
@@ -219,7 +226,7 @@ export default {
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
         return regexp.test(
-          stringifyRecordValues(item, this.filterIgnoredFields, this.filterIncludedFields)
+          stringifyRecordValues(item, this.computedFilterIgnored, this.computedFilterIncluded)
         )
       }
 
