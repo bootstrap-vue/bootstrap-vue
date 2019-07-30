@@ -163,10 +163,10 @@ export default {
   methods: {
     // Filter Function factories
     filterFnFactory(filterFn, criteria) {
-      // Wrapper factory for external filter functions.
-      // Wrap the provided filter-function and return a new function.
-      // Returns null if no filter-function defined or if criteria is falsey.
-      // Rather than directly grabbing this.computedLocalFilterFn or this.filterFunction
+      // Wrapper factory for external filter functions
+      // Wrap the provided filter-function and return a new function
+      // Returns `null` if no filter-function defined or if criteria is falsey
+      // Rather than directly grabbing `this.computedLocalFilterFn` or `this.filterFunction`
       // we have it passed, so that the caller computed prop will be reactive to changes
       // in the original filter-function (as this routine is a method)
       if (
@@ -199,12 +199,12 @@ export default {
       // Build the regexp needed for filtering
       let regexp = criteria
       if (isString(regexp)) {
-        // Escape special RegExp characters in the string and convert contiguous
-        // whitespace to \s+ matches
+        // Escape special `RegExp` characters in the string and convert contiguous
+        // whitespace to `\s+` matches
         const pattern = criteria
           .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
           .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
-        // Build the RegExp (no need for global flag, as we only need
+        // Build the `RegExp` (no need for global flag, as we only need
         // to find the value once in the string)
         regexp = new RegExp(`.*${pattern}.*`, 'i')
       }
@@ -212,17 +212,17 @@ export default {
       // Generate the wrapped filter test function to use
       const fn = item => {
         // This searches all row values (and sub property values) in the entire (excluding
-        // special _ prefixed keys), because we convert the record to a space-separated
+        // special `_` prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
-        // not visible (not specified in this.fields).
+        // not visible (not specified in this.fields)
         // Users can ignore filtering on specific fields, or on only certain fields,
         // and can optionall specify searching results of fields with formatter
         //
         // TODO: Enable searching on scoped slots
         //
         // Generated function returns true if the criteria matches part of
-        // the serialized data, otherwise false.
-        // We set lastIndex = 0 on the regex in case someone specifies the `/g` global flag
+        // the serialized data, otherwise false
+        // We set `lastIndex = 0` on the `RegExp` in case someone specifies the `/g` global flag
         regexp.lastIndex = 0
         return regexp.test(
           stringifyRecordValues(
