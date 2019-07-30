@@ -11,9 +11,9 @@ depends in large part on the author's markup, additional styling, and scripting 
 However, provided that these have been implemented correctly, it should be perfectly possible to
 create websites and applications with BootstrapVue that fulfill
 <a href="https://www.w3.org/TR/WCAG20/" target="_blank" rel="noopener">
-  <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.0</a>
-(A/AA/AAA), <a href="https://www.section508.gov/" target="_blank" rel="noopener">Section 508</a>
-and similar accessibility standards and requirements.
+<abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.0</a> (A/AA/AAA),
+<a href="https://www.section508.gov/" target="_blank" rel="noopener">Section 508</a> and similar
+accessibility standards and requirements.
 
 ## Structural markup
 
