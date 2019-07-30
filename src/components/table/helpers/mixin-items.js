@@ -43,10 +43,25 @@ export default {
       return normalizeFields(this.fields, this.localItems)
     },
     computedFieldsObj() {
-      // Fields as a simple lookup hash object
-      // Mainly for formatter lookup and scopedSlots for convenience
+      // Fields as a simple lookup hash object.
+      // Mainly for formatter lookup and scopedSlots for convenience.
+      // If the field has a formatter, it normalizes formatter to a
+      // function ref or undefined if no formatter.
+      const parent = this.$parent
       return this.computedFields.reduce((obj, f) => {
-        obj[f.key] = f
+        // We use object spread here s we don't mutate the original field object
+        obj[f.key] = { ...f }
+        if (f.formatter) {
+          // Normalize formatter to a function ref or undefined
+          let formatter = f.formatter
+          if (isString(formatter) && isFunction(parent[formatter])) {
+            formatter = parent[formatter]
+          } else if (!isFunction(formatter)) {
+            formatter = undefined
+          }
+          // Return formatter function or undefined if none
+          obj[f.key].formatter = formatter
+        }
         return obj
       }, {})
     },
