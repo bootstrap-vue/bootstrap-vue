@@ -498,7 +498,9 @@
 
   // Add shadow to the media aside logos
   .media-aside {
-    filter: drop-shadow(1px 1px 2px #000000f0);
+    svg {
+      filter: drop-shadow(1px 1px 2px #000000f0);
+    }
   }
 }
 
