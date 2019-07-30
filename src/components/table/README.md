@@ -2258,7 +2258,7 @@ differences between operating systems, this too is not a preventable default beh
           class="my-0"
         ></b-pagination>
       </b-col>
-      <b-col sm="7" class="my-1">
+      <b-col sm="5" class="my-1">
         <b-form-group
           label-cols-sm="5"
           label-align-sm="right"
