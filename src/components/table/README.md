@@ -2134,21 +2134,16 @@ differences between operating systems, this too is not a preventable default beh
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-for="sortBySelect"
+          class="mb-0"
+        >
           <b-input-group size="sm">
-            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
-            <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
-          <b-input-group size="sm">
-            <b-form-select v-model="sortBy" :options="sortOptions">
+            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
             <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" slot="append">
@@ -2158,19 +2153,57 @@ differences between operating systems, this too is not a preventable default beh
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-          <b-form-select v-model="sortDirection" size="sm">
-            <option value="asc">Asc</option>
-            <option value="desc">Desc</option>
-            <option value="last">Last</option>
-          </b-form-select>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Per page"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-for="filterInput"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
+            <b-input-group-append>
+              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter On"
+          label-cols-sm="3"
+          label-align-sm="right"
+          description="Leave unchecked to filter on all data"
+          class="mb-0">
+          <b-form-checkbox-group v-model="filterOn" class="mt-1">
+            <b-form-checkbox value="name">Name</b-form-checkbox>
+            <b-form-checkbox value="age">Age</b-form-checkbox>
+            <b-form-checkbox value="isActive">Active</b-form-checkbox>
+          </b-form-checkbox-group>
         </b-form-group>
       </b-col>
     </b-row>
@@ -2178,15 +2211,16 @@ differences between operating systems, this too is not a preventable default beh
     <!-- Main table element -->
     <b-table
       show-empty
+      small
       stacked="md"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
+      :filterIncludedFields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
       <template slot="[name]" slot-scope="row">
@@ -2212,7 +2246,7 @@ differences between operating systems, this too is not a preventable default beh
     </b-table>
 
     <b-row>
-      <b-col md="6" class="my-1">
+      <b-col sm="7" class="my-1">
         <b-pagination
           v-model="currentPage"
           :total-rows="totalRows"
@@ -2220,9 +2254,20 @@ differences between operating systems, this too is not a preventable default beh
           class="my-0"
         ></b-pagination>
       </b-col>
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="6" label="Per page" class="mb-0">
-          <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>
+      <b-col sm="7" class="my-1">
+        <b-form-group
+          label-cols-sm="5"
+          label-align-sm="right"
+          label="Per page"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -2267,10 +2312,11 @@ differences between operating systems, this too is not a preventable default beh
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
           {
             key: 'isActive',
-            label: 'is Active'
+            label: 'is Active',
             formatter: (value, key, item) => {
               return value ? 'Yes' : 'No'
-            }
+            },
+            sortable: true,
             sortByFormatted: true,
             filterByFormatted: true
           },
@@ -2284,6 +2330,7 @@ differences between operating systems, this too is not a preventable default beh
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
+        filterOn: [],
         infoModal: {
           id: 'info-modal',
           title: '',
