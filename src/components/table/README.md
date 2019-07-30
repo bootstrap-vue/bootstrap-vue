@@ -324,7 +324,7 @@ The following field properties are recognized:
 | `formatter`       | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                 |
 | `sortable`        | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                         |
 | `sortDirection`   | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
-| `sortByFormatted` | Boolean                     | Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details. <span class="badge badge-info small">NEW in 2.0.0-rc.28</span>                                 |
+| `sortByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                 |
 | `tdClass`         | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
 | `thClass`         | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
 | `thStyle`         | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
@@ -1450,10 +1450,10 @@ clicks in the footer, set the `no-footer-sorting` prop to true.
 
 <span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
 
-The built-in default `sort-compare` function sorts the specified field `key` based on the data in
-the underlying record object (formatted value if a field has a formatter function, and the field's
-`sortByFormatted` property is set to `true`). The field value is first stringified if it is an
-object, and then sorted.
+The internal built-in default `sort-compare` function sorts the specified field `key` based on the
+data in the underlying record object (or by formatted value if a field has a formatter function, and
+the field has its `sortByFormatted` property is set to `true`). The field value is first stringified
+if it is an object and then sorted.
 
 **Notes:**
 
@@ -1466,6 +1466,78 @@ object, and then sorted.
   value returned via the formatter function if the [field](#field-definition-reference) property
   `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
   value. This is only applicable for the built-in sort-compare routine.
+
+For customizing the sort-compare handling, refer to the
+[Custom sort-compare routine](#custom-sort-compare-routine) section below.
+
+### Internal sorting and locale handling
+
+The internal sort-compare routine uses `String.prototype.localeCompare()` for comparing the
+stringified column value (if values being compared are not both `Number` or both `Date` types).
+The browser native `localeCompare()` method accepts a `locale` string (or array of string) and an
+`options` object for controlling how strings are sorted. The default options used is
+`{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or locales)
+via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort options via
+the `sort-compare-options` prop.
+
+The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
+default locale. The prop `sort-compare-locale` can either accept a
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For
+more details on locales, please see
+[Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
+on MDN.
+
+The `sort-compare-options` prop accepts an object containing any of the following properties:
+
+- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
+  `'best fit'`. The default is `'best fit'`. For information about this option, see the
+  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
+  for details.
+- `sensitivity`: Which differences in the strings should lead to _non-zero_ compare result values.
+  Possible values are:
+  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
+    `a = á`, `a = A`.
+  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
+    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
+  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
+    `a ≠ b`, `a = á`, `a ≠ A`.
+  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
+    marks, or case compare as unequal. Other differences _may also_ be taken into consideration.
+    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
+- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
+  `false`. The default is `false`.
+- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
+  are `true` and `false`. The default is `false`. Note that implementations (browsers, runtimes) are
+  not required to support this property, and therefore it might be ignored.
+- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
+  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
+  not required to support this property.
+- `'usage'`: **Always** set to `'sort'` by `<b-table>`
+
+**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
+sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
+
+**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
+
+```html
+<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
+```
+
+**Notes:**
+
+- Refer to
+  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+  for details on the options object property values.
+- Refer to
+  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
+  for details on locale values.
+- Not all browsers (or Node.js) support the `locale` and `options` with
+  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
+  for browser support. For Node.js, you may need to add in
+  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
+  prevent [SSR hydration mismatch errors](https://ssr.vuejs.org/guide/hydration.html).
 
 ### Custom sort-compare routine
 
@@ -1539,74 +1611,6 @@ function toString(value) {
   }
 }
 ```
-
-### Internal sorting and locale handling
-
-The internal sort-compare routine uses `String.prototype.localeCompare()` for comparing the
-stringified column value (if value type is not `Number` or `Date`). `localeCompare()` accepts a
-`locale` string and an `options` object for controlling how strings are sorted. The default options
-used is `{ numeric: true }`, and locale is `undefined` (which uses the browser default locale).
-
-<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or locales)
-via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort options via
-the `sort-compare-options` prop.
-
-The `sort-compare-locale` defaults to `undefined`, which uses the browser (or Node.js runtime)
-default locale. `sort-compare-locale` can either accept a
-[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For
-more details on locales, please see
-[Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
-on MDN.
-
-Valid `sort-compare-options` object properties are:
-
-- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
-  `'best fit'`. The default is `'best fit'`. For information about this option, see the
-  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
-  for details.
-- `sensitivity`: Which differences in the strings should lead to _non-zero_ compare result values.
-  Possible values are:
-  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
-    `a = á`, `a = A`.
-  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
-    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
-  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
-    `a ≠ b`, `a = á`, `a ≠ A`.
-  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
-    marks, or case compare as unequal. Other differences _may also_ be taken into consideration.
-    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
-- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
-  `false`. The default is `false`.
-- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
-  are `true` and `false`. The default is `false`. Note that implementations (browsers, runtimes) are
-  not required to support this property, and therefore it might be ignored.
-- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
-  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
-  not required to support this property.
-- `'usage'`: **Always** set to `'sort'` by `<b-table>`
-
-**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
-sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
-
-**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
-
-```html
-<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
-```
-
-**Notes:**
-
-- Refer to
-  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
-  for details on the options object property values.
-- Refer to
-  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
-  for details on locale values.
-- Not all browsers (or Node.js) support the `locale` and `options` with
-  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
-  for browser support. For Node.js, you may need to add in
-  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
-  prevent [SSR hydration mismatch errors](https://ssr.vuejs.org/guide/hydration.html).
 
 ### Disable local sorting
 
