@@ -5,6 +5,8 @@ import stringifyObjectValues from './stringify-object-values'
 // Stringifies the values of a record, ignoring any special top level field keys
 // TODO: add option to stringify formatted/scopedSlot items, and only specific fields
 /* istanbul ignore next */
-const stringifyRecordValues = row => (isObject(row) ? stringifyObjectValues(sanitizeRow(row)) : '')
+const stringifyRecordValues = (row, ignoreFields) => {
+  return isObject(row) ? stringifyObjectValues(sanitizeRow(row, ignoreFields)) : ''
+}
 
 export default stringifyRecordValues
