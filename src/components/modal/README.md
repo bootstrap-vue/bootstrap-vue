@@ -874,7 +874,7 @@ Example Confirm Message boxes
 
 - The `this.$bvModal` injection is only available when using the full `BootstrapVue` plugin or the
   `ModalPlugin` plugin. It is not available if importing just the `b-modal` component. To just import
-  the injection, use the `BVModal` Plugin plugin.
+  the injection, use the `BVModalPlugin` plugin.
 - A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
   component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
   instance's `this` and `$root` contexts.
