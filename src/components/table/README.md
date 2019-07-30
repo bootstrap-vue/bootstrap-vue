@@ -2210,6 +2210,33 @@ differences between operating systems, this too is not a preventable default beh
           </b-form-checkbox-group>
         </b-form-group>
       </b-col>
+
+      <b-col sm="7" md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          size="sm"
+          class="my-0"
+        ></b-pagination>
+      </b-col>
+      <b-col sm="5" md="6" class="my-1">
+        <b-form-group
+          label-cols-sm="5"
+          label-align-sm="right"
+          label="Per page"
+          label-size="sm"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
+        </b-form-group>
+      </b-col>
     </b-row>
 
     <!-- Main table element -->
@@ -2227,39 +2254,6 @@ differences between operating systems, this too is not a preventable default beh
       :sort-desc.sync="sortDesc"
       @filtered="onFiltered"
     >
-      <tr slot="thead-top">
-        <th colspan="4" aria-label="Pagination">
-          <b-row>
-            <b-col sm="7" class="my-1">
-              <b-pagination
-                v-model="currentPage"
-                :total-rows="totalRows"
-                :per-page="perPage"
-                size="sm"
-                class="my-0"
-              ></b-pagination>
-            </b-col>
-            <b-col sm="5" class="my-1">
-              <b-form-group
-                label-cols-sm="5"
-                label-align-sm="right"
-                label="Per page"
-                label-size="sm"
-                label-for="perPageSelect"
-                class="mb-0"
-              >
-                <b-form-select
-                  v-model="perPage"
-                  id="perPageSelect"
-                  size="sm"
-                  :options="pageOptions"
-                ></b-form-select>
-              </b-form-group>
-            </b-col>
-          </b-row>
-        </th>
-      </tr>
-
       <template slot="[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
