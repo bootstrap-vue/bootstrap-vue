@@ -11,7 +11,7 @@ const sanitizeRow = (row, ignoreFields, includeFields) =>
     if (
       !IGNORED_FIELD_KEYS[key] &&
       !(ignoreFields && ignoreFields.length > 0 && arrayIncludes(ignoreFields, key)) &&
-      !(includeFields && includeFields.length > 0  && !arrayIncludes(includeFields, key))
+      !(includeFields && includeFields.length > 0 && !arrayIncludes(includeFields, key))
     ) {
       obj[key] = row[key]
     }
