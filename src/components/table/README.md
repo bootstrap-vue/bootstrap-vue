@@ -2211,20 +2211,13 @@ differences between operating systems, this too is not a preventable default beh
         </b-form-group>
       </b-col>
 
-      <b-col sm="7" md="6" class="my-1">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="totalRows"
-          :per-page="perPage"
-          size="sm"
-          class="my-0"
-        ></b-pagination>
-      </b-col>
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
-          label-cols-sm="5"
-          label-align-sm="right"
           label="Per page"
+          label-cols-sm="6"
+          label-cols-md="4"
+          label-cols-lg="3"
+          label-align-sm="right"
           label-size="sm"
           label-for="perPageSelect"
           class="mb-0"
@@ -2236,6 +2229,16 @@ differences between operating systems, this too is not a preventable default beh
             :options="pageOptions"
           ></b-form-select>
         </b-form-group>
+      </b-col>
+
+      <b-col sm="7" md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          size="sm"
+          class="my-0"
+        ></b-pagination>
       </b-col>
     </b-row>
 
