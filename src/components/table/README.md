@@ -1648,15 +1648,20 @@ unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 
 ## Filtering
 
-Filtering, when used, is applied to the **original items** array data, and hence it is not currently
-possible to filter data based on custom rendering or formatting of virtual columns.
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
+
+Filtering, when used, is applied by default to the **original items** array data. `b-table` provides
+several optios for how data is filtered.
+
+It is currently not possible to filter based on result of formatting via
+[scoped field slots](#scoped-field-slots).
 
 ### Built in filtering
 
 The item's row data values are stringified (see the sorting section above for how stringification is
 done) and the filter searches that stringified data (excluding any of the special properties that
-begin with an underscore `_`). The stringification also includes any data not shown in the presented
-columns.
+begin with an underscore `'_'`). The stringification also, by default, includes any data not shown in
+the presented columns.
 
 With the default built-in filter function, The `filter` prop value can either be a string or a
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
@@ -1664,7 +1669,27 @@ With the default built-in filter function, The `filter` prop value can either be
 If the stringified row contains the provided string value or matches the RegExp expression then it
 is included in the displayed results.
 
-Set the `filter` prop to `null` or the empty string to clear the current filter.
+Set the `filter` prop to `null` or an empty string to clear the current filter.
+
+### Built in filtering options
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+There are several options for controlling what data the filter is applied against.
+
+- The `filter-ignored-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should be ignored when filtering.
+- The `filter-included-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should used when filtering. All other field keys not included in this array
+  will be ignored. This feature can be handy when you want to filter on specific columns.
+- Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
+  function specified, you can optionally filter based on the result of the formatter by setting the
+  [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the field
+  does not have a formatter function, this option is ignored.
+
+The props `filter-ignored-fields` and `filter-included-fields`, and the field definition property
+`filterByFormatted` have no effect when using a [custom filter function](#custom-filter-function),
+or [items provider](#using-items-provider-functions) based filtering.
 
 ### Custom filter function
 
