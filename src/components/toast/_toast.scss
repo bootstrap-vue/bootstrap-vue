@@ -7,7 +7,7 @@
   max-width: $toast-max-width;
   backface-visibility: hidden;
   background-clip: padding-box;
-  
+
   z-index: 1;
   @include border-radius($toast-border-radius);
 

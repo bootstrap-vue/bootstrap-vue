@@ -314,23 +314,24 @@ typically be in the order they were defined in the object, although **field orde
 
 The following field properties are recognized:
 
-| Property          | Type                        | Description                                                                                                                                                                                                                                                                                                           |
-| ----------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`             | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
-| `label`           | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
-| `headerTitle`     | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
-| `headerAbbr`      | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
-| `class`           | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`       | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                     |
-| `sortable`        | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                             |
-| `sortDirection`   | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                          |
-| `sortByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                     |
-| `tdClass`         | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
-| `thClass`         | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
-| `thStyle`         | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
-| `variant`         | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).                                     |
-| `tdAttr`          | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
-| `isRowHeader`     | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
+| Property            | Type                        | Description                                                                                                                                                                                                                                                                                                           |
+| ------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`               | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
+| `label`             | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
+| `headerTitle`       | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
+| `headerAbbr`        | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
+| `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
+| `formatter`         | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                     |
+| `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                             |
+| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                          |
+| `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                     |
+| `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                               |
+| `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
+| `thClass`           | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
+| `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
+| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).                                     |
+| `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
+| `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
 
 **Notes:**
 
@@ -1647,15 +1648,20 @@ unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 
 ## Filtering
 
-Filtering, when used, is applied to the **original items** array data, and hence it is not currently
-possible to filter data based on custom rendering or formatting of virtual columns.
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
+
+Filtering, when used, is applied by default to the **original items** array data. `b-table` provides
+several options for how data is filtered.
+
+It is currently not possible to filter based on result of formatting via
+[scoped field slots](#scoped-field-slots).
 
 ### Built in filtering
 
 The item's row data values are stringified (see the sorting section above for how stringification is
 done) and the filter searches that stringified data (excluding any of the special properties that
-begin with an underscore `_`). The stringification also includes any data not shown in the presented
-columns.
+begin with an underscore `'_'`). The stringification also, by default, includes any data not shown
+in the presented columns.
 
 With the default built-in filter function, The `filter` prop value can either be a string or a
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
@@ -1663,7 +1669,30 @@ With the default built-in filter function, The `filter` prop value can either be
 If the stringified row contains the provided string value or matches the RegExp expression then it
 is included in the displayed results.
 
-Set the `filter` prop to `null` or the empty string to clear the current filter.
+Set the `filter` prop to `null` or an empty string to clear the current filter.
+
+### Built in filtering options
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+There are several options for controlling what data the filter is applied against.
+
+- The `filter-ignored-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should be ignored when filtering.
+- The `filter-included-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should used when filtering. All other field keys not included in this array
+  will be ignored. This feature can be handy when you want to filter on specific columns. If the
+  specified array is empty, then _all_ fields are included, except those specified via the prop
+  `filter-ignored-fields`. If a field key is specified in both `filter-ignored-fields` and
+  `filter-included-fields`, then `filter-included-fields` takes precedence.
+- Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
+  function specified, you can optionally filter based on the result of the formatter by setting the
+  [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the
+  field does not have a formatter function, this option is ignored.
+
+The props `filter-ignored-fields` and `filter-included-fields`, and the field definition property
+`filterByFormatted` have no effect when using a [custom filter function](#custom-filter-function),
+or [items provider](#using-items-provider-functions) based filtering.
 
 ### Custom filter function
 
@@ -2105,10 +2134,61 @@ differences between operating systems, this too is not a preventable default beh
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
-          <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="sortBySelect"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
+              <option slot="first" value="">-- none --</option>
+            </b-form-select>
+            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
+              <option :value="false">Asc</option>
+              <option :value="true">Desc</option>
+            </b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Initial sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="initialSortSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="sortDirection"
+            id="initialSortSelect"
+            size="sm"
+            :options="['asc', 'desc', 'last']"
+          ></b-form-select>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="filterInput"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -2116,45 +2196,65 @@ differences between operating systems, this too is not a preventable default beh
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
-          <b-input-group>
-            <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
-            </b-form-select>
-            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
-              <option :value="false">Asc</option> <option :value="true">Desc</option>
-            </b-form-select>
-          </b-input-group>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter On"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          description="Leave all unchecked to filter on all data"
+          class="mb-0">
+          <b-form-checkbox-group v-model="filterOn" class="mt-1">
+            <b-form-checkbox value="name">Name</b-form-checkbox>
+            <b-form-checkbox value="age">Age</b-form-checkbox>
+            <b-form-checkbox value="isActive">Active</b-form-checkbox>
+          </b-form-checkbox-group>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-          <b-form-select v-model="sortDirection">
-            <option value="asc">Asc</option>
-            <option value="desc">Desc</option>
-            <option value="last">Last</option>
-          </b-form-select>
+      <b-col sm="5" md="6" class="my-1">
+        <b-form-group
+          label="Per page"
+          label-cols-sm="6"
+          label-cols-md="4"
+          label-cols-lg="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
-        </b-form-group>
+      <b-col sm="7" md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          align="fill"
+          size="sm"
+          class="my-0"
+        ></b-pagination>
       </b-col>
     </b-row>
 
     <!-- Main table element -->
     <b-table
       show-empty
+      small
       stacked="md"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
+      :filterIncludedFields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
@@ -2162,10 +2262,6 @@ differences between operating systems, this too is not a preventable default beh
     >
       <template slot="[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
-      </template>
-
-      <template slot="[isActive]" slot-scope="row">
-        {{ row.value ? 'Yes :)' : 'No :(' }}
       </template>
 
       <template slot="[actions]" slot-scope="row">
@@ -2185,17 +2281,6 @@ differences between operating systems, this too is not a preventable default beh
         </b-card>
       </template>
     </b-table>
-
-    <b-row>
-      <b-col md="6" class="my-1">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="totalRows"
-          :per-page="perPage"
-          class="my-0"
-        ></b-pagination>
-      </b-col>
-    </b-row>
 
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
@@ -2235,17 +2320,27 @@ differences between operating systems, this too is not a preventable default beh
         fields: [
           { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-          { key: 'isActive', label: 'is Active' },
+          {
+            key: 'isActive',
+            label: 'is Active',
+            formatter: (value, key, item) => {
+              return value ? 'Yes' : 'No'
+            },
+            sortable: true,
+            sortByFormatted: true,
+            filterByFormatted: true
+          },
           { key: 'actions', label: 'Actions' }
         ],
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
         pageOptions: [5, 10, 15],
-        sortBy: null,
+        sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
+        filterOn: [],
         infoModal: {
           id: 'info-modal',
           title: '',

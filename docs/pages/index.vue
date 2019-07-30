@@ -43,10 +43,10 @@
               -->
               <g :filter="isIE ? 'url(#logo-shadow)' : null">
                 <g class="logo-dark-v" :filter="isIE ? null : 'url(#logo-shadow)'">
-                  <path fill="#34495E" d="M747 311L602 562 458 311H227l375 651 376-651z"/>
+                  <path fill="#34495E" d="M747 311L602 562 458 311H227l375 651 376-651z" />
                 </g>
                 <g class="logo-purple-v" :filter="isIE ? null : 'url(#logo-shadow)'">
-                  <path fill="#563D7C" fill-rule="nonzero" d="M219 195h762L599 857z"/>
+                  <path fill="#563D7C" fill-rule="nonzero" d="M219 195h762L599 857z" />
                   <path
                     class="logo-white-b"
                     fill="#ffffff"
@@ -54,7 +54,7 @@
                   />
                 </g>
                 <g class="logo-green-v" :filter="isIE ? null : 'url(#logo-shadow)'">
-                  <path fill="#41B883" d="M839 357L600 771 361 357H202l398 690 398-690z"/>
+                  <path fill="#41B883" d="M839 357L600 771 361 357H202l398 690 398-690z" />
                 </g>
               </g>
             </svg>
