@@ -1,37 +1,82 @@
 // BootstrapVue custom SCSS variables
+//
+// Users can override thes variables in their custom SCSS
+//
 
 // --- Tables ---
+
+// Table busy state
 $b-table-busy-opacity: 0.55 !default;
+
+// Table sorting
 $b-table-sort-icon-null: "\2195" !default; // Up-Down arrow
 $b-table-sort-icon-ascending: "\2193" !default; // Down arrow
 $b-table-sort-icon-descending: "\2191" !default; // Up arrow
 $b-table-sort-icon-margin-left: 0.5em !default;
 $b-table-sort-icon-width: 0.5em !default;
+
+// Flag to enable table stacked CSS generation
+$bv-enable-table-stacked: true !default;
+// Table stacked defaults
 $b-table-stacked-heading-width: 40% !default;
 $b-table-stacked-gap: 1rem !default;
 
 // --- Toasts ---
+
+// Toaster defaults
 $b-toaster-zindex: 1100 !default;
 $b-toaster-offset-top: 0.5rem !default;
 $b-toaster-offset-bottom: $b-toaster-offset-top !default;
 $b-toaster-offset-left: $b-toaster-offset-top !default;
 $b-toaster-offset-right: $b-toaster-offset-top !default;
 
-// --- Toast variant levels wrt theme color value ---
+// Default toast opacity
+// Value from 0 to 1, or 0% to 100%
+// Bootstrap default is 0.85 (extracted from the `$toast-background-color` value)
+// Bootstrap does not have this as a variable, so we add it in.
+$b-toast-background-opacity: alpha($toast-background-color) !default;
+
+// Toast variant levels wrt theme color value
 $b-toast-bg-level: $alert-bg-level !default;
 $b-toast-border-level: $alert-border-level !default;
 $b-toast-color-level: $alert-color-level !default;
 
-// --- Enable tooltip variants ---
+// --- Tooltips ---
+
+// Flag to enable tooltip variant CSS generation
 $bv-enable-tooltip-variants: true !default;
 
-// --- Tooltip background variant level wrt theme color value ---
-$bv-tooltip-bg-level: 0 !default;
+// Tooltip background variant level wrt theme color value
+$b-tooltip-bg-level: 0 !default;
+// Deprecated
+$bv-tooltip-bg-level: null !default;
+@if $bv-tooltip-bg-level {
+  @warn("Variable '\$bv-tooltip-bg-level' has been deprecated. Use '\$b-tooltip-bg-level' instead.");
+  $b-tooltip-bg-level: $bv-tooltip-bg-level;
+}
 
-// --- Enable popover variants ---
+// --- Popovers ---
+
+// Flag to enable popover variant CSS genearation
 $bv-enable-popover-variants: true !default;
 
-// --- Popover variant levels wrt theme color value ---
-$bv-popover-bg-level: $alert-bg-level !default;
-$bv-popover-border-level: $alert-border-level !default;
-$bv-popover-color-level: $alert-color-level !default;
+// Popover variant levels wrt theme color value
+$b-popover-bg-level: $alert-bg-level !default;
+$b-popover-border-level: $alert-border-level !default;
+$b-popover-color-level: $alert-color-level !default;
+// Deprecated
+$bv-popover-bg-level: null !default;
+@if $bv-popover-bg-level {
+  @warn("Variable '\$bv-popover-bg-level' has been deprecated. Use '\$b-popover-bg-level' instead.");
+  $b-popover-bg-level: $bv-popover-bg-level;
+}
+$bv-popover-border-level: null !default;
+@if $bv-popover-border-level {
+  @warn("Variable '\$bv-popover-border-level' has been deprecated. Use '\$b-popover-border-level' instead.");
+  $b-popover-border-level: $bv-popover-border-level;
+}
+$bv-popover-color-level: null !default;
+@if $bv-popover-color-level {
+  @warn("Variable '\$bv-popover-color-level' has been deprecated. Use '\$b-popover-color-level' instead.");
+  $b-popover-color-level: $bv-popover-color-level;
+}

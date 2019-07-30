@@ -1,25 +1,75 @@
 <template>
   <main id="content" role="main">
-    <section class="bd-masthead pb-2">
+    <section class="bd-masthead pt-3 pt-sm-5 pb-2">
       <b-container tag="article">
-        <b-row align-v="center" class="mb-4">
+        <b-row align-v="center" no-gutters class="mb-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-          <b-col tag="aside" cols="8" offset="2" sm="6" offset-sm="3" md="4" offset-md="0" order-md="2">
-            <!-- vue-loader will inline the svg as a data uri -->
-            <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-            <b-img src="~static/logo.svg" alt="BootstrapVue logo" class="bv-logo mb-4 mb-md-0" center fluid></b-img>
+          <b-col tag="aside" cols="12" md="4" order-md="2" class="logo-aside mb-4 mb-md-0">
+            <svg
+              v-if="showLogo"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 1200"
+              version="1.1"
+              shape-rendering="geometricPrecision"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              focusable="false"
+              class="bv-logo"
+            >
+              <title>BootstrapVue</title>
+              <defs>
+                <!-- eslint-disable-next-line vue/max-attributes-per-line -->
+                <filter id="logo-shadow" filterUnits="objectBoundingBox" x="-50%" y="-50%" width="200%" height="200%">
+                  <feOffset in="SourceAlpha" dx="-10" dy="25" result="ALPHA1" />
+                  <feMorphology in="ALPHA1" operator="dilate" radius="15" result="ALPHA" />
+                  <feGaussianBlur in="ALPHA" stdDeviation="20" result="DROP" />
+                  <feFlood in="DROP" flood-color="#333" result="SOLID" />
+                  <feComposite in="DROP" in2="SOLID" operator="in" result="SHADOW1" />
+                  <feComponentTransfer in="SHADOW1" result="SHADOW">
+                    <feFuncA type="linear" slope="0.55" />
+                  </feComponentTransfer>
+                  <feMerge>
+                    <feMergeNode in="SHADOW" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <!--
+                IE11 has issues with the same filter being applied to multiple elements,
+                So we only apply it to the outer `g` for IE (as IE11 also doesn't support
+                animating SVG child elements)
+              -->
+              <g :filter="isIE ? 'url(#logo-shadow)' : null">
+                <g class="logo-dark-v" :filter="isIE ? null : 'url(#logo-shadow)'">
+                  <path fill="#34495E" d="M747 311L602 562 458 311H227l375 651 376-651z"/>
+                </g>
+                <g class="logo-purple-v" :filter="isIE ? null : 'url(#logo-shadow)'">
+                  <path fill="#563D7C" fill-rule="nonzero" d="M219 195h762L599 857z"/>
+                  <path
+                    class="logo-white-b"
+                    fill="#ffffff"
+                    d="M501 282l132 0c25,0 44,5 59,16 15,12 22,28 22,51 0,14 -3,26 -10,35 -7,10 -16,18 -29,23l0 1c17,3 30,11 38,24 9,12 13,27 13,46 0,11 -2,21 -6,30 -3,9 -9,17 -17,24 -9,6 -19,12 -32,16 -12,4 -28,6 -45,6l-125 0 0 -272 0 0zm48 114l77 0c12,0 21,-4 29,-10 8,-7 11,-16 11,-28 0,-14 -3,-24 -10,-29 -7,-6 -17,-9 -30,-9l-77 0 0 76 0 0zm0 119l84 0c14,0 26,-4 33,-11 8,-8 13,-19 13,-32 0,-14 -4,-24 -13,-31 -8,-8 -19,-11 -33,-11l-84 0 0 85z"
+                  />
+                </g>
+                <g class="logo-green-v" :filter="isIE ? null : 'url(#logo-shadow)'">
+                  <path fill="#41B883" d="M839 357L600 771 361 357H202l398 690 398-690z"/>
+                </g>
+              </g>
+            </svg>
           </b-col>
 
-          <b-col tag="section" md="8" order-md="1">
+          <b-col tag="section" cols="12" md="8" order-md="1">
             <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
               Bootstrap<span class="text-vue-green">Vue</span>
             </h1>
 
             <p class="lead">
               With <span class="font-weight-bolder">BootstrapVue</span> you can build responsive,
-              mobile-first projects on the web using <span class="bd-text-purple-bright">Vue.js</span>
+              mobile-first projects on the web using <span class="text-muted font-weight-bolder">Vue.js</span>
               and the world's most popular front-end CSS library &mdash;
-              <span class="bd-text-purple-bright">Bootstrap v4</span>.
+              <span class="text-muted font-weight-bolder">Bootstrap v4</span>.
             </p>
 
             <b-media no-body class="my-3">
@@ -37,7 +87,7 @@
                   <path fill="#FFF" d="M166.3 133h173.5c32 0 57.7 7.3 77 22s29 36.8 29 66.5c0 18-4.4 33.4-13.2 46.2-8.8 12.8-21.4 22.8-37.8 29.8v1c22 4.7 38.7 15.1 50 31.2 11.3 16.2 17 36.4 17 60.8 0 14-2.5 27.1-7.5 39.2-5 12.2-12.8 22.7-23.5 31.5s-24.3 15.8-41 21-36.5 7.8-59.5 7.8h-164V133zm62.5 149.5h102c15 0 27.5-4.2 37.5-12.8s15-20.8 15-36.8c0-18-4.5-30.7-13.5-38s-22-11-39-11h-102v98.6zm0 156.5h110.5c19 0 33.8-4.9 44.2-14.8 10.5-9.8 15.8-23.8 15.8-41.8 0-17.7-5.2-31.2-15.8-40.8s-25.2-14.2-44.2-14.2H228.8V439z" />
                 </svg>
               </b-media-aside>
-              <b-media-body class="ml-3 text-muted">
+              <b-media-body class="ml-3 text-muted align-self-center">
                 <a href="https://getbootstrap.com/docs/4.3" target="_blank">Bootstrap v4</a> is the
                 world's most popular framework for building responsive, mobile-first sites.
               </b-media-body>
@@ -52,14 +102,16 @@
                   height="30px"
                   focusable="false"
                   role="img"
+                  class="media-vue-logo"
                 >
                   <title>Vue.js logo</title>
                   <path fill="#42b883" d="M120.83 0L98.16 39.26 75.49 0H0l98.16 170.02L196.32 0h-75.49z" />
                   <path fill="#35495e" d="M120.83 0L98.16 39.26 75.49 0H39.26l58.9 102.01L157.06 0h-36.23z" />
                 </svg>
               </b-media-aside>
-              <b-media-body class="ml-3 text-muted">
-                <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /<i>vjuː</i>/, like view)
+              <b-media-body class="ml-3 text-muted align-self-center">
+                <a href="https://vuejs.org" target="_blank">Vue.js</a>
+                (pronounced <span class="text-nowrap">/<i>vjuː</i>/</span>, like view)
                 is a progressive framework for building user interfaces.
               </b-media-body>
             </b-media>
@@ -80,8 +132,8 @@
               With over 40 available plugins and more than 75 custom UI components,
               <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
               comprehensive implementations of the
-              <span class="bd-text-purple-bright">Bootstrap v4.3</span> component and grid system
-              available for <span class="bd-text-purple-bright">Vue.js v2.6+</span>, complete with
+              <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMinor }}</span> component and grid system
+              available for <span class="bd-text-purple-bright">Vue.js v{{ vueVersionMinor }}</span>, complete with
               extensive and automated
               <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
                 <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
@@ -242,7 +294,8 @@
             </b-card-text>
 
             <b-card-text class="text-center" bg-variant="light">
-              Built with <a href="https://vuejs.org/">Vue.js v2.6</a> and <a href="https://getbootstrap.com">Bootstrap SCSS v4.3</a>
+              Built with <a href="https://vuejs.org/">Vue.js v{{ vueVersionMinor }}</a> and
+              <a href="https://getbootstrap.com">Bootstrap SCSS v{{ bootstrapVersionMinor }}</a>
             </b-card-text>
           </b-card>
 
@@ -415,6 +468,42 @@
 </template>
 
 <style lang="scss" scoped>
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+
+.bd-masthead {
+  color: #f8f9fa;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  background-color: #343a40;
+
+  .text-muted {
+    color: #a6adb5 !important;
+  }
+
+  a[href] {
+    color: #007bff;
+    font-weight: bold;
+
+    &:active,
+    &:visited {
+      color: #007bff;
+    }
+
+    &:hover {
+      color: #3f9bff;
+      text-decoration: underline;
+    }
+  }
+
+  // Add shadow to the media aside logos
+  .media {
+    svg {
+      filter: drop-shadow(1px 1px 2px #000000f0);
+    }
+  }
+}
+
 .text-vue-green {
   color: #42b883;
 }
@@ -431,6 +520,7 @@ $bv-angle-padding-md: 6rem;
   background-repeat: no-repeat;
   padding-top: calc(#{$bv-angle-depth} + #{$bv-angle-padding});
   padding-bottom: 3rem;
+  margin-top: -1px;
 
   &.bv-white {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3336' preserveAspectRatio='none' version='1.1'%3E%3Cg%3E%3Cpolygon fill='%23eee' points='13913,3336 0,0 27826,0' /%3E%3C/g%3E%3C/svg%3E");
@@ -443,7 +533,8 @@ $bv-angle-padding-md: 6rem;
   }
 
   &.bv-gray-color {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='a' filterUnits='objectBoundingBox' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeOffset in='SourceGraphic' result='b' dy='20'/%3E%3CfeGaussianBlur in='b' stdDeviation='25'/%3E%3C/filter%3E%3C/defs%3E%3Cpath filter='url(%23a)' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath fill='%2342B883' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath fill='%237952B3' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3Cpath fill='%23fff' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3C/svg%3E%0A");
+    // background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='a' filterUnits='objectBoundingBox' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeOffset in='SourceGraphic' result='b' dy='20'/%3E%3CfeGaussianBlur in='b' stdDeviation='25'/%3E%3C/filter%3E%3C/defs%3E%3Cpath filter='url(%23a)' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath fill='%2342B883' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath fill='%237952B3' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3Cpath fill='%23fff' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3C/svg%3E%0A");
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27826 3450' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='a' filterUnits='objectBoundingBox' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeOffset in='SourceGraphic' result='b' dy='20'/%3E%3CfeGaussianBlur in='b' stdDeviation='25'/%3E%3C/filter%3E%3C/defs%3E%3Cpath filter='url(%23a)' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath fill='%2342B883' d='M13943 3336L5092 1668 0 708V0h27826v719l-5032 949z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath fill='%237952B3' d='M0 0h27826v371l-5067 955-8851 1668-8850-1668L0 373z'/%3E%3Cpath filter='url(%23a)' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3Cpath fill='%23343a40' d='M0 0h27826l-5065 954-8851 1668L5059 954 0 1z'/%3E%3C/svg%3E");
     background-size: 175% 9rem;
     background-position-y: -2.75rem;
     background-color: #eee;
@@ -477,41 +568,165 @@ $bv-angle-padding-md: 6rem;
   }
 }
 
+// Main masthead logo
 .bv-logo {
-  filter: drop-shadow(-3px 12px 2px #e7e7e7);
-  animation: logo-splash 0.35s 1 ease-in-out;
-  width: 100%; // IE11 Fix
-  max-width: 75%;
+  display: block;
+  width: 240px;
+  height: 240px;
   margin-left: auto;
   margin-right: auto;
-  transform-style: preserve-3d;
-}
+  margin-top: 0;
+  will-change: opacity;
+  animation: logo-splash-alpha 0.15s 1 ease-in-out;
+  // Allow logo path elements to expand outside the svg viewbox
+  overflow: visible;
 
-@media (prefers-reduced-motion: reduce) {
-  .bv-logo {
-    transition: none;
-    animation: none;
+  @at-root .logo-aside {
+    min-height: 240px;
+  }
+
+  .logo-dark-v,
+  .logo-purple-v,
+  .logo-green-v {
+    will-change: transform;
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .logo-dark-v {
+    transform-origin: center top;
+    animation: logo-splash-dark 1.25s ease-in-out 1;
+  }
+
+  .logo-purple-v {
+    animation: logo-splash-purple 1.25s ease-in-out 1;
+  }
+
+  .logo-green-v {
+    animation: logo-splash-green 1.25s ease-in-out 1;
+  }
+
+  &:hover {
+    .logo-dark-v {
+      transform: translateY(-6%) scale(1.15);
+    }
+
+    .logo-purple-v {
+      transform: translateY(-12%);
+    }
+
+    .logo-green-v {
+      transform: translateY(12%);
+    }
+  }
+
+  &,
+  .logo-dark-v,
+  .logo-purple-v,
+  .logo-green-v {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    animation-delay: 0s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+      animation: none;
+    }
+  }
+
+  @media (min-width: map-get($grid-breakpoints, 'md')) {
+    width: 230px;
+    height: 230px;
+
+    @at-root .logo-aside {
+      min-height: 230px;
+    }
+  }
+
+  @media (min-width: map-get($grid-breakpoints, 'lg')) {
+    width: 309px;
+    height: 309px;
+
+    @at-root .logo-aside {
+      min-height: 309px;
+    }
+  }
+
+  @media (min-width: map-get($grid-breakpoints, 'xl')) {
+    width: 370px;
+    height: 370px;
+
+    @at-root .logo-aside {
+      min-height: 370px;
+    }
   }
 }
 
-@keyframes logo-splash {
+@keyframes logo-splash-alpha {
   0% {
     opacity: 0.1;
-    transform: scale(0.75);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+  }
+}
+
+@keyframes logo-splash-dark {
+  0% {
+    transform: translateY(-6%) scale(1.15);
+  }
+  45% {
+    transform: translateY(-6%) scale(1.15);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes logo-splash-purple {
+  0% {
+    transform: translateY(-12%);
+  }
+  45% {
+    transform: translateY(-12%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes logo-splash-green {
+  0% {
+    transform: translateY(12%);
+  }
+  45% {
+    transform: translateY(12%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 </style>
 
 <script>
-import { version } from '~/content'
+import { version, bootstrapVersion, vueVersion } from '~/content'
 
 export default {
+  data() {
+    return {
+      isIE: false,
+      showLogo: false
+    }
+  },
   computed: {
-    version: () => version
+    version: () => version,
+    bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
+    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
+      this.showLogo = true
+    })
   }
 }
 </script>
