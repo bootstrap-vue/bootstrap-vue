@@ -2145,7 +2145,7 @@ differences between operating systems, this too is not a preventable default beh
         >
           <b-input-group size="sm">
             <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
+              <option slot="first" value="">-- none --</option>
             </b-form-select>
             <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" slot="append">
               <option :value="false">Asc</option> <option :value="true">Desc</option>
@@ -2335,7 +2335,7 @@ differences between operating systems, this too is not a preventable default beh
         currentPage: 1,
         perPage: 5,
         pageOptions: [5, 10, 15],
-        sortBy: null,
+        sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
