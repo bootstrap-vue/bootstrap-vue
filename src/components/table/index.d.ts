@@ -116,6 +116,7 @@ export interface BvTableField {
   sortable?: boolean
   sortDirection?: BvTableSortDirection
   sortByFormatted?: boolean
+  filterByFormatted?: boolean
   tdClass?: string | string[] | ((value: any, key: string, item: any) => any)
   thClass?: string | string[]
   thStyle?: any
