@@ -2236,6 +2236,7 @@ differences between operating systems, this too is not a preventable default beh
           v-model="currentPage"
           :total-rows="totalRows"
           :per-page="perPage"
+          align="fill"
           size="sm"
           class="my-0"
         ></b-pagination>
