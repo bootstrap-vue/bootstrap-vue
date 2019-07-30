@@ -39,8 +39,8 @@ Released: 2019-07-21
   options (addresses [#3712](https://github.com/bootstrap-vue/bootstrap-vue/issues/3712))
   ([#3715](https://github.com/bootstrap-vue/bootstrap-vue/issues/3715))
   ([1ce8c6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/1ce8c6d))
-- **b-tabs:** new named slot `tabs-start` for prepending tab buttons, deprecates `tabs` slot in favour
-  of `tabs-end` (closes [#3678](https://github.com/bootstrap-vue/bootstrap-vue/issues/3678))
+- **b-tabs:** new named slot `tabs-start` for prepending tab buttons, deprecates `tabs` slot in
+  favour of `tabs-end` (closes [#3678](https://github.com/bootstrap-vue/bootstrap-vue/issues/3678))
   ([#3679](https://github.com/bootstrap-vue/bootstrap-vue/issues/3679))
   ([0b5f552](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b5f552))
 - minor code improvements ([#3682](https://github.com/bootstrap-vue/bootstrap-vue/issues/3682))

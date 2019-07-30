@@ -1,6 +1,7 @@
 import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
+import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import stringifyRecordValues from './stringify-record-values'
 
@@ -20,6 +21,14 @@ export default {
     filterFunction: {
       type: Function,
       default: null
+    },
+    filterIgnoredFields: {
+      type: Array
+      // default: undefined
+    },
+    filterIncludedFields: {
+      type: Array
+      // default: undefined
     }
   },
   data() {
@@ -29,6 +38,12 @@ export default {
     }
   },
   computed: {
+    computedFilterIgnored() {
+      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(Boolean) : null
+    },
+    computedFilterIncluded() {
+      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
+    },
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
     },
@@ -148,10 +163,10 @@ export default {
   methods: {
     // Filter Function factories
     filterFnFactory(filterFn, criteria) {
-      // Wrapper factory for external filter functions.
-      // Wrap the provided filter-function and return a new function.
-      // Returns null if no filter-function defined or if criteria is falsey.
-      // Rather than directly grabbing this.computedLocalFilterFn or this.filterFunction
+      // Wrapper factory for external filter functions
+      // Wrap the provided filter-function and return a new function
+      // Returns `null` if no filter-function defined or if criteria is falsey
+      // Rather than directly grabbing `this.computedLocalFilterFn` or `this.filterFunction`
       // we have it passed, so that the caller computed prop will be reactive to changes
       // in the original filter-function (as this routine is a method)
       if (
@@ -184,12 +199,12 @@ export default {
       // Build the regexp needed for filtering
       let regexp = criteria
       if (isString(regexp)) {
-        // Escape special RegExp characters in the string and convert contiguous
-        // whitespace to \s+ matches
+        // Escape special `RegExp` characters in the string and convert contiguous
+        // whitespace to `\s+` matches
         const pattern = criteria
           .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
           .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
-        // Build the RegExp (no need for global flag, as we only need
+        // Build the `RegExp` (no need for global flag, as we only need
         // to find the value once in the string)
         regexp = new RegExp(`.*${pattern}.*`, 'i')
       }
@@ -197,21 +212,26 @@ export default {
       // Generate the wrapped filter test function to use
       const fn = item => {
         // This searches all row values (and sub property values) in the entire (excluding
-        // special _ prefixed keys), because we convert the record to a space-separated
+        // special `_` prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
-        // not visible (not specified in this.fields).
+        // not visible (not specified in this.fields)
+        // Users can ignore filtering on specific fields, or on only certain fields,
+        // and can optionall specify searching results of fields with formatter
         //
-        // TODO: Enable searching on formatted fields and scoped slots
-        // TODO: Should we filter only on visible fields (i.e. ones in this.fields) by default?
-        // TODO: Allow for searching on specific fields/key, this could be combined with the previous TODO
-        // TODO: Give stringifyRecordValues extra options for filtering (i.e. passing the
-        //       fields definition and a reference to $scopedSlots)
+        // TODO: Enable searching on scoped slots
         //
         // Generated function returns true if the criteria matches part of
         // the serialized data, otherwise false
-        // We set lastIndex = 0 on regex in case someone uses the /g global flag
+        // We set `lastIndex = 0` on the `RegExp` in case someone specifies the `/g` global flag
         regexp.lastIndex = 0
-        return regexp.test(stringifyRecordValues(item))
+        return regexp.test(
+          stringifyRecordValues(
+            item,
+            this.computedFilterIgnored,
+            this.computedFilterIncluded,
+            this.computedFieldsObj
+          )
+        )
       }
 
       // Return the generated function
