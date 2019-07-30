@@ -1681,7 +1681,10 @@ There are several options for controlling what data the filter is applied agains
   data) field keys that should be ignored when filtering.
 - The `filter-included-fields` prop accepts an array of _top-level_ (immediate properties of the row
   data) field keys that should used when filtering. All other field keys not included in this array
-  will be ignored. This feature can be handy when you want to filter on specific columns.
+  will be ignored. This feature can be handy when you want to filter on specific columns. If the
+  specified array is empty, then _all_ fields are included, except those specified via the prop
+  `filter-ignored-fields`. If a field key is specified in both `filter-ignored-fields` and
+  `filter-included-fields`, then `filter-included-fields` takes precedence.
 - Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
   function specified, you can optionally filter based on the result of the formatter by setting the
   [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the field
