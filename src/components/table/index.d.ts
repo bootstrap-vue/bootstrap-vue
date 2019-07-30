@@ -28,6 +28,8 @@ export declare class BTable extends BvComponent {
   currentPage?: number | string
   filter?: string | Array<any> | RegExp | object | any
   filterFunction?: BvTableFilterCallback
+  filterIgnoredFields?: Array<string>
+  filterIncludedFields?: Array<string>
   busy?: boolean
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
 }
