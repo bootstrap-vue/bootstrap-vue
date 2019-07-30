@@ -2139,6 +2139,7 @@ differences between operating systems, this too is not a preventable default beh
           label="Sort"
           label-cols-sm="3"
           label-align-sm="right"
+          label-size="sm"
           label-for="sortBySelect"
           class="mb-0"
         >
@@ -2158,6 +2159,7 @@ differences between operating systems, this too is not a preventable default beh
           label="Per page"
           label-cols-sm="3"
           label-align-sm="right"
+          label-size="sm"
           label-for="perPageSelect"
           class="mb-0"
         >
@@ -2175,6 +2177,7 @@ differences between operating systems, this too is not a preventable default beh
           label="Filter"
           label-cols-sm="3"
           label-align-sm="right"
+          label-size="sm"
           label-for="filterInput"
           class="mb-0"
         >
@@ -2197,6 +2200,7 @@ differences between operating systems, this too is not a preventable default beh
           label="Filter On"
           label-cols-sm="3"
           label-align-sm="right"
+          label-size="sm"
           description="Leave all unchecked to filter on all data"
           class="mb-0">
           <b-form-checkbox-group v-model="filterOn" class="mt-1">
@@ -2259,6 +2263,7 @@ differences between operating systems, this too is not a preventable default beh
           label-cols-sm="5"
           label-align-sm="right"
           label="Per page"
+          label-size="sm"
           label-for="perPageSelect"
           class="mb-0"
         >
