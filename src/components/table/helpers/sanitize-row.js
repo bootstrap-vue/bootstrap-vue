@@ -13,12 +13,10 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
       !(ignoreFields && ignoreFields.length > 0 && arrayIncludes(ignoreFields, key)) &&
       !(includeFields && includeFields.length > 0 && !arrayIncludes(includeFields, key))
     ) {
-      const field = fieldsObj[key]
-      if (field && field.filterByFormatted && field.formatter) {
-        obj[key] = field.formatter(row[key], key, row)
-      } else {
-        obj[key] = row[key]
-      }
+      const f = fieldsObj[key]
+      obj[key] = f && f.filterByFormatted && f.formatter
+        ? f.formatter(row[key], key, row)
+        : obj[key] = row[key]
     }
     return obj
   }, {})
