@@ -1472,10 +1472,11 @@ For customizing the sort-compare handling, refer to the
 
 ### Internal sorting and locale handling
 
-The internal sort-compare routine uses `String.prototype.localeCompare()` for comparing the
-stringified column value (if values being compared are not both `Number` or both `Date` types).
-The browser native `localeCompare()` method accepts a `locale` string (or array of string) and an
-`options` object for controlling how strings are sorted. The default options used is
+The internal sort-compare routine uses
+[`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+for comparing the stringified column value (if values being compared are not both `Number` or both
+`Date` types). The browser native `localeCompare()` method accepts a `locale` string (or array of
+strings) and an `options` object for controlling how strings are sorted. The default options used is
 `{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or locales)
