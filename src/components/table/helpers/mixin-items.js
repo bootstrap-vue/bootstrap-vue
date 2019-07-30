@@ -44,12 +44,12 @@ export default {
     },
     computedFieldsObj() {
       // Fields as a simple lookup hash object.
-      // Mainly for formatter lookup and scopedSlots for convenience.
+      // Mainly for formatter lookup and use in scopedSlots for convenience.
       // If the field has a formatter, it normalizes formatter to a
       // function ref or undefined if no formatter.
       const parent = this.$parent
       return this.computedFields.reduce((obj, f) => {
-        // We use object spread here s we don't mutate the original field object
+        // We use object spread here so we don't mutate the original field object
         obj[f.key] = { ...f }
         if (f.formatter) {
           // Normalize formatter to a function ref or undefined
