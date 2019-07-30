@@ -335,7 +335,9 @@ The following field properties are recognized:
 **Notes:**
 
 - Field properties, if not present, default to `null` (falsey) unless otherwise stated above.
-- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS.
+- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS, unless you
+  are using VueLoader's
+  [Deep selector](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements).
 - For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
   in the Vue.js guide.
@@ -1405,9 +1407,18 @@ stringified column value (if value type is not `Number` or `Date`). `localeCompa
 `locale` string and an `options` object for controlling how strings are sorted. The default options
 used is `{ numeric: true }`, and locale is `undefined` (which uses the browser default locale).
 
-<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale via the
-`sort-compare-locale` prop to set the locale for sorting, as well as pass sort options via the
-`sort-compare-options` prop. Valid sort option properties are:
+<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or locales)
+via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort options via
+the `sort-compare-options` prop.
+
+The `sort-compare-locale` defaults to `undefined`, which uses the browser (or Node.js runtime)
+default locale. `sort-compare-locale` can either accept a
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For
+more details on locales, please see
+[Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
+on MDN.
+
+Valid `sort-compare-options` properties are:
 
 - `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
   `'best fit'`. The default is `'best fit'`. For information about this option, see the
@@ -1446,11 +1457,14 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
 **Notes:**
 
 - The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
-  field data (scoped slots are used only for presentation only, and do not affect the underlying
-  data).
-- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> Fields that have a
-  [`formatter` function](#formatter-callback) (virtual field or regular field) will be sorted by the
-  value returned via the formatter function.
+  field data: scoped slots are used only for _presentation only_, and do not affect the underlying
+  data.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span>
+  <span class="badge badge-info small">CHANGED in v2.0.0-rc.28</span> Fields that have a
+  [`formatter` function](#formatter-callback) (virtual field or regular field) can be sorted by the
+  value returned via the formatter function, if the [field](#field-definition-reference) property
+  `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
+  value. This is only applicable for the build in sort-compare routine.
 - Refer to
   [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
   for details on the options object property values.
@@ -1530,7 +1544,8 @@ The `sort-compare` routine is passed seven (7) arguments:
   for descending, `false` for ascending)
 - the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
   `undefined` if no field formatter). You will need to call this method to get the formatted field
-  value: `val = formatter(a[key], key, a)`
+  value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need
+  to sort by the formatted value.
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -1539,14 +1554,15 @@ The sixth and seventh arguments can be used if you are using the
 [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
 method to compare strings.
 
-The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
-`1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
-`b-table` will handle the direction, and is typically only needed when special handling of how
-`null` values are sorted). Your custom sort-compare routine can also return `null` or `false` to
-fall back to the _built-in sort-compare routine_ for the particular `key`. You can use this feature
-(i.e. by returning `null`) to have your custom sort-compare routine handle only certain fields
-(keys) such as the special case of virtual (scoped slot) columns, and have the internal sort-compare
-handle all other fields.
+The routine should always return either `-1` (or a negative value) for `a[key] < b[key]` , `0` for
+`a[key] === b[key]`, or `1` (or a positive value) for `a[key] > b[key]` (the fourth argument, sorting
+direction, should not normally be used, as `b-table` will handle the direction, and this value is
+typically only needed when special handling of how `null`/`undefined` values are sorted).
+
+Your custom sort-compare routine can also return `null` or `false` to fall back to the _built-in
+sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning `null`) to
+have your custom sort-compare routine handle _only_ certain fields (keys) such as the special case
+of virtual (scoped slot) columns, and have the internal sort-compare handle all other fields.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
@@ -1555,13 +1571,13 @@ direction) is **not** used in the sort comparison:
 
 ```js
 function sortCompare(aRow, bRow, key) {
-  const a = aRow[key] // or use Lodash _.get()
+  const a = aRow[key] // or use Lodash `_.get()`
   const b = bRow[key]
   if (
     (typeof a === 'number' && typeof b === 'number') ||
     (a instanceof Date && b instanceof Date)
   ) {
-    // If both compared fields are native numbers or both are dates
+    // If both compared fields are native numbers or both are native dates
     return a < b ? -1 : a > b ? 1 : 0
   } else {
     // Otherwise stringify the field data and use String.prototype.localeCompare
@@ -1618,7 +1634,7 @@ unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 ## Filtering
 
 Filtering, when used, is applied to the **original items** array data, and hence it is not currently
-possible to filter data based on custom rendering of virtual columns.
+possible to filter data based on custom rendering or formatting of virtual columns.
 
 ### Built in filtering
 
