@@ -223,8 +223,8 @@ export default {
         // the serialized data, otherwise false
         //
         // We set `lastIndex = 0` on the `RegExp` in case someone specifies the `/g` global flag
-        regexp.lastIndex = 0
-        return regexp.test(
+        regExp.lastIndex = 0
+        return regExp.test(
           stringifyRecordValues(
             item,
             this.computedFilterIgnored,
