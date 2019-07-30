@@ -2144,11 +2144,12 @@ differences between operating systems, this too is not a preventable default beh
           class="mb-0"
         >
           <b-input-group size="sm">
-            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions">
+            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
               <option slot="first" value="">-- none --</option>
             </b-form-select>
-            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" slot="append">
-              <option :value="false">Asc</option> <option :value="true">Desc</option>
+            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
+              <option :value="false">Asc</option>
+              <option :value="true">Desc</option>
             </b-form-select>
           </b-input-group>
         </b-form-group>
