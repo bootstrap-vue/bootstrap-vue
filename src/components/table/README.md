@@ -63,8 +63,8 @@ headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
 in the first row, but this may not always be the case depending on the version of browser in use.
-See section [Fields (column definitions)](#fields-column-definitions) below to see how to
-guarantee the order of fields, and to override the headings generated.
+See section [Fields (column definitions)](#fields-column-definitions) below to see how to guarantee
+the order of fields, and to override the headings generated.
 
 Record data may also have additional special reserved name keys for colorizing rows and individual
 cells (variants), and for triggering additional row detail. The supported optional item record
@@ -121,8 +121,8 @@ Provider functions can also be asynchronous:
   array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
-See the ["Using Items Provider functions"](#using-items-provider-functions) section below for
-more details.
+See the ["Using Items Provider functions"](#using-items-provider-functions) section below for more
+details.
 
 ### Table item notes and warnings
 
@@ -314,17 +314,17 @@ typically be in the order they were defined in the object, although **field orde
 
 The following field properties are recognized:
 
-| Property        | Type                        | Description                                                                                                                                                                                                                                                                                                           |
+| Property          | Type                        | Description                                                                                                                                                                                                                                                                                                           |
 | ----------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `key`             | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
 | `label`           | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
 | `headerTitle`     | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
 | `headerAbbr`      | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
 | `class`           | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`       | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                 |
-| `sortable`        | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection`   | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
-| `sortByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                 |
+| `formatter`       | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                     |
+| `sortable`        | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                             |
+| `sortDirection`   | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                          |
+| `sortByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                     |
 | `tdClass`         | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
 | `thClass`         | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
 | `thStyle`         | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
@@ -335,8 +335,8 @@ The following field properties are recognized:
 **Notes:**
 
 - Field properties, if not present, default to `null` (falsey) unless otherwise stated above.
-- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS, unless you
-  are using VueLoader's
+- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS,
+  unless you are using VueLoader's
   [Deep selector](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements).
 - For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
@@ -402,21 +402,21 @@ place a unique `:key` on your element/components in your custom formatted field 
 
 `<b-table>` provides several props to alter the style of the table:
 
-| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                        |
-| ------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                          |
-| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                                   |
-| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                                  |
-| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                   |
-| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
-| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
-| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                           |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
+| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                    |
+| ------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                      |
+| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                               |
+| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                              |
+| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                               |
+| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                   |
+| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                          |
+| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
 | `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
-| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                             |
-| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                          |
-| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
+| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
+| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
+| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
 
 **Example: Basic table styles**
@@ -786,8 +786,8 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 <!-- b-table-busy-slot.vue -->
 ```
 
-Also see the [Using Items Provider Functions](#using-items-provider-functions) below for
-additional information on the `busy` state.
+Also see the [Using Items Provider Functions](#using-items-provider-functions) below for additional
+information on the `busy` state.
 
 **Notes:**
 
@@ -1019,9 +1019,10 @@ formatted value as a string (HTML strings are not supported)
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
-Scoped slots for the header and footer cells uses a special naming convention of `'HEAD[<fieldkey>]'`
-and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is not provided, but a
-`'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot content.
+Scoped slots for the header and footer cells uses a special naming convention of
+`'HEAD[<fieldkey>]'` and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is
+not provided, but a `'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot
+content.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
 scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or footer cells that do not have an
@@ -1129,20 +1130,20 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
     data() {
       return {
         items: [
-          { name: "Stephen Hawking", id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
-          { name: "Johnny Appleseed", id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
-          { name: "George Washington", id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
-          { name: "Albert Einstein", id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
-          { name: "Isaac Newton", id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
+          { name: 'Stephen Hawking', id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
+          { name: 'Johnny Appleseed', id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
+          { name: 'George Washington', id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
+          { name: 'Albert Einstein', id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
+          { name: 'Isaac Newton', id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
         ],
         fields: [
-          "name",
-          { key: "id", label: "ID" },
-          { key: "type1", label: "Type 1" },
-          { key: "type2a", label: "Type 2A" },
-          { key: "type2b", label: "Type 2B" },
-          { key: "type2c", label: "Type 2C" },
-          { key: "type3", label: "Type 3" }
+          'name',
+          { key: 'id', label: 'ID' },
+          { key: 'type1', label: 'Type 1' },
+          { key: 'type2a', label: 'Type 2A' },
+          { key: 'type2b', label: 'Type 2B' },
+          { key: 'type2c', label: 'Type 2C' },
+          { key: 'type3', label: 'Type 3' }
         ]
       }
     }
@@ -1479,14 +1480,14 @@ for comparing the stringified column value (if values being compared are not bot
 strings) and an `options` object for controlling how strings are sorted. The default options used is
 `{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
 
-<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or locales)
-via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort options via
-the `sort-compare-options` prop.
+<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or
+locales) via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort
+options via the `sort-compare-options` prop.
 
 The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
 default locale. The prop `sort-compare-locale` can either accept a
-[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For
-more details on locales, please see
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For more
+details on locales, please see
 [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
 on MDN.
 
@@ -1551,8 +1552,8 @@ You can provide your own custom sort compare routine by passing a function refer
   for descending, `false` for ascending)
 - the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
   `undefined` if no field formatter). You will need to call this method to get the formatted field
-  value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need
-  to sort by the formatted value.
+  value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
+  sort by the formatted value.
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -1570,10 +1571,10 @@ The routine should return either `-1` (or a negative value) for `a[key] < b[key]
 `a[key] === b[key]`, or `1` (or a positive value) for `a[key] > b[key]`.
 
 Your custom sort-compare routine can also return `null` or `false`, to fall back to the _built-in
-sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning `null`) to
-have your custom sort-compare routine handle _only_ certain fields (keys) such as the special case
-of virtual (scoped slot) columns, and have the internal (built in) sort-compare handle all other
-fields.
+sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning `null`)
+to have your custom sort-compare routine handle _only_ certain fields (keys) such as the special
+case of virtual (scoped slot) columns, and have the internal (built in) sort-compare handle all
+other fields.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
@@ -1801,8 +1802,8 @@ table#table-transition-example .flip-list-move {
 
 ## Using items provider functions
 
-As mentioned under the [Items](#items-record-data) prop section, it is possible to use a
-function to provide the row data (items), by specifying a function reference via the `items` prop.
+As mentioned under the [Items](#items-record-data) prop section, it is possible to use a function to
+provide the row data (items), by specifying a function reference via the `items` prop.
 
 The provider function is called with the following signature:
 
@@ -2025,8 +2026,7 @@ export default {
 ```
 
 You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
-`:sort-desc.sync` two-way props respectively (see section [Sorting](#sorting) above for
-details).
+`:sort-desc.sync` two-way props respectively (see section [Sorting](#sorting) above for details).
 
 ```html
 <div>
