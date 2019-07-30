@@ -1651,7 +1651,7 @@ unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 <span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
 
 Filtering, when used, is applied by default to the **original items** array data. `b-table` provides
-several optios for how data is filtered.
+several options for how data is filtered.
 
 It is currently not possible to filter based on result of formatting via
 [scoped field slots](#scoped-field-slots).
@@ -1660,8 +1660,8 @@ It is currently not possible to filter based on result of formatting via
 
 The item's row data values are stringified (see the sorting section above for how stringification is
 done) and the filter searches that stringified data (excluding any of the special properties that
-begin with an underscore `'_'`). The stringification also, by default, includes any data not shown in
-the presented columns.
+begin with an underscore `'_'`). The stringification also, by default, includes any data not shown
+in the presented columns.
 
 With the default built-in filter function, The `filter` prop value can either be a string or a
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
@@ -1687,8 +1687,8 @@ There are several options for controlling what data the filter is applied agains
   `filter-included-fields`, then `filter-included-fields` takes precedence.
 - Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
   function specified, you can optionally filter based on the result of the formatter by setting the
-  [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the field
-  does not have a formatter function, this option is ignored.
+  [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the
+  field does not have a formatter function, this option is ignored.
 
 The props `filter-ignored-fields` and `filter-included-fields`, and the field definition property
 `filterByFormatted` have no effect when using a [custom filter function](#custom-filter-function),
