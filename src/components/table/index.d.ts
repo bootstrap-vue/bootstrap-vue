@@ -22,6 +22,8 @@ export declare class BTable extends BvComponent {
   sortDesc?: boolean
   sortDirection?: BvTableSortDirection
   sortCompare?: BvTableSortCompareCallback
+  sortCompareLocale?: string | Array<string>
+  sortCompareOptions?: object
   perPage?: number | string
   currentPage?: number | string
   filter?: string | Array<any> | RegExp | object | any
@@ -59,7 +61,17 @@ export type BvTableTbodyTrClassCallback = ((item: any, type: string) => any)
 
 export type BvTableFilterCallback = ((item: any, filter: any) => boolean)
 
-export type BvTableSortCompareCallback = ((a: any, b: any, field: string) => any)
+export type BvTableSortCompareCallback = (
+  (
+    a: any,
+    b: any,
+    field: string,
+    sortDesc?: boolean,
+    formatter?: BvTableFormatterCallback | undefined | null,
+    localeOptions?: object | undefined | null,
+    locale?: string | Array<string> | undefined | null
+  ) => number | boolean | null | undefined
+)
 
 export interface BvTableCtxObject {
   currentPage: number
@@ -71,7 +83,7 @@ export interface BvTableCtxObject {
   [key: string]: any
 }
 
-export type BvTableProviderPromiseResult = Array<any> | null | any
+export type BvTableProviderPromiseResult = Array<any> | null
 
 export interface BvTableProviderCallback {
   (ctx: BvTableCtxObject): Array<any> | Promise<BvTableProviderPromiseResult> | any
@@ -87,7 +99,7 @@ export interface BvTableField {
   sortable?: boolean
   sortDirection?: BvTableSortDirection
   sortByFormatted?: boolean
-  tdClass?: string | string[] | BvTableFormatterCallback
+  tdClass?: string | string[] | ((value: any, key: string, item: any) => any)
   thClass?: string | string[]
   thStyle?: any
   variant?: BvTableVariant | string
