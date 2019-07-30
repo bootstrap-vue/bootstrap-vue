@@ -20,6 +20,14 @@ export default {
     filterFunction: {
       type: Function,
       default: null
+    },
+    filterIgnoredFields: {
+      type: Array
+      // default: undefined
+    },
+    filterIncludedFields: {
+      type: Array
+      // default: undefined
     }
   },
   data() {
@@ -200,10 +208,9 @@ export default {
         // special _ prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
         // not visible (not specified in this.fields).
+        // Users can ignore filtering on specific fields, or on only certain fields
         //
         // TODO: Enable searching on formatted fields and scoped slots
-        // TODO: Should we filter only on visible fields (i.e. ones in this.fields) by default?
-        // TODO: Allow for searching on specific fields/key, this could be combined with the previous TODO
         // TODO: Give stringifyRecordValues extra options for filtering (i.e. passing the
         //       fields definition and a reference to $scopedSlots)
         //
@@ -211,7 +218,7 @@ export default {
         // the serialized data, otherwise false
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
-        return regexp.test(stringifyRecordValues(item))
+        return regexp.test(stringifyRecordValues(item, this.filterIgnoredFields, this.filterIncludedFields))
       }
 
       // Return the generated function
