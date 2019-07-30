@@ -39,7 +39,7 @@ export default {
     sortCompareLocale: {
       // String: locale code
       // Array: array of Locale strings
-      type: [String, Array],
+      type: [String, Array]
       // default: undefined
     },
     noSortReset: {
