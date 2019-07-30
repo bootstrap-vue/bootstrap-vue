@@ -2156,18 +2156,18 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col lg="6" class="my-1">
         <b-form-group
-          label="Per page"
+          label="Initial sort"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          label-for="perPageSelect"
+          label-for="initialSortSelect"
           class="mb-0"
         >
           <b-form-select
-            v-model="perPage"
-            id="perPageSelect"
+            v-model="sortDirection"
+            id="initialSortSelect"
             size="sm"
-            :options="pageOptions"
+            :options="['asc', 'desc', 'last']"
           ></b-form-select>
         </b-form-group>
       </b-col>
@@ -2256,6 +2256,7 @@ differences between operating systems, this too is not a preventable default beh
       :filterIncludedFields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
       <template slot="[name]" slot-scope="row">
