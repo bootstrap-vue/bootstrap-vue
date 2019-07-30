@@ -77,18 +77,16 @@ export interface BvTableLocaleCompareOptions {
   caseFirst?: BvTableLocaleCompareOptionCaseFirst
   usage?: BvTableLocaleCompareOptionUsage
 }
-  
-export type BvTableSortCompareCallback = (
-  (
-    a: any,
-    b: any,
-    field: string,
-    sortDesc?: boolean,
-    formatter?: BvTableFormatterCallback | undefined | null,
-    localeOptions?: BvTableLocaleCompareOptions,
-    locale?: string | Array<string> | undefined | null
-  ) => number | boolean | null | undefined
-)
+
+export type BvTableSortCompareCallback = ((
+  a: any,
+  b: any,
+  field: string,
+  sortDesc?: boolean,
+  formatter?: BvTableFormatterCallback | undefined | null,
+  localeOptions?: BvTableLocaleCompareOptions,
+  locale?: string | Array<string> | undefined | null
+) => number | boolean | null | undefined)
 
 export interface BvTableCtxObject {
   currentPage: number
