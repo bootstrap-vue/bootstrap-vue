@@ -117,17 +117,10 @@ export default {
   methods: {
     // Method to get the formatter method for a given field key
     getFieldFormatter(key) {
-      const fieldsObj = this.computedFieldsObj
-      const field = fieldsObj[key]
-      const parent = this.$parent
-      let formatter = field && field.formatter
-      if (isString(formatter) && isFunction(parent[formatter])) {
-        formatter = parent[formatter]
-      } else if (!isFunction(formatter)) {
-        formatter = undefined
-      }
-      // Return formatter function or undefined if none
-      return formatter
+      const field = this.computedFieldsObj[key]
+      // this.computedFieldsObj has pre-nomalized the formatter to a
+      // function ref if present, otherwise undefined
+      return field ? field.formatter : undefined
     }
   }
 }
