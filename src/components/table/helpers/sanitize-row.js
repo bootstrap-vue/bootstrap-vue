@@ -7,7 +7,7 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
   keys(row).reduce((obj, key) => {
     // Ignore special fields that start with `_`
     // Ignore fields in the `ignoreFields` array
-    // include only fields in the `includeFields` array
+    // Include only fields in the `includeFields` array
     if (
       !IGNORED_FIELD_KEYS[key] &&
       !(ignoreFields && ignoreFields.length > 0 && arrayIncludes(ignoreFields, key)) &&
