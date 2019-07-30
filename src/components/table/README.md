@@ -2136,7 +2136,7 @@ differences between operating systems, this too is not a preventable default beh
     <b-row>
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
-          <b-input-group>
+          <b-input-group size="sm">
             <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
@@ -2147,11 +2147,11 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
-          <b-input-group>
+          <b-input-group size="sm">
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
-            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
+            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" slot="append">
               <option :value="false">Asc</option> <option :value="true">Desc</option>
             </b-form-select>
           </b-input-group>
@@ -2160,7 +2160,7 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-          <b-form-select v-model="sortDirection">
+          <b-form-select v-model="sortDirection" size="sm">
             <option value="asc">Asc</option>
             <option value="desc">Desc</option>
             <option value="last">Last</option>
@@ -2170,7 +2170,7 @@ differences between operating systems, this too is not a preventable default beh
 
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
+          <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -2191,10 +2191,6 @@ differences between operating systems, this too is not a preventable default beh
     >
       <template slot="[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
-      </template>
-
-      <template slot="[isActive]" slot-scope="row">
-        {{ row.value ? 'Yes :)' : 'No :(' }}
       </template>
 
       <template slot="[actions]" slot-scope="row">
@@ -2223,6 +2219,11 @@ differences between operating systems, this too is not a preventable default beh
           :per-page="perPage"
           class="my-0"
         ></b-pagination>
+      </b-col>
+      <b-col md="6" class="my-1">
+        <b-form-group label-cols-sm="6" label="Per page" class="mb-0">
+          <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>
+        </b-form-group>
       </b-col>
     </b-row>
 
@@ -2264,7 +2265,15 @@ differences between operating systems, this too is not a preventable default beh
         fields: [
           { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-          { key: 'isActive', label: 'is Active' },
+          {
+            key: 'isActive',
+            label: 'is Active'
+            formatter: (value, key, item) => {
+              return value ? 'Yes' : 'No'
+            }
+            sortByFormatted: true,
+            filterByFormatted: true
+          },
           { key: 'actions', label: 'Actions' }
         ],
         totalRows: 1,
