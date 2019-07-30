@@ -124,8 +124,8 @@ automatically be destroyed and removed from the document.
 **Notes:**
 
 - The `this.$bvToast` injection is only available when using the full `BootstrapVue` plugin or the
-  `ToastPlugin` plugin. It is not available if importing just the `b-toast` or `b-toaster` components.
-  To just import the injection, use the `BVToastPlugin` plugin.
+  `ToastPlugin` plugin. It is not available if importing just the `b-toast` or `b-toaster`
+  components. To just import the injection, use the `BVToastPlugin` plugin.
 - A new `$bvToast` injection (mixin) is created for each Vue virtual machine instance (i.e. each
   instantiated component), and is not usable via direct access to the `Vue.prototype`, as it needs
   access to the instance's `this` and `$root` contexts.

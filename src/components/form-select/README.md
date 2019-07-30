@@ -230,9 +230,9 @@ guaranteed. For this reason, it is recommended to use the above array formats.
 
 If the initial value of your `v-model` expression does not match any of the options, the
 `<b-form-select>` component (which is a native HTML5 `<select>` under the hood) will render in an
-_unselected_ state. On iOS this will cause the user not being able to select the first item
-because iOS does not fire a change event in this case. It is therefore recommended to provide a
-disabled option with an empty value as your first option.
+_unselected_ state. On iOS this will cause the user not being able to select the first item because
+iOS does not fire a change event in this case. It is therefore recommended to provide a disabled
+option with an empty value as your first option.
 
 ```html
 <b-form-select v-model="selected" :options="options">

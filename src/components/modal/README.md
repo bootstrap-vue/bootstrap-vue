@@ -77,9 +77,9 @@ See the [Accessibility](#accessibility) section below for details.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
-When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue
-will inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal`
-exposes several methods, of which two are for showing and hiding modals:
+When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue will
+inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal` exposes
+several methods, of which two are for showing and hiding modals:
 
 | Method                   | Description                            |
 | ------------------------ | -------------------------------------- |
@@ -873,8 +873,8 @@ Example Confirm Message boxes
 ### Message box notes
 
 - The `this.$bvModal` injection is only available when using the full `BootstrapVue` plugin or the
-  `ModalPlugin` plugin. It is not available if importing just the `b-modal` component. To just import
-  the injection, use the `BVModalPlugin` plugin.
+  `ModalPlugin` plugin. It is not available if importing just the `b-modal` component. To just
+  import the injection, use the `BVModalPlugin` plugin.
 - A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
   component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
   instance's `this` and `$root` contexts.
