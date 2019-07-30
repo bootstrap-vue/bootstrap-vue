@@ -218,7 +218,9 @@ export default {
         // the serialized data, otherwise false
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
-        return regexp.test(stringifyRecordValues(item, this.filterIgnoredFields, this.filterIncludedFields))
+        return regexp.test(
+          stringifyRecordValues(item, this.filterIgnoredFields, this.filterIncludedFields)
+        )
       }
 
       // Return the generated function
