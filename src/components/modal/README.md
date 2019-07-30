@@ -77,9 +77,9 @@ See the [Accessibility](#accessibility) section below for details.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
-When BootstrapVue is installed as a plugin, or the <samp>ModalPlugin</samp> plugin is used,
-BoostrapVue will inject a `$bvModal` object on every Vue instance (components, apps).
-`this.$bvModal` exposes several methods, of which two are for showing and hiding modals:
+When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue
+will inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal`
+exposes several methods, of which two are for showing and hiding modals:
 
 | Method                   | Description                            |
 | ------------------------ | -------------------------------------- |
@@ -105,6 +105,8 @@ Both methods return immediately after being called.
 
 <!-- b-modal-bv-modal-hide-show.vue -->
 ```
+
+The `this.$bvModal` object is also used for displaying [modal message boxes](#modal-message-boxes).
 
 ### Using `show()`, `hide()`, and `toggle()` component methods
 
@@ -870,6 +872,12 @@ Example Confirm Message boxes
 
 ### Message box notes
 
+- The `this.$bvModal` injection is only available when using the full `BootstrapVue` plugin or the
+  `ModalPlugin` plugin. It is not available if importing just the `b-modal` component. To just import
+  the injection, use the `BVModal` Plugin plugin.
+- A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
+  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
+  instance's `this` and `$root` contexts.
 - Message Boxes require `Promise` support in the browser. If targeting your app for older browsers,
   such as IE 11, please include a polyfill that provides `Promise` support. If `Promise` support is
   not detected, then the message box methods will immediately return `undefined`.
@@ -893,11 +901,6 @@ Example Confirm Message boxes
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
   `cancelTitle` option).
-- The `this.$bvModal` injection is only available when using the full BootstrapVue plugin or the
-  Modal plugin. It is not available if importing just the `b-modal` component.
-- A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
-  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
-  instance's `this` and `$root` contexts.
 
 ## Listening to modal changes via \$root events
 
