@@ -215,18 +215,22 @@ export default {
         // special _ prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
         // not visible (not specified in this.fields).
-        // Users can ignore filtering on specific fields, or on only certain fields
+        // Users can ignore filtering on specific fields, or on only certain fields,
+        // and can optionall specify searching results of fields with formatter
         //
-        // TODO: Enable searching on formatted fields and scoped slots
-        // TODO: Give stringifyRecordValues extra options for filtering (i.e. passing the
-        //       fields definition and a reference to $scopedSlots)
+        // TODO: Enable searching on scoped slots
         //
         // Generated function returns true if the criteria matches part of
-        // the serialized data, otherwise false
-        // We set lastIndex = 0 on regex in case someone uses the /g global flag
+        // the serialized data, otherwise false.
+        // We set lastIndex = 0 on the regex in case someone specifies the `/g` global flag
         regexp.lastIndex = 0
         return regexp.test(
-          stringifyRecordValues(item, this.computedFilterIgnored, this.computedFilterIncluded)
+          stringifyRecordValues(
+            item,
+            this.computedFilterIgnored,
+            this.computedFilterIncluded,
+            this.computedFieldsObj
+          )
         )
       }
 
