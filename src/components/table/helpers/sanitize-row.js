@@ -16,7 +16,7 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
       const f = fieldsObj[key]
       obj[key] = f && f.filterByFormatted && f.formatter
         ? f.formatter(row[key], key, row)
-        : obj[key] = row[key]
+        : row[key]
     }
     return obj
   }, {})
