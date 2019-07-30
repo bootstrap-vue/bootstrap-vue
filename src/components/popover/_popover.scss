@@ -1,9 +1,9 @@
 @if $bv-enable-popover-variants {
-  @each $color, $value in $theme-colors {
-    .b-popover-#{$color} {
-      $po-bg-color: theme-color-level($color, $bv-popover-bg-level);
-      $po-border-color: theme-color-level($color, $bv-popover-border-level);
-      $po-color: theme-color-level($color, $bv-popover-color-level);
+  @each $variant, $value in $theme-colors {
+    .b-popover-#{$variant} {
+      $po-bg-color: theme-color-level($variant, $b-popover-bg-level);
+      $po-border-color: theme-color-level($variant, $b-popover-border-level);
+      $po-color: theme-color-level($variant, $b-popover-color-level);
       $po-header-bg: darken($po-bg-color, 3%);
       $po-header-color: color-yiq($po-header-bg);
       $po-arrow-color: $po-bg-color;

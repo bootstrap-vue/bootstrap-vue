@@ -707,7 +707,8 @@ describe('table > sorting', () => {
             sortable: true,
             formatter(value, key, item) {
               return item.a - item.b
-            }
+            },
+            sortByFormatted: true
           }
         ],
         // Initialy unsorted

@@ -63,8 +63,8 @@ headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
 in the first row, but this may not always be the case depending on the version of browser in use.
-See section [Fields (column definitions)](#fields-column-definitions) below to see how to
-guarantee the order of fields, and to override the headings generated.
+See section [Fields (column definitions)](#fields-column-definitions) below to see how to guarantee
+the order of fields, and to override the headings generated.
 
 Record data may also have additional special reserved name keys for colorizing rows and individual
 cells (variants), and for triggering additional row detail. The supported optional item record
@@ -121,8 +121,8 @@ Provider functions can also be asynchronous:
   array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
-See the ["Using Items Provider functions"](#using-items-provider-functions) section below for
-more details.
+See the ["Using Items Provider functions"](#using-items-provider-functions) section below for more
+details.
 
 ### Table item notes and warnings
 
@@ -314,27 +314,31 @@ typically be in the order they were defined in the object, although **field orde
 
 The following field properties are recognized:
 
-| Property        | Type                        | Description                                                                                                                                                                                                                                                                                                           |
-| --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
-| `label`         | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
-| `headerTitle`   | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
-| `headerAbbr`    | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
-| `class`         | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                 |
-| `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
-| `tdClass`       | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
-| `thClass`       | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
-| `thStyle`       | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
-| `variant`       | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).                                     |
-| `tdAttr`        | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
-| `isRowHeader`   | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
+| Property            | Type                        | Description                                                                                                                                                                                                                                                                                                           |
+| ------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`               | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
+| `label`             | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
+| `headerTitle`       | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
+| `headerAbbr`        | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
+| `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
+| `formatter`         | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                     |
+| `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                             |
+| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                          |
+| `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                     |
+| `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                               |
+| `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
+| `thClass`           | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
+| `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
+| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).                                     |
+| `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
+| `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
 
 **Notes:**
 
 - Field properties, if not present, default to `null` (falsey) unless otherwise stated above.
-- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS.
+- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS,
+  unless you are using VueLoader's
+  [Deep selector](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements).
 - For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
   in the Vue.js guide.
@@ -399,21 +403,21 @@ place a unique `:key` on your element/components in your custom formatted field 
 
 `<b-table>` provides several props to alter the style of the table:
 
-| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                        |
-| ------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                          |
-| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                                   |
-| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                                  |
-| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                   |
-| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
-| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
-| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                           |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
+| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                    |
+| ------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                      |
+| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                               |
+| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                              |
+| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                               |
+| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                   |
+| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                          |
+| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
 | `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
-| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                             |
-| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                          |
-| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
+| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
+| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
+| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
 
 **Example: Basic table styles**
@@ -783,8 +787,8 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 <!-- b-table-busy-slot.vue -->
 ```
 
-Also see the [Using Items Provider Functions](#using-items-provider-functions) below for
-additional information on the `busy` state.
+Also see the [Using Items Provider Functions](#using-items-provider-functions) below for additional
+information on the `busy` state.
 
 **Notes:**
 
@@ -1016,9 +1020,10 @@ formatted value as a string (HTML strings are not supported)
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
-Scoped slots for the header and footer cells uses a special naming convention of `'HEAD[<fieldkey>]'`
-and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is not provided, but a
-`'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot content.
+Scoped slots for the header and footer cells uses a special naming convention of
+`'HEAD[<fieldkey>]'` and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is
+not provided, but a `'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot
+content.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
 scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or footer cells that do not have an
@@ -1126,20 +1131,20 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
     data() {
       return {
         items: [
-          { name: "Stephen Hawking", id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
-          { name: "Johnny Appleseed", id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
-          { name: "George Washington", id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
-          { name: "Albert Einstein", id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
-          { name: "Isaac Newton", id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
+          { name: 'Stephen Hawking', id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
+          { name: 'Johnny Appleseed', id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
+          { name: 'George Washington', id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
+          { name: 'Albert Einstein', id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
+          { name: 'Isaac Newton', id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
         ],
         fields: [
-          "name",
-          { key: "id", label: "ID" },
-          { key: "type1", label: "Type 1" },
-          { key: "type2a", label: "Type 2A" },
-          { key: "type2b", label: "Type 2B" },
-          { key: "type2c", label: "Type 2C" },
-          { key: "type3", label: "Type 3" }
+          'name',
+          { key: 'id', label: 'ID' },
+          { key: 'type1', label: 'Type 1' },
+          { key: 'type2a', label: 'Type 2A' },
+          { key: 'type2b', label: 'Type 2B' },
+          { key: 'type2c', label: 'Type 2C' },
+          { key: 'type3', label: 'Type 3' }
         ]
       }
     }
@@ -1399,72 +1404,6 @@ When the prop `foot-clone` is set, the footer headings will also allow sorting b
 you have custom formatted footer field headers. To disable the sort icons and sorting via heading
 clicks in the footer, set the `no-footer-sorting` prop to true.
 
-The internal sort-compare routine uses `String.prototype.localeCompare()` for comparing the
-stringified column value (if value type is not `Number` or `Date`). `localeCompare()` accepts a
-`locale` string and an `options` object for controlling how strings are sorted. The default options
-used is `{ numeric: true }`, and locale is `undefined` (which uses the browser default locale).
-
-<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale via the
-`sort-compare-locale` prop to set the locale for sorting, as well as pass sort options via the
-`sort-compare-options` prop. Valid sort option properties are:
-
-- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
-  `'best fit'`. The default is `'best fit'`. For information about this option, see the
-  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
-  for details.
-- `sensitivity`: Which differences in the strings should lead to non-zero compare result values.
-  Possible values are:
-  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
-    `a = á`, `a = A`.
-  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
-    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
-  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
-    `a ≠ b`, `a = á`, `a ≠ A`.
-  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
-    marks, or case compare as unequal. Other differences may also be taken into consideration.
-    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
-- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
-  `false`. The default is `false`.
-- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
-  are `true` and `false`. The default is `false`. Implementations are not required to support this
-  property.
-- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
-  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
-  not required to support this property.
-- `'usage'`: Always set to `'sort'` by `<b-table>`
-
-**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
-sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
-
-**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
-
-```html
-<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
-```
-
-**Notes:**
-
-- The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
-  field data (scoped slots are used only for presentation only, and do not affect the underlying
-  data).
-- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> Fields that have a
-  [`formatter` function](#formatter-callback) (virtual field or regular field) will be sorted by the
-  value returned via the formatter function.
-- Refer to
-  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
-  for details on the options object property values.
-- Refer to
-  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
-  for details on locale values.
-- Not all browsers (or Node.js) support the `locale` and `options` with
-  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
-  for browser support. For Node.js, you may need to add in
-  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
-  prevent [SSR hydration mismatch](https://ssr.vuejs.org/guide/hydration.html) errors.
-
-Refer to the [Sort-compare routine](#sort-compare-routine) section below for details on sorting
-by presentational data.
-
 ```html
 <template>
   <div>
@@ -1513,15 +1452,100 @@ by presentational data.
 
 <span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
 
-The built-in default `sort-compare` function sorts the specified field `key` based on the data in
-the underlying record object (formatted value if a field has a formatter function). The field value
-is first stringified if it is an object, and then sorted.
+The internal built-in default `sort-compare` function sorts the specified field `key` based on the
+data in the underlying record object (or by formatted value if a field has a formatter function, and
+the field has its `sortByFormatted` property is set to `true`). The field value is first stringified
+if it is an object and then sorted.
 
-The default `sort-compare` routine **cannot** sort based on the custom rendering of the field data
-(scoped slots are used only for presentation). For this reason, you can provide your own custom sort
-compare routine by passing a function reference to the prop `sort-compare`.
+**Notes:**
 
-The `sort-compare` routine is passed seven (7) arguments:
+- The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
+  field data: scoped slots are used only for _presentation only_, and do not affect the underlying
+  data.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span>
+  <span class="badge badge-warning small">CHANGED in v2.0.0-rc.28</span> Fields that have a
+  [`formatter` function](#formatter-callback) (virtual field or regular field) can be sorted by the
+  value returned via the formatter function if the [field](#field-definition-reference) property
+  `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
+  value. This is only applicable for the built-in sort-compare routine.
+
+For customizing the sort-compare handling, refer to the
+[Custom sort-compare routine](#custom-sort-compare-routine) section below.
+
+### Internal sorting and locale handling
+
+The internal sort-compare routine uses
+[`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+for comparing the stringified column value (if values being compared are not both `Number` or both
+`Date` types). The browser native `localeCompare()` method accepts a `locale` string (or array of
+strings) and an `options` object for controlling how strings are sorted. The default options used is
+`{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or
+locales) via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort
+options via the `sort-compare-options` prop.
+
+The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
+default locale. The prop `sort-compare-locale` can either accept a
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For more
+details on locales, please see
+[Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
+on MDN.
+
+The `sort-compare-options` prop accepts an object containing any of the following properties:
+
+- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
+  `'best fit'`. The default is `'best fit'`. For information about this option, see the
+  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
+  for details.
+- `sensitivity`: Which differences in the strings should lead to _non-zero_ compare result values.
+  Possible values are:
+  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
+    `a = á`, `a = A`.
+  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
+    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
+  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
+    `a ≠ b`, `a = á`, `a ≠ A`.
+  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
+    marks, or case compare as unequal. Other differences _may also_ be taken into consideration.
+    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
+- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
+  `false`. The default is `false`.
+- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
+  are `true` and `false`. The default is `false`. Note that implementations (browsers, runtimes) are
+  not required to support this property, and therefore it might be ignored.
+- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
+  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
+  not required to support this property.
+- `'usage'`: **Always** set to `'sort'` by `<b-table>`
+
+**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
+sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
+
+**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
+
+```html
+<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
+```
+
+**Notes:**
+
+- Refer to
+  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+  for details on the options object property values.
+- Refer to
+  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
+  for details on locale values.
+- Not all browsers (or Node.js) support the `locale` and `options` with
+  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
+  for browser support. For Node.js, you may need to add in
+  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
+  prevent [SSR hydration mismatch errors](https://ssr.vuejs.org/guide/hydration.html).
+
+### Custom sort-compare routine
+
+You can provide your own custom sort compare routine by passing a function reference to the prop
+`sort-compare`. The `sort-compare` routine is passed seven (7) arguments:
 
 - the first two arguments (`a` and `b`) are the _record objects_ for the rows being compared
 - the third argument is the field `key` being sorted on (`sortBy`)
@@ -1529,7 +1553,8 @@ The `sort-compare` routine is passed seven (7) arguments:
   for descending, `false` for ascending)
 - the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
   `undefined` if no field formatter). You will need to call this method to get the formatted field
-  value: `val = formatter(a[key], key, a)`
+  value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
+  sort by the formatted value.
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -1538,14 +1563,19 @@ The sixth and seventh arguments can be used if you are using the
 [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
 method to compare strings.
 
-The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
-`1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
-`b-table` will handle the direction, and is typically only needed when special handling of how
-`null` values are sorted). Your custom sort-compare routine can also return `null` or `false` to
-fall back to the _built-in sort-compare routine_ for the particular `key`. You can use this feature
-(i.e. by returning `null`) to have your custom sort-compare routine handle only certain fields
-(keys) such as the special case of virtual (scoped slot) columns, and have the internal sort-compare
-handle all other fields.
+In most typical situations, you only need to use the first three arguments. The fourth argument -
+sorting direction - should not normally be used, as `b-table` will handle the direction, and this
+value is typically only needed when special handling of how `null` and/or `undefined` values are
+sorted.
+
+The routine should return either `-1` (or a negative value) for `a[key] < b[key]` , `0` for
+`a[key] === b[key]`, or `1` (or a positive value) for `a[key] > b[key]`.
+
+Your custom sort-compare routine can also return `null` or `false`, to fall back to the _built-in
+sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning `null`)
+to have your custom sort-compare routine handle _only_ certain fields (keys) such as the special
+case of virtual (scoped slot) columns, and have the internal (built in) sort-compare handle all
+other fields.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
@@ -1554,13 +1584,13 @@ direction) is **not** used in the sort comparison:
 
 ```js
 function sortCompare(aRow, bRow, key) {
-  const a = aRow[key] // or use Lodash _.get()
+  const a = aRow[key] // or use Lodash `_.get()`
   const b = bRow[key]
   if (
     (typeof a === 'number' && typeof b === 'number') ||
     (a instanceof Date && b instanceof Date)
   ) {
-    // If both compared fields are native numbers or both are dates
+    // If both compared fields are native numbers or both are native dates
     return a < b ? -1 : a > b ? 1 : 0
   } else {
     // Otherwise stringify the field data and use String.prototype.localeCompare
@@ -1599,6 +1629,8 @@ with a single argument containing the context object of `<b-table>`. See the
 [Detection of sorting change](#detection-of-sorting-change) section below for details about the
 sort-changed event and the context object.
 
+When `no-local-sorting` is true, the `sort-compare` prop has no effect.
+
 ### Change initial sort direction
 
 Control the order in which ascending and descending sorting is applied when a sortable column header
@@ -1616,15 +1648,20 @@ unsorted to sorted), specify the property `sortDirection` in `fields`. See the
 
 ## Filtering
 
-Filtering, when used, is applied to the **original items** array data, and hence it is not currently
-possible to filter data based on custom rendering of virtual columns.
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
+
+Filtering, when used, is applied by default to the **original items** array data. `b-table` provides
+several options for how data is filtered.
+
+It is currently not possible to filter based on result of formatting via
+[scoped field slots](#scoped-field-slots).
 
 ### Built in filtering
 
 The item's row data values are stringified (see the sorting section above for how stringification is
 done) and the filter searches that stringified data (excluding any of the special properties that
-begin with an underscore `_`). The stringification also includes any data not shown in the presented
-columns.
+begin with an underscore `'_'`). The stringification also, by default, includes any data not shown
+in the presented columns.
 
 With the default built-in filter function, The `filter` prop value can either be a string or a
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
@@ -1632,7 +1669,30 @@ With the default built-in filter function, The `filter` prop value can either be
 If the stringified row contains the provided string value or matches the RegExp expression then it
 is included in the displayed results.
 
-Set the `filter` prop to `null` or the empty string to clear the current filter.
+Set the `filter` prop to `null` or an empty string to clear the current filter.
+
+### Built in filtering options
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+There are several options for controlling what data the filter is applied against.
+
+- The `filter-ignored-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should be ignored when filtering.
+- The `filter-included-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should used when filtering. All other field keys not included in this array
+  will be ignored. This feature can be handy when you want to filter on specific columns. If the
+  specified array is empty, then _all_ fields are included, except those specified via the prop
+  `filter-ignored-fields`. If a field key is specified in both `filter-ignored-fields` and
+  `filter-included-fields`, then `filter-included-fields` takes precedence.
+- Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
+  function specified, you can optionally filter based on the result of the formatter by setting the
+  [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the
+  field does not have a formatter function, this option is ignored.
+
+The props `filter-ignored-fields` and `filter-included-fields`, and the field definition property
+`filterByFormatted` have no effect when using a [custom filter function](#custom-filter-function),
+or [items provider](#using-items-provider-functions) based filtering.
 
 ### Custom filter function
 
@@ -1771,8 +1831,8 @@ table#table-transition-example .flip-list-move {
 
 ## Using items provider functions
 
-As mentioned under the [Items](#items-record-data) prop section, it is possible to use a
-function to provide the row data (items), by specifying a function reference via the `items` prop.
+As mentioned under the [Items](#items-record-data) prop section, it is possible to use a function to
+provide the row data (items), by specifying a function reference via the `items` prop.
 
 The provider function is called with the following signature:
 
@@ -1995,8 +2055,7 @@ export default {
 ```
 
 You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
-`:sort-desc.sync` two-way props respectively (see section [Sorting](#sorting) above for
-details).
+`:sort-desc.sync` two-way props respectively (see section [Sorting](#sorting) above for details).
 
 ```html
 <div>
@@ -2075,10 +2134,61 @@ differences between operating systems, this too is not a preventable default beh
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
-          <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="sortBySelect"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
+              <option slot="first" value="">-- none --</option>
+            </b-form-select>
+            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
+              <option :value="false">Asc</option>
+              <option :value="true">Desc</option>
+            </b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Initial sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="initialSortSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="sortDirection"
+            id="initialSortSelect"
+            size="sm"
+            :options="['asc', 'desc', 'last']"
+          ></b-form-select>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="filterInput"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -2086,45 +2196,65 @@ differences between operating systems, this too is not a preventable default beh
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
-          <b-input-group>
-            <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
-            </b-form-select>
-            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
-              <option :value="false">Asc</option> <option :value="true">Desc</option>
-            </b-form-select>
-          </b-input-group>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter On"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          description="Leave all unchecked to filter on all data"
+          class="mb-0">
+          <b-form-checkbox-group v-model="filterOn" class="mt-1">
+            <b-form-checkbox value="name">Name</b-form-checkbox>
+            <b-form-checkbox value="age">Age</b-form-checkbox>
+            <b-form-checkbox value="isActive">Active</b-form-checkbox>
+          </b-form-checkbox-group>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-          <b-form-select v-model="sortDirection">
-            <option value="asc">Asc</option>
-            <option value="desc">Desc</option>
-            <option value="last">Last</option>
-          </b-form-select>
+      <b-col sm="5" md="6" class="my-1">
+        <b-form-group
+          label="Per page"
+          label-cols-sm="6"
+          label-cols-md="4"
+          label-cols-lg="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
-        </b-form-group>
+      <b-col sm="7" md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          align="fill"
+          size="sm"
+          class="my-0"
+        ></b-pagination>
       </b-col>
     </b-row>
 
     <!-- Main table element -->
     <b-table
       show-empty
+      small
       stacked="md"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
+      :filterIncludedFields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
@@ -2132,10 +2262,6 @@ differences between operating systems, this too is not a preventable default beh
     >
       <template slot="[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
-      </template>
-
-      <template slot="[isActive]" slot-scope="row">
-        {{ row.value ? 'Yes :)' : 'No :(' }}
       </template>
 
       <template slot="[actions]" slot-scope="row">
@@ -2155,17 +2281,6 @@ differences between operating systems, this too is not a preventable default beh
         </b-card>
       </template>
     </b-table>
-
-    <b-row>
-      <b-col md="6" class="my-1">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="totalRows"
-          :per-page="perPage"
-          class="my-0"
-        ></b-pagination>
-      </b-col>
-    </b-row>
 
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
@@ -2205,17 +2320,27 @@ differences between operating systems, this too is not a preventable default beh
         fields: [
           { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-          { key: 'isActive', label: 'is Active' },
+          {
+            key: 'isActive',
+            label: 'is Active',
+            formatter: (value, key, item) => {
+              return value ? 'Yes' : 'No'
+            },
+            sortable: true,
+            sortByFormatted: true,
+            filterByFormatted: true
+          },
           { key: 'actions', label: 'Actions' }
         ],
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
         pageOptions: [5, 10, 15],
-        sortBy: null,
+        sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
+        filterOn: [],
         infoModal: {
           id: 'info-modal',
           title: '',
