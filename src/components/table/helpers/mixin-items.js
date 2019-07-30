@@ -57,6 +57,7 @@ export default {
           if (isString(formatter) && isFunction(parent[formatter])) {
             formatter = parent[formatter]
           } else if (!isFunction(formatter)) {
+            /* istanbul ignore next */
             formatter = undefined
           }
           // Return formatter function or undefined if none
