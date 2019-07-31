@@ -3,6 +3,32 @@
 // Users can override thes variables in their custom SCSS
 //
 
+// --- Custom inputs (adds sizing support) ---
+
+// Indicator height (and sometimes width)
+$b-custom-control-indicator-size-lg: $custom-control-indicator-size * 1.25 !default;
+$b-custom-control-indicator-size-sm: $custom-control-indicator-size * .875 !default;
+
+// Gutter widths
+$b-custom-control-gutter-lg: $custom-control-gutter * 1.25 !default;
+$b-custom-control-gutter-sm: $custom-control-gutter * .875 !default;
+
+// Custom radio sizes (uses defaults of 50%, since radios are round)
+$b-custom-radio-indicator-border-radius-lg: $custom-radio-indicator-border-radius !default;
+$b-custom-radio-indicator-border-radius-sm: $custom-radio-indicator-border-radius !default;
+
+// Custom checkbox sizes
+$b-custom-checkbox-indicator-border-radius-lg: $border-radius-lg !default;
+$b-custom-checkbox-indicator-border-radius-sm: $border-radius-sm !default;
+
+// Custom switch sizes
+$b-custom-switch-width-lg: $b-custom-control-indicator-size-lg * 1.75 !default;
+$b-custom-switch-width-sm: $b-custom-control-indicator-size-sm * 1.75 !default;
+$b-custom-switch-indicator-border-radius-lg: $b-custom-control-indicator-size-lg / 2 !default;
+$b-custom-switch-indicator-border-radius-sm: $b-custom-control-indicator-size-sm / 2 !default;
+$b-custom-switch-indicator-size-lg: calc(#{$b-custom-control-indicator-size-lg} - #{$custom-control-indicator-border-width * 4}) !default;
+$b-custom-switch-indicator-size-sm: calc(#{$b-custom-control-indicator-size-sm} - #{$custom-control-indicator-border-width * 4}) !default;
+
 // --- Tables ---
 
 // Table busy state
