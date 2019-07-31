@@ -4,6 +4,7 @@
 .input-group-lg .custom-radio {
   font-size: $font-size-lg;
   line-height: $line-height-lg;
+  padding-left: $b-custom-control-gutter-lg + $b-custom-control-indicator-size-lg;
 
   .custom-control-label::before {
     top: ($font-size-lg * $line-height-lg - $b-custom-control-indicator-size-lg) / 2;
@@ -26,6 +27,7 @@
 .input-group-sm .custom-radio {
   font-size: $font-size-sm;
   line-height: $line-height-sm;
+  padding-left: $b-custom-control-gutter-sm + $b-custom-control-indicator-size-sm;
 
   .custom-control-label::before {
     top: ($font-size-sm * $line-height-sm - $b-custom-control-indicator-size-sm) / 2;
