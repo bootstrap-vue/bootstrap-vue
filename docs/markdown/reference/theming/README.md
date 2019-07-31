@@ -53,7 +53,7 @@ The default them colors defined in the Bootstrap v4.3 SCSS are as follows:
     <div class="p-3 mb-3 bg-success text-light">Success</div>
   </div>
   <div class="col-md-4">
-    <div class="p-3 mb-3 bg-danger tet-light">Danger</div>
+    <div class="p-3 mb-3 bg-danger text-light">Danger</div>
   </div>
   <div class="col-md-4">
     <div class="p-3 mb-3 bg-warning text-dark">Warning</div>
