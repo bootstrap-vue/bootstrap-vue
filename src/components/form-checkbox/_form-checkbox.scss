@@ -19,7 +19,7 @@
     left: -($b-custom-control-gutter-lg + $b-custom-control-indicator-size-lg);
     width: $b-custom-control-indicator-size-lg;
     height: $b-custom-control-indicator-size-lg;
-    background: no-repeat 50% / #{$b-custom-control-indicator-bg-size-lg};
+    background-size: $b-custom-control-indicator-bg-size-lg;
   }
 }
 
@@ -42,7 +42,7 @@
     left: -($b-custom-control-gutter-sm + $b-custom-control-indicator-size-sm);
     width: $b-custom-control-indicator-size-sm;
     height: $b-custom-control-indicator-size-sm;
-    background: no-repeat 50% / #{$b-custom-control-indicator-bg-size-sm};
+    background-size: $b-custom-control-indicator-bg-size-sm;
   }
 }
 
@@ -68,7 +68,7 @@
       width: $b-custom-switch-indicator-size-lg;
       height: $b-custom-switch-indicator-size-lg;
       border-radius: $b-custom-switch-indicator-border-radius-lg;
-      background: no-repeat 50% / #{$b-custom-control-indicator-bg-size-lg};
+      background-size: $b-custom-control-indicator-bg-size-lg;
     }
   }
 
@@ -101,7 +101,7 @@
       width: $b-custom-switch-indicator-size-sm;
       height: $b-custom-switch-indicator-size-sm;
       border-radius: $b-custom-switch-indicator-border-radius-sm;
-      background: no-repeat 50% / #{$b-custom-control-indicator-bg-size-sm};
+      background-size: $b-custom-control-indicator-bg-size-sm;
     }
   }
 
