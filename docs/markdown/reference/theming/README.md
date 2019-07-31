@@ -76,7 +76,7 @@ maps. Refer to the [Bootstrap theming](https://getbootstrap.com/docs/4.3/getting
 docs for more details. All theme colors automatically become available as
 [color variants](/docs/reference/color-variants) to all BootstrapVue components.
 
-## Sass options
+## SASS options
 
 Customize Bootstrap 4 with the built-in custom variables file and easily toggle global CSS preferences
 with Bootstrap's `$enable-*` Sass variables.
@@ -109,7 +109,7 @@ BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, functions, and 
 
 ## Custom SCSS
 
-To use your own theme and colors in `bootstrap-vue`, you will need to create a `custom.scss` file in
+To use your own theme and colors in BootstrapVue, you will need to create a `custom.scss` file in
 your project, which you can include in your main app:
 
 **Via template:**
@@ -129,7 +129,7 @@ your project, which you can include in your main app:
 
 **Via app main entry point:**
 
-Create a SCSS file:
+Create an SCSS file:
 
 ```scss
 // custom.scss
@@ -157,7 +157,7 @@ Then import that single SCSS file into your app code entry point:
 import 'custom.scss'
 ```
 
-The `_custom.scss` file, which needs to be loaded before Bootstrap's SCSS, will include your
+The `custom.scss` file, which needs to be loaded before Bootstrap's SCSS, will include your
 Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes, breakpoints, etc). You can find
 all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
 
@@ -217,7 +217,7 @@ based on the Bootstrap v4 defaults:
 
 ### Example
 
-CSS variables offer similar flexibility to Sass’s variables, but without the need for compilation
+CSS variables offer similar flexibility to SASS’s variables, but without the need for compilation
 before being served to the browser. For example, here we are resetting our page’s font and link
 styles, as well as creating a custom class that uses theme colors, via the use of CSS variables.
 
