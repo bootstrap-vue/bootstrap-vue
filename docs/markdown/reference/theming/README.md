@@ -20,12 +20,12 @@ You will find the complete list of Bootstrap’s variables in `bootstrap/scss/_v
 variables are set to `null`, these variables don’t output the property unless they are overridden in
 your configuration.
 
-Variable overrides within the same Sass file can come before or after the default variables. However,
-when overriding across Sass files, your overrides must come _before_ you import Bootstrap’s Sass
-files.
+Variable overrides within the same Sass file can come before or after the default variables.
+However, when overriding across Sass files, your overrides must come _before_ you import Bootstrap’s
+Sass files.
 
-Here’s an example that changes the `background-color` and `color` for the `<body>` when importing and
-compiling Bootstrap SCSS:
+Here’s an example that changes the `background-color` and `color` for the `<body>` when importing
+and compiling Bootstrap SCSS:
 
 ```scss
 // Your variable overrides
@@ -33,9 +33,9 @@ $body-bg: #000;
 $body-color: #111;
 
 // Bootstrap and its default variables
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import '../node_modules/bootstrap/scss/bootstrap';
 // BootstrapVue and its default variables
-@import "../node_modules/bootstrap-vue/src/index.scss";
+@import '../node_modules/bootstrap-vue/src/index.scss';
 ```
 
 ## Default theme colors
@@ -71,15 +71,15 @@ The default them colors defined in the Bootstrap v4.3 SCSS are as follows:
 
 Various components will use variations (intensities) of these default theme colors.
 
-You can alter the theme colors, and create addditional theme colors, as needed via SASS variables and
+You can alter the theme colors, and create additional theme colors, as needed via SASS variables and
 maps. Refer to the [Bootstrap theming](https://getbootstrap.com/docs/4.3/getting-started/theming/)
 docs for more details. All theme colors automatically become available as
 [color variants](/docs/reference/color-variants) to all BootstrapVue components.
 
 ## SASS options
 
-Customize Bootstrap 4 with the built-in custom variables file and easily toggle global CSS preferences
-with Bootstrap's `$enable-*` Sass variables.
+Customize Bootstrap 4 with the built-in custom variables file and easily toggle global CSS
+preferences with Bootstrap's `$enable-*` Sass variables.
 
 Some commonly used Bootstrap v4 variables are:
 
@@ -95,16 +95,17 @@ Some commonly used Bootstrap v4 variables are:
 Refer to [Bootstrap's theming](https://getbootstrap.com/docs/4.3/getting-started/theming/) docs for
 additional variable information.
 
-BootstrapVue also defines several SCSS variables for controlling BootstrapVue's custom CSS generation:
+BootstrapVue also defines several SCSS variables for controlling BootstrapVue's custom CSS
+generation:
 
-| Variable                      | Type    | Default | Description                             |
-| ----------------------------- | ------- | ------- | --------------------------------------- |
-| `$bv-enable-table-stacked`    | Boolean | `true`  | Enables stacked table CSS generation    |
-| `$bv-enable-tooltip-variants` | Boolean | `true`  | Enables tooltip variant CSS generation  |
-| `$bv-enable-popover-variants` | Boolean | `true`  | Enables popover variant CSS generation  |
+| Variable                      | Type    | Default | Description                            |
+| ----------------------------- | ------- | ------- | -------------------------------------- |
+| `$bv-enable-table-stacked`    | Boolean | `true`  | Enables stacked table CSS generation   |
+| `$bv-enable-tooltip-variants` | Boolean | `true`  | Enables tooltip variant CSS generation |
+| `$bv-enable-popover-variants` | Boolean | `true`  | Enables popover variant CSS generation |
 
 You can find additional variables that control various aspects of BootstrapVue's custom CSS at
-[`bootstrap-vue/src/_variables.scss`](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/src/_variables.scss). 
+[`bootstrap-vue/src/_variables.scss`](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/src/_variables.scss).
 BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, functions, and mixins.
 
 ## Generating custom themes
@@ -209,8 +210,10 @@ Here are the variables that are generated. The values shown are based on the Boo
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 }
 ```
 
