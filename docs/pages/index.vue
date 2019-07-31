@@ -2,7 +2,7 @@
   <main id="content" role="main">
     <section class="bd-masthead pt-3 pt-sm-5 pb-2">
       <b-container tag="article">
-        <b-row align-v="center" no-gutters class="mb-4">
+        <b-row align-v="center" no-gutters class="mb-2 mb-md-3 mb-lg-4">
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
           <b-col tag="aside" cols="12" md="4" order-md="2" class="logo-aside mb-4 mb-md-0">
             <svg
@@ -115,12 +115,13 @@
                 is a progressive framework for building user interfaces.
               </b-media-body>
             </b-media>
-
-            <p class="mb-0 text-muted">
-              Currently <b-link to="/docs/misc/changelog">v{{ version }}</b-link>
-            </p>
           </b-col>
         </b-row>
+
+        <p class="mb-0 text-muted text-center mb-n4 mb-md-n5">
+          Current Version<br>
+          <b-link to="/docs/misc/changelog" class="small">v{{ version }}</b-link>
+        </p>
       </b-container>
     </section>
 
