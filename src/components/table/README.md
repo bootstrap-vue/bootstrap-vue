@@ -818,9 +818,10 @@ reference the field(s) in the scoped slot(s). Scoped field slots use the followi
 scoped slot `'[]'` to format any cells that do not have an explicit scoped slot provided.
 
 <span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
-`2.0.0-rc.28` did not surround the field key with square brackets. Using the old field slot names
-have been deprecated in favour of the new bracketed syntax, and support will be removed in a future
-release. Users are encouraged to switch to the new bracketed syntax.
+`2.0.0-rc.28` did not surround the field key with square brackets, which could cause slot name
+colisions (i.e. if you had a field key `default`). Using the old field slot names has been
+deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
+Users are encouraged to switch to the new bracketed syntax.
 
 **Example: Custom data rendering with scoped slots**
 
