@@ -119,9 +119,8 @@
         </b-row>
 
         <p class="mb-0 text-muted text-center mb-n4 mb-md-n5">
-          Current Version
-          <br class="d-block d-md-none">
-          <b-link to="/docs/misc/changelog">v{{ version }}</b-link>
+          Current Version<br>
+          <b-link to="/docs/misc/changelog" class="small">v{{ version }}</b-link>
         </p>
       </b-container>
     </section>
