@@ -112,7 +112,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "esm": "^3.2.25",
     "gh-pages": "^2.0.1",
-    "highlight.js": "^9.15.8",
+    "highlight.js": "^9.15.9",
     "html-loader": "^0.5.5",
     "jest": "^24.8.0",
     "jest-environment-jsdom-fourteen": "^0.1.0",
