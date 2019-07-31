@@ -179,8 +179,7 @@ general prototyping.
 
 ### Available Bootstrap CSS variables
 
-Here are the variables that are generated (note that the :root is required). The values shown are
-based on the Bootstrap v4 defaults:
+Here are the variables that are generated. The values shown are based on the Bootstrap v4 defaults:
 
 ```scss
 :root {
