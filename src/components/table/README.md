@@ -321,15 +321,15 @@ The following field properties are recognized:
 | `headerTitle`       | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
 | `headerAbbr`        | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
 | `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`         | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                     |
+| `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                   |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                             |
 | `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                          |
 | `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                     |
 | `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                               |
 | `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
-| `thClass`           | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
+| `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                  |
 | `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
-| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).                                     |
+| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when the `b-table` prop `dark` is set).                             |
 | `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
 | `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
 
@@ -385,8 +385,8 @@ Internally, the value of the field key specified by the `primary-key` prop is us
 value for each rendered item row `<tr>` element.
 
 If you are seeing rendering issue (i.e. tooltips hiding or unexpected subcomponent re-usage when
-item data changes or data is sorted/filtered/edited), setting the `primary-key` prop (if you have a
-unique identifier per row) can alleviate these issues.
+item data changes or data is sorted/filtered/edited) or table row transitions are not working,
+setting the `primary-key` prop (if you have a unique identifier per row) can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
@@ -396,6 +396,9 @@ index number (i.e. position in the _displayed_ table rows). This may cause GUI i
 components/elements that are rendering with previous results (i.e. being re-used by Vue's render
 patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you can
 place a unique `:key` on your element/components in your custom formatted field slots).
+
+Refer to the [Table body transition support](#table-body-transition-support) section for additional
+details.
 
 ## Table style options
 
@@ -436,6 +439,11 @@ place a unique `:key` on your element/components in your custom formatted field 
       <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
       <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
+    <b-form-group label="Head Variant">
+      <b-form-radio v-model="headVariant" :value="null" inline>None</b-form-radio>
+      <b-form-radio v-model="headVariant" value="light" inline>Light</b-form-radio>
+      <b-form-radio v-model="headVariant" value="dark" inline>Dark</b-form-radio>
+    </b-form-group>
 
     <b-table
       :striped="striped"
@@ -449,6 +457,7 @@ place a unique `:key` on your element/components in your custom formatted field 
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
+      :head-variant="headVariant"
     ></b-table>
   </div>
 </template>
@@ -471,7 +480,8 @@ place a unique `:key` on your element/components in your custom formatted field 
         hover: false,
         dark: false,
         fixed: false,
-        footClone: false
+        footClone: false,
+        headVariant: null
       }
     }
   }
@@ -815,9 +825,10 @@ reference the field(s) in the scoped slot(s). Scoped field slots use the followi
 scoped slot `'[]'` to format any cells that do not have an explicit scoped slot provided.
 
 <span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
-`2.0.0-rc.28` did not surround the field key with square brackets. Using the old field slot names
-have been deprecated in favour of the new bracketed syntax, and support will be removed in a future
-release. Users are encouraged to switch to the new bracketed syntax.
+`2.0.0-rc.28` did not surround the field key with square brackets, which could cause slot name
+colisions (i.e. if you had a field key `default`). Using the old field slot names has been
+deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
+Users are encouraged to switch to the new bracketed syntax.
 
 **Example: Custom data rendering with scoped slots**
 
@@ -882,10 +893,10 @@ The slot's scope variable (`data` in the above sample) will have the following p
 
 | Property         | Type     | Description                                                                                                                                                                                             |
 | ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index`          | Number   | The row number (indexed from zero) relative to the displayed rows                                                                                                                                       |
+| `index`          | Number   | The row number (indexed from zero) relative to the _displayed_ rows                                                                                                                                     |
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                         |
-| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for information on field `formatter` callback functions) |
-| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                      |
+| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter`  function](#formatter-callback)                                              |
+| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback)                               |
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                                              |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information                                  |
 | `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                                                           |
@@ -895,7 +906,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 - `index` will not always be the actual row's index number, as it is computed after filtering,
   sorting and pagination have been applied to the original table data. The `index` value will refer
   to the **displayed row number**. This number will align with the indexes from the optional
-  `v-model` bound variable.
+  [`v-model` bound](#v-model-binding) variable.
 
 #### Displaying raw HTML
 
@@ -2089,22 +2100,34 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 
 ## Accessibility
 
-When a column (field) is sortable, the header (and footer) heading cells will also be placed into
-the document tab sequence for accessibility.
+The `<b-table>` and `<b-tabe-lite>` components, when using specific features, will attemp to provide
+the best accessibiity features possible.
 
-When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered,
-all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
-`tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
+### Heading accessibility
 
-When the table items rows are in the table sequence, they will also support basic keyboard
-navigation when focused:
+When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener registered,
+the header (and footer) `<th>` cells will be placed into the document tab sequence (via `tabindex="0"`)
+for accessibility by keyboard-only and screen reader users, so that the user may trigger a click on the
+header cells.
+
+### Data row accessibility
+
+When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
+listener registered, all data item rows (`<tr>` elements) will be placed into the document tab sequence
+(via `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
+
+When the table items rows are placed in the document tab sequence, they will also support basic
+keyboard navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row
 - <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
 - <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
-- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row. <kbd>SHIFT</kbd> and <kbd>CTRL</kbd>
-  modifiers will also work (depending on the table selectable mode).
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
+- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable mode,
+  for `<b-table>` only).
+
+### Row event accessibility
 
 Note the following row based events/actions are not considered accessible, and should only be used
 if the functionality is non critical or can be provided via other means:
@@ -2115,17 +2138,20 @@ if the functionality is non critical or can be provided via other means:
 - `row-unhovered`
 - `row-middle-clicked`
 
-Also, `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most mobile
-browsers). When listening for `row-middle-clicked` events originating on elements that do not
+Note that the `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most
+mobile browsers). When listening for `row-middle-clicked` events originating on elements that do not
 support input or navigation, you will often want to explicitly prevent other default actions mapped
 to the down action of the middle mouse button. On Windows this is usually autoscroll, and on macOS
 and Linux this is usually clipboard paste. This can be done by preventing the default behaviour of
 the `mousedown` or `pointerdown` event.
 
-Additionally, you may need to avoid opening a system context menu after a right click. Due to timing
-differences between operating systems, this too is not a preventable default behaviour of
-`row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the
-`contextmenu` event.
+Additionally, you may need to avoid opening a default system or browser context menu after a right
+click. Due to timing differences between operating systems, this too is not a preventable default
+behaviour of `row-middle-clicked`. Instead, this can be done by preventing the default behaviour of
+the `row-contextmenu` event.
+
+It is recommended you test your app in as many browser and device variants as possible to ensure
+your app handles the various inconsistencies with events.
 
 ## Complete example
 
