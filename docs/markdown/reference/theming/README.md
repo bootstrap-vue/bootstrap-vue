@@ -9,7 +9,7 @@ stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap v
 source SCSS, you can have your variable overrides (such as breakpoints, etc) adjust the custom
 BootstrapVue css.
 
-## SASS Variable defaults
+## SASS variable defaults
 
 Every Sass variable in Bootstrap 4 includes the `!default` flag allowing you to override the
 variable’s default value in your own Sass without modifying Bootstrap’s source code. Copy and paste
@@ -213,6 +213,9 @@ Here are the variables that are generated. The values shown are based on the Boo
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 ```
+
+By setting SASS variables and maps, and recompiling the SCSS, will update the above generated CSS
+variables.
 
 ### Example
 
