@@ -9,6 +9,10 @@
 $b-custom-control-indicator-size-lg: $custom-control-indicator-size * 1.25 !default;
 $b-custom-control-indicator-size-sm: $custom-control-indicator-size * .875 !default;
 
+// Indicator background
+$b-custom-control-indicator-bg-size-lg: $custom-control-indicator-bg-size !default;
+$b-custom-control-indicator-bg-size-sm: $custom-control-indicator-bg-size !default;
+
 // Gutter widths
 $b-custom-control-gutter-lg: $custom-control-gutter * 1.25 !default;
 $b-custom-control-gutter-sm: $custom-control-gutter * .875 !default;
