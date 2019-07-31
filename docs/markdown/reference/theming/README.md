@@ -105,7 +105,6 @@ BootstrapVue also defines several SCSS variables for controlling BootstrapVue's 
 
 You can find additional variables that control various aspects of BootstrapVue's custom CSS at
 [`bootstrap-vue/src/_variables.scss`](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/src/_variables.scss). 
-
 BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, functions, and mixins.
 
 ## Custom SCSS
@@ -169,6 +168,73 @@ npm install --save-dev node-sass sass-loader
 ```
 
 **Note:** You may need to adjust the SCSS import paths based on your build environment.
+
+## CSS variables
+
+Bootstrap's SCSS generates around two dozen
+[CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
+in the compiled CSS. These provide easy access to commonly used values like theme colors,
+breakpoints, and primary font stacks when working in your browser’s Inspector, a code sandbox, or
+general prototyping.
+
+### Available Bootstrap CSS variables
+
+Here are the variables that are generated (note that the :root is required). The values shown are
+based on the Bootstrap v4 defaults:
+
+```scss
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+```
+
+### Example
+
+CSS variables offer similar flexibility to Sass’s variables, but without the need for compilation
+before being served to the browser. For example, here we are resetting our page’s font and link
+styles, as well as creating a custom class that uses theme colors, via the use of CSS variables.
+
+```scss
+body {
+  font: 1rem/1.5 var(--font-family-sans-serif);
+}
+
+a {
+  color: var(--blue);
+}
+
+.custom-class {
+  color: var(--primary);
+  background-color: var(--dark);
+}
+```
 
 ## See also
 
