@@ -170,6 +170,10 @@ npm install --save-dev node-sass sass-loader
 
 **Note:** You may need to adjust the SCSS import paths based on your build environment.
 
+For an example of creating custom theme colors, see the
+[Creating custom variants](/docs/reference/color-variants#creating-custom-variants) section in the
+[Color variants](/docs/reference/color-variants) reference page.
+
 ## CSS variables
 
 Bootstrap's SCSS generates around two dozen
