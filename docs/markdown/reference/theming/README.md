@@ -107,7 +107,7 @@ You can find additional variables that control various aspects of BootstrapVue's
 [`bootstrap-vue/src/_variables.scss`](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/src/_variables.scss). 
 BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, functions, and mixins.
 
-## Custom SCSS
+## Generating custom themes
 
 To use your own theme and colors in BootstrapVue, you will need to create a `custom.scss` file in
 your project, which you can include in your main app:
