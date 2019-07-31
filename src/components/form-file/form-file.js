@@ -261,7 +261,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         {
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
-          [`form-control-${this.size}`]: this.size
+          [`form-control-${this.size}`]: this.size,
           focus: this.custom && this.hasFocus
         },
         this.stateClass
