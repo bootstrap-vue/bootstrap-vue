@@ -2142,8 +2142,8 @@ click. Due to timing differences between operating systems, this too is not a pr
 behaviour of `row-middle-clicked`. Instead, this can be done by preventing the default behaviour of
 the `row-contextmenu` event.
 
-It is recommended you test your app in as masny browser and device variants as possible to ensure
-your app handls the various inconsistencies with events.
+It is recommended you test your app in as many browser and device variants as possible to ensure
+your app handles the various inconsistencies with events.
 
 ## Complete example
 
