@@ -439,6 +439,11 @@ details.
       <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
       <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
+    <b-form-group label="Head Variant">
+      <b-form-radio v-model="headVariant" :value="null" inline>None</b-form-radio>
+      <b-form-radio v-model="headVariant" value="light" inline>Light</b-form-radio>
+      <b-form-radio v-model="headVariant" value="dark" inline>Dark</b-form-radio>
+    </b-form-group>
 
     <b-table
       :striped="striped"
@@ -452,6 +457,7 @@ details.
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
+      :head-variant="headVariant"
     ></b-table>
   </div>
 </template>
@@ -474,7 +480,8 @@ details.
         hover: false,
         dark: false,
         fixed: false,
-        footClone: false
+        footClone: false,
+        headVariant: null
       }
     }
   }
