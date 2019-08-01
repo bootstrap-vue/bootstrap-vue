@@ -313,7 +313,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: [
           this.stateClass,
           {
-            [`form-control-${this.size}`]: this.size
+            [`b-custom-control-${this.size}`]: this.size
           }
         ],
         attrs: { id: this.safeId('_BV_file_outer_') },
