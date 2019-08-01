@@ -1,0 +1,47 @@
+// Adds control sizing to bootstrap custom radio inputs
+
+.custom-radio.b-custom-control-lg,
+.input-group-lg .custom-radio {
+  font-size: $font-size-lg;
+  line-height: $line-height-lg;
+  padding-left: $b-custom-control-gutter-lg + $b-custom-control-indicator-size-lg;
+
+  .custom-control-label::before {
+    top: ($font-size-lg * $line-height-lg - $b-custom-control-indicator-size-lg) / 2;
+    left: -($b-custom-control-gutter-lg + $b-custom-control-indicator-size-lg);
+    width: $b-custom-control-indicator-size-lg;
+    height: $b-custom-control-indicator-size-lg;
+    border-radius: $b-custom-radio-indicator-border-radius-lg;
+  }
+
+  .custom-control-label::after {
+    top: ($font-size-lg * $line-height-lg - $b-custom-control-indicator-size-lg) / 2;
+    left: -($b-custom-control-gutter-lg + $b-custom-control-indicator-size-lg);
+    width: $b-custom-control-indicator-size-lg;
+    height: $b-custom-control-indicator-size-lg;
+    background: no-repeat 50% / #{$b-custom-control-indicator-bg-size-lg};
+  }
+}
+
+.custom-radio.b-custom-control-sm,
+.input-group-sm .custom-radio {
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+  padding-left: $b-custom-control-gutter-sm + $b-custom-control-indicator-size-sm;
+
+  .custom-control-label::before {
+    top: ($font-size-sm * $line-height-sm - $b-custom-control-indicator-size-sm) / 2;
+    left: -($b-custom-control-gutter-sm + $b-custom-control-indicator-size-sm);
+    width: $b-custom-control-indicator-size-sm;
+    height: $b-custom-control-indicator-size-sm;
+    border-radius: $b-custom-radio-indicator-border-radius-sm;
+  }
+
+  .custom-control-label::after {
+    top: ($font-size-sm * $line-height-sm - $b-custom-control-indicator-size-sm) / 2;
+    left: -($b-custom-control-gutter-sm + $b-custom-control-indicator-size-sm);
+    width: $b-custom-control-indicator-size-sm;
+    height: $b-custom-control-indicator-size-sm;
+    background: no-repeat 50% / #{$b-custom-control-indicator-bg-size-sm};
+  }
+}

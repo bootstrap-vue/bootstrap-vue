@@ -47,6 +47,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     event: 'input'
   },
   props: {
+    size: {
+      type: String,
+      default: null
+    },
     value: {
       // type: Object,
       default: null
@@ -560,7 +564,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // TODO:
         //   Possibly add state feedback (invalid) if `!this.dropAllowed`
         //   or use `text-danger` class on the `noDropPlaceholder` content
-        class: this.stateClass,
+        class: [
+          this.stateClass,
+          {
+            [`b-custom-control-${this.size}`]: this.size
+          }
+        ],
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragover: this.onDragover,
