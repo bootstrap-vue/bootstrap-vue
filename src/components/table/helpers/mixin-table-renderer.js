@@ -73,7 +73,7 @@ export default {
           'table-sm': this.small,
           // The following are b-table custom styles
           border: this.outlined,
-          'b-table-fixed': this.fixed,
+          'b-table-fixed': this.fixed
         },
         // Stacked table classes
         this.stackedTableClasses,
@@ -107,7 +107,7 @@ export default {
     }
   },
   render(h) {
-    let $content = []
+    const $content = []
 
     if (this.isTableSimple) {
       $content.push(this.normalizeSlot('default', {}))
