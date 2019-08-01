@@ -60,13 +60,17 @@ export default {
           : ''
     },
     tableClasses() {
+      const hover = this.isTableSimple
+        ? this.hover
+        : this.hover && this.computedItems.length > 0 && !this.computedBusy
+
       return [
         // User supplied classes
         this.tableClass,
         // Styling classes
         {
           'table-striped': this.striped,
-          'table-hover': this.hover && this.computedItems.length > 0 && !this.computedBusy,
+          'table-hover': hover,
           'table-dark': this.dark,
           'table-bordered': this.bordered,
           'table-borderless': this.borderless,
@@ -86,6 +90,7 @@ export default {
       const adb =
         [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
       const items = this.computedItems
+      const filteredItems = this.filteredItems
       const fields = this.computedFields
       const selectableAttrs = this.selectableTableAttrs || {}
       const ariaAttrs = this.isTableSimple
@@ -95,12 +100,13 @@ export default {
             'aria-colcount': String(fields.length),
             'aria-describedby': adb,
           }
+      const rowCount = items && filteredItems && filteredItems.length > items.length
+        ? String(filteredItems.length)
+        : null
+
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
-        'aria-rowcount':
-          this.filteredItems && this.filteredItems.length > items.length
-            ? String(this.filteredItems.length)
-            : null,
+        'aria-rowcount': rowCount,
         // Merge in user supplied $attrs if any
         ...this.$attrs,
         // Now we can override any $attrs here
