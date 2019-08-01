@@ -98,7 +98,7 @@ export default {
         : {
             'aria-busy': this.computedBusy ? 'true' : 'false',
             'aria-colcount': String(fields.length),
-            'aria-describedby': adb,
+            'aria-describedby': adb
           }
       const rowCount = items && filteredItems && filteredItems.length > items.length
         ? String(filteredItems.length)
