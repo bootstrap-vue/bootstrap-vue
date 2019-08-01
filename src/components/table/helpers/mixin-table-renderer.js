@@ -1,5 +1,5 @@
 // Main `<table>` render mixin
-// Which included all main table styling options
+// Which includes all main table styling options
 
 export default {
   // Don't place attributes on root element automatically,
