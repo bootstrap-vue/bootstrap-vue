@@ -203,14 +203,14 @@ values are `sm` (small) and `lg` (large).
 ```html
 <div>
   <b-form-radio name="radio-size" size="sm">Small</b-form-radio>
-  <b-form-radio name="radio-size">Default</b-form-checkbox>
+  <b-form-radio name="radio-size">Default</b-form-radio>
   <b-form-radio name="radio-size" size="lg">Large</b-form-radio>
 </div>
 
 <!-- form-radio-sizes.vue -->
 ```
 
-Sizes can be set on individual `<b-form-radio>` components, or inherited from the size setting of
+Sizes can be set on individual `<b-form-radio>` components, or inherited from the `size` setting of
 `<b-form-radio-group>`.
 
 **Note:** Bootstrap v4.x does not natively support sizes for the custom radio control. However,
