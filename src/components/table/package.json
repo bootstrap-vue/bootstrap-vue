@@ -459,6 +459,9 @@
             "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
+      },
+      {
+        "component": "BTableSimple"
       }
     ]
   }
