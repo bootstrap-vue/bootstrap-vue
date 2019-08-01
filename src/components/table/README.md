@@ -2104,16 +2104,16 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 
 The `<b-table-simple>` component gives the user complete control over the rendering of the table
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
-around the `<table>` element. Inside the component, via the `default` slot,  you can use any or all
-of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`,  `<tr>`,  `<th>`,  `<td>`,
+around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
+of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`, `<tr>`, `<th>`, `<td>`,
 `<caption>`, and `<colgroup>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed` and `responsive`.
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
-it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events, sorting,
-pagination, filtering, stacked mode, etc).
+it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
+sorting, pagination, filtering, stacked mode, etc).
 
 ```html
 <div>
@@ -2166,11 +2166,11 @@ pagination, filtering, stacked mode, etc).
 <!-- b-table-simple.vue -->
 ```
 
-Row and cell variant classes are in the form `table-{variant}`, unless you have the table in
-`dark` mode, in which case you should use `bg-{variant}` instead.
+Row and cell variant classes are in the form `table-{variant}`, unless you have the table in `dark`
+mode, in which case you should use `bg-{variant}` instead.
 
-When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need
-to apply additional classes to the `<table>` element, use the `table-classes` prop.
+When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need to
+apply additional classes to the `<table>` element, use the `table-classes` prop.
 
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
@@ -2207,9 +2207,9 @@ keyboard navigation when focused:
 
 ### Row event accessibility
 
-Note the following row based events/actions (available with `<b-table>` and `<b-table-lite>`) are not
-considered accessible, and should only be used if the functionality is non critical or can be provided
-via other means:
+Note the following row based events/actions (available with `<b-table>` and `<b-table-lite>`) are
+not considered accessible, and should only be used if the functionality is non critical or can be
+provided via other means:
 
 - `row-dblclicked`
 - `row-contextmenu`
