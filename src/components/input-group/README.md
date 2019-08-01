@@ -284,21 +284,22 @@ required to make everything fit correctly, depending on the size chosen:
 
 ```html
 <div>
-  <b-input-group size="sm" class="mb-2">
-    <b-input-group-prepend is-text>
-      <b-form-checkbox switch class="mr-n2 mb-n1">
-        <span class="sr-only">Checkbox for following text input</span>
-      </b-form-checkbox>
-    </b-input-group-prepend>
+  <b-input-group size="sm" prepend="Small" class="mb-2">
     <b-form-input aria-label="Small text input with custom switch"></b-form-input>
+    <b-input-group-append is-text>
+      <b-form-checkbox switch class="mr-n2 mb-n1">
+        <span class="sr-only">Checkbox for previous text input</span>
+      </b-form-checkbox>
+    </b-input-group-append>
   </b-input-group>
 
-  <b-input-group-prepend is-text>
-      <b-form-checkbox switch class="mr-n2">
-        <span class="sr-only">Switch for following text input</span>
-      </b-form-checkbox>
-    </b-input-group-prepend>
+  <b-input-group size="lg" prepend="Large" class="mb-2">
     <b-form-input aria-label="Large text input with switch"></b-form-input>
+    <b-input-group-append is-text>
+      <b-form-checkbox switch class="mr-n2">
+        <span class="sr-only">Switch for previous text input</span>
+      </b-form-checkbox>
+    </b-input-group-append>
   </b-input-group>
 </div>
 
