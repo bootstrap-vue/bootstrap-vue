@@ -307,7 +307,7 @@ required to make everything fit correctly, depending on the size chosen:
 ```
 
 Specifically, when using the `sm` size on `<b-input-group>` you will need to add a negative bottom
-margin, via the [utility class](/docs/reference/utility-classes) `.mb-n1`.
+margin, via the use of the `.mb-n1` [utility class](/docs/reference/utility-classes).
 
 ## Contextual states
 
