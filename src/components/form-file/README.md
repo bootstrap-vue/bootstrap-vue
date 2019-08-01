@@ -125,7 +125,7 @@ available on other form controls.
   <b-form-group label="Large:" label-for="file-large" label-cols-sm="2" label-size="lg">
     <b-form-file id="file-large" size="lg"></b-form-file>
   </b-form-group>
-</b-container>
+</div>
 
 <!-- form-file-sizes.vue -->
 ```
