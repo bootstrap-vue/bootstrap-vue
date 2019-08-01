@@ -115,7 +115,7 @@ classes applied.
 ```html
 <b-container>
   <b-row>
-    <b-col lg="6">
+    <b-col lg="6" class="mb-2">
       <b-input-group>
         <b-input-group-prepend is-text>
           <input type="checkbox" aria-label="Checkbox for following text input">
@@ -124,7 +124,7 @@ classes applied.
       </b-input-group>
     </b-col>
 
-    <b-col lg="6">
+    <b-col lg="6" class="mb-2">
       <b-input-group>
         <b-input-group-prepend is-text>
           <input type="radio" aria-label="Radio for following text input">
@@ -188,9 +188,9 @@ Using `<b-form-checkbox>` and `<b-form-radio>` comonents as addons, using Bootst
 ```
 
 In the above example, we have use the `.sr-only` class on a `<span>` to visualy hide the custom
-control labels (while making them still accessible to screen reader users), and used the utility
-class `.mr-n2` to add a negative right margin to hide the "gutter" space between the control and
-the hidden label.
+control's label content (while making them still accessible to screen reader users), and used the
+utility class `.mr-n2` to add a negative right margin to compensate for the "gutter" space between
+the control and the hidden label.
 
 ## Dropdowns
 
