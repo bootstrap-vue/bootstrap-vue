@@ -19,7 +19,7 @@
 
     &::after {
       height: $b-custom-file-height-inner-lg;
-      @include border-radius(0 $custom-file-border-radius-lg $custom-file-border-radius-lg 0);
+      @include border-radius(0 $b-custom-file-border-radius-lg $b-custom-file-border-radius-lg 0);
     }
   }
 }
@@ -43,7 +43,7 @@
 
     &::after {
       height: $b-custom-file-height-inner-sm;
-      @include border-radius(0 $custom-file-border-radius-sm $custom-file-border-radius-sm 0);
+      @include border-radius(0 $b-custom-file-border-radius-sm $b-custom-file-border-radius-sm 0);
     }
   }
 }
