@@ -1,0 +1,49 @@
+// Adds in sizes for custom-file
+
+.b-custom-control-lg {
+  &.custom-file,
+  .b-custom-file-input,
+  .custom-file-label {
+    height: $b-custom-file-height-lg;
+  }
+
+  .custom-file-label,
+  .custom-file-label:after {
+    padding: $b-custom-file-padding-y-lg $b-custom-file-padding-x-lg;
+    font-size: $b-custom-file-font-size-lg;
+    line-height: $b-custom-file-line-height-lg;
+  }
+
+  .custom-file-label {
+    @include border-radius($b-custom-file-border-radius-lg);
+
+    &::after {
+      height: $b-custom-file-height-inner-lg;
+      @include border-radius(0 $custom-file-border-radius-lg $custom-file-border-radius-lg 0);
+    }
+  }
+}
+
+.b-custom-control-sm {
+  &.custom-file,
+  .b-custom-file-input,
+  .custom-file-label {
+    height: $b-custom-file-height-sm;
+  }
+
+  .custom-file-label,
+  .custom-file-label:after {
+    padding: $b-custom-file-padding-y-sm $b-custom-file-padding-x-sm;
+    font-size: $b-custom-file-font-size-sm;
+    line-height: $b-custom-file-line-height-sm;
+  }
+
+  .custom-file-label {
+    @include border-radius($b-custom-file-border-radius-sm);
+
+    &::after {
+      height: $b-custom-file-height-inner-sm;
+      @include border-radius(0 $custom-file-border-radius-sm $custom-file-border-radius-sm 0);
+    }
+  }
+}
