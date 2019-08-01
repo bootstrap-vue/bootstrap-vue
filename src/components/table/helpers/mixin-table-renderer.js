@@ -1,8 +1,9 @@
 // Main `<table>` render mixin
-// Which indlues all main table stlying options
+// Which included all main table styling options
 
 export default {
-  // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
+  // Don't place attributes on root element automatically,
+  // as table could be wrapped in responsive `<div>`
   inheritAttrs: false,
   props: {
     striped: {
@@ -86,7 +87,7 @@ export default {
       ]
     },
     tableAttrs() {
-      // Preserve user supplied aria-describedby, if provided in $attrs
+      // Preserve user supplied aria-describedby, if provided in `$attrs`
       const adb =
         [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
       const items = this.computedItems
@@ -106,11 +107,12 @@ export default {
           : null
 
       return {
-        // We set aria-rowcount before merging in $attrs, in case user has supplied their own
+        // We set `aria-rowcount` before merging in `$attrs`,
+        // in case user has supplied their own
         'aria-rowcount': rowCount,
-        // Merge in user supplied $attrs if any
+        // Merge in user supplied `$attrs` if any
         ...this.$attrs,
-        // Now we can override any $attrs here
+        // Now we can override any `$attrs` here
         id: this.safeId(),
         role: 'table',
         ...ariaAttrs,
@@ -124,23 +126,23 @@ export default {
     if (this.isTableSimple) {
       $content.push(this.normalizeSlot('default', {}))
     } else {
-      // Build the caption (from caption mixin)
+      // Build the `<caption>` (from caption mixin)
       $content.push(this.renderCaption ? this.renderCaption() : null)
 
-      // Build the colgroup
+      // Build the `<colgroup>`
       $content.push(this.renderColgroup ? this.renderColgroup() : null)
 
-      // Build the thead
+      // Build the `<thead>`
       $content.push(this.renderThead ? this.renderThead() : null)
 
-      // Build the tfoot
+      // Build the `<tfoot>`
       $content.push(this.renderTfoot ? this.renderTfoot() : null)
 
-      // Build the tbody
+      // Build the `<tbody>`
       $content.push(this.renderTbody ? this.renderTbody() : null)
     }
 
-    // Assemble table
+    // Assemble `<table>`
     const $table = h(
       'table',
       {
