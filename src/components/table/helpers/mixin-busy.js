@@ -35,11 +35,11 @@ export default {
       }
       return false
     },
-    // Renter the busy indicator or return null if not busy
+    // Renter the busy indicator or return `null` if not busy
     renderBusy() {
       const h = this.$createElement
 
-      // Return a busy indicator row, or null if not busy
+      // Return a busy indicator row, or `null` if not busy
       if (this.computedBusy && this.hasNormalizedSlot('table-busy')) {
         // Show the busy slot
         const trAttrs = {
@@ -64,8 +64,8 @@ export default {
           [h('td', { attrs: tdAttrs }, [this.normalizeSlot('table-busy')])]
         )
       } else {
-        // We return null here so that we can determine if we need to
-        // render the table items rows or not.
+        // We return `null` here so that we can determine if we need to
+        // render the table items rows or not
         return null
       }
     }
