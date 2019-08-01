@@ -33,6 +33,22 @@ $b-custom-switch-indicator-border-radius-sm: $b-custom-control-indicator-size-sm
 $b-custom-switch-indicator-size-lg: calc(#{$b-custom-control-indicator-size-lg} - #{$custom-control-indicator-border-width * 4}) !default;
 $b-custom-switch-indicator-size-sm: calc(#{$b-custom-control-indicator-size-sm} - #{$custom-control-indicator-border-width * 4}) !default;
 
+// Custom file sizes
+$b-custom-file-font-size-lg: $input-font-size-lg !default;
+$b-custom-file-font-size-sm: $input-font-size-sm !default;
+$b-custom-file-line-height-lg: $input-line-height-lg !default;
+$b-custom-file-line-height-sm: $input-line-height-sm !default;
+$b-custom-file-height-lg: $input-height-lg !default;
+$b-custom-file-height-sm: $input-height-sm !default;
+$b-custom-file-border-radius-lg: $input-border-radius-lg !default;
+$b-custom-file-border-radius-sm: $input-border-radius-sm !default;
+$b-custom-file-padding-y-lg: $input-padding-y-lg !default;
+$b-custom-file-padding-y-sm: $input-padding-y-sm !default;
+$b-custom-file-padding-x-lg: $input-padding-x-lg !default;
+$b-custom-file-padding-x-sm: $input-padding-x-sm !default;
+$b-custom-file-height-inner-lg: calc(#{$b-custom-file-line-height-lg * 1em} + #{$b-custom-file-padding-y-lg * 2}) !default;
+$b-custom-file-height-inner-sm: calc(#{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}) !default;
+
 // --- Tables ---
 
 // Table busy state
