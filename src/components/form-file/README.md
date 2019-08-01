@@ -101,8 +101,8 @@ standard media types.
 
 ## Customizing
 
-`<b-form-file>`, when not in ]`plain` mode](#non-custom-file-input), provides several features
-for customizing its appearance.
+`<b-form-file>`, when not in ]`plain` mode](#non-custom-file-input), provides several features for
+customizing its appearance.
 
 ### Control sizing
 

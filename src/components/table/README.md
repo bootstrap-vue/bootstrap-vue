@@ -826,7 +826,7 @@ scoped slot `'[]'` to format any cells that do not have an explicit scoped slot 
 
 <span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
 `2.0.0-rc.28` did not surround the field key with square brackets, which could cause slot name
-colisions (i.e. if you had a field key `default`). Using the old field slot names has been
+collisions (i.e. if you had a field key `default`). Using the old field slot names has been
 deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
 Users are encouraged to switch to the new bracketed syntax.
 
@@ -891,15 +891,15 @@ Users are encouraged to switch to the new bracketed syntax.
 
 The slot's scope variable (`data` in the above sample) will have the following properties:
 
-| Property         | Type     | Description                                                                                                                                                                                             |
-| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index`          | Number   | The row number (indexed from zero) relative to the _displayed_ rows                                                                                                                                     |
-| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                         |
-| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter`  function](#formatter-callback)                                              |
-| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback)                               |
-| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                                              |
-| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information                                  |
-| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                                                           |
+| Property         | Type     | Description                                                                                                                                                               |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`          | Number   | The row number (indexed from zero) relative to the _displayed_ rows                                                                                                       |
+| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                           |
+| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter` function](#formatter-callback)                |
+| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback) |
+| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
+| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
+| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
 
 **Notes:**
 
@@ -2100,21 +2100,22 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 
 ## Accessibility
 
-The `<b-table>` and `<b-tabe-lite>` components, when using specific features, will attemp to provide
-the best accessibiity features possible.
+The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
+provide the best accessibility features possible.
 
 ### Heading accessibility
 
-When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener registered,
-the header (and footer) `<th>` cells will be placed into the document tab sequence (via `tabindex="0"`)
-for accessibility by keyboard-only and screen reader users, so that the user may trigger a click on the
-header cells.
+When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
+registered, the header (and footer) `<th>` cells will be placed into the document tab sequence (via
+`tabindex="0"`) for accessibility by keyboard-only and screen reader users, so that the user may
+trigger a click on the header cells.
 
 ### Data row accessibility
 
 When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered, all data item rows (`<tr>` elements) will be placed into the document tab sequence
-(via `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
+listener registered, all data item rows (`<tr>` elements) will be placed into the document tab
+sequence (via `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click
+the rows.
 
 When the table items rows are placed in the document tab sequence, they will also support basic
 keyboard navigation when focused:
@@ -2124,8 +2125,8 @@ keyboard navigation when focused:
 - <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
 - <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
 - <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
-- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable mode,
-  for `<b-table>` only).
+- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
+  mode, for `<b-table>` only).
 
 ### Row event accessibility
 

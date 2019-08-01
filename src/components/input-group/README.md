@@ -55,8 +55,8 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 
 if you want better control over addons, you can use `prepend` and `append` slots instead.
 
-The slot content will automatically be wrapped by [`<b-input-group-prepend>` or
-`<b-input-group-append>`](#using-sub-components) to display correctly.
+The slot content will automatically be wrapped by
+[`<b-input-group-prepend>` or `<b-input-group-append>`](#using-sub-components) to display correctly.
 
 ```html
 <div>
@@ -153,9 +153,9 @@ classes applied.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
-Using `<b-form-checkbox>` and `<b-form-radio>` comonents as addons, using Bootstrap
-[utility classes](/docs/reference/utility-classes) for additional styling to get them to
-"fit" in the addon:
+Using `<b-form-checkbox>` and `<b-form-radio>` components as addons, using Bootstrap
+[utility classes](/docs/reference/utility-classes) for additional styling to get them to "fit" in
+the addon:
 
 ```html
 <div>
@@ -190,7 +190,7 @@ Using `<b-form-checkbox>` and `<b-form-radio>` comonents as addons, using Bootst
 <!-- b-input-group-custom-checks-radios.vue -->
 ```
 
-In the above example, we have use the `.sr-only` class on a `<span>` to visualy hide the custom
+In the above example, we have use the `.sr-only` class on a `<span>` to visually hide the custom
 control's label content (while making them still accessible to screen reader users), and used the
 utility class `.mr-n2` to add a negative right margin to compensate for the "gutter" space between
 the control and the hidden label.

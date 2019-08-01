@@ -171,8 +171,8 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
-Use the `size` prop to control the size of the checkbox. The default size is medium. Supported
-size values are `sm` (small) and `lg` (large).
+Use the `size` prop to control the size of the checkbox. The default size is medium. Supported size
+values are `sm` (small) and `lg` (large).
 
 ```html
 <div>
@@ -184,8 +184,8 @@ size values are `sm` (small) and `lg` (large).
 <!-- form-checkbox-sizes.vue -->
 ```
 
-Sizes can be set on individual `<b-form-checkbox>` components, or inherited from the size
-setting of `<b-form-checkbox-group>`.
+Sizes can be set on individual `<b-form-checkbox>` components, or inherited from the size setting of
+`<b-form-checkbox-group>`.
 
 **Note:** Bootstrap v4.x does not natively support sizes for the custom checkbox control. However,
 BootstrapVue includes custom SCSS/CSS that adds support for sizing the custom checkboxes.
@@ -408,8 +408,8 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
-Use the `size` prop to control the size of the switch. The default size is medium. Supported
-size values are `sm` (small) and `lg` (large).
+Use the `size` prop to control the size of the switch. The default size is medium. Supported size
+values are `sm` (small) and `lg` (large).
 
 ```html
 <div>
@@ -421,8 +421,8 @@ size values are `sm` (small) and `lg` (large).
 <!-- form-checkbox-switch-sizes.vue -->
 ```
 
-Sizes can be set on individual `<b-form-checkbox>` components, or inherited from the size
-setting of `<b-form-checkbox-group>`.
+Sizes can be set on individual `<b-form-checkbox>` components, or inherited from the size setting of
+`<b-form-checkbox-group>`.
 
 **Note:** Bootstrap v4.x does not natively support sizes for the custom switch control. However,
 BootstrapVue includes custom SCSS/CSS that adds support for sizing the custom switches.

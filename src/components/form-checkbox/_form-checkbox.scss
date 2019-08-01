@@ -63,8 +63,14 @@
     }
 
     &::after {
-      top: calc(#{(($font-size-lg * $line-height-lg - $b-custom-control-indicator-size-lg) / 2)} + #{$custom-control-indicator-border-width * 2});
-      left: calc(#{-($b-custom-switch-width-lg + $b-custom-control-gutter-lg)} + #{$custom-control-indicator-border-width * 2});
+      top: calc(
+        #{(($font-size-lg * $line-height-lg - $b-custom-control-indicator-size-lg) / 2)} + #{$custom-control-indicator-border-width *
+          2}
+      );
+      left: calc(
+        #{- ($b-custom-switch-width-lg + $b-custom-control-gutter-lg)} + #{$custom-control-indicator-border-width *
+          2}
+      );
       width: $b-custom-switch-indicator-size-lg;
       height: $b-custom-switch-indicator-size-lg;
       border-radius: $b-custom-switch-indicator-border-radius-lg;
@@ -96,8 +102,14 @@
     }
 
     &::after {
-      top: calc(#{(($font-size-sm * $line-height-sm - $b-custom-control-indicator-size-sm) / 2)} + #{$custom-control-indicator-border-width * 2});
-      left: calc(#{-($b-custom-switch-width-sm + $b-custom-control-gutter-sm)} + #{$custom-control-indicator-border-width * 2});
+      top: calc(
+        #{(($font-size-sm * $line-height-sm - $b-custom-control-indicator-size-sm) / 2)} + #{$custom-control-indicator-border-width *
+          2}
+      );
+      left: calc(
+        #{- ($b-custom-switch-width-sm + $b-custom-control-gutter-sm)} + #{$custom-control-indicator-border-width *
+          2}
+      );
       width: $b-custom-switch-indicator-size-sm;
       height: $b-custom-switch-indicator-size-sm;
       border-radius: $b-custom-switch-indicator-border-radius-sm;

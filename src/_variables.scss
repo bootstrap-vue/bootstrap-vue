@@ -7,7 +7,7 @@
 
 // Indicator height (and sometimes width)
 $b-custom-control-indicator-size-lg: $custom-control-indicator-size * 1.25 !default;
-$b-custom-control-indicator-size-sm: $custom-control-indicator-size * .875 !default;
+$b-custom-control-indicator-size-sm: $custom-control-indicator-size * 0.875 !default;
 
 // Indicator background
 $b-custom-control-indicator-bg-size-lg: $custom-control-indicator-bg-size !default;
@@ -15,7 +15,7 @@ $b-custom-control-indicator-bg-size-sm: $custom-control-indicator-bg-size !defau
 
 // Gutter widths
 $b-custom-control-gutter-lg: $custom-control-gutter * 1.25 !default;
-$b-custom-control-gutter-sm: $custom-control-gutter * .875 !default;
+$b-custom-control-gutter-sm: $custom-control-gutter * 0.875 !default;
 
 // Custom radio sizes (uses defaults of 50%, since radios are round)
 $b-custom-radio-indicator-border-radius-lg: $custom-radio-indicator-border-radius !default;
@@ -30,8 +30,12 @@ $b-custom-switch-width-lg: $b-custom-control-indicator-size-lg * 1.75 !default;
 $b-custom-switch-width-sm: $b-custom-control-indicator-size-sm * 1.75 !default;
 $b-custom-switch-indicator-border-radius-lg: $b-custom-control-indicator-size-lg / 2 !default;
 $b-custom-switch-indicator-border-radius-sm: $b-custom-control-indicator-size-sm / 2 !default;
-$b-custom-switch-indicator-size-lg: calc(#{$b-custom-control-indicator-size-lg} - #{$custom-control-indicator-border-width * 4}) !default;
-$b-custom-switch-indicator-size-sm: calc(#{$b-custom-control-indicator-size-sm} - #{$custom-control-indicator-border-width * 4}) !default;
+$b-custom-switch-indicator-size-lg: calc(
+  #{$b-custom-control-indicator-size-lg} - #{$custom-control-indicator-border-width * 4}
+) !default;
+$b-custom-switch-indicator-size-sm: calc(
+  #{$b-custom-control-indicator-size-sm} - #{$custom-control-indicator-border-width * 4}
+) !default;
 
 // Custom file sizes
 $b-custom-file-font-size-lg: $input-font-size-lg !default;
@@ -46,8 +50,12 @@ $b-custom-file-padding-y-lg: $input-padding-y-lg !default;
 $b-custom-file-padding-y-sm: $input-padding-y-sm !default;
 $b-custom-file-padding-x-lg: $input-padding-x-lg !default;
 $b-custom-file-padding-x-sm: $input-padding-x-sm !default;
-$b-custom-file-height-inner-lg: calc(#{$b-custom-file-line-height-lg * 1em} + #{$b-custom-file-padding-y-lg * 2}) !default;
-$b-custom-file-height-inner-sm: calc(#{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}) !default;
+$b-custom-file-height-inner-lg: calc(
+  #{$b-custom-file-line-height-lg * 1em} + #{$b-custom-file-padding-y-lg * 2}
+) !default;
+$b-custom-file-height-inner-sm: calc(
+  #{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}
+) !default;
 
 // --- Tables ---
 
