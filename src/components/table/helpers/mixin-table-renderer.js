@@ -88,6 +88,13 @@ export default {
       const items = this.computedItems
       const fields = this.computedFields
       const selectableAttrs = this.selectableTableAttrs || {}
+      const ariaAttrs = this.isTableSimple
+        ? {}
+        : {
+            'aria-busy': this.computedBusy ? 'true' : 'false',
+            'aria-colcount': String(fields.length),
+            'aria-describedby': adb,
+          }
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
         'aria-rowcount':
@@ -99,9 +106,7 @@ export default {
         // Now we can override any $attrs here
         id: this.safeId(),
         role: 'table',
-        'aria-busy': this.computedBusy ? 'true' : 'false',
-        'aria-colcount': String(fields.length),
-        'aria-describedby': adb,
+        ...ariaAttrs,
         ...selectableAttrs
       }
     }
