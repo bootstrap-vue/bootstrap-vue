@@ -106,8 +106,10 @@ for customizing its appearance.
 
 ### Control sizing
 
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
 Use the `size` prop to control the visual size of the input. The default size is considered `md`
-(medium). Optional sizes are `lg` (large) and `sm` (small). These sizes line up wiht the sizes
+(medium). Optional sizes are `lg` (large) and `sm` (small). These sizes line up with the sizes
 available on other form controls.
 
 ```html
