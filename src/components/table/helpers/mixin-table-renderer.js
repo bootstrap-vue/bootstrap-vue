@@ -76,7 +76,7 @@ export default {
           'b-table-fixed': this.fixed,
         },
         // Stacked table classes
-        this.stackedtableClasses,
+        this.stackedTableClasses,
         // Selectable classes
         this.selectableTableClasses
       ]
