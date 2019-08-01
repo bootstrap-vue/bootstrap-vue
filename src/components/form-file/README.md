@@ -99,12 +99,57 @@ standard media types.
 
 **Note:** Not all browsers support or respect the `accept` attribute on file inputs.
 
-## Customize the placeholder text
+## Customizing
+
+`<b-form-file>`, when not in ]`plain` mode](#non-custom-file-input), provides several features
+for customizing its appearance.
+
+### Control sizing
+
+Use the `size` prop to control the visual size of the input. The default size is considered `md`
+(medium). Optional sizes are `lg` (large) and `sm` (small). These sizes line up wiht the sizes
+available on other form controls.
+
+```html
+<b-container fluid>
+  <b-row class="my-1">
+    <b-col sm="2">
+      <label for="file-small">Small:</label>
+    </b-col>
+    <b-col sm="10">
+      <b-form-file id="file-small" size="sm"></b-form-file>
+    </b-col>
+  </b-row>
+  <b-row class="my-1">
+    <b-col sm="2">
+      <label for="file-default">Default:</label>
+    </b-col>
+    <b-col sm="10">
+      <b-form-input id="file-default"></b-form-file>
+    </b-col>
+  </b-row>
+  <b-row class="my-1">
+    <b-col sm="2">
+      <label for="file-large">Large:</label>
+    </b-col>
+    <b-col sm="10">
+      <b-form-file id="file-large" size="lg"></b-form-file>
+    </b-col>
+  </b-row>
+</b-container>
+
+<!-- form-file-sizes.vue -->
+```
+
+**Note:** Bootstrap v4.x does not natively support sizes for the custom file control.  However,
+BootstrapVue includes custom SCSS/CSS that adds support for sizing the custom file input control.
+
+### Customize the placeholder text
 
 Use the prop `placeholder` to change the prompt text that is shown when no files are selected. Only
 plain text is supported. HTML and components are not supported.
 
-## Customize browse button label
+### Customize browse button label
 
 If you want to globally change `Browse` label, you can add something like this to your global
 stylesheets. Also it is advised to use
@@ -118,11 +163,6 @@ stylesheets. Also it is advised to use
 
 Alternatively you can set the content of the custom file browse button text via the `browse-text`
 prop. Note, only plain text is supported. HTML and components are not supported.
-
-## Customize the formatting of the selected file names
-
-By default, the custom styled file input lists the file names separated by commas. You can customize
-how the file names are shown either via a custom formatter function or the `file-name` scoped slot.
 
 ### File name formatter function
 
@@ -225,7 +265,7 @@ assistive technologies.
 
 With inputs of type file, normally the `v-model` is uni-directional (meaning you cannot pre-set the
 selected files). However, you can clear the file input's selected files by setting the `v-model` to
-either `null`, an empty string, or an empty array).
+either `null`, an empty string `''`, or an empty array `[]`).
 
 Alternatively, `<b-form-file>` provides a `reset()` method that can be called to clear the file
 input. To take advantage of the `reset()` method, you will need to obtain a reference to the
@@ -263,6 +303,6 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
 
 **Implementation note:** As not all browsers allow setting a value of a file input (even to null or
 an empty string), `b-form-input` employs a technique that works cross-browser that involves changing
-the input type to null and then back to type file.
+the input type to `null` and then immediately back to type `file`.
 
 <!-- Component reference added automatically from component package.json -->
