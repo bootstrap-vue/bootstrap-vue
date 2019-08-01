@@ -2103,7 +2103,7 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 <span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
 
 The `<b-table-simple>` component gives the user complete control over the rendering of the table
-content, while providing basic Bootstrap table styling. `<b-table-simple>` is a wrapper component
+content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot,  you can use any or all
 of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`,  `<tr>`,  `<th>`,  `<td>`,
 `<caption>`, and `<colgroup>`.
@@ -2169,10 +2169,16 @@ pagination, filtering, stacked mode, etc).
 Row and cell variant classes are in the form `table-{variant}`, unless you have the table in
 `dark` mode, in which case you should use `bg-{variant}` instead.
 
+When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need
+to apply additional classes to the `<table>` element, use the `table-classes` prop.
+
+Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
+element.
+
 ## Accessibility
 
 The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
-provide the best accessibility features possible.
+provide the best accessibility markup possible.
 
 ### Heading accessibility
 
