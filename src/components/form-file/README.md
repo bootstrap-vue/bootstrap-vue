@@ -111,37 +111,24 @@ Use the `size` prop to control the visual size of the input. The default size is
 available on other form controls.
 
 ```html
-<b-container fluid>
-  <b-row class="my-1">
-    <b-col sm="2">
-      <label for="file-small">Small:</label>
-    </b-col>
-    <b-col sm="10">
-      <b-form-file id="file-small" size="sm"></b-form-file>
-    </b-col>
-  </b-row>
-  <b-row class="my-1">
-    <b-col sm="2">
-      <label for="file-default">Default:</label>
-    </b-col>
-    <b-col sm="10">
-      <b-form-input id="file-default"></b-form-file>
-    </b-col>
-  </b-row>
-  <b-row class="my-1">
-    <b-col sm="2">
-      <label for="file-large">Large:</label>
-    </b-col>
-    <b-col sm="10">
-      <b-form-file id="file-large" size="lg"></b-form-file>
-    </b-col>
-  </b-row>
+<div>
+  <b-form-group label="Small:" label-for="file-small" label-cols-sm="2">
+    <b-form-file id="file-small" size="sm"></b-form-file>
+  </b-form-group>
+
+  <b-form-group label="Default:" label-for="file-default" label-cols-sm="2">
+    <b-form-file id="file-default"></b-form-file>
+  </b-form-group>
+
+  <b-form-group label="Large:" label-for="file-large" label-cols-sm="2">
+    <b-form-file id="file-large"></b-form-file>
+  </b-form-group>
 </b-container>
 
 <!-- form-file-sizes.vue -->
 ```
 
-**Note:** Bootstrap v4.x does not natively support sizes for the custom file control.  However,
+**Note:** Bootstrap v4.x does not natively support sizes for the custom file control. However,
 BootstrapVue includes custom SCSS/CSS that adds support for sizing the custom file input control.
 
 ### Customize the placeholder text
