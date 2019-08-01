@@ -167,6 +167,27 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 <!-- b-form-checkbox-stacked.vue -->
 ```
 
+## Control sizing
+
+Use the `size` prop to control the size of the checkbox. The dfault size is medium. Supported
+size values are `sm` (small) and `lg` (large).
+
+```html
+<div>
+  <b-form-checkbox size="sm">Small</b-form-checkbox>
+  <b-form-checkbox>Default</b-form-checkbox>
+  <b-form-checkbox size="lg">Large</b-form-checkbox>
+</div>
+
+<!-- form-checkbox-sizes.vue -->
+```
+
+Sizes can be set on individual `<b-form-checkbox>` components, or inherited from the size
+setting of `<b-form-checkbox-group>`.
+
+**Note:** Bootstrap v4.x does not natively support sizes for the custom checkbox control. However,
+BootstrapVue includes custom SCSS/CSS that adds support for sizing the custom checkboxes.
+
 ## Checkbox values and `v-model`
 
 By default, `<b-form-checkbox>` value will be `true` when checked and `false` when unchecked. You
@@ -380,6 +401,25 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 
 <!-- b-form-checkboxes-switch-group.vue -->
 ```
+
+Use the `size` prop to control the size of the switch. The dfault size is medium. Supported
+size values are `sm` (small) and `lg` (large).
+
+```html
+<div>
+  <b-form-checkbox switch size="sm">Small</b-form-checkbox>
+  <b-form-checkbox switch>Default</b-form-checkbox>
+  <b-form-checkbox switch size="lg">Large</b-form-checkbox>
+</div>
+
+<!-- form-checkbox-switch-sizes.vue -->
+```
+
+Sizes can be set on individual `<b-form-checkbox>` components, or inherited from the size
+setting of `<b-form-checkbox-group>`.
+
+**Note:** Bootstrap v4.x does not natively support sizes for the custom switch control. However,
+BootstrapVue includes custom SCSS/CSS that adds support for sizing the custom switches.
 
 ## Non custom check inputs (plain)
 
