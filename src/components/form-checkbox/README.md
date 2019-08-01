@@ -169,7 +169,9 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 
 ## Control sizing
 
-Use the `size` prop to control the size of the checkbox. The dfault size is medium. Supported
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+Use the `size` prop to control the size of the checkbox. The default size is medium. Supported
 size values are `sm` (small) and `lg` (large).
 
 ```html
@@ -404,7 +406,9 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 
 ### Switch sizing
 
-Use the `size` prop to control the size of the switch. The dfault size is medium. Supported
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+Use the `size` prop to control the size of the switch. The default size is medium. Supported
 size values are `sm` (small) and `lg` (large).
 
 ```html
