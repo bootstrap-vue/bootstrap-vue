@@ -100,9 +100,10 @@ export default {
             'aria-colcount': String(fields.length),
             'aria-describedby': adb
           }
-      const rowCount = items && filteredItems && filteredItems.length > items.length
-        ? String(filteredItems.length)
-        : null
+      const rowCount =
+        items && filteredItems && filteredItems.length > items.length
+          ? String(filteredItems.length)
+          : null
 
       return {
         // We set aria-rowcount before merging in $attrs, in case user has supplied their own
