@@ -114,7 +114,7 @@ available on other form controls.
 
 ```html
 <div>
-  <b-form-group label="Small:" label-for="file-small" label-cols-sm="2">
+  <b-form-group label="Small:" label-for="file-small" label-cols-sm="2" label-size="sm">
     <b-form-file id="file-small" size="sm"></b-form-file>
   </b-form-group>
 
@@ -122,8 +122,8 @@ available on other form controls.
     <b-form-file id="file-default"></b-form-file>
   </b-form-group>
 
-  <b-form-group label="Large:" label-for="file-large" label-cols-sm="2">
-    <b-form-file id="file-large"></b-form-file>
+  <b-form-group label="Large:" label-for="file-large" label-cols-sm="2" label-size="lg">
+    <b-form-file id="file-large" size="lg"></b-form-file>
   </b-form-group>
 </b-container>
 
