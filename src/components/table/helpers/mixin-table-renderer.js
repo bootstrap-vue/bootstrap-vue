@@ -41,10 +41,6 @@ export default {
       type: [Boolean, String],
       default: false
     },
-    stacked: {
-      type: [Boolean, String],
-      default: false
-    },
     tableClass: {
       type: [String, Array, Object],
       default: null
@@ -52,9 +48,6 @@ export default {
   },
   computed: {
     // Layout related computed props
-    isStacked() {
-      return this.stacked === '' ? true : this.stacked
-    },
     isResponsive() {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
@@ -78,12 +71,12 @@ export default {
           'table-bordered': this.bordered,
           'table-borderless': this.borderless,
           'table-sm': this.small,
-          border: this.outlined,
           // The following are b-table custom styles
+          border: this.outlined,
           'b-table-fixed': this.fixed,
-          'b-table-stacked': this.stacked === true || this.stacked === '',
-          [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked
         },
+        // Stacked table classes
+        this.stackedtableClasses,
         // Selectable classes
         this.selectableTableClasses
       ]
@@ -105,7 +98,7 @@ export default {
         ...this.$attrs,
         // Now we can override any $attrs here
         id: this.safeId(),
-        role: this.isStacked ? 'table' : null,
+        role: 'table',
         'aria-busy': this.computedBusy ? 'true' : 'false',
         'aria-colcount': String(fields.length),
         'aria-describedby': adb,
@@ -114,20 +107,26 @@ export default {
     }
   },
   render(h) {
-    // Build the caption (from caption mixin)
-    const $caption = this.renderCaption ? this.renderCaption() : null
+    let $content = []
 
-    // Build the colgroup
-    const $colgroup = this.renderColgroup ? this.renderColgroup() : null
+    if (this.isTableSimple) {
+      $content.push(this.normalizeSlot('default', {}))
+    } else {
+      // Build the caption (from caption mixin)
+      $content.push(this.renderCaption ? this.renderCaption() : null)
 
-    // Build the thead
-    const $thead = this.renderThead()
+      // Build the colgroup
+      $content.push(this.renderColgroup ? this.renderColgroup() : null)
 
-    // Build the tfoot
-    const $tfoot = this.renderTfoot()
+      // Build the thead
+      $content.push(this.renderThead ? this.renderThead() : null)
 
-    // Build the tbody
-    const $tbody = this.renderTbody()
+      // Build the tfoot
+      $content.push(this.renderTfoot ? this.renderTfoot() : null)
+
+      // Build the tbody
+      $content.push(this.renderTbody ? this.renderTbody() : null)
+    }
 
     // Assemble table
     const $table = h(
@@ -138,7 +137,7 @@ export default {
         class: this.tableClasses,
         attrs: this.tableAttrs
       },
-      [$caption, $colgroup, $thead, $tfoot, $tbody].filter(Boolean)
+      $content.filter(Boolean)
     )
 
     // Add responsive wrapper if needed and return table
