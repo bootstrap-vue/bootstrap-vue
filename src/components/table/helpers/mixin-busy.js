@@ -35,7 +35,7 @@ export default {
       }
       return false
     },
-    // Renter the busy indicator or return `null` if not busy
+    // Render the busy indicator or return `null` if not busy
     renderBusy() {
       const h = this.$createElement
 
