@@ -11,7 +11,6 @@
   .custom-file-label,
   .custom-file-label:after {
     padding: $b-custom-file-padding-y-lg $b-custom-file-padding-x-lg;
-    font-size: $b-custom-file-font-size-lg;
     line-height: $b-custom-file-line-height-lg;
   }
 
@@ -19,6 +18,7 @@
     @include border-radius($b-custom-file-border-radius-lg);
 
     &::after {
+      font-size: inherit;
       height: $b-custom-file-height-inner-lg;
       @include border-radius(0 $b-custom-file-border-radius-lg $b-custom-file-border-radius-lg 0);
     }
@@ -36,7 +36,6 @@
   .custom-file-label,
   .custom-file-label:after {
     padding: $b-custom-file-padding-y-sm $b-custom-file-padding-x-sm;
-    font-size: $b-custom-file-font-size-sm;
     line-height: $b-custom-file-line-height-sm;
   }
 
@@ -44,6 +43,7 @@
     @include border-radius($b-custom-file-border-radius-sm);
 
     &::after {
+      font-size: inherit;
       height: $b-custom-file-height-inner-sm;
       @include border-radius(0 $b-custom-file-border-radius-sm $b-custom-file-border-radius-sm 0);
     }
