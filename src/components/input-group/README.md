@@ -31,7 +31,7 @@
 
 ## Usage
 
-You can attach addons using either props, named slots or components.
+You can attach addons using either props, named slots and/or sub-components.
 
 ### Using `prepend` and `append` props
 
@@ -56,7 +56,7 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 if you want better control over addons, you can use `prepend` and `append` slots instead.
 
 The slot content will automatically be wrapped by [`<b-input-group-prepend>` or
-`<b-input-group-append>`](#using-components) to display correctly.
+`<b-input-group-append>`](#using-sub-components) to display correctly.
 
 ```html
 <div>
@@ -74,7 +74,7 @@ The slot content will automatically be wrapped by [`<b-input-group-prepend>` or
 <!-- b-input-group-using-slots.vue -->
 ```
 
-### Using components
+### Using sub-components
 
 Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons wherever you
 like, and use these components to group buttons in your input group. Single buttons must always be
@@ -105,11 +105,12 @@ subcomponent inside of the `<b-input-group-prepend>` or `<b-input-group-append>`
 
 ## Supported form-controls
 
-The following are the form controls supported as the main input-group input element:
+The following are the form controls supported as the input-group's _main_ input element:
 
 - `<b-form-input>`
 - `<b-form-textarea>`
-- `<b-form-input>`
+- `<b-form-select>`
+- `<b-form-file>`
 
 **Notes:**
 
@@ -122,7 +123,7 @@ The following are the form controls supported as the main input-group input elem
 
 Place any checkbox or radio within an input group's addon instead of text.
 
-**Note:** Bootstrap v4.x recoomends using native radio and checkbox inputs over custom radios and
+**Note:** Bootstrap v4.x recommends using native radio and checkbox inputs over custom radios and
 checkboxes, but it is possible to use as `<b-form-radio>` and `<b-form-checkbox>` with a few utility
 classes applied.
 
@@ -196,12 +197,9 @@ the control and the hidden label.
 
 ## Multiple inputs
 
-While multiple fonr controls are supported visually, validation styles are only available for
-input groups with a single form control.
-
 ```html
 <div>
-  <b-input-group prepend="First and last name">
+  <b-input-group prepend="First and last name" class="mb-2">
     <b-form-input aria-label="First name"></b-form-input>
     <b-form-input aria-label="Last name"></b-form-input>
   </b-input-group>
