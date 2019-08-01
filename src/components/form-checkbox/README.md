@@ -402,6 +402,8 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 <!-- b-form-checkboxes-switch-group.vue -->
 ```
 
+### Switch sizing
+
 Use the `size` prop to control the size of the switch. The dfault size is medium. Supported
 size values are `sm` (small) and `lg` (large).
 
