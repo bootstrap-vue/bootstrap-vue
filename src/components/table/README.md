@@ -2105,14 +2105,14 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 The `<b-table-simple>` component gives the user complete control over the rendering of the table
 content, while providing basic Bootstrap table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot,  you can use any or all
-of the regular table elements: `<thead>`, `<thead>`, `<tbody>`,  `<tr>`,  `<th>`,  `<td>`,
+of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`,  `<tr>`,  `<th>`,  `<td>`,
 `<caption>`, and `<colgroup>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed` and `responsive`.
 
-Since `b-table-simple` is just a wrapper component, of which you will need to render content, it
-does not provide any of the advanced features of b-table (i.e. row events, head events, sorting,
+Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
+it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events, sorting,
 pagination, filtering, stacked mode, etc).
 
 ```html
