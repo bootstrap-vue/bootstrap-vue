@@ -1,6 +1,7 @@
 // Adds in sizes for custom-file
 
-.b-custom-control-lg {
+.b-custom-control-lg,
+.input-group-lg {
   &.custom-file,
   .custom-file-input,
   .custom-file-label {
@@ -25,7 +26,8 @@
   }
 }
 
-.b-custom-control-sm {
+.b-custom-control-sm,
+.input-group-sm {
   &.custom-file,
   .custom-file-input,
   .custom-file-label {
