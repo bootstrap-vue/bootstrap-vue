@@ -30,7 +30,7 @@ export const props = {
 }
 
 // @vue/component
-export const BTableCell = /*#__PURE__*/ Vue.extend( /* istanbul ignore next: until tests are written */ {
+export const BTableCell = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
@@ -47,29 +47,34 @@ export const BTableCell = /*#__PURE__*/ Vue.extend( /* istanbul ignore next: unt
   },
   props: props,
   computed: {
-    isDark() {
+    isDark() /* istanbul ignore next: until tests are written */ {
       return this.bvTable && this.bvTable.dark
     },
-    cellClasses() {
+    cellClasses() /* istanbul ignore next: until tests are written */ {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
+    },
+    cellAttrs() /* istanbul ignore next: until tests are written */ {
+      // We use computed props here for improved performance by caching
+      // the results of the object spread (Object.assign)
+      const headOrFoot = this.bvTableHead || this.bvTableFoot
+      return {
+        colspan: this.colspan || null,
+        rowspan: this.rowspan || null,
+        role: headOrFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
+        scope: headOrFoot ? 'col' : this.header ? 'row' : null,
+        // Allow users to override role/scope plus add other attributes
+        ...this.$attrs
+      }
     }
   },
-  render(h) {
-    const headOrFoot = this.bvTableHead || this.bvTableFoot
+  render(h) /* istanbul ignore next: until tests are written */ {
     return h(
       this.header ? 'th' : 'td',
       {
         class: this.cellClasses,
-        attrs: {
-          colspan: this.colspan || null,
-          rowspan: this.rowspan || null,
-          role: headOrFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
-          scope: headOrFoot ? 'col' : this.header ? 'row' : null,
-          // Allow users to override role/scope plus add other attributes
-          ...this.$attrs
-        },
+        attrs: this.cellAttrs,
         // Transfer any native listeners
         on: this.$listeners
       },
