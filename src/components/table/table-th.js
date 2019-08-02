@@ -11,6 +11,7 @@ export const BTableTh = /*#__PURE__*/ Vue.extend({
   functional: true,
   props: props,
   render(h, { props, data, children }) {
+    // `data` already includes any listeners
     data.props = { ...props, header: true }
     return h(BTableCell, data, children)
   }
