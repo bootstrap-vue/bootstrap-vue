@@ -13,7 +13,7 @@ export const BTableTr = /*#__PURE__*/ Vue.extend({
   name: 'BTableTr',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  provide() {
+  provide() /* istanbul ignore next: until tests are written */ {
     return {
       bvTableRow: this
     }
