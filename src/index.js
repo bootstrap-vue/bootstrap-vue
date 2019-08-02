@@ -217,6 +217,7 @@ export { BSpinner } from './components/spinner/spinner'
 export { TablePlugin } from './components/table'
 export { BTable } from './components/table/table'
 export { BTableLite } from './components/table/table-lite'
+export { BTableSimple } from './components/table/table-simple'
 
 // export * from './components/tabs'
 export { TabsPlugin } from './components/tabs'
