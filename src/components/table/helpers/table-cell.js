@@ -2,8 +2,10 @@ import Vue from '../../../utils/vue'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
-const spanValidator =
-  val => isUndefinedOrNull(val) || (/^\d+$/.test(String(val)) && parseInt(val, 10) > 0)
+const digitsRx = /^\d+$/
+
+const spanValidator = val =>
+  isUndefinedOrNull(val) || (digitsRx.test(String(val)) && parseInt(val, 10) > 0)
 
 export const props = {
   header: {
