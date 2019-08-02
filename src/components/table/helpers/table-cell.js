@@ -3,7 +3,7 @@ import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 export const BTableCell = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
-  inheritAttrs: false
+  inheritAttrs: false,
   mixins: [nomalizeSlotMixin],
   inject: {
     bvTable: {
@@ -39,6 +39,8 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       return this.bvTable && this.bvTable.dark
     },
     cellClasses() {
+      // We use computed props here for improved performance by caching
+      // the results of the string interpolation
       return [
         this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null
       ]
