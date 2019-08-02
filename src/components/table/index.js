@@ -1,6 +1,7 @@
 import { BTable } from './table'
 import { BTableLite } from './table-lite'
 import { BTableSimple } from './table-simple'
+import { BTableThead } from './table-thead'
 import { BTableTr } from './table-tr'
 import { BTableTd } from './table-td'
 import { BTableTh } from './table-th'
@@ -11,6 +12,8 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
     BTable,
     BTableLite,
     BTableSimple,
+    BTableThead,
+    bThead: BTableThead,
     BTableTr,
     BTr: BTableTr,
     BTableTd,
@@ -20,6 +23,6 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { TablePlugin, BTable, BTableLite, BTableSimple, BTableTr, BTableTd, BTableTh }
+export { TablePlugin, BTable, BTableLite, BTableSimple, BTableThead, BTableTr, BTableTd, BTableTh }
 
 export default TablePlugin
