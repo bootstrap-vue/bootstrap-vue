@@ -40,7 +40,7 @@ export const BTableTbody = /*#__PURE__*/ Vue.extend({
     },
     tbodyListeners() {
       const handlers = this.tbodyTransitionHandlers || {}
-      return { this.$listeners, ...handlers }
+      return { ...this.$listeners, ...handlers }
     }
   },
   render(h) /* istanbul ignore next: until tests are written */ {
