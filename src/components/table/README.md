@@ -2,8 +2,8 @@
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
 > rendering, various style options, events, and asynchronous data. For simple display of tabular
-> data without all the fancy features, BootstrapVue provides a lightweight alternative component
-> [`<b-table-lite>`](#light-weight-tables).
+> data without all the fancy features, BootstrapVue provides lightweight alternative components
+> [`<b-table-lite>`](#light-weight-tables) and [`<b-table-simple>`](#simple-tables).
 
 **Example: Basic usage**
 
@@ -2098,10 +2098,87 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 - Fixed top and bottom rows
 - Empty row support
 
+## Simple tables
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
+
+The `<b-table-simple>` component gives the user complete control over the rendering of the table
+content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
+around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
+of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`, `<tr>`, `<th>`, `<td>`,
+`<caption>`, and `<colgroup>`.
+
+`<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
+`outlined`, `small`, `hover`, `dark`, `fixed` and `responsive`.
+
+Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
+it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
+sorting, pagination, filtering, stacked mode, etc).
+
+```html
+<div>
+  <b-table-simple hover small bordered responsive="sm">
+    <thead class="text-center thead-light">
+      <tr>
+        <th colspan="2">Name</th>
+        <th rowspan="2" class="align-middle">Age</th>
+        <th colspan="3" rowspan="2" class="align-middle">Data</th>
+      </tr>
+      <tr>
+        <th>Last</th>
+        <th>First</th>
+      </td>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Macdonald</td>
+        <td>Dickerson</td>
+        <td>42</td>
+        <td>Foo</td>
+        <td>Bar</td>
+        <td>Baz</td>
+      </tr>
+      <tr class="table-info">
+        <td>Wilson</td>
+        <td>Geneva</td>
+        <td>35</td>
+        <td colspan="2">1234567</td>
+        <td>987</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Shaw</td>
+        <td>Larsen</td>
+        <td>23</td>
+        <td>AAA</td>
+        <td colspan="2">BBBBB</td>
+      </tr>
+      <tr>
+        <td>Linda</td>
+        <td>22</td>
+        <td>CCC</td>
+        <td class="table-danger">YYY</td>
+        <td>ZZZ</td>
+      </tr>
+    </tbody>
+  </b-table>
+</div>
+
+<!-- b-table-simple.vue -->
+```
+
+Row and cell variant classes are in the form `table-{variant}`, unless you have the table in `dark`
+mode, in which case you should use `bg-{variant}` instead.
+
+When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need to
+apply additional classes to the `<table>` element, use the `table-classes` prop.
+
+Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
+element.
+
 ## Accessibility
 
 The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
-provide the best accessibility features possible.
+provide the best accessibility markup possible.
 
 ### Heading accessibility
 
@@ -2130,8 +2207,9 @@ keyboard navigation when focused:
 
 ### Row event accessibility
 
-Note the following row based events/actions are not considered accessible, and should only be used
-if the functionality is non critical or can be provided via other means:
+Note the following row based events/actions (available with `<b-table>` and `<b-table-lite>`) are
+not considered accessible, and should only be used if the functionality is non critical or can be
+provided via other means:
 
 - `row-dblclicked`
 - `row-contextmenu`

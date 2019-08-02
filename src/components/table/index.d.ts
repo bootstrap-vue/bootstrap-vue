@@ -44,6 +44,12 @@ export declare class BTableLite extends BvComponent {
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
 }
 
+// Component: b-table-simple
+export declare class BTableSimple extends BvComponent {
+  // Props
+  id?: string
+}
+
 export type BvTableVariant =
   | 'active'
   | 'success'
