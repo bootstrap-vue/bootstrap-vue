@@ -8,6 +8,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import itemsMixin from './helpers/mixin-items'
 import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
+import stackedMixin from './helpers/mixin-stacked'
 import theadMixin from './helpers/mixin-thead'
 import tfootMixin from './helpers/mixin-tfoot'
 import tbodyMixin from './helpers/mixin-tbody'
@@ -27,6 +28,7 @@ export const BTableLite = /*#__PURE__*/ Vue.extend({
     normalizeSlotMixin,
     itemsMixin,
     tableRendererMixin,
+    stackedMixin,
     theadMixin,
     tfootMixin,
     tbodyMixin,
