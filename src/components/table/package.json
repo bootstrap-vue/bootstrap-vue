@@ -470,6 +470,12 @@
         ]
       },
       {
+        "component": "BTableTfoot",
+        "aliases": [
+          "BTfoot"
+        ]
+      },
+      {
         "component": "BTableTr",
         "aliases": [
           "BTr"
