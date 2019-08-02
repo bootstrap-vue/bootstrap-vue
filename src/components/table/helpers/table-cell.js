@@ -38,10 +38,10 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     bvTable: {
       default: null
     },
-    bvTableHead: {
+    bvTableThead: {
       default: null
     },
-    bvTableFoot: {
+    bvTableTfoot: {
       default: null
     }
   },
