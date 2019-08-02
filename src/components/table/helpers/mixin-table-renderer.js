@@ -5,6 +5,11 @@ export default {
   // Don't place attributes on root element automatically,
   // as table could be wrapped in responsive `<div>`
   inheritAttrs: false,
+  provide() {
+    return {
+      bvTable: this
+    }
+  },
   props: {
     striped: {
       type: Boolean,
