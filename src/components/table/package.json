@@ -464,6 +464,12 @@
         "component": "BTableSimple"
       },
       {
+        "component": "BTableTr",
+        "aliases": [
+          "BTr"
+        ]
+      },
+      {
         "component": "BTableTd",
         "aliases": [
           "BTd"
@@ -473,12 +479,6 @@
         "component": "BTableTh",
         "aliases": [
           "BTh"
-        ]
-      },
-      {
-        "component": "BTableTr",
-        "aliases": [
-          "BTr"
         ]
       }
     ]
