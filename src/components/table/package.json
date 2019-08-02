@@ -468,6 +468,12 @@
         "aliases": [
           "BTd"
         ]
+      },
+      {
+        "component": "BTableTh",
+        "aliases": [
+          "BTh"
+        ]
       }
     ]
   }
