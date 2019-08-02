@@ -21,7 +21,7 @@ export default {
       }
     },
     captionId() {
-      // Even though this.safeId looks like a method, it is a computed prop
+      // Even though `this.safeId` looks like a method, it is a computed prop
       // that returns a new function if the underlying ID changes
       return this.isStacked ? this.safeId('_caption_') : null
     }

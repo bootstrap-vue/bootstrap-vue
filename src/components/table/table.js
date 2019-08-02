@@ -37,6 +37,7 @@ export const BTable = /*#__PURE__*/ Vue.extend({
     normalizeSlotMixin,
     itemsMixin,
     tableRendererMixin,
+    stackedMixin,
     theadMixin,
     tfootMixin,
     tbodyMixin,

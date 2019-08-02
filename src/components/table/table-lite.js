@@ -33,7 +33,7 @@ export const BTableLite = /*#__PURE__*/ Vue.extend({
     tfootMixin,
     tbodyMixin,
     // Features Mixins
-    // These are pretty lightweight, and are useful for plain tables
+    // These are pretty lightweight, and are useful for lightweight tables
     captionMixin,
     colgroupMixin
   ]
