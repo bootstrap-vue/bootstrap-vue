@@ -6,6 +6,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // Table helper Mixins
 import itemsMixin from './helpers/mixin-items'
+import stackedMixin from './helpers/mixin-stacked'
 import filteringMixin from './helpers/mixin-filtering'
 import sortingMixin from './helpers/mixin-sorting'
 import paginationMixin from './helpers/mixin-pagination'
@@ -40,6 +41,7 @@ export const BTable = /*#__PURE__*/ Vue.extend({
     tfootMixin,
     tbodyMixin,
     // Features Mixins
+    stackedMixin,
     filteringMixin,
     sortingMixin,
     paginationMixin,
