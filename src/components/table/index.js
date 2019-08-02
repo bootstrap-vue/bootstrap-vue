@@ -1,7 +1,7 @@
 import { BTable } from './table'
 import { BTableLite } from './table-lite'
 import { BTableSimple } from './table-simple'
-import { BTableTr } from './table-th'
+import { BTableTr } from './table-tr'
 import { BTableTd } from './table-td'
 import { BTableTh } from './table-th'
 import { pluginFactory } from '../../utils/plugins'
