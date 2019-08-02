@@ -4,6 +4,7 @@ import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 const digitsRx = /^\d+$/
 
+/* istanbul ignore next */
 const spanValidator = val =>
   isUndefinedOrNull(val) || (digitsRx.test(String(val)) && parseInt(val, 10) > 0)
 
@@ -29,6 +30,7 @@ export const props = {
 }
 
 // @vue/component
+/* istanbul ignore next: until tests are written */
 export const BTableCell = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
   mixins: [normalizeSlotMixin],
