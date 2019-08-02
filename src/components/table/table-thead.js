@@ -24,7 +24,7 @@ export const BTableThead = /*#__PURE__*/ Vue.extend({
     }
   },
   props: props,
-  computed() {
+  computed: {
     theadClasses() /* istanbul ignore next: until tests are written */ {
       return [this.headVariant ? `thead-${this.headVariant}` : null]
     },
