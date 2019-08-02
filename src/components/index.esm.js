@@ -286,6 +286,7 @@ export { BSpinner } from './spinner/spinner'
 export { TablePlugin } from './table'
 export { BTable } from './table/table'
 export { BTableLite } from './table/table-lite'
+export { BTableSimple } from './table/table-simple'
 
 // export * from './tabs'
 export { TabsPlugin } from './tabs'

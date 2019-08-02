@@ -6,8 +6,8 @@ import stringifyObjectValues from './stringify-object-values'
 //
 // TODO: Add option to sort by multiple columns (tri-state per column,
 //       plus order of columns in sort)  where sortBy could be an array
-//       of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
-//       or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
+//       of objects `[ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]`
+//       or an array of arrays `[ ['foo','asc'], ['bar','desc'] ]`
 //       Multisort will most likely be handled in mixin-sort.js by
 //       calling this method for each sortBy
 const defaultSortCompare = (a, b, sortBy, formatter, localeOpts, locale) => {

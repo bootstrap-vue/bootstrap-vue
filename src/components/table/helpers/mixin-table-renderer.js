@@ -1,8 +1,9 @@
 // Main `<table>` render mixin
-// Which indlues all main table stlying options
+// Which includes all main table styling options
 
 export default {
-  // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
+  // Don't place attributes on root element automatically,
+  // as table could be wrapped in responsive `<div>`
   inheritAttrs: false,
   props: {
     striped: {
@@ -41,10 +42,6 @@ export default {
       type: [Boolean, String],
       default: false
     },
-    stacked: {
-      type: [Boolean, String],
-      default: false
-    },
     tableClass: {
       type: [String, Array, Object],
       default: null
@@ -52,9 +49,6 @@ export default {
   },
   computed: {
     // Layout related computed props
-    isStacked() {
-      return this.stacked === '' ? true : this.stacked
-    },
     isResponsive() {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
@@ -67,69 +61,88 @@ export default {
           : ''
     },
     tableClasses() {
+      const hover = this.isTableSimple
+        ? this.hover
+        : this.hover && this.computedItems.length > 0 && !this.computedBusy
+
       return [
         // User supplied classes
         this.tableClass,
         // Styling classes
         {
           'table-striped': this.striped,
-          'table-hover': this.hover && this.computedItems.length > 0 && !this.computedBusy,
+          'table-hover': hover,
           'table-dark': this.dark,
           'table-bordered': this.bordered,
           'table-borderless': this.borderless,
           'table-sm': this.small,
-          border: this.outlined,
           // The following are b-table custom styles
-          'b-table-fixed': this.fixed,
-          'b-table-stacked': this.stacked === true || this.stacked === '',
-          [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked
+          border: this.outlined,
+          'b-table-fixed': this.fixed
         },
+        // Stacked table classes
+        this.stackedTableClasses,
         // Selectable classes
         this.selectableTableClasses
       ]
     },
     tableAttrs() {
-      // Preserve user supplied aria-describedby, if provided in $attrs
+      // Preserve user supplied aria-describedby, if provided in `$attrs`
       const adb =
         [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
       const items = this.computedItems
+      const filteredItems = this.filteredItems
       const fields = this.computedFields
       const selectableAttrs = this.selectableTableAttrs || {}
+      const ariaAttrs = this.isTableSimple
+        ? {}
+        : {
+            'aria-busy': this.computedBusy ? 'true' : 'false',
+            'aria-colcount': String(fields.length),
+            'aria-describedby': adb
+          }
+      const rowCount =
+        items && filteredItems && filteredItems.length > items.length
+          ? String(filteredItems.length)
+          : null
+
       return {
-        // We set aria-rowcount before merging in $attrs, in case user has supplied their own
-        'aria-rowcount':
-          this.filteredItems && this.filteredItems.length > items.length
-            ? String(this.filteredItems.length)
-            : null,
-        // Merge in user supplied $attrs if any
+        // We set `aria-rowcount` before merging in `$attrs`,
+        // in case user has supplied their own
+        'aria-rowcount': rowCount,
+        // Merge in user supplied `$attrs` if any
         ...this.$attrs,
-        // Now we can override any $attrs here
+        // Now we can override any `$attrs` here
         id: this.safeId(),
-        role: this.isStacked ? 'table' : null,
-        'aria-busy': this.computedBusy ? 'true' : 'false',
-        'aria-colcount': String(fields.length),
-        'aria-describedby': adb,
+        role: 'table',
+        ...ariaAttrs,
         ...selectableAttrs
       }
     }
   },
   render(h) {
-    // Build the caption (from caption mixin)
-    const $caption = this.renderCaption ? this.renderCaption() : null
+    const $content = []
 
-    // Build the colgroup
-    const $colgroup = this.renderColgroup ? this.renderColgroup() : null
+    if (this.isTableSimple) {
+      $content.push(this.normalizeSlot('default', {}))
+    } else {
+      // Build the `<caption>` (from caption mixin)
+      $content.push(this.renderCaption ? this.renderCaption() : null)
 
-    // Build the thead
-    const $thead = this.renderThead()
+      // Build the `<colgroup>`
+      $content.push(this.renderColgroup ? this.renderColgroup() : null)
 
-    // Build the tfoot
-    const $tfoot = this.renderTfoot()
+      // Build the `<thead>`
+      $content.push(this.renderThead ? this.renderThead() : null)
 
-    // Build the tbody
-    const $tbody = this.renderTbody()
+      // Build the `<tfoot>`
+      $content.push(this.renderTfoot ? this.renderTfoot() : null)
 
-    // Assemble table
+      // Build the `<tbody>`
+      $content.push(this.renderTbody ? this.renderTbody() : null)
+    }
+
+    // Assemble `<table>`
     const $table = h(
       'table',
       {
@@ -138,7 +151,7 @@ export default {
         class: this.tableClasses,
         attrs: this.tableAttrs
       },
-      [$caption, $colgroup, $thead, $tfoot, $tbody].filter(Boolean)
+      $content.filter(Boolean)
     )
 
     // Add responsive wrapper if needed and return table
