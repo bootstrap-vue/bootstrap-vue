@@ -30,8 +30,7 @@ export const props = {
 }
 
 // @vue/component
-/* istanbul ignore next: until tests are written */
-export const BTableCell = /*#__PURE__*/ Vue.extend({
+export const BTableCell = /*#__PURE__*/ Vue.extend( /* istanbul ignore next: until tests are written */ {
   name: 'BTableCell',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
