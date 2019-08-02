@@ -2,7 +2,8 @@ import Vue from '../../../utils/vue'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
-const spanValidator = val => isUndefinedOrNull(val) || (/^\d+$/.test(String(val)) && parseInt(val, 10) > 0)
+const spanValidator =
+  val => isUndefinedOrNull(val) || (/^\d+$/.test(String(val)) && parseInt(val, 10) > 0)
 
 export const props = {
   header: {
