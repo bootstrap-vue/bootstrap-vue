@@ -53,6 +53,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const headOrFoot = this.bvTableHead || this.bvTableFoot
     return h(
       this.header ? 'th' : 'td',
       {
@@ -60,8 +61,8 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         attrs: {
           colspan: this.colspan || null,
           rowspan: this.rowspan || null,
-          role: this.bvTableHead || this.bvTableFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
-          scope: this.bvTableHead || this.bvTableFoot ? 'col' : this.header ? 'row' : null,
+          role: headOrFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
+          scope: headOrFoot ? 'col' : this.header ? 'row' : null,
           // Allow users to override role/scope plus add other attributes
           ...this.$attrs
         },
