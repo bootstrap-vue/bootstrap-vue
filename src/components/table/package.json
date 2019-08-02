@@ -474,6 +474,12 @@
         "aliases": [
           "BTh"
         ]
+      },
+      {
+        "component": "BTableTr",
+        "aliases": [
+          "BTr"
+        ]
       }
     ]
   }
