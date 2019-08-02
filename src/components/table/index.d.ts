@@ -4,7 +4,7 @@
 import Vue, { VNode } from 'vue'
 import { BvPlugin, BvComponent } from '../../'
 
-// Modal Plugin
+// Table Plugin
 export declare const TablePlugin: BvPlugin
 
 // Component: b-table
@@ -41,6 +41,12 @@ export declare class BTableLite extends BvComponent {
   fields?: BvTableFieldObject | BvTableFieldArray
   primaryKey?: string
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+}
+
+// Component: b-table-simple
+export declare class BTableSimple extends BvComponent {
+  // Props
+  id?: string
 }
 
 export type BvTableVariant =
