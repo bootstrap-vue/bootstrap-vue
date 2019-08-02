@@ -6,6 +6,7 @@ export const props = omit(cellProps, ['header'])
 
 // @vue/component
 export const BTableTd = /*#__PURE__*/ Vue.extend({
+  name: 'BtableTd',
   functional: true,
   props: props,
   render(h, { props, data, children }) {
