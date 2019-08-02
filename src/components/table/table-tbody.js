@@ -17,7 +17,7 @@ export const BTableTbody = /*#__PURE__*/ Vue.extend({
   name: 'BTableTbody',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  provide() /* istanbul ignore next: until tests are written */ {
+  provide() {
     return {
       bvTableTbody: this
     }
@@ -29,21 +29,21 @@ export const BTableTbody = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    isTransitionGroup() /* istanbul ignore next: until tests are written */ {
+    isTransitionGroup() {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
     },
-    tbodyAttrs() /* istanbul ignore next: until tests are written */ {
+    tbodyAttrs() {
       return { role: 'rowgroup', ...this.$attrs }
     },
-    tbodyProps() /* istanbul ignore next: until tests are written */ {
+    tbodyProps() {
       return this.tbodyTransitionProps ? { ...this.tbodyTransitionProps, tag: 'tbody' } : {}
     },
-    tbodyListeners() /* istanbul ignore next: until tests are written */ {
+    tbodyListeners() {
       const handlers = this.tbodyTransitionHandlers || {}
       return { ...this.$listeners, ...handlers }
     }
   },
-  render(h) /* istanbul ignore next: until tests are written */ {
+  render(h) {
     return h(
       this.isTransitionGroup ? 'transition-group' : 'tbody',
       {
