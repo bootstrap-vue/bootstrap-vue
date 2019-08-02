@@ -38,7 +38,7 @@ export const BTableTbody = /*#__PURE__*/ Vue.extend({
     tbodyProps() /* istanbul ignore next: until tests are written */ {
       return this.tbodyTransitionProps ? { ...this.tbodyTransitionProps, tag: 'tbody' } : {}
     },
-    tbodyListeners() {
+    tbodyListeners() /* istanbul ignore next: until tests are written */ {
       const handlers = this.tbodyTransitionHandlers || {}
       return { ...this.$listeners, ...handlers }
     }
