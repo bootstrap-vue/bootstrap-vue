@@ -462,6 +462,9 @@
       },
       {
         "component": "BTableSimple"
+      },
+      {
+        "component": "BTableTd"
       }
     ]
   }
