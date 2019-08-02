@@ -1,6 +1,31 @@
 import Vue from '../../../utils/vue'
+import { isUndefinedOrNull } from '../../../utils/inspect'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
+const spanValidator = val => isUndefinedOrNull(val) || (/^\d+$/test.(String(val)) && parseInt(val, 10) > 0)
+
+export const props = {
+  header: {
+    type: Boolean,
+    default: false
+  },
+  variant: {
+    type: String,
+    default: null
+  },
+  colspan: {
+    type: [Number, String],
+    default: null,
+    validator: spanValidator
+  },
+  rowspan: {
+    type: [Number, String],
+    default: null,
+    validator: spanValidator
+  }
+}
+
+// @vue/component
 export const BTableCell = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
   inheritAttrs: false,
@@ -16,24 +41,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       default: null
     },
   },
-  props: {
-    header: {
-      type: Boolean,
-      default: false
-    },
-    variant: {
-      type: String,
-      default: null
-    },
-    colspan: {
-      type: [Number, String],
-      default: null,
-    },
-    rowspan: {
-      type: [Number, String],
-      default: null
-    }
-  },
+  props: props,
   computed: {
     isDark() {
       return this.bvTable && this.bvTable.dark
@@ -52,14 +60,14 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       {
         class: this.cellClasses,
         attrs: {
+          colspan: this.colspan || null,
+          rowspan: this.rowspan || null,
           role: this.bvTableHead || this.bvTableFoot
             ? 'columnheader'
             : this.header ? 'rowheader' : 'cell',
-          scope: this.bvTableHead || this.bvTableFoot ?
+          scope: this.bvTableHead || this.bvTableFoot
             ? 'col'
             : this.header ? 'row' : null,
-          colspan: this.colspan,
-          rowspan: this.rowspan,
           // Allow users to override role/scope plus add other attributes
           ...this.$attrs
         },
@@ -70,5 +78,3 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BTableCell
