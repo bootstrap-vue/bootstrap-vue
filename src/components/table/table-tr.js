@@ -15,7 +15,7 @@ export const BTableTr = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() /* istanbul ignore next: until tests are written */ {
     return {
-      bvTableRow: this
+      bvTableTr: this
     }
   },
   inject: {
