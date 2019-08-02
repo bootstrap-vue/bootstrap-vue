@@ -17,7 +17,7 @@ export default {
       // Render the tbody element and children
       const items = this.computedItems
       // Shortcut to createaElement. Could use this._c() instead
-      const h = this.$createElement 
+      const h = this.$createElement
 
       // Prepare the tbody rows
       const $rows = []
