@@ -29,13 +29,13 @@ export const BTableTbody = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    isTransitionGroup() {
+    isTransitionGroup() /* istanbul ignore next: until tests are written */ {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
     },
     tbodyAttrs() /* istanbul ignore next: until tests are written */ {
       return { role: 'rowgroup', ...this.$attrs }
     },
-    tbodyProps() {
+    tbodyProps() /* istanbul ignore next: until tests are written */ {
       return this.tbodyTransitionProps ? { ...this.tbodyTransitionProps, tag: 'tbody' } : {}
     },
     tbodyListeners() {
