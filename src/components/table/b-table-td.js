@@ -5,7 +5,7 @@ import { props as cellProps, BTableCell } from './helpers/table-cell'
 export const props = omit(cellProps, ['header'])
 
 // @vue/component
-export const BTableTd = /#__pure__/ Vue.extend({
+export const BTableTd = /*#__PURE__*/ Vue.extend({
   functional: true,
   props: props,
   render(h, { props, data, children }) {
