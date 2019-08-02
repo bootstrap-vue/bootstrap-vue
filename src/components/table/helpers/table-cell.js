@@ -28,8 +28,8 @@ export const props = {
 // @vue/component
 export const BTableCell = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
+  mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  mixins: [nomalizeSlotMixin],
   inject: {
     bvTable: {
       default: null
@@ -39,7 +39,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     },
     bvTableFoot: {
       default: null
-    },
+    }
   },
   props: props,
   computed: {
@@ -49,9 +49,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
-      return [
-        this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null
-      ]
+      return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     }
   },
   render(h) {
@@ -62,12 +60,8 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         attrs: {
           colspan: this.colspan || null,
           rowspan: this.rowspan || null,
-          role: this.bvTableHead || this.bvTableFoot
-            ? 'columnheader'
-            : this.header ? 'rowheader' : 'cell',
-          scope: this.bvTableHead || this.bvTableFoot
-            ? 'col'
-            : this.header ? 'row' : null,
+          role: this.bvTableHead || this.bvTableFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
+          scope: this.bvTableHead || this.bvTableFoot ? 'col' : this.header ? 'row' : null,
           // Allow users to override role/scope plus add other attributes
           ...this.$attrs
         },
