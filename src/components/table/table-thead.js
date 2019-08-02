@@ -33,7 +33,7 @@ export const BTableThead = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) /* istanbul ignore next: until tests are written */ {
-    return(
+    return h(
       'thead',
       {
         class: this.theadClasses,
@@ -45,4 +45,3 @@ export const BTableThead = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-  
