@@ -6,6 +6,8 @@ import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import { BThead } from '../thead'
 import { BTfoot } from '../tfoot'
+import { BTr } from '../tr'
+import { BTh } from '../th'
 
 export default {
   props: {
@@ -26,8 +28,6 @@ export default {
     fieldClasses(field) {
       // Header field (<th>) classes
       return [
-        // `variant` should account for `dark` or `light` lead
-        field.variant ? 'table-' + field.variant : '',
         field.class ? field.class : '',
         field.thClass ? field.thClass : ''
       ]
@@ -86,14 +86,15 @@ export default {
         const data = {
           key: field.key,
           class: [this.fieldClasses(field), sortClass],
+          props: {
+            variant: field.variant
+          },
           style: field.thStyle || {},
           attrs: {
             // We only add a tabindex of 0 if there is a head-clicked listener
             tabindex: hasHeadClickListener ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
-            role: 'columnheader',
-            scope: 'col',
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
             ...sortAttrs
@@ -119,9 +120,10 @@ export default {
           )
         }
         if (!slot) {
+          // need to check if this will work
           data.domProps = htmlOrText(field.labelHtml)
         }
-        return h('th', data, slot || field.label)
+        return h(BTh, data, slot || field.label)
       }
 
       // Generate the array of <th> cells
@@ -130,14 +132,14 @@ export default {
       // Genrate the row(s)
       const $trs = []
       if (isFoot) {
-        $trs.push(h('tr', { class: this.tfootTrClass, attrs: { role: 'row' } }, $cells))
+        $trs.push(h(BTr, { class: this.tfootTrClass }, $cells))
       } else {
         const scope = {
           columns: fields.length,
           fields: fields
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
-        $trs.push(h('tr', { class: this.theadTrClass, attrs: { role: 'row' } }, $cells))
+        $trs.push(h(BTr, { class: this.theadTrClass }, $cells))
       }
 
       return h(
