@@ -17,7 +17,7 @@ export default {
       const fields = this.computedFields
 
       return h(
-        'tr',
+        BTr,
         {
           key: 'b-bottom-row',
           staticClass: 'b-table-bottom-row',
