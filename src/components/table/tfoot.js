@@ -13,7 +13,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   name: 'BTfoot',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  provide() /* istanbul ignore next: until tests are written */ {
+  provide() {
     return {
       bvTableTfoot: this
     }
@@ -25,14 +25,14 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    tfootClasses() /* istanbul ignore next: until tests are written */ {
+    tfootClasses() {
       return [this.footVariant ? `thead-${this.footVariant}` : null]
     },
-    tfootAttrs() /* istanbul ignore next: until tests are written */ {
+    tfootAttrs() {
       return { role: 'rowgroup', ...this.$attrs }
     }
   },
-  render(h) /* istanbul ignore next: until tests are written */ {
+  render(h) {
     return h(
       'tfoot',
       {
