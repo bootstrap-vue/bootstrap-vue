@@ -114,7 +114,16 @@ export default {
           if (isUndefinedOrNull(result) || result === false) {
             // Fallback to built-in defaultSortCompare if sortCompare
             // is not defined or returns null/false
-            result = defaultSortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale, nullLast)
+            result = defaultSortCompare(
+              a,
+              b,
+              sortBy,
+              sortDesc,
+              formatter,
+              sortOptions,
+              sortLocale,
+              nullLast
+            )
           }
           // Negate result if sorting in descending order
           return (result || 0) * (sortDesc ? -1 : 1)
