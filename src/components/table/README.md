@@ -2178,8 +2178,12 @@ apply additional classes to the `<table>` element, use the `table-classes` prop.
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
 
-In the above example, we are using the helper componenets `b-thead`, `b-tbody`, `b-tr`, `b-th` and
-`b-tr`
+In the above example, we are using the helper componenets `<b-thead>`, `<b-tbody>`, `<b-tr>`,
+`<b-th>`, `<b-tr>` and `<b-tfoot>`. These components are optimized to handle converting variants to
+the apropriate classes (such as handling table `dark` mode), and applying certain accessibility
+attributes (i.e. `role`s and `scope`s). While you can use regular table child elements (i.e.
+`<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, it is recommended to use the BootstrapVue
+table `<b-t*>` helper components.
 
 ## Accessibility
 
