@@ -37,14 +37,14 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   render(h) /* istanbul ignore next: until tests are written */ {
     return h(
-      'div',
+      'tr',
       {
         class: this.trClasses,
         attrs: this.trAttrs,
         // Pass native listeners to child
         on: this.$listeners
       },
-      this.noramlizeSlot('default', {})
+      this.normalizeSlot('default', {})
     )
   }
 })
