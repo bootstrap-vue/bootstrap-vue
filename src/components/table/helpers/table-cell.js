@@ -26,6 +26,10 @@ export const props = {
     type: [Number, String],
     default: null,
     validator: spanValidator
+  },
+  stackedHeading: {
+    type: String,
+    default: null
   }
 }
 
@@ -50,15 +54,18 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    isDark() /* istanbul ignore next: until tests are written */ {
+    isDark() {
       return this.bvTable && this.bvTable.dark
     },
-    cellClasses() /* istanbul ignore next: until tests are written */ {
+    isStacked() {
+      return this.bvTableTbody && this.bvTable && this.bvTable.isStacked
+    },
+    cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
-    cellAttrs() /* istanbul ignore next: until tests are written */ {
+    cellAttrs() {
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
       const headOrFoot = this.bvTableThead || this.bvTableTfoot
@@ -67,12 +74,14 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         rowspan: this.rowspan || null,
         role: headOrFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
         scope: headOrFoot ? 'col' : this.header ? 'row' : null,
+        'data-label': this.isStacked ? this.stackedHeading || '' : null,
         // Allow users to override role/scope plus add other attributes
         ...this.$attrs
       }
     }
   },
-  render(h) /* istanbul ignore next: until tests are written */ {
+  render(h) {
+    const content = [this.normalizeSlot('default')]
     return h(
       this.header ? 'th' : 'td',
       {
@@ -81,7 +90,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         // Transfer any native listeners
         on: this.$listeners
       },
-      this.normalizeSlot('default')
+      [this.isStacked ? h('div', {}, [content]) : content]
     )
   }
 })
