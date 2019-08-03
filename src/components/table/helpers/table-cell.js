@@ -4,9 +4,16 @@ import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 const digitsRx = /^\d+$/
 
+
+/* istanbul ignore next */
+const parseSpan = val => {
+  val = parseInt(val, 10)
+  return digitsRx.test(String(val)) && val > 0 ?  val : null
+}
+
 /* istanbul ignore next */
 const spanValidator = val =>
-  isUndefinedOrNull(val) || (digitsRx.test(String(val)) && parseInt(val, 10) > 0)
+  isUndefinedOrNull(val) || parseSpan(val) > 0
 
 export const props = {
   header: {
@@ -69,11 +76,19 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
       const headOrFoot = this.bvTableThead || this.bvTableTfoot
+      const colspan = parseSpan(this.colspan)
+      const rowspan = parseSpan(this.rowspan)
+      const hasContent = this.hasNormalizedSlot('default')
       return {
-        colspan: this.colspan || null,
-        rowspan: this.rowspan || null,
+        colspan: colspan,
+        rowspan: rowspan,
         role: headOrFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
-        scope: headOrFoot ? 'col' : this.header ? 'row' : null,
+        scope:
+          headOrFoot
+            ? (colspan > 0 ? 'colspan' : (hasContent ? 'col' : null))
+            : this.header // in tbody
+              ? (rowspan > 0 ? 'rowgroup' : 'row')
+              : null,
         'data-label': this.isStacked ? this.stackedHeading || '' : null,
         // Allow users to override role/scope plus add other attributes
         ...this.$attrs
