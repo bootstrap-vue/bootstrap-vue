@@ -5,8 +5,8 @@ import { BTableTbody } from './table-tbody'
 import { BTableThead } from './table-thead'
 import { BTableTfoot } from './table-tfoot'
 import { BTableTr } from './table-tr'
-import { BTd } from './table-td'
-import { BTh } from './table-th'
+import { BTd } from './td'
+import { BTh } from './th'
 import { pluginFactory } from '../../utils/plugins'
 
 const TablePlugin = /*#__PURE__*/ pluginFactory({
