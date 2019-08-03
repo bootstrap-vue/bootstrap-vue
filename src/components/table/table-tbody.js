@@ -48,7 +48,7 @@ export const BTableTbody = /*#__PURE__*/ Vue.extend({
       this.isTransitionGroup ? 'transition-group' : 'tbody',
       {
         props: this.tbodyProps,
-        attrs: this.theadAttrs,
+        attrs: this.tbodyAttrs,
         // Pass down any listeners
         on: this.tbodyListeners
       },
