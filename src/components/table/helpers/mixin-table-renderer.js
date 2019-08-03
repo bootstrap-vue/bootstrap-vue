@@ -88,7 +88,7 @@ export default {
           // The following are b-table custom styles
           border: this.outlined,
           'b-table-fixed': this.fixed,
-          'b-table-coption-top': this.captionTop
+          'b-table-caption-top': this.captionTop
         },
         // Stacked table classes
         this.stackedTableClasses,
