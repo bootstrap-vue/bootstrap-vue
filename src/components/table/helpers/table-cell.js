@@ -58,7 +58,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     cellAttrs() /* istanbul ignore next: until tests are written */ {
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
-      const headOrFoot = this.bvTableHead || this.bvTableFoot
+      const headOrFoot = this.bvTableThead || this.bvTableTfoot
       return {
         colspan: this.colspan || null,
         rowspan: this.rowspan || null,
