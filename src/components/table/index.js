@@ -5,8 +5,8 @@ import { BTableTbody } from './table-tbody'
 import { BTableThead } from './table-thead'
 import { BTableTfoot } from './table-tfoot'
 import { BTableTr } from './table-tr'
-import { BTableTd } from './table-td'
-import { BTableTh } from './table-th'
+import { BTd } from './table-td'
+import { BTh } from './table-th'
 import { pluginFactory } from '../../utils/plugins'
 
 const TablePlugin = /*#__PURE__*/ pluginFactory({
@@ -23,9 +23,8 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
     BTableTr,
     BTr: BTableTr,
     BTableTd,
-    BTd: BTableTd,
-    BTableTh,
-    BTh: BTableTh
+    BTd,
+    BTh
   }
 })
 
@@ -41,8 +40,8 @@ export {
   BTableThead,
   BTableTfoot,
   BTableTr,
-  BTableTd,
-  BTableTh
+  BTd,
+  BTh
 }
 
 export default TablePlugin
