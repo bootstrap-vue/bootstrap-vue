@@ -488,16 +488,10 @@
         ]
       },
       {
-        "component": "BTableTd",
-        "aliases": [
-          "BTd"
-        ]
+        "component": "BTd"
       },
       {
-        "component": "BTableTh",
-        "aliases": [
-          "BTh"
-        ]
+        "component": "BTh"
       }
     ]
   }
