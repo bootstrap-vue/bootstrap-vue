@@ -150,11 +150,11 @@ export default {
       // Build the `<thead>`
       $content.push(this.renderThead ? this.renderThead() : null)
 
-      // Build the `<tfoot>`
-      $content.push(this.renderTfoot ? this.renderTfoot() : null)
-
       // Build the `<tbody>`
       $content.push(this.renderTbody ? this.renderTbody() : null)
+
+      // Build the `<tfoot>`
+      $content.push(this.renderTfoot ? this.renderTfoot() : null)
     }
 
     // Assemble `<table>`
