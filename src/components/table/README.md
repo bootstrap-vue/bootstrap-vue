@@ -2118,62 +2118,68 @@ sorting, pagination, filtering, stacked mode, etc).
 ```html
 <div>
   <b-table-simple hover small bordered responsive="sm">
-    <thead class="text-center thead-light">
-      <tr>
-        <th colspan="2">Name</th>
-        <th rowspan="2" class="align-middle">Age</th>
-        <th colspan="3" rowspan="2" class="align-middle">Data</th>
+    <b-thead class="text-center" head-variant="light">
+      <b-tr>
+        <b-th colspan="2">Name</b-th>
+        <b-th rowspan="2" class="align-middle">Age</b-th>
+        <b-th colspan="3" rowspan="2" class="align-middle">Data</b-th>
+      </b-tr>
+      <b-tr>
+        <b-th>Last</b-th>
+        <b-th>First</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody>
+      <b-tr>
+        <b-td>Macdonald</b-td>
+        <b-td>Dickerson</b-td>
+        <b-td>42</b-td>
+        <b-td>Foo</b-td>
+        <b-td>Bar</b-td>
+        <b-td>Baz</b-td>
       </tr>
-      <tr>
-        <th>Last</th>
-        <th>First</th>
-      </td>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Macdonald</td>
-        <td>Dickerson</td>
-        <td>42</td>
-        <td>Foo</td>
-        <td>Bar</td>
-        <td>Baz</td>
-      </tr>
-      <tr class="table-info">
-        <td>Wilson</td>
-        <td>Geneva</td>
-        <td>35</td>
-        <td colspan="2">1234567</td>
-        <td>987</td>
-      </tr>
-      <tr>
-        <td rowspan="2">Shaw</td>
-        <td>Larsen</td>
-        <td>23</td>
-        <td>AAA</td>
-        <td colspan="2">BBBBB</td>
-      </tr>
-      <tr>
-        <td>Linda</td>
-        <td>22</td>
-        <td>CCC</td>
-        <td class="table-danger">YYY</td>
-        <td>ZZZ</td>
-      </tr>
-    </tbody>
-  </b-table>
+      <tr variant="info">
+        <b-td>Wilson</b-td>
+        <b-td>Geneva</b-td>
+        <b-td>35</b-td>
+        <b-td colspan="2">1234567</b-td>
+        <b-td>987</b-td>
+      </b-tr>
+      <b-tr>
+        <b-td rowspan="2">Shaw</b-td>
+        <b-td>Larsen</b-td>
+        <b-td>23</b-td>
+        <b-td>AAA</b-td>
+        <b-td colspan="2">BBBBB</b-td>
+      </b-tr>
+      <b-tr>
+        <b-td>Linda</b-td>
+        <b-td>22</b-td>
+        <b-td>CCC</b-td>
+        <b-td variant="danger">YYY</b-td>
+        <b-td>ZZZ</b-td>
+      </b-tr>
+    </b-tbody>
+    <b-tfoot foot-variant="dark">
+      <b-tr>
+        <b-th colspan="5" class="text-right">
+          Total Rows: <b>4</b>
+      </b-tr>
+    <b-tfoot>
+  </b-table-simple>
 </div>
 
 <!-- b-table-simple.vue -->
 ```
-
-Row and cell variant classes are in the form `table-{variant}`, unless you have the table in `dark`
-mode, in which case you should use `bg-{variant}` instead.
 
 When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need to
 apply additional classes to the `<table>` element, use the `table-classes` prop.
 
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
+
+In the above example, we are using the helper componenets `b-thead`, `b-tbody`, `b-tr`, `b-th` and
+`b-tr`
 
 ## Accessibility
 
