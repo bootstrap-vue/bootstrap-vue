@@ -11,8 +11,8 @@ import stringifyObjectValues from './stringify-object-values'
 //       Multisort will most likely be handled in mixin-sort.js by
 //       calling this method for each sortBy
 const defaultSortCompare = (a, b, sortBy, sortDesc, formatter, localeOpts, locale, nullLast) => {
-  let aa = get(a, sortBy, '')
-  let bb = get(b, sortBy, '')
+  let aa = get(a, sortBy, null)
+  let bb = get(b, sortBy, null)
   if (isFunction(formatter)) {
     aa = formatter(aa, sortBy, a)
     bb = formatter(bb, sortBy, b)
