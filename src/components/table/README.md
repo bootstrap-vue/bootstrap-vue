@@ -1585,7 +1585,7 @@ clicks in the footer, set the `no-footer-sorting` prop to true.
 
 ### Sort-compare routine
 
-<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.28</span>
 
 The internal built-in default `sort-compare` function sorts the specified field `key` based on the
 data in the underlying record object (or by formatted value if a field has a formatter function, and
@@ -1603,6 +1603,9 @@ if it is an object and then sorted.
   value returned via the formatter function if the [field](#field-definition-reference) property
   `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
   value. This is only applicable for the built-in sort-compare routine.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.28</span> By default, the internal sorting
+  routine will sort `null` or `undefined` values first. To sort so that `null` or `undefined`
+  values appear last, set the `sort-null-last` prop to `true`.
 
 For customizing the sort-compare handling, refer to the
 [Custom sort-compare routine](#custom-sort-compare-routine) section below.
@@ -1680,7 +1683,8 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
 ### Custom sort-compare routine
 
 You can provide your own custom sort compare routine by passing a function reference to the prop
-`sort-compare`. The `sort-compare` routine is passed seven (7) arguments:
+`sort-compare`. The `sort-compare` routine is passed seven (7) arguments, of which the last 4 are
+optional:
 
 - the first two arguments (`a` and `b`) are the _record objects_ for the rows being compared
 - the third argument is the field `key` being sorted on (`sortBy`)
@@ -1689,7 +1693,8 @@ You can provide your own custom sort compare routine by passing a function refer
 - the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
   `undefined` if no field formatter). You will need to call this method to get the formatted field
   value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
-  sort by the formatted value.
+  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property
+  is not `true`
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -1701,7 +1706,7 @@ method to compare strings.
 In most typical situations, you only need to use the first three arguments. The fourth argument -
 sorting direction - should not normally be used, as `b-table` will handle the direction, and this
 value is typically only needed when special handling of how `null` and/or `undefined` values are
-sorted.
+sorted (i.e. sorting `null`/`undefined` first or last).
 
 The routine should return either `-1` (or a negative value) for `a[key] < b[key]` , `0` for
 `a[key] === b[key]`, or `1` (or a positive value) for `a[key] > b[key]`.
