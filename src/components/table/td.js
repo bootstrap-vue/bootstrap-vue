@@ -5,7 +5,6 @@ import { props as cellProps, BTableCell } from './helpers/table-cell'
 export const props = omit(cellProps, ['header'])
 
 // @vue/component
-/* istanbul ignore next: until tests are written */
 export const BTd = /*#__PURE__*/ Vue.extend({
   name: 'BTd',
   functional: true,
