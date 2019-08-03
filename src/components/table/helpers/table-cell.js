@@ -4,16 +4,14 @@ import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 const digitsRx = /^\d+$/
 
-
 /* istanbul ignore next */
 const parseSpan = val => {
   val = parseInt(val, 10)
-  return digitsRx.test(String(val)) && val > 0 ?  val : null
+  return digitsRx.test(String(val)) && val > 0 ? val : null
 }
 
 /* istanbul ignore next */
-const spanValidator = val =>
-  isUndefinedOrNull(val) || parseSpan(val) > 0
+const spanValidator = val => isUndefinedOrNull(val) || parseSpan(val) > 0
 
 export const props = {
   header: {
