@@ -2183,17 +2183,41 @@ apply additional classes to the `<table>` element, use the `table-classes` prop.
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
 
+### Table helper components
+
 In the above example, we are using the helper componenets `<b-thead>`, `<b-tbody>`, `<b-tr>`,
 `<b-th>`, `<b-tr>` and `<b-tfoot>`. These components are optimized to handle converting variants to
 the apropriate classes (such as handling table `dark` mode), and applying certain accessibility
 attributes (i.e. `role`s and `scope`s). While you can use regular table child elements (i.e.
 `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, it is recommended to use the BootstrapVue
-table `<b-t*>` helper components.
+table `<b-t*>` helper components. Note that there are no helper components for `<caption>` or
+`<colgroup>`, so you may these two HTML5 elements directly in `<b-table-simple>`.
+
+- Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
+  apply one of the Bootstrap theme colors (custom theme colors are supported via
+  [theming](/docs/reference/theming).) and will automaticallly adjust to use the correct variant
+  class based on the table's `dark` mode.
+- The helper components `<b-thead>`, `<b-tfoot>` accept a `head-variant` and `foot-variant` prop
+  respectively. Supported values are `'dark'`, `'light'` or `null` (`null` uses the default table
+  background). These variants also control the text color (light text for `'dark'` variant, and dark
+  text for the `'light'` variant).
+- Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
+  components based on their location (head, body, or foot), although you can override these values by
+  setting the apropriate attribute on the helper component.
+- For `<b-tbody>`, `<b-thead>`, `<b-tfoot> helper components, the apropriate default
+  `role` of `'rowgroup'` will be applied, unless you overide the role by supplying a `role` attribute.
+- For the `<b-tr>` helper component, the apropriate default `role` of `row` will be applied, unless
+  you overide the role by supplying a `role` attribute.
 
 ## Accessibility
 
 The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
 provide the best accessibility markup possible.
+
+When using `<b-table-simple>` with the helper table component, elements will have the appropriate roles
+applied by default, of which you can optionally override. When using click handlers on the
+`<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and set
+`tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users.
 
 ### Heading accessibility
 
