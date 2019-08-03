@@ -9,10 +9,14 @@ import { BTd } from './td'
 import { BTh } from './th'
 import { pluginFactory } from '../../utils/plugins'
 
-const TablePlugin = /*#__PURE__*/ pluginFactory({
+const TableLitePlugin = /*#__PURE__*/ pluginFactory({
   components: {
-    BTable,
-    BTableLite,
+    BTableLite
+  }
+})
+
+const TableSimplePlugin = /*#__PURE__*/ pluginFactory({
+  components: {
     BTableSimple,
     BTbody,
     BThead,
@@ -23,9 +27,27 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
+const TablePlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    BTable,
+    BTbody,
+    BThead,
+    BTfoot,
+    BTr,
+    BTd,
+    BTh
+  },
+  plugins: {
+    TableLitePlugin,
+    TableSimplePlugin
+  }
+})
+
 export {
-  // Plugin
+  // Plugins
   TablePlugin,
+  TableLitePlugin,
+  TableSimplePlugin,
   // Table components
   BTable,
   BTableLite,
