@@ -1119,7 +1119,9 @@ scoped slots (even when disabled)
 ### Adding additional rows to the header
 
 If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
-is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
+is inserted before the header cells row, and is not automatically encapsulated by `<tr>..</tr>` tags.
+It is recommended to use the BootstrapVue [table helper components](#table-helper-components), rather
+than native browser table child elements.
 
 ```html
 <template>
@@ -1130,12 +1132,12 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
       responsive="sm"
     >
       <template slot="thead-top" slot-scope="data">
-        <tr>
-          <th colspan="2">&nbsp;</th>
-          <th>Type 1</th>
-          <th colspan="3">Type 2</th>
-          <th>Type 3</th>
-        </tr>
+        <b-tr>
+          <b-td colspan="2">&nbsp;</b-td>
+          <b-th variant="secondary">Type 1</b-th>
+          <b-th variant="primary" colspan="3">Type 2</b-th>
+          <b-th variant="secondary">Type 3</b-th>
+        </b-tr>
       </template>
     </b-table>
   </div>
