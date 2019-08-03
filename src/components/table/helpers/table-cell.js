@@ -38,6 +38,9 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     bvTable: {
       default: null
     },
+    bvTableTbody: {
+      default: null
+    },
     bvTableThead: {
       default: null
     },
