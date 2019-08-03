@@ -4,7 +4,7 @@ import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
-import { BTableThead } from '../table-thead'
+import { BThead } from '../thead'
 import { BTfoot } from '../tfoot'
 
 export default {
@@ -141,7 +141,7 @@ export default {
       }
 
       return h(
-        isFoot ? BTfoot : BTableThead,
+        isFoot ? BTfoot : BThead,
         {
           key: isFoot ? 'bv-tfoot' : 'bv-thead',
           class: (isFoot ? this.tfootClass : this.theadClass) || null,
