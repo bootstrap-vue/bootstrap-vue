@@ -2125,7 +2125,7 @@ sorting, pagination, filtering, stacked mode, etc).
     <caption>Items Sold In August</caption>
     <b-thead head-variant="dark">
       <b-tr>
-        <b-td colspan="2" rowspan="2" class="border-top-0"></b-td>
+        <b-td colspan="2" rowspan="2"></b-td>
         <b-th colspan="3">Clothes</b-th>
         <b-th colspan="2">Accessories</b-th>
       </b-tr>
@@ -2140,7 +2140,7 @@ sorting, pagination, filtering, stacked mode, etc).
     <b-tbody>
       <b-tr>
         <b-th rowspan="3">Belgium</b-th>
-        <b-th>Antwerp</b-th>
+        <b-th class="text-right">Antwerp</b-th>
         <b-td>56</b-td>
         <b-td>22</b-td>
         <b-td>43</b-td>
@@ -2148,7 +2148,7 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td>23</b-td>
       </b-tr>
       <b-tr>
-        <b-th>Gent</b-th>
+        <b-th class="text-right">Gent</b-th>
         <b-td>46</b-td>
         <b-td variant="warning">18</b-td>
         <b-td>50</b-td>
@@ -2156,7 +2156,7 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td variant="danger">15</b-td>
       </b-tr>
       <b-tr>
-        <b-th>Brussels</b-th>
+        <b-th class="text-right">Brussels</b-th>
         <b-td>51</b-td>
         <b-td>27</b-td>
         <b-td>38</b-td>
@@ -2165,7 +2165,7 @@ sorting, pagination, filtering, stacked mode, etc).
       </b-tr>
       <b-tr>
         <b-th rowspan="2">The Netherlands</b-th>
-        <b-th>Amsterdam</b-th>
+        <b-th class="text-right">Amsterdam</b-th>
         <b-td variant="success">89</b-td>
         <b-td>34</b-td>
         <b-td>69</b-td>
@@ -2173,7 +2173,7 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td>38</b-td>
       </b-tr>
       <b-tr>
-        <b-th>Utrecht</b-th>
+        <b-th class="text-right">Utrecht</b-th>
         <b-td>80</b-td>
         <b-td variant="danger">12</b-td>
         <b-td>43</b-td>
