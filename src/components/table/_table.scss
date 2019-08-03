@@ -20,8 +20,10 @@
   // Caption positioning
   > caption {
     caption-side: bottom;
+  }
 
-    &.b-table-caption-top {
+  &.b-table-caption-top {
+    > caption {
       caption-side: top !important;
     }
   }
