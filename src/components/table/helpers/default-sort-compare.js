@@ -1,5 +1,5 @@
 import get from '../../../utils/get'
-import { isDate, isUndefined, isFunction, isNull, isNumber } from '../../../utils/inspect'
+import { isDate, isFunction, isNumber, isUndefinedOrNull } from '../../../utils/inspect'
 import stringifyObjectValues from './stringify-object-values'
 
 // Default sort compare routine
@@ -10,15 +10,19 @@ import stringifyObjectValues from './stringify-object-values'
 //       or an array of arrays `[ ['foo','asc'], ['bar','desc'] ]`
 //       Multisort will most likely be handled in mixin-sort.js by
 //       calling this method for each sortBy
-const defaultSortCompare = (a, b, sortBy, formatter, localeOpts, locale) => {
+const defaultSortCompare = (a, b, sortBy, formatter, localeOpts, locale, nullLast) => {
   let aa = get(a, sortBy, '')
   let bb = get(b, sortBy, '')
   if (isFunction(formatter)) {
     aa = formatter(aa, sortBy, a)
     bb = formatter(bb, sortBy, b)
   }
-  aa = isUndefined(aa) || isNull(aa) ? '' : aa
-  bb = isUndefined(bb) || isNull(bb) ? '' : bb
+  // Special handling when null/undefined sorted last
+  if (nullLast && (isUndefinedOrNull(aa) || isUndefinedOrNull(bb))) {
+    return isUndefinedOrNull(aa) ? 1 : -1
+  }
+  aa = isUndefinedOrNull(aa) ? '' : aa
+  bb = isUndefinedOrNull(bb) ? '' : bb
   if ((isDate(aa) && isDate(bb)) || (isNumber(aa) && isNumber(bb))) {
     // Special case for comparing dates and numbers
     // Internally dates are compared via their epoch number values
