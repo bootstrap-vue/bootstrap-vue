@@ -4,10 +4,16 @@ import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
 const digitsRx = /^\d+$/
 
-/* istanbul ignore next */
+// Parse a rowspan or colspan into a digit (or null if < 1 or NaN)
 const parseSpan = val => {
   val = parseInt(val, 10)
   return digitsRx.test(String(val)) && val > 0 ? val : null
+}
+
+// Returns a rowspan or colspan as a string, or null if < 2 or NaN 
+const computeSpan = val => {
+  val = parseSpan(val)
+  return val > 1 ? String(val) : null
 }
 
 /* istanbul ignore next */
@@ -63,6 +69,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       return this.bvTable && this.bvTable.dark
     },
     isStacked() {
+      // We only support stacked-heading in tbody in stacked mode
       return this.bvTableTbody && this.bvTable && this.bvTable.isStacked
     },
     cellClasses() {
@@ -70,26 +77,34 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       // the results of the string interpolation
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
+    computedColspan() {
+      return computeSpan(this.colspan)
+    },
+    computedRowspan() {
+      return computeSpan(this.rowspan)
+    },
     cellAttrs() {
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
       const headOrFoot = this.bvTableThead || this.bvTableTfoot
-      const colspan = parseSpan(this.colspan)
-      const rowspan = parseSpan(this.rowspan)
-      let scope = null
+      // Make sure col/rowspans are > 1 or null
+      const colspan = this.computedColspan
+      const rowspan = this.computedRowspan
+      // Default role and scope
       let role = 'cell'
+      let scope = null
 
       // Compute role and scope
       if (headOrFoot) {
         role = 'columnheader'
         // td's in a header/footer have no scope by default
         if (this.header) {
-          scope = colspan > 0 ? 'colspan' : 'col'
+          scope = colspan > 1 ? 'colspan' : 'col'
         }
       } else if (this.header) {
         // th's in tbody
         role = 'rowheader'
-        scope = rowspan > 0 ? 'rowgroup' : 'row'
+        scope = rowspan > 1 ? 'rowgroup' : 'row'
       }
 
       return {
@@ -97,7 +112,9 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         rowspan: rowspan,
         role: role,
         scope: scope,
-        'data-label': this.isStacked ? this.stackedHeading || '' : null,
+        // Add in the stacked cell label data-attribute if in
+        // stacked mode (if a stacked heading label is provided)
+        'data-label': this.isStacked && this.stackedHeading ? String(this.stackedHeading) : null,
         // Allow users to override role/scope plus add other attributes
         ...this.$attrs
       }
