@@ -10,7 +10,7 @@ const parseSpan = val => {
   return digitsRx.test(String(val)) && val > 0 ? val : null
 }
 
-// Returns a rowspan or colspan as a string, or null if < 2 or NaN 
+// Returns a rowspan or colspan as a string, or null if < 2 or NaN
 const computeSpan = val => {
   val = parseSpan(val)
   return val > 1 ? String(val) : null
