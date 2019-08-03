@@ -4,31 +4,29 @@ import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
+import { BTableThead } from '../table-thead'
+import { BTableTfoot } from '../table-tfoot'
 
 export default {
   props: {
     headVariant: {
-      type: String,
+      type: String, // 'light', 'dark' or null (or custom)
       default: () => getComponentConfig('BTable', 'headVariant')
     },
     theadClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: undefined
     },
     theadTrClass: {
-      type: [String, Array, Object],
-      default: null
-    }
-  },
-  computed: {
-    headClasses() {
-      return [this.headVariant ? 'thead-' + this.headVariant : '', this.theadClass]
+      type: [String, Array, Object]
+      // default: undefined
     }
   },
   methods: {
     fieldClasses(field) {
       // Header field (<th>) classes
       return [
+        // `variant` should account for `dark` or `light` lead
         field.variant ? 'table-' + field.variant : '',
         field.class ? field.class : '',
         field.thClass ? field.thClass : ''
@@ -61,6 +59,7 @@ export default {
       }
 
       // Helper function to generate a field <th> cell
+      // TODO: This should be moved into it's own mixin
       const makeCell = (field, colIndex) => {
         let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
@@ -142,11 +141,13 @@ export default {
       }
 
       return h(
-        isFoot ? 'tfoot' : 'thead',
+        isFoot ? BTableTfoot : BTableThead,
         {
-          key: isFoot ? 'tfoot' : 'thead',
-          class: isFoot ? this.footClasses : this.headClasses,
-          attrs: { role: 'rowgroup' }
+          key: isFoot ? 'bv-tfoot' : 'bv-thead',
+          class: (isFoot ? this.footClass : this.headClass) || null,
+          props: isFoot
+            ? { footVariant: this.footVariant || this.headVariant || null }
+            : { headVariant: this.headVariant || null }
         },
         $trs
       )
