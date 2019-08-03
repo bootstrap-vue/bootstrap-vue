@@ -2125,6 +2125,7 @@ sorting, pagination, filtering, stacked mode, etc).
     <caption><code>&lt;b-table-simple&gt;</code> example</caption>
     <b-thead class="text-center" head-variant="dark">
       <b-tr>
+        <b-th rowspan="2">ID</b-th>
         <b-th colspan="2">Name</b-th>
         <b-th rowspan="2" class="align-middle">Age</b-th>
         <b-th colspan="3" rowspan="2" class="align-middle">Data</b-th>
@@ -2136,6 +2137,7 @@ sorting, pagination, filtering, stacked mode, etc).
     </b-thead>
     <b-tbody>
       <b-tr>
+        <b-th>1</b-th>
         <b-td>Macdonald</b-td>
         <b-td>Dickerson</b-td>
         <b-td class="text-center">42</b-td>
@@ -2144,6 +2146,7 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td>Baz</b-td>
       </b-tr>
       <b-tr variant="info">
+        <b-th>2</b-th>
         <b-td>Wilson</b-td>
         <b-td>Geneva</b-td>
         <b-td class="text-center">35</b-td>
@@ -2151,6 +2154,7 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td>987</b-td>
       </b-tr>
       <b-tr>
+        <b-th>3</b-th>
         <b-td rowspan="2">Shaw</b-td>
         <b-td>Larsen</b-td>
         <b-td class="text-center">23</b-td>
@@ -2158,6 +2162,7 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td colspan="2">BBBBB</b-td>
       </b-tr>
       <b-tr>
+        <b-th>4</b-th>
         <b-td>Linda</b-td>
         <b-td class="text-center">22</b-td>
         <b-td>CCC</b-td>
@@ -2167,8 +2172,9 @@ sorting, pagination, filtering, stacked mode, etc).
     </b-tbody>
     <b-tfoot foot-variant="light">
       <b-tr>
-        <b-th colspan="6" class="text-right">
+        <b-th colspan="7" class="text-right">
           Total Rows: <b>4</b>
+        </b-th>
       </b-tr>
     <b-tfoot>
   </b-table-simple>
