@@ -106,7 +106,7 @@
             > tbody,
             > tbody > tr,
             > tbody > tr > td,
-            > tbody > tr > td {
+            > tbody > tr > th {
               display: block;
             }
 
@@ -140,7 +140,7 @@
                     overflow-wrap: break-word;
                     font-weight: bold;
                     font-style: normal;
-                    padding: 0;
+                    padding: 0 calc(#{$b-table-stacked-gap} / 2) 0 0;
                     margin: 0;
                   }
 
@@ -156,7 +156,7 @@
                     display: inline-block;
                     width: calc(100% - #{$b-table-stacked-heading-width});
                     // Add "gap" between "cells"
-                    padding: 0 0 0 $b-table-stacked-gap;
+                    padding: 0 0 0 calc(#{$b-table-stacked-gap} / 2);
                     margin: 0;
                   }
                 }
