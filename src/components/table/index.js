@@ -2,7 +2,7 @@ import { BTable } from './table'
 import { BTableLite } from './table-lite'
 import { BTableSimple } from './table-simple'
 import { BTbody } from './tbody'
-import { BTableThead } from './table-thead'
+import { BThead } from './thead'
 import { BTfoot } from './tfoot'
 import { BTr } from './tr'
 import { BTd } from './td'
@@ -15,8 +15,7 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
     BTableLite,
     BTableSimple,
     BTbody,
-    BTableThead,
-    BThead: BTableThead,
+    BThead,
     BTfoot,
     BTr,
     BTd,
@@ -33,8 +32,8 @@ export {
   BTableSimple,
   // Helper components
   BTbody,
-  BTableThead,
-  BTableTfoot,
+  BThead,
+  BTfoot,
   BTr,
   BTd,
   BTh
