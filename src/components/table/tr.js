@@ -13,7 +13,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   name: 'BTr',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  provide() /* istanbul ignore next: until tests are written */ {
+  provide() {
     return {
       bvTableTr: this
     }
@@ -25,17 +25,17 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    isDark() /* istanbul ignore next: until tests are written */ {
+    isDark() {
       return this.bvTable && this.bvTable.dark
     },
-    trClasses() /* istanbul ignore next: until tests are written */ {
+    trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
-    trAttrs() /* istanbul ignore next: until tests are written */ {
+    trAttrs() {
       return { role: 'row', ...this.$attrs }
     }
   },
-  render(h) /* istanbul ignore next: until tests are written */ {
+  render(h) {
     return h(
       'tr',
       {
