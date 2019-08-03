@@ -419,17 +419,20 @@ details.
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
 | `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
 | `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                |
+| `table-variant`     | String            | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Give the table an overall theme color variant.                                                                                                                                                                                                                                  |
 | `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
 | `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
 | `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
+**Note:** table style options `fixed`, `stacked`, and `caption-top`, and the table sorting feature,
+requires BootstrapVue's custom CSS.
 
 **Example: Basic table styles**
 
 ```html
 <template>
   <div>
-    <b-form-group label="Table Options">
+    <b-form-group label="Table Options" label-cols-lg="2">
       <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
       <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
       <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
@@ -440,10 +443,21 @@ details.
       <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
       <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
-    <b-form-group label="Head Variant">
-      <b-form-radio v-model="headVariant" :value="null" inline>None</b-form-radio>
-      <b-form-radio v-model="headVariant" value="light" inline>Light</b-form-radio>
-      <b-form-radio v-model="headVariant" value="dark" inline>Dark</b-form-radio>
+    <b-form-group label="Head Variant" label-cols-lg="2">
+      <b-form-radio-group v-model="headVariant" class="mt-lg-2">
+        <b-form-radio :value="null" inline>None</b-form-radio>
+        <b-form-radio value="light" inline>Light</b-form-radio>
+        <b-form-radio value="dark" inline>Dark</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <b-form-group label="Table Variant" label-for="table-style-variant" label-cols-lg="2">
+      <b-form-select
+        v-model="tableVariant"
+        :options="tableVariants"
+        id="table-style-variant"
+      >
+        <option value="" slot="first">-- None --</option>
+      </b-form-select>
     </b-form-group>
 
     <b-table
@@ -459,6 +473,7 @@ details.
       :items="items"
       :fields="fields"
       :head-variant="headVariant"
+      :table-variant="tableVariant"
     ></b-table>
   </div>
 </template>
@@ -473,6 +488,16 @@ details.
           { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
           { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
         ],
+        tableVariants: [
+          'primary',
+          'secondary',
+          'info',
+          'danger',
+          'warning',
+          'success',
+          'light',
+          'dark'
+        ],
         striped: false,
         bordered: false,
         borderless: false,
@@ -482,7 +507,8 @@ details.
         dark: false,
         fixed: false,
         footClone: false,
-        headVariant: null
+        headVariant: null,
+        tableVariant: ''
       }
     }
   }
@@ -1117,6 +1143,8 @@ are disabled). `head-clicked` will never be emitted when clicking on links or bu
 scoped slots (even when disabled)
 
 ### Adding additional rows to the header
+
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
 
 If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
 is inserted before the header cells row, and is not automatically encapsulated by `<tr>..</tr>` tags.
@@ -2292,6 +2320,8 @@ Like `<b-table>` and `<b-table-lite>`, table headers and footers are visually hi
 is stacked.
 
 ## Table helper components
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
 
 BootstapVue provides additional helper child components when using `<b-table-simple>`, or the named
 slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The helper
