@@ -2121,18 +2121,15 @@ sorting, pagination, filtering, stacked mode, etc).
 
 ```html
 <div>
-  <b-table-simple hover small bordered caption-top responsive="sm">
+  <b-table-simple hover small caption-top responsive="sm">
     <caption>Items Sold In August</caption>
     <b-thead head-variant="dark">
       <b-tr>
-        <b-td></b-td>
-        <b-td></b-td>
+        <b-td colspan="2" rowspan="2" class="border-top-0"></b-td>
         <b-th colspan="3">Clothes</b-th>
         <b-th colspan="2">Accessories</b-th>
       </b-tr>
       <b-tr>
-        <b-td></b-td>
-        <b-td></b-td>
         <b-th>Trousers</b-th>
         <b-th>Skirts</b-th>
         <b-th>Dresses</b-th>
@@ -2147,16 +2144,16 @@ sorting, pagination, filtering, stacked mode, etc).
         <b-td>56</b-td>
         <b-td>22</b-td>
         <b-td>43</b-td>
-        <b-td>72</b-td>
+        <b-td variant="success">72</b-td>
         <b-td>23</b-td>
       </b-tr>
       <b-tr>
         <b-th>Gent</b-th>
         <b-td>46</b-td>
-        <b-td variant="danger">18</b-td>
+        <b-td variant="warning">18</b-td>
         <b-td>50</b-td>
         <b-td>61</b-td>
-        <b-td>15</b-td>
+        <b-td variant="danger">15</b-td>
       </b-tr>
       <b-tr>
         <b-th>Brussels</b-th>
@@ -2178,15 +2175,15 @@ sorting, pagination, filtering, stacked mode, etc).
       <b-tr>
         <b-th>Utrecht</b-th>
         <b-td>80</b-td>
-        <b-td>12</b-td>
+        <b-td variant="danger">12</b-td>
         <b-td>43</b-td>
         <b-td>36</b-td>
-        <b-td>19</b-td>
+        <b-td variant="warning">19</b-td>
       </b-tr>
     </b-tbody>
-    <b-tfoot foot-variant="light">
+    <b-tfoot>
       <b-tr>
-        <b-td colspan="7" class="text-right">
+        <b-td colspan="7" variant="secondary" class="text-right">
           Total Rows: <b>5</b>
         </b-td>
       </b-tr>
