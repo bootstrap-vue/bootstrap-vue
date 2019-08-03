@@ -467,10 +467,7 @@
         "component": "BTbody"
       },
       {
-        "component": "BTableThead",
-        "aliases": [
-          "BThead"
-        ]
+        "component": "BThead"
       },
       {
         "component": "BTfoot"
