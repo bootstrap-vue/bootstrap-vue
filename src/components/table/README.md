@@ -1718,7 +1718,7 @@ direction) is **not** used in the sort comparison:
 <!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
-function sortCompare(aRow, bRow, key) {
+function sortCompare(aRow, bRow, key, sortDesc, formatter, compareOptions, compareLocale) {
   const a = aRow[key] // or use Lodash `_.get()`
   const b = bRow[key]
   if (
@@ -1729,9 +1729,7 @@ function sortCompare(aRow, bRow, key) {
     return a < b ? -1 : a > b ? 1 : 0
   } else {
     // Otherwise stringify the field data and use String.prototype.localeCompare
-    return toString(a).localeCompare(toString(b), undefined, {
-      numeric: true
-    })
+    return toString(a).localeCompare(toString(b), compareLocale, compareOptions)
   }
 }
 
