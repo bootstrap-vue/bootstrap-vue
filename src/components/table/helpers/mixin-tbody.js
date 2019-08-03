@@ -1,4 +1,4 @@
-import { props as tbodyProps, BTableTbody } from '../table-tbody'
+import { props as tbodyProps, BTbody } from '../tbody'
 import tbodyRowMixin from './mixin-tbody-row'
 
 const props = {
@@ -48,7 +48,7 @@ export default {
 
       // Assemble rows into the tbody
       const $tbody = h(
-        BTableTbody,
+        BTbody,
         {
           class: this.tbodyClass || null,
           props: {
