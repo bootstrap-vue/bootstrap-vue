@@ -20,10 +20,10 @@ const defaultSortCompare = (a, b, sortBy, formatter, localeOpts, locale, nullLas
   // Special handling when null/undefined sorted last
   if (nullLast && isUndefinedOrNull(aa) && !isUndefinedOrNull(bb)) {
     /* istanbul ignore next */
-    return 1
+    return -1
   } else if (nullLast && !isUndefinedOrNull(aa) && isUndefinedOrNull(bb)) {
     /* istanbul ignore next */
-    return -1
+    return 1
   }
   aa = isUndefinedOrNull(aa) ? '' : aa
   bb = isUndefinedOrNull(bb) ? '' : bb
