@@ -2111,15 +2111,17 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 The `<b-table-simple>` component gives the user complete control over the rendering of the table
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
-of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`, `<tr>`, `<th>`, `<td>`,
-`<caption>`, and `<colgroup>`.
+of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and `<colgroup>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
-`outlined`, `small`, `hover`, `dark`, `fixed` and `responsive`.
+`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available but
+requires some additional markup to generate teh cell headings, as described in the
+[Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
-sorting, pagination, filtering, stacked mode, etc).
+sorting, pagination, filtering, foot-clone, etc).
 
 ```html
 <div>
@@ -2202,6 +2204,93 @@ apply additional classes to the `<table>` element, use the `table-classes` prop.
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
 
+### Simple tables and stacked mode
+
+A bit of additional markup is required on your `<b-table-simple>` body cells when the table is in
+stacked mode. Specifically, BootstrapVue uses a spaecial data attribute to create the cell's heading,
+of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop.  Only plain strings
+are supported (not HTML markup), as we use the pseudo element `::before` and css `content` property.
+
+Here is the same table as above, which has the etra markup to handle stacked mode:
+
+```html
+<div>
+  <b-table-simple hover small caption-top stacked>
+    <caption>Items sold in August, grouped by Country and City:</caption>
+    <b-thead head-variant="dark">
+      <b-tr>
+        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="3">Clothes</b-th>
+        <b-th colspan="2">Accessories</b-th>
+      </b-tr>
+      <b-tr>
+        <b-th>Trousers</b-th>
+        <b-th>Skirts</b-th>
+        <b-th>Dresses</b-th>
+        <b-th>Bracelets</b-th>
+        <b-th>Rings</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody>
+      <b-tr>
+        <b-th rowspan="3" class="text-center">Belgium (3 Cities)</b-th>
+        <b-thstacked-heading="City" class="text-left">Antwerp</b-th>
+        <b-td stacked-heading="Clothes: Trousers">56</b-td>
+        <b-td stacked-heading="Clothes: Skirts">22</b-td>
+        <b-td stacked-heading="Clothes: Dresses">43</b-td>
+        <b-td stacked-heading="Accessories: Bracelets" variant="success">72</b-td>
+        <b-td stacked-heading="Accessories: Rings">23</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Gent</b-th>
+        <b-td stacked-heading="Clothes: Trousers">46</b-td>
+        <b-td stacked-heading="Clothes: Skirts" variant="warning">18</b-td>
+        <b-td stacked-heading="Clothes: Dresses">50</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">61</b-td>
+        <b-td variant="danger">15</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right" stacked-heading="City">Brussels</b-th>
+        <b-td stacked-heading="Clothes: Trousers">51</b-td>
+        <b-td stacked-heading="Clothes: Skirts">27</b-td>
+        <b-td stacked-heading="Clothes: Dresses">38</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">69</b-td>
+        <b-td stacked-heading="Accessories: Rings">28</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th rowspan="2" class="text-center">The Netherlands (2 Cities)</b-th>
+        <b-th stacked-heading="City">Amsterdam</b-th>
+        <b-td stacked-heading="Clothes: Trousers" variant="success">89</b-td>
+        <b-td stacked-heading="Clothes: Skirts">34</b-td>
+        <b-td stacked-heading="Clothes: Dresses">69</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">85</b-td>
+        <b-td stacked-heading="Accessories: Rings">38</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Utrecht</b-th>
+        <b-td stacked-heading="Clothes: Trousers">80</b-td>
+        <b-td stacked-heading="Clothes: Skirts" variant="danger">12</b-td>
+        <b-td stacked-heading="Clothes: Dresses">43</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">36</b-td>
+        <b-td stacked-heading="Accessories: Rings" variant="warning">19</b-td>
+      </b-tr>
+    </b-tbody>
+    <b-tfoot>
+      <b-tr>
+        <b-td colspan="7" variant="secondary" class="text-right">
+          Total Rows: <b>5</b>
+        </b-td>
+      </b-tr>
+    </b-tfoot>
+  </b-table-simple>
+</div>
+
+<!-- b-table-simple-stacked.vue -->
+```
+
+Like `<b-table>` and `<b-table-lite>`, table headers and footers are visually hidden when the table
+is stacked.
+
 ## Table helper components
 
 BootstapVue provides additional helper child components when using `<b-table-simple>`, or the named
@@ -2243,6 +2332,9 @@ may these two HTML5 elements directly in `<b-table-simple>`.
   `role` of `'rowgroup'` will be applied, unless you overide the role by supplying a `role` attribute.
 - For the `<b-tr>` helper component, the apropriate default `role` of `row` will be applied, unless
   you overide the role by supplying a `role` attribute.
+- The `<b-tbody>` element supports rendering a Vue `<transition-group>` when either, or both, of the
+  `tbody-transition-props` and `tbody-transition-handlers` props are used. See the
+  [Table body transition support](#table-body-transition-support) section for more details.
 
 ## Accessibility
 
