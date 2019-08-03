@@ -54,6 +54,22 @@ describe('table/helpers/default-sort-compare', () => {
         .join('')
     }
     expect(defaultSortCompare({ a: 'ab' }, { a: 'b' }, 'a')).toBe(-1)
-    expect(defaultSortCompare({ a: 'ab' }, { a: 'b' }, 'a', formatter)).toBe(1)
+    expect(defaultSortCompare({ a: 'ab' }, { a: 'b' }, 'a', false, formatter)).toBe(1)
+  })
+
+
+  it('sorts nulls always last when sor-null-lasst is set', async () => {
+    const x = { a: 'ab' }
+    const y = { a: null }
+    const z = { }
+    // Without nullLast set
+    expect(defaultSortCompare(x, y, 'a')).toBe(1)
+    expect(defaultSortCompare(y, x, 'a')).toBe(-1)
+    // With nullLast set
+    expect(defaultSortCompare(x, y, 'a', false, undefined, { numeric: true }, undefined, true)).toBe(-1)
+    expect(defaultSortCompare(y, x, 'a', false, undefined, { numeric: true }, undefined, true)).toBe(1)
+    // With nullLast set and sortDesc true
+    expect(defaultSortCompare(x, y, 'a', false, undefined, { numeric: true }, undefined, true)).toBe(-1)
+    expect(defaultSortCompare(y, x, 'a', true, undefined, { numeric: true }, undefined, true)).toBe(1)
   })
 })
