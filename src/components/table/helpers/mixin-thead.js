@@ -144,7 +144,7 @@ export default {
         isFoot ? BTableTfoot : BTableThead,
         {
           key: isFoot ? 'bv-tfoot' : 'bv-thead',
-          class: (isFoot ? this.footClass : this.headClass) || null,
+          class: (isFoot ? this.tfootClass : this.theadClass) || null,
           props: isFoot
             ? { footVariant: this.footVariant || this.headVariant || null }
             : { headVariant: this.headVariant || null }
