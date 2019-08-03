@@ -78,7 +78,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         // Transfer any native listeners
         on: this.$listeners
       },
-      this.noramlizeSlot('default')
+      this.normalizeSlot('default')
     )
   }
 })
