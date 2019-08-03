@@ -2122,7 +2122,7 @@ sorting, pagination, filtering, stacked mode, etc).
 ```html
 <div>
   <b-table-simple hover small caption-top responsive="sm">
-    <caption>Items Sold In August</caption>
+    <caption>Items sold in August, grouped by Country and City:</caption>
     <b-thead head-variant="dark">
       <b-tr>
         <b-td colspan="2" rowspan="2"></b-td>
