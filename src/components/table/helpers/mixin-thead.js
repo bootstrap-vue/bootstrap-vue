@@ -5,7 +5,7 @@ import { htmlOrText } from '../../../utils/html'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import { BTableThead } from '../table-thead'
-import { BTableTfoot } from '../table-tfoot'
+import { BTfoot } from '../tfoot'
 
 export default {
   props: {
@@ -141,7 +141,7 @@ export default {
       }
 
       return h(
-        isFoot ? BTableTfoot : BTableThead,
+        isFoot ? BTfoot : BTableThead,
         {
           key: isFoot ? 'bv-tfoot' : 'bv-thead',
           class: (isFoot ? this.tfootClass : this.theadClass) || null,
