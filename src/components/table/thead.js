@@ -9,8 +9,8 @@ export const props = {
 }
 
 // @vue/component
-export const BTableThead = /*#__PURE__*/ Vue.extend({
-  name: 'BTableThead',
+export const BThead = /*#__PURE__*/ Vue.extend({
+  name: 'BThead',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   provide() {
