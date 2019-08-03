@@ -6,8 +6,8 @@ export const props = omit(cellProps, ['header'])
 
 // @vue/component
 /* istanbul ignore next: until tests are written */
-export const BTableTh = /*#__PURE__*/ Vue.extend({
-  name: 'BTableTh',
+export const BTh = /*#__PURE__*/ Vue.extend({
+  name: 'BTh',
   functional: true,
   props: props,
   render(h, { props, data, children }) {
