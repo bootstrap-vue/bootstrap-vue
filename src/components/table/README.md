@@ -1239,7 +1239,9 @@ following properties:
 | `fields`            | Array  | The `fields` prop                                  |
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
-## Row details support
+## Advanced features
+
+### Row details support
 
 If you would optionally like to display additional record information (such as columns not specified
 in the fields definition array), you can use the scoped slot `row-details`, in combination with the
@@ -1330,7 +1332,7 @@ initially showing.
 <!-- b-table-details.vue -->
 ```
 
-## Row select support
+### Row select support
 
 You can make rows selectable, by using the prop `selectable`.
 
@@ -1415,6 +1417,94 @@ element.
 - Selected rows will have a class of `b-row-selected` added to them.
 - When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
   sequence (`tabindex="0"`) for accessibility reasons.
+
+### Table body transition support
+
+Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
+Vue's `<transition-group>` component internally. Three props are available for transitions support
+(all three default to undefined):
+
+| Prop                        | Type   | Description                                                       |
+| --------------------------- | ------ | ----------------------------------------------------------------- |
+| `tbody-transition-props`    | Object | Object of transition-group properties                             |
+| `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
+| `primary-key`               | String | String specifying the field to use as a unique row key (required) |
+
+To enable transitions you need to specify `tbody-transition-props` and/or
+`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
+`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
+a **unique value per row** in order for transitions to work properly. The `primary-key` field's
+_value_ can either be a unique string or number. The field specified does not need to appear in the
+rendered table output, but it **must** exist in each row of your items data.
+
+You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
+
+For more information of Vue's list rendering transitions, see the
+[Vue JS official docs](https://vuejs.org/v2/guide/transitions.html#List-Move-Transitions).
+
+In the example below, we have used the following custom CSS:
+
+```css
+table#table-transition-example .flip-list-move {
+  transition: transform 1s;
+}
+```
+
+```html
+<template>
+  <div>
+    <b-table
+      id="table-transition-example"
+      :items="items"
+      :fields="fields"
+      striped
+      small
+      primary-key="a"
+      :tbody-transition-props="transProps"
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        transProps: {
+          // Transition name
+          name: 'flip-list'
+        },
+        items: [
+          { a: 2, b: 'Two', c: 'Moose' },
+          { a: 1, b: 'Three', c: 'Dog' },
+          { a: 3, b: 'Four', c: 'Cat' },
+          { a: 4, b: 'One', c: 'Mouse' }
+        ],
+        fields: [
+          { key: 'a', sortable: true },
+          { key: 'b', sortable: true },
+          { key: 'c', sortable: true }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-transitions.vue -->
+```
+
+### `v-model` binding
+
+If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
+displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
+should usually be treated as readonly.
+
+The records within the `v-model` are a filtered/paginated _shallow copy_ of `items`, and hence any
+changes to a record's properties in the `v-model` will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the `v-model` array will
+**not** remove the record from the original items array nor will it remove it from the displayed
+rows.
+
+**Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
 
 ## Sorting
 
@@ -1785,94 +1875,6 @@ You can use the [`<b-pagination>`](/docs/components/pagination) component in con
 `<b-table>` for providing control over pagination.
 
 Setting `per-page` to `0` (default) will disable the local items pagination feature.
-
-## `v-model` binding
-
-If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
-displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
-should usually be treated as readonly.
-
-The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
-changes to a record's properties in the `v-model` will be reflected in the original `items` array
-(except when `items` is set to a provider function). Deleting a record from the `v-model` will
-**not** remove the record from the original items array nor will it remove it from the displayed
-rows.
-
-**Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
-
-## Table body transition support
-
-Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
-Vue's `<transition-group>` component internally. Three props are available for transitions support
-(all three default to undefined):
-
-| Prop                        | Type   | Description                                                       |
-| --------------------------- | ------ | ----------------------------------------------------------------- |
-| `tbody-transition-props`    | Object | Object of transition-group properties                             |
-| `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
-| `primary-key`               | String | String specifying the field to use as a unique row key (required) |
-
-To enable transitions you need to specify `tbody-transition-props` and/or
-`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
-`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
-a **unique value per row** in order for transitions to work properly. The `primary-key` field's
-_value_ can either be a unique string or number. The field specified does not need to appear in the
-rendered table output, but it **must** exist in each row of your items data.
-
-You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
-
-For more information of Vue's list rendering transitions, see the
-[Vue JS official docs](https://vuejs.org/v2/guide/transitions.html#List-Move-Transitions).
-
-In the example below, we have used the following custom CSS:
-
-```css
-table#table-transition-example .flip-list-move {
-  transition: transform 1s;
-}
-```
-
-```html
-<template>
-  <div>
-    <b-table
-      id="table-transition-example"
-      :items="items"
-      :fields="fields"
-      striped
-      small
-      primary-key="a"
-      :tbody-transition-props="transProps"
-    ></b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        transProps: {
-          // Transition name
-          name: 'flip-list'
-        },
-        items: [
-          { a: 2, b: 'Two', c: 'Moose' },
-          { a: 1, b: 'Three', c: 'Dog' },
-          { a: 3, b: 'Four', c: 'Cat' },
-          { a: 4, b: 'One', c: 'Mouse' }
-        ],
-        fields: [
-          { key: 'a', sortable: true },
-          { key: 'b', sortable: true },
-          { key: 'c', sortable: true }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-transitions.vue -->
-```
 
 ## Using items provider functions
 
