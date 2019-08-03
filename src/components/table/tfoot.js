@@ -9,8 +9,8 @@ export const props = {
 }
 
 // @vue/component
-export const BTableTfoot = /*#__PURE__*/ Vue.extend({
-  name: 'BTableTfoot',
+export const BTfoot = /*#__PURE__*/ Vue.extend({
+  name: 'BTfoot',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   provide() /* istanbul ignore next: until tests are written */ {
@@ -25,10 +25,10 @@ export const BTableTfoot = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    theadClasses() /* istanbul ignore next: until tests are written */ {
+    tfootClasses() /* istanbul ignore next: until tests are written */ {
       return [this.footVariant ? `thead-${this.footVariant}` : null]
     },
-    theadAttrs() /* istanbul ignore next: until tests are written */ {
+    tfootAttrs() /* istanbul ignore next: until tests are written */ {
       return { role: 'rowgroup', ...this.$attrs }
     }
   },
@@ -36,8 +36,8 @@ export const BTableTfoot = /*#__PURE__*/ Vue.extend({
     return h(
       'tfoot',
       {
-        class: this.theadClasses,
-        attrs: this.theadAttrs,
+        class: this.tfootClasses,
+        attrs: this.tfootAttrs,
         // Pass down any native listeners
         on: this.$listeners
       },
