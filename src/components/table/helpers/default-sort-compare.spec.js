@@ -57,11 +57,11 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare({ a: 'ab' }, { a: 'b' }, 'a', false, formatter)).toBe(1)
   })
 
-
   it('sorts nulls always last when sor-null-lasst is set', async () => {
     const x = { a: 'ab' }
     const y = { a: null }
-    const z = { }
+    const z = { a: undefined }
+    // const w = {}
     const u = undefined
 
     // Without nullLast set
