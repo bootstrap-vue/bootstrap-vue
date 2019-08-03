@@ -13,7 +13,7 @@ export const BTableThead = /*#__PURE__*/ Vue.extend({
   name: 'BTableThead',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  provide() /* istanbul ignore next: until tests are written */ {
+  provide() {
     return {
       bvTableThead: this
     }
@@ -25,14 +25,14 @@ export const BTableThead = /*#__PURE__*/ Vue.extend({
   },
   props: props,
   computed: {
-    theadClasses() /* istanbul ignore next: until tests are written */ {
+    theadClasses() {
       return [this.headVariant ? `thead-${this.headVariant}` : null]
     },
-    theadAttrs() /* istanbul ignore next: until tests are written */ {
+    theadAttrs() {
       return { role: 'rowgroup', ...this.$attrs }
     }
   },
-  render(h) /* istanbul ignore next: until tests are written */ {
+  render(h) {
     return h(
       'thead',
       {
