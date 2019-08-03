@@ -52,7 +52,7 @@ export default {
               : htmlOrText(this.emptyHtml, this.emptyText)
           })
         }
-        $empty = h( BTd, { props: { colspan: this.computedFields.length || null } }, [
+        $empty = h(BTd, { props: { colspan: this.computedFields.length || null } }, [
           h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [$empty])
         ])
         $empty = h(
