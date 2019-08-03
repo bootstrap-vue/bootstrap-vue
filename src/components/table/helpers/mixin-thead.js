@@ -27,10 +27,7 @@ export default {
   methods: {
     fieldClasses(field) {
       // Header field (<th>) classes
-      return [
-        field.class ? field.class : '',
-        field.thClass ? field.thClass : ''
-      ]
+      return [field.class ? field.class : '', field.thClass ? field.thClass : '']
     },
     headClicked(evt, field, isFoot) {
       if (this.stopIfBusy && this.stopIfBusy(evt)) {
