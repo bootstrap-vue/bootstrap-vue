@@ -20,7 +20,6 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
     BTableTfoot,
     BTfoot: BTableTfoot,
     BTr,
-    BTableTd,
     BTd,
     BTh
   }
