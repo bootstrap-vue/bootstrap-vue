@@ -22,7 +22,7 @@ export default {
           key: 'b-top-row',
           staticClass: 'b-table-top-row',
           class: [
-            isFunction(this.tbodyTrClass) ? this.tbodyTrClass(null, slotName) : this.tbodyTrClass
+            isFunction(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass
           ]
         },
         [this.normalizeSlot(slotName, { columns: fields.length, fields: fields })]
