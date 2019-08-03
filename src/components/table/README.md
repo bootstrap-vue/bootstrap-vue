@@ -1604,8 +1604,9 @@ if it is an object and then sorted.
   `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
   value. This is only applicable for the built-in sort-compare routine.
 - <span class="badge badge-info small">NEW in v2.0.0-rc.28</span> By default, the internal sorting
-  routine will sort `null` or `undefined` values first. To sort so that `null` or `undefined`
-  values appear last, set the `sort-null-last` prop to `true`.
+  routine will sort `null` or `undefined` values first (less than any other values). To sort so that
+  `null` or `undefined` values appear last (greater than any otehr value), set the `sort-null-last`
+  prop to `true`.
 
 For customizing the sort-compare handling, refer to the
 [Custom sort-compare routine](#custom-sort-compare-routine) section below.
