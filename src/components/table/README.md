@@ -2246,7 +2246,8 @@ stacked mode. Specifically, BootstrapVue uses a spaecial data attribute to creat
 of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop.  Only plain strings
 are supported (not HTML markup), as we use the pseudo element `::before` and css `content` property.
 
-Here is the same table as above, which has the etra markup to handle stacked mode:
+Here is the same table as above, set to be always stacked, which has the extra markup to handle
+stacked mode (specifically for generating the cell headings):
 
 ```html
 <div>
@@ -2324,7 +2325,11 @@ Here is the same table as above, which has the etra markup to handle stacked mod
 ```
 
 Like `<b-table>` and `<b-table-lite>`, table headers and footers are visually hidden when the table
-is stacked.
+is stacked. If you need a header or footer, you can do so by creating an extra `<b-tr>` inside of the
+`<b-tbody>` component, and set a role of `columnheader` on the child `<b-th>` cells, and use Bootstrap
+v4 [responsive display utility classes](/docs/reference/utility-classes) to hide the extra row above a
+certain breakpoint (which should match the stacked responsive breakpoint you have set), i.e.
+`<b-tr class="d-md-none">` would hide the row on medium and wider screens.
 
 **Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
