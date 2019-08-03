@@ -1,7 +1,7 @@
 import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
 import { arrayIncludes } from '../../../utils/array'
-import { isFunction, isNull, isUndefined } from '../../../utils/inspect'
+import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
@@ -105,7 +105,7 @@ export default {
             // Call user provided sortCompare routine
             result = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
           }
-          if (isUndefined(result) || isNull(result) || result === false) {
+          if (isUndefinedOrNull(result) || result === false) {
             // Fallback to built-in defaultSortCompare if sortCompare
             // is not defined or returns null/false
             result = defaultSortCompare(a, b, sortBy, formatter, sortOptions, sortLocale)
