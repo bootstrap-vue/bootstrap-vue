@@ -158,10 +158,7 @@ export default {
         // TODO: Although we do prevent duplicate field keys...
         //   So we could change this to: `row-${rowIndex}-cell-${key}`
         key: `row-${rowIndex}-cell-${colIndex}-${key}`,
-        class: [
-          field.class ? field.class : '',
-          this.getTdValues(item, key, field.tdClass, '')
-        ],
+        class: [field.class ? field.class : '', this.getTdValues(item, key, field.tdClass, '')],
         props: {
           stackedHeading: this.isStacked ? field.label : null,
           variant:
