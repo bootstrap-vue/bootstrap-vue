@@ -735,6 +735,9 @@ Slot `table-colgroup` can be optionally scoped, receiving an object with the fol
 | `columns` | Number | The number of columns in the rendered table                                   |
 | `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
 
+When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
+element. there is no need to provide your own outer `<colgroup>` element.
+
 ### Table busy state
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
@@ -2118,7 +2121,8 @@ sorting, pagination, filtering, stacked mode, etc).
 ```html
 <div>
   <b-table-simple hover small bordered responsive="sm">
-    <b-thead class="text-center" head-variant="light">
+    <caption><code>&lt;b-table-simple&gt;</code> example</caption>
+    <b-thead class="text-center" head-variant="dark">
       <b-tr>
         <b-th colspan="2">Name</b-th>
         <b-th rowspan="2" class="align-middle">Age</b-th>
@@ -2133,36 +2137,36 @@ sorting, pagination, filtering, stacked mode, etc).
       <b-tr>
         <b-td>Macdonald</b-td>
         <b-td>Dickerson</b-td>
-        <b-td>42</b-td>
+        <b-td class="text-center">42</b-td>
         <b-td>Foo</b-td>
         <b-td>Bar</b-td>
         <b-td>Baz</b-td>
-      </tr>
-      <tr variant="info">
+      </b-tr>
+      <b-tr variant="info">
         <b-td>Wilson</b-td>
         <b-td>Geneva</b-td>
-        <b-td>35</b-td>
+        <b-td class="text-center">35</b-td>
         <b-td colspan="2">1234567</b-td>
         <b-td>987</b-td>
       </b-tr>
       <b-tr>
         <b-td rowspan="2">Shaw</b-td>
         <b-td>Larsen</b-td>
-        <b-td>23</b-td>
+        <b-td class="text-center">23</b-td>
         <b-td>AAA</b-td>
         <b-td colspan="2">BBBBB</b-td>
       </b-tr>
       <b-tr>
         <b-td>Linda</b-td>
-        <b-td>22</b-td>
+        <b-td class="text-center">22</b-td>
         <b-td>CCC</b-td>
         <b-td variant="danger">YYY</b-td>
         <b-td>ZZZ</b-td>
       </b-tr>
     </b-tbody>
-    <b-tfoot foot-variant="dark">
+    <b-tfoot foot-variant="light">
       <b-tr>
-        <b-th colspan="5" class="text-right">
+        <b-th colspan="6" class="text-right">
           Total Rows: <b>4</b>
       </b-tr>
     <b-tfoot>
