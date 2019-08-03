@@ -13,8 +13,8 @@ export const props = {
 }
 
 // @vue/component
-export const BTableTbody = /*#__PURE__*/ Vue.extend({
-  name: 'BTableTbody',
+export const BTbody = /*#__PURE__*/ Vue.extend({
+  name: 'BTbody',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   provide() {
