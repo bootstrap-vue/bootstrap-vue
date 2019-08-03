@@ -171,6 +171,12 @@
                 > :first-child {
                   border-top-width: (3 * $table-border-width);
                 }
+
+                // Give any cell after a rowspan'ed cell a heavy top border
+                > [rowspan] + td,
+                > [rowspan] + th {
+                  border-top-width: (3 * $table-border-width);
+                }
               }
             }
           }
