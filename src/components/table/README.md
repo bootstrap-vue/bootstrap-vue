@@ -2121,62 +2121,76 @@ sorting, pagination, filtering, stacked mode, etc).
 
 ```html
 <div>
-  <b-table-simple hover small bordered responsive="sm">
-    <caption><code>&lt;b-table-simple&gt;</code> example</caption>
-    <b-thead class="text-center" head-variant="dark">
+  <b-table-simple hover small bordered caption-top responsive="sm">
+    <caption>Items Sold In August</caption>
+    <b-thead head-variant="dark">
       <b-tr>
-        <b-th rowspan="2">ID</b-th>
-        <b-th colspan="2">Name</b-th>
-        <b-th rowspan="2" class="align-middle">Age</b-th>
-        <b-th colspan="3" rowspan="2" class="align-middle">Data</b-th>
+        <b-td></b-td>
+        <b-td></b-td>
+        <b-th colspan="3">Clothes</b-th>
+        <b-th colspan="2">Accessories</b-th>
       </b-tr>
       <b-tr>
-        <b-th>Last</b-th>
-        <b-th>First</b-th>
+        <b-td></b-td>
+        <b-td></b-td>
+        <b-th>Trousers</b-th>
+        <b-th>Skirts</b-th>
+        <b-th>Dresses</b-th>
+        <b-th>Bracelets</b-th>
+        <b-th>Rings</b-th>
       </b-tr>
     </b-thead>
     <b-tbody>
       <b-tr>
-        <b-th>1</b-th>
-        <b-td>Macdonald</b-td>
-        <b-td>Dickerson</b-td>
-        <b-td class="text-center">42</b-td>
-        <b-td>Foo</b-td>
-        <b-td>Bar</b-td>
-        <b-td>Baz</b-td>
-      </b-tr>
-      <b-tr variant="info">
-        <b-th>2</b-th>
-        <b-td>Wilson</b-td>
-        <b-td>Geneva</b-td>
-        <b-td class="text-center">35</b-td>
-        <b-td colspan="2">1234567</b-td>
-        <b-td>987</b-td>
+        <b-th rowspan="3">Belgium</b-th>
+        <b-th>Antwerp</b-th>
+        <b-td>56</b-td>
+        <b-td>22</b-td>
+        <b-td>43</b-td>
+        <b-td>72</b-td>
+        <b-td>23</b-td>
       </b-tr>
       <b-tr>
-        <b-th>3</b-th>
-        <b-td rowspan="2">Shaw</b-td>
-        <b-td>Larsen</b-td>
-        <b-td class="text-center">23</b-td>
-        <b-td>AAA</b-td>
-        <b-td colspan="2">BBBBB</b-td>
+        <b-th>Gent</b-th>
+        <b-td>46</b-td>
+        <b-td variant="danger">18</b-td>
+        <b-td>50</b-td>
+        <b-td>61</b-td>
+        <b-td>15</b-td>
       </b-tr>
       <b-tr>
-        <b-th>4</b-th>
-        <b-td>Linda</b-td>
-        <b-td class="text-center">22</b-td>
-        <b-td>CCC</b-td>
-        <b-td variant="danger">YYY</b-td>
-        <b-td>ZZZ</b-td>
+        <b-th>Brussels</b-th>
+        <b-td>51</b-td>
+        <b-td>27</b-td>
+        <b-td>38</b-td>
+        <b-td>69</b-td>
+        <b-td>28</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th rowspan="2">The Netherlands</b-th>
+        <b-th>Amsterdam</b-th>
+        <b-td variant="success">89</b-td>
+        <b-td>34</b-td>
+        <b-td>69</b-td>
+        <b-td>85</b-td>
+        <b-td>38</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th>Utrecht</b-th>
+        <b-td>80</b-td>
+        <b-td>12</b-td>
+        <b-td>43</b-td>
+        <b-td>36</b-td>
+        <b-td>19</b-td>
       </b-tr>
     </b-tbody>
     <b-tfoot foot-variant="light">
       <b-tr>
-        <b-th colspan="7" class="text-right">
-          Total Rows: <b>4</b>
-        </b-th>
+        <b-td colspan="7" class="text-right">
+          Total Rows: <b>5</b>
+        </b-td>
       </b-tr>
-    <b-tfoot>
+    </b-tfoot>
   </b-table-simple>
 </div>
 
@@ -2189,15 +2203,29 @@ apply additional classes to the `<table>` element, use the `table-classes` prop.
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
 
-### Table helper components
+## Table helper components
 
-In the above example, we are using the helper componenets `<b-thead>`, `<b-tbody>`, `<b-tr>`,
-`<b-th>`, `<b-tr>` and `<b-tfoot>`. These components are optimized to handle converting variants to
-the apropriate classes (such as handling table `dark` mode), and applying certain accessibility
-attributes (i.e. `role`s and `scope`s). While you can use regular table child elements (i.e.
-`<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, it is recommended to use the BootstrapVue
-table `<b-t*>` helper components. Note that there are no helper components for `<caption>` or
-`<colgroup>`, so you may these two HTML5 elements directly in `<b-table-simple>`.
+BootstapVue provides additional helper child components when using `<b-table-simple>`, or the named
+slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The helper
+components are as follows:
+
+- `b-tbody`
+- `b-thead`
+- `b-tfoot`
+- `b-tr`
+- `b-td`
+- `b-th`
+
+These components are optimized to handle converting variants to the apropriate classes (such as
+handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
+`role`s and `scope`s).
+
+In the [Simple tables](#simple-tables) example, we are using the helper componenets `<b-thead>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`.  While you can use regular table child
+elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
+`top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
+helper components. Note that there are no helper components for `<caption>` or `<colgroup>`, so you
+may these two HTML5 elements directly in `<b-table-simple>`.
 
 - Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
   apply one of the Bootstrap theme colors (custom theme colors are supported via
@@ -2208,8 +2236,10 @@ table `<b-t*>` helper components. Note that there are no helper components for `
   background). These variants also control the text color (light text for `'dark'` variant, and dark
   text for the `'light'` variant).
 - Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
-  components based on their location (head, body, or foot), although you can override these values by
-  setting the apropriate attribute on the helper component.
+  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan` props.
+  A `<b-td>` placed in `<b-thead>` or `<b-tfoot>` will have no `scope` attribute by default. You can
+  override the automatic `scope` and `role` values by setting the apropriate attribute on the helper
+  component.
 - For `<b-tbody>`, `<b-thead>`, `<b-tfoot> helper components, the apropriate default
   `role` of `'rowgroup'` will be applied, unless you overide the role by supplying a `role` attribute.
 - For the `<b-tr>` helper component, the apropriate default `role` of `row` will be applied, unless
