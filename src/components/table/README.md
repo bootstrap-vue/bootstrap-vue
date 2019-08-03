@@ -2319,6 +2319,10 @@ Here is the same table as above, which has the etra markup to handle stacked mod
 Like `<b-table>` and `<b-table-lite>`, table headers and footers are visually hidden when the table
 is stacked.
 
+**Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
+[table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
+and `<th>` element tags will not work as expected.
+
 ## Table helper components
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
@@ -2336,7 +2340,8 @@ components are as follows:
 
 These components are optimized to handle converting variants to the apropriate classes (such as
 handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
-`role`s and `scope`s).
+`role`s and `scope`s) and can handle the stacked table requirements. Components `<b-table>` and
+`<b-table-lite>` use these helper components internally.
 
 In the [Simple tables](#simple-tables) example, we are using the helper componenets `<b-thead>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`.  While you can use regular table child
@@ -2358,10 +2363,10 @@ may these two HTML5 elements directly in `<b-table-simple>`.
   A `<b-td>` placed in `<b-thead>` or `<b-tfoot>` will have no `scope` attribute by default. You can
   override the automatic `scope` and `role` values by setting the apropriate attribute on the helper
   component.
-- For `<b-tbody>`, `<b-thead>`, `<b-tfoot> helper components, the apropriate default
-  `role` of `'rowgroup'` will be applied, unless you overide the role by supplying a `role` attribute.
+- For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the apropriate default `role` of
+ `'rowgroup'` will be applied, unless you overide the role by supplying a `role` attribute.
 - For the `<b-tr>` helper component, the apropriate default `role` of `row` will be applied, unless
-  you overide the role by supplying a `role` attribute.
+  you overide the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
 - The `<b-tbody>` element supports rendering a Vue `<transition-group>` when either, or both, of the
   `tbody-transition-props` and `tbody-transition-handlers` props are used. See the
   [Table body transition support](#table-body-transition-support) section for more details.
@@ -2371,27 +2376,29 @@ may these two HTML5 elements directly in `<b-table-simple>`.
 The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
 provide the best accessibility markup possible.
 
-When using `<b-table-simple>` with the helper table component, elements will have the appropriate roles
-applied by default, of which you can optionally override. When using click handlers on the
+When using `<b-table-simple>` with the helper table components, elements will have the appropriate
+roles applied by default, of which you can optionally override. When using click handlers on the
 `<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and set
-`tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users.
+`tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users. You
+should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>ENTER</kbd> to trigger
+your click on cells or rows (required for accessibility for keyboard-only users).
 
 ### Heading accessibility
 
 When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
-registered, the header (and footer) `<th>` cells will be placed into the document tab sequence (via
-`tabindex="0"`) for accessibility by keyboard-only and screen reader users, so that the user may
-trigger a click on the header cells.
+registered, the header (and footer) `<th>` cells will be placed
+into the document tab sequence (via `tabindex="0"`) for accessibility by keyboard-only and screen
+reader users, so that the user may trigger a click (by pressing <kbd>ENTER</kbd> on the header cells.
 
 ### Data row accessibility
 
 When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered, all data item rows (`<tr>` elements) will be placed into the document tab
-sequence (via `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click
-the rows.
+listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
+placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
+users the ability to click the rows by pressing <kbd>ENTER</kbd>.
 
-When the table items rows are placed in the document tab sequence, they will also support basic
-keyboard navigation when focused:
+When the table items rows are placed in the document tab sequence  (`<b-table>` and `<b-table-lite>`),
+they will also support basic keyboard navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row
