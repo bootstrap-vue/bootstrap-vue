@@ -78,17 +78,27 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       const headOrFoot = this.bvTableThead || this.bvTableTfoot
       const colspan = parseSpan(this.colspan)
       const rowspan = parseSpan(this.rowspan)
-      const hasContent = this.hasNormalizedSlot('default')
+      let scope = null
+      let role = 'cell'
+
+      // Compute role and scope
+      if (headOrFoot) {
+        role = 'columnheader'
+        // td's in a header/footer have no scope by default
+        if (this.header) {
+          scope = colspan > 0 ? 'colspan' : 'col'
+        }
+      } else if (this.header) {
+        // th's in tbody
+        role = 'rowheader'
+        scope = rowspan > 0 ? 'rowgroup' : 'row'
+      }
+
       return {
         colspan: colspan,
         rowspan: rowspan,
-        role: headOrFoot ? 'columnheader' : this.header ? 'rowheader' : 'cell',
-        scope:
-          headOrFoot
-            ? (colspan > 0 ? 'colspan' : (hasContent ? 'col' : null))
-            : this.header // in tbody
-              ? (rowspan > 0 ? 'rowgroup' : 'row')
-              : null,
+        role: role,
+        scope: scope,
         'data-label': this.isStacked ? this.stackedHeading || '' : null,
         // Allow users to override role/scope plus add other attributes
         ...this.$attrs
