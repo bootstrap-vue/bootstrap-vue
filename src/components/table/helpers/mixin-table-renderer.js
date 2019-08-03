@@ -43,6 +43,10 @@ export default {
       type: Boolean,
       default: false
     },
+    captionTop: {
+      type: Boolean,
+      default: false
+    },
     responsive: {
       type: [Boolean, String],
       default: false
@@ -83,7 +87,8 @@ export default {
           'table-sm': this.small,
           // The following are b-table custom styles
           border: this.outlined,
-          'b-table-fixed': this.fixed
+          'b-table-fixed': this.fixed,
+          'b-table-coption-top': this.captionTop
         },
         // Stacked table classes
         this.stackedTableClasses,
