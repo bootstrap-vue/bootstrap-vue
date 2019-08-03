@@ -2146,7 +2146,8 @@ The `<b-table-simple>` component gives the user complete control over the render
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
 of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
-`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and `<colgroup>`.
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and
+`<colgroup>`+`<col>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available but
@@ -2268,7 +2269,7 @@ Here is the same table as above, which has the etra markup to handle stacked mod
     <b-tbody>
       <b-tr>
         <b-th rowspan="3" class="text-center">Belgium (3 Cities)</b-th>
-        <b-thstacked-heading="City" class="text-left">Antwerp</b-th>
+        <b-th stacked-heading="City" class="text-left">Antwerp</b-th>
         <b-td stacked-heading="Clothes: Trousers">56</b-td>
         <b-td stacked-heading="Clothes: Skirts">22</b-td>
         <b-td stacked-heading="Clothes: Dresses">43</b-td>
@@ -2281,10 +2282,10 @@ Here is the same table as above, which has the etra markup to handle stacked mod
         <b-td stacked-heading="Clothes: Skirts" variant="warning">18</b-td>
         <b-td stacked-heading="Clothes: Dresses">50</b-td>
         <b-td stacked-heading="Accessories: Bracelets">61</b-td>
-        <b-td variant="danger">15</b-td>
+        <b-td stacked-heading="Accessories: Rings" variant="danger">15</b-td>
       </b-tr>
       <b-tr>
-        <b-th class="text-right" stacked-heading="City">Brussels</b-th>
+        <b-th stacked-heading="City">Brussels</b-th>
         <b-td stacked-heading="Clothes: Trousers">51</b-td>
         <b-td stacked-heading="Clothes: Skirts">27</b-td>
         <b-td stacked-heading="Clothes: Dresses">38</b-td>
@@ -2353,8 +2354,8 @@ In the [Simple tables](#simple-tables) example, we are using the helper componen
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`.  While you can use regular table child
 elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
 `top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
-helper components. Note that there are no helper components for `<caption>` or `<colgroup>`, so you
-may these two HTML5 elements directly in `<b-table-simple>`.
+helper components. Note that there are no helper components for `<caption>` or `<colgroup>`+`<col>`,
+so you may these two HTML5 elements directly in `<b-table-simple>`.
 
 - Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
   apply one of the Bootstrap theme colors (custom theme colors are supported via
