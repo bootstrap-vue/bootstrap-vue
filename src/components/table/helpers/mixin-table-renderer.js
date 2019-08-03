@@ -43,13 +43,17 @@ export default {
       type: Boolean,
       default: false
     },
+    responsive: {
+      type: [Boolean, String],
+      default: false
+    },
     captionTop: {
       type: Boolean,
       default: false
     },
-    responsive: {
-      type: [Boolean, String],
-      default: false
+    tableVariant: {
+      type: String,
+      default: null
     },
     tableClass: {
       type: [String, Array, Object],
@@ -90,6 +94,7 @@ export default {
           'b-table-fixed': this.fixed,
           'b-table-caption-top': this.captionTop
         },
+        this.tableVariant ? `${this.dark ? 'bg' : 'table'}-${this.tableVariant}` : '',
         // Stacked table classes
         this.stackedTableClasses,
         // Selectable classes
