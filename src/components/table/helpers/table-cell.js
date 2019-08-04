@@ -1,4 +1,5 @@
 import Vue from '../../../utils/vue'
+import { toString } from '../../../utils/string'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
@@ -8,12 +9,6 @@ const digitsRx = /^\d+$/
 const parseSpan = val => {
   val = parseInt(val, 10)
   return digitsRx.test(String(val)) && val > 0 ? val : null
-}
-
-// Returns a rowspan or colspan as a string, or null if < 2 or NaN
-const computeSpan = val => {
-  val = parseSpan(val)
-  return val > 1 ? String(val) : null
 }
 
 /* istanbul ignore next */
@@ -50,6 +45,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
+    // Injections for feature / attribute detection
     bvTable: {
       default: null
     },
@@ -78,16 +74,16 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
     computedColspan() {
-      return computeSpan(this.colspan)
+      return parseSpan(this.colspan)
     },
     computedRowspan() {
-      return computeSpan(this.rowspan)
+      return parseSpan(this.rowspan)
     },
     cellAttrs() {
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
       const headOrFoot = this.bvTableThead || this.bvTableTfoot
-      // Make sure col/rowspans are > 1 or null
+      // Make sure col/rowspans are > 0 or null
       const colspan = this.computedColspan
       const rowspan = this.computedRowspan
       // Default role and scope
@@ -95,16 +91,14 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       let scope = null
 
       // Compute role and scope
+      // We only add scops with an explicit span of 1 or greater
       if (headOrFoot) {
         role = 'columnheader'
-        // td's in a header/footer have no scope by default
-        if (this.header) {
-          scope = colspan > 1 ? 'colspan' : 'col'
-        }
+        scope = colspan > 0 ? 'colspan' : 'col'
       } else if (this.header) {
         // th's in tbody
         role = 'rowheader'
-        scope = rowspan > 1 ? 'rowgroup' : 'row'
+        scope = rowspan > 0 ? 'rowgroup' : 'row'
       }
 
       return {
@@ -114,7 +108,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         scope: scope,
         // Add in the stacked cell label data-attribute if in
         // stacked mode (if a stacked heading label is provided)
-        'data-label': this.isStacked && this.stackedHeading ? String(this.stackedHeading) : null,
+        'data-label': this.isStacked && this.stackedHeading ? toString(this.stackedHeading) : null,
         // Allow users to override role/scope plus add other attributes
         ...this.$attrs
       }
