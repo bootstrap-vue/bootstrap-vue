@@ -29,10 +29,7 @@ const TableSimplePlugin = /*#__PURE__*/ pluginFactory({
 
 const TablePlugin = /*#__PURE__*/ pluginFactory({
   components: {
-    BTable,
-    BTr,
-    BTd,
-    BTh
+    BTable
   },
   plugins: {
     TableLitePlugin,
