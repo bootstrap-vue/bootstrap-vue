@@ -2335,6 +2335,12 @@ certain breakpoint (which should match the stacked responsive breakpoint you hav
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
 and `<th>` element tags will not work as expected.
 
+### Simple table as a plugin
+
+The `TablePlugin` include `<b-table-simple>` and all of the helper components. For convenience,
+BootstrapVue also provides a `TableSimplePlugin` which installs `<b-table-simple>` and all of the
+helper components. `TableSimplePlugin` is available as a top level named export.
+
 ## Table helper components
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
