@@ -8,6 +8,10 @@
     "components": [
       {
         "component": "BTable",
+        "plugins": [
+          "TableLitePlugin",
+          "TableSimplePlugin"
+        ],
         "events": [
           {
             "event": "row-clicked",
