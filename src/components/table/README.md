@@ -1164,7 +1164,7 @@ than native browser table child elements.
           <b-td colspan="2">&nbsp;</b-td>
           <b-th variant="secondary">Type 1</b-th>
           <b-th variant="primary" colspan="3">Type 2</b-th>
-          <b-th variant="secondary">Type 3</b-th>
+          <b-th variant="danger">Type 3</b-th>
         </b-tr>
       </template>
     </b-table>
@@ -2138,6 +2138,12 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 - Fixed top and bottom rows
 - Empty row support
 
+### Table lite as a plugin
+
+The `TablePlugin` includes `<b-table-lite>`. For convenience, BootstrapVue also provides a
+`TableLitePlugin` which installs only `<b-table-lite>`. `TableLitePlugin` is available as a top
+level named export.
+
 ## Simple tables
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
@@ -2151,7 +2157,7 @@ of the BootstrapVue [table helper components](#table-helper-components): `<b-the
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available but
-requires some additional markup to generate teh cell headings, as described in the
+requires some additional markup to generate the cell headings, as described in the
 [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
@@ -2242,7 +2248,7 @@ element.
 ### Simple tables and stacked mode
 
 A bit of additional markup is required on your `<b-table-simple>` body cells when the table is in
-stacked mode. Specifically, BootstrapVue uses a spaecial data attribute to create the cell's heading,
+stacked mode. Specifically, BootstrapVue uses a special data attribute to create the cell's heading,
 of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop.  Only plain strings
 are supported (not HTML markup), as we use the pseudo element `::before` and css `content` property.
 
@@ -2324,20 +2330,24 @@ stacked mode (specifically for generating the cell headings):
 <!-- b-table-simple-stacked.vue -->
 ```
 
-Like `<b-table>` and `<b-table-lite>`, table headers and footers are visually hidden when the table
-is stacked. If you need a header or footer, you can do so by creating an extra `<b-tr>` inside of the
-`<b-tbody>` component, and set a role of `columnheader` on the child `<b-th>` cells, and use Bootstrap
-v4 [responsive display utility classes](/docs/reference/utility-classes) to hide the extra row above a
-certain breakpoint (which should match the stacked responsive breakpoint you have set), i.e.
-`<b-tr class="d-md-none">` would hide the row on medium and wider screens.
+Like `<b-table>` and `<b-table-lite>`, table headers (`<thead>`) and footers (`<tfoot>`) are visually
+hidden when the table is visually stacked. If you need a header or footer, you can do so by creating an
+extra `<b-tr>` inside of the `<b-tbody>` component (or in a second `<b-tbody>` component), and set a role
+of `columnheader` on the child `<b-th>` cells, and use Bootstrap v4
+[responsive display utility classes](/docs/reference/utility-classes) to hide the extra row (or
+`<b-tbody>`) above a certain breakpoint when the table is no longer visually stacked (the breakpoint
+should match the stacked table breakpoint you have set), i.e. `<b-tr class="d-md-none">` would hide the
+row on medium and wider screens, while `<b-tbody class="d-md-none">` would hide the row group on medium
+and wider screens.
 
 **Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
-and `<th>` element tags will not work as expected.
+and `<th>` element tags will not work as expected, not automatically apply any of the required
+accessibility attributes.
 
-### Simple table as a plugin
+### Table simple as a plugin
 
-The `TablePlugin` include `<b-table-simple>` and all of the helper components. For convenience,
+The `TablePlugin` includes `<b-table-simple>` and all of the helper components. For convenience,
 BootstrapVue also provides a `TableSimplePlugin` which installs `<b-table-simple>` and all of the
 helper components. `TableSimplePlugin` is available as a top level named export.
 
