@@ -17,7 +17,7 @@ const defaultSortCompare = (a, b, sortBy, sortDesc, formatter, localeOpts, local
     aa = formatter(aa, sortBy, a)
     bb = formatter(bb, sortBy, b)
   }
-  // Special handling when null/undefined sorted last
+  // Special handling when `null`/`undefined` sorted last
   if (nullLast && isUndefinedOrNull(aa) && !isUndefinedOrNull(bb)) {
     return 1
   } else if (nullLast && !isUndefinedOrNull(aa) && isUndefinedOrNull(bb)) {

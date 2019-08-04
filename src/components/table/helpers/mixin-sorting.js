@@ -11,15 +11,14 @@ export default {
       default: ''
     },
     sortDesc: {
-      // To Do: Make this tri-state: true, false, null
+      // TODO: Make this tri-state: true, false, null
       type: Boolean,
       default: false
     },
     sortDirection: {
-      // This prop is named incorrectly.
-      // It should be initialSortDirection
-      // As it is a bit misleading (not to mention screws up
-      // the Aria Label on the headers)
+      // This prop is named incorrectly
+      // It should be `initialSortDirection` as it is a bit misleading
+      // (not to mention it screws up the ARIA label on the headers)
       type: String,
       default: 'asc',
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)

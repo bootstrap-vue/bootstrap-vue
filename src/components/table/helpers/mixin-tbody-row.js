@@ -93,7 +93,7 @@ export default {
       } else if (
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
-        // Keboard navigation of rows
+        // Keyboard navigation of rows
         evt.stopPropagation()
         evt.preventDefault()
         const shift = evt.shiftKey
@@ -278,11 +278,11 @@ export default {
               //   Could make all of this (including the above click/key handlers)
               //   the result of a factory function and/or make it a delegated event
               //   handler on the tbody (if we store the row index as a data-attribute
-              //   on the TR as we can loookup the item data from the computedItems array
+              //   on the TR as we can lookup the item data from the computedItems array
               //   or it could be a hidden prop (via attrs) on BTr instance)
               auxclick: evtFactory(this.middleMouseRowClicked, item, rowIndex),
               contextmenu: evtFactory(this.rowContextmenu, item, rowIndex),
-              // Note: these events are not accessibility friendly!
+              // Note: These events are not accessibility friendly!
               dblclick: evtFactory(this.rowDblClicked, item, rowIndex),
               mouseenter: evtFactory(this.rowHovered, item, rowIndex),
               mouseleave: evtFactory(this.rowUnhovered, item, rowIndex)

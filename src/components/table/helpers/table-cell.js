@@ -83,7 +83,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
       const headOrFoot = this.bvTableThead || this.bvTableTfoot
-      // Make sure col/rowspans are > 0 or null
+      // Make sure col/rowspan's are > 0 or null
       const colspan = this.computedColspan
       const rowspan = this.computedRowspan
       // Default role and scope
@@ -91,7 +91,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       let scope = null
 
       // Compute role and scope
-      // We only add scops with an explicit span of 1 or greater
+      // We only add scopes with an explicit span of 1 or greater
       if (headOrFoot) {
         role = 'columnheader'
         scope = colspan > 0 ? 'colspan' : 'col'

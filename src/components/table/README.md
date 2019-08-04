@@ -424,6 +424,7 @@ details.
 | `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
 | `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
+
 **Note:** table style options `fixed`, `stacked`, and `caption-top`, and the table sorting feature,
 requires BootstrapVue's custom CSS.
 
@@ -1147,9 +1148,9 @@ scoped slots (even when disabled)
 <span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
 
 If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
-is inserted before the header cells row, and is not automatically encapsulated by `<tr>..</tr>` tags.
-It is recommended to use the BootstrapVue [table helper components](#table-helper-components), rather
-than native browser table child elements.
+is inserted before the header cells row, and is not automatically encapsulated by `<tr>..</tr>`
+tags. It is recommended to use the BootstrapVue [table helper components](#table-helper-components),
+rather than native browser table child elements.
 
 ```html
 <template>
@@ -1605,7 +1606,7 @@ if it is an object and then sorted.
   value. This is only applicable for the built-in sort-compare routine.
 - <span class="badge badge-info small">NEW in v2.0.0-rc.28</span> By default, the internal sorting
   routine will sort `null` or `undefined` values first (less than any other values). To sort so that
-  `null` or `undefined` values appear last (greater than any otehr value), set the `sort-null-last`
+  `null` or `undefined` values appear last (greater than any other value), set the `sort-null-last`
   prop to `true`.
 
 For customizing the sort-compare handling, refer to the
@@ -1694,8 +1695,8 @@ optional:
 - the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
   `undefined` if no field formatter). You will need to call this method to get the formatted field
   value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
-  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property
-  is not `true`
+  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property is
+  not `true`
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -2156,8 +2157,8 @@ of the BootstrapVue [table helper components](#table-helper-components): `<b-the
 `<colgroup>`+`<col>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
-`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available but
-requires some additional markup to generate the cell headings, as described in the
+`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available
+but requires some additional markup to generate the cell headings, as described in the
 [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
@@ -2249,7 +2250,7 @@ element.
 
 A bit of additional markup is required on your `<b-table-simple>` body cells when the table is in
 stacked mode. Specifically, BootstrapVue uses a special data attribute to create the cell's heading,
-of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop.  Only plain strings
+of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop. Only plain strings
 are supported (not HTML markup), as we use the pseudo element `::before` and css `content` property.
 
 Here is the same table as above, set to be always stacked, which has the extra markup to handle
@@ -2330,15 +2331,15 @@ stacked mode (specifically for generating the cell headings):
 <!-- b-table-simple-stacked.vue -->
 ```
 
-Like `<b-table>` and `<b-table-lite>`, table headers (`<thead>`) and footers (`<tfoot>`) are visually
-hidden when the table is visually stacked. If you need a header or footer, you can do so by creating an
-extra `<b-tr>` inside of the `<b-tbody>` component (or in a second `<b-tbody>` component), and set a role
-of `columnheader` on the child `<b-th>` cells, and use Bootstrap v4
+Like `<b-table>` and `<b-table-lite>`, table headers (`<thead>`) and footers (`<tfoot>`) are
+visually hidden when the table is visually stacked. If you need a header or footer, you can do so by
+creating an extra `<b-tr>` inside of the `<b-tbody>` component (or in a second `<b-tbody>`
+component), and set a role of `columnheader` on the child `<b-th>` cells, and use Bootstrap v4
 [responsive display utility classes](/docs/reference/utility-classes) to hide the extra row (or
 `<b-tbody>`) above a certain breakpoint when the table is no longer visually stacked (the breakpoint
-should match the stacked table breakpoint you have set), i.e. `<b-tr class="d-md-none">` would hide the
-row on medium and wider screens, while `<b-tbody class="d-md-none">` would hide the row group on medium
-and wider screens.
+should match the stacked table breakpoint you have set), i.e. `<b-tr class="d-md-none">` would hide
+the row on medium and wider screens, while `<b-tbody class="d-md-none">` would hide the row group on
+medium and wider screens.
 
 **Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
@@ -2355,9 +2356,9 @@ helper components. `TableSimplePlugin` is available as a top level named export.
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
 
-BootstapVue provides additional helper child components when using `<b-table-simple>`, or the named
-slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The helper
-components are as follows:
+BootstrapVue provides additional helper child components when using `<b-table-simple>`, or the named
+slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The
+helper components are as follows:
 
 - `b-tbody`
 - `b-thead`
@@ -2366,13 +2367,13 @@ components are as follows:
 - `b-td`
 - `b-th`
 
-These components are optimized to handle converting variants to the apropriate classes (such as
+These components are optimized to handle converting variants to the appropriate classes (such as
 handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
 `role`s and `scope`s) and can handle the stacked table requirements. Components `<b-table>` and
 `<b-table-lite>` use these helper components internally.
 
-In the [Simple tables](#simple-tables) example, we are using the helper componenets `<b-thead>`,
-`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`.  While you can use regular table child
+In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
 elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
 `top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
 helper components. Note that there are no helper components for `<caption>` or `<colgroup>`+`<col>`,
@@ -2380,21 +2381,21 @@ so you may these two HTML5 elements directly in `<b-table-simple>`.
 
 - Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
   apply one of the Bootstrap theme colors (custom theme colors are supported via
-  [theming](/docs/reference/theming).) and will automaticallly adjust to use the correct variant
+  [theming](/docs/reference/theming).) and will automatically adjust to use the correct variant
   class based on the table's `dark` mode.
 - The helper components `<b-thead>`, `<b-tfoot>` accept a `head-variant` and `foot-variant` prop
   respectively. Supported values are `'dark'`, `'light'` or `null` (`null` uses the default table
   background). These variants also control the text color (light text for `'dark'` variant, and dark
   text for the `'light'` variant).
 - Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
-  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan` props.
-  A `<b-td>` placed in `<b-thead>` or `<b-tfoot>` will have no `scope` attribute by default. You can
-  override the automatic `scope` and `role` values by setting the apropriate attribute on the helper
-  component.
-- For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the apropriate default `role` of
- `'rowgroup'` will be applied, unless you overide the role by supplying a `role` attribute.
-- For the `<b-tr>` helper component, the apropriate default `role` of `row` will be applied, unless
-  you overide the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
+  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan`
+  props. A `<b-td>` placed in `<b-thead>` or `<b-tfoot>` will have no `scope` attribute by default.
+  You can override the automatic `scope` and `role` values by setting the appropriate attribute on
+  the helper component.
+- For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the appropriate default `role` of
+  `'rowgroup'` will be applied, unless you override the role by supplying a `role` attribute.
+- For the `<b-tr>` helper component, the appropriate default `role` of `row` will be applied, unless
+  you override the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
 - The `<b-tbody>` element supports rendering a Vue `<transition-group>` when either, or both, of the
   `tbody-transition-props` and `tbody-transition-handlers` props are used. See the
   [Table body transition support](#table-body-transition-support) section for more details.
@@ -2406,17 +2407,17 @@ provide the best accessibility markup possible.
 
 When using `<b-table-simple>` with the helper table components, elements will have the appropriate
 roles applied by default, of which you can optionally override. When using click handlers on the
-`<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and set
-`tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users. You
-should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>ENTER</kbd> to trigger
-your click on cells or rows (required for accessibility for keyboard-only users).
+`<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and
+set `tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users.
+You should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>ENTER</kbd> to
+trigger your click on cells or rows (required for accessibility for keyboard-only users).
 
 ### Heading accessibility
 
 When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
-registered, the header (and footer) `<th>` cells will be placed
-into the document tab sequence (via `tabindex="0"`) for accessibility by keyboard-only and screen
-reader users, so that the user may trigger a click (by pressing <kbd>ENTER</kbd> on the header cells.
+registered, the header (and footer) `<th>` cells will be placed into the document tab sequence (via
+`tabindex="0"`) for accessibility by keyboard-only and screen reader users, so that the user may
+trigger a click (by pressing <kbd>ENTER</kbd> on the header cells.
 
 ### Data row accessibility
 
@@ -2425,8 +2426,8 @@ listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr
 placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
 users the ability to click the rows by pressing <kbd>ENTER</kbd>.
 
-When the table items rows are placed in the document tab sequence  (`<b-table>` and `<b-table-lite>`),
-they will also support basic keyboard navigation when focused:
+When the table items rows are placed in the document tab sequence (`<b-table>` and
+`<b-table-lite>`), they will also support basic keyboard navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row

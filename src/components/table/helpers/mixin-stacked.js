@@ -9,11 +9,10 @@ export default {
   },
   computed: {
     isStacked() {
-      // Ture when always stacked, or breakpoint specified
+      // `true` when always stacked, or breakpoint specified
       return this.stacked === '' ? true : Boolean(this.stacked)
     },
     isStackedAlways() {
-      // True when stacked === true or stacked === ''
       return this.stacked === true || this.stacked === ''
     },
     stackedTableClasses() {
