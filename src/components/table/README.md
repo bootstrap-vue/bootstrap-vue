@@ -1604,9 +1604,8 @@ if it is an object and then sorted.
 
 **Notes:**
 
-- The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
-  field data: scoped slots are used only for _presentation only_, and do not affect the underlying
-  data.
+- The built-in `sort-compare` routine **cannot** sort based on the custom rendering of the field
+  data: scoped slots are used only for _presentation only_, and do not affect the underlying data.
 - <span class="badge badge-info small">NEW in v2.0.0-rc.25</span>
   <span class="badge badge-warning small">CHANGED in v2.0.0-rc.28</span> Fields that have a
   [`formatter` function](#formatter-callback) (virtual field or regular field) can be sorted by the
