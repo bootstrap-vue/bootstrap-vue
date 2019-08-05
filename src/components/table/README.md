@@ -1335,7 +1335,7 @@ initially showing.
 
 ### Row select support
 
-You can make rows selectable, by using the prop `selectable`.
+You can make rows selectable, by using the `<b-table>` prop `selectable`.
 
 Users can easily change the selecting mode by setting the `select-mode` prop.
 
@@ -1364,9 +1364,18 @@ as read-only.**
       @row-selected="rowSelected"
       responsive="sm"
     >
-      <!-- Example scoped slot for illustrative purposes only -->
+      <!-- We use colgroup to set some widths for styling only -->
+      <template slot="table-colgroup">
+        <col style="width: 75px;">
+        <col style="width: 125px;">
+        <col style="width: 75px;">
+        <col>
+        <col>
+      </template>
+      <!-- Example scoped slot for select state illustrative purposes -->
       <template slot="[selected]" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">✔</span>
+        <span v-if="rowSelected">☑</span>
+        <span v-else>☐</span>
       </template>
     </b-table>
 
@@ -2128,7 +2137,7 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 `<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple display of
 tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of
-`<b-table>` (including row details support), while **excluding** the following features:
+`<b-table>` (including row details and stacked support), while **excluding** the following features:
 
 - Filtering
 - Sorting
