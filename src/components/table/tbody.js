@@ -27,7 +27,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  props: props,
+  props,
   computed: {
     isTransitionGroup() {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers

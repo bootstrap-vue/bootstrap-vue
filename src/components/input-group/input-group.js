@@ -35,7 +35,7 @@ export const props = {
 export const BInputGroup = /*#__PURE__*/ Vue.extend({
   name: 'BInputGroup',
   functional: true,
-  props: props,
+  props,
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}

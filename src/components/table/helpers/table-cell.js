@@ -59,7 +59,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  props: props,
+  props,
   computed: {
     isDark() {
       return this.bvTable && this.bvTable.dark

@@ -23,7 +23,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  props: props,
+  props,
   computed: {
     tfootClasses() {
       return [this.footVariant ? `thead-${this.footVariant}` : null]

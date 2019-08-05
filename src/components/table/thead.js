@@ -23,7 +23,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  props: props,
+  props,
   computed: {
     theadClasses() {
       return [this.headVariant ? `thead-${this.headVariant}` : null]

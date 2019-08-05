@@ -8,7 +8,7 @@ export const props = omit(cellProps, ['header'])
 export const BTd = /*#__PURE__*/ Vue.extend({
   name: 'BTd',
   functional: true,
-  props: props,
+  props,
   render(h, { props, data, children }) {
     // `data` already includes any listeners
     data.props = { ...props, header: false }

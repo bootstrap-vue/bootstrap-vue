@@ -11,7 +11,7 @@ const props = {
 
 export default {
   mixins: [tbodyRowMixin],
-  props: props,
+  props,
   methods: {
     renderTbody() {
       // Render the tbody element and children
