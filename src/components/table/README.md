@@ -1385,7 +1385,7 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
 
 **Notes:**
 
-- The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
+- The built-in `sort-compare` routine **cannot** sort based on the custom rendering of the
   field data (scoped slots are used only for presentation only, and do not affect the underlying
   data).
 - <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> Fields that have a
