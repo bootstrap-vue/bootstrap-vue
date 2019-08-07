@@ -1626,8 +1626,8 @@ The internal sort-compare routine uses
 [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
 for comparing the stringified column value (if values being compared are not both `Number` or both
 `Date` types). The browser native `localeCompare()` method accepts a `locale` string (or array of
-strings) and an `options` object for controlling how strings are sorted. The default options used is
-`{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
+locale strings) and an `options` object for controlling how strings are sorted. The default options
+are `{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or
 locales) via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort
@@ -1635,8 +1635,8 @@ options via the `sort-compare-options` prop.
 
 The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
 default locale. The prop `sort-compare-locale` can either accept a
-[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For more
-details on locales, please see
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
+more details on locales, please see
 [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
 on MDN.
 
