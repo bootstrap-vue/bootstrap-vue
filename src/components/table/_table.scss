@@ -35,11 +35,19 @@
   // Default max-height before scrollbar will show. We don't use
   // `height` as table could be shorter than this value.
   max-height: $b-table-sticky-header-max-height;
+  // Move the table bottom margin to the wrapper
+  margin-bottom: $spacer;
+  
+  > .table {
+    // Reset margin-bottom to we don't get a
+    // space after the table in the scroll area
+    margin-bottom: 0;
+  }
 }
 
 @supports (position: sticky) {
   .b-table-sticky-header {
-    > table {
+    > .table {
       > thead > tr {
         > th,
         > td {
@@ -52,15 +60,18 @@
       // Default theme color background for table headers.
       // Applied only when no variant is applied to the rows, or no head-variant.
       // Needed because Bootstrap v4 doesn't have table child elements
-      // set up to inherit their background from parent element
+      // set up to inherit their background from parent element by default
+
       > thead > tr > th.table-b-table-default,
       > thead > tr > td.table-b-table-default {
+        color: $table-color;
         // Default header background. `$table-bg` is null by default in Bootstrap v4 variables
         background-color: if($table-head-bg, $table-head-bg, if($table-bg, $table-bg, $body-bg));
       }
 
-      &.dark > thead > tr > th.bg-b-table-default,
-      &.dark > thead > tr > td.bg-b-table-default {
+      &.table-dark > thead > tr > th.bg-b-table-default,
+      &.table-dark > thead > tr > td.bg-b-table-default {
+        color: $table-dark-color;
         // Default header background in table dark mode.
         background-color: $table-dark-bg;
       }
