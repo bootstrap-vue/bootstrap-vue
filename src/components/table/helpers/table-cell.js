@@ -1,5 +1,5 @@
 import Vue from '../../../utils/vue'
-import toString from '../../../utils/to-string'
+import { toString } from '../../../utils/string'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import normalizeSlotMixin from '../../../mixins/normalize-slot'
 
