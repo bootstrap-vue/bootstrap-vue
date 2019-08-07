@@ -48,7 +48,8 @@ export default {
       default: false
     },
     stickyHeader: {
-      type: Boolean,
+      // If a string, it is assumed to be the table max-height value
+      type: [Boolean, String],
       default: false
     },
     captionTop: {
@@ -71,7 +72,8 @@ export default {
       return this.isStacked ? false : responsive
     },
     isStickyHeader() {
-      return this.isStacked ? false : this.stickyHeader
+      const stickyHeader = this.stickyHeader === '' ? true : this.stickyHeader
+      return this.isStacked ? false : stickyHeader
     },
     wrapperClasses() {
       return [
@@ -82,6 +84,11 @@ export default {
             ? `table-responsive-${this.responsive}`
             : ''
       ].filter(Boolean)
+    },
+    wrapperStyles() {
+      return this.isStickyHeader && !isBoolean(this.isStickyHeader)
+        ? { maxHeight: this.isStickyHeader }
+        : {}
     },
     tableClasses() {
       const hover = this.isTableSimple
@@ -181,7 +188,7 @@ export default {
 
     // Add responsive/sticky wrapper if needed and return table
     return this.wrapperClasses.length > 0
-      ? h('div', { key: 'b-table-wrapper', class: this.wrapperClasses }, [$table])
+      ? h('div', { key: 'wrapper', class: this.wrapperClasses, style: this.wrapperStyles }, [$table])
       : $table
   }
 }
