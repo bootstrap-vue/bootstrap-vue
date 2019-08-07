@@ -83,7 +83,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       if (this.isStickyHeader && !variant && !this.bvTableThead.headVariant) {
         // Needed for stickyheader mode as Bootstrap v4 table cells do
         // not inherit parent's background-color
-        variant = this.bvTableTr.variant || this.bvTable.variant || 'b-table-default'
+        variant = this.bvTableTr.variant || this.bvTable.tableVariant || 'b-table-default'
       }
       return [variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null]
     },
