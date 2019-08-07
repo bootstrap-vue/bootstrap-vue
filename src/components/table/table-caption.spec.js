@@ -35,7 +35,7 @@ describe('table > caption', () => {
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
-    expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
+    expect(wrapper.find('table').classes()).not.toContain('b-table-caption-top')
 
     wrapper.destroy()
   })
@@ -111,7 +111,7 @@ describe('table > caption', () => {
     wrapper.destroy()
   })
 
-  it('should render `caption` with class when prop caption-top is set', async () => {
+  it('should render `caption` with table class when prop caption-top is set', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -125,7 +125,7 @@ describe('table > caption', () => {
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
-    expect(wrapper.find('caption').classes()).toContain('b-table-caption-top')
+    expect(wrapper.find('table').classes()).toContain('b-table-caption-top')
 
     wrapper.destroy()
   })

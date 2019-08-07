@@ -5,6 +5,11 @@ export default {
   // Don't place attributes on root element automatically,
   // as table could be wrapped in responsive `<div>`
   inheritAttrs: false,
+  provide() {
+    return {
+      bvTable: this
+    }
+  },
   props: {
     striped: {
       type: Boolean,
@@ -42,6 +47,14 @@ export default {
       type: [Boolean, String],
       default: false
     },
+    captionTop: {
+      type: Boolean,
+      default: false
+    },
+    tableVariant: {
+      type: String,
+      default: null
+    },
     tableClass: {
       type: [String, Array, Object],
       default: null
@@ -78,8 +91,10 @@ export default {
           'table-sm': this.small,
           // The following are b-table custom styles
           border: this.outlined,
-          'b-table-fixed': this.fixed
+          'b-table-fixed': this.fixed,
+          'b-table-caption-top': this.captionTop
         },
+        this.tableVariant ? `${this.dark ? 'bg' : 'table'}-${this.tableVariant}` : '',
         // Stacked table classes
         this.stackedTableClasses,
         // Selectable classes

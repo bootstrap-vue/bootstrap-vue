@@ -1,26 +1,23 @@
+import { props as tbodyProps, BTbody } from '../tbody'
 import tbodyRowMixin from './mixin-tbody-row'
+
+const props = {
+  tbodyClass: {
+    type: [String, Array, Object]
+    // default: undefined
+  },
+  ...tbodyProps
+}
 
 export default {
   mixins: [tbodyRowMixin],
-  props: {
-    tbodyClass: {
-      type: [String, Array],
-      default: null
-    },
-    tbodyTransitionProps: {
-      type: Object
-      // default: undefined
-    },
-    tbodyTransitionHandlers: {
-      type: Object
-      // default: undefined
-    }
-  },
+  props,
   methods: {
     renderTbody() {
       // Render the tbody element and children
-      const h = this.$createElement
       const items = this.computedItems
+      // Shortcut to `createElement` (could use `this._c()` instead)
+      const h = this.$createElement
 
       // Prepare the tbody rows
       const $rows = []
@@ -49,26 +46,15 @@ export default {
         $rows.push(this.renderBottomRow ? this.renderBottomRow() : h())
       }
 
-      // If tbody transition enabled
-      const isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers
-      let tbodyProps = {}
-      let tbodyOn = {}
-      if (isTransGroup) {
-        tbodyOn = this.tbodyTransitionHandlers || {}
-        tbodyProps = {
-          ...(this.tbodyTransitionProps || {}),
-          tag: 'tbody'
-        }
-      }
-
       // Assemble rows into the tbody
       const $tbody = h(
-        isTransGroup ? 'transition-group' : 'tbody',
+        BTbody,
         {
-          props: tbodyProps,
-          on: tbodyOn,
-          class: [this.tbodyClass],
-          attrs: { role: 'rowgroup' }
+          class: this.tbodyClass || null,
+          props: {
+            tbodyTransitionProps: this.tbodyTransitionProps,
+            tbodyTransitionHandlers: this.tbodyTransitionHandlers
+          }
         },
         $rows
       )

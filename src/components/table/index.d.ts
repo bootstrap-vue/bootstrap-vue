@@ -50,6 +50,24 @@ export declare class BTableSimple extends BvComponent {
   id?: string
 }
 
+// Component: b-tbody
+export declare class BTbody extends BvComponent {}
+
+// Component: b-thead
+export declare class BThead extends BvComponent {}
+
+// Component: b-tfoot
+export declare class BTfoot extends BvComponent {}
+
+// Component: b-tr
+export declare class BTr extends BvComponent {}
+
+// Component: b-th
+export declare class BTh extends BvComponent {}
+
+// Component: b-td
+export declare class BTd extends BvComponent {}
+
 export type BvTableVariant =
   | 'active'
   | 'success'
