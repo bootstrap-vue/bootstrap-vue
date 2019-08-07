@@ -178,7 +178,7 @@ export default {
 
     // Add responsive/sticky wrapper if needed and return table
     return this.isResponsive || this.stickyHeader
-      ? h('div', { key: 'b-table-wrapper', class: this.wrapperClasses, [$table])
+      ? h('div', { key: 'b-table-wrapper', class: this.wrapperClasses }, [$table])
       : $table
   }
 }
