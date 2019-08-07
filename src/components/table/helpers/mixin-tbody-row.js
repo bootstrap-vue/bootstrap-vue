@@ -1,7 +1,7 @@
 import KeyCodes from '../../../utils/key-codes'
 import get from '../../../utils/get'
 import { arrayIncludes } from '../../../utils/array'
-import { isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
+import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
