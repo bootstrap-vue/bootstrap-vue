@@ -1,5 +1,6 @@
 // Main `<table>` render mixin
 // Which includes all main table styling options
+import { isBoolean } from '../../../utils/inspect'
 
 export default {
   // Don't place attributes on root element automatically,
