@@ -66,7 +66,7 @@
       > thead > tr > td.table-b-table-default {
         color: $table-color;
         // Default header background. `$table-bg` is null by default in Bootstrap v4 variables
-        background-color: if($table-head-bg, $table-head-bg, if($table-bg, $table-bg, $body-bg));
+        background-color: if($table-bg, $table-bg, $body-bg);
       }
 
       &.table-dark > thead > tr > th.bg-b-table-default,
