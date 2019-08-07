@@ -61,6 +61,7 @@ describe('table/helpers/default-sort-compare', () => {
     const x = { a: 'ab' }
     const y = { a: null }
     const z = {}
+    const w = { a: '' }
     const u = undefined
 
     // Without nullLast set (false)
@@ -70,6 +71,8 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(z, x, 'a', u, u, { numeric: true }, u, false)).toBe(-1)
     expect(defaultSortCompare(y, z, 'a', u, u, { numeric: true }, u, false)).toBe(0)
     expect(defaultSortCompare(z, y, 'a', u, u, { numeric: true }, u, false)).toBe(0)
+    expect(defaultSortCompare(x, w, 'a', u, u, { numeric: true }, u, false)).toBe(1)
+    expect(defaultSortCompare(w, x, 'a', u, u, { numeric: true }, u, false)).toBe(-1)
     // With nullLast set
     expect(defaultSortCompare(x, y, 'a', u, u, { numeric: true }, u, true)).toBe(-1)
     expect(defaultSortCompare(y, x, 'a', u, u, { numeric: true }, u, true)).toBe(1)
@@ -77,5 +80,7 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(z, x, 'a', u, u, { numeric: true }, u, true)).toBe(1)
     expect(defaultSortCompare(y, z, 'a', u, u, { numeric: true }, u, true)).toBe(0)
     expect(defaultSortCompare(z, y, 'a', u, u, { numeric: true }, u, true)).toBe(0)
+    expect(defaultSortCompare(x, w, 'a', u, u, { numeric: true }, u, true)).toBe(-1)
+    expect(defaultSortCompare(w, x, 'a', u, u, { numeric: true }, u, true)).toBe(1)
   })
 })
