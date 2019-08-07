@@ -24,11 +24,11 @@ const defaultSortCompare = (a, b, sortBy, sortDesc, formatter, localeOpts, local
     // Internally dates are compared via their epoch number values
     return aa < bb ? -1 : aa > bb ? 1 : 0
   } else if (nullLast && aa === '' && bb !== '') {
-      // Special case when sorting null/undefined/empty string last
-      return 1
+    // Special case when sorting null/undefined/empty string last
+    return 1
   } else if (nullLast && aa !== '' && bb === '') {
-      // Special case when sorting null/undefined/empty string last
-      return -1
+    // Special case when sorting null/undefined/empty string last
+    return -1
   }
   // Do localized string comparison
   return stringifyObjectValues(aa).localeCompare(stringifyObjectValues(bb), locale, localeOpts)
