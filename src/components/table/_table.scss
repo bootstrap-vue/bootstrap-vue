@@ -34,8 +34,7 @@
   overflow-y: auto;
   // Default max-height before scrollbar will show. We don't use
   // `height` as table could be shorter than this value.
-  // This can be overriden via the sticky-max-height prop
-  max-height: 300px;
+  max-height: $b-table-sticky-header-max-height;
 }
 
 @supports (position: sticky) {
