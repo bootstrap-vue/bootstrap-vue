@@ -57,7 +57,10 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
     },
     bvTableTfoot: {
       default: null
-    }
+    },
+    bvTableTr: {
+      default: null
+    },
   },
   props,
   computed: {
