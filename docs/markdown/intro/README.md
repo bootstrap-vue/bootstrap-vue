@@ -29,7 +29,7 @@ Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, 
 and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
-Many of the examples in this documentation are _live_ and can be edited in-place for for an enhanced
+Many of the examples in this documentation are _live_ and can be edited in-place for an enhanced
 learning experience.
 
 BootstrapVue also provides an [interactive playground](/play) where you can experiment with the
