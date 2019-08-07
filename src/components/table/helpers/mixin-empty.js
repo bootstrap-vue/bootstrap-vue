@@ -1,5 +1,7 @@
 import { htmlOrText } from '../../../utils/html'
 import { isFunction } from '../../../utils/inspect'
+import { BTr } from '../tr'
+import { BTd } from '../td'
 
 export default {
   props: {
@@ -50,27 +52,19 @@ export default {
               : htmlOrText(this.emptyHtml, this.emptyText)
           })
         }
+        $empty = h(BTd, { props: { colspan: this.computedFields.length || null } }, [
+          h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [$empty])
+        ])
         $empty = h(
-          'td',
+          BTr,
           {
-            attrs: {
-              colspan: String(this.computedFields.length),
-              role: 'cell'
-            }
-          },
-          [h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [$empty])]
-        )
-        $empty = h(
-          'tr',
-          {
-            key: this.isFiltered ? '_b-table-empty-filtered-row_' : '_b-table-empty-row_',
+            key: this.isFiltered ? 'b-empty-filtered-row' : 'b-empty-row',
             staticClass: 'b-table-empty-row',
             class: [
               isFunction(this.tbodyTrClass)
                 ? this.tbodyTrClass(null, 'row-empty')
                 : this.tbodyTrClass
-            ],
-            attrs: { role: 'row' }
+            ]
           },
           [$empty]
         )

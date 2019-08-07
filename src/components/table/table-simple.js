@@ -7,6 +7,9 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Main table renderer mixin
 import tableRendererMixin from './helpers/mixin-table-renderer'
 
+// Feature miins
+import stackedMixin from './helpers/mixin-stacked'
+
 // b-table-simple component definition
 // @vue/component
 export const BTableSimple = /*#__PURE__*/ Vue.extend({
@@ -17,7 +20,11 @@ export const BTableSimple = /*#__PURE__*/ Vue.extend({
     // Required mixins
     idMixin,
     normalizeSlotMixin,
-    tableRendererMixin
+    tableRendererMixin,
+    // feature mixin
+    // Stacked requires extra handling by users via
+    // the table cell `stacked-heading` prop
+    stackedMixin
   ],
   computed: {
     isTableSimple() {
