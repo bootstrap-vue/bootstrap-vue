@@ -47,6 +47,10 @@ export default {
       type: [Boolean, String],
       default: false
     },
+    stickyHeader: {
+      type: Boolean,
+      default: false
+    },
     captionTop: {
       type: Boolean,
       default: false
@@ -66,12 +70,15 @@ export default {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
     },
-    responsiveClass() {
-      return this.isResponsive === true
-        ? 'table-responsive'
-        : this.isResponsive
-          ? `table-responsive-${this.responsive}`
-          : ''
+    wrapperClasses() {
+      return [
+        this.stickyHeader ? 'b-table-sticky-header' : '',
+        this.isResponsive === true
+          ? 'table-responsive'
+          : this.isResponsive
+            ? `table-responsive-${this.responsive}`
+            : ''
+      ]
     },
     tableClasses() {
       const hover = this.isTableSimple
@@ -169,9 +176,9 @@ export default {
       $content.filter(Boolean)
     )
 
-    // Add responsive wrapper if needed and return table
-    return this.isResponsive
-      ? h('div', { key: 'b-table-responsive', class: this.responsiveClass }, [$table])
+    // Add responsive/sticky wrapper if needed and return table
+    return this.isResponsive || this.stickyHeader
+      ? h('div', { key: 'b-table-wrapper', class: this.wrapperClasses, [$table])
       : $table
   }
 }
