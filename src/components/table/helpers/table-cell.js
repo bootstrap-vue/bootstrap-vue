@@ -68,10 +68,21 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       // We only support stacked-heading in tbody in stacked mode
       return this.bvTableTbody && this.bvTable && this.bvTable.isStacked
     },
+    isStickyHeader() {
+      // Needed to handle header background classes, due to lack of
+      // bg color inheritance with Bootstrap v4 tabl css
+      return this.bvTable && this.bvTableThead && this.bvTableTr && this.bvTable.isStickyHeader
+    },
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
-      return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
+      let variant = this.variant
+      if (this.isStickyHeader && !variant && !this.bvTableThead.headVariant) {
+        // Needed for stickyheader mode as Bootstrap v4 table cells do
+        // not inherit parent's background-color
+        variant = this.bvTableTr.variant || this.bvTable.variant || 'b-table-default'
+      }
+      return [variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null]
     },
     computedColspan() {
       return parseSpan(this.colspan)
