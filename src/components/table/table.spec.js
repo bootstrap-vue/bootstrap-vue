@@ -258,7 +258,7 @@ describe('table', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-sticky-header')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.attributes('style')).toBe(`100px`)
+    expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.attributes('style')).toContain(`min-height: 100px;`)
     expect(wrapper.find('table').classes()).toContain('table')
     expect(wrapper.find('table').classes()).toContain('b-table')
