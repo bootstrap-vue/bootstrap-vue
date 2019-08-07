@@ -189,7 +189,7 @@ export default {
 
     // Add responsive/sticky wrapper if needed and return table
     return this.wrapperClasses.length > 0
-      ? h('div', { key: 'wrapper', class: this.wrapperClasses, style: this.wrapperStyles }, [$table])
+      ? h('div', { key: 'wrap', class: this.wrapperClasses, style: this.wrapperStyles }, [$table])
       : $table
   }
 }
