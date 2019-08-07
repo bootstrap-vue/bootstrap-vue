@@ -70,15 +70,18 @@ export default {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
     },
+    isStickyHeader() {
+      return this.isStacked ? false : this.stickyHeader
+    },
     wrapperClasses() {
       return [
-        this.stickyHeader ? 'b-table-sticky-header' : '',
+        this.isStickyHeader ? 'b-table-sticky-header' : '',
         this.isResponsive === true
           ? 'table-responsive'
           : this.isResponsive
             ? `table-responsive-${this.responsive}`
             : ''
-      ]
+      ].filter(Boolean)
     },
     tableClasses() {
       const hover = this.isTableSimple
@@ -177,7 +180,7 @@ export default {
     )
 
     // Add responsive/sticky wrapper if needed and return table
-    return this.isResponsive || this.stickyHeader
+    return this.wrapperClasses.length > 0
       ? h('div', { key: 'b-table-wrapper', class: this.wrapperClasses }, [$table])
       : $table
   }
