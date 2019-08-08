@@ -19,8 +19,8 @@ Note that it is not possible to change the defaults when using BootstrapVue via 
 Default breakpoint names are stored in the `breakpoints` property, default form control size is
 stored under the `formControls` property, while component specific defaults are keyed by their
 <samp>PascalCase</samp> name with the props as <samp>camelCase</samp> properties. Only properties
-defined in the default configuration can be overridden. Attempting to set a config
-property that is not defined in the default will generate a console warning.
+defined in the default configuration can be overridden. Attempting to set a config property that is
+not defined in the default will generate a console warning.
 
 The `formControls` entry was introduced in <span class="badge badge-info small">v2.0.0-rc.28</span>.
 
