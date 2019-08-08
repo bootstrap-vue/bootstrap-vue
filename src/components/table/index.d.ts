@@ -8,7 +8,6 @@ import { BvPlugin, BvComponent } from '../../'
 export declare const TablePlugin: BvPlugin
 export declare const TableLitePlugin: BvPlugin
 export declare const TableSimplePlugin: BvPlugin
-// temp to fix merge conflicts
 export default TablePlugin
 
 // Component: b-table
