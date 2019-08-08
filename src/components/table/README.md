@@ -417,6 +417,7 @@ details.
 | `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
 | `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
+| `sticky-header`     | Boolean or String | Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-header) section below for details.                       |
 | `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
 | `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                |
 | `table-variant`     | String            | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Give the table an overall theme color variant.                                                                                                                                                                                                                                  |
@@ -631,6 +632,58 @@ values: `sm`, `md`, `lg`, or `xl`.
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
 
+### Sticky header
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
+(sticky) as the table boxy scrolls. Setting the prop to `true` (or no explicit value) will generate
+a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
+the `sticky-header` prop to a valid CSS height (including units).
+
+```html
+<template>
+  <div>
+    <b-table sticky-header :items="items" head-variant="light"></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-sticky-header.vue -->
+```
+
+Fee free to combine `sticky-header` with `responsive`.
+
+**Notes:**
+
+- Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
+- BootstrapVue's custom CSS is required in order to support `sticky-header`.
+- The sticky header feature uses CSS style `position: sticky` to position the headings.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the table heading will
+  scroll with the table body.
+
 ### Stacked tables
 
 An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
@@ -642,7 +695,7 @@ breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
 element, with a width of 40%.
 
-The prop `stacked` takes precedence over the `responsive` prop.
+The prop `stacked` takes precedence over the `responsive` and `sticky-header` props.
 
 **Example: Always stacked table**
 
@@ -683,6 +736,8 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
+
+BootstrapVue's custom CSS is required in order to support stacked tables.
 
 ### Table caption
 
@@ -1613,8 +1668,8 @@ if it is an object and then sorted.
   `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
   value. This is only applicable for the built-in sort-compare routine.
 - <span class="badge badge-info small">NEW in v2.0.0-rc.28</span> By default, the internal sorting
-  routine will sort `null`, `undefined`, or emptry string values first (less than any other values).
-  To sort so that `null`, `undefined` or emptry string values appear last (greater than any other
+  routine will sort `null`, `undefined`, or empty string values first (less than any other values).
+  To sort so that `null`, `undefined` or empty string values appear last (greater than any other
   value), set the `sort-null-last` prop to `true`.
 
 For customizing the sort-compare handling, refer to the
