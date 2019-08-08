@@ -54,6 +54,3 @@ export {
   BTd,
   BTh
 }
-
-// temp until merge conflicts resolved
-export default TablePlugin
