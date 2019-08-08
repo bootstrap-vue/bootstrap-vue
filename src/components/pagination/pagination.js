@@ -53,17 +53,17 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     numberOfPages(newVal) {
-      if (newVal === this.localNumPages) {
+      if (newVal === this.localNumberOfPages) {
         /* istanbul ignore next */
         return
       }
-      this.localNumPages = newVal
+      this.localNumberOfPages = newVal
       this.currentPage = 1
     }
   },
   created() {
     // Set the initial page count
-    this.localNumPages = this.numberOfPages
+    this.localNumberOfPages = this.numberOfPages
     // Set the initial page value
     const curr = parseInt(this.value, 10) || 0
     if (curr > 0) {
@@ -78,7 +78,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // Set the initial page count
-    this.localNumPages = this.numberOfPages
+    this.localNumberOfPages = this.numberOfPages
   },
   methods: {
     // These methods are used by the render function
