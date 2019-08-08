@@ -221,8 +221,7 @@ export default {
     },
     pluginImportCode() {
       return [
-        '// Importing the named export',
-        `import { ${this.pluginName} } from '${this.importPath}'`,
+        `import { ${this.pluginName} } from 'bootstrap-vue'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
     }
