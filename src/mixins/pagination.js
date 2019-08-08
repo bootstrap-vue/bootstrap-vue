@@ -1,16 +1,15 @@
-/*
- * Common props, computed, data, render function, and methods
- * for <b-pagination> and <b-pagination-nav>
- */
-
 import KeyCodes from '../utils/key-codes'
 import range from '../utils/range'
 import toString from '../utils/to-string'
 import warn from '../utils/warn'
+import { getComponentConfig } from '../utils/config'
 import { isFunction, isNull } from '../utils/inspect'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
+
+// Common props, computed, data, render function, and methods
+// for <b-pagination> and <b-pagination-nav>
 
 // Threshold of limit size when we start/stop showing ellipsis
 const ELLIPSIS_THRESHOLD = 3
@@ -81,7 +80,7 @@ const props = {
   },
   size: {
     type: String,
-    default: 'md'
+    default: () => getComponentConfig('BPagination', 'size')
   },
   align: {
     type: String,
