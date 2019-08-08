@@ -8,3 +8,6 @@ const TablePlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { TablePlugin, BTable, BTableLite, BTableSimple }
+
+// temp until merge conflicts resolved
+export default TablePlugin
