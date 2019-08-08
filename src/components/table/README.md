@@ -644,7 +644,7 @@ table that has a maximum height of `300px`. To specify a maximum height other th
 ```html
 <template>
   <div>
-    <b-table sticky-header :items="items"></b-table>
+    <b-table sticky-header :items="items" head-variant="light"></b-table>
   </div>
 </template>
 
@@ -653,46 +653,18 @@ table that has a maximum height of `300px`. To specify a maximum height other th
     data() {
       return {
         items: [
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-           },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          },
-          {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell'
-          }
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' }
         ]
       }
     }
@@ -762,6 +734,8 @@ The prop `stacked` takes precedence over the `responsive` and `sticky-header` pr
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
+
+BootstrapVue's cusom CSS is required in order to support stacked tables.
 
 ### Table caption
 
