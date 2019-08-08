@@ -679,8 +679,9 @@ Fee free to combine `sticky-header` with `responsive`.
 **Notes:**
 - Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
 - BootstrapVue's cusom CSS is required in order to support `sticky-header`.
-- The sticky header feature uses CSS style `position: sticky` to position the headings. As IE11 does
-  not support `position: sticky`, the table heading will scroll with the table body.
+- The sticky header feature uses CSS style `position: sticky` to position the headings.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the table heading will scroll
+  with the table body.
 
 ### Stacked tables
 
