@@ -5,7 +5,7 @@ import { deepFreeze } from './object'
 // NOTES
 //
 // The global config SHALL NOT be used to set defaults for Boolean props, as the props
-// would loose their sematic meaning, and force people writing 3rd party components to
+// would loose their semantic meaning, and force people writing 3rd party components to
 // explicity set a true or false value using the v-bind syntax on boolean props
 //
 // Supported config values (depending on the prop's supported type(s)):
