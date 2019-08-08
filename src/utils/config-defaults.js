@@ -130,7 +130,7 @@ export default deepFreeze({
     label: 'Toggle navigation'
   },
   BPagination: {
-    size: 'md'
+    size: null
   },
   BPopover: {
     boundary: 'scrollParent',
