@@ -17,8 +17,8 @@ const ELLIPSIS_THRESHOLD = 3
 const DEFAULT_LIMIT = 5
 
 // Make an array of N to N+X
-const makePageArray = (startNum, numberOfPages) =>
-  range(numberOfPages).map((val, i) => ({ number: startNum + i, classes: null }))
+const makePageArray = (startNumber, numberOfPages) =>
+  range(numberOfPages).map((val, i) => ({ number: startNumber + i, classes: null }))
 
 // Sanitize the provided limit value (converting to a number)
 const sanitizeLimit = val => {
@@ -180,7 +180,7 @@ export default {
       let showFirstDots = false
       let showLastDots = false
       let numberOfLinks = limit
-      let startNum = 1
+      let startNumber = 1
 
       if (numberOfPages <= limit) {
         // Special Case: Less pages available than the limit of displayed pages
@@ -197,36 +197,36 @@ export default {
           numberOfLinks = limit - 1
           showFirstDots = true
         }
-        startNum = numberOfPages - numberOfLinks + 1
+        startNumber = numberOfPages - numberOfLinks + 1
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD && !hideEllipsis) {
           numberOfLinks = limit - 2
           showFirstDots = showLastDots = true
         }
-        startNum = currentPage - Math.floor(numberOfLinks / 2)
+        startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
       // Sanity checks
-      if (startNum < 1) {
+      if (startNumber < 1) {
         /* istanbul ignore next */
-        startNum = 1
-      } else if (startNum > numberOfPages - numberOfLinks) {
-        startNum = numberOfPages - numberOfLinks + 1
+        startNumber = 1
+      } else if (startNumber > numberOfPages - numberOfLinks) {
+        startNumber = numberOfPages - numberOfLinks + 1
       }
-      return { showFirstDots, showLastDots, numberOfLinks, startNum }
+      return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
     pageList() {
       // Generates the pageList array
-      const { numberOfLinks, startNum } = this.paginationParams
+      const { numberOfLinks, startNumber } = this.paginationParams
       const currentPage = this.computedCurrentPage
       // Generate list of page numbers
-      const pages = makePageArray(startNum, numberOfLinks)
+      const pages = makePageArray(startNumber, numberOfLinks)
       // We limit to a total of 3 page buttons on XS screens
       // So add classes to page links to hide them for XS breakpoint
       // Note: Ellipsis will also be hidden on XS screens
       // TODO: Make this visual limit configurable based on breakpoint(s)
       if (pages.length > 3) {
-        const idx = currentPage - startNum
+        const idx = currentPage - startNumber
         // THe following is a bootstrap-vue custom utility class
         const classes = 'bv-d-xs-down-none'
         if (idx === 0) {
