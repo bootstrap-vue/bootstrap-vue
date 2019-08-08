@@ -4,8 +4,10 @@
 import Vue, { VNode } from 'vue'
 import { BvPlugin, BvComponent } from '../../'
 
-// Table Plugin
+// Table Plugins
 export declare const TablePlugin: BvPlugin
+export declare const TableLitePlugin: BvPlugin
+export declare const TableSimplePlugin: BvPlugin
 
 // Component: b-table
 export declare class BTable extends BvComponent {
