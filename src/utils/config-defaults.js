@@ -9,7 +9,7 @@ import { deepFreeze } from './object'
 // explicity set a true or false value using the v-bind syntax on boolean props
 //
 // Supported config values (depending on the prop's supported type(s)):
-// `String`, `Array`, `Object`, `null` or `undefined`,
+// `String`, `Array`, `Object`, `null` or `undefined`
 
 // BREAKPOINT DEFINITIONS
 //
