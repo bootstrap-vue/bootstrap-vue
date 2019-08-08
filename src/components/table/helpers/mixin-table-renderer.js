@@ -1,6 +1,7 @@
-// Main `<table>` render mixin
-// Which includes all main table styling options
 import { isBoolean } from '../../../utils/inspect'
+
+// Main `<table>` render mixin
+// Includes all main table styling options
 
 export default {
   // Don't place attributes on root element automatically,
@@ -49,7 +50,7 @@ export default {
       default: false
     },
     stickyHeader: {
-      // If a string, it is assumed to be the table max-height value
+      // If a string, it is assumed to be the table `max-height` value
       type: [Boolean, String],
       default: false
     },
