@@ -69,6 +69,9 @@ $b-table-sort-icon-descending: "\2191" !default; // Up arrow
 $b-table-sort-icon-margin-left: 0.5em !default;
 $b-table-sort-icon-width: 0.5em !default;
 
+// Default max-height for tables with sticky headers
+$b-table-sticky-header-max-height: 300px !default;
+
 // Flag to enable table stacked CSS generation
 $bv-enable-table-stacked: true !default;
 // Table stacked defaults
