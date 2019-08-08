@@ -223,6 +223,50 @@ describe('table', () => {
     wrapper.destroy()
   })
 
+  it('has class "b-table-sticky-header" when sticky-header=true', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stickyHeader: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(BTable)).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-sticky-header')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.find('table').classes()).toContain('table')
+    expect(wrapper.find('table').classes()).toContain('b-table')
+    expect(wrapper.find('table').classes().length).toBe(2)
+
+    wrapper.destroy()
+  })
+
+  it('has class "b-table-sticky-header" when sticky-header=100px', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        stickyHeader: '100px'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(BTable)).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-sticky-header')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.attributes('style')).toBeDefined()
+    expect(wrapper.attributes('style')).toContain(`max-height: 100px;`)
+    expect(wrapper.find('table').classes()).toContain('table')
+    expect(wrapper.find('table').classes()).toContain('b-table')
+    expect(wrapper.find('table').classes().length).toBe(2)
+
+    wrapper.destroy()
+  })
+
   it('has class "table-responsive" when responsive=true', async () => {
     const wrapper = mount(BTable, {
       propsData: {

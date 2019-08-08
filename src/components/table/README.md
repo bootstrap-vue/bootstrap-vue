@@ -417,18 +417,24 @@ details.
 | `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
 | `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
 | `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
+| `sticky-header`     | Boolean or String | Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-header) section below for details.                       |
 | `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
+| `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                |
+| `table-variant`     | String            | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Give the table an overall theme color variant.                                                                                                                                                                                                                                  |
 | `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
 | `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
 | `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
 | `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
+
+**Note:** table style options `fixed`, `stacked`, and `caption-top`, and the table sorting feature,
+requires BootstrapVue's custom CSS.
 
 **Example: Basic table styles**
 
 ```html
 <template>
   <div>
-    <b-form-group label="Table Options">
+    <b-form-group label="Table Options" label-cols-lg="2">
       <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
       <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
       <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
@@ -439,10 +445,21 @@ details.
       <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
       <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
     </b-form-group>
-    <b-form-group label="Head Variant">
-      <b-form-radio v-model="headVariant" :value="null" inline>None</b-form-radio>
-      <b-form-radio v-model="headVariant" value="light" inline>Light</b-form-radio>
-      <b-form-radio v-model="headVariant" value="dark" inline>Dark</b-form-radio>
+    <b-form-group label="Head Variant" label-cols-lg="2">
+      <b-form-radio-group v-model="headVariant" class="mt-lg-2">
+        <b-form-radio :value="null" inline>None</b-form-radio>
+        <b-form-radio value="light" inline>Light</b-form-radio>
+        <b-form-radio value="dark" inline>Dark</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <b-form-group label="Table Variant" label-for="table-style-variant" label-cols-lg="2">
+      <b-form-select
+        v-model="tableVariant"
+        :options="tableVariants"
+        id="table-style-variant"
+      >
+        <option value="" slot="first">-- None --</option>
+      </b-form-select>
     </b-form-group>
 
     <b-table
@@ -458,6 +475,7 @@ details.
       :items="items"
       :fields="fields"
       :head-variant="headVariant"
+      :table-variant="tableVariant"
     ></b-table>
   </div>
 </template>
@@ -472,6 +490,16 @@ details.
           { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
           { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
         ],
+        tableVariants: [
+          'primary',
+          'secondary',
+          'info',
+          'danger',
+          'warning',
+          'success',
+          'light',
+          'dark'
+        ],
         striped: false,
         bordered: false,
         borderless: false,
@@ -481,7 +509,8 @@ details.
         dark: false,
         fixed: false,
         footClone: false,
-        headVariant: null
+        headVariant: null,
+        tableVariant: ''
       }
     }
   }
@@ -603,6 +632,58 @@ values: `sm`, `md`, `lg`, or `xl`.
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
 
+### Sticky header
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
+(sticky) as the table boxy scrolls. Setting the prop to `true` (or no explicit value) will generate
+a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
+the `sticky-header` prop to a valid CSS height (including units).
+
+```html
+<template>
+  <div>
+    <b-table sticky-header :items="items" head-variant="light"></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-sticky-header.vue -->
+```
+
+Fee free to combine `sticky-header` with `responsive`.
+
+**Notes:**
+
+- Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
+- BootstrapVue's custom CSS is required in order to support `sticky-header`.
+- The sticky header feature uses CSS style `position: sticky` to position the headings.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the table heading will
+  scroll with the table body.
+
 ### Stacked tables
 
 An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
@@ -614,7 +695,7 @@ breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
 element, with a width of 40%.
 
-The prop `stacked` takes precedence over the `responsive` prop.
+The prop `stacked` takes precedence over the `responsive` and `sticky-header` props.
 
 **Example: Always stacked table**
 
@@ -655,6 +736,8 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
+
+BootstrapVue's custom CSS is required in order to support stacked tables.
 
 ### Table caption
 
@@ -734,6 +817,9 @@ Slot `table-colgroup` can be optionally scoped, receiving an object with the fol
 | --------- | ------ | ----------------------------------------------------------------------------- |
 | `columns` | Number | The number of columns in the rendered table                                   |
 | `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+
+When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
+element. there is no need to provide your own outer `<colgroup>` element.
 
 ### Table busy state
 
@@ -1114,8 +1200,12 @@ scoped slots (even when disabled)
 
 ### Adding additional rows to the header
 
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
+
 If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
-is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
+is inserted before the header cells row, and is not automatically encapsulated by `<tr>..</tr>`
+tags. It is recommended to use the BootstrapVue [table helper components](#table-helper-components),
+rather than native browser table child elements.
 
 ```html
 <template>
@@ -1126,12 +1216,12 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
       responsive="sm"
     >
       <template slot="thead-top" slot-scope="data">
-        <tr>
-          <th colspan="2">&nbsp;</th>
-          <th>Type 1</th>
-          <th colspan="3">Type 2</th>
-          <th>Type 3</th>
-        </tr>
+        <b-tr>
+          <b-td colspan="2">&nbsp;</b-td>
+          <b-th variant="secondary">Type 1</b-th>
+          <b-th variant="primary" colspan="3">Type 2</b-th>
+          <b-th variant="danger">Type 3</b-th>
+        </b-tr>
       </template>
     </b-table>
   </div>
@@ -1205,7 +1295,9 @@ following properties:
 | `fields`            | Array  | The `fields` prop                                  |
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
-## Row details support
+## Advanced features
+
+### Row details support
 
 If you would optionally like to display additional record information (such as columns not specified
 in the fields definition array), you can use the scoped slot `row-details`, in combination with the
@@ -1296,9 +1388,9 @@ initially showing.
 <!-- b-table-details.vue -->
 ```
 
-## Row select support
+### Row select support
 
-You can make rows selectable, by using the prop `selectable`.
+You can make rows selectable, by using the `<b-table>` prop `selectable`.
 
 Users can easily change the selecting mode by setting the `select-mode` prop.
 
@@ -1327,9 +1419,18 @@ as read-only.**
       @row-selected="rowSelected"
       responsive="sm"
     >
-      <!-- Example scoped slot for illustrative purposes only -->
+      <!-- We use colgroup to set some widths for styling only -->
+      <template slot="table-colgroup">
+        <col style="width: 75px;">
+        <col style="width: 125px;">
+        <col style="width: 75px;">
+        <col>
+        <col>
+      </template>
+      <!-- Example scoped slot for select state illustrative purposes -->
       <template slot="[selected]" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">✔</span>
+        <span v-if="rowSelected">☑</span>
+        <span v-else>☐</span>
       </template>
     </b-table>
 
@@ -1381,6 +1482,94 @@ element.
 - Selected rows will have a class of `b-row-selected` added to them.
 - When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
   sequence (`tabindex="0"`) for accessibility reasons.
+
+### Table body transition support
+
+Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
+Vue's `<transition-group>` component internally. Three props are available for transitions support
+(all three default to undefined):
+
+| Prop                        | Type   | Description                                                       |
+| --------------------------- | ------ | ----------------------------------------------------------------- |
+| `tbody-transition-props`    | Object | Object of transition-group properties                             |
+| `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
+| `primary-key`               | String | String specifying the field to use as a unique row key (required) |
+
+To enable transitions you need to specify `tbody-transition-props` and/or
+`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
+`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
+a **unique value per row** in order for transitions to work properly. The `primary-key` field's
+_value_ can either be a unique string or number. The field specified does not need to appear in the
+rendered table output, but it **must** exist in each row of your items data.
+
+You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
+
+For more information of Vue's list rendering transitions, see the
+[Vue JS official docs](https://vuejs.org/v2/guide/transitions.html#List-Move-Transitions).
+
+In the example below, we have used the following custom CSS:
+
+```css
+table#table-transition-example .flip-list-move {
+  transition: transform 1s;
+}
+```
+
+```html
+<template>
+  <div>
+    <b-table
+      id="table-transition-example"
+      :items="items"
+      :fields="fields"
+      striped
+      small
+      primary-key="a"
+      :tbody-transition-props="transProps"
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        transProps: {
+          // Transition name
+          name: 'flip-list'
+        },
+        items: [
+          { a: 2, b: 'Two', c: 'Moose' },
+          { a: 1, b: 'Three', c: 'Dog' },
+          { a: 3, b: 'Four', c: 'Cat' },
+          { a: 4, b: 'One', c: 'Mouse' }
+        ],
+        fields: [
+          { key: 'a', sortable: true },
+          { key: 'b', sortable: true },
+          { key: 'c', sortable: true }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-transitions.vue -->
+```
+
+### `v-model` binding
+
+If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
+displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
+should usually be treated as readonly.
+
+The records within the `v-model` are a filtered/paginated _shallow copy_ of `items`, and hence any
+changes to a record's properties in the `v-model` will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the `v-model` array will
+**not** remove the record from the original items array nor will it remove it from the displayed
+rows.
+
+**Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
 
 ## Sorting
 
@@ -1461,7 +1650,7 @@ clicks in the footer, set the `no-footer-sorting` prop to true.
 
 ### Sort-compare routine
 
-<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.28</span>
 
 The internal built-in default `sort-compare` function sorts the specified field `key` based on the
 data in the underlying record object (or by formatted value if a field has a formatter function, and
@@ -1478,6 +1667,10 @@ if it is an object and then sorted.
   value returned via the formatter function if the [field](#field-definition-reference) property
   `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
   value. This is only applicable for the built-in sort-compare routine.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.28</span> By default, the internal sorting
+  routine will sort `null`, `undefined`, or empty string values first (less than any other values).
+  To sort so that `null`, `undefined` or empty string values appear last (greater than any other
+  value), set the `sort-null-last` prop to `true`.
 
 For customizing the sort-compare handling, refer to the
 [Custom sort-compare routine](#custom-sort-compare-routine) section below.
@@ -1488,8 +1681,8 @@ The internal sort-compare routine uses
 [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
 for comparing the stringified column value (if values being compared are not both `Number` or both
 `Date` types). The browser native `localeCompare()` method accepts a `locale` string (or array of
-strings) and an `options` object for controlling how strings are sorted. The default options used is
-`{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
+locale strings) and an `options` object for controlling how strings are sorted. The default options
+are `{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or
 locales) via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort
@@ -1497,8 +1690,8 @@ options via the `sort-compare-options` prop.
 
 The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
 default locale. The prop `sort-compare-locale` can either accept a
-[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an array of such tags. For more
-details on locales, please see
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
+more details on locales, please see
 [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
 on MDN.
 
@@ -1555,7 +1748,8 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
 ### Custom sort-compare routine
 
 You can provide your own custom sort compare routine by passing a function reference to the prop
-`sort-compare`. The `sort-compare` routine is passed seven (7) arguments:
+`sort-compare`. The `sort-compare` routine is passed seven (7) arguments, of which the last 4 are
+optional:
 
 - the first two arguments (`a` and `b`) are the _record objects_ for the rows being compared
 - the third argument is the field `key` being sorted on (`sortBy`)
@@ -1564,7 +1758,8 @@ You can provide your own custom sort compare routine by passing a function refer
 - the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
   `undefined` if no field formatter). You will need to call this method to get the formatted field
   value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
-  sort by the formatted value.
+  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property is
+  not `true`
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -1576,7 +1771,7 @@ method to compare strings.
 In most typical situations, you only need to use the first three arguments. The fourth argument -
 sorting direction - should not normally be used, as `b-table` will handle the direction, and this
 value is typically only needed when special handling of how `null` and/or `undefined` values are
-sorted.
+sorted (i.e. sorting `null`/`undefined` first or last).
 
 The routine should return either `-1` (or a negative value) for `a[key] < b[key]` , `0` for
 `a[key] === b[key]`, or `1` (or a positive value) for `a[key] > b[key]`.
@@ -1593,7 +1788,7 @@ direction) is **not** used in the sort comparison:
 <!-- eslint-disable no-unused-vars, no-undef -->
 
 ```js
-function sortCompare(aRow, bRow, key) {
+function sortCompare(aRow, bRow, key, sortDesc, formatter, compareOptions, compareLocale) {
   const a = aRow[key] // or use Lodash `_.get()`
   const b = bRow[key]
   if (
@@ -1604,9 +1799,7 @@ function sortCompare(aRow, bRow, key) {
     return a < b ? -1 : a > b ? 1 : 0
   } else {
     // Otherwise stringify the field data and use String.prototype.localeCompare
-    return toString(a).localeCompare(toString(b), undefined, {
-      numeric: true
-    })
+    return toString(a).localeCompare(toString(b), compareLocale, compareOptions)
   }
 }
 
@@ -1750,94 +1943,6 @@ You can use the [`<b-pagination>`](/docs/components/pagination) component in con
 `<b-table>` for providing control over pagination.
 
 Setting `per-page` to `0` (default) will disable the local items pagination feature.
-
-## `v-model` binding
-
-If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
-displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
-should usually be treated as readonly.
-
-The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
-changes to a record's properties in the `v-model` will be reflected in the original `items` array
-(except when `items` is set to a provider function). Deleting a record from the `v-model` will
-**not** remove the record from the original items array nor will it remove it from the displayed
-rows.
-
-**Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
-
-## Table body transition support
-
-Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
-Vue's `<transition-group>` component internally. Three props are available for transitions support
-(all three default to undefined):
-
-| Prop                        | Type   | Description                                                       |
-| --------------------------- | ------ | ----------------------------------------------------------------- |
-| `tbody-transition-props`    | Object | Object of transition-group properties                             |
-| `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
-| `primary-key`               | String | String specifying the field to use as a unique row key (required) |
-
-To enable transitions you need to specify `tbody-transition-props` and/or
-`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
-`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
-a **unique value per row** in order for transitions to work properly. The `primary-key` field's
-_value_ can either be a unique string or number. The field specified does not need to appear in the
-rendered table output, but it **must** exist in each row of your items data.
-
-You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
-
-For more information of Vue's list rendering transitions, see the
-[Vue JS official docs](https://vuejs.org/v2/guide/transitions.html#List-Move-Transitions).
-
-In the example below, we have used the following custom CSS:
-
-```css
-table#table-transition-example .flip-list-move {
-  transition: transform 1s;
-}
-```
-
-```html
-<template>
-  <div>
-    <b-table
-      id="table-transition-example"
-      :items="items"
-      :fields="fields"
-      striped
-      small
-      primary-key="a"
-      :tbody-transition-props="transProps"
-    ></b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        transProps: {
-          // Transition name
-          name: 'flip-list'
-        },
-        items: [
-          { a: 2, b: 'Two', c: 'Moose' },
-          { a: 1, b: 'Three', c: 'Dog' },
-          { a: 3, b: 'Four', c: 'Cat' },
-          { a: 4, b: 'One', c: 'Mouse' }
-        ],
-        fields: [
-          { key: 'a', sortable: true },
-          { key: 'b', sortable: true },
-          { key: 'c', sortable: true }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-transitions.vue -->
-```
 
 ## Using items provider functions
 
@@ -2086,7 +2191,7 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 `<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple display of
 tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of
-`<b-table>` (including row details support), while **excluding** the following features:
+`<b-table>` (including row details and stacked support), while **excluding** the following features:
 
 - Filtering
 - Sorting
@@ -2097,6 +2202,12 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 - Fixed top and bottom rows
 - Empty row support
 
+### Table lite as a plugin
+
+The `TablePlugin` includes `<b-table-lite>`. For convenience, BootstrapVue also provides a
+`TableLitePlugin` which installs only `<b-table-lite>`. `TableLitePlugin` is available as a top
+level named export.
+
 ## Simple tables
 
 <span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
@@ -2104,69 +2215,93 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 The `<b-table-simple>` component gives the user complete control over the rendering of the table
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
-of the regular HTML5 table elements: `<thead>`, `<tfoot>`, `<tbody>`, `<tr>`, `<th>`, `<td>`,
-`<caption>`, and `<colgroup>`.
+of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and
+`<colgroup>`+`<col>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
-`outlined`, `small`, `hover`, `dark`, `fixed` and `responsive`.
+`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available
+but requires some additional markup to generate the cell headings, as described in the
+[Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
-sorting, pagination, filtering, stacked mode, etc).
+sorting, pagination, filtering, foot-clone, etc).
 
 ```html
 <div>
-  <b-table-simple hover small bordered responsive="sm">
-    <thead class="text-center thead-light">
-      <tr>
-        <th colspan="2">Name</th>
-        <th rowspan="2" class="align-middle">Age</th>
-        <th colspan="3" rowspan="2" class="align-middle">Data</th>
-      </tr>
-      <tr>
-        <th>Last</th>
-        <th>First</th>
-      </td>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Macdonald</td>
-        <td>Dickerson</td>
-        <td>42</td>
-        <td>Foo</td>
-        <td>Bar</td>
-        <td>Baz</td>
-      </tr>
-      <tr class="table-info">
-        <td>Wilson</td>
-        <td>Geneva</td>
-        <td>35</td>
-        <td colspan="2">1234567</td>
-        <td>987</td>
-      </tr>
-      <tr>
-        <td rowspan="2">Shaw</td>
-        <td>Larsen</td>
-        <td>23</td>
-        <td>AAA</td>
-        <td colspan="2">BBBBB</td>
-      </tr>
-      <tr>
-        <td>Linda</td>
-        <td>22</td>
-        <td>CCC</td>
-        <td class="table-danger">YYY</td>
-        <td>ZZZ</td>
-      </tr>
-    </tbody>
-  </b-table>
+  <b-table-simple hover small caption-top responsive="sm">
+    <caption>Items sold in August, grouped by Country and City:</caption>
+    <b-thead head-variant="dark">
+      <b-tr>
+        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="3">Clothes</b-th>
+        <b-th colspan="2">Accessories</b-th>
+      </b-tr>
+      <b-tr>
+        <b-th>Trousers</b-th>
+        <b-th>Skirts</b-th>
+        <b-th>Dresses</b-th>
+        <b-th>Bracelets</b-th>
+        <b-th>Rings</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody>
+      <b-tr>
+        <b-th rowspan="3">Belgium</b-th>
+        <b-th class="text-right">Antwerp</b-th>
+        <b-td>56</b-td>
+        <b-td>22</b-td>
+        <b-td>43</b-td>
+        <b-td variant="success">72</b-td>
+        <b-td>23</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right">Gent</b-th>
+        <b-td>46</b-td>
+        <b-td variant="warning">18</b-td>
+        <b-td>50</b-td>
+        <b-td>61</b-td>
+        <b-td variant="danger">15</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right">Brussels</b-th>
+        <b-td>51</b-td>
+        <b-td>27</b-td>
+        <b-td>38</b-td>
+        <b-td>69</b-td>
+        <b-td>28</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th rowspan="2">The Netherlands</b-th>
+        <b-th class="text-right">Amsterdam</b-th>
+        <b-td variant="success">89</b-td>
+        <b-td>34</b-td>
+        <b-td>69</b-td>
+        <b-td>85</b-td>
+        <b-td>38</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right">Utrecht</b-th>
+        <b-td>80</b-td>
+        <b-td variant="danger">12</b-td>
+        <b-td>43</b-td>
+        <b-td>36</b-td>
+        <b-td variant="warning">19</b-td>
+      </b-tr>
+    </b-tbody>
+    <b-tfoot>
+      <b-tr>
+        <b-td colspan="7" variant="secondary" class="text-right">
+          Total Rows: <b>5</b>
+        </b-td>
+      </b-tr>
+    </b-tfoot>
+  </b-table-simple>
 </div>
 
 <!-- b-table-simple.vue -->
 ```
-
-Row and cell variant classes are in the form `table-{variant}`, unless you have the table in `dark`
-mode, in which case you should use `bg-{variant}` instead.
 
 When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need to
 apply additional classes to the `<table>` element, use the `table-classes` prop.
@@ -2174,27 +2309,188 @@ apply additional classes to the `<table>` element, use the `table-classes` prop.
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
 
+### Simple tables and stacked mode
+
+A bit of additional markup is required on your `<b-table-simple>` body cells when the table is in
+stacked mode. Specifically, BootstrapVue uses a special data attribute to create the cell's heading,
+of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop. Only plain strings
+are supported (not HTML markup), as we use the pseudo element `::before` and css `content` property.
+
+Here is the same table as above, set to be always stacked, which has the extra markup to handle
+stacked mode (specifically for generating the cell headings):
+
+```html
+<div>
+  <b-table-simple hover small caption-top stacked>
+    <caption>Items sold in August, grouped by Country and City:</caption>
+    <b-thead head-variant="dark">
+      <b-tr>
+        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="3">Clothes</b-th>
+        <b-th colspan="2">Accessories</b-th>
+      </b-tr>
+      <b-tr>
+        <b-th>Trousers</b-th>
+        <b-th>Skirts</b-th>
+        <b-th>Dresses</b-th>
+        <b-th>Bracelets</b-th>
+        <b-th>Rings</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody>
+      <b-tr>
+        <b-th rowspan="3" class="text-center">Belgium (3 Cities)</b-th>
+        <b-th stacked-heading="City" class="text-left">Antwerp</b-th>
+        <b-td stacked-heading="Clothes: Trousers">56</b-td>
+        <b-td stacked-heading="Clothes: Skirts">22</b-td>
+        <b-td stacked-heading="Clothes: Dresses">43</b-td>
+        <b-td stacked-heading="Accessories: Bracelets" variant="success">72</b-td>
+        <b-td stacked-heading="Accessories: Rings">23</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Gent</b-th>
+        <b-td stacked-heading="Clothes: Trousers">46</b-td>
+        <b-td stacked-heading="Clothes: Skirts" variant="warning">18</b-td>
+        <b-td stacked-heading="Clothes: Dresses">50</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">61</b-td>
+        <b-td stacked-heading="Accessories: Rings" variant="danger">15</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Brussels</b-th>
+        <b-td stacked-heading="Clothes: Trousers">51</b-td>
+        <b-td stacked-heading="Clothes: Skirts">27</b-td>
+        <b-td stacked-heading="Clothes: Dresses">38</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">69</b-td>
+        <b-td stacked-heading="Accessories: Rings">28</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th rowspan="2" class="text-center">The Netherlands (2 Cities)</b-th>
+        <b-th stacked-heading="City">Amsterdam</b-th>
+        <b-td stacked-heading="Clothes: Trousers" variant="success">89</b-td>
+        <b-td stacked-heading="Clothes: Skirts">34</b-td>
+        <b-td stacked-heading="Clothes: Dresses">69</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">85</b-td>
+        <b-td stacked-heading="Accessories: Rings">38</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Utrecht</b-th>
+        <b-td stacked-heading="Clothes: Trousers">80</b-td>
+        <b-td stacked-heading="Clothes: Skirts" variant="danger">12</b-td>
+        <b-td stacked-heading="Clothes: Dresses">43</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">36</b-td>
+        <b-td stacked-heading="Accessories: Rings" variant="warning">19</b-td>
+      </b-tr>
+    </b-tbody>
+    <b-tfoot>
+      <b-tr>
+        <b-td colspan="7" variant="secondary" class="text-right">
+          Total Rows: <b>5</b>
+        </b-td>
+      </b-tr>
+    </b-tfoot>
+  </b-table-simple>
+</div>
+
+<!-- b-table-simple-stacked.vue -->
+```
+
+Like `<b-table>` and `<b-table-lite>`, table headers (`<thead>`) and footers (`<tfoot>`) are
+visually hidden when the table is visually stacked. If you need a header or footer, you can do so by
+creating an extra `<b-tr>` inside of the `<b-tbody>` component (or in a second `<b-tbody>`
+component), and set a role of `columnheader` on the child `<b-th>` cells, and use Bootstrap v4
+[responsive display utility classes](/docs/reference/utility-classes) to hide the extra row (or
+`<b-tbody>`) above a certain breakpoint when the table is no longer visually stacked (the breakpoint
+should match the stacked table breakpoint you have set), i.e. `<b-tr class="d-md-none">` would hide
+the row on medium and wider screens, while `<b-tbody class="d-md-none">` would hide the row group on
+medium and wider screens.
+
+**Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
+[table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
+and `<th>` element tags will not work as expected, not automatically apply any of the required
+accessibility attributes.
+
+### Table simple as a plugin
+
+The `TablePlugin` includes `<b-table-simple>` and all of the helper components. For convenience,
+BootstrapVue also provides a `TableSimplePlugin` which installs `<b-table-simple>` and all of the
+helper components. `TableSimplePlugin` is available as a top level named export.
+
+## Table helper components
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
+
+BootstrapVue provides additional helper child components when using `<b-table-simple>`, or the named
+slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The
+helper components are as follows:
+
+- `b-tbody`
+- `b-thead`
+- `b-tfoot`
+- `b-tr`
+- `b-td`
+- `b-th`
+
+These components are optimized to handle converting variants to the appropriate classes (such as
+handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
+`role`s and `scope`s) and can handle the stacked table requirements. Components `<b-table>` and
+`<b-table-lite>` use these helper components internally.
+
+In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
+elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
+`top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
+helper components. Note that there are no helper components for `<caption>` or `<colgroup>`+`<col>`,
+so you may these two HTML5 elements directly in `<b-table-simple>`.
+
+- Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
+  apply one of the Bootstrap theme colors (custom theme colors are supported via
+  [theming](/docs/reference/theming).) and will automatically adjust to use the correct variant
+  class based on the table's `dark` mode.
+- The helper components `<b-thead>`, `<b-tfoot>` accept a `head-variant` and `foot-variant` prop
+  respectively. Supported values are `'dark'`, `'light'` or `null` (`null` uses the default table
+  background). These variants also control the text color (light text for `'dark'` variant, and dark
+  text for the `'light'` variant).
+- Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
+  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan`
+  props. A `<b-td>` placed in `<b-thead>` or `<b-tfoot>` will have no `scope` attribute by default.
+  You can override the automatic `scope` and `role` values by setting the appropriate attribute on
+  the helper component.
+- For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the appropriate default `role` of
+  `'rowgroup'` will be applied, unless you override the role by supplying a `role` attribute.
+- For the `<b-tr>` helper component, the appropriate default `role` of `row` will be applied, unless
+  you override the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
+- The `<b-tbody>` element supports rendering a Vue `<transition-group>` when either, or both, of the
+  `tbody-transition-props` and `tbody-transition-handlers` props are used. See the
+  [Table body transition support](#table-body-transition-support) section for more details.
+
 ## Accessibility
 
 The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
 provide the best accessibility markup possible.
+
+When using `<b-table-simple>` with the helper table components, elements will have the appropriate
+roles applied by default, of which you can optionally override. When using click handlers on the
+`<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and
+set `tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users.
+You should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>ENTER</kbd> to
+trigger your click on cells or rows (required for accessibility for keyboard-only users).
 
 ### Heading accessibility
 
 When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
 registered, the header (and footer) `<th>` cells will be placed into the document tab sequence (via
 `tabindex="0"`) for accessibility by keyboard-only and screen reader users, so that the user may
-trigger a click on the header cells.
+trigger a click (by pressing <kbd>ENTER</kbd> on the header cells.
 
 ### Data row accessibility
 
 When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered, all data item rows (`<tr>` elements) will be placed into the document tab
-sequence (via `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click
-the rows.
+listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
+placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
+users the ability to click the rows by pressing <kbd>ENTER</kbd>.
 
-When the table items rows are placed in the document tab sequence, they will also support basic
-keyboard navigation when focused:
+When the table items rows are placed in the document tab sequence (`<b-table>` and
+`<b-table-lite>`), they will also support basic keyboard navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row

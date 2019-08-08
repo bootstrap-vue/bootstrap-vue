@@ -19,12 +19,6 @@ export default {
       default: null
     }
   },
-  computed: {
-    footClasses() {
-      const variant = this.footVariant || this.headVariant || null
-      return [variant ? `thead-${variant}` : '', this.tfootClass]
-    }
-  },
   methods: {
     renderTfoot() {
       const h = this.$createElement

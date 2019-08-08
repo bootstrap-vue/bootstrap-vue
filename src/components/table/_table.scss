@@ -1,6 +1,5 @@
+// --- General styling ---
 .table.b-table {
-  // --- General styling ---
-
   // Table fixed header width layout
   &.b-table-fixed {
     // Fixed width columns
@@ -20,9 +19,61 @@
   // Caption positioning
   > caption {
     caption-side: bottom;
+  }
 
-    &.b-table-caption-top {
+  &.b-table-caption-top {
+    > caption {
       caption-side: top !important;
+    }
+  }
+}
+
+// --- Table sticky header styling ---
+.b-table-sticky-header {
+  overflow-y: auto;
+  // Default `max-height` before scrollbar will show
+  // We don't use `height` as table could be shorter than this value
+  max-height: $b-table-sticky-header-max-height;
+  // Move the table bottom margin to the wrapper
+  margin-bottom: $spacer;
+
+  > .table {
+    // Reset `margin-bottom` to we don't get a space after
+    // the table in the scroll area
+    margin-bottom: 0;
+  }
+}
+
+@supports (position: sticky) {
+  .b-table-sticky-header {
+    > .table {
+      > thead > tr {
+        > th,
+        > td {
+          position: sticky;
+          top: 0;
+          z-index: 2;
+        }
+      }
+
+      // Default theme color background for table headers
+      // Applied only when no variant is applied to the rows, or no head-variant
+      // Needed because Bootstrap v4 doesn't have table child elements
+      // set up to inherit their background from parent element by default
+      > thead > tr > th.table-b-table-default,
+      > thead > tr > td.table-b-table-default {
+        color: $table-color;
+        // Default header background
+        // `$table-bg` is null by default in Bootstrap v4 variables
+        background-color: if($table-bg, $table-bg, $body-bg);
+      }
+
+      &.table-dark > thead > tr > th.bg-b-table-default,
+      &.table-dark > thead > tr > td.bg-b-table-default {
+        color: $table-dark-color;
+        // Default header background in table dark mode
+        background-color: $table-dark-bg;
+      }
     }
   }
 }
@@ -37,9 +88,8 @@
           // `&.sorting`
           cursor: pointer;
 
-          // Up/down sort=null indicator
+          // Up/down `sort=null` indicator
           &::before {
-            display: inline-block;
             float: right;
             margin-left: $b-table-sort-icon-margin-left;
             width: $b-table-sort-icon-width;
@@ -104,7 +154,7 @@
             > tbody,
             > tbody > tr,
             > tbody > tr > td,
-            > tbody > tr > td {
+            > tbody > tr > th {
               display: block;
             }
 
@@ -131,14 +181,13 @@
                   // Cell header label pseudo element
                   &::before {
                     content: attr(data-label);
-                    display: inline-block;
                     width: $b-table-stacked-heading-width;
                     float: left;
                     text-align: right;
                     overflow-wrap: break-word;
                     font-weight: bold;
                     font-style: normal;
-                    padding: 0;
+                    padding: 0 calc(#{$b-table-stacked-gap} / 2) 0 0;
                     margin: 0;
                   }
 
@@ -154,7 +203,7 @@
                     display: inline-block;
                     width: calc(100% - #{$b-table-stacked-heading-width});
                     // Add "gap" between "cells"
-                    padding: 0 0 0 $b-table-stacked-gap;
+                    padding: 0 0 0 calc(#{$b-table-stacked-gap} / 2);
                     margin: 0;
                   }
                 }
@@ -167,6 +216,12 @@
 
                 // Give the top cell of each "row" a heavy border
                 > :first-child {
+                  border-top-width: (3 * $table-border-width);
+                }
+
+                // Give any cell after a rowspan'ed cell a heavy top border
+                > [rowspan] + td,
+                > [rowspan] + th {
                   border-top-width: (3 * $table-border-width);
                 }
               }

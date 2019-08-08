@@ -1,7 +1,7 @@
 import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
 import { arrayIncludes } from '../../../utils/array'
-import { isFunction, isNull, isUndefined } from '../../../utils/inspect'
+import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
@@ -11,15 +11,14 @@ export default {
       default: ''
     },
     sortDesc: {
-      // To Do: Make this tri-state: true, false, null
+      // TODO: Make this tri-state: true, false, null
       type: Boolean,
       default: false
     },
     sortDirection: {
-      // This prop is named incorrectly.
-      // It should be initialSortDirection
-      // As it is a bit misleading (not to mention screws up
-      // the Aria Label on the headers)
+      // This prop is named incorrectly
+      // It should be `initialSortDirection` as it is a bit misleading
+      // (not to mention it screws up the ARIA label on the headers)
       type: String,
       default: 'asc',
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
@@ -41,6 +40,11 @@ export default {
       // Array: array of Locale strings
       type: [String, Array]
       // default: undefined
+    },
+    sortNullLast: {
+      // Sort null and undefined to appear last
+      type: Boolean,
+      default: false
     },
     noSortReset: {
       // Another prop that should have had a better name.
@@ -94,6 +98,7 @@ export default {
       const localSorting = this.localSorting
       const sortOptions = { ...this.sortCompareOptions, usage: 'sort' }
       const sortLocale = this.sortCompareLocale || undefined
+      const nullLast = this.sortNullLast
       if (sortBy && localSorting) {
         const field = this.computedFieldsObj[sortBy]
         const formatter =
@@ -105,10 +110,19 @@ export default {
             // Call user provided sortCompare routine
             result = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
           }
-          if (isUndefined(result) || isNull(result) || result === false) {
+          if (isUndefinedOrNull(result) || result === false) {
             // Fallback to built-in defaultSortCompare if sortCompare
             // is not defined or returns null/false
-            result = defaultSortCompare(a, b, sortBy, formatter, sortOptions, sortLocale)
+            result = defaultSortCompare(
+              a,
+              b,
+              sortBy,
+              sortDesc,
+              formatter,
+              sortOptions,
+              sortLocale,
+              nullLast
+            )
           }
           // Negate result if sorting in descending order
           return (result || 0) * (sortDesc ? -1 : 1)
