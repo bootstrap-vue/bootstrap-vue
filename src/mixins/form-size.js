@@ -5,7 +5,7 @@ export default {
   props: {
     size: {
       type: String,
-      default: () => getComponentConfig('BFormControl', 'size')
+      default: () => getComponentConfig('formControls', 'size')
     }
   },
   computed: {

@@ -40,6 +40,11 @@ export default deepFreeze({
   // Breakpoints
   breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'],
 
+  // Form controls
+  formControls: {
+    size: null
+  },
+
   // Component specific defaults are keyed by the component
   // name (PascalCase) and prop name (camelCase)
   BAlert: {
@@ -73,11 +78,6 @@ export default deepFreeze({
     size: null,
     variant: 'secondary',
     splitVariant: null
-  },
-  // Default values for props that are shared between all
-  // form control components
-  BFormControl: {
-    size: null
   },
   BFormFile: {
     browseText: 'Browse',
