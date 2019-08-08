@@ -639,7 +639,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
 (sticky) as the table boxy scrolls. Setting the prop to `true` (or no explicit value) will generate
 a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
-the `sticky-header` prop to a valid CSS height (including units).
+the `sticky-header` prop to a valid CSS height (including units), i.e. `sticky-header="200px"`.
 
 ```html
 <template>
@@ -2220,9 +2220,9 @@ of the BootstrapVue [table helper components](#table-helper-components): `<b-the
 `<colgroup>`+`<col>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
-`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive`. Note that `stacked` mode is available
-but requires some additional markup to generate the cell headings, as described in the
-[Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
+`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive` and `sticky-header`. Note that `stacked`
+mode is available but requires some additional markup to generate the cell headings, as described in
+the [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
@@ -2303,8 +2303,9 @@ sorting, pagination, filtering, foot-clone, etc).
 <!-- b-table-simple.vue -->
 ```
 
-When in `responsive` mode, the `<table>` element is wrapped inside a `<div>` element. If you need to
-apply additional classes to the `<table>` element, use the `table-classes` prop.
+When in `responsive` or `sticky-header` mode, the `<table>` element is wrapped inside a `<div>`
+element. If you need to apply additional classes to the `<table>` element, use the `table-classes`
+prop.
 
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
 element.
@@ -2406,8 +2407,8 @@ medium and wider screens.
 
 **Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
-and `<th>` element tags will not work as expected, not automatically apply any of the required
-accessibility attributes.
+and `<th>` element tags will not work as expected, nor will they automatically apply any of the
+required accessibility attributes.
 
 ### Table simple as a plugin
 
@@ -2432,8 +2433,8 @@ helper components are as follows:
 
 These components are optimized to handle converting variants to the appropriate classes (such as
 handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
-`role`s and `scope`s) and can handle the stacked table requirements. Components `<b-table>` and
-`<b-table-lite>` use these helper components internally.
+`role`s and `scope`s) and can handle the stacked table and sticky-header requirements. Components
+`<b-table>` and `<b-table-lite>` use these helper components internally.
 
 In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
@@ -2451,14 +2452,13 @@ so you may these two HTML5 elements directly in `<b-table-simple>`.
   background). These variants also control the text color (light text for `'dark'` variant, and dark
   text for the `'light'` variant).
 - Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
-  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan`
-  props. A `<b-td>` placed in `<b-thead>` or `<b-tfoot>` will have no `scope` attribute by default.
+  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan` props.
   You can override the automatic `scope` and `role` values by setting the appropriate attribute on
   the helper component.
 - For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the appropriate default `role` of
   `'rowgroup'` will be applied, unless you override the role by supplying a `role` attribute.
-- For the `<b-tr>` helper component, the appropriate default `role` of `row` will be applied, unless
-  you override the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
+- For the `<b-tr>` helper component, the appropriate default `role` of `'row'` will be applied,
+  unless you override the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
 - The `<b-tbody>` element supports rendering a Vue `<transition-group>` when either, or both, of the
   `tbody-transition-props` and `tbody-transition-handlers` props are used. See the
   [Table body transition support](#table-body-transition-support) section for more details.
