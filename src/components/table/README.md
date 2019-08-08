@@ -2452,9 +2452,9 @@ so you may these two HTML5 elements directly in `<b-table-simple>`.
   background). These variants also control the text color (light text for `'dark'` variant, and dark
   text for the `'light'` variant).
 - Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
-  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan` props.
-  You can override the automatic `scope` and `role` values by setting the appropriate attribute on
-  the helper component.
+  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan`
+  props. You can override the automatic `scope` and `role` values by setting the appropriate
+  attribute on the helper component.
 - For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the appropriate default `role` of
   `'rowgroup'` will be applied, unless you override the role by supplying a `role` attribute.
 - For the `<b-tr>` helper component, the appropriate default `role` of `'row'` will be applied,
