@@ -1,5 +1,7 @@
+import { isBoolean } from '../../../utils/inspect'
+
 // Main `<table>` render mixin
-// Which includes all main table styling options
+// Includes all main table styling options
 
 export default {
   // Don't place attributes on root element automatically,
@@ -47,6 +49,11 @@ export default {
       type: [Boolean, String],
       default: false
     },
+    stickyHeader: {
+      // If a string, it is assumed to be the table `max-height` value
+      type: [Boolean, String],
+      default: false
+    },
     captionTop: {
       type: Boolean,
       default: false
@@ -66,12 +73,24 @@ export default {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
     },
-    responsiveClass() {
-      return this.isResponsive === true
-        ? 'table-responsive'
-        : this.isResponsive
-          ? `table-responsive-${this.responsive}`
-          : ''
+    isStickyHeader() {
+      const stickyHeader = this.stickyHeader === '' ? true : this.stickyHeader
+      return this.isStacked ? false : stickyHeader
+    },
+    wrapperClasses() {
+      return [
+        this.isStickyHeader ? 'b-table-sticky-header' : '',
+        this.isResponsive === true
+          ? 'table-responsive'
+          : this.isResponsive
+            ? `table-responsive-${this.responsive}`
+            : ''
+      ].filter(Boolean)
+    },
+    wrapperStyles() {
+      return this.isStickyHeader && !isBoolean(this.isStickyHeader)
+        ? { maxHeight: this.isStickyHeader }
+        : {}
     },
     tableClasses() {
       const hover = this.isTableSimple
@@ -169,9 +188,9 @@ export default {
       $content.filter(Boolean)
     )
 
-    // Add responsive wrapper if needed and return table
-    return this.isResponsive
-      ? h('div', { key: 'b-table-responsive', class: this.responsiveClass }, [$table])
+    // Add responsive/sticky wrapper if needed and return table
+    return this.wrapperClasses.length > 0
+      ? h('div', { key: 'wrap', class: this.wrapperClasses, style: this.wrapperStyles }, [$table])
       : $table
   }
 }
