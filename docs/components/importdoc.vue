@@ -96,7 +96,6 @@
         :items="pluginImports"
         :fileds="['namedExport', 'importPath']"
         class="bv-docs-table"
-        caption="The plugin can be imported via several methods"
         responsive="sm"
         head-variant="default"
         caption-top
@@ -163,6 +162,7 @@ export default {
       return this.$route.params.slug
     },
     pluginName() {
+      // Directive plugin names are prefixed with `VB`
       const prefix = this.isComponentRoute ? '' : 'VB'
       return `${prefix}${startCase(this.pluginDir).replace(/\s+/g, '')}Plugin`
     },
