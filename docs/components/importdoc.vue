@@ -153,6 +153,9 @@ export default {
     meta: {}
   },
   computed: {
+    importPath() {
+      return 'bootstrap-vue'
+    },
     isComponentRoute() {
       return this.$route.name === 'docs-components-slug'
     },
@@ -168,7 +171,7 @@ export default {
         return {
           component: this.componentTag(c),
           namedExport: c,
-          importPath: importPath
+          importPath: this.importPath
         }
       })
     },
@@ -177,7 +180,7 @@ export default {
         return {
           directive: this.directiveAttr(d),
           namedExport: d,
-          importPath: importPath
+          importPath: this.importPath
         }
       })
     },
@@ -185,7 +188,7 @@ export default {
       return [
         {
           namedExport: this.pluginName,
-          importPath: importPath
+          importPath: this.importPath
         }
       ]
     },
@@ -219,7 +222,7 @@ export default {
     pluginImportCode() {
       return [
         '// Importing the named export',
-        `import { ${this.pluginName} } from '${importPath}'`,
+        `import { ${this.pluginName} } from '${this.importPath}'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
     }
