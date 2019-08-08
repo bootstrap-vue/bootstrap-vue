@@ -81,9 +81,7 @@ const props = {
   }
 }
 
-// TODO: move this to an instance method in pagination mixin
-
-// Our render function is brought in via the pagination mixin
+// The render function is brought in via the pagination mixin
 // @vue/component
 export const BPaginationNav = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -103,17 +101,17 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
   watch: {
     numberOfPages(newVal, oldVal) {
       this.$nextTick(() => {
-        this.setNumPages()
+        this.setNumberOfPages()
       })
     },
     pages(newVal, oldVal) {
       this.$nextTick(() => {
-        this.setNumPages()
+        this.setNumberOfPages()
       })
     }
   },
   created() {
-    this.setNumPages()
+    this.setNumberOfPages()
   },
   mounted() {
     if (this.$router) {
@@ -128,11 +126,11 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    setNumPages() {
+    setNumberOfPages() {
       if (isArray(this.pages) && this.pages.length > 0) {
-        this.localNumPages = this.pages.length
+        this.localNumberOfPages = this.pages.length
       } else {
-        this.localNumPages = sanitizeNumberOfPages(this.numberOfPages)
+        this.localNumberOfPages = sanitizeNumberOfPages(this.numberOfPages)
       }
       this.$nextTick(() => {
         this.guessCurrentPage()
@@ -270,7 +268,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
           ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) }
           : {}
         // Loop through the possible pages looking for a match until found
-        for (let page = 1; !guess && page <= this.localNumPages; page++) {
+        for (let page = 1; !guess && page <= this.localNumberOfPages; page++) {
           const to = this.makeLink(page)
           if ($router && (isObject(to) || this.useRouter)) {
             // Resolve the page via the $router

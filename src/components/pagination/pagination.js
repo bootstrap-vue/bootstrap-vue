@@ -39,7 +39,7 @@ const props = {
   }
 }
 
-// Our render function is brought in from the pagination mixin
+// The render function is brought in via the pagination mixin
 // @vue/component
 export const BPagination = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -53,21 +53,21 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     numberOfPages(newVal) {
-      if (newVal === this.localNumPages) {
+      if (newVal === this.localNumberOfPages) {
         /* istanbul ignore next */
         return
       }
-      this.localNumPages = newVal
+      this.localNumberOfPages = newVal
       this.currentPage = 1
     }
   },
   created() {
     // Set the initial page count
-    this.localNumPages = this.numberOfPages
+    this.localNumberOfPages = this.numberOfPages
     // Set the initial page value
-    const curr = parseInt(this.value, 10) || 0
-    if (curr > 0) {
-      this.currentPage = curr
+    const currentPage = parseInt(this.value, 10) || 0
+    if (currentPage > 0) {
+      this.currentPage = currentPage
     } else {
       this.$nextTick(() => {
         // If this value parses to NaN or a value less than 1
@@ -78,7 +78,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // Set the initial page count
-    this.localNumPages = this.numberOfPages
+    this.localNumberOfPages = this.numberOfPages
   },
   methods: {
     // These methods are used by the render function
