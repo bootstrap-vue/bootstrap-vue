@@ -2,15 +2,26 @@ import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
 import warn from '../../utils/warn'
+import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
 import { computeHref, parseQuery } from '../../utils/router'
 import paginationMixin from '../../mixins/pagination'
 
-// Props object
+const NAME = 'BPaginationNav'
+
+// Sanitize the provided number of pages (converting to a number)
+export const sanitizeNumberOfPages = value => {
+  const numberOfPages = parseInt(value, 10) || 1
+  return numberOfPages < 1 ? 1 : numberOfPages
+}
+
 const props = {
-  // pagination-nav specific props
+  size: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'size')
+  },
   numberOfPages: {
     type: [Number, String],
     default: 1,
@@ -71,15 +82,11 @@ const props = {
 }
 
 // TODO: move this to an instance method in pagination mixin
-const sanitizeNumPages = value => {
-  const num = parseInt(value, 10) || 1
-  return num < 1 ? 1 : num
-}
 
 // Our render function is brought in via the pagination mixin
 // @vue/component
 export const BPaginationNav = /*#__PURE__*/ Vue.extend({
-  name: 'BPaginationNav',
+  name: NAME,
   mixins: [paginationMixin],
   props,
   computed: {
@@ -125,7 +132,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       if (isArray(this.pages) && this.pages.length > 0) {
         this.localNumPages = this.pages.length
       } else {
-        this.localNumPages = sanitizeNumPages(this.numberOfPages)
+        this.localNumPages = sanitizeNumberOfPages(this.numberOfPages)
       }
       this.$nextTick(() => {
         this.guessCurrentPage()

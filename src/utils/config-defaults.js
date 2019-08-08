@@ -132,6 +132,9 @@ export default deepFreeze({
   BPagination: {
     size: null
   },
+  BPaginationNav: {
+    size: null
+  },
   BPopover: {
     boundary: 'scrollParent',
     boundaryPadding: 5,

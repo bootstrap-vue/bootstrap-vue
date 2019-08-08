@@ -1,21 +1,30 @@
 import Vue from '../../utils/vue'
-import paginationMixin from '../../mixins/pagination'
+import { getComponentConfig } from '../../utils/config'
 import { isVisible } from '../../utils/dom'
+import paginationMixin from '../../mixins/pagination'
+
+const NAME = 'BPagination'
 
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0
 
+// Sanitize the provided per page number (converting to a number)
 const sanitizePerPage = val => {
   const perPage = parseInt(val, 10) || DEFAULT_PER_PAGE
   return perPage < 1 ? 1 : perPage
 }
 
+// Sanitize the provided total rows number (converting to a number)
 const sanitizeTotalRows = val => {
   const totalRows = parseInt(val, 10) || DEFAULT_TOTAL_ROWS
   return totalRows < 0 ? 0 : totalRows
 }
 
 const props = {
+  size: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'size')
+  },
   perPage: {
     type: [Number, String],
     default: DEFAULT_PER_PAGE
@@ -33,7 +42,7 @@ const props = {
 // Our render function is brought in from the pagination mixin
 // @vue/component
 export const BPagination = /*#__PURE__*/ Vue.extend({
-  name: 'BPagination',
+  name: NAME,
   mixins: [paginationMixin],
   props,
   computed: {
