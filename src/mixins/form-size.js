@@ -1,9 +1,11 @@
+import { getComponentConfig } from '../utils/config'
+
 // @vue/component
 export default {
   props: {
     size: {
       type: String,
-      default: null
+      default: () => getComponentConfig('formControls', 'size')
     }
   },
   computed: {

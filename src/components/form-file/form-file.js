@@ -22,7 +22,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   props: {
     size: {
       type: String,
-      default: null
+      default: () => getComponentConfig('BFormControl', 'size')
     },
     value: {
       // type: Object,
@@ -313,7 +313,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: [
           this.stateClass,
           {
-            [`b-custom-control-${this.size}`]: this.size
+            [`b-custom-control-${this.size}`]: Boolean(this.size)
           }
         ],
         attrs: { id: this.safeId('_BV_file_outer_') },
