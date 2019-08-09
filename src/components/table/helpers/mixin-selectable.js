@@ -32,8 +32,7 @@ export default {
       return this.selectable && this.selectMode
     },
     selectableHasSelection() {
-      return
-        this.isSelectable &&
+      return this.isSelectable &&
         this.selectedRows &&
         this.selectedRows.length > 0 &&
         this.selectedRows.some(Boolean)
@@ -50,7 +49,11 @@ export default {
     },
     selectableTableAttrs() {
       return {
-        'aria-multiselectable': !this.isSelectable ? null : this.selectableIsMultiSelect ? 'true' : 'false'
+        'aria-multiselectable': !this.isSelectable
+          ? null
+          : this.selectableIsMultiSelect
+            ? 'true'
+            : 'false'
       }
     }
   },
@@ -58,7 +61,7 @@ export default {
     computedItems(newVal, oldVal) {
       // Reset for selectable
       let equal = false
-      if (this.selectable && this.selectedRows.length > 0) {
+      if (this.isSelectable && this.selectedRows.length > 0) {
         // Quick check against array length
         equal = isArray(newVal) && isArray(oldVal) && newVal.length === oldVal.length
         for (let i = 0; equal && i < newVal.length; i++) {
