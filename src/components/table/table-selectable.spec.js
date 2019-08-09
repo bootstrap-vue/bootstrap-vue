@@ -871,4 +871,160 @@ describe('table > row select', () => {
 
     wrapper.destroy()
   })
+
+  it('method `selectRow()` and `unselectRow()` in multi mode works', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'multi'
+      }
+    })
+
+    let $rows
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Execute selectRow() method (second row)
+    wrapper.vm.selectRow(1)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0].length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[1]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    // Execute selectRow() method (fourth row)
+    wrapper.vm.selectRow(3)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0].length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[1], testItems[3]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
+
+    // Execute unselectRow() method on non-selected row (should not change anything)
+    wrapper.vm.unselectRow(0)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0].length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[1], testItems[3]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
+
+    // Execute unselectRow() method on selected row
+    wrapper.vm.unselectRow(3)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(3)
+    expect(wrapper.emitted('row-selected')[2][0].length).toBe(1)
+    expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[1]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('method `selectRow()` and `unselectRow()` in range mode works', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'range'
+      }
+    })
+
+    let $rows
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Execute selectRow() method (second row)
+    wrapper.vm.selectRow(1)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0].length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[1]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    // Execute selectRow() method (fourth row)
+    wrapper.vm.selectRow(3)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0].length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[1], testItems[3]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
+
+    // Execute unselectRow() method on non-selected row (should not change anything)
+    wrapper.vm.unselectRow(0)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0].length).toBe(2)
+    expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[1], testItems[3]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
+
+    // Execute unselectRow() method on selected row
+    wrapper.vm.unselectRow(3)
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(3)
+    expect(wrapper.emitted('row-selected')[2][0].length).toBe(1)
+    expect(wrapper.emitted('row-selected')[2][0]).toEqual([testItems[1]])
+    $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
+  })
 })
