@@ -684,7 +684,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         } else if (this.$refs.topTrap && target === this.$refs.topTrap) {
           // If user pressed CTRL-TAB out of modal and into our top tab trap element
           // Find the last tabable element in the modal content and focus it
-          if (attemptFocus(tabables[tabables.length -1])) {
+          if (attemptFocus(tabables[tabables.length - 1])) {
             // Focus was successful
             return
           }
