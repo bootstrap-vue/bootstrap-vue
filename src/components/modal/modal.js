@@ -47,6 +47,23 @@ const TABABLE_SELECTOR = [
   .map(s => `${s}:not(:disabled):not([disabled])`)
   .join(', ')
 
+// --- Utility methods ---
+
+// Attempt to focus an element, and return true if successful
+const attemptFocus = el => {
+  if (el && el.focus) {
+    try {
+      el.focus()
+    } catch {}
+    if (document.activeElement === el) {
+      // If the element has focus, then return true
+      return true
+    }
+  }
+  return false
+}
+
+// --- Props ---
 export const props = {
   size: {
     type: String,
@@ -511,6 +528,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       return null
     },
+    // Private method to get a list of all tabable elements within modal content
+    getTabables() {
+      // Find all tabable elements in the modal content
+      // Assumes users have not used tabindex > 0 on elements!
+      return selectAll(TABABLE_SELECTOR, this.$refs.content)
+        .filter(isVisible)
+        .filter(i => i.tabIndex > -1 && !i.disabled)
+    },
     // Private method to finish showing modal
     doShow() {
       /* istanbul ignore next: commenting out for now until we can test stacking */
@@ -639,34 +664,32 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     focusHandler(evt) {
       // If focus leaves modal content, bring it back
       const content = this.$refs.content
+      const target = evt.target
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.isVisible &&
         content &&
-        document !== evt.target &&
-        !contains(content, evt.target)
+        document !== target &&
+        !contains(content, target)
       ) {
-        // If user pressed CTRL-TAB out of modal and into our top tab trap element
-        if (this.$refs.topTrap && evt.target === this.$refs.topTrap) {
-          // Find the last tabable element in the modal content
-          // Assumes users have not used tabindex > 0 on elements!
-          const tabables = selectAll(TABABLE_SELECTOR, content)
-            .reverse()
-            .filter(isVisible)
-            .filter(i => i.tabIndex > -1)
-          if (tabables[0] && tabables[0].focus) {
-            // If found, ty and focus it
-            try {
-              tabables[0].focus()
-            } catch {}
-            if (this.getActiveElement() === tabables[0]) {
-              // If activeElement is the tabable, then return
-              return
-            }
+        const tabables = this.getTabables()
+        if (this.$refs.bottomTrap && target === this.$refs.bottomTrap) {
+          // If user pressed TAB out of modal into our bottom trab trap element
+          // Find the first tabable element in the modal content and focus it
+          if (attemptFocus(tabables[0])) {
+            // Focus was successful
+            return
+          }
+        } else if (this.$refs.topTrap && target === this.$refs.topTrap) {
+          // If user pressed CTRL-TAB out of modal and into our top tab trap element
+          // Find the last tabable element in the modal content and focus it
+          if (attemptFocus(tabables[tabables.length -1])) {
+            // Focus was successful
+            return
           }
         }
-        // Otherwise focus the modal content
+        // Otherwise focus the modal content container
         content.focus({ preventScroll: true })
       }
     },
