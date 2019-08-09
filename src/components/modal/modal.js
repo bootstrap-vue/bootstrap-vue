@@ -37,15 +37,15 @@ const EVT_OPTIONS = { passive: true, capture: false }
 // (includes tabindex="-1", which we filter out after)
 const TABABLE_SELECTOR = [
   'button',
-  '[href]',
+  '[href]:not(.disabled)',
   'input',
   'select',
   'textarea',
   '[tabindex]',
   '[contenteditable]'
 ]
-  .map(s => `${s}:not(:disabled):not([disabled]):not(a.disabled)`)
-  .join(',')
+  .map(s => `${s}:not(:disabled):not([disabled])`)
+  .join(', ')
 
 export const props = {
   size: {
