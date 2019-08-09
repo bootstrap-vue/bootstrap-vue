@@ -697,4 +697,98 @@ describe('table > row select', () => {
 
     wrapper.destroy()
   })
+
+  it('method `selectAllRows()` in single mode selects only first row', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Execute selectAllRows() method
+    wrapper.vm.selectAllRows()
+    await waitNT(wrapper.vm)
+    
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0].length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[0]])
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('method `selectAllRows()` in multi mode selects all rows', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'multi'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Execute selectAllRows() method
+    wrapper.vm.selectAllRows()
+    await waitNT(wrapper.vm)
+    
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0].length).toBe(4)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual(testItems)
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('method `selectAllRows()` in range mode selects all rows', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'range'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+
+    // Execute selectAllRows() method
+    wrapper.vm.selectAllRows()
+    await waitNT(wrapper.vm)
+    
+    expect(wrapper.emitted('row-selected')).toBeDefined()
+    expect(wrapper.emitted('row-selected').length).toBe(1)
+    expect(wrapper.emitted('row-selected')[0][0].length).toBe(4)
+    expect(wrapper.emitted('row-selected')[0][0]).toEqual(testItems)
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.is('[tabindex="0"]')).toBe(true)
+    expect($rows.at(0).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(2).is('[aria-selected="true"]')).toBe(true)
+    expect($rows.at(3).is('[aria-selected="true"]')).toBe(true)
+
+    wrapper.destroy()
+  })
 })
