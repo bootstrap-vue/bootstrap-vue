@@ -623,17 +623,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Document focusin listener
     focusHandler(evt) {
-      // If focus leaves modal, bring it back
-      const modal = this.$refs.modal
+      // If focus leaves modal content, bring it back
+      const content = this.$refs.content
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.isVisible &&
-        modal &&
+        content &&
         document !== evt.target &&
-        !contains(modal, evt.target)
+        !contains(content, evt.target)
       ) {
-        modal.focus({ preventScroll: true })
+        content.focus({ preventScroll: true })
       }
     },
     // Turn on/off focusin listener
@@ -677,14 +677,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Don't try and focus if we are SSR
       if (isBrowser) {
         const modal = this.$refs.modal
+        const content = this.$refs.content
         const activeElement = this.getActiveElement()
         // If the modal contains the activeElement, we don't do anything
-        if (modal && !(activeElement && contains(modal, activeElement))) {
+        if (modal && content && !(activeElement && contains(content, activeElement))) {
           // Make sure top of modal is showing (if longer than the viewport)
           // and focus the modal content wrapper
           this.$nextTick(() => {
             modal.scrollTop = 0
-            modal.focus()
+            content.focus()
           })
         }
       }
@@ -699,7 +700,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         // Possibly could be a component reference
         el = el.$el || el
         if (isVisible(el) && el.focus) {
-          el.focus()
+          try {
+            el.focus()
+          } catch {}
         }
       }
     },
@@ -835,21 +838,30 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.contentClass,
           attrs: {
             role: 'document',
-            id: this.safeId('__BV_modal_content_')
+            id: this.safeId('__BV_modal_content_'),
+            tabindex: '-1'
           }
         },
         [header, body, footer]
       )
 
+      // Tab trap to prevent page from scrolling to next element in
+      // tab index during enforce focus tab cycle
+      let tabTrap = h()
+      if (this.isVisible && this.isTop && !this.noEnforceFocus) {
+        tabTrap = h('div', { attrs: { tabindex: '0' } })
+      }
+
       // Modal dialog wrapper
       const modalDialog = h(
         'div',
         {
+          ref: 'dialog',
           staticClass: 'modal-dialog',
           class: this.dialogClasses,
           on: { mousedown: this.onDialogMousedown }
         },
-        [modalContent]
+        [modalContent, tabTrap]
       )
 
       // Modal
@@ -866,7 +878,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           attrs: {
             id: this.safeId(),
             role: 'dialog',
-            tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
             'aria-label': this.ariaLabel,
@@ -921,12 +932,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])
 
-      // Tab trap to prevent page from scrolling to next element in
-      // tab index during enforce focus tab cycle
-      let tabTrap = h()
-      if (this.isVisible && this.isTop && !this.noEnforceFocus) {
-        tabTrap = h('div', { attrs: { tabindex: '0' } })
-      }
       // Assemble modal and backdrop in an outer <div>
       return h(
         'div',
@@ -935,7 +940,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           style: this.modalOuterStyle,
           attrs: { id: this.safeId('__BV_modal_outer_') }
         },
-        [modal, tabTrap, backdrop]
+        [modal, backdrop]
       )
     }
   },
