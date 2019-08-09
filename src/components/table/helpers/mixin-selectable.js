@@ -32,10 +32,12 @@ export default {
       return this.selectable && this.selectMode
     },
     selectableHasSelection() {
-      return this.isSelectable &&
+      return (
+        this.isSelectable &&
         this.selectedRows &&
         this.selectedRows.length > 0 &&
         this.selectedRows.some(Boolean)
+      )
     },
     selectableIsMultiSelect() {
       return this.isSelectable && arrayIncludes(['range', 'multi'], this.selectMode)
