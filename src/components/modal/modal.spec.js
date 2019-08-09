@@ -1187,7 +1187,7 @@ describe('modal', () => {
       expect($button.exists()).toBe(true)
       expect($button.is('button')).toBe(true)
 
-      const $modal = wrapper.find(BModal)
+      const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
       const $content = $modal.find('div.modal-content')
       expect($content.exists()).toBe(true)
@@ -1212,7 +1212,7 @@ describe('modal', () => {
 
       // Emulate CTRL-TAB by focusing the `topTrap` div element.
       // Should focus last button in modal (in the footer)
-      const $topTrap = $modal.find({ ref: 'topTrap' })
+      const $topTrap = wrapper.find(BModal).find({ ref: 'topTrap' })
       expect($topTrap.exists()).toBe(true)
       expect($topTrap.is('span')).toBe(true)
       // Find the OK button (it is the only one with .btn-primary class)
@@ -1230,7 +1230,7 @@ describe('modal', () => {
 
       // Emulate TAB by focusing the `bottomTrap` span element.
       // Should focus first button in modal (in the header)
-      const $bottomTrap = $modal.find({ ref: 'bottomTrap' })
+      const $bottomTrap = wrapper.find(BModal).find({ ref: 'bottomTrap' })
       expect($bottomTrap.exists()).toBe(true)
       expect($bottomTrap.is('span')).toBe(true)
       // Find the close (x) button (it is the only one with the .close class
@@ -1244,7 +1244,7 @@ describe('modal', () => {
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($topTrap.element)
       expect(document.activeElement).not.toBe($content.element)
-      // The close (x) button (first tabbable in modal) should be focused
+      // The close (x) button (first tabable in modal) should be focused
       expect(document.activeElement).toBe($closeButton.element)
 
       wrapper.destroy()
