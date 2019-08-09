@@ -12,7 +12,7 @@ import { isBrowser } from '../../utils/env'
 import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
+import { contains, eventOff, eventOn, isVisible, select, selectAll } from '../../utils/dom'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
 
@@ -32,6 +32,18 @@ const OBSERVER_CONFIG = {
 
 // Options for DOM event listeners
 const EVT_OPTIONS = { passive: true, capture: false }
+
+// Query selector to find all tabbable elements
+// (includes tabindex="-1", which we filter out after)
+const TABABLE_SELECTOR = [
+  'button',
+  '[href]',
+  'input',
+  'select',
+  'textarea',
+  '[tabindex]',
+  '[contenteditable]'
+].map(s => `${s}:not(:disabled):not([disabled]):not(a.disabled)`).join(',')
 
 export const props = {
   size: {
@@ -402,7 +414,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     // Public method to show modal
     show() {
       if (this.isVisible || this.isOpening) {
-        // If already open, on in the process of opening, do nothing
+        // If already open, or in the process of opening, do nothing
         /* istanbul ignore next */
         return
       }
@@ -633,6 +645,26 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         document !== evt.target &&
         !contains(content, evt.target)
       ) {
+        // If user pressed CTRL-TAB out of modal
+        if (this.$refs.trapTop && evt.target === this.$refs.trapTop) {
+          // Find the last tabable element in the modal content
+          // Assumes users have not used tabindex > 0 on elements!
+          const tabables = selectAll(TABABLE_SELECTOR, content)
+            .reverse()
+            .filter(isVisible)
+            .filter(i => i.tabIndex > -1)
+          if (tabables[0] && tabables[0].focus) {
+            // If found, ty and focus it
+            try {
+              tabables[0].focus()
+            } catch {}
+            if (this.getActiveElement() === tabables[0]) {
+              // If activeElement is the tabable, then return
+              return
+            }
+          }
+        }
+        // Otherwise focus the modal content
         content.focus({ preventScroll: true })
       }
     },
