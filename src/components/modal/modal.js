@@ -43,7 +43,9 @@ const TABABLE_SELECTOR = [
   'textarea',
   '[tabindex]',
   '[contenteditable]'
-].map(s => `${s}:not(:disabled):not([disabled]):not(a.disabled)`).join(',')
+]
+  .map(s => `${s}:not(:disabled):not([disabled]):not(a.disabled)`)
+  .join(',')
 
 export const props = {
   size: {
