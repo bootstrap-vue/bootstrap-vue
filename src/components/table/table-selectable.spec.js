@@ -804,6 +804,7 @@ describe('table > row select', () => {
       }
     })
 
+    let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
@@ -816,7 +817,7 @@ describe('table > row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0].length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0]).toEqual([testItems[1]])
-    const $rows = wrapper.findAll('tbody > tr')
+    $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(1).is('[aria-selected="true"]')).toBe(true)
@@ -831,7 +832,7 @@ describe('table > row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0].length).toBe(1)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[3]])
-    const $rows = wrapper.findAll('tbody > tr')
+    $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
@@ -846,7 +847,7 @@ describe('table > row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(2)
     expect(wrapper.emitted('row-selected')[1][0].length).toBe(1)
     expect(wrapper.emitted('row-selected')[1][0]).toEqual([testItems[3]])
-    const $rows = wrapper.findAll('tbody > tr')
+    $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
@@ -861,7 +862,7 @@ describe('table > row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(3)
     expect(wrapper.emitted('row-selected')[2][0].length).toBe(0)
     expect(wrapper.emitted('row-selected')[2][0]).toEqual([])
-    const $rows = wrapper.findAll('tbody > tr')
+    $rows = wrapper.findAll('tbody > tr')
     expect($rows.is('[tabindex="0"]')).toBe(true)
     expect($rows.at(0).is('[aria-selected="false"]')).toBe(true)
     expect($rows.at(1).is('[aria-selected="false"]')).toBe(true)
