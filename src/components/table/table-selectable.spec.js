@@ -715,7 +715,7 @@ describe('table > row select', () => {
     // Execute selectAllRows() method
     wrapper.vm.selectAllRows()
     await waitNT(wrapper.vm)
-    
+
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0].length).toBe(1)
@@ -739,6 +739,7 @@ describe('table > row select', () => {
         selectMode: 'multi'
       }
     })
+
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
@@ -746,7 +747,7 @@ describe('table > row select', () => {
     // Execute selectAllRows() method
     wrapper.vm.selectAllRows()
     await waitNT(wrapper.vm)
-    
+
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0].length).toBe(4)
@@ -770,6 +771,7 @@ describe('table > row select', () => {
         selectMode: 'range'
       }
     })
+
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-selected')).not.toBeDefined()
@@ -777,7 +779,7 @@ describe('table > row select', () => {
     // Execute selectAllRows() method
     wrapper.vm.selectAllRows()
     await waitNT(wrapper.vm)
-    
+
     expect(wrapper.emitted('row-selected')).toBeDefined()
     expect(wrapper.emitted('row-selected').length).toBe(1)
     expect(wrapper.emitted('row-selected')[0][0].length).toBe(4)
