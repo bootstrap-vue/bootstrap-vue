@@ -847,9 +847,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
 
       // Tab trap to prevent page from scrolling to next element in
       // tab index during enforce focus tab cycle
-      let tabTrap = h()
+      let tabTrapTop = h()
+      let tabTrapBottom = h()
       if (this.isVisible && this.isTop && !this.noEnforceFocus) {
-        tabTrap = h('div', { attrs: { tabindex: '0' } })
+        tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
+        tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
       }
 
       // Modal dialog wrapper
@@ -861,7 +863,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.dialogClasses,
           on: { mousedown: this.onDialogMousedown }
         },
-        [modalContent, tabTrap]
+        [tabTrapTop, modalContent, tabTrapBottom]
       )
 
       // Modal
