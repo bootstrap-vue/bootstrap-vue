@@ -647,8 +647,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         document !== evt.target &&
         !contains(content, evt.target)
       ) {
-        // If user pressed CTRL-TAB out of modal
-        if (this.$refs.trapTop && evt.target === this.$refs.trapTop) {
+        // If user pressed CTRL-TAB out of modal and into our top tab trap element
+        if (this.$refs.topTrap && evt.target === this.$refs.topTrap) {
           // Find the last tabable element in the modal content
           // Assumes users have not used tabindex > 0 on elements!
           const tabables = selectAll(TABABLE_SELECTOR, content)
