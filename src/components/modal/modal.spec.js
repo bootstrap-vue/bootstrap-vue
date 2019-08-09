@@ -1189,24 +1189,26 @@ describe('modal', () => {
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
+      const $content = $modal.find('div.modal-content')
+      expect($content.exists()).toBe(true)
 
       expect($modal.element.style.display).toEqual('block')
       expect(document.activeElement).not.toBe(document.body)
-      expect(document.activeElement).toBe($modal.element)
+      expect(document.activeElement).toBe($content.element)
 
-      // Try anf set focusin on external button
+      // Try and set focusin on external button
       $button.trigger('focusin')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($modal.element)
+      expect(document.activeElement).toBe($content.element)
 
-      // Try anf set focusin on external button
+      // Try and set focusin on external button
       $button.trigger('focus')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($modal.element)
+      expect(document.activeElement).toBe($content.element)
 
       wrapper.destroy()
     })
