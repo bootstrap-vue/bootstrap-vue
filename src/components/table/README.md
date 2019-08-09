@@ -1433,7 +1433,7 @@ Programmatic selection notes:
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selectedVariant="success"
+      selected-variant="success"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"
@@ -1507,7 +1507,7 @@ Programmatic selection notes:
 <!-- b-table-selectable.vue -->
 ```
 
-When table is selectable, it will have class `b-table-selectable`, and one of the following three
+When a table is selectable, it will have class `b-table-selectable`, and one of the following three
 classes (depending on which mode is in use), on the `<table>` element:
 
 - `b-table-select-single`
@@ -1517,13 +1517,23 @@ classes (depending on which mode is in use), on the `<table>` element:
 When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
 element.
 
+Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
+to the order that the table variants are defined in Bootstrap's CSS, any row-variant's may take
+precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
+will be using other means to convey that a row is selected (such as a scoped field slot in the
+above example).
+
 **Notes:**
 
 - Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
   with an empty array if needed.
 - Selected rows will have a class of `b-row-selected` added to them.
 - When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons.
+  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the
+  attribute `aria-selected` set to either `'true'` or `'false'` depending on the selected state of
+  the row.
+- When a table is `selectable`, the table will have the attribute `aria-multiselect` set to either
+  `'false'` for `single` mode, and `'true'` for either `multi` or `range` modes.
 
 ### Table body transition support
 
