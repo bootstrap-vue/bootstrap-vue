@@ -1187,7 +1187,7 @@ describe('modal', () => {
       expect($button.exists()).toBe(true)
       expect($button.is('button')).toBe(true)
 
-      const $modal = wrapper.find('div.modal')
+      const $modal = wrapper.find(BModal)
       expect($modal.exists()).toBe(true)
       const $content = $modal.find('div.modal-content')
       expect($content.exists()).toBe(true)
@@ -1209,6 +1209,43 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($content.element)
+
+      // Emulate CTRL-TAB by focusing the `topTrap` div element.
+      // Should focus last button in modal (in the footer)
+      const $topTrap = $modal.find({ ref: 'topTrap' })
+      expect($topTrap.exists()).toBe(true)
+      expect($topTrap.is('span')).toBe(true)
+      // Find the OK button (it is the only one with .btn-primary class)
+      const $okButton = $modal.find('button.btn.btn-primary')
+      expect($okButton.exists()).toBe(true)
+      expect($okButton.is('button')).toBe(true)
+      // focus the tab trap
+      $topTrap.trigger('focus')
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).not.toBe($topTrap.element)
+      expect(document.activeElement).not.toBe($content.element)
+      // The OK button (last tabbable in modal) should be focused
+      expect(document.activeElement).toBe($okButton.element)
+
+      // Emulate TAB by focusing the `bottomTrap` span element.
+      // Should focus first button in modal (in the header)
+      const $bottomTrap = $modal.find({ ref: 'bottomTrap' })
+      expect($bottomTrap.exists()).toBe(true)
+      expect($bottomTrap.is('span')).toBe(true)
+      // Find the close (x) button (it is the only one with the .close class
+      const $closeButton = $modal.find('button.close')
+      expect($closeButton.exists()).toBe(true)
+      expect($closeButton.is('button')).toBe(true)
+      // focus the tab trap
+      $bottomTrap.trigger('focus')
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).not.toBe($bottomTrap.element)
+      expect(document.activeElement).not.toBe($topTrap.element)
+      expect(document.activeElement).not.toBe($content.element)
+      // The close (x) button (first tabbable in modal) should be focused
+      expect(document.activeElement).toBe($closeButton.element)
 
       wrapper.destroy()
     })
