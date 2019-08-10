@@ -32,7 +32,13 @@
 // --- Table sticky header styling ---
 
 // Make sure table child elements inherit their parent background colors, except
-// when they have an explicit table-<variant> or bg-<variant> applied
+// when they have an explicit table-<variant> or bg-<variant> applied.
+// Needed because Bootstrap v4 does not have table child elements set up
+// to inherit their background color from parent element by default.
+//
+// An issue or PR should be made at the twbs/bootstrap repo to
+// set this up. table child elements do not automatically inherit their
+// parent background colors
 .table.b-table {
   > thead:not([class*="table-"]):not([class*="bg-"]),
   > tbody:not([class*="table-"]):not([class*="bg-"]),
