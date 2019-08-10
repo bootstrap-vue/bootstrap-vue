@@ -596,8 +596,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.isHidden = true
       this.$nextTick(() => {
         this.isClosing = false
-        this.returnFocusTo()
         modalManager.unregisterModal(this)
+        this.returnFocusTo()
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
         this.emitEvent(this.buildEvent('hidden'))
@@ -756,9 +756,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         console.log('Return Focus Element:', el)
         // Possibly could be a component reference
         el = el.$el || el
-        attemptFocus(el)
+        const result = attemptFocus(el)
         // DEBUG
-        console.log('Return Focus Active Element:', document.activeElement)
+        console.log('Return Focus Active Element:', result, document.activeElement)
       }
       this.return_focus = null
     },
