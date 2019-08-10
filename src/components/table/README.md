@@ -637,7 +637,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
 Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
-(sticky) as the table boxy scrolls. Setting the prop to `true` (or no explicit value) will generate
+(sticky) as the table body scrolls. Setting the prop to `true` (or no explicit value) will generate
 a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
 the `sticky-header` prop to a valid CSS height (including units), i.e. `sticky-header="200px"`.
 
