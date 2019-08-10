@@ -573,7 +573,11 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items"></b-table>
+    <b-table responsive :items="items">
+      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
+      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">{{ scope.label }}</div>
+      <div slot="[]" class="text-nowrap" slot-scope="scope">{{ scope.value }}</div>
+    </b-table>
   </div>
 </template>
 
@@ -691,13 +695,58 @@ space.
 <span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
 Columns can be made sticky, where they stick to the left of the table when the table has a
-horizontal scrollbar. Sticky columns will only work when the table has either the `sticky-header`
-prop set and/or the `responsive` prop is set.
+horizontal scrollbar. To make a column a sticky column, set the `stickyColumn` prop in the
+[field's header definition](#field-definition-reference). Sticky columns will only work when
+the table has either the `sticky-header` prop set and/or the `responsive` prop is set.
 
-To make a column a sticky column, set the `stickyColumn` prop in the
-[field's header definition](#field-definition-reference).
+**Example: Sticky columns and headers**
 
-**Eample TBD**
+```html
+<template>
+  <div>
+    <b-table sticky-header responsive :items="items" :fields="fields" head-variant="light">
+      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
+      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">Column Heading {{ scope.label}}</div>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: [
+          { key: 'a', stickyColumn: true, isRowHeader: true, variant: 'primary' },
+          'b',
+          'c',
+          { key: 'd', stickyColumn: true, variant: 'info' },
+          'e',
+          'f',
+          'g',
+          'h',
+          'i',
+          'j',
+          'k'
+        ],
+        items: [
+          { a: 'Row 1', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 2', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 3', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 4', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 5', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 6', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 7', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 8', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 9', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 },
+          { a: 'Row 10', b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10 }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- table-sticky-columns.vue -->
+```
 
 ### Stacked tables
 
