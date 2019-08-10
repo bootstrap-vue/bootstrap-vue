@@ -44,6 +44,8 @@
 
 .b-table-sticky-header {
   overflow-y: auto;
+  // Annoyingly, when overflow-y is set, browsers convert
+  // 'overflow-x: visible' to 'overflow-x: auto'
   // Default `max-height` before scrollbar will show
   // We don't use `height` as table could be shorter than this value
   max-height: $b-table-sticky-header-max-height;
@@ -57,12 +59,13 @@
         > td {
           position: sticky;
           top: 0;
-          z-index: 2;
+          z-index: 5;
         }
       }
     }
   }
 
+  .b-table-sticky-header,
   .table-responsive,
   [class*="table-responsive-"] {
     > .table {
@@ -71,11 +74,23 @@
       > tfoot {
         > tr > .b-table-sticky-column {
           // Positioning for sticky column cells
-          // Works only when table is in responsive mode
           position: sticky;
           left: 0;
-          // z-index needs to be higher than sticky headers
+        }
+      }
+
+      > thead {
+        > tr > .b-table-sticky-column {
+          // z-index needs to be higher than sticky columns
           z-index: 5;
+        }
+      }
+
+      > tbody,
+      > tfoot {
+        > tr > .b-table-sticky-column {
+          // z-index needs to be lower than sticky headers
+          z-index: 2;
         }
       }
     }
