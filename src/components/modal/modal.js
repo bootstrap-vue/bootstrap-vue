@@ -764,7 +764,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           attemptFocus(el)
         }
         this.return_focus = null
-      }
+      })
     },
     checkModalOverflow() {
       if (this.isVisible) {
