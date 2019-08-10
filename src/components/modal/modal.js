@@ -12,15 +12,7 @@ import { isBrowser } from '../../utils/env'
 import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-import {
-  contains,
-  eventOff,
-  eventOn,
-  isVisible,
-  requestAF,
-  select,
-  selectAll
-} from '../../utils/dom'
+import { contains, eventOff, eventOn, isVisible, select, selectAll } from '../../utils/dom'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
 
@@ -755,16 +747,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Prefer `returnFocus` prop over event specified
       // `return_focus` value
       let el = this.returnFocus || this.return_focus || null
-      requestAF(() => {
-        // Is el a string CSS selector?
-        el = isString(el) ? select(el) : el
-        if (el) {
-          // Possibly could be a component reference
-          el = el.$el || el
-          attemptFocus(el)
-        }
-        this.return_focus = null
-      })
+      // Is el a string CSS selector?
+      el = isString(el) ? select(el) : el
+      if (el) {
+        // DEBUG
+        console.log('Return Focus Element:', el)
+        // Possibly could be a component reference
+        el = el.$el || el
+        attemptFocus(el)
+      }
+      this.return_focus = null
     },
     checkModalOverflow() {
       if (this.isVisible) {
