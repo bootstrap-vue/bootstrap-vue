@@ -583,6 +583,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     onBeforeLeave() {
       this.isTransitioning = true
       this.setResizeEvent(false)
+      this.setEnforceFocus(false)
     },
     onLeave() {
       // Remove the 'show' class
@@ -591,7 +592,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     onAfterLeave() {
       this.isBlock = false
       this.isTransitioning = false
-      this.setEnforceFocus(false)
       this.isModalOverflowing = false
       this.isHidden = true
       this.$nextTick(() => {
@@ -669,8 +669,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         document !== target &&
         !contains(content, target)
       ) {
-        // DEBUG
-        console.log('Inside Focus Handler of modal', this)
         const tabables = this.getTabables()
         if (this.$refs.bottomTrap && target === this.$refs.bottomTrap) {
           // If user pressed TAB out of modal into our bottom trab trap element
@@ -749,18 +747,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Prefer `returnFocus` prop over event specified
       // `return_focus` value
       let el = this.returnFocus || this.return_focus || null
-      // Is el a string CSS selector?
-      el = isString(el) ? select(el) : el
-      if (el) {
-        // DEBUG
-        console.log('Return Focus Element:', el)
-        // Possibly could be a component reference
-        el = el.$el || el
-        const result = attemptFocus(el)
-        // DEBUG
-        console.log('Return Focus Active Element:', result, document.activeElement)
-      }
       this.return_focus = null
+      this.$nextTick(() => {
+        // Is el a string CSS selector?
+        el = isString(el) ? select(el) : el
+        if (el) {
+          // Possibly could be a component reference
+          el = el.$el || el
+          attemptFocus(el)
+        }
+      })
     },
     checkModalOverflow() {
       if (this.isVisible) {
@@ -905,7 +901,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // tab index during enforce focus tab cycle
       let tabTrapTop = h()
       let tabTrapBottom = h()
-      if (this.isVisible && this.isTop && !this.noEnforceFocus) {
+      if (this.isVisible && !this.noEnforceFocus) {
         tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
         tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
       }
