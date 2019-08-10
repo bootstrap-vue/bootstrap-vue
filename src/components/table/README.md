@@ -1301,6 +1301,9 @@ available horizontal space.
 - The `sticky-header` prop has no effect if the table has the [`stacked`](#stacked-tables) prop set.
 - Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
 - BootstrapVue's custom CSS is required in order to support `sticky-header`.
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
+  borders on the stcky header from "sticking" to the header, and hence the borders will scroll when
+  the body scrolls.
 - The sticky header feature uses CSS style `position: sticky` to position the headings.
 - Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
   scroll with the table body.
@@ -1378,6 +1381,9 @@ prop is set.
   other visually, and the left-most sticky columns may "peek" out from under the next sticky
   column. To get around this behaviour, make sure your latter stickyColumns are the same width or
   wider than previous sticky columns.
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
+  left or right borders on the stcky columns from "sticking" to the column, and hence those borders
+  will scroll when the body scrolls.
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells.
 - Internet Explorer does not support `position: sticky`, hence for IE11 the sticky column will
