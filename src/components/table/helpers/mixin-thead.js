@@ -84,7 +84,8 @@ export default {
           key: field.key,
           class: [this.fieldClasses(field), sortClass],
           props: {
-            variant: field.variant
+            variant: field.variant,
+            stickyColumn: field.stickyColumn
           },
           style: field.thStyle || {},
           attrs: {
@@ -98,7 +99,7 @@ export default {
           },
           on: handlers
         }
-        const fieldScope = { label: field.label, column: field.key, field: field }
+        const fieldScope = { label: field.label, column: field.key, field, isFoot }
         let slot
         if (
           isFoot &&
