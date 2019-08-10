@@ -55,24 +55,52 @@
           z-index: 2;
         }
       }
+    }
+  }
 
-      // Default theme color background for table headers
-      // Applied only when no variant is applied to the rows, or no head-variant
-      // Needed because Bootstrap v4 doesn't have table child elements
-      // set up to inherit their background from parent element by default
-      > thead > tr > th.table-b-table-default,
-      > thead > tr > td.table-b-table-default {
+  .table-responsive,
+  [class*="table-responsive-"] {
+    > .table {
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr > .b-table-sticky-column {
+          // Positioning for sticky column cells
+          // Works only when table is in responsive mode
+          position: sticky;
+          left: 0;
+          // z-index needs to be higher than sticky headers
+          z-index: 4;
+        }
+      }
+    }
+  }
+
+  .table {
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr > .table-b-table-default {
+        // Default theme color background for table cells that are sticky
+        // Applied only when no variant is applied to the rows, or no head-variant
+        // Needed because Bootstrap v4 does not have table child elements set up
+        // to inherit their background color from parent element by default
         color: $table-color;
-        // Default header background
         // `$table-bg` is null by default in Bootstrap v4 variables
+        // but could be set by consumer
         background-color: if($table-bg, $table-bg, $body-bg);
       }
+    }
 
-      &.table-dark > thead > tr > th.bg-b-table-default,
-      &.table-dark > thead > tr > td.bg-b-table-default {
-        color: $table-dark-color;
-        // Default header background in table dark mode
-        background-color: $table-dark-bg;
+    &.table-dark {
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr > .bg-b-table-default {
+          color: $table-dark-color;
+          // Default header background in table dark mode
+          background-color: $table-dark-bg;
+        }
       }
     }
   }
