@@ -115,7 +115,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       }
       return [
         variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
-        this.isStickyLeft ? 'b-table-sticky-column' : null
+        this.isStickyColumn ? 'b-table-sticky-column' : null
       ]
     },
     computedColspan() {
