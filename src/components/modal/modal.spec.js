@@ -1220,6 +1220,7 @@ describe('modal', () => {
       expect($closeButton.exists()).toBe(true)
       expect($closeButton.is('button')).toBe(true)
       // focus the tab trap
+      $bottomTrap.trigger('focusin')
       $bottomTrap.trigger('focus')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
@@ -1238,6 +1239,7 @@ describe('modal', () => {
       expect($okButton.exists()).toBe(true)
       expect($okButton.is('button')).toBe(true)
       // focus the tab trap
+      $topTrap.trigger('focusin')
       $topTrap.trigger('focus')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
