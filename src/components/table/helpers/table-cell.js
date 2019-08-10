@@ -93,11 +93,12 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       // Needed to handle header background classes, due to lack of
       // bg color inheritance with Bootstrap v4 tabl css
       // Sticky left cells are only available in responsive mode (horzontal scrolling)
+      // Or sticky header mode
       return (
         !this.isStacked &&
         this.bvTable &&
         this.bvTableTr &&
-        this.bvTable.isResponsive &&
+        (this.bvTable.isResponsive || this.isStickyHeader) &&
         this.stickyColumn
       )
     },
