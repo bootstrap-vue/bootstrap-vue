@@ -129,4 +129,7 @@ export const vueUse = VuePlugin => {
   if (hasWindowSupport && window.Vue) {
     window.Vue.use(VuePlugin)
   }
+  if (hasWindowSupport && VuePlugin.NAME) {
+    window[VuePlugin.NAME] = VuePlugin
+  }
 }
