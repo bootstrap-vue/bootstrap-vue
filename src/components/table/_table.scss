@@ -29,11 +29,9 @@
 }
 
 // --- Table sticky header styling ---
-.b-table-sticky-header {
-  overflow-y: auto;
-  // Default `max-height` before scrollbar will show
-  // We don't use `height` as table could be shorter than this value
-  max-height: $b-table-sticky-header-max-height;
+.b-table-sticky-header,
+.table-responsive,
+[class*="table-responsive-"] {
   // Move the table bottom margin to the wrapper
   margin-bottom: $spacer;
 
@@ -42,6 +40,13 @@
     // the table in the scroll area
     margin-bottom: 0;
   }
+}
+
+.b-table-sticky-header {
+  overflow-y: auto;
+  // Default `max-height` before scrollbar will show
+  // We don't use `height` as table could be shorter than this value
+  max-height: $b-table-sticky-header-max-height;
 }
 
 @supports (position: sticky) {
@@ -70,7 +75,7 @@
           position: sticky;
           left: 0;
           // z-index needs to be higher than sticky headers
-          z-index: 4;
+          z-index: 5;
         }
       }
     }
