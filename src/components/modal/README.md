@@ -1048,7 +1048,11 @@ event will be ignored.
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the
 document, it will be brought back into the modal.
 
+Avoid setting `tabindex` on elements within the modal to any value other than `0` or `-1`. Doing so
+will make it difficult for people who rely on assistive technology to navigate and operate page
+content and can make some of your elements unreachable via keyboard navigation.
+
 In some circumstances, you may need to disable the enforce focus feature. You can do this by setting
-the prop `no-enforce-focus`.
+the prop `no-enforce-focus`, although this is highly discouraged.
 
 <!-- Component reference added automatically from component package.json -->
