@@ -31,34 +31,6 @@
 
 // --- Table sticky header styling ---
 
-// Make sure table child elements inherit their parent background colors, except
-// when they have an explicit table-<variant> or bg-<variant> applied.
-// Needed because Bootstrap v4 does not have table child elements set up
-// to inherit their background color from parent element by default.
-//
-// An issue or PR should be made at the twbs/bootstrap repo to
-// set this up. table child elements do not automatically inherit their
-// parent background colors
-.table.b-table {
-  > thead:not([class*="table-"]):not([class*="bg-"]),
-  > tbody:not([class*="table-"]):not([class*="bg-"]),
-  > tfoot:not([class*="table-"]):not([class*="bg-"]) {
-    background-color: inherit;
-  }
-
-  > thead > tr:not([class*="table-"]):not([class*="bg-"]),
-  > tbody > tr:not([class*="table-"]):not([class*="bg-"]),
-  > tfoot > tr:not([class*="table-"]):not([class*="bg-"]) {
-    background-color: inherit;
-  }
-
-  > thead > tr > :not([class*="table-"]):not([class*="bg-"]),
-  > tbody > tr > :not([class*="table-"]):not([class*="bg-"]),
-  > tfoot > tr > :not([class*="table-"]):not([class*="bg-"]) {
-    background-color: inherit;
-  }
-}
-
 .b-table-sticky-header,
 .table-responsive,
 [class*="table-responsive-"] {
@@ -123,11 +95,13 @@
     }
   }
 
-  /*
   // Default theme color background for table cells that are sticky
   // Applied only when no variant is applied to the rows, or no head-variant
   // Needed because Bootstrap v4 does not have table child elements set up
   // to inherit their background color from parent element by default
+  //
+  // An issue or PR should be made at twbs/bootstrap repo for table
+  // background color inheritence
   .table.b-table {
     > thead > tr > .table-b-table-default,
     > tbody > tr > .table-b-table-default,
@@ -150,7 +124,6 @@
       }
     }
   }
-  */
 }
 
 // --- Header sort styling ---
