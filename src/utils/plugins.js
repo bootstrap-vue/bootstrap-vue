@@ -129,6 +129,7 @@ export const vueUse = VuePlugin => {
   if (hasWindowSupport && window.Vue) {
     window.Vue.use(VuePlugin)
   }
+  /* istanbul ignore next */
   if (hasWindowSupport && VuePlugin.NAME) {
     window[VuePlugin.NAME] = VuePlugin
   }
