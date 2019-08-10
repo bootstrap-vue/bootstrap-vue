@@ -1320,7 +1320,7 @@ prop is set.
 ```html
 <template>
   <div>
-    <b-table sticky-header responsive :items="items" :fields="fields" head-variant="light">
+    <b-table sticky-header responsive :items="items" :fields="fields">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
       <div slot="HEAD[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
       <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">
