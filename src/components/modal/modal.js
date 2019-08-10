@@ -598,10 +598,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.isModalOverflowing = false
       this.isHidden = true
       this.$nextTick(() => {
-        this.returnFocusTo()
-        this.isClosing = false
-        this.return_focus = null
         modalManager.unregisterModal(this)
+        this.isClosing = false
+        this.returnFocusTo()
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
         this.emitEvent(this.buildEvent('hidden'))
@@ -762,6 +761,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           } catch {}
         }
       }
+      this.return_focus = null
     },
     checkModalOverflow() {
       if (this.isVisible) {
