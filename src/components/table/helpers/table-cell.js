@@ -36,6 +36,10 @@ export const props = {
   stackedHeading: {
     type: String,
     default: null
+  },
+  stickyColumn: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -68,24 +72,51 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       return this.bvTable && this.bvTable.dark
     },
     isStacked() {
+      return this.bvTable && this.bvTable.isStacked
+    },
+    isStackedCell() {
       // We only support stacked-heading in tbody in stacked mode
-      return this.bvTableTbody && this.bvTable && this.bvTable.isStacked
+      return this.isStacked && this.bvTableTbody 
     },
     isStickyHeader() {
       // Needed to handle header background classes, due to lack of
       // bg color inheritance with Bootstrap v4 tabl css
-      return this.bvTable && this.bvTableThead && this.bvTableTr && this.bvTable.isStickyHeader
+      return (
+        !this.isStacked &&
+        this.bvTable &&
+        this.bvTableThead &&
+        this.bvTableTr &&
+        this.bvTable.isStickyHeader
+      )
+    },
+    isStickyColumn() {
+      // Needed to handle header background classes, due to lack of
+      // bg color inheritance with Bootstrap v4 tabl css
+      // Sticky left cells are only available in responsive mode (horzontal scrolling)
+      return (
+        !this.isStacked &&
+        this.bvTable &&
+        this.bvTableTr &&
+        this.bvTable.isResponsive &&
+        this.stickyColumn
+      )
     },
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
       let variant = this.variant
-      if (this.isStickyHeader && !variant && !this.bvTableThead.headVariant) {
+      if (
+        (!variant && this.isStickyHeader && !this.bvTableThead.headVariant) ||
+        (!variant && this.isStickyColumn)
+      ){
         // Needed for stickyheader mode as Bootstrap v4 table cells do
-        // not inherit parent's background-color
+        // not inherit parent's background-color. Boo!
         variant = this.bvTableTr.variant || this.bvTable.tableVariant || 'b-table-default'
       }
-      return [variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null]
+      return [
+        variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
+        this.isStickyLeft ? 'b-table-sticky-column' : null
+      ]
     },
     computedColspan() {
       return parseSpan(this.colspan)
@@ -107,6 +138,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
       // Compute role and scope
       // We only add scopes with an explicit span of 1 or greater
       if (headOrFoot) {
+        // Header or footer cells
         role = 'columnheader'
         scope = colspan > 0 ? 'colspan' : 'col'
       } else if (this.header) {
@@ -120,11 +152,11 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         rowspan: rowspan,
         role: role,
         scope: scope,
+        // Allow users to override role/scope plus add other attributes
+        ...this.$attrs,
         // Add in the stacked cell label data-attribute if in
         // stacked mode (if a stacked heading label is provided)
-        'data-label': this.isStacked && this.stackedHeading ? toString(this.stackedHeading) : null,
-        // Allow users to override role/scope plus add other attributes
-        ...this.$attrs
+        'data-label': this.isStackedCell && this.stackedHeading ? toString(this.stackedHeading) : null,
       }
     }
   },
@@ -138,7 +170,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
         // Transfer any native listeners
         on: this.$listeners
       },
-      [this.isStacked ? h('div', {}, [content]) : content]
+      [this.isStackedCell ? h('div', {}, [content]) : content]
     )
   }
 })
