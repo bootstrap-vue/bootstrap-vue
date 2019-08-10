@@ -669,6 +669,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         document !== target &&
         !contains(content, target)
       ) {
+        // DEBUG
+        console.log('Inside Focus Handler of modal', this)
         const tabables = this.getTabables()
         if (this.$refs.bottomTrap && target === this.$refs.bottomTrap) {
           // If user pressed TAB out of modal into our bottom trab trap element
@@ -755,6 +757,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         // Possibly could be a component reference
         el = el.$el || el
         attemptFocus(el)
+        // DEBUG
+        console.log('Return Focus Active Element:', document.activeElement)
       }
       this.return_focus = null
     },
