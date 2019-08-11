@@ -2331,12 +2331,15 @@ content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
 of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and
-`<colgroup>`+`<col>`.
+`<colgroup>` and `<col>`. Contrary to the component's name, one can create simple or complex table
+layouts with `<b-table-simple>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed`, `responsive` and `sticky-header`. Note that `stacked`
 mode is available but requires some additional markup to generate the cell headings, as described in
-the [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
+the [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below. Sticky columns
+are also supported, but also require a bit of additional markup to specify which columns are to be
+sticky. See below for more information on using [sticky columns](#simple-tables-and-sticky-columns).
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
@@ -2533,6 +2536,54 @@ medium and wider screens.
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
 and `<th>` element tags will not work as expected, nor will they automatically apply any of the
 required accessibility attributes.
+
+### Simple tables and sticky columns
+
+Sticky columns are supported with `<b-table-simple>`, but you will need to set the `sticky-column`
+prop on each table cell (in the `thead`, `tbody`, and `tfoot` row groups) in the column that is
+to be sticky. For example:
+
+```html
+<b-table-simple responsive>
+  <b-thead>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Header</b-th>
+      <b-th>Heading 1</b-th>
+      <b-th>Heading 2</b-th>
+      <b-th>Heading 3</b-th>
+      <b-th>Heading 4</b-th>
+    </b-tr>
+  </b-thead>
+  <b-tbody>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Row Header</b-th>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+    </b-tr>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Row Header</b-th>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+    </b-tr>
+  </b-tbody>
+  <b-tfoot>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Footer</b-th>
+      <b-th>Heading 1</b-th>
+      <b-th>Heading 2</b-th>
+      <b-th>Heading 3</b-th>
+      <b-th>Heading 4</b-th>
+    </b-tr>
+  </b-tfoot>
+</b-table-responsive>
+```
+
+As with `<b-table>` and `<b-table-lite>`, sticky columns are not supported when the
+`stacked` prop is set on `<b-table-simple>`.
 
 ### Table simple as a plugin
 
