@@ -354,8 +354,8 @@ yarn add babel-core babel-loader babel-preset-env --dev
 
 For more details see:
 
-- Webpack `resolve.alias`: https://webpack.js.org/configuration/resolve/
-- Webpack `rule`: https://webpack.js.org/configuration/module/#rule
+- [Webpack `resolve.alias`](https://webpack.js.org/configuration/resolve/)
+- [Webpack `rule`](https://webpack.js.org/configuration/module/#rule)
 - [rollup.js](https://rollupjs.org/)
 - [Parcel](https://parceljs.org/)
 
