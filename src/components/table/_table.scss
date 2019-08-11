@@ -137,6 +137,8 @@
         // "fake" zebra striping via use of a transparent background image
         > tbody > tr:nth-of-type(#{$table-striped-order}) > .table-b-table-default {
           // `$table-accent-bg` (used for striping) default is a very transparent black
+          // We overlay it over the background color to acheive the same color
+          // effect while keeping the background solid.
           background-image: linear-gradient($table-accent-bg, $table-accent-bg);
           background-repeat: no-repeat;
         }
@@ -144,6 +146,8 @@
         &.table-dark {
           > tbody > tr:nth-of-type(#{$table-striped-order}) > .bg-b-table-default {
             // `$table-dark-accent-bg` (used for striping) default is a very transparent white
+            // We overlay it over the background color to acheive the same color
+            // effect while keeping the background solid.
             background-image: linear-gradient($table-dark-accent-bg, $table-dark-accent-bg);
             background-repeat: no-repeat;
           }
@@ -154,14 +158,20 @@
       &.table-hover {
         // "fake" hover via use of a transparent background image
         > tbody > tr:hover > .table-b-table-default {
+          color: $table-hover-color;
           // `$table-hover-bg` default is a very transparent black
+          // We overlay it over the background color to acheive the same color
+          // effect while keeping the background solid.
           background-image: linear-gradient($table-hover-bg, $table-hover-bg);
           background-repeat: no-repeat;
         }
 
         &.table-dark {
           > tbody > tr:hover > .bg-b-table-default {
+            color: $table-dark-hover-color;
             // `$table-dark-hover-bg` default is a very transparent white
+            // We overlay it over the background color to acheive the same color
+            // effect while keeping the background solid.
             background-image: linear-gradient($table-dark-hover-bg, $table-dark-hover-bg);
             background-repeat: no-repeat;
           }
