@@ -5,27 +5,28 @@
 
 While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue uses custom CSS (i.e.
 stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap v4.x SCSS. The
-`bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables. Using the BootstrapVue
-source SCSS, you can have your variable overrides (such as breakpoints, etc) adjust the custom
-BootstrapVue css.
+`bootstrap-vue/dist/bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables.
+By using the BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints,
+theme colors, etc) adjust the custom BootstrapVue css generation.
 
 ## SASS variable defaults
 
-Every Sass variable in Bootstrap 4 includes the `!default` flag allowing you to override the
-variable’s default value in your own Sass without modifying Bootstrap’s source code. Copy and paste
-variables as needed, modify their values, and remove the `!default` flag. If a variable has already
-been assigned, then it won’t be re-assigned by the default values in Bootstrap.
+Every Sass variable in Bootstrap v4 includes the `!default` flag allowing you to override the
+variable’s default value in your own Sass without modifying Bootstrap and BootstrapVue’s source
+SCSS code. Copy and paste variables as needed, modify their values, and remove the `!default` flag.
+If a variable has already been assigned, then it won’t be re-assigned by the default values in
+Bootstrap and BootstrapVue.
 
 You will find the complete list of Bootstrap’s variables in `bootstrap/scss/_variables.scss`. Some
 variables are set to `null`, these variables don’t output the property unless they are overridden in
 your configuration.
 
 Variable overrides within the same Sass file can come before or after the default variables.
-However, when overriding across Sass files, your overrides must come _before_ you import Bootstrap’s
-Sass files.
+However, when overriding across Sass files, your overrides must come _before_ you import Bootstrap
+and BootstrapVue’s Sass (SCSS) files.
 
 Here’s an example that changes the `background-color` and `color` for the `<body>` when importing
-and compiling Bootstrap SCSS:
+and compiling Bootstrap andf BootstrapVue SCSS:
 
 ```scss
 // Your variable overrides
@@ -93,20 +94,22 @@ Some commonly used Bootstrap v4 variables are:
 | `$enable-validation-icons`      | Boolean | `true`  | Enables `background-image` icons within textual inputs and some custom forms for validation states           |
 
 Refer to [Bootstrap's theming](https://getbootstrap.com/docs/4.3/getting-started/theming/) docs for
-additional variable information.
+additional Bootstrap v4 variable information.
 
-BootstrapVue also defines several SCSS variables for controlling BootstrapVue's custom CSS
-generation:
+BootstrapVue also defines several Sass variables for controlling BootstrapVue's custom CSS
+generation. If you are not using these features in your project, you can disable the feature's CSS
+generation to reduce the size of BootstrapVue's custom CSS bundle:
 
-| Variable                      | Type    | Default | Description                            |
-| ----------------------------- | ------- | ------- | -------------------------------------- |
-| `$bv-enable-table-stacked`    | Boolean | `true`  | Enables stacked table CSS generation   |
-| `$bv-enable-tooltip-variants` | Boolean | `true`  | Enables tooltip variant CSS generation |
-| `$bv-enable-popover-variants` | Boolean | `true`  | Enables popover variant CSS generation |
+| Variable                      | Type    | Default | Description                                           |
+| ----------------------------- | ------- | ------- | ----------------------------------------------------- |
+| `$bv-enable-table-stacked`    | Boolean | `true`  | Enables stacked table CSS generation                  |
+| `$bv-enable-table-sticky`     | Boolean | `true`  | Enables sticky table header and column CSS generation |
+| `$bv-enable-tooltip-variants` | Boolean | `true`  | Enables tooltip variant CSS generation                |
+| `$bv-enable-popover-variants` | Boolean | `true`  | Enables popover variant CSS generation                |
 
 You can find additional variables that control various aspects of BootstrapVue's custom CSS at
 [`bootstrap-vue/src/_variables.scss`](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/src/_variables.scss).
-BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, functions, and mixins.
+Note that BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, functions, and mixins.
 
 ## Generating custom themes
 
@@ -117,10 +120,13 @@ your project, which you can include in your main app:
 
 ```html
 <style lang="scss">
+  // Import custom SASS variable overrides
   @import 'assets/custom.scss';
+  // Import Bootstrap and BootstrapVue source SCSS files
   @import '~bootstrap/scss/bootstrap.scss';
   @import '~bootstrap-vue/src/index.scss';
 
+  // General style overrides and custom classes
   body {
     margin: 0;
   }
@@ -128,12 +134,16 @@ your project, which you can include in your main app:
 </style>
 ```
 
+The `custom.scss` file, which needs to be loaded before Bootstrap's SCSS and BootstrapVue's SCSS,
+will include your Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes, breakpoints,
+etc).
+
 **Via app main entry point:**
 
-Create an SCSS file:
+Create an SCSS file with your custom theme variables:
 
 ```scss
-// custom.scss
+// File: custom.scss
 
 // Define your variable overrides here
 $enable-shadows: true;
@@ -145,10 +155,17 @@ $grid-breakpoints: (
   lg: 999px,
   xl: 1234px
 );
+$bv-enable-table-stacked: false;
 
 // Include Bootstrap and BootstrapVue SCSS files
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
+
+// General style overrides and custom classes
+body {
+  margin: 0;
+}
+// ...
 ```
 
 Then import that single SCSS file into your app code entry point:
@@ -158,9 +175,7 @@ Then import that single SCSS file into your app code entry point:
 import 'custom.scss'
 ```
 
-The `custom.scss` file, which needs to be loaded before Bootstrap's SCSS, will include your
-Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes, breakpoints, etc). You can find
-all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
+You can find all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
 
 Do not forget to include `node-sass` and `sass-loader` to use `scss` in Vue:
 
@@ -221,8 +236,8 @@ Here are the variables that are generated. The values shown are based on the Boo
 }
 ```
 
-By setting SASS variables and maps, and recompiling the SCSS, will update the above generated CSS
-variables.
+By setting SASS variables and maps, and recompiling the SCSS, the above generated SCSS variables
+will also be updated.
 
 ### Example
 
