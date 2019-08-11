@@ -775,6 +775,11 @@ Slot `table-colgroup` can be optionally scoped, receiving an object with the fol
 When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
 element. there is no need to provide your own outer `<colgroup>` element.
 
+**Tip:** In some situations when trying to set column widths via `style` or `class` on the `<col>`
+element, you may find that placing the table in `fixed` header width (table fixed layout mode) mode
+will help, although you will need to have explicit widths (via style or a class) for each column's
+respective `<col>` element.
+
 ### Table busy state
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
