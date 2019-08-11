@@ -6,6 +6,7 @@ import {
   defaultConfig,
   nuxtVersion,
   portalVueVersion,
+  version,
   vueVersion
 } from '~/content'
 import readme from '~/markdown/intro/README.md'
@@ -38,6 +39,7 @@ export default {
       portalVueVersionMinor: portalVueVersion.replace(minorRE, '$1'),
       portalVueVersionMajor: portalVueVersion.replace(majorRE, '$1'),
       readme,
+      version,
       vueVersion,
       vueVersionMinor: '2.5',
       vueVersionMajor: vueVersion.replace(majorRE, '$1')
