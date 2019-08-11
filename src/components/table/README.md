@@ -767,18 +767,35 @@ usage of `<colgroup>`
 
 Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                   |
-| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                                                     |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                                                     |
+| `fields`  | Array  | Array of field definition objects (normalized to the [array of objects](#fields-as-an-array-of-objects) format) |
 
 When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
-element. there is no need to provide your own outer `<colgroup>` element.
+element. there is no need to provide your own outer `<colgroup>` element. When a series of table
+columns should be grouped for assistive technology reasons (for conveying logical column
+associations, use a `<col span="#">` element (with `#` replaced with the number of
+grouped columns) to group the series of columns.
 
 **Tip:** In some situations when trying to set column widths via `style` or `class` on the `<col>`
-element, you may find that placing the table in `fixed` header width (table fixed layout mode) mode
-will help, although you will need to have explicit widths (via style or a class) for each column's
-respective `<col>` element.
+element, you may find that placing the table in `fixed` header width (table fixed layout mode) mode,
+combined with `responsive` (horizontal scrolling) mode will help, although you will need to have
+explicit widths, or minimum widths, via a style or a class for each column's respective `<col>`
+element. For example:
+
+```html
+<b-table fixed responsive :items="items" :fields="fields" ... >
+  <template slot="table-colgroup" slot-scope="scope">
+    <col
+      v-for="field in scope.fields"
+      :key="field.key"
+      :style="{ width: field.key === 'foo' ? '120px' : '180px' }"
+    >
+  </template>
+  <!-- additional table slots here if needed -->
+</b-table>
+```
 
 ### Table busy state
 
@@ -1518,18 +1535,16 @@ as read-only.**
       @row-selected="rowSelected"
       responsive="sm"
     >
-      <!-- We use colgroup to set some widths for styling only -->
-      <template slot="table-colgroup">
-        <col style="width: 75px;">
-        <col style="width: 125px;">
-        <col style="width: 75px;">
-        <col>
-        <col>
-      </template>
       <!-- Example scoped slot for select state illustrative purposes -->
       <template slot="[selected]" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">☑</span>
-        <span v-else>☐</span>
+        <template v-if="rowSelected">
+          <span aria-hidden="true">&check;</span>
+          <span class="sr-only">Selected</span>
+        </template>
+        <template v-else>
+          <span aria-hidden="true">&nbsp;</span>
+          <span class="sr-only">Not selected</span>
+        </template>
       </template>
     </b-table>
 
@@ -2329,15 +2344,20 @@ sorting, pagination, filtering, foot-clone, etc).
 
 ```html
 <div>
-  <b-table-simple hover small caption-top responsive="sm">
+  <b-table-simple hover small caption-top responsive>
     <caption>Items sold in August, grouped by Country and City:</caption>
+    <colgroup><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col></colgroup>
     <b-thead head-variant="dark">
       <b-tr>
-        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="2">Region</b-th>
         <b-th colspan="3">Clothes</b-th>
         <b-th colspan="2">Accessories</b-th>
       </b-tr>
       <b-tr>
+        <b-th>Country</b-th>
+        <b-th>City</b-th>
         <b-th>Trousers</b-th>
         <b-th>Skirts</b-th>
         <b-th>Dresses</b-th>
@@ -2423,13 +2443,18 @@ stacked mode (specifically for generating the cell headings):
 <div>
   <b-table-simple hover small caption-top stacked>
     <caption>Items sold in August, grouped by Country and City:</caption>
+    <colgroup><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col></colgroup>
     <b-thead head-variant="dark">
       <b-tr>
-        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="2">Region</b-th>
         <b-th colspan="3">Clothes</b-th>
         <b-th colspan="2">Accessories</b-th>
       </b-tr>
       <b-tr>
+        <b-th>Country</b-th>
+        <b-th>City</b-th>
         <b-th>Trousers</b-th>
         <b-th>Skirts</b-th>
         <b-th>Dresses</b-th>
