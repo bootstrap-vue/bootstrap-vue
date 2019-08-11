@@ -31,96 +31,121 @@
 
 // --- Table sticky header styling ---
 
-.b-table-sticky-header,
-.table-responsive,
-[class*="table-responsive-"] {
-  // Move the table bottom margin to the wrapper
-  margin-bottom: $spacer;
-
-  > .table {
-    // Reset `margin-bottom` to we don't get a space after
-    // the table inside the scroll area
-    margin-bottom: 0;
-  }
-}
-
-.b-table-sticky-header {
-  overflow-y: auto;
-  // Annoyingly, when overflow-y is set, browsers convert
-  // 'overflow-x: visible' to 'overflow-x: auto' - so it becomes
-  // responsive in the x axis automatically
-  // Default `max-height` before a scrollbar will show
-  // We don't use `height` as table could be shorter than this value
-  max-height: $b-table-sticky-header-max-height;
-}
-
-@supports (position: sticky) {
-  // Poisitioning of sticky headers
-  .b-table-sticky-header {
-    > .table.b-table > thead > tr > td,
-    > .table.b-table > thead > tr > th {
-      // Header cells need to be sticky on top
-      position: sticky;
-      top: 0;
-      z-index: 2;
-    }
-  }
-
-  // Positioning of sticky columns
-  // Sticky columns only work when table has sticky
-  // headers and/or is responsive
+@if $bv-enable-table-sticky {
   .b-table-sticky-header,
   .table-responsive,
   [class*="table-responsive-"] {
-    > .table.b-table {
-      > thead > tr > .b-table-sticky-column,
-      > tbody > tr > .b-table-sticky-column,
-      > tfoot > tr > .b-table-sticky-column {
-        position: sticky;
-        left: 0;
-      }
+    // Move the table bottom margin to the wrapper
+    margin-bottom: $spacer;
 
-      > thead > tr > .b-table-sticky-column {
-        // z-index needs to be higher than sticky columns and
-        // sticky headers for correct layering
-        z-index: 5;
-      }
-
-      > tbody > tr > .b-table-sticky-column,
-      > tfoot > tr > .b-table-sticky-column {
-        // z-index needs to be lower than sticky header that
-        // is also a sticky column
-        z-index: 2;
-      }
+    > .table {
+      // Reset `margin-bottom` to we don't get a space after
+      // the table inside the scroll area
+      margin-bottom: 0;
     }
   }
 
-  // Default theme color background for table cells that are sticky
-  // Applied only when no variant is applied to the rows, or no head-variant
-  // Needed because Bootstrap v4 does not have table child elements set up
-  // to inherit their background color from parent element by default
-  //
-  // An issue or PR should be made at twbs/bootstrap repo for table
-  // background color inheritence
-  .table.b-table {
-    > thead > tr > .table-b-table-default,
-    > tbody > tr > .table-b-table-default,
-    > tfoot > tr > .table-b-table-default {
-      // Default cell color
-      color: $table-color;
-      // `$table-bg` is null by default in Bootstrap v4 variables
-      // but could have a value set by the consumer
-      background-color: if($table-bg, $table-bg, $body-bg);
+  .b-table-sticky-header {
+    overflow-y: auto;
+    // Annoyingly, when overflow-y is set, browsers convert
+    // 'overflow-x: visible' to 'overflow-x: auto' - so it becomes
+    // responsive in the x axis automatically
+    // Default `max-height` before a scrollbar will show
+    // We don't use `height` as table could be shorter than this value
+    max-height: $b-table-sticky-header-max-height;
+  }
+
+  @supports (position: sticky) {
+    // Poisitioning of sticky headers
+    .b-table-sticky-header {
+      > .table.b-table > thead > tr > td,
+      > .table.b-table > thead > tr > th {
+        // Header cells need to be sticky on top
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
     }
 
-    &.table-dark {
-      > thead > tr > .bg-b-table-default,
-      > tbody > tr > .bg-b-table-default,
-      > tfoot > tr > .bg-b-table-default {
-        // Default cell color in table dark mode
-        color: $table-dark-color;
-        // Default cell background color in table dark mode
-        background-color: $table-dark-bg;
+    // Positioning of sticky columns
+    // Sticky columns only work when table has sticky
+    // headers and/or is responsive
+    .b-table-sticky-header,
+    .table-responsive,
+    [class*="table-responsive-"] {
+      > .table.b-table {
+        > thead > tr > .b-table-sticky-column,
+        > tbody > tr > .b-table-sticky-column,
+        > tfoot > tr > .b-table-sticky-column {
+          position: sticky;
+          left: 0;
+        }
+
+        > thead > tr > .b-table-sticky-column {
+          // z-index needs to be higher than sticky columns and
+          // sticky headers for correct layering
+          z-index: 5;
+        }
+
+        > tbody > tr > .b-table-sticky-column,
+        > tfoot > tr > .b-table-sticky-column {
+          // z-index needs to be lower than sticky header that
+          // is also a sticky column
+          z-index: 2;
+        }
+      }
+    }
+
+    // Default theme color background for table cells that are sticky
+    // Applied only when no variant is applied to the rows, or no head-variant
+    // Needed because Bootstrap v4 does not have table child elements set up
+    // to inherit their background color from parent element by default
+    //
+    // An issue or PR should be made at twbs/bootstrap repo for table
+    // background color inheritence
+    .table.b-table {
+      > thead > tr > .table-b-table-default,
+      > tbody > tr > .table-b-table-default,
+      > tfoot > tr > .table-b-table-default {
+        // Default cell color
+        color: $table-color;
+        // `$table-bg` is null by default in Bootstrap v4 variables
+        // but could have a value set by the consumer
+        background-color: if($table-bg, $table-bg, $body-bg);
+      }
+
+      &.table-dark {
+        > thead > tr > .bg-b-table-default,
+        > tbody > tr > .bg-b-table-default,
+        > tfoot > tr > .bg-b-table-default {
+          // Default cell color in table dark mode
+          color: $table-dark-color;
+          // Default cell background color in table dark mode
+          background-color: $table-dark-bg;
+        }
+      }
+
+      // Handle case of zebra striping
+      &.table-striped {
+        // "fake" zebra striping via use of a transparent background image
+        > tbody > tr:nth-of-type(#{$table-striped-order}) > td, 
+        > tbody > tr:nth-of-type(#{$table-striped-order}) > th {
+          &.table-b-table-default {
+            // `$table-accent-bg` (used for striping) default is a very transparent black
+            background-image: linear-gradient($table-accent-bg, $table-accent-bg);
+            background-repeat: no-repeat;
+          }
+        }
+
+        &.table-dark {
+          > tbody > tr:nth-of-type(#{$table-striped-order}) > td, 
+          > tbody > tr:nth-of-type(#{$table-striped-order}) > th {
+            &.bg-b-table-default {
+              background-image: linear-gradient($table-dark-accent-bg, $table-dark-accent-bg);
+              background-repeat: no-repeat;
+            }
+          }
+        }
       }
     }
   }
