@@ -147,6 +147,29 @@
           }
         }
       }
+
+      // Handle case of hover
+      &.table-hover {
+        // "fake" hover via use of a transparent background image
+        > tbody > tr:hover > td, 
+        > tbody > tr:hover > th {
+          &.table-b-table-default {
+            // `$table-hover-bg` default is a very transparent black
+            background-image: linear-gradient($table-hover-bg, $table-hover-bg);
+            background-repeat: no-repeat;
+          }
+        }
+
+        &.table-dark {
+          > tbody > tr:hover > td, 
+          > tbody > tr:hover > th {
+            &.bg-b-table-default {
+              background-image: linear-gradient($table-dark-hover-bg, $table-dark-hover-bg);
+              background-repeat: no-repeat;
+            }
+          }
+        }
+      }
     }
   }
 }
