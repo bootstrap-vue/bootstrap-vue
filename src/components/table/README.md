@@ -1323,7 +1323,8 @@ prop is set.
 ```html
 <template>
   <div>
-    <b-table sticky-header responsive :items="items" :fields="fields">
+    <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
+    <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
       <div slot="HEAD[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
       <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">
@@ -1337,6 +1338,7 @@ prop is set.
   export default {
     data() {
       return {
+        stickyHeader: true,
         fields: [
           { key: 'id', stickyColumn: true, isRowHeader: true, variant: 'primary' },
           'a',
