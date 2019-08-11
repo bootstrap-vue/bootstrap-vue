@@ -17,10 +17,10 @@ const install = /*#__PURE__*/ installFactory({ plugins: { componentsPlugin, dire
 
 // BootstrapVue plugin
 const BootstrapVue = /*#__PURE__*/ {
-  install: install,
-  NAME: NAME,
+  install,
+  NAME,
   // To be deprecated. not documented
-  setConfig: setConfig
+  setConfig
 }
 
 // Named exports for BvConfigPlugin and BootstrapVue
