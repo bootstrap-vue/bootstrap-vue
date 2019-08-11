@@ -57,14 +57,11 @@
 
   @supports (position: sticky) {
     // Poisitioning of sticky headers
-    .b-table-sticky-header {
-      > .table.b-table > thead > tr > td,
-      > .table.b-table > thead > tr > th {
-        // Header cells need to be sticky on top
-        position: sticky;
-        top: 0;
-        z-index: 2;
-      }
+    .b-table-sticky-header > .table.b-table > thead > tr > th {
+      // Header cells need to be sticky on top
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
 
     // Positioning of sticky columns
@@ -74,24 +71,30 @@
     .table-responsive,
     [class*="table-responsive-"] {
       > .table.b-table {
-        > thead > tr > .b-table-sticky-column,
-        > tbody > tr > .b-table-sticky-column,
-        > tfoot > tr > .b-table-sticky-column {
-          position: sticky;
-          left: 0;
+        > thead,
+        > tbody,
+        > tfoot {
+          > tr > .b-table-sticky-column {
+            position: sticky;
+            left: 0;
+          }
         }
 
-        > thead > tr > .b-table-sticky-column {
-          // z-index needs to be higher than sticky columns and
-          // sticky headers for correct layering
-          z-index: 5;
+        > thead {
+          > tr > .b-table-sticky-column {
+            // z-index needs to be higher than sticky columns and
+            // sticky headers for correct layering
+            z-index: 5;
+          }
         }
 
-        > tbody > tr > .b-table-sticky-column,
-        > tfoot > tr > .b-table-sticky-column {
-          // z-index needs to be lower than sticky header that
-          // is also a sticky column
-          z-index: 2;
+        > tbody,
+        > tfoot {
+          > tr > .b-table-sticky-column {
+            // z-index needs to be lower than sticky header that
+            // is also a sticky column
+            z-index: 2;
+          }
         }
       }
     }
@@ -104,46 +107,45 @@
     // An issue or PR should be made at twbs/bootstrap repo for table
     // background color inheritence
     .table.b-table {
-      > thead > tr > .table-b-table-default,
-      > tbody > tr > .table-b-table-default,
-      > tfoot > tr > .table-b-table-default {
-        // Default cell color
-        color: $table-color;
-        // `$table-bg` is null by default in Bootstrap v4 variables
-        // but could have a value set by the consumer
-        background-color: if($table-bg, $table-bg, $body-bg);
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr > .table-b-table-default {
+          // Default cell color
+          color: $table-color;
+          // `$table-bg` is null by default in Bootstrap v4 variables
+          // but could have a value set by the consumer
+          background-color: if($table-bg, $table-bg, $body-bg);
+        }
       }
 
       &.table-dark {
-        > thead > tr > .bg-b-table-default,
-        > tbody > tr > .bg-b-table-default,
-        > tfoot > tr > .bg-b-table-default {
-          // Default cell color in table dark mode
-          color: $table-dark-color;
-          // Default cell background color in table dark mode
-          background-color: $table-dark-bg;
+        > thead,
+        > tbody,
+        > tfoot {
+          > tr > .bg-b-table-default {
+            // Default cell color in table dark mode
+            color: $table-dark-color;
+            // Default cell background color in table dark mode
+            background-color: $table-dark-bg;
+          }
         }
       }
 
       // Handle case of zebra striping
       &.table-striped {
         // "fake" zebra striping via use of a transparent background image
-        > tbody > tr:nth-of-type(#{$table-striped-order}) > td, 
-        > tbody > tr:nth-of-type(#{$table-striped-order}) > th {
-          &.table-b-table-default {
-            // `$table-accent-bg` (used for striping) default is a very transparent black
-            background-image: linear-gradient($table-accent-bg, $table-accent-bg);
-            background-repeat: no-repeat;
-          }
+        > tbody > tr:nth-of-type(#{$table-striped-order}) > .table-b-table-default {
+          // `$table-accent-bg` (used for striping) default is a very transparent black
+          background-image: linear-gradient($table-accent-bg, $table-accent-bg);
+          background-repeat: no-repeat;
         }
 
         &.table-dark {
-          > tbody > tr:nth-of-type(#{$table-striped-order}) > td, 
-          > tbody > tr:nth-of-type(#{$table-striped-order}) > th {
-            &.bg-b-table-default {
-              background-image: linear-gradient($table-dark-accent-bg, $table-dark-accent-bg);
-              background-repeat: no-repeat;
-            }
+          > tbody > tr:nth-of-type(#{$table-striped-order}) > .bg-b-table-default {
+            // `$table-dark-accent-bg` (used for striping) default is a very transparent white
+            background-image: linear-gradient($table-dark-accent-bg, $table-dark-accent-bg);
+            background-repeat: no-repeat;
           }
         }
       }
@@ -151,22 +153,17 @@
       // Handle case of hover
       &.table-hover {
         // "fake" hover via use of a transparent background image
-        > tbody > tr:hover > td, 
-        > tbody > tr:hover > th {
-          &.table-b-table-default {
-            // `$table-hover-bg` default is a very transparent black
-            background-image: linear-gradient($table-hover-bg, $table-hover-bg);
-            background-repeat: no-repeat;
-          }
+        > tbody > tr:hover > .table-b-table-default {
+          // `$table-hover-bg` default is a very transparent black
+          background-image: linear-gradient($table-hover-bg, $table-hover-bg);
+          background-repeat: no-repeat;
         }
 
         &.table-dark {
-          > tbody > tr:hover > td, 
-          > tbody > tr:hover > th {
-            &.bg-b-table-default {
-              background-image: linear-gradient($table-dark-hover-bg, $table-dark-hover-bg);
-              background-repeat: no-repeat;
-            }
+          > tbody > tr:hover > .bg-b-table-default {
+            // `$table-dark-hover-bg` default is a very transparent white
+            background-image: linear-gradient($table-dark-hover-bg, $table-dark-hover-bg);
+            background-repeat: no-repeat;
           }
         }
       }
