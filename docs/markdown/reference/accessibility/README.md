@@ -10,9 +10,10 @@ components. But the overall accessibility of any project built with Bootstrap an
 depends in large part on the author's markup, additional styling, and scripting they've included.
 However, provided that these have been implemented correctly, it should be perfectly possible to
 create websites and applications with BootstrapVue that fulfill
-<a href="https://www.w3.org/TR/WCAG20/"><abbr title="Web Content Accessibility Guidelines">WCAG</abbr>
-2.0</a> (A/AA/AAA), <a href="https://www.section508.gov/">Section 508</a> and similar accessibility
-standards and requirements.
+<a href="https://www.w3.org/TR/WCAG20/" target="_blank" rel="noopener">
+<abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.0</a> (A/AA/AAA),
+<a href="https://www.section508.gov/" target="_blank" rel="noopener">Section 508</a> and similar
+accessibility standards and requirements.
 
 ## Structural markup
 
@@ -28,7 +29,7 @@ practices and limitations.
 
 BootstrapVue's interactive components — such as modal dialogs, dropdown menus and custom tooltips —
 are designed to work for touch, mouse and keyboard users. Through the use of relevant
-<a href="https://www.w3.org/WAI/standards-guidelines/aria/">
+<a href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank" rel="noopener">
 <abbr title="Web Accessibility Initiative">WAI</abbr>-<abbr title="Accessible Rich Internet Applications">ARIA</abbr>
 </a> roles and attributes, these components should also be understandable and operable using
 assistive technologies (such as screen readers).
@@ -84,15 +85,10 @@ reduced motion (no animation) setting enabled in your operating system control p
 
 ## Additional resources
 
-- <a href="https://getbootstrap.com/docs/4.3/getting-started/accessibility/" rel="noopener">Bootstrap
-  v4 Accessibility Documentation</a>
-- <a href="https://www.w3.org/TR/WCAG20/" rel="noopener">Web Content Accessibility Guidelines (WCAG)
-  2.0</a>
-- <a href="https://a11yproject.com/" rel="noopener">The A11Y Project</a>
-- <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" rel="noopener">MDN
-  accessibility documentation</a>
-- <a href="https://tenon.io/" rel="noopener">Tenon.io Accessibility Checker</a>
-- <a href="https://developer.paciellogroup.com/resources/contrastanalyser/" rel="noopener">Colour
-  Contrast Analyser (CCA)</a>
-- <a href="https://github.com/squizlabs/HTML_CodeSniffer" rel="noopener">"HTML CodeSniffer"
-  bookmarklet for identifying accessibility issues</a>
+- [Bootstrap v4 Accessibility Documentation](https://getbootstrap.com/docs/4.3/getting-started/accessibility/)
+- [Web Content Accessibility Guidelines (WCAG) 2.0](https://www.w3.org/TR/WCAG20/)
+- [The A11Y Project](https://a11yproject.com/)
+- [MDN accessibility documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
+- [Tenon.io Accessibility Checker](https://tenon.io/)
+- [Colour Contrast Analyser (CCA)](https://developer.paciellogroup.com/resources/contrastanalyser/)
+- ["HTML CodeSniffer" bookmarklet for identifying accessibility issues](https://github.com/squizlabs/HTML_CodeSniffer)

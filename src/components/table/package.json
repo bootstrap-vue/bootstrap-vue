@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "meta": {
     "title": "Table",
-    "description": "For displaying tabular data. <b-table> supports pagination, filtering, sorting, custom rendering, events, and asynchronous data. For simple display of tabular data without all the fancy features, BootstrapVue provides a lightweight alternative component <b-table-lite>",
+    "description": "For displaying tabular data. <b-table> supports pagination, filtering, sorting, custom rendering, events, and asynchronous data. For simple display of tabular data without all the fancy features, BootstrapVue also provides lightweight alternative components <b-table-lite> and <b-table-simple>",
     "enhanced": true,
+    "plugins": [
+      "TableLitePlugin",
+      "TableSimplePlugin"
+    ],
     "components": [
       {
         "component": "BTable",
@@ -198,6 +202,30 @@
         ],
         "slots": [
           {
+            "name": "[key]",
+            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
+          },
+          {
+            "name": "[]",
+            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "HEAD[key]",
+            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
+          },
+          {
+            "name": "HEAD[]",
+            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "FOOT[key]",
+            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
+          },
+          {
+            "name": "FOOT[]",
+            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
             "name": "table-caption",
             "description": "Content to display in the table's caption element"
           },
@@ -208,18 +236,6 @@
           {
             "name": "table-busy",
             "description": "Optional slot to place loading message when table is in the busy state"
-          },
-          {
-            "name": "[field]",
-            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
-          },
-          {
-            "name": "HEAD_[field]",
-            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
-          },
-          {
-            "name": "FOOT_[field]",
-            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
             "name": "row-details",
@@ -244,6 +260,18 @@
           {
             "name": "bottom-row",
             "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+          },
+          {
+            "name": "key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
+          },
+          {
+            "name": "HEAD_key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
+          },
+          {
+            "name": "FOOT_key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
       },
@@ -383,6 +411,30 @@
         ],
         "slots": [
           {
+            "name": "[key]",
+            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
+          },
+          {
+            "name": "[]",
+            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
+          },
+          {
+            "name": "HEAD[key]",
+            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
+          },
+          {
+            "name": "HEAD[]",
+            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
+          },
+          {
+            "name": "FOOT[key]",
+            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
+          },
+          {
+            "name": "FOOT[]",
+            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
+          },
+          {
             "name": "table-caption",
             "description": "Content to display in the table's caption element"
           },
@@ -391,26 +443,47 @@
             "description": "Slot to place custom colgroup and col elements (optionally scoped: columns - number of columns, fields - array of field definition objects)"
           },
           {
-            "name": "[field]",
-            "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
-          },
-          {
-            "name": "HEAD_[field]",
-            "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
-          },
-          {
-            "name": "FOOT_[field]",
-            "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
-          },
-          {
             "name": "row-details",
             "description": "Scoped slot for optional rendering additional record details. See docs for Row details support"
           },
           {
             "name": "thead-top",
             "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+          },
+          {
+            "name": "key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
+          },
+          {
+            "name": "HEAD_key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
+          },
+          {
+            "name": "FOOT_key",
+            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
+      },
+      {
+        "component": "BTableSimple"
+      },
+      {
+        "component": "BTbody"
+      },
+      {
+        "component": "BThead"
+      },
+      {
+        "component": "BTfoot"
+      },
+      {
+        "component": "BTr"
+      },
+      {
+        "component": "BTd"
+      },
+      {
+        "component": "BTh"
       }
     ]
   }

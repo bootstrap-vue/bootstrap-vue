@@ -2,9 +2,14 @@ import KeyCodes from '../../../utils/key-codes'
 import get from '../../../utils/get'
 import toString from '../../../utils/to-string'
 import { arrayIncludes } from '../../../utils/array'
-import { isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
+import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
+import { BTr } from '../tr'
+import { BTd } from '../td'
+import { BTh } from '../th'
+
+const detailsSlotName = 'row-details'
 
 export default {
   props: {
@@ -15,39 +20,6 @@ export default {
   },
   methods: {
     // Methods for computing classes, attributes and styles for table cells
-    tdClasses(field, item) {
-      let cellVariant = ''
-      if (item._cellVariants && item._cellVariants[field.key]) {
-        cellVariant = `${this.dark ? 'bg' : 'table'}-${item._cellVariants[field.key]}`
-      }
-      return [
-        field.variant && !cellVariant ? `${this.dark ? 'bg' : 'table'}-${field.variant}` : '',
-        cellVariant,
-        field.class ? field.class : '',
-        this.getTdValues(item, field.key, field.tdClass, '')
-      ]
-    },
-    tdAttrs(field, item, colIndex) {
-      const attrs = {
-        role: 'cell',
-        'aria-colindex': String(colIndex + 1)
-      }
-      if (field.isRowHeader) {
-        attrs.scope = 'row'
-        attrs.role = 'rowheader'
-      }
-      if (this.isStacked) {
-        // Generate the "header cell" label content in stacked mode
-        attrs['data-label'] = field.label
-      }
-      return { ...attrs, ...this.getTdValues(item, field.key, field.tdAttr, {}) }
-    },
-    rowClasses(item) {
-      return [
-        item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : '',
-        isFunction(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass
-      ]
-    },
     getTdValues(item, key, tdValue, defValue) {
       const parent = this.$parent
       if (tdValue) {
@@ -69,36 +41,59 @@ export default {
       if (isFunction(formatter)) {
         value = formatter(value, key, item)
       }
-      return isUndefined(value) || isNull(value) ? '' : value
+      return isUndefinedOrNull(value) ? '' : value
     },
+    // Factory function methods
+    toggleDetailsFactory(hasDetailsSlot, item) {
+      // Returns a function to toggle a row's details slot
+      return () => {
+        if (hasDetailsSlot) {
+          this.$set(item, '_showDetails', !item._showDetails)
+        }
+      }
+    },
+    rowEvtFactory(handler, item, rowIndex) {
+      // Return a row event handler
+      return evt => {
+        // If table is busy (via provider) then don't propagate
+        if (this.stopIfBusy && this.stopIfBusy(evt)) {
+          return
+        }
+        // Otherwise call the handler
+        handler(evt, item, rowIndex)
+      }
+    },
+    // Row event handlers (will be wrapped by the above rowEvtFactory function)
     tbodyRowKeydown(evt, item, rowIndex) {
+      // Keypress handler
       const keyCode = evt.keyCode
       const target = evt.target
-      const trs = this.$refs.itemRows
-      if (this.stopIfBusy && this.stopIfBusy(evt)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      } else if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
+      // `this.$refs.itemRow`s is most likely an array of `BTr` components, but it
+      // could be regular `tr` elements, so we map to the `tr` elements just in case
+      const trs = (this.$refs.itemRows || []).map(tr => tr.$el || tr)
+      if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
         // Ignore if not the active tr element
         return
       } else if (target.tabIndex !== 0) {
         // Ignore if not focusable
         /* istanbul ignore next */
         return
-      } else if (trs && trs.length === 0) {
+      } else if (trs.length === 0) {
+        // No item rows
         /* istanbul ignore next */
         return
       }
       const index = trs.indexOf(target)
       if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
+        // We also allow enter/space to trigger a click (when row is focused)
         evt.stopPropagation()
         evt.preventDefault()
-        // We also allow enter/space to trigger a click (when row is focused)
         // We translate to a row-clicked event
         this.rowClicked(evt, item, rowIndex)
       } else if (
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
+        // Keyboard navigation of rows
         evt.stopPropagation()
         evt.preventDefault()
         const shift = evt.shiftKey
@@ -117,12 +112,8 @@ export default {
         }
       }
     },
-    // Row event handlers
-    rowClicked(e, item, index) {
-      if (this.stopIfBusy && this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      } else if (filterEvent(e)) {
+    rowClicked(evt, item, index) {
+      if (filterEvent(evt)) {
         // clicked on a non-disabled control so ignore
         return
       } else if (textSelectionActive(this.$el)) {
@@ -130,108 +121,96 @@ export default {
         /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
       }
-      this.$emit('row-clicked', item, index, e)
+      this.$emit('row-clicked', item, index, evt)
     },
-    middleMouseRowClicked(e, item, index) {
-      if (this.stopIfBusy && this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
+    middleMouseRowClicked(evt, item, index) {
+      if (evt.which === 2) {
+        this.$emit('row-middle-clicked', item, index, evt)
       }
-      this.$emit('row-middle-clicked', item, index, e)
     },
-    rowDblClicked(e, item, index) {
-      if (this.stopIfBusy && this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      } else if (filterEvent(e)) {
+    rowDblClicked(evt, item, index) {
+      if (filterEvent(evt)) {
         // clicked on a non-disabled control so ignore
         /* istanbul ignore next: event filtering already tested via click handler */
         return
       }
-      this.$emit('row-dblclicked', item, index, e)
+      this.$emit('row-dblclicked', item, index, evt)
     },
-    rowHovered(e, item, index) {
-      if (this.stopIfBusy && this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      }
-      this.$emit('row-hovered', item, index, e)
+    rowHovered(evt, item, index) {
+      this.$emit('row-hovered', item, index, evt)
     },
-    rowUnhovered(e, item, index) {
-      if (this.stopIfBusy && this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      }
-      this.$emit('row-unhovered', item, index, e)
+    rowUnhovered(evt, item, index) {
+      this.$emit('row-unhovered', item, index, evt)
     },
-    rowContextmenu(e, item, index) {
-      if (this.stopIfBusy && this.stopIfBusy(e)) {
-        // If table is busy (via provider) then don't propagate
-        return
-      }
-      this.$emit('row-contextmenu', item, index, e)
+    rowContextmenu(evt, item, index) {
+      this.$emit('row-contextmenu', item, index, evt)
     },
     // Render helpers
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
-      const h = this.$createElement
-
       // Renders a TD or TH for a row's field
-      const $scoped = this.$scopedSlots
-      const detailsSlot = $scoped['row-details']
+      const h = this.$createElement
+      const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
+      const key = field.key
       const data = {
         // For the Vue key, we concatenate the column index and
-        // field key (as field keys can be duplicated)
-        key: `row-${rowIndex}-cell-${colIndex}-${field.key}`,
-        class: this.tdClasses(field, item),
-        attrs: this.tdAttrs(field, item, colIndex)
-      }
-      const toggleDetailsFn = () => {
-        if (detailsSlot) {
-          this.$set(item, '_showDetails', !item._showDetails)
+        // field key (as field keys could be duplicated)
+        // TODO: Although we do prevent duplicate field keys...
+        //   So we could change this to: `row-${rowIndex}-cell-${key}`
+        key: `row-${rowIndex}-cell-${colIndex}-${key}`,
+        class: [field.class ? field.class : '', this.getTdValues(item, key, field.tdClass, '')],
+        props: {
+          stackedHeading: this.isStacked ? field.label : null,
+          stickyColumn: field.stickyColumn,
+          variant:
+            item._cellVariants && item._cellVariants[key]
+              ? item._cellVariants[key]
+              : field.variant || null
+        },
+        attrs: {
+          'aria-colindex': String(colIndex + 1),
+          ...this.getTdValues(item, key, field.tdAttr, {})
         }
       }
       const slotScope = {
         item: item,
         index: rowIndex,
         field: field,
-        unformatted: get(item, field.key, ''),
+        unformatted: get(item, key, ''),
         value: formatted,
-        toggleDetails: toggleDetailsFn,
+        toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
         detailsShowing: Boolean(item._showDetails)
       }
       if (this.selectedRows) {
         // Add in rowSelected scope property if selectable rows supported
-        slotScope.rowSelected = Boolean(this.selectedRows[rowIndex])
+        slotScope.rowSelected = this.isRowSelected(rowIndex)
       }
-      let $childNodes = $scoped[field.key] ? $scoped[field.key](slotScope) : toString(formatted)
+      // TODO:
+      //   Using `field.key` as scoped slot name is deprecated, to be removed in future release
+      //   New format uses the square bracketed naming convention
+      let $childNodes =
+        this.normalizeSlot([`[${key}]`, '[]', key], slotScope) || toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]
       }
       // Render either a td or th cell
-      return h(field.isRowHeader ? 'th' : 'td', data, [$childNodes])
+      return h(field.isRowHeader ? BTh : BTd, data, [$childNodes])
     },
     renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)
       const h = this.$createElement
-      const $scoped = this.$scopedSlots
       const fields = this.computedFields
       const tableStriped = this.striped
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
-      const $detailsSlot = $scoped['row-details']
-      const rowShowDetails = Boolean(item._showDetails && $detailsSlot)
+      const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
+      const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
+      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
 
       // Details ID needed for aria-describedby when details showing
       const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
-      const toggleDetailsFn = () => {
-        if ($detailsSlot) {
-          this.$set(item, '_showDetails', !item._showDetails)
-        }
-      }
 
       // For each item data field in row
       const $tds = fields.map((field, colIndex) => {
@@ -249,26 +228,18 @@ export default {
       // rows index within the tbody.
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
-      const rowKey =
-        primaryKey && !isUndefined(item[primaryKey]) && !isNull(item[primaryKey])
-          ? toString(item[primaryKey])
-          : String(rowIndex)
+      const hasPkValue = primaryKey && !isUndefinedOrNull(item[primaryKey])
+      const rowKey = hasPkValue ? toString(item[primaryKey]) : String(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
-      const rowId =
-        primaryKey && !isUndefined(item[primaryKey]) && !isNull(item[primaryKey])
-          ? this.safeId(`_row_${item[primaryKey]}`)
-          : null
+      const rowId = hasPkValue ? this.safeId(`_row_${item[primaryKey]}`) : null
 
+      const evtFactory = this.rowEvtFactory
       const handlers = {}
       if (hasRowClickHandler) {
-        handlers['click'] = evt => {
-          this.rowClicked(evt, item, rowIndex)
-        }
-        handlers['keydown'] = evt => {
-          this.tbodyRowKeydown(evt, item, rowIndex)
-        }
+        handlers.click = evtFactory(this.rowClicked, item, rowIndex)
+        handlers.keydown = evtFactory(this.tbodyRowKeydown, item, rowIndex)
       }
 
       // Selectable classes and attributes
@@ -278,50 +249,44 @@ export default {
       // Add the item row
       $rows.push(
         h(
-          'tr',
+          BTr,
           {
             key: `__b-table-row-${rowKey}__`,
             ref: 'itemRows',
             refInFor: true,
             class: [
-              this.rowClasses(item),
+              isFunction(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass,
               selectableClasses,
-              {
-                'b-table-has-details': rowShowDetails
-              }
+              rowShowDetails ? 'b-table-has-details' : ''
             ],
+            props: { variant: item._rowVariant || null },
             attrs: {
               id: rowId,
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': rowId ? String(item[primaryKey]) : null,
+              // Should this be `aria-details` instead?
               'aria-describedby': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
-              role: 'row',
               ...selectableAttrs
             },
             on: {
               ...handlers,
-              // TODO: Instantiate the following handlers only if we have registered
-              //       listeners i.e. this.$listeners['row-middle-clicked'], etc.
-              auxclick: evt => {
-                if (evt.which === 2) {
-                  this.middleMouseRowClicked(evt, item, rowIndex)
-                }
-              },
-              contextmenu: evt => {
-                this.rowContextmenu(evt, item, rowIndex)
-              },
-              // Note: these events are not accessibility friendly!
-              dblclick: evt => {
-                this.rowDblClicked(evt, item, rowIndex)
-              },
-              mouseenter: evt => {
-                this.rowHovered(evt, item, rowIndex)
-              },
-              mouseleave: evt => {
-                this.rowUnhovered(evt, item, rowIndex)
-              }
+              // TODO:
+              //   Instantiate the following handlers only if we have registered
+              //   listeners i.e. `this.$listeners['row-middle-clicked']`, etc.
+              //
+              //   Could make all of this (including the above click/key handlers)
+              //   the result of a factory function and/or make it a delegated event
+              //   handler on the tbody (if we store the row index as a data-attribute
+              //   on the TR as we can lookup the item data from the computedItems array
+              //   or it could be a hidden prop (via attrs) on BTr instance)
+              auxclick: evtFactory(this.middleMouseRowClicked, item, rowIndex),
+              contextmenu: evtFactory(this.rowContextmenu, item, rowIndex),
+              // Note: These events are not accessibility friendly!
+              dblclick: evtFactory(this.rowDblClicked, item, rowIndex),
+              mouseenter: evtFactory(this.rowHovered, item, rowIndex),
+              mouseleave: evtFactory(this.rowUnhovered, item, rowIndex)
             }
           },
           $tds
@@ -330,27 +295,22 @@ export default {
 
       // Row Details slot
       if (rowShowDetails) {
-        const tdAttrs = {
-          colspan: String(fields.length),
-          role: 'cell'
+        const detailsScope = {
+          item: item,
+          index: rowIndex,
+          fields: fields,
+          toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
         }
-        const trAttrs = {
-          id: detailsId,
-          role: 'row'
-        }
-        // Render the details slot
-        const $details = h('td', { attrs: tdAttrs }, [
-          $detailsSlot({
-            item: item,
-            index: rowIndex,
-            fields: fields,
-            toggleDetails: toggleDetailsFn
-          })
+
+        // Render the details slot in a TD
+        const $details = h(BTd, { props: { colspan: fields.length }, attrs: { id: detailsId } }, [
+          this.normalizeSlot(detailsSlotName, detailsScope)
         ])
 
         // Add a hidden row to keep table row striping consistent when details showing
         if (tableStriped) {
           $rows.push(
+            // We don't use `BTr` here as we dont need the extra functionality
             h('tr', {
               key: `__b-table-details-${rowIndex}-stripe__`,
               staticClass: 'd-none',
@@ -362,25 +322,26 @@ export default {
         // Add the actual details row
         $rows.push(
           h(
-            'tr',
+            BTr,
             {
               key: `__b-table-details-${rowIndex}__`,
               staticClass: 'b-table-details',
               class: [
                 isFunction(this.tbodyTrClass)
-                  ? this.tbodyTrClass(item, 'row-details')
+                  ? this.tbodyTrClass(item, detailsSlotName)
                   : this.tbodyTrClass
               ],
-              attrs: trAttrs
+              props: { variant: item._rowVariant || null },
+              attrs: { id: detailsId }
             },
             [$details]
           )
         )
-      } else if ($detailsSlot) {
+      } else if (hasDetailsSlot) {
         // Only add the placeholder if a the table has a row-details slot defined (but not shown)
         $rows.push(h())
         if (tableStriped) {
-          // add extra placeholder if table is striped
+          // Add extra placeholder if table is striped
           $rows.push(h())
         }
       }

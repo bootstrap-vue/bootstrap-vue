@@ -50,11 +50,14 @@
         bordered
         striped
       >
-        <template slot="prop" slot-scope="{ value, item }">
+        <template slot="[prop]" slot-scope="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
+        </template>
+        <template slot="[defaultValue]" slot-scope="{ value }">
+          <code v-if="value" class="notranslate" translate="no">{{ value }}</code>
         </template>
         <template slot="row-details" slot-scope="{ item }">
           <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
@@ -63,9 +66,6 @@
           <p v-if="typeof item.deprecation === 'string'" class="mb-1 small">
             {{ item.deprecation }}
           </p>
-        </template>
-        <template slot="defaultValue" slot-scope="{ value }">
-          <code v-if="value" class="notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
 
@@ -82,10 +82,10 @@
           bordered
           striped
         >
-          <template slot="prop" slot-scope="{ value }">
+          <template slot="[prop]" slot-scope="{ value }">
             <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
           </template>
-          <template slot="event" slot-scope="{ value }">
+          <template slot="[event]" slot-scope="{ value }">
             <code class="notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -105,7 +105,7 @@
         bordered
         striped
       >
-        <template slot="name" slot-scope="{ value }">
+        <template slot="[name]" slot-scope="{ value }">
           <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
@@ -124,19 +124,20 @@
         bordered
         striped
       >
-        <template slot="event" slot-scope="{ value }">
+        <template slot="[event]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="args" slot-scope="{ value, item }">
-          <div
+        <template slot="[args]" slot-scope="{ value, item }">
+          <p
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
+            class="mb-1"
           >
             <template v-if="arg.arg">
               <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code> -
             </template>
             <span>{{ arg.description }}</span>
-          </div>
+          </p>
         </template>
       </b-table>
     </article>
@@ -158,19 +159,20 @@
         bordered
         striped
       >
-        <template slot="event" slot-scope="{ value }">
+        <template slot="[event]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="args" slot-scope="{ value, item }">
-          <div
+        <template slot="[args]" slot-scope="{ value, item }">
+          <p
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
+            class="mb-1"
           >
             <template v-if="arg.arg">
               <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code>
               <span v-if="arg.description"> - {{ arg.description }}</span>
             </template>
-          </div>
+          </p>
         </template>
       </b-table>
     </article>

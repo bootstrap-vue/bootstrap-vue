@@ -3,6 +3,7 @@ import normalizeSlotMixin from './normalize-slot'
 // @vue/component
 export default {
   mixins: [normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'checked',
     event: 'input'
@@ -129,13 +130,15 @@ export default {
       return [
         'btn',
         `btn-${this.getButtonVariant}`,
-        this.getSize ? `btn-${this.getSize}` : '',
-        // 'disabled' class makes "button" look disabled
-        this.isDisabled ? 'disabled' : '',
-        // 'active' class makes "button" look pressed
-        this.isChecked ? 'active' : '',
-        // Focus class makes button look focused
-        this.hasFocus ? 'focus' : ''
+        {
+          [`btn-${this.getSize}`]: this.getSize,
+          // 'disabled' class makes "button" look disabled
+          disabled: this.isDisabled,
+          // 'active' class makes "button" look pressed
+          active: this.isChecked,
+          // Focus class makes button look focused
+          focus: this.hasFocus
+        }
       ]
     }
   },
@@ -198,6 +201,7 @@ export default {
         }
       ],
       attrs: {
+        ...this.$attrs,
         id: this.safeId(),
         type: this.isRadio ? 'radio' : 'checkbox',
         name: this.getName,
@@ -255,7 +259,7 @@ export default {
             'custom-switch': this.isSwitch,
             'custom-radio': this.isCustom && this.isRadio,
             // Temporary until Bootstrap v4 supports sizing (most likely in V5)
-            [`form-control-${this.getSize}`]: Boolean(this.getSize && !this.isBtnMode)
+            [`b-custom-control-${this.getSize}`]: Boolean(this.getSize && !this.isBtnMode)
           }
         },
         [input, label]

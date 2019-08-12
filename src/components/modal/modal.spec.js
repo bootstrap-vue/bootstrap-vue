@@ -56,8 +56,6 @@ describe('modal', () => {
       expect($modal.attributes('id')).toEqual('test')
       expect($modal.attributes('role')).toBeDefined()
       expect($modal.attributes('role')).toEqual('dialog')
-      expect($modal.attributes('tabindex')).toBeDefined()
-      expect($modal.attributes('tabindex')).toEqual('-1')
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.classes()).toContain('modal')
@@ -66,6 +64,14 @@ describe('modal', () => {
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
       expect($dialog.exists()).toBe(true)
+
+      // Modal content wrapper
+      const $content = $dialog.find('div.modal-content')
+      expect($content.exists()).toBe(true)
+      expect($content.attributes('tabindex')).toBeDefined()
+      expect($content.attributes('tabindex')).toEqual('-1')
+      expect($content.attributes('role')).toBeDefined()
+      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
@@ -139,8 +145,6 @@ describe('modal', () => {
       expect($modal.attributes('id')).toEqual('test')
       expect($modal.attributes('role')).toBeDefined()
       expect($modal.attributes('role')).toEqual('dialog')
-      expect($modal.attributes('tabindex')).toBeDefined()
-      expect($modal.attributes('tabindex')).toEqual('-1')
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
@@ -154,6 +158,14 @@ describe('modal', () => {
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
       expect($dialog.exists()).toBe(true)
+
+      // Modal content wrapper
+      const $content = $dialog.find('div.modal-content')
+      expect($content.exists()).toBe(true)
+      expect($content.attributes('tabindex')).toBeDefined()
+      expect($content.attributes('tabindex')).toEqual('-1')
+      expect($content.attributes('role')).toBeDefined()
+      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
@@ -1177,24 +1189,65 @@ describe('modal', () => {
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
+      const $content = $modal.find('div.modal-content')
+      expect($content.exists()).toBe(true)
 
       expect($modal.element.style.display).toEqual('block')
       expect(document.activeElement).not.toBe(document.body)
-      expect(document.activeElement).toBe($modal.element)
+      expect(document.activeElement).toBe($content.element)
 
-      // Try anf set focusin on external button
+      // Try and set focusin on external button
       $button.trigger('focusin')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($modal.element)
+      expect(document.activeElement).toBe($content.element)
 
-      // Try anf set focusin on external button
+      // Try and set focusin on external button
       $button.trigger('focus')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($modal.element)
+      expect(document.activeElement).toBe($content.element)
+
+      // Emulate TAB by focusing the `bottomTrap` span element.
+      // Should focus first button in modal (in the header)
+      const $bottomTrap = wrapper.find(BModal).find({ ref: 'bottomTrap' })
+      expect($bottomTrap.exists()).toBe(true)
+      expect($bottomTrap.is('span')).toBe(true)
+      // Find the close (x) button (it is the only one with the .close class)
+      const $closeButton = $modal.find('button.close')
+      expect($closeButton.exists()).toBe(true)
+      expect($closeButton.is('button')).toBe(true)
+      // focus the tab trap
+      $bottomTrap.trigger('focusin')
+      $bottomTrap.trigger('focus')
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).not.toBe($bottomTrap.element)
+      expect(document.activeElement).not.toBe($content.element)
+      // The close (x) button (first tabable in modal) should be focused
+      expect(document.activeElement).toBe($closeButton.element)
+
+      // Emulate CTRL-TAB by focusing the `topTrap` div element.
+      // Should focus last button in modal (in the footer)
+      const $topTrap = wrapper.find(BModal).find({ ref: 'topTrap' })
+      expect($topTrap.exists()).toBe(true)
+      expect($topTrap.is('span')).toBe(true)
+      // Find the OK button (it is the only one with .btn-primary class)
+      const $okButton = $modal.find('button.btn.btn-primary')
+      expect($okButton.exists()).toBe(true)
+      expect($okButton.is('button')).toBe(true)
+      // focus the tab trap
+      $topTrap.trigger('focusin')
+      $topTrap.trigger('focus')
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).not.toBe($topTrap.element)
+      expect(document.activeElement).not.toBe($bottomTrap.element)
+      expect(document.activeElement).not.toBe($content.element)
+      // The OK button (last tabbable in modal) should be focused
+      expect(document.activeElement).toBe($okButton.element)
 
       wrapper.destroy()
     })

@@ -65,7 +65,7 @@ class BvConfig {
         props.forEach(prop => {
           /* istanbul ignore if */
           if (!hasOwnProperty(DEFAULTS[cmpName], prop)) {
-            warn(`config: unknown config property "${cmpName}.{$prop}"`)
+            warn(`config: unknown config property "${cmpName}.${prop}"`)
           } else {
             // TODO: If we pre-populate the config with defaults, we can skip this line
             this.$_config[cmpName] = this.$_config[cmpName] || {}

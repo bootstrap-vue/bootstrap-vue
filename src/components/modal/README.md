@@ -77,9 +77,9 @@ See the [Accessibility](#accessibility) section below for details.
 
 <span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
-When BootstrapVue is installed as a plugin, or the <samp>ModalPlugin</samp> plugin is used,
-BoostrapVue will inject a `$bvModal` object on every Vue instance (components, apps).
-`this.$bvModal` exposes several methods, of which two are for showing and hiding modals:
+When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue will
+inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal` exposes
+several methods, of which two are for showing and hiding modals:
 
 | Method                   | Description                            |
 | ------------------------ | -------------------------------------- |
@@ -105,6 +105,8 @@ Both methods return immediately after being called.
 
 <!-- b-modal-bv-modal-hide-show.vue -->
 ```
+
+The `this.$bvModal` object is also used for displaying [modal message boxes](#modal-message-boxes).
 
 ### Using `show()`, `hide()`, and `toggle()` component methods
 
@@ -597,6 +599,28 @@ You can also apply arbitrary classes to the modal dialog container, content (mod
 header, body and footer via the `modal-class`, `content-class`, `header-class`, `body-class` and
 `footer-class` props, respectively. The props accept either a string or array of strings.
 
+### Hiding the backdrop
+
+Hide the modal's backdrop via setting the `hide-backdrop` prop.
+
+```html
+<div>
+  <b-button v-b-modal.modal-no-backdrop>Open modal</b-button>
+
+  <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="BootstrapVue">
+    <p class="my-2">
+      We've added the utility class <code>'shadow'</code>
+      to the modal content for added effect.
+    </p>
+  </b-modal>
+</div>
+
+<!-- modal-no-backdrop.vue -->
+```
+
+Note that clicking outside of the modal will still close the modal even though the backdrop is
+hidden. You can disable this behaviour by setting the `no-close-on-backdrop` prop on `<b-modal>`.
+
 ### Disable open and close animation
 
 To disable the fading transition/animation when modal opens and closes, just set the prop `no-fade`
@@ -870,6 +894,12 @@ Example Confirm Message boxes
 
 ### Message box notes
 
+- The `this.$bvModal` injection is only available when using the full `BootstrapVue` plugin or the
+  `ModalPlugin` plugin. It is not available if importing just the `b-modal` component. To just
+  import the injection, use the `BVModalPlugin` plugin.
+- A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
+  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
+  instance's `this` and `$root` contexts.
 - Message Boxes require `Promise` support in the browser. If targeting your app for older browsers,
   such as IE 11, please include a polyfill that provides `Promise` support. If `Promise` support is
   not detected, then the message box methods will immediately return `undefined`.
@@ -893,11 +923,6 @@ Example Confirm Message boxes
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
   `cancelTitle` option).
-- The `this.$bvModal` injection is only available when using the full BootstrapVue plugin or the
-  Modal plugin. It is not available if importing just the `b-modal` component.
-- A new `$bvModal` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
-  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
-  instance's `this` and `$root` contexts.
 
 ## Listening to modal changes via \$root events
 
@@ -913,8 +938,8 @@ export default {
 }
 ```
 
-Refer to the [Events](/docs/components/modal#component-reference) section of documentation for the
-full list of events emitted.
+Refer to the [Events](#comp-ref-b-modal) section of this documentation for the full list of events
+emitted.
 
 ## Accessibility
 
@@ -1045,7 +1070,11 @@ event will be ignored.
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the
 document, it will be brought back into the modal.
 
+Avoid setting `tabindex` on elements within the modal to any value other than `0` or `-1`. Doing so
+will make it difficult for people who rely on assistive technology to navigate and operate page
+content and can make some of your elements unreachable via keyboard navigation.
+
 In some circumstances, you may need to disable the enforce focus feature. You can do this by setting
-the prop `no-enforce-focus`.
+the prop `no-enforce-focus`, although this is highly discouraged.
 
 <!-- Component reference added automatically from component package.json -->

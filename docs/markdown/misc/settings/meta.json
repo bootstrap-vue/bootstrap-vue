@@ -1,5 +1,4 @@
 {
   "title": "Settings",
-  "description": "Configuring BootstrapVue",
-  "new": true
+  "description": "BootstrapVue provides a few options for customizing component default values, and more."
 }

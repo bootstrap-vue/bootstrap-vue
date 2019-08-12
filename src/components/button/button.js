@@ -23,7 +23,7 @@ const btnProps = {
   },
   size: {
     type: String,
-    default: null
+    default: () => getComponentConfig(NAME, 'size')
   },
   variant: {
     type: String,

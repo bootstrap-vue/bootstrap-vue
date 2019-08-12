@@ -2,8 +2,8 @@
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
 > rendering, various style options, events, and asynchronous data. For simple display of tabular
-> data without all the fancy features, BootstrapVue provides a lightweight alternative component
-> [`<b-table-lite>`](#light-weight-tables).
+> data without all the fancy features, BootstrapVue provides lightweight alternative components
+> [`<b-table-lite>`](#light-weight-tables) and [`<b-table-simple>`](#simple-tables).
 
 **Example: Basic usage**
 
@@ -58,13 +58,13 @@ data). Field names are automatically "humanized" by converting `kebab-case`, `sn
 - `isActive` becomes `Is Active`
 
 These titles will be displayed in the table header, in the order they appear in the **first** record
-of data. See the [**Fields**](#fields-column-definitions-) section below for customizing how field
+of data. See the [Fields](#fields-column-definitions) section below for customizing how field
 headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
 in the first row, but this may not always be the case depending on the version of browser in use.
-See section [**Fields (column definitions)**](#fields-column-definitions-) below to see how to
-guarantee the order of fields, and to override the headings generated.
+See section [Fields (column definitions)](#fields-column-definitions) below to see how to guarantee
+the order of fields, and to override the headings generated.
 
 Record data may also have additional special reserved name keys for colorizing rows and individual
 cells (variants), and for triggering additional row detail. The supported optional item record
@@ -121,8 +121,8 @@ Provider functions can also be asynchronous:
   array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
-See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for
-more details.
+See the ["Using Items Provider functions"](#using-items-provider-functions) section below for more
+details.
 
 ### Table item notes and warnings
 
@@ -139,7 +139,7 @@ more details.
 The `fields` prop is used to customize the table columns headings, and in which order the columns of
 data are displayed. The field object keys (i.e. `age` or `first_name` as shown below) are used to
 extract the value from each item (record) row, and to provide additional features such as enabling
-[**sorting**](#sorting) on the column, etc.
+[sorting](#sorting) on the column, etc.
 
 Fields can be provided as a _simple array_, an _array of objects_, or an _object_. **Internally the
 fields data will be normalized into the _array of objects_ format**. Events or slots that include
@@ -314,35 +314,40 @@ typically be in the order they were defined in the object, although **field orde
 
 The following field properties are recognized:
 
-| Property        | Type                        | Description                                                                                                                                                                                                                                                                                                           |
-| --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`           | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
-| `label`         | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
-| `headerTitle`   | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
-| `headerAbbr`    | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
-| `class`         | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`     | String or Function          | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.                                                                 |
-| `sortable`      | Boolean                     | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.                                                                                                                                                                                                                         |
-| `sortDirection` | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [**Change initial sort direction**](#Change-initial-sort-direction) Section for more details.                                                                                                                                      |
-| `tdClass`       | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
-| `thClass`       | String or Array             | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                               |
-| `thStyle`       | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
-| `variant`       | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).                                     |
-| `tdAttr`        | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
-| `isRowHeader`   | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
+| Property            | Type                        | Description                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`               | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                                                         |
+| `label`             | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents.                              |
+| `headerTitle`       | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                                                     |
+| `headerAbbr`        | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                                                 |
+| `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                                                |
+| `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                |
+| `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                          |
+| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                                                       |
+| `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                                                  |
+| `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                                                            |
+| `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                                                   |
+| `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                                               |
+| `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                                                   |
+| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when the prop `dark` is set).                                                                    |
+| `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                                                        |
+| `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                                                     |
+| `stickyColumn`      | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> When set to `true`, and the table in in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details |
 
 **Notes:**
 
-- _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
-- _`class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS_
-- _For information on the syntax supported by `thStyle`, see
+- Field properties, if not present, default to `null` (falsey) unless otherwise stated above.
+- `class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS,
+  unless you are using VueLoader's
+  [Deep selector](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements).
+- For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
-  in the Vue.js guide._
-- _Any additional properties added to the field objects will be left intact - so you can access them
-  via the named scoped slots for custom data, header, and footer rendering._
+  in the Vue.js guide.
+- Any additional properties added to the field objects will be left intact - so you can access them
+  via the named scoped slots for custom data, header, and footer rendering.
 
 For information and usage about scoped slots and formatters, refer to the
-[**Custom Data Rendering**](#custom-data-rendering) section below.
+[Custom Data Rendering](#custom-data-rendering) section below.
 
 Feel free to mix and match simple array and object array together:
 
@@ -359,8 +364,8 @@ const fields = [
 
 ## Primary key
 
-`<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
-that _uniquely_ identifies the row.
+`<b-table>` provides an additional prop `primary-key`, which you can use to identify the _name_ of
+the field key that _uniquely_ identifies the row.
 
 The value specified by the primary column key **must be** either a `string` or `number`, and **must
 be unique** across all rows in the table.
@@ -381,8 +386,8 @@ Internally, the value of the field key specified by the `primary-key` prop is us
 value for each rendered item row `<tr>` element.
 
 If you are seeing rendering issue (i.e. tooltips hiding or unexpected subcomponent re-usage when
-item data changes or data is sorted/filtered/edited), setting the `primary-key` prop (if you have a
-unique identifier per row) can alleviate these issues.
+item data changes or data is sorted/filtered/edited) or table row transitions are not working,
+setting the `primary-key` prop (if you have a unique identifier per row) can alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consistent and unique per row `:key` value.
@@ -393,35 +398,44 @@ components/elements that are rendering with previous results (i.e. being re-used
 patch optimization routines). Specifying a `primary-key` column can alleviate this issue (or you can
 place a unique `:key` on your element/components in your custom formatted field slots).
 
+Refer to the [Table body transition support](#table-body-transition-support) section for additional
+details.
+
 ## Table style options
 
 ### Table styling
 
 `<b-table>` provides several props to alter the style of the table:
 
-| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                        |
-| ------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                          |
-| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                                   |
-| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                                  |
-| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                   |
-| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                       |
-| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                              |
-| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                           |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                           |
-| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                  |
-| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [**Sorting**](#sorting) section below for more details.                                                                                                                                              |
-| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [**Responsive tables**](#responsive-tables) below for details. |
-| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [**Stacked tables**](#stacked-tables) below for details.                                                 |
-| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                             |
-| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                          |
+| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                                                              |
+| ------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                                                                |
+| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                                                                         |
+| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                                                                        |
+| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                                                         |
+| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                                                             |
+| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                                                                    |
+| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                                                                 |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                                                                 |
+| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details.                                           |
+| `sticky-header`     | Boolean or String | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-headers) section below for details. |
+| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                                                           |
+| `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                                                          |
+| `table-variant`     | String            | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Give the table an overall theme color variant.                                                                                                                                                                                                                                                                            |
+| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                                                                   |
+| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                                                                |
+| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                                                        |
+| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                                                                        |
+
+**Note:** table style options `fixed`, `stacked`, and `caption-top`, and the table sorting feature,
+requires BootstrapVue's custom CSS.
 
 **Example: Basic table styles**
 
 ```html
 <template>
   <div>
-    <b-form-group label="Table Options">
+    <b-form-group label="Table Options" label-cols-lg="2">
       <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
       <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
       <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
@@ -431,6 +445,22 @@ place a unique `:key` on your element/components in your custom formatted field 
       <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
       <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
       <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
+    </b-form-group>
+    <b-form-group label="Head Variant" label-cols-lg="2">
+      <b-form-radio-group v-model="headVariant" class="mt-lg-2">
+        <b-form-radio :value="null" inline>None</b-form-radio>
+        <b-form-radio value="light" inline>Light</b-form-radio>
+        <b-form-radio value="dark" inline>Dark</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <b-form-group label="Table Variant" label-for="table-style-variant" label-cols-lg="2">
+      <b-form-select
+        v-model="tableVariant"
+        :options="tableVariants"
+        id="table-style-variant"
+      >
+        <option value="" slot="first">-- None --</option>
+      </b-form-select>
     </b-form-group>
 
     <b-table
@@ -445,6 +475,8 @@ place a unique `:key` on your element/components in your custom formatted field 
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
+      :head-variant="headVariant"
+      :table-variant="tableVariant"
     ></b-table>
   </div>
 </template>
@@ -459,6 +491,16 @@ place a unique `:key` on your element/components in your custom formatted field 
           { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
           { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
         ],
+        tableVariants: [
+          'primary',
+          'secondary',
+          'info',
+          'danger',
+          'warning',
+          'success',
+          'light',
+          'dark'
+        ],
         striped: false,
         bordered: false,
         borderless: false,
@@ -467,7 +509,9 @@ place a unique `:key` on your element/components in your custom formatted field 
         hover: false,
         dark: false,
         fixed: false,
-        footClone: false
+        footClone: false,
+        headVariant: null,
+        tableVariant: ''
       }
     }
   }
@@ -529,7 +573,11 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items"></b-table>
+    <b-table responsive :items="items">
+      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
+      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">{{ scope.label }}</div>
+      <div slot="[]" class="text-nowrap" slot-scope="scope">{{ scope.value }}</div>
+    </b-table>
   </div>
 </template>
 
@@ -600,7 +648,8 @@ breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
 element, with a width of 40%.
 
-The prop `stacked` takes precedence over the `responsive` prop.
+The prop `stacked` takes precedence over the `responsive` prop, [`sticky-header`](#sticky-headers)
+props, and the [`stickyColumn`](#sticky-columns) field definition property.
 
 **Example: Always stacked table**
 
@@ -634,13 +683,15 @@ The prop `stacked` takes precedence over the `responsive` prop.
 - Custom rendered header slots will not be shown, rather, the fields' `label` will be used.
 - The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an
   external control to select the field to sort by and the sort direction. See the
-  [**Sorting**](#sorting) section below for sorting control information, as well as the
-  [**complete example**](#complete-example) at the bottom of this page for an example of controlling
+  [Sorting](#sorting) section below for sorting control information, as well as the
+  [complete example](#complete-example) at the bottom of this page for an example of controlling
   sorting via the use of form controls.
 - The slots `top-row` and `bottom-row` will be hidden when visually stacked.
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots
   will not be rendered.
+
+BootstrapVue's custom CSS is required in order to support stacked tables.
 
 ### Table caption
 
@@ -716,10 +767,35 @@ usage of `<colgroup>`
 
 Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                   |
-| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                                                     |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                                                     |
+| `fields`  | Array  | Array of field definition objects (normalized to the [array of objects](#fields-as-an-array-of-objects) format) |
+
+When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
+element. there is no need to provide your own outer `<colgroup>` element. When a series of table
+columns should be grouped for assistive technology reasons (for conveying logical column
+associations, use a `<col span="#">` element (with `#` replaced with the number of grouped columns)
+to group the series of columns.
+
+**Tip:** In some situations when trying to set column widths via `style` or `class` on the `<col>`
+element, you may find that placing the table in `fixed` header width (table fixed layout mode) mode,
+combined with `responsive` (horizontal scrolling) mode will help, although you will need to have
+explicit widths, or minimum widths, via a style or a class for each column's respective `<col>`
+element. For example:
+
+```html
+<b-table fixed responsive :items="items" :fields="fields" ... >
+  <template slot="table-colgroup" slot-scope="scope">
+    <col
+      v-for="field in scope.fields"
+      :key="field.key"
+      :style="{ width: field.key === 'foo' ? '120px' : '180px' }"
+    >
+  </template>
+  <!-- additional table slots here if needed -->
+</b-table>
+```
 
 ### Table busy state
 
@@ -783,8 +859,8 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 <!-- b-table-busy-slot.vue -->
 ```
 
-Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
-additional information on the `busy` state.
+Also see the [Using Items Provider Functions](#using-items-provider-functions) below for additional
+information on the `busy` state.
 
 **Notes:**
 
@@ -800,9 +876,21 @@ function.
 
 ### Scoped field slots
 
-Scoped slots give you greater control over how the record data appears. If you want to add an extra
-field which does not exist in the records, just add it to the `fields` array, And then reference the
-field(s) in the scoped slot(s).
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
+
+Scoped field slots give you greater control over how the record data appears. If you want to add an
+extra field which does not exist in the records, just add it to the `fields` array, And then
+reference the field(s) in the scoped slot(s). Scoped field slots use the following naming syntax:
+`'[' + field key + ']'`.
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use the default _fall-back_
+scoped slot `'[]'` to format any cells that do not have an explicit scoped slot provided.
+
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` did not surround the field key with square brackets, which could cause slot name
+collisions (i.e. if you had a field key `default`). Using the old field slot names has been
+deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
+Users are encouraged to switch to the new bracketed syntax.
 
 **Example: Custom data rendering with scoped slots**
 
@@ -811,18 +899,23 @@ field(s) in the scoped slot(s).
   <div>
     <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
-      <template slot="index" slot-scope="data">
+      <template slot="[index]" slot-scope="data">
         {{ data.index + 1 }}
       </template>
 
       <!-- A custom formatted column -->
-      <template slot="name" slot-scope="data">
-        {{ data.value.first }} {{ data.value.last }}
+      <template slot="[name]" slot-scope="data">
+        <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
-      <template slot="nameage" slot-scope="data">
+      <template slot="[nameage]" slot-scope="data">
         {{ data.item.name.first }} is {{ data.item.age }} years old
+      </template>
+
+      <!-- Optional default data cell scoped slot -->
+      <template slot="[]" slot-scope="data">
+        <i>{{ data.value }}</i>
       </template>
     </b-table>
   </div>
@@ -860,22 +953,22 @@ field(s) in the scoped slot(s).
 
 The slot's scope variable (`data` in the above sample) will have the following properties:
 
-| Property         | Type     | Description                                                                                                                                                                                             |
-| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index`          | Number   | The row number (indexed from zero) relative to the displayed rows                                                                                                                                       |
-| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                         |
-| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for information on field `formatter` callback functions) |
-| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                      |
-| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information                                          |
-| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information                              |
-| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [**Row select support**](#row-select-support) for additional information                                                                       |
+| Property         | Type     | Description                                                                                                                                                               |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`          | Number   | The row number (indexed from zero) relative to the _displayed_ rows                                                                                                       |
+| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                           |
+| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter` function](#formatter-callback)                |
+| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback) |
+| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
+| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
+| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
 
 **Notes:**
 
 - `index` will not always be the actual row's index number, as it is computed after filtering,
   sorting and pagination have been applied to the original table data. The `index` value will refer
   to the **displayed row number**. This number will align with the indexes from the optional
-  `v-model` bound variable.
+  [`v-model` bound](#v-model-binding) variable.
 
 #### Displaying raw HTML
 
@@ -887,7 +980,7 @@ scoped field slot.
 <template>
   <div>
     <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value"></span>
+      <span slot="[html]" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -936,7 +1029,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <div>
     <b-table :fields="fields" :items="items">
-      <template slot="name" slot-scope="data">
+      <template slot="[name]" slot-scope="data">
         <!-- `data.value` is the value after formatted by the Formatter -->
         <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
       </template>
@@ -993,6 +1086,158 @@ formatted value as a string (HTML strings are not supported)
 <!-- b-table-data-formatter.vue -->
 ```
 
+## Header and Footer custom rendering via scoped slots
+
+<span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
+
+It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
+default the table footer is not rendered unless `foot-clone` is set to `true`.
+
+Scoped slots for the header and footer cells uses a special naming convention of
+`'HEAD[<fieldkey>]'` and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is
+not provided, but a `'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot
+content.
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
+scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or footer cells that do not have an
+explicit scoped slot provided.
+
+<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
+`2.0.0-rc.28` used slot names `'HEAD_<key>'` and `'FOOT_<key>'`. Using the old slot names has been
+deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
+Users are encouraged to switch to the new bracketed syntax.
+
+```html
+<template>
+  <div>
+    <b-table :fields="fields" :items="items" foot-clone>
+      <!-- A custom formatted data column cell -->
+      <template slot="[name]" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+      </template>
+
+      <!-- A custom formatted header cell for field 'name' -->
+      <template slot="HEAD[name]" slot-scope="data">
+        <span class="text-info">{{ data.label }}</b>
+      </template>
+
+      <!-- A custom formatted footer cell for field 'name' -->
+      <template slot="FOOT[name]" slot-scope="data">
+        <span class="text-danger">{{ data.label }}</span>
+      </template>
+
+      <!-- Default fall-back custom formatted footer cell -->
+      <template slot="FOOT[]" slot-scope="data">
+        <i>{{ data.label }}</i>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        fields: [
+          // A column that needs custom formatting
+          { key: 'name', label: 'Full Name' },
+          // A regular column
+          'age',
+          // A regular column
+          'sex'
+        ],
+        items: [
+          { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+          { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+          { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+          { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-head-foot-slots.vue -->
+```
+
+The slots can be optionally scoped (`data` in the above example), and will have the following
+properties:
+
+| Property | Type   | Description                                                   |
+| -------- | ------ | ------------------------------------------------------------- |
+| `column` | String | The fields's `key` value                                      |
+| `field`  | Object | the field's object (from the `fields` prop)                   |
+| `label`  | String | The fields label value (also available as `data.field.label`) |
+
+When placing inputs, buttons, selects or links within a `HEAD[...]` or `FOOT[...]` slot, note that
+`head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
+are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
+scoped slots (even when disabled)
+
+### Adding additional rows to the header
+
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
+
+If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
+is inserted before the header cells row, and is not automatically encapsulated by `<tr>..</tr>`
+tags. It is recommended to use the BootstrapVue [table helper components](#table-helper-components),
+rather than native browser table child elements.
+
+```html
+<template>
+  <div>
+    <b-table
+      :items="items"
+      :fields="fields"
+      responsive="sm"
+    >
+      <template slot="thead-top" slot-scope="data">
+        <b-tr>
+          <b-td colspan="2">&nbsp;</b-td>
+          <b-th variant="secondary">Type 1</b-th>
+          <b-th variant="primary" colspan="3">Type 2</b-th>
+          <b-th variant="danger">Type 3</b-th>
+        </b-tr>
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { name: 'Stephen Hawking', id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
+          { name: 'Johnny Appleseed', id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
+          { name: 'George Washington', id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
+          { name: 'Albert Einstein', id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
+          { name: 'Isaac Newton', id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
+        ],
+        fields: [
+          'name',
+          { key: 'id', label: 'ID' },
+          { key: 'type1', label: 'Type 1' },
+          { key: 'type2a', label: 'Type 2A' },
+          { key: 'type2b', label: 'Type 2B' },
+          { key: 'type2c', label: 'Type 2C' },
+          { key: 'type3', label: 'Type 3' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-thead-top-slot.vue -->
+```
+
+Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+
 ## Custom empty and emptyfiltered rendering via slots
 
 Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
@@ -1026,72 +1271,24 @@ following properties:
 | `fields`            | Array  | The `fields` prop                                  |
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
-## Header and Footer custom rendering via scoped slots
+## Advanced features
 
-It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
-default the table footer is not rendered unless `foot-clone` is set to `true`.
+### Sticky headers
 
-Scoped slots for the header and footer cells uses a special naming convention of `HEAD_<fieldkey>`
-and `FOOT_<fieldkey>` respectively. if a `FOOT_` slot for a field is not provided, but a `HEAD_`
-slot is provided, then the footer will use the `HEAD_` slot content.
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
-```html
-<div>
-  <b-table :fields="fields" :items="items" foot-clone>
-    <!-- A custom formatted data column cell -->
-    <template slot="name" slot-scope="data">
-      {{ data.value.first }} {{ data.value.last }}
-    </template>
-
-    <!-- A custom formatted header cell for field 'name' -->
-    <template slot="HEAD_name" slot-scope="data">
-      <em>{{ data.label }}</em>
-    </template>
-
-    <!-- A custom formatted footer cell  for field 'name' -->
-    <template slot="FOOT_name" slot-scope="data">
-      <strong>{{ data.label }}</strong>
-    </template>
-  </b-table>
-</div>
-```
-
-The slots can be optionally scoped (`data` in the above example), and will have the following
-properties:
-
-| Property | Type   | Description                                                   |
-| -------- | ------ | ------------------------------------------------------------- |
-| `column` | String | The fields's `key` value                                      |
-| `field`  | Object | the field's object (from the `fields` prop)                   |
-| `label`  | String | The fields label value (also available as `data.field.label`) |
-
-When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot, note that
-`head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
-are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
-scoped slots (even when disabled)
-
-### Adding additional rows to the header
-
-If you wish to add additional rows to the header you may do so via the `thead-top` slot. This slot
-is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>` tags.
+Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
+(sticky) as the table body scrolls. Setting the prop to `true` (or no explicit value) will generate
+a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
+the `sticky-header` prop to a valid CSS height (including units), i.e. `sticky-header="200px"`.
+Tables with `sticky-header` enabled will also automatically become always responsive horizontally,
+regardless of the [`responsive`](#responsive-tables) prop setting, if the table is wider than the
+available horizontal space.
 
 ```html
 <template>
   <div>
-    <b-table
-      :items="items"
-      :fields="fields"
-      responsive="sm"
-    >
-      <template slot="thead-top" slot-scope="data">
-        <tr>
-          <th colspan="2">&nbsp;</th>
-          <th>Type 1</th>
-          <th colspan="3">Type 2</th>
-          <th>Type 3</th>
-        </tr>
-      </template>
-    </b-table>
+    <b-table sticky-header :items="items" head-variant="light"></b-table>
   </div>
 </template>
 
@@ -1100,74 +1297,62 @@ is inserted before the header cells row, and is not encapsulated by `<tr>..</tr>
     data() {
       return {
         items: [
-          { name: "Stephen Hawking", id: 1, type1: false, type2a: true, type2b: false, type2c: false, type3: false },
-          { name: "Johnny Appleseed", id: 2, type1: false, type2a: true, type2b: true, type2c: false, type3: false },
-          { name: "George Washington", id: 3, type1: false, type2a: false, type2b: false, type2c: false, type3: true },
-          { name: "Albert Einstein", id: 4, type1: true, type2a: false, type2b: false, type2c: true, type3: false },
-          { name: "Isaac Newton", id: 5, type1: true, type2a: true, type2b: false, type2c: true, type3: false },
-        ],
-        fields: [
-          "name",
-          { key: "id", label: "ID" },
-          { key: "type1", label: "Type 1" },
-          { key: "type2a", label: "Type 2A" },
-          { key: "type2b", label: "Type 2B" },
-          { key: "type2c", label: "Type 2C" },
-          { key: "type3", label: "Type 3" }
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' }
         ]
       }
     }
   }
 </script>
 
-<!-- b-table-thead-top-slot.vue -->
+<!-- b-table-sticky-header.vue -->
 ```
 
-Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
+**Sticky header notes:**
 
-| Property  | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                   |
-| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+- The `sticky-header` prop has no effect if the table has the [`stacked`](#stacked-tables) prop set.
+- Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
+- BootstrapVue's custom CSS is required in order to support `sticky-header`.
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
+  borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
+  the body scrolls.
+- The sticky header feature uses CSS style `position: sticky` to position the headings.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
+  scroll with the table body.
 
-## Row select support
+### Sticky columns
 
-You can make rows selectable, by using the prop `selectable`.
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
-Users can easily change the selecting mode by setting the `select-mode` prop.
+Columns can be made sticky, where they stick to the left of the table when the table has a
+horizontal scrollbar. To make a column a sticky column, set the `stickyColumn` prop in the
+[field's header definition](#field-definition-reference). Sticky columns will only work when the
+table has either the `sticky-header` prop set and/or the [`responsive`](#responsive-tables) prop is
+set.
 
-- `multi`: each click will select/deselect the row (default mode)
-- `single`: only a single row can be selected at one time
-- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
-  and CTRL/CMD click will toggle the selected row.
-
-When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
-event, passing a single argument which is the complete list of selected items. **Treat this argument
-as read-only.**
+**Example: Sticky columns and headers**
 
 ```html
 <template>
   <div>
-    <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
-    </b-form-group>
-
-    <b-table
-      selectable
-      :select-mode="selectMode"
-      selectedVariant="success"
-      :items="items"
-      :fields="fields"
-      @row-selected="rowSelected"
-      responsive="sm"
-    >
-      <!-- Example scoped slot for illustrative purposes only -->
-      <template slot="selected" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">✔</span>
-      </template>
+    <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
+    <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
+      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
+      <div slot="HEAD[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
+      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">
+        Heading {{ scope.label }}
+      </div>
     </b-table>
-
-    {{ selected }}
   </div>
 </template>
 
@@ -1175,48 +1360,60 @@ as read-only.**
   export default {
     data() {
       return {
-        modes: ['multi', 'single', 'range'],
-        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
-        items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        stickyHeader: true,
+        fields: [
+          { key: 'id', stickyColumn: true, isRowHeader: true, variant: 'primary' },
+          'a',
+          'b',
+          { key: 'c', stickyColumn: true, variant: 'info' },
+          'd',
+          'e',
+          'f',
+          'g',
+          'h',
+          'i',
+          'j',
+          'k',
+          'l'
         ],
-        selectMode: 'multi',
-        selected: []
-      }
-    },
-    methods: {
-      rowSelected(items) {
-        this.selected = items
+        items: [
+          { id: 1, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 2, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 3, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 4, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 5, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 6, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 7, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 8, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 9, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 10, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 }
+        ]
       }
     }
   }
 </script>
 
-<!-- b-table-selectable.vue -->
+<!-- table-sticky-columns.vue -->
 ```
 
-When table is selectable, it will have class `b-table-selectable`, and one of the following three
-classes (depending on which mode is in use), on the `<table>` element:
+**Sticky column notes:**
 
-- `b-table-select-single`
-- `b-table-select-multi`
-- `b-table-select-range`
+- Sticky columns has no effect if the table has the [`stacked`](#stacked-tables) prop set.
+- Sticky columns tables require either the `sticky-header` and/or `responsive` modes, and are
+  wrapped inside a horizontally scrollable `<div>`.
+- When you have multiple columns that are set as `stickyColumn`, the columns will stack over each
+  other visually, and the left-most sticky columns may "peek" out from under the next sticky column.
+  To get around this behaviour, make sure your latter stickyColumns are the same width or wider than
+  previous sticky columns.
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
+  left or right borders on the sticky columns from "sticking" to the column, and hence those borders
+  will scroll when the body scrolls.
+- BootstrapVue's custom CSS is required in order to support sticky columns.
+- The sticky column feature uses CSS style `position: sticky` to position the column cells.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the sticky column will
+  scroll with the table body.
 
-When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
-element.
-
-**Notes:**
-
-- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
-  with an empty array if needed._
-- _Selected rows will have a class of `b-row-selected` added to them._
-- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for accessibility reasons._
-
-## Row details support
+### Row details support
 
 If you would optionally like to display additional record information (such as columns not specified
 in the fields definition array), you can use the scoped slot `row-details`, in combination with the
@@ -1252,7 +1449,7 @@ initially showing.
 <template>
   <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template slot="show_details" slot-scope="row">
+      <template slot="[show_details]" slot-scope="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
         </b-button>
@@ -1307,120 +1504,79 @@ initially showing.
 <!-- b-table-details.vue -->
 ```
 
-## Sorting
+### Row select support
 
-<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+You can make rows selectable, by using the `<b-table>` prop `selectable`.
 
-As mentioned in the [**Fields**](#fields-column-definitions-) section above, you can make columns
-sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
-first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
-column will clear the sorting. The prop `no-sort-reset` can be used to disable this feature.
+Users can easily change the selecting mode by setting the `select-mode` prop.
 
-You can control which column is pre-sorted and the order of sorting (ascending or descending). To
-pre-specify the column to be sorted, set the `sort-by` prop to the field's key. Set the sort
-direction by setting `sort-desc` to either `true` (for descending) or `false` (for ascending, the
-default).
+- `multi`: each click will select/deselect the row (default mode)
+- `single`: only a single row can be selected at one time
+- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
+  and CTRL/CMD click will toggle the selected row.
 
-- **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
-  lowest value in the first row with progressively higher values in the following rows. The header
-  indicator arrow will point in the direction of lowest to highest. (i.e. down for ascending).
-- **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
-  the highest value in the first row with progressively lower values in the following rows. The
-  header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
+When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
+event, passing a single argument which is the complete list of selected items. **Treat this argument
+as read-only.**
 
-The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
-`.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
-criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
-the `.sync` prop modifier.
+Rows can also be programmatically selected and unselected via the following exposed methods on the
+`<b-table>` instance (i.e. via a reference to the table instance via `this.$refs`):
 
-Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
-table not being sorted.
+| Method                 | Description                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `selectRow(index)`     | Selects a row with the given `index` number.                                                         |
+| `unselectRow(index)`   | Unselects a row with the given `index` number.                                                       |
+| `selectAllRows()`      | Selects all rows in the table, except in `single` mode in which case only the first row is selected. |
+| `clearSelected()`      | Unselects all rows.                                                                                  |
+| `isRowSelected(index)` | Returns `true` if the row with the given `index` is selected, otherwise it returns `false`.          |
 
-When the prop `foot-clone` is set, the footer headings will also allow sorting by clicking, even if
-you have custom formatted footer field headers. To disable the sort icons and sorting via heading
-clicks in the footer, set the `no-footer-sorting` prop to true.
+Programmatic selection notes:
 
-The internal sort-compare routine uses `String.prototype.localeCompare()` for comparing the
-stringified column value (if value type is not `Number` or `Date`). `localeCompare()` accepts a
-`locale` string and an `options` object for controlling how strings are sorted. The default options
-used is `{ numeric: true }`, and locale is `undefined` (which uses the browser default locale).
-
-<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale via the
-`sort-compare-locale` prop to set the locale for sorting, as well as pass sort options via the
-`sort-compare-options` prop. Valid sort option properties are:
-
-- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
-  `'best fit'`. The default is `'best fit'`. For information about this option, see the
-  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
-  for details.
-- `sensitivity`: Which differences in the strings should lead to non-zero compare result values.
-  Possible values are:
-  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
-    `a = á`, `a = A`.
-  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
-    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
-  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
-    `a ≠ b`, `a = á`, `a ≠ A`.
-  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
-    marks, or case compare as unequal. Other differences may also be taken into consideration.
-    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
-- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
-  `false`. The default is `false`.
-- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
-  are `true` and `false`. The default is `false`. Implementations are not required to support this
-  property.
-- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
-  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
-  not required to support this property.
-- `'usage'`: Always set to `'sort'` by `<b-table>`
-
-**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
-sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
-
-**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
-
-```html
-<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
-```
-
-**Notes:**
-
-- The built-in `sort-compare` routine **cannot** sort sort based on the custom rendering of the
-  field data (scoped slots are used only for presentation only, and do not affect the underlying
-  data).
-- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span> Fields that have a
-  [`formatter` function](#formatter-callback) (virtual field or regular field) will be sorted by the
-  value returned via the formatter function.
-- Refer to
-  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
-  for details on the options object property values.
-- Refer to
-  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
-  for details on locale values.
-- Not all browsers (or Node.js) support the `locale` and `options` with
-  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
-  for browser support. For Node.js, you may need to add in
-  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
-  prevent [SSR hydration mismatch](https://ssr.vuejs.org/guide/hydration.html) errors.
-
-Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on sorting
-by presentational data.
+- `index` the zero-based index of the table's **visible rows**, after filtering, sorting, and
+  pagination have been applied.
+- In `single` mode, `selectRow(index)` will unselect any previous selected row.
+- Attempting to `selectRow(index)` or `unselectRow(index)` on a non-existent row will be ignored.
+- The table must be `selectable` for any of these methods to have effect.
 
 ```html
 <template>
   <div>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
+    </b-form-group>
+
     <b-table
+      ref="selectableTable"
+      selectable
+      :select-mode="selectMode"
+      selected-variant="success"
       :items="items"
       :fields="fields"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
+      @row-selected="onRowSelected"
       responsive="sm"
-    ></b-table>
-
-    <div>
-      Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
-      <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
-    </div>
+    >
+      <!-- Example scoped slot for select state illustrative purposes -->
+      <template slot="[selected]" slot-scope="{ rowSelected }">
+        <template v-if="rowSelected">
+          <span aria-hidden="true">&check;</span>
+          <span class="sr-only">Selected</span>
+        </template>
+        <template v-else>
+          <span aria-hidden="true">&nbsp;</span>
+          <span class="sr-only">Not selected</span>
+        </template>
+      </template>
+    </b-table>
+    <p>
+      <b-button size="sm" @click="selectAllRows">Select all</b-button>
+      <b-button size="sm" @click="clearSelected">Clear selected</b-button>
+      <b-button size="sm" @click="selectThirdRow">Select 3rd row</b-button>
+      <b-button size="sm" @click="unselectThirdRow">Unselect 3rd row</b-button>
+    </p>
+    <p>
+      Selected Rows:<br>
+      {{ selected }}
+    </p>
   </div>
 </template>
 
@@ -1428,215 +1584,71 @@ by presentational data.
   export default {
     data() {
       return {
-        sortBy: 'age',
-        sortDesc: false,
-        fields: [
-          { key: 'last_name', sortable: true },
-          { key: 'first_name', sortable: true },
-          { key: 'age', sortable: true },
-          { key: 'isActive', sortable: false }
-        ],
+        modes: ['multi', 'single', 'range'],
+        fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
         items: [
           { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
           { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
           { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
           { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ]
+        ],
+        selectMode: 'multi',
+        selected: []
+      }
+    },
+    methods: {
+      onRowSelected(items) {
+        this.selected = items
+      },
+      selectAllRows() {
+        this.$refs.selectableTable.selectAllRows()
+      },
+      clearSelected() {
+        this.$refs.selectableTable.clearSelected()
+      },
+      selectThirdRow() {
+        // Rows are indexed from 0, so the third row is index 2
+        this.$refs.selectableTable.selectRow(2)
+      },
+      unselectThirdRow() {
+        // Rows are indexed from 0, so the third row is index 2
+        this.$refs.selectableTable.unselectRow(2)
       }
     }
   }
 </script>
 
-<!-- b-table-sorting.vue -->
+<!-- b-table-selectable.vue -->
 ```
 
-### Sort-compare routine
+When a table is selectable, it will have class `b-table-selectable`, and one of the following three
+classes (depending on which mode is in use), on the `<table>` element:
 
-<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
 
-The built-in default `sort-compare` function sorts the specified field `key` based on the data in
-the underlying record object (formatted value if a field has a formatter function). The field value
-is first stringified if it is an object, and then sorted.
+When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
+element.
 
-The default `sort-compare` routine **cannot** sort based on the custom rendering of the field data
-(scoped slots are used only for presentation). For this reason, you can provide your own custom sort
-compare routine by passing a function reference to the prop `sort-compare`.
+Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
+to the order that the table variants are defined in Bootstrap's CSS, any row-variant's may take
+precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
+will be using other means to convey that a row is selected (such as a scoped field slot in the above
+example).
 
-The `sort-compare` routine is passed seven (7) arguments:
+**Notes:**
 
-- the first two arguments (`a` and `b`) are the _record objects_ for the rows being compared
-- the third argument is the field `key` being sorted on (`sortBy`)
-- the fourth argument (`sortDesc`) is the order `<b-table>` will be displaying the records (`true`
-  for descending, `false` for ascending)
-- the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
-  `undefined` if no field formatter). You will need to call this method to get the formatted field
-  value: `val = formatter(a[key], key, a)`
-- the sixth argument is the value of the `sort-compare-options` prop (default is
-  `{ numeric: true }`)
-- the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
+- Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
+  with an empty array if needed.
+- Selected rows will have a class of `b-row-selected` added to them.
+- When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the attribute
+  `aria-selected` set to either `'true'` or `'false'` depending on the selected state of the row.
+- When a table is `selectable`, the table will have the attribute `aria-multiselect` set to either
+  `'false'` for `single` mode, and `'true'` for either `multi` or `range` modes.
 
-The sixth and seventh arguments can be used if you are using the
-[`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
-method to compare strings.
-
-The routine should always return either `-1` for `a[key] < b[key]` , `0` for `a[key] === b[key]`, or
-`1` for `a[key] > b[key]` (the fourth argument, sorting direction, should not normally be used, as
-`b-table` will handle the direction, and is typically only needed when special handling of how
-`null` values are sorted). Your custom sort-compare routine can also return `null` or `false` to
-fall back to the _built-in sort-compare routine_ for the particular `key`. You can use this feature
-(i.e. by returning `null`) to have your custom sort-compare routine handle only certain fields
-(keys) such as the special case of virtual (scoped slot) columns, and have the internal sort-compare
-handle all other fields.
-
-The default sort-compare routine works similar to the following. Note the fourth argument (sorting
-direction) is **not** used in the sort comparison:
-
-<!-- eslint-disable no-unused-vars, no-undef -->
-
-```js
-function sortCompare(aRow, bRow, key) {
-  const a = aRow[key] // or use Lodash _.get()
-  const b = bRow[key]
-  if (
-    (typeof a === 'number' && typeof b === 'number') ||
-    (a instanceof Date && b instanceof Date)
-  ) {
-    // If both compared fields are native numbers or both are dates
-    return a < b ? -1 : a > b ? 1 : 0
-  } else {
-    // Otherwise stringify the field data and use String.prototype.localeCompare
-    return toString(a).localeCompare(toString(b), undefined, {
-      numeric: true
-    })
-  }
-}
-
-// Helper function to stringify the values of an Object
-function toString(value) {
-  if (value === null || typeof value === 'undefined') {
-    return ''
-  } else if (value instanceof Object) {
-    return Object.keys(value)
-      .sort()
-      .map(key => toString(value[key]))
-      .join(' ')
-  } else {
-    return String(value)
-  }
-}
-```
-
-### Disable local sorting
-
-If you want to handle sorting entirely in your app, you can disable the local sorting in `<b-table>`
-by setting the prop `no-local-sorting` to true, while still maintaining the sortable header
-functionality (via `sort-changed` or `context-changed` events as well as syncable props).
-
-You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect changes in sorting
-column and direction.
-
-Also, When a sortable column header (or footer) is clicked, the event `sort-changed` will be emitted
-with a single argument containing the context object of `<b-table>`. See the
-[Detection of sorting change](#detection-of-sorting-change) section below for details about the
-sort-changed event and the context object.
-
-### Change initial sort direction
-
-Control the order in which ascending and descending sorting is applied when a sortable column header
-is clicked, by using the `sort-direction` prop. The default value `'asc'` applies ascending sort
-first (when a column is not currently sorted). To reverse the behavior and sort in descending
-direction first, set it to `'desc'`.
-
-If you don't want the current sorting direction to change when clicking another sortable column
-header, set `sort-direction` to `'last'`. This will maintain the sorting direction of the previously
-sorted column.
-
-For individual column initial sort direction (which applies when the column transitions from
-unsorted to sorted), specify the property `sortDirection` in `fields`. See the
-[Complete Example](#complete-example) below for an example of using this feature.
-
-## Filtering
-
-Filtering, when used, is applied to the **original items** array data, and hence it is not currently
-possible to filter data based on custom rendering of virtual columns.
-
-### Built in filtering
-
-The item's row data values are stringified (see the sorting section above for how stringification is
-done) and the filter searches that stringified data (excluding any of the special properties that
-begin with an underscore `_`). The stringification also includes any data not shown in the presented
-columns.
-
-With the default built-in filter function, The `filter` prop value can either be a string or a
-`RegExp` object (regular expressions should _not_ have the `/g` global flag set).
-
-If the stringified row contains the provided string value or matches the RegExp expression then it
-is included in the displayed results.
-
-Set the `filter` prop to `null` or the empty string to clear the current filter.
-
-### Custom filter function
-
-You can also use a custom filter function, by setting the prop `filter-function` to a reference of
-custom filter test function. The filter function will be passed two arguments:
-
-- the original item row record data object. **Treat this argument as read-only.**
-- the content of the `filter` prop (could be a string, RegExp, array, or object)
-
-The function should return `true` if the record matches your criteria or `false` if the record is to
-be filtered out.
-
-For proper reactive updates to the displayed data, when not filtering you should set the `filter`
-prop to `null` or an empty string (and not an empty object or array). The filter function will not
-be called when the `filter` prop is a falsey value.
-
-The display of the `empty-filter-text` relies on the truthiness of the `filter` prop.
-
-**Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated and should be
-avoided. Use the `filter-function` prop instead.
-
-### Filter events
-
-When local filtering is applied, and the resultant number of items change, `<b-table>` will emit the
-`filtered` event with a two arguments:
-
-- an array reference which is the complete list of items passing the filter routine. **Treat this
-  argument as read-only.**
-- the number of records that passed the filter test (the length of the first argument)
-
-Setting the prop `filter` to null or an empty string will clear local items filtering.
-
-### Filtering notes
-
-See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
-
-## Pagination
-
-`<b-table>` supports built in pagination of item data. You can control how many rows are displayed
-at a time by setting the `per-page` prop to the maximum number of rows you would like displayed, and
-use the `current-page` prop to specify which page to display (starting from page `1`). If you set
-`current-page` to a value larger than the computed number of pages, then no rows will be shown.
-
-You can use the [`<b-pagination>`](/docs/components/pagination) component in conjunction with
-`<b-table>` for providing control over pagination.
-
-Setting `per-page` to `0` (default) will disable the local items pagination feature.
-
-## `v-model` binding
-
-If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
-displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
-should usually be treated as readonly.
-
-The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
-changes to a record's properties in the `v-model` will be reflected in the original `items` array
-(except when `items` is set to a provider function). Deleting a record from the `v-model` will
-**not** remove the record from the original items array nor will it remove it from the displayed
-rows.
-
-**Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
-
-## Table body transition support
+### Table body transition support
 
 Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
 Vue's `<transition-group>` component internally. Three props are available for transitions support
@@ -1710,10 +1722,397 @@ table#table-transition-example .flip-list-move {
 <!-- b-table-transitions.vue -->
 ```
 
+### `v-model` binding
+
+If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
+displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
+should usually be treated as readonly.
+
+The records within the `v-model` are a filtered/paginated _shallow copy_ of `items`, and hence any
+changes to a record's properties in the `v-model` will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the `v-model` array will
+**not** remove the record from the original items array nor will it remove it from the displayed
+rows.
+
+**Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
+
+## Sorting
+
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.25</span>
+
+As mentioned in the [Fields](#fields-column-definitions) section above, you can make columns
+sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
+first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
+column will clear the sorting. The prop `no-sort-reset` can be used to disable this feature.
+
+You can control which column is pre-sorted and the order of sorting (ascending or descending). To
+pre-specify the column to be sorted, set the `sort-by` prop to the field's key. Set the sort
+direction by setting `sort-desc` to either `true` (for descending) or `false` (for ascending, the
+default).
+
+- **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
+  lowest value in the first row with progressively higher values in the following rows. The header
+  indicator arrow will point in the direction of lowest to highest. (i.e. down for ascending).
+- **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
+  the highest value in the first row with progressively lower values in the following rows. The
+  header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
+
+The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
+`.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
+criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
+the `.sync` prop modifier.
+
+Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
+table not being sorted.
+
+When the prop `foot-clone` is set, the footer headings will also allow sorting by clicking, even if
+you have custom formatted footer field headers. To disable the sort icons and sorting via heading
+clicks in the footer, set the `no-footer-sorting` prop to true.
+
+```html
+<template>
+  <div>
+    <b-table
+      :items="items"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      responsive="sm"
+    ></b-table>
+
+    <div>
+      Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
+      <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        sortBy: 'age',
+        sortDesc: false,
+        fields: [
+          { key: 'last_name', sortable: true },
+          { key: 'first_name', sortable: true },
+          { key: 'age', sortable: true },
+          { key: 'isActive', sortable: false }
+        ],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-sorting.vue -->
+```
+
+### Sort-compare routine
+
+<span class="badge badge-info small">ENHANCED in v2.0.0-rc.28</span>
+
+The internal built-in default `sort-compare` function sorts the specified field `key` based on the
+data in the underlying record object (or by formatted value if a field has a formatter function, and
+the field has its `sortByFormatted` property is set to `true`). The field value is first stringified
+if it is an object and then sorted.
+
+**Notes:**
+
+- The built-in `sort-compare` routine **cannot** sort based on the custom rendering of the field
+  data: scoped slots are used only for _presentation only_, and do not affect the underlying data.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.25</span>
+  <span class="badge badge-warning small">CHANGED in v2.0.0-rc.28</span> Fields that have a
+  [`formatter` function](#formatter-callback) (virtual field or regular field) can be sorted by the
+  value returned via the formatter function if the [field](#field-definition-reference) property
+  `sortByFormatted` is set to `true`. The default is `false` which will sort by the original field
+  value. This is only applicable for the built-in sort-compare routine.
+- <span class="badge badge-info small">NEW in v2.0.0-rc.28</span> By default, the internal sorting
+  routine will sort `null`, `undefined`, or empty string values first (less than any other values).
+  To sort so that `null`, `undefined` or empty string values appear last (greater than any other
+  value), set the `sort-null-last` prop to `true`.
+
+For customizing the sort-compare handling, refer to the
+[Custom sort-compare routine](#custom-sort-compare-routine) section below.
+
+### Internal sorting and locale handling
+
+The internal sort-compare routine uses
+[`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+for comparing the stringified column value (if values being compared are not both `Number` or both
+`Date` types). The browser native `localeCompare()` method accepts a `locale` string (or array of
+locale strings) and an `options` object for controlling how strings are sorted. The default options
+are `{ numeric: true }`, and the locale is `undefined` (which uses the browser default locale).
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.25</span> You can change the locale (or
+locales) via the `sort-compare-locale` prop to set the locale(s) for sorting, as well as pass sort
+options via the `sort-compare-options` prop.
+
+The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
+default locale. The prop `sort-compare-locale` can either accept a
+[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
+more details on locales, please see
+[Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
+on MDN.
+
+The `sort-compare-options` prop accepts an object containing any of the following properties:
+
+- `localeMatcher`: The locale matching algorithm to use. Possible values are `'lookup'` and
+  `'best fit'`. The default is `'best fit'`. For information about this option, see the
+  [MDN Intl page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation)
+  for details.
+- `sensitivity`: Which differences in the strings should lead to _non-zero_ compare result values.
+  Possible values are:
+  - `'base'`: Only strings that differ in base letters compare as unequal. Examples: `a ≠ b`,
+    `a = á`, `a = A`.
+  - `'accent'`: Only strings that differ in base letters or accents and other diacritic marks
+    compare as unequal. Examples: `a ≠ b`, `a ≠ á`, `a = A`.
+  - `'case'`: Only strings that differ in base letters or case compare as unequal. Examples:
+    `a ≠ b`, `a = á`, `a ≠ A`.
+  - `'variant'`: **(default)** Strings that differ in base letters, accents and other diacritic
+    marks, or case compare as unequal. Other differences _may also_ be taken into consideration.
+    Examples: `a ≠ b`, `a ≠ á`, `a ≠ A`.
+- `ignorePunctuation`: Whether punctuation should be ignored. Possible values are `true` and
+  `false`. The default is `false`.
+- `numeric`: Whether numeric collation should be used, such that `'1' < '2' < '10'`. Possible values
+  are `true` and `false`. The default is `false`. Note that implementations (browsers, runtimes) are
+  not required to support this property, and therefore it might be ignored.
+- `caseFirst`: Whether upper case or lower case should sort first. Possible values are `'upper'`,
+  `'lower'`, or `'false'` (use the locale's default). The default is `'false'`. Implementations are
+  not required to support this property.
+- `'usage'`: **Always** set to `'sort'` by `<b-table>`
+
+**Example 1:** If you want to sort German words, set `sort-compare-locale="de"` (in German, `ä`
+sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` sorts _after_ `z`)
+
+**Example 2:** To compare numbers that are strings numerically, and to ignore case and accents:
+
+```html
+<b-table :sort-compare-options="{ numeric: true, sensitivity: 'base' }" ...>
+```
+
+**Notes:**
+
+- Refer to
+  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+  for details on the options object property values.
+- Refer to
+  [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
+  for details on locale values.
+- Not all browsers (or Node.js) support the `locale` and `options` with
+  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
+  for browser support. For Node.js, you may need to add in
+  [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
+  prevent [SSR hydration mismatch errors](https://ssr.vuejs.org/guide/hydration.html).
+
+### Custom sort-compare routine
+
+You can provide your own custom sort compare routine by passing a function reference to the prop
+`sort-compare`. The `sort-compare` routine is passed seven (7) arguments, of which the last 4 are
+optional:
+
+- the first two arguments (`a` and `b`) are the _record objects_ for the rows being compared
+- the third argument is the field `key` being sorted on (`sortBy`)
+- the fourth argument (`sortDesc`) is the order `<b-table>` will be displaying the records (`true`
+  for descending, `false` for ascending)
+- the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
+  `undefined` if no field formatter). You will need to call this method to get the formatted field
+  value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
+  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property is
+  not `true`
+- the sixth argument is the value of the `sort-compare-options` prop (default is
+  `{ numeric: true }`)
+- the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
+
+The sixth and seventh arguments can be used if you are using the
+[`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+method to compare strings.
+
+In most typical situations, you only need to use the first three arguments. The fourth argument -
+sorting direction - should not normally be used, as `b-table` will handle the direction, and this
+value is typically only needed when special handling of how `null` and/or `undefined` values are
+sorted (i.e. sorting `null`/`undefined` first or last).
+
+The routine should return either `-1` (or a negative value) for `a[key] < b[key]` , `0` for
+`a[key] === b[key]`, or `1` (or a positive value) for `a[key] > b[key]`.
+
+Your custom sort-compare routine can also return `null` or `false`, to fall back to the _built-in
+sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning `null`)
+to have your custom sort-compare routine handle _only_ certain fields (keys) such as the special
+case of virtual (scoped slot) columns, and have the internal (built in) sort-compare handle all
+other fields.
+
+The default sort-compare routine works similar to the following. Note the fourth argument (sorting
+direction) is **not** used in the sort comparison:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+function sortCompare(aRow, bRow, key, sortDesc, formatter, compareOptions, compareLocale) {
+  const a = aRow[key] // or use Lodash `_.get()`
+  const b = bRow[key]
+  if (
+    (typeof a === 'number' && typeof b === 'number') ||
+    (a instanceof Date && b instanceof Date)
+  ) {
+    // If both compared fields are native numbers or both are native dates
+    return a < b ? -1 : a > b ? 1 : 0
+  } else {
+    // Otherwise stringify the field data and use String.prototype.localeCompare
+    return toString(a).localeCompare(toString(b), compareLocale, compareOptions)
+  }
+}
+
+// Helper function to stringify the values of an Object
+function toString(value) {
+  if (value === null || typeof value === 'undefined') {
+    return ''
+  } else if (value instanceof Object) {
+    return Object.keys(value)
+      .sort()
+      .map(key => toString(value[key]))
+      .join(' ')
+  } else {
+    return String(value)
+  }
+}
+```
+
+### Disable local sorting
+
+If you want to handle sorting entirely in your app, you can disable the local sorting in `<b-table>`
+by setting the prop `no-local-sorting` to true, while still maintaining the sortable header
+functionality (via `sort-changed` or `context-changed` events as well as syncable props).
+
+You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect changes in sorting
+column and direction.
+
+Also, When a sortable column header (or footer) is clicked, the event `sort-changed` will be emitted
+with a single argument containing the context object of `<b-table>`. See the
+[Detection of sorting change](#detection-of-sorting-change) section below for details about the
+sort-changed event and the context object.
+
+When `no-local-sorting` is true, the `sort-compare` prop has no effect.
+
+### Change initial sort direction
+
+Control the order in which ascending and descending sorting is applied when a sortable column header
+is clicked, by using the `sort-direction` prop. The default value `'asc'` applies ascending sort
+first (when a column is not currently sorted). To reverse the behavior and sort in descending
+direction first, set it to `'desc'`.
+
+If you don't want the current sorting direction to change when clicking another sortable column
+header, set `sort-direction` to `'last'`. This will maintain the sorting direction of the previously
+sorted column.
+
+For individual column initial sort direction (which applies when the column transitions from
+unsorted to sorted), specify the property `sortDirection` in `fields`. See the
+[Complete Example](#complete-example) below for an example of using this feature.
+
+## Filtering
+
+<span class="badge badge-info small">ENHANCED in 2.0.0-rc.28</span>
+
+Filtering, when used, is applied by default to the **original items** array data. `b-table` provides
+several options for how data is filtered.
+
+It is currently not possible to filter based on result of formatting via
+[scoped field slots](#scoped-field-slots).
+
+### Built in filtering
+
+The item's row data values are stringified (see the sorting section above for how stringification is
+done) and the filter searches that stringified data (excluding any of the special properties that
+begin with an underscore `'_'`). The stringification also, by default, includes any data not shown
+in the presented columns.
+
+With the default built-in filter function, The `filter` prop value can either be a string or a
+`RegExp` object (regular expressions should _not_ have the `/g` global flag set).
+
+If the stringified row contains the provided string value or matches the RegExp expression then it
+is included in the displayed results.
+
+Set the `filter` prop to `null` or an empty string to clear the current filter.
+
+### Built in filtering options
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+There are several options for controlling what data the filter is applied against.
+
+- The `filter-ignored-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should be ignored when filtering.
+- The `filter-included-fields` prop accepts an array of _top-level_ (immediate properties of the row
+  data) field keys that should used when filtering. All other field keys not included in this array
+  will be ignored. This feature can be handy when you want to filter on specific columns. If the
+  specified array is empty, then _all_ fields are included, except those specified via the prop
+  `filter-ignored-fields`. If a field key is specified in both `filter-ignored-fields` and
+  `filter-included-fields`, then `filter-included-fields` takes precedence.
+- Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
+  function specified, you can optionally filter based on the result of the formatter by setting the
+  [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the
+  field does not have a formatter function, this option is ignored.
+
+The props `filter-ignored-fields` and `filter-included-fields`, and the field definition property
+`filterByFormatted` have no effect when using a [custom filter function](#custom-filter-function),
+or [items provider](#using-items-provider-functions) based filtering.
+
+### Custom filter function
+
+You can also use a custom filter function, by setting the prop `filter-function` to a reference of
+custom filter test function. The filter function will be passed two arguments:
+
+- the original item row record data object. **Treat this argument as read-only.**
+- the content of the `filter` prop (could be a string, RegExp, array, or object)
+
+The function should return `true` if the record matches your criteria or `false` if the record is to
+be filtered out.
+
+For proper reactive updates to the displayed data, when not filtering you should set the `filter`
+prop to `null` or an empty string (and not an empty object or array). The filter function will not
+be called when the `filter` prop is a falsey value.
+
+The display of the `empty-filter-text` relies on the truthiness of the `filter` prop.
+
+**Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated and should be
+avoided. Use the `filter-function` prop instead.
+
+### Filter events
+
+When local filtering is applied, and the resultant number of items change, `<b-table>` will emit the
+`filtered` event with a two arguments:
+
+- an array reference which is the complete list of items passing the filter routine. **Treat this
+  argument as read-only.**
+- the number of records that passed the filter test (the length of the first argument)
+
+Setting the prop `filter` to null or an empty string will clear local items filtering.
+
+### Filtering notes
+
+See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
+
+## Pagination
+
+`<b-table>` supports built in pagination of item data. You can control how many rows are displayed
+at a time by setting the `per-page` prop to the maximum number of rows you would like displayed, and
+use the `current-page` prop to specify which page to display (starting from page `1`). If you set
+`current-page` to a value larger than the computed number of pages, then no rows will be shown.
+
+You can use the [`<b-pagination>`](/docs/components/pagination) component in conjunction with
+`<b-table>` for providing control over pagination.
+
+Setting `per-page` to `0` (default) will disable the local items pagination feature.
+
 ## Using items provider functions
 
-As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a
-function to provide the row data (items), by specifying a function reference via the `items` prop.
+As mentioned under the [Items](#items-record-data) prop section, it is possible to use a function to
+provide the row data (items), by specifying a function reference via the `items` prop.
 
 The provider function is called with the following signature:
 
@@ -1936,8 +2335,7 @@ export default {
 ```
 
 You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
-`:sort-desc.sync` two-way props respectively (see section [**Sorting**](#sorting) above for
-details).
+`:sort-desc.sync` two-way props respectively (see section [Sorting](#sorting) above for details).
 
 ```html
 <div>
@@ -1958,7 +2356,7 @@ When `<b-table>` is mounted in the document, it will automatically trigger a pro
 
 `<b-table-lite>` provides a great alternative to `<b-table>` if you just need simple display of
 tabular data. The `<b-table-lite>` component provides all of the styling and formatting features of
-`<b-table>` (including row details support), while **excluding** the following features:
+`<b-table>` (including row details and stacked support), while **excluding** the following features:
 
 - Filtering
 - Sorting
@@ -1969,27 +2367,370 @@ tabular data. The `<b-table-lite>` component provides all of the styling and for
 - Fixed top and bottom rows
 - Empty row support
 
+### Table lite as a plugin
+
+The `TablePlugin` includes `<b-table-lite>`. For convenience, BootstrapVue also provides a
+`TableLitePlugin` which installs only `<b-table-lite>`. `TableLitePlugin` is available as a top
+level named export.
+
+## Simple tables
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
+
+The `<b-table-simple>` component gives the user complete control over the rendering of the table
+content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
+around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
+of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and `<colgroup>` and
+`<col>`. Contrary to the component's name, one can create simple or complex table layouts with
+`<b-table-simple>`.
+
+`<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
+`outlined`, `small`, `hover`, `dark`, `fixed`, `responsive` and `sticky-header`. Note that `stacked`
+mode is available but requires some additional markup to generate the cell headings, as described in
+the [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below. Sticky columns
+are also supported, but also require a bit of additional markup to specify which columns are to be
+sticky. See below for more information on using [sticky columns](#simple-tables-and-sticky-columns).
+
+Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
+it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
+sorting, pagination, filtering, foot-clone, etc).
+
+```html
+<div>
+  <b-table-simple hover small caption-top responsive>
+    <caption>Items sold in August, grouped by Country and City:</caption>
+    <colgroup><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col></colgroup>
+    <b-thead head-variant="dark">
+      <b-tr>
+        <b-th colspan="2">Region</b-th>
+        <b-th colspan="3">Clothes</b-th>
+        <b-th colspan="2">Accessories</b-th>
+      </b-tr>
+      <b-tr>
+        <b-th>Country</b-th>
+        <b-th>City</b-th>
+        <b-th>Trousers</b-th>
+        <b-th>Skirts</b-th>
+        <b-th>Dresses</b-th>
+        <b-th>Bracelets</b-th>
+        <b-th>Rings</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody>
+      <b-tr>
+        <b-th rowspan="3">Belgium</b-th>
+        <b-th class="text-right">Antwerp</b-th>
+        <b-td>56</b-td>
+        <b-td>22</b-td>
+        <b-td>43</b-td>
+        <b-td variant="success">72</b-td>
+        <b-td>23</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right">Gent</b-th>
+        <b-td>46</b-td>
+        <b-td variant="warning">18</b-td>
+        <b-td>50</b-td>
+        <b-td>61</b-td>
+        <b-td variant="danger">15</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right">Brussels</b-th>
+        <b-td>51</b-td>
+        <b-td>27</b-td>
+        <b-td>38</b-td>
+        <b-td>69</b-td>
+        <b-td>28</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th rowspan="2">The Netherlands</b-th>
+        <b-th class="text-right">Amsterdam</b-th>
+        <b-td variant="success">89</b-td>
+        <b-td>34</b-td>
+        <b-td>69</b-td>
+        <b-td>85</b-td>
+        <b-td>38</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th class="text-right">Utrecht</b-th>
+        <b-td>80</b-td>
+        <b-td variant="danger">12</b-td>
+        <b-td>43</b-td>
+        <b-td>36</b-td>
+        <b-td variant="warning">19</b-td>
+      </b-tr>
+    </b-tbody>
+    <b-tfoot>
+      <b-tr>
+        <b-td colspan="7" variant="secondary" class="text-right">
+          Total Rows: <b>5</b>
+        </b-td>
+      </b-tr>
+    </b-tfoot>
+  </b-table-simple>
+</div>
+
+<!-- b-table-simple.vue -->
+```
+
+When in `responsive` or `sticky-header` mode, the `<table>` element is wrapped inside a `<div>`
+element. If you need to apply additional classes to the `<table>` element, use the `table-classes`
+prop.
+
+Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
+element.
+
+### Simple tables and stacked mode
+
+A bit of additional markup is required on your `<b-table-simple>` body cells when the table is in
+stacked mode. Specifically, BootstrapVue uses a special data attribute to create the cell's heading,
+of which you can supply to `<b-td>` or `<b-th>` via the `stacked-heading` prop. Only plain strings
+are supported (not HTML markup), as we use the pseudo element `::before` and css `content` property.
+
+Here is the same table as above, set to be always stacked, which has the extra markup to handle
+stacked mode (specifically for generating the cell headings):
+
+```html
+<div>
+  <b-table-simple hover small caption-top stacked>
+    <caption>Items sold in August, grouped by Country and City:</caption>
+    <colgroup><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col></colgroup>
+    <b-thead head-variant="dark">
+      <b-tr>
+        <b-th colspan="2">Region</b-th>
+        <b-th colspan="3">Clothes</b-th>
+        <b-th colspan="2">Accessories</b-th>
+      </b-tr>
+      <b-tr>
+        <b-th>Country</b-th>
+        <b-th>City</b-th>
+        <b-th>Trousers</b-th>
+        <b-th>Skirts</b-th>
+        <b-th>Dresses</b-th>
+        <b-th>Bracelets</b-th>
+        <b-th>Rings</b-th>
+      </b-tr>
+    </b-thead>
+    <b-tbody>
+      <b-tr>
+        <b-th rowspan="3" class="text-center">Belgium (3 Cities)</b-th>
+        <b-th stacked-heading="City" class="text-left">Antwerp</b-th>
+        <b-td stacked-heading="Clothes: Trousers">56</b-td>
+        <b-td stacked-heading="Clothes: Skirts">22</b-td>
+        <b-td stacked-heading="Clothes: Dresses">43</b-td>
+        <b-td stacked-heading="Accessories: Bracelets" variant="success">72</b-td>
+        <b-td stacked-heading="Accessories: Rings">23</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Gent</b-th>
+        <b-td stacked-heading="Clothes: Trousers">46</b-td>
+        <b-td stacked-heading="Clothes: Skirts" variant="warning">18</b-td>
+        <b-td stacked-heading="Clothes: Dresses">50</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">61</b-td>
+        <b-td stacked-heading="Accessories: Rings" variant="danger">15</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Brussels</b-th>
+        <b-td stacked-heading="Clothes: Trousers">51</b-td>
+        <b-td stacked-heading="Clothes: Skirts">27</b-td>
+        <b-td stacked-heading="Clothes: Dresses">38</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">69</b-td>
+        <b-td stacked-heading="Accessories: Rings">28</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th rowspan="2" class="text-center">The Netherlands (2 Cities)</b-th>
+        <b-th stacked-heading="City">Amsterdam</b-th>
+        <b-td stacked-heading="Clothes: Trousers" variant="success">89</b-td>
+        <b-td stacked-heading="Clothes: Skirts">34</b-td>
+        <b-td stacked-heading="Clothes: Dresses">69</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">85</b-td>
+        <b-td stacked-heading="Accessories: Rings">38</b-td>
+      </b-tr>
+      <b-tr>
+        <b-th stacked-heading="City">Utrecht</b-th>
+        <b-td stacked-heading="Clothes: Trousers">80</b-td>
+        <b-td stacked-heading="Clothes: Skirts" variant="danger">12</b-td>
+        <b-td stacked-heading="Clothes: Dresses">43</b-td>
+        <b-td stacked-heading="Accessories: Bracelets">36</b-td>
+        <b-td stacked-heading="Accessories: Rings" variant="warning">19</b-td>
+      </b-tr>
+    </b-tbody>
+    <b-tfoot>
+      <b-tr>
+        <b-td colspan="7" variant="secondary" class="text-right">
+          Total Rows: <b>5</b>
+        </b-td>
+      </b-tr>
+    </b-tfoot>
+  </b-table-simple>
+</div>
+
+<!-- b-table-simple-stacked.vue -->
+```
+
+Like `<b-table>` and `<b-table-lite>`, table headers (`<thead>`) and footers (`<tfoot>`) are
+visually hidden when the table is visually stacked. If you need a header or footer, you can do so by
+creating an extra `<b-tr>` inside of the `<b-tbody>` component (or in a second `<b-tbody>`
+component), and set a role of `columnheader` on the child `<b-th>` cells, and use Bootstrap v4
+[responsive display utility classes](/docs/reference/utility-classes) to hide the extra row (or
+`<b-tbody>`) above a certain breakpoint when the table is no longer visually stacked (the breakpoint
+should match the stacked table breakpoint you have set), i.e. `<b-tr class="d-md-none">` would hide
+the row on medium and wider screens, while `<b-tbody class="d-md-none">` would hide the row group on
+medium and wider screens.
+
+**Note:** stacked mode with `<b-table-simple>` requires that you use the BootstrapVue
+[table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
+and `<th>` element tags will not work as expected, nor will they automatically apply any of the
+required accessibility attributes.
+
+### Simple tables and sticky columns
+
+Sticky columns are supported with `<b-table-simple>`, but you will need to set the `sticky-column`
+prop on each table cell (in the `thead`, `tbody`, and `tfoot` row groups) in the column that is to
+be sticky. For example:
+
+```html
+<b-table-simple responsive>
+  <b-thead>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Header</b-th>
+      <b-th>Heading 1</b-th>
+      <b-th>Heading 2</b-th>
+      <b-th>Heading 3</b-th>
+      <b-th>Heading 4</b-th>
+    </b-tr>
+  </b-thead>
+  <b-tbody>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Row Header</b-th>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+    </b-tr>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Row Header</b-th>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+    </b-tr>
+  </b-tbody>
+  <b-tfoot>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Footer</b-th>
+      <b-th>Heading 1</b-th>
+      <b-th>Heading 2</b-th>
+      <b-th>Heading 3</b-th>
+      <b-th>Heading 4</b-th>
+    </b-tr>
+  </b-tfoot>
+</b-table-responsive>
+```
+
+As with `<b-table>` and `<b-table-lite>`, sticky columns are not supported when the `stacked` prop
+is set on `<b-table-simple>`.
+
+### Table simple as a plugin
+
+The `TablePlugin` includes `<b-table-simple>` and all of the helper components. For convenience,
+BootstrapVue also provides a `TableSimplePlugin` which installs `<b-table-simple>` and all of the
+helper components. `TableSimplePlugin` is available as a top level named export.
+
+## Table helper components
+
+<span class="badge badge-info small">NEW in v2.0.0-rc.28</span>
+
+BootstrapVue provides additional helper child components when using `<b-table-simple>`, or the named
+slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The
+helper components are as follows:
+
+- `b-tbody`
+- `b-thead`
+- `b-tfoot`
+- `b-tr`
+- `b-td`
+- `b-th`
+
+These components are optimized to handle converting variants to the appropriate classes (such as
+handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
+`role`s and `scope`s) and can handle the stacked table and sticky-header requirements. Components
+`<b-table>` and `<b-table-lite>` use these helper components internally.
+
+In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
+elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
+`top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
+helper components. Note that there are no helper components for `<caption>` or `<colgroup>`+`<col>`,
+so you may these two HTML5 elements directly in `<b-table-simple>`.
+
+- Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
+  apply one of the Bootstrap theme colors (custom theme colors are supported via
+  [theming](/docs/reference/theming).) and will automatically adjust to use the correct variant
+  class based on the table's `dark` mode.
+- The helper components `<b-thead>`, `<b-tfoot>` accept a `head-variant` and `foot-variant` prop
+  respectively. Supported values are `'dark'`, `'light'` or `null` (`null` uses the default table
+  background). These variants also control the text color (light text for `'dark'` variant, and dark
+  text for the `'light'` variant).
+- Accessibility attributes `role` and `scope` are automatically set on `<b-th>` and `<b-td>`
+  components based on their location (thead, tbody, or tfoot) and their `rowspan` or `colspan`
+  props. You can override the automatic `scope` and `role` values by setting the appropriate
+  attribute on the helper component.
+- For `<b-tbody>`, `<b-thead>`, and `<b-tfoot>` helper components, the appropriate default `role` of
+  `'rowgroup'` will be applied, unless you override the role by supplying a `role` attribute.
+- For the `<b-tr>` helper component, the appropriate default `role` of `'row'` will be applied,
+  unless you override the role by supplying a `role` attribute. `<b-tr>` does not add a `scope`.
+- The `<b-tbody>` element supports rendering a Vue `<transition-group>` when either, or both, of the
+  `tbody-transition-props` and `tbody-transition-handlers` props are used. See the
+  [Table body transition support](#table-body-transition-support) section for more details.
+
 ## Accessibility
 
-When a column (field) is sortable, the header (and footer) heading cells will also be placed into
-the document tab sequence for accessibility.
+The `<b-table>` and `<b-table-lite>` components, when using specific features, will attempt to
+provide the best accessibility markup possible.
 
-When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered,
-all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
-`tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
+When using `<b-table-simple>` with the helper table components, elements will have the appropriate
+roles applied by default, of which you can optionally override. When using click handlers on the
+`<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and
+set `tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users.
+You should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>ENTER</kbd> to
+trigger your click on cells or rows (required for accessibility for keyboard-only users).
 
-When the table items rows are in the table sequence, they will also support basic keyboard
-navigation when focused:
+### Heading accessibility
+
+When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
+registered, the header (and footer) `<th>` cells will be placed into the document tab sequence (via
+`tabindex="0"`) for accessibility by keyboard-only and screen reader users, so that the user may
+trigger a click (by pressing <kbd>ENTER</kbd> on the header cells.
+
+### Data row accessibility
+
+When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
+listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
+placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
+users the ability to click the rows by pressing <kbd>ENTER</kbd>.
+
+When the table items rows are placed in the document tab sequence (`<b-table>` and
+`<b-table-lite>`), they will also support basic keyboard navigation when focused:
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row
 - <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
 - <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
-- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row. <kbd>SHIFT</kbd> and <kbd>CTRL</kbd>
-  modifiers will also work (depending on the table selectable mode).
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
+- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
+  mode, for `<b-table>` only).
 
-Note the following row based events/actions are not considered accessible, and should only be used
-if the functionality is non critical or can be provided via other means:
+### Row event accessibility
+
+Note the following row based events/actions (available with `<b-table>` and `<b-table-lite>`) are
+not considered accessible, and should only be used if the functionality is non critical or can be
+provided via other means:
 
 - `row-dblclicked`
 - `row-contextmenu`
@@ -1997,17 +2738,20 @@ if the functionality is non critical or can be provided via other means:
 - `row-unhovered`
 - `row-middle-clicked`
 
-Also, `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most mobile
-browsers). When listening for `row-middle-clicked` events originating on elements that do not
+Note that the `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most
+mobile browsers). When listening for `row-middle-clicked` events originating on elements that do not
 support input or navigation, you will often want to explicitly prevent other default actions mapped
 to the down action of the middle mouse button. On Windows this is usually autoscroll, and on macOS
 and Linux this is usually clipboard paste. This can be done by preventing the default behaviour of
 the `mousedown` or `pointerdown` event.
 
-Additionally, you may need to avoid opening a system context menu after a right click. Due to timing
-differences between operating systems, this too is not a preventable default behaviour of
-`row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the
-`contextmenu` event.
+Additionally, you may need to avoid opening a default system or browser context menu after a right
+click. Due to timing differences between operating systems, this too is not a preventable default
+behaviour of `row-middle-clicked`. Instead, this can be done by preventing the default behaviour of
+the `row-contextmenu` event.
+
+It is recommended you test your app in as many browser and device variants as possible to ensure
+your app handles the various inconsistencies with events.
 
 ## Complete example
 
@@ -2016,10 +2760,61 @@ differences between operating systems, this too is not a preventable default beh
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
-          <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="sortBySelect"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
+              <option slot="first" value="">-- none --</option>
+            </b-form-select>
+            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
+              <option :value="false">Asc</option>
+              <option :value="true">Desc</option>
+            </b-form-select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Initial sort"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="initialSortSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="sortDirection"
+            id="initialSortSelect"
+            size="sm"
+            :options="['asc', 'desc', 'last']"
+          ></b-form-select>
+        </b-form-group>
+      </b-col>
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="filterInput"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -2027,59 +2822,75 @@ differences between operating systems, this too is not a preventable default beh
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
-          <b-input-group>
-            <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
-            </b-form-select>
-            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
-              <option :value="false">Asc</option> <option :value="true">Desc</option>
-            </b-form-select>
-          </b-input-group>
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter On"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          description="Leave all unchecked to filter on all data"
+          class="mb-0">
+          <b-form-checkbox-group v-model="filterOn" class="mt-1">
+            <b-form-checkbox value="name">Name</b-form-checkbox>
+            <b-form-checkbox value="age">Age</b-form-checkbox>
+            <b-form-checkbox value="isActive">Active</b-form-checkbox>
+          </b-form-checkbox-group>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-          <b-form-select v-model="sortDirection">
-            <option value="asc">Asc</option>
-            <option value="desc">Desc</option>
-            <option value="last">Last</option>
-          </b-form-select>
+      <b-col sm="5" md="6" class="my-1">
+        <b-form-group
+          label="Per page"
+          label-cols-sm="6"
+          label-cols-md="4"
+          label-cols-lg="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
         </b-form-group>
       </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-          <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
-        </b-form-group>
+      <b-col sm="7" md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          align="fill"
+          size="sm"
+          class="my-0"
+        ></b-pagination>
       </b-col>
     </b-row>
 
     <!-- Main table element -->
     <b-table
       show-empty
+      small
       stacked="md"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
+      :filterIncludedFields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template slot="name" slot-scope="row">
+      <template slot="[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
-      <template slot="isActive" slot-scope="row">
-        {{ row.value ? 'Yes :)' : 'No :(' }}
-      </template>
-
-      <template slot="actions" slot-scope="row">
+      <template slot="[actions]" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
@@ -2096,17 +2907,6 @@ differences between operating systems, this too is not a preventable default beh
         </b-card>
       </template>
     </b-table>
-
-    <b-row>
-      <b-col md="6" class="my-1">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="totalRows"
-          :per-page="perPage"
-          class="my-0"
-        ></b-pagination>
-      </b-col>
-    </b-row>
 
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
@@ -2146,17 +2946,27 @@ differences between operating systems, this too is not a preventable default beh
         fields: [
           { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-          { key: 'isActive', label: 'is Active' },
+          {
+            key: 'isActive',
+            label: 'is Active',
+            formatter: (value, key, item) => {
+              return value ? 'Yes' : 'No'
+            },
+            sortable: true,
+            sortByFormatted: true,
+            filterByFormatted: true
+          },
           { key: 'actions', label: 'Actions' }
         ],
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
         pageOptions: [5, 10, 15],
-        sortBy: null,
+        sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
         filter: null,
+        filterOn: [],
         infoModal: {
           id: 'info-modal',
           title: '',

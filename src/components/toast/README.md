@@ -10,14 +10,6 @@ Toasts are intended to be small interruptions to your visitors or users, and the
 contain minimal, to-the-point, non-interactive content. Please refer to the
 [Accessibility tips](#accessibility-tips) section below for **important** usage information.
 
-<div class="alert alert-warning">
-  <p class="mb-0">
-    <strong>BETA warning:</strong><br>
-    Toasts are in their preliminary stages of being developed, and usage and custom CSS is subject
-    to change in future releases.
-  </p>
-</div>
-
 ## Overview
 
 To encourage extensible and predictable toasts, we recommend providing a header (title) and body.
@@ -132,10 +124,11 @@ automatically be destroyed and removed from the document.
 **Notes:**
 
 - The `this.$bvToast` injection is only available when using the full `BootstrapVue` plugin or the
-  `Toast` plugin. It is not available if importing just the `b-toast` or `b-toaster` components.
-- A new `$bvToast` injection (mixin) is created for each Vue virtual machine (i.e. each instantiated
-  component), and is not usable via direct access to the `Vue.prototype`, as it needs access to the
-  instance's `this` and `$root` contexts.
+  `ToastPlugin` plugin. It is not available if importing just the `b-toast` or `b-toaster`
+  components. To just import the injection, use the `BVToastPlugin` plugin.
+- A new `$bvToast` injection (mixin) is created for each Vue virtual machine instance (i.e. each
+  instantiated component), and is not usable via direct access to the `Vue.prototype`, as it needs
+  access to the instance's `this` and `$root` contexts.
 - Toasts generated via `this.$bvToast.toast()` are children of the Vue instance that calls the
   `this.$bvToast.toast()` method, and will be hidden and destroyed if that Vue instance (i.e. your
   component or app) is also destroyed.
@@ -158,13 +151,18 @@ example of passing an array of `VNodes` as the message and title.
 ### Transparency
 
 Toasts have a semi-transparent background by default. To disable the default transparency, just set
-the `solid` prop to `true`
+the `solid` prop to `true` to remove the alpha channel from the background color.
+
+Transparency can also be altered via the BootstrapVue custom SCSS variable
+`$b-toast-background-opacity` when using the SCSS files rather than CSS files. Refer to the
+[Theming](/docs/reference/theming) reference section.
 
 ### Variants
 
 BootstrapVue toasts provide custom CSS to define color variants. Variants follow the standard
-Bootstrap v4 variant names. If you have custom SCSS defined Bootstrap color variants, the toast
-custom SCSS will automatically create toast variants for you.
+Bootstrap v4 variant names. If you have custom SCSS defined Bootstrap color theme variants, the
+toast custom SCSS will automatically create toast variants for you (refer to the
+[Theming](/docs/reference/theming) reference section).
 
 ```html
 <template>

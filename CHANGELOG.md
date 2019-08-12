@@ -4,6 +4,106 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0-rc.28"></a>
+
+## [v2.0.0-rc.28](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.27...v2.0.0-rc.28)
+
+Released: 2019-08-12
+
+**This release is expected to be the last RC release. Next release (hopefully) will be v2.0.0
+stable.**
+
+### Bug Fixes v2.0.0-rc.28
+
+- **b-modal:** prevent page scroll when tabbing to bottom of modal + better tab containment in
+  enforceFocus (closes [#3842](https://github.com/bootstrap-vue/bootstrap-vue/issues/3842))
+  ([#3846](https://github.com/bootstrap-vue/bootstrap-vue/issues/3846))
+  ([ed99f9c](https://github.com/bootstrap-vue/bootstrap-vue/commit/ed99f9c))
+- **b-carousel:** reset `touchDeltaX` to prevent click transformed in swipe
+  ([#3734](https://github.com/bootstrap-vue/bootstrap-vue/issues/3734))
+  ([0e54839](https://github.com/bootstrap-vue/bootstrap-vue/commit/0e54839))
+- **b-table:** better detection of active text selection during click events
+  ([#3763](https://github.com/bootstrap-vue/bootstrap-vue/issues/3763))
+  ([1a9c688](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a9c688))
+- **b-tabs:** fix nav item `id` and `aria-controls` on tab buttons
+  ([#3832](https://github.com/bootstrap-vue/bootstrap-vue/issues/3832))
+  ([06c6119](https://github.com/bootstrap-vue/bootstrap-vue/commit/06c6119))
+
+### Features v2.0.0-rc.28
+
+- **form controls:** add support for control sizing of `b-form-file`, `b-form-checkbox`, and
+  `b-form-radio` (closes [#3745](https://github.com/bootstrap-vue/bootstrap-vue/issues/3745))
+  ([#3794](https://github.com/bootstrap-vue/bootstrap-vue/issues/3794))
+  ([18c3957](https://github.com/bootstrap-vue/bootstrap-vue/commit/18c3957))
+- **b-form-file, b-form-checkbox, b-form-radio:** make input element inherit non-prop attributes
+  (addresses [#3752](https://github.com/bootstrap-vue/bootstrap-vue/issues/3752))
+  ([#3754](https://github.com/bootstrap-vue/bootstrap-vue/issues/3754))
+  ([722f9db](https://github.com/bootstrap-vue/bootstrap-vue/commit/722f9db))
+- **b-table:** allow users to specify top-level keys to be ignored or included when filtering, plus
+  add option to filter based on formatted value (closes
+  [#3749](https://github.com/bootstrap-vue/bootstrap-vue/issues/3749))
+  ([#3786](https://github.com/bootstrap-vue/bootstrap-vue/issues/3786))
+  ([142b31b](https://github.com/bootstrap-vue/bootstrap-vue/commit/142b31b))
+- **b-table:** make sorting by formated value opt-in per field + add TypeScript declarations for
+  locale options ([#3778](https://github.com/bootstrap-vue/bootstrap-vue/issues/3778))
+  ([9716850](https://github.com/bootstrap-vue/bootstrap-vue/commit/9716850))
+- **b-table:** programmatic row selection (closes
+  [#3064](https://github.com/bootstrap-vue/bootstrap-vue/issues/3064),
+  [#3370](https://github.com/bootstrap-vue/bootstrap-vue/issues/3370))
+  ([#3844](https://github.com/bootstrap-vue/bootstrap-vue/issues/3844))
+  ([9a4fe24](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a4fe24))
+- **b-table-simple:** new `<table>` wrapper component that allows users to render their own
+  `<thead>`, `<tfoot>`, `<body>`
+  ([#3799](https://github.com/bootstrap-vue/bootstrap-vue/issues/3799))
+  ([998bd4f](https://github.com/bootstrap-vue/bootstrap-vue/commit/998bd4f))
+- **b-table, b-table-lite:** new field scoped slot naming convention + new fallback scoped slots,
+  deprecated old field slot convention (closes
+  [#3731](https://github.com/bootstrap-vue/bootstrap-vue/issues/3731))
+  ([#3741](https://github.com/bootstrap-vue/bootstrap-vue/issues/3741))
+  ([f53360d](https://github.com/bootstrap-vue/bootstrap-vue/commit/f53360d))
+- **b-table, b-table-lite:** place `<tfoot>` after `<tbody>` element per HTML5 spec
+  ([#3807](https://github.com/bootstrap-vue/bootstrap-vue/issues/3807))
+  ([e885d6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/e885d6d))
+- **tables:** add sticky header support (closes
+  [#2085](https://github.com/bootstrap-vue/bootstrap-vue/issues/2085))
+  ([#3831](https://github.com/bootstrap-vue/bootstrap-vue/issues/3831))
+  ([a5f7266](https://github.com/bootstrap-vue/bootstrap-vue/commit/a5f7266))
+- **tables:** create table child element helper components, plus new `sort-null-last` and
+  `table-variant` props. ([#3808](https://github.com/bootstrap-vue/bootstrap-vue/issues/3808))
+  ([981114b](https://github.com/bootstrap-vue/bootstrap-vue/commit/981114b))
+- **tables:** add support for sticky columns
+  ([#3847](https://github.com/bootstrap-vue/bootstrap-vue/issues/3847))
+  ([5b5f2b8](https://github.com/bootstrap-vue/bootstrap-vue/commit/5b5f2b8))
+- **b-toast:** add SCSS variable for default toast background opacity + standardize a few BootstrapVue
+  SCSS variable names ([#3775](https://github.com/bootstrap-vue/bootstrap-vue/issues/3775))
+  ([5799075](https://github.com/bootstrap-vue/bootstrap-vue/commit/5799075))
+- **config:** defaults for all `size` properties (closes
+  [#3805](https://github.com/bootstrap-vue/bootstrap-vue/issues/3805))
+  ([#3841](https://github.com/bootstrap-vue/bootstrap-vue/issues/3841))
+  ([1389efa](https://github.com/bootstrap-vue/bootstrap-vue/commit/1389efa))
+- **docs:** updates to the theming reference section
+  ([#3790](https://github.com/bootstrap-vue/bootstrap-vue/issues/3790))
+  ([e080bf7](https://github.com/bootstrap-vue/bootstrap-vue/commit/e080bf7))
+
+### Potential breaking changes v2.0.0-rc.28
+
+- `b-table`: based on user feedback, sorting by formatted value is now **opt-in** _per field_.
+  **This is a change from the default sorting by formatted value behaviour of versions 2.0.0-rc.25
+  through rc.27**. Sorting by formatted value was introduced in 2.0.0-rc.25.
+
+### Deprecation notes v2.0.0-rc.28
+
+- `b-table` and `b-table-lite` field scoped slot naming syntax (for custom data and header/footer
+  formatting) has been changed in this version to use a new square bracketed syntax. While the
+  previous naming syntax still works, it has been deprecated in favour of the newer naming
+  convention (which prevents potential slot-name conflicts with fields named `default` and other
+  table slots). **Users are encouraged to switch to the new table field slot name syntax, as the
+  old slot name syntax will be removed in 2.0.0 stable release!**
+
+- Users should switch to the simplified import syntax (introduced in v2.0.0-rc.22) when
+  importing individual plugins, components, and/or directives. **Importing from the `es/` build
+  directory has been deprecated and will be removed in 2.0.0 stable release!**
+
 <a name="2.0.0-rc.27"></a>
 
 ## [v2.0.0-rc.27](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.26...v2.0.0-rc.27)
@@ -39,8 +139,8 @@ Released: 2019-07-21
   options (addresses [#3712](https://github.com/bootstrap-vue/bootstrap-vue/issues/3712))
   ([#3715](https://github.com/bootstrap-vue/bootstrap-vue/issues/3715))
   ([1ce8c6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/1ce8c6d))
-- **b-tabs:** new named slot `tabs-start` for prepending tab buttons, deprecates `tabs` slot in favour
-  of `tabs-end` (closes [#3678](https://github.com/bootstrap-vue/bootstrap-vue/issues/3678))
+- **b-tabs:** new named slot `tabs-start` for prepending tab buttons, deprecates `tabs` slot in
+  favour of `tabs-end` (closes [#3678](https://github.com/bootstrap-vue/bootstrap-vue/issues/3678))
   ([#3679](https://github.com/bootstrap-vue/bootstrap-vue/issues/3679))
   ([0b5f552](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b5f552))
 - minor code improvements ([#3682](https://github.com/bootstrap-vue/bootstrap-vue/issues/3682))

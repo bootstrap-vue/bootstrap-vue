@@ -7,8 +7,15 @@
   max-width: $toast-max-width;
   backface-visibility: hidden;
   background-clip: padding-box;
+
   z-index: 1;
   @include border-radius($toast-border-radius);
+
+  .toast {
+    // Allow us to override Bootstrap's default toast opacity
+    // As they do not provide it as a variable
+    background-color: rgba($toast-background-color, $b-toast-background-opacity);
+  }
 
   &:not(:last-child) {
     margin-bottom: $toast-padding-x;
@@ -38,14 +45,14 @@
 @mixin b-toast-variant($background, $border, $color) {
   // Based on alert-variant mixin
   .toast {
-    background-color: rgba(lighten($background, 5%), 0.85);
-    border-color: rgba($border, 0.85);
+    background-color: rgba(lighten($background, 5%), $b-toast-background-opacity);
+    border-color: rgba($border, $b-toast-background-opacity);
     color: $color;
 
     .toast-header {
       color: $color;
-      background-color: rgba($background, 0.85);
-      border-bottom-color: rgba($border, 0.85);
+      background-color: rgba($background, $b-toast-background-opacity);
+      border-bottom-color: rgba($border, $b-toast-background-opacity);
     }
 
     // .toast-body[href] {

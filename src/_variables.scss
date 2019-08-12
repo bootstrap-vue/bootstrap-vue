@@ -1,37 +1,143 @@
-// BootstrapVue custom SCSS variables
+// --- BootstrapVue custom SCSS variables ---
+//
+// Users can override these variables in their custom SCSS
+//
+// Variables beginning with `$bv-` are used to enable/disable specific section CSS generation
+// Variables beginning with `$b-` are used to control values within the CSS generation
+
+// --- Custom inputs (adds sizing support) ---
+
+// Indicator height (and sometimes width)
+$b-custom-control-indicator-size-lg: $custom-control-indicator-size * 1.25 !default;
+$b-custom-control-indicator-size-sm: $custom-control-indicator-size * 0.875 !default;
+
+// Indicator background
+$b-custom-control-indicator-bg-size-lg: $custom-control-indicator-bg-size !default;
+$b-custom-control-indicator-bg-size-sm: $custom-control-indicator-bg-size !default;
+
+// Gutter widths
+$b-custom-control-gutter-lg: $custom-control-gutter * 1.25 !default;
+$b-custom-control-gutter-sm: $custom-control-gutter * 0.875 !default;
+
+// Custom radio sizes (uses defaults of 50%, since radios are round)
+$b-custom-radio-indicator-border-radius-lg: $custom-radio-indicator-border-radius !default;
+$b-custom-radio-indicator-border-radius-sm: $custom-radio-indicator-border-radius !default;
+
+// Custom checkbox sizes
+$b-custom-checkbox-indicator-border-radius-lg: $border-radius-lg !default;
+$b-custom-checkbox-indicator-border-radius-sm: $border-radius-sm !default;
+
+// Custom switch sizes
+$b-custom-switch-width-lg: $b-custom-control-indicator-size-lg * 1.75 !default;
+$b-custom-switch-width-sm: $b-custom-control-indicator-size-sm * 1.75 !default;
+$b-custom-switch-indicator-border-radius-lg: $b-custom-control-indicator-size-lg / 2 !default;
+$b-custom-switch-indicator-border-radius-sm: $b-custom-control-indicator-size-sm / 2 !default;
+$b-custom-switch-indicator-size-lg: calc(
+  #{$b-custom-control-indicator-size-lg} - #{$custom-control-indicator-border-width * 4}
+) !default;
+$b-custom-switch-indicator-size-sm: calc(
+  #{$b-custom-control-indicator-size-sm} - #{$custom-control-indicator-border-width * 4}
+) !default;
+
+// Custom file sizes
+$b-custom-file-font-size-lg: $input-font-size-lg !default;
+$b-custom-file-font-size-sm: $input-font-size-sm !default;
+$b-custom-file-line-height-lg: $input-line-height-lg !default;
+$b-custom-file-line-height-sm: $input-line-height-sm !default;
+$b-custom-file-height-lg: $input-height-lg !default;
+$b-custom-file-height-sm: $input-height-sm !default;
+$b-custom-file-border-radius-lg: $input-border-radius-lg !default;
+$b-custom-file-border-radius-sm: $input-border-radius-sm !default;
+$b-custom-file-padding-y-lg: $input-padding-y-lg !default;
+$b-custom-file-padding-y-sm: $input-padding-y-sm !default;
+$b-custom-file-padding-x-lg: $input-padding-x-lg !default;
+$b-custom-file-padding-x-sm: $input-padding-x-sm !default;
+$b-custom-file-height-inner-lg: calc(
+  #{$b-custom-file-line-height-lg * 1em} + #{$b-custom-file-padding-y-lg * 2}
+) !default;
+$b-custom-file-height-inner-sm: calc(
+  #{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}
+) !default;
 
 // --- Tables ---
+
+// Table busy state
 $b-table-busy-opacity: 0.55 !default;
+
+// Table sorting
 $b-table-sort-icon-null: "\2195" !default; // Up-Down arrow
 $b-table-sort-icon-ascending: "\2193" !default; // Down arrow
 $b-table-sort-icon-descending: "\2191" !default; // Up arrow
 $b-table-sort-icon-margin-left: 0.5em !default;
 $b-table-sort-icon-width: 0.5em !default;
+
+// Flag to enable sticky table header and column CSS generation
+$bv-enable-table-sticky: true !default;
+// Default max-height for tables with sticky headers
+$b-table-sticky-header-max-height: 300px !default;
+
+// Flag to enable table stacked CSS generation
+$bv-enable-table-stacked: true !default;
+// Table stacked defaults
 $b-table-stacked-heading-width: 40% !default;
 $b-table-stacked-gap: 1rem !default;
 
 // --- Toasts ---
+
+// Toaster defaults
 $b-toaster-zindex: 1100 !default;
 $b-toaster-offset-top: 0.5rem !default;
 $b-toaster-offset-bottom: $b-toaster-offset-top !default;
 $b-toaster-offset-left: $b-toaster-offset-top !default;
 $b-toaster-offset-right: $b-toaster-offset-top !default;
 
-// --- Toast variant levels wrt theme color value ---
+// Default toast opacity
+// Value from 0 to 1, or 0% to 100%
+// Bootstrap default is 0.85 (extracted from the `$toast-background-color` value)
+// Bootstrap does not have this as a variable, so we add it in.
+$b-toast-background-opacity: alpha($toast-background-color) !default;
+
+// Toast variant levels wrt theme color value
 $b-toast-bg-level: $alert-bg-level !default;
 $b-toast-border-level: $alert-border-level !default;
 $b-toast-color-level: $alert-color-level !default;
 
-// --- Enable tooltip variants ---
+// --- Tooltips ---
+
+// Flag to enable tooltip variant CSS generation
 $bv-enable-tooltip-variants: true !default;
 
-// --- Tooltip background variant level wrt theme color value ---
-$bv-tooltip-bg-level: 0 !default;
+// Tooltip background variant level wrt theme color value
+$b-tooltip-bg-level: 0 !default;
+// Deprecated
+$bv-tooltip-bg-level: null !default;
+@if $bv-tooltip-bg-level {
+  @warn ("Variable '\$bv-tooltip-bg-level' has been deprecated. Use '\$b-tooltip-bg-level' instead.");
+  $b-tooltip-bg-level: $bv-tooltip-bg-level;
+}
 
-// --- Enable popover variants ---
+// --- Popovers ---
+
+// Flag to enable popover variant CSS generation
 $bv-enable-popover-variants: true !default;
 
-// --- Popover variant levels wrt theme color value ---
-$bv-popover-bg-level: $alert-bg-level !default;
-$bv-popover-border-level: $alert-border-level !default;
-$bv-popover-color-level: $alert-color-level !default;
+// Popover variant levels wrt theme color value
+$b-popover-bg-level: $alert-bg-level !default;
+$b-popover-border-level: $alert-border-level !default;
+$b-popover-color-level: $alert-color-level !default;
+// Deprecated
+$bv-popover-bg-level: null !default;
+@if $bv-popover-bg-level {
+  @warn ("Variable '\$bv-popover-bg-level' has been deprecated. Use '\$b-popover-bg-level' instead.");
+  $b-popover-bg-level: $bv-popover-bg-level;
+}
+$bv-popover-border-level: null !default;
+@if $bv-popover-border-level {
+  @warn ("Variable '\$bv-popover-border-level' has been deprecated. Use '\$b-popover-border-level' instead.");
+  $b-popover-border-level: $bv-popover-border-level;
+}
+$bv-popover-color-level: null !default;
+@if $bv-popover-color-level {
+  @warn ("Variable '\$bv-popover-color-level' has been deprecated. Use '\$b-popover-color-level' instead.");
+  $b-popover-color-level: $bv-popover-color-level;
+}

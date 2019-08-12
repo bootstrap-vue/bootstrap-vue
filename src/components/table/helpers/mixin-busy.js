@@ -1,4 +1,8 @@
 import { isFunction } from '../../../utils/inspect'
+import { BTr } from '../tr'
+import { BTd } from '../td'
+
+const busySlotName = 'table-busy'
 
 export default {
   props: {
@@ -35,37 +39,33 @@ export default {
       }
       return false
     },
-    // Renter the busy indicator or return null if not busy
+    // Render the busy indicator or return `null` if not busy
     renderBusy() {
       const h = this.$createElement
 
-      // Return a busy indicator row, or null if not busy
-      if (this.computedBusy && this.hasNormalizedSlot('table-busy')) {
+      // Return a busy indicator row, or `null` if not busy
+      if (this.computedBusy && this.hasNormalizedSlot(busySlotName)) {
         // Show the busy slot
-        const trAttrs = {
-          role: this.isStacked ? 'row' : null
-        }
-        const tdAttrs = {
-          colspan: String(this.computedFields.length),
-          role: this.isStacked ? 'cell' : null
-        }
         return h(
-          'tr',
+          BTr,
           {
             key: 'table-busy-slot',
             staticClass: 'b-table-busy-slot',
             class: [
               isFunction(this.tbodyTrClass)
-                ? this.tbodyTrClass(null, 'table-busy')
+                ? this.tbodyTrClass(null, busySlotName)
                 : this.tbodyTrClass
-            ],
-            attrs: trAttrs
+            ]
           },
-          [h('td', { attrs: tdAttrs }, [this.normalizeSlot('table-busy')])]
+          [
+            h(BTd, { props: { colspan: this.computedFields.length || null } }, [
+              this.normalizeSlot(busySlotName)
+            ])
+          ]
         )
       } else {
-        // We return null here so that we can determine if we need to
-        // render the table items rows or not.
+        // We return `null` here so that we can determine if we need to
+        // render the table items rows or not
         return null
       }
     }

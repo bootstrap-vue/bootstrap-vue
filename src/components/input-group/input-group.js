@@ -1,17 +1,21 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { BInputGroupPrepend } from './input-group-prepend'
 import { BInputGroupAppend } from './input-group-append'
 import { BInputGroupText } from './input-group-text'
 
+const NAME = 'BInputGroup'
+
 export const props = {
   id: {
     type: String
   },
   size: {
-    type: String
+    type: String,
+    default: () => getComponentConfig(NAME, 'size')
   },
   prepend: {
     type: String
@@ -33,9 +37,9 @@ export const props = {
 
 // @vue/component
 export const BInputGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BInputGroup',
+  name: NAME,
   functional: true,
-  props: props,
+  props,
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
@@ -85,9 +89,7 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
       props.tag,
       mergeData(data, {
         staticClass: 'input-group',
-        class: {
-          [`input-group-${props.size}`]: Boolean(props.size)
-        },
+        class: { [`input-group-${props.size}`]: Boolean(props.size) },
         attrs: {
           id: props.id || null,
           role: 'group'

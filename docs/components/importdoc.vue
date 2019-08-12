@@ -22,13 +22,13 @@
           bordered
           striped
         >
-          <template slot="component" slot-scope="{ value }">
+          <template slot="[component]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="namedExport" slot-scope="{ value }">
+          <template slot="[namedExport]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="{ value }">
+          <template slot="[importPath]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -57,13 +57,13 @@
           bordered
           striped
         >
-          <template slot="directive" slot-scope="{ value }">
+          <template slot="[directive]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="namedExport" slot-scope="{ value }">
+          <template slot="[namedExport]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="importPath" slot-scope="{ value }">
+          <template slot="[importPath]" slot-scope="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -96,19 +96,16 @@
         :items="pluginImports"
         :fileds="['namedExport', 'importPath']"
         class="bv-docs-table"
-        caption="The plugin can be imported via several methods"
         responsive="sm"
         head-variant="default"
         caption-top
         bordered
         striped
       >
-        <template slot="namedExport" slot-scope="{ value, item }">
+        <template slot="[namedExport]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
-          <b-badge v-if="item.legacy" variant="warning" class="small">DEPRECATED</b-badge>
-          <b-badge v-else variant="success" class="small">PREFERRED</b-badge>
         </template>
-        <template slot="importPath" slot-scope="{ value }">
+        <template slot="[importPath]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
@@ -154,6 +151,9 @@ export default {
     meta: {}
   },
   computed: {
+    importPath() {
+      return 'bootstrap-vue'
+    },
     isComponentRoute() {
       return this.$route.name === 'docs-components-slug'
     },
@@ -161,6 +161,7 @@ export default {
       return this.$route.params.slug
     },
     pluginName() {
+      // Directive plugin names are prefixed with `VB`
       const prefix = this.isComponentRoute ? '' : 'VB'
       return `${prefix}${startCase(this.pluginDir).replace(/\s+/g, '')}Plugin`
     },
@@ -169,7 +170,7 @@ export default {
         return {
           component: this.componentTag(c),
           namedExport: c,
-          importPath: this.componentPath(c)
+          importPath: this.importPath
         }
       })
     },
@@ -178,27 +179,15 @@ export default {
         return {
           directive: this.directiveAttr(d),
           namedExport: d,
-          importPath: this.directivePath(d)
+          importPath: this.importPath
         }
       })
     },
     pluginImports() {
-      const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
-      // const legacyName = this.pluginName.replace(/^VB|Plugin$/g, '')
       return [
         {
           namedExport: this.pluginName,
-          importPath: 'bootstrap-vue'
-        },
-        {
-          namedExport: this.pluginName,
-          importPath: `bootstrap-vue/es/${pluginLocation}`,
-          legacy: true
-        },
-        {
-          namedExport: 'default',
-          importPath: `bootstrap-vue/es/${pluginLocation}/${this.pluginDir}`,
-          legacy: true
+          importPath: this.importPath
         }
       ]
     },
@@ -231,10 +220,7 @@ export default {
       ].join('\n')
     },
     pluginImportCode() {
-      // const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
-        '// Importing the named export',
-        // `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
         `import { ${this.pluginName} } from 'bootstrap-vue'`,
         `Vue.use(${this.pluginName})`
       ].join('\n')
@@ -253,11 +239,6 @@ export default {
     componentTag(component) {
       return `<${this.componentName(component)}>`
     },
-    componentPath(component) {
-      // const componentName = this.componentName(component).replace(/^b-/, '')
-      // return `bootstrap-vue/es/components/${this.pluginDir}/${componentName}`
-      return 'bootstrap-vue'
-    },
     directiveName(directive) {
       return kebabCase(directive)
         .replace(/^v-/, '')
@@ -265,11 +246,6 @@ export default {
     },
     directiveAttr(directive) {
       return kebabCase(directive).replace(/^vb-/, 'v-b-')
-    },
-    directivePath(directive) {
-      // const directiveName = this.directiveName(directive).replace(/^b-/, '')
-      // return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
-      return 'bootstrap-vue'
     }
   }
 }
