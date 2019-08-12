@@ -329,7 +329,7 @@ The following field properties are recognized:
 | `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                                                   |
 | `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                                               |
 | `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                                                   |
-| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when the prop `dark` is set).                                                                   |
+| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when the prop `dark` is set).                                                                    |
 | `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                                                        |
 | `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                                                     |
 | `stickyColumn`      | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> When set to `true`, and the table in in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details |
@@ -775,8 +775,8 @@ Slot `table-colgroup` can be optionally scoped, receiving an object with the fol
 When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
 element. there is no need to provide your own outer `<colgroup>` element. When a series of table
 columns should be grouped for assistive technology reasons (for conveying logical column
-associations, use a `<col span="#">` element (with `#` replaced with the number of
-grouped columns) to group the series of columns.
+associations, use a `<col span="#">` element (with `#` replaced with the number of grouped columns)
+to group the series of columns.
 
 **Tip:** In some situations when trying to set column widths via `style` or `class` on the `<col>`
 element, you may find that placing the table in `fixed` header width (table fixed layout mode) mode,
@@ -1324,7 +1324,7 @@ available horizontal space.
 - Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
 - BootstrapVue's custom CSS is required in order to support `sticky-header`.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
-  borders on the stcky header from "sticking" to the header, and hence the borders will scroll when
+  borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
   the body scrolls.
 - The sticky header feature uses CSS style `position: sticky` to position the headings.
 - Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
@@ -1336,9 +1336,9 @@ available horizontal space.
 
 Columns can be made sticky, where they stick to the left of the table when the table has a
 horizontal scrollbar. To make a column a sticky column, set the `stickyColumn` prop in the
-[field's header definition](#field-definition-reference). Sticky columns will only work when
-the table has either the `sticky-header` prop set and/or the [`responsive`](#responsive-tables)
-prop is set.
+[field's header definition](#field-definition-reference). Sticky columns will only work when the
+table has either the `sticky-header` prop set and/or the [`responsive`](#responsive-tables) prop is
+set.
 
 **Example: Sticky columns and headers**
 
@@ -1402,11 +1402,11 @@ prop is set.
 - Sticky columns tables require either the `sticky-header` and/or `responsive` modes, and are
   wrapped inside a horizontally scrollable `<div>`.
 - When you have multiple columns that are set as `stickyColumn`, the columns will stack over each
-  other visually, and the left-most sticky columns may "peek" out from under the next sticky
-  column. To get around this behaviour, make sure your latter stickyColumns are the same width or
-  wider than previous sticky columns.
+  other visually, and the left-most sticky columns may "peek" out from under the next sticky column.
+  To get around this behaviour, make sure your latter stickyColumns are the same width or wider than
+  previous sticky columns.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
-  left or right borders on the stcky columns from "sticking" to the column, and hence those borders
+  left or right borders on the sticky columns from "sticking" to the column, and hence those borders
   will scroll when the body scrolls.
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells.
@@ -2330,9 +2330,9 @@ The `<b-table-simple>` component gives the user complete control over the render
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
 of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
-`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and
-`<colgroup>` and `<col>`. Contrary to the component's name, one can create simple or complex table
-layouts with `<b-table-simple>`.
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and `<colgroup>` and
+`<col>`. Contrary to the component's name, one can create simple or complex table layouts with
+`<b-table-simple>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed`, `responsive` and `sticky-header`. Note that `stacked`
@@ -2540,8 +2540,8 @@ required accessibility attributes.
 ### Simple tables and sticky columns
 
 Sticky columns are supported with `<b-table-simple>`, but you will need to set the `sticky-column`
-prop on each table cell (in the `thead`, `tbody`, and `tfoot` row groups) in the column that is
-to be sticky. For example:
+prop on each table cell (in the `thead`, `tbody`, and `tfoot` row groups) in the column that is to
+be sticky. For example:
 
 ```html
 <b-table-simple responsive>
@@ -2582,8 +2582,8 @@ to be sticky. For example:
 </b-table-responsive>
 ```
 
-As with `<b-table>` and `<b-table-lite>`, sticky columns are not supported when the
-`stacked` prop is set on `<b-table-simple>`.
+As with `<b-table>` and `<b-table-lite>`, sticky columns are not supported when the `stacked` prop
+is set on `<b-table-simple>`.
 
 ### Table simple as a plugin
 
