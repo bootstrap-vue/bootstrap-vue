@@ -1,5 +1,4 @@
 import { installFactory } from './utils/plugins'
-import { setConfig } from './utils/config-set'
 import { componentsPlugin } from './components/index.esm'
 import { directivesPlugin } from './directives/index.esm'
 import BVConfigPlugin from './bv-config'
@@ -18,30 +17,26 @@ const install = /*#__PURE__*/ installFactory({ plugins: { componentsPlugin, dire
 // BootstrapVue plugin
 const BootstrapVue = /*#__PURE__*/ {
   install,
-  NAME,
-  // To be deprecated. not documented
-  setConfig
+  NAME
 }
 
 // Named exports for BvConfigPlugin and BootstrapVue
 export {
+  // Installer exported in case the consumer does not import `default`
+  // as the plugin in CommonJS build (or does not have interop enabled
+  // for CommonJS). Both the following will work:
+  //   BootstrapVue = require('bootstrap-vue')
+  //   BootstrapVue = require('bootstrap-vue').default
+  //   Vue.use(BootstrapVue)
+  install,
+  NAME,
   // BV Config Plugin
   BVConfigPlugin,
   // BVConfigPlugin has been documented as BVConfig as well,
   // so we add an alias to the shorter name for backwards compat
   BVConfigPlugin as BVConfig,
   // Main BootstrapVue Plugin
-  BootstrapVue,
-  // Installer and setConfig exported in case the consumer does not
-  // import `default` as the plugin in CommonJS build (or does not
-  // have interop enabled for CommonJS). Both the following will work:
-  //   BootstrapVue = require('bootstrap-vue')
-  //   BootstrapVue = require('bootstrap-vue').default
-  //   Vue.use(BootstrapVue)
-  install,
-  NAME,
-  // To be deprecated. not documented
-  setConfig
+  BootstrapVue
 }
 
 // Default export is the BootstrapVue plugin
