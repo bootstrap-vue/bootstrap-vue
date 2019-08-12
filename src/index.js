@@ -24,7 +24,7 @@ const install = /*#__PURE__*/ installFactory({
 //
 // BootstrapVue plugin
 //
-export const BootstrapVue = /*#__PURE__*/ {
+const BootstrapVue = /*#__PURE__*/ {
   install,
   NAME
 }
@@ -35,13 +35,14 @@ export const BootstrapVue = /*#__PURE__*/ {
 export {
   // Main BV installer
   install,
+  NAME,
   // BV Config Plugin
   BVConfigPlugin,
   // BVConfigPlugin has been documented as BVConfig as well,
   // so we add an alias to the shorter name for backwards compat
   BVConfigPlugin as BVConfig,
-  // Export NAME just in case of CommonJS require not in interop mode
-  NAME
+  // Export BootstrapVue plugin
+  BootstrapVue
 }
 
 //
