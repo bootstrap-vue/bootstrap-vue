@@ -3,6 +3,8 @@ import { componentsPlugin } from './components'
 import { directivesPlugin } from './directives'
 import { BVConfigPlugin } from './bv-config'
 
+const NAME = 'BootstrapVue'
+
 //
 // Named exports for BvConfigPlugin
 //
@@ -290,7 +292,8 @@ export const install = /*#__PURE__*/ installFactory({
 // BootstrapVue plugin
 //
 export const BootstrapVue = /*#__PURE__*/ {
-  install: install
+  install,
+  NAME
 }
 
 // Default export is the BootstrapVue plugin
