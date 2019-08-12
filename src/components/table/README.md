@@ -1439,18 +1439,16 @@ Programmatic selection notes:
       @row-selected="onRowSelected"
       responsive="sm"
     >
-      <!-- We use colgroup to set some widths for styling only -->
-      <template slot="table-colgroup">
-        <col style="width: 75px;">
-        <col style="width: 125px;">
-        <col style="width: 75px;">
-        <col>
-        <col>
-      </template>
       <!-- Example scoped slot for select state illustrative purposes -->
       <template slot="[selected]" slot-scope="{ rowSelected }">
-        <span v-if="rowSelected">☑</span>
-        <span v-else>☐</span>
+        <template v-if="rowSelected">
+          <span aria-hidden="true">&check;</span>
+          <span class="sr-only">Selected</span>
+        </template>
+        <template v-else>
+          <span aria-hidden="true">&nbsp;</span>
+          <span class="sr-only">Not selected</span>
+        </template>
       </template>
     </b-table>
     <p>
