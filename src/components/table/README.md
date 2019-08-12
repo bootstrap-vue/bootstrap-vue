@@ -1419,7 +1419,7 @@ Programmatic selection notes:
 - `index` the zero-based index of the table's **visible rows**, after filtering, sorting, and
   pagination have been applied.
 - In `single` mode, `selectRow(index)` will unselect any previous selected row.
-- Attempting to `selectRow(index)` or `unseletRow(index)` on a non-existant row will be ignored.
+- Attempting to `selectRow(index)` or `unselectRow(index)` on a non-existent row will be ignored.
 - The table must be `selectable` for any of these methods to have effect.
 
 ```html
@@ -1491,11 +1491,11 @@ Programmatic selection notes:
         this.$refs.selectableTable.clearSelected()
       },
       selectThirdRow() {
-        // rows are indexed from 0, so the third row is index 2
+        // Rows are indexed from 0, so the third row is index 2
         this.$refs.selectableTable.selectRow(2)
       },
       unselectThirdRow() {
-        // rows are indexed from 0, so the third row is index 2
+        // Rows are indexed from 0, so the third row is index 2
         this.$refs.selectableTable.unselectRow(2)
       }
     }
@@ -1518,8 +1518,8 @@ element.
 Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
 to the order that the table variants are defined in Bootstrap's CSS, any row-variant's may take
 precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
-will be using other means to convey that a row is selected (such as a scoped field slot in the
-above example).
+will be using other means to convey that a row is selected (such as a scoped field slot in the above
+example).
 
 **Notes:**
 
@@ -1527,9 +1527,8 @@ above example).
   with an empty array if needed.
 - Selected rows will have a class of `b-row-selected` added to them.
 - When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the
-  attribute `aria-selected` set to either `'true'` or `'false'` depending on the selected state of
-  the row.
+  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the attribute
+  `aria-selected` set to either `'true'` or `'false'` depending on the selected state of the row.
 - When a table is `selectable`, the table will have the attribute `aria-multiselect` set to either
   `'false'` for `single` mode, and `'true'` for either `multi` or `range` modes.
 
