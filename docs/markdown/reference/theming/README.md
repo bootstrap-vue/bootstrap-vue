@@ -5,17 +5,17 @@
 
 While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue uses custom CSS (i.e.
 stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap v4.x SCSS. The
-`bootstrap-vue/dist/bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables.
-By using the BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints,
-theme colors, etc) adjust the custom BootstrapVue css generation.
+`bootstrap-vue/dist/bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables. By
+using the BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints, theme
+colors, etc) adjust the custom BootstrapVue css generation.
 
 ## SASS variable defaults
 
 Every Sass variable in Bootstrap v4 includes the `!default` flag allowing you to override the
-variable’s default value in your own Sass without modifying Bootstrap and BootstrapVue’s source
-SCSS code. Copy and paste variables as needed, modify their values, and remove the `!default` flag.
-If a variable has already been assigned, then it won’t be re-assigned by the default values in
-Bootstrap and BootstrapVue.
+variable’s default value in your own Sass without modifying Bootstrap and BootstrapVue's source SCSS
+code. Copy and paste variables as needed, modify their values, and remove the `!default` flag. If a
+variable has already been assigned, then it won’t be re-assigned by the default values in Bootstrap
+and BootstrapVue.
 
 You will find the complete list of Bootstrap’s variables in `bootstrap/scss/_variables.scss`. Some
 variables are set to `null`, these variables don’t output the property unless they are overridden in
@@ -23,10 +23,10 @@ your configuration.
 
 Variable overrides within the same Sass file can come before or after the default variables.
 However, when overriding across Sass files, your overrides must come _before_ you import Bootstrap
-and BootstrapVue’s Sass (SCSS) files.
+and BootstrapVue's Sass (SCSS) files.
 
 Here’s an example that changes the `background-color` and `color` for the `<body>` when importing
-and compiling Bootstrap andf BootstrapVue SCSS:
+and compiling Bootstrap and BootstrapVue SCSS:
 
 ```scss
 // Your variable overrides
