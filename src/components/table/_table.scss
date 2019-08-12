@@ -56,7 +56,7 @@
   }
 
   @supports (position: sticky) {
-    // Poisitioning of sticky headers
+    // Positioning of sticky headers
     .b-table-sticky-header > .table.b-table > thead > tr > th {
       // Header cells need to be sticky on top
       position: sticky;
@@ -105,7 +105,7 @@
     // to inherit their background color from parent element by default
     //
     // An issue or PR should be made at twbs/bootstrap repo for table
-    // background color inheritence
+    // background color inheritance
     .table.b-table {
       > thead,
       > tbody,
@@ -137,7 +137,7 @@
         // "fake" zebra striping via use of a transparent background image
         > tbody > tr:nth-of-type(#{$table-striped-order}) > .table-b-table-default {
           // `$table-accent-bg` (used for striping) default is a very transparent black
-          // We overlay it over the background color to acheive the same color
+          // We overlay it over the background color to achieve the same color
           // effect while keeping the background solid.
           background-image: linear-gradient($table-accent-bg, $table-accent-bg);
           background-repeat: no-repeat;
@@ -146,7 +146,7 @@
         &.table-dark {
           > tbody > tr:nth-of-type(#{$table-striped-order}) > .bg-b-table-default {
             // `$table-dark-accent-bg` (used for striping) default is a very transparent white
-            // We overlay it over the background color to acheive the same color
+            // We overlay it over the background color to achieve the same color
             // effect while keeping the background solid.
             background-image: linear-gradient($table-dark-accent-bg, $table-dark-accent-bg);
             background-repeat: no-repeat;
@@ -160,7 +160,7 @@
         > tbody > tr:hover > .table-b-table-default {
           color: $table-hover-color;
           // `$table-hover-bg` default is a very transparent black
-          // We overlay it over the background color to acheive the same color
+          // We overlay it over the background color to achieve the same color
           // effect while keeping the background solid.
           background-image: linear-gradient($table-hover-bg, $table-hover-bg);
           background-repeat: no-repeat;
@@ -170,7 +170,7 @@
           > tbody > tr:hover > .bg-b-table-default {
             color: $table-dark-hover-color;
             // `$table-dark-hover-bg` default is a very transparent white
-            // We overlay it over the background color to acheive the same color
+            // We overlay it over the background color to achieve the same color
             // effect while keeping the background solid.
             background-image: linear-gradient($table-dark-hover-bg, $table-dark-hover-bg);
             background-repeat: no-repeat;
