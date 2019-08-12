@@ -5,11 +5,9 @@ import BVConfigPlugin from './bv-config'
 
 const NAME = 'BootstrapVue'
 
-// TEMP to help resolve conflicts
 // Named exports of all components and component group plugins
 export * from './components/index.esm'
 
-// TEMP to help resolve conflicts
 // Named exports of all directives and directive group plugins
 export * from './directives/index.esm'
 
