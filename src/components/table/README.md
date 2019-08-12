@@ -1532,7 +1532,7 @@ as read-only.**
       selectedVariant="success"
       :items="items"
       :fields="fields"
-      @row-selected="rowSelected"
+      @row-selected="onRowSelected"
       responsive="sm"
     >
       <!-- Example scoped slot for select state illustrative purposes -->
@@ -1569,7 +1569,7 @@ as read-only.**
       }
     },
     methods: {
-      rowSelected(items) {
+      onRowSelected(items) {
         this.selected = items
       }
     }
