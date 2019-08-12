@@ -938,8 +938,8 @@ export default {
 }
 ```
 
-Refer to the [Events](/docs/components/modal#component-reference) section of documentation for the
-full list of events emitted.
+Refer to the [Events](#comp-ref-b-modal) section of this documentation pagefor the full list of
+events emitted.
 
 ## Accessibility
 
