@@ -1,7 +1,7 @@
 import { installFactory } from './utils/plugins'
 import { componentsPlugin } from './components'
 import { directivesPlugin } from './directives'
-import BVConfigPlugin from './bv-config'
+import { BVConfigPlugin } from './bv-config'
 
 const NAME = 'BootstrapVue'
 
