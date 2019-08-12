@@ -6,6 +6,30 @@ import { BVConfigPlugin } from './bv-config'
 const NAME = 'BootstrapVue'
 
 //
+// BootstrapVue installer
+//
+// `install` is exported just in case the consumer does not import `default` as
+// the plugin in CommonJS build (or does not have interop enabled for CommonJS).
+// Both the following will work:
+//   BootstrapVue = require('bootstrap-vue')
+//   BootstrapVue = require('bootstrap-vue').default
+//   Vue.use(BootstrapVue)
+export const install = /*#__PURE__*/ installFactory({
+  plugins: {
+    componentsPlugin,
+    directivesPlugin
+  }
+})
+
+//
+// BootstrapVue plugin
+//
+export const BootstrapVue = /*#__PURE__*/ {
+  install,
+  NAME
+}
+
+//
 // Named exports for BvConfigPlugin
 //
 export {
@@ -271,30 +295,6 @@ export { VBToggle } from './directives/toggle/toggle'
 // export * from './directives/tooltip'
 export { VBTooltipPlugin } from './directives/tooltip'
 export { VBTooltip } from './directives/tooltip/tooltip'
-
-//
-// BootstrapVue installer
-//
-// `install` is exported just in case the consumer does not import `default` as
-// the plugin in CommonJS build (or does not have interop enabled for CommonJS).
-// Both the following will work:
-//   BootstrapVue = require('bootstrap-vue')
-//   BootstrapVue = require('bootstrap-vue').default
-//   Vue.use(BootstrapVue)
-export const install = /*#__PURE__*/ installFactory({
-  plugins: {
-    componentsPlugin,
-    directivesPlugin
-  }
-})
-
-//
-// BootstrapVue plugin
-//
-export const BootstrapVue = /*#__PURE__*/ {
-  install,
-  NAME
-}
 
 // Default export is the BootstrapVue plugin
 export default BootstrapVue
