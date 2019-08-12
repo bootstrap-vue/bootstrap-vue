@@ -599,6 +599,28 @@ You can also apply arbitrary classes to the modal dialog container, content (mod
 header, body and footer via the `modal-class`, `content-class`, `header-class`, `body-class` and
 `footer-class` props, respectively. The props accept either a string or array of strings.
 
+### Hiding the backdrop
+
+Hide the modal's backdrop via setting the `hide-backdrop` prop.
+
+```html
+<div>
+  <b-button v-b-modal.modal-no-backdrop>Open modal</b-button>
+
+  <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="BootstrapVue">
+    <p class="my-2">
+      We've added the utility class <code>'shadow'</code>
+      to the modal content for added effect.
+    </p>
+  </b-modal>
+</div>
+
+<!-- modal-no-backdrop.vue -->
+```
+
+Note that clicking outside of the modal will still close the modal even though the backdrop is
+hidden. You can disable this behaviour by setting the `no-close-on-backdrop` prop on `<b-modal>`.
+
 ### Disable open and close animation
 
 To disable the fading transition/animation when modal opens and closes, just set the prop `no-fade`
@@ -916,8 +938,8 @@ export default {
 }
 ```
 
-Refer to the [Events](/docs/components/modal#component-reference) section of documentation for the
-full list of events emitted.
+Refer to the [Events](#comp-ref-b-modal) section of this documentation for the full list of events
+emitted.
 
 ## Accessibility
 
@@ -1048,7 +1070,11 @@ event will be ignored.
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the
 document, it will be brought back into the modal.
 
+Avoid setting `tabindex` on elements within the modal to any value other than `0` or `-1`. Doing so
+will make it difficult for people who rely on assistive technology to navigate and operate page
+content and can make some of your elements unreachable via keyboard navigation.
+
 In some circumstances, you may need to disable the enforce focus feature. You can do this by setting
-the prop `no-enforce-focus`.
+the prop `no-enforce-focus`, although this is highly discouraged.
 
 <!-- Component reference added automatically from component package.json -->
