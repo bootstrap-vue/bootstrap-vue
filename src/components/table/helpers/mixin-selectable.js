@@ -1,6 +1,8 @@
 import looseEqual from '../../../utils/loose-equal'
+import range from '../../../utils/range'
 import { isArray, arrayIncludes } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
+import { isNumber } from '../../../utils/inspect'
 import sanitizeRow from './sanitize-row'
 
 export default {
@@ -11,7 +13,8 @@ export default {
     },
     selectMode: {
       type: String,
-      default: 'multi'
+      default: 'multi',
+      validator: val => arrayIncludes(['range', 'multi', 'single'], val)
     },
     selectedVariant: {
       type: String,
@@ -25,36 +28,42 @@ export default {
     }
   },
   computed: {
+    isSelectable() {
+      return this.selectable && this.selectMode
+    },
+    selectableHasSelection() {
+      return (
+        this.isSelectable &&
+        this.selectedRows &&
+        this.selectedRows.length > 0 &&
+        this.selectedRows.some(Boolean)
+      )
+    },
+    selectableIsMultiSelect() {
+      return this.isSelectable && arrayIncludes(['range', 'multi'], this.selectMode)
+    },
     selectableTableClasses() {
-      const selectable = this.selectable
-      const isSelecting = selectable && this.selectedRows && this.selectedRows.some(Boolean)
       return {
-        'b-table-selectable': selectable,
-        [`b-table-select-${this.selectMode}`]: selectable,
-        'b-table-selecting': isSelecting
+        'b-table-selectable': this.isSelectable,
+        [`b-table-select-${this.selectMode}`]: this.isSelectable,
+        'b-table-selecting': this.selectableHasSelection
       }
     },
     selectableTableAttrs() {
       return {
-        'aria-multiselectable': this.selectableIsMultiSelect
-      }
-    },
-    selectableIsMultiSelect() {
-      if (this.selectable) {
-        return arrayIncludes(['range', 'multi'], this.selectMode) ? 'true' : 'false'
-      } else {
-        return null
+        'aria-multiselectable': !this.isSelectable
+          ? null
+          : this.selectableIsMultiSelect
+            ? 'true'
+            : 'false'
       }
     }
   },
   watch: {
     computedItems(newVal, oldVal) {
       // Reset for selectable
-      // TODO: Should selectedLastClicked be reset here?
-      //       As changes to _showDetails would trigger it to reset
-      this.selectedLastRow = -1
       let equal = false
-      if (this.selectable && this.selectedRows.length > 0) {
+      if (this.isSelectable && this.selectedRows.length > 0) {
         // Quick check against array length
         equal = isArray(newVal) && isArray(oldVal) && newVal.length === oldVal.length
         for (let i = 0; equal && i < newVal.length; i++) {
@@ -74,9 +83,9 @@ export default {
       this.clearSelected()
     },
     selectedRows(selectedRows, oldVal) {
-      if (this.selectable && !looseEqual(selectedRows, oldVal)) {
+      if (this.isSelectable && !looseEqual(selectedRows, oldVal)) {
         const items = []
-        // forEach skips over non-existant indicies (on sparse arrays)
+        // `.forEach()` skips over non-existent indices (on sparse arrays)
         selectedRows.forEach((v, idx) => {
           if (v) {
             items.push(this.computedItems[idx])
@@ -88,35 +97,67 @@ export default {
   },
   beforeMount() {
     // Set up handlers
-    if (this.selectable) {
+    if (this.isSelectable) {
       this.setSelectionHandlers(true)
     }
   },
   methods: {
-    isRowSelected(idx) {
-      return Boolean(this.selectedRows[idx])
-    },
-    selectableRowClasses(idx) {
-      const rowSelected = this.isRowSelected(idx)
-      const base = this.dark ? 'bg' : 'table'
-      const variant = this.selectedVariant
-      return {
-        'b-table-row-selected': this.selectable && rowSelected,
-        [`${base}-${variant}`]: this.selectable && rowSelected && variant
+    // Public methods
+    selectRow(index) {
+      // Select a particular row (indexed based on computedItems)
+      if (
+        this.isSelectable &&
+        isNumber(index) &&
+        index >= 0 &&
+        index < this.computedItems.length &&
+        !this.isRowSelected(index)
+      ) {
+        const selectedRows = this.selectableIsMultiSelect ? this.selectedRows.slice() : []
+        selectedRows[index] = true
+        this.selectedLastClicked = -1
+        this.selectedRows = selectedRows
       }
     },
-    selectableRowAttrs(idx) {
-      return {
-        'aria-selected': !this.selectable ? null : this.isRowSelected(idx) ? 'true' : 'false'
+    unselectRow(index) {
+      // Un-select a particular row (indexed based on `computedItems`)
+      if (this.isSelectable && isNumber(index) && this.isRowSelected(index)) {
+        const selectedRows = this.selectedRows.slice()
+        selectedRows[index] = false
+        this.selectedLastClicked = -1
+        this.selectedRows = selectedRows
       }
+    },
+    selectAllRows() {
+      const length = this.computedItems.length
+      if (this.isSelectable && length > 0) {
+        this.selectedLastClicked = -1
+        this.selectedRows = this.selectableIsMultiSelect ? range(length).map(i => true) : [true]
+      }
+    },
+    isRowSelected(index) {
+      // Determine if a row is selected (indexed based on `computedItems`)
+      return Boolean(isNumber(index) && this.selectedRows[index])
     },
     clearSelected() {
-      const hasSelection = this.selectedRows.reduce((prev, v) => {
-        return prev || v
-      }, false)
-      if (hasSelection) {
-        this.selectedLastClicked = -1
-        this.selectedRows = []
+      // Clear any active selected row(s)
+      this.selectedLastClicked = -1
+      this.selectedRows = []
+    },
+    // Internal private methods
+    selectableRowClasses(index) {
+      if (this.isSelectable && this.isRowSelected(index)) {
+        const variant = this.selectedVariant
+        return {
+          'b-table-row-selected': true,
+          [`${this.dark ? 'bg' : 'table'}-${variant}`]: variant
+        }
+      } else {
+        return {}
+      }
+    },
+    selectableRowAttrs(index) {
+      return {
+        'aria-selected': !this.isSelectable ? null : this.isRowSelected(index) ? 'true' : 'false'
       }
     },
     setSelectionHandlers(on) {
@@ -129,20 +170,20 @@ export default {
     },
     selectionHandler(item, index, evt) {
       /* istanbul ignore if: should never happen */
-      if (!this.selectable) {
+      if (!this.isSelectable) {
         // Don't do anything if table is not in selectable mode
         /* istanbul ignore next: should never happen */
         this.clearSelected()
         /* istanbul ignore next: should never happen */
         return
       }
+      const selectMode = this.selectMode
       let selectedRows = this.selectedRows.slice()
       let selected = !selectedRows[index]
-      const mode = this.selectMode
-      // Note 'multi' mode needs no special handling
-      if (mode === 'single') {
+      // Note 'multi' mode needs no special event handling
+      if (selectMode === 'single') {
         selectedRows = []
-      } else if (mode === 'range') {
+      } else if (selectMode === 'range') {
         if (this.selectedLastRow > -1 && evt.shiftKey) {
           // range
           for (
@@ -155,7 +196,7 @@ export default {
           selected = true
         } else {
           if (!(evt.ctrlKey || evt.metaKey)) {
-            // clear range selection if any
+            // Clear range selection if any
             selectedRows = []
             selected = true
           }
