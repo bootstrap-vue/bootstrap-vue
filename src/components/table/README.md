@@ -1519,6 +1519,25 @@ When a table is `selectable` and the user clicks on a row, `<b-table>` will emit
 event, passing a single argument which is the complete list of selected items. **Treat this argument
 as read-only.**
 
+Rows can also be programmatically selected and unselected via the following exposed methods on the
+`<b-table>` instance (i.e. via a reference to the table instance via `this.$refs`):
+
+| Method                 | Description                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `selectRow(index)`     | Selects a row with the given `index` number.                                                         |
+| `unselectRow(index)`   | Unselects a row with the given `index` number.                                                       |
+| `selectAllRows()`      | Selects all rows in the table, except in `single` mode in which case only the first row is selected. |
+| `clearSelected()`      | Unselects all rows.                                                                                  |
+| `isRowSelected(index)` | Returns `true` if the row with the given `index` is selected, otherwise it returns `false`.          |
+
+Programmatic selection notes:
+
+- `index` the zero-based index of the table's **visible rows**, after filtering, sorting, and
+  pagination have been applied.
+- In `single` mode, `selectRow(index)` will unselect any previous selected row.
+- Attempting to `selectRow(index)` or `unselectRow(index)` on a non-existent row will be ignored.
+- The table must be `selectable` for any of these methods to have effect.
+
 ```html
 <template>
   <div>
@@ -1527,9 +1546,10 @@ as read-only.**
     </b-form-group>
 
     <b-table
+      ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selectedVariant="success"
+      selected-variant="success"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"
@@ -1547,8 +1567,16 @@ as read-only.**
         </template>
       </template>
     </b-table>
-
-    {{ selected }}
+    <p>
+      <b-button size="sm" @click="selectAllRows">Select all</b-button>
+      <b-button size="sm" @click="clearSelected">Clear selected</b-button>
+      <b-button size="sm" @click="selectThirdRow">Select 3rd row</b-button>
+      <b-button size="sm" @click="unselectThirdRow">Unselect 3rd row</b-button>
+    </p>
+    <p>
+      Selected Rows:<br>
+      {{ selected }}
+    </p>
   </div>
 </template>
 
@@ -1571,6 +1599,20 @@ as read-only.**
     methods: {
       onRowSelected(items) {
         this.selected = items
+      },
+      selectAllRows() {
+        this.$refs.selectableTable.selectAllRows()
+      },
+      clearSelected() {
+        this.$refs.selectableTable.clearSelected()
+      },
+      selectThirdRow() {
+        // Rows are indexed from 0, so the third row is index 2
+        this.$refs.selectableTable.selectRow(2)
+      },
+      unselectThirdRow() {
+        // Rows are indexed from 0, so the third row is index 2
+        this.$refs.selectableTable.unselectRow(2)
       }
     }
   }
@@ -1579,7 +1621,7 @@ as read-only.**
 <!-- b-table-selectable.vue -->
 ```
 
-When table is selectable, it will have class `b-table-selectable`, and one of the following three
+When a table is selectable, it will have class `b-table-selectable`, and one of the following three
 classes (depending on which mode is in use), on the `<table>` element:
 
 - `b-table-select-single`
@@ -1589,13 +1631,22 @@ classes (depending on which mode is in use), on the `<table>` element:
 When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
 element.
 
+Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
+to the order that the table variants are defined in Bootstrap's CSS, any row-variant's may take
+precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
+will be using other means to convey that a row is selected (such as a scoped field slot in the above
+example).
+
 **Notes:**
 
 - Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
   with an empty array if needed.
 - Selected rows will have a class of `b-row-selected` added to them.
 - When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for accessibility reasons.
+  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the attribute
+  `aria-selected` set to either `'true'` or `'false'` depending on the selected state of the row.
+- When a table is `selectable`, the table will have the attribute `aria-multiselect` set to either
+  `'false'` for `single` mode, and `'true'` for either `multi` or `range` modes.
 
 ### Table body transition support
 

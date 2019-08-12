@@ -183,7 +183,7 @@ export default {
       }
       if (this.selectedRows) {
         // Add in rowSelected scope property if selectable rows supported
-        slotScope.rowSelected = Boolean(this.selectedRows[rowIndex])
+        slotScope.rowSelected = this.isRowSelected(rowIndex)
       }
       // TODO:
       //   Using `field.key` as scoped slot name is deprecated, to be removed in future release
@@ -204,7 +204,7 @@ export default {
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
+      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
