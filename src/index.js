@@ -14,7 +14,7 @@ const NAME = 'BootstrapVue'
 //   BootstrapVue = require('bootstrap-vue')
 //   BootstrapVue = require('bootstrap-vue').default
 //   Vue.use(BootstrapVue)
-export const install = /*#__PURE__*/ installFactory({
+const install = /*#__PURE__*/ installFactory({
   plugins: {
     componentsPlugin,
     directivesPlugin
@@ -33,11 +33,15 @@ export const BootstrapVue = /*#__PURE__*/ {
 // Named exports for BvConfigPlugin
 //
 export {
+  // Main BV installer
+  install,
   // BV Config Plugin
   BVConfigPlugin,
   // BVConfigPlugin has been documented as BVConfig as well,
   // so we add an alias to the shorter name for backwards compat
-  BVConfigPlugin as BVConfig
+  BVConfigPlugin as BVConfig,
+  // Export NAME just in case of CommonJS require not in interop mode
+  NAME
 }
 
 //
