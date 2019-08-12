@@ -14,6 +14,10 @@ export declare class BTable extends BvComponent {
   // Public methods
   refresh: () => void
   clearSelected: () => void
+  selectAllRows: () => void
+  isRowSelected: (index: number) => boolean
+  selectRow: (index: number) => void
+  unselectRow: (index: number) => void
   // Props
   id?: string
   items: Array<any> | BvTableProviderCallback

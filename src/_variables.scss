@@ -1,7 +1,9 @@
-// BootstrapVue custom SCSS variables
+// --- BootstrapVue custom SCSS variables ---
 //
 // Users can override these variables in their custom SCSS
 //
+// Variables beginning with `$bv-` are used to enable/disable specific section CSS generation
+// Variables beginning with `$b-` are used to control values within the CSS generation
 
 // --- Custom inputs (adds sizing support) ---
 
@@ -69,6 +71,8 @@ $b-table-sort-icon-descending: "\2191" !default; // Up arrow
 $b-table-sort-icon-margin-left: 0.5em !default;
 $b-table-sort-icon-width: 0.5em !default;
 
+// Flag to enable sticky table header and column CSS generation
+$bv-enable-table-sticky: true !default;
 // Default max-height for tables with sticky headers
 $b-table-sticky-header-max-height: 300px !default;
 

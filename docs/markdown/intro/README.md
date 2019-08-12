@@ -11,6 +11,8 @@
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
 
+Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
+
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
