@@ -599,6 +599,28 @@ You can also apply arbitrary classes to the modal dialog container, content (mod
 header, body and footer via the `modal-class`, `content-class`, `header-class`, `body-class` and
 `footer-class` props, respectively. The props accept either a string or array of strings.
 
+### Hiding the backdrop
+
+Hide the modal's backdrop via setting the `hide-backdrop` prop.
+
+```html
+<div>
+  <b-button v-b-modal.modal-no-backdrop>Open modal</b-button>
+
+  <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="BootstrapVue">
+    <p class="my-2">
+      We've added the utility class <code>'shadow'</code>
+      to the modal content for added effect.
+    </p>
+  </b-modal>
+</div>
+
+<!-- modal-no-backdrop.vue -->
+```
+
+Note that clicking outside of the modal will close the modal by default. Disable this behaviour by
+setting the `no-close-on-backdrop` prop on `<b-modal>`.
+
 ### Disable open and close animation
 
 To disable the fading transition/animation when modal opens and closes, just set the prop `no-fade`
