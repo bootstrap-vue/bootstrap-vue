@@ -618,8 +618,8 @@ Hide the modal's backdrop via setting the `hide-backdrop` prop.
 <!-- modal-no-backdrop.vue -->
 ```
 
-Note that clicking outside of the modal will close the modal by default. Disable this behaviour by
-setting the `no-close-on-backdrop` prop on `<b-modal>`.
+Note that clicking outside of the modal will still close the modal even though the backdrop is
+hidden. You can disable this behaviour by setting the `no-close-on-backdrop` prop on `<b-modal>`.
 
 ### Disable open and close animation
 
