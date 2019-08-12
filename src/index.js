@@ -1,19 +1,13 @@
 import { installFactory } from './utils/plugins'
 import { componentsPlugin } from './components'
 import { directivesPlugin } from './directives'
-import { BVConfigPlugin } from './bv-config'
+import BVConfigPlugin from './bv-config'
 
 const NAME = 'BootstrapVue'
 
 //
 // BootstrapVue installer
 //
-// `install` is exported just in case the consumer does not import `default` as
-// the plugin in CommonJS build (or does not have interop enabled for CommonJS).
-// Both the following will work:
-//   BootstrapVue = require('bootstrap-vue')
-//   BootstrapVue = require('bootstrap-vue').default
-//   Vue.use(BootstrapVue)
 const install = /*#__PURE__*/ installFactory({
   plugins: {
     componentsPlugin,
