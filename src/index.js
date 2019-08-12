@@ -1,13 +1,15 @@
 import { installFactory } from './utils/plugins'
-import { componentsPlugin } from './components/index'
-import { directivesPlugin } from './directives/index'
+import { componentsPlugin } from './components/index.esm'
+import { directivesPlugin } from './directives/index.esm'
 import BVConfigPlugin from './bv-config'
 
 const NAME = 'BootstrapVue'
 
+// TEMP to help resolve conflicts
 // Named exports of all components and component group plugins
 export * from './components/index.esm'
 
+// TEMP to help resolve conflicts
 // Named exports of all directives and directive group plugins
 export * from './directives/index.esm'
 
