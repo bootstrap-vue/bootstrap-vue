@@ -12,7 +12,7 @@ import { isBrowser } from '../../utils/env'
 import { isString } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-import { contains, eventOff, eventOn, isVisible, select } from '../../utils/dom'
+import { contains, eventOff, eventOn, isVisible, select, selectAll } from '../../utils/dom'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
 
@@ -33,6 +33,34 @@ const OBSERVER_CONFIG = {
 // Options for DOM event listeners
 const EVT_OPTIONS = { passive: true, capture: false }
 
+// Query selector to find all tabbable elements
+// (includes tabindex="-1", which we filter out after)
+const TABABLE_SELECTOR = [
+  'button',
+  '[href]:not(.disabled)',
+  'input',
+  'select',
+  'textarea',
+  '[tabindex]',
+  '[contenteditable]'
+]
+  .map(s => `${s}:not(:disabled):not([disabled])`)
+  .join(', ')
+
+// --- Utility methods ---
+
+// Attempt to focus an element, and return true if successful
+const attemptFocus = el => {
+  if (el && isVisible(el) && el.focus) {
+    try {
+      el.focus()
+    } catch {}
+  }
+  // If the element has focus, then return true
+  return document.activeElement === el
+}
+
+// --- Props ---
 export const props = {
   size: {
     type: String,
@@ -297,7 +325,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.headerClass
       ]
     },
-    titleClases() {
+    titleClasses() {
       return [{ 'sr-only': this.titleSrOnly }, this.titleClass]
     },
     bodyClasses() {
@@ -402,7 +430,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     // Public method to show modal
     show() {
       if (this.isVisible || this.isOpening) {
-        // If already open, on in the process of opening, do nothing
+        // If already open, or in the process of opening, do nothing
         /* istanbul ignore next */
         return
       }
@@ -497,6 +525,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       return null
     },
+    // Private method to get a list of all tabable elements within modal content
+    getTabables() {
+      // Find all tabable elements in the modal content
+      // Assumes users have not used tabindex > 0 on elements!
+      return selectAll(TABABLE_SELECTOR, this.$refs.content)
+        .filter(isVisible)
+        .filter(i => i.tabIndex > -1 && !i.disabled)
+    },
     // Private method to finish showing modal
     doShow() {
       /* istanbul ignore next: commenting out for now until we can test stacking */
@@ -547,6 +583,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     onBeforeLeave() {
       this.isTransitioning = true
       this.setResizeEvent(false)
+      this.setEnforceFocus(false)
     },
     onLeave() {
       // Remove the 'show' class
@@ -555,14 +592,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     onAfterLeave() {
       this.isBlock = false
       this.isTransitioning = false
-      this.setEnforceFocus(false)
       this.isModalOverflowing = false
       this.isHidden = true
       this.$nextTick(() => {
-        this.returnFocusTo()
         this.isClosing = false
-        this.return_focus = null
         modalManager.unregisterModal(this)
+        this.returnFocusTo()
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
         this.emitEvent(this.buildEvent('hidden'))
@@ -623,17 +658,35 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Document focusin listener
     focusHandler(evt) {
-      // If focus leaves modal, bring it back
-      const modal = this.$refs.modal
+      // If focus leaves modal content, bring it back
+      const content = this.$refs.content
+      const target = evt.target
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.isVisible &&
-        modal &&
-        document !== evt.target &&
-        !contains(modal, evt.target)
+        content &&
+        document !== target &&
+        !contains(content, target)
       ) {
-        modal.focus({ preventScroll: true })
+        const tabables = this.getTabables()
+        if (this.$refs.bottomTrap && target === this.$refs.bottomTrap) {
+          // If user pressed TAB out of modal into our bottom trab trap element
+          // Find the first tabable element in the modal content and focus it
+          if (attemptFocus(tabables[0])) {
+            // Focus was successful
+            return
+          }
+        } else if (this.$refs.topTrap && target === this.$refs.topTrap) {
+          // If user pressed CTRL-TAB out of modal and into our top tab trap element
+          // Find the last tabable element in the modal content and focus it
+          if (attemptFocus(tabables[tabables.length - 1])) {
+            // Focus was successful
+            return
+          }
+        }
+        // Otherwise focus the modal content container
+        content.focus({ preventScroll: true })
       }
     },
     // Turn on/off focusin listener
@@ -677,14 +730,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Don't try and focus if we are SSR
       if (isBrowser) {
         const modal = this.$refs.modal
+        const content = this.$refs.content
         const activeElement = this.getActiveElement()
         // If the modal contains the activeElement, we don't do anything
-        if (modal && !(activeElement && contains(modal, activeElement))) {
+        if (modal && content && !(activeElement && contains(content, activeElement))) {
           // Make sure top of modal is showing (if longer than the viewport)
           // and focus the modal content wrapper
           this.$nextTick(() => {
             modal.scrollTop = 0
-            modal.focus()
+            content.focus()
           })
         }
       }
@@ -693,15 +747,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Prefer `returnFocus` prop over event specified
       // `return_focus` value
       let el = this.returnFocus || this.return_focus || null
-      // Is el a string CSS selector?
-      el = isString(el) ? select(el) : el
-      if (el) {
-        // Possibly could be a component reference
-        el = el.$el || el
-        if (isVisible(el) && el.focus) {
-          el.focus()
+      this.return_focus = null
+      this.$nextTick(() => {
+        // Is el a string CSS selector?
+        el = isString(el) ? select(el) : el
+        if (el) {
+          // Possibly could be a component reference
+          el = el.$el || el
+          attemptFocus(el)
         }
-      }
+      })
     },
     checkModalOverflow() {
       if (this.isVisible) {
@@ -739,7 +794,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               this.titleTag,
               {
                 staticClass: 'modal-title',
-                class: this.titleClases,
+                class: this.titleClasses,
                 attrs: { id: this.safeId('__BV_modal_title_') },
                 domProps
               },
@@ -835,21 +890,32 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.contentClass,
           attrs: {
             role: 'document',
-            id: this.safeId('__BV_modal_content_')
+            id: this.safeId('__BV_modal_content_'),
+            tabindex: '-1'
           }
         },
         [header, body, footer]
       )
 
+      // Tab trap to prevent page from scrolling to next element in
+      // tab index during enforce focus tab cycle
+      let tabTrapTop = h()
+      let tabTrapBottom = h()
+      if (this.isVisible && !this.noEnforceFocus) {
+        tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
+        tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
+      }
+
       // Modal dialog wrapper
       const modalDialog = h(
         'div',
         {
+          ref: 'dialog',
           staticClass: 'modal-dialog',
           class: this.dialogClasses,
           on: { mousedown: this.onDialogMousedown }
         },
-        [modalContent]
+        [tabTrapTop, modalContent, tabTrapBottom]
       )
 
       // Modal
@@ -866,7 +932,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           attrs: {
             id: this.safeId(),
             role: 'dialog',
-            tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
             'aria-label': this.ariaLabel,
@@ -921,12 +986,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])
 
-      // Tab trap to prevent page from scrolling to next element in
-      // tab index during enforce focus tab cycle
-      let tabTrap = h()
-      if (this.isVisible && this.isTop && !this.noEnforceFocus) {
-        tabTrap = h('div', { attrs: { tabindex: '0' } })
-      }
       // Assemble modal and backdrop in an outer <div>
       return h(
         'div',
@@ -935,7 +994,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           style: this.modalOuterStyle,
           attrs: { id: this.safeId('__BV_modal_outer_') }
         },
-        [modal, tabTrap, backdrop]
+        [modal, backdrop]
       )
     }
   },
