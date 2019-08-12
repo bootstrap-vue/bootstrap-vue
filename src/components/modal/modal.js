@@ -325,7 +325,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.headerClass
       ]
     },
-    titleClases() {
+    titleClasses() {
       return [{ 'sr-only': this.titleSrOnly }, this.titleClass]
     },
     bodyClasses() {
@@ -794,7 +794,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               this.titleTag,
               {
                 staticClass: 'modal-title',
-                class: this.titleClases,
+                class: this.titleClasses,
                 attrs: { id: this.safeId('__BV_modal_title_') },
                 domProps
               },
