@@ -314,24 +314,25 @@ typically be in the order they were defined in the object, although **field orde
 
 The following field properties are recognized:
 
-| Property            | Type                        | Description                                                                                                                                                                                                                                                                                                           |
-| ------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`               | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                            |
-| `label`             | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents. |
-| `headerTitle`       | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                        |
-| `headerAbbr`        | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                    |
-| `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                   |
-| `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                   |
-| `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                             |
-| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                          |
-| `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                     |
-| `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                               |
-| `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                      |
-| `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                  |
-| `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                      |
-| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when the `b-table` prop `dark` is set).                             |
-| `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                           |
-| `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                        |
+| Property            | Type                        | Description                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`               | String                      | The key for selecting data from the record in the items array. Required when setting the `fields` via an array of objects.                                                                                                                                                                                                                         |
+| `label`             | String                      | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents.                              |
+| `headerTitle`       | String                      | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.                                                                                                                                                                                                                                                     |
+| `headerAbbr`        | String                      | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.                                                                                                                                                 |
+| `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                                                |
+| `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                |
+| `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                          |
+| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                                                       |
+| `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                                                  |
+| `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                                                            |
+| `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.                                                                                                                                                                   |
+| `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                                               |
+| `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                                                   |
+| `variant`           | String                      | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when the prop `dark` is set).                                                                    |
+| `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.                                                                                                                                                        |
+| `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                                                     |
+| `stickyColumn`      | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> When set to `true`, and the table in in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details |
 
 **Notes:**
 
@@ -406,25 +407,25 @@ details.
 
 `<b-table>` provides several props to alter the style of the table:
 
-| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                    |
-| ------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                      |
-| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                               |
-| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                              |
-| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                               |
-| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                   |
-| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                          |
-| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
-| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
-| `sticky-header`     | Boolean or String | Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-header) section below for details.                       |
-| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
-| `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                |
-| `table-variant`     | String            | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Give the table an overall theme color variant.                                                                                                                                                                                                                                  |
-| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
-| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
-| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
-| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
+| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                                                              |
+| ------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                                                                |
+| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                                                                         |
+| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                                                                        |
+| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                                                                         |
+| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                                                             |
+| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                                                                    |
+| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                                                                 |
+| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                                                                 |
+| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details.                                           |
+| `sticky-header`     | Boolean or String | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-headers) section below for details. |
+| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                                                           |
+| `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                                                          |
+| `table-variant`     | String            | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Give the table an overall theme color variant.                                                                                                                                                                                                                                                                            |
+| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                                                                   |
+| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                                                                |
+| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                                                                        |
+| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                                                                        |
 
 **Note:** table style options `fixed`, `stacked`, and `caption-top`, and the table sorting feature,
 requires BootstrapVue's custom CSS.
@@ -572,7 +573,11 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items"></b-table>
+    <b-table responsive :items="items">
+      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
+      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">{{ scope.label }}</div>
+      <div slot="[]" class="text-nowrap" slot-scope="scope">{{ scope.value }}</div>
+    </b-table>
   </div>
 </template>
 
@@ -632,58 +637,6 @@ values: `sm`, `md`, `lg`, or `xl`.
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
 
-### Sticky header
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
-Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
-(sticky) as the table body scrolls. Setting the prop to `true` (or no explicit value) will generate
-a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
-the `sticky-header` prop to a valid CSS height (including units), i.e. `sticky-header="200px"`.
-
-```html
-<template>
-  <div>
-    <b-table sticky-header :items="items" head-variant="light"></b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        items: [
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
-          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-sticky-header.vue -->
-```
-
-Fee free to combine `sticky-header` with `responsive`.
-
-**Notes:**
-
-- Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
-- BootstrapVue's custom CSS is required in order to support `sticky-header`.
-- The sticky header feature uses CSS style `position: sticky` to position the headings.
-- Internet Explorer does not support `position: sticky`, hence for IE11 the table heading will
-  scroll with the table body.
-
 ### Stacked tables
 
 An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
@@ -695,7 +648,8 @@ breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
 element, with a width of 40%.
 
-The prop `stacked` takes precedence over the `responsive` and `sticky-header` props.
+The prop `stacked` takes precedence over the `responsive` prop, [`sticky-header`](#sticky-headers)
+props, and the [`stickyColumn`](#sticky-columns) field definition property.
 
 **Example: Always stacked table**
 
@@ -813,13 +767,35 @@ usage of `<colgroup>`
 
 Slot `table-colgroup` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                   |
-| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+| Property  | Type   | Description                                                                                                     |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                                                     |
+| `fields`  | Array  | Array of field definition objects (normalized to the [array of objects](#fields-as-an-array-of-objects) format) |
 
 When provided, the content of the `table-colgroup` slot will be placed _inside_ of a `<colgroup>`
-element. there is no need to provide your own outer `<colgroup>` element.
+element. there is no need to provide your own outer `<colgroup>` element. When a series of table
+columns should be grouped for assistive technology reasons (for conveying logical column
+associations, use a `<col span="#">` element (with `#` replaced with the number of grouped columns)
+to group the series of columns.
+
+**Tip:** In some situations when trying to set column widths via `style` or `class` on the `<col>`
+element, you may find that placing the table in `fixed` header width (table fixed layout mode) mode,
+combined with `responsive` (horizontal scrolling) mode will help, although you will need to have
+explicit widths, or minimum widths, via a style or a class for each column's respective `<col>`
+element. For example:
+
+```html
+<b-table fixed responsive :items="items" :fields="fields" ... >
+  <template slot="table-colgroup" slot-scope="scope">
+    <col
+      v-for="field in scope.fields"
+      :key="field.key"
+      :style="{ width: field.key === 'foo' ? '120px' : '180px' }"
+    >
+  </template>
+  <!-- additional table slots here if needed -->
+</b-table>
+```
 
 ### Table busy state
 
@@ -1296,6 +1272,146 @@ following properties:
 | `items`             | Array  | The `items` prop. Exposed here to check null vs [] |
 
 ## Advanced features
+
+### Sticky headers
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+Use the `sticky-header` prop to enable a vertically scrolling table with headers that remain fixed
+(sticky) as the table body scrolls. Setting the prop to `true` (or no explicit value) will generate
+a table that has a maximum height of `300px`. To specify a maximum height other than `300px`, set
+the `sticky-header` prop to a valid CSS height (including units), i.e. `sticky-header="200px"`.
+Tables with `sticky-header` enabled will also automatically become always responsive horizontally,
+regardless of the [`responsive`](#responsive-tables) prop setting, if the table is wider than the
+available horizontal space.
+
+```html
+<template>
+  <div>
+    <b-table sticky-header :items="items" head-variant="light"></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: [
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' },
+          { 'heading 1': 'table cell', 'heading 2': 'table cell', 'heading 3': 'table cell' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-sticky-header.vue -->
+```
+
+**Sticky header notes:**
+
+- The `sticky-header` prop has no effect if the table has the [`stacked`](#stacked-tables) prop set.
+- Sticky header tables are wrapped inside a vertically scrollable `<div>` with a maximum height set.
+- BootstrapVue's custom CSS is required in order to support `sticky-header`.
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
+  borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
+  the body scrolls.
+- The sticky header feature uses CSS style `position: sticky` to position the headings.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
+  scroll with the table body.
+
+### Sticky columns
+
+<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
+
+Columns can be made sticky, where they stick to the left of the table when the table has a
+horizontal scrollbar. To make a column a sticky column, set the `stickyColumn` prop in the
+[field's header definition](#field-definition-reference). Sticky columns will only work when the
+table has either the `sticky-header` prop set and/or the [`responsive`](#responsive-tables) prop is
+set.
+
+**Example: Sticky columns and headers**
+
+```html
+<template>
+  <div>
+    <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
+    <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
+      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
+      <div slot="HEAD[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
+      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">
+        Heading {{ scope.label }}
+      </div>
+    </b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        stickyHeader: true,
+        fields: [
+          { key: 'id', stickyColumn: true, isRowHeader: true, variant: 'primary' },
+          'a',
+          'b',
+          { key: 'c', stickyColumn: true, variant: 'info' },
+          'd',
+          'e',
+          'f',
+          'g',
+          'h',
+          'i',
+          'j',
+          'k',
+          'l'
+        ],
+        items: [
+          { id: 1, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 2, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 3, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 4, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 5, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 6, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 7, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 8, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 9, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 },
+          { id: 10, a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9, k: 10, l: 11 }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- table-sticky-columns.vue -->
+```
+
+**Sticky column notes:**
+
+- Sticky columns has no effect if the table has the [`stacked`](#stacked-tables) prop set.
+- Sticky columns tables require either the `sticky-header` and/or `responsive` modes, and are
+  wrapped inside a horizontally scrollable `<div>`.
+- When you have multiple columns that are set as `stickyColumn`, the columns will stack over each
+  other visually, and the left-most sticky columns may "peek" out from under the next sticky column.
+  To get around this behaviour, make sure your latter stickyColumns are the same width or wider than
+  previous sticky columns.
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
+  left or right borders on the sticky columns from "sticking" to the column, and hence those borders
+  will scroll when the body scrolls.
+- BootstrapVue's custom CSS is required in order to support sticky columns.
+- The sticky column feature uses CSS style `position: sticky` to position the column cells.
+- Internet Explorer does not support `position: sticky`, hence for IE11 the sticky column will
+  scroll with the table body.
 
 ### Row details support
 
@@ -2265,13 +2381,16 @@ The `<b-table-simple>` component gives the user complete control over the render
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
 of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
-`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and
-`<colgroup>`+`<col>`.
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and `<colgroup>` and
+`<col>`. Contrary to the component's name, one can create simple or complex table layouts with
+`<b-table-simple>`.
 
 `<b-table-simple>` provides basic styling options via props: `striped`, `bordered`, `borderless`,
 `outlined`, `small`, `hover`, `dark`, `fixed`, `responsive` and `sticky-header`. Note that `stacked`
 mode is available but requires some additional markup to generate the cell headings, as described in
-the [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below.
+the [Simple tables and stacked mode](#simple-tables-and-stacked-mode) section below. Sticky columns
+are also supported, but also require a bit of additional markup to specify which columns are to be
+sticky. See below for more information on using [sticky columns](#simple-tables-and-sticky-columns).
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
@@ -2279,15 +2398,20 @@ sorting, pagination, filtering, foot-clone, etc).
 
 ```html
 <div>
-  <b-table-simple hover small caption-top responsive="sm">
+  <b-table-simple hover small caption-top responsive>
     <caption>Items sold in August, grouped by Country and City:</caption>
+    <colgroup><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col></colgroup>
     <b-thead head-variant="dark">
       <b-tr>
-        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="2">Region</b-th>
         <b-th colspan="3">Clothes</b-th>
         <b-th colspan="2">Accessories</b-th>
       </b-tr>
       <b-tr>
+        <b-th>Country</b-th>
+        <b-th>City</b-th>
         <b-th>Trousers</b-th>
         <b-th>Skirts</b-th>
         <b-th>Dresses</b-th>
@@ -2373,13 +2497,18 @@ stacked mode (specifically for generating the cell headings):
 <div>
   <b-table-simple hover small caption-top stacked>
     <caption>Items sold in August, grouped by Country and City:</caption>
+    <colgroup><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col></colgroup>
     <b-thead head-variant="dark">
       <b-tr>
-        <b-td colspan="2" rowspan="2"></b-td>
+        <b-th colspan="2">Region</b-th>
         <b-th colspan="3">Clothes</b-th>
         <b-th colspan="2">Accessories</b-th>
       </b-tr>
       <b-tr>
+        <b-th>Country</b-th>
+        <b-th>City</b-th>
         <b-th>Trousers</b-th>
         <b-th>Skirts</b-th>
         <b-th>Dresses</b-th>
@@ -2458,6 +2587,54 @@ medium and wider screens.
 [table helper components](#table-helper-components). Use of the regular `<tbody>`, `<tr>`, `<td>`
 and `<th>` element tags will not work as expected, nor will they automatically apply any of the
 required accessibility attributes.
+
+### Simple tables and sticky columns
+
+Sticky columns are supported with `<b-table-simple>`, but you will need to set the `sticky-column`
+prop on each table cell (in the `thead`, `tbody`, and `tfoot` row groups) in the column that is to
+be sticky. For example:
+
+```html
+<b-table-simple responsive>
+  <b-thead>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Header</b-th>
+      <b-th>Heading 1</b-th>
+      <b-th>Heading 2</b-th>
+      <b-th>Heading 3</b-th>
+      <b-th>Heading 4</b-th>
+    </b-tr>
+  </b-thead>
+  <b-tbody>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Row Header</b-th>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+    </b-tr>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Row Header</b-th>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+      <b-td>Cell</b-td>
+    </b-tr>
+  </b-tbody>
+  <b-tfoot>
+    <b-tr>
+      <b-th sticky-column>Sticky Column Footer</b-th>
+      <b-th>Heading 1</b-th>
+      <b-th>Heading 2</b-th>
+      <b-th>Heading 3</b-th>
+      <b-th>Heading 4</b-th>
+    </b-tr>
+  </b-tfoot>
+</b-table-responsive>
+```
+
+As with `<b-table>` and `<b-table-lite>`, sticky columns are not supported when the `stacked` prop
+is set on `<b-table-simple>`.
 
 ### Table simple as a plugin
 

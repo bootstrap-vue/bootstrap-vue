@@ -161,6 +161,7 @@ export default {
         class: [field.class ? field.class : '', this.getTdValues(item, key, field.tdClass, '')],
         props: {
           stackedHeading: this.isStacked ? field.label : null,
+          stickyColumn: field.stickyColumn,
           variant:
             item._cellVariants && item._cellVariants[key]
               ? item._cellVariants[key]
