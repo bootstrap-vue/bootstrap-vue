@@ -85,7 +85,7 @@ export default {
     selectedRows(selectedRows, oldVal) {
       if (this.isSelectable && !looseEqual(selectedRows, oldVal)) {
         const items = []
-        // forEach skips over non-existant indicies (on sparse arrays)
+        // `.forEach()` skips over non-existent indices (on sparse arrays)
         selectedRows.forEach((v, idx) => {
           if (v) {
             items.push(this.computedItems[idx])
@@ -119,7 +119,7 @@ export default {
       }
     },
     unselectRow(index) {
-      // Un-select a particular row (indexed based on computedItems)
+      // Un-select a particular row (indexed based on `computedItems`)
       if (this.isSelectable && isNumber(index) && this.isRowSelected(index)) {
         const selectedRows = this.selectedRows.slice()
         selectedRows[index] = false
@@ -135,7 +135,7 @@ export default {
       }
     },
     isRowSelected(index) {
-      // Determine if a row is selected (indexed based on computedItems)
+      // Determine if a row is selected (indexed based on `computedItems`)
       return Boolean(isNumber(index) && this.selectedRows[index])
     },
     clearSelected() {
@@ -196,7 +196,7 @@ export default {
           selected = true
         } else {
           if (!(evt.ctrlKey || evt.metaKey)) {
-            // clear range selection if any
+            // Clear range selection if any
             selectedRows = []
             selected = true
           }
