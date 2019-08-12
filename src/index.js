@@ -33,9 +33,9 @@ const BootstrapVue = /*#__PURE__*/ {
 // Named exports for BvConfigPlugin
 //
 export {
-  // Installer and setConfig exported in case the consumer does not
-  // import `default` as the plugin in CommonJS build (or does not
-  // have interop enabled for CommonJS). Both the following will work:
+  // Installer exported in case the consumer does not import `default`
+  // as the plugin in CommonJS build (or does not have interop enabled
+  // for CommonJS). Both the following will work:
   //   BootstrapVue = require('bootstrap-vue')
   //   BootstrapVue = require('bootstrap-vue').default
   //   Vue.use(BootstrapVue)
@@ -46,7 +46,7 @@ export {
   // BVConfigPlugin has been documented as BVConfig as well,
   // so we add an alias to the shorter name for backwards compat
   BVConfigPlugin as BVConfig,
-  // Main BootstrapVue plugin
+  // Main BootstrapVue Plugin
   BootstrapVue
 }
 
