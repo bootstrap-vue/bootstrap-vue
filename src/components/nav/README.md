@@ -223,10 +223,6 @@ shown. When there are a large number of dropdowns rendered on the same page, per
 impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
 render the menu contents only when it is shown by setting the `lazy` prop to true.
 
-## Using in navbar
-
-Prop `is-nav-bar` has been deprecated and will be removed in a future release.
-
 ## Tabbed local content support
 
 See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable panes of local content
