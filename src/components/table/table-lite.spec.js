@@ -605,7 +605,12 @@ describe('table-lite', () => {
         fields: [
           { key: 'a', thAttr: { 'data-foo': 'bar' } },
           { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
-          { key: 'c', thAttr: 'parentThAttrs' }
+          {
+            key: 'c',
+            thAttr: (v, k, i, t) => {
+              return { 'data-type': t }
+            }
+          }
         ]
       }
     })
