@@ -50,13 +50,13 @@
         bordered
         striped
       >
-        <template slot="[prop]" slot-scope="{ value, item }">
+        <template slot="cell[prop]" slot-scope="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
-        <template slot="[defaultValue]" slot-scope="{ value }">
+        <template slot="cell[defaultValue]" slot-scope="{ value }">
           <code v-if="value" class="notranslate" translate="no">{{ value }}</code>
         </template>
         <template slot="row-details" slot-scope="{ item }">
@@ -82,10 +82,10 @@
           bordered
           striped
         >
-          <template slot="[prop]" slot-scope="{ value }">
+          <template slot="cell[prop]" slot-scope="{ value }">
             <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
           </template>
-          <template slot="[event]" slot-scope="{ value }">
+          <template slot="cell[event]" slot-scope="{ value }">
             <code class="notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -105,7 +105,7 @@
         bordered
         striped
       >
-        <template slot="[name]" slot-scope="{ value }">
+        <template slot="cell[name]" slot-scope="{ value }">
           <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
@@ -124,10 +124,10 @@
         bordered
         striped
       >
-        <template slot="[event]" slot-scope="{ value }">
+        <template slot="cell[event]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="[args]" slot-scope="{ value, item }">
+        <template slot="cell[args]" slot-scope="{ value, item }">
           <p
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
@@ -159,10 +159,10 @@
         bordered
         striped
       >
-        <template slot="[event]" slot-scope="{ value }">
+        <template slot="cell[event]" slot-scope="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="[args]" slot-scope="{ value, item }">
+        <template slot="cell[args]" slot-scope="{ value, item }">
           <p
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
