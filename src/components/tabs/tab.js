@@ -105,6 +105,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
           // If activated post mount
           this.activate()
         } else {
+          /* istanbul ignore next */
           if (!this.deactivate()) {
             // Tab couldn't be deactivated, so we reset the synced active prop
             // Deactivation will fail if no other tabs to activate
