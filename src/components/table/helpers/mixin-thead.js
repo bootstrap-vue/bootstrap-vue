@@ -99,24 +99,25 @@ export default {
           },
           on: handlers
         }
-        const fieldScope = { label: field.label, column: field.key, field, isFoot }
-        let slot
-        if (
-          isFoot &&
-          this.hasNormalizedSlot([`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`])
-        ) {
-          // TODO: `FOOT_${field.key}` is deprecated, to be removed in future release
-          slot = this.normalizeSlot(
-            [`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`],
-            fieldScope
-          )
-        } else {
-          // TODO: `HEAD_${field.key}` is deprecated, to be removed in future release
-          slot = this.normalizeSlot(
-            [`HEAD[${field.key}]`, 'HEAD[]', `HEAD_${field.key}`],
-            fieldScope
-          )
+        // Handle edge case where in-document templates are used with new
+        // `v-slot:name` syntax where the browser lower-cases the v-slot's
+        // name (attributes become lower cased when parsed by the browser)
+        let slotNames = [`head[${field.key}]`, `head[${field.key.toLowerCase()}]`, 'head[]']
+        if (isFoot) {
+          // Footer will fallback to header slot names
+          slotNames = [
+            `foot[${field.key}]`,
+            `foot[${field.key.toLowerCase()}]`,
+            'foot[]',
+            ...slotNames
+          ]
         }
+        const slot = this.normalizeSlot(slotNames, {
+          label: field.label,
+          column: field.key,
+          field,
+          isFoot
+        })
         if (!slot) {
           // need to check if this will work
           data.domProps = htmlOrText(field.labelHtml)
