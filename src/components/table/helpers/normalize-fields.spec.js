@@ -68,10 +68,10 @@ describe('table/helpers/normalize-fields', () => {
   })
 
   it('handles when "key: false" shortcut', async () => {
-    const arr1 = [{ foo: false }, { bar: 'BAR'}]
+    const arr1 = [{ foo: false }, { bar: 'BAR' }]
 
     // Should filter out when key uses false shortcut
-    expect(normalizeFields(arr1, [])).toEqual([{ key: 'bar', label: 'BAR'}])
+    expect(normalizeFields(arr1, [])).toEqual([{ key: 'bar', label: 'BAR' }])
   })
 
   it('removes duplicate fields (preserving the first found)', async () => {
