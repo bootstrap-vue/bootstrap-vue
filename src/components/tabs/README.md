@@ -193,8 +193,6 @@ Visually move the tab controls to the bottom by setting the prop `end`.
   tab pane is the same height and fits completely within the visible viewport, otherwise the user
   will need to scroll up to read the start of the tabbed content.
 
-**Note:** _the `bottom` prop has been deprecated in favor of the `end` prop._
-
 ## Vertical tabs
 
 Have the tab controls placed on the lefthand side by setting the `vertical` prop to `true`. Vertical
@@ -305,8 +303,6 @@ Use the `tabs-start` slot to place extra tab buttons before the content tab butt
 
 **Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of
 `<li>` and class `nav-item` for proper rendering and semantic markup.
-
-**DEPRECATION:** The `tabs` slot has been deprecated. please use the `tabs-end` slot instead.
 
 ## Add custom content to tab title
 

@@ -201,27 +201,27 @@
         ],
         "slots": [
           {
-            "name": "[key]",
+            "name": "cell[key]",
             "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
-            "name": "[]",
+            "name": "cell[]",
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "HEAD[key]",
+            "name": "head[key]",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
-            "name": "HEAD[]",
+            "name": "head[]",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "FOOT[key]",
+            "name": "foot[key]",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
-            "name": "FOOT[]",
+            "name": "foot[]",
             "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
@@ -259,18 +259,6 @@
           {
             "name": "bottom-row",
             "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
-          },
-          {
-            "name": "key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
-          },
-          {
-            "name": "HEAD_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
-          },
-          {
-            "name": "FOOT_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
       },
@@ -410,27 +398,27 @@
         ],
         "slots": [
           {
-            "name": "[key]",
+            "name": "cell[key]",
             "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
-            "name": "[]",
+            "name": "cell[]",
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "HEAD[key]",
+            "name": "head[key]",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
-            "name": "HEAD[]",
+            "name": "head[]",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "FOOT[key]",
+            "name": "foot[key]",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
-            "name": "FOOT[]",
+            "name": "foot[]",
             "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
@@ -448,18 +436,6 @@
           {
             "name": "thead-top",
             "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
-          },
-          {
-            "name": "key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
-          },
-          {
-            "name": "HEAD_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
-          },
-          {
-            "name": "FOOT_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
       },

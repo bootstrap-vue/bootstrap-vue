@@ -43,10 +43,6 @@
             "description": "Additional tab buttons without tab content placed after content tab buttons"
           },
           {
-            "name": "tabs",
-            "description": "Deprecated. Use 'tabs-end' instead. Additional tab buttons without tab content."
-          },
-          {
             "name": "empty",
             "description": "Renders this slot if no tabs are present"
           }
