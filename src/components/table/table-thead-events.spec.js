@@ -120,9 +120,9 @@ describe('table > thead events', () => {
       },
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
-        'HEAD[a]': '<button id="a">button</button>',
-        'HEAD[b]': '<input id="b">',
-        'HEAD[c]': '<a href="#" id="c">link</a>'
+        'head[a]': '<button id="a">button</button>',
+        'head[b]': '<input id="b">',
+        'head[c]': '<a href="#" id="c">link</a>'
       }
     })
     expect(wrapper).toBeDefined()
