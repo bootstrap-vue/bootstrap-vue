@@ -3,9 +3,6 @@ import { mergeData } from 'vue-functional-data-merge'
 
 // -- Constants --
 
-const DEPRECATED_MSG =
-  'Setting prop "is-nav-bar" is deprecated. Use the <b-navbar-nav> component instead.'
-
 export const props = {
   tag: {
     type: String,
@@ -38,13 +35,6 @@ export const props = {
   small: {
     type: Boolean,
     default: false
-  },
-  isNavBar: {
-    type: Boolean,
-    default: false,
-    // `deprecated` -> Don't use this prop
-    // `deprecation` -> Refers to a change in prop usage
-    deprecated: DEPRECATED_MSG
   }
 }
 
@@ -65,12 +55,11 @@ export const BNav = /*#__PURE__*/ Vue.extend({
     return h(
       props.tag,
       mergeData(data, {
+        staticClass: 'nav',
         class: {
-          nav: !props.isNavBar,
-          'navbar-nav': props.isNavBar,
-          'nav-tabs': props.tabs && !props.isNavBar,
-          'nav-pills': props.pills && !props.isNavBar,
-          'flex-column': props.vertical && !props.isNavBar,
+          'nav-tabs': props.tabs,
+          'nav-pills': props.pills,
+          'flex-column': props.vertical,
           'nav-fill': !props.vertical && props.fill,
           'nav-justified': !props.vertical && props.justified,
           [computeJustifyContent(props.align)]: !props.vertical && props.align,
