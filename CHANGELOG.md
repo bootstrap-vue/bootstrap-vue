@@ -74,8 +74,9 @@ stable.**
 - **tables:** add support for sticky columns
   ([#3847](https://github.com/bootstrap-vue/bootstrap-vue/issues/3847))
   ([5b5f2b8](https://github.com/bootstrap-vue/bootstrap-vue/commit/5b5f2b8))
-- **b-toast:** add SCSS variable for default toast background opacity + standardize a few BootstrapVue
-  SCSS variable names ([#3775](https://github.com/bootstrap-vue/bootstrap-vue/issues/3775))
+- **b-toast:** add SCSS variable for default toast background opacity + standardize a few
+  BootstrapVue SCSS variable names
+  ([#3775](https://github.com/bootstrap-vue/bootstrap-vue/issues/3775))
   ([5799075](https://github.com/bootstrap-vue/bootstrap-vue/commit/5799075))
 - **config:** defaults for all `size` properties (closes
   [#3805](https://github.com/bootstrap-vue/bootstrap-vue/issues/3805))
@@ -97,12 +98,12 @@ stable.**
   formatting) has been changed in this version to use a new square bracketed syntax. While the
   previous naming syntax still works, it has been deprecated in favour of the newer naming
   convention (which prevents potential slot-name conflicts with fields named `default` and other
-  table slots). **Users are encouraged to switch to the new table field slot name syntax, as the
-  old slot name syntax will be removed in 2.0.0 stable release!**
+  table slots). **Users are encouraged to switch to the new table field slot name syntax, as the old
+  slot name syntax will be removed in 2.0.0 stable release!**
 
-- Users should switch to the simplified import syntax (introduced in v2.0.0-rc.22) when
-  importing individual plugins, components, and/or directives. **Importing from the `es/` build
-  directory has been deprecated and will be removed in 2.0.0 stable release!**
+- Users should switch to the simplified import syntax (introduced in v2.0.0-rc.22) when importing
+  individual plugins, components, and/or directives. **Importing from the `es/` build directory has
+  been deprecated and will be removed in 2.0.0 stable release!**
 
 <a name="2.0.0-rc.27"></a>
 
