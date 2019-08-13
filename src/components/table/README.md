@@ -494,8 +494,8 @@ values: `sm`, `md`, `lg`, or `xl`.
   <div>
     <b-table responsive :items="items">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">{{ scope.label }}</div>
-      <div slot="[]" class="text-nowrap" slot-scope="scope">{{ scope.value }}</div>
+      <div slot="head[]" class="text-nowrap" slot-scope="scope">{{ scope.label }}</div>
+      <div slot="cell[]" class="text-nowrap" slot-scope="scope">{{ scope.value }}</div>
     </b-table>
   </div>
 </template>
@@ -798,9 +798,9 @@ function.
 Scoped field slots give you greater control over how the record data appears. If you want to add an
 extra field which does not exist in the records, just add it to the `fields` array, And then
 reference the field(s) in the scoped slot(s). Scoped field slots use the following naming syntax:
-`'[' + field key + ']'`.
+`'cell[' + field key + ']'`.
 
-You can use the default _fall-back_ scoped slot `'[]'` to format any cells that do not have an
+You can use the default _fall-back_ scoped slot `'cell[]'` to format any cells that do not have an
 explicit scoped slot provided.
 
 **Example: Custom data rendering with scoped slots**
@@ -810,22 +810,22 @@ explicit scoped slot provided.
   <div>
     <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
-      <template slot="[index]" slot-scope="data">
+      <template slot="cell[index]" slot-scope="data">
         {{ data.index + 1 }}
       </template>
 
       <!-- A custom formatted column -->
-      <template slot="[name]" slot-scope="data">
+      <template slot="cell[name]" slot-scope="data">
         <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
-      <template slot="[nameage]" slot-scope="data">
+      <template slot="cell[nameage]" slot-scope="data">
         {{ data.item.name.first }} is {{ data.item.age }} years old
       </template>
 
       <!-- Optional default data cell scoped slot -->
-      <template slot="[]" slot-scope="data">
+      <template slot="cell[]" slot-scope="data">
         <i>{{ data.value }}</i>
       </template>
     </b-table>
@@ -891,7 +891,7 @@ scoped field slot.
 <template>
   <div>
     <b-table :items="items">
-      <span slot="[html]" slot-scope="data" v-html="data.value"></span>
+      <span slot="cell[html]" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -940,7 +940,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <div>
     <b-table :fields="fields" :items="items">
-      <template slot="[name]" slot-scope="data">
+      <template slot="cell[name]" slot-scope="data">
         <!-- `data.value` is the value after formatted by the Formatter -->
         <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
       </template>
@@ -1003,11 +1003,11 @@ It is also possible to provide custom rendering for the tables `thead` and `tfoo
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming convention of
-`'HEAD[<fieldkey>]'` and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is
-not provided, but a `'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot
+`'head[<fieldkey>]'` and `'foot[<fieldkey>]'` respectively. if a `'foot[...]'` slot for a field is
+not provided, but a `'head[...]'` slot is provided, then the footer will use the `'head[...]'` slot
 content.
 
-You can use a default _fall-back_ scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or
+You can use a default _fall-back_ scoped slot `'head[]'` or `'foot[]'` to format any header or
 footer cells that do not have an explicit scoped slot provided.
 
 ```html
@@ -1015,22 +1015,22 @@ footer cells that do not have an explicit scoped slot provided.
   <div>
     <b-table :fields="fields" :items="items" foot-clone>
       <!-- A custom formatted data column cell -->
-      <template slot="[name]" slot-scope="data">
+      <template slot="cell[name]" slot-scope="data">
         {{ data.value.first }} {{ data.value.last }}
       </template>
 
       <!-- A custom formatted header cell for field 'name' -->
-      <template slot="HEAD[name]" slot-scope="data">
+      <template slot="head[name]" slot-scope="data">
         <span class="text-info">{{ data.label }}</b>
       </template>
 
       <!-- A custom formatted footer cell for field 'name' -->
-      <template slot="FOOT[name]" slot-scope="data">
+      <template slot="foot[name]" slot-scope="data">
         <span class="text-danger">{{ data.label }}</span>
       </template>
 
       <!-- Default fall-back custom formatted footer cell -->
-      <template slot="FOOT[]" slot-scope="data">
+      <template slot="foot[]" slot-scope="data">
         <i>{{ data.label }}</i>
       </template>
     </b-table>
@@ -1251,8 +1251,8 @@ set.
     <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
     <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-      <div slot="HEAD[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
-      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">
+      <div slot="head[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
+      <div slot="head[]" class="text-nowrap" slot-scope="scope">
         Heading {{ scope.label }}
       </div>
     </b-table>
@@ -1352,7 +1352,7 @@ initially showing.
 <template>
   <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template slot="[show_details]" slot-scope="row">
+      <template slot="cell[show_details]" slot-scope="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
         </b-button>
@@ -1459,7 +1459,7 @@ Programmatic selection notes:
       responsive="sm"
     >
       <!-- Example scoped slot for select state illustrative purposes -->
-      <template slot="[selected]" slot-scope="{ rowSelected }">
+      <template slot="cell[selected]" slot-scope="{ rowSelected }">
         <template v-if="rowSelected">
           <span aria-hidden="true">&check;</span>
           <span class="sr-only">Selected</span>
@@ -2786,11 +2786,11 @@ your app handles the various inconsistencies with events.
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template slot="[name]" slot-scope="row">
+      <template slot="cell[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
-      <template slot="[actions]" slot-scope="row">
+      <template slot="cell[actions]" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
