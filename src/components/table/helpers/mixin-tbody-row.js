@@ -33,6 +33,19 @@ export default {
       }
       return defValue
     },
+    getThValues(item, key, thValue, type, defValue) {
+      const parent = this.$parent
+      if (thValue) {
+        const value = get(item, key, '')
+        if (isFunction(thValue)) {
+          return thValue(value, key, item, type)
+        } else if (isString(thValue) && isFunction(parent[thValue])) {
+          return parent[thValue](value, key, item, type)
+        }
+        return thValue
+      }
+      return defValue
+    },
     // Method to get the value for a field
     getFormattedValue(item, field) {
       const key = field.key
@@ -169,7 +182,9 @@ export default {
         },
         attrs: {
           'aria-colindex': String(colIndex + 1),
-          ...this.getTdValues(item, key, field.tdAttr, {})
+          ...(field.isRowHeader
+            ? this.getThValues(item, key, field.thAttr, 'body', {})
+            : this.getTdValues(item, key, field.tdAttr, {}))
         }
       }
       const slotScope = {

@@ -632,4 +632,54 @@ describe('table', () => {
 
     wrapper.destroy()
   })
+
+  it('item field thAttr works', async () => {
+    const Parent = {
+      methods: {
+        parentThAttrs(value, key, item, type) {
+          return { 'data-type': type }
+        }
+      }
+    }
+
+    const wrapper = mount(BTable, {
+      parentComponent: Parent,
+      propsData: {
+        items: [{ a: 1, b: 2, c: 3 }],
+        fields: [
+          { key: 'a', thAttr: { 'data-foo': 'bar' } },
+          { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
+          { key: 'c', thAttr: 'parentThAttrs' }
+        ]
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('thead > tr').length).toBe(1)
+    expect(wrapper.findAll('thead > tr > th').length).toBe(3)
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+    expect(wrapper.findAll('tbody > tr > th').length).toBe(1)
+
+    const $headerThs = wrapper.findAll('thead > tr > th')
+    expect($headerThs.at(0).attributes('data-foo')).toBe('bar')
+    expect($headerThs.at(0).attributes('data-type')).not.toBeDefined()
+    expect($headerThs.at(0).classes().length).toBe(0)
+
+    expect($headerThs.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(1).attributes('data-type')).toBe('head')
+    expect($headerThs.at(1).classes().length).toBe(0)
+
+    expect($headerThs.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(2).attributes('data-type')).toBe('head')
+    expect($headerThs.at(2).classes().length).toBe(0)
+
+    const $bodyThs = wrapper.findAll('tbody > tr > th')
+
+    expect($bodyThs.at(0).attributes('data-foo')).not.toBeDefined()
+    expect($bodyThs.at(0).attributes('data-type')).toBe('body')
+    expect($bodyThs.at(0).classes().length).toBe(0)
+
+    wrapper.destroy()
+  })
 })
