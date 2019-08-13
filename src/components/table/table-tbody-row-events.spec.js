@@ -336,7 +336,8 @@ describe('table > tbody row events', () => {
         'cell[a]': '<button id="a">button</button>',
         'cell[b]': '<input id="b">',
         'cell[c]': '<a href="#" id="c">link</a>',
-        'cell[d]': '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
+        'cell[d]':
+          '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
         'cell[e]': '<label for="e">label</label><input id="e">',
         'cell[f]': '<label class="f-label"><input id="e"></label>'
       },
