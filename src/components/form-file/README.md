@@ -106,8 +106,6 @@ customizing its appearance.
 
 ### Control sizing
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Use the `size` prop to control the visual size of the input. The default size is considered `md`
 (medium). Optional sizes are `lg` (large) and `sm` (small). These sizes line up with the sizes
 available on other form controls.
@@ -236,8 +234,6 @@ To apply one of the contextual state icons on `<b-form-file`, set the `state` pr
 (or `false`), `'valid'` ( or `true`), or `null`.
 
 ## Autofocus
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
 
 When the `autofocus` prop is set on `<b-form-file>`, the input will be auto-focused when it is
 inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that

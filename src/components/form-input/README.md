@@ -482,8 +482,6 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
 
 ## Autofocus
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
-
 When the `autofocus` prop is set, the input will be auto-focused when it is inserted into the
 document, or re-activated when inside a Vue `<keep-alive>` component. Note that this prop **does
 not** set the `autofocus` attribute on the input.

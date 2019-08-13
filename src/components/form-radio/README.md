@@ -195,8 +195,6 @@ render them inline.
 
 ## Control sizing
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Use the `size` prop to control the size of the radio. The default size is medium. Supported size
 values are `sm` (small) and `lg` (large).
 
@@ -349,8 +347,6 @@ enables native browser keyboard navigation), hence `required` will only work if 
 group.
 
 ## Autofocus
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
 
 When the `autofocus` prop is set on `<b-form-radio>`, the input will be auto-focused when it is
 inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
