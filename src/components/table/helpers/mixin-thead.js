@@ -99,10 +99,24 @@ export default {
           },
           on: handlers
         }
-        let slotNames = [`HEAD[${field.key}]`, 'HEAD[]']
+        // Handle edge case where in-document templates are used with new
+        // `v-slot:name` syntax where the browser lower-cases the v-slot's
+        // name (attributes become lower cased when parsed by the browser)
+        let slotNames = [
+          `HEAD[${field.key}]`,
+          `head[${field.key.toLowerCase()}]`,
+          'HEAD[]',
+          'head[]'
+        ]
         if (isFoot) {
           // Footer will fallback to header slot names
-          slotNames = [`FOOT[${field.key}]`, 'FOOT[]', ...slotNames]
+          slotNames = [
+            `FOOT[${field.key}]`,
+            `foot[${field.key.toLowerCase()}]`,
+            'FOOT[]',
+            'foot[]',
+            ...slotNames
+          ]
         }
         const slot = this.normalizeSlot(slotNames, {
           label: field.label,
