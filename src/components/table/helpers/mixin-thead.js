@@ -105,7 +105,10 @@ export default {
           slotNames = [`FOOT[${field.key}]`, 'FOOT[]', ...slotNames]
         }
         const slot = this.normalizeSlot(slotNames, {
-          label: field.label, column: field.key, field, isFoot
+          label: field.label,
+          column: field.key,
+          field,
+          isFoot
         })
         if (!slot) {
           // need to check if this will work
