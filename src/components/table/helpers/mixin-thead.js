@@ -103,17 +103,15 @@ export default {
         // `v-slot:name` syntax where the browser lower-cases the v-slot's
         // name (attributes become lower cased when parsed by the browser)
         let slotNames = [
-          `HEAD[${field.key}]`,
+          `head[${field.key}]`,
           `head[${field.key.toLowerCase()}]`,
-          'HEAD[]',
           'head[]'
         ]
         if (isFoot) {
           // Footer will fallback to header slot names
           slotNames = [
-            `FOOT[${field.key}]`,
+            `foot[${field.key}]`,
             `foot[${field.key.toLowerCase()}]`,
-            'FOOT[]',
             'foot[]',
             ...slotNames
           ]
