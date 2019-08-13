@@ -68,15 +68,6 @@ describe('modal > BvModalEvent', () => {
     }
     expect(failed).toBe(true)
     expect(evt.trigger).toBe('ok')
-
-    failed = false
-    try {
-      evt.modalId = 'fail'
-    } catch (e) {
-      failed = true
-    }
-    expect(failed).toBe(true)
-    expect(evt.componentId).toBe('foo')
   })
 
   it('supports custom properties', async () => {
