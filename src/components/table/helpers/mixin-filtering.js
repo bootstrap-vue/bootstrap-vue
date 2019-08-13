@@ -1,6 +1,5 @@
 import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
-import warn from '../../../utils/warn'
 import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import stringifyRecordValues from './stringify-record-values'
