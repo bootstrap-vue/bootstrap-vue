@@ -38,5 +38,3 @@ export {
   BCardText,
   BCardGroup
 }
-
-export default CardPlugin

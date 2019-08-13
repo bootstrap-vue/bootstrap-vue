@@ -10,5 +10,3 @@ const ListGroupPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { ListGroupPlugin, BListGroup, BListGroupItem }
-
-export default ListGroupPlugin

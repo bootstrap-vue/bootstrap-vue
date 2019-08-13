@@ -54,5 +54,3 @@ export {
   BTd,
   BTh
 }
-
-export default TablePlugin

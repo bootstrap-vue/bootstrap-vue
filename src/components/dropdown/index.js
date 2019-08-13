@@ -42,5 +42,3 @@ export {
   BDropdownText,
   BDropdownGroup
 }
-
-export default DropdownPlugin

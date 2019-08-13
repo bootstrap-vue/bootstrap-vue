@@ -2381,7 +2381,7 @@ The `<b-table-simple>` component gives the user complete control over the render
 content, while providing basic Bootstrap v4 table styling. `<b-table-simple>` is a wrapper component
 around the `<table>` element. Inside the component, via the `default` slot, you can use any or all
 of the BootstrapVue [table helper components](#table-helper-components): `<b-thead>`, `<b-tfoot>`,
-`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>` and `<colgroup>` and
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>`, and the HTML5 elements `<caption>`, `<colgroup>` and
 `<col>`. Contrary to the component's name, one can create simple or complex table layouts with
 `<b-table-simple>`.
 
@@ -2394,7 +2394,7 @@ sticky. See below for more information on using [sticky columns](#simple-tables-
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
-sorting, pagination, filtering, foot-clone, etc).
+sorting, pagination, filtering, foot-clone, items, fields, etc).
 
 ```html
 <div>
@@ -2650,24 +2650,24 @@ BootstrapVue provides additional helper child components when using `<b-table-si
 slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The
 helper components are as follows:
 
-- `b-tbody`
-- `b-thead`
-- `b-tfoot`
+- `b-tbody` (`<b-table-simple>` only)
+- `b-thead` (`<b-table-simple>` only)
+- `b-tfoot` (`<b-table-simple>` only)
 - `b-tr`
 - `b-td`
 - `b-th`
 
 These components are optimized to handle converting variants to the appropriate classes (such as
 handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
-`role`s and `scope`s) and can handle the stacked table and sticky-header requirements. Components
+`role`s and `scope`s). It can generate the stacked table and sticky-header requirements. Components
 `<b-table>` and `<b-table-lite>` use these helper components internally.
 
 In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
 elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
 `top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
-helper components. Note that there are no helper components for `<caption>` or `<colgroup>`+`<col>`,
-so you may these two HTML5 elements directly in `<b-table-simple>`.
+helper components. Note that there are no helper components for `<caption>`, `<colgroup>` or
+`<col>`, so you may these three HTML5 elements directly in `<b-table-simple>`.
 
 - Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
   apply one of the Bootstrap theme colors (custom theme colors are supported via

@@ -13,25 +13,17 @@ echo 'Done.'
 echo ''
 
 # Cleanup
-rm -rf dist es esm
+rm -rf dist esm
 
 echo 'Compile JS...'
 rollup -c scripts/rollup.config.js
 echo 'Done.'
 echo ''
 
-echo 'Build ESM modules...'
+echo 'Compiling ESM modular build...'
 NODE_ENV=esm babel src --out-dir esm --ignore 'src/**/*.spec.js'
-rm -f esm/legacy-es.js esm/browser.js
+rm -f esm/browser.js
 echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
-echo 'Done.'
-echo ''
-
-echo 'Build ES modules (deprecated)...'
-NODE_ENV=es babel src --out-dir es --ignore 'src/**/*.spec.js'
-rm -f es/index.js es/browser.js
-echo "${BV_BANNER}" | cat - es/legacy-es.js > es/index.js
-rm -f es/legacy-es.js
 echo 'Done.'
 echo ''
 
@@ -78,8 +70,9 @@ echo 'Done.'
 echo ''
 
 echo 'Copying types from src/ to esm/ ...'
-# There must be a better way to do this
+# This may no longer be needed, as all exports are at top level now.
 #
+# There must be a better way to do this
 # The following does not preserve the paths
 #   shopt -s globstar
 #   cp src/**/*.d.ts es
@@ -87,20 +80,6 @@ echo 'Copying types from src/ to esm/ ...'
 # So we resort to a find with exec
 cd src
 find . -type f -name '*.d.ts' -exec cp {} ../esm/{} ';'
-cd ..
-echo 'Done.'
-echo ''
-
-echo 'Copying types from src/ to es/ ...'
-# There must be a better way to do this
-#
-# The following does not preserve the paths
-#   shopt -s globstar
-#   cp src/**/*.d.ts es
-#
-# So we resort to a find with exec
-cd src
-find . -type f -name '*.d.ts' -exec cp {} ../es/{} ';'
 cd ..
 echo 'Done.'
 echo ''
