@@ -6,5 +6,3 @@ const VBTogglePlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { VBTogglePlugin, VBToggle }
-
-export default VBTogglePlugin

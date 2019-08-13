@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const CarouselPlugin: BvPlugin
-export default CarouselPlugin
 
 // Component: b-carousel
 export declare class BCarousel extends BvComponent {

@@ -14,5 +14,3 @@ const LayoutPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { LayoutPlugin, BContainer, BRow, BCol, BFormRow }
-
-export default LayoutPlugin

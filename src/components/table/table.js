@@ -42,6 +42,7 @@ export const BTable = /*#__PURE__*/ Vue.extend({
     tfootMixin,
     tbodyMixin,
     // Features Mixins
+    stackedMixin,
     filteringMixin,
     sortingMixin,
     paginationMixin,

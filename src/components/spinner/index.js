@@ -6,5 +6,3 @@ const SpinnerPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { SpinnerPlugin, BSpinner }
-
-export default SpinnerPlugin

@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const FormPlugin: BvPlugin
-export default FormPlugin
 
 // Component: b-form
 export declare class BForm extends BvComponent {}
