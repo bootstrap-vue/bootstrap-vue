@@ -61,12 +61,10 @@ describe('table/helpers/normalize-fields', () => {
   })
 
   it('handles formatter shortcut', async () => {
-    const formatter = value => { return value }
+    const formatter = value => value
     const arr1 = [{ foo: formatter }]
 
-    expect(normalizeFields(arr1, [])).toEqual([
-      { key: 'foo', formatter: formatter }
-    ])
+    expect(normalizeFields(arr1, [])).toEqual([{ key: 'foo', label: 'Foo', formatter: formatter }])
   })
 
   it('removes duplicate fields (preserving the first found)', async () => {
