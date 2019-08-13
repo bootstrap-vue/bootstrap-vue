@@ -141,15 +141,14 @@ data are displayed. The field object keys (i.e. `age` or `first_name` as shown b
 extract the value from each item (record) row, and to provide additional features such as enabling
 [sorting](#sorting) on the column, etc.
 
-Fields can be provided as a _simple array_, an _array of objects_, or an _object_. **Internally the
+Fields can be provided as a _simple array_ or an _array of objects_. **Internally the
 fields data will be normalized into the _array of objects_ format**. Events or slots that include
 the column `field` data will be in the normalized field object format (array of objects for
 `fields`, or an object for an individual `field`).
 
 ### Fields as a simple array
 
-Fields can be a simple array, for defining the order of the columns, and which columns to display.
-**(field order is guaranteed)**:
+Fields can be a simple array, for defining the order of the columns, and which columns to display:
 
 **Example: Using `array` fields definition**
 
@@ -183,8 +182,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ### Fields as an array of objects
 
 Fields can be a an array of objects, providing additional control over the fields (such as sorting,
-formatting, etc). Only columns (keys) that appear in the fields array will be shown **(field order
-is guaranteed)**:
+formatting, etc). Only columns (keys) that appear in the fields array will be shown:
 
 **Example: Using array of objects fields definition**
 
@@ -231,85 +229,6 @@ is guaranteed)**:
 <!-- b-table-fields-array-of-objects.vue -->
 ```
 
-### Fields as an object
-
-Also, fields can be a an object providing similar control over the fields as the _array of objects_
-above does. Only columns listed in the fields object will be shown. The order of the fields will
-typically be in the order they were defined in the object, although **field order is not guaranteed
-(this may cause issues with Server Side Rendering and client rehydration)**.
-
-**Example: Using object fields definition**
-
-```html
-<template>
-  <div>
-    <b-table striped hover small :items="items" :fields="fields"></b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        // Note 'age' is left out and will not appear in the rendered table
-        fields: {
-          last_name: {
-            label: 'Person last name',
-            sortable: true
-          },
-          first_name: {
-            label: 'Person first name',
-            sortable: false
-          },
-          city: {
-            key: 'address.city',
-            label: 'City',
-            sortable: true
-          },
-          'address.country': {
-            label: 'Country',
-            sortable: true
-          }
-        },
-        items: [
-          {
-            age: 40,
-            first_name: 'Dickerson',
-            last_name: 'Macdonald',
-            address: { country: 'USA', city: 'New York' }
-          },
-          {
-            age: 21,
-            first_name: 'Larsen',
-            last_name: 'Shaw',
-            address: { country: 'Canada', city: 'Toronto' }
-          },
-          {
-            age: 89,
-            first_name: 'Geneva',
-            last_name: 'Wilson',
-            address: { country: 'Australia', city: 'Sydney' }
-          },
-          {
-            age: 38,
-            first_name: 'Jami',
-            last_name: 'Carney',
-            address: { country: 'England', city: 'London' }
-          }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-fields-object.vue -->
-```
-
-**Notes:**
-
-- if a `key` property is defined in the field definition, it will take precedence over the key used
-  to define the field.
-
 ### Field definition reference
 
 The following field properties are recognized:
@@ -343,8 +262,8 @@ The following field properties are recognized:
 - For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
   in the Vue.js guide.
-- Any additional properties added to the field objects will be left intact - so you can access them
-  via the named scoped slots for custom data, header, and footer rendering.
+- Any additional properties added to the field definition objects will be left intact - so you can
+  access them via the named scoped slots for custom data, header, and footer rendering.
 
 For information and usage about scoped slots and formatters, refer to the
 [Custom Data Rendering](#custom-data-rendering) section below.
