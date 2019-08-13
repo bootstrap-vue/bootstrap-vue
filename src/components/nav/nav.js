@@ -55,18 +55,16 @@ export const BNav = /*#__PURE__*/ Vue.extend({
     return h(
       props.tag,
       mergeData(data, {
-        class: [
-          'nav',
-          {
-            'nav-tabs': props.tabs,
-            'nav-pills': props.pills,
-            'flex-column': props.vertical,
-            'nav-fill': !props.vertical && props.fill,
-            'nav-justified': !props.vertical && props.justified,
-            [computeJustifyContent(props.align)]: !props.vertical && props.align,
-            small: props.small
-          }
-        ]
+        staticClass: 'nav',
+        class: {
+          'nav-tabs': props.tabs,
+          'nav-pills': props.pills,
+          'flex-column': props.vertical,
+          'nav-fill': !props.vertical && props.fill,
+          'nav-justified': !props.vertical && props.justified,
+          [computeJustifyContent(props.align)]: !props.vertical && props.align,
+          small: props.small
+        }
       }),
       children
     )
