@@ -192,7 +192,7 @@ export default {
         `CELL[${key}]`,
         `cell[${key.toLowerCase()}]`,
         `[${key}]`,
-        `[${key.toLowerCase()}]`
+        `[${key.toLowerCase()}]`,
         'CELL[]',
         'cell[]',
         '[]'
