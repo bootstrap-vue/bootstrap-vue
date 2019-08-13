@@ -200,11 +200,11 @@ export default {
         // Add in rowSelected scope property if selectable rows supported
         slotScope.rowSelected = this.isRowSelected(rowIndex)
       }
-      // TODO:
-      //   Using `field.key` as scoped slot name is deprecated, to be removed in future release
-      //   New format uses the square bracketed naming convention
-      let $childNodes =
-        this.normalizeSlot([`[${key}]`, '[]', key], slotScope) || toString(formatted)
+      // The new `v-slot` syntax doesn't like a slot name starting with
+      // a square bracket and if using in-document HTML templates, the
+      // v-slot attributes are lower-cased by the browser.
+      const slotNames = [`cell[${key}]`, `cell[${key.toLowerCase()}]`, 'cell[]']
+      let $childNodes = this.normalizeSlot(slotNames, slotScope) || toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]

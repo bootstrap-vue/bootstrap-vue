@@ -141,15 +141,14 @@ data are displayed. The field object keys (i.e. `age` or `first_name` as shown b
 extract the value from each item (record) row, and to provide additional features such as enabling
 [sorting](#sorting) on the column, etc.
 
-Fields can be provided as a _simple array_, an _array of objects_, or an _object_. **Internally the
-fields data will be normalized into the _array of objects_ format**. Events or slots that include
-the column `field` data will be in the normalized field object format (array of objects for
-`fields`, or an object for an individual `field`).
+Fields can be provided as a _simple array_ or an _array of objects_. **Internally the fields data
+will be normalized into the _array of objects_ format**. Events or slots that include the column
+`field` data will be in the normalized field object format (array of objects for `fields`, or an
+object for an individual `field`).
 
 ### Fields as a simple array
 
-Fields can be a simple array, for defining the order of the columns, and which columns to display.
-**(field order is guaranteed)**:
+Fields can be a simple array, for defining the order of the columns, and which columns to display:
 
 **Example: Using `array` fields definition**
 
@@ -183,8 +182,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ### Fields as an array of objects
 
 Fields can be a an array of objects, providing additional control over the fields (such as sorting,
-formatting, etc). Only columns (keys) that appear in the fields array will be shown **(field order
-is guaranteed)**:
+formatting, etc). Only columns (keys) that appear in the fields array will be shown:
 
 **Example: Using array of objects fields definition**
 
@@ -231,85 +229,6 @@ is guaranteed)**:
 <!-- b-table-fields-array-of-objects.vue -->
 ```
 
-### Fields as an object
-
-Also, fields can be a an object providing similar control over the fields as the _array of objects_
-above does. Only columns listed in the fields object will be shown. The order of the fields will
-typically be in the order they were defined in the object, although **field order is not guaranteed
-(this may cause issues with Server Side Rendering and client rehydration)**.
-
-**Example: Using object fields definition**
-
-```html
-<template>
-  <div>
-    <b-table striped hover small :items="items" :fields="fields"></b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        // Note 'age' is left out and will not appear in the rendered table
-        fields: {
-          last_name: {
-            label: 'Person last name',
-            sortable: true
-          },
-          first_name: {
-            label: 'Person first name',
-            sortable: false
-          },
-          city: {
-            key: 'address.city',
-            label: 'City',
-            sortable: true
-          },
-          'address.country': {
-            label: 'Country',
-            sortable: true
-          }
-        },
-        items: [
-          {
-            age: 40,
-            first_name: 'Dickerson',
-            last_name: 'Macdonald',
-            address: { country: 'USA', city: 'New York' }
-          },
-          {
-            age: 21,
-            first_name: 'Larsen',
-            last_name: 'Shaw',
-            address: { country: 'Canada', city: 'Toronto' }
-          },
-          {
-            age: 89,
-            first_name: 'Geneva',
-            last_name: 'Wilson',
-            address: { country: 'Australia', city: 'Sydney' }
-          },
-          {
-            age: 38,
-            first_name: 'Jami',
-            last_name: 'Carney',
-            address: { country: 'England', city: 'London' }
-          }
-        ]
-      }
-    }
-  }
-</script>
-
-<!-- b-table-fields-object.vue -->
-```
-
-**Notes:**
-
-- if a `key` property is defined in the field definition, it will take precedence over the key used
-  to define the field.
-
 ### Field definition reference
 
 The following field properties are recognized:
@@ -344,8 +263,8 @@ The following field properties are recognized:
 - For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
   in the Vue.js guide.
-- Any additional properties added to the field objects will be left intact - so you can access them
-  via the named scoped slots for custom data, header, and footer rendering.
+- Any additional properties added to the field definition objects will be left intact - so you can
+  access them via the named scoped slots for custom data, header, and footer rendering.
 
 For information and usage about scoped slots and formatters, refer to the
 [Custom Data Rendering](#custom-data-rendering) section below.
@@ -574,11 +493,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 ```html
 <template>
   <div>
-    <b-table responsive :items="items">
-      <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">{{ scope.label }}</div>
-      <div slot="[]" class="text-nowrap" slot-scope="scope">{{ scope.value }}</div>
-    </b-table>
+    <b-table responsive :items="items"></b-table>
   </div>
 </template>
 
@@ -588,40 +503,46 @@ values: `sm`, `md`, `lg`, or `xl`.
       return {
         items: [
           {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell',
-            'heading 4': 'table cell',
-            'heading 5': 'table cell',
-            'heading 6': 'table cell',
-            'heading 7': 'table cell',
-            'heading 8': 'table cell',
-            'heading 9': 'table cell',
-            'heading 10': 'table cell'
+            'heading1': 'table cell',
+            'heading2': 'table cell',
+            'heading3': 'table cell',
+            'heading4': 'table cell',
+            'heading5': 'table cell',
+            'heading6': 'table cell',
+            'heading7': 'table cell',
+            'heading8': 'table cell',
+            'heading9': 'table cell',
+            'heading10': 'table cell',
+            'heading11': 'table cell',
+            'heading12': 'table cell'
           },
           {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell',
-            'heading 4': 'table cell',
-            'heading 5': 'table cell',
-            'heading 6': 'table cell',
-            'heading 7': 'table cell',
-            'heading 8': 'table cell',
-            'heading 9': 'table cell',
-            'heading 10': 'table cell'
+            'heading1': 'table cell',
+            'heading2': 'table cell',
+            'heading3': 'table cell',
+            'heading4': 'table cell',
+            'heading5': 'table cell',
+            'heading6': 'table cell',
+            'heading7': 'table cell',
+            'heading8': 'table cell',
+            'heading9': 'table cell',
+            'heading10': 'table cell',
+            'heading11': 'table cell',
+            'heading12': 'table cell'
           },
           {
-            'heading 1': 'table cell',
-            'heading 2': 'table cell',
-            'heading 3': 'table cell',
-            'heading 4': 'table cell',
-            'heading 5': 'table cell',
-            'heading 6': 'table cell',
-            'heading 7': 'table cell',
-            'heading 8': 'table cell',
-            'heading 9': 'table cell',
-            'heading 10': 'table cell'
+            'heading1': 'table cell',
+            'heading2': 'table cell',
+            'heading3': 'table cell',
+            'heading4': 'table cell',
+            'heading5': 'table cell',
+            'heading6': 'table cell',
+            'heading7': 'table cell',
+            'heading8': 'table cell',
+            'heading9': 'table cell',
+            'heading10': 'table cell',
+            'heading11': 'table cell',
+            'heading12': 'table cell'
           }
         ]
       }
@@ -877,21 +798,13 @@ function.
 
 ### Scoped field slots
 
-<span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
-
 Scoped field slots give you greater control over how the record data appears. If you want to add an
 extra field which does not exist in the records, just add it to the `fields` array, And then
 reference the field(s) in the scoped slot(s). Scoped field slots use the following naming syntax:
-`'[' + field key + ']'`.
+`'cell[' + field key + ']'`.
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use the default _fall-back_
-scoped slot `'[]'` to format any cells that do not have an explicit scoped slot provided.
-
-<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
-`2.0.0-rc.28` did not surround the field key with square brackets, which could cause slot name
-collisions (i.e. if you had a field key `default`). Using the old field slot names has been
-deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
-Users are encouraged to switch to the new bracketed syntax.
+You can use the default _fall-back_ scoped slot `'cell[]'` to format any cells that do not have an
+explicit scoped slot provided.
 
 **Example: Custom data rendering with scoped slots**
 
@@ -900,22 +813,22 @@ Users are encouraged to switch to the new bracketed syntax.
   <div>
     <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
-      <template slot="[index]" slot-scope="data">
+      <template slot="cell[index]" slot-scope="data">
         {{ data.index + 1 }}
       </template>
 
       <!-- A custom formatted column -->
-      <template slot="[name]" slot-scope="data">
+      <template slot="cell[name]" slot-scope="data">
         <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
-      <template slot="[nameage]" slot-scope="data">
+      <template slot="cell[nameage]" slot-scope="data">
         {{ data.item.name.first }} is {{ data.item.age }} years old
       </template>
 
       <!-- Optional default data cell scoped slot -->
-      <template slot="[]" slot-scope="data">
+      <template slot="cell[]" slot-scope="data">
         <i>{{ data.value }}</i>
       </template>
     </b-table>
@@ -981,7 +894,7 @@ scoped field slot.
 <template>
   <div>
     <b-table :items="items">
-      <span slot="[html]" slot-scope="data" v-html="data.value"></span>
+      <span slot="cell[html]" slot-scope="data" v-html="data.value"></span>
     </b-table>
   </div>
 </template>
@@ -1030,7 +943,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <div>
     <b-table :fields="fields" :items="items">
-      <template slot="[name]" slot-scope="data">
+      <template slot="cell[name]" slot-scope="data">
         <!-- `data.value` is the value after formatted by the Formatter -->
         <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
       </template>
@@ -1089,46 +1002,38 @@ formatted value as a string (HTML strings are not supported)
 
 ## Header and Footer custom rendering via scoped slots
 
-<span class="badge badge-info small">CHANGED in 2.0.0-rc.28</span>
-
 It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming convention of
-`'HEAD[<fieldkey>]'` and `'FOOT[<fieldkey>]'` respectively. if a `'FOOT[...]'` slot for a field is
-not provided, but a `'HEAD[...]'` slot is provided, then the footer will use the `'HEAD[...]'` slot
+`'head[<fieldkey>]'` and `'foot[<fieldkey>]'` respectively. if a `'foot[...]'` slot for a field is
+not provided, but a `'head[...]'` slot is provided, then the footer will use the `'head[...]'` slot
 content.
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span> You can use a default _fall-back_
-scoped slot `'HEAD[]'` or `'FOOT[]'` to format any header or footer cells that do not have an
-explicit scoped slot provided.
-
-<span class="badge badge-warning small">DEPRECATION in 2.0.0-rc.28</span> Versions prior to
-`2.0.0-rc.28` used slot names `'HEAD_<key>'` and `'FOOT_<key>'`. Using the old slot names has been
-deprecated in favour of the new bracketed syntax, and support will be removed in a future release.
-Users are encouraged to switch to the new bracketed syntax.
+You can use a default _fall-back_ scoped slot `'head[]'` or `'foot[]'` to format any header or
+footer cells that do not have an explicit scoped slot provided.
 
 ```html
 <template>
   <div>
     <b-table :fields="fields" :items="items" foot-clone>
       <!-- A custom formatted data column cell -->
-      <template slot="[name]" slot-scope="data">
+      <template slot="cell[name]" slot-scope="data">
         {{ data.value.first }} {{ data.value.last }}
       </template>
 
       <!-- A custom formatted header cell for field 'name' -->
-      <template slot="HEAD[name]" slot-scope="data">
+      <template slot="head[name]" slot-scope="data">
         <span class="text-info">{{ data.label }}</b>
       </template>
 
       <!-- A custom formatted footer cell for field 'name' -->
-      <template slot="FOOT[name]" slot-scope="data">
+      <template slot="foot[name]" slot-scope="data">
         <span class="text-danger">{{ data.label }}</span>
       </template>
 
       <!-- Default fall-back custom formatted footer cell -->
-      <template slot="FOOT[]" slot-scope="data">
+      <template slot="foot[]" slot-scope="data">
         <i>{{ data.label }}</i>
       </template>
     </b-table>
@@ -1326,7 +1231,9 @@ available horizontal space.
 - BootstrapVue's custom CSS is required in order to support `sticky-header`.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
-  the body scrolls.
+  the body scrolls. To get around this issue, create some custom CSS that targets
+  `table.table.b-table`, which sets they styles `border-collapse: collapsed; border-spacing: 0px;`
+  (note that this may cause double borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings.
 - Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
   scroll with the table body.
@@ -1349,8 +1256,8 @@ set.
     <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
     <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-      <div slot="HEAD[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
-      <div slot="HEAD[]" class="text-nowrap" slot-scope="scope">
+      <div slot="head[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
+      <div slot="head[]" class="text-nowrap" slot-scope="scope">
         Heading {{ scope.label }}
       </div>
     </b-table>
@@ -1407,8 +1314,10 @@ set.
   To get around this behaviour, make sure your latter stickyColumns are the same width or wider than
   previous sticky columns.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
-  left or right borders on the sticky columns from "sticking" to the column, and hence those borders
-  will scroll when the body scrolls.
+  borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
+  when the body scrolls. To get around this issue, create some custom CSS that targets
+  `table.table.b-table`, which sets they styles `border-collapse: collapsed; border-spacing: 0px;`
+  (note that this may cause double borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells.
 - Internet Explorer does not support `position: sticky`, hence for IE11 the sticky column will
@@ -1450,7 +1359,7 @@ initially showing.
 <template>
   <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template slot="[show_details]" slot-scope="row">
+      <template slot="cell[show_details]" slot-scope="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
         </b-button>
@@ -1557,7 +1466,7 @@ Programmatic selection notes:
       responsive="sm"
     >
       <!-- Example scoped slot for select state illustrative purposes -->
-      <template slot="[selected]" slot-scope="{ rowSelected }">
+      <template slot="cell[selected]" slot-scope="{ rowSelected }">
         <template v-if="rowSelected">
           <span aria-hidden="true">&check;</span>
           <span class="sr-only">Selected</span>
@@ -2079,9 +1988,6 @@ prop to `null` or an empty string (and not an empty object or array). The filter
 be called when the `filter` prop is a falsey value.
 
 The display of the `empty-filter-text` relies on the truthiness of the `filter` prop.
-
-**Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated and should be
-avoided. Use the `filter-function` prop instead.
 
 ### Filter events
 
@@ -2887,11 +2793,11 @@ your app handles the various inconsistencies with events.
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template slot="[name]" slot-scope="row">
+      <template slot="cell[name]" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
-      <template slot="[actions]" slot-scope="row">
+      <template slot="cell[actions]" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
