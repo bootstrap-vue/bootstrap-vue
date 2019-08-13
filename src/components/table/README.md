@@ -141,10 +141,10 @@ data are displayed. The field object keys (i.e. `age` or `first_name` as shown b
 extract the value from each item (record) row, and to provide additional features such as enabling
 [sorting](#sorting) on the column, etc.
 
-Fields can be provided as a _simple array_ or an _array of objects_. **Internally the
-fields data will be normalized into the _array of objects_ format**. Events or slots that include
-the column `field` data will be in the normalized field object format (array of objects for
-`fields`, or an object for an individual `field`).
+Fields can be provided as a _simple array_ or an _array of objects_. **Internally the fields data
+will be normalized into the _array of objects_ format**. Events or slots that include the column
+`field` data will be in the normalized field object format (array of objects for `fields`, or an
+object for an individual `field`).
 
 ### Fields as a simple array
 
