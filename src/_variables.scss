@@ -109,12 +109,6 @@ $bv-enable-tooltip-variants: true !default;
 
 // Tooltip background variant level wrt theme color value
 $b-tooltip-bg-level: 0 !default;
-// Deprecated
-$bv-tooltip-bg-level: null !default;
-@if $bv-tooltip-bg-level {
-  @warn ("Variable '\$bv-tooltip-bg-level' has been deprecated. Use '\$b-tooltip-bg-level' instead.");
-  $b-tooltip-bg-level: $bv-tooltip-bg-level;
-}
 
 // --- Popovers ---
 
@@ -125,19 +119,3 @@ $bv-enable-popover-variants: true !default;
 $b-popover-bg-level: $alert-bg-level !default;
 $b-popover-border-level: $alert-border-level !default;
 $b-popover-color-level: $alert-color-level !default;
-// Deprecated
-$bv-popover-bg-level: null !default;
-@if $bv-popover-bg-level {
-  @warn ("Variable '\$bv-popover-bg-level' has been deprecated. Use '\$b-popover-bg-level' instead.");
-  $b-popover-bg-level: $bv-popover-bg-level;
-}
-$bv-popover-border-level: null !default;
-@if $bv-popover-border-level {
-  @warn ("Variable '\$bv-popover-border-level' has been deprecated. Use '\$b-popover-border-level' instead.");
-  $b-popover-border-level: $bv-popover-border-level;
-}
-$bv-popover-color-level: null !default;
-@if $bv-popover-color-level {
-  @warn ("Variable '\$bv-popover-color-level' has been deprecated. Use '\$b-popover-color-level' instead.");
-  $b-popover-color-level: $bv-popover-color-level;
-}
