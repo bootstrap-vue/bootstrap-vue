@@ -633,7 +633,7 @@ describe('table-lite', () => {
     const $bodyThs = wrapper.findAll('tbody > tr > th')
 
     expect($bodyThs.at(0).attributes('data-foo')).not.toBeDefined()
-    expect($bodyThs.at(0).attributes('data-type')).toBe('body')
+    expect($bodyThs.at(0).attributes('data-type')).toBe('row')
     expect($bodyThs.at(0).classes().length).toBe(0)
 
     wrapper.destroy()

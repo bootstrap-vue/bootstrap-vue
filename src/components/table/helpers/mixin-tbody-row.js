@@ -183,7 +183,7 @@ export default {
         attrs: {
           'aria-colindex': String(colIndex + 1),
           ...(field.isRowHeader
-            ? this.getThValues(item, key, field.thAttr, 'body', {})
+            ? this.getThValues(item, key, field.thAttr, 'row', {})
             : this.getTdValues(item, key, field.tdAttr, {}))
         }
       }
