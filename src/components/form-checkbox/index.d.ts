@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const FormCheckboxPlugin: BvPlugin
-export default FormCheckboxPlugin
 
 // Component: b-form-checkbox
 export declare class BFormCheckbox extends BvComponent {}

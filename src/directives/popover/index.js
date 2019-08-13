@@ -6,5 +6,3 @@ const VBPopoverPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { VBPopoverPlugin, VBPopover }
-
-export default VBPopoverPlugin

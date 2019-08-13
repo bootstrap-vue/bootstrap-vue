@@ -1,8 +1,7 @@
 import { BvPlugin } from '../'
 
-// Default export is a plugin that installs all plugins
-declare const BVComponentsPlugin: BvPlugin
-export default BVComponentsPlugin
+// Plugin that installs all plugins
+export declare const componentsPlugin: BvPlugin
 
 // Export all components as named exports
 export * from './alert'

@@ -6,5 +6,3 @@ const BadgePlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { BadgePlugin, BBadge }
-
-export default BadgePlugin

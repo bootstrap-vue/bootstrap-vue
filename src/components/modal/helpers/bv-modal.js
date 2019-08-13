@@ -266,5 +266,3 @@ const plugin = Vue => {
 export const BVModalPlugin = /*#__PURE__*/ pluginFactory({
   plugins: { plugin }
 })
-
-export default BVModalPlugin

@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent, BvEvent } from '../../'
 
 // Modal Plugin
 export declare const ModalPlugin: BvPlugin
-export default ModalPlugin
 
 // Component: b-modal
 export declare class BModal extends BvComponent {

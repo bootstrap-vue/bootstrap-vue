@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const LayoutPlugin: BvPlugin
-export default LayoutPlugin
 
 // Component: b-container
 export declare class BContainer extends BvComponent {}

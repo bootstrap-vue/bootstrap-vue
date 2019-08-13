@@ -23,5 +23,3 @@ export {
   BInputGroupAppend,
   BInputGroupText
 }
-
-export default InputGroupPlugin

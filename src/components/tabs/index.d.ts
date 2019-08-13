@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const TabsPlugin: BvPlugin
-export default TabsPlugin
 
 // Component: b-tabs
 export declare class BTabs extends BvComponent {}

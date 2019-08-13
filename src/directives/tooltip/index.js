@@ -6,5 +6,3 @@ const VBTooltipPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { VBTooltipPlugin, VBTooltip }
-
-export default VBTooltipPlugin

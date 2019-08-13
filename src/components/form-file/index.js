@@ -9,5 +9,3 @@ const FormFilePlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { FormFilePlugin, BFormFile }
-
-export default FormFilePlugin
