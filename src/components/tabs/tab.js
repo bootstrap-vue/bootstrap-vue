@@ -2,9 +2,6 @@ import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BVTransition from '../../utils/bv-transition'
-import warn from '../../utils/warn'
-
-const DEPRECATED_MSG = 'Setting prop "href" is deprecated. Use the <b-nav> component instead.'
 
 // @vue/component
 export const BTab = /*#__PURE__*/ Vue.extend({
@@ -59,16 +56,6 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     noBody: {
       type: Boolean,
       default: false
-    },
-    href: {
-      // This should be deprecated, as tabs are not navigation (URL) based
-      // <b-nav> + <b-card> + <router-view>/<nuxt-child> should be used instead
-      // We don't support router-links here
-      type: String,
-      default: '#',
-      // `deprecated` -> Don't use this prop
-      // `deprecation` -> Refers to a change in prop usage
-      deprecated: DEPRECATED_MSG
     },
     lazy: {
       type: Boolean,
@@ -140,11 +127,6 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     this.registerTab()
     // Initially show on mount if active and not disabled
     this.show = this.localActive
-    // Deprecate use of `href` prop
-    if (this.href && this.href !== '#') {
-      /* istanbul ignore next */
-      warn(`b-tab: ${DEPRECATED_MSG}`)
-    }
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
