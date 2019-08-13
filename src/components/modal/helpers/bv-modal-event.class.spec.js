@@ -88,48 +88,4 @@ describe('modal > BvModalEvent', () => {
     expect(evt.cancelable).toBe(true)
     expect(evt.custom).toBe(123)
   })
-
-  describe('Deprecated features', () => {
-    it('supports cancelable events via deprecated evt.cancel()', async () => {
-      // Mock `console.warn()` to prevent a console warning and
-      // check wether a warning about the `evt.cancel()` call
-      // was made
-      const warn = console.warn
-      console.warn = jest.fn()
-
-      const evt = new BvModalEvent('foobar', {
-        cancelable: true
-      })
-
-      expect(evt).toBeInstanceOf(BvModalEvent)
-      expect(evt.type).toBe('foobar')
-      expect(evt.cancelable).toBe(true)
-      expect(evt.defaultPrevented).toBe(false)
-      evt.cancel()
-      expect(evt.defaultPrevented).toBe(true)
-
-      expect(console.warn).toHaveBeenCalled()
-      console.warn = warn
-    })
-
-    it('supports deprecated evt.modalId', async () => {
-      // Mock `console.warn()` to prevent a console warning and
-      // check wether a warning about the `evt.cancel()` call
-      // was made
-      const warn = console.warn
-      console.warn = jest.fn()
-
-      const evt = new BvModalEvent('foobar', {
-        componentId: 'foo'
-      })
-
-      expect(evt).toBeInstanceOf(BvModalEvent)
-      expect(evt.type).toBe('foobar')
-      expect(evt.componentId).toBe('foo')
-      expect(evt.modalId).toBe('foo')
-
-      expect(console.warn).toHaveBeenCalled()
-      console.warn = warn
-    })
-  })
 })
