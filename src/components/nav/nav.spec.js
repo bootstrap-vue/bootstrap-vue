@@ -37,6 +37,19 @@ describe('nav', () => {
     expect(wrapper.text()).toBe('foobar')
   })
 
+  it('supports "is-navbar-nav" mode', async () => {
+    const wrapper = mount(BNav, {
+      propsData: {
+        isNavBar: true
+      }
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toBe('')
+  })
+
   it('applies pill style', async () => {
     const wrapper = mount(BNav, {
       propsData: {
@@ -48,6 +61,20 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-pills')
     expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.text()).toBe('')
+  })
+
+  it("doesn't apply pill style when in 'is-navbar-nav' mode", async () => {
+    const wrapper = mount(BNav, {
+      propsData: {
+        pills: true,
+        isNavBar: true
+      }
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
   })
 
@@ -65,6 +92,20 @@ describe('nav', () => {
     expect(wrapper.text()).toBe('')
   })
 
+  it("doesn't apply tab style when in 'is-navbar-nav' mode", async () => {
+    const wrapper = mount(BNav, {
+      propsData: {
+        tabs: true,
+        isNavBar: true
+      }
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toBe('')
+  })
+
   it('applies vertical style', async () => {
     const wrapper = mount(BNav, {
       propsData: {
@@ -76,6 +117,20 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.text()).toBe('')
+  })
+
+  it("doesn't apply vertical style when in 'is-navbar-nav' mode", async () => {
+    const wrapper = mount(BNav, {
+      propsData: {
+        vertical: true,
+        isNavBar: true
+      }
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.classes()).toContain('navbar-nav')
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
   })
 
