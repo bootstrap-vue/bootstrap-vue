@@ -165,9 +165,9 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         target: this.target,
         tabindex: this.disabled
           ? '-1'
-          : isUndefined(this.$attrs.tabindex)
-            ? null
-            : this.$attrs.tabindex,
+          : this.$attrs && this.$attrs.tabindex
+            ? this.$attrs.tabindex
+            : null,
         'aria-disabled': this.disabled ? 'true' : null
       },
       props: this.computedProps,
