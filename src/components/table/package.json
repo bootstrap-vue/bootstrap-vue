@@ -407,7 +407,7 @@
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "head[key]",
+            "name": "HEAD[key]",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
