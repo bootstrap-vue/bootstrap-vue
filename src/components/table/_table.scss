@@ -104,8 +104,10 @@
     // Needed because Bootstrap v4 does not have table child elements set up
     // to inherit their background color from parent element by default
     //
-    // An issue or PR should be made at twbs/bootstrap repo for table
-    // background color inheritance
+    // An issue made at twbs/bootstrap repo for table
+    // background color inheritance:
+    //   https://github.com/twbs/bootstrap/issues/29244
+    // If implemented, would negate the need for all the below SCSS
     .table.b-table {
       > thead,
       > tbody,
