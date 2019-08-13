@@ -99,9 +99,14 @@ export default {
           },
           on: handlers
         }
-        const fieldScope = { label: field.label, column: field.key, field, isFoot }
-        const slotKey = isFoot ? 'FOOT' : 'HEAD'
-        const slot = this.normalizeSlot([`${slotKey}[${field.key}]`, `${slotKey}[]`], fieldScope)
+        let slotNames = [`HEAD[${field.key}]`, 'HEAD[]']
+        if (isFoot) {
+          // Footer will fallback to header slot names
+          slotNames = [`FOOT[${field.key}]`, 'FOOT[]', ...slotNames]
+        }
+        const slot = this.normalizeSlot(slotNames, {
+          label: field.label, column: field.key, field, isFoot
+        })
         if (!slot) {
           // need to check if this will work
           data.domProps = htmlOrText(field.labelHtml)
