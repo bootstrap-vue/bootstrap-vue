@@ -45,14 +45,6 @@ const normalizeFields = (origFields, items) => {
         }
       }
     })
-  } else if (origFields && isObject(origFields) && keys(origFields).length > 0) {
-    // Normalize object Form (deprecated)
-    keys(origFields).forEach(key => {
-      const field = processField(key, origFields[key])
-      if (field) {
-        fields.push(field)
-      }
-    })
   }
 
   // If no field provided, take a sample from first record (if exits)

@@ -50,40 +50,6 @@ describe('table/helpers/normalize-fields', () => {
     ])
   })
 
-  it('handles object as fields definition', async () => {
-    const formatter = () => {}
-
-    // Label Shortcut
-    expect(normalizeFields({ foo: 'Foo Label' })).toEqual([{ key: 'foo', label: 'Foo Label' }])
-
-    // Formatter Shortcut
-    expect(normalizeFields({ foo: formatter })).toEqual([
-      { key: 'foo', label: 'Foo', formatter: formatter }
-    ])
-
-    // No key in object
-    expect(normalizeFields({ foo: { label: 'Bar' } })).toEqual([{ key: 'foo', label: 'Bar' }])
-    expect(normalizeFields({ foo: { label: 'Bar', sortable: true } })).toEqual([
-      { key: 'foo', label: 'Bar', sortable: true }
-    ])
-    expect(normalizeFields({ foo: { label: 'Bar', sortable: false } })).toEqual([
-      { key: 'foo', label: 'Bar', sortable: false }
-    ])
-
-    // Key in object override with label
-    expect(normalizeFields({ foo: { key: 'bar', label: 'Baz' } })).toEqual([
-      { key: 'bar', label: 'Baz' }
-    ])
-
-    // Label and formatter
-    expect(normalizeFields({ foo: { label: 'Baz', formatter: formatter } })).toEqual([
-      { key: 'foo', label: 'Baz', formatter: formatter }
-    ])
-
-    // Ignore when key's value is false
-    expect(normalizeFields({ foo: false })).toEqual([])
-  })
-
   it('handles mixed array format', async () => {
     const arr1 = ['foo', { bar: { label: 'Bar Label' } }, { baz: 'Baz Label' }]
 

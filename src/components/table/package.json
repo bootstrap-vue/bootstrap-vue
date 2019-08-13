@@ -260,18 +260,6 @@
           {
             "name": "bottom-row",
             "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
-          },
-          {
-            "name": "key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
-          },
-          {
-            "name": "HEAD_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
-          },
-          {
-            "name": "FOOT_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
       },
@@ -449,18 +437,6 @@
           {
             "name": "thead-top",
             "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
-          },
-          {
-            "name": "key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot '[key]' instead"
-          },
-          {
-            "name": "HEAD_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'HEAD[key]' instead"
-          },
-          {
-            "name": "FOOT_key",
-            "description": "DEPRECATED in 2.0.0-rc.28. Use slot 'FOOT[key]' instead"
           }
         ]
       },
