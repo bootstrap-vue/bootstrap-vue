@@ -210,19 +210,19 @@
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "HEAD[key]",
+            "name": "head[key]",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
-            "name": "HEAD[]",
+            "name": "head[]",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "FOOT[key]",
+            "name": "foot[key]",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
-            "name": "FOOT[]",
+            "name": "foot[]",
             "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
@@ -407,19 +407,19 @@
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "HEAD[key]",
+            "name": "head[key]",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
-            "name": "HEAD[]",
+            "name": "head[]",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "FOOT[key]",
+            "name": "foot[key]",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
-            "name": "FOOT[]",
+            "name": "foot[]",
             "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
