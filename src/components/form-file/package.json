@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form File",
-    "enhanced": true,
     "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload.",
     "components": [
       {

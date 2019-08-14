@@ -159,8 +159,6 @@ then clicks the trigger element, they must click it again **and** move focus to 
 
 ### Variants and custom class
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
-
 BootstrapVue's tooltips support contextual color variants via our custom CSS, via the `variant`
 prop:
 
