@@ -234,6 +234,11 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
       <b-nav-item active>Active</b-nav-item>
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
+      <b-nav-item-dropdown text="Dropdown" right>
+        <b-dropdown-item>one</b-dropdown-item>
+        <b-dropdown-item>two</b-dropdown-item>
+        <b-dropdown-item>three</b-dropdown-item>
+      </b-nav-item-dropdown>
     </b-nav>
 
     <b-card-text>
@@ -256,6 +261,11 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
       <b-nav-item active>Active</b-nav-item>
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
+      <b-nav-item-dropdown text="Dropdown" right>
+        <b-dropdown-item>one</b-dropdown-item>
+        <b-dropdown-item>two</b-dropdown-item>
+        <b-dropdown-item>three</b-dropdown-item>
+      </b-nav-item-dropdown>
     </b-nav>
 
     <b-card-text>
@@ -280,10 +290,17 @@ The `card-header` prop is only needed when you are applying `tabs` or `pills` st
       <b-nav-item active>Active</b-nav-item>
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
+      <b-nav-item-dropdown text="Dropdown" right>
+        <b-dropdown-item>one</b-dropdown-item>
+        <b-dropdown-item>two</b-dropdown-item>
+        <b-dropdown-item>three</b-dropdown-item>
+      </b-nav-item-dropdown>
     </b-nav>
+
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
     </b-card-text>
+
     <b-button variant="primary">Go somewhere</b-button>
   </b-card>
 </div>
