@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Tabs",
-    "enhanced": true,
     "description": "Create a widget of tabbable panes of local content. The tabs component is built upon navs and cards internally, and provides full keyboard navigation control of the tabs.",
     "components": [
       {

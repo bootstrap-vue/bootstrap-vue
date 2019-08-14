@@ -169,8 +169,6 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 
 ## Control sizing
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Use the `size` prop to control the size of the checkbox. The default size is medium. Supported size
 values are `sm` (small) and `lg` (large).
 
@@ -406,8 +404,6 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 
 ### Switch sizing
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Use the `size` prop to control the size of the switch. The default size is medium. Supported size
 values are `sm` (small) and `lg` (large).
 
@@ -546,8 +542,6 @@ enables native browser keyboard navigation), hence `required` will only work if 
 the group.
 
 ## Autofocus
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
 
 When the `autofocus` prop is set on `<b-form-checkbox>`, the input will be auto-focused when it is
 inserted into the document, or re-activated when inside a Vue `<keep-alive>` component. Note that

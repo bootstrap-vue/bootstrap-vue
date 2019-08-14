@@ -193,8 +193,6 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 
 ## Tree shaking with module bundlers
 
-<span class="badge badge-info small">SIMPLIFIED in 2.0.0-rc.20</span>
-
 When using a module bundler you can optionally import only specific components groups (plugins),
 components and/or directives.
 
@@ -207,8 +205,6 @@ components and/or directives.
 </div>
 
 ### Component groups and directives as Vue plugins
-
-<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
 
 You can import component groups and directives as Vue plugins by importing from the `bootstrap-vue`:
 
@@ -256,8 +252,6 @@ single `import` statement for optimal tree shaking.
 
 ### Individual components and directives
 
-<span class="badge badge-info small">CHANGED in 2.0.0-rc.22</span>
-
 If you would like to only pull in a specific component or set of components, you can do this by
 directly importing those components.
 
@@ -303,8 +297,6 @@ Vue allows for various component and directive name syntaxes here, so feel free 
 object property shorthand (components only).
 
 ### Using BootstrapVue source code for smaller bundles
-
-<span class="badge badge-info small">For advanced users</span>
 
 When using module bundlers, they will usually default to using the `esm/` modular build, which has
 been pre-transpiled by Babel for our
@@ -439,13 +431,10 @@ import 'custom.scss'
 
 ### `transformAssetUrls` with Nuxt.js
 
-<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> The BootstrapVue Nuxt plugin module
-will automatically add in the BootstrapVue specific [`transformAssetUrls`](/docs/reference/images)
-image `src` prop configuration for you.
+The BootstrapVue Nuxt plugin module will automatically add in the BootstrapVue specific
+[`transformAssetUrls`](/docs/reference/images) image `src` prop configuration for you.
 
 ### Tree shaking with Nuxt.js
-
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.20</span>
 
 If you wish to reduce your production bundle size because you only use a subset of the available
 BootstrapVue plugins, you can configure the list of BootstrapVue `componentPlugins` or
@@ -469,18 +458,17 @@ module.exports = {
 }
 ```
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span> There are two additional helper
-plugins for providing the `$bvModal` and `$bvToast` injections (if you are not using the
-`ModalPlugin` or `ToastPlugin` plugins) that are available in the `componentPlugins` option:
+There are two additional helper plugins for providing the `$bvModal` and `$bvToast` injections (if
+you are not using the `ModalPlugin` or `ToastPlugin` plugins) that are available in the
+`componentPlugins` option:
 
 - `BVModalPlugin` - provides the injection `$bvModal` for generating
   [message boxes](/docs/components/modal#modal-message-boxes).
 - `BVToastPlugin` - provides the injection `$bvToast` for generating
   [on demand toasts](/docs/components/toast#toasts-on-demand).
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span> You can also optionally import
-individual components and/or directives, by configuring the list of BootstrapVue `components` or
-`directives` you want to globally install in your Nuxt.js project.
+You can also optionally import individual components and/or directives, by configuring the list of
+BootstrapVue `components` or `directives` you want to globally install in your Nuxt.js project.
 
 ```js
 module.exports = {
@@ -539,37 +527,6 @@ You can override this option using `usePretranspiled` option. Setting to `true` 
 pre-transpiled versions, while setting it to `false` will always use `src/`. By default
 `usePretranspiled` is enabled in development mode only. You should not need to use this option as
 the default is most optimal for performance.
-
-## Vue CLI 2
-
-<span class="badge badge-warning small">DEPRECATED</span> Use [Vue CLI 3](#vue-cli-3) instead.
-
-BootstrapVue has two Vue CLI templates available:
-
-- [webpack-simple](https://github.com/bootstrap-vue/webpack-simple): Quick scaffold for a proof of
-  concept or small app
-- [webpack](https://github.com/bootstrap-vue/webpack): Larger, production ready template with more
-  options
-
-```bash
-# Ensure Vue CLI is installed and up to date
-npm install -g vue-cli
-
-# Initialize a BootstrapVue project in the directory 'my-project'
-vue init bootstrap-vue/webpack-simple my-project
-
-# Change into the directory
-cd my-project
-
-# Install dependencies
-npm install
-
-# Fire up the dev server with HMR
-npm run dev
-```
-
-You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with
-`bootstrap-vue/webpack` for the webpack template.
 
 ## Vue CLI 3
 

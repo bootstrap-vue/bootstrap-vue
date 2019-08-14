@@ -131,8 +131,6 @@ prop.
 
 ## Pill style
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
-
 Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 
 ```html
@@ -151,8 +149,6 @@ Prefer buttons with a more rounded-pill style? Just set the prop `pill` to true.
 This prop adds the Bootstrap v4.3 utility class `.rounded-pill` on the rendered button.
 
 ## Squared style
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.22</span>
 
 Prefer buttons with a more square corner style? Just set the prop `squared` to true.
 
