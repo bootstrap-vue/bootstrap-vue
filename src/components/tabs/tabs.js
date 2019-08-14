@@ -109,10 +109,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
           // Apply <b-tabs> `activeNavItemClass` styles when the tab is active
           this.tab.localActive ? this.bvTabs.activeNavItemClass : null
         ],
-        props: {
-          href: this.tab.href, // To be deprecated to always be '#'
-          disabled: this.tab.disabled
-        },
+        props: { disabled: this.tab.disabled },
         attrs: {
           role: 'tab',
           id: this.id,
@@ -162,10 +159,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       default: 'div'
     },
     card: {
-      type: Boolean,
-      default: false
-    },
-    bottom: {
       type: Boolean,
       default: false
     },
@@ -650,11 +643,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           small: this.small
         }
       },
-      [
-        this.normalizeSlot('tabs-start') || h(false),
-        buttons,
-        this.normalizeSlot('tabs-end') || this.normalizeSlot('tabs') || h(false)
-      ]
+      [this.normalizeSlot('tabs-start') || h(), buttons, this.normalizeSlot('tabs-end') || h()]
     )
     nav = h(
       'div',
@@ -662,8 +651,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         key: 'bv-tabs-nav',
         class: [
           {
-            'card-header': this.card && !this.vertical && !(this.end || this.bottom),
-            'card-footer': this.card && !this.vertical && (this.end || this.bottom),
+            'card-header': this.card && !this.vertical && !this.end,
+            'card-footer': this.card && !this.vertical && this.end,
             'col-auto': this.vertical
           },
           this.navWrapperClass
@@ -705,7 +694,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         },
         attrs: { id: this.safeId() }
       },
-      [this.end || this.bottom ? content : h(), [nav], this.end || this.bottom ? h() : content]
+      [this.end ? content : h(), [nav], this.end ? h() : content]
     )
   }
 })
