@@ -95,6 +95,7 @@ export default {
             title: field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
+            ...this.getThValues(null, field.key, field.thAttr, isFoot ? 'foot' : 'head', {}),
             ...sortAttrs
           },
           on: handlers
