@@ -237,12 +237,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     localNavClass() {
       const classes = []
-      if (this.card) {
-        if (this.vertical) {
-          classes.push('card-header', 'h-100', 'border-bottom-0', 'rounded-0')
-        } else {
-          classes.push(`card-header-${this.navStyle}`)
-        }
+      if (this.card && this.vertical) {
+        classes.push('card-header', 'h-100', 'border-bottom-0', 'rounded-0')
       }
       return [...classes, this.navClass]
     }
@@ -640,7 +636,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           tabs: !this.noNavStyle && !this.pills,
           pills: !this.noNavStyle && this.pills,
           vertical: this.vertical,
-          small: this.small
+          small: this.small,
+          cardHeader: this.card && !this.vertical
         }
       },
       [this.normalizeSlot('tabs-start') || h(), buttons, this.normalizeSlot('tabs-end') || h()]
