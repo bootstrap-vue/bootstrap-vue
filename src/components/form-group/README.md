@@ -110,14 +110,11 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
 <!-- b-form-group-horizontal.vue -->
 ```
 
-**Deprecation warning:** The props `horizontal` and `breakpoint` have been deprecated in favour of
-using the `label-cols` and `label-cols-{breakpoint}` props.
-
 ### Label size
 
 You can control the label text size match the size of your form input(s) via the optional
 `label-size` prop. Values can be `'sm'` or `'lg'` for small or large label, respectively. Sizes work
-for both `horizontal` and non-horizontal form groups.
+for both horizontal and non-horizontal form groups.
 
 ```html
 <div>
