@@ -208,17 +208,14 @@ Bootstrap includes validation styles for `valid` and `invalid` states on most fo
 
 Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` (or `false`) is great for when there's a blocking or required field. A user must fill
-  in this field properly to submit the form.
-- `'valid'` (or `true`) is ideal for situations when you have per-field validation throughout a form
-  and want to encourage a user through the rest of the fields.
-- `null` Displays no validation state
+- `false` (denotes invalid state) is great for when there's a blocking or required field. A user
+  must fill in this field properly to submit the form.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation
+  throughout a form and want to encourage a user through the rest of the fields.
+- `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop to:
-
-- The string `'invalid'` or boolean `false` for invalid contextual state
-- The string `'valid'` or boolean `true` for the valid contextual state
-- `null` for no validation contextual state (default)
+To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop to `false`
+(for invalid), `true` (for valid), or `null` (no validation state).
 
 ```html
 <b-container fluid>
@@ -314,16 +311,16 @@ text block.
 Specifically for assistive technologies, invalid form controls can also be assigned an
 `aria-invalid="true"` attribute.
 
-When `<b-form-input>` has an invalid contextual state (i.e. `'invalid'` or `false`) you may also
-want to set the `<b-form-input>` prop `aria-invalid` to `true`, or to one of the supported values:
+When `<b-form-input>` has an invalid contextual state (i.e. state is `false`) you may also want
+to set the `<b-form-input>` prop `aria-invalid` to `true`, or to one of the supported values:
 
 - `false`: Convey no errors detected (default)
 - `true` (or `'true'`): Convey that the value has failed validation.
 - `'grammar'` Convey that a grammatical error has been detected.
 - `'spelling'` Convey that a spelling error has been detected.
 
-If `aria-invalid` is not explicitly set and `state` is set to `false` (or `'invalid'`), then the
-`aria-invalid` attribute on the input will automatically be set to `'true'`;
+If `aria-invalid` is not explicitly set and `state` is set to `false`, then the `aria-invalid`
+attribute on the input will automatically be set to `'true'`;
 
 ## Formatter support
 
