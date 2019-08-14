@@ -223,7 +223,7 @@ See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable pane
 ## Card integration
 
 Use a `<b-nav>` in a [`<b-card>`](/docs/components/card) header, by enabling the `card-header`
-prop on `<b-nav>` and setting eitehr the `pills` or `tabs` props:
+prop on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 **Tabs style:**
 
