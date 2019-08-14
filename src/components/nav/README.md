@@ -170,10 +170,10 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
       toggle-class="nav-link-custom"
       right
     >
-      <b-dropdown-item>one</b-dropdown-item>
-      <b-dropdown-item>two</b-dropdown-item>
+      <b-dropdown-item>One</b-dropdown-item>
+      <b-dropdown-item>Two</b-dropdown-item>
       <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-item>three</b-dropdown-item>
+      <b-dropdown-item>Three</b-dropdown-item>
     </b-nav-item-dropdown>
   </b-nav>
 </div>
@@ -235,9 +235,9 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
       <b-nav-item-dropdown text="Dropdown" right>
-        <b-dropdown-item>one</b-dropdown-item>
-        <b-dropdown-item>two</b-dropdown-item>
-        <b-dropdown-item>three</b-dropdown-item>
+        <b-dropdown-item>One</b-dropdown-item>
+        <b-dropdown-item>Two</b-dropdown-item>
+        <b-dropdown-item>Three</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
 
@@ -262,9 +262,9 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
       <b-nav-item-dropdown text="Dropdown" right>
-        <b-dropdown-item>one</b-dropdown-item>
-        <b-dropdown-item>two</b-dropdown-item>
-        <b-dropdown-item>three</b-dropdown-item>
+        <b-dropdown-item>One</b-dropdown-item>
+        <b-dropdown-item>Two</b-dropdown-item>
+        <b-dropdown-item>Three</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
 
@@ -291,9 +291,9 @@ The `card-header` prop is only needed when you are applying `tabs` or `pills` st
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
       <b-nav-item-dropdown text="Dropdown" right>
-        <b-dropdown-item>one</b-dropdown-item>
-        <b-dropdown-item>two</b-dropdown-item>
-        <b-dropdown-item>three</b-dropdown-item>
+        <b-dropdown-item>One</b-dropdown-item>
+        <b-dropdown-item>Two</b-dropdown-item>
+        <b-dropdown-item>Three</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
 
