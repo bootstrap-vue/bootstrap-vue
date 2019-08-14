@@ -495,6 +495,58 @@ assistive technologies – such as screen readers. Ensure that information denot
 either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden with the `.sr-only` class.
 
+## Nav integration
+
+Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
+
+**Using the `header` slot**:
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header" card-header tabs>
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+    </b-nav>
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- card-with-nav-header-slot.vue -->
+```
+
+**Using `<b-card-header>` sub-component:**
+
+```html
+<div>
+  <b-card no-body>
+    <b-card-header>
+      <b-nav card-header tabs>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+      </b-nav>
+    </b-card-header>
+    <b-card-body class="text-center">
+      <b-card-title>Card Title</b-card-title>
+      <b-card-text>
+        With supporting text below as a natural lead-in to additional content.
+      </b-card-text>
+      <b-button variant="primary">Go somewhere</b-button>
+    </b-card-body>
+  </b-card>
+</div>
+
+<!-- card-with-nav-header-component.vue -->
+```
+
+For more information on using `<b-nav>` in card headers, refer to the
+[Navs documentation](/docs/components/nav).
+
 ## Card groups
 
 In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>` component
