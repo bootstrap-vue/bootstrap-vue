@@ -170,10 +170,10 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
       toggle-class="nav-link-custom"
       right
     >
-      <b-dropdown-item>one</b-dropdown-item>
-      <b-dropdown-item>two</b-dropdown-item>
+      <b-dropdown-item>One</b-dropdown-item>
+      <b-dropdown-item>Two</b-dropdown-item>
       <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-item>three</b-dropdown-item>
+      <b-dropdown-item>Three</b-dropdown-item>
     </b-nav-item-dropdown>
   </b-nav>
 </div>
@@ -219,6 +219,96 @@ render the menu contents only when it is shown by setting the `lazy` prop to tru
 
 See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable panes of local content
 (not suited for navigation).
+
+## Card integration
+
+Use a `<b-nav>` in a [`<b-card>`](/docs/components/card) header, by enabling the `card-header` prop
+on `<b-nav>` and setting either the `pills` or `tabs` props:
+
+**Tabs style:**
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header" card-header tabs>
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+      <b-nav-item-dropdown text="Dropdown" right>
+        <b-dropdown-item>One</b-dropdown-item>
+        <b-dropdown-item>Two</b-dropdown-item>
+        <b-dropdown-item>Three</b-dropdown-item>
+      </b-nav-item-dropdown>
+    </b-nav>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-tabs.vue -->
+```
+
+**Pill style:**
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header" card-header pills>
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+      <b-nav-item-dropdown text="Dropdown" right>
+        <b-dropdown-item>One</b-dropdown-item>
+        <b-dropdown-item>Two</b-dropdown-item>
+        <b-dropdown-item>Three</b-dropdown-item>
+      </b-nav-item-dropdown>
+    </b-nav>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-pills.vue -->
+```
+
+**Plain style:**
+
+The `card-header` prop is only needed when you are applying `tabs` or `pills` style.
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header">
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+      <b-nav-item-dropdown text="Dropdown" right>
+        <b-dropdown-item>One</b-dropdown-item>
+        <b-dropdown-item>Two</b-dropdown-item>
+        <b-dropdown-item>Three</b-dropdown-item>
+      </b-nav-item-dropdown>
+    </b-nav>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-plain.vue -->
+```
+
+The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
 
 ## Accessibility
 
