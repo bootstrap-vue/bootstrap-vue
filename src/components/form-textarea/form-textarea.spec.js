@@ -161,34 +161,10 @@ describe('form-textarea', () => {
     wrapper.destroy()
   })
 
-  it('has class is-valid when state=valid', async () => {
-    const wrapper = mount(BFormTextarea, {
-      propsData: {
-        state: 'valid'
-      }
-    })
-    expect(wrapper.classes()).toContain('is-valid')
-    expect(wrapper.classes()).not.toContain('is-invalid')
-
-    wrapper.destroy()
-  })
-
   it('has class is-invalid when state=false', async () => {
     const wrapper = mount(BFormTextarea, {
       propsData: {
         state: false
-      }
-    })
-    expect(wrapper.classes()).toContain('is-invalid')
-    expect(wrapper.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('has class is-invalid when state=invalid', async () => {
-    const wrapper = mount(BFormTextarea, {
-      propsData: {
-        state: 'invalid'
       }
     })
     expect(wrapper.classes()).toContain('is-invalid')
@@ -215,32 +191,10 @@ describe('form-textarea', () => {
     wrapper.destroy()
   })
 
-  it('does not have aria-invalid attribute when state=valid', async () => {
-    const wrapper = mount(BFormTextarea, {
-      propsData: {
-        state: 'valid'
-      }
-    })
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
-
-    wrapper.destroy()
-  })
-
   it('has aria-invalid attribute when state=false', async () => {
     const input = mount(BFormTextarea, {
       propsData: {
         state: false
-      }
-    })
-    expect(input.attributes('aria-invalid')).toBe('true')
-
-    input.destroy()
-  })
-
-  it('has aria-invalid attribute when state=invalid', async () => {
-    const input = mount(BFormTextarea, {
-      propsData: {
-        state: 'invalid'
       }
     })
     expect(input.attributes('aria-invalid')).toBe('true')

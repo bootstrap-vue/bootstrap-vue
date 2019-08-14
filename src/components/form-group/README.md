@@ -236,15 +236,14 @@ Bootstrap includes validation styles for `valid` and `invalid` states on most fo
 
 Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` is great for when there's a blocking or required field. A user must fill in this field
-  properly to submit the form.
-- `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
-  encourage a user through the rest of the fields.
-- `null` Displays no validation state
+- `false` (denotes invalid state) is great for when there's a blocking or required field. A user
+  must fill in this field properly to submit the form.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation
+  throughout a form and want to encourage a user through the rest of the fields.
+- `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual states on `<b-form-group>`, set the `state` prop to `'invalid'` (or
-`false`), `'valid'` (or `true`), or `null`. This will programmatically show the appropriate feedback
-text.
+To apply one of the contextual state icons on `<b-form-group>`, set the `state` prop to `false`
+(for invalid), `true` (for valid), or `null` (no validation state).
 
 Bootstrap v4 uses sibling CSS selectors of `:invalid` or `:valid` inputs to show the feedback text.
 Some form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
@@ -268,8 +267,6 @@ setting the prop `invalid-feedback` or using the named slot `invalid-feedback`.
 
 Invalid feedback is rendered using the
 [`<b-form-invalid-feedback>`](/docs/components/form#helper-components) form sub-component.
-
-**Note:** The prop `feedback` has been deprecated in favor of the `invalid-feedback` prop.
 
 ### Valid feedback
 
