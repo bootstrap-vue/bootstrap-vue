@@ -220,6 +220,75 @@ render the menu contents only when it is shown by setting the `lazy` prop to tru
 See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable panes of local content
 (not suited for navigation).
 
+## Card integration
+
+Use a `<b-nav>` in a [`<b-card>`](/docs/components/card) header, by enabling the `card-header`
+prop on `<b-nav>` and setting eitehr the `pills` or `tabs` props:
+
+**Tabs style:**
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header" card-header tabs>
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+    </b-nav>
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-tabs.vue -->
+```
+
+**Pill style:**
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header" card-header pills>
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+    </b-nav>
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-pills.vue -->
+```
+
+**Plain style:**
+
+The `card-header` prop is only needed when you are applying `tabs` or `pills` style.
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <b-nav slot="header">
+      <b-nav-item active>Active</b-nav-item>
+      <b-nav-item>Inactive</b-nav-item>
+      <b-nav-item disabled>Disabled</b-nav-item>
+    </b-nav>
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-plain.vue -->
+```
+
+The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
+
 ## Accessibility
 
 If you're using `<b-nav>` to provide a navigation bar, be sure to add a `role="navigation"` to the
