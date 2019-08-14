@@ -91,7 +91,7 @@ export const VBToggle = {
       setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
       setAttr(el, 'aria-expanded', 'false')
       // If element is not a button, we add `role="button"` for accessibility
-      if (el.tagName !== 'BUTTON' && !hasAttr(el, role)) {
+      if (el.tagName !== 'BUTTON' && !hasAttr(el, 'role')) {
         setAttr(el, 'role', 'button')
       }
 
