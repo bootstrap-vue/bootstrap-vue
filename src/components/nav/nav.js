@@ -35,6 +35,11 @@ export const props = {
   small: {
     type: Boolean,
     default: false
+  },
+  cardHeader: {
+    // Set to true if placing in a card header
+    type: Boolean,
+    default: false
   }
 }
 
@@ -58,7 +63,9 @@ export const BNav = /*#__PURE__*/ Vue.extend({
         staticClass: 'nav',
         class: {
           'nav-tabs': props.tabs,
-          'nav-pills': props.pills,
+          'nav-pills': props.pills && !props.tabs,
+          'card-header-tabs': props.cardHeader && props.tabs,
+          'card-header-pills': props.cardHeader && props.pills && !props.tabs,
           'flex-column': props.vertical,
           'nav-fill': !props.vertical && props.fill,
           'nav-justified': !props.vertical && props.justified,
