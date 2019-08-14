@@ -509,9 +509,11 @@ Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
     </b-nav>
+
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
     </b-card-text>
+
     <b-button variant="primary">Go somewhere</b-button>
   </b-card>
 </div>
@@ -531,11 +533,14 @@ Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
         <b-nav-item disabled>Disabled</b-nav-item>
       </b-nav>
     </b-card-header>
+
     <b-card-body class="text-center">
       <b-card-title>Card Title</b-card-title>
+
       <b-card-text>
         With supporting text below as a natural lead-in to additional content.
       </b-card-text>
+
       <b-button variant="primary">Go somewhere</b-button>
     </b-card-body>
   </b-card>
