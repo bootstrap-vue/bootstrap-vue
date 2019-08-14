@@ -13,8 +13,8 @@ export default {
   props: {
     state: {
       // Tri-state prop: true, false, null (or undefined)
-      type: Boolean
-      // default: null
+      type: Boolean,
+      default: null
     }
   },
   computed: {
