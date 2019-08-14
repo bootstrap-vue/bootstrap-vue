@@ -232,7 +232,7 @@ Generally speaking, you'll want to use a particular state for specific types of 
   throughout a form and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual state icons on `<b-form-checkbox>`, set the `state` prop to `false`
+To apply one of the contextual state icons on `<b-form-file>`, set the `state` prop to `false`
 (for invalid), `true` (for valid), or `null` (no validation state).
 
 **Note:** Contextual states are **not** supported when in button mode.
