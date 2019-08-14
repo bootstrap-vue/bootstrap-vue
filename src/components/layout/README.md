@@ -454,7 +454,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 
 Use `order-*` props for controlling the visual order of your content. These props are responsive, so
 you can set the order by breakpoint (e.g., `order="1" order-md="2"`). Includes support for 1 through
-12 across all five grid tiers.  `<b-col>` defaults to an order value of `0`.
+12 across all five grid tiers. `<b-col>` defaults to an order value of `0`.
 
 ```html
 <b-container fluid class="bv-example-row">
