@@ -222,8 +222,8 @@ See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable pane
 
 ## Card integration
 
-Use a `<b-nav>` in a [`<b-card>`](/docs/components/card) header, by enabling the `card-header`
-prop on `<b-nav>` and setting either the `pills` or `tabs` props:
+Use a `<b-nav>` in a [`<b-card>`](/docs/components/card) header, by enabling the `card-header` prop
+on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 **Tabs style:**
 
@@ -235,9 +235,11 @@ prop on `<b-nav>` and setting either the `pills` or `tabs` props:
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
     </b-nav>
+
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
     </b-card-text>
+
     <b-button variant="primary">Go somewhere</b-button>
   </b-card>
 </div>
@@ -255,9 +257,11 @@ prop on `<b-nav>` and setting either the `pills` or `tabs` props:
       <b-nav-item>Inactive</b-nav-item>
       <b-nav-item disabled>Disabled</b-nav-item>
     </b-nav>
+
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
     </b-card-text>
+
     <b-button variant="primary">Go somewhere</b-button>
   </b-card>
 </div>
