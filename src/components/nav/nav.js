@@ -64,8 +64,8 @@ export const BNav = /*#__PURE__*/ Vue.extend({
         class: {
           'nav-tabs': props.tabs,
           'nav-pills': props.pills && !props.tabs,
-          'card-header-tabs': props.cardHeader && props.tabs,
-          'card-header-pills': props.cardHeader && props.pills && !props.tabs,
+          'card-header-tabs': !props.vertical && props.cardHeader && props.tabs,
+          'card-header-pills': !props.vertical && props.cardHeader && props.pills && !props.tabs,
           'flex-column': props.vertical,
           'nav-fill': !props.vertical && props.fill,
           'nav-justified': !props.vertical && props.justified,
