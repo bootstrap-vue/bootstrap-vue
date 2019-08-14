@@ -232,9 +232,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // This computed prop is sniffed by the tab child
       return !this.noFade
     },
-    navStyle() {
-      return this.pills ? 'pills' : 'tabs'
-    },
     localNavClass() {
       const classes = []
       if (this.card && this.vertical) {
