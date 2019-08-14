@@ -798,10 +798,11 @@ function.
 
 ### Scoped field slots
 
-Scoped field slots give you greater control over how the record data appears. If you want to add an
-extra field which does not exist in the records, just add it to the `fields` array, And then
-reference the field(s) in the scoped slot(s). Scoped field slots use the following naming syntax:
-`'cell[' + field key + ']'`.
+Scoped field slots give you greater control over how the record data appears. You can use scoped
+slots to provided custom rendering for a particular field. If you want to add an extra field which
+does not exist in the records, just add it to the [`fields`](#fields-column-definitions) array,
+and then reference the field(s) in the scoped slot(s). Scoped field slots use the following naming
+syntax: `'cell[' + field key + ']'`.
 
 You can use the default _fall-back_ scoped slot `'cell[]'` to format any cells that do not have an
 explicit scoped slot provided.
