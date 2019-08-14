@@ -10,7 +10,7 @@ export default {
   computed: {
     isStacked() {
       // `true` when always stacked, or breakpoint specified
-      return this.stacked === '' ? true : Boolean(this.stacked)
+      return this.stacked === '' ? true : this.stacked
     },
     isStackedAlways() {
       return this.stacked === true || this.stacked === ''
