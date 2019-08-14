@@ -199,7 +199,7 @@ describe('nav', () => {
   it('applies card-header-pills class when pills and card-header props set', async () => {
     const wrapper = mount(BNav, {
       propsData: {
-        tabs: true,
+        pills: true,
         cardHeader: true
       }
     })
