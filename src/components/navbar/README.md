@@ -158,9 +158,6 @@ securely aligned.
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 - `<b-nav-form>` for adding simple forms to the navbar.
 
-**Note:** _The use of `<b-nav is-nav-bar>` inside a `<b-navbar>` has been deprecated. Use component
-`<b-navbar-nav>` instead._
-
 ### `<b-nav-item>`
 
 `<b-nav-item>` is the primary link (and `<router-link>`) component. Providing a `to` prop value will

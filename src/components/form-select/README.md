@@ -373,8 +373,6 @@ control the select width, place the input inside standard Bootstrap grid column.
 
 ## Autofocus
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
-
 When the `autofocus` prop is set on `<b-form-select>`, the select will be auto-focused when it is
 inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
 this prop **does not** set the `autofocus` attribute on the select.
@@ -385,14 +383,14 @@ Bootstrap includes validation styles for `valid` and `invalid` states on most fo
 
 Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` is great for when there's a blocking or required field. A user must fill in this field
-  properly to submit the form.
-- `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
-  encourage a user through the rest of the fields.
-- `null` Displays no validation state
+- `false` (denotes invalid state) is great for when there's a blocking or required field. A user
+  must fill in this field properly to submit the form.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation
+  throughout a form and want to encourage a user through the rest of the fields.
+- `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual states on `<b-form-select>`, set the `state` prop to `'invalid'` (or
-`false`), `'valid'` (or `true`), or `null`.
+To apply one of the contextual state icons on `<b-form-select>`, set the `state` prop to `false`
+(for invalid), `true` (for valid), or `null` (no validation state).
 
 ### Conveying contextual validation state to assistive technologies and colorblind users
 
@@ -402,20 +400,20 @@ screen readers - or to colorblind users.
 
 Ensure that an alternative indication of state is also provided. For instance, you could include a
 hint about state in the form control's `<label>` text itself, or by providing an additional help
-text block (via `<b-form-group>` or `<b-form-feedback>`). Specifically for assistive technologies,
+text block (via `<b-form-group>` or `<b-form-*-feedback>`). Specifically for assistive technologies,
 invalid form controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
 ### ARIA `aria-invalid` attribute:
 
-When `<b-form-select>` has an invalid contextual state (i.e. `invalid`) you may also want to set the
-`<b-form-select>` prop `aria-invalid` to `true`.
+When `<b-form-select>` has an invalid contextual state (i.e. state = `false`) you may also want to
+set the `<b-form-select>` prop `aria-invalid` to `true`.
 
 Supported `invalid` values are:
 
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
-When `state` is set to `invalid`, aria-invalid will also be set to true.
+When `state` is set to `false`, aria-invalid will also be set to true.
 
 ## Non custom select
 

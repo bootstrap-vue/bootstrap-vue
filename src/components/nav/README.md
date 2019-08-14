@@ -81,8 +81,6 @@ Make the nav smaller by setting the `small` prop.
 
 ## Fill and justify
 
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
-
 Force your `<b-nav>` content to extend the full available width.
 
 ### Fill
@@ -122,8 +120,6 @@ nav links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
 ```
 
 ## Alignment
-
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
 
 To align your `<b-nav-item>` components, use the `align` prop. Available values are `left`, `center`
 and `right`.
@@ -206,8 +202,6 @@ Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub
 
 ### Optionally scoped default slot
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
-
 The dropdown default slot is optionally scoped with the following scope available:
 
 | Property or Method | Description                                                                                                                      |
@@ -216,16 +210,10 @@ The dropdown default slot is optionally scoped with the following scope availabl
 
 ### Lazy dropdown
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
-
 By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even when the menu is not
 shown. When there are a large number of dropdowns rendered on the same page, performance could be
 impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
 render the menu contents only when it is shown by setting the `lazy` prop to true.
-
-## Using in navbar
-
-Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
 ## Tabbed local content support
 

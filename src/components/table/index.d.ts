@@ -151,6 +151,7 @@ export interface BvTableField {
   thStyle?: any
   variant?: BvTableVariant | string
   tdAttr?: any | ((value: any, key: string, item: any) => any)
+  thAttr?: any | ((value: any, key: string, item: any, type: string) => any)
   isRowHeader?: boolean
 }
 

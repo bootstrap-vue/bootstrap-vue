@@ -33,6 +33,19 @@ export default {
       }
       return defValue
     },
+    getThValues(item, key, thValue, type, defValue) {
+      const parent = this.$parent
+      if (thValue) {
+        const value = get(item, key, '')
+        if (isFunction(thValue)) {
+          return thValue(value, key, item, type)
+        } else if (isString(thValue) && isFunction(parent[thValue])) {
+          return parent[thValue](value, key, item, type)
+        }
+        return thValue
+      }
+      return defValue
+    },
     // Method to get the value for a field
     getFormattedValue(item, field) {
       const key = field.key
@@ -169,7 +182,9 @@ export default {
         },
         attrs: {
           'aria-colindex': String(colIndex + 1),
-          ...this.getTdValues(item, key, field.tdAttr, {})
+          ...(field.isRowHeader
+            ? this.getThValues(item, key, field.thAttr, 'row', {})
+            : this.getTdValues(item, key, field.tdAttr, {}))
         }
       }
       const slotScope = {
@@ -185,11 +200,11 @@ export default {
         // Add in rowSelected scope property if selectable rows supported
         slotScope.rowSelected = this.isRowSelected(rowIndex)
       }
-      // TODO:
-      //   Using `field.key` as scoped slot name is deprecated, to be removed in future release
-      //   New format uses the square bracketed naming convention
-      let $childNodes =
-        this.normalizeSlot([`[${key}]`, '[]', key], slotScope) || toString(formatted)
+      // The new `v-slot` syntax doesn't like a slot name starting with
+      // a square bracket and if using in-document HTML templates, the
+      // v-slot attributes are lower-cased by the browser.
+      const slotNames = [`cell[${key}]`, `cell[${key.toLowerCase()}]`, 'cell[]']
+      let $childNodes = this.normalizeSlot(slotNames, slotScope) || toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]

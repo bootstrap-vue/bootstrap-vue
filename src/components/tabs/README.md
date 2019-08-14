@@ -113,8 +113,6 @@ variant.
 
 ## Fill and justify
 
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
-
 Force your `<b-tabs>` controls to extend the full available width.
 
 ### Fill
@@ -155,8 +153,6 @@ the controls, but unlike using `fill` above, every control will be the same widt
 
 ## Alignment
 
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
-
 To align your tab controls, use the `align` prop. Available values are `left`, `center` and `right`.
 
 ```html
@@ -196,8 +192,6 @@ Visually move the tab controls to the bottom by setting the prop `end`.
 - To provide a better user experience with bottom placed controls, ensure that the content of each
   tab pane is the same height and fits completely within the visible viewport, otherwise the user
   will need to scroll up to read the start of the tabbed content.
-
-**Note:** _the `bottom` prop has been deprecated in favor of the `end` prop._
 
 ## Vertical tabs
 
@@ -287,8 +281,6 @@ Fade is enabled by default when changing tabs. It can disabled with `no-fade` pr
 
 ## Add tabs without content
 
-<span class="badge badge-wanting small">CHANGED in v2.0.0-rc.27</span>
-
 If you want to add extra tabs that do not have any content, you can put them in `tabs-start` or
 `tabs-end` slot(s):
 
@@ -311,8 +303,6 @@ Use the `tabs-start` slot to place extra tab buttons before the content tab butt
 
 **Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of
 `<li>` and class `nav-item` for proper rendering and semantic markup.
-
-**DEPRECATION:** The `tabs` slot has been deprecated. please use the `tabs-end` slot instead.
 
 ## Add custom content to tab title
 

@@ -37,11 +37,10 @@ via the `modal-header` slot, and override the footer completely via the `modal-f
 present. Also, if you use the `modal-header` slot, the default header `X` close button will not be
 present, nor can you use the `modal-title` slot.
 
-<span class="badge badge-warning small">CHANGED in 2.0.0-rc.20</span> Modals will not render their
-content in the document until they are shown (lazily rendered). Modals, when visible, are rendered
-**appended to the `<body>` element**. The placement of the `<b-modal>` component will not affect
-layout, as it always renders as a placeholder comment node (`<!---->`). You can revert to the
-behaviour of previous BootstrapVue versions via the use of the
+Modals will not render their content in the document until they are shown (lazily rendered). Modals,
+when visible, are rendered **appended to the `<body>` element**. The placement of the `<b-modal>`
+component will not affect layout, as it always renders as a placeholder comment node (`<!---->`).
+You can revert to the behaviour of previous BootstrapVue versions via the use of the
 [`static` prop](#lazy-loading-and-static-modals).
 
 ## Toggle modal visibility
@@ -74,8 +73,6 @@ additional code to implement this accessibility feature.
 See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
 When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue will
 inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal` exposes
@@ -381,8 +378,6 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 
 ## Lazy loading and static modals
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
-
 By default, modals will not render their content in the document until they are shown (lazily
 rendered). Modals that, when visible, are rendered appended to the `<body>` element. The `<b-modal>`
 component will not affect layout, as they render as a placeholder comment node (`<!---->`) in the
@@ -638,8 +633,6 @@ To disable both **Cancel** and **OK** buttons at the same time, simply set the `
 
 ### Custom rendering with slots
 
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.19</span>
-
 `<b-modal>` provides several named slots (of which some are optionally scoped) that you can use to
 customize the content of various sections of the modal.
 
@@ -740,8 +733,6 @@ component. This will hide the modal before another modal is shown.
   expected behaviour as each backdrop is opened over top the other modals and backdrops.
 
 ## Modal message boxes
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
 These methods provide a way to generate simple OK and Confirm style modal messages, from anywhere in
@@ -947,8 +938,6 @@ emitted.
 (tab) _focus containment_, and automated `aria-*` attributes.
 
 ### ARIA attributes
-
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.27</span>
 
 The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in
 most cases.

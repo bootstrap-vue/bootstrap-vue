@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Tabs",
-    "enhanced": true,
     "description": "Create a widget of tabbable panes of local content. The tabs component is built upon navs and cards internally, and provides full keyboard navigation control of the tabs.",
     "components": [
       {
@@ -42,10 +41,6 @@
           {
             "name": "tabs-end",
             "description": "Additional tab buttons without tab content placed after content tab buttons"
-          },
-          {
-            "name": "tabs",
-            "description": "Deprecated. Use 'tabs-end' instead. Additional tab buttons without tab content."
           },
           {
             "name": "empty",

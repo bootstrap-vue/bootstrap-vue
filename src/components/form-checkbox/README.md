@@ -169,8 +169,6 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 
 ## Control sizing
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Use the `size` prop to control the size of the checkbox. The default size is medium. Supported size
 values are `sm` (small) and `lg` (large).
 
@@ -406,8 +404,6 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 
 ### Switch sizing
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Use the `size` prop to control the size of the switch. The default size is medium. Supported size
 values are `sm` (small) and `lg` (large).
 
@@ -481,14 +477,14 @@ Bootstrap includes validation styles for `valid` and `invalid` states on most fo
 
 Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` (or `false`) is great for when there's a blocking or required field. A user must fill
-  in this field properly to submit the form.
-- `'valid'` (or `true`) is ideal for situations when you have per-field validation throughout a form
-  and want to encourage a user through the rest of the fields.
-- `null` Displays no validation state
+- `false` (denotes invalid state) is great for when there's a blocking or required field. A user
+  must fill in this field properly to submit the form.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation
+  throughout a form and want to encourage a user through the rest of the fields.
+- `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual state icons on `<b-form-checkbox>`, set the `state` prop to
-`'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
+To apply one of the contextual state icons on `<b-form-checkbox>`, set the `state` prop to `false`
+(for invalid), `true` (for valid), or `null` (no validation state).
 
 **Note:** Contextual states are **not** supported when in button mode.
 
@@ -546,8 +542,6 @@ enables native browser keyboard navigation), hence `required` will only work if 
 the group.
 
 ## Autofocus
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
 
 When the `autofocus` prop is set on `<b-form-checkbox>`, the input will be auto-focused when it is
 inserted into the document, or re-activated when inside a Vue `<keep-alive>` component. Note that

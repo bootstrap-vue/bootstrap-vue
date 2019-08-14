@@ -269,8 +269,6 @@ The special `blur` trigger **must** be used in combination with the `click` trig
 
 ### Variants and custom class
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
-
 BootstrapVue's popovers support contextual color variants via our custom CSS, via the `variant`
 prop:
 

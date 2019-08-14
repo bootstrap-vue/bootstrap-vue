@@ -1,22 +1,14 @@
 import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
-import warn from '../../../utils/warn'
 import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import stringifyRecordValues from './stringify-record-values'
 
-const DEPRECATION_MSG =
-  'Supplying a function to prop "filter" is deprecated. Use "filter-function" instead.'
-
 export default {
   props: {
     filter: {
-      // Passing a function to filter is deprecated and should be avoided
-      type: [String, RegExp, Object, Array, Function],
-      default: null,
-      // `deprecated` -> Don't use this prop
-      // `deprecation` -> Refers to a change in prop usage
-      deprecation: DEPRECATION_MSG
+      type: [String, RegExp, Object, Array],
+      default: null
     },
     filterFunction: {
       type: Function,
@@ -57,13 +49,6 @@ export default {
     },
     // Sanitized/normalized version of filter prop
     localFilter() {
-      // Deprecate setting prop filter to a function
-      // `localFilterFn` will contain the correct function ref
-      if (isFunction(this.filter)) {
-        /* istanbul ignore next */
-        return ''
-      }
-
       // Using internal filter function, which only accepts string or RegExp
       if (
         this.localFiltering &&
@@ -80,24 +65,8 @@ export default {
     },
     // Sanitized/normalize filter-function prop
     localFilterFn() {
-      const filterFn = this.filterFunction
-      const filter = this.filter
-
-      // Prefer `filterFn` prop
-      if (isFunction(filterFn)) {
-        return filterFn
-      }
-
-      // Deprecate setting `filter` prop to a function
-      if (isFunction(filter)) {
-        /* istanbul ignore next */
-        warn(`b-table: ${DEPRECATION_MSG}`)
-        /* istanbul ignore next */
-        return filter
-      }
-
-      // No `filterFunction`, so signal to use internal filter function
-      return null
+      // Return `null` to signal to use internal filter function
+      return isFunction(this.filterFunction) ? this.filterFunction : null
     },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting

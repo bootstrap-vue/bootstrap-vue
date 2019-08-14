@@ -151,8 +151,6 @@ classes applied.
 
 ### Custom radio, checkbox, and switch addons
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
-
 Using `<b-form-checkbox>` and `<b-form-radio>` components as addons, using Bootstrap
 [utility classes](/docs/reference/utility-classes) for additional styling to get them to "fit" in
 the addon:
@@ -276,8 +274,6 @@ the size on dropdowns.
 To control width, place the input inside standard Bootstrap grid column.
 
 ### Sizing custom radio, checkbox and switch addons
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.28</span>
 
 If using `<b-form-radio>` or `<b-form-checkbox>` as addons, additional utility classes may be
 required to make everything fit correctly, depending on the size chosen:

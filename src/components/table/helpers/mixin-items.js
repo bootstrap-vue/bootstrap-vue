@@ -12,8 +12,7 @@ export default {
       }
     },
     fields: {
-      // Object format is deprecated and should be avoided
-      type: [Array, Object],
+      type: Array,
       default: null
     },
     primaryKey: {
