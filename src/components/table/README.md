@@ -1986,9 +1986,9 @@ Setting the prop `filter` to null or an empty string will clear local items filt
 
 ### Debouncing filter criteria changes
 
-If you have a text input tied to the `filter` prop of `<b-table>` the filtering process will occur
+If you have a text input tied to the `filter` prop of `<b-table>`, the filtering process will occur
 for each character typed by the user. With large items datasets, this process can take a while and
-may cause the text input to be sluggish.
+may cause the text input to appear sluggish.
 
 To help alleviate this type of situation, `<b-table>` accepts a debounce timout value (in
 milliseconds) via the `filter-debounce` prop. The default is `0` (milliseconds). When a value
