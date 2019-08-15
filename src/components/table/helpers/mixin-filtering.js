@@ -94,6 +94,7 @@ export default {
       if (!newVal && this.filterTimer) {
         clearTimeout(this.filterTimer)
         this.filterTimer = null
+        this.localFilter = this.filter
       }
     },
     // Watch for changes to the filter criteria, and debounce if necessary
@@ -107,11 +108,11 @@ export default {
         // If we have a debounce time, delay the update of this.localFilter
         this.filterTimer = setTimeout(() => {
           this.filterTimer = null
-          this.localFilter = this.filter
+          this.localFilter = this.filterSanitize(this.filter)
         }, timeout)
       } else {
         // Otherwise, immediately update this.localFilter
-        this.localFilter = this.filter
+        this.localFilter = this.filterSanitize(this.filter)
       }
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
@@ -146,11 +147,11 @@ export default {
     // Create non-reactive prop
     // Where we store the debounce timer id
     this.filterTimer = null
-  },
-  created() {
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependants
-    this.localFilter = this.filter
+    this.localFilter = this.filterSanitize(this.filter)
+  },
+  created() {
     // Set the initial filtered state.
     // In a nextTick so that we trigger a filtered event if needed
     this.$nextTick(() => {
@@ -173,7 +174,8 @@ export default {
         !(isString(criteria) || isRegExp(criteria))
       ) {
         // If using internal filter function, which only accepts string or RegExp
-        return ''
+        // return null to signify no filter
+        return null
       }
 
       // Could be a string, object or array, as needed by external filter function
