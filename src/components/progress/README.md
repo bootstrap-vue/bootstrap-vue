@@ -13,7 +13,7 @@
       <b-progress-bar :value="value * (1.5 / 10)" variant="danger"></b-progress-bar>
     </b-progress>
 
-    <b-button class="mt-3" @click="rendomValue">Click me</b-button>
+    <b-button class="mt-3" @click="randomValue">Click me</b-button>
   </div>
 </template>
 
@@ -26,7 +26,7 @@
       }
     },
     methods: {
-      rendomValue() {
+      randomValue() {
         this.value = Math.random() * this.max
       }
     }
