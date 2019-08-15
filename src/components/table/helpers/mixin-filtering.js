@@ -157,6 +157,7 @@ export default {
     })
   },
   beforeDestroy() {
+    /* istanbul ignore next */
     if (this.filterTimer) {
       clearTimeout(this.filterTimer)
       this.filterTimer = null
