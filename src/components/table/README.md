@@ -1984,6 +1984,25 @@ When local filtering is applied, and the resultant number of items change, `<b-t
 
 Setting the prop `filter` to null or an empty string will clear local items filtering.
 
+### Debouncing filter criteria changes
+
+If you have a text input tied to the `filter` prop of `<b-table>` the filtering process will occur
+for each character typed by the user. With large items datasets, this process can take a while and
+may cause the text input to be sluggish.
+
+To help alleviate this type of situation, `<b-table>` accepts a debounce timout value (in
+milliseconds) via the `filter-debounce` prop. The default is `0` (milliseconds). When a value
+greater than `0` is provided, the filter will wait for that time before updating the table results.
+If the value of the `filter` prop changes before this timeout expires, the filtering will be once
+again delayed until the debounce timeout expires.
+
+When used, the sugested value of `filter-debounce` should be in the range of `100` to `200`
+milliseconds, but other values may be more suitable for your use case.
+
+The use of this prop can be beneficial when using provider filtering with
+[items provider functions](#using-items-provider-functions), to help reduce the number of calls to
+your back end API.
+
 ### Filtering notes
 
 See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
@@ -2173,6 +2192,9 @@ of records.
   `filter` props on `b-table` to trigger the provider update function call (unless you have the
   respective `no-provider-*` prop set to `true`).
 - The `no-local-sorting` prop has no effect when `items` is a provider function.
+- When using provider filtering, you may find that setting the
+  [`filter-debounce` prop](#debouncing-filter-criteria-changes) to a value greater than `100` ms
+  will help minimze the number of calls to your back end API as the user types in the criteria.
 
 ### Force refreshing of table data
 
