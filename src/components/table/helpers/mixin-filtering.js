@@ -66,6 +66,7 @@ export default {
     // Returns the original `localItems` array if not sorting
     filteredItems() {
       const items = this.localItems || []
+      // Note the criteria is debounced
       const criteria = this.localFilter
 
       // Resolve the filtering function, when requested
@@ -73,8 +74,6 @@ export default {
       // When no filtering criteria is specified the filtering factories will return `null`
       let filterFn = null
       if (this.localFiltering) {
-        // Note the criteria is debounced
-        const criteria = this.localFilter
         filterFn =
           this.filterFnFactory(this.localFilterFn, criteria) ||
           this.defaultFilterFnFactory(criteria)
