@@ -106,6 +106,7 @@ export default {
       if (timeout) {
         // If we have a debounce time, delay the update of this.localFilter
         this.filterTimer = setTimeout(() => {
+          this.filterTimer = null
           this.localFilter = this.filter
         }, timeout)
       } else {
