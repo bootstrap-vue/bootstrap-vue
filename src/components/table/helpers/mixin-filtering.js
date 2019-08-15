@@ -143,15 +143,12 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    // Create non-reactive prop
-    // Where we store the debounce timer id
+  created() {
+    // Create non-reactive prop where we store the debounce timer id
     this.filterTimer = null
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependants
     this.localFilter = this.filterSanitize(this.filter)
-  },
-  created() {
     // Set the initial filtered state.
     // In a nextTick so that we trigger a filtered event if needed
     this.$nextTick(() => {
