@@ -32,7 +32,7 @@ export default {
     return {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
-      // Where we store the copy of the (sanitized) filter citeria (after debouncing)
+      // Where we store the copy of the filter citeria after debouncing
       localFilter: null
     }
   },
@@ -67,7 +67,7 @@ export default {
     filteredItems() {
       const items = this.localItems || []
       // Note the criteria is debounced
-      const criteria = this.localFilter
+      const criteria = this.filterSanitize(this.localFilter)
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
@@ -106,11 +106,11 @@ export default {
       if (timeout) {
         // If we have a debounce time, delay the update of this.localFilter
         this.filterTimer = setTimeout(() => {
-          this.localFilter = this.filterSanitize(this.filter)
+          this.localFilter = this.filter
         }, timeout)
       } else {
         // Otherwise, immediately update this.localFilter
-        this.localFilter = this.filterSanitize(this.filter)
+        this.localFilter = this.filter
       }
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
@@ -149,7 +149,7 @@ export default {
   created() {
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependants
-    this.localFilter = this.filterSanitize(this.filter)
+    this.localFilter = this.filter
     // Set the initial filtered state.
     // In a nextTick so that we trigger a filtered event if needed
     this.$nextTick(() => {
