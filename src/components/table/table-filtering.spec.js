@@ -256,7 +256,7 @@ describe('table > filtering', () => {
     expect(wrapper.vm.filterTimer).toBe(null)
 
     // Set filter to a single character
-    wrapper.setprops({
+    wrapper.setProps({
       filter: '1'
     })
     await waitNT(wrapper.vm)
@@ -264,7 +264,7 @@ describe('table > filtering', () => {
     expect(wrapper.vm.filterTimer).not.toBe(null)
 
     // Change filter
-    wrapper.setprops({
+    wrapper.setProps({
       filter: 'z'
     })
     await waitNT(wrapper.vm)
