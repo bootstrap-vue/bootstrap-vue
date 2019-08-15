@@ -49,14 +49,13 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields || []
 
-      if (this.isStacked === true || fields.length === 0) {
+      if (this.isStackedAlways || fields.length === 0) {
         // In always stacked mode, we don't bother rendering the head/foot.
         // Or if no field headings (empty table)
         return h()
       }
 
       // Helper function to generate a field <th> cell
-      // TODO: This should be moved into it's own mixin
       const makeCell = (field, colIndex) => {
         let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
