@@ -294,7 +294,7 @@ describe('table > filtering', () => {
     expect(wrapper.vm.filterTimer).toBe(null)
     // Should immediately filter the items
     expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[1][0]).toEqual([testItems[1]])
+    expect(wrapper.emitted('input')[2][0]).toEqual([testItems[1]])
 
     wrapper.destroy()
   })
