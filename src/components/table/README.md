@@ -2,7 +2,7 @@
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
 > rendering, various style options, events, and asynchronous data. For simple display of tabular
-> data without all the fancy features, BootstrapVue provides lightweight alternative components
+> data without all the fancy features, BootstrapVue provides two lightweight alternative components
 > [`<b-table-lite>`](#light-weight-tables) and [`<b-table-simple>`](#simple-tables).
 
 **Example: Basic usage**
