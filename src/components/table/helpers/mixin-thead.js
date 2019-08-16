@@ -79,6 +79,8 @@ export default {
         }
         const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
         const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
+        const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
+        const clearSelected = this.isSelectable ? this.clearSelected : () => {}
         const data = {
           key: field.key,
           class: [this.fieldClasses(field), sortClass],
@@ -116,7 +118,10 @@ export default {
           label: field.label,
           column: field.key,
           field,
-          isFoot
+          isFoot,
+          // Add in row select methods
+          selectAllRows,
+          clearSelected
         })
         if (!slot) {
           // need to check if this will work
@@ -135,7 +140,10 @@ export default {
       } else {
         const scope = {
           columns: fields.length,
-          fields: fields
+          fields: fields,
+          // Add in row select methods
+          selectAllRows,
+          clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
         $trs.push(h(BTr, { class: this.theadTrClass }, $cells))
