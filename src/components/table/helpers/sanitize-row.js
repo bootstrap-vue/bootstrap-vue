@@ -17,12 +17,11 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
       const f = fieldsObj[key] || {}
       const val = row[key]
       const filterByFormatted = f.filterByFormatted
-      const formatter =
-        isFunction(filterByFormatted)
-          ? filterByFormatted
-          : filterByFormatted
-            ? this.getFieldFormatter(key)
-            : null
+      const formatter = isFunction(filterByFormatted)
+        ? filterByFormatted
+        : filterByFormatted
+          ? this.getFieldFormatter(key)
+          : null
       obj[key] = formatter ? formatter(val, key, row) : val
     }
     return obj
