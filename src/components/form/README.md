@@ -337,10 +337,9 @@ of three contextual states:
 
 - `false` (denotes invalid state) is great for when there's a blocking or required field. A user
   must fill in this field properly to submit the form.
-- `true` (denotes valid state) is ideal for situations when you have per-field validation
-  throughout a form and want to encourage a user through the rest of the fields.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation throughout
+  a form and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state (neither valid nor invalid)
-
 
 Refer to the
 [Bootstrap v4 Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)
