@@ -209,6 +209,13 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
 <!-- b-carousel-no-animation.vue -->
 ```
 
+## Slide wraping
+
+Normally when the carousel reaches one end or the other in the list of slides, it will wrap
+to the opposite end of the list of slides and continue cycling.
+
+To disable carousel slide wraping, set the `no-wrap` prop to true.
+
 ## Hide slide text content on small screens
 
 On smaller screens you may want to hide the captions and headings. You can do so via the
