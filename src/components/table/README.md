@@ -800,8 +800,8 @@ function.
 
 Scoped field slots give you greater control over how the record data appears. You can use scoped
 slots to provided custom rendering for a particular field. If you want to add an extra field which
-does not exist in the records, just add it to the [`fields`](#fields-column-definitions) array,
-and then reference the field(s) in the scoped slot(s). Scoped field slots use the following naming
+does not exist in the records, just add it to the [`fields`](#fields-column-definitions) array, and
+then reference the field(s) in the scoped slot(s). Scoped field slots use the following naming
 syntax: `'cell[' + field key + ']'`.
 
 You can use the default _fall-back_ scoped slot `'cell[]'` to format any cells that do not have an
@@ -1996,7 +1996,7 @@ greater than `0` is provided, the filter will wait for that time before updating
 If the value of the `filter` prop changes before this timeout expires, the filtering will be once
 again delayed until the debounce timeout expires.
 
-When used, the sugested value of `filter-debounce` should be in the range of `100` to `200`
+When used, the suggested value of `filter-debounce` should be in the range of `100` to `200`
 milliseconds, but other values may be more suitable for your use case.
 
 The use of this prop can be beneficial when using provider filtering with
@@ -2194,7 +2194,7 @@ of records.
 - The `no-local-sorting` prop has no effect when `items` is a provider function.
 - When using provider filtering, you may find that setting the
   [`filter-debounce` prop](#debouncing-filter-criteria-changes) to a value greater than `100` ms
-  will help minimze the number of calls to your back end API as the user types in the criteria.
+  will help minimize the number of calls to your back end API as the user types in the criteria.
 
 ### Force refreshing of table data
 
