@@ -21,12 +21,19 @@ export default {
     filterIncludedFields: {
       type: Array
       // default: undefined
+    },
+    filterDebounce: {
+      type: [Number, String],
+      default: 0,
+      validator: val => /^\d+/.test(String(val))
     }
   },
   data() {
     return {
       // Flag for displaying which empty slot to show and some event triggering
-      isFiltered: false
+      isFiltered: false,
+      // Where we store the copy of the filter citeria after debouncing
+      localFilter: null
     }
   },
   computed: {
@@ -35,6 +42,9 @@ export default {
     },
     computedFilterIncluded() {
       return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
+    },
+    computedFilterDebounce() {
+      return parseInt(this.filterDebounce, 10) || 0
     },
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
@@ -47,22 +57,6 @@ export default {
         localFilter: this.localFilter
       }
     },
-    // Sanitized/normalized version of filter prop
-    localFilter() {
-      // Using internal filter function, which only accepts string or RegExp
-      if (
-        this.localFiltering &&
-        !isFunction(this.filterFunction) &&
-        !(isString(this.filter) || isRegExp(this.filter))
-      ) {
-        return ''
-      }
-
-      // Could be a string, object or array, as needed by external filter function
-      // We use `cloneDeep` to ensure we have a new copy of an object or array
-      // without Vue reactive observers
-      return cloneDeep(this.filter)
-    },
     // Sanitized/normalize filter-function prop
     localFilterFn() {
       // Return `null` to signal to use internal filter function
@@ -72,13 +66,14 @@ export default {
     // Returns the original `localItems` array if not sorting
     filteredItems() {
       const items = this.localItems || []
+      // Note the criteria is debounced
+      const criteria = this.filterSanitize(this.localFilter)
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
       // When no filtering criteria is specified the filtering factories will return `null`
       let filterFn = null
       if (this.localFiltering) {
-        const criteria = this.localFilter
         filterFn =
           this.filterFnFactory(this.localFilterFn, criteria) ||
           this.defaultFilterFnFactory(criteria)
@@ -94,6 +89,32 @@ export default {
     }
   },
   watch: {
+    // Watch for debounce being set to 0
+    computedFilterDebounce(newVal, oldVal) {
+      if (!newVal && this.filterTimer) {
+        clearTimeout(this.filterTimer)
+        this.filterTimer = null
+        this.localFilter = this.filter
+      }
+    },
+    // Watch for changes to the filter criteria, and debounce if necessary
+    filter(newFilter, oldFilter) {
+      const timeout = this.computedFilterDebounce
+      if (this.filterTimer) {
+        clearTimeout(this.filterTimer)
+        this.filterTimer = null
+      }
+      if (timeout) {
+        // If we have a debounce time, delay the update of this.localFilter
+        this.filterTimer = setTimeout(() => {
+          this.filterTimer = null
+          this.localFilter = this.filterSanitize(this.filter)
+        }, timeout)
+      } else {
+        // Otherwise, immediately update this.localFilter
+        this.localFilter = this.filterSanitize(this.filter)
+      }
+    },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
     filteredCheck({ filteredItems, localItems, localFilter }) {
@@ -123,13 +144,42 @@ export default {
     }
   },
   created() {
+    // Create non-reactive prop where we store the debounce timer id
+    this.filterTimer = null
+    // If filter is "pre-set", set the criteria
+    // This will trigger any watchers/dependants
+    this.localFilter = this.filterSanitize(this.filter)
     // Set the initial filtered state.
     // In a nextTick so that we trigger a filtered event if needed
     this.$nextTick(() => {
       this.isFiltered = Boolean(this.localFilter)
     })
   },
+  beforeDestroy() {
+    /* istanbul ignore next */
+    if (this.filterTimer) {
+      clearTimeout(this.filterTimer)
+      this.filterTimer = null
+    }
+  },
   methods: {
+    filterSanitize(criteria) {
+      // Sanitizes filter criteria based on internal or external filtering
+      if (
+        this.localFiltering &&
+        !isFunction(this.filterFunction) &&
+        !(isString(criteria) || isRegExp(criteria))
+      ) {
+        // If using internal filter function, which only accepts string or RegExp
+        // return null to signify no filter
+        return null
+      }
+
+      // Could be a string, object or array, as needed by external filter function
+      // We use `cloneDeep` to ensure we have a new copy of an object or array
+      // without Vue's reactive observers
+      return cloneDeep(criteria)
+    },
     // Filter Function factories
     filterFnFactory(filterFn, criteria) {
       // Wrapper factory for external filter functions
