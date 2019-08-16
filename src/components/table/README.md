@@ -243,8 +243,8 @@ The following field properties are recognized:
 | `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                                                                                                |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                                                                                                          |
 | `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                       |
-| `sortByFormatted`   | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Sort the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                  |
-| `filterByFormatted` | Boolean                     | <span class="badge badge-info small">NEW in 2.0.0-rc.28</span> Filter the column by the result of the field's `formatter` callback function. Default is `false`. Has no effect if the field does not have a `formatter`. Refer to the [Filtering](#filtering) section for more details.                                                                                                                                            |
+| `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function whem set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value before sorting. Refer to the [Sorting](#sorting) Section for more details.                                                                                              |
+| `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function whem set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value before filtering. Refer to the [Filtering](#filtering) section for more details.                                                                                      |
 | `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead. The function will be called as `tdClass( value, key, item )` and it may return an `Array` or `String`.                                                                                                                                            |
 | `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                                                                                                                               |
 | `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                                                                                                                                   |
@@ -1729,9 +1729,10 @@ if it is an object and then sorted.
   data: scoped slots are used only for _presentation only_, and do not affect the underlying data.
 - Fields that have a [`formatter` function](#formatter-callback) (virtual field or regular field)
   can be sorted by the value returned via the formatter function if the
-  [field](#field-definition-reference) property `sortByFormatted` is set to `true`. The default is
-  `false` which will sort by the original field value. This is only applicable for the built-in
-  sort-compare routine.
+  [field](#field-definition-reference) property `sortByFormatted` is set to `true`. Optionally you
+  can pass a formatter function reference to `sortByFormatted` to format the value before sorting.
+  The default is `false` which will sort by the original field value. This is only applicable for
+  the built-in sort-compare routine.
 - By default, the internal sorting routine will sort `null`, `undefined`, or empty string values
   first (less than any other values). To sort so that `null`, `undefined` or empty string values
   appear last (greater than any other value), set the `sort-null-last` prop to `true`.
@@ -1818,11 +1819,13 @@ optional:
 - the third argument is the field `key` being sorted on (`sortBy`)
 - the fourth argument (`sortDesc`) is the order `<b-table>` will be displaying the records (`true`
   for descending, `false` for ascending)
-- the fifth argument is a reference to the field's [formatter function](#formatter-callback) (or
-  `undefined` if no field formatter). You will need to call this method to get the formatted field
+- the fifth argument is a reference to the field's [formatter function](#formatter-callback) or
+  the field's `filterByFormatted` value if it is a function reference. If not formatter is found
+  this value will be `undefined`. You will need to call this method to get the formatted field
   value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
-  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property is
-  not `true`
+  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property
+  is not `true` or is not a formatter function _referene_, or the fields formatter function cannot
+  be found.
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)
@@ -1843,7 +1846,7 @@ Your custom sort-compare routine can also return `null` or `false`, to fall back
 sort-compare routine_ for the particular `key`. You can use this feature (i.e. by returning `null`)
 to have your custom sort-compare routine handle _only_ certain fields (keys) such as the special
 case of virtual (scoped slot) columns, and have the internal (built in) sort-compare handle all
-other fields.
+_other_ fields.
 
 The default sort-compare routine works similar to the following. Note the fourth argument (sorting
 direction) is **not** used in the sort comparison:
@@ -1950,7 +1953,9 @@ There are several options for controlling what data the filter is applied agains
 - Normally, `<b-table>` filters based on the stringified record data. If the field has a `formatter`
   function specified, you can optionally filter based on the result of the formatter by setting the
   [field definition property](#field-definition-reference) `filterByFormatted` to `true`. If the
-  field does not have a formatter function, this option is ignored.
+  field does not have a formatter function, this option is ignored. You can optionally pass a
+  formatter function _reference_, to be used for filtering only, to the field definition property
+  `filterByFormatted`.
 
 The props `filter-ignored-fields` and `filter-included-fields`, and the field definition property
 `filterByFormatted` have no effect when using a [custom filter function](#custom-filter-function),
