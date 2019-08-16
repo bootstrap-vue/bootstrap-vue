@@ -243,8 +243,8 @@ The following field properties are recognized:
 | `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                                                                                                |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                                                                                                          |
 | `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                       |
-| `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function whem set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value before sorting. Refer to the [Sorting](#sorting) Section for more details.                                                                                              |
-| `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function whem set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value before filtering. Refer to the [Filtering](#filtering) section for more details.                                                                                      |
+| `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value before sorting. Refer to the [Sorting](#sorting) Section for more details.                                                                                              |
+| `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value before filtering. Refer to the [Filtering](#filtering) section for more details.                                                                                      |
 | `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead. The function will be called as `tdClass( value, key, item )` and it may return an `Array` or `String`.                                                                                                                                            |
 | `thClass`           | String or Array             | Class name (or array of class names) to add to this field's `<thead>`/`<tfoot>` heading `<th>` cell.                                                                                                                                                                                                                                                                                                                               |
 | `thStyle`           | Object                      | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.                                                                                                                                                                                                                                                                                                                   |
@@ -800,8 +800,8 @@ function.
 
 Scoped field slots give you greater control over how the record data appears. You can use scoped
 slots to provided custom rendering for a particular field. If you want to add an extra field which
-does not exist in the records, just add it to the [`fields`](#fields-column-definitions) array,
-and then reference the field(s) in the scoped slot(s). Scoped field slots use the following naming
+does not exist in the records, just add it to the [`fields`](#fields-column-definitions) array, and
+then reference the field(s) in the scoped slot(s). Scoped field slots use the following naming
 syntax: `'cell[' + field key + ']'`.
 
 You can use the default _fall-back_ scoped slot `'cell[]'` to format any cells that do not have an
@@ -1819,13 +1819,13 @@ optional:
 - the third argument is the field `key` being sorted on (`sortBy`)
 - the fourth argument (`sortDesc`) is the order `<b-table>` will be displaying the records (`true`
   for descending, `false` for ascending)
-- the fifth argument is a reference to the field's [formatter function](#formatter-callback) or
-  the field's `filterByFormatted` value if it is a function reference. If not formatter is found
-  this value will be `undefined`. You will need to call this method to get the formatted field
-  value: `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to
-  sort by the formatted value. This will be `undefined` if the field's `sortByFormatted` property
-  is not `true` or is not a formatter function _referene_, or the fields formatter function cannot
-  be found.
+- the fifth argument is a reference to the field's [formatter function](#formatter-callback) or the
+  field's `filterByFormatted` value if it is a function reference. If not formatter is found this
+  value will be `undefined`. You will need to call this method to get the formatted field value:
+  `valA = formatter(a[key], key, a)` and `valB = formatter(b[key], key, b)`, if you need to sort by
+  the formatted value. This will be `undefined` if the field's `sortByFormatted` property is not
+  `true` or is not a formatter function _reference_, or the fields formatter function cannot be
+  found.
 - the sixth argument is the value of the `sort-compare-options` prop (default is
   `{ numeric: true }`)
 - the seventh argument is the value of the `sort-compare-locale` prop (default is `undefined`)

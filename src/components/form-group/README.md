@@ -238,12 +238,12 @@ Generally speaking, you'll want to use a particular state for specific types of 
 
 - `false` (denotes invalid state) is great for when there's a blocking or required field. A user
   must fill in this field properly to submit the form.
-- `true` (denotes valid state) is ideal for situations when you have per-field validation
-  throughout a form and want to encourage a user through the rest of the fields.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation throughout
+  a form and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual state icons on `<b-form-group>`, set the `state` prop to `false`
-(for invalid), `true` (for valid), or `null` (no validation state).
+To apply one of the contextual state icons on `<b-form-group>`, set the `state` prop to `false` (for
+invalid), `true` (for valid), or `null` (no validation state).
 
 Bootstrap v4 uses sibling CSS selectors of `:invalid` or `:valid` inputs to show the feedback text.
 Some form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
