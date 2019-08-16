@@ -55,6 +55,10 @@ export default {
         return h()
       }
 
+      // Refernce to `selectAllRows` and `clearSelected()`, if table is Selectable
+      const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
+      const clearSelected = this.isSelectable ? this.clearSelected : () => {}
+
       // Helper function to generate a field <th> cell
       const makeCell = (field, colIndex) => {
         let ariaLabel = null
@@ -79,8 +83,6 @@ export default {
         }
         const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
         const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
-        const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
-        const clearSelected = this.isSelectable ? this.clearSelected : () => {}
         const data = {
           key: field.key,
           class: [this.fieldClasses(field), sortClass],
