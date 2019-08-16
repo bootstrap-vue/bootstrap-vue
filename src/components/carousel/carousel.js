@@ -118,6 +118,11 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    noWrap: {
+      // Disable wrapping/lloping when start/end is reached
+      type: Boolean,
+      default: false
+    },
     noTouch: {
       // Sniffed by carousel-slide
       type: Boolean,
@@ -160,10 +165,15 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       touchDeltaX: 0
     }
   },
+  computed: {
+    numSlides() {
+      return this.slides.length
+    }
+  },
   watch: {
     value(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.setSlide(newVal)
+        this.setSlide(parseInt(newVal, 10) || 0)
       }
     },
     interval(newVal, oldVal) {
@@ -230,9 +240,12 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       if (isBrowser && document.visibilityState && document.hidden) {
         return
       }
-      const len = this.slides.length
+      const noWrap = this.noWrap
+      const numSlides = this.numSlides
+      // Make sure we have an integer (you never know!)
+      slide = Math.floor(slide)
       // Don't do anything if nothing to slide to
-      if (len === 0) {
+      if (numSlides === 0) {
         return
       }
       // Don't change slide while transitioning, wait until transition is done
@@ -242,10 +255,17 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         return
       }
       this.direction = direction
-      // Make sure we have an integer (you never know!)
-      slide = Math.floor(slide)
       // Set new slide index. Wrap around if necessary
-      this.index = slide >= len ? 0 : slide >= 0 ? slide : len - 1
+      this.index = slide >= numSlides
+        ? (noWrap ? numSlides - 1 : 0)
+        : slide < 0
+          ? (noWrap ? 0 : numSlides - 1)
+          : slide
+      if (noWrap && this.index !== slide && this.index !== this.value) {
+        // Ensure the v-model is synched up if no-wrap is enabled
+        // and user tried to slide pass eitehr ends
+        this.$emit('input', this.index)
+      }
     },
     // Previous slide
     prev() {
@@ -276,7 +296,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this._intervalId = null
       }
       // Don't start if no interval, or less than 2 slides
-      if (this.interval && this.slides.length > 1) {
+      if (this.interval && this.numSlides > 1) {
         this._intervalId = setInterval(this.next, Math.max(1000, this.interval))
       }
     },
