@@ -27,6 +27,7 @@ const appDef = {
           controls: this.controls,
           fade: this.fade,
           noAnimation: this.noAnimation,
+          noWrap: this.noWrap,
           value: this.value
         }
       },
@@ -1073,6 +1074,7 @@ describe('carousel', () => {
       propsData: {
         interval: 0,
         fade: false,
+        // Transitions (or fallback timers) are not used when no-animation set
         noAnimation: true,
         noWrap: true,
         indicators: true,
@@ -1100,7 +1102,6 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
 
-    // Transitions (or fallback timers) are not used when no-animation set
     // Call vm.next()
     $carousel.vm.next()
     await waitNT(wrapper.vm)
@@ -1108,7 +1109,7 @@ describe('carousel', () => {
     // Should not slide to start
     expect($carousel.emitted('sliding-start')).not.toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    // Should have index of 3
+    // Should have index of 3 (no input event emitted since value set to 3)
     expect($carousel.emitted('input')).not.toBeDefined()
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
@@ -1122,6 +1123,7 @@ describe('carousel', () => {
     // Should have index set to 2
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(2)
     expect($carousel.emitted('sliding-end')[0][0]).toEqual(2)
+    expect($carousel.emitted('input')).toBeDefined()
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(2)
     expect($carousel.vm.index).toBe(2)
