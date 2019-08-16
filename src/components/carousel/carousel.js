@@ -268,7 +268,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
             : slide
       if (noWrap && this.index !== slide && this.index !== this.value) {
         // Ensure the v-model is synched up if no-wrap is enabled
-        // and user tried to slide pass eitehr ends
+        // and user tried to slide pass either ends
         this.$emit('input', this.index)
       }
     },
