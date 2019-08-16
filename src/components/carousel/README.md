@@ -233,6 +233,43 @@ disable touch control, set the `no-touch` prop to `true`.
 Programmatically control which slide is showing via `v-model` (which binds to the `value` prop).
 Note, that slides are indexed starting at `0`.
 
+## Programmatic slide control
+
+The `<b-carousel>` instance provides several public methods for controlling sliding:
+
+| Method            | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| `setSlide(index)` | Go to slide specified by `index`                        |
+| `next()`          | Go to next slide                                        |
+| `prev()`          | Go to previous slide                                    |
+| `pause()`         | Pause the slide cycling                                 |
+| `start()`         | Start slide cycling (prop `interval` must have a value) |
+
+You will need a reference (via `this.$refs`) to the carousel instance in order to call these
+methods:
+
+```html
+<template>
+  <b-carousel ref="myCarousel" .... >
+    <!-- slides go here -->
+  </b-carousel>
+</template>
+
+<script>
+  export default {
+    // ...
+    methods: {
+      prev() {
+        this.$refs.myCarousel.prev()
+      },
+      next() {
+        this.$refs.myCarousel.next()
+      }
+    }
+  }
+</script>
+```
+
 ## Accessibility
 
 Carousels are generally not fully compliant with accessibility standards, although we try to make
