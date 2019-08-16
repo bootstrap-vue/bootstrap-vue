@@ -255,12 +255,17 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         return
       }
       this.direction = direction
-      // Set new slide index. Wrap around if necessary
-      this.index = slide >= numSlides
-        ? (noWrap ? numSlides - 1 : 0)
-        : slide < 0
-          ? (noWrap ? 0 : numSlides - 1)
-          : slide
+      // Set new slide index. Wrap around if necessary (if no-wrap not enabled)
+      this.index =
+        slide >= numSlides
+          ? noWrap
+            ? numSlides - 1
+            : 0
+          : slide < 0
+            ? noWrap
+              ? 0
+              : numSlides - 1
+            : slide
       if (noWrap && this.index !== slide && this.index !== this.value) {
         // Ensure the v-model is synched up if no-wrap is enabled
         // and user tried to slide pass eitehr ends
