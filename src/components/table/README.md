@@ -1070,11 +1070,13 @@ footer cells that do not have an explicit scoped slot provided.
 The slots can be optionally scoped (`data` in the above example), and will have the following
 properties:
 
-| Property | Type   | Description                                                   |
-| -------- | ------ | ------------------------------------------------------------- |
-| `column` | String | The fields's `key` value                                      |
-| `field`  | Object | the field's object (from the `fields` prop)                   |
-| `label`  | String | The fields label value (also available as `data.field.label`) |
+| Property        | Type   | Description                                                                               |
+| --------------- | ------ | ----------------------------------------------------------------------------------------- |
+| `column`        | String | The fields's `key` value                                                                  |
+| `field`         | Object | the field's object (from the `fields` prop)                                               |
+| `label`         | String | The fields label value (also available as `data.field.label`)                             |
+| `selectAllRows` | Method | Select all rows (applicable if the table is in [`selectable`](#row-select-support) mode   |
+| `clearSelected` | Method | Unselect all rows (applicable if the table is in [`selectable`](#row-select-support) mode |
 
 When placing inputs, buttons, selects or links within a `HEAD[...]` or `FOOT[...]` slot, note that
 `head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
@@ -1138,10 +1140,12 @@ rather than native browser table child elements.
 
 Slot `thead-top` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                   |
-| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+| Property        | Type   | Description                                                                               |
+| --------------- | ------ | ----------------------------------------------------------------------------------------- |
+| `columns`       | Number | The number of columns in the rendered table                                               |
+| `fields`        | Array  | Array of field definition objects (normalized to the array of objects format)             |
+| `selectAllRows` | Method | Select all rows (applicable if the table is in [`selectable`](#row-select-support) mode   |
+| `clearSelected` | Method | Unselect all rows (applicable if the table is in [`selectable`](#row-select-support) mode |
 
 ## Custom empty and emptyfiltered rendering via slots
 
