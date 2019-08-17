@@ -11,19 +11,21 @@ export const BVPopoverTemplate = Vue.extend({
       return 'popover'
     }
   },
-  render(h) {
-    return h(
-      'div',
-      {
-        staticClass: 'popover b-popover',
-        class: this.classes,
-        attrs: this.attributes
-      },
-      [
-        h('div', { staticClass: 'arrow' }),
-        this.title ? h('h3', { staticClass: 'popover-header' }, this.title) : h(),
-        this.content ? h('div', { staticClass: 'popover-body' }, this.content) : h()
-      ]
-    )
+  methods: {
+    renderTemplate(h) {
+      return h(
+        'div',
+        {
+          staticClass: 'popover b-popover',
+          class: this.templateClasses,
+          attrs: this.templateAttributes
+        },
+        [
+          h('div', { staticClass: 'arrow' }),
+          this.title ? h('h3', { staticClass: 'popover-header' }, this.title) : h(),
+          this.content ? h('div', { staticClass: 'popover-body' }, this.content) : h()
+        ]
+      )
+    }
   }
 })
