@@ -14,7 +14,6 @@ export declare class BCarousel extends BvComponent {
   next: () => void
   start: () => void
   pause: () => void
-  restart: () => void
 }
 
 // Component: b-carousel-slide
