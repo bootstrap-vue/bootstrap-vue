@@ -70,7 +70,7 @@ const getTransitionEndEvent = el => {
 
 // @vue/component
 export const BCarousel = /*#__PURE__*/ Vue.extend({
-  name: 'BCarousel',
+  name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return { bvCarousel: this }
@@ -119,7 +119,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       default: false
     },
     noWrap: {
-      // Disable wrapping/lloping when start/end is reached
+      // Disable wrapping/looping when start/end is reached
       type: Boolean,
       default: false
     },
@@ -255,7 +255,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         return
       }
       this.direction = direction
-      // Set new slide index. Wrap around if necessary (if no-wrap not enabled)
+      // Set new slide index
+      // Wrap around if necessary (if no-wrap not enabled)
       this.index =
         slide >= numSlides
           ? noWrap
@@ -266,9 +267,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
               ? 0
               : numSlides - 1
             : slide
+      // Ensure the v-model is synched up if no-wrap is enabled
+      // and user tried to slide pass either ends
       if (noWrap && this.index !== slide && this.index !== this.value) {
-        // Ensure the v-model is synched up if no-wrap is enabled
-        // and user tried to slide pass either ends
         this.$emit('input', this.index)
       }
     },
