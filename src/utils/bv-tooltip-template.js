@@ -2,7 +2,8 @@ import Vue from './vue'
 
 const NAME = 'BVTooltipTemplate'
 
-export const BVTooltipTemplate = Vue.extend({
+// @vue/component
+export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME,
   inheritAttrs: false,
   props: {
