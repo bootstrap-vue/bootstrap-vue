@@ -51,11 +51,7 @@ export const BVTooltipTemplate = Vue.extend({
       {
         staticClass: 'tooltip b-tooltip',
         class: this.classes,
-        attrs: {
-          role: 'tooltip',
-          tabindex: '-1',
-          ...this.$attrs
-        }
+        attrs: this.attributes
       },
       [
         h('div', { staticClass: 'arrow' }),
