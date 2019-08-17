@@ -17,27 +17,23 @@ export const BVTooltipTemplate = Vue.extend({
       type: [String, Array, Object],
       default: ''
     },
-    attachment: {
-      type: String,
-      default: 'auto'
-    },
     variant: {
       type: String,
       default: null
     }
   },
   computed: {
-    type() {
+    templateType() {
       return 'tooltip'
     },
-    classes() {
-      // This could be handled by wrapper component
+    templateClasses() {
       return {
-        [`b-${this.type}-${this.variant}`]: this.variant,
-        [`bs-${this.type}-${this.attachment}`]: this.attachment
+        [`b-${this.templateType}-${this.variant}`]: this.variant,
+        // `atachment` will come from BVToolpop
+        [`bs-${this.templateType}-${this.attachment}`]: this.attachment
       }
     },
-    attributes() {
+    templateAttributes() {
       return {
         role: 'tooltip',
         tabindex: '-1',
@@ -45,17 +41,17 @@ export const BVTooltipTemplate = Vue.extend({
       }
     }
   },
-  render(h) {
+  renderTemplate(h) {
     return h(
       'div',
       {
         staticClass: 'tooltip b-tooltip',
-        class: this.classes,
-        attrs: this.attributes
+        class: this.templateClasses,
+        attrs: this.templateAttributes
       },
       [
         h('div', { staticClass: 'arrow' }),
-        h('div', { staticClass: 'tooltip-inner' }, this.title || this.content || [h()])
+        h('div', { staticClass: 'tooltip-inner' }, [this.title || this.content || h()])
       ]
     )
   }
