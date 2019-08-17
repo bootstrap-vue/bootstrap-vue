@@ -3,7 +3,8 @@ import { BVTooltipTemplate } from './bv-tooltip-template'
 
 const NAME = 'BVPopoverTemplate'
 
-export const BVPopoverTemplate = Vue.extend({
+// @vue/component
+export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME,
   extends: BVTooltipTemplate,
   computed: {
