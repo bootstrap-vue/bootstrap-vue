@@ -41,18 +41,20 @@ export const BVTooltipTemplate = Vue.extend({
       }
     }
   },
-  renderTemplate(h) {
-    return h(
-      'div',
-      {
-        staticClass: 'tooltip b-tooltip',
-        class: this.templateClasses,
-        attrs: this.templateAttributes
-      },
-      [
-        h('div', { staticClass: 'arrow' }),
-        h('div', { staticClass: 'tooltip-inner' }, [this.title || this.content || h()])
-      ]
-    )
+  methods: {
+    renderTemplate(h) {
+      return h(
+        'div',
+        {
+          staticClass: 'tooltip b-tooltip',
+          class: this.templateClasses,
+          attrs: this.templateAttributes
+        },
+        [
+          h('div', { staticClass: 'arrow' }),
+          h('div', { staticClass: 'tooltip-inner' }, [this.title || this.content || h()])
+        ]
+      )
+    }
   }
 })
