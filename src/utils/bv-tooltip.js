@@ -360,7 +360,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       let desc = getAttr(target, 'aria-describedby') || ''
       desc = desc
         .split(/\s+/)
-        .filter(d => d !== (this.computedId))
+        .filter(d => d !== this.computedId)
         .join(' ')
         .trim()
       // Update or remove aria-describedby
@@ -481,7 +481,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   Move this to the template `focus*` event handlers
       const triggers = this.computedTriggers
       const tip = this.getTipElement()
-      if (on && (arrayIncudes(triggers, 'focus') || arrayIncudes(triggers, 'blur'))) {
+      if (on && (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))) {
         // If focus moves between trigger element and tip container, don't close
         eventOn(tip, 'focusout', this, EvtOpts)
         eventOn(tip, 'focusin', this, EvtOpts)
@@ -491,7 +491,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
       // TODO:
       //   Move this to the template event `mouse*` handlers
-      if (on && arrayIncudes(triggers, 'hover')) {
+      if (on && arrayIncludes(triggers, 'hover')) {
         // If hover moves between trigger element and tip container, don't close
         eventOn(tip, 'mouseleave', this, EvtOpts)
         eventOn(tip, 'mouseenter', this, EvtOpts)
