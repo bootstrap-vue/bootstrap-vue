@@ -121,6 +121,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return BVTooltipTemplate
     },
     templateType() {
+      // Overwritten by BVPopover
       // return this.template.templateType
       return 'tooltip'
     },
@@ -186,8 +187,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   watch: {
     computedtriggers(newVal, oldVal) {
       // Triggers have changed, so re-register them
-      this.unListen()
-      this.listen()
+      this.$netTick(() => {
+        // Should we also clear any active triggers that are no longer
+        // in the list of triggers?
+        this.unListen()
+        this.listen()
+      })
     }
   },
   created() {
