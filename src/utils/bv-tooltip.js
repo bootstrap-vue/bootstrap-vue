@@ -5,8 +5,8 @@
 import Vue from './vue'
 import { concat } from './array'
 import { isNumber, isPlainObject, isString } from './inspect'
-import { closest, select, eventOn, eventOff } from './dom'
-import { BVEvent } from './bv-event'
+import { isElement, closest, select, eventOn, eventOff } from './dom'
+import { BvEvent } from './bv-event'
 
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
@@ -118,7 +118,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   computed: {
     template() {
       // Overwritten by BVPopover
-      return BTooltipTemplate
+      return BVTooltipTemplate
     },
     computedId() {
       return `__bv_${this.templateType}_${this._uid}__`
@@ -128,7 +128,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
     },
     computedDelay() {
-      const delay = { show: 0, hide: 0}
+      const delay = { show: 0, hide: 0 }
       if (isNumber(this.delay)) {
         delay.show = delay.hide = this.delay
       } else if (isPlainObject(this.delay)) {
@@ -162,9 +162,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // Trickery to ensure these are reactive
         container: this.container ? this.getContainer() : this.getContainer(),
         target:
-          (this.target || this.targetSelector)
-            ? this.getPlacementTarget()
-            : this.getPlacementTarget()
+          this.target || this.targetSelector ? this.getPlacementTarget(): this.getPlacementTarget()
       }
     },
     templateAttrs() {
@@ -289,7 +287,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // will automatically be added to the DOM and shown
       // Note, will be mounted in a `nextTick`
       this.destroyTip()
+      // prettier-ignore
       this.$_tip = new this.template({
+        // Move this object into a computed prop or method
         parent: this,
         props: this.templateProps,
         attrs: this.templateAttrs,
@@ -397,9 +397,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     toggle(evt) {
       // Click event handler
-      if (!this.$isEnabled) {
+      if (!this.enabled) {
         /* istanbul ignore next */
-        return
+        // return
       }
     },
     enter(evt) {
