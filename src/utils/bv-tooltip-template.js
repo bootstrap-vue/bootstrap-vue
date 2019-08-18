@@ -23,6 +23,10 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     variant: {
       type: String,
       default: null
+    },
+    customClass: {
+      type: [String, Array, Object],
+      default: null
     }
   },
   computed: {
@@ -30,11 +34,14 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       return 'tooltip'
     },
     templateClasses() {
-      return {
-        [`b-${this.templateType}-${this.variant}`]: this.variant,
-        // `atachment` will come from BVToolpop
-        [`bs-${this.templateType}-${this.attachment}`]: this.attachment
-      }
+      return [
+        {
+          [`b-${this.templateType}-${this.variant}`]: this.variant,
+          // `atachment` will come from BVToolpop
+          [`bs-${this.templateType}-${this.attachment}`]: this.attachment
+        },
+        this.customClass
+      ]
     },
     templateAttributes() {
       return {
