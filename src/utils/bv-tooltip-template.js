@@ -49,6 +49,23 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         tabindex: '-1',
         ...this.$attrs
       }
+    },
+    templateListeners() {
+      // Used for hover / focus trigger listeners
+      return {
+        mouseenter: evt => {
+          this.$emit('mouseenter', evt)
+        },
+        mouseleave: evt => {
+          this.$emit('mouseleave', evt)
+        },
+        focusin: evt => {
+          this.$emit('focusin', evt)
+        },
+        focusout: evt => {
+          this.$emit('focusout', evt)
+        }
+      }
     }
   },
   methods: {
@@ -58,7 +75,8 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         {
           staticClass: 'tooltip b-tooltip',
           class: this.templateClasses,
-          attrs: this.templateAttributes
+          attrs: this.templateAttributes,
+          on: this.templateListeners
         },
         [
           h('div', { staticClass: 'arrow' }),
