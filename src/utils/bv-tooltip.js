@@ -99,7 +99,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       default: 6
     },
     delay: {
-      type: [Number, Object]
+      type: [Number, Object],
       default: 0
     }
   },
@@ -332,7 +332,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     removeAriaDescribedby() {
       // Remove aria-describedby on trigger element, without removing any other IDs
-    }
+    },
     // Event handlers and related stuff,
     emitEvent(bvEvt) {
       const evtName = bvEvt.type
