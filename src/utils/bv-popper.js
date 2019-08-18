@@ -7,9 +7,8 @@
 
 import Vue from './vue'
 import Popper from 'popper.js'
-import { closest, getCS, select } from './dom'
+import { getCS, select } from './dom'
 import { hasDocumentSupport } from './env'
-import { isString } from './inspect'
 import { HTMLElement } from './safe-types'
 
 const NAME = 'BVPopper'
@@ -46,18 +45,6 @@ const OffsetMap = {
   LEFTBOTTOM: +1
 }
 
-// Modal container selector for appending tooltip/popover
-const MODAL_SELECTOR = '.modal-content'
-
-// These will be in the tooltip/popover handler mixin
-
-// Modal `$root` hidden event
-// const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
-
-// For dropdown sniffing
-// const DROPDOWN_CLASS = 'dropdown'
-// const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
-
 // @vue/component
 export const BVPopper = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -76,7 +63,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       default: 'flip'
     },
     container: {
-      // CSS Selector, Element or Component reference
+      // Element reference
       type: HTMLElement,
       default: null // 'body'
     },
