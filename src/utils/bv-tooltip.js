@@ -3,11 +3,22 @@
 // Handles trigger events, etc. instantiates template on demand
 
 import Vue from './vue'
-import { concat } from './array'
+import { arrayIncludes, concat, from as arrayFrom } from './array'
 import { isNumber, isPlainObject, isString } from './inspect'
-import { isElement, closest, select, eventOn, eventOff } from './dom'
-import { BvEvent } from './bv-event'
+import {
+  isElement,
+  closest,
+  select,
+  hasClass,
+  getAttr,
+  setAttr,
+  removeAttr,
+  eventOn,
+  eventOff
+} from './dom'
+import { HTMLElement } from './safe-types'
 
+import { BvEvent } from './bv-event'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
 const NAME = 'BVTtooltip'
@@ -19,8 +30,8 @@ const MODAL_SELECTOR = '.modal-content'
 // const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 
 // For dropdown sniffing
-// const DROPDOWN_CLASS = 'dropdown'
-// const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
+const DROPDOWN_CLASS = 'dropdown'
+const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
 
 // Options for Native Event Listeners (since we never call preventDefault)
 const EvtOpts = { passive: true, capture: false }
@@ -77,10 +88,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
-    offset: {
-      type: Number,
-      default: 0
-    },
     boundary: {
       // 'scrollParent', 'viewport', 'window', Element, or Component reference
       type: [String, HTMLElement, Object],
@@ -97,6 +104,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // the edge of tooltip/popover edge by this many pixels
       type: Number,
       default: 6
+    },
+    offset: {
+      type: Number,
+      default: 0
     },
     delay: {
       type: [Number, Object],
@@ -141,6 +152,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         noFade: this.noFade,
         arrowPadding: this.arrowPadding,
         // Trickery to ensure these are reactive
+        // TODO:
+        //   Sewitch to computed props if possible
         container: this.container ? this.getContainer() : this.getContainer(),
         target:
           this.target || this.targetSelector ? this.getPlacementTarget() : this.getPlacementTarget()
@@ -159,20 +172,22 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
     },
     computedDelay() {
+      // Normalizes delay into object form
       const delay = { show: 0, hide: 0 }
       if (isNumber(this.delay)) {
         delay.show = delay.hide = this.delay
       } else if (isPlainObject(this.delay)) {
-        delay.show = isNumber(this.delay.show) ? this.delay.show : 0
-        delay.hide = isNumber(this.delay.hide) ? this.delay.hide : 0
+        delay.show = isNumber(this.delay.show) ? this.delay.show : delay.show
+        delay.hide = isNumber(this.delay.hide) ? this.delay.hide : delay.hide
       }
       return delay
     },
     computedTriggers() {
-      // returns the triggers in array form
+      // Returns the triggers in array form
       return concat(this.triggers)
         .filter(Boolean)
         .join(' ')
+        .toLowerCase()
         .split(/\s+/)
     },
     isWithActiveTrigger() {
@@ -188,15 +203,16 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     computedtriggers(newVal, oldVal) {
       // Triggers have changed, so re-register them
       this.$netTick(() => {
-        // Should we also clear any active triggers that are no longer
-        // in the list of triggers?
+        // TODO:
+        //   Should we also clear any active triggers that
+        //   are no longer in the list of triggers?
         this.unListen()
         this.listen()
       })
     }
   },
   created() {
-    // Non-reactive properties
+    // Create non-reactive properties
     this.$_tip = null
     this.$_fadeTimeout = null
     this.$_hoverTimeout = null
@@ -204,6 +220,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_noop = () => {}
 
     // Set up all trigger handlers and listeners
+    this.listen()
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
@@ -234,21 +251,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     enable() {
       // Create a non-cancelable BvEvent
-      const enabledEvt = new BvEvent('enabled', {
-        cancelable: false,
-        target: this.getTarget(),
-        relatedTarget: null
-      })
+      const enabledEvt = this.buildEvent('enabled', {})
       this.enabled = true
       this.emitEvent(enabledEvt)
     },
     disable() {
       // Create a non-cancelable BvEvent
-      const disabledEvt = new BvEvent('disabled', {
-        cancelable: false,
-        target: this.getTarget(),
-        relatedTarget: null
-      })
+      const disabledEvt = this.buildEvent('disabled', {})
       this.enabled = false
       this.emitEvent(disabledEvt)
     },
@@ -264,6 +273,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   Add in child selector support
       return this.getTarget()
+    },
+    getTargetId() {
+      // Returns the ID of the trigger element
+      const target = this.getTarget()
+      return target && target.id ? target.id : null
     },
     getContainer() {
       // Handle case where container may be a component ref
@@ -286,7 +300,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     makeTip() {
       // As soon as the template is instantiated, it
       // will automatically be added to the DOM and shown
-      // Note, will be mounted in a `nextTick`
+      // Note, will be mounted in a `nextTick` delay
       this.destroyTip()
       // eslint-disable-next-line new-cap
       this.$_tip = new this.Template({
@@ -314,7 +328,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }
       })
     },
-    hideTip() {
+    hideTemplate() {
       // Trigger the template to start hiding
       // The template will emit the `hide` event after this and
       // then emit the `hidden` event once it is fully hidden
@@ -328,14 +342,64 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.activeTrigger[trigger] = false
       }
     },
+    // For adding/removing `aria-described` by on trigger (target) element
     addAriaDescribedby() {
       // Add aria-describedby on trigger element, without removing any other IDs
+      const target = this.getTarget()
+      let desc = getAttr(target, 'aria-describedby') || ''
+      desc = desc
+        .split(/\s+/)
+        .concat(this.computedId)
+        .join(' ')
+        .trim()
+      setAttr(target, 'aria-describedby', desc)
     },
     removeAriaDescribedby() {
       // Remove aria-describedby on trigger element, without removing any other IDs
+      const target = this.getTarget()
+      let desc = getAttr(target, 'aria-describedby') || ''
+      desc = desc
+        .split(/\s+/)
+        .filter(d => d !== (this.computedId)
+        .join(' ')
+        .trim()
+      if (desc) {
+        /* istanbul ignore next */
+        setAttr(target, 'aria-describedby', desc)
+      } else {
+        removeAttr(target, 'aria-describedby')
+      }
     },
-    // Event handlers and related stuff,
+    // Helpers
+    isInModal() {
+      const target = this.getTarget()
+      return target && closest(MODAL_SELECTOR, target)
+    },
+    isDropdown() {
+      // Returns true if trigger is a dropdown
+      const target = this.getTarget()
+      return target && hasClass(target, DROPDOWN_CLASS)
+    },
+    dropdownOpen() {
+      // Returns true if trigger is a dropdown and the dropdown menu is open
+      const target = this.getTarget()
+      return this.isDropdown() && target && select(DROPDOWN_OPEN_SELECTOR, target)
+    },
+    // BvEvent helpers
+    buildEvent(type, opts = {}) {
+      // Defaults to a non-cancellable event
+      return new BvEvent(type, {
+        cancelable: false,
+        target: this.getTarget(),
+        relatedTarget: this.getTipElement(),
+        componentId: this.computedId,
+        vueTarget: this,
+        // Add in option overrides
+        ...opts
+      })
+    },
     emitEvent(bvEvt) {
+      // Emits a BvEvent on $root and this instance
       const evtName = bvEvt.type
       const $root = this.$root
       if ($root && $root.$emit) {
@@ -344,6 +408,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
       this.$emit(evtName, bvEvt)
     },
+    // Event handlers and related stuff,
     listen() {
       // Enable trigger event handlers
       const el = this.getTarget()
@@ -373,28 +438,155 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     unListen() {
       // Remove trigger event handlers
-
       const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
-      const el = this.getTarget()
+      const target = this.getTarget()
 
       // Using `this` as the handler will get automatically directed to this.handleEvent
       events.forEach(evt => {
-        eventOff(el, evt, this, EvtOpts)
+        target && eventOff(target, evt, this, EvtOpts)
       }, this)
 
       // Stop listening for global show/hide/enable/disable events
       this.setRootListener(false)
     },
     setRootListener(on) {
-      // Root event listeners
+      // Listen for global `bv::{hide|show}::{tooltip|popover}` hide request event
+      const $root = this.$root
+      if ($root) {
+        const method = on ? '$on' : '$off'
+        const type = this.templateType
+        $root[method](`bv::hide::${type}`, this.doHide)
+        $root[method](`bv::show::${type}`, this.doShow)
+        $root[method](`bv::disable::${type}`, this.doDisable)
+        $root[method](`bv::enable::${type}`, this.doEnable)
+      }
     },
     setWhileOpenListeners(on) {
+      // TODO:
+      //   Use the template show/hide events to run this method
+      //
       // Events that are only registered when the template is showing
+      // Modal close events
+      this.setModalListener(on)
+      // Dropdown open events (if we are attached to a dropdown)
+      this.setDropdownListener(on)
+      // Periodic $element visibility check
+      // For handling when tip is in <keepalive>, tabs, carousel, etc
+      this.visibleCheck(on)
+      // On-touch start listeners
+      this.setOnTouchStartListener(on)
+      // Template listeners
+      // TODO:
+      //   Move this to the template `focus*` event handlers
+      const triggers = this.computedTriggers
+      const tip = this.getTipElement()
+      if (on && (arrayIncudes(triggers, 'focus') || arrayIncudes(triggers, 'blur'))) {
+        // If focus moves between trigger element and tip container, don't close
+        eventOn(tip, 'focusout', this, EvtOpts)
+        eventOn(tip, 'focusin', this, EvtOpts)
+      } else {
+        eventOff(tip, 'focusout', this, EvtOpts)
+        eventOff(tip, 'focusin', this, EvtOpts)
+      }
+      // TODO:
+      //   Move this to the template event `mouse*` handlers
+      if (on && arrayIncudes(triggers, 'hover')) {
+        // If hover moves between trigger element and tip container, don't close
+        eventOn(tip, 'mouseleave', this, EvtOpts)
+        eventOn(tip, 'mouseenter', this, EvtOpts)
+      } else {
+        eventOff(tip, 'mouseleave', this, EvtOpts)
+        eventOff(tip, 'mouseenter', this, EvtOpts)
+      }
     },
-    // Placed on the trigger element, and template element
+    setModalListener(on) {
+      // Handle case where tooltip/target is in a modal
+      if (!this.isInModal()) {
+        return
+      }
+      // We can listen for modal hidden events on `$root`
+      this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
+    },
+    setOnTouchStartListener(on) {
+      // If this is a touch-enabled device we add extra empty
+      // `mouseover` listeners to the body's immediate children
+      // Only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      if ('ontouchstart' in document.documentElement) {
+        /* istanbul ignore next: JSDOM does not support `ontouchstart` event */
+        arrayFrom(document.body.children).forEach(el => {
+          if (on) {
+            eventOn(el, 'mouseover', this.$_noop)
+          } else {
+            eventOff(el, 'mouseover', this.$_noop)
+          }
+        })
+      }
+    },
+    setDropdownListener(on) {
+      const target = this.getTarget()
+      if (!target || !this.$root) {
+        return
+      }
+      // If we are not on a dropdown menu, don't worry
+      if (!this.isDropdown) {
+        return
+      }
+      // We can listen for dropdown shown events on it's instance
+      // TODO:
+      //   We could grab the ID from the dropdown, and listen for
+      //   $root events for that particular dropdown id
+      //   Although dropdown doesn't emit $root events
+      if (target.__vue__) {
+        target.__vue__[on ? '$on' : '$off']('shown', this.forceHide)
+      }
+    },
     handleEvent(evt) {
-      // general trigger event handler
-      // will handle any native event when the event handler is just `this`
+      // General trigger event handler
+      // Will handle any native event when the event handler is just `this`
+    },
+    forceHide() {
+      // Forcefully hides/destroys the template, regardless of any active triggers
+    },
+    doHide(id) {
+      // Programmatically hide tooltip or popover
+      if (!id) {
+        // Close all tooltips or popovers
+        this.forceHide()
+      } else if (this.getTargetId() === id || this.computedId === id) {
+        // Close this specific tooltip or popover
+        this.hide()
+      }
+    },
+    doShow(id) {
+      // Programmatically show tooltip or popover
+      if (!id) {
+        // Open all tooltips or popovers
+        this.show()
+      } else if (this.getTargetId() === id || this.computedId === id) {
+        // Show this specific tooltip or popover
+        this.show()
+      }
+    },
+    doDisable(id) {
+      // Programmatically disable tooltip or popover
+      if (!id) {
+        // Disable all tooltips or popovers
+        this.disable()
+      } else if (this.getTargetId() === id || this.computedId === id) {
+        // Disable this specific tooltip or popover
+        this.disable()
+      }
+    },
+    doEnable(id) {
+      // Programmatically enable tooltip or popover
+      if (!id) {
+        // Enable all tooltips or popovers
+        this.enable()
+      } else if (this.getTargetId() === id || this.computedId === id) {
+        // Enable this specific tooltip or popover
+        this.enable()
+      }
     },
     toggle(evt) {
       // Click event handler
