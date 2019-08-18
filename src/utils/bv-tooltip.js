@@ -139,7 +139,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     computedTriggers() {
       // returns the triggers in array form
-      return = concat(this.triggers)
+      return concat(this.triggers)
         .filter(Boolean)
         .join(' ')
         .split(/\s+/)
