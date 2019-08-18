@@ -63,16 +63,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   name: NAME,
   props: {
     target: {
-      // Element or Component reference to the element that will have
-      // the trigger events bound, and is default element for positioning
-      type: [HTMLElement, Object],
-      default: null
-    },
-    targetSelctor: {
-      // Future:
-      //   CSS selector to target to an element inside of
-      //   the target for tooltip/popover positioning
-      type: String,
+      // Element that the tooltip/popover is positioned relative to
+      type: HTMLElement,
       default: null
     },
     placement: {
@@ -85,7 +77,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     },
     container: {
       // CSS Selector, Element or Component reference
-      type: [String, HTMLElement, Object],
+      type: HTMLElement,
       default: null // 'body'
     },
     noFade: {
@@ -97,8 +89,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       default: 0
     },
     boundary: {
-      // 'scrollParent', 'viewport', 'window', Element, or Component reference
-      type: [String, HTMLElement, Object],
+      // 'scrollParent', 'viewport', 'window', or Element
+      type: [String, HTMLElement],
       default: 'scrollParent'
     },
     boundaryPadding: {
@@ -121,10 +113,6 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    computedBoundary() {
-      // Handle case where boundary might be a component reference
-      return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
-    },
     popperConfig() {
       const placement = this.placement
       return {
@@ -137,7 +125,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           arrow: { element: '.arrow' },
           preventOverflow: {
             padding: this.boundaryPadding,
-            boundariesElement: this.computedBoundary
+            boundariesElement: this.boundary
           }
         },
         onCreate: data => {
@@ -162,8 +150,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       // target/container to appear in DOM
       this.$nextTick(() => {
         // Note: `container` and `target` cannot be changed while tooltip is open
-        const container = this.getContainer()
-        const target = this.getTarget()
+        const container = this.container || document.body
+        const target = this.target
         // Only mount if we have a target and container
         if (target && container && container.appendChild) {
           // Create popper instance before shown
@@ -221,26 +209,11 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       }
       return this.offset
     },
-    getTarget() {
-      // Future: Handle optional `targetSelector` option
-      return this.target ? this.target.$el || this.target : null
-    },
-    getContainer() {
-      const container = this.container ? this.container.$el || this.container : false
-      const body = document.body
-      // If we are in a modal, we append to the modal instead of body,
-      // unless a container is specified
-      return container === false
-        ? closest(MODAL_SELECTOR, this.getTarget) || body
-        : isString(container)
-          ? select(container, body) || body
-          : body
-    },
     popperCreate(el) {
       this.popperDestroy()
       // We use `el` rather than `this.$el` just in case the original
       // mountpoint root element type was changed by the template
-      this.$_popper = new Popper(this.getTarget(), el, this.popperConfig)
+      this.$_popper = new Popper(this.target, el, this.popperConfig)
     },
     popperDestroy() {
       this.$_popper && this.$_popper.destroy()
