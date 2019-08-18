@@ -1,10 +1,12 @@
 import Vue from './vue'
+import { BVPopper } from './bv-popper'
 
 const NAME = 'BVTooltipTemplate'
 
 // @vue/component
 export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME,
+  extends: BVPopper,
   inheritAttrs: false,
   props: {
     title: {
