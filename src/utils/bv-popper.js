@@ -11,7 +11,6 @@ import { closest, getCS, select } from './dom'
 import { hasDocumentSupport } from './env'
 import { isString } from './inspect'
 import { HTMLElement } from './safe-types'
-import { BVTooltipTemplate } from './bv-tooltip-template'
 
 const NAME = 'BVPopper'
 
@@ -78,7 +77,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     },
     placement: {
       type: String,
-      default: right
+      default: 'top'
     },
     fallbackPlacement: {
       type: [String, Array],
@@ -163,7 +162,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       // target/container to appear in DOM
       this.$nextTick(() => {
         // Note: `container` and `target` cannot be changed while tooltip is open
-        const container =  this.getContainer()
+        const container = this.getContainer()
         const target = this.getTarget()
         // Only mount if we have a target and container
         if (target && container && container.appendChild) {
@@ -209,7 +208,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       if (!this.offset) {
         // Could set a ref for the arrow element
         const arrow = select('.arrow', this.$el)
-        const arrowOffset = (parseFloat(getCS(arrow).width) || 0) + (parseFloat(this.arrowPadding) || 0)
+        const arrowOffset =
+          (parseFloat(getCS(arrow).width) || 0) + (parseFloat(this.arrowPadding) || 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
           case +1:
             return `+50%p - ${arrowOffset}px`
@@ -259,7 +259,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const fade = this.nofade ? '' : 'fade'
-    const show = 'show';
+    const show = 'show'
     return h(
       'transition',
       {
