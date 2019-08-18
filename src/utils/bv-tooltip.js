@@ -1,12 +1,15 @@
-// Tooltip "Class"
+// Tooltip "Class" (Built as a renderless Vue instance)
 //
-// Handles trigger events, etc. instantiates template on demand
+// Handles trigger events, etc.
+// Instantiates template on demand
 
 import Vue from './vue'
 import { arrayIncludes, concat, from as arrayFrom } from './array'
 import { isNumber, isPlainObject, isString } from './inspect'
 import {
   isElement,
+  isDisabled,
+  isVisible,
   closest,
   select,
   hasClass,
@@ -115,12 +118,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
+      localPlacementTarget: null,
+      localContainer: null,
       activeTrigger: {
         hover: false,
         click: false,
         focus: false,
         manual: false
       },
+      hoverState: '',
       enabled: true,
       localShow: false
     }
@@ -150,17 +156,21 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         offset: this.offset,
         noFade: this.noFade,
         arrowPadding: this.arrowPadding,
-        // Trickery to ensure these are reactive
+        // Trickery to ensure these are somewhat reactive
         // TODO:
-        //   Sewitch to computed props if possible
+        //   Maybe make these data values (localContainer, localPlacementTarget)
+        //   and update them before show
         container: this.container ? this.getContainer() : this.getContainer(),
         target:
           this.target || this.targetSelector ? this.getPlacementTarget() : this.getPlacementTarget()
+        // container: this.localContainer,
+        // target: this.localPlacementTarget
       }
     },
     templateAttrs() {
       return {
-        id: this.computedId
+        id: this.computedId,
+        tabindex: '-1'
       }
     },
     computedId() {
@@ -168,6 +178,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     computedBoundary() {
       // Handle case where boundary might be a component reference
+      // TODO:
+      //   Should this be a getBoundary() method instead?
       return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
     },
     computedDelay() {
@@ -248,6 +260,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     hide() {
       // Force hide
     },
+    forceHide() {
+      // Forcefully hides/destroys the template, regardless of any active triggers
+    },
     enable() {
       // Create a non-cancelable BvEvent
       const enabledEvt = this.buildEvent('enabled', {})
@@ -260,6 +275,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.enabled = false
       this.emitEvent(disabledEvt)
     },
+    //
+    // Utility methods
+    //
     getTarget() {
       // Handle case where target may be a component ref
       const target = this.target ? this.target.$el || this.target : null
@@ -291,9 +309,26 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           ? select(container, body) || body
           : body
     },
+    getTipElement() {
+      return this.$_tip ? this.$_tip.$el : null
+    },
     destroyTip() {
       this.$_tip && this.$_tip.$destroy()
       this.$_tip = null
+    },
+    isInModal() {
+      const target = this.getTarget()
+      return target && closest(MODAL_SELECTOR, target)
+    },
+    isDropdown() {
+      // Returns true if trigger is a dropdown
+      const target = this.getTarget()
+      return target && hasClass(target, DROPDOWN_CLASS)
+    },
+    dropdownOpen() {
+      // Returns true if trigger is a dropdown and the dropdown menu is open
+      const target = this.getTarget()
+      return this.isDropdown() && target && select(DROPDOWN_OPEN_SELECTOR, target)
     },
     // This should be part of the doShow method
     makeTip() {
@@ -333,15 +368,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // then emit the `hidden` event once it is fully hidden
       this.$_tip && this.$_tip.hide()
     },
-    getTipElement() {
-      return this.$_tip ? this.$_tip.$el : null
-    },
     clearActiveTriggers() {
       for (const trigger in this.activeTrigger) {
         this.activeTrigger[trigger] = false
       }
     },
-    // For adding/removing `aria-described` by on trigger (target) element
     addAriaDescribedby() {
       // Add aria-describedby on trigger element, without removing any other IDs
       const target = this.getTarget()
@@ -371,22 +402,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         removeAttr(target, 'aria-describedby')
       }
     },
-    // Helpers
-    isInModal() {
-      const target = this.getTarget()
-      return target && closest(MODAL_SELECTOR, target)
-    },
-    isDropdown() {
-      // Returns true if trigger is a dropdown
-      const target = this.getTarget()
-      return target && hasClass(target, DROPDOWN_CLASS)
-    },
-    dropdownOpen() {
-      // Returns true if trigger is a dropdown and the dropdown menu is open
-      const target = this.getTarget()
-      return this.isDropdown() && target && select(DROPDOWN_OPEN_SELECTOR, target)
-    },
+    //
     // BvEvent helpers
+    //
     buildEvent(type, opts = {}) {
       // Defaults to a non-cancellable event
       return new BvEvent(type, {
@@ -409,7 +427,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
       this.$emit(evtName, bvEvt)
     },
-    // Event handlers and related stuff,
+    //
+    // Event handler setup methods
+    //
     listen() {
       // Enable trigger event handlers
       const el = this.getTarget()
@@ -500,6 +520,24 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         eventOff(tip, 'mouseenter', this, EvtOpts)
       }
     },
+    visibleCheck(on) {
+      // Handler for periodic visibility check
+      // TODO:
+      //   Could make this a MutationObserver or IntersectionObserver
+      clearInterval(this.visibleInterval)
+      this.visibleInterval = null
+      if (on) {
+        this.visibleInterval = setInterval(() => {
+          const tip = this.getTipElement()
+          // TODO:
+          //   Change the hasClass check to check localShow status instead
+          if (tip && !isVisible(this.getTarget) && hasClass(tip, 'show')) {
+            // Element is no longer visible, so force-hide the tooltip
+            this.forceHide()
+          }
+        }, 100)
+      }
+    },
     setModalListener(on) {
       // Handle case where tooltip/target is in a modal
       if (!this.isInModal()) {
@@ -542,12 +580,65 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         target.__vue__[on ? '$on' : '$off']('shown', this.forceHide)
       }
     },
+    //
+    // Event handlers
+    //
     handleEvent(evt) {
       // General trigger event handler
       // Will handle any native event when the event handler is just `this`
-    },
-    forceHide() {
-      // Forcefully hides/destroys the template, regardless of any active triggers
+      // target is the trigger element
+      const target = this.getTarget()
+      // tip is the template (will be null if not open)
+      const tip = this.getTipElement()
+      if (!target || isDisabled(target) || !this.enabled || this.dropdownOpen()) {
+        // If disabled or not enabled, or if a dropdown that is open, don't do anything
+        // If tip is shown before element gets disabled, then tip will not
+        // close until no longer disabled or forcefully closed
+        return
+      }
+      const type = evt.type
+      const evtTarget = evt.target
+      const relatedTarget = evt.relatedTarget
+
+      if (type === 'click') {
+        this.toggle(evt)
+      } else if (type === 'focusin' || type === 'mouseenter') {
+        this.enter(evt)
+      } else if (type === 'focusout') {
+        // `evtTarget` is the element which is loosing focus and
+        // `relatedTarget` is the element gaining focus
+        // TODO:
+        //   With the new event listners on template, we
+        //   may not need to do the folowing checks
+        
+        // If focus moves from `target` to `tip`, don't trigger a leave
+        if (tip && target.contains(evtTarget) && tip.contains(relatedTarget)) {
+          /* istanbul ignore next */
+          return
+        }
+        // If focus moves from `tip` to `target`, don't trigger a leave
+        if (tip && target && tip.contains(evtTarget) && target.contains(relatedTarget)) {
+          /* istanbul ignore next */
+          return
+        }
+        // If focus moves within `tip`, don't trigger a leave
+        if (tip && tip.contains(evtTarget) && tip.contains(relatedTarget)) {
+          /* istanbul ignore next */
+          return
+        }
+        // If focus moves within `target`, don't trigger a leave
+        if (target.contains(evtTarget) && target.contains(relatedTarget)) {
+          /* istanbul ignore next */
+          return
+        }
+        // Otherwise trigger a leave
+        this.leave(evt)
+      } else if (type === 'mouseleave') {
+        // TODO:
+        //   shoud check for mouse events on tip element here
+        this.leave(evt)
+      }
+
     },
     doHide(id) {
       // Programmatically hide tooltip or popover
@@ -591,16 +682,81 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     toggle(evt) {
       // Click event handler
-      if (!this.enabled) {
+      // TODO:
+      //   Separate out click handler from manual toggle handler
+      if (!this.enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
-        // return
+        return
+      }
+      /* istanbul ignore else */
+      if (evt) {
+        this.activeTrigger.click = !this.activeTrigger.click
+
+        if (this.isWithActiveTrigger) {
+          this.enter(null)
+        } else {
+          this.leave(null)
+        }
+      } else {
+        // Manual calling of toggle() method
+        // TODO:
+        //   Change this to check the localShow state
+        if (hasClass(this.getTipElement(), 'show')) {
+          this.leave(null)
+        } else {
+          this.enter(null)
+        }
       }
     },
-    enter(evt) {
-      // Hover in / focus in handler
+    enter(evt = null) {
+      // Opening trigger handler
+      // Note: Click events are sent with evt === null
+      if (evt) {
+        this.activeTrigger[evt.type === 'focusin' ? 'focus' : 'hover'] = true
+      }
+      if (hasClass(this.getTipElement(), 'show') || this.hoverState === 'in') {
+        this.hoverState = 'in'
+        return
+      }
+      clearTimeout(this.hoverTimeout)
+      this.hoverState = 'in'
+      if (!this.computedDelay.show) {
+        this.show()
+        return
+      } else {
+        this.hoverTimeout = setTimeout(() => {
+          if (this.hoverState === 'in') {
+            this.show()
+          }
+        }, this.computedDelay.show)
+      }
     },
-    leave(evt) {
-      // Hover out / focus out handler
+    leave(evt = null) {
+      // Closing trigger handler
+      // Note: Click events are sent with evt === null
+      if (evt) {
+        this.activeTrigger[evt.type === 'focusout' ? 'focus' : 'hover'] = false
+        if (evt.type === 'focusout' && arrayIncludes(this.computedTriggers, 'blur')) {
+          // Special case for `blur`: we clear out the other triggers
+          this.activeTrigger.click = false
+          this.activeTrigger.hover = false
+        }
+      }
+      if (this.isWithActiveTrigger) {
+        return
+      }
+      clearTimeout(this.hoverTimeout)
+      this.hoverState = 'out'
+      if (!this.computedDelay.hide) {
+        this.hide()
+        return
+      } else {
+        this.$hoverTimeout = setTimeout(() => {
+          if (this.hoverState === 'out') {
+            this.hide()
+          }
+        }, this.computedDelay.hide)
+      }
     }
   }
 })
