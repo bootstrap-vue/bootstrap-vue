@@ -25,9 +25,8 @@ const NAME = 'BVTtooltip'
 
 // Modal container selector for appending tooltip/popover
 const MODAL_SELECTOR = '.modal-content'
-
 // Modal `$root` hidden event
-// const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
+const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
@@ -352,6 +351,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         .concat(this.computedId)
         .join(' ')
         .trim()
+      // Update/add aria-described by
       setAttr(target, 'aria-describedby', desc)
     },
     removeAriaDescribedby() {
@@ -360,9 +360,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       let desc = getAttr(target, 'aria-describedby') || ''
       desc = desc
         .split(/\s+/)
-        .filter(d => d !== (this.computedId)
+        .filter(d => d !== (this.computedId))
         .join(' ')
         .trim()
+      // Update or remove aria-describedby
       if (desc) {
         /* istanbul ignore next */
         setAttr(target, 'aria-describedby', desc)
