@@ -100,6 +100,10 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    templateType() /* istanbul ignore next */ {
+      // Overridden by template component
+      return 'unknown'
+    },
     popperConfig() {
       const placement = this.placement
       return {
@@ -147,12 +151,12 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           })
           // Self destruct once hidden
           this.$on('hidden', () => {
-            this.$emit('selfdestruct')
             this.$nextTick(this.$destroy)
           })
           this.$mount(container.appendChild(document.createElement('div')))
         } else {
           // Should we issue a warning here?
+          this.$emit('selfdestruct')
           this.$nextTick(this.$destroy)
         }
       })
