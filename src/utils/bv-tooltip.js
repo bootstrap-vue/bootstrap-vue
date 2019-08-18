@@ -116,13 +116,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    template() {
+    Template() {
       // Overwritten by BVPopover
       return BVTooltipTemplate
     },
     templateType() {
       // Overwritten by BVPopover
-      // return this.template.templateType
+      // return this.Template.templateType
       return 'tooltip'
     },
     templateProps() {
@@ -289,7 +289,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Note, will be mounted in a `nextTick`
       this.destroyTip()
       // eslint-disable-next-line new-cap
-      this.$_tip = new this.template({
+      this.$_tip = new this.Template({
         // Move this object into a computed prop or method
         parent: this,
         props: this.templateProps,
@@ -393,7 +393,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     // Placed on the trigger element, and template element
     handleEvent(evt) {
-      // general event handler
+      // general trigger event handler
       // will handle any native event when the event handler is just `this`
     },
     toggle(evt) {
