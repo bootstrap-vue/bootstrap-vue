@@ -308,7 +308,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           // To save us from manually adding DOM listeners to tip element
           focusin: () => {},
           focusout: () => {},
-          mouseenter: () => (),
+          mouseenter: () => {},
           mouseleave: () => {}
         }
       })
