@@ -120,6 +120,36 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Overwritten by BVPopover
       return BVTooltipTemplate
     },
+    templateType() {
+      // return this.template.templateType
+      return 'tooltip'
+    },
+    templateProps() {
+      // We create as an observed object, so that
+      // the template will react to changes
+      return {
+        title: this.title,
+        content: this.content,
+        variant: this.variant,
+        customClass: this.customClass,
+        placement: this.placement,
+        fallbackPlacement: this.fallbackPlacement,
+        boundary: this.computedBoundary,
+        boundaryPadding: this.boundaryPadding,
+        offset: this.offset,
+        noFade: this.noFade,
+        arrowPadding: this.arrowPadding,
+        // Trickery to ensure these are reactive
+        container: this.container ? this.getContainer() : this.getContainer(),
+        target:
+          this.target || this.targetSelector ? this.getPlacementTarget() : this.getPlacementTarget()
+      }
+    },
+    templateAttrs() {
+      return {
+        id: this.computedId
+      }
+    },
     computedId() {
       return `__bv_${this.templateType}_${this._uid}__`
     },
@@ -143,40 +173,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         .filter(Boolean)
         .join(' ')
         .split(/\s+/)
-    },
-    templateProps() {
-      // We create as an observed object, so that
-      // the template will react to changes
-      return {
-        title: this.title,
-        content: this.content,
-        variant: this.variant,
-        customClass: this.customClass,
-        placement: this.placement,
-        fallbackPlacement: this.fallbackPlacement,
-        boundary: this.computedBoundary,
-        boundaryPadding: this.boundaryPadding,
-        offset: this.offset,
-        noFade: this.noFade,
-        arrowPadding: this.arrowPadding,
-        // Trickery to ensure these are reactive
-        container: this.container ? this.getContainer() : this.getContainer(),
-        target:
-          this.target || this.targetSelector ? this.getPlacementTarget(): this.getPlacementTarget()
-      }
-    },
-    templateAttrs() {
-      return {
-        id: this.computedId
-      }
-    },
-    templateType() {
-      // This may not work... needs testing
-      // may have to devise another way to get the type.
-      // Possibly store it into the template $options
-      // Or make this a static value overridden by BVPopover
-      return this.template.templateType
-      // return this.template.$options.bvTemplateType || 'unknown'
     },
     isWithActiveTrigger() {
       for (const trigger in this.activeTrigger) {
@@ -287,7 +283,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // will automatically be added to the DOM and shown
       // Note, will be mounted in a `nextTick`
       this.destroyTip()
-      // prettier-ignore
+      // eslint-disable-next-line new-cap
       this.$_tip = new this.template({
         // Move this object into a computed prop or method
         parent: this,
