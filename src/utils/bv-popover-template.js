@@ -8,7 +8,7 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME,
   extends: BVTooltipTemplate,
   computed: {
-    type() {
+    templateType() {
       return 'popover'
     }
   },
@@ -19,7 +19,8 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
         {
           staticClass: 'popover b-popover',
           class: this.templateClasses,
-          attrs: this.templateAttributes
+          attrs: this.templateAttributes,
+          on: this.templateListeners
         },
         [
           h('div', { staticClass: 'arrow' }),
