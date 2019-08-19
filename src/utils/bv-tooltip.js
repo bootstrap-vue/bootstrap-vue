@@ -643,8 +643,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     setModalListener(on) {
       // Handle case where tooltip/target is in a modal
       if (this.isInModal()) {
-       // We can listen for modal hidden events on `$root`
-       this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
+        // We can listen for modal hidden events on `$root`
+        this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
       }
     },
     setOnTouchStartListener(on) {
