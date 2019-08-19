@@ -6,7 +6,7 @@
 
 import Vue from './vue'
 import { BVTooltip } from './bv-tooltip'
-import { BVPopoverTeamplate} from './bv-popover-template'
+import { BVPopoverTemplate } from './bv-popover-template'
 
 const NAME = 'BVPopover'
 
