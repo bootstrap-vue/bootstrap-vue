@@ -705,5 +705,3 @@ above for an example.
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue has
 intellisense autocompletion for component attributes available when using the
 [Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
-
-[Twitter: Vetur + BootstrapVue](https://twitter.com/AlexSashaRegan/status/912769997776158723)
