@@ -308,11 +308,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // TODO:
       //   The following could be a helper method
+      // When tip is created, it automounts and shows
       this.localShow = true
       this.localPlacementTarget = this.getPlacementTarget()
       this.localContainer = this.getContainer()
       this.localBoundary = this.getBoundary()
-      const this.$_tip = new this.Template({
+      this.$_tip = new this.Template({
         parent: this,
         props: this.templateProps,
         attrs: this.templateAttrs,
