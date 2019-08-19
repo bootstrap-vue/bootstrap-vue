@@ -382,7 +382,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.clearActiveTriggers()
       // Hide the tip
       this.hide(true)
-
     },
     enable() {
       // Create a non-cancelable BvEvent
