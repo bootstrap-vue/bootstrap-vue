@@ -6,10 +6,11 @@
 
 import Vue from './vue'
 import { BVTooltip } from './bv-tooltip'
-import ( BVPopoverTeamplate} from './bv-popover-template'
+import { BVPopoverTeamplate} from './bv-popover-template'
 
 const NAME = 'BVPopover'
 
+// @vue/component
 export const BVPopover = /*#__PURE__*/ Vue.extend({
   name: NAME,
   extends: BVTooltip,
