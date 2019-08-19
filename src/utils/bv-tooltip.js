@@ -151,18 +151,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         customClass: this.customClass,
         placement: this.placement,
         fallbackPlacement: this.fallbackPlacement,
-        boundary: this.computedBoundary,
-        boundaryPadding: this.boundaryPadding,
         offset: this.offset,
         noFade: this.noFade,
         arrowPadding: this.arrowPadding,
         // Trickery to ensure these are somewhat reactive
+        boundaryPadding: this.boundaryPadding,
+        boundary: this.boundary ? this.getBoundary() : null,
+        container: this.container ? this.getContainer() : null,
+        target: this.target || this.targetSelector ? this.getPlacementTarget() : null
         // TODO:
         //   Maybe make these data values (localContainer, localPlacementTarget)
         //   and update them before show
-        container: this.container ? this.getContainer() : this.getContainer(),
-        target:
-          this.target || this.targetSelector ? this.getPlacementTarget() : this.getPlacementTarget()
+        // boundary: this.localBoundary,
         // container: this.localContainer,
         // target: this.localPlacementTarget
       }
@@ -175,12 +175,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     computedId() {
       return `__bv_${this.templateType}_${this._uid}__`
-    },
-    computedBoundary() {
-      // Handle case where boundary might be a component reference
-      // TODO:
-      //   Should this be a getBoundary() method instead?
-      return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
     },
     computedDelay() {
       // Normalizes delay into object form
@@ -308,6 +302,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         : isString(container)
           ? select(container, body) || body
           : body
+    },
+    getBoundary() {
+      return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
     },
     getTipElement() {
       return this.$_tip ? this.$_tip.$el : null
