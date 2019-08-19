@@ -600,7 +600,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
       const type = evt.type
       const triggers = this.computedTriggers
-     
+
       if (type === 'click' && arrayIncludes(triggers, 'click')) {
         this.click(evt)
       } else if (type === 'mouseenter' && arrayIncludes(triggers, 'hover')) {
@@ -623,7 +623,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         const evtTarget = evt.target
         // `relatedTarget` is the element gaining focus
         const relatedTarget = evt.relatedTarget
-        /* istanbul ignore if */
+        /* istanbul ignore next */
         if (
           // From tip to target
           (tip && tip.contains(evtTarget) && target.contains(relatedTarget)) ||
@@ -636,10 +636,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         ) {
           // If focus/hover moves within `tip` and `target`, don't trigger a leave
           return
-        } else {
-          // Otherwise trigger a leave
-          this.leave(evt)
         }
+        // Otherwise trigger a leave
+        this.leave(evt)
       }
     },
     doHide(id) {
