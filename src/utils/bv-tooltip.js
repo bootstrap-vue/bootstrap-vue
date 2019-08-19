@@ -610,7 +610,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // TODO:
         //   With the new event listners on template, we
         //   may not need to do the folowing checks
-        
+
         // If focus moves from `target` to `tip`, don't trigger a leave
         if (tip && target.contains(evtTarget) && tip.contains(relatedTarget)) {
           /* istanbul ignore next */
@@ -638,7 +638,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         //   shoud check for mouse events on tip element here
         this.leave(evt)
       }
-
     },
     doHide(id) {
       // Programmatically hide tooltip or popover
@@ -722,7 +721,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.hoverState = 'in'
       if (!this.computedDelay.show) {
         this.show()
-        return
       } else {
         this.hoverTimeout = setTimeout(() => {
           if (this.hoverState === 'in') {
@@ -749,7 +747,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.hoverState = 'out'
       if (!this.computedDelay.hide) {
         this.hide()
-        return
       } else {
         this.$hoverTimeout = setTimeout(() => {
           if (this.hoverState === 'out') {
