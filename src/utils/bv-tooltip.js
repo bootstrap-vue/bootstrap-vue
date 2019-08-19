@@ -120,6 +120,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     return {
       localPlacementTarget: null,
       localContainer: null,
+      localBoundary: 'scrollParent',
       activeTrigger: {
         hover: false,
         click: false,
@@ -154,17 +155,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         offset: this.offset,
         noFade: this.noFade,
         arrowPadding: this.arrowPadding,
-        // Trickery to ensure these are somewhat reactive
         boundaryPadding: this.boundaryPadding,
-        boundary: this.boundary ? this.getBoundary() : null,
-        container: this.container ? this.getContainer() : null,
-        target: this.target || this.targetSelector ? this.getPlacementTarget() : null
-        // TODO:
-        //   Maybe make these data values (localContainer, localPlacementTarget)
-        //   and update them before show
-        // boundary: this.localBoundary,
-        // container: this.localContainer,
-        // target: this.localPlacementTarget
+        boundary: this.localBoundary,
+        container: this.localContainer,
+        target: this.localPlacementTarget
       }
     },
     templateAttrs() {
@@ -249,13 +243,145 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     show() {
-      // Force show
+      // Show the tooltip
+      const target = this.getTarget()
+
+      if (!target || !document.body.contains(target) || !isVisible(target) || this.dropdownOpen()) {
+        // If trigger element isn't in the DOM or is not visible, or is on an open dropdown toggle
+        return
+      }
+
+      // Create a cancelable BvEvent
+      const showEvt = this.buildEvent('show', { cancelable: true })
+      this.emitEvent(showEvt)
+      if (showEvt.defaultPrevented) {
+        // Don't show if event cancelled
+        this.destroyTip()
+        return
+      }
+
+      const onShow = () => {
+        // When template is inserted into DOM, but not yet shown
+        // Enable while open listeners/watchers
+        this.setWhileOpenListeners(true)
+      }
+
+      const onShown = () => {
+        // When template has finished showing
+        // TODO: is this required?
+        const prevHoverState = this.hoverState
+        this.hoverState = ''
+        if (prevHoverState === 'out') {
+          this.leave(null)
+        }
+        // Emit a non-cancelable BvEvent 'shown'
+        this.emitEvent(this.buildEvent('shown', {}))
+      }
+
+      const onHide = () => {
+        // Disable while open listeners/watchers
+        this.setWhileOpenListeners(false)
+        this.localShow = false
+      }
+
+      const onHidden = () => {
+        // Wehen template has closed
+        this.removeAriaDescribedby()
+        // this.restoreTitle()
+        this.destroyTip()
+        // TODO:
+        //   Move these into the destroyTip() method
+        this.localPlacementTarget = null
+        this.localContainer = null
+        this.localBoundary = 'scrollParent'
+        // Emit a non-cancelable BvEvent 'shown'
+        this.emitEvent(this.buildEvent('hidden', {}))
+      }
+
+      // this.destroyTip()
+
+      // Fix the title attribute on target(s)
+      // this.fixTitle()
+
+      // Set aria-describedby on target
+      this.addAriaDescribedby()
+
+      // TODO:
+      //   The following could be a helper method
+      this.localShow = true
+      this.localPlacementTarget = this.getPlacementTarget()
+      this.localContainer = this.getContainer()
+      this.localBoundary = this.getBoundary()
+      const this.$_tip = new this.Template({
+        parent: this,
+        props: this.templateProps,
+        attrs: this.templateAttrs,
+        on: {
+          // When the template has mounted, but not visibly shown yet
+          show: onShow,
+          // When the template has completed showing
+          shown: onShown,
+          // When the template has started to hide
+          hide: onHide,
+          // When the template has completed hiding
+          hidden: onHidden,
+          // This will occur when the template fails to mount
+          selfdestruct: this.destroyTip,
+          // Convenience events from template
+          // To save us from manually adding/removing DOM listeners to tip element
+          focusin: this.handleEvent,
+          focusout: this.handleEvent,
+          mouseenter: this.handleEvent,
+          mouseleave: this.handleEvent
+        }
+      })
     },
-    hide() {
-      // Force hide
+    hide(force = false) {
+      // Hide the tooltip
+      const tip = this.getTipElement()
+      // TODO:
+      //  Need to check loclaShow state and if already in progress of hiding
+      if (!tip) {
+        /* istanbul ignore next */
+        return
+      }
+
+      // Emit cancelable BvEvent 'hide'
+      // We disable cancelling if `force` is true
+      const hideEvt = this.buildEvent('hide', { cancelable: !force })
+      this.emitEvent(hideEvt)
+      if (hideEvt.defaultPrevented) {
+        // Don't hide if event cancelled
+        return
+      }
+
+      // Tell the template to hide
+      this.hideTemplate()
+      // Clear out any active triggers
+      this.clearActiveTriggers()
+      // Reset the hoverstate
+      this.hoverState = ''
     },
     forceHide() {
       // Forcefully hides/destroys the template, regardless of any active triggers
+      const tip = this.getTipElement()
+      // We can't trust having class `show` due to the way the `<transition>` is set up
+      // Need to use `localShow`
+      if (!tip || !hasClass(tip, 'show')) {
+        /* istanbul ignore next */
+        return
+      }
+      // Disable while open listeners/watchers
+      // This is also done in the template `hide` evt handler
+      this.setWhileOpenListeners(false)
+      // Clear any hover enter/leave event
+      clearTimeout(this.hoverTimeout)
+      this.hoverTimeout = null
+      this.hoverState = ''
+      this.clearActiveTriggers()
+      // Hide the tip
+      this.hide(true)
+
     },
     enable() {
       // Create a non-cancelable BvEvent
@@ -309,9 +435,23 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     getTipElement() {
       return this.$_tip ? this.$_tip.$el : null
     },
+    createTip() {
+      // Create the template instances
+      // this.destroyTip()
+      // TODO:
+      //   Move all tip creation stuff here
+      //   Add check in template for localShow state and if `localShow` is `true` when
+      //   being destroyed, then issue a selfdestruct or similar event
+      //   so that we can ensure our instance copy is nulled out
+    },
     destroyTip() {
+      // Destroy the template instance
+      // TODO:
+      //   check if tip is being destroyed or is already destroyed
       this.$_tip && this.$_tip.$destroy()
       this.$_tip = null
+      // TODO:
+      //   also reset state values
     },
     isInModal() {
       const target = this.getTarget()
@@ -326,38 +466,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Returns true if trigger is a dropdown and the dropdown menu is open
       const target = this.getTarget()
       return this.isDropdown() && target && select(DROPDOWN_OPEN_SELECTOR, target)
-    },
-    // This should be part of the doShow method
-    makeTip() {
-      // As soon as the template is instantiated, it
-      // will automatically be added to the DOM and shown
-      // Note, will be mounted in a `nextTick` delay
-      this.destroyTip()
-      // eslint-disable-next-line new-cap
-      this.$_tip = new this.Template({
-        // Move this object into a computed prop or method
-        parent: this,
-        props: this.templateProps,
-        attrs: this.templateAttrs,
-        on: {
-          // When the template has mounted, but not visibly shown yet
-          show: () => {},
-          // When the template has completed showing
-          shown: () => {},
-          // When the template has started to hide
-          hide: () => {},
-          // When the template has completed hiding
-          hidden: () => {},
-          // This will occur when the template fails to mount
-          selfdestruct: () => {},
-          // Convenience mouse events from template
-          // To save us from manually adding DOM listeners to tip element
-          focusin: () => {},
-          focusout: () => {},
-          mouseenter: () => {},
-          mouseleave: () => {}
-        }
-      })
     },
     hideTemplate() {
       // Trigger the template to start hiding
