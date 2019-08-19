@@ -498,7 +498,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.setOnTouchStartListener(on)
       // Template listeners
       // TODO:
-      //   Move this to the template `focus*` event handlers
+      //   Move this to the template `focus*` and `mouse*` event handlers
+      //   on: {
+      //    focusin: this.handleEvent,
+      //    focusout: this.handleEvent,
+      //    mouseenter: this.handleEvent,
+      //    mouseleave: this.handleEvent
+      //  }
       const triggers = this.computedTriggers
       const tip = this.getTipElement()
       if (on && (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))) {
@@ -509,8 +515,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         eventOff(tip, 'focusout', this, EvtOpts)
         eventOff(tip, 'focusin', this, EvtOpts)
       }
-      // TODO:
-      //   Move this to the template event `mouse*` handlers
       if (on && arrayIncludes(triggers, 'hover')) {
         // If hover moves between trigger element and tip container, don't close
         eventOn(tip, 'mouseleave', this, EvtOpts)
@@ -588,8 +592,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Will handle any native event when the event handler is just `this`
       // target is the trigger element
       const target = this.getTarget()
-      // tip is the template (will be null if not open)
-      const tip = this.getTipElement()
       if (!target || isDisabled(target) || !this.enabled || this.dropdownOpen()) {
         // If disabled or not enabled, or if a dropdown that is open, don't do anything
         // If tip is shown before element gets disabled, then tip will not
@@ -597,46 +599,47 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         return
       }
       const type = evt.type
-      const evtTarget = evt.target
-      const relatedTarget = evt.relatedTarget
-
-      if (type === 'click') {
-        this.toggle(evt)
-      } else if (type === 'focusin' || type === 'mouseenter') {
+      const triggers = this.computedTriggers
+     
+      if (type === 'click' && arrayIncludes(triggers, 'click')) {
+        this.click(evt)
+      } else if (type === 'mouseenter' && arrayIncludes(triggers, 'hover')) {
+        // `mouseenter` is a non-bubbling event
         this.enter(evt)
-      } else if (type === 'focusout') {
+      } else if (type === 'mouseleave' && arrayIncludes(triggers, 'hover')) {
+        // `mouseleave` is a non-bubbling event
+        this.leave(evt)
+      } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
+        // `focusin` is a bubbling event
+        this.enter(evt)
+      } else if (
+        type === 'focusout' &&
+        (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))
+      ) {
+        // `focusout` is a bubbling event
+        // tip is the template (will be null if not open)
+        const tip = this.getTipElement()
         // `evtTarget` is the element which is loosing focus and
+        const evtTarget = evt.target
         // `relatedTarget` is the element gaining focus
-        // TODO:
-        //   With the new event listners on template, we
-        //   may not need to do the folowing checks
-
-        // If focus moves from `target` to `tip`, don't trigger a leave
-        if (tip && target.contains(evtTarget) && tip.contains(relatedTarget)) {
-          /* istanbul ignore next */
+        const relatedTarget = evt.relatedTarget
+        /* istanbul ignore if */
+        if (
+          // From tip to target
+          (tip && tip.contains(evtTarget) && target.contains(relatedTarget)) ||
+          // From target to tip
+          (tip && target.contains(evtTarget) && tip.contains(relatedTarget)) ||
+          // Within tip
+          (tip && tip.contains(evtTarget) && tip.contains(relatedTarget)) ||
+          // Within target
+          (target.contains(evtTarget) && target.contains(relatedTarget))
+        ) {
+          // If focus/hover moves within `tip` and `target`, don't trigger a leave
           return
+        } else {
+          // Otherwise trigger a leave
+          this.leave(evt)
         }
-        // If focus moves from `tip` to `target`, don't trigger a leave
-        if (tip && target && tip.contains(evtTarget) && target.contains(relatedTarget)) {
-          /* istanbul ignore next */
-          return
-        }
-        // If focus moves within `tip`, don't trigger a leave
-        if (tip && tip.contains(evtTarget) && tip.contains(relatedTarget)) {
-          /* istanbul ignore next */
-          return
-        }
-        // If focus moves within `target`, don't trigger a leave
-        if (target.contains(evtTarget) && target.contains(relatedTarget)) {
-          /* istanbul ignore next */
-          return
-        }
-        // Otherwise trigger a leave
-        this.leave(evt)
-      } else if (type === 'mouseleave') {
-        // TODO:
-        //   shoud check for mouse events on tip element here
-        this.leave(evt)
       }
     },
     doHide(id) {
@@ -679,32 +682,33 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enable()
       }
     },
-    toggle(evt) {
-      // Click event handler
-      // TODO:
-      //   Separate out click handler from manual toggle handler
+    click(evt) {
       if (!this.enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return
       }
-      /* istanbul ignore else */
-      if (evt) {
-        this.activeTrigger.click = !this.activeTrigger.click
-
-        if (this.isWithActiveTrigger) {
-          this.enter(null)
-        } else {
-          this.leave(null)
-        }
+      this.activeTrigger.click = !this.activeTrigger.click
+      if (this.isWithActiveTrigger) {
+        this.enter(null)
       } else {
-        // Manual calling of toggle() method
-        // TODO:
-        //   Change this to check the localShow state
-        if (hasClass(this.getTipElement(), 'show')) {
-          this.leave(null)
-        } else {
-          this.enter(null)
-        }
+        this.leave(null)
+      }
+    },
+    toggle() {
+      // Manual toggle handler
+      if (!this.enabled || this.dropdownOpen()) {
+        /* istanbul ignore next */
+        return
+      }
+      // Should we register as an active trigger?
+      // this.activeTrigger.manual = !this.activeTrigger.manual
+      //
+      // TODO:
+      //   Change this to check the localShow state rather than sniffing classes
+      if (hasClass(this.getTipElement(), 'show')) {
+        this.leave(null)
+      } else {
+        this.enter(null)
       }
     },
     enter(evt = null) {
