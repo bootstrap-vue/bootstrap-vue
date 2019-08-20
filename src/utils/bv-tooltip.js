@@ -38,84 +38,90 @@ const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
 // Options for Native Event Listeners (since we never call preventDefault)
 const EvtOpts = { passive: true, capture: false }
 
+export const props = {
+  trigger: {
+    // Overwritten by BVPopover
+    type: [String, Array],
+    default: 'click hover'
+  },
+  placement: {
+    // Overwritten by BVPopover
+    type: String,
+    default: 'top'
+  },
+  title: {
+    // Text string, Array<vNode>, vNode
+    type: [String, Array, Object],
+    default: ''
+  },
+  content: {
+    // Text string, Array<vNode>, vNode
+    // Alias/Alternate for title for tolltip
+    type: [String, Array, Object],
+    default: ''
+  },
+  variant: {
+    type: String,
+    default: null
+  },
+  customClass: {
+    type: [String, Array, Object],
+    default: null
+  },
+  target: {
+    // Element or Component reference to the element that will have
+    // the trigger events bound, and is default element for positioning
+    type: [HTMLElement, Object],
+    default: null
+  },
+  fallbackPlacement: {
+    type: [String, Array],
+    default: 'flip'
+  },
+  container: {
+    // CSS Selector, Element or Component reference
+    type: [String, HTMLElement, Object],
+    default: null // 'body'
+  },
+  noFade: {
+    type: Boolean,
+    default: false
+  },
+  boundary: {
+    // 'scrollParent', 'viewport', 'window', Element, or Component reference
+    type: [String, HTMLElement, Object],
+    default: 'scrollParent'
+  },
+  boundaryPadding: {
+    // Tooltip/popover will try and stay away from
+    // boundary edge by this many pixels
+    type: Number,
+    default: 5
+  },
+  arrowPadding: {
+    // Arrow of Tooltip/popover will try and stay away from
+    // the edge of tooltip/popover edge by this many pixels
+    type: Number,
+    default: 6
+  },
+  offset: {
+    type: Number,
+    default: 0
+  },
+  delay: {
+    type: [Number, Object],
+    default: 0
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+}
+
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  props: {
-    trigger: {
-      // Overwritten by BVPopover
-      type: [String, Array],
-      default: 'click hover'
-    },
-    placement: {
-      // Overwritten by BVPopover
-      type: String,
-      default: 'top'
-    },
-    title: {
-      // Text string, Array<vNode>, vNode
-      type: [String, Array, Object],
-      default: ''
-    },
-    content: {
-      // Text string, Array<vNode>, vNode
-      // Alias/Alternate for title for tolltip
-      type: [String, Array, Object],
-      default: ''
-    },
-    variant: {
-      type: String,
-      default: null
-    },
-    customClass: {
-      type: [String, Array, Object],
-      default: null
-    },
-    target: {
-      // Element or Component reference to the element that will have
-      // the trigger events bound, and is default element for positioning
-      type: [HTMLElement, Object],
-      default: null
-    },
-    fallbackPlacement: {
-      type: [String, Array],
-      default: 'flip'
-    },
-    container: {
-      // CSS Selector, Element or Component reference
-      type: [String, HTMLElement, Object],
-      default: null // 'body'
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    boundary: {
-      // 'scrollParent', 'viewport', 'window', Element, or Component reference
-      type: [String, HTMLElement, Object],
-      default: 'scrollParent'
-    },
-    boundaryPadding: {
-      // Tooltip/popover will try and stay away from
-      // boundary edge by this many pixels
-      type: Number,
-      default: 5
-    },
-    arrowPadding: {
-      // Arrow of Tooltip/popover will try and stay away from
-      // the edge of tooltip/popover edge by this many pixels
-      type: Number,
-      default: 6
-    },
-    offset: {
-      type: Number,
-      default: 0
-    },
-    delay: {
-      type: [Number, Object],
-      default: 0
-    }
-  },
+  props,
   data() {
     return {
       localPlacementTarget: null,
@@ -128,8 +134,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         manual: false
       },
       hoverState: '',
-      enabled: true,
-      localShow: false
+      localShow: false,
+      enabled: !this.disabled
     }
   },
   computed: {
@@ -203,6 +209,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.unListen()
         this.listen()
       })
+    },
+    disabled(newVal, oldVal) {
+      newVal ? this.disable() : this.enable()
     }
   },
   created() {
@@ -243,14 +252,38 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Overridden by BVPopover
       return BVTooltipTemplate
     },
-    createTemplate() {
-      // Create the template instances
+    createTemplateAndShow() {
+      // Creates the template instance and show it
       // this.destroyTemplate()
-      // TODO:
-      //   Move all tip creation stuff here
-      //   Add check in template for localShow state and if `localShow` is `true` when
-      //   being destroyed, then issue a selfdestruct or similar event
-      //   so that we can ensure our instance copy is nulled out
+      this.localPlacementTarget = this.getPlacementTarget()
+      this.localContainer = this.getContainer()
+      this.localBoundary = this.getBoundary()
+      // eslint-disable-next-line new-cap
+      this.$_tip = new this.getTemplate({
+        parent: this,
+        // We use "observed" objects so that the template updates reactivly
+        props: this.templateProps,
+        attrs: this.templateAttrs,
+        on: {
+          // When the template has mounted, but not visibly shown yet
+          show: this.onTemplateShow,
+          // When the template has completed showing
+          shown: this.onTemplateShown,
+          // When the template has started to hide
+          hide: this.onTemplateHide,
+          // When the template has completed hiding
+          hidden: this.onTemplateHidden,
+          // This will occur when the template fails to mount
+          selfdestruct: this.destroyTemplate,
+          // Convenience events from template
+          // To save us from manually adding/removing DOM
+          // listeners to tip element when it is open
+          focusin: this.handleEvent,
+          focusout: this.handleEvent,
+          mouseenter: this.handleEvent,
+          mouseleave: this.handleEvent
+        }
+      })
     },
     hideTemplate() {
       // Trigger the template to start hiding
@@ -305,7 +338,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         return
       }
 
-      // Fix the title attribute on target(s)
+      // Fix the title attribute on target
       this.fixTitle()
 
       // Set aria-describedby on target
@@ -314,35 +347,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   The following could be a helper method
       // When tip is created, it automounts and shows
+      // Also binds any required listeners and handlers
       this.localShow = true
-      this.localPlacementTarget = this.getPlacementTarget()
-      this.localContainer = this.getContainer()
-      this.localBoundary = this.getBoundary()
-      // eslint-disable-next-line new-cap
-      this.$_tip = new this.getTemplate({
-        parent: this,
-        // We use "observed" objects so that the template updates reactivly
-        props: this.templateProps,
-        attrs: this.templateAttrs,
-        on: {
-          // When the template has mounted, but not visibly shown yet
-          show: this.onTemplateShow,
-          // When the template has completed showing
-          shown: this.onTemplateShown,
-          // When the template has started to hide
-          hide: this.onTemplateHide,
-          // When the template has completed hiding
-          hidden: this.onTemplateHidden,
-          // This will occur when the template fails to mount
-          selfdestruct: this.destroyTemplate,
-          // Convenience events from template
-          // To save us from manually adding/removing DOM listeners to tip element
-          focusin: this.handleEvent,
-          focusout: this.handleEvent,
-          mouseenter: this.handleEvent,
-          mouseleave: this.handleEvent
-        }
-      })
+      this.createTemplateAndShow()
     },
     hide(force = false) {
       // Hide the tooltip
