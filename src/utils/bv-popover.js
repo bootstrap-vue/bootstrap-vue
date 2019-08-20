@@ -16,22 +16,25 @@ export const BVPopover = /*#__PURE__*/ Vue.extend({
   extends: BVTooltip,
   props: {
     trigger: {
+      // Overwrites BVTooltip
       type: [String, Array],
       default: 'click focus'
     },
     placement: {
+      // Overwrites BVTooltip
       type: String,
       default: 'right'
     }
   },
   computed: {
+    // Overwrites BVTooltip
     templateType() {
       return 'popover'
     }
   },
   methods: {
     getTemplate() {
-      // Overridden by BVPopover
+      // Overwrites BVTooltip
       return BVPopoverTemplate
     }
   }
