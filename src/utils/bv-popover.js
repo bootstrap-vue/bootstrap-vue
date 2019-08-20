@@ -5,27 +5,23 @@
 // Instantiates template on demand
 
 import Vue from './vue'
-import { BVTooltip } from './bv-tooltip'
+import { BVTooltip, props as BVTooltipProps } from './bv-tooltip'
 import { BVPopoverTemplate } from './bv-popover-template'
 
 const NAME = 'BVPopover'
+
+// Make a copy of the BVTooltip props
+export const props = { ...BVTooltipProps }
+
+// Overwrite some prop default values
+props.trigger.default = 'click focus'
+props.placement.default = 'right'
 
 // @vue/component
 export const BVPopover = /*#__PURE__*/ Vue.extend({
   name: NAME,
   extends: BVTooltip,
-  props: {
-    trigger: {
-      // Overwrites BVTooltip
-      type: [String, Array],
-      default: 'click focus'
-    },
-    placement: {
-      // Overwrites BVTooltip
-      type: String,
-      default: 'right'
-    }
-  },
+  props,
   computed: {
     // Overwrites BVTooltip
     templateType() {
