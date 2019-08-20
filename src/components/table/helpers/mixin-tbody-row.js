@@ -204,7 +204,9 @@ export default {
       // a square bracket and if using in-document HTML templates, the
       // v-slot attributes are lower-cased by the browser.
       const slotNames = [`cell[${key}]`, `cell[${key.toLowerCase()}]`, 'cell[]']
-      let $childNodes = this.normalizeSlot(slotNames, slotScope) || toString(formatted)
+      let $childNodes = this.hasNormalizedSlot(slotNames)
+        ? this.normalizeSlot(slotNames, slotScope)
+        : toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]
