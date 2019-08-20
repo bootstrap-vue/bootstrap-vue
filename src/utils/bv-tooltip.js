@@ -133,13 +133,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    Template() {
-      // Overwritten by BVPopover
-      return BVTooltipTemplate
-    },
     templateType() {
       // Overwritten by BVPopover
-      // return this.Template.templateType
       return 'tooltip'
     },
     templateProps() {
@@ -274,7 +269,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.localPlacementTarget = this.getPlacementTarget()
       this.localContainer = this.getContainer()
       this.localBoundary = this.getBoundary()
-      this.$_tip = new this.Template({
+      this.$_tip = new this.getTemplate({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
         props: this.templateProps,
