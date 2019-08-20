@@ -25,11 +25,14 @@ export const BVPopover = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    Tempalte() {
-      return BVPopoverTemplate
-    },
     templateType() {
       return 'popover'
+    }
+  },
+  methods: {
+    getTemplate() {
+      // Overridden by BVPopover
+      return BVTooltipTemplate
     }
   }
 })
