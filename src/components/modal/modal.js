@@ -993,7 +993,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         {
           key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
-          attrs: { ...this.$attrs, id: this.safeId('__BV_modal_outer_')}
+          attrs: { ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
         },
         [modal, backdrop]
       )
