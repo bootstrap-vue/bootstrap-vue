@@ -32,7 +32,7 @@ export const BVPopover = /*#__PURE__*/ Vue.extend({
   methods: {
     getTemplate() {
       // Overridden by BVPopover
-      return BVTooltipTemplate
+      return BVPopoverTemplate
     }
   }
 })
