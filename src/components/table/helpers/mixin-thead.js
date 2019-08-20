@@ -116,20 +116,22 @@ export default {
             ...slotNames
           ]
         }
-        const slot = this.normalizeSlot(slotNames, {
-          label: field.label,
-          column: field.key,
-          field,
-          isFoot,
-          // Add in row select methods
-          selectAllRows,
-          clearSelected
-        })
-        if (!slot) {
-          // need to check if this will work
+        const hasSlot = this.hasNormalizedSlot(slotNames)
+        let slot = field.label
+        if (hasSlot) {
+          slot = this.normalizeSlot(slotNames, {
+            label: field.label,
+            column: field.key,
+            field,
+            isFoot,
+            // Add in row select methods
+            selectAllRows,
+            clearSelected
+          })
+        } else {
           data.domProps = htmlOrText(field.labelHtml)
         }
-        return h(BTh, data, slot || field.label)
+        return h(BTh, data, slot)
       }
 
       // Generate the array of <th> cells
