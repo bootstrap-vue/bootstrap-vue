@@ -236,6 +236,55 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.destroyTip()
   },
   methods: {
+    //
+    // Methods for creating and destroying the template
+    //
+    getTemplate() {
+      // Overridden by BVPopover
+      return BVTooltipTemplate
+    },
+    createTemplate() {
+      // Create the template instances
+      // this.destroyTemplate()
+      // TODO:
+      //   Move all tip creation stuff here
+      //   Add check in template for localShow state and if `localShow` is `true` when
+      //   being destroyed, then issue a selfdestruct or similar event
+      //   so that we can ensure our instance copy is nulled out
+    },
+    hideTemplate() {
+      // Trigger the template to start hiding
+      // The template will emit the `hide` event after this and
+      // then emit the `hidden` event once it is fully hidden
+      this.$_tip && this.$_tip.hide()
+    },
+    destroyTemplate() {
+      // Destroy the template instance and reset state
+      // TODO:
+      //   check if tip is being destroyed or is already destroyed
+      //   so that the $destroy() method doesn't choke if already destroyed
+      //   Could wrap in a try {} catch {}
+      // Reset state values
+      this.setWhileOpenListeners(false)
+      clearTimeout(this.$_hoverTimeout)
+      this.$_hoverTimout = null
+      this.localPlacementTarget = null
+      this.localContainer = null
+      this.localBoundary = 'scrollParent'
+      this.clearActiveTriggers()
+      this.hoverState = ''
+      this.localShow = false
+      try {
+        this.$_tip && this.$_tip.$destroy()
+      } catch {}
+      this.$_tip = null
+    },
+    getTemplateElement() {
+      return this.$_tip ? this.$_tip.$el : null
+    },
+    //
+    // Show and Hide handlers
+    //
     show() {
       // Show the tooltip
       const target = this.getTarget()
@@ -285,7 +334,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           // When the template has completed hiding
           hidden: this.onTemplateHidden,
           // This will occur when the template fails to mount
-          selfdestruct: this.destroyTip,
+          selfdestruct: this.destroyTemplate,
           // Convenience events from template
           // To save us from manually adding/removing DOM listeners to tip element
           focusin: this.handleEvent,
@@ -297,7 +346,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     hide(force = false) {
       // Hide the tooltip
-      const tip = this.getTipElement()
+      const tip = this.getTemplateElement()
       if (!tip || !this.localShow) {
         /* istanbul ignore next */
         return
@@ -323,7 +372,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     forceHide() {
       // Forcefully hides/destroys the template, regardless of any active triggers
-      const tip = this.getTipElement()
+      const tip = this.getTemplateElement()
       if (!tip || !this.localShow) {
         /* istanbul ignore next */
         return
@@ -348,49 +397,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.enabled = false
       // Create a non-cancelable BvEvent
       this.emitEvent(this.buildEvent('disabled', {}))
-    },
-    //
-    // Methods for creating and destroying the template
-    //
-    getTemplate() {
-      // Overridden by BVPopover
-      return BVTooltipTemplate
-    },
-    createTip() {
-      // Create the template instances
-      // this.destroyTip()
-      // TODO:
-      //   Move all tip creation stuff here
-      //   Add check in template for localShow state and if `localShow` is `true` when
-      //   being destroyed, then issue a selfdestruct or similar event
-      //   so that we can ensure our instance copy is nulled out
-    },
-    hideTemplate() {
-      // Trigger the template to start hiding
-      // The template will emit the `hide` event after this and
-      // then emit the `hidden` event once it is fully hidden
-      this.$_tip && this.$_tip.hide()
-    },
-    destroyTip() {
-      // Destroy the template instance and reset state
-      // TODO:
-      //   check if tip is being destroyed or is already destroyed
-      //   so that the $destroy() method doesn't choke if already destroyed
-      //   Could wrap in a try {} catch {}
-      // Reset state values
-      this.setWhileOpenListeners(false)
-      clearTimeout(this.$_hoverTimeout)
-      this.$_hoverTimout = null
-      this.localPlacementTarget = null
-      this.localContainer = null
-      this.localBoundary = 'scrollParent'
-      this.clearActiveTriggers()
-      this.hoverState = ''
-      this.localShow = false
-      try {
-        this.$_tip && this.$_tip.$destroy()
-      } catch {}
-      this.$_tip = null
     },
     //
     // Handlers for template events
@@ -419,14 +425,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // When template has completed closing (just before it self destructs)
       this.removeAriaDescribedby()
       this.restoreTitle()
-      this.destroyTip()
+      this.destroyTemplate()
       // Emit a non-cancelable BvEvent 'shown'
       this.emitEvent(this.buildEvent('hidden', {}))
     },
     onTemplateDestruct() {
       // Called when the template is being destroyed due to force or failure
       // Although, should we emit hide/hidden events?
-      this.destroyTip()
+      this.destroyTemplate()
     },
     //
     // Utility methods
@@ -469,9 +475,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     getBoundary() {
       return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
-    },
-    getTipElement() {
-      return this.$_tip ? this.$_tip.$el : null
     },
     isInModal() {
       const target = this.getTarget()
@@ -536,7 +539,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return new BvEvent(type, {
         cancelable: false,
         target: this.getTarget(),
-        relatedTarget: this.getTipElement(),
+        relatedTarget: this.getTemplateElement(),
         componentId: this.computedId,
         vueTarget: this,
         // Add in option overrides
@@ -626,7 +629,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$_visibleInterval = null
       if (on) {
         this.visibleInterval = setInterval(() => {
-          const tip = this.getTipElement()
+          const tip = this.getTemplateElement()
           // TODO:
           //   Change the hasClass check to check localShow status instead
           if (tip && !isVisible(this.getTarget()) && this.localShow) {
@@ -705,7 +708,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       ) {
         // `focusout` is a bubbling event
         // tip is the template (will be null if not open)
-        const tip = this.getTipElement()
+        const tip = this.getTemplateElement()
         // `evtTarget` is the element which is loosing focus and
         const evtTarget = evt.target
         // `relatedTarget` is the element gaining focus
