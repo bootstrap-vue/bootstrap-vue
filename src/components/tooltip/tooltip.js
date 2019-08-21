@@ -166,10 +166,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   beforeDestroy() {
     // Shutdown our local event listeners
-    this.$off('open', this.onOpen)
-    this.$off('close', this.onClose)
-    this.$off('disable', this.onDisable)
-    this.$off('enable', this.onEnable)
+    this.$off('open', this.doOpen)
+    this.$off('close', this.doClose)
+    this.$off('disable', this.doDisable)
+    this.$off('enable', this.doEnable)
     // Destroy the tip instance
     this.$_bv_toolpop && this.$_bv_toolpop.$destroy()
     this.$_bv_toolpop = null
