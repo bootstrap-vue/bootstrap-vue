@@ -262,8 +262,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.localPlacementTarget = this.getPlacementTarget()
       this.localContainer = this.getContainer()
       this.localBoundary = this.getBoundary()
+      const Template = this.getTemplate()
       // eslint-disable-next-line new-cap
-      this.$_tip = new this.getTemplate({
+      this.$_tip = new Template({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
         propsData: this.templateProps,
