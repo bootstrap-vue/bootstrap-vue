@@ -149,6 +149,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // We create as an observed object, so that
       // the template will react to changes
       return {
+        id: this.computedId,
         title: this.title,
         content: this.content,
         variant: this.variant,
@@ -162,12 +163,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         boundary: this.localBoundary,
         container: this.localContainer,
         target: this.localPlacementTarget
-      }
-    },
-    templateAttrs() {
-      return {
-        id: this.computedId,
-        tabindex: '-1'
       }
     },
     computedId() {
@@ -273,7 +268,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
         propsData: this.templateProps,
-        attrs: this.templateAttrs,
         on: {
           // When the template has mounted, but not visibly shown yet
           show: this.onTemplateShow,
