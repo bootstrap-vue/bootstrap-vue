@@ -110,7 +110,7 @@ export const props = {
     default: 0
   },
   delay: {
-    type: [Number, Object],
+    type: [Number, String, Object],
     default: 0
   },
   disabled: {
@@ -177,6 +177,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const delay = { show: 0, hide: 0 }
       if (isNumber(this.delay)) {
         delay.show = delay.hide = this.delay
+      } else if (isString(this.delay)) {
+        delay.show = delay.hide = Math.max(parseInt(this.delay, 10) || 0, 0)
       } else if (isPlainObject(this.delay)) {
         delay.show = isNumber(this.delay.show) ? this.delay.show : delay.show
         delay.hide = isNumber(this.delay.hide) ? this.delay.hide : delay.hide
