@@ -274,13 +274,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // local Event listeners
     //
     doOpen() {
-      if (this.$_bv_toolpop && !this.localShow) {
-        this.localShow = true
-        this.$_bv_toolpop.show()
-      }
+      !this.localShow && this.$_bv_toolpop && this.$_bv_toolpop.show()
     },
     doClose() {
-      this.$_bv_toolpop && this._toolpop.hide()
+      this.localShow && this.$_bv_toolpop && this.$_bv_toolpop.hide()
     },
     doDisable(evt) {
       this.$_bv_toolpop && this.$_bv_toolpop.disable()
