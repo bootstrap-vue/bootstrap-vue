@@ -12,6 +12,7 @@ import {
   isVisible,
   closest,
   select,
+  getById,
   hasClass,
   getAttr,
   setAttr,
@@ -79,7 +80,7 @@ export const props = {
     default: 'flip'
   },
   container: {
-    // CSS Selector, Element or Component reference
+    // HTML ID, Element or Component reference
     type: [String, HTMLElement, Object],
     default: null // 'body'
   },
@@ -442,7 +443,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     //
     getTarget() {
       // Handle case where target may be a component ref
-      const target = this.target ? this.target.$el || this.target : null
+      let target = this.target ? this.target.$el || this.target : null
+      // If an ID
+      target = isString(target) ? getById(target.replace(/^#/, '')) : null
+      // If an element ref
       return isElement(target) ? target : null
     },
     getPlacementTarget() {
@@ -474,7 +478,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return container === false
         ? closest(MODAL_SELECTOR, target) || body
         : isString(container)
-          ? select(container, body) || body
+          ? getById(container.replace(/^#/, '')) || body
           : body
     },
     getBoundary() {
