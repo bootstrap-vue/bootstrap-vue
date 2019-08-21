@@ -266,7 +266,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$_tip = new this.getTemplate({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
-        props: this.templateProps,
+        propsData: this.templateProps,
         attrs: this.templateAttrs,
         on: {
           // When the template has mounted, but not visibly shown yet
