@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import BVTooltip from '../../utils/bv-tooltip'
+import { BVTooltip } from '../../utils/bv-tooltip'
 import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString } from '../../utils/inspect'
