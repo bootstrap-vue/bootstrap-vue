@@ -235,12 +235,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.setWhileOpenListeners(false)
 
     // Clear any timeouts/Timers
-    clearTimeout(this.$_visibleInterval)
-    this.$_visibleInterval = null
     clearTimeout(this.$_hoverTimeout)
     this.$_hoverTimeout = null
-    clearTimeout(this.$_fadeTimeout)
-    this.$_fadeTimeout = null
 
     this.destroyTip()
   },
@@ -344,11 +340,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Set aria-describedby on target
       this.addAriaDescribedby()
 
-      // TODO:
-      //   The following could be a helper method
-      // When tip is created, it automounts and shows
-      // Also binds any required listeners and handlers
+      // Flag we are showing
       this.localShow = true
+      // Create and how the tooltip
       this.createTemplateAndShow()
     },
     hide(force = false) {
@@ -430,6 +424,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     onTemplateHidden() {
       // When template has completed closing (just before it self destructs)
+      // TODO:
+      //   The next two lines could be moved into `destroyTemplate()`
       this.removeAriaDescribedby()
       this.restoreTitle()
       this.destroyTemplate()
@@ -473,7 +469,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // of body, unless a container is specified
       // TODO:
       //   Template should periodically check to see if it is in dom
-      //   And if not, self destruct (if container got v-if'ed out
+      //   And if not, self destruct (if container got v-if'ed out of DOM)
+      //   Or this could possbily be part of the visibility check
       return container === false
         ? closest(MODAL_SELECTOR, target) || body
         : isString(container)
@@ -537,6 +534,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     restoreTitle() {
       // If target had a title, restore the title attribute
+      // and remove the data-title attribute
     },
     //
     // BvEvent helpers
@@ -576,6 +574,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Listen for global show/hide events
       this.setRootListener(true)
 
+      // Set up our listeners on the target trigger element
       this.computedTriggers.forEach(trigger => {
         if (trigger === 'click') {
           eventOn(el, 'click', this.handleEvent, EvtOpts)
@@ -596,9 +595,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
       const target = this.getTarget()
 
-      // Using `this` as the handler will get automatically directed to this.handleEvent
       events.forEach(evt => {
-        target && eventOff(target, evt, this, EvtOpts)
+        target && eventOff(target, evt, this.handleEvent, EvtOpts)
       }, this)
 
       // Stop listening for global show/hide/enable/disable events
@@ -732,6 +730,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           (target.contains(evtTarget) && target.contains(relatedTarget))
         ) {
           // If focus/hover moves within `tip` and `target`, don't trigger a leave
+          // TODO:
+          //   Maybe we should triger this.enter(evt) here ?
+          // this.enter(evt)
           return
         }
         // Otherwise trigger a leave
@@ -745,7 +746,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.forceHide()
       } else if (this.getTargetId() === id || this.computedId === id) {
         // Close this specific tooltip or popover
-        this.hide()
+        this.forceHide()
       }
     },
     doShow(id) {
