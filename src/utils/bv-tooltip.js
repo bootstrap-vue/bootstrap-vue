@@ -5,7 +5,7 @@
 
 import Vue from './vue'
 import { arrayIncludes, concat, from as arrayFrom } from './array'
-import { isNumber, isPlainObject, isString } from './inspect'
+import { isFunction, isNumber, isPlainObject, isString } from './inspect'
 import {
   isElement,
   isDisabled,
@@ -72,7 +72,7 @@ export const props = {
   target: {
     // Element or Component reference to the element that will have
     // the trigger events bound, and is default element for positioning
-    type: [HTMLElement, Object],
+    type: [String, Function, HTMLElement, Object],
     default: null
   },
   fallbackPlacement: {
@@ -453,7 +453,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Handle case where target may be a component ref
       let target = this.target ? this.target.$el || this.target : null
       // If an ID
-      target = isString(target) ? getById(target.replace(/^#/, '')) : null
+      target = isString(target) ? getById(target.replace(/^#/, '')) : target
+      // If a function
+      target = isFunction(target) ? target() : target
       // If an element ref
       return isElement(target) ? target : null
     },
