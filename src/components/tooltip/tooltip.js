@@ -200,7 +200,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Initially disabled?
       if (this.disabled) {
         // Initially disabled
-        this.onDisable()
+        this.doDisable()
       }
       // Listen to open signals from others
       this.$on('open', this.doOpen)
