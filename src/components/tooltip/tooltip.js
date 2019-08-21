@@ -106,6 +106,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       return {
         // Could we just use `...this.$props`, and then override ones as necessary (i.e. title)
         // Common to both tooltip/popover
+        target: this.target,
         trigger: this.triggers,
         placement: this.placement,
         fallbackPlacement: this.fallbackPlacement,
