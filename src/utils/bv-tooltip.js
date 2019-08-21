@@ -4,6 +4,7 @@
 // Instantiates template on demand
 
 import Vue from './vue'
+import looseEqual from './loose-equal'
 import { arrayIncludes, concat, from as arrayFrom } from './array'
 import { isFunction, isNumber, isPlainObject, isString } from './inspect'
 import {
@@ -186,12 +187,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return delay
     },
     computedTriggers() {
-      // Returns the triggers in array form
+      // Returns the triggers in sorted array form
       return concat(this.triggers)
         .filter(Boolean)
         .join(' ')
+        .trim()
         .toLowerCase()
         .split(/\s+/)
+        .sort()
     },
     isWithActiveTrigger() {
       for (const trigger in this.activeTrigger) {
@@ -205,13 +208,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   watch: {
     computedtriggers(newVal, oldVal) {
       // Triggers have changed, so re-register them
-      this.$netTick(() => {
-        // TODO:
-        //   Should we also clear any active triggers that
-        //   are no longer in the list of triggers?
-        this.unListen()
-        this.listen()
-      })
+      if (!looseEqual(newVal, oldVal)) {
+        this.$netTick(() => {
+          // TODO:
+          //   Should we also clear any active triggers that
+          //   are no longer in the list of triggers?
+          this.unListen()
+          this.listen()
+        })
+      }
     },
     disabled(newVal, oldVal) {
       newVal ? this.disable() : this.enable()
@@ -246,7 +251,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     clearTimeout(this.$_hoverTimeout)
     this.$_hoverTimeout = null
 
-    this.destroyTip()
+    this.destroyTemplate()
   },
   methods: {
     //
@@ -283,10 +288,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           // Convenience events from template
           // To save us from manually adding/removing DOM
           // listeners to tip element when it is open
+          // TODO:
+          //   May need special handling of these events
+          //   To prevent tip from closing for hover trigger
+          //   when hover moves to tip
+          // mouseenter: this.handleEvent,
+          // mouseleave: this.handleEvent,
           focusin: this.handleEvent,
-          focusout: this.handleEvent,
-          mouseenter: this.handleEvent,
-          mouseleave: this.handleEvent
+          focusout: this.handleEvent
         }
       })
     },
@@ -339,7 +348,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.emitEvent(showEvt)
       if (showEvt.defaultPrevented) {
         // Don't show if event cancelled
-        this.destroyTip()
+        this.destroyTemplate()
         return
       }
 
@@ -720,12 +729,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(evt)
       } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
         // `focusin` is a bubbling event
+        // `evt` icludes relatedTarget (element loosing focus)
         this.enter(evt)
       } else if (
         type === 'focusout' &&
         (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))
       ) {
         // `focusout` is a bubbling event
+        // `evt` icludes relatedTarget (element gaining focus)
         // tip is the template (will be null if not open)
         const tip = this.getTemplateElement()
         // `evtTarget` is the element which is loosing focus and
