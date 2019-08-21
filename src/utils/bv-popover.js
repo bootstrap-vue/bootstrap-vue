@@ -14,7 +14,7 @@ const NAME = 'BVPopover'
 export const props = { ...BVTooltipProps }
 
 // Overwrite some prop default values
-props.trigger.default = 'click focus'
+props.triggers.default = 'click focus'
 props.placement.default = 'right'
 
 // @vue/component
