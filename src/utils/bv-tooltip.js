@@ -548,10 +548,20 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     fixTitle() {
       // If the target has a title attribute, null it out and
       // store on data-title
+      const target = this.getTarget()
+      if (getAttr(target, 'title') || !isString(getAttr(target, 'data-original-title'))) {
+        setAttr(target, 'data-original-title', getAttr(target, 'title') || '')
+        setAttr(target, 'title', '')
+      }
     },
     restoreTitle() {
       // If target had a title, restore the title attribute
       // and remove the data-title attribute
+      const target = this.getTarget()
+      if (getAttr(target, 'data-original-title')) {
+        setAttr(target, 'title', getAttr(target, 'data-original-title') || '')
+        setAttr(target, 'data-original-title', '')
+      }
     },
     //
     // BvEvent helpers
