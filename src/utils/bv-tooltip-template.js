@@ -9,6 +9,10 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   extends: BVPopper,
   inheritAttrs: false,
   props: {
+    id: {
+      type: String,
+      default: null
+    },
     title: {
       // Text string, Array<vNode>, vNode
       type: [String, Array, Object],
@@ -47,7 +51,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       return {
         role: 'tooltip',
         tabindex: '-1',
-        ...this.$attrs
+        id: this.id
       }
     },
     templateListeners() {
