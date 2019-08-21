@@ -230,6 +230,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$parent.$once('hook:beforeDestroy', this.$destroy)
     }
   },
+  deactivated() {
+    // In a keepalive that has been deactivated, so hide
+    // the tooltip/popover if it is showing
+    this.forceHide()
+  },
   beforDestroy() {
     // Remove all handler/listeners
     this.unListen()
