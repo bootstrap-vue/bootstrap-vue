@@ -168,7 +168,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     this.popperUpdate()
   },
   beforeDestroy() {
-    this.destroyPopper()
+    this.popperDestroy()
   },
   destroyed() {
     const el = this.$el
