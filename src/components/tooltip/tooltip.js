@@ -203,13 +203,13 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         this.onDisable()
       }
       // Listen to open signals from others
-      this.$on('open', this.onOpen)
+      this.$on('open', this.doOpen)
       // Listen to close signals from others
-      this.$on('close', this.onClose)
+      this.$on('close', this.doClose)
       // Listen to disable signals from others
-      this.$on('disable', this.onDisable)
+      this.$on('disable', this.doDisable)
       // Listen to enable signals from others
-      this.$on('enable', this.onEnable)
+      this.$on('enable', this.doEnable)
       // initially show tooltip?
       if (this.localShow) {
         this.$_bv_toolpop && this.$_bv_toolpop.show()
@@ -273,19 +273,19 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     //
     // local Event listeners
     //
-    onOpen() {
+    doOpen() {
       if (this.$_bv_toolpop && !this.localShow) {
         this.localShow = true
         this.$_bv_toolpop.show()
       }
     },
-    onClose() {
+    doClose() {
       this.$_bv_toolpop && this._toolpop.hide()
     },
-    onDisable(evt) {
+    doDisable(evt) {
       this.$_bv_toolpop && this.$_bv_toolpop.disable()
     },
-    onEnable() {
+    doEnable() {
       this.$_bv_toolpop && this.$_bv_toolpop.enable()
     }
   },
