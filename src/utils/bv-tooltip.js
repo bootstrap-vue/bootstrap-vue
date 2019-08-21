@@ -40,7 +40,7 @@ const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
 const EvtOpts = { passive: true, capture: false }
 
 export const props = {
-  trigger: {
+  triggers: {
     // Overwritten by BVPopover
     type: [String, Array],
     default: 'click hover'
@@ -185,7 +185,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     computedTriggers() {
       // Returns the triggers in array form
-      return concat(this.trigger)
+      return concat(this.triggers)
         .filter(Boolean)
         .join(' ')
         .toLowerCase()
