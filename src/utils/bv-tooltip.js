@@ -22,7 +22,7 @@ import {
 } from './dom'
 import { HTMLElement } from './safe-types'
 
-import { BvEvent } from './bv-event'
+import { BvEvent } from './bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
 const NAME = 'BVTtooltip'
