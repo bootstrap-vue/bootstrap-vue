@@ -19,7 +19,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     target: {
       // String ID of element, or element/component reference
       // Or function that returns one of the above
-      type: [String, HTMLElement, Function, Object]
+      type: [String, HTMLElement, Function, Object],
       // default: undefined,
       required: true
     },
