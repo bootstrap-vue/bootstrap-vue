@@ -186,7 +186,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     this.$nextTick(() => {
       this.$_bv_toolpop = new BVTooltip({
         parent: this,
-        props: this.templateProps,
+        propsData: this.templateProps,
         attrs: this.$attrs,
         on: {
           show: this.onShow,
