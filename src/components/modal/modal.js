@@ -261,6 +261,7 @@ export const props = {
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'visible',
     event: 'change'
@@ -992,7 +993,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         {
           key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
-          attrs: { id: this.safeId('__BV_modal_outer_') }
+          attrs: { ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
         },
         [modal, backdrop]
       )
