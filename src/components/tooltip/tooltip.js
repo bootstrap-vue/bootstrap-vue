@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
-import BVToolTip from '../../utils/bv-tooltip'
-import warn from '../../utils/warn'
+import BVTooltip from '../../utils/bv-tooltip'
 import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { isString } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
@@ -13,8 +13,8 @@ const NAME = 'BTooltip'
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  inheritAttrs: false,
   mixins: [normalizeSlotMixin],
+  inheritAttrs: false,
   props: {
     target: {
       // String ID of element, or element/component reference
@@ -40,7 +40,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       default: 'flip',
       validator(value) {
         return (
-          (isArray(value) && valye.every(v => isString(v))) ||
+          (isArray(value) && value.every(v => isString(v))) ||
           arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
         )
       }
@@ -177,9 +177,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Set the intial title
     // TODO:
     //   Move this into a method
-    this.localTitle = this.hasNormalizedSlot('default')
-      ? this.normalizeSlot('default')
-      : this.title
+    this.localTitle = this.hasNormalizedSlot('default') ? this.normalizeSlot('default') : this.title
 
     // Instantiate a new BVTooltip instance
     // Done in a $nextTick to ensure DOM has completed
@@ -225,7 +223,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   Make object of data/slot/prop and update content based on that
       this.$nextTick(() => {
-        if(this.hasNormalizedSlot('default')) {
+        if (this.hasNormalizedSlot('default')) {
           this.localTitle = this.normalizeSlot('default')
         } else {
           this.loalTitle = this.title
@@ -258,7 +256,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     onDisabled(bvEvt) {
       // Prevent possible endless loop if user mistakenly
       // fires disabled instead of disable
-      if (evt && evt.type === 'disabled') {
+      if (bvEvt && bvEvt.type === 'disabled') {
         this.$emit('update:disabled', true)
         this.$emit('disabled', bvEvt)
       }
@@ -266,7 +264,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     onEnabled(bvEvt) {
       // Prevent possible endless loop if user mistakenly
       // fires `enabled` instead of `enable`
-      if (evt && evt.type === 'enabled') {
+      if (bvEvt && bvEvt.type === 'enabled') {
         this.$emit('update:disabled', false)
         this.$emit('enabled', bvEvt)
       }
@@ -292,7 +290,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     // Always renders a comment node
-    // TODO: 
+    // TODO:
     //    Future, possibly render a target slot (single root element)
     //    Which we can apply the listeners to (pass this.$el to BVTooltip)
     return h()
