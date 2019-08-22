@@ -247,6 +247,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_hoverTimeout = null
 
     this.destroyTemplate()
+    this.restoreTitle()
   },
   methods: {
     //
@@ -292,6 +293,30 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           focusout: this.handleEvent
         }
       })
+      // TODO:
+      //   Rather than the template mounting itself
+      //   This instance should handle mouting / unmounting
+      // Template transition phase events
+      // this.$_tip.$on('show', this.onTemplateShow)
+      // this.$_tip.$on('shown', this.onTemplateShown)
+      // this.$_tip.$on('hide', this.onTemplateHide)
+      // this.$_tip.$on('hidden', this.onTemplateHidden)
+      // // the selfsestruct event is fired if the template
+      // // is destroyed before it has started to hide.
+      // this.$_tip.$on('selfdestruct', this.destroyTemplate)
+      // this.$_tip.$on('hook:destroyed', this.destroyTemplate)
+      // // Convenience events from template
+      // // To save us from manually adding/removing DOM
+      // // listeners to tip element when it is open
+      // this.$_tip.$on('focusin', this.handleEvent)
+      // this.$_tip.$on('focusout', this.handleEvent)
+      // this.$_tip.$on('mouseenter', this.handleEvent)
+      // this.$_tip.$on('mouseleave', this.handleEvent)
+      // const div = container.appendChild(document.createElement('div'))
+      // Mount (which triggers the `show`)
+      // this.$_tip.$mount(div)
+      // // When the tip is hidden, we destroy the template instance
+      // // then set localShow = false
     },
     hideTemplate() {
       // Trigger the template to start hiding
@@ -300,6 +325,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$_tip && this.$_tip.hide()
     },
     destroyTemplate() {
+      console.log('template destroy')
       // Destroy the template instance and reset state
       // TODO:
       //   check if tip is being destroyed or is already destroyed
@@ -417,9 +443,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     onTemplateShow() {
       // When template is inserted into DOM, but not yet shown
       // Enable while open listeners/watchers
+      console.log('template show')
       this.setWhileOpenListeners(true)
     },
     onTemplateShown() {
+      console.log('template shown')
       // When template show transition completes
       const prevHoverState = this.hoverState
       this.hoverState = ''
@@ -430,11 +458,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.emitEvent(this.buildEvent('shown', {}))
     },
     onTemplateHide() {
+      console.log('template hide')
       // When template is starting to hide
       // Disable while open listeners/watchers
       this.setWhileOpenListeners(false)
     },
     onTemplateHidden() {
+      console.log('template hidden')
       // When template has completed closing (just before it self destructs)
       // TODO:
       //   The next two lines could be moved into `destroyTemplate()`
