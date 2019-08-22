@@ -52,14 +52,14 @@ export const props = {
     default: 'top'
   },
   title: {
-    // Text string, Array<vNode>, vNode
-    type: [String, Array, Object],
+    // Text string, Array<vNode>, vNode, Scoped slot function
+    type: [String, Array, Function, Object],
     default: ''
   },
   content: {
-    // Text string, Array<vNode>, vNode
+    // Text string, Array<vNode>, vNode, Scoped slot function
     // Alias/Alternate for title for tolltip
-    type: [String, Array, Object],
+    type: [String, Array, Function, Object],
     default: ''
   },
   variant: {
@@ -758,24 +758,24 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       } else if (type === 'mouseenter' && arrayIncludes(triggers, 'hover')) {
         // `mouseenter` is a non-bubbling event
         this.enter(evt)
-      } else if (type === 'mouseleave' && arrayIncludes(triggers, 'hover')) {
-        // `mouseleave` is a non-bubbling event
-        this.leave(evt)
       } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
         // `focusin` is a bubbling event
         // `evt` icludes relatedTarget (element loosing focus)
         this.enter(evt)
       } else if (
-        type === 'focusout' &&
-        (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))
+        (
+          type === 'focusout' &&
+          (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))
+        ) ||
+        (type === 'mouseleave' && arrayIncludes(triggers, 'hover'))
       ) {
         // `focusout` is a bubbling event
-        // `evt` icludes relatedTarget (element gaining focus)
+        // `mouseleave` is a non-bubbling event
         // tip is the template (will be null if not open)
         const tip = this.getTemplateElement()
-        // `evtTarget` is the element which is loosing focus and
+        // `evtTarget` is the element which is loosing focus/hover and
         const evtTarget = evt.target
-        // `relatedTarget` is the element gaining focus
+        // `relatedTarget` is the element gaining focus/hover
         const relatedTarget = evt.relatedTarget
         /* istanbul ignore next */
         if (
@@ -789,9 +789,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           (target.contains(evtTarget) && target.contains(relatedTarget))
         ) {
           // If focus/hover moves within `tip` and `target`, don't trigger a leave
-          // TODO:
-          //   Maybe we should triger this.enter(evt) here ?
-          // this.enter(evt)
           return
         }
         // Otherwise trigger a leave
