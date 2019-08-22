@@ -417,11 +417,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     onTemplateShow() {
       // When template is inserted into DOM, but not yet shown
       // Enable while open listeners/watchers
-      console.log('template show')
       this.setWhileOpenListeners(true)
     },
     onTemplateShown() {
-      console.log('template shown')
       // When template show transition completes
       const prevHoverState = this.hoverState
       this.hoverState = ''
@@ -432,13 +430,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.emitEvent(this.buildEvent('shown', {}))
     },
     onTemplateHide() {
-      console.log('template hide')
       // When template is starting to hide
       // Disable while open listeners/watchers
       this.setWhileOpenListeners(false)
     },
     onTemplateHidden() {
-      console.log('template hidden')
       // When template has completed closing (just before it self destructs)
       // TODO:
       //   The next two lines could be moved into `destroyTemplate()`
