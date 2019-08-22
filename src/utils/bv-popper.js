@@ -1,8 +1,8 @@
 // Base on-demand component for tooltip / popover templates
 //
 // Currently:
-//   Responsible for mounting, positioning and transitioning the tooltips/popovers
-//   Tooltips/Popovers are only instantiated when shown, and destroyed when hidden
+//   Responsible for positioning and transitioning the template
+//   Templates are only instantiated when shown, and destroyed when hidden
 //
 
 import Vue from './vue'
@@ -61,11 +61,6 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     fallbackPlacement: {
       type: [String, Array],
       default: 'flip'
-    },
-    container: {
-      // Element reference
-      type: HTMLElement,
-      default: null // 'body'
     },
     noFade: {
       type: Boolean,
@@ -136,49 +131,16 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     // Note: we are created on-demand, and should be guaranteed that
     // DOM is rendered/ready by the time the created hook runs
     this.$_popper = null
-    // Tooltips / Popovers can only be created client side
-    if (hasDocumentSupport) {
-      // Ensure we show as we mount
-      this.localShow = true
-      // TODO:
-      //   Move mounting into bv-tooltip (or mixin used by bv-tooltip)
-      //   Once mounted, the template will show
-      //   We should check for existence of target and
-      //   emit an event if target is not found
-      //   No longer need to pass container
-      // Auto mount the tooltip / popover and show it
-      // Done inside a nextTick to allow time for
-      // target/container to appear in DOM
-      // TODO:
-      //   Next tick shouldn't be required, as bv-tooltip will handle
-      //   the next tick creation of the template
-      this.$nextTick(() => {
-        // Note: `container` and `target` cannot be changed while tooltip is open
-        const container = this.container || document.body
-        const target = this.target
-        // Only mount if we have a target and container
-        // TODO:
-        //   Check to make sure target is in document
-        //   And fail emit an event `notarget` then self destruct
-        if (target && container && container.appendChild) {
-          // Create popper instance before shown
-          this.$on('show', el => {
-            this.popperCreate(el)
-          })
-          // Self destruct once hidden
-          this.$on('hidden', () => {
-            this.$nextTick(this.$destroy)
-          })
-          // TODO:
-          //   This will be handled by bv-tooltip (or its mixin)
-          this.$mount(container.appendChild(document.createElement('div')))
-        } else {
-          // Should we issue a warning here?
-          this.$emit('selfdestruct')
-          this.$nextTick(this.$destroy)
-        }
-      })
-    }
+    // Ensure we show as we mount
+    this.localShow = true
+    // Create popper instance before shown
+    this.$on('show', el => {
+      this.popperCreate(el)
+    })
+    // Self destruct once hidden
+    this.$on('hidden', () => {
+      this.$nextTick(this.$destroy)
+    })
   },
   beforeMount() {
     // TBD
@@ -196,8 +158,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     this.popperDestroy()
   },
   destroyed() {
-    // TODO:
-    //   Should this be moved into bv-tooltip (or it's mixin)?
+    // Make sure template is removed from DOM
     const el = this.$el
     el && el.parentNode && el.parentNode.removeChild(el)
   },
