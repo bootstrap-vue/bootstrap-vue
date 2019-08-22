@@ -136,6 +136,12 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     this.$_popper = null
     // Tooltips / Popovers can only be created client side
     if (hasDocumentSupport) {
+      // TODO:
+      //   Move mounting into bv-tooltip (or mixin used by bv-tooltip)
+      //   Once mounted, the template will show
+      //   We should check for existence of target and
+      //   emit an event if target is not found
+      //   No longer need to pass container
       // Auto mount the tooltip / popover and show it
       // Done inside a nextTick to allow time for
       // target/container to appear in DOM
@@ -144,6 +150,9 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
         const container = this.container || document.body
         const target = this.target
         // Only mount if we have a target and container
+        // TODO:
+        //   Check to make sure target is in document
+        //   And fail emit an event `notarget` then self destruct
         if (target && container && container.appendChild) {
           // Create popper instance before shown
           this.$on('show', el => {
@@ -153,6 +162,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           this.$on('hidden', () => {
             this.$nextTick(this.$destroy)
           })
+          // TODO:
+          //   This will be handled by bv-tooltip (or its mixin)
           this.$mount(container.appendChild(document.createElement('div')))
         } else {
           // Should we issue a warning here?
@@ -162,20 +173,29 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       })
     }
   },
+  beforeMount() {
+    // TBD
+  },
+  mounted() {
+    // TBD
+  },
   updated() {
     // Update popper if needed
-    // Or should this be a watcher on this.popperConfig?
+    // TODO:
+    //   should this be a watcher on this.popperConfig instead?
     this.popperUpdate()
   },
   beforeDestroy() {
     this.popperDestroy()
   },
   destroyed() {
+    // TODO:
+    //   Should this be moved into bv-tooltip (or it's mixin)?
     const el = this.$el
     el && el.parentNode && el.parentNode.removeChild(el)
   },
   methods: {
-    // "Public" method to hide tooltip/popover
+    // "Public" method to trigger hide template
     hide() {
       this.localShow = false
     },
@@ -186,7 +206,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     getOffset(placement) {
       if (!this.offset) {
         // Could set a ref for the arrow element
-        const arrow = select('.arrow', this.$el)
+        const arrow = this.$refs.arrow || select('.arrow', this.$el)
         const arrowOffset =
           (parseFloat(getCS(arrow).width) || 0) + (parseFloat(this.arrowPadding) || 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
