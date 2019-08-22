@@ -271,7 +271,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$_tip = new Template({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
-        propsData: this.templateProps,
+        propsData: this.templateProps
       })
       // TODO:
       //   Rather than the template mounting itself
