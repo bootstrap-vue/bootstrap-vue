@@ -269,34 +269,36 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.localBoundary = this.getBoundary()
       const container = this.getContainer()
       const Template = this.getTemplate()
-      this.$_tip = new Template({
+      const $tip = this.$_tip = new Template({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
-        propsData: this.templateProps
+        // propsData: this.templateProps
       })
+      // Hack to make Template props reactive
+      $tip._props = this.templateProps
       // TODO:
       //   Rather than the template mounting itself
       //   This instance should handle mouting / unmounting
       // Template transition phase events
       // When the template has mounted, but not visibly shown yet
-      this.$_tip.$once('show', this.onTemplateShow)
+      $tip.$once('show', this.onTemplateShow)
       // When the template has completed showing
-      this.$_tip.$once('shown', this.onTemplateShown)
+      $tip.$once('shown', this.onTemplateShown)
       // When the template has started to hide
-      this.$_tip.$once('hide', this.onTemplateHide)
+      $tip.$once('hide', this.onTemplateHide)
       // When the template has completed hiding
-      this.$_tip.$once('hidden', this.onTemplateHidden)
+      $tip.$once('hidden', this.onTemplateHidden)
       // When the template gets destroyed for any reason
-      this.$_tip.$once('hook:destroyed', this.destroyTemplate)
+      $tip.$once('hook:destroyed', this.destroyTemplate)
       // Convenience events from template
       // To save us from manually adding/removing DOM
       // listeners to tip element when it is open
-      this.$_tip.$on('focusin', this.handleEvent)
-      this.$_tip.$on('focusout', this.handleEvent)
-      this.$_tip.$on('mouseenter', this.handleEvent)
-      this.$_tip.$on('mouseleave', this.handleEvent)
+      $tip.$on('focusin', this.handleEvent)
+      $tip.$on('focusout', this.handleEvent)
+      $tip.$on('mouseenter', this.handleEvent)
+      $tip.$on('mouseleave', this.handleEvent)
       // Mount (which triggers the `show`)
-      this.$_tip.$mount(container.appendChild(document.createElement('div')))
+      $tip.$mount(container.appendChild(document.createElement('div')))
       // Template will automatically remove its markup from DOM when hidden
     },
     hideTemplate() {
