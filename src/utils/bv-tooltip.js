@@ -764,7 +764,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enter(evt)
       } else if (
         (type === 'focusout' &&
-         (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))) ||
+          (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))) ||
         (type === 'mouseleave' && arrayIncludes(triggers, 'hover'))
       ) {
         // `focusout` is a bubbling event
