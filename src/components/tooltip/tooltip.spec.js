@@ -114,23 +114,14 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('title')).toEqual('')
-    expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
+    expect($button.attributes('title')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).not.toBeDefined()
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Title placeholder (from default slot)
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipHolder.find('div.d-none > div').text()).toBe('title')
+    expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -166,34 +157,24 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('title')).toEqual('')
-    expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
+    expect($button.attributes('title')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).not.toBeDefined()
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Title placeholder (from default slot) will have been
-    // moved to tooltip element
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(0)
-    // Title text will be moved into the tooltip
-    expect($tipHolder.text()).toBe('')
+    expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Hide the tooltip
     wrapper.setProps({
@@ -206,14 +187,10 @@ describe('b-tooltip', () => {
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
-    // Title placeholder (from default slot) will be back here
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    // Title text will be moved into the tooltip
-    expect($tipHolder.find('div.d-none > div').text()).toBe('title')
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.querySelector(adb)).toBe(null)
 
     wrapper.destroy()
   })
@@ -252,12 +229,8 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-
-    // Title placeholder will be here until opened
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipHolder.text()).toBe('title')
 
     // Activate tooltip by trigger
     $button.trigger('click')
@@ -274,13 +247,17 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     wrapper.destroy()
+    await waitRAF()
+    await waitRAF()
+    jest.runOnlyPendingTimers()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
@@ -321,12 +298,8 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-
-    // Title placeholder will be here until opened
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipHolder.text()).toBe('title')
 
     // Activate tooltip by trigger
     $button.trigger('focusin')
@@ -344,11 +317,12 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Deactivate tooltip by trigger
     $button.trigger('focusout')
@@ -362,7 +336,7 @@ describe('b-tooltip', () => {
     // Tooltip element should not be in the document
     expect($button.attributes('aria-describedby')).not.toBeDefined()
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     wrapper.destroy()
   })
@@ -403,12 +377,8 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-
-    // Title placeholder will be here until opened
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipHolder.text()).toBe('title')
 
     // Activate tooltip by trigger
     $button.trigger('mouseenter')
@@ -426,11 +396,12 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Deactivate tooltip by trigger
     $button.trigger('mouseleave')
@@ -444,7 +415,7 @@ describe('b-tooltip', () => {
     // Tooltip element should not be in the document
     expect($button.attributes('aria-describedby')).not.toBeDefined()
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     wrapper.destroy()
   })
@@ -484,12 +455,8 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-
-    // title placeholder will be here until opened
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipHolder.text()).toBe('title')
 
     // Try to activate tooltip by trigger
     $button.trigger('click')
@@ -501,10 +468,8 @@ describe('b-tooltip', () => {
 
     // Tooltip should not have opened
     expect($button.attributes('aria-describedby')).not.toBeDefined()
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(1)
-    expect($tipHolder.text()).toBe('title')
 
-    // Now enabled the tooltip
+    // Now enable the tooltip
     wrapper.setProps({
       disabled: false
     })
@@ -528,7 +493,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
@@ -560,6 +525,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    jest.runOnlyPendingTimers()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -579,22 +545,16 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Title placeholder...
-    expect($tipHolder.text()).toBe('')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Hide the tooltip by emitting root event with correct ID (forceHide)
     wrapper.vm.$root.$emit('bv::hide::tooltip', 'foo')
@@ -609,7 +569,7 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     wrapper.destroy()
   })
