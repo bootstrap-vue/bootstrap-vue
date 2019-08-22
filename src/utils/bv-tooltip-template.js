@@ -1,5 +1,6 @@
 import Vue from './vue'
 import { BVPopper } from './bv-popper'
+import { isFunction } from './inspect'
 
 const NAME = 'BVTooltipTemplate'
 
