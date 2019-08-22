@@ -1,5 +1,6 @@
 import Vue from './vue'
 import { BVTooltipTemplate } from './bv-tooltip-template'
+import { isFunction } from './inspect'
 
 const NAME = 'BVPopoverTemplate'
 
@@ -24,8 +25,20 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
         },
         [
           h('div', { staticClass: 'arrow' }),
-          this.title ? h('h3', { staticClass: 'popover-header' }, this.title) : h(),
-          this.content ? h('div', { staticClass: 'popover-body' }, this.content) : h()
+          this.title
+            ? h(
+                'h3',
+                { staticClass: 'popover-header' },
+                [isFunction(this.title) ? this.title({}) : this.title]
+              )
+            : h(),
+          this.content
+            ? h(
+                'div',
+                { staticClass: 'popover-body' },
+                [isFunction(this.content) ? this.content({}) : this.content]
+              )
+            : h()
         ]
       )
     }
