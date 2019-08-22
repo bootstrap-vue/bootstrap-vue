@@ -175,19 +175,21 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Done in a $nextTick to ensure DOM has completed
     // rendering so that target can be found
     this.$nextTick(() => {
-      this.$_bv_toolpop = new BVTooltip({
+      const $toolpop = this.$_bv_toolpop = new BVTooltip({
         parent: this,
-        propsData: this.templateProps,
-        attrs: this.$attrs,
-        on: {
-          show: this.onShow,
-          shown: this.onShown,
-          hide: this.onHide,
-          hidden: this.onHidden,
-          disabled: this.onDisabled,
-          enabled: this.onEnabled
-        }
+        // propsData: this.templateProps,
+        // We could pass this.$attrs as a prop
+        // attrs: this.$attrs,
       })
+      // Hack to make props reactive
+      $toolpop._props = this.templateProps
+      // Set listeners
+      $toolpop.$on('show', this.onShow)
+      $toolpop.$on('shown', this.onShown)
+      $toolpop.$on('hide', this.onHide)
+      $toolpop.$on('hidden', this.onHidden)
+      $toolpop.$on('disabled', this.onDisabled)
+      $toolpop.$on('enabled', this.onEnabled)
       // Initially disabled?
       if (this.disabled) {
         // Initially disabled
