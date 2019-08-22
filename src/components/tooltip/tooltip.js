@@ -144,9 +144,9 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     localShow(show, oldVal) {
-      if (show !== this.show) {
-        this.$emit('update:show', show)
-      }
+      // TODO:
+      //   May need to be done in a $nextTick
+      this.$emit('update:show', show)
     }
   },
   created() {
@@ -154,15 +154,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     this.$_bv_toolpop = null
   },
   updated() {
-    if (this.hasNormalizedSlot('default')) {
-      // Render teh default slot as the title content
-      this.$nextTick(() => {
-        // Should check the slot function, and if it hasn't
-        // changed then don't force an update
-        // This should be a method that Popover can override
-        this.localTitle = this.normalizeSlot('default')
-      })
-    }
+    // Performed in a nextTick to prevent update loops
+    this.$nextTick(this.updateContent)
   },
   beforeDestroy() {
     // Shutdown our local event listeners
@@ -176,9 +169,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // Set the intial title
-    // TODO:
-    //   Move this into a method
-    this.localTitle = this.hasNormalizedSlot('default') ? this.normalizeSlot('default') : this.title
+    this.updateContent()
 
     // Instantiate a new BVTooltip instance
     // Done in a $nextTick to ensure DOM has completed
@@ -221,15 +212,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Overridden by popover
       // tooltip: default slot is title
       // popover: default slot is content, title slot is title
-      // TODO:
-      //   Make object of data/slot/prop and update content based on that
-      this.$nextTick(() => {
-        if (this.hasNormalizedSlot('default')) {
-          this.localTitle = this.normalizeSlot('default')
-        } else {
-          this.loalTitle = this.title
-        }
-      })
+      // We pass a scoped slot function by default (v2.6x)
+      this.localTitle = this.$scopedSlots.default || this.$slots.default || this.title || ''
     },
     //
     // Template event handlers
@@ -251,8 +235,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     onHidden(bvEvt) {
       // Tip is no longer showing
-      this.localShow = false
       this.$emit('hidden', bvEvt)
+      this.localShow = false
     },
     onDisabled(bvEvt) {
       // Prevent possible endless loop if user mistakenly
