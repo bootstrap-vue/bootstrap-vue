@@ -13,14 +13,14 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       default: null
     },
     title: {
-      // Text string, Array<vNode>, vNode
-      type: [String, Array, Object],
+      // Text string, Slot Function, Array<vNode>, vNode
+      type: [String, Function, Array, Object],
       default: ''
     },
     content: {
-      // Text string, Array<vNode>, vNode
+      // Text string, Slot Function, Array<vNode>, vNode
       // Alias/Alternate for title for tolltip
-      type: [String, Array, Object],
+      type: [String, Function, Array, Object],
       default: ''
     },
     variant: {
@@ -83,7 +83,13 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         },
         [
           h('div', { staticClass: 'arrow' }),
-          h('div', { staticClass: 'tooltip-inner' }, [this.title || this.content || h()])
+          h('div', { staticClass: 'tooltip-inner' }, [
+            isFunction(this.title)
+              ? this.title({})
+              : isFunction(this.content)
+                ? this.content({})
+                : this.title || this.content || h()
+          ])
         ]
       )
     }
