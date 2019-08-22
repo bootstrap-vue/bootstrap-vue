@@ -22,6 +22,7 @@ import {
   eventOff
 } from './dom'
 import { HTMLElement } from './safe-types'
+import { warn } from './warn'
 
 import { BvEvent } from './bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
@@ -127,7 +128,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       localPlacementTarget: null,
-      localContainer: null,
       localBoundary: 'scrollParent',
       activeTrigger: {
         hover: false,
@@ -161,7 +161,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         arrowPadding: this.arrowPadding,
         boundaryPadding: this.boundaryPadding,
         boundary: this.localBoundary,
-        container: this.localContainer,
         target: this.localPlacementTarget
       }
     },
@@ -201,9 +200,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    computedtriggers(newVal, oldVal) {
+    computedtriggers(newTriggers, oldTriggers) {
       // Triggers have changed, so re-register them
-      if (!looseEqual(newVal, oldVal)) {
+      if (!looseEqual(newTriggers, oldTriggers)) {
         this.$netTick(() => {
           // TODO:
           //   Should we also clear any active triggers that
@@ -224,12 +223,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_visibleInterval = null
     this.$_noop = () => {}
 
-    // Set up all trigger handlers and listeners
-    this.listen()
-
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
       this.$parent.$once('hook:beforeDestroy', this.$destroy)
+    }
+
+    const target = this.getTarget()
+    if (target && document.contains(target)) {
+      // Set up all trigger handlers and listeners
+      this.listen()
+    } else {
+      warn(`${this.templateType} unable to find target element in document`)
     }
   },
   deactivated() {
@@ -261,25 +265,19 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Creates the template instance and show it
       // this.destroyTemplate()
       this.localPlacementTarget = this.getPlacementTarget()
-      this.localContainer = this.getContainer()
       this.localBoundary = this.getBoundary()
+      const container = this.getContainer()
       const Template = this.getTemplate()
-      // eslint-disable-next-line new-cap
       this.$_tip = new Template({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
         propsData: this.templateProps,
         on: {
-          // When the template has mounted, but not visibly shown yet
+          
           show: this.onTemplateShow,
-          // When the template has completed showing
           shown: this.onTemplateShown,
-          // When the template has started to hide
           hide: this.onTemplateHide,
-          // When the template has completed hiding
           hidden: this.onTemplateHidden,
-          // This will occur when the template fails to mount
-          selfdestruct: this.destroyTemplate,
           // Convenience events from template
           // To save us from manually adding/removing DOM
           // listeners to tip element when it is open
@@ -297,48 +295,42 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   Rather than the template mounting itself
       //   This instance should handle mouting / unmounting
       // Template transition phase events
-      // this.$_tip.$on('show', this.onTemplateShow)
-      // this.$_tip.$on('shown', this.onTemplateShown)
-      // this.$_tip.$on('hide', this.onTemplateHide)
-      // this.$_tip.$on('hidden', this.onTemplateHidden)
-      // // the selfsestruct event is fired if the template
-      // // is destroyed before it has started to hide.
-      // this.$_tip.$on('selfdestruct', this.destroyTemplate)
-      // this.$_tip.$on('hook:destroyed', this.destroyTemplate)
-      // // Convenience events from template
-      // // To save us from manually adding/removing DOM
-      // // listeners to tip element when it is open
-      // this.$_tip.$on('focusin', this.handleEvent)
-      // this.$_tip.$on('focusout', this.handleEvent)
-      // this.$_tip.$on('mouseenter', this.handleEvent)
-      // this.$_tip.$on('mouseleave', this.handleEvent)
-      // const div = container.appendChild(document.createElement('div'))
+      // When the template has mounted, but not visibly shown yet
+      this.$_tip.$once('show', this.onTemplateShow)
+      // When the template has completed showing
+      this.$_tip.$once('shown', this.onTemplateShown)
+      // When the template has started to hide
+      this.$_tip.$once('hide', this.onTemplateHide)
+      // When the template has completed hiding
+      this.$_tip.$once('hidden', this.onTemplateHidden)
+      // When the template gets destroyed for any reason
+      this.$_tip.$once('hook:destroyed', this.destroyTemplate)
+      // Convenience events from template
+      // To save us from manually adding/removing DOM
+      // listeners to tip element when it is open
+      this.$_tip.$on('focusin', this.handleEvent)
+      this.$_tip.$on('focusout', this.handleEvent)
+      this.$_tip.$on('mouseenter', this.handleEvent)
+      this.$_tip.$on('mouseleave', this.handleEvent)
       // Mount (which triggers the `show`)
-      // this.$_tip.$mount(div)
-      // // When the tip is hidden, we destroy the template instance
-      // // then set localShow = false
+      this.$_tip.$mount(container.appendChild(document.createElement('div')))
+      // Template will automatically remove its markup from DOM when hidden
     },
     hideTemplate() {
       // Trigger the template to start hiding
       // The template will emit the `hide` event after this and
       // then emit the `hidden` event once it is fully hidden
+      // The `hook:destroyed` will also be called (safety measure)
       this.$_tip && this.$_tip.hide()
     },
     destroyTemplate() {
-      console.log('template destroy')
       // Destroy the template instance and reset state
-      // TODO:
-      //   check if tip is being destroyed or is already destroyed
-      //   so that the $destroy() method doesn't choke if already destroyed
-      //   Could wrap in a try {} catch {}
-      // Reset state values
       this.setWhileOpenListeners(false)
       clearTimeout(this.$_hoverTimeout)
       this.$_hoverTimout = null
-      this.localPlacementTarget = null
-      this.localContainer = null
-      this.localBoundary = 'scrollParent'
       this.clearActiveTriggers()
+      this.localPlacementTarget = null
+      this.localBoundary = 'scrollParent'
       this.hoverState = ''
       this.localShow = false
       try {
@@ -473,11 +465,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.destroyTemplate()
       // Emit a non-cancelable BvEvent 'shown'
       this.emitEvent(this.buildEvent('hidden', {}))
-    },
-    onTemplateDestruct() {
-      // Called when the template is being destroyed due to force or failure
-      // Although, should we emit hide/hidden events?
-      this.destroyTemplate()
     },
     //
     // Utility methods
