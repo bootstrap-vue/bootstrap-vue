@@ -272,24 +272,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         parent: this,
         // We use "observed" objects so that the template updates reactivly
         propsData: this.templateProps,
-        on: {
-          
-          show: this.onTemplateShow,
-          shown: this.onTemplateShown,
-          hide: this.onTemplateHide,
-          hidden: this.onTemplateHidden,
-          // Convenience events from template
-          // To save us from manually adding/removing DOM
-          // listeners to tip element when it is open
-          // TODO:
-          //   May need special handling of these events
-          //   To prevent tip from closing for hover trigger
-          //   when hover moves to tip
-          // mouseenter: this.handleEvent,
-          // mouseleave: this.handleEvent,
-          focusin: this.handleEvent,
-          focusout: this.handleEvent
-        }
       })
       // TODO:
       //   Rather than the template mounting itself
