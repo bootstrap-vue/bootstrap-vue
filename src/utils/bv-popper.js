@@ -8,7 +8,6 @@
 import Vue from './vue'
 import Popper from 'popper.js'
 import { getCS, select } from './dom'
-import { hasDocumentSupport } from './env'
 import { HTMLElement } from './safe-types'
 
 const NAME = 'BVPopper'
