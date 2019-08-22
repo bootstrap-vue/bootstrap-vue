@@ -133,9 +133,13 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
+    // Note: we are created on-demand, and should be guaranteed that
+    // DOM is rendered/ready by the time the created hook runs
     this.$_popper = null
     // Tooltips / Popovers can only be created client side
     if (hasDocumentSupport) {
+      // Ensure we show as we mount
+      this.localShow = true
       // TODO:
       //   Move mounting into bv-tooltip (or mixin used by bv-tooltip)
       //   Once mounted, the template will show
@@ -145,6 +149,9 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       // Auto mount the tooltip / popover and show it
       // Done inside a nextTick to allow time for
       // target/container to appear in DOM
+      // TODO:
+      //   Next tick shouldn't be required, as bv-tooltip will handle
+      //   the next tick creation of the template
       this.$nextTick(() => {
         // Note: `container` and `target` cannot be changed while tooltip is open
         const container = this.container || document.body
@@ -234,6 +241,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       this.$_popper && this.$_popper.scheduleUpdate()
     },
     popperPlacementChange(data) {
+      // Callback used by popper to adjust the arrow placement
       this.attachment = this.getAttachment(data.placement)
     },
     renderTemplate(h) /* istanbul ignore next */ {
@@ -244,6 +252,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   render(h) {
     const fade = this.nofade ? '' : 'fade'
     const show = 'show'
+    // Note: `show` is only appled during transition
     return h(
       'transition',
       {
