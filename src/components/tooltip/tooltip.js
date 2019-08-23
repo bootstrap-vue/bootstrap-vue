@@ -98,10 +98,6 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      // Props that we send to the template
-      // We do this as we need an object with observers
-      propsData: {
-      },
       localShow: this.show
     }
   },
@@ -176,11 +172,11 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Done in a $nextTick to ensure DOM has completed
     // rendering so that target can be found
     this.$nextTick(() => {
-      const $toolpop = this.$_bv_toolpop = new BVTooltip({
+      const $toolpop = (this.$_bv_toolpop = new BVTooltip({
         parent: this
         // Can't do the following because it's not reactive
         // propsData: this.propsData,
-      })
+      }))
       // Hack to make props reactive
       // Since the toolpop is parented, we can't mutate the
       // instance props directly.
