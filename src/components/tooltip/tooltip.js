@@ -2,30 +2,34 @@ import Vue from '../../utils/vue'
 import { BVTooltip } from '../../utils/bv-tooltip'
 import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isString } from '../../utils/inspect'
+import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { keys } from './object'
 import { HTMLElement } from '../../utils/safe-types'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BTooltip'
 
-// TODO:
-//   Move many of the common methods/etc to a mixin
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   props: {
+    title: {
+      type: String
+      // default: undefined
+    },
+    // Added in by BPopover
+    // content: {
+    //   type: String,
+    //   default: undefined
+    // },
     target: {
       // String ID of element, or element/component reference
       // Or function that returns one of the above
       type: [String, HTMLElement, Function, Object],
       // default: undefined,
       required: true
-    },
-    title: {
-      type: String,
-      default: ''
     },
     triggers: {
       type: [String, Array],
@@ -94,45 +98,14 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      localTitle: '',
-      localContent: '',
+      // Props that we send to the template
+      // We do this as we need an object with observers
+      propsData: {
+      },
       localShow: this.show
     }
   },
-  computed: {
-    templateProps() {
-      // We return an observerd object so that
-      // BVTooltip wil react to changes
-      return {
-        // Could we just use `...this.$props`, and then override ones as necessary (i.e. title)
-        // Common to both tooltip/popover
-        target: this.target,
-        triggers: this.triggers,
-        placement: this.placement,
-        fallbackPlacement: this.fallbackPlacement,
-        variant: this.variant,
-        customClass: this.customClass,
-        container: this.container,
-        boundary: this.boundary,
-        delay: this.delay,
-        offset: this.offset,
-        noFade: this.noFade,
-        disabled: this.disabled,
-        // generic to both tooltip & popover
-        title: this.localTitle,
-        content: this.localContent
-      }
-    }
-  },
   watch: {
-    title(newVal, oldVal) {
-      if (newVal !== oldVal && !this.hasNormalizedSlot('default')) {
-        // Default slot has precidence over title prop
-        // TODO:
-        //   Move this into a common method
-        this.localTitle = this.title
-      }
-    },
     show(show, oldVal) {
       if (show !== oldVal && show !== this.localShow && this.$_bv_toolpop) {
         if (show) {
@@ -150,12 +123,38 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    // Non reactive property
+    // Non reactive properties
     this.$_bv_toolpop = null
+    this.$_bv_propsData = null
+    // Create our observed propsData object for the template
+    // We crate it as a non reactive prop to prevent changes to
+    // it causing updates/re-renders of this instance
+    // Requires Vue 2.6+
+    // TODO:
+    //   Should we warn if Vue.observable is not available
+    //   Or fallback to making a Vue instance with only data()
+    //   This may need to be in a nextTick to ensure the props are passed
+    this.$_bv_propsData = Vue.observable({
+      target: this.target,
+      triggers: this.triggers,
+      placement: this.placement,
+      fallbackPlacement: this.fallbackPlacement,
+      variant: this.variant,
+      customClass: this.customClass,
+      container: this.container,
+      boundary: this.boundary,
+      delay: this.delay,
+      offset: this.offset,
+      noFade: this.noFade,
+      disabled: this.disabled,
+      attrs: {},
+      title: '',
+      content: ''
+    })
   },
   updated() {
-    // Performed in a nextTick to prevent update loops
-    this.$nextTick(this.updateContent)
+    // Update the propData object
+    this.handleUpdate()
   },
   beforeDestroy() {
     // Shutdown our local event listeners
@@ -166,23 +165,33 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Destroy the tip instance
     this.$_bv_toolpop && this.$_bv_toolpop.$destroy()
     this.$_bv_toolpop = null
+    // Destroy the observable object
+    this.$_bv_propsData = null
   },
   mounted() {
-    // Set the intial title
-    this.updateContent()
+    // Set the intial props
+    this.handleUpdate()
 
     // Instantiate a new BVTooltip instance
     // Done in a $nextTick to ensure DOM has completed
     // rendering so that target can be found
     this.$nextTick(() => {
       const $toolpop = this.$_bv_toolpop = new BVTooltip({
-        parent: this,
-        // propsData: this.templateProps,
-        // We could pass this.$attrs as a prop
-        // attrs: this.$attrs,
+        parent: this
+        // Can't do the following because it's not reactive
+        // propsData: this.propsData,
       })
       // Hack to make props reactive
-      $toolpop._props = this.templateProps
+      // Since the toolpop is parented, we can't mutate the
+      // instance props directly.
+      // TODO:
+      //   Possibly: rather than using props, would be to define all of
+      //   the "props" as data values in bv-tooltip/popover, which we
+      //   can directly mutate without warnings being generated,
+      //   Or create a method in the bv-tooltip/popover instance that
+      //   we can call with updated values, pasing a computed prop of props
+      //   As this "hack" may break in Vue 3.x
+      $toolpop._props = this.$_bv_propsData
       // Set listeners
       $toolpop.$on('show', this.onShow)
       $toolpop.$on('shown', this.onShown)
@@ -211,11 +220,39 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     updateContent() {
-      // Overridden by popover
+      // Overridden by BPopover
       // tooltip: default slot is title
       // popover: default slot is content, title slot is title
       // We pass a scoped slot function by default (v2.6x)
-      this.localTitle = this.$scopedSlots.default || this.$slots.default || this.title || ''
+      // And pass the title prop as a fallback
+      this.setTitle(this.$scopedSlots.default || this.title)
+    },
+    // Helper methods for updateContent
+    setTitle(val) {
+      val = isUndefinedOrNull(val) ? val : ''
+      if (this.propsData.title !== val) {
+        this.propsData.title = val
+      }
+    },
+    setContent(val) {
+      val = isUndefinedOrNull(val) ? val : ''
+      if (this.propsData.content !== val) {
+        this.propsData.content = val
+      }
+    },
+    handleUpdate() {
+      // Update the propData object with any new values
+      keys(this.$_bv_propsData)
+        // Exclude hte title and content values, as they are handled specially
+        .filter(prop => prop !== 'title' && prop !== 'content')
+        // Copy the prop values to the propsData object
+        .forEach(prop => {
+          if (this.$_bv_propsData[prop] !== this[prop]) {
+            this.$_bv_propsData[prop] = this[prop]
+          }
+        })
+      // Update the title/content
+      this.updateContent()
     },
     //
     // Template event handlers
