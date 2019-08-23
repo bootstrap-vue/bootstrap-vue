@@ -172,10 +172,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     this.$nextTick(() => {
       const $toolpop = (this.$_bv_toolpop = new BVTooltip({
         parent: this,
-        // The following jsut pre-populates the prop data so 
-        // that thevalues are available in created hook), but 
+        // The following jsut pre-populates the prop data so
+        // that thevalues are available in created hook), but
         // is not reactive to changes in the props data (see below)
-        propsData: this.$_bv_propsData,
+        propsData: this.$_bv_propsData
       }))
       // Hack to make props reactive
       // Since the toolpop is parented, we can't mutate the
