@@ -5,14 +5,12 @@ import { getComponentConfig } from '../../utils/config'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { keys } from './object'
 import { HTMLElement } from '../../utils/safe-types'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BTooltip'
 
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   props: {
     title: {
