@@ -6,7 +6,8 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { getCS, isVisible, requestAF } from '../../utils/dom'
+import listenOnRootMixin from '../../mixins/listen-on-root'
+import { closest, getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 
 // @vue/component
@@ -14,6 +15,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   name: 'BFormTextarea',
   mixins: [
     idMixin,
+    listenOnRootMixin,
     formMixin,
     formSizeMixin,
     formStateMixin,
@@ -105,6 +107,18 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     this.$nextTick(() => {
       this.dontResize = false
     })
+    /* istanbul ignore next */
+    if (closest('.modal', this.$el)) {
+      // If we are inside a modal, listen for modal shown events and
+      // resize (if applicable). Specifically for non-lazy modals
+      this.listenOnRoot('bv::modal::shown', this.setHeight)
+      // TODO:
+      //   Non-lazy b-tabs have a similar issue, but b-tabs does not emit root events (yet).
+      //   Idealy we would use IntersectionObserver to detect if the textarea is visible
+      //   and only perform the resize calculations when needed. Could be created as a mixin
+      //   or directive such as https://github.com/Akryum/vue-observe-visibility
+      //   which could be used by other components in the library
+    }
   },
   activated() {
     // If we are being re-activated in <keep-alive>, enable opt-in resizing
