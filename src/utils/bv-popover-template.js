@@ -28,7 +28,7 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
         [
           h('div', { ref: 'arrow', staticClass: 'arrow' }),
           $title ? h('h3', { staticClass: 'popover-header' }, $title) : h(),
-          $content ? h( 'div', { staticClass: 'popover-body' }, $content) : h()
+          $content ? h('div', { staticClass: 'popover-body' }, $content) : h()
         ]
       )
     }
