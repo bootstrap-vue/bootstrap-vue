@@ -146,25 +146,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Overwritten by BVPopover
       return 'tooltip'
     },
-    templateProps() {
-      // We create as an observed object, so that
-      // the template will react to changes
-      return {
-        id: this.computedId,
-        title: this.title,
-        content: this.content,
-        variant: this.variant,
-        customClass: this.customClass,
-        placement: this.placement,
-        fallbackPlacement: this.fallbackPlacement,
-        offset: this.offset,
-        noFade: this.noFade,
-        arrowPadding: this.arrowPadding,
-        boundaryPadding: this.boundaryPadding,
-        boundary: this.localBoundary,
-        target: this.localPlacementTarget
-      }
-    },
     computedId() {
       return `__bv_${this.templateType}_${this._uid}__`
     },
@@ -232,25 +213,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     this.$nextTick(() => {
       const target = this.getTarget()
-      // Create our observed props data object
-      // Requires Vue 2.6+
-      this.$_bv_propsData = Vue.observable({
-        // These props can change values while open
-        title: this.title,
-        content: this.content,
-        // The following props are "sealed" when open
-        variant: this.variant,
-        customClass: this.customClass,
-        noFade: this.noFade,
-        placement: this.placement,
-        fallbackPlacement: this.fallbackPlacement,
-        offset: this.offset,
-        id: this.computedId,
-        arrowPadding: this.arrowPadding,
-        boundaryPadding: this.boundaryPadding,
-        boundary: this.localBoundary,
-        target: this.localPlacementTarget
-      })
       if (target && document.contains(target)) {
         // Set up all trigger handlers and listeners
         this.listen()
@@ -262,15 +224,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   updated() {
     // Update our observable title/content props
     // So that the template updates accordingly
-    const title = this.title
-    const content = this.content
     const propsData = this.$_bv_propsData
-    // Only update the values if they have changed
-    if (propsData.title !== title) {
-      propsData.title = title
-    }
-    if (propsData.content !== content) {
-      propsData.title = content
+    if (propsData) {
+      const title = this.title
+      const content = this.content
+      // Only update the values if they have changed
+      if (propsData.title !== title) {
+        propsData.title = title
+      }
+      if (propsData.content !== content) {
+        propsData.title = content
+      }
     }
   },
   deactivated() {
@@ -302,8 +266,25 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     createTemplateAndShow() {
       // Creates the template instance and show it
       // this.destroyTemplate()
-      this.localPlacementTarget = this.getPlacementTarget()
-      this.localBoundary = this.getBoundary()
+      // Create our observed props data object
+      // Requires Vue 2.6+
+      this.$_bv_propsData = Vue.observable({
+        // These props can change values while open
+        title: this.title,
+        content: this.content,
+        // The following props are "sealed" when open
+        variant: this.variant,
+        customClass: this.customClass,
+        noFade: this.noFade,
+        placement: this.placement,
+        fallbackPlacement: this.fallbackPlacement,
+        offset: this.offset,
+        id: this.computedId,
+        arrowPadding: this.arrowPadding,
+        boundaryPadding: this.boundaryPadding,
+        boundary: this.getBoundary(),
+        target: this.getPlacementTarget()
+      })
       const container = this.getContainer()
       const Template = this.getTemplate()
       const $tip = (this.$_tip = new Template({
@@ -368,6 +349,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$_tip && this.$_tip.$destroy()
       } catch {}
       this.$_tip = null
+      // Remove our observable
+      this.$_bv_propsData = null
     },
     getTemplateElement() {
       return this.$_tip ? this.$_tip.$el : null
