@@ -229,7 +229,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // popover: default slot is content, title slot is title
       // We pass a scoped slot function by default (v2.6x)
       // And pass the title prop as a fallback
-      this.setTitle(this.$scopedSlots.default ? this.$scopedSlots.default({}) : this.title)
+      this.setTitle(this.$scopedSlots.default ? this.$scopedSlots.default : this.title)
     },
     // Helper methods for updateContent
     setTitle(val) {
