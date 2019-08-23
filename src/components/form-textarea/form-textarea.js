@@ -91,7 +91,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
         // Run once more after a nextTick/RequestAnimationFrame
         // in case the textarea is inside a modal or other component
         // with transition delays and/or portaling delays
-        this.nextTick(() => {
+        this.$nextTick(() => {
           requestAF(this.setHeight)
         })
       }
