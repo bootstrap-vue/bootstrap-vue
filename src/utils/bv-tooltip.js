@@ -196,6 +196,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     disabled(newVal, oldVal) {
       newVal ? this.disable() : this.enable()
+    },
+    title(newVal, oldVal) {
+      this.$nextTick(this.handleUpdate)
+    },
+    content(newVal, oldVal) {
+      this.$nextTick(this.handleUpdate)
     }
   },
   created() {
@@ -222,20 +228,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     })
   },
   updated() {
-    // Update our observable title/content props
-    // So that the template updates accordingly
-    const propsData = this.$_bv_propsData
-    if (propsData) {
-      const title = this.title
-      const content = this.content
-      // Only update the values if they have changed
-      if (propsData.title !== title) {
-        propsData.title = title
-      }
-      if (propsData.content !== content) {
-        propsData.title = content
-      }
-    }
+    this.$nextTick(this.handleUpdate)
   },
   deactivated() {
     // In a keepalive that has been deactivated, so hide
@@ -354,6 +347,22 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     getTemplateElement() {
       return this.$_tip ? this.$_tip.$el : null
+    },
+    handleUpdate() {
+      // Update our observable title/content props
+      // So that the template updates accordingly
+      const propsData = this.$_bv_propsData
+      if (propsData) {
+        const title = this.title
+        const content = this.content
+        // Only update the values if they have changed
+        if (propsData.title !== title) {
+          propsData.title = title
+        }
+        if (propsData.content !== content) {
+          propsData.title = content
+        }
+      }
     },
     //
     // Show and Hide handlers
