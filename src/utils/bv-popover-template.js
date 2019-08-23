@@ -15,6 +15,8 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     renderTemplate(h) {
+      const $title = isFunction(this.title) ? [this.title({})] : this.title
+      const $content = isFunction(this.content) ? [this.content({})] : this.content
       return h(
         'div',
         {
@@ -24,21 +26,9 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
           on: this.templateListeners
         },
         [
-          h('div', { staticClass: 'arrow' }),
-          this.title
-            ? h(
-                'h3',
-                { staticClass: 'popover-header' },
-                [isFunction(this.title) ? this.title({}) : this.title]
-              )
-            : h(),
-          this.content
-            ? h(
-                'div',
-                { staticClass: 'popover-body' },
-                [isFunction(this.content) ? this.content({}) : this.content]
-              )
-            : h()
+          h('div', { ref: 'arrow', staticClass: 'arrow' }),
+          $title ? h('h3', { staticClass: 'popover-header' }, $title) : h(),
+          $content ? h( 'div', { staticClass: 'popover-body' }, $content) : h()
         ]
       )
     }
