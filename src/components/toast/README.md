@@ -125,13 +125,16 @@ automatically be destroyed and removed from the document.
 
 - The `this.$bvToast` injection is only available when using the full `BootstrapVue` plugin or the
   `ToastPlugin` plugin. It is not available if importing just the `b-toast` or `b-toaster`
-  components. To just import the injection, use the `BVToastPlugin` plugin.
+  components. To just import the `$bvToast` injection, use the `BVToastPlugin` plugin.
 - A new `$bvToast` injection (mixin) is created for each Vue virtual machine instance (i.e. each
   instantiated component), and is not usable via direct access to the `Vue.prototype`, as it needs
   access to the instance's `this` and `$root` contexts.
 - Toasts generated via `this.$bvToast.toast()` are children of the Vue instance that calls the
   `this.$bvToast.toast()` method, and will be hidden and destroyed if that Vue instance (i.e. your
-  component or app) is also destroyed.
+  component or app) is also destroyed. If the vm context is inside a `<router-view>`, and the
+  `$route` changes, the toast will also be destroyed (as all the children of `<routerv-view>` are
+  destroyed. To make on-demand toasts persist across router `$route` changes, use 
+  `this.$root.$bvToast.toast()` instead to make the toast's parent the root of your app.
 - Toasts require a message. Toasts on demand with an empty message will silently not be shown.
 
 ## Options
