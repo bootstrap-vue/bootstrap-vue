@@ -583,8 +583,7 @@ export default {
 }
 ```
 
-Refer to the [Events](/docs/components/dropdown#component-reference) section of documentation for
-the full list of events.
+Refer to the [Events](#component-reference) section of documentation for the full list of events.
 
 ## Optionally scoped default slot
 
