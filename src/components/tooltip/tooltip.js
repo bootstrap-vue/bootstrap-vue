@@ -121,7 +121,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     content(newVal, oldVal) {
       this.$nextTick(this.handleUpdate)
-    },
+    }
   },
   created() {
     // Non reactive properties
