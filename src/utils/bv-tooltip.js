@@ -285,7 +285,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // The following jsut pre-populates the prop data so
         // that thevalues are available in created hook), but
         // is not reactive to changes in the props data (see below)
-        // propsData: this.$_bv_propsData
+        propsData: this.$_bv_propsData
       }))
       // Hack to make Template props reactive
       // TODO:
