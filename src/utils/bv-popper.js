@@ -142,7 +142,9 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     })
   },
   beforeMount() {
-    // TBD
+    // Ensure that teh attacment position is correct before mounting
+    // as our propsData is added after `new Template({...})`
+    this.attachment = this.getAttachment(this.placement)
   },
   mounted() {
     // TBD
