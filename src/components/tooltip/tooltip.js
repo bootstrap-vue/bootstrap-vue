@@ -226,25 +226,26 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Helper methods for updateContent
     setTitle(val) {
       val = isUndefinedOrNull(val) ? val : ''
-      if (this.propsData.title !== val) {
-        this.propsData.title = val
+      if (this.$_bv_propsData.title !== val) {
+        this.$_bv_propsData.title = val
       }
     },
     setContent(val) {
       val = isUndefinedOrNull(val) ? val : ''
-      if (this.propsData.content !== val) {
-        this.propsData.content = val
+      if (this.$_bv_propsData.content !== val) {
+        this.$_bv_propsData.content = val
       }
     },
     handleUpdate() {
       // Update the propData object with any new values
-      keys(this.$_bv_propsData)
+      const propsData = this.$_bv_propsData
+      keys(propsData)
         // Exclude hte title and content values, as they are handled specially
         .filter(prop => prop !== 'title' && prop !== 'content')
         // Copy the prop values to the propsData object
         .forEach(prop => {
-          if (this.$_bv_propsData[prop] !== this[prop]) {
-            this.$_bv_propsData[prop] = this[prop]
+          if (propsData[prop] !== this[prop]) {
+            propsData[prop] = this[prop]
           }
         })
       // Update the title/content
