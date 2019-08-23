@@ -222,6 +222,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_tip = null
     this.$_hoverTimeout = null
     this.$_visibleInterval = null
+    this.$_bv_propsData = null
     this.$_noop = () => {}
 
     // Destroy ourselves when the parent is destroyed
@@ -231,6 +232,25 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     this.$nextTick(() => {
       const target = this.getTarget()
+      // Create our observed props data object
+      // Requires Vue 2.6+
+      this.$_bv_propsData = Vue.observable({
+        // These props can change values while open
+        title: this.title,
+        content: this.content,
+        // The following props are "sealed" when open
+        variant: this.variant,
+        customClass: this.customClass,
+        noFade: this.noFade,
+        placement: this.placement,
+        fallbackPlacement: this.fallbackPlacement,
+        offset: this.offset,
+        id: this.computedId,
+        arrowPadding: this.arrowPadding,
+        boundaryPadding: this.boundaryPadding,
+        boundary: this.localBoundary,
+        target: this.localPlacementTarget
+      })
       if (target && document.contains(target)) {
         // Set up all trigger handlers and listeners
         this.listen()
@@ -238,6 +258,20 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         warn(`${this.templateType} unable to find target element in document`)
       }
     })
+  },
+  updated() {
+    // Update our observable title/content props
+    // So that the template updates accordingly
+    const title = this.title
+    const content = this.content
+    const propsData = this.$_bv_propsData
+    // Only update the values if they have changed
+    if (propsData.title !== title) {
+      propsData.title = title
+    }
+    if (propsData.content !== content) {
+      propsData.title = content
+    }
   },
   deactivated() {
     // In a keepalive that has been deactivated, so hide
@@ -255,6 +289,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     this.destroyTemplate()
     this.restoreTitle()
+    this.$_bv_propsData = null
   },
   methods: {
     //
@@ -277,7 +312,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // propsData: this.templateProps
       })
       // Hack to make Template props reactive
-      $tip._props = this.templateProps
+      // TODO:
+      //   Possibly: rather than using props, would be to define all of
+      //   the "props" as data values in bv-tooltip/popover, which we
+      //   can directly mutate without warnings being generated,
+      //   Or create a method in the bv-tooltip/popover instance that
+      //   we can call with updated values, pasing a computed prop of props
+      //   As this "hack" may break in Vue 3.x
+      $tip._props = this.$_bv_propsData
       // TODO:
       //   Rather than the template mounting itself
       //   This instance should handle mouting / unmounting
@@ -403,6 +445,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.hoverTimeout = null
       this.hoverState = ''
       this.clearActiveTriggers()
+      // Disable the fade animation
+      this.$_bv_propsData && this.$_bv_propsData.noFade = true
       // Hide the tip
       this.hide(true)
     },
