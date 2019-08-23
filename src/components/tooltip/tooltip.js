@@ -148,7 +148,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   updated() {
     // Update the propData object
-    this.handleUpdate()
+    // Done in a next tick to ensure slot(s) have updated
+    this.$nextTick(this.handleUpdate)
   },
   beforeDestroy() {
     // Shutdown our local event listeners
