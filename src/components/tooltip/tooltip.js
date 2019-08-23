@@ -114,7 +114,14 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   May need to be done in a $nextTick
       this.$emit('update:show', show)
-    }
+    },
+    // Watchers for props (prop changes do not trigger the `updated()` hook)
+    title(newval, oldVal) {
+      this.$nextTick(this.handleUpdate)
+    },
+    content(newVal, oldVal) {
+      this.$nextTick(this.handleUpdate)
+    },
   },
   created() {
     // Non reactive properties
