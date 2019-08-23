@@ -229,13 +229,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$parent.$once('hook:beforeDestroy', this.$destroy)
     }
 
-    const target = this.getTarget()
-    if (target && document.contains(target)) {
-      // Set up all trigger handlers and listeners
-      this.listen()
-    } else {
-      warn(`${this.templateType} unable to find target element in document`)
-    }
+    this.$nextTick(() => {
+      const target = this.getTarget()
+      if (target && document.contains(target)) {
+        // Set up all trigger handlers and listeners
+        this.listen()
+      } else {
+        warn(`${this.templateType} unable to find target element in document`)
+      }
+    })
   },
   deactivated() {
     // In a keepalive that has been deactivated, so hide
