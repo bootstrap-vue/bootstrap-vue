@@ -83,13 +83,9 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
           on: this.templateListeners
         },
         [
-          h('div', { staticClass: 'arrow' }),
+          h('div', { ref: 'arrow',staticClass: 'arrow' }),
           h('div', { staticClass: 'tooltip-inner' }, [
-            isFunction(this.title)
-              ? this.title({})
-              : isFunction(this.content)
-                ? this.content({})
-                : this.title || this.content || h()
+            isFunction(this.title) ? [this.title({})] : this.title || [h()]
           ])
         ]
       )
