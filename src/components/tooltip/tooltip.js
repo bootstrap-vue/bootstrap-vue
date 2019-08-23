@@ -225,13 +225,13 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     // Helper methods for updateContent
     setTitle(val) {
-      val = isUndefinedOrNull(val) ? val : ''
+      val = isUndefinedOrNull(val) ? '' : val
       if (this.$_bv_propsData.title !== val) {
         this.$_bv_propsData.title = val
       }
     },
     setContent(val) {
-      val = isUndefinedOrNull(val) ? val : ''
+      val = isUndefinedOrNull(val) ? '' : val
       if (this.$_bv_propsData.content !== val) {
         this.$_bv_propsData.content = val
       }
