@@ -6,7 +6,7 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { getCS, isVisible } from '../../utils/dom'
+import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 
 // @vue/component
@@ -88,6 +88,12 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     dontResize(newVal, oldval) {
       if (!newVal) {
         this.setHeight()
+        // Run once more after a nextTick/RequestAnimationFrame
+        // in case the textarea is inside a modal or other component
+        // with transition delays and/or portaling delays
+        this.nextTick(() => {
+          requestAF(this.setHeight)
+        })
       }
     },
     localValue(newVal, oldVal) {
