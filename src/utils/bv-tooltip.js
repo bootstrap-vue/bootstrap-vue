@@ -307,9 +307,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const container = this.getContainer()
       const Template = this.getTemplate()
       const $tip = (this.$_tip = new Template({
-        parent: this
-        // We use "observed" objects so that the template updates reactivly
-        // propsData: this.templateProps
+        parent: this,
+        // The following jsut pre-populates the prop data so 
+        // that thevalues are available in created hook), but 
+        // is not reactive to changes in the props data (see below)
+        propsData: this.$_bv_propsData
       }))
       // Hack to make Template props reactive
       // TODO:
