@@ -308,8 +308,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const Template = this.getTemplate()
       const $tip = (this.$_tip = new Template({
         parent: this,
-        // The following jsut pre-populates the prop data so 
-        // that thevalues are available in created hook), but 
+        // The following jsut pre-populates the prop data so
+        // that thevalues are available in created hook), but
         // is not reactive to changes in the props data (see below)
         propsData: this.$_bv_propsData
       }))
