@@ -446,7 +446,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.hoverState = ''
       this.clearActiveTriggers()
       // Disable the fade animation
-      this.$_bv_propsData && this.$_bv_propsData.noFade = true
+      if (this.$_bv_propsData) {
+        this.$_bv_propsData.noFade = true
+      }
       // Hide the tip
       this.hide(true)
     },
