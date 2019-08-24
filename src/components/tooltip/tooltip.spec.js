@@ -267,7 +267,8 @@ describe('b-tooltip', () => {
       localVue: localVue,
       propsData: {
         triggers: 'focus',
-        show: false
+        show: false,
+        delay: 0
       },
       slots: {
         default: 'title'
@@ -323,9 +324,9 @@ describe('b-tooltip', () => {
     $button.trigger('focusout', { relatedTarget: document.body })
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
