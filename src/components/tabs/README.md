@@ -479,7 +479,7 @@ order to use these methods.
           </b-button>
         </b-tab>
 
-        <!-- New Tab Button (Using tabs slot) -->
+        <!-- New Tab Button (Using tabs-end slot) -->
         <template slot="tabs-end">
           <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
