@@ -3,7 +3,6 @@ import { BVTooltip } from '../../utils/bv-tooltip'
 import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
-import { keys } from '../../utils/object'
 import { HTMLElement } from '../../utils/safe-types'
 
 const NAME = 'BTooltip'
