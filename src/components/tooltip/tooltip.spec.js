@@ -490,7 +490,7 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
-     const adb = $button.attributes('aria-describedby')
+    const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
     const tip = document.getElementById(adb)
