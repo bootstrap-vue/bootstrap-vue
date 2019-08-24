@@ -118,7 +118,7 @@ const destroy = el => {
   delete el[PROPNAME]
 }
 
-const bind = (el, { value, binding }, vnode) => {
+const bind = (el, { value, modifiers }, vnode) => {
   // value is the callback function
   const options = {
     margin: '0px',
@@ -126,7 +126,7 @@ const bind = (el, { value, binding }, vnode) => {
     callback: value
   }
   // parse modifiers
-  keys(binding.modifiers).forEach(mod => {
+  keys(modifiers).forEach(mod => {
     if (/^\d+$/.test(mod)) {
       options.margin = `${mod}px`
     } else if (mod.toLowerCase() === 'once') {
@@ -138,20 +138,20 @@ const bind = (el, { value, binding }, vnode) => {
   // Create new observer
   el[PROPNAME] = new VisibilityObserver(el, options, vnode)
   // Store the current modifiers on the object (cloned)
-  el[PROPNAME]._prevModifiers = { ...binding.modifiers }
+  el[PROPNAME]._prevModifiers = { ...modifiers }
 }
 
 // When the directive options may have been updated (or element)
-const update = (el, { value, oldValue, binding, oldBindng }, vnode) => {
+const update = (el, { value, oldValue, modifiers }, vnode) => {
   // compare value/oldValue and modifers to see if anything has changed
   // and if so, destroy old observer and create new observer
   if (
     value !== oldValue ||
     !el[PROPNAME] ||
-    !looseEqual(binding.modifiers, el[PROPNAME]._prevModifiers.modifiers)
+    !looseEqual(modifiers, el[PROPNAME]._prevModifiers)
   ) {
     // Re-bind on element
-    bind(el, { value, binding }, vnode)
+    bind(el, { value, modifiers }, vnode)
   }
 }
 
