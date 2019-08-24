@@ -53,15 +53,18 @@ class VisibilityObserver {
   createObserver(vnode) {
     if (this.observer) {
       // Remove any previous observer
+      /* istanbul ignore next */
       this.stop()
     }
 
     if (this.doneOnce) {
       // Should only be called once
+      /* istanbul ignore next */
       return
     }
 
     if (!isFunction(this.callback)) {
+      /* istanbul ignore next */
       return
     }
 
@@ -87,13 +90,14 @@ class VisibilityObserver {
     }
 
     // Start observing in a nextTick (to allow DOM to complete rendering)
+    /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
     vnode.context.$nextTick(() => {
       // Start the observer
       this.observer && this.observer.observe(this.el)
     })
   }
 
-  handler(entries) {
+  handler(entries) /* istanbul ignore next: IntersectionObserver not supported in JSDOM */ {
     const entry = entries ? entries[0] : {}
     const isInstersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
     if (isInstersecting !== this.visible) {
