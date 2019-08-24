@@ -114,7 +114,7 @@ class VisibilityObserver {
 }
 
 const destroy = el => {
-  el[PROPNAME].stop && el[PROPNAME].stop()
+  el[PROPNAME] && el[PROPNAME].stop && el[PROPNAME].stop()
   delete el[PROPNAME]
 }
 
@@ -145,11 +145,7 @@ const bind = (el, { value, modifiers }, vnode) => {
 const update = (el, { value, oldValue, modifiers }, vnode) => {
   // compare value/oldValue and modifers to see if anything has changed
   // and if so, destroy old observer and create new observer
-  if (
-    value !== oldValue ||
-    !el[PROPNAME] ||
-    !looseEqual(modifiers, el[PROPNAME]._prevModifiers)
-  ) {
+  if (value !== oldValue || !el[PROPNAME] || !looseEqual(modifiers, el[PROPNAME]._prevModifiers)) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
   }
