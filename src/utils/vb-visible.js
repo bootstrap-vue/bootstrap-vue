@@ -134,6 +134,7 @@ const bind = (el, { value, modifiers }, vnode) => {
     if (/^\d+$/.test(mod)) {
       options.margin = `${mod}px`
     } else if (mod.toLowerCase() === 'once') {
+      /* istanbul ignore next: Until b-img-lazy is switched to use this directive */
       options.once = true
     }
   })
@@ -149,6 +150,7 @@ const bind = (el, { value, modifiers }, vnode) => {
 const update = (el, { value, oldValue, modifiers }, vnode) => {
   // compare value/oldValue and modifers to see if anything has changed
   // and if so, destroy old observer and create new observer
+  /* istanbul ignore next */
   if (value !== oldValue || !el[PROPNAME] || !looseEqual(modifiers, el[PROPNAME]._prevModifiers)) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
