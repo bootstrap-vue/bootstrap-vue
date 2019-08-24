@@ -15,7 +15,8 @@ const appDef = {
     'titleAttr',
     'btnDisabled',
     'variant',
-    'customClass'
+    'customClass',
+    'delay'
   ],
   render(h) {
     return h('article', { attrs: { id: 'wrapper' } }, [
@@ -43,7 +44,8 @@ const appDef = {
             noFade: this.noFade || false,
             title: this.title || null,
             variant: this.variant,
-            customClass: this.customClass
+            customClass: this.customClass,
+            delay: this.delay
           }
         },
         this.$slots.default || ''
@@ -318,7 +320,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Deactivate tooltip by trigger
-    $button.trigger('focusout')
+    $button.trigger('focusout', { relatedTarget: document.body })
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -399,7 +401,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Deactivate tooltip by trigger
-    $button.trigger('mouseleave')
+    $button.trigger('mouseleave', { relatedTarget: document.body })
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
