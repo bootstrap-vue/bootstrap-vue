@@ -15,6 +15,7 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     renderTemplate(h) {
+      // Title and content could be a scoped Slot function
       const $title = isFunction(this.title) ? [this.title({})] : this.title
       const $content = isFunction(this.content) ? [this.content({})] : this.content
       return h(
