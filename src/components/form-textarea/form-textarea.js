@@ -100,8 +100,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   methods: {
     visibleCallback(visible) /* istanbul ignore next */ {
       // Called by intersection observer directive
-      console.log('Visibility:', visible)
       if (visible) {
+        // We use a nextTick here jsut to make sure any
+        // transitions or portalling have completed
         this.$nextTick(this.setHeight)
       }
     },
