@@ -23,7 +23,6 @@ import {
 } from './dom'
 import { isFunction, isNumber, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
-import { HTMLElement } from './safe-types'
 import { warn } from './warn'
 
 import { BvEvent } from './bv-event.class'
@@ -263,7 +262,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           arrowPadding: this.arrowPadding,
           boundaryPadding: this.boundaryPadding,
           boundary: this.getBoundary(),
-          target: this.getPlacementTarget(),
+          target: this.getPlacementTarget()
         }
       }))
       // We set the initial reactive data (values that can be changed while open)
