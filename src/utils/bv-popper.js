@@ -61,10 +61,6 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       type: [String, Array],
       default: 'flip'
     },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
     offset: {
       type: Number,
       default: 0
@@ -89,6 +85,9 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
+      // reactive props set by parent
+      noFade: false,
+      // State related data
       localShow: true,
       attachment: this.getAttachment(this.placement)
     }
@@ -140,9 +139,11 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     this.$on('hidden', () => {
       this.$nextTick(this.$destroy)
     })
+    // If parent is destroyed, ensure we are destroyed
+    this.$parent.$once('hook:destroyed', this.$destroy)
   },
   beforeMount() {
-    // Ensure that teh attacment position is correct before mounting
+    // Ensure that the attacment position is correct before mounting
     // as our propsData is added after `new Template({...})`
     this.attachment = this.getAttachment(this.placement)
   },
