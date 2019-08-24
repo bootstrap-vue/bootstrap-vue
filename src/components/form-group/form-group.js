@@ -302,16 +302,20 @@ export const BFormGroup = {
     },
     hasInvalidFeedback() {
       // Used for computing aria-describedby
-      return this.computedState === false &&
+      return (
+        this.computedState === false &&
         (this.hasNormalizedSlot('invalid-feedback') || this.invalidFeedback)
+      )
     },
     invalidFeedbackId() {
       return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
     },
     hasValidFeedback() {
       // Used for computing aria-describedby
-      return this.computedState === true &&
+      return (
+        this.computedState === true &&
         (this.hasNormalizedSlot('valid-feedback') || this.validFeedback)
+      )
     },
     validFeedbackId() {
       return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null
