@@ -1,6 +1,6 @@
 import Vue from './vue'
 import { BVTooltipTemplate } from './bv-tooltip-template'
-import { isFunction } from './inspect'
+import { isFunction, isUndefinedOrNull } from './inspect'
 
 const NAME = 'BVPopoverTemplate'
 
@@ -16,8 +16,8 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   methods: {
     renderTemplate(h) {
       // Title and content could be a scoped Slot function
-      const $title = isFunction(this.title) ? [this.title({})] : this.title
-      const $content = isFunction(this.content) ? [this.content({})] : this.content
+      const $title = isFunction(this.title) ? this.title({}) : this.title
+      const $content = isFunction(this.content) ? this.content({}) : this.content
       return h(
         'div',
         {
@@ -28,8 +28,8 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
         },
         [
           h('div', { ref: 'arrow', staticClass: 'arrow' }),
-          $title ? h('h3', { staticClass: 'popover-header' }, $title) : h(),
-          $content ? h('div', { staticClass: 'popover-body' }, $content) : h()
+          isUndefinedOrNull($title) ? h() : h('h3', { staticClass: 'popover-header' }, [$title]),
+          isUndefinedOrNull($content) ? h() : h('div', { staticClass: 'popover-body' }, [$content])
         ]
       )
     }
