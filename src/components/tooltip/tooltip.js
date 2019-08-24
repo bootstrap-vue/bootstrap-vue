@@ -96,8 +96,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       localShow: this.show,
-      localTitle: this.title,
-      localContent: this.localContent
+      localTitle: '',
+      localContent: ''
     }
   },
   computed: {
@@ -137,8 +137,12 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       //   May need to be done in a $nextTick
       this.$emit('update:show', show)
     },
-    templateProps(newVal, oldVal) {
-      this.$nextTick(this.handleUpdate)
+    templateData(newVal, oldVal) {
+      this.$nextTick(() => {
+        if (this.$_bv_toolpop) {
+          this.$_bv_toolpop.updateData(this.templateData)
+        }
+      })
     },
     // Watchers for props (prop changes do not trigger the `updated()` hook)
     title(newval, oldVal) {
@@ -234,9 +238,6 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     handleUpdate() {
       // Update the template data object with any new values
-      if (this.$_bv_toolpop) {
-        this.$_bv_toolpop.updateData(this.templateData)
-      }
     },
     //
     // Template event handlers
