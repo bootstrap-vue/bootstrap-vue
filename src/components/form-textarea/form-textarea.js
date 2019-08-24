@@ -8,7 +8,7 @@ import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { getCS, isVisible } from '../../utils/dom'
+import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 
 // @vue/component
@@ -98,10 +98,10 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     this.setHeight()
   },
   methods: {
-    visibleCallback(visible) {
+    visibleCallback(visible) /* istanbul ignore next: IntersectionObserver not supported in JSDOM */ {
       // Called by intersection observer directive
       if (visible) {
-        this.setHeight()
+        requestAF(this.setHeight)
       }
     },
     setHeight() {
