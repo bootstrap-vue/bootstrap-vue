@@ -1,6 +1,9 @@
 {
   "extends": ["@nuxtjs"],
   "labels": ["Type: Dependencies"],
+  "ignoreDeps": [
+    "eslint"
+  ],
   "packageRules": [
     {
       "packageNames": ["bootstrap"],
