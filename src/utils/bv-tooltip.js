@@ -176,7 +176,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     disabled(newVal, oldVal) {
       newVal ? this.disable() : this.enable()
-    },
+    }
   },
   created() {
     // Create non-reactive properties
@@ -333,7 +333,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // If trigger element isn't in the DOM or is not visible, or is on an open dropdown toggle
         return
       }
-      
+
       if (this.$_tip || this.localShow) {
         // If tip already exists, exit early
         return
@@ -341,7 +341,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // In the process of showing
       this.localShow = true
-      
+
       // Create a cancelable BvEvent
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
