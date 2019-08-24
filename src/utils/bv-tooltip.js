@@ -6,7 +6,6 @@
 import Vue from './vue'
 import looseEqual from './loose-equal'
 import { arrayIncludes, concat, from as arrayFrom } from './array'
-import { isFunction, isNumber, isPlainObject, isString } from './inspect'
 import {
   isElement,
   isDisabled,
@@ -22,6 +21,8 @@ import {
   eventOn,
   eventOff
 } from './dom'
+import { isFunction, isNumber, isPlainObject, isString, isUndefined } from './inspect'
+import { keys } from './object'
 import { HTMLElement } from './safe-types'
 import { warn } from './warn'
 
@@ -42,105 +43,67 @@ const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
 // Options for Native Event Listeners (since we never call preventDefault)
 const EvtOpts = { passive: true, capture: false }
 
-export const props = {
-  // TODO:
-  //   Move many of these into data()
-  title: {
-    // Text string, Array<vNode>, vNode, Scoped slot function
-    type: [String, Array, Function, Object],
-    default: ''
-  },
-  content: {
-    // Text string, Array<vNode>, vNode, Scoped slot function
-    // Alias/Alternate for title for tolltip
-    type: [String, Array, Function, Object],
-    default: ''
-  },
-  variant: {
-    type: String,
-    default: null
-  },
-  customClass: {
-    type: [String, Array, Object],
-    default: null
-  },
-  triggers: {
-    // Overwritten by BVPopover
-    type: [String, Array],
-    default: 'click hover'
-  },
-  placement: {
-    // Overwritten by BVPopover
-    type: String,
-    default: 'top'
-  },
-  target: {
-    // Element or Component reference to the element that will have
-    // the trigger events bound, and is default element for positioning
-    type: [String, Function, HTMLElement, Object],
-    default: null
-  },
-  fallbackPlacement: {
-    type: [String, Array],
-    default: 'flip'
-  },
-  container: {
-    // HTML ID, Element or Component reference
-    type: [String, HTMLElement, Object],
-    default: null // 'body'
-  },
-  noFade: {
-    type: Boolean,
-    default: false
-  },
-  boundary: {
-    // 'scrollParent', 'viewport', 'window', Element, or Component reference
-    type: [String, HTMLElement, Object],
-    default: 'scrollParent'
-  },
-  boundaryPadding: {
-    // Tooltip/popover will try and stay away from
-    // boundary edge by this many pixels
-    type: Number,
-    default: 5
-  },
-  arrowPadding: {
-    // Arrow of Tooltip/popover will try and stay away from
-    // the edge of tooltip/popover edge by this many pixels
-    type: Number,
-    default: 6
-  },
-  offset: {
-    type: Number,
-    default: 0
-  },
-  delay: {
-    type: [Number, String, Object],
-    default: 0
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
+// Data specific to popper and template
+// We don't use props, as we need reactivity (we can't pass reactive props)
+const templateData = {
+  // Text string or Scoped slot function
+  title: '',
+  // Text string or Scoped slot function
+  content: '',
+  // String
+  variant: null,
+  // String, Array, Object
+  customClass: null,
+  // String or array of Strings (overwritten by BVPopper)
+  triggers: 'click hover',
+  // String (overwritten by BVPopper)
+  placement: 'top',
+  // String or array of strings
+  fallbackPlacement: 'flip',
+  // Element or Component reference (or function that returns element) of
+  // the element that will have the trigger events bound, and is also
+  // default element for positioning
+  target: null,
+  // HTML ID, Element or Component reference
+  container: null, // 'body'
+  // Boolean
+  noFade: false,
+  // 'scrollParent', 'viewport', 'window', Element, or Component reference
+  boundary: 'scrollParent',
+  // Tooltip/popover will try and stay away from
+  // boundary edge by this many pixels (Number)
+  boundaryPadding: 5,
+  // Arrow offset (Number)
+  offset: 0,
+  // Hover/focus delay (Number or Object)
+  delay: 0,
+  // Arrow of Tooltip/popover will try and stay away from
+  // the edge of tooltip/popover edge by this many pixels
+  arrowPadding: 6,
+  // Disabled state (Boolean)
+  disabled: false
 }
 
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  props,
+  props: {
+    // None
+  },
   data() {
     return {
-      localPlacementTarget: null,
-      localBoundary: 'scrollParent',
+      // BTooltip/BPopover/VBToolTip/VBPopover will update this data
+      // Via the exposed updateData() method on this instance
+      // BVPopover will override some of these defaults
+      ...templateData,
+      // State management data
       activeTrigger: {
         hover: false,
         click: false,
         focus: false,
         manual: false
       },
-      hoverState: '',
-      localShow: false,
-      enabled: !this.disabled
+      localShow: false
     }
   },
   computed: {
@@ -202,24 +165,30 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       newVal ? this.disable() : this.enable()
     },
     // The following wont be needed when these are moved to data() (possibly)
+    // and teh updated() hook supposedly runs when data is updated (but not props)
     title(newVal, oldVal) {
-      this.$nextTick(this.handleUpdate)
+      this.$nextTick(this.handleTemplateUpdate)
     },
     content(newVal, oldVal) {
-      this.$nextTick(this.handleUpdate)
+      this.$nextTick(this.handleTemplateUpdate)
     },
     variant(newVal, oldVal) {
-      this.$nextTick(this.handleUpdate)
+      this.$nextTick(this.handleTemplateUpdate)
     },
     customClass(newVal, oldVal) {
-      this.$nextTick(this.handleUpdate)
+      this.$nextTick(this.handleTemplateUpdate)
+    },
+    noFade(newVal, oldVal) {
+      this.$nextTick(this.handleTemplateUpdate)
     }
   },
   created() {
     // Create non-reactive properties
     this.$_tip = null
     this.$_hoverTimeout = null
+    this.$_hoverState = ''
     this.$_visibleInterval = null
+    this.$_enabled = !this.disabled
     this.$_noop = () => {}
 
     // Destroy ourselves when the parent is destroyed
@@ -239,7 +208,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   },
   updated() {
     // Usually called when the slots/data changes
-    this.$nextTick(this.handleUpdate)
+    this.$nextTick(this.handleTemplateUpdate)
   },
   deactivated() {
     // In a keepalive that has been deactivated, so hide
@@ -259,6 +228,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.restoreTitle()
   },
   methods: {
+    //
+    // Methd for updating popper/template data
+    //
+    updateData(data = {}) {
+      // We only update data if it exists, and has not changed
+      keys(templateData).forEach(prop => {
+        if (!isUndefined(data[prop]) && this[prop] !== data[prop]) {
+          this[prop] = data[prop]
+        }
+      })
+    },
     //
     // Methods for creating and destroying the template
     //
@@ -284,16 +264,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           boundaryPadding: this.boundaryPadding,
           boundary: this.getBoundary(),
           target: this.getPlacementTarget(),
-          // Should noFade be moved to data() in BVPopper?
-          // As forceHide will want to disable fade
-          noFade: this.noFade
         }
       }))
-      // We set the initial reactive data:
-      $tip.title = this.title
-      $tip.content = this.content
-      $tip.variant = this.variant
-      $tip.customClass = this.customClass
+      // We set the initial reactive data (values that can be changed while open)
+      this.handleTemplateUpdate()
       // Template transition phase events (handled once only)
       // When the template has mounted, but not visibly shown yet
       $tip.$once('show', this.onTemplateShow)
@@ -328,10 +302,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.setWhileOpenListeners(false)
       clearTimeout(this.$_hoverTimeout)
       this.$_hoverTimout = null
+      this.$_hoverState = ''
       this.clearActiveTriggers()
       this.localPlacementTarget = null
-      this.localBoundary = 'scrollParent'
-      this.hoverState = ''
       this.localShow = false
       try {
         this.$_tip && this.$_tip.$destroy()
@@ -341,12 +314,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     getTemplateElement() {
       return this.$_tip ? this.$_tip.$el : null
     },
-    handleUpdate() {
+    handleTemplateUpdate() {
       // Update our observable title/content props
       // So that the template updates accordingly
       const $tip = this.$_tip
       if ($tip) {
-        const props = ['title', 'content', 'variant', 'customClass']
+        const props = ['title', 'content', 'variant', 'customClass', 'noFade']
         // Only update the values if they have changed
         props.forEach(prop => {
           if ($tip[prop] !== this[prop]) {
@@ -413,7 +386,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Clear out any active triggers
       this.clearActiveTriggers()
       // Reset the hoverstate
-      this.hoverState = ''
+      this.$_hoverState = ''
     },
     forceHide() {
       // Forcefully hides/destroys the template, regardless of any active triggers
@@ -427,23 +400,23 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.setWhileOpenListeners(false)
       // Clear any hover enter/leave event
       clearTimeout(this.hoverTimeout)
-      this.hoverTimeout = null
-      this.hoverState = ''
+      this.$_hoverTimeout = null
+      this.$_hoverState = ''
       this.clearActiveTriggers()
       // Disable the fade animation
-      // if (this.$_tip) {
-      //   this.$_tip.noFade = true
-      // }
-      // Hide the tip
+      if (this.$_tip) {
+        this.$_tip.noFade = true
+      }
+      // Hide the tip (with force = true)
       this.hide(true)
     },
     enable() {
-      this.enabled = true
+      this.$_enabled = true
       // Create a non-cancelable BvEvent
       this.emitEvent(this.buildEvent('enabled', {}))
     },
     disable() {
-      this.enabled = false
+      this.$_enabled = false
       // Create a non-cancelable BvEvent
       this.emitEvent(this.buildEvent('disabled', {}))
     },
@@ -457,8 +430,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     onTemplateShown() {
       // When template show transition completes
-      const prevHoverState = this.hoverState
-      this.hoverState = ''
+      const prevHoverState = this.$_hoverState
+      this.$_hoverState = ''
       if (prevHoverState === 'out') {
         this.leave(null)
       }
@@ -745,7 +718,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Will handle any native event when the event handler is just `this`
       // target is the trigger element
       const target = this.getTarget()
-      if (!target || isDisabled(target) || !this.enabled || this.dropdownOpen()) {
+      if (!target || isDisabled(target) || !this.$_enabled || this.dropdownOpen()) {
         // If disabled or not enabled, or if a dropdown that is open, don't do anything
         // If tip is shown before element gets disabled, then tip will not
         // close until no longer disabled or forcefully closed
@@ -835,7 +808,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     click(evt) {
-      if (!this.enabled || this.dropdownOpen()) {
+      if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return
       }
@@ -848,7 +821,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     toggle() {
       // Manual toggle handler
-      if (!this.enabled || this.dropdownOpen()) {
+      if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return
       }
@@ -866,17 +839,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (evt) {
         this.activeTrigger[evt.type === 'focusin' ? 'focus' : 'hover'] = true
       }
-      if (this.localShow || this.hoverState === 'in') {
-        this.hoverState = 'in'
+      if (this.localShow || this.$_hoverState === 'in') {
+        this.$_hoverState = 'in'
         return
       }
       clearTimeout(this.hoverTimeout)
-      this.hoverState = 'in'
+      this.$_hoverState = 'in'
       if (!this.computedDelay.show) {
         this.show()
       } else {
         this.hoverTimeout = setTimeout(() => {
-          if (this.hoverState === 'in') {
+          if (this.$_hoverState === 'in') {
             this.show()
           }
         }, this.computedDelay.show)
@@ -897,12 +870,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         return
       }
       clearTimeout(this.hoverTimeout)
-      this.hoverState = 'out'
+      this.$_hoverState = 'out'
       if (!this.computedDelay.hide) {
         this.hide()
       } else {
         this.$hoverTimeout = setTimeout(() => {
-          if (this.hoverState === 'out') {
+          if (this.$_hoverState === 'out') {
             this.hide()
           }
         }, this.computedDelay.hide)
