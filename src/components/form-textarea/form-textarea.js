@@ -100,13 +100,16 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   methods: {
     visibleCallback(visible) /* istanbul ignore next */ {
       // Called by intersection observer directive
+      console.log('Visibility:', visible)
       if (visible) {
-        requestAF(this.setHeight)
+        this.$nextTick(this.setHeight)
       }
     },
     setHeight() {
       this.$nextTick(() => {
-        this.heightInPx = this.computeHeight()
+        requestAF(() => {
+          this.heightInPx = this.computeHeight()
+        })
       })
     },
     computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
