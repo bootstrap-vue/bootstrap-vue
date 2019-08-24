@@ -32,6 +32,7 @@
 //   }
 //
 import looseEqual from './loose-equal'
+import { requestAF } from './dom'
 import { isFunction } from './inspect'
 import { keys } from './object'
 
@@ -92,8 +93,10 @@ class VisibilityObserver {
     // Start observing in a nextTick (to allow DOM to complete rendering)
     /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
     vnode.context.$nextTick(() => {
-      // Start the observer
-      this.observer && this.observer.observe(this.el)
+      requestAF(() => {
+        // Start the observer
+        this.observer && this.observer.observe(this.el)
+      })
     })
   }
 
