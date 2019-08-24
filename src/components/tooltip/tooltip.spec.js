@@ -889,6 +889,8 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -901,11 +903,12 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
     expect(tip.classList.contains('foobar-class')).toBe(true)
 
     wrapper.destroy()
