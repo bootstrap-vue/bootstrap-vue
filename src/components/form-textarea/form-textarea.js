@@ -98,7 +98,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     this.setHeight()
   },
   methods: {
-    visibleCallback(visible) /* istanbul ignore next: IntersectionObserver not supported in JSDOM */ {
+    visibleCallback(visible) /* istanbul ignore next */ {
       // Called by intersection observer directive
       if (visible) {
         requestAF(this.setHeight)
