@@ -1,6 +1,6 @@
 import Vue from './vue'
 import { BVPopper } from './bv-popper'
-import { isFunction } from './inspect'
+import { isFunction, isUndefinedOrNull } from './inspect'
 
 const NAME = 'BVTooltipTemplate'
 
@@ -66,6 +66,10 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     renderTemplate(h) {
+      // title can be a scoped slot function
+      const $title = isFunction(this.title)
+        ? this.title({})
+        : isUndefinedOrNull(this.title) ? h() : this.title
       return h(
         'div',
         {
@@ -76,10 +80,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         },
         [
           h('div', { ref: 'arrow', staticClass: 'arrow' }),
-          h('div', { staticClass: 'tooltip-inner' }, [
-            // title can be a scoped slot function
-            isFunction(this.title) ? [this.title({})] : this.title || [h()]
-          ])
+          h('div', { staticClass: 'tooltip-inner' }, [$title])
         ]
       )
     }
