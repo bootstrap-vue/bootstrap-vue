@@ -96,7 +96,30 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      localShow: this.show
+      localShow: this.show,
+      localTitle: this.title,
+      localContent: this.localContent
+    }
+  },
+  computed: {
+    templateData() {
+      // Data that will be passed to the template/popper
+      return {
+        title: this.localTitle,
+        content: this.localContent,
+        target: this.target,
+        triggers: this.triggers,
+        placement: this.placement,
+        fallbackPlacement: this.fallbackPlacement,
+        variant: this.variant,
+        customClass: this.customClass,
+        container: this.container,
+        boundary: this.boundary,
+        delay: this.delay,
+        offset: this.offset,
+        noFade: this.noFade,
+        disabled: this.disabled
+      }
     }
   },
   watch: {
@@ -115,48 +138,25 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       //   May need to be done in a $nextTick
       this.$emit('update:show', show)
     },
-    // Watchers for props (prop changes do not trigger the `updated()` hook)
-    title(newval, oldVal) {
+    templateProps(newVal, oldVal) {
       this.$nextTick(this.handleUpdate)
     },
+    // Watchers for props (prop changes do not trigger the `updated()` hook)
+    title(newval, oldVal) {
+      this.$nextTick(this.updateContent)
+    },
     content(newVal, oldVal) {
-      this.$nextTick(this.handleUpdate)
+      this.$nextTick(this.updateContent)
     }
   },
   created() {
     // Non reactive properties
     this.$_bv_toolpop = null
-    this.$_bv_propsData = null
-    // Create our observed propsData object for the template
-    // We crate it as a non reactive prop to prevent changes to
-    // it causing updates/re-renders of this instance
-    // Requires Vue 2.6+
-    // TODO:
-    //   Should we warn if Vue.observable is not available
-    //   Or fallback to making a Vue instance with only data()
-    //   This may need to be in a nextTick to ensure the props are passed
-    this.$_bv_propsData = Vue.observable({
-      target: this.target,
-      triggers: this.triggers,
-      placement: this.placement,
-      fallbackPlacement: this.fallbackPlacement,
-      variant: this.variant,
-      customClass: this.customClass,
-      container: this.container,
-      boundary: this.boundary,
-      delay: this.delay,
-      offset: this.offset,
-      noFade: this.noFade,
-      disabled: this.disabled,
-      attrs: {},
-      title: '',
-      content: ''
-    })
   },
   updated() {
     // Update the propData object
     // Done in a next tick to ensure slot(s) have updated
-    this.$nextTick(this.handleUpdate)
+    this.$nextTick(this.updateContent)
   },
   beforeDestroy() {
     // Shutdown our local event listeners
@@ -167,13 +167,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Destroy the tip instance
     this.$_bv_toolpop && this.$_bv_toolpop.$destroy()
     this.$_bv_toolpop = null
-    // Destroy the observable object
-    this.$_bv_propsData = null
   },
   mounted() {
-    // Set the intial props
-    this.handleUpdate()
-
     // Instantiate a new BVTooltip instance
     // Done in a $nextTick to ensure DOM has completed
     // rendering so that target can be found
@@ -185,17 +180,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         // is not reactive to changes in the props data (see below)
         propsData: this.$_bv_propsData
       }))
-      // Hack to make props reactive
-      // Since the toolpop is parented, we can't mutate the
-      // instance props directly.
-      // TODO:
-      //   Possibly: rather than using props, would be to define all of
-      //   the "props" as data values in bv-tooltip/popover, which we
-      //   can directly mutate without warnings being generated,
-      //   Or create a method in the bv-tooltip/popover instance that
-      //   we can call with updated values, pasing a computed prop of props
-      //   As this "hack" may break in Vue 3.x
-      $toolpop._props = this.$_bv_propsData
+      // Set the intial data
+      this.handleUpdate()
       // Set listeners
       $toolpop.$on('show', this.onShow)
       $toolpop.$on('shown', this.onShown)
@@ -229,35 +215,26 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // popover: default slot is content, title slot is title
       // We pass a scoped slot function by default (v2.6x)
       // And pass the title prop as a fallback
-      this.setTitle(this.$scopedSlots.default ? this.$scopedSlots.default : this.title)
+      this.setTitle(this.$scopedSlots.default || this.title)
     },
     // Helper methods for updateContent
     setTitle(val) {
       val = isUndefinedOrNull(val) ? '' : val
-      if (this.$_bv_propsData.title !== val) {
-        this.$_bv_propsData.title = val
+      if (this.localTitle !== val) {
+        this.localTitle = val
       }
     },
     setContent(val) {
       val = isUndefinedOrNull(val) ? '' : val
-      if (this.$_bv_propsData.content !== val) {
-        this.$_bv_propsData.content = val
+      if (this.localContent !== val) {
+        this.localContent = val
       }
     },
     handleUpdate() {
-      // Update the propData object with any new values
-      const propsData = this.$_bv_propsData
-      keys(propsData)
-        // Exclude hte title and content values, as they are handled specially
-        .filter(prop => prop !== 'title' && prop !== 'content')
-        // Copy the prop values to the propsData object
-        .forEach(prop => {
-          if (propsData[prop] !== this[prop]) {
-            propsData[prop] = this[prop]
-          }
-        })
-      // Update the title/content
-      this.updateContent()
+      // Update the template data object with any new values
+      if (this.$_bv_toolpop) {
+        this.$_bv_toolpop.updateData(this.templateData)
+      }
     },
     //
     // Template event handlers
