@@ -97,10 +97,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       ...templateData,
       // State management data
       activeTrigger: {
+        // manual: false,
         hover: false,
         click: false,
-        focus: false,
-        manual: false
+        focus: false
       },
       localShow: false
     }
@@ -161,10 +161,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Triggers have changed, so re-register them
       if (!looseEqual(newTriggers, oldTriggers)) {
         this.$netTick(() => {
-          // TODO:
-          //   Should we also clear any active triggers that
-          //   are no longer in the list of triggers?
+          // Disable trigger listeners
           this.unListen()
+          // clear any active triggers that are no longer in the list of triggers
+          oldTriggers.forEach(trigger => {
+            if (!arrayIncludes(newTriggers, trigger)) {
+              if (this.activeTrigger[trigger]) {
+                this.activeTrigger[trigger] = false
+              }
+            }
+          })
+          // Re-enable the trigger listeners
           this.listen()
         })
       }
