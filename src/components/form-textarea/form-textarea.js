@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import VBVisible from '../../utils/vue'
+import VBVisible from '../../utils/vb-visible'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -8,12 +8,15 @@ import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { closest, getCS, isVisible, requestAF } from '../../utils/dom'
+import { getCS, isVisible } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   name: 'BFormTextarea',
+  directives: {
+    'b-visible': VBVisible
+  },
   mixins: [
     idMixin,
     listenOnRootMixin,
@@ -24,9 +27,6 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     formSelectionMixin,
     formValidityMixin
   ],
-  directives: {
-    'b-visible': VBVisible
-  },
   props: {
     rows: {
       type: [Number, String],
@@ -173,7 +173,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       directives: [
         {
           name: 'model',
-          value: self.localValue,
+          value: self.localValue
         },
         {
           name: 'b-visible',
