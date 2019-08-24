@@ -172,11 +172,10 @@ disabled in auto-height mode.
 
 Auto-height works by computing the resulting height via CSS queries, hence the input has to be in
 document (DOM) and visible (not hidden via `display: none`). Initial height is computed on mount. If
-the `b-form-text-area` is visually hidden on mount, the auto height cannot be computed.
-
-In situations where the text area may initially be hidden visually (i.e. in non-lazy `b-tab`
-components or non-lazy static `b-modal`), you may want to use `v-if` to delay mouting (lazy mount),
-or delay setting the value of `b-form-textarea` until it's visually hidden parent is shown.
+the browesr client supports [`IntersectionObserver`](https://caniuse.com/#feat=intersectionobserver)
+(either natively or via [a polyfill](/docs#js)), `<b-form-tetarea>` will take advantage of this to
+determine when the textarea becomes visible and will then compute the height. Refer to the
+[Browser support](/docs#browser) section on the getting started page.
 
 ## Contextual states
 
