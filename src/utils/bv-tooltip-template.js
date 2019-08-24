@@ -9,28 +9,20 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME,
   extends: BVPopper,
   props: {
+    // Other non-reactive (while open) props are pulled in from BVPopper
     id: {
       type: String,
       default: null
-    },
-    title: {
-      // Text string, Slot Function, Array<vNode>, vNode
-      type: [String, Function, Array, Object],
-      default: ''
-    },
-    content: {
-      // Text string, Slot Function, Array<vNode>, vNode
-      // Alias/Alternate for title for tolltip
-      type: [String, Function, Array, Object],
-      default: ''
-    },
-    variant: {
-      type: String,
-      default: null
-    },
-    customClass: {
-      type: [String, Array, Object],
-      default: null
+    }
+  },
+  data() {
+    // We use data, rather than props to ensure reactivity
+    // Parent component will directly set this data
+    return {
+      title: '',
+      content: '',
+      variant: null,
+      customClass: null
     }
   },
   computed: {
@@ -85,6 +77,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         [
           h('div', { ref: 'arrow', staticClass: 'arrow' }),
           h('div', { staticClass: 'tooltip-inner' }, [
+            // title can be a scoped slot function
             isFunction(this.title) ? [this.title({})] : this.title || [h()]
           ])
         ]
