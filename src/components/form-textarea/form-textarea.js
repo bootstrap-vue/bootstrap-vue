@@ -94,8 +94,12 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       this.setHeight()
     }
   },
+  mounted() {
+    this.setHeight()
+  },
   methods: {
     visibleCallback(visible) {
+      // Called by intersection observer directive
       if (visible) {
         this.setHeight()
       }
