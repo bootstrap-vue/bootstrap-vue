@@ -82,7 +82,7 @@ class VisibilityObserver {
       // So just stop trying to observe
       this.donOnce = true
       this.observer = null
-      this.calback(null)
+      this.callback(null)
       return
     }
 
@@ -98,7 +98,7 @@ class VisibilityObserver {
     const isInstersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
     if (isInstersecting !== this.visible) {
       this.visible = isInstersecting
-      this.calback(isInstersecting)
+      this.callback(isInstersecting)
       if (this.once && this.visible) {
         this.doneOnce = true
         this.stop()
