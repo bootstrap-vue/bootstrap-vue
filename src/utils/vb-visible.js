@@ -33,11 +33,12 @@
 //
 import looseEqual from './loose-equal'
 import { isFunction } from './inspect'
+import { keys } from './object'
 
 const PROPNAME = '__bv__visibility_observer'
 
 class VisibilityObserver {
-	constructor (el, options, vnode) {
+  constructor (el, options, vnode) {
 		this.el = el
     this.callback = options.callback
     this.margin = options.margin || 0
@@ -47,13 +48,13 @@ class VisibilityObserver {
     this.doneOnce = false
     // Create the observer instance (if possible)
 		this.createObserver(vnode)
-	}
+  }
 
   createObserver(vnode) {
     if (this.observer) {
       // Remove any previous observer
 			this.stop()
-		}
+    }
 
     if (this.doneOnce) {
       // Should only be called once
@@ -84,16 +85,16 @@ class VisibilityObserver {
       this.calback(null)
       return
     }
-    
-		// Start observing in a nextTick (to allow DOM to complete rendering)
-		vnode.context.$nextTick(() => {
+
+    // Start observing in a nextTick (to allow DOM to complete rendering)
+    vnode.context.$nextTick(() => {
       // Start the observer
       this.observer && this.observer.observe(this.el)
-		})
+    })
   }
 
   handler(entries) {
-    const entry = entrties ? entries[0] : {}
+    const entry = entries ? entries[0] : {}
     const isInstersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
     if (isInstersecting !== this.visible) {
       this.visible = isInstersecting
@@ -107,8 +108,8 @@ class VisibilityObserver {
 
   stop() {
     const observer = this.observer
-		observer && observer.disconnect && observer.disconnect()
-		this.observer = null
+    observer && observer.disconnect && observer.disconnect()
+    this.observer = null
   }
 }
 
@@ -117,7 +118,7 @@ const destroy = el => {
   delete el[PROPNAME]
 }
 
-const bind = (el, {value, binding }, vnode) => {
+const bind = (el, { value, binding }, vnode) => {
   // value is the callback function
   const options = {
     margin: '0px',
@@ -128,7 +129,7 @@ const bind = (el, {value, binding }, vnode) => {
   keys(binding.modifiers).forEach(mod => {
     if (/^\d+$/.test(mod)) {
       options.margin = `${mod}px`
-    } else if (mode.toLowerCase() === 'once') {
+    } else if (mod.toLowerCase() === 'once') {
       options.once = true
     }
   })
@@ -141,7 +142,7 @@ const bind = (el, {value, binding }, vnode) => {
 }
 
 // When the directive options may have been updated (or element)
-const updated = (el, {value, oldValue, binding, oldBindng }, vnode) => {
+const update = (el, { value, oldValue, binding, oldBindng }, vnode) => {
   // compare value/oldValue and modifers to see if anything has changed
   // and if so, destroy old observer and create new observer
   if (
@@ -164,7 +165,7 @@ const unbind = el => {
 export const VBVisible = {
   bind,
   update,
-  unbind 
+  unbind
 }
 
 export default VBVisible
