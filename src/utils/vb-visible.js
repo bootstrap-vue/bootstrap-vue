@@ -38,22 +38,22 @@ import { keys } from './object'
 const PROPNAME = '__bv__visibility_observer'
 
 class VisibilityObserver {
-  constructor (el, options, vnode) {
-		this.el = el
+  constructor(el, options, vnode) {
+    this.el = el
     this.callback = options.callback
     this.margin = options.margin || 0
     this.once = options.once || false
-		this.observer = null
+    this.observer = null
     this.visible = undefined
     this.doneOnce = false
     // Create the observer instance (if possible)
-		this.createObserver(vnode)
+    this.createObserver(vnode)
   }
 
   createObserver(vnode) {
     if (this.observer) {
       // Remove any previous observer
-			this.stop()
+      this.stop()
     }
 
     if (this.doneOnce) {
