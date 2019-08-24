@@ -134,10 +134,10 @@ const bind = (el, { value, modifiers }, vnode) => {
   }
   // parse modifiers
   keys(modifiers).forEach(mod => {
+    /* istanbul ignore else: Until b-img-lazy is switched to use this directive */
     if (/^\d+$/.test(mod)) {
       options.margin = `${mod}px`
     } else if (mod.toLowerCase() === 'once') {
-      /* istanbul ignore next: Until b-img-lazy is switched to use this directive */
       options.once = true
     }
   })
