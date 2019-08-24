@@ -349,8 +349,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         const props = ['title', 'content', 'variant', 'customClass']
         // Only update the values if they have changed
         props.forEach(prop => {
-          if ($tip[prop] !== $tip[prop]) {
-            $tip[prop] = $tip[prop]
+          if ($tip[prop] !== this[prop]) {
+            $tip[prop] = this[prop]
           }
         })
       }
