@@ -145,6 +145,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }
       }
       return false
+    },
+    computedTemplateData() {
+      return {
+        title: this.title,
+        content: this.content,
+        variant: this.variant,
+        customClass: this.customClass,
+        noFade: this.noFade
+      }
     }
   },
   watch: {
@@ -160,26 +169,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         })
       }
     },
+    computedTemplateData(newVal, oldVal) {
+      // If any of the while open reactive "props" change,
+      // ensure that the template updates accordingly
+      this.handleTemplateUpdate()
+    },
     disabled(newVal, oldVal) {
       newVal ? this.disable() : this.enable()
     },
-    // The following wont be needed when these are moved to data() (possibly)
-    // and teh updated() hook supposedly runs when data is updated (but not props)
-    title(newVal, oldVal) {
-      this.$nextTick(this.handleTemplateUpdate)
-    },
-    content(newVal, oldVal) {
-      this.$nextTick(this.handleTemplateUpdate)
-    },
-    variant(newVal, oldVal) {
-      this.$nextTick(this.handleTemplateUpdate)
-    },
-    customClass(newVal, oldVal) {
-      this.$nextTick(this.handleTemplateUpdate)
-    },
-    noFade(newVal, oldVal) {
-      this.$nextTick(this.handleTemplateUpdate)
-    }
   },
   created() {
     // Create non-reactive properties
@@ -228,22 +225,20 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     //
-    // Methd for updating popper/template data
+    // Methods for creating and destroying the template
     //
+    getTemplate() {
+      // Overridden by BVPopover
+      return BVTooltipTemplate
+    },
     updateData(data = {}) {
+      // Method for updating popper/template data
       // We only update data if it exists, and has not changed
       keys(templateData).forEach(prop => {
         if (!isUndefined(data[prop]) && this[prop] !== data[prop]) {
           this[prop] = data[prop]
         }
       })
-    },
-    //
-    // Methods for creating and destroying the template
-    //
-    getTemplate() {
-      // Overridden by BVPopover
-      return BVTooltipTemplate
     },
     createTemplateAndShow() {
       // Creates the template instance and show it
@@ -304,17 +299,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$_hoverState = ''
       this.clearActiveTriggers()
       this.localPlacementTarget = null
-      this.localShow = false
       try {
         this.$_tip && this.$_tip.$destroy()
       } catch {}
       this.$_tip = null
+      this.localShow = false
     },
     getTemplateElement() {
       return this.$_tip ? this.$_tip.$el : null
     },
     handleTemplateUpdate() {
-      // Update our observable title/content props
+      // Update our template title/content "props"
       // So that the template updates accordingly
       const $tip = this.$_tip
       if ($tip) {
@@ -334,19 +329,28 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Show the tooltip
       const target = this.getTarget()
 
-      // TODO:
-      //   Test for existence of $_tip and exit if exists
       if (!target || !document.body.contains(target) || !isVisible(target) || this.dropdownOpen()) {
         // If trigger element isn't in the DOM or is not visible, or is on an open dropdown toggle
         return
       }
+      
+      if (this.$_tip || this.localShow) {
+        // If tip already exists, exit early
+        return
+      }
 
+      // In the process of showing
+      this.localShow = true
+      
       // Create a cancelable BvEvent
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
       if (showEvt.defaultPrevented) {
         // Don't show if event cancelled
+        // Destroy the template (if for some reason it was created)
         this.destroyTemplate()
+        // Clear the localShow flag
+        this.localShow = false
         return
       }
 
@@ -356,9 +360,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Set aria-describedby on target
       this.addAriaDescribedby()
 
-      // Flag we are showing
-      this.localShow = true
-      // Create and how the tooltip
+      // Create and show the tooltip
       this.createTemplateAndShow()
     },
     hide(force = false) {
@@ -382,7 +384,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.hideTemplate()
       // TODO:
       //   The following could be added to hideTemplate()
-      // Clear out any active triggers
+      // Clear out any stragging active triggers
       this.clearActiveTriggers()
       // Reset the hoverstate
       this.$_hoverState = ''
@@ -552,7 +554,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // If the target has a title attribute, null it out and
       // store on data-title
       const target = this.getTarget()
-      if (hasAttr(target, 'title')) {
+      if (target && hasAttr(target, 'title')) {
         setAttr(target, 'data-original-title', getAttr(target, 'title') || '')
         setAttr(target, 'title', '')
       }
@@ -561,7 +563,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // If target had a title, restore the title attribute
       // and remove the data-title attribute
       const target = this.getTarget()
-      if (hasAttr(target, 'data-original-title')) {
+      if (target && hasAttr(target, 'data-original-title')) {
         setAttr(target, 'title', getAttr(target, 'data-original-title') || '')
         setAttr(target, 'data-original-title', '')
       }
@@ -574,7 +576,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return new BvEvent(type, {
         cancelable: false,
         target: this.getTarget(),
-        relatedTarget: this.getTemplateElement(),
+        relatedTarget: this.getTemplateElement() || null,
         componentId: this.computedId,
         vueTarget: this,
         // Add in option overrides
@@ -625,12 +627,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
       const target = this.getTarget()
 
+      // Stop listening for global show/hide/enable/disable events
+      this.setRootListener(false)
+
+      // Clear out any active target listeners
       events.forEach(evt => {
         target && eventOff(target, evt, this.handleEvent, EvtOpts)
       }, this)
-
-      // Stop listening for global show/hide/enable/disable events
-      this.setRootListener(false)
     },
     setRootListener(on) {
       // Listen for global `bv::{hide|show}::{tooltip|popover}` hide request event
@@ -651,24 +654,21 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Dropdown open events (if we are attached to a dropdown)
       this.setDropdownListener(on)
       // Periodic $element visibility check
-      // For handling when tip is in <keepalive>, tabs, carousel, etc
+      // For handling when tip target is in <keepalive>, tabs, carousel, etc
       this.visibleCheck(on)
       // On-touch start listeners
       this.setOnTouchStartListener(on)
     },
     visibleCheck(on) {
       // Handler for periodic visibility check
-      // TODO:
-      //   Could make this a MutationObserver or IntersectionObserver
       clearInterval(this.$_visibleInterval)
       this.$_visibleInterval = null
+      const target = this.getTarget()
+      const tip = this.getTemplateElement()
       if (on) {
         this.visibleInterval = setInterval(() => {
-          const tip = this.getTemplateElement()
-          // TODO:
-          //   Change the hasClass check to check localShow status instead
-          if (tip && !isVisible(this.getTarget()) && this.localShow) {
-            // Element is no longer visible, so force-hide the tooltip
+          if (tip && this.localShow && (!target.parentNode || !isVisible(target))) {
+            // Target element is no longer visible or not in DOM, so force-hide the tooltip
             this.forceHide()
           }
         }, 100)
@@ -703,8 +703,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   We could grab the ID from the dropdown, and listen for
       //   $root events for that particular dropdown id
-      //   Although dropdown doesn't emit $root events
+      //   Dropdown shown and hidden events will need to emit
       //   Note: Dropdown auto-ID happens in a $nextTick after mount
+      //         So the ID lookup would need to be done in a nextTick
       if (target.__vue__) {
         target.__vue__[on ? '$on' : '$off']('shown', this.forceHide)
       }
@@ -714,7 +715,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     //
     handleEvent(evt) {
       // General trigger event handler
-      // Will handle any native event when the event handler is just `this`
       // target is the trigger element
       const target = this.getTarget()
       if (!target || isDisabled(target) || !this.$_enabled || this.dropdownOpen()) {
