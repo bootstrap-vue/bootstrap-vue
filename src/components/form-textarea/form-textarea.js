@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import VBVisible from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -23,6 +24,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     formSelectionMixin,
     formValidityMixin
   ],
+  directives: {
+    'b-visible': VBVisible
+  },
   props: {
     rows: {
       type: [Number, String],
@@ -50,7 +54,6 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      dontResize: true,
       heightInPx: null
     }
   },
@@ -87,54 +90,16 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    dontResize(newVal, oldval) {
-      if (!newVal) {
-        this.setHeight()
-        // Run once more after a nextTick/RequestAnimationFrame
-        // in case the textarea is inside a modal or other component
-        // with transition delays and/or portaling delays
-        this.$nextTick(() => {
-          requestAF(this.setHeight)
-        })
-      }
-    },
     localValue(newVal, oldVal) {
       this.setHeight()
     }
   },
-  mounted() {
-    // Enable opt-in resizing once mounted
-    this.$nextTick(() => {
-      this.dontResize = false
-    })
-    /* istanbul ignore next */
-    if (closest('.modal', this.$el)) {
-      // If we are inside a modal, listen for modal shown events and
-      // resize (if applicable). Specifically for non-lazy modals
-      this.listenOnRoot('bv::modal::shown', this.setHeight)
-      // TODO:
-      //   Non-lazy b-tabs have a similar issue, but b-tabs does not emit root events (yet).
-      //   Idealy we would use IntersectionObserver to detect if the textarea is visible
-      //   and only perform the resize calculations when needed. Could be created as a mixin
-      //   or directive such as https://github.com/Akryum/vue-observe-visibility
-      //   which could be used by other components in the library
-    }
-  },
-  activated() {
-    // If we are being re-activated in <keep-alive>, enable opt-in resizing
-    this.$nextTick(() => {
-      this.dontResize = false
-    })
-  },
-  deactivated() {
-    // If we are in a deactivated <keep-alive>, disable opt-in resizing
-    this.dontResize = true
-  },
-  beforeDestroy() {
-    /* istanbul ignore next */
-    this.dontResize = true
-  },
   methods: {
+    visibleCallback(visible) {
+      if (visible) {
+        this.setHeight()
+      }
+    },
     setHeight() {
       this.$nextTick(() => {
         this.heightInPx = this.computeHeight()
@@ -204,9 +169,13 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       directives: [
         {
           name: 'model',
-          rawName: 'v-model',
           value: self.localValue,
-          expression: 'localValue'
+        },
+        {
+          name: 'b-visible',
+          value: this.visibleCallback,
+          // If textarea is within 640px of viewport, consider it visible
+          modifiers: { '640': true }
         }
       ],
       attrs: {
