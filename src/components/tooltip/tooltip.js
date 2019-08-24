@@ -172,6 +172,9 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Done in a $nextTick to ensure DOM has completed
     // rendering so that target can be found
     this.$nextTick(() => {
+      // Ensure we have initial content
+      this.updateContent()
+      // Create the instance
       const $toolpop = (this.$_bv_toolpop = new BVTooltip({
         parent: this,
         // The following jsut pre-populates the prop data so
@@ -180,7 +183,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         propsData: this.$_bv_propsData
       }))
       // Set the intial data
-      this.handleUpdate()
+      $toolpop.updateData(this.templateData)
       // Set listeners
       $toolpop.$on('show', this.onShow)
       $toolpop.$on('shown', this.onShown)
