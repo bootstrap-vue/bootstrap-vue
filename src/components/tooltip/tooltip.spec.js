@@ -187,12 +187,36 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
     expect(document.querySelector(adb)).toBe(null)
+
+    // Show the tooltip
+    wrapper.setProps({
+      show: true
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($button.attributes('aria-describedby')).toBeDefined()
+
+    // Note tip always has the same ID
+    const tip2 = document.getElementById(adb)
+    expect(tip2).not.toBe(null)
+    expect(tip2).toBeInstanceOf(HTMLElement)
+    expect(tip2.tagName).toEqual('DIV')
+    expect(tip2.classList.contains('tooltip')).toBe(true)
+    expect(tip2.classList.contains('b-tooltip')).toBe(true)
 
     wrapper.destroy()
   })
@@ -729,6 +753,8 @@ describe('b-tooltip', () => {
 
   it('closes when trigger element is no longer visible', async () => {
     jest.useFakeTimers()
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
+
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachToDocument: true,
@@ -753,6 +779,8 @@ describe('b-tooltip', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+
+    expect(console.warn).not.toHaveBeenCalled()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -801,9 +829,12 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(`adb`)).toBe(null)
+
+    expect(console.warn).not.toHaveBeenCalled()
 
     // Try and show element via root event (using ID of trigger button)
+    // Note that this generates a console warning
     wrapper.vm.$root.$emit('bv::show::tooltip', 'foo')
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -816,6 +847,9 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.getElementById(adb)).toBe(null)
+
+    expect(console.warn).toHaveBeenCalled()
+    expect(console.warn).toHaveBeenCalledTimes(1)
 
     // Try and show element via root event (using show all)
     wrapper.vm.$root.$emit('bv::show::tooltip')
@@ -830,6 +864,9 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.getElementById(adb)).toBe(null)
+
+    expect(console.warn).toHaveBeenCalled()
+    expect(console.warn).toHaveBeenCalledTimes(1)
 
     wrapper.destroy()
   })
@@ -880,6 +917,16 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip-danger')).toBe(true)
 
+    // Change variant type. Should be reactive
+    wrapper.setProps({
+      variant: 'success'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip-success')).toBe(true)
+    expect(tip.classList.contains('b-tooltip-danger')).toBe(false)
+
     wrapper.destroy()
   })
 
@@ -929,6 +976,16 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
     expect(tip.classList.contains('foobar-class')).toBe(true)
+
+    // Change custom class. Should be reactive
+    wrapper.setProps({
+      customClass: 'barbaz-class'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('barbaz-class')).toBe(true)
+    expect(tip.classList.contains('foobar-class')).toBe(false)
 
     wrapper.destroy()
   })
