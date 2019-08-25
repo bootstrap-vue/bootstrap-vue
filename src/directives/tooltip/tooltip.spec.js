@@ -41,7 +41,7 @@ describe('v-b-tooltip directive', () => {
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 
-  it('should have ToolTip class instance', async () => {
+  it('should have BVTooltip Vue class instance', async () => {
     const localVue = new CreateLocalVue()
 
     const App = localVue.extend({
