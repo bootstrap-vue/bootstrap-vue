@@ -1,4 +1,4 @@
-import { BVToolTip } from '../../utils/bv-tooltip'
+import { BVTooltip } from '../../utils/bv-tooltip'
 import { concat } from '../../utils//array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
@@ -117,7 +117,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   const selectedTriggers = {}
 
   // Parse current config object trigger
-  const triggers = concat(config.trigger)
+  concat(config.trigger)
     .filter(Boolean)
     .join(' ')
     .toLowerCase()
