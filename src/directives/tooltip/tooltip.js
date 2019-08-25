@@ -35,16 +35,18 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   const NAME = 'BTooltip'
   // Default config
   let config = {
+    title: '',
+    trigger: 'hover focus',
+    placement: 'top',
+    fallbackPlacement: 'flip',
+    container: false,
+    animation: true,
+    offset: 0,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
     variant: getComponentConfig(NAME, 'variant'),
-    customClass: getComponentConfig(NAME, 'customClass'),
-    noFade: false,
-    offset: 0,
-    trigger: 'hover focus',
-    placement: 'top',
-    fallbackPlacement: 'flip'
+    customClass: getComponentConfig(NAME, 'customClass')
   }
 
   // Process bindings.value
@@ -88,7 +90,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
       config.html = true
     } else if (noFadeRE.test(mod)) {
       // No animation
-      config.noFade = true
+      config.animation = false
     } else if (placementRE.test(mod)) {
       // Placement of tooltip
       config.placement = mod
@@ -189,7 +191,7 @@ const applyTooltip = (el, bindings, vnode) => {
     boundary: config.boundary,
     delay: config.delay,
     offset: config.offset,
-    noFade: config.noFade
+    noFade: !config.animation
   })
 }
 
