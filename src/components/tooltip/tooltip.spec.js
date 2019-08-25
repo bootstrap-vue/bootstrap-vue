@@ -598,9 +598,11 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -620,18 +622,11 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // title placeholder...
-    expect($tipHolder.text()).toBe('')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
@@ -641,16 +636,17 @@ describe('b-tooltip', () => {
     wrapper.vm.$root.$emit('bv::hide::tooltip', 'wrong-id')
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
 
-    // Tooltip element should not be in the document
+    // Tooltip element should still be in the document
     expect(document.body.contains(tip)).toBe(true)
-    expect(document.querySelector(`#${adb}`)).not.toBe(null)
+    expect(document.getElementById(adb)).not.toBe(null)
 
     wrapper.destroy()
   })
@@ -675,9 +671,11 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -697,37 +695,33 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Title placeholder...
-    expect($tipHolder.text()).toBe('')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Hide the tooltip by emitting root event with no ID (forceHide)
     wrapper.vm.$root.$emit('bv::hide::tooltip')
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     wrapper.destroy()
   })
@@ -751,9 +745,11 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -771,18 +767,11 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BTooltip)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Title placeholder...
-    expect($tipHolder.text()).toBe('')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
@@ -792,11 +781,14 @@ describe('b-tooltip', () => {
     $button.element.parentNode.removeChild($button.element)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
     // The visibility check runs on an interval of 100ms
     jest.runOnlyPendingTimers()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
@@ -808,23 +800,29 @@ describe('b-tooltip', () => {
     wrapper.vm.$root.$emit('bv::show::tooltip', 'foo')
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Tooltip element should not be in the document
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     // Try and show element via root event (using show all)
     wrapper.vm.$root.$emit('bv::show::tooltip')
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Tooltip element should not be in the document
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     wrapper.destroy()
   })
@@ -847,9 +845,11 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -862,7 +862,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // Find the tooltip element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
@@ -890,9 +890,9 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
