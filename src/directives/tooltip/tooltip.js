@@ -189,7 +189,7 @@ const applyTooltip = (el, bindings, vnode) => {
 // Remove ToolTip on our element
 const removeTooltip = el => {
   if (el[BV_TOOLTIP]) {
-    el[BV_TOOLTIP].destroy()
+    el[BV_TOOLTIP].$destroy()
     el[BV_TOOLTIP] = null
   }
   delete el[BV_TOOLTIP]
