@@ -57,6 +57,7 @@ describe('v-b-tooltip directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
 
@@ -84,13 +85,14 @@ describe('v-b-tooltip directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
-    const $button = wrapper.find('button')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('button')).toBe(true)
+    const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
@@ -105,6 +107,8 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
@@ -140,6 +144,8 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Trigger click
     $button.trigger('click')
@@ -148,6 +154,8 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
