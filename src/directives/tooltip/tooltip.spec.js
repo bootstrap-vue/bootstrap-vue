@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import ToolTip from '../../utils/tooltip.class'
-import tooltipDirective from './tooltip'
+import { BVTooltip } from '../../utils/bv-tooltip'
+import { tooltipDirective } from './tooltip'
 
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_ToolTip__'
@@ -62,7 +62,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(ToolTip)
+    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
     wrapper.destroy()
   })
@@ -94,7 +94,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(ToolTip)
+    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
