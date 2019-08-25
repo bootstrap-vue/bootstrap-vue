@@ -42,6 +42,7 @@ describe('v-b-tooltip directive', () => {
   })
 
   it('should have BVTooltip Vue class instance', async () => {
+    jest.useFakeTimers()
     const localVue = new CreateLocalVue()
 
     const App = localVue.extend({
@@ -57,7 +58,16 @@ describe('v-b-tooltip directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
 
@@ -89,7 +99,11 @@ describe('v-b-tooltip directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
@@ -102,6 +116,8 @@ describe('v-b-tooltip directive', () => {
 
     // Trigger click
     $button.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -143,12 +159,16 @@ describe('v-b-tooltip directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     // Trigger click
     $button.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
