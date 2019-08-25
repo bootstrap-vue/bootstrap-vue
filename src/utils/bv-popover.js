@@ -16,7 +16,7 @@ export const BVPopover = /*#__PURE__*/ Vue.extend({
   extends: BVTooltip,
   data() {
     return {
-      // Overwrite BVTooltip values
+      // Overwrite BVTooltip data default values
       triggers: 'click hover',
       placement: 'top'
     }
