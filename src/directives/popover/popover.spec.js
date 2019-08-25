@@ -91,6 +91,8 @@ describe('v-b-popover directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
@@ -105,13 +107,16 @@ describe('v-b-popover directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
 
-    const pop = document.querySelector(`#${adb}`)
+    const pop = document.getElementById(adb)
     expect(pop).not.toBe(null)
     expect(pop.classList.contains('popover')).toBe(true)
+    expect(pop.classList.contains('b-popover')).toBe(true)
 
     wrapper.destroy()
 
