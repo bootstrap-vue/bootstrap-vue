@@ -41,7 +41,7 @@ describe('v-b-popover directive', () => {
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 
-  it('should have PopOver class instance', async () => {
+  it('should have BVPopover Vue instance', async () => {
     const localVue = new CreateLocalVue()
 
     const App = localVue.extend({
@@ -91,8 +91,6 @@ describe('v-b-popover directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
@@ -107,8 +105,6 @@ describe('v-b-popover directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
