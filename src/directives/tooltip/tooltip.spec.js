@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BVTooltip } from '../../utils/bv-tooltip'
-import { tooltipDirective } from './tooltip'
+import { VBTooltip } from './tooltip'
 
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_ToolTip__'
@@ -46,7 +46,7 @@ describe('v-b-tooltip directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bTooltip: tooltipDirective
+        bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip title="foobar">button</button>'
     })
@@ -73,7 +73,7 @@ describe('v-b-tooltip directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bTooltip: tooltipDirective
+        bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip.click.html title="<b>foobar</b>">button</button>'
     })
@@ -122,7 +122,7 @@ describe('v-b-tooltip directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bTooltip: tooltipDirective
+        bTooltip: VBTooltip
       },
       template: `<button v-b-tooltip.click.html.v-info="{ customClass: 'foobar'}" title="<b>foobar</b>">button</button>`
     })
