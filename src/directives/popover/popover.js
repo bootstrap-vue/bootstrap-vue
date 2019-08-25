@@ -190,7 +190,7 @@ const applyPopover = (el, bindings, vnode) => {
     el[BV_POPOVER] = new BVPopover({
       parent: vnode.context
     })
-    el[BV_TOOLTIP].__bv_prev_data__ = null
+    el[BV_POPOVER].__bv_prev_data__ = null
   }
   const data = {
     BV_POPOVER: el,
@@ -207,10 +207,10 @@ const applyPopover = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation
   }
-  if (!looseEqual(data, el[BV_TOOLTIP].__bv_prev_data__)) {
+  if (!looseEqual(data, el[BV_POPOVER].__bv_prev_data__)) {
     // We only update the instance if data has changed
-    el[BV_TOOLTIP].updateData(data)
-    el[BV_TOOLTIP].__bv_prev_data__ = data
+    el[BV_POPOVER].updateData(data)
+    el[BV_POPOVER].__bv_prev_data__ = data
   }
 }
 
