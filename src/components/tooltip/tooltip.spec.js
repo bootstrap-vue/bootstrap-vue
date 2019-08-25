@@ -19,6 +19,17 @@ const appDef = {
     'delay'
   ],
   render(h) {
+    const tipProps = {
+      target: 'foo',
+      triggers: this.triggers,
+      show: this.show,
+      disabled: this.disabled,
+      noFade: this.noFade || false,
+      title: this.title || null,
+      variant: this.variant,
+      customClass: this.customClass,
+      delay: this.delay
+    }
     return h('article', { attrs: { id: 'wrapper' } }, [
       h(
         'button',
@@ -32,24 +43,9 @@ const appDef = {
         },
         'text'
       ),
-      h(
-        BTooltip,
-        {
-          attrs: { id: 'bar' },
-          props: {
-            target: 'foo',
-            triggers: this.triggers,
-            show: this.show,
-            disabled: this.disabled,
-            noFade: this.noFade || false,
-            title: this.title || null,
-            variant: this.variant,
-            customClass: this.customClass,
-            delay: this.delay
-          }
-        },
-        this.$slots.default
-      )
+      typeof this.$slots.default === `undefined`
+        ? h(BTooltip, { props: tipProps })
+        : h(BTooltip, { props: tipProps }, this.$slots.default)
     ])
   }
 }
@@ -100,7 +96,7 @@ describe('b-tooltip', () => {
         triggers: 'click'
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -139,7 +135,7 @@ describe('b-tooltip', () => {
         show: true
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -307,7 +303,7 @@ describe('b-tooltip', () => {
         show: false
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -374,7 +370,7 @@ describe('b-tooltip', () => {
         delay: 0
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -459,7 +455,7 @@ describe('b-tooltip', () => {
         noFade: true
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -541,7 +537,7 @@ describe('b-tooltip', () => {
         disabled: true
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -630,7 +626,7 @@ describe('b-tooltip', () => {
         titleAttr: 'ignored'
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -704,7 +700,7 @@ describe('b-tooltip', () => {
         titleAttr: 'ignored'
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -777,7 +773,7 @@ describe('b-tooltip', () => {
         titleAttr: 'ignored'
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -854,7 +850,7 @@ describe('b-tooltip', () => {
         disabled: false
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -967,7 +963,7 @@ describe('b-tooltip', () => {
         variant: 'danger'
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
@@ -1024,7 +1020,7 @@ describe('b-tooltip', () => {
         customClass: 'foobar-class'
       },
       slots: {
-        default: 'title'
+        default: () => 'title'
       }
     })
 
