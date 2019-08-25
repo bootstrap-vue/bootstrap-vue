@@ -205,20 +205,21 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // Set up all trigger handlers and listeners
         this.listen()
       } else {
+        /* istanbul ignore next */
         warn(`${this.templateType} unable to find target element in document`)
       }
     })
   },
-  updated() {
+  updated() /* istanbul ignore next */ {
     // Usually called when the slots/data changes
     this.$nextTick(this.handleTemplateUpdate)
   },
-  deactivated() {
+  deactivated() /* istanbul ignore next */ {
     // In a keepalive that has been deactivated, so hide
     // the tooltip/popover if it is showing
     this.forceHide()
   },
-  beforDestroy() {
+  beforDestroy() /* istanbul ignore next */ {
     // Remove all handler/listeners
     this.unListen()
     this.setWhileOpenListeners(false)
@@ -343,6 +344,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       if (this.$_tip || this.localShow) {
         // If tip already exists, exit early
+        /* istanbul ignore next */
         return
       }
 
@@ -607,6 +609,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Enable trigger event handlers
       const el = this.getTarget()
       if (!el) {
+        /* istanbul ignore next */
         return
       }
 
@@ -629,7 +632,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }
       }, this)
     },
-    unListen() {
+    unListen() /* istanbul ignore next */ {
       // Remove trigger event handlers
       const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
       const target = this.getTarget()
@@ -688,13 +691,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
       }
     },
-    setOnTouchStartListener(on) {
+    setOnTouchStartListener(on) /* istanbul ignore next: JSDOM doesn'tt support `ontouchstart` */ {
       // If this is a touch-enabled device we add extra empty
       // `mouseover` listeners to the body's immediate children
       // Only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
-        /* istanbul ignore next: JSDOM does not support `ontouchstart` event */
         const method = on ? eventOn : eventOff
         arrayFrom(document.body.children).forEach(el => {
           method(el, 'mouseover', this.$_noop)
@@ -822,10 +824,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (this.isWithActiveTrigger) {
         this.enter(null)
       } else {
+        /* istanbul ignore next */
         this.leave(null)
       }
     },
-    toggle() {
+    toggle() /* istanbul ignore next */ {
       // Manual toggle handler
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
@@ -845,6 +848,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (evt) {
         this.activeTrigger[evt.type === 'focusin' ? 'focus' : 'hover'] = true
       }
+      /* istanbul ignore next */
       if (this.localShow || this.$_hoverState === 'in') {
         this.$_hoverState = 'in'
         return
@@ -866,6 +870,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Note: Click events are sent with evt === null
       if (evt) {
         this.activeTrigger[evt.type === 'focusout' ? 'focus' : 'hover'] = false
+        /* istanbul ignore next */
         if (evt.type === 'focusout' && arrayIncludes(this.computedTriggers, 'blur')) {
           // Special case for `blur`: we clear out the other triggers
           this.activeTrigger.click = false
