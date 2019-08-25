@@ -232,7 +232,9 @@ export const VBPopover = {
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     // Performed in a nextTick to prevent endless render/update loops
-    vnode.context.$nextTick(() => applyPopover(el, bindings, vnode))
+    vnode.context.$nextTick(() => {
+      applyPopover(el, bindings, vnode)
+    })
   },
   unbind(el) {
     removePopover(el)
