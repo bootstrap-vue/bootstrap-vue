@@ -751,6 +751,8 @@ describe('b-tooltip', () => {
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -761,8 +763,6 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toBeDefined()
     expect($button.attributes('aria-describedby')).toBeDefined()
 
     // ID of the tooltip that will be in the body
@@ -847,9 +847,11 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -863,8 +865,6 @@ describe('b-tooltip', () => {
 
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
-    expect(adb).toBeDefined()
-    expect(adb).not.toBe('')
     expect(adb).not.toBe(null)
 
     // Find the tooltip element in the document
