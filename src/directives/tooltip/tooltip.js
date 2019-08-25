@@ -8,6 +8,9 @@ import { keys } from '../../utils/object'
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_ToolTip__'
 
+// Default trigger
+const DefaultTrigger = 'hover focus'
+
 // Valid event triggers
 const validTriggers = {
   focus: true,
@@ -35,8 +38,8 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   const NAME = 'BTooltip'
   // Default config
   let config = {
-    title: '',
-    trigger: 'hover focus',
+    title: undefined,
+    trigger: DefaultTrigger,
     placement: 'top',
     fallbackPlacement: 'flip',
     container: false,
@@ -149,8 +152,8 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     config.trigger = 'focus'
   }
   if (!config.trigger) {
-    // Remove trigger config to use default
-    delete config.trigger
+    // Use default trigger
+    config.trigger = DefaultTrigger
   }
 
   // If title is a function, execute it
