@@ -48,7 +48,7 @@ const appDef = {
             delay: this.delay
           }
         },
-        this.$slots.default || ''
+        this.$slots.default || undefined
       )
     ])
   }
@@ -221,7 +221,7 @@ describe('b-tooltip', () => {
     wrapper.destroy()
   })
 
-  it('titple prop is reactive', async () => {
+  it('title prop is reactive', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
@@ -239,7 +239,11 @@ describe('b-tooltip', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -268,13 +272,15 @@ describe('b-tooltip', () => {
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
-
+    // Should contain our title prop value
     expect(tip.innerText).toContain('hello')
 
     // Change the title prop
     wrapper.setProps({
       title: 'world'
     })
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
