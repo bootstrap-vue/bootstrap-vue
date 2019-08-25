@@ -860,6 +860,9 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
+    expect(adb).toBeDefined()
+    expect(adb).not.toBe('')
+    expect(adb).not.toBe(null)
 
     // Find the tooltip element in the document
     const tip = document.getElementById(adb)
@@ -905,6 +908,9 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
+    expect(adb).toBeDefined()
+    expect(adb).not.toBe('')
+    expect(adb).not.toBe(null)
 
     // Find the tooltip element in the document
     const tip = document.getElementById(adb)
