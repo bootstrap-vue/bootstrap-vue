@@ -161,8 +161,14 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "slot for tooltip content (html supported)"
+          }
         ]
-      }
+      },
     ]
   }
 }
