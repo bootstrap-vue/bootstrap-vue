@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import PopOver from '../../utils/popover.class'
-import popoverDirective from './popover'
+import { BVPopover } from '../../utils/bv-popover'
+import { VBPopover } from './popover'
 
 // Key which we use to store tooltip object on element
 const BV_POPOVER = '__BV_PopOver__'
@@ -46,7 +46,7 @@ describe('v-b-popover directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bPopover: popoverDirective
+        bPopover: VBPopover
       },
       template: `<button v-b-popover="'content'" title="foobar">button</button>`
     })
@@ -62,7 +62,7 @@ describe('v-b-popover directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
-    expect($button.element[BV_POPOVER]).toBeInstanceOf(PopOver)
+    expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
 
     wrapper.destroy()
   })
@@ -73,7 +73,7 @@ describe('v-b-popover directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bPopover: popoverDirective
+        bPopover: VBPopover
       },
       template: `<button v-b-popover.click.html="'content'" title="<b>foobar</b>">button</button>`
     })
@@ -94,7 +94,7 @@ describe('v-b-popover directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
-    expect($button.element[BV_POPOVER]).toBeInstanceOf(PopOver)
+    expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
