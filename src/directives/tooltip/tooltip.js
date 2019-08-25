@@ -1,5 +1,6 @@
 import { BVTooltip } from '../../utils/bv-tooltip'
-import { concat } from '../../utils//array'
+import looseEqual from '../../utils/loose-equal'
+import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
@@ -182,9 +183,9 @@ const applyTooltip = (el, bindings, vnode) => {
     el[BV_TOOLTIP] = new BVTooltip({
       parent: vnode.context
     })
+    el[BV_TOOLTIP].__bv_prev_data__ = null
   }
-  // The updateData method only updates values that have changed
-  el[BV_TOOLTIP].updateData({
+  const data = {
     target: el,
     title: config.title,
     triggers: config.trigger,
@@ -197,7 +198,12 @@ const applyTooltip = (el, bindings, vnode) => {
     delay: config.delay,
     offset: config.offset,
     noFade: !config.animation
-  })
+  }
+  if (!looseEqual(data, el[BV_TOOLTIP].__bv_prev_data__)) {
+    // We only update if data has changed
+    el[BV_TOOLTIP].updateData(data)
+    el[BV_TOOLTIP].__bv_prev_data__ = data
+  }
 }
 
 // Remove ToolTip on our element
