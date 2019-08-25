@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { BTooltip } from '../tooltip/tooltip'
-import { BVTooltip } from '../../utils/bv-tooltip'
+import { BVPopover } from '../../utils/bv-popover'
+import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BPopover'
 
@@ -50,6 +51,10 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
+    getComponent() {
+      // Overridden by BPopover
+      return BVPopover
+    },
     updateContent() {
       // tooltip: default slot is title
       // popover: default slot is content, title slot is title
@@ -57,7 +62,7 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
       // And pass the title prop as a fallback
       this.setContent(this.$scopedSlots.default || this.content)
       this.setTitle(this.$scopedSlots.title || this.title)
-    },
+    }
   }
   // Render function provided by BTooltip
 })
