@@ -105,6 +105,8 @@ describe('v-b-popover directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
