@@ -31,10 +31,10 @@
 //     )
 //   }
 //
-import looseEqual from './loose-equal'
-import { requestAF } from './dom'
-import { isFunction } from './inspect'
-import { keys } from './object'
+import looseEqual from '../utils/loose-equal'
+import { requestAF } from '../utils/dom'
+import { isFunction } from '../utils/inspect'
+import { keys } from '../utils/object'
 
 const PROPNAME = '__bv__visibility_observer'
 
