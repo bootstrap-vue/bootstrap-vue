@@ -671,9 +671,9 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -691,6 +691,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('data-original-title')).toBeDefined()
     expect($button.attributes('data-original-title')).toEqual('ignored')
     expect($button.attributes('aria-describedby')).toBeDefined()
+
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
 
@@ -745,9 +746,9 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -763,6 +764,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('data-original-title')).toBeDefined()
     expect($button.attributes('aria-describedby')).toBeDefined()
+
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
 
@@ -845,9 +847,9 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -858,6 +860,7 @@ describe('b-tooltip', () => {
     // The trigger button
     const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
+
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
     expect(adb).toBeDefined()
@@ -893,9 +896,9 @@ describe('b-tooltip', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -906,6 +909,7 @@ describe('b-tooltip', () => {
     // The trigger button
     const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
+
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
     expect(adb).toBeDefined()
