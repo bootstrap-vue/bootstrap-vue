@@ -799,8 +799,6 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
-
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
     expect(document.querySelector(`#${adb}`)).toBe(null)
