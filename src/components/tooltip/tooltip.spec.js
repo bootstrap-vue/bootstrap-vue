@@ -788,7 +788,14 @@ describe('b-tooltip', () => {
     await waitRAF()
     // The visibility check runs on an interval of 100ms
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
