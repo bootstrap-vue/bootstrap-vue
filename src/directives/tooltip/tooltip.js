@@ -33,6 +33,7 @@ const variantRE = /^v-.+$/i
 const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
   const NAME = 'BTooltip'
+  // Default config
   let config = {
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
@@ -40,7 +41,10 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     variant: getComponentConfig(NAME, 'variant'),
     customClass: getComponentConfig(NAME, 'customClass'),
     noFade: false,
-    offset: 0
+    offset: 0,
+    trigger: 'hover focus',
+    placement: 'top',
+    fallbackPlacement: 'flip'
   }
 
   // Process bindings.value
@@ -146,6 +150,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     // Remove trigger config to use default
     delete config.trigger
   }
+
+  // If title is a function, execute it
+  config.title = isFunction(config.title) ? config.title() : config.title
 
   // If title is a string, and the html option is true, then
   // generate a div container with innerHTML set
