@@ -42,6 +42,7 @@ describe('v-b-popover directive', () => {
   })
 
   it('should have BVPopover Vue instance', async () => {
+    jest.useFakeTimers()
     const localVue = new CreateLocalVue()
 
     const App = localVue.extend({
@@ -57,6 +58,16 @@ describe('v-b-popover directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
 
@@ -90,7 +101,11 @@ describe('v-b-popover directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
@@ -100,6 +115,8 @@ describe('v-b-popover directive', () => {
 
     // Trigger click
     $button.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
