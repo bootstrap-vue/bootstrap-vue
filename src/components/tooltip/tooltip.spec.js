@@ -221,6 +221,75 @@ describe('b-tooltip', () => {
     wrapper.destroy()
   })
 
+  it('titple prop is reactive', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        title: 'hello'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // <b-tooltip> wrapper
+    const $tipHolder = wrapper.find(BTooltip)
+    expect($tipHolder.exists()).toBe(true)
+    expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
+
+    expect(tip.innerText).toContain('hello')
+
+    // Change the title prop
+    wrapper.setProps({
+      title: 'world'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // Tooltip element should still be in the document
+    expect(document.body.contains(tip)).toBe(true)
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
+    // Should contain the new updated content
+    expect(tip.innerText).toContain('world')
+
+    wrapper.destroy()
+  })
+
   it('activating trigger element (click) opens tooltip', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
