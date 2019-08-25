@@ -405,9 +405,9 @@ describe('b-tooltip', () => {
     $button.trigger('mouseleave', { relatedTarget: document.body })
     await waitNT(wrapper.vm)
     await waitRAF()
+    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
