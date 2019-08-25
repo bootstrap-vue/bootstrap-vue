@@ -186,7 +186,7 @@ const applyPopover = (el, bindings, vnode) => {
   }
   const config = parseBindings(bindings, vnode)
   if (!el[BV_POPOVER]) {
-    el[BV_POPOVER] = new BVTooltip({
+    el[BV_POPOVER] = new BVPopover({
       parent: vnode.context
     })
     el[BV_TOOLTIP].__bv_prev_data__ = null
@@ -217,7 +217,7 @@ const applyPopover = (el, bindings, vnode) => {
 // Remove PopOver on our element
 const removePopover = el => {
   if (el[BV_POPOVER]) {
-    el[BV_POPOVER].destroy()
+    el[BV_POPOVER].$destroy()
     el[BV_POPOVER] = null
     delete el[BV_POPOVER]
   }
