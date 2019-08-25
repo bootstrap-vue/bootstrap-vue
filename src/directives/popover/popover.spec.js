@@ -117,7 +117,5 @@ describe('v-b-popover directive', () => {
     expect(pop.classList.contains('b-popover')).toBe(true)
 
     wrapper.destroy()
-
-    expect(document.contains(pop)).toBe(false)
   })
 })
