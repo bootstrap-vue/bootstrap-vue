@@ -236,9 +236,6 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         this.localContent = val
       }
     },
-    handleUpdate() {
-      // Update the template data object with any new values
-    },
     //
     // Template event handlers
     //
