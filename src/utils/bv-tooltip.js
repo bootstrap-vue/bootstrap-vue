@@ -54,9 +54,9 @@ const templateData = {
   // String, Array, Object
   customClass: null,
   // String or array of Strings (overwritten by BVPopper)
-  triggers: 'click hover',
+  triggers: '',
   // String (overwritten by BVPopper)
-  placement: 'top',
+  placement: 'auto',
   // String or array of strings
   fallbackPlacement: 'flip',
   // Element or Component reference (or function that returns element) of
