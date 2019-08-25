@@ -1,3 +1,17 @@
+// Some overrides to make popover transitions work with Vue `<transition>`
+.popover.b-popover {
+  display: block;
+  opacity: 1;
+
+  &.fade:not(.show) {
+    opacity: 0;
+  }
+
+  &.show {
+    opacity: 1;
+  }
+}
+
 @if $bv-enable-popover-variants {
   @each $variant, $value in $theme-colors {
     .b-popover-#{$variant} {
