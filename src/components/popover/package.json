@@ -167,6 +167,10 @@
             "name": "title",
             "description": "Optional slot for title (html supported)"
           }
+          {
+            "name": "default",
+            "description": "slot for content (html supported)"
+          }
         ]
       }
     ]
