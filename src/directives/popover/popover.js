@@ -1,8 +1,9 @@
 import { BVPopover } from '../../utils/bv-popover'
 import looseEqual from '../../utils/loose-equal'
+import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
-import { isFunction, isObject, isString } from '../../utils/inspect'
+import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
 // Key which we use to store tooltip object on element
