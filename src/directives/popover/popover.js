@@ -1,6 +1,5 @@
-import Popper from 'popper.js'
-import PopOver from '../../utils/popover.class'
-import warn from '../../utils/warn'
+import { BVPopover } from '../../utils/bv-popover'
+import looseEqual from '../../utils/loose-equal'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { isFunction, isObject, isString } from '../../utils/inspect'
@@ -9,30 +8,44 @@ import { keys } from '../../utils/object'
 // Key which we use to store tooltip object on element
 const BV_POPOVER = '__BV_PopOver__'
 
+// Default trigger
+const DefaultTrigger = 'click'
+
 // Valid event triggers
 const validTriggers = {
   focus: true,
   hover: true,
   click: true,
-  blur: true
+  blur: true,
+  manual: true
 }
 
 // Directive modifier test regular expressions. Pre-compile for performance
-const htmlRE = /^html$/
+const htmlRE = /^html$/i
 const noFadeRE = /^nofade$/i
-const placementRE = /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/
-const boundaryRE = /^(window|viewport|scrollParent)$/
-const delayRE = /^d\d+$/
-const offsetRE = /^o-?\d+$/
-const variantRE = /^v-.+$/
+const placementRE = /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/i
+const boundaryRE = /^(window|viewport|scrollParent)$/i
+const delayRE = /^d\d+$/i
+const delayShowRE = /^ds\d+$/i
+const delayHideRE = /^dh\d+$/i
+const offsetRE = /^o-?\d+$/i
+const variantRE = /^v-.+$/i
 
-// Build a PopOver config based on bindings (if any)
+// Build a Popover config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
-const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
+const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
   const NAME = 'BPopover'
   let config = {
+    title: undefined,
+    content: undefined,
+    trigger: '', // default set below if needed
+    placement: 'top',
+    fallbackPlacement: 'flip',
+    container: false, // default of body
+    animation: true,
+    offset: 0,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
@@ -59,32 +72,50 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     config.container = `#${bindings.arg}`
   }
 
+  // If title is not provided, try title attribute
+  if (isUndefined(config.title)) {
+    // try attribute
+    const data = vnode.data || {}
+    config.title = data.attrs && data.attrs.title ? data.attrs.title : undefined
+  }
+
+  // Normalize delay
+  if (!isObject(config.delay)) {
+    config.delay = {
+      show: config.delay,
+      hide: config.delay
+    }
+  }
+
   // Process modifiers
   keys(bindings.modifiers).forEach(mod => {
     if (htmlRE.test(mod)) {
-      // Title allows HTML
+      // Title/content allows HTML
       config.html = true
     } else if (noFadeRE.test(mod)) {
-      // no animation
+      // No animation
       config.animation = false
     } else if (placementRE.test(mod)) {
-      // placement of popover
+      // Placement of popover
       config.placement = mod
     } else if (boundaryRE.test(mod)) {
       // Boundary of popover
+      mod = mod === 'scrollparent' ? 'scrollParent' : mod
       config.boundary = mod
     } else if (delayRE.test(mod)) {
       // Delay value
       const delay = parseInt(mod.slice(1), 10) || 0
-      if (delay) {
-        config.delay = delay
-      }
+      config.delay.show = delay
+      config.delay.hide = delay
+    } else if (delayShowRE.test(mod)) {
+      // Delay show value
+      config.delay.show = parseInt(mod.slice(2), 10) || 0
+    } else if (delayHideRE.test(mod)) {
+      // Delay hide value
+      config.delay.hide = parseInt(mod.slice(2), 10) || 0
     } else if (offsetRE.test(mod)) {
-      // Offset value (negative allowed)
-      const offset = parseInt(mod.slice(1), 10) || 0
-      if (offset) {
-        config.offset = offset
-      }
+      // Offset value, negative allowed
+      config.offset = parseInt(mod.slice(1), 10) || 0
     } else if (variantRE.test(mod)) {
       // Variant
       config.variant = mod.slice(2) || null
@@ -96,29 +127,52 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   const selectedTriggers = {}
 
   // Parse current config object trigger
-  const triggers = isString(config.trigger) ? config.trigger.trim().split(/\s+/) : []
-  triggers.forEach(trigger => {
-    if (validTriggers[trigger]) {
-      selectedTriggers[trigger] = true
-    }
-  })
+  concat(config.trigger || '')
+    .filter(Boolean)
+    .join(' ')
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .forEach(trigger => {
+      if (validTriggers[trigger]) {
+        selectedTriggers[trigger] = true
+      }
+    })
 
   // Parse modifiers for triggers
-  keys(validTriggers).forEach(trigger => {
-    if (bindings.modifiers[trigger]) {
-      selectedTriggers[trigger] = true
+  keys(bindings.modifiers).forEach(mod => {
+    mod = mod.toLowerCase()
+    if (validTriggers[mod]) {
+      // if modifier is a valid trigger
+      selectedTriggers[mod] = true
     }
   })
 
   // Sanitize triggers
   config.trigger = keys(selectedTriggers).join(' ')
   if (config.trigger === 'blur') {
-    // Blur by itself is useless, so convert it to focus
+    // Blur by itself is useless, so convert it to 'focus'
     config.trigger = 'focus'
   }
   if (!config.trigger) {
-    // Remove trigger config
-    delete config.trigger
+    // Use default trigger
+    config.trigger = DefaultTrigger
+  }
+
+  // If title/content is a function, execute it
+  config.title = isFunction(config.title) ? config.title() : config.title
+  config.content = isFunction(config.content) ? config.content() : config.content
+
+  // If title is a string, and the html option is true, then
+  // generate a div container with innerHTML set
+  if (isString(config.title) && config.html) {
+    config.title = vnode.context.$createElement('div', { domProps: { innerHTML: config.title } })
+  }
+
+  // If content is a string, and the html option is true, then
+  // generate a div container with innerHTML set
+  if (isString(config.content) && config.html) {
+    config.title = vnode.context.$createElement('div', { domProps: { innerHTML: config.content } })
   }
 
   return config
@@ -130,18 +184,33 @@ const applyPopover = (el, bindings, vnode) => {
     /* istanbul ignore next */
     return
   }
-  // Popper is required for PopOvers to work
-  if (!Popper) {
-    /* istanbul ignore next */
-    warn('v-b-popover: Popper.js is required for PopOvers to work')
-    /* istanbul ignore next */
-    return
+  const config = parseBindings(bindings, vnode)
+  if (!el[BV_POPOVER]) {
+    el[BV_POPOVER] = new BVTooltip({
+      parent: vnode.context
+    })
+    el[BV_TOOLTIP].__bv_prev_data__ = null
   }
-  const config = parseBindings(bindings)
-  if (el[BV_POPOVER]) {
-    el[BV_POPOVER].updateConfig(config)
-  } else {
-    el[BV_POPOVER] = new PopOver(el, config, vnode.context)
+  // The updateData method only updates values that have changed
+  const data = {
+    BV_POPOVER: el,
+    title: config.title,
+    content: config.content,
+    triggers: config.trigger,
+    placement: config.placement,
+    fallbackPlacement: config.fallbackPlacement,
+    variant: config.variant,
+    customClass: config.customClass,
+    container: config.container,
+    boundary: config.boundary,
+    delay: config.delay,
+    offset: config.offset,
+    noFade: !config.animation
+  }
+  if (!looseEqual(data, el[BV_TOOLTIP].__bv_prev_data__)) {
+    // We only update the instance if data has changed
+    el[BV_TOOLTIP].updateData(data)
+    el[BV_TOOLTIP].__bv_prev_data__ = data
   }
 }
 
@@ -161,18 +230,9 @@ export const VBPopover = {
   bind(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
   },
-  inserted(el, bindings, vnode) {
-    applyPopover(el, bindings, vnode)
-  },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
-    if (bindings.value !== bindings.oldValue) {
-      applyPopover(el, bindings, vnode)
-    }
-  },
-  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
-    if (bindings.value !== bindings.oldValue) {
-      applyPopover(el, bindings, vnode)
-    }
+    // Performed in a nextTick to prevent endless render/update loops
+    vnode.context.$nextTick(() => applyPopover(el, bindings, vnode))
   },
   unbind(el) {
     removePopover(el)
