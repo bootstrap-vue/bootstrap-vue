@@ -119,8 +119,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (isPlainObject(this.delay)) {
         delay.show = Math.max(parseInt(this.delay.show, 10) || 0, 0)
         delay.hide = Math.max(parseInt(this.delay.hide, 10) || 0, 0)
-      } else {
-      if (isNumber(this.delay) || isString(this.delay)) {
+      } else if (isNumber(this.delay) || isString(this.delay)) {
         delay.show = delay.hide = Math.max(parseInt(this.delay, 10) || 0, 0)
       }
       return delay
