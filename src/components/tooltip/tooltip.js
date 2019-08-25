@@ -177,9 +177,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // rendering so that target can be found
     this.$nextTick(() => {
       // Ensure we have initial content
+      const Component = this.getComponent()
       this.updateContent()
       // Create the instance
-      const $toolpop = (this.$_bv_toolpop = new BVTooltip({
+      const $toolpop = (this.$_bv_toolpop = new Component({
         parent: this,
         // The following jsut pre-populates the prop data so
         // that thevalues are available in created hook), but
@@ -215,6 +216,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     })
   },
   methods: {
+    getComponent() {
+      // Overridden by BPopover
+      return BVTooltip
+    },
     updateContent() {
       // Overridden by BPopover
       // tooltip: default slot is title
