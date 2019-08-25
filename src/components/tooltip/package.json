@@ -168,7 +168,7 @@
             "description": "slot for tooltip content (html supported)"
           }
         ]
-      },
+      }
     ]
   }
 }
