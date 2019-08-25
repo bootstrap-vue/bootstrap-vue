@@ -203,7 +203,8 @@ export const VBTooltip = {
     applyTooltip(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
-    applyTooltip(el, bindings, vnode)
+    // Performed in a nextTich to prevent render update loops
+    vnode.context.$nextTick(() => applyTooltip(el, bindings, vnode))
   },
   unbind(el) {
     removeTooltip(el)
