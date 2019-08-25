@@ -160,7 +160,6 @@ describe('b-popover', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('data-original-title')).not.toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
