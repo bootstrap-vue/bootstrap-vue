@@ -39,10 +39,10 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   // Default config
   let config = {
     title: undefined,
-    trigger: DefaultTrigger,
+    trigger: '', // default set below if needed
     placement: 'top',
     fallbackPlacement: 'flip',
-    container: false,
+    container: false, // default of body
     animation: true,
     offset: 0,
     delay: getComponentConfig(NAME, 'delay'),
@@ -126,11 +126,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   const selectedTriggers = {}
 
   // Parse current config object trigger
-  concat(config.trigger)
+  concat(config.trigger || '')
     .filter(Boolean)
     .join(' ')
-    .toLowerCase()
     .trim()
+    .toLowerCase()
     .split(/\s+/)
     .forEach(trigger => {
       if (validTriggers[trigger]) {
