@@ -753,6 +753,7 @@ describe('b-tooltip', () => {
 
   it('closes when trigger element is no longer visible', async () => {
     jest.useFakeTimers()
+    // Prevent warns from appearing in the test logs
     jest.spyOn(console, 'warn').mockImplementation(() => {})
 
     const App = localVue.extend(appDef)
@@ -779,8 +780,6 @@ describe('b-tooltip', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-
-    expect(console.warn).not.toHaveBeenCalled()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -831,8 +830,6 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(`adb`)).toBe(null)
 
-    expect(console.warn).not.toHaveBeenCalled()
-
     // Try and show element via root event (using ID of trigger button)
     // Note that this generates a console warning
     wrapper.vm.$root.$emit('bv::show::tooltip', 'foo')
@@ -848,9 +845,6 @@ describe('b-tooltip', () => {
     // Tooltip element should not be in the document
     expect(document.getElementById(adb)).toBe(null)
 
-    expect(console.warn).toHaveBeenCalled()
-    expect(console.warn).toHaveBeenCalledTimes(1)
-
     // Try and show element via root event (using show all)
     wrapper.vm.$root.$emit('bv::show::tooltip')
     await waitNT(wrapper.vm)
@@ -864,9 +858,6 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.getElementById(adb)).toBe(null)
-
-    expect(console.warn).toHaveBeenCalled()
-    expect(console.warn).toHaveBeenCalledTimes(1)
 
     wrapper.destroy()
   })
