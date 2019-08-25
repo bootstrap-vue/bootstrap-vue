@@ -192,7 +192,6 @@ const applyPopover = (el, bindings, vnode) => {
     })
     el[BV_TOOLTIP].__bv_prev_data__ = null
   }
-  // The updateData method only updates values that have changed
   const data = {
     BV_POPOVER: el,
     title: config.title,
