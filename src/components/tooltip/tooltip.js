@@ -180,13 +180,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       const Component = this.getComponent()
       this.updateContent()
       // Create the instance
-      const $toolpop = (this.$_bv_toolpop = new Component({
-        parent: this,
-        // The following jsut pre-populates the prop data so
-        // that thevalues are available in created hook), but
-        // is not reactive to changes in the props data (see below)
-        propsData: this.$_bv_propsData
-      }))
+      const $toolpop = (this.$_bv_toolpop = new Component({ parent: this }))
       // Set the intial data
       $toolpop.updateData(this.templateData)
       // Set listeners
