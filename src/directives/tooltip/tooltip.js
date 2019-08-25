@@ -186,7 +186,6 @@ const applyTooltip = (el, bindings, vnode) => {
     el[BV_TOOLTIP].__bv_prev_data__ = null
   }
   const data = {
-    target: el,
     title: config.title,
     triggers: config.trigger,
     placement: config.placement,
@@ -201,7 +200,7 @@ const applyTooltip = (el, bindings, vnode) => {
   }
   if (!looseEqual(data, el[BV_TOOLTIP].__bv_prev_data__)) {
     // We only update the instance if data has changed
-    el[BV_TOOLTIP].updateData(data)
+    el[BV_TOOLTIP].updateData({ ...data, target: el })
     el[BV_TOOLTIP].__bv_prev_data__ = data
   }
 }
