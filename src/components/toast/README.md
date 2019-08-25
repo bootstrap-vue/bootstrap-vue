@@ -132,8 +132,8 @@ automatically be destroyed and removed from the document.
 - Toasts generated via `this.$bvToast.toast()` are children of the Vue instance that calls the
   `this.$bvToast.toast()` method, and will be hidden and destroyed if that Vue instance (i.e. your
   component or app) is also destroyed. If the vm context is inside a `<router-view>`, and the
-  `$route` changes, the toast will also be destroyed (as all the children of `<routerv-view>` are
-  destroyed. To make on-demand toasts persist across router `$route` changes, use 
+  `$route` changes, the toast will also be destroyed (as all the children of `<router-view>` are
+  destroyed. To make on-demand toasts persist across router `$route` changes, use
   `this.$root.$bvToast.toast()` instead to make the toast's parent the root of your app.
 - Toasts require a message. Toasts on demand with an empty message will silently not be shown.
 
