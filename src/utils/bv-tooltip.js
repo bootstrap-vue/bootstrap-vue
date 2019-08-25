@@ -116,13 +116,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     computedDelay() {
       // Normalizes delay into object form
       const delay = { show: 0, hide: 0 }
-      if (isNumber(this.delay)) {
-        delay.show = delay.hide = this.delay
-      } else if (isString(this.delay)) {
+      if (isPlainObject(this.delay)) {
+        delay.show = Math.max(parseInt(this.delay.show, 10) || 0, 0)
+        delay.hide = Math.max(parseInt(this.delay.hide, 10) || 0, 0)
+      } else {
+      if (isNumber(this.delay) || isString(this.delay)) {
         delay.show = delay.hide = Math.max(parseInt(this.delay, 10) || 0, 0)
-      } else if (isPlainObject(this.delay)) {
-        delay.show = isNumber(this.delay.show) ? this.delay.show : delay.show
-        delay.hide = isNumber(this.delay.hide) ? this.delay.hide : delay.hide
       }
       return delay
     },
@@ -159,6 +158,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   watch: {
     computedtriggers(newTriggers, oldTriggers) {
       // Triggers have changed, so re-register them
+      /* istanbul ignore next */
       if (!looseEqual(newTriggers, oldTriggers)) {
         this.$netTick(() => {
           // Disable trigger listeners
