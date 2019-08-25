@@ -139,9 +139,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     })
 
   // Parse modifiers for triggers
-  keys(validTriggers).forEach(trigger => {
-    if (bindings.modifiers[trigger]) {
-      selectedTriggers[trigger] = true
+  keys(bindings.modifiers).forEach(mod => {
+    mod = mod.toLowerCase()
+    if (validTriggers[mod]) {
+      // if modifier is a valid trigger
+      selectedTriggers[mod] = true
     }
   })
 
