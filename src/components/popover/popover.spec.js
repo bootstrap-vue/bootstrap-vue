@@ -118,10 +118,6 @@ describe('b-popover', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('title')).toEqual('')
-    expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-popover> wrapper
@@ -165,10 +161,7 @@ describe('b-popover', () => {
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
     expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('title')).toEqual('')
-    expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
-    expect($button.attributes('aria-describedby')).toBeDefined()
+    expect($button.attributes('data-original-title')).not.toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
 
