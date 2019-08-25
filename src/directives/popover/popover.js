@@ -173,7 +173,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   // If content is a string, and the html option is true, then
   // generate a div container with innerHTML set
   if (isString(config.content) && config.html) {
-    config.title = vnode.context.$createElement('div', { domProps: { innerHTML: config.content } })
+    config.content = vnode.context.$createElement('div', { domProps: { innerHTML: config.content } })
   }
 
   return config
