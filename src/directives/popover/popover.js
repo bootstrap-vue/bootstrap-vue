@@ -193,7 +193,6 @@ const applyPopover = (el, bindings, vnode) => {
     el[BV_POPOVER].__bv_prev_data__ = null
   }
   const data = {
-    BV_POPOVER: el,
     title: config.title,
     content: config.content,
     triggers: config.trigger,
@@ -209,7 +208,7 @@ const applyPopover = (el, bindings, vnode) => {
   }
   if (!looseEqual(data, el[BV_POPOVER].__bv_prev_data__)) {
     // We only update the instance if data has changed
-    el[BV_POPOVER].updateData(data)
+    el[BV_POPOVER].updateData({ ...data, target: el })
     el[BV_POPOVER].__bv_prev_data__ = data
   }
 }
