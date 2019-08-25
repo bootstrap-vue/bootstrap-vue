@@ -115,6 +115,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
         onCreate: data => {
           // Handle flipping arrow classes
           if (data.originalPlacement !== data.placement) {
+            /* istanbul ignore next: can't test in JSDOM */
             this.popperPlacementChange(data)
           }
         },
@@ -181,13 +182,16 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           (parseFloat(getCS(arrow).width) || 0) + (parseFloat(this.arrowPadding) || 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
           case +1:
+            /* istanbul ignore next: can't test in JSDOM */
             return `+50%p - ${arrowOffset}px`
           case -1:
+            /* istanbul ignore next: can't test in JSDOM */
             return `-50%p + ${arrowOffset}px`
           default:
             return 0
         }
       }
+      /* istanbul ignore next */
       return this.offset
     },
     popperCreate(el) {
