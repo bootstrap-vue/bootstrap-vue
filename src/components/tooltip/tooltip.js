@@ -119,6 +119,13 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         noFade: this.noFade,
         disabled: this.disabled
       }
+    },
+    templateTitleContent() {
+      // Used to watch for changes to the title and content props
+      return {
+        title: this.title,
+        content: this.content
+      }
     }
   },
   watch: {
@@ -144,11 +151,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         }
       })
     },
-    // Watchers for props (prop changes do not trigger the `updated()` hook)
-    title(newval, oldVal) {
-      this.$nextTick(this.updateContent)
-    },
-    content(newVal, oldVal) {
+    // Watchers for title/content props (prop changes do not trigger the `updated()` hook)
+    templateTitleContent(newVal, oldVal) {
       this.$nextTick(this.updateContent)
     }
   },
