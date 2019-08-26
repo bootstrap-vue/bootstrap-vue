@@ -28,7 +28,7 @@ import { warn } from './warn'
 import { BvEvent } from './bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
-const NAME = 'BVTtooltip'
+const NAME = 'BVTooltip'
 
 // Modal container selector for appending tooltip/popover
 const MODAL_SELECTOR = '.modal-content'
@@ -126,8 +126,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     computedTriggers() {
       // Returns the triggers in sorted array form
-      // TODO:
-      //   Switch this to object form for easier lookup
+      // TODO: Switch this to object form for easier lookup
       return concat(this.triggers)
         .filter(Boolean)
         .join(' ')
@@ -155,14 +154,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    computedtriggers(newTriggers, oldTriggers) {
+    computedTriggers(newTriggers, oldTriggers) {
       // Triggers have changed, so re-register them
       /* istanbul ignore next */
       if (!looseEqual(newTriggers, oldTriggers)) {
         this.$netTick(() => {
           // Disable trigger listeners
           this.unListen()
-          // clear any active triggers that are no longer in the list of triggers
+          // Clear any active triggers that are no longer in the list of triggers
           oldTriggers.forEach(trigger => {
             if (!arrayIncludes(newTriggers, trigger)) {
               if (this.activeTrigger[trigger]) {
@@ -175,12 +174,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    computedTemplateData(newVal, oldVal) {
+    computedTemplateData() {
       // If any of the while open reactive "props" change,
       // ensure that the template updates accordingly
       this.handleTemplateUpdate()
     },
-    disabled(newVal, oldVal) {
+    disabled(newVal) {
       newVal ? this.disable() : this.enable()
     }
   },
@@ -218,7 +217,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     // the tooltip/popover if it is showing
     this.forceHide()
   },
-  beforDestroy() /* istanbul ignore next */ {
+  beforeDestroy() /* istanbul ignore next */ {
     // Remove all handler/listeners
     this.unListen()
     this.setWhileOpenListeners(false)
@@ -392,11 +391,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // Tell the template to hide
       this.hideTemplate()
-      // TODO:
-      //   The following could be added to hideTemplate()
+      // TODO: The following could be added to `hideTemplate()`
       // Clear out any stragging active triggers
       this.clearActiveTriggers()
-      // Reset the hoverstate
+      // Reset the hover state
       this.$_hoverState = ''
     },
     forceHide() {
@@ -502,7 +500,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   Template should periodically check to see if it is in dom
       //   And if not, self destruct (if container got v-if'ed out of DOM)
-      //   Or this could possbily be part of the visibility check
+      //   Or this could possibly be part of the visibility check
       return container === false
         ? closest(MODAL_SELECTOR, target) || body
         : isString(container)
@@ -693,7 +691,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
       }
     },
-    setOnTouchStartListener(on) /* istanbul ignore next: JSDOM doesn'tt support `ontouchstart` */ {
+    setOnTouchStartListener(on) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
       // If this is a touch-enabled device we add extra empty
       // `mouseover` listeners to the body's immediate children
       // Only needed because of broken event delegation on iOS
@@ -715,8 +713,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   We could grab the ID from the dropdown, and listen for
       //   $root events for that particular dropdown id
       //   Dropdown shown and hidden events will need to emit
-      //   Note: Dropdown auto-ID happens in a $nextTick after mount
-      //         So the ID lookup would need to be done in a nextTick
+      //   Note: Dropdown auto-ID happens in a `$nextTick()` after mount
+      //         So the ID lookup would need to be done in a `$nextTick()`
       if (target.__vue__) {
         target.__vue__[on ? '$on' : '$off']('shown', this.forceHide)
       }
@@ -744,7 +742,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enter(evt)
       } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
         // `focusin` is a bubbling event
-        // `evt` icludes relatedTarget (element loosing focus)
+        // `evt` includes `relatedTarget` (element loosing focus)
         this.enter(evt)
       } else if (
         (type === 'focusout' &&
@@ -753,7 +751,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       ) {
         // `focusout` is a bubbling event
         // `mouseleave` is a non-bubbling event
-        // tip is the template (will be null if not open)
+        // `tip` is the template (will be null if not open)
         const tip = this.getTemplateElement()
         // `evtTarget` is the element which is loosing focus/hover and
         const evtTarget = evt.target
@@ -777,14 +775,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(evt)
       }
     },
-    doHide(id) /*instanbul ignore next: ignore for now */ {
+    doHide(id) /* istanbul ignore next: ignore for now */ {
       // Programmatically hide tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Close all tooltips or popovers, or this specific tip (with ID)
         this.forceHide()
       }
     },
-    doShow(id) /*instanbul ignore next: ignore for now */ {
+    doShow(id) /* istanbul ignore next: ignore for now */ {
       // Programmatically show tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Open all tooltips or popovers, or this specific tip (with ID)
