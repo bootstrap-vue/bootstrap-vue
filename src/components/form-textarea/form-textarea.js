@@ -65,27 +65,27 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
         resize: !this.computedRows || this.noResize ? 'none' : null
       }
       if (!this.computedRows) {
-        // Conditionaly set the computed CSS height when auto rows/height is enabled.
-        // We avoid setting the style to null, which can override user manual resize handle.
+        // Conditionally set the computed CSS height when auto rows/height is enabled
+        // We avoid setting the style to `null`, which can override user manual resize handle
         styles.height = this.heightInPx
         // We always add a vertical scrollbar to the textarea when auto-height is
-        // enabled so that the computed height calcaultion returns a stable value.
+        // enabled so that the computed height calculation returns a stable value
         styles.overflowY = 'scroll'
       }
       return styles
     },
     computedMinRows() {
-      // Ensure rows is at least 2 and positive (2 is the native textarea value).
-      // A value of 1 can cause issues in some browsers, and most browsers only support
-      // 2 as the smallest value.
+      // Ensure rows is at least 2 and positive (2 is the native textarea value)
+      // A value of 1 can cause issues in some browsers, and most browsers
+      // only support 2 as the smallest value
       return Math.max(parseInt(this.rows, 10) || 2, 2)
     },
     computedMaxRows() {
       return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
     },
     computedRows() {
-      // This is used to set the attribute 'rows' on the textarea.
-      // If auto-height is enabled, then we return null as we use CSS to control height.
+      // This is used to set the attribute 'rows' on the textarea
+      // If auto-height is enabled, then we return `null` as we use CSS to control height
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     }
   },
@@ -98,10 +98,10 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     this.setHeight()
   },
   methods: {
+    // Called by intersection observer directive
     visibleCallback(visible) /* istanbul ignore next */ {
-      // Called by intersection observer directive
       if (visible) {
-        // We use a nextTick here jsut to make sure any
+        // We use a `$nextTick()` here just to make sure any
         // transitions or portalling have completed
         this.$nextTick(this.setHeight)
       }
@@ -120,7 +120,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
 
       const el = this.$el
 
-      // Element must be visible (not hidden) and in document.
+      // Element must be visible (not hidden) and in document
       // Must be checked after above checks
       if (!isVisible(el)) {
         return null
@@ -146,18 +146,18 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Probe scrollHeight by temporarily changing the height to `auto`
       el.style.height = 'auto'
       const scrollHeight = el.scrollHeight
-      // Place the original old height back on the element, just in case this computedProp
-      // returns the same value as before.
+      // Place the original old height back on the element, just in case `computedProp`
+      // returns the same value as before
       el.style.height = oldHeight
 
-      // Calculate content height in "rows" (scrollHeight includes padding but not border)
+      // Calculate content height in 'rows' (scrollHeight includes padding but not border)
       const contentRows = Math.max((scrollHeight - padding) / lineHeight, 2)
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
       // Calculate the required height of the textarea including border and padding (in pixels)
       const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
-      // Computed height remains the larger of oldHeight and new height,
+      // Computed height remains the larger of `oldHeight` and new `height`,
       // when height is in `sticky` mode (prop `no-auto-shrink` is true)
       if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
         return oldHeight
