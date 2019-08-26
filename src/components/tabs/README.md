@@ -22,7 +22,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 
 **Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically adding
 or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a special Vue
-attribute, see https://vuejs.org/v2/api/#key).
+attribute, see https://vuejs.org/v2/api/#key.
 
 ## Cards integration
 
@@ -479,7 +479,7 @@ order to use these methods.
           </b-button>
         </b-tab>
 
-        <!-- New Tab Button (Using tabs slot) -->
+        <!-- New Tab Button (Using tabs-end slot) -->
         <template slot="tabs-end">
           <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
