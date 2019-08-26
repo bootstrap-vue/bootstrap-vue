@@ -353,13 +353,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Create a cancelable BvEvent
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
-      /* instanbul ignore next: ignore for now */ 
       if (showEvt.defaultPrevented) {
         // Don't show if event cancelled
         // Destroy the template (if for some reason it was created)
+        /* instanbul ignore next: ignore for now */ 
         this.destroyTemplate()
         // Clear the localShow flag
+        /* instanbul ignore next: ignore for now */ 
         this.localShow = false
+        /* instanbul ignore next: ignore for now */ 
         return
       }
 
@@ -384,9 +386,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // We disable cancelling if `force` is true
       const hideEvt = this.buildEvent('hide', { cancelable: !force })
       this.emitEvent(hideEvt)
+      /* instanbul ignore next: ignore for now */ 
       if (hideEvt.defaultPrevented) {
         // Don't hide if event cancelled
-        /* instanbul ignore next: ignore for now */ 
         return
       }
 
@@ -867,8 +869,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           this.activeTrigger.hover = false
         }
       }
+      /* instanbul ignore next: ignore for now */ 
       if (this.isWithActiveTrigger) {
-        /* instanbul ignore next: ignore for now */ 
         return
       }
       clearTimeout(this.hoverTimeout)
