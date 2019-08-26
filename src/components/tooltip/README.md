@@ -16,7 +16,6 @@
 Things to know when using tooltip component:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Tooltips with zero-length titles are never displayed.
 - Triggering tooltips on hidden elements will not work.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use container to optionally
@@ -25,22 +24,10 @@ Things to know when using tooltip component:
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use
   white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 
-The `<b-tooltip>` component inserts a hidden (`display:none`) `<div>` intermediate container element
-at the point in the DOM where the `<b-tooltip>` component is placed. This may affect layout and/or
-styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and `<b-input-group>`. To
-avoid these possible layout issues, place the `<b-tooltip>` component **outside** of these types of
-components.
-
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the target
 element is not found during mount, the tooltip will never open. Always place your `<b-tooltip>`
 component lower in the DOM than your target element. This rule also applies if a callback is used as
 target element, since that callback is called only once on mount.
-
-**Note:** _When using the default slot for the title, `<b-tooltip>` transfers the rendered DOM from
-that slot into the tooltip's markup when shown, and returns the content back to the `<b-tooltip>`
-component when hidden. This may cause some issues in rare circumstances, so please test your
-implementation accordingly! The `title` prop does not have this behavior. For simple tooltips, we
-recommend using the `v-b-tooltip` directive and enable the `html` modifier if needed._
 
 ## Positioning
 
