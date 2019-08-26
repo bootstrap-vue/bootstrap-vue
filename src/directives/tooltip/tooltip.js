@@ -172,7 +172,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   return config
 }
 
-// Add ToolTip on our element
+// Add/update ToolTip on our element
 const applyTooltip = (el, bindings, vnode) => {
   if (!isBrowser) {
     /* istanbul ignore next */
@@ -198,9 +198,19 @@ const applyTooltip = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation
   }
-  if (!looseEqual(data, el[BV_TOOLTIP].__bv_prev_data__)) {
+  const oldData = el[BV_TOOLTIP].__bv_prev_data__
+  if (!looseEqual(data, oldData)) {
     // We only update the instance if data has changed
-    el[BV_TOOLTIP].updateData({ ...data, target: el })
+    const newData = {
+      target: el
+    }
+    keys(data).forEach(prop => {
+      // We only pass data properties that have changed
+      if (data[prop] !== oldData[prop]) {
+        newData[prop] = data[prop]
+      })
+    })
+    el[BV_TOOLTIP].updateData(newData)
     el[BV_TOOLTIP].__bv_prev_data__ = data
   }
 }
