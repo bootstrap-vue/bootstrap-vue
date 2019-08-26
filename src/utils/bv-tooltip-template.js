@@ -33,7 +33,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       return [
         {
           [`b-${this.templateType}-${this.variant}`]: this.variant,
-          // `atachment` will come from BVToolpop
+          // `attachment` will come from BVToolpop
           [`bs-${this.templateType}-${this.attachment}`]: this.attachment
         },
         this.customClass
@@ -70,7 +70,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     renderTemplate(h) {
-      // title can be a scoped slot function
+      // Title can be a scoped slot function
       const $title = isFunction(this.title)
         ? this.title({})
         : isUndefinedOrNull(this.title)
