@@ -194,7 +194,7 @@ const applyPopover = (el, bindings, vnode) => {
     el[BV_POPOVER] = new BVPopover({
       parent: vnode.context
     })
-    el[BV_POPOVER].__bv_prev_data__ = null
+    el[BV_POPOVER].__bv_prev_data__ = {}
   }
   const data = {
     title: config.title,
