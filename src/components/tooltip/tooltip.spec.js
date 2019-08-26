@@ -681,7 +681,7 @@ describe('b-tooltip', () => {
 
     // Show the tooltip by emitting event on instance
     btooltip.vm.$emit('open')
-    
+
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
