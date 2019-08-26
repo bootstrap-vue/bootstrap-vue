@@ -41,10 +41,10 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   let config = {
     title: undefined,
     content: undefined,
-    trigger: '', // default set below if needed
+    trigger: '', // Default set below if needed
     placement: 'top',
     fallbackPlacement: 'flip',
-    container: false, // default of body
+    container: false, // Default of body
     animation: true,
     offset: 0,
     delay: getComponentConfig(NAME, 'delay'),
@@ -54,7 +54,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     customClass: getComponentConfig(NAME, 'customClass')
   }
 
-  // Process bindings.value
+  // Process `bindings.value`
   if (isString(bindings.value)) {
     // Value is popover content (html optionally supported)
     config.content = bindings.value
@@ -75,7 +75,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
 
   // If title is not provided, try title attribute
   if (isUndefined(config.title)) {
-    // try attribute
+    // Try attribute
     const data = vnode.data || {}
     config.title = data.attrs && data.attrs.title ? data.attrs.title : undefined
   }
@@ -144,7 +144,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   keys(bindings.modifiers).forEach(mod => {
     mod = mod.toLowerCase()
     if (validTriggers[mod]) {
-      // if modifier is a valid trigger
+      // If modifier is a valid trigger
       selectedTriggers[mod] = true
     }
   })
@@ -165,13 +165,13 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   config.content = isFunction(config.content) ? config.content() : config.content
 
   // If title is a string, and the html option is true, then
-  // generate a div container with innerHTML set
+  // generate a div container with `innerHTML` set
   if (isString(config.title) && config.html) {
     config.title = vnode.context.$createElement('div', { domProps: { innerHTML: config.title } })
   }
 
   // If content is a string, and the html option is true, then
-  // generate a div container with innerHTML set
+  // generate a div container with `innerHTML` set
   if (isString(config.content) && config.html) {
     config.content = vnode.context.$createElement('div', {
       domProps: {
@@ -183,7 +183,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   return config
 }
 
-// Add or update PopOver on our element
+// Add or update Popover on our element
 const applyPopover = (el, bindings, vnode) => {
   if (!isBrowser) {
     /* istanbul ignore next */
