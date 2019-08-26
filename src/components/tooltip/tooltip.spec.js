@@ -641,7 +641,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).noe.toBeDefined()
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     wrapper.destroy()
   })
