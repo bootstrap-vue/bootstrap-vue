@@ -13,6 +13,11 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     id: {
       type: String,
       default: null
+    },
+    html: {
+      // Used only by the directive versions
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -77,6 +82,11 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
           ? h()
           : this.title
 
+      // Directive versions only
+      const domProps = this.html && !isFunction(this.title)
+        ? { innerHTML: this.title }
+        : {}
+
       return h(
         'div',
         {
@@ -87,7 +97,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         },
         [
           h('div', { ref: 'arrow', staticClass: 'arrow' }),
-          h('div', { staticClass: 'tooltip-inner' }, [$title])
+          h('div', { staticClass: 'tooltip-inner', domProps }, [$title])
         ]
       )
     }
