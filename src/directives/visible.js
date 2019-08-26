@@ -1,6 +1,6 @@
 // v-b-visible
 // Private visibility check directive
-// Based on IntesectionObserver
+// Based on IntersectionObserver
 //
 // Usage:
 //  v-b-visibility.<margin>.<once>="<callback>"
@@ -30,13 +30,13 @@
 //       }
 //     )
 //   }
-//
+
 import looseEqual from '../utils/loose-equal'
 import { requestAF } from '../utils/dom'
 import { isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 
-const PROPNAME = '__bv__visibility_observer'
+const PROP_NAME = '__bv__visibility_observer'
 
 class VisibilityObserver {
   constructor(el, options, vnode) {
@@ -71,10 +71,10 @@ class VisibilityObserver {
 
     // Create the observer instance
     try {
-      // Future: possibly add in other modifiers for left/right/top/bottom
+      // Future: Possibly add in other modifiers for left/right/top/bottom
       // offsets, root element reference, and thresholds
       this.observer = new IntersectionObserver(this.handler.bind(this), {
-        // null = viewport
+        // `null` = 'viewport'
         root: null,
         // Pixels away from view port to consider "visible"
         rootMargin: this.margin,
@@ -82,30 +82,28 @@ class VisibilityObserver {
         threshold: 0
       })
     } catch {
-      // No intersection observer support
-      // So just stop trying to observe
+      // No IntersectionObserver support, so just stop trying to observe
       this.donOnce = true
       this.observer = null
       this.callback(null)
       return
     }
 
-    // Start observing in a nextTick (to allow DOM to complete rendering)
+    // Start observing in a `$nextTick()` (to allow DOM to complete rendering)
     /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
     vnode.context.$nextTick(() => {
       requestAF(() => {
-        // Start the observer
-        this.observer && this.observer.observe(this.el)
+        this.observer.observe(this.el)
       })
     })
   }
 
   handler(entries) /* istanbul ignore next: IntersectionObserver not supported in JSDOM */ {
     const entry = entries ? entries[0] : {}
-    const isInstersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
-    if (isInstersecting !== this.visible) {
-      this.visible = isInstersecting
-      this.callback(isInstersecting)
+    const isIntersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
+    if (isIntersecting !== this.visible) {
+      this.visible = isIntersecting
+      this.callback(isIntersecting)
       if (this.once && this.visible) {
         this.doneOnce = true
         this.stop()
@@ -115,26 +113,31 @@ class VisibilityObserver {
 
   stop() {
     const observer = this.observer
-    observer && observer.disconnect && observer.disconnect()
+    if (observer && observer.disconnect) {
+      observer.disconnect()
+    }
     this.observer = null
   }
 }
 
 const destroy = el => {
-  el[PROPNAME] && el[PROPNAME].stop && el[PROPNAME].stop()
-  delete el[PROPNAME]
+  const observer = el[PROP_NAME]
+  if (observer && observer.stop) {
+    observer.stop()
+  }
+  delete el[PROP_NAME]
 }
 
 const bind = (el, { value, modifiers }, vnode) => {
-  // value is the callback function
+  // `value` is the callback function
   const options = {
     margin: '0px',
     once: false,
     callback: value
   }
-  // parse modifiers
+  // Parse modifiers
   keys(modifiers).forEach(mod => {
-    /* istanbul ignore else: Until b-img-lazy is switched to use this directive */
+    /* istanbul ignore else: Until <b-img-lazy> is switched to use this directive */
     if (/^\d+$/.test(mod)) {
       options.margin = `${mod}px`
     } else if (mod.toLowerCase() === 'once') {
@@ -144,17 +147,21 @@ const bind = (el, { value, modifiers }, vnode) => {
   // Destroy any previous observer
   destroy(el)
   // Create new observer
-  el[PROPNAME] = new VisibilityObserver(el, options, vnode)
+  el[PROP_NAME] = new VisibilityObserver(el, options, vnode)
   // Store the current modifiers on the object (cloned)
-  el[PROPNAME]._prevModifiers = { ...modifiers }
+  el[PROP_NAME]._prevModifiers = { ...modifiers }
 }
 
 // When the directive options may have been updated (or element)
 const update = (el, { value, oldValue, modifiers }, vnode) => {
-  // compare value/oldValue and modifers to see if anything has changed
+  // Compare value/oldValue and modifiers to see if anything has changed
   // and if so, destroy old observer and create new observer
   /* istanbul ignore next */
-  if (value !== oldValue || !el[PROPNAME] || !looseEqual(modifiers, el[PROPNAME]._prevModifiers)) {
+  if (
+    value !== oldValue ||
+    !el[PROP_NAME] ||
+    !looseEqual(modifiers, el[PROP_NAME]._prevModifiers)
+  ) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
   }
