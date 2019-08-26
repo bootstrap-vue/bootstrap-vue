@@ -83,9 +83,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
           : this.title
 
       // Directive versions only
-      const domProps = this.html && !isFunction(this.title)
-        ? { innerHTML: this.title }
-        : {}
+      const domProps = this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
 
       return h(
         'div',
