@@ -82,7 +82,9 @@ const templateData = {
   // Disabled state (Boolean)
   disabled: false,
   // ID to use for tooltip/popover
-  id: null
+  id: null,
+  // Flag used by directives only, for HTML content
+  html: false
 }
 
 // @vue/component
@@ -268,10 +270,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // The following is not reactive to changes in the props data
         propsData: {
           // These values cannot be changed while template is showing
+          id: this.computedId,
+          html: this.html,
           placement: this.placement,
           fallbackPlacement: this.fallbackPlacement,
           offset: this.offset,
-          id: this.computedId,
           arrowPadding: this.arrowPadding,
           boundaryPadding: this.boundaryPadding,
           boundary: this.getBoundary(),
