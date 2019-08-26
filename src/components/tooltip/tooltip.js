@@ -139,6 +139,13 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         }
       }
     },
+    disabled(newVal, oldVal) {
+      if (newVal) {
+        this.doDisable()
+      } else {
+        this.doEnable()
+      }
+    },
     localShow(show, oldVal) {
       // TODO:
       //   May need to be done in a $nextTick
