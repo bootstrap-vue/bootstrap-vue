@@ -47,6 +47,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     animation: true,
     offset: 0,
     id: null,
+    html: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
@@ -189,7 +190,8 @@ const applyPopover = (el, bindings, vnode) => {
     delay: config.delay,
     offset: config.offset,
     noFade: !config.animation,
-    id: config.id
+    id: config.id,
+    html: config.html
   }
   const oldData = el[BV_POPOVER].__bv_prev_data__
   el[BV_POPOVER].__bv_prev_data__ = data
@@ -208,18 +210,6 @@ const applyPopover = (el, bindings, vnode) => {
             : data[prop]
       }
     })
-    const h = vnode.context.$createElement
-    // TODO: Maybe this should be moved into the templates or bv-tooltip/bv-popover?
-    // If title is a string, and the html option is true, then
-    // generate a div container with `innerHTML` set
-    if (isString(newData.title) && config.html) {
-      newData.title = h('div', { domProps: { innerHTML: newData.title } })
-    }
-    // If content is a string, and the html option is true, then
-    // generate a div container with `innerHTML` set
-    if (isString(newData.content) && config.html) {
-      newData.content = h('div', { domProps: { innerHTML: newData.content } })
-    }
     el[BV_POPOVER].updateData(newData)
   }
 }
