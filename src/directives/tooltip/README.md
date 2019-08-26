@@ -178,14 +178,16 @@ const options = {
 }
 ```
 
-Title can also be a function reference, which is called each time the tooltip is opened.
+Title can also be a function reference, which is called _once_ each time the tooltip is opened. To
+make a title returned by a function reactive, set the title to a _new_ function reference whenever
+the content changes.
 
 ```html
 <template>
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-button>
+        <b-button v-b-tooltip.hover :title="'Tip from title attribute ' + date" variant="success">Title</b-button>
       </b-col>
       <b-col md="3" class="py-3">
         <b-button v-b-tooltip.hover="'String Tip'" variant="success">String</b-button>
@@ -204,11 +206,22 @@ Title can also be a function reference, which is called each time the tooltip is
   export default {
     data() {
       return {
-        tipData: 'Tooltip <em>Message</em>'
+        tipData: { title: 'Tooltip <em>Message</em>' },
+        date: new Date(),
+        timer: null
       }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.date = new Date()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
     },
     methods: {
       tipMethod() {
+        // Note this is called only once when the tooltip is opened
         return '<strong>' + new Date() + '</strong>'
       }
     }
