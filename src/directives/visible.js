@@ -113,6 +113,7 @@ class VisibilityObserver {
 
   stop() {
     const observer = this.observer
+    /* istanbul ignore next */
     if (observer && observer.disconnect) {
       observer.disconnect()
     }
