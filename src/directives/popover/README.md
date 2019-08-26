@@ -422,7 +422,12 @@ Where `[mod]` can be (all optional):
   Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation.
 - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0).
+- A delay value in the format of `d###` (where `###` is in ms, defaults to 0), applied to both `hide`
+  and `show` (affects `hover` and `focus` only)
+- A show delay value in the format of `ds###` (where `###` is in ms, defaults to 0), applied to `show`
+  trigger only (affects `hover` and `focus` only)
+- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to 0), applied to `hide`
+  trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
   to 0. Negative values are allowed). Note if an offset is supplied, then the alignment positions
   will fallback to one of `top`, `bottom`, `left`, or `right`.
@@ -433,7 +438,7 @@ Where `[mod]` can be (all optional):
 
 Where `[container]` can be (optional):
 
-- An element ID (minus the #) to place the popover markup in, when visible
+- An element ID (minus the `#`) to place the popover markup in, when visible
 - If not provided, popovers are appended to the `<body>` when visible
 
 ### Usage
