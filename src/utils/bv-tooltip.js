@@ -80,7 +80,9 @@ const templateData = {
   // the edge of tooltip/popover edge by this many pixels
   arrowPadding: 6,
   // Disabled state (Boolean)
-  disabled: false
+  disabled: false,
+  // ID to use for tooltip/popover
+  id: null
 }
 
 // @vue/component
@@ -111,7 +113,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return 'tooltip'
     },
     computedId() {
-      return `__bv_${this.templateType}_${this._uid}__`
+      return this.id || `__bv_${this.templateType}_${this._uid}__`
     },
     computedDelay() {
       // Normalizes delay into object form
