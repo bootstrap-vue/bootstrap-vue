@@ -249,9 +249,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           }
         }
       })
-      if (titleUpdated) {
+      if (titleUpdated && this.localShow) {
         // If the title has updated, we may need to handle the title
-        // attribute on the trigger target
+        // attribute on the trigger target. We only do this while the
+        // template is open
         this.fixTitle()
       }
     },
