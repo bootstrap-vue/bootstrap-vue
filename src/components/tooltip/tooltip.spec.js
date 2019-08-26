@@ -600,6 +600,8 @@ describe('b-tooltip', () => {
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
@@ -620,6 +622,8 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
