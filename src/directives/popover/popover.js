@@ -210,11 +210,23 @@ const applyPopover = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation
   }
-  if (!looseEqual(data, el[BV_POPOVER].__bv_prev_data__)) {
+  const oldData = el[BV_POPOVER].__bv_prev_data__
+  el[BV_POPOVER].__bv_prev_data__ = data
+  if (!looseEqual(data, oldData)) {
     // We only update the instance if data has changed
-    el[BV_POPOVER].updateData({ ...data, target: el })
-    el[BV_POPOVER].__bv_prev_data__ = data
-  }
+    const newData = {
+      target: el
+    }
+    keys(data).forEach(prop => {
+      // We only pass data properties that have changed
+      if (data[prop] !== oldData[prop]) {
+        // if title/content is a function, we execute it here
+        newData[prop] = (prop === 'title' || prop === 'content') && isFunction(data[prop])
+          ? data[prop]()
+          : data[prop]
+      }
+    })
+    el[BV_POPOVER].updateData(newData)
 }
 
 // Remove PopOver on our element
