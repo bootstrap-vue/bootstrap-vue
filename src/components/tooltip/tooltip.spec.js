@@ -614,6 +614,89 @@ describe('b-tooltip', () => {
     wrapper.destroy()
   })
 
+  it('closes/opens on instance events', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        disabled: false,
+        titleAttr: 'ignored'
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    const adb = $button.attributes('aria-describedby')
+
+    // <b-tooltip> wrapper
+    const $tipHolder = wrapper.find(BTooltip)
+    expect($tipHolder.exists()).toBe(true)
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
+
+    // Hide the tooltip by emitting event on instance
+    const btooltip = wrapper.find(BTooltip)
+    expect(btooltip.exists()).toBe(true)
+    btooltip.vm.$emit('close')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.getElementById(adb)).toBe(null)
+
+    // Show the tooltip by emitting event on instance
+    btooltip.vm.$emit('open')
+    
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // Tooltip element should be in the document
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    expect(document.getElementById(adb)).not.toBe(null)
+
+    wrapper.destroy()
+  })
+
   it('closes on $root close specific ID event', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
