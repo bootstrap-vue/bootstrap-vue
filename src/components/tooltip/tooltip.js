@@ -91,6 +91,12 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     disabled: {
       type: Boolean,
       default: false
+    },
+    id: {
+      // ID to use for tooltip element
+      // If not provided on will automatically be generated
+      type String,
+      default: null
     }
   },
   data() {
@@ -102,10 +108,12 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     templateData() {
-      // Data that will be passed to the template/popper
+      // Data that will be passed to the template and popper
       return {
+        // We use massaged versions of the title and content props/slots
         title: this.localTitle,
         content: this.localContent,
+        // Pass these props as is
         target: this.target,
         triggers: this.triggers,
         placement: this.placement,
@@ -117,7 +125,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         delay: this.delay,
         offset: this.offset,
         noFade: this.noFade,
-        disabled: this.disabled
+        disabled: this.disabled,
+        id: this.id
       }
     },
     templateTitleContent() {
