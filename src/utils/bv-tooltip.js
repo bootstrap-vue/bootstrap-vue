@@ -353,7 +353,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Create a cancelable BvEvent
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
-      /*instanbul ignore next: ignore for now */ 
+      /* instanbul ignore next: ignore for now */ 
       if (showEvt.defaultPrevented) {
         // Don't show if event cancelled
         // Destroy the template (if for some reason it was created)
@@ -386,7 +386,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.emitEvent(hideEvt)
       if (hideEvt.defaultPrevented) {
         // Don't hide if event cancelled
-        /*instanbul ignore next: ignore for now */ 
+        /* instanbul ignore next: ignore for now */ 
         return
       }
 
@@ -868,7 +868,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }
       }
       if (this.isWithActiveTrigger) {
-        /*instanbul ignore next: ignore for now */ 
+        /* instanbul ignore next: ignore for now */ 
         return
       }
       clearTimeout(this.hoverTimeout)
