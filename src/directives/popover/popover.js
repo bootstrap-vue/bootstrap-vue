@@ -200,7 +200,7 @@ const applyPopover = (el, bindings, vnode) => {
       // We only pass data properties that have changed
       if (data[prop] !== oldData[prop]) {
         // if title/content is a function, we execute it here
-        newData[prop] = 
+        newData[prop] =
           (prop === 'title' || prop === 'content') && isFunction(data[prop])
             ? data[prop]()
             : data[prop]
