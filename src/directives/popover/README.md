@@ -214,7 +214,7 @@ document_ - will close the popover.
 
 This `blur` trigger must be used in combination with the `click` trigger.
 
-Th following example shows the `click blur` use case. Popovers will only open on click of the
+The following example shows the `click blur` use case. Popovers will only open on click of the
 button, and will close either on click of the button, or a click anywhere else (or a focus change
 via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismissing_.
 
