@@ -212,7 +212,7 @@ const applyTooltip = (el, bindings, vnode) => {
         newData[prop] = prop === 'title' && isFunction(data[prop])
           ? data[prop]()
           : data[prop]
-      )
+      }
     })
     el[BV_TOOLTIP].updateData(newData)
   }
