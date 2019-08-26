@@ -183,7 +183,7 @@ const applyTooltip = (el, bindings, vnode) => {
     el[BV_TOOLTIP] = new BVTooltip({
       parent: vnode.context
     })
-    el[BV_TOOLTIP].__bv_prev_data__ = null
+    el[BV_TOOLTIP].__bv_prev_data__ = {}
   }
   const data = {
     title: config.title,
@@ -209,9 +209,7 @@ const applyTooltip = (el, bindings, vnode) => {
       // We only pass data properties that have changed
       if (data[prop] !== oldData[prop]) {
         // if title is a function, we execute it here
-        newData[prop] = prop === 'title' && isFunction(data[prop])
-          ? data[prop]()
-          : data[prop]
+        newData[prop] = prop === 'title' && isFunction(data[prop]) ? data[prop]() : data[prop]
       }
     })
     el[BV_TOOLTIP].updateData(newData)
@@ -234,7 +232,9 @@ export const VBTooltip = {
   bind(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
   },
-  update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  // TODO: We use `update` here, but maybe we should switch to
+  //       componentUpdated which runs less often
+  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     // Performed in a nextTich to prevent render update loops
     vnode.context.$nextTick(() => {
       applyTooltip(el, bindings, vnode)
