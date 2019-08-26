@@ -159,15 +159,6 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     config.trigger = DefaultTrigger
   }
 
-  // If title is a function, execute it
-  config.title = isFunction(config.title) ? config.title() : config.title
-
-  // If title is a string, and the html option is true, then
-  // generate a div container with innerHTML set
-  if (isString(config.title) && config.html) {
-    config.title = vnode.context.$createElement('div', { domProps: { innerHTML: config.title } })
-  }
-
   // return the config
   return config
 }
@@ -212,6 +203,12 @@ const applyTooltip = (el, bindings, vnode) => {
         newData[prop] = prop === 'title' && isFunction(data[prop]) ? data[prop]() : data[prop]
       }
     })
+    const h = vnode.context.$createElement
+    // If title is a string, and the html option is true, then
+    // generate a div container with innerHTML set
+    if (isString(newData.title) && config.html) {
+      newData.title = h('div', { domProps: { innerHTML: newData.title } })
+    }
     el[BV_TOOLTIP].updateData(newData)
   }
 }
