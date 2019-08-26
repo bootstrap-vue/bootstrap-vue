@@ -240,11 +240,20 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     updateData(data = {}) {
       // Method for updating popper/template data
       // We only update data if it exists, and has not changed
+      let titleUpdated = false
       keys(templateData).forEach(prop => {
         if (!isUndefined(data[prop]) && this[prop] !== data[prop]) {
           this[prop] = data[prop]
+          if (prop === 'title') {
+            titleUpdated = true
+          }
         }
       })
+      if (titleUpdated) {
+        // If the title has updated, we may need to handle the title
+        // attribute on the trigger target
+        this.fixTitle()
+      }
     },
     createTemplateAndShow() {
       // Creates the template instance and show it
@@ -562,7 +571,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // If the target has a title attribute, null it out and
       // store on data-title
       const target = this.getTarget()
-      if (target && hasAttr(target, 'title')) {
+      if (target && getAttr(target, 'title')) {
+        // We only update title attribute if it has a value
         setAttr(target, 'data-original-title', getAttr(target, 'title') || '')
         setAttr(target, 'title', '')
       }
