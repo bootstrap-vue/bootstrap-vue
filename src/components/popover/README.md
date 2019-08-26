@@ -17,7 +17,6 @@
 Things to know when using popover component:
 
 - Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Popovers with zero-length title _and_ content are never displayed.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use `container` to optionally
   specify a different element to append the rendered popover to.
@@ -26,21 +25,9 @@ Things to know when using popover component:
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 
-The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
-element at the point in the DOM where the `<b-popover>` component is placed. This may affect layout
-and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and
-`<b-input-group>`. To avoid these possible layout issues, place the `<b-popover>` component
-**outside** of these types of components.
-
 The target element **must** exist in the document before `<b-popover>` is mounted. If the target
 element is not found during mount, the popover will never open. Always place your `<b-popover>`
 component lower in the DOM than your target element.
-
-**Note:** _When using slots for content and/or title, `<b-popover>` transfers the rendered DOM from
-those slots into the popover's markup when shown, and returns them back to the `<b-popover>`
-component when hidden. This may cause some issues in rare circumstances, so please test your
-implementation accordingly! The `title` and `content` props do not have this behavior. For simple
-popovers, we recommend using the `v-b-popover` directive and enable the `html` modifier if needed._
 
 ## Positioning
 
