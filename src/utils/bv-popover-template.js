@@ -20,12 +20,9 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
       const $content = isFunction(this.content) ? this.content({}) : this.content
 
       // Directive usage only
-      const titleDomProps = this.html && !isFunction(this.title)
-        ? { innerHTML: this.title }
-        : {}
-      const contentDomProps = this.html && !isFunction(this.content)
-        ? { innerHTML: this.content }
-        : {}
+      const titleDomProps = this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
+      const contentDomProps =
+        this.html && !isFunction(this.content) ? { innerHTML: this.content } : {}
 
       return h(
         'div',
