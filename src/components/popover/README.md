@@ -142,7 +142,7 @@ Positioning is relative to the trigger element.
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `click`. Or a trigger of `manual` can be speified, where the popove can only be
+default trigger is `click`. Or a trigger of `manual` can be speified, where the popover can only be
 opened or closed [programmatialy](#programmatically-disabling-popover).
 
 If a popover has more than one trigger, then all triggers must be cleared before the popover will
