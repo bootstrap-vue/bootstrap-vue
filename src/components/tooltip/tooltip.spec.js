@@ -43,7 +43,7 @@ const appDef = {
         },
         'text'
       ),
-      typeof this.$slots.default === `undefined`
+      typeof this.$slots.default === `undefined`|| !this.$slots.default
         ? h(BTooltip, { props: tipProps })
         : h(BTooltip, { props: tipProps }, this.$slots.default)
     ])
@@ -96,7 +96,7 @@ describe('b-tooltip', () => {
         triggers: 'click'
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -135,7 +135,7 @@ describe('b-tooltip', () => {
         show: true
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -303,7 +303,7 @@ describe('b-tooltip', () => {
         show: false
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -370,7 +370,7 @@ describe('b-tooltip', () => {
         delay: 0
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -455,7 +455,7 @@ describe('b-tooltip', () => {
         noFade: true
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -537,7 +537,7 @@ describe('b-tooltip', () => {
         disabled: true
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -626,7 +626,7 @@ describe('b-tooltip', () => {
         titleAttr: 'ignored'
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -700,7 +700,7 @@ describe('b-tooltip', () => {
         titleAttr: 'ignored'
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -773,7 +773,7 @@ describe('b-tooltip', () => {
         titleAttr: 'ignored'
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -850,7 +850,7 @@ describe('b-tooltip', () => {
         disabled: false
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -963,7 +963,7 @@ describe('b-tooltip', () => {
         variant: 'danger'
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
@@ -1020,7 +1020,7 @@ describe('b-tooltip', () => {
         customClass: 'foobar-class'
       },
       slots: {
-        default: () => 'title'
+        default: 'title'
       }
     })
 
