@@ -777,28 +777,28 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(evt)
       }
     },
-    doHide(id) /*instanbul ignore next: ignore for now */ {
+    doHide(id) {
       // Programmatically hide tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Close all tooltips or popovers, or this specific tip (with ID)
         this.forceHide()
       }
     },
-    doShow(id) /*instanbul ignore next: ignore for now */ {
+    doShow(id) {
       // Programmatically show tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Open all tooltips or popovers, or this specific tip (with ID)
         this.show()
       }
     },
-    doDisable(id) {
+    doDisable(id) /*istanbul ignore next: ignore for now */ {
       // Programmatically disable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Disable all tooltips or popovers (no ID), or this specific tip (with ID)
         this.disable()
       }
     },
-    doEnable(id) {
+    doEnable(id) /*istanbul ignore next: ignore for now */{
       // Programmatically enable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Enable all tooltips or popovers (no ID), or this specific tip (with ID)
