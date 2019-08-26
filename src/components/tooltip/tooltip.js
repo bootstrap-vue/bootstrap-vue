@@ -147,8 +147,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     localShow(show, oldVal) {
-      // TODO:
-      //   May need to be done in a $nextTick
+      // TODO: May need to be done in a `$nextTick()`
       this.$emit('update:show', show)
     },
     templateData(newVal, oldVal) {
@@ -168,8 +167,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     this.$_bv_toolpop = null
   },
   updated() {
-    // Update the propData object
-    // Done in a next tick to ensure slot(s) have updated
+    // Update the `propData` object
+    // Done in a `$nextTick()` to ensure slot(s) have updated
     this.$nextTick(this.updateContent)
   },
   beforeDestroy() {
@@ -192,7 +191,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       this.updateContent()
       // Create the instance
       const $toolpop = (this.$_bv_toolpop = new Component({ parent: this }))
-      // Set the intial data
+      // Set the initial data
       $toolpop.updateData(this.templateData)
       // Set listeners
       $toolpop.$on('show', this.onShow)
@@ -214,7 +213,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       this.$on('disable', this.doDisable)
       // Listen to enable signals from others
       this.$on('enable', this.doEnable)
-      // initially show tooltip?
+      // Initially show tooltip?
       if (this.localShow) {
         this.$_bv_toolpop && this.$_bv_toolpop.show()
       }
@@ -227,13 +226,13 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     updateContent() {
       // Overridden by BPopover
-      // tooltip: default slot is title
-      // popover: default slot is content, title slot is title
+      // Tooltip: Default slot is `title`
+      // Popover: Default slot is `content`, `title` slot is title
       // We pass a scoped slot function by default (v2.6x)
       // And pass the title prop as a fallback
       this.setTitle(this.$scopedSlots.default || this.title)
     },
-    // Helper methods for updateContent
+    // Helper methods for `updateContent()`
     setTitle(val) {
       val = isUndefinedOrNull(val) ? '' : val
       if (this.localTitle !== val) {
@@ -271,7 +270,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     onDisabled(bvEvt) {
       // Prevent possible endless loop if user mistakenly
-      // fires disabled instead of disable
+      // fires `disabled` instead of `disable`
       if (bvEvt && bvEvt.type === 'disabled') {
         this.$emit('update:disabled', true)
         this.$emit('disabled', bvEvt)
@@ -304,8 +303,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   render(h) {
     // Always renders a comment node
     // TODO:
-    //    Future, possibly render a target slot (single root element)
-    //    Which we can apply the listeners to (pass this.$el to BVTooltip)
+    //   Future: Possibly render a target slot (single root element)
+    //   which we can apply the listeners to (pass `this.$el` to BVTooltip)
     return h()
   }
 })
