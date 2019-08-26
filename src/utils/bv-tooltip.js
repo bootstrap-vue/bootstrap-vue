@@ -798,7 +798,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.disable()
       }
     },
-    doEnable(id) /*istanbul ignore next: ignore for now */{
+    doEnable(id) /*istanbul ignore next: ignore for now */ {
       // Programmatically enable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
         // Enable all tooltips or popovers (no ID), or this specific tip (with ID)
