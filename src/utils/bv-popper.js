@@ -104,7 +104,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
         modifiers: {
           offset: { offset: this.getOffset(placement) },
           flip: { behavior: this.fallbackPlacement },
-          // `arrow.element` can also be a refernce to an HTML Element
+          // `arrow.element` can also be a reference to an HTML Element
           // maybe we should make this a `$ref` in the templates?
           arrow: { element: '.arrow' },
           preventOverflow: {
@@ -127,7 +127,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    // Note: we are created on-demand, and should be guaranteed that
+    // Note: We are created on-demand, and should be guaranteed that
     // DOM is rendered/ready by the time the created hook runs
     this.$_popper = null
     // Ensure we show as we mount
@@ -144,7 +144,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     this.$parent.$once('hook:destroyed', this.$destroy)
   },
   beforeMount() {
-    // Ensure that the attacment position is correct before mounting
+    // Ensure that the attachment position is correct before mounting
     // as our propsData is added after `new Template({...})`
     this.attachment = this.getAttachment(this.placement)
   },
@@ -153,8 +153,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   },
   updated() {
     // Update popper if needed
-    // TODO:
-    //   should this be a watcher on this.popperConfig instead?
+    // TODO: Should this be a watcher on `this.popperConfig` instead?
     this.popperUpdate()
   },
   beforeDestroy() {
