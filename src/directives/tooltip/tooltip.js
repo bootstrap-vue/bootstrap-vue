@@ -189,7 +189,8 @@ const applyTooltip = (el, bindings, vnode) => {
     delay: config.delay,
     offset: config.offset,
     noFade: !config.animation,
-    id: config.id
+    id: config.id,
+    html: config.html
   }
   const oldData = el[BV_TOOLTIP].__bv_prev_data__
   el[BV_TOOLTIP].__bv_prev_data__ = data
@@ -205,14 +206,6 @@ const applyTooltip = (el, bindings, vnode) => {
         newData[prop] = prop === 'title' && isFunction(data[prop]) ? data[prop]() : data[prop]
       }
     })
-    const h = vnode.context.$createElement
-    // TODO: move this functionality into the template, and
-    //   use domProps on existing div element
-    // If title is a string, and the html option is true, then
-    // generate a div container with innerHTML set
-    if (isString(newData.title) && config.html) {
-      newData.title = h('div', { domProps: { innerHTML: newData.title } })
-    }
     el[BV_TOOLTIP].updateData(newData)
   }
 }
