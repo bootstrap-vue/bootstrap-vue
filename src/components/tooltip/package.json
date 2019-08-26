@@ -165,7 +165,7 @@
         "slots": [
           {
             "name": "default",
-            "description": "slot for tooltip content (html supported)"
+            "description": "Slot for tooltip content (HTML supported)"
           }
         ]
       }
