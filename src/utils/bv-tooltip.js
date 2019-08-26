@@ -158,7 +158,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Triggers have changed, so re-register them
       /* istanbul ignore next */
       if (!looseEqual(newTriggers, oldTriggers)) {
-        this.$netTick(() => {
+        this.$nextTick(() => {
           // Disable trigger listeners
           this.unListen()
           // Clear any active triggers that are no longer in the list of triggers
