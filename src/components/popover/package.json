@@ -165,11 +165,11 @@
         "slots": [
           {
             "name": "title",
-            "description": "Optional slot for title (html supported)"
+            "description": "Optional slot for title (HTML supported)"
           },
           {
             "name": "default",
-            "description": "slot for content (html supported)"
+            "description": "Slot for content (HTML supported)"
           }
         ]
       }
