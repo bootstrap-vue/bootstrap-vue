@@ -46,6 +46,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     container: false, // default of body
     animation: true,
     offset: 0,
+    id: null,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
@@ -187,7 +188,8 @@ const applyTooltip = (el, bindings, vnode) => {
     boundary: config.boundary,
     delay: config.delay,
     offset: config.offset,
-    noFade: !config.animation
+    noFade: !config.animation,
+    id: config.id
   }
   const oldData = el[BV_TOOLTIP].__bv_prev_data__
   el[BV_TOOLTIP].__bv_prev_data__ = data
@@ -204,6 +206,8 @@ const applyTooltip = (el, bindings, vnode) => {
       }
     })
     const h = vnode.context.$createElement
+    // TODO: move this functionality into the template, and
+    //   use domProps on existing div element
     // If title is a string, and the html option is true, then
     // generate a div container with innerHTML set
     if (isString(newData.title) && config.html) {
@@ -222,9 +226,7 @@ const removeTooltip = el => {
   delete el[BV_TOOLTIP]
 }
 
-/*
- * Export our directive
- */
+// Export our directive
 export const VBTooltip = {
   bind(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
