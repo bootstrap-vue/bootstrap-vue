@@ -421,7 +421,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.$_hoverTimeout = null
       this.$_hoverState = ''
       this.clearActiveTriggers()
-      // Disable the fade animation
+      // Disable the fade animation on the template
       if (this.$_tip) {
         this.$_tip.noFade = true
       }
