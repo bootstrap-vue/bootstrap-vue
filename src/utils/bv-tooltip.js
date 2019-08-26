@@ -777,41 +777,29 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     doHide(id) {
       // Programmatically hide tooltip or popover
-      if (!id) {
-        // Close all tooltips or popovers
-        this.forceHide()
-      } else if (this.getTargetId() === id || this.computedId === id) {
-        // Close this specific tooltip or popover
+      if (!id || (this.getTargetId() === id || this.computedId === id)) {
+        // Close all tooltips or popovers, or this specific tip (with ID)
         this.forceHide()
       }
     },
     doShow(id) {
       // Programmatically show tooltip or popover
-      if (!id) {
-        // Open all tooltips or popovers
-        this.show()
-      } else if (this.getTargetId() === id || this.computedId === id) {
-        // Show this specific tooltip or popover
+      if (!id || (this.getTargetId() === id || this.computedId === id)) {
+        // Open all tooltips or popovers, or this specific tip (with ID)
         this.show()
       }
     },
     doDisable(id) {
       // Programmatically disable tooltip or popover
-      if (!id) {
-        // Disable all tooltips or popovers
-        this.disable()
-      } else if (this.getTargetId() === id || this.computedId === id) {
-        // Disable this specific tooltip or popover
+      if (!id || (this.getTargetId() === id || this.computedId === id)) {
+        // Disable all tooltips or popovers (no ID), or this specific tip (with ID)
         this.disable()
       }
     },
     doEnable(id) {
       // Programmatically enable tooltip or popover
-      if (!id) {
-        // Enable all tooltips or popovers
-        this.enable()
-      } else if (this.getTargetId() === id || this.computedId === id) {
-        // Enable this specific tooltip or popover
+      if (!id || (this.getTargetId() === id || this.computedId === id)) {
+        // Enable all tooltips or popovers (no ID), or this specific tip (with ID)
         this.enable()
       }
     },
