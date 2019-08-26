@@ -21,7 +21,6 @@ to appear.
 Things to know when using popovers:
 
 - Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Zero-length title and content values will never show a popover.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).
 - Triggering popovers on hidden elements will not work.
@@ -172,7 +171,8 @@ Positioning is relative to the trigger element.
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `click`.
+default trigger is `click`. Or a trigger of `manual` can be speified, where the popover can only
+be opened or closed [programmatialy](#hiding-and-showing-popovers-via-root-events).
 
 If a popover has more than one trigger, then all triggers must be cleared before the popover will
 close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -419,6 +419,7 @@ Where `[mod]` can be (all optional):
   `rightbottom` (last one found wins, defaults to `right`).
 - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `click`. The
   `blur` trigger is a close handler only, and if specified by itself, will be converted to `focus`).
+  Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation.
 - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
 - A delay value in the format of `d###` (where `###` is in ms, defaults to 0).
