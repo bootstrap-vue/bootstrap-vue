@@ -34,7 +34,6 @@ const variantRE = /^v-.+$/i
 
 // Build a Popover config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
-/* istanbul ignore next: not easy to test */
 const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
   const NAME = 'BPopover'
@@ -160,26 +159,6 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     config.trigger = DefaultTrigger
   }
 
-  // If title/content is a function, execute it
-  config.title = isFunction(config.title) ? config.title() : config.title
-  config.content = isFunction(config.content) ? config.content() : config.content
-
-  // If title is a string, and the html option is true, then
-  // generate a div container with `innerHTML` set
-  if (isString(config.title) && config.html) {
-    config.title = vnode.context.$createElement('div', { domProps: { innerHTML: config.title } })
-  }
-
-  // If content is a string, and the html option is true, then
-  // generate a div container with `innerHTML` set
-  if (isString(config.content) && config.html) {
-    config.content = vnode.context.$createElement('div', {
-      domProps: {
-        innerHTML: config.content
-      }
-    })
-  }
-
   return config
 }
 
@@ -226,21 +205,32 @@ const applyPopover = (el, bindings, vnode) => {
           : data[prop]
       }
     })
+    const h = vnode.context.$createElement
+    // TODO: Maybe this should be moved into the templates or bv-tooltip/bv-popover?
+    // If title is a string, and the html option is true, then
+    // generate a div container with `innerHTML` set
+    if (isString(newData.title) && config.html) {
+      newData.title = h('div', { domProps: { innerHTML: newData.title } })
+    }
+    // If content is a string, and the html option is true, then
+    // generate a div container with `innerHTML` set
+    if (isString(newData.content) && config.html) {
+      newData.content = h('div', { domProps: { innerHTML: newData.content } })
+    }
     el[BV_POPOVER].updateData(newData)
+  }
 }
 
-// Remove PopOver on our element
+// Remove Popover from our element
 const removePopover = el => {
   if (el[BV_POPOVER]) {
     el[BV_POPOVER].$destroy()
     el[BV_POPOVER] = null
-    delete el[BV_POPOVER]
   }
+  delete el[BV_POPOVER]
 }
 
-/*
- * Export our directive
- */
+// Export our directive
 export const VBPopover = {
   bind(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
