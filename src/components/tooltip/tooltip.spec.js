@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue, createWrapper } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import BTooltip from './tooltip'
 
@@ -43,7 +43,7 @@ const appDef = {
         },
         'text'
       ),
-      typeof this.$slots.default === `undefined`|| !this.$slots.default
+      typeof this.$slots.default === `undefined` || !this.$slots.default
         ? h(BTooltip, { props: tipProps })
         : h(BTooltip, { props: tipProps }, this.$slots.default)
     ])
@@ -265,11 +265,12 @@ describe('b-tooltip', () => {
     const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
-    expect(tip.tagName).toEqual('DIV')
-    expect(tip.classList.contains('tooltip')).toBe(true)
-    expect(tip.classList.contains('b-tooltip')).toBe(true)
+    const $tip = createWrapper(tip)
+    expect($tip.is('div')).toBe(true)
+    expect($tip.classes()).toContain('tooltip')
+    expect($tip.classes()).toContain('b-tooltip')
     // Should contain our title prop value
-    expect(tip.innerText).toContain('hello')
+    expect($tip.text()).toContain('hello')
 
     // Change the title prop
     wrapper.setProps({
@@ -284,10 +285,10 @@ describe('b-tooltip', () => {
 
     // Tooltip element should still be in the document
     expect(document.body.contains(tip)).toBe(true)
-    expect(tip.classList.contains('tooltip')).toBe(true)
-    expect(tip.classList.contains('b-tooltip')).toBe(true)
+    expect($tip.classes()).toContain('tooltip')
+    expect($tip.classes()).toContain('b-tooltip')
     // Should contain the new updated content
-    expect(tip.innerText).toContain('world')
+    expect($tip.text()).toContain('world')
 
     wrapper.destroy()
   })
