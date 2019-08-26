@@ -47,6 +47,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     animation: true,
     offset: 0,
     id: null,
+    html: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
