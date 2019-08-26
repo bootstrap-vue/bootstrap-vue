@@ -95,7 +95,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     id: {
       // ID to use for tooltip element
       // If not provided on will automatically be generated
-      type String,
+      type: String,
       default: null
     }
   },
