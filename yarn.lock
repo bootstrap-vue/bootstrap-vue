@@ -1431,6 +1431,15 @@
     consola "^2.3.0"
     node-fetch "^2.3.0"
 
+"@nuxt/opencollective@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@nuxt/opencollective/-/opencollective-0.3.0.tgz#11d8944dcf2d526e31660bb69570be03f8fb72b7"
+  integrity sha512-Vf09BxCdj1iT2IRqVwX5snaY2WCTkvM0O4cWWSO1ThCFuc4if0Q/nNwAgCxRU0FeYHJ7DdyMUNSdswCLKlVqeg==
+  dependencies:
+    chalk "^2.4.2"
+    consola "^2.10.1"
+    node-fetch "^2.6.0"
+
 "@nuxt/server@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@nuxt/server/-/server-2.9.1.tgz#dc6ea866bc36d1466e30f0b91e404e7c75961b5e"
