@@ -272,7 +272,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // root element, so that scoped styles will work on the
       // template, even though it is a child of `<body>`
       const scopeId = this.$options._scopeId
-        ? this.$options.scopeId
+        ? this.$options._scopeId
         : this.$parent && this.$parent.$options
           ? this.$parent.$options._scopeId
           : null
