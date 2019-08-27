@@ -10,7 +10,6 @@ const NAME = 'BTooltip'
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  inheritAttrs: false,
   props: {
     title: {
       type: String
