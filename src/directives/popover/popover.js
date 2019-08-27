@@ -41,7 +41,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     title: undefined,
     content: undefined,
     trigger: '', // Default set below if needed
-    placement: 'top',
+    placement: 'right',
     fallbackPlacement: 'flip',
     container: false, // Default of body
     animation: true,
