@@ -1,6 +1,6 @@
-import Vue from './vue'
+import Vue from '../../../utils/vue'
+import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { BVPopper } from './bv-popper'
-import { isFunction, isUndefinedOrNull } from './inspect'
 
 const NAME = 'BVTooltipTemplate'
 
