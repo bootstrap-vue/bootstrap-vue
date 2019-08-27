@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTooltip } from '../tooltip/tooltip'
-import { BVPopover } from './hepers/bv-popover'
+import { BVPopover } from './helpers/bv-popover'
 
 const NAME = 'BPopover'
 
