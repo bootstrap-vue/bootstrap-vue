@@ -228,7 +228,9 @@ export const VBPopover = {
   bind(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
   },
-  update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  // We use `componentUpdated` here instead of `update`, as the former
+  // waits until the containing component and children have finished updating
+  componentUpdated(el, bindings, vnode) {
     // Performed in a `$nextTick()` to prevent endless render/update loops
     vnode.context.$nextTick(() => {
       applyPopover(el, bindings, vnode)
