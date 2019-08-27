@@ -16,13 +16,15 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
     ) {
       const f = fieldsObj[key] || {}
       const val = row[key]
+      // `f.filterByFormatted` will either be a function or boolean
+      // `f.formater` will have already been noramlized into a function ref
       const filterByFormatted = f.filterByFormatted
       const formatter = isFunction(filterByFormatted)
         ? filterByFormatted
         : filterByFormatted
-          ? this.getFieldFormatter(key)
+          ? f.formatter
           : null
-      obj[key] = formatter ? formatter(val, key, row) : val
+      obj[key] = isFunction(formatter) ? formatter(val, key, row) : val
     }
     return obj
   }, {})
