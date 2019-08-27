@@ -45,11 +45,16 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       ]
     },
     templateAttributes() {
-      return {
+      const attrs = {
         id: this.id,
         role: 'tooltip',
         tabindex: '-1'
       }
+      if (this.$parent && this.$parent.$options && this.$parent.$options._scopeId) {
+        // Add teh scoped style data attribute
+        attrs[this.$parent.$options._scopeId] = true
+      }
+      return attrs
     },
     templateListeners() {
       // Used for hover/focus trigger listeners
