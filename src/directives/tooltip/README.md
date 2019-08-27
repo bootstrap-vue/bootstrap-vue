@@ -142,6 +142,34 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <!-- b-tooltip-triggers.vue -->
 ```
 
+### Making tooltips work for keyboard and assistive technology users
+
+You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most
+assistive technologies currently do not announce the tooltip in this situation.
+
+Additionally, do not rely solely on `hover` as the trigger for your tooltip, as this will make your
+tooltips _impossible to trigger for keyboard-only users_.
+
+### Disabled elements
+
+Elements with the `disabled` attribute aren’t interactive, meaning users cannot focus, hover, or
+click them to trigger a tooltip (or popover). As a workaround, you’ll want to trigger the tooltip
+from a wrapper `<div>` or `<span>`, ideally made keyboard-focusable using `tabindex="0"`, and
+override the `pointer-events` on the disabled element.
+
+```html
+<div>
+  <span class="d-inline-block" tabindex="0" v-b-tooltip.top title="Disabled tooltip">
+    <b-button variant="primary" style="pointer-events: none;" disabled>Disabled button</b-button>
+  </span>
+</div>
+
+<!-- disabled-trigger-element.vue -->
+```
+
 ### Dismiss on next click
 
 Use both `click` and `blur` if you would like a tooltip that opens only on click of the element, but
