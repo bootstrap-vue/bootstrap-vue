@@ -125,7 +125,7 @@
     "prettier": "1.14.3",
     "rollup": "^1.20.2",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "sass-loader": "^7.3.1",
     "standard-version": "^7.0.0",
