@@ -173,11 +173,11 @@ const applyTooltip = (el, bindings, vnode) => {
   }
   const config = parseBindings(bindings, vnode)
   if (!el[BV_TOOLTIP]) {
-    const parent = vnode.context
+    const $parent = vnode.context
     el[BV_TOOLTIP] = new BVTooltip({
-      parent: parent,
+      parent: $parent,
       // Add the parent's scoped style attribute data
-      _scopeId: parent && parent.$options._scopeId ? parent.$options._scopeId : undefined
+      _scopeId: $parent && $parent.$options._scopeId ? $parent.$options._scopeId : undefined
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
   }
