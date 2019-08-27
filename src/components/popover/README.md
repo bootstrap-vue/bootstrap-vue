@@ -6,12 +6,16 @@
 
 ```html
 <div class="text-center my-3">
-  <b-button v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-button>
+  <b-button v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
+    Hover Me
+  </b-button>
 
-  <b-button id="popover-target-1">Hover Me</b-button>
-  <b-popover target="popover-target-1" triggers="hover">
+  <b-button id="popover-target-1">
+    Hover Me
+  </b-button>
+  <b-popover target="popover-target-1" triggers="hover" placement="top">
     <template slot="title">Popover Title</template>
-    I am popover component content!
+    I am popover <b>component</b> content!
   </b-popover>
 </div>
 
