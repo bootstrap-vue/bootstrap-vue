@@ -584,9 +584,8 @@ information on the directive usage.
 
 ## Advanced `<b-popover>` usage with reactive content
 
-You can even make your `<b-popover>` content interactive. Just remember not to use the `focus`,
-`hover` or `blur` triggers (use only `click`), otherwise your popover will close automatically as
-soon as someone will try to interact with the content.
+You can even make your `<b-popover>` content interactive. Just remember not to use the `focus` or
+triggers (use only `click`).
 
 If you absolutely must use a trigger other than `click` (or want to disable closing of the popover
 when the trigger element is clicked a second time), then you can either:
@@ -605,7 +604,7 @@ to deal with on mobile devices (such as smart-phones).
   <div id="my-container">
     <div class="my-3">
       <!-- Our triggering (target) element -->
-      <b-button id="popover-reactive-1" :disabled="popoverShow" variant="primary" ref="button">
+      <b-button id="popover-reactive-1" variant="primary" ref="button">
         Reactive Content Using Slots
       </b-button>
     </div>
