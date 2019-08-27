@@ -194,11 +194,17 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     // Done in a `$nextTick()` to ensure DOM has completed rendering
     // so that target can be found
     this.$nextTick(() => {
-      // Ensure we have initial content
+      // Load the on demand child instance
       const Component = this.getComponent()
+      // Ensure we have initial content
       this.updateContent()
+      // Pass down the scoped style attribute if available
+      const scopeId = this.$options._scopeId
+        ? this.$options._scopeId
+        : this.$parent && this.$parent.$options
+          ? this.$parent.$options._scopeId
+          : null
       // Create the instance
-      const scopeId = this.$parent && this.$parent.$options ? this.$parent.$options._scopeId : null
       const $toolpop = (this.$_bv_toolpop = new Component({
         parent: this,
         // Pass down the scoped style ID
