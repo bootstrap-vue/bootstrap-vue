@@ -453,7 +453,7 @@ this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id')
 ```
 
 To enable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
-one was provided in the config object) as the first argument whenemitting the `bv::enable::tooltip`
+one was provided in the config object) as the first argument when emitting the `bv::enable::tooltip`
 \$root event:
 
 ```js
