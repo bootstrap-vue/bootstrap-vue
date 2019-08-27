@@ -3,9 +3,9 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import Vue from './vue'
-import looseEqual from './loose-equal'
-import { arrayIncludes, concat, from as arrayFrom } from './array'
+import Vue from '../../../utils/vue'
+import looseEqual from '../../../utils/loose-equal'
+import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
 import {
   isElement,
   isDisabled,
@@ -20,12 +20,12 @@ import {
   removeAttr,
   eventOn,
   eventOff
-} from './dom'
-import { isFunction, isNumber, isPlainObject, isString, isUndefined } from './inspect'
-import { keys } from './object'
-import { warn } from './warn'
+} from '../../../utils/dom'
+import { isFunction, isNumber, isPlainObject, isString, isUndefined } from '../../../utils/inspect'
+import { keys } from '../../../utils/object'
+import { warn } from '../../../utils/warn'
+import { BvEvent } from '../../../utils/bv-event.class'
 
-import { BvEvent } from './bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
 const NAME = 'BVTooltip'
