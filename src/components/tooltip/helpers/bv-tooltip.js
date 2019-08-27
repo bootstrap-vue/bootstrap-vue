@@ -271,9 +271,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // We pass this manually to the template to appy to its
       // root element, so that scoped styles will work on the
       // template, even though it is a child of `<body>`
-      const scopeId = this.$parent && this.$parent.$options
-        ? this.$parent.$options._scopeId
-        : null
+      const scopeId = this.$parent && this.$parent.$options ? this.$parent.$options._scopeId : null
 
       const $tip = (this.$_tip = new Template({
         parent: this,
