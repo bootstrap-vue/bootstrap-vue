@@ -1,4 +1,4 @@
-import { BVTooltip } from '../../utils/bv-tooltip'
+import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
