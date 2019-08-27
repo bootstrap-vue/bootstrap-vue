@@ -144,6 +144,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 | `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
 | `custom-class`       | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+| `id`                 | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                       |
 
 ### Variants and custom class
 
@@ -367,14 +368,16 @@ You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` e
 this.$root.$emit('bv::hide::tooltip')
 ```
 
-To close a **specific tooltip**, pass the trigger element's `id` as the argument:
+To close a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided via the `id` prop), as the argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open a **specific tooltip**, pass the trigger element's `id` as the argument when emitting the
-`bv::show::tooltip` \$root event:
+To open a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided via the `id` prop), as the argument when emitting the `bv::show::tooltip`
+\$root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
@@ -396,14 +399,16 @@ You can disable **all open tooltips** by emitting the `bv::disable::tooltip` eve
 this.$root.$emit('bv::disable::tooltip')
 ```
 
-To disable a **specific tooltip**, pass the trigger element's `id` as the argument:
+To disable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided via the `id` prop), as the argument:
 
 ```js
 this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id')
 ```
 
-To enable a **specific tooltip**, pass the trigger element's `id` as the argument when emitting the
-`bv::enable::tooltip` \$root event:
+To enable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided via the `id` prop), as the argument when emitting the `bv::enable::tooltip`
+\$root event:
 
 ```js
 this.$root.$emit('bv::enable::tooltip', 'my-trigger-button-id')
