@@ -254,7 +254,7 @@ The special `blur` trigger **must** be used in combination with the `click` trig
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 | `variant`            | `null`           | Contextual color variant for the popover                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
 | `custom-class`       | `null`           | A custom classname to apply to the popover outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
-
+| `id`                 | `null`           | An ID to use on the popover root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                       |
 ### Variants and custom class
 
 BootstrapVue's popovers support contextual color variants via our custom CSS, via the `variant`
@@ -785,14 +785,15 @@ You can close (hide) **all open popovers** by emitting the `bv::hide::popover` e
 this.$root.$emit('bv::hide::popover')
 ```
 
-To close a **specific popover**, pass the trigger element's `id` as the first argument:
+To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided via the `id` prop), as the first argument:
 
 ```js
 this.$root.$emit('bv::hide::popover', 'my-trigger-button-id')
 ```
 
-To open (show) a **specific popover**, pass the trigger element's `id` as the first argument when
-emitting the `bv::show::popover` event:
+To open (show) a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided via the `id` prop), as the first argument when emitting the `bv::show::popover` event:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id')
@@ -814,14 +815,16 @@ You can disable **all** popovers by emitting the `bv::disable::popover` event on
 this.$root.$emit('bv::disable::popover')
 ```
 
-To disable a **specific popover**, pass the trigger element's `id` as the first argument:
+To disable a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided via the `id` prop), as the first argument:
 
 ```js
 this.$root.$emit('bv::disable::popover', 'my-trigger-button-id')
 ```
 
-To enable a **specific popover**, pass the trigger element's `id` as the first argument when
-emitting the `bv::enable::popover` event:
+To enable a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided via the `id` prop), as the first argument when emitting the `bv::enable::popover`
+event:
 
 ```js
 this.$root.$emit('bv::enable::popover', 'my-trigger-button-id')
