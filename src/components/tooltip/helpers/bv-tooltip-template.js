@@ -18,11 +18,6 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       // Used only by the directive versions
       type: Boolean,
       default: false
-    },
-    scopeId: {
-      // Used to pass teh parent's scoped style attribute
-      type: String,
-      default: null
     }
   },
   data() {
@@ -50,16 +45,11 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       ]
     },
     templateAttributes() {
-      const attrs = {
+      return {
         id: this.id,
         role: 'tooltip',
         tabindex: '-1'
       }
-      if (this.scopeId) {
-        // Add the scoped style attribute if provided
-        attrs[this.scopeId] = true
-      }
-      return attrs
     },
     templateListeners() {
       // Used for hover/focus trigger listeners
