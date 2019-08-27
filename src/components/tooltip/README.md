@@ -213,9 +213,6 @@ A custom class can be applied to the tooltip outer wrapper `<div>` by using the 
 
 `variant` and `custom-class` are reactive and can be changed while the tooltip is open.
 
-**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
-document `<body>` element by default.
-
 Refer to the [tooltip directive](/docs/directives/tooltip) docs on applying variants and custom
 class to the directive version.
 
