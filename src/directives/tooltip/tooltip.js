@@ -225,9 +225,9 @@ export const VBTooltip = {
   bind(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
   },
-  // TODO: We use `update` here, but maybe we should switch to
-  //       componentUpdated which runs less often
-  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  // We use `componentUpdated` here instead of `update`, as the former
+  // waits until the containing component and children have finished updating
+  componentUpdated(el, bindings, vnode) {
     // Performed in a `$nextTick()` to prevent render update loops
     vnode.context.$nextTick(() => {
       applyTooltip(el, bindings, vnode)
