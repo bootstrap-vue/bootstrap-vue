@@ -1,4 +1,4 @@
-import { BVPopover } from '../../utils/bv-popover'
+import { BVPopover } from '../../omponents/popover/helpers/bv-popover'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
