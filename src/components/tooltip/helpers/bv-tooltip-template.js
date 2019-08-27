@@ -57,7 +57,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       }
       if (this.scopeId) {
         // Add the scoped style attribute if provided
-        attrs[this.scopeId]: true
+        attrs[this.scopeId] = true
       }
       return attrs
     },
