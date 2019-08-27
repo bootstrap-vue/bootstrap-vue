@@ -301,9 +301,6 @@ A custom class can be applied to the popover outer wrapper `<div>` by using the 
 
 `variant` and `custom-class` are reactive and can be changed while the popover is open.
 
-**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
-document `<body>` element by default.
-
 Refer to the [popover directive](/docs/directives/popover) docs on applying variants and custom
 class to the directive version.
 
