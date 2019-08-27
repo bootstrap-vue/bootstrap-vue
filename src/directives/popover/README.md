@@ -202,6 +202,17 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <!-- b-popover-triggers.vue -->
 ```
 
+### Making popovers work for keyboard and assistive technology users
+
+You should only add popovers to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most
+assistive technologies currently do not announce the popover in this situation.
+
+Additionally, do not rely solely on `hover` as the trigger for your popover, as this will make your
+popovers _impossible to trigger for keyboard-only users_.
+
 ### Dismiss on next click (self dismissing)
 
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
