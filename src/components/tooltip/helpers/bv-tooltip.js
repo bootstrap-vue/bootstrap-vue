@@ -267,20 +267,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // this.destroyTemplate()
       const container = this.getContainer()
       const Template = this.getTemplate()
-      // Parent scoped styles attribute
-      // We pass this manually to the template to appy to its
-      // root element, so that scoped styles will work on the
-      // template, even though it is a child of `<body>`
-      const scopeId = this.$options._scopeId
-        ? this.$options._scopeId
-        : this.$parent && this.$parent.$options
-          ? this.$parent.$options._scopeId
-          : null
-
       const $tip = (this.$_tip = new Template({
         parent: this,
-        // Pass the data attribute to add to the root element
-        _scopeId: scopeId || undefined,
         // The following is not reactive to changes in the props data
         propsData: {
           // These values cannot be changed while template is showing
