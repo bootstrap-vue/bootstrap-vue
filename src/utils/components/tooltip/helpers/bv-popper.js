@@ -5,10 +5,10 @@
 //   Templates are only instantiated when shown, and destroyed when hidden
 //
 
-import Vue from './vue'
+import Vue from '../../../utils/vue'
 import Popper from 'popper.js'
-import { getCS, select } from './dom'
-import { HTMLElement } from './safe-types'
+import { getCS, select } from '../../../utils/dom'
+import { HTMLElement } from '../../../utils/safe-types'
 
 const NAME = 'BVPopper'
 
