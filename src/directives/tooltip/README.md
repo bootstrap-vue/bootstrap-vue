@@ -91,16 +91,16 @@ The default position is `top`. Positioning is relative to the trigger element.
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-button>
+        <b-button v-b-tooltip.hover.top="'Tooltip!'" variant="primary">Top</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-button>
+        <b-button v-b-tooltip.hover.right="'Tooltip!'" variant="primary">Right</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-button>
+        <b-button v-b-tooltip.hover.left="'Tooltip!'" variant="primary">Left</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
+        <b-button v-b-tooltip.hover.bottom="'Tooltip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -112,8 +112,8 @@ The default position is `top`. Positioning is relative to the trigger element.
 ## Triggers
 
 Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `hover focus`. Or a trigger of manual can be speified, where the popove can only
-be opened or closed [programmatialy](#hiding-and-showing-tooltips-via-root-events).
+default trigger is `hover focus`. Or a trigger of manual can be specified, where the popover can
+only be opened or closed [programmatically](#hiding-and-showing-tooltips-via-root-events).
 
 If a tooltip has more than one trigger, then all triggers must be cleared before the tooltip will
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -124,16 +124,16 @@ then clicks the trigger element, they must click it again **and** move focus to 
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-button>
+        <b-button v-b-tooltip="'Tooltip!'" variant="outline-success">Hover + Focus</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-button>
+        <b-button v-b-tooltip.hover="'Tooltip!'" variant="outline-success">Hover</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-button>
+        <b-button v-b-tooltip.click="'Tooltip!'" variant="outline-success">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-button>
+        <b-button v-b-tooltip.focus="'Tooltip!'" variant="outline-success">Focus</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -284,16 +284,16 @@ Where [modX] can be (all optional):
   `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins,
   defaults to `top`)
 - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and
-  `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`).
-  Use `manual` if you only want to control the visibility manually.
+  `hover`. `blur` is a close handler only, and if specified by itself, will be converted to
+  `focus`). Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation
 - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0), applied to both `hide`
-  and `show` (affects `hover` and `focus` only)
-- A show delay value in the format of `ds###` (where `###` is in ms, defaults to 0), applied to `show`
-  trigger only (affects `hover` and `focus` only)
-- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to 0), applied to `hide`
-  trigger only (affects `hover` and `focus` only)
+- A delay value in the format of `d###` (where `###` is in ms, defaults to 0), applied to both
+  `hide` and `show` (affects `hover` and `focus` only)
+- A show delay value in the format of `ds###` (where `###` is in ms, defaults to 0), applied to
+  `show` trigger only (affects `hover` and `focus` only)
+- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to 0), applied to
+  `hide` trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
   to 0. Negative values allowed)
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
@@ -386,15 +386,15 @@ You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` e
 this.$root.$emit('bv::hide::tooltip')
 ```
 
-To close a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
-one was provided in the config object) as the first argument:
+To close a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
+was provided in the config object) as the first argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
-one was provided in the config object) as the first argument when emitting the `bv::show::tooltip`
+To open a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
+was provided in the config object) as the first argument when emitting the `bv::show::tooltip`
 \$root event:
 
 ```js

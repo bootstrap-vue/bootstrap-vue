@@ -142,8 +142,8 @@ Positioning is relative to the trigger element.
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `click`. Or a trigger of `manual` can be speified, where the popover can only be
-opened or closed [programmatialy](#programmatically-disabling-popover).
+default trigger is `click`. Or a trigger of `manual` can be specified, where the popover can only be
+opened or closed [programmatically](#programmatically-disabling-popover).
 
 If a popover has more than one trigger, then all triggers must be cleared before the popover will
 close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -254,7 +254,8 @@ The special `blur` trigger **must** be used in combination with the `click` trig
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 | `variant`            | `null`           | Contextual color variant for the popover                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
 | `custom-class`       | `null`           | A custom classname to apply to the popover outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
-| `id`                 | `null`           | An ID to use on the popover root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                       |
+| `id`                 | `null`           | An ID to use on the popover root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                    |
+
 ### Variants and custom class
 
 BootstrapVue's popovers support contextual color variants via our custom CSS, via the `variant`
@@ -570,7 +571,7 @@ Just need quick popovers without too much markup? Use the
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-button v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
+        <b-button v-b-popover.hover.bottom="'Tooltip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -785,15 +786,16 @@ You can close (hide) **all open popovers** by emitting the `bv::hide::popover` e
 this.$root.$emit('bv::hide::popover')
 ```
 
-To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
-one was provided via the `id` prop), as the first argument:
+To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if one
+was provided via the `id` prop), as the first argument:
 
 ```js
 this.$root.$emit('bv::hide::popover', 'my-trigger-button-id')
 ```
 
-To open (show) a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
-one was provided via the `id` prop), as the first argument when emitting the `bv::show::popover` event:
+To open (show) a **specific popover**, pass the trigger element's `id`, or the `id` of the popover
+(if one was provided via the `id` prop), as the first argument when emitting the `bv::show::popover`
+event:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id')

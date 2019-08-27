@@ -7,7 +7,7 @@ import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect
 import { keys } from '../../utils/object'
 
 // Key which we use to store tooltip object on element
-const BV_TOOLTIP = '__BV_ToolTip__'
+const BV_TOOLTIP = '__BV_Tooltip__'
 
 // Default trigger
 const DefaultTrigger = 'hover focus'
@@ -32,7 +32,7 @@ const delayHideRE = /^dh\d+$/i
 const offsetRE = /^o-?\d+$/i
 const variantRE = /^v-.+$/i
 
-// Build a ToolTip config based on bindings (if any)
+// Build a Tooltip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
@@ -40,10 +40,10 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   // Default config
   let config = {
     title: undefined,
-    trigger: '', // default set below if needed
+    trigger: '', // Default set below if needed
     placement: 'top',
     fallbackPlacement: 'flip',
-    container: false, // default of body
+    container: false, // Default of body
     animation: true,
     offset: 0,
     id: null,
@@ -55,9 +55,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     customClass: getComponentConfig(NAME, 'customClass')
   }
 
-  // Process bindings.value
+  // Process `bindings.value`
   if (isString(bindings.value)) {
-    // Value is tooltip content (html optionally supported)
+    // Value is tooltip content (HTML optionally supported)
     config.title = bindings.value
   } else if (isFunction(bindings.value)) {
     // Title generator function
@@ -69,7 +69,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
 
   // If title is not provided, try title attribute
   if (isUndefined(config.title)) {
-    // try attribute
+    // Try attribute
     const data = vnode.data || {}
     config.title = data.attrs && data.attrs.title ? data.attrs.title : ''
   }
@@ -145,7 +145,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   keys(bindings.modifiers).forEach(mod => {
     mod = mod.toLowerCase()
     if (validTriggers[mod]) {
-      // if modifier is a valid trigger
+      // If modifier is a valid trigger
       selectedTriggers[mod] = true
     }
   })
@@ -161,11 +161,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     config.trigger = DefaultTrigger
   }
 
-  // return the config
+  // Return the config
   return config
 }
 
-// Add/update ToolTip on our element
+// Add/update Tooltip on our element
 const applyTooltip = (el, bindings, vnode) => {
   if (!isBrowser) {
     /* istanbul ignore next */
@@ -211,7 +211,7 @@ const applyTooltip = (el, bindings, vnode) => {
   }
 }
 
-// Remove ToolTip on our element
+// Remove Tooltip on our element
 const removeTooltip = el => {
   if (el[BV_TOOLTIP]) {
     el[BV_TOOLTIP].$destroy()
@@ -228,7 +228,7 @@ export const VBTooltip = {
   // TODO: We use `update` here, but maybe we should switch to
   //       componentUpdated which runs less often
   componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
-    // Performed in a nextTich to prevent render update loops
+    // Performed in a `$nextTick()` to prevent render update loops
     vnode.context.$nextTick(() => {
       applyTooltip(el, bindings, vnode)
     })

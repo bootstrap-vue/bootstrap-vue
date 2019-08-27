@@ -7,7 +7,7 @@ import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect
 import { keys } from '../../utils/object'
 
 // Key which we use to store tooltip object on element
-const BV_POPOVER = '__BV_PopOver__'
+const BV_POPOVER = '__BV_Popover__'
 
 // Default trigger
 const DefaultTrigger = 'click'
@@ -203,7 +203,7 @@ const applyPopover = (el, bindings, vnode) => {
     keys(data).forEach(prop => {
       // We only pass data properties that have changed
       if (data[prop] !== oldData[prop]) {
-        // if title/content is a function, we execute it here
+        // If title/content is a function, we execute it here
         newData[prop] =
           (prop === 'title' || prop === 'content') && isFunction(data[prop])
             ? data[prop]()
@@ -229,7 +229,7 @@ export const VBPopover = {
     applyPopover(el, bindings, vnode)
   },
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
-    // Performed in a nextTick to prevent endless render/update loops
+    // Performed in a `$nextTick()` to prevent endless render/update loops
     vnode.context.$nextTick(() => {
       applyPopover(el, bindings, vnode)
     })

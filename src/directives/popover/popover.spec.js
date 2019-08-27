@@ -4,7 +4,7 @@ import { BVPopover } from '../../utils/bv-popover'
 import { VBPopover } from './popover'
 
 // Key which we use to store tooltip object on element
-const BV_POPOVER = '__BV_PopOver__'
+const BV_POPOVER = '__BV_Popover__'
 
 describe('v-b-popover directive', () => {
   const originalCreateRange = document.createRange

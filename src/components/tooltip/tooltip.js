@@ -143,7 +143,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         if (show) {
           this.$_bv_toolpop.show()
         } else {
-          // We use forceHide to override any active triggers
+          // We use `forceHide()` to override any active triggers
           this.$_bv_toolpop.forceHide()
         }
       }
@@ -192,8 +192,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // Instantiate a new BVTooltip instance
-    // Done in a $nextTick to ensure DOM has completed
-    // rendering so that target can be found
+    // Done in a `$nextTick()` to ensure DOM has completed rendering
+    // so that target can be found
     this.$nextTick(() => {
       // Ensure we have initial content
       const Component = this.getComponent()
@@ -254,9 +254,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         this.localContent = val
       }
     },
-    //
-    // Template event handlers
-    //
+    // --- Template event handlers ---
     onShow(bvEvt) {
       // Placeholder
       this.$emit('show', bvEvt)
@@ -293,9 +291,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         this.$emit('enabled', bvEvt)
       }
     },
-    //
-    // local Event listeners
-    //
+    // --- Local event listeners ---
     doOpen() {
       !this.localShow && this.$_bv_toolpop && this.$_bv_toolpop.show()
     },

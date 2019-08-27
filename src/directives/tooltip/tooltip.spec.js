@@ -4,7 +4,7 @@ import { BVTooltip } from '../../utils/bv-tooltip'
 import { VBTooltip } from './tooltip'
 
 // Key which we use to store tooltip object on element
-const BV_TOOLTIP = '__BV_ToolTip__'
+const BV_TOOLTIP = '__BV_Tooltip__'
 
 describe('v-b-tooltip directive', () => {
   const originalCreateRange = document.createRange

@@ -95,7 +95,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      // BTooltip/BPopover/VBToolTip/VBPopover will update this data
+      // BTooltip/BPopover/VBTooltip/VBPopover will update this data
       // Via the exposed updateData() method on this instance
       // BVPopover will override some of these defaults
       ...templateData,

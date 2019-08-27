@@ -171,8 +171,8 @@ Positioning is relative to the trigger element.
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `click`. Or a trigger of `manual` can be speified, where the popover can only
-be opened or closed [programmatialy](#hiding-and-showing-popovers-via-root-events).
+default trigger is `click`. Or a trigger of `manual` can be specified, where the popover can only be
+opened or closed [programmatically](#hiding-and-showing-popovers-via-root-events).
 
 If a popover has more than one trigger, then all triggers must be cleared before the popover will
 close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -419,12 +419,12 @@ Where `[mod]` can be (all optional):
   Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation.
 - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0), applied to both `hide`
-  and `show` (affects `hover` and `focus` only)
-- A show delay value in the format of `ds###` (where `###` is in ms, defaults to 0), applied to `show`
-  trigger only (affects `hover` and `focus` only)
-- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to 0), applied to `hide`
-  trigger only (affects `hover` and `focus` only)
+- A delay value in the format of `d###` (where `###` is in ms, defaults to 0), applied to both
+  `hide` and `show` (affects `hover` and `focus` only)
+- A show delay value in the format of `ds###` (where `###` is in ms, defaults to 0), applied to
+  `show` trigger only (affects `hover` and `focus` only)
+- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to 0), applied to
+  `hide` trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
   to 0. Negative values are allowed). Note if an offset is supplied, then the alignment positions
   will fallback to one of `top`, `bottom`, `left`, or `right`.
@@ -518,15 +518,15 @@ You can close (hide) **all open popovers** by emitting the `bv::hide::popover` e
 this.$root.$emit('bv::hide::popover')
 ```
 
-To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
-one was provided in the config object) as the first argument:
+To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if one
+was provided in the config object) as the first argument:
 
 ```js
 this.$root.$emit('bv::hide::popover', 'my-trigger-button-id')
 ```
 
-To open a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
-one was provided in the config object) as the first argument when emitting the `bv::show::popover`
+To open a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if one
+was provided in the config object) as the first argument when emitting the `bv::show::popover`
 event:
 
 ```js
