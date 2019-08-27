@@ -204,6 +204,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$nextTick(() => {
       const target = this.getTarget()
       if (target && document.contains(target)) {
+        // Copy the parent's scoped style attribute
+        this.scopeId = this.$parent.$options._scopeId || null
         // Set up all trigger handlers and listeners
         this.listen()
       } else {
@@ -265,6 +267,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // this.destroyTemplate()
       const container = this.getContainer()
       const Template = this.getTemplate()
+      // Parent scoped styles attribute
+      // We pass this manually to the template to appy to its
+      // root element, so that scoped styles will work on the
+      // template, even though it is a child of `<body>`
+      const scopeId = this.$parent && this.$parent.$options
+        ? this.$parent.$options._scopeId
+        : null
+
       const $tip = (this.$_tip = new Template({
         parent: this,
         // The following is not reactive to changes in the props data
@@ -278,7 +288,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           arrowPadding: this.arrowPadding,
           boundaryPadding: this.boundaryPadding,
           boundary: this.getBoundary(),
-          target: this.getPlacementTarget()
+          target: this.getPlacementTarget(),
+          // Pass the data attribute to add to the root element
+          scopeId: scopeId || null
         }
       }))
       // We set the initial reactive data (values that can be changed while open)
