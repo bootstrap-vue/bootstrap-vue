@@ -1,6 +1,7 @@
-import Vue from './vue'
-import { BVTooltipTemplate } from './bv-tooltip-template'
-import { isFunction, isUndefinedOrNull } from './inspect'
+import Vue from '../../../utils/vue'
+import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+
+import { BVTooltipTemplate } from '../../tooltip/helpers/bv-tooltip-template'
 
 const NAME = 'BVPopoverTemplate'
 
