@@ -172,8 +172,11 @@ const applyPopover = (el, bindings, vnode) => {
   }
   const config = parseBindings(bindings, vnode)
   if (!el[BV_POPOVER]) {
+    const $parent = vnode.context
     el[BV_POPOVER] = new BVPopover({
-      parent: vnode.context
+      parent: $parent,
+      // Add the parent's scoped style attribute data
+      _scopeId: $parent && $parent.$options._scopeId ? $parent.$options._scopeId : undefined
     })
     el[BV_POPOVER].__bv_prev_data__ = {}
   }
