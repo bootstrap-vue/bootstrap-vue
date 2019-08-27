@@ -51,8 +51,8 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         tabindex: '-1'
       }
       if (this.$parent && this.$parent.$options && this.$parent.$options._scopeId) {
-        // Add teh scoped style data attribute
-        attrs[this.$parent.$options._scopeId] = true
+        // Add the scoped style data attribute to the template root element
+        attrs[this.$parent.$options._scopeId] = ''
       }
       return attrs
     },
