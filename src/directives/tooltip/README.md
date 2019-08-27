@@ -291,9 +291,6 @@ property:
 <b-button v-b-tooltip.hover="{ customClass: 'my-tooltip-class' }" title="Tooltip">Button</b-button>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
-document `<body>` element by default.
-
 ## Directive syntax and usage
 
 ```html
