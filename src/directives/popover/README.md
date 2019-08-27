@@ -406,9 +406,6 @@ property:
 </b-button>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
-document `<body>` element by default.
-
 ## Directive syntax and usage
 
 ```html
