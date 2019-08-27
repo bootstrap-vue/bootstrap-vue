@@ -275,6 +275,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       const $tip = (this.$_tip = new Template({
         parent: this,
+        // Pass the data attribute to add to the root element
+        _scopeId: scopeId,
         // The following is not reactive to changes in the props data
         propsData: {
           // These values cannot be changed while template is showing
@@ -286,9 +288,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           arrowPadding: this.arrowPadding,
           boundaryPadding: this.boundaryPadding,
           boundary: this.getBoundary(),
-          target: this.getPlacementTarget(),
-          // Pass the data attribute to add to the root element
-          scopeId: scopeId || null
+          target: this.getPlacementTarget()
         }
       }))
       // We set the initial reactive data (values that can be changed while open)
