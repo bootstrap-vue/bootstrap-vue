@@ -96,6 +96,35 @@ If a tooltip has more than one trigger, then all triggers must be cleared before
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
+### Making tooltips work for keyboard and assistive technology users
+
+You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most
+assistive technologies currently do not announce the tooltip in this situation.
+
+Additionally, do not rely solely on `hover` as the trigger for your tooltip, as this will make your
+tooltips _impossible to trigger for keyboard-only users_.
+
+### Disabled elements
+
+Elements with the `disabled` attribute aren’t interactive, meaning users cannot focus, hover, or
+click them to trigger a tooltip (or popover). As a workaround, you’ll want to trigger the tooltip
+from a wrapper `<div>` or `<span>`, ideally made keyboard-focusable using `tabindex="0"`, and
+override the `pointer-events` on the disabled element.
+
+```html
+<div>
+  <span id="disabled-wrapper" class="d-inline-block" tabindex="0">
+    <b-button variant="primary" style="pointer-events: none;" disabled>Disabled button</b-button>
+  </span>
+  <b-tooltip target="disabled-wrapper">Disabled tooltip</b-tooltip>
+</div>
+
+<!-- disabled-trigger-element.vue -->
+```
+
 ## `<b-tooltip>` component usage
 
 ```html
@@ -437,15 +466,5 @@ export default {
 
 Refer to the [Events](/docs/components/tooltip#component-reference) section of documentation for the
 full list of events.
-
-## Making tooltips work for keyboard and assistive technology users
-
-You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
-interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
-`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
-annoying and confusing tab stops on non-interactive elements for keyboard users, and most assistive
-technologies currently do not announce the tooltip in this situation. Additionally, do not rely
-solely on `hover` as the trigger for your tooltip, as this will make your tooltips impossible to
-trigger for keyboard users.
 
 <!-- Component reference added automatically from component package.json -->
