@@ -199,7 +199,12 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       const Component = this.getComponent()
       this.updateContent()
       // Create the instance
-      const $toolpop = (this.$_bv_toolpop = new Component({ parent: this }))
+      const scopeId = this.$parent && this.$parent.$options ? this.$parent.$options._scopeId : null
+      const $toolpop = (this.$_bv_toolpop = new Component({
+        parent: this,
+        // Pass down the scoped style ID
+        _scopeId: scopeId || undefined
+      }))
       // Set the initial data
       $toolpop.updateData(this.templateData)
       // Set listeners
