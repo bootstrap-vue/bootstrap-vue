@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
-import { BTooltip } from '../tooltip/tooltip'
-import { BVPopover } from '../../utils/bv-popover'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
+import { BTooltip } from '../tooltip/tooltip'
+import { BVPopover } from './hepers/bv-popover'
 
 const NAME = 'BPopover'
 
