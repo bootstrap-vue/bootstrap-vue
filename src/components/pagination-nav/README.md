@@ -444,6 +444,9 @@ pattern.
 
 ## See also
 
+Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
+props.
+
 For pagination control of a component (such as `<b-table>`), use the
 [`<b-pagination>`](/docs/components/pagination) component instead.
 
