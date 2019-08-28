@@ -198,13 +198,13 @@
         &:not(.b-table-sort-icon-bg-left) {
           // Default is icon on the right
           background-position: right $table-cell-padding center;
-          padding-right: calc(#{$table-cell-padding * 2} + $b-table-sort-icon-bg-width);
+          padding-right: calc(#{$table-cell-padding * 2} + #{$b-table-sort-icon-bg-width});
         }
 
         &.b-table-sort-icon-bg-left {
           // Left allign sort icon
           background-position: left $table-cell-padding center center;
-          padding-left: calc(#{$table-cell-padding * 2} + $b-table-sort-icon-bg-width);
+          padding-left: calc(#{$table-cell-padding * 2} + #{$b-table-sort-icon-bg-width});
         }
       }
 
@@ -230,13 +230,13 @@
           &:not(.b-table-sort-icon-bg-left) {
             // Default is icon on the right
             background-position: right $table-cell-padding center;
-            padding-right: calc(#{$table-cell-padding * 2} + $b-table-sort-icon-bg-width);
+            padding-right: calc(#{$table-cell-padding * 2} + #{$b-table-sort-icon-bg-width});
           }
 
           &.b-table-sort-icon-bg-left {
             // Left allign sort icon
             background-position: left $table-cell-padding-sm center;
-            padding-left: calc(#{$table-cell-padding-sm * 2} + $b-table-sort-icon-bg-width);
+            padding-left: calc(#{$table-cell-padding-sm * 2} + #{$b-table-sort-icon-bg-width});
         }
       }
     }
