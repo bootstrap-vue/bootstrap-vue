@@ -407,6 +407,14 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       return h()
     }
     const name = `b-toast-${this._uid}`
+    const $parent = this.$parent
+    // If scoped styles are applied, and the toast is not static,
+    // Make sure hte scoped style data attribute is applied
+    const scopeAttrs =
+      !this.static && $parent && $parent.$options._scopeId
+        ? { [`${[$parent.$options._scopeId]}`]: '' }
+        : {}
+
     return h(
       Portal,
       {
@@ -427,6 +435,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {
+              ...scopeAttrs,
               id: this.safeId('_toast_outer'),
               role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
               'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
