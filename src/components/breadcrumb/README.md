@@ -59,4 +59,7 @@ const items = [
 ]
 ```
 
+Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
+props.
+
 <!-- Component reference added automatically from component package.json -->
