@@ -230,16 +230,18 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 ```html
 <div>
   <b-card title="Card Title" body-class="text-center">
-    <b-nav slot="header" card-header tabs>
-      <b-nav-item active>Active</b-nav-item>
-      <b-nav-item>Inactive</b-nav-item>
-      <b-nav-item disabled>Disabled</b-nav-item>
-      <b-nav-item-dropdown text="Dropdown" right>
-        <b-dropdown-item>One</b-dropdown-item>
-        <b-dropdown-item>Two</b-dropdown-item>
-        <b-dropdown-item>Three</b-dropdown-item>
-      </b-nav-item-dropdown>
-    </b-nav>
+    <template v-slot:header>
+      <b-nav card-header tabs>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown" right>
+          <b-dropdown-item>One</b-dropdown-item>
+          <b-dropdown-item>Two</b-dropdown-item>
+          <b-dropdown-item>Three</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </template>
 
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
@@ -257,16 +259,18 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 ```html
 <div>
   <b-card title="Card Title" body-class="text-center">
-    <b-nav slot="header" card-header pills>
-      <b-nav-item active>Active</b-nav-item>
-      <b-nav-item>Inactive</b-nav-item>
-      <b-nav-item disabled>Disabled</b-nav-item>
-      <b-nav-item-dropdown text="Dropdown" right>
-        <b-dropdown-item>One</b-dropdown-item>
-        <b-dropdown-item>Two</b-dropdown-item>
-        <b-dropdown-item>Three</b-dropdown-item>
-      </b-nav-item-dropdown>
-    </b-nav>
+    <template v-slot:header>
+      <b-nav card-header pills>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown" right>
+          <b-dropdown-item>One</b-dropdown-item>
+          <b-dropdown-item>Two</b-dropdown-item>
+          <b-dropdown-item>Three</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </template>
 
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
@@ -286,16 +290,18 @@ The `card-header` prop is only needed when you are applying `tabs` or `pills` st
 ```html
 <div>
   <b-card title="Card Title" body-class="text-center">
-    <b-nav slot="header">
-      <b-nav-item active>Active</b-nav-item>
-      <b-nav-item>Inactive</b-nav-item>
-      <b-nav-item disabled>Disabled</b-nav-item>
-      <b-nav-item-dropdown text="Dropdown" right>
-        <b-dropdown-item>One</b-dropdown-item>
-        <b-dropdown-item>Two</b-dropdown-item>
-        <b-dropdown-item>Three</b-dropdown-item>
-      </b-nav-item-dropdown>
-    </b-nav>
+    <template v-slot:header>
+      <b-nav>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown" right>
+          <b-dropdown-item>One</b-dropdown-item>
+          <b-dropdown-item>Two</b-dropdown-item>
+          <b-dropdown-item>Three</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </template>
 
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
