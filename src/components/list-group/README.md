@@ -84,6 +84,9 @@ Or if you prefer `<button>` elements over links, set the `button` prop to `true`
   `active`) and the `tag` prop will have no effect.
 - When `href` or `to` are set, the `tag` prop has no effect.
 
+Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
+props.
+
 ## Contextual variants
 
 Use contextual variants to style list items with a stateful background and color, via the `variant`
