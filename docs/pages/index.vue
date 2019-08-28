@@ -210,7 +210,7 @@
             </b-card-text>
 
             <b-card-text class="text-center">
-              Mobile first responsive layout
+              Mobile first <b-link to="/docs/components/layout">responsive</b-link> layout
             </b-card-text>
           </b-card>
 
