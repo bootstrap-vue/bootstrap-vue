@@ -14,7 +14,7 @@
     Hover Me
   </b-button>
   <b-popover target="popover-target-1" triggers="hover" placement="top">
-    <template slot="title">Popover Title</template>
+    <template v-slot:title>Popover Title</template>
     I am popover <b>component</b> content!
   </b-popover>
 </div>
