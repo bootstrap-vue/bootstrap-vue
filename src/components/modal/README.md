@@ -90,7 +90,7 @@ Both methods return immediately after being called.
   <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
 
   <b-modal id="bv-modal-example" hide-footer>
-    <template slot="modal-title">
+    <template v-slot:modal-title>
       Using <code>$bvModal</code> Methods
     </template>
     <div class="d-block text-center">
@@ -555,17 +555,19 @@ the `header-border-variant` and `footer-border-variant` props respectively.
         </b-row>
       </b-container>
 
-      <div slot="modal-footer" class="w-100">
-        <p class="float-left">Modal Footer Content</p>
-        <b-button
-          variant="primary"
-          size="sm"
-          class="float-right"
-          @click="show=false"
-        >
-          Close
-        </b-button>
-      </div>
+      <template v-slot:modal-footer>
+        <div class="w-100">
+          <p class="float-left">Modal Footer Content</p>
+          <b-button
+            variant="primary"
+            size="sm"
+            class="float-right"
+            @click="show=false"
+          >
+            Close
+          </b-button>
+        </div>
+      </template>
     </b-modal>
   </div>
 </template>
@@ -663,7 +665,7 @@ The scope available to the slots that support optional scoping are:
   <b-button @click="$bvModal.show('modal-scoped')">Open Modal</b-button>
 
   <b-modal id="modal-scoped">
-    <template slot="modal-header" slot-scope="{ close }">
+    <template v-slot:modal-header="{ close }">
       <!-- Emulate built in modal header close button action -->
       <b-button size="sm" variant="outline-danger" @click="close()">
         Close Modal
@@ -671,12 +673,12 @@ The scope available to the slots that support optional scoping are:
       <h5>Modal Header</h5>
     </template>
 
-    <template slot="default" slot-scope="{ hide }">
+    <template v-slot:default="{ hide }">
       <p>Modal Body with button</p>
       <b-button @click="hide()">Hide Modal</b-button>
     </template>
 
-    <template slot="modal-footer" slot-scope="{ ok, cancel, hide }">
+    <template v-slot:modal-footer="{ ok, cancel, hide }">
       <b>Custom Footer</b>
       <!-- Emulate built in modal footer ok and cancel button actions -->
       <b-button size="sm" variant="success" @click="ok()">

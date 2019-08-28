@@ -157,7 +157,9 @@ Custom form controls and selects are also supported.
       :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
       id="inline-form-custom-select-pref"
     >
-      <option slot="first" :value="null">Choose...</option>
+      <template v-slot:first>
+        <option :value="null">Choose...</option>
+      </template>
     </b-form-select>
 
     <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
