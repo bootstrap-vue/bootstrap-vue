@@ -1,6 +1,6 @@
 import Vue from '../../../utils/vue'
+import scopeAttrsMixin from '../../../mixins/scope-attrs'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
-import scopeAttrsMixin from '../../mixins/scope-attrs'
 import { BVPopper } from './bv-popper'
 
 const NAME = 'BVTooltipTemplate'
