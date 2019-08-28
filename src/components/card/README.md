@@ -517,6 +517,7 @@ Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
         <b-nav-item disabled>Disabled</b-nav-item>
       </b-nav>
     </template>
+
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
     </b-card-text>
