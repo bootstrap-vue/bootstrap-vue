@@ -9,6 +9,7 @@ import Vue from '../../../utils/vue'
 import Popper from 'popper.js'
 import { getCS, select } from '../../../utils/dom'
 import { HTMLElement } from '../../../utils/safe-types'
+import { BVTransition } from '../../../utils/bv-transition'
 
 const NAME = 'BVPopper'
 
@@ -220,23 +221,10 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     const show = 'show'
     // Note: `show` is only appled during transition
     return h(
-      'transition',
+      BVTransition,
       {
-        props: {
-          name: '',
-          css: true,
-          // Transitions as soon as mounted
-          appear: true,
-          appearClass: '',
-          appearActiveClass: fade,
-          appearToClass: show,
-          enterClass: '',
-          enterActiveClass: fade,
-          enterToClass: show,
-          leaveClass: show,
-          leaveActiveClass: fade,
-          leaveToClass: ''
-        },
+        // Transitions as soon as mounted
+        props: { appear: true },
         on: {
           // Events used by parent component/instance
           beforeEnter: el => this.$emit('show', el),
