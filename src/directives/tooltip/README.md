@@ -313,11 +313,11 @@ Where [modX] can be (all optional):
   `focus`). Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation
 - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0), applied to both
+- A delay value in the format of `d###` (where `###` is in ms, defaults to `50`), applied to both
   `hide` and `show` (affects `hover` and `focus` only)
-- A show delay value in the format of `ds###` (where `###` is in ms, defaults to 0), applied to
+- A show delay value in the format of `ds###` (where `###` is in ms, defaults to `50`), applied to
   `show` trigger only (affects `hover` and `focus` only)
-- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to 0), applied to
+- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to `50`), applied to
   `hide` trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
   to 0. Negative values allowed)
