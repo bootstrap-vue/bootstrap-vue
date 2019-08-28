@@ -76,7 +76,7 @@ and optgroups _above_ the options specified by the `options` prop, use the named
   <div>
     <b-form-select v-model="selected" :options="options" class="mb-3">
       <!-- This slot appears above the options from 'options' prop -->
-      <template slot="first">
+      <template v-slot:first>
         <option :value="null" disabled>-- Please select an option --</option>
       </template>
 
@@ -236,7 +236,7 @@ option with an empty value as your first option.
 
 ```html
 <b-form-select v-model="selected" :options="options">
-  <template slot="first">
+  <template v-slot:first>
     <option value="" disabled>-- Please select an option --</option>
   </template>
 </b-form-select>
