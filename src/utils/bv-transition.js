@@ -56,7 +56,7 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
       transProps = props.noFade ? NO_FADE_PROPS : FADE_PROPS
       if (props.appear) {
         // Default the appear classes to equal the enter classes
-        transpProps = {
+        transProps = {
           ...transProps,
           appear: true,
           appearClass: transProps.enterClass,
