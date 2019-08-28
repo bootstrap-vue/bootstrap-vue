@@ -64,12 +64,19 @@ $b-custom-file-height-inner-sm: calc(
 // Table busy state
 $b-table-busy-opacity: 0.55 !default;
 
-// Table sorting
+// Table sorting (removed)
 $b-table-sort-icon-null: "\2195" !default; // Up-Down arrow
 $b-table-sort-icon-ascending: "\2193" !default; // Down arrow
 $b-table-sort-icon-descending: "\2191" !default; // Up arrow
 $b-table-sort-icon-margin-left: 0.5em !default;
 $b-table-sort-icon-width: 0.5em !default;
+
+// Table sorting
+$b-table-sort-icon-bg-width: 1em !default;
+$b-table-sort-icon-bg-height: $b-table-sort-icon-width !default
+$b-table-sort-icon-bg-not-sorted: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101'><path fill='currentColor' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+$b-table-sort-icon-bg-descending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101'><path fill='currentColor' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/><path fill='currentColor' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+$b-table-sort-icon-bg-ascending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101'><path fill='currentColor' d='M51 1l25 23 24 22H1l25-22z'/><path fill='currentColor' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
 
 // Flag to enable sticky table header and column CSS generation
 $bv-enable-table-sticky: true !default;
