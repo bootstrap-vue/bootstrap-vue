@@ -217,14 +217,12 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const fade = this.nofade ? '' : 'fade'
-    const show = 'show'
-    // Note: `show` is only appled during transition
+    // Note: `show` and 'fade' classes are only appled during transition
     return h(
       BVTransition,
       {
         // Transitions as soon as mounted
-        props: { appear: true },
+        props: { appear: true, noFade: this.noFade },
         on: {
           // Events used by parent component/instance
           beforeEnter: el => this.$emit('show', el),
