@@ -26,9 +26,9 @@ Anything else between the opening and closing tags will be rendered at the botto
 ```html
 <div>
   <b-jumbotron>
-    <template slot="header">BootstrapVue</template>
+    <template v-slot:header>BootstrapVue</template>
 
-    <template slot="lead">
+    <template v-slot:lead>
       This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
       featured content or information.
     </template>
@@ -87,9 +87,9 @@ jumbotron to use the default styling.
 ```html
 <div>
   <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
-    <template slot="header">BootstrapVue</template>
+    <template v-slot:header>BootstrapVue</template>
 
-    <template slot="lead">
+    <template v-slot:lead>
       This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
       featured content or information.
     </template>
